@@ -1,9 +1,7 @@
-table 99002 "Item Sales Profit Group"
+table 99002 "BC6_Item Sales Profit Group"
 {
-    // //GRPMARGEARTICLE SM 15/10/06 NCS1.01 [FE024V1] CREATION
-
     Caption = 'Groupe Marge Vente Article';
-    LookupPageID = 50021;
+    //   TODO: Page   // LookupPageID = 50021;
 
     fields
     {

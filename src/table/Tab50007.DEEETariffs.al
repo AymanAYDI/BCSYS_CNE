@@ -1,8 +1,5 @@
-table 50007 "DEEE Tariffs"
+table 50007 "BC6_DEEE Tariffs"
 {
-    // //>>DEEE1.00 : MICO 19.12.2006
-    //   Table des tarifs pour chaque catégories d'articles et des eco-partenaires
-
     Caption = 'Tarifs DEEE';
 
     fields
@@ -10,7 +7,7 @@ table 50007 "DEEE Tariffs"
         field(1; "DEEE Code"; Code[10])
         {
             Caption = 'Code DEEE';
-            TableRelation = "Categories of item".Category;
+            TableRelation = "BC6_Categories of item".Category;
         }
         field(2; "Date beginning"; Date)
         {
@@ -40,13 +37,13 @@ table 50007 "DEEE Tariffs"
     {
     }
 
-    [Scope('Internal')]
+
     procedure GetLine(Number: Integer)
     begin
         IF Number = 1 THEN
             FIND('-')
         ELSE
-            NEXT;
+            NEXT();
     end;
 }
 

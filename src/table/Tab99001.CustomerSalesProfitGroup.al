@@ -1,9 +1,8 @@
 table 99001 "Customer Sales Profit Group"
 {
-    // //GRPMARGECLT SM 15/10/06 NCS1.01 [FE024V1] CREATION
-
     Caption = 'Groupe Marge Vente Client';
-    LookupPageID = 50020;
+    //   TODO: Page 
+    // LookupPageID = 50020;
 
     fields
     {
@@ -28,6 +27,6 @@ table 99001 "Customer Sales Profit Group"
     }
 
     var
-        SalesLineDiscount: Record "7004";
+        SalesLineDiscount: Record "Sales Line Discount";
 }
 

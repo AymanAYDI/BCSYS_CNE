@@ -1,10 +1,9 @@
-table 50008 "DEEE Ledger Entry"
+table 50008 "BC6_DEEE Ledger Entry"
 {
-    // //DEEE1.00 : MICO 03.01.2007
-
     Caption = 'DEEE Entry';
-    DrillDownPageID = 50026;
-    LookupPageID = 50026;
+    //TODO
+    // DrillDownPageID = 50026;
+    // LookupPageID = 50026;
 
     fields
     {
@@ -30,9 +29,11 @@ table 50008 "DEEE Ledger Entry"
         field(5; "Source No."; Code[20])
         {
             Caption = 'Source No.';
-            TableRelation = IF (Source Type=CONST(Customer)) Customer
-                            ELSE IF (Source Type=CONST(Vendor)) Vendor
-                            ELSE IF (Source Type=CONST(Item)) Item;
+            TableRelation = IF ("Source Type" = CONST(Customer)) Customer
+            ELSE
+            IF ("Source Type" = CONST(Vendor)) Vendor
+            ELSE
+            IF ("Source Type" = CONST(Item)) Item;
         }
         field(6; "Document No."; Code[20])
         {
@@ -61,17 +62,17 @@ table 50008 "DEEE Ledger Entry"
         {
             CaptionClass = '1,1,1';
             Caption = 'Global Dimension 1 Code';
-            TableRelation = "Dimension Value".Code WHERE (Global Dimension No.=CONST(1));
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1));
         }
         field(34; "Global Dimension 2 Code"; Code[20])
         {
             CaptionClass = '1,1,2';
             Caption = 'Global Dimension 2 Code';
-            TableRelation = "Dimension Value".Code WHERE (Global Dimension No.=CONST(2));
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2));
         }
         field(41; "Source Type"; Option)
         {
-            Caption = 'Source Type';
+            Caption = '"Source Type"';
             OptionCaption = ' ,Customer,Vendor,Item';
             OptionMembers = " ",Customer,Vendor,Item;
         }
@@ -84,7 +85,7 @@ table 50008 "DEEE Ledger Entry"
         {
             Caption = 'DEEE Category Code';
             Description = 'DEEE1.00';
-            TableRelation = "Categories of item".Category;
+            TableRelation = "BC6_Categories of item".Category;
         }
         field(80801; "DEEE Unit Tax"; Decimal)
         {

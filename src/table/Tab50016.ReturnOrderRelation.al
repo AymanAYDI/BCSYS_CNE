@@ -1,4 +1,4 @@
-table 50016 "Return Order Relation"
+table 50016 "BC6_Return Order Relation"
 {
 
     fields

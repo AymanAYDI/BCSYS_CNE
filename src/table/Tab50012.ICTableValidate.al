@@ -1,8 +1,5 @@
-table 50012 "IC Table Validate"
+table 50012 "BC6_IC Table Validate"
 {
-    // // CNEIC : 06/2015 : nouvelle table pour valider les doc IC
-
-
     fields
     {
         field(1; "Partner Code"; Code[20])
@@ -45,7 +42,7 @@ table 50012 "IC Table Validate"
             DecimalPlaces = 2 : 5;
             Description = 'hors taxe';
         }
-        field(20; Validate; Boolean)
+        field(20; "Validate"; Boolean)
         {
             Caption = 'Validate';
         }

@@ -1,4 +1,4 @@
-table 99003 "Historique Mails Envoyés"
+table 99003 "BC6_Historique Mails Envoyés"
 {
 
     fields
@@ -42,7 +42,7 @@ table 99003 "Historique Mails Envoyés"
 
     trigger OnInsert()
     begin
-        IF FIND('-') THEN FINDLAST;
+        IF FIND('-') THEN FINDLAST();
         Sequence := Sequence + 1;
     end;
 }

@@ -1,7 +1,8 @@
-table 50018 "Return Solution"
+table 50018 "BC6_Return Solution"
 {
-    DrillDownPageID = 50113;
-    LookupPageID = 50113;
+    //   TODO: Page 
+    // DrillDownPageID = 50113;
+    // LookupPageID = 50113;
 
     fields
     {
@@ -11,12 +12,10 @@ table 50018 "Return Solution"
         field(2; Description; Text[50])
         {
         }
-        field(50000; Type; Option)
+        field(50000; Type; Enum "BC6_Type Location")
         {
             Caption = 'Type';
             Description = 'BCSYS';
-            OptionCaption = 'Location,SAV';
-            OptionMembers = Location,SAV;
         }
     }
 

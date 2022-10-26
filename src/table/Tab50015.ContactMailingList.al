@@ -1,7 +1,7 @@
-table 50015 "Contact Mailing List"
+table 50015 "BC6_Contact Mailing List"
 {
     Caption = 'Contact Mailing Group';
-    DrillDownPageID = 5064;
+    DrillDownPageID = "Contact Mailing Groups";
 
     fields
     {
@@ -17,21 +17,21 @@ table 50015 "Contact Mailing List"
             NotBlank = true;
             TableRelation = "Mailing Group";
         }
-        field(3; "Contact Name"; Text[50])
+        field(3; "Contact Name"; Text[100])
         {
-            CalcFormula = Lookup (Contact.Name WHERE (No.=FIELD(Contact No.)));
+            CalcFormula = Lookup(Contact.Name WHERE("No." = FIELD("Contact No.")));
             Caption = 'Contact Name';
             Editable = false;
             FieldClass = FlowField;
         }
-        field(4;"Contact Company Name";Text[50])
+        field(4; "Contact Company Name"; Text[100])
         {
-            CalcFormula = Lookup(Contact."Company Name" WHERE (No.=FIELD(Contact No.)));
+            CalcFormula = Lookup(Contact."Company Name" WHERE("No." = FIELD("Contact No.")));
             Caption = 'Contact Company Name';
             Editable = false;
             FieldClass = FlowField;
         }
-        field(5;"Mailing Group Description";Text[50])
+        field(5; "Mailing Group Description"; Text[50])
         {
             Caption = 'Mailing Group Description';
             Editable = false;
@@ -40,11 +40,11 @@ table 50015 "Contact Mailing List"
 
     keys
     {
-        key(Key1;"Contact No.","Mailing List Code")
+        key(Key1; "Contact No.", "Mailing List Code")
         {
             Clustered = true;
         }
-        key(Key2;"Mailing List Code")
+        key(Key2; "Mailing List Code")
         {
         }
     }
@@ -71,22 +71,22 @@ table 50015 "Contact Mailing List"
     trigger OnRename()
     begin
         IF xRec."Contact No." = "Contact No." THEN
-          TouchContact("Contact No.")
+            TouchContact("Contact No.")
         ELSE BEGIN
-          TouchContact("Contact No.");
-          TouchContact(xRec."Contact No.");
+            TouchContact("Contact No.");
+            TouchContact(xRec."Contact No.");
         END;
     end;
 
     var
-        Cont: Record "5050";
+        Cont: Record Contact;
 
     local procedure TouchContact(ContactNo: Code[20])
     begin
-        Cont.LOCKTABLE;
+        Cont.LOCKTABLE();
         Cont.GET(ContactNo);
         Cont."Last Date Modified" := TODAY;
-        Cont.MODIFY;
+        Cont.MODIFY();
     end;
 }
 

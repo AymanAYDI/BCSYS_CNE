@@ -1,11 +1,5 @@
-table 50011 "SMTP Mail Setup1"
+table 50011 "BC6_SMTP Mail Setup1"
 {
-    // -----------------------------------------------
-    // Prodware - www.prodware.fr
-    // -----------------------------------------------
-    // //>>CNE3.01
-    //   FE-Emailsuiviaffaires-20090818:SOBI 12/11/09 : - creation
-
     Caption = 'SMTP Mail Setup';
 
     fields
@@ -18,11 +12,9 @@ table 50011 "SMTP Mail Setup1"
         {
             Caption = 'SMTP Server';
         }
-        field(3; Authentication; Option)
+        field(3; Authentication; Enum BC6_AuthentificationMail)
         {
             Caption = 'Authentication';
-            OptionCaption = 'Anonymous,NTLM,Basic';
-            OptionMembers = Anonymous,NTLM,Basic;
 
             trigger OnValidate()
             begin

@@ -1,8 +1,8 @@
-table 50014 "Mailing List"
+table 50014 "BC6_Mailing List"
 {
     Caption = 'Mailing Group';
     DataCaptionFields = "Code", Description;
-    LookupPageID = 5063;
+    LookupPageID = "Mailing Groups";
 
     fields
     {
@@ -17,7 +17,7 @@ table 50014 "Mailing List"
         }
         field(3; "No. of Contacts"; Integer)
         {
-            CalcFormula = Count ("Contact Mailing Group" WHERE (Mailing Group Code=FIELD(Code)));
+            CalcFormula = Count("Contact Mailing Group" WHERE("Mailing Group Code" = FIELD(Code)));
             Caption = 'No. of Contacts';
             Editable = false;
             FieldClass = FlowField;
@@ -26,7 +26,7 @@ table 50014 "Mailing List"
 
     keys
     {
-        key(Key1;"Code")
+        key(Key1; "Code")
         {
             Clustered = true;
         }
@@ -39,7 +39,7 @@ table 50014 "Mailing List"
     trigger OnDelete()
     begin
         CALCFIELDS("No. of Contacts");
-        TESTFIELD("No. of Contacts",0);
+        TESTFIELD("No. of Contacts", 0);
     end;
 }
 

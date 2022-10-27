@@ -1,4 +1,4 @@
-tableextension 50091 tableextension50091 extends "Planning Assignment"
+tableextension 50091 "BC6_PlanningAssignment" extends "Planning Assignment"
 {
 
     //Unsupported feature: Code Modification on "ItemChange(PROCEDURE 3)".

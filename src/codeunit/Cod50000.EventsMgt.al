@@ -50,19 +50,68 @@ codeunit 50000 "BC6_EventsMgt"
     local procedure OnDeleteOnBeforeArchiveSalesDocument(var SalesHeader: Record "Sales Header"; xSalesHeader: Record "Sales Header")
     var
         CompanyInfo: Record "Company Information";
+        TextG003: Label 'Warning: you have already placed this order purchase.';
     begin
-        CompanyInfo.FINDFIRST;
-        IF CompanyInfo."Branch Company" THEN BEGIN
-            IF "Purchase No. Order Lien" <> '' THEN
-                ERROR(TextG003);
-        END;
+        CompanyInfo.FINDFIRST();
+        //TODO: i must have IsDeleteFromReturnOrder ( codeunit 50052 & we need to find G_ReturnOrderMgt )
+        // IF CompanyInfo."BC6_Branch Company" THEN
+        //     IF SalesHeader."BC6_Purchase No. Order Lien" <> '' THEN
+        //         ERROR(TextG003);
+        // IF NOT IsDeleteFromReturnOrder THEN BEGIN
+        //     G_ReturnOrderMgt.DeleteRelatedDocument(SalesHeader);
 
-        IF NOT IsDeleteFromReturnOrder THEN BEGIN
-            G_ReturnOrderMgt.DeleteRelatedDocument(SalesHeader);
-
-            G_ReturnOrderMgt.DeleteRelatedSalesOrderNo(SalesHeader);
-        END;
+        //     G_ReturnOrderMgt.DeleteRelatedSalesOrderNo(SalesHeader);
+        // END;
     end;
+    //TAB27
+    [EventSubscriber(ObjectType::Table, Database::Item, 'OnAfterOnInsert', '', false, false)]
+
+    local procedure t27_OnAfterOnInsert_Item(var Item: Record Item; var xItem: Record Item)
+    var
+        NaviSetup: Record "BC6_Navi+ Setup";
+        ItemUnitOfMeasure: Record "Item Unit of Measure";
+    begin
+        //TODO
+        // "Creation Date" := WORKDATE;
+        // Item.User := USERID;
+        NaviSetup.GET();
+        NaviSetup.TESTFIELD(NaviSetup."Base Unit of Measure");
+        NaviSetup.TESTFIELD(NaviSetup."Gen. Prod. Posting Group");
+        NaviSetup.TESTFIELD(NaviSetup."VAT Prod. Posting Group");
+        NaviSetup.TESTFIELD(NaviSetup."Inventory Posting Group");
+        NaviSetup.TESTFIELD(NaviSetup."Sales Unit of Measure");
+
+        ItemUnitOfMeasure."Item No." := Item."No.";
+        ItemUnitOfMeasure.Code := NaviSetup."Base Unit of Measure";
+        ItemUnitOfMeasure."Qty. per Unit of Measure" := 1;
+        ItemUnitOfMeasure.INSERT();
+        Item."Base Unit of Measure" := NaviSetup."Base Unit of Measure";
+        Item."Purch. Unit of Measure" := NaviSetup."Base Unit of Measure";
+
+        Item."Costing Method" := NaviSetup."Costing Method";
+        Item.VALIDATE("Gen. Prod. Posting Group", NaviSetup."Gen. Prod. Posting Group");
+        Item.VALIDATE("VAT Prod. Posting Group", NaviSetup."VAT Prod. Posting Group");
+        Item.VALIDATE("Inventory Posting Group", NaviSetup."Inventory Posting Group");
+        Item.VALIDATE("Sales Unit of Measure", NaviSetup."Sales Unit of Measure");
+        Item.VALIDATE("Replenishment System", NaviSetup."Replenishment System");
+        Item.VALIDATE("Lead Time Calculation", NaviSetup."Lead Time Calculation Item");
+        Item.VALIDATE("Reordering Policy", NaviSetup."Reordering Policy");
+        Item.VALIDATE("Include Inventory", NaviSetup."Include Inventory");
+        Item.VALIDATE(Reserve, NaviSetup."Reserve Item");
+        Item.VALIDATE("Order Tracking Policy", NaviSetup."Order Tracking Policy");
+        Item.VALIDATE("Unit Price");
+        Item."BC6_Number of Units DEEE" := 1;
+
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::Item, 'OnBeforeModifyEvent', '', false, false)]
+    local procedure OnBeforeModifyEvent(var Rec: Record Item; var xRec: Record Item; RunTrigger: Boolean)
+    begin
+        IF NOT (UPPERCASE(USERID) IN ['CNE\BCSYS']) THEN
+            Rec.TESTFIELD(Rec."Vendor No.");
+
+    end;
+
 
 
 }

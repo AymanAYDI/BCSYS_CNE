@@ -142,6 +142,5 @@ tableextension 50082 "BC6_CompanyInformation" extends "Company Information"
         }
     }
 
-
 }
 

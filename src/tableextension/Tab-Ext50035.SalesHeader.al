@@ -1,107 +1,11 @@
 tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // 
-    // //NAVIDIIGEST BRRI 01.08.2006 NSC1.00 [Incoterm]             Mise à jour Codes INCOTERM Onglet "INTERNATIONAL"
-    //                                                              sur le trigger "Sell-to Customer No. - OnValidate()"
-    // //NAVIDIIGEST BRRI 01.08.2006 NSC1.00 [Post_It]              Affiche les textes de type postit
-    //                                                              sur le trigger "Sell-to Customer No. - OnValidate()"
-    // //NAVIDIIGEST BRRI 01.08.2006 NSC1.00 [Archivage_Devis]      Ajout du champ 50000
-    // //NAVIDIIGEST BRRI 01.08.2006 NSC1.00 [Gestion_Tiers_Payeur] Ajout du champ 50003
-    //                                                              Ajout code pr récupérer Tiers payeur dans trigger
-    //                                                              Sell-to Customer No. - OnValidate()
-    // //NAVIDIIGEST BRRI 01.08.2006 NSC1.00 [Champs_Suppl]         Ajout du champ 50004
-    //                                                              => utilisé sur le Page 42 et les Reports NAVIDIIGEST Ventes
-    // //GRPMARGEVENTE SM 15/10/06 NCS1.01 [FE024V1] Ajout du champ 50020  et ramener 50020 de la fiche client
-    // //AjoutCodeUtilisateur RD 13/11/06 NCS1.01 [FE019V1] Ajout du code utilisateur dans les documents d'achats & ventes
-    //                                                      Ajout du champs 50010
-    // //VERSION FG 04/12/2006 NSC1.01 ajout champ 50040
-    // //FE004 FLGR 05/12/2006 ajout fonction CreatePurchaseQuote
-    // //FE015 FLGR 07/12/2006 ajout champ statut 50060 statut devis
-    //                         ajout fonction verifyquotestatus
-    // //FE018 FLGR 08/12/2006 Regroupement BL par commande ajout champ 50025 Combine Shipments by order
-    //         ajout clef Document Type,Combine Shipments by Order,Combine Shipments,Bill-to Customer No.,Currency Code
-    // //COUT_ACHAT FG 20/12/06 NSC1.01
-    // //marge sur entete doc vente FE019 FLGR 28/12/2006 modif champ 50030, 50031, 50032
-    // //FE005 SEBC 08/01/2007 Add field
-    //                         50061 Sell-to Fax No.
-    // //Propagation CASC 18/01/2007 NSC1.01 : Add fields
-    //                                         50033 Invoiced
-    //                                         Purchase Cost renumber to 50026
-    //                                         50031 Profit LCY
-    // 
-    // //>>DEEE1.00
-    // DEEE:JNPA 01/01/2007 : eco taxe
-    //           - Reason Code - OnValidate()
-    // 
-    // //TODOLIST POINT 40  FLGR 26/01/2007 : autorisation modification champs 5794, 105 et 106 quand commande est lancée
-    // //todolist point 47  FLGR 09/02/2007 : modif adresse client, facturation et livraison pour celle du contact selectionné.
-    //                 modif updateselltocust function
-    // 
-    // //FE005 MICO 12/02/2007 : Ajout champ 50062 Sell-to E-Mail Address
-    //                                 fonction UpdateSellToMail
-    // //TODOLIST point 65 FLGR 20/02/2007 : modif libelle ecriture article
-    // //VERSIONNING FG 28/02/07 suite au Merge
-    // 
-    // //>>CNE1.00
-    // cuFEP-ACHAT-200706_18_A.001:MA 09/11/2007 : Achats groupés
-    //                                           - Add Fields :
-    //                                                50001 : "Purchaser Comments"
-    //                                                50002 : "Warehouse Comments"
-    // //>>CNE1.00
-    // FEP-ADVE-200706_18_A.001:MA 14/11/2007 : Gestion des appels d'offres
-    //     - Add field 50005
-    // 
-    // //>>CNE1.00
-    // FEP-ACHAT-200706_18_A.001:MA 16/11/2007 : Achats groupés
-    //                                           - Add Code to "CreatePurchaseQuote" function
-    //                                             --> to populate field "Purchase Receipt Date" (Sales Line)
-    // 
-    // //>> CNE4.02
-    // C:FE09 05.10.2011 : Availability Customer Area - Shipping Bin
-    //                     - Add Field    : 50403 Bin Code
-    // 
-    // //>>MIGRATION NAV 2013
-    // Increase the length of the Field 50010 ID 20-->50 (The length of User ID in NAV 2013 is 50)
-    // Modify function CreateInvtPutAwayPick()
-    // 
-    // //>>CNE5.00
-    // TDL.80:20131120/CSC
-    // - Add a new key on "Document Type,Order Date,No."
-    // 
-    // //TDL.EC05  CNE6.01 Copy Sell-to Address in Invoice-to/Ship-to Address
-    //                     Add Fonction : CopySellToAddress
-    // 
-    // //>>CNEIC : 06/2015 : ajout du champs 50080  pour le lien avec la commande Achat.
-    //                       CTRL lors de la suppression, pour une filiale, qu'il n'existe pas de commande achat lien.
-    //             07/08/15 : ajout d'une possibilité de lookup sur le n° cde achat lien
-    // 
-    // //>>CNE7.01
-    // //>>P24233_001 SOBI APA 02/02/17
-    //                     Add Field 50100
-    //                     Modify Bill-to Customer No. - OnValidate
-    // 
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013 - 2017
-    // //>> CNE4.01 Bin default
-    // //BC6 EABO 11/04/18 : mise à jour de la référence et du code affaire sur les expé
-    // 
-    // 
-    // //>> CNE : 25/06 : Flux SAV
-    //           Ajout du champ 50120 "Return Order Type"
-    // //>>BC6 01102020 :
-    //   - Modify Functions TestNoSeries And GetNoSeriesCode
     LookupPageID = 45;
     fields
     {
         modify("Bill-to Name")
         {
             TableRelation = Customer;
-
-            //Unsupported feature: Property Insertion (ValidateTableRelation) on ""Bill-to Name"(Field 5)".
 
         }
         modify("Bill-to City")
@@ -2116,17 +2020,17 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
             Caption = 'User ID';
             Description = 'AjoutCodeUtilisateur RD 13/11/06 NCS1.01 [FE019V1] Ajout du code utilisateur dans les documents d''achats & ventes';
             Editable = false;
-
-            trigger OnLookup()
-            var
-                RecLUserMgt: Codeunit "418";
-                CodLUserID: Code[50];
-            begin
-                //>>MIGRATION NAV 2013
-                CodLUserID := ID;
-                RecLUserMgt.LookupUserID(CodLUserID);
-                //<<MIGRATION NAV 2013
-            end;
+    //TODO :COD418
+            // trigger OnLookup()
+            // var
+            //     RecLUserMgt: Codeunit 418;
+            //     CodLUserID: Code[50];
+            // begin
+            //     //>>MIGRATION NAV 2013
+            //     CodLUserID := ID;
+            //     RecLUserMgt.LookupUserID(CodLUserID);
+            //     //<<MIGRATION NAV 2013
+            // end;
         }
         field(50020; "BC6_Customer Sales Profit Group"; Code[10])
         {
@@ -2206,18 +2110,18 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
         {
             Caption = 'Purchase No. Order Lien';
             Description = 'CNEIC';
+//TODO
+            // trigger OnLookup()
+            // var
+            //     reclPurchHdr: Record 38;
+            // begin
+            //     //>>CNEIC : Le 07/08/15
+            //     reclPurchHdr.SETRANGE("Document Type", reclPurchHdr."Document Type"::Order);
+            //     reclPurchHdr.SETFILTER("No.","Purchase No. Order Lien");
 
-            trigger OnLookup()
-            var
-                reclPurchHdr: Record "38";
-            begin
-                //>>CNEIC : Le 07/08/15
-                reclPurchHdr.SETRANGE("Document Type", reclPurchHdr."Document Type"::Order);
-                reclPurchHdr.SETFILTER("No.","Purchase No. Order Lien");
-
-                PAGE.RUNMODAL(PAGE::"Purchase Order", reclPurchHdr) ;
-                //<<CNEIC : Le 07/08/15
-            end;
+            //     PAGE.RUNMODAL(PAGE::"Purchase Order", reclPurchHdr) ;
+            //     //<<CNEIC : Le 07/08/15
+            // end;
         }
         field(50100; "BC6_Salesperson Filter"; Text[250])
         {

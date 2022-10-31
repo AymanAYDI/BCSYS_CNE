@@ -1,4 +1,4 @@
-tableextension 50082 tableextension50082 extends "Company Information"
+tableextension 50082 "BC6_CompanyInformation" extends "Company Information"
 {
     // ------------------------------------------------------------------------
     // Prodware - www.prodware.fr
@@ -65,7 +65,7 @@ tableextension 50082 tableextension50082 extends "Company Information"
 
         //Unsupported feature: Property Insertion (AccessByPermission) on ""Cal. Convergence Time Frame"(Field 7601)".
 
-        field(90;GLN;Code[13])
+        field(90; BC6_GLN; Code[13])
         {
             Caption = 'GLN';
             Numeric = true;
@@ -79,47 +79,47 @@ tableextension 50082 tableextension50082 extends "Company Information"
                     ERROR(GLNCheckDigitErr,FIELDCAPTION(GLN));
             end;
         }
-        field(99;"Created DateTime";DateTime)
+        field(99; "BC6_Created DateTime"; DateTime)
         {
             Caption = 'Created DateTime';
             Editable = false;
         }
-        field(100;"Demo Company";Boolean)
+        field(100; "BC6_Demo Company"; Boolean)
         {
             Caption = 'Demo Company';
             Editable = false;
         }
-        field(7602;"Show Chart On RoleCenter";Boolean)
+        field(7602; "BC6_Show Chart On RoleCenter"; Boolean)
         {
             Caption = 'Show Chart On RoleCenter';
         }
-        field(50000;"Alt Picture";BLOB)
+        field(50000; "BC6_Alt Picture"; BLOB)
         {
             Caption = 'Picture';
             Description = 'NSC1.01';
             SubType = Bitmap;
         }
-        field(50001;"Alt Name";Text[50])
+        field(50001; "BC6_Alt Name"; Text[50])
         {
             Caption = 'Name';
             Description = 'NSC1.01';
         }
-        field(50002;"Alt Name 2";Text[50])
+        field(50002; "BC6_Alt Name 2"; Text[50])
         {
             Caption = 'Name 2';
             Description = 'NSC1.01';
         }
-        field(50003;"Alt Address";Text[50])
+        field(50003; "BC6_Alt Address"; Text[50])
         {
             Caption = 'Address';
             Description = 'NSC1.01';
         }
-        field(50004;"Alt Address 2";Text[50])
+        field(50004; "BC6_Alt Address 2"; Text[50])
         {
             Caption = 'Address 2';
             Description = 'NSC1.01';
         }
-        field(50005;"Alt City";Text[30])
+        field(50005; "BC6_Alt City"; Text[30])
         {
             Caption = 'City';
             Description = 'NSC1.01';
@@ -144,27 +144,27 @@ tableextension 50082 tableextension50082 extends "Company Information"
                 //<<MIGRATION NAV 2013
             end;
         }
-        field(50006;"Alt Phone No.";Text[20])
+        field(50006; "BC6_Alt Phone No."; Text[20])
         {
             Caption = 'Phone No.';
             Description = 'NSC1.01';
         }
-        field(50007;"Alt Phone No. 2";Text[20])
+        field(50007; "BC6_Alt Phone No. 2"; Text[20])
         {
             Caption = 'Phone No. 2';
             Description = 'NSC1.01';
         }
-        field(50008;"Alt Telex No.";Text[20])
+        field(50008; "BC6_Alt Telex No."; Text[20])
         {
             Caption = 'Telex No.';
             Description = 'NSC1.01';
         }
-        field(50009;"Alt Fax No.";Text[20])
+        field(50009; "BC6_Alt Fax No."; Text[20])
         {
             Caption = 'Fax No.';
             Description = 'NSC1.01';
         }
-        field(50010;"Alt Post Code";Code[20])
+        field(50010; "BC6_Alt Post Code"; Code[20])
         {
             Caption = 'Post Code';
             Description = 'NSC1.01';
@@ -192,47 +192,47 @@ tableextension 50082 tableextension50082 extends "Company Information"
                 //<<MIGRATION NAV 2013
             end;
         }
-        field(50011;"Alt E-Mail";Text[80])
+        field(50011; "BC6_Alt E-Mail"; Text[80])
         {
             Caption = 'E-Mail';
             Description = 'NSC1.01';
         }
-        field(50012;"Alt Country Code";Code[10])
+        field(50012; "BC6_Alt Country Code"; Code[10])
         {
             Caption = 'Alt Code Pays';
             Description = 'NSC1.01';
             TableRelation = Country/Region.Code;
         }
-        field(50013;"Alt Home Page";Text[80])
+        field(50013; "BC6_Alt Home Page"; Text[80])
         {
             Description = 'NSC1.01';
         }
-        field(50014;"Branch Company";Boolean)
+        field(50014; "BC6_Branch Company"; Boolean)
         {
             Caption = 'Branch Company';
             Description = 'CNEIC';
         }
-        field(50015;"Purchaser E-Mail";Text[80])
+        field(50015; "BC6_Purchaser E-Mail"; Text[80])
         {
             Caption = 'Purchaser E-Mail';
             Description = 'NSC1.01';
         }
-        field(50016;"Alt2 Name";Text[50])
+        field(50016; "BC6_Alt2 Name"; Text[50])
         {
             Caption = 'Name';
             Description = 'NSC1.01';
         }
-        field(50017;"Alt2 Phone No.";Text[20])
+        field(50017; "BC6_Alt2 Phone No."; Text[20])
         {
             Caption = 'Phone No.';
             Description = 'NSC1.01';
         }
-        field(50018;"Alt2 Fax No.";Text[20])
+        field(50018; "BC6_Alt2 Fax No."; Text[20])
         {
             Caption = 'Fax No.';
             Description = 'NSC1.01';
         }
-        field(50019;"Alt2 E-Mail";Text[80])
+        field(50019; "BC6_Alt2 E-Mail"; Text[80])
         {
             Caption = 'E-Mail';
             Description = 'NSC1.01';

@@ -1,4 +1,4 @@
-tableextension 50035 tableextension50035 extends "Sales Header"
+tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
 {
     // ------------------------------------------------------------------------
     // Prodware - www.prodware.fr
@@ -2042,7 +2042,7 @@ tableextension 50035 tableextension50035 extends "Sales Header"
             //<<MIGRATION NAV 2013
             */
         //end;
-        field(56;"Recalculate Invoice Disc.";Boolean)
+        field(56; "BC6_Recalculate Invoice Disc."; Boolean)
         {
             CalcFormula = Exist("Sales Line" WHERE (Document Type=FIELD(Document Type),
                                                     Document No.=FIELD(No.),
@@ -2051,15 +2051,15 @@ tableextension 50035 tableextension50035 extends "Sales Header"
             Editable = false;
             FieldClass = FlowField;
         }
-        field(200;"Work Description";BLOB)
+        field(200; "BC6_Work Description"; BLOB)
         {
             Caption = 'Work Description';
         }
-        field(600;"Payment Service Set ID";Integer)
+        field(600; "BC6_Payment Service Set ID"; Integer)
         {
             Caption = 'Payment Service Set ID';
         }
-        field(5755;Shipped;Boolean)
+        field(5755; BC6_Shipped; Boolean)
         {
             AccessByPermission = TableData 110=R;
             CalcFormula = Exist("Sales Line" WHERE (Document Type=FIELD(Document Type),
@@ -2069,36 +2069,36 @@ tableextension 50035 tableextension50035 extends "Sales Header"
             Editable = false;
             FieldClass = FlowField;
         }
-        field(50000;"Cause filing";Option)
+        field(50000; "BC6_Cause filing"; Option)
         {
             Caption = 'Cause filing';
             Description = 'NAVIDIIGEST BRRI 01.08.2006 NSC1.00 [Archivage_Devis] Ajout du champ';
             OptionCaption = 'No proceeded,Deleted,Change in Order';
             OptionMembers = "No proceeded",Deleted,"Change in Order";
         }
-        field(50001;"Purchaser Comments";Text[50])
+        field(50001; "BC6_Purchaser Comments"; Text[50])
         {
             Caption = 'Purchaser Comments';
             Description = 'CNE1.00';
         }
-        field(50002;"Warehouse Comments";Text[50])
+        field(50002; "BC6_Warehouse Comments"; Text[50])
         {
             Caption = 'Warehouse Comments';
             Description = 'CNE1.00';
         }
-        field(50003;"Pay-to Customer No.";Code[20])
+        field(50003; "BC6_Pay-to Customer No."; Code[20])
         {
             Caption = 'Pay-to Customer No.';
             Description = 'NAVIDIIGEST BRRI 01.08.2006 NSC1.00 [Gestion_Tiers_Payeur] Ajout du champ';
             TableRelation = Customer;
         }
-        field(50004;"Advance Payment";Decimal)
+        field(50004; "BC6_Advance Payment"; Decimal)
         {
             AutoFormatExpression = "Currency Code";
             Caption = 'Advance Payment';
             Description = 'NAVIDIIGEST BRRI 01.08.2006 NSC1.00 [Champs_Suppl] Ajout du champ';
         }
-        field(50005;"Affair No.";Code[20])
+        field(50005; "BC6_Affair No."; Code[20])
         {
             Caption = 'Affair No.';
             Description = 'CNE1.00';
@@ -2111,7 +2111,7 @@ tableextension 50035 tableextension50035 extends "Sales Header"
                 //BC6 EABO 11/04/18 <<
             end;
         }
-        field(50010;ID;Code[50])
+        field(50010; BC6_ID; Code[50])
         {
             Caption = 'User ID';
             Description = 'AjoutCodeUtilisateur RD 13/11/06 NCS1.01 [FE019V1] Ajout du code utilisateur dans les documents d''achats & ventes';
@@ -2128,19 +2128,19 @@ tableextension 50035 tableextension50035 extends "Sales Header"
                 //<<MIGRATION NAV 2013
             end;
         }
-        field(50020;"Customer Sales Profit Group";Code[10])
+        field(50020; "BC6_Customer Sales Profit Group"; Code[10])
         {
             Caption = 'Goupe Marge Vente Client';
             Description = 'GRPMARGECLT SM 15/10/06 NCS1.01 [FE024V1] Ajout du champ';
             Enabled = false;
             TableRelation = "Customer Sales Profit Group";
         }
-        field(50025;"Combine Shipments by Order";Boolean)
+        field(50025; "BC6_Combine Shipments by Order"; Boolean)
         {
             Caption = 'Combine Shipment By Order';
             Description = 'FE018 regroupement BL par CMD';
         }
-        field(50026;"Purchase cost";Decimal)
+        field(50026; "BC6_Purchase cost"; Decimal)
         {
             CalcFormula = Sum("Sales Line"."Purchase cost" WHERE (Document Type=FIELD(Document Type),
                                                                   Document No.=FIELD(No.)));
@@ -2149,60 +2149,60 @@ tableextension 50035 tableextension50035 extends "Sales Header"
             Editable = false;
             FieldClass = FlowField;
         }
-        field(50029;"Copy Sell-to Address";Boolean)
+        field(50029; "BC6_Copy Sell-to Address"; Boolean)
         {
             Caption = 'Copy Sell-to Address';
             Description = 'CNE6.01';
         }
-        field(50030;"Sales LCY";Decimal)
+        field(50030; "BC6_Sales LCY"; Decimal)
         {
             Caption = 'Ventes DS';
             Description = 'SM Besoin pour Etat Bible';
         }
-        field(50031;"Profit LCY";Decimal)
+        field(50031; "BC6_Profit LCY"; Decimal)
         {
             Caption = 'Marge DS';
             Description = 'SM  Besoin Etat Bible';
             Editable = true;
         }
-        field(50032;"% Profit";Decimal)
+        field(50032; "BC6_% Profit"; Decimal)
         {
             Caption = '% de marge sur vente';
             Description = 'SM Besoin pour Etat Bible';
         }
-        field(50033;Invoiced;Boolean)
+        field(50033; BC6_Invoiced; Boolean)
         {
             Caption = 'Invoiced';
         }
-        field(50040;"Prod. Version No.";Integer)
+        field(50040; "BC6_Prod. Version No."; Integer)
         {
             Caption = 'Version No.';
         }
-        field(50050;"Document description";Text[50])
+        field(50050; "BC6_Document description"; Text[50])
         {
             Caption = 'Document description';
         }
-        field(50060;"Quote statut";Option)
+        field(50060; "BC6_Quote statut"; Option)
         {
             Caption = 'Quote status';
             OptionCaption = ' ,Approved,Locked';
             OptionMembers = " ",approved,locked;
         }
-        field(50061;"Sell-to Fax No.";Text[30])
+        field(50061; "BC6_Sell-to Fax No."; Text[30])
         {
             Caption = 'Sell-to Fax No.';
             Description = 'FE005 SEBC 08/01/2007';
         }
-        field(50062;"Sell-to E-Mail Address";Text[50])
+        field(50062; "BC6_Sell-to E-Mail Address"; Text[50])
         {
             Caption = 'Sell-to E-Mail address';
             Description = 'FE005 MICO 12/02/07';
         }
-        field(50070;"Sales Counter";Boolean)
+        field(50070; "BC6_Sales Counter"; Boolean)
         {
             Caption = 'Sales Counter';
         }
-        field(50080;"Purchase No. Order Lien";Code[20])
+        field(50080; "BC6_Purchase No. Order Lien"; Code[20])
         {
             Caption = 'Purchase No. Order Lien';
             Description = 'CNEIC';
@@ -2219,17 +2219,17 @@ tableextension 50035 tableextension50035 extends "Sales Header"
                 //<<CNEIC : Le 07/08/15
             end;
         }
-        field(50100;"Salesperson Filter";Text[250])
+        field(50100; "BC6_Salesperson Filter"; Text[250])
         {
             Caption = 'Salesperson Filter';
             Editable = false;
         }
-        field(50110;"Mailing List Code";Code[10])
+        field(50110; "BC6_Mailing List Code"; Code[10])
         {
             Caption = 'Mailing List Code';
             TableRelation = "Mailing List";
         }
-        field(50120;"Return Order Type";Option)
+        field(50120; "BC6_Return Order Type"; Option)
         {
             Caption = 'Return Order Type';
             Description = 'BCSYS';
@@ -2241,7 +2241,7 @@ tableextension 50035 tableextension50035 extends "Sales Header"
                 UpdateSalesLineReturnType
             end;
         }
-        field(50403;"Bin Code";Code[20])
+        field(50403; "BC6_Bin Code"; Code[20])
         {
 
             trigger OnLookup()
@@ -5395,37 +5395,37 @@ tableextension 50035 tableextension50035 extends "Sales Header"
         ArchiveManagement: Codeunit "5063";
 
 
-        //Unsupported feature: Property Modification (Id) on "ReservEntry(Variable 1079)".
+    //Unsupported feature: Property Modification (Id) on "ReservEntry(Variable 1079)".
 
-        //var
-        //>>>> ORIGINAL VALUE:
-        //ReservEntry : 1079;
-        //Variable type has not been exported.
-        //>>>> MODIFIED VALUE:
-        //ReservEntry : 1001;
-        //Variable type has not been exported.
-
-
-        //Unsupported feature: Property Modification (Id) on "TempReservEntry(Variable 1080)".
-
-        //var
-        //>>>> ORIGINAL VALUE:
-        //TempReservEntry : 1080;
-        //Variable type has not been exported.
-        //>>>> MODIFIED VALUE:
-        //TempReservEntry : 1000;
-        //Variable type has not been exported.
+    //var
+    //>>>> ORIGINAL VALUE:
+    //ReservEntry : 1079;
+    //Variable type has not been exported.
+    //>>>> MODIFIED VALUE:
+    //ReservEntry : 1001;
+    //Variable type has not been exported.
 
 
-        //Unsupported feature: Property Modification (Id) on "CompanyInfo(Variable 1094)".
+    //Unsupported feature: Property Modification (Id) on "TempReservEntry(Variable 1080)".
 
-        //var
-        //>>>> ORIGINAL VALUE:
-        //CompanyInfo : 1094;
-        //Variable type has not been exported.
-        //>>>> MODIFIED VALUE:
-        //CompanyInfo : 1002;
-        //Variable type has not been exported.
+    //var
+    //>>>> ORIGINAL VALUE:
+    //TempReservEntry : 1080;
+    //Variable type has not been exported.
+    //>>>> MODIFIED VALUE:
+    //TempReservEntry : 1000;
+    //Variable type has not been exported.
+
+
+    //Unsupported feature: Property Modification (Id) on "CompanyInfo(Variable 1094)".
+
+    //var
+    //>>>> ORIGINAL VALUE:
+    //CompanyInfo : 1094;
+    //Variable type has not been exported.
+    //>>>> MODIFIED VALUE:
+    //CompanyInfo : 1002;
+    //Variable type has not been exported.
 
     var
         ConfirmChangeQst: Label 'Do you want to change %1?', Comment = '%1 = a Field Caption like Currency Code';

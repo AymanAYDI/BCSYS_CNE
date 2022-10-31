@@ -47,11 +47,7 @@ tableextension 50082 "BC6_CompanyInformation" extends "Company Information"
                 "- MIGNAV2013 -": Integer;
                 TxtLAltCounty: Text[30];
             begin
-                //>>MIGRATION NAV 2013
-                //OLD PostCode.ValidateCity("Alt City","Alt Post Code");
-                //NEW
-                PostCode.ValidateCity("BC6_Alt City", "BC6_Alt Post Code", TxtLAltCounty, "BC6_Alt Country Code", (CurrFieldNo <> 0) AND GUIALLOWED);
-                //<<MIGRATION NAV 2013
+                // PostCode.ValidateCity("BC6_Alt City", "BC6_Alt Post Code", TxtLAltCounty, "BC6_Alt Country Code", (CurrFieldNo <> 0) AND GUIALLOWED); // TODO: function PostCode Declarer Global
             end;
         }
         field(50006; "BC6_Alt Phone No."; Text[20])
@@ -96,11 +92,7 @@ tableextension 50082 "BC6_CompanyInformation" extends "Company Information"
                 "- MIGNAV2013 -": Integer;
                 TxtLAltCounty: Text[30];
             begin
-                //>>MIGRATION NAV 2013
-                //OLD PostCode.ValidateCity("Alt City","Alt Post Code");
-                //NEW
-                PostCode.ValidateCity("BC6_Alt City", "BC6_Alt Post Code", TxtLAltCounty, "BC6_Alt Country Code", (CurrFieldNo <> 0) AND GUIALLOWED);
-                //<<MIGRATION NAV 2013
+                // PostCode.ValidateCity("BC6_Alt City", "BC6_Alt Post Code", TxtLAltCounty, "BC6_Alt Country Code", (CurrFieldNo <> 0) AND GUIALLOWED); // TODO: function PostCode Declarer Global
             end;
         }
         field(50011; "BC6_Alt E-Mail"; Text[80])

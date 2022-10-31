@@ -95,4 +95,68 @@ codeunit 50200 "BC6_CNE_EventsMgt"
         //     END;
     end;
 
+    [EventSubscriber(ObjectType::Table, Database::"Gen. Journal Line", 'OnAfterCopyGenJnlLineFromPurchHeader', '', false, false)]
+    local procedure T81_OnAfterCopyGenJnlLineFromPurchHeader_GenJournalLine(PurchaseHeader: Record "Purchase Header"; var GenJournalLine: Record "Gen. Journal Line")
+    begin
+        GenJournalLine."BC6_Pay-to No." := PurchaseHeader."Pay-to Vend. No."; // TODO:
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Gen. Journal Line", 'OnAfterCopyGenJnlLineFromSalesHeader', '', false, false)]
+    local procedure OnAfterCopyGenJnlLineFromSalesHeader(SalesHeader: Record "Sales Header"; var GenJournalLine: Record "Gen. Journal Line")
+    begin
+        GenJournalLine."Payment Method Code" := SalesHeader."Payment Method Code";
+        GenJournalLine."BC6_Pay-to No." := SalesHeader."Pay-to Customer No."; // TODO:
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Item Journal Line", 'OnAfterCopyItemJnlLineFromSalesLine', '', false, false)]
+    local procedure T83_OnAfterCopyItemJnlLineFromSalesLine_ItemJournalLine(var ItemJnlLine: Record "Item Journal Line"; SalesLine: Record "Sales Line")
+    begin
+        ItemJnlLine."BC6_DEEE Category Code" := SalesLine."DEEE Category Code";
+        ItemJnlLine."BC6_DEEE Unit Price" := SalesLine."DEEE Unit Price";
+        ItemJnlLine."BC6_DEEE HT Amount" := SalesLine."DEEE HT Amount";
+        ItemJnlLine."BC6_DEEE VAT Amount" := SalesLine."DEEE VAT Amount";
+        ItemJnlLine."BC6_DEEE TTC Amount" := SalesLine."DEEE TTC Amount";
+        ItemJnlLine."BC6_Eco partner DEEE" := SalesLine."Eco partner DEEE";
+        ItemJnlLine."BC6_DEEE HT Amount (LCY)" := SalesLine."DEEE HT Amount (LCY)";
+        ItemJnlLine."BC6_DEEE Unit Price (LCY)" := SalesLine."DEEE Unit Price (LCY)";
+        ItemJnlLine."BC6_DEEE Amount (LCY) for Stat" := SalesLine."DEEE Amount (LCY) for Stat";
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Item Journal Line", 'OnValidateItemNoOnBeforeSetDescription', '', false, false)]
+    local procedure T83_OnValidateItemNoOnBeforeSetDescription_ItemJournalLine(var ItemJournalLine: Record "Item Journal Line"; Item: Record Item)
+    begin
+        ItemJournalLine."BC6_DEEE Category Code" := Item."BC6_DEEE Category Code";
+        ItemJournalLine."BC6_Eco partner DEEE" := Item."BC6_Eco partner DEEE";
+        ItemJournalLine.CalculateDEEE('');
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Item Journal Line", 'OnBeforeCheckReservedQtyBase', '', false, false)]
+    local procedure T83_OnBeforeCheckReservedQtyBase_ItemJournalLine(var ItemJournalLine: Record "Item Journal Line"; var Item: Record Item; var IsHandled: Boolean)
+    begin
+        ItemJournalLine.CalculateDEEE('');
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Planning Assignment", 'OnBeforeChkAssignOne', '', false, false)]
+    local procedure OnBeforeChkAssignOne(ItemNo: Code[20]; VariantCode: Code[10]; LocationCode: Code[10]; UpdateDate: Date; var IsHandled: Boolean)
+    var
+        Item: Record Item;
+        SKU: Record "Stockkeeping Unit";
+        ReorderingPolicy: Enum "Reordering Policy";
+        planAssign: Record "Planning Assignment";
+    begin
+        ReorderingPolicy := Item."Reordering Policy"::" ";
+
+        if SKU.Get(LocationCode, ItemNo, VariantCode) then
+            ReorderingPolicy := SKU."Reordering Policy"
+        else
+            if Item.Get(ItemNo) then
+                ReorderingPolicy := Item."Reordering Policy";
+
+        if ReorderingPolicy <> Item."Reordering Policy"::"Maximum Qty." then
+            planAssign.AssignOne(ItemNo, VariantCode, LocationCode, UpdateDate);
+
+        IsHandled := true;
+    end;
+
+
 }

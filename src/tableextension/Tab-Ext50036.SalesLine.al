@@ -1,133 +1,5 @@
 tableextension 50036 "BC6_SalesLine" extends "Sales Line"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // //VENTES BRRI 01.08.2006 COR001 [14] Ajout TextConstant TextDate
-    // //MARGE  SOBH           NSC1.01 [024] Marge Ventes
-    // //GRPMARGEVENTE SM 15/10/06 NCS1.01 [FE024V1] Ajout du champ 50020,50021 et CALCULE des marges vente
-    // //TARIFPUB SM 15/10/06 NCS1.01 [FE024V1] Ajout du champ 50022 Tarif public + ramener le prix depuis la table Prix d'achat 7012
-    // //Demande de prix FE004 06/12/2006 ajout du champ 50025 "Buy-from Vendor No."
-    //                                    ajout de la clef "Document Type","Buy-from Vendor No."
-    //                   FE004.2 11/12/2006 ajout champ 50026 à 50028 et controle sur delete
-    // // blocage devis FE015 FLGR 07/12/2006
-    // //GESTION_REMISE FG 06/12/06 NSC1.01
-    // //Process achat vente FE25/26 FLGR 14/12/2006 modif gestion prix public ajout fonction calcprofit et calcunitprice;
-    // //BIBLE FG 19/12/06 NSC1.01 Création clé Document Type,Document No.,Sell-to Customer No.,No.
-    // //PRIX_VENTE_REMISE FG 20/12/06 NSC1.01
-    // //COUT_ACHAT FG 20/12/06 NSC1.01
-    // //CASC 12/01/2007 NSC1.01 : To authorize 5 figures after the comma on fields Purchase cost and Public Price
-    // //Propagation CASC 18/01/2007 NSC1.01 : Add fields
-    //                                         50024 Amount(LCY)
-    //                                         50029 Ordered Quantity
-    // //FE004.4 ajout lookup sur commande d'achat liée à la ligne.
-    // 
-    // //>>DEEE1.00
-    // DEEE:JNPA 01/01/2007 : eco taxe
-    //           - Add fields 80800, 80002..80007
-    //           - OnInsert()
-    //           - No. - OnValidate()
-    //           - Quantity - OnValidate()
-    //           - CalcVATAmountLines
-    //           - Add function CalculateDEEE
-    // //>>CNE1.00
-    // FEP-ADVE-200706_18_B.001:MA 09/11/2007 : - Suivi des historiques
-    //                                          - Add key "No."
-    // 
-    // //TODOLIST point 49  FLGR 07/02/2007 : autorisation modification du cout d'achat => purchase cost : editable = true !
-    //                                        bien avoir conscience que si un doc d'achat et lié, c'est la valeur du doc d'achat
-    //                                        qui serat mise à jour si on lance la cmd / devis, si il y a validation
-    //                                        des champs qte prix uitaire , etc... ou modification de l'article etc ...
-    //                                        et que par conséquent la saisie manuelle serat perdue
-    // 
-    // //TODOLIST point 54 FLGR 07/02/2007 : modif affichage des decimaux => modification format des champs 50022, 50031 et 50041
-    // //>>DEEE1.01:FLGR 19/02/2007 correct bug in quotes with customer template
-    // //VERSIONNING FG 28/02/07 suite au Merge
-    // 
-    // //>>NSC2.01
-    // FE032.001:PA 21/05/2007 : Quantity Modification
-    //                           - Don't modify the Price, Discount %, Merge %, Purchase Cost When quantity modification.
-    // 
-    // //>>NSC02.02
-    // TDL94.001:PA 24/05/2007 : Correct DEEE Stat
-    // 
-    // //>>CNE1.00
-    // FEP-ACHAT-200706_18_A.001:MA 08/11/2007 : Achats groupés
-    //                                           - Add Field 50001 : "To Prepare"
-    // 
-    // FEP-ACHAT-200706_18_A.001:MA 09/11/2007 : Achats groupés
-    //                                           - Add Field 50002 : "Purchase Receipt Date"
-    // 
-    // FEP-ACHAT-200706_18_A.001:MA 12/11/2007 : Achats groupés
-    //                                           - Add Field 50003 : "Qty. To Order"
-    // 
-    // //>>CNE1.00
-    // FEP-ACHAT-200706_18_A.001:MA 13/11/2007 : Achats groupés
-    //                                           - Add Field 50005 : "Forecast Inventory"
-    // 
-    // //>>CNE1.00
-    // FEP-ACHAT-200706_18_A.001:MA 15/11/2007 : Achats groupés
-    //                                           - Add Keys :
-    //                                               "Buy-from Vendor No.","Shipment Date"
-    //                                               "Buy-from Vendor No.","No.","Shipment Date"
-    // 
-    // //>>CNE1.00
-    // FEP-ACHAT-200706_18_A.001:MA 19/11/2007 : Achats groupés
-    //                                           - Add Field 50007 : "To Order"
-    // 
-    // //CNE2.05
-    // FEP-ACHAT-200706_18_A.001 09/01/2008 : - Change CaptionML
-    // FEP-ACHAT-200706_18_A.002 15/01/2008 : - Add test if a Purchase Order always existing for this sales line.
-    //                                        - Add key
-    //                                          "Buy-from Vendor No.","Qty. To Order","To Order"
-    // 
-    // //>>SUP_CNE1.00.00.01
-    // I005590.001 : DO 02/04/2008 : Modify Qty to Order affectation
-    // 
-    // 
-    // //>>CN1.04
-    //   FEP_ADVE_200711_21_1-DEROGATOIRE:SOBI  24/07/08 : - calc line discount %
-    // 
-    // 
-    // //>>CNE3.00
-    //    CorrectionSOBI 30/09/08 : - Change Qty To order Affectation
-    // 
-    // //>> MODIF HL 28/01/2010 SU-LALE cf appel I016274
-    //                        Ajout clé de tri To Order,Buy-from Vendor No.,No.,Purchase cost,Qty. To Order
-    // 
-    // //>> CNE4.01
-    // B:FE06 01.09.2011 : Sales Order Line - Show Quantity on Invt Pick List
-    //                   - Add Field : 50040 Pick Qty
-    // 
-    // //>> CNE4.02
-    // C:FE09 05.10.2011 : Availability Customer Area - Shipping Bin
-    //                   - Mod Function GetDefaultBin
-    // 
-    // //>> CNE6.01
-    // TDL:EC11 12.12.2014 : Not Group By Item
-    //                       - Add Key To Order,Buy-from Vendor No.,Document No.,Line No.,Qty. To Order
-    // 
-    // //>>MODIF HL
-    // TI271161 DO.GEPO 24/03/2015 : add new key "Shimpment Date","Document Type","Sell-to Customer No.","Document No.","Line No."
-    // 
-    // 
-    // ---------------------------------------------------------------------------------------------------------------------------------
-    // //>>PWD(SPI) : le 01/06/15 : Temporaire : on force le fournisseur CNE pour le nouvelle sté.
-    // //>>CNEIC : 06/2015 : Ajout des champs 50060 et 50061 pour le lien avec la ligne de commande Achat.
-    //                       Validate sur le champ "Purchase cost" lors du passage du Item."Standard Cost"
-    //                       Si sté non filiale + commande pour IC ==> Prix unitaire = Prix d'achat.
-    // 
-    // //>>TI301087 : RO : 08/12/2015
-    //                     - Add Keys
-    //                              Document Type,Type,Outstanding Quantity,Purchasing Code
-    //                              Document Type,Type,Outstanding Quantity,Purchasing Code,Drop Shipment
-    //                              Document Type,Type,Outstanding Quantity,Purchasing Code,Buy-from Vendor No.,Shipment Date
-    //                              Document Type,Type,Outstanding Quantity,Purchasing Code,Drop Shipment,Buy-from Vendor No.,No.,Shipment Date
-    //                              Document Type,Type,Outstanding Quantity,Purchasing Code,Buy-from Vendor No.,No.,Shipment Date
-    //                              Document Type,Type,Outstanding Quantity,Purchasing Code,Drop Shipment,Buy-from Vendor No.,Shipment Date
-    // 
-    // //BCSYS 260418 ajout date facturation prévue = shipment date
     LookupPageID = 516;
     DrillDownPageID = 516;
     fields
@@ -147,7 +19,6 @@ tableextension 50036 "BC6_SalesLine" extends "Sales Line"
                                                                                                    ELSE IF (Type=CONST(Fixed Asset)) "Fixed Asset"
                                                                                                    ELSE IF (Type=CONST("Charge (Item)")) "Item Charge";
 
-            //Unsupported feature: Property Insertion (ValidateTableRelation) on ""No."(Field 6)".
 
             CaptionClass = GetCaptionClass(FIELDNO("No."));
         }
@@ -157,7 +28,6 @@ tableextension 50036 "BC6_SalesLine" extends "Sales Line"
                             ELSE IF (Type=CONST(Fixed Asset)) "FA Posting Group";
         }
 
-        //Unsupported feature: Property Insertion (AccessByPermission) on ""Shipment Date"(Field 10)".
 
         modify(Description)
         {
@@ -173,19 +43,12 @@ tableextension 50036 "BC6_SalesLine" extends "Sales Line"
                                                                                               ELSE IF (Type=CONST(Fixed Asset)) "Fixed Asset"
                                                                                               ELSE IF (Type=CONST("Charge (Item)")) "Item Charge";
 
-            //Unsupported feature: Property Insertion (ValidateTableRelation) on "Description(Field 11)".
 
         }
         modify("Description 2")
         {
             Caption = 'Description 2';
         }
-
-        //Unsupported feature: Property Insertion (AccessByPermission) on ""Qty. to Ship"(Field 18)".
-
-
-        //Unsupported feature: Property Insertion (AccessByPermission) on ""Appl.-to Item Entry"(Field 38)".
-
         modify("Shortcut Dimension 1 Code")
         {
             TableRelation = "Dimension Value".Code WHERE (Global Dimension No.=CONST(1),

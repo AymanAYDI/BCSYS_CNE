@@ -111,10 +111,10 @@ codeunit 50000 "BC6_EventsMgt"
             Rec.TESTFIELD(Rec."Vendor No.");
 
     end;
-
+    //TAB290
     [EventSubscriber(ObjectType::Table, Database::"VAT Amount Line", 'OnInsertLineOnBeforeModify', '', false, false)]
 
-    local procedure OnInsertLineOnBeforeModify(var VATAmountLine: Record "VAT Amount Line"; FromVATAmountLine: Record "VAT Amount Line")
+    local procedure T290_OnInsertLineOnBeforeModify_VATAmountLine(var VATAmountLine: Record "VAT Amount Line"; FromVATAmountLine: Record "VAT Amount Line")
     begin
         VATAmountLine."BC6_DEEE HT Amount" := VATAmountLine."BC6_DEEE HT Amount" + FromVATAmountLine."BC6_DEEE HT Amount";
         VATAmountLine."BC6_DEEE VAT Amount" := VATAmountLine."BC6_DEEE VAT Amount" + FromVATAmountLine."BC6_DEEE VAT Amount";
@@ -124,32 +124,32 @@ codeunit 50000 "BC6_EventsMgt"
 
     [EventSubscriber(ObjectType::Table, Database::"VAT Amount Line", 'OnInsertLineOnBeforeInsert', '', false, false)]
 
-    local procedure OnInsertLineOnBeforeInsert(var VATAmountLine: Record "VAT Amount Line"; var FromVATAmountLine: Record "VAT Amount Line")
+    local procedure T290_OnInsertLineOnBeforeInsert_VATAmountLine(var VATAmountLine: Record "VAT Amount Line"; var FromVATAmountLine: Record "VAT Amount Line")
     begin
         VATAmountLine."BC6_DEEE HT Amount" := FromVATAmountLine."BC6_DEEE HT Amount";
         VATAmountLine."BC6_DEEE VAT Amount" := FromVATAmountLine."BC6_DEEE VAT Amount";
         VATAmountLine."BC6_DEEE TTC Amount" := FromVATAmountLine."BC6_DEEE TTC Amount";
     end;
 
+    //Tab36
+    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterCheckSellToCust', '', false, false)]
 
-    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnValidateSellToCustomerNoOnBeforeCheckBlockedCustOnDocs', '', false, false)]
-
-    local procedure OnValidateSellToCustomerNoOnBeforeCheckBlockedCustOnDocs(var SalesHeader: Record "Sales Header"; var Cust: Record Customer; var IsHandled: Boolean)
+    local procedure T36_OnAfterCheckSellToCust_SalesHeader(var SalesHeader: Record "Sales Header"; xSalesHeader: Record "Sales Header"; Customer: Record Customer; CurrentFieldNo: Integer)
     var
-        RecGCommentLine: Record 97;
-        FrmGLignesCommentaires: Page 124;
-        RecGParamNavi: Record 50004;
+        RecGCommentLine: Record "Comment Line";
+        FrmGLignesCommentaires: Page "Comment Sheet";
+        RecGParamNavi: Record "BC6_Navi+ Setup";
     begin
-        IF CurrFieldNo <> 0 THEN
-            IF RecGParamNavi.FIND THEN BEGIN
+        IF CurrentFieldNo <> 0 THEN
+            IF RecGParamNavi.FIND() THEN BEGIN
                 IF RecGParamNavi."Used Post-it" <> '' THEN BEGIN
                     RecGCommentLine.SETRANGE(Code, RecGParamNavi."Used Post-it");
-                    RecGCommentLine.SETRANGE("No.", "Sell-to Customer No.");
+                    RecGCommentLine.SETRANGE("No.", SalesHeader."Sell-to Customer No.");
                     IF RecGCommentLine.FIND('-') THEN BEGIN
                         FrmGLignesCommentaires.EDITABLE(FALSE);
                         FrmGLignesCommentaires.CAPTION('Post-it');
                         FrmGLignesCommentaires.SETTABLEVIEW(RecGCommentLine);
-                        IF FrmGLignesCommentaires.RUNMODAL = ACTION::OK THEN;
+                        IF FrmGLignesCommentaires.RUNMODAL() = ACTION::OK THEN;
                     END;
                 END;
                 RecGCommentLine.SETRANGE(Code, '');
@@ -157,5 +157,50 @@ codeunit 50000 "BC6_EventsMgt"
 
 
     end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterCopySellToCustomerAddressFieldsFromCustomer', '', false, false)]
+
+    local procedure T36_OnAfterCopySellToCustomerAddressFieldsFromCustomer_SalesHeader(var SalesHeader: Record "Sales Header"; SellToCustomer: Record Customer; CurrentFieldNo: Integer; var SkipBillToContact: Boolean)
+    begin
+        SellToCustomer."BC6_Combine Shipments by Order" := SellToCustomer."BC6_Combine Shipments by Order";
+        SellToCustomer."BC6_Pay-to Customer No." := SellToCustomer."BC6_Pay-to Customer No.";
+        CASE SalesHeader."Document Type" OF
+            SalesHeader."Document Type"::Quote, SalesHeader."Document Type"::Order:
+                SellToCustomer."BC6_Copy Sell-to Address" := SellToCustomer."BC6_Copy Sell-to Address";
+        END;
+
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnValidateSellToCustomerNoOnBeforeRecallModifyAddressNotification', '', false, false)]
+
+    local procedure T36_OnValidateSellToCustomerNoOnBeforeRecallModifyAddressNotification(var SalesHeader: Record "Sales Header"; xSalesHeader: Record "Sales Header")
+    begin
+        SalesHeader.UpdateIncoterm;  //procedure specifique 
+        IF SalesHeader."Document Type" IN [SalesHeader."Document Type"::Order, SalesHeader."Document Type"::Invoice, SalesHeader."Document Type"::"Credit Memo"] THEN
+            SalesHeader."Posting Description" := COPYSTR(FORMAT(SalesHeader."Sell-to Customer Name") + ' : ' + FORMAT(SalesHeader."Document Type") + ' ' + SalesHeader."No."
+                                       , 1, MAXSTRLEN(SalesHeader."Posting Description"));
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterTestStatusOpen', '', false, false)]
+
+    local procedure OnAfterTestStatusOpen(var SalesHeader: Record "Sales Header")
+    var
+        Cust: Record Customer;
+    begin
+        SalesHeader.GetCust(Cust."Bill-to Customer No.");
+        Cust.CheckBlockedCustOnDocs(Cust, SalesHeader."Document Type", FALSE, FALSE);
+        Cust.TESTFIELD("Customer Posting Group");
+        //TODO  // SalesHeader.CheckCrLimit;
+    end;
+
+    //TAB38
+    [EventSubscriber(ObjectType::Table, Database::"Purchase Header", 'OnAfterInsertEvent', '', false, false)]
+    local procedure T38_OnAfterInsertEvent_PurchHeader(var Rec: Record "Purchase Header"; RunTrigger: Boolean)
+    begin
+        Rec.ID := USERID
+    end;
+
+
+
 
 }

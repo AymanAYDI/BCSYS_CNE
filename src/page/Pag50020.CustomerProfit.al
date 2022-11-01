@@ -1,18 +1,16 @@
-page 50021 "Item Sales Profit Group"
+page 50020 "BC6_Customer Profit"
 {
-    // //MARGEVENTEARTICLE SM 15/10/06 NCS1.01 [FE024V1] CREATION
-
-    Caption = 'Groupe Marge Vente Article';
+    Caption = 'Marge Client';
     PageType = List;
-    SourceTable = Table99002;
+    SourceTable = "Customer Sales Profit Group";
 
     layout
     {
         area(content)
         {
-            repeater()
+            repeater(Control1)
             {
-                field(Code; Code)
+                field("Code"; Code)
                 {
                 }
                 field(Designation; Designation)

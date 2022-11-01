@@ -1,41 +1,24 @@
-page 50034 "Affair Steps Tracking"
+page 50034 "BC6_Affair Steps Tracking"
 {
-    // ------------------------------------------------------------------------
-    // PRODWARE - C2A  - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // 
-    // //>>CNE2.05
-    // FEP-ADVE-200706_18_A.001:LY  21/01/2008 : - Change Glue
-    // FEP-ACHAT-200706_18_A.001:LY 23/01/2008 : - Change SearchAffair Fct :
-    //                                             Replace Filter Date by Filter ..Date
-    // FEP-ACHAT-200706_18_A.001:LY 19/02/2008 : - Change Property : ModifyAllowed
-    //                                             Old : No
-    //                                             New : <Yes>
-    // 
-    // //>>CNE5.00
-    // TDL.74/CSC 02/12/2013 : Change Property ShowFilter to No
-    // 
-    // ------------------------------------------------------------------------
-
     Caption = 'Affair Steps Tracking';
     DeleteAllowed = false;
     InsertAllowed = false;
     PageType = List;
     ShowFilter = false;
-    SourceTable = Table50010;
+    SourceTable = "BC6_Affair Steps";
 
     layout
     {
         area(content)
         {
-            group()
+            group(Control1)
             {
-                label(Interlocutor)
+                label(Control1000000004)
                 {
                     CaptionClass = Text19001151;
                     Caption = 'Interlocutor';
                 }
-                label("Reminder Date")
+                label(Control1000000005)
                 {
                     CaptionClass = Text19017858;
                     Caption = 'Reminder Date';
@@ -57,7 +40,7 @@ page 50034 "Affair Steps Tracking"
                 {
                 }
             }
-            repeater()
+            repeater(Control2)
             {
                 field("Affair No."; "Affair No.")
                 {
@@ -108,8 +91,8 @@ page 50034 "Affair Steps Tracking"
             action("Fiche affaire")
             {
                 Promoted = true;
-                RunObject = Page 88;
-                RunPageLink = No.=FIELD(Affair No.);
+                RunObject = Page "Job Card";
+                RunPageLink = "No." = FIELD("Affair No.");
             }
         }
     }
@@ -118,38 +101,38 @@ page 50034 "Affair Steps Tracking"
     begin
         TxtGIntelocutor := USERID;
         BooGFinichedfilter := FALSE;
-        DatLRminderDate := WORKDATE;
+        DatLRminderDate := WORKDATE();
 
-        SearchAffairSteps(FALSE,USERID,WORKDATE);
+        SearchAffairSteps(FALSE, USERID, WORKDATE());
     end;
 
     var
         BooGFinichedfilter: Boolean;
         TxtGIntelocutor: Text[30];
         DatLRminderDate: Date;
-        RecGStepsAffair: Record "50010";
+        RecGStepsAffair: Record "BC6_Affair Steps";
         DiaGWindow: Dialog;
         Text001: Label 'Steps search in prgress...';
         Text19001151: Label 'Interlocutor';
         Text19017858: Label 'Reminder Date';
         Text19022765: Label 'Finished';
 
-    [Scope('Internal')]
-    procedure SearchAffairSteps(finished: Boolean;Interlocutor: Text[30];ReminderDate: Date)
+
+    procedure SearchAffairSteps(finished: Boolean; Interlocutor: Text[30]; ReminderDate: Date)
     begin
         DiaGWindow.OPEN(Text001);
 
-        RecGStepsAffair.RESET;
-        RecGStepsAffair.SETCURRENTKEY(RecGStepsAffair.Interlocutor,RecGStepsAffair."Reminder Date",RecGStepsAffair.Terminated);
+        RecGStepsAffair.RESET();
+        RecGStepsAffair.SETCURRENTKEY(RecGStepsAffair.Interlocutor, RecGStepsAffair."Reminder Date", RecGStepsAffair.Terminated);
 
-        RecGStepsAffair.SETFILTER(RecGStepsAffair.Interlocutor,Interlocutor);
-        RecGStepsAffair.SETFILTER("Reminder Date",'..%1',ReminderDate);
-        RecGStepsAffair.SETRANGE(RecGStepsAffair.Terminated,finished);
+        RecGStepsAffair.SETFILTER(RecGStepsAffair.Interlocutor, Interlocutor);
+        RecGStepsAffair.SETFILTER("Reminder Date", '..%1', ReminderDate);
+        RecGStepsAffair.SETRANGE(RecGStepsAffair.Terminated, finished);
         COPY(RecGStepsAffair);
 
         //CurrForm.UPDATE(TRUE);
 
-        DiaGWindow.CLOSE;
+        DiaGWindow.CLOSE();
     end;
 }
 

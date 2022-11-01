@@ -1,25 +1,12 @@
-page 50014 "Item Sales/Purch. History"
+page 50014 "BC6_Item Sales/Purch. History"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>CNE1.00
-    // FEP-ADVE-200706_18_B.001:MA 09/11/2007 : Suivi historique
-    //         - Form created
-    // 
-    // 
-    // //>>CNE3.00
-    //    CorrectionSOBI 30/09/08 : - Change size
-    // 
-    // ------------------------------------------------------------------------
-
     Caption = 'Item Sales/Purch. History';
     DeleteAllowed = false;
     InsertAllowed = false;
     ModifyAllowed = false;
     PageType = List;
     SaveValues = true;
-    SourceTable = Table27;
+    SourceTable = Item;
 
     layout
     {
@@ -114,7 +101,7 @@ page 50014 "Item Sales/Purch. History"
             group("Purchase History")
             {
                 Caption = 'Purchase History';
-                field(PurchLineBtn;CurrentMenuTypeOpt)
+                field(PurchLineBtn; CurrentMenuTypeOpt)
                 {
 
                     trigger OnValidate()
@@ -195,51 +182,51 @@ page 50014 "Item Sales/Purch. History"
                     Editable = false;
                 }
             }
-            part(PurchReturnShipement;50030)
+            part(PurchReturnShipement; "Return Shipment Line Subform")
             {
                 SubPageLink = No.=FIELD(No.);
                 Visible = PurchReturnShipementVisible;
             }
-            part(PurchCrMemoLine;50019)
+            part(PurchCrMemoLine; "Purch. Cr. Memo Line Subform")
             {
                 SubPageLink = No.=FIELD(No.);
                 Visible = PurchCrMemoLineVisible;
             }
-            part(PostedReturnRcpts;50040)
+            part(PostedReturnRcpts; "Return Rcpt Lines Subform 2")
             {
                 SubPageLink = No.=FIELD(No.);
                 SubPageView = SORTING(No.);
                 Visible = PostedReturnRcptsVisible;
             }
-            part(PostedCrMemos;50039)
+            part(PostedCrMemos; 50039)
             {
                 SubPageLink = No.=FIELD(No.);
                 SubPageView = SORTING(No.);
                 Visible = PostedCrMemosVisible;
             }
-            part(SalesLines;50041)
+            part(SalesLines; 50041)
             {
                 SubPageLink = No.=FIELD(No.);
                 Visible = SalesLinesVisible;
             }
-            part(PostedShpts;50042)
+            part(PostedShpts; 50042)
             {
                 SubPageLink = No.=FIELD(No.);
                 SubPageView = SORTING(No.);
                 Visible = PostedShptsVisible;
             }
-            part(PostedInvoices;50043)
+            part(PostedInvoices; 50043)
             {
                 SubPageLink = No.=FIELD(No.);
                 SubPageView = SORTING(No.);
                 Visible = PostedInvoicesVisible;
             }
-            part(PurchInvLine;50018)
+            part(PurchInvLine; 50018)
             {
                 SubPageLink = No.=FIELD(No.);
                 Visible = PurchInvLineVisible;
             }
-            part(PurchRcptline;50017)
+            part(PurchRcptline; 50017)
             {
                 SubPageLink = No.=FIELD(No.);
                 Visible = PurchRcptlineVisible;
@@ -268,22 +255,22 @@ page 50014 "Item Sales/Purch. History"
 
                 trigger OnAction()
                 var
-                    SalesHeader: Record "36";
-                    SalesLine: Record "37";
-                    SalesShptHeader: Record "110";
-                    SalesShptLine: Record "111";
-                    SalesInvHeader: Record "112";
-                    SalesInvLine: Record "113";
-                    SalesCrMemoHeader: Record "114";
-                    SalesCrMemoLine: Record "115";
-                    ReturnRcptHeader: Record "6660";
-                    ReturnRcptLine: Record "6661";
+                    SalesHeader: Record "Sales Header";
+                    SalesLine: Record "Sales Line";
+                    SalesShptHeader: Record 110;
+                    SalesShptLine: Record 111
+                    SalesInvHeader: Record 112;
+                    SalesInvLine: Record 113;
+                    SalesCrMemoHeader: Record 114;
+                    SalesCrMemoLine: Record 115;
+                    ReturnRcptHeader: Record 6660;
+                    ReturnRcptLine: Record 6661;
                     "--FEP-ADVE-200706_18_B--": Integer;
                     RecGPurchHeader: Record "38";
-                    RecGPurchPostedRcptHeader: Record "120";
-                    RecLPurchpostedInvoiceHeader: Record "122";
-                    RecLPurchReturnShipementHeader: Record "6650";
-                    RecLPurchPostedCrdMemoHeader: Record "124";
+                    RecGPurchPostedRcptHeader: Record 120;
+                    RecLPurchpostedInvoiceHeader: Record 122;
+                    RecLPurchReturnShipementHeader: Record 6650;
+                    RecLPurchPostedCrdMemoHeader: Record 124;
                 begin
                     CASE CurrentMenuType OF
                       0..5:
@@ -831,9 +818,9 @@ page 50014 "Item Sales/Purch. History"
     end;
 
     var
-        ToSalesHeader: Record "36";
-        SalesInfoPaneMgt: Codeunit "7171";
-        SalesHistCopyLineMgt: Codeunit "7171";
+        ToSalesHeader: Record 36;
+        SalesInfoPaneMgt: Codeunit 7171;
+        SalesHistCopyLineMgt: Codeunit 7171;
         OldMenuType: Integer;
         CurrentMenuType: Integer;
         BillTo: Boolean;
@@ -849,12 +836,12 @@ page 50014 "Item Sales/Purch. History"
         NoOfPstdCreditMemos: Integer;
         "--FEP-ADVE-200706_18_B--": Integer;
         BooGFilterCust: Boolean;
-        CuGItemHistoryMgt: Codeunit "50009";
-        RecGSalesShipementLine: Record "111";
-        RecGPostdSalesInvoices: Record "113";
-        RecGPostdReturnSales: Record "6661";
-        RecGPostdCrdMemo: Record "115";
-        RecGSalesLine: Record "37";
+        CuGItemHistoryMgt: Codeunit 50009;
+        RecGSalesShipementLine: Record 111;
+        RecGPostdSalesInvoices: Record 113;
+        RecGPostdReturnSales: Record 6661;
+        RecGPostdCrdMemo: Record 115;
+        RecGSalesLine: Record 37;
         CodGDocNo: Code[20];
         CodGCustNo: Code[20];
         NbrOfPurchQuote: Integer;
@@ -867,11 +854,11 @@ page 50014 "Item Sales/Purch. History"
         NbrOfPurchPostedInvoice: Integer;
         NbrOfPurchPostedReturnShipemen: Integer;
         NbrOfPurchPostedCrdMemo: Integer;
-        RecGPurchLines: Record "39";
-        RecGPurchPostedRcpt: Record "121";
-        RecGPurchPostedInvoice: Record "123";
-        RecGPurchPostedReturnShipement: Record "6651";
-        RecGPurchPostedCrdMemo: Record "125";
+        RecGPurchLines: Record 39;
+        RecGPurchPostedRcpt: Record 121;
+        RecGPurchPostedInvoice: Record 123;
+        RecGPurchPostedReturnShipement: Record 6651;
+        RecGPurchPostedCrdMemo: Record 125;
         [InDataSet]
         SalesLinesVisible: Boolean;
         [InDataSet]
@@ -905,8 +892,8 @@ page 50014 "Item Sales/Purch. History"
 
     local procedure SetSubMenu(MenuType: Integer;Visible: Boolean)
     var
-        SalesLine: Record "37";
-        RecGSalesHeader: Record "36";
+        SalesLine: Record 37;
+        RecGSalesHeader: Record 36;
     begin
         CASE MenuType OF
           0..5:
@@ -1041,15 +1028,13 @@ page 50014 "Item Sales/Purch. History"
         END;
     end;
 
-    [Scope('Internal')]
     procedure "---- FEP-ADVE-200706_18_B ----"()
     begin
     end;
 
-    [Scope('Internal')]
     procedure SetToSalesHeader(NewToSalesLines: Record "37";FilterCust: Boolean)
     var
-        RecGSalesHeader: Record "36";
+        RecGSalesHeader: Record 36;
     begin
         //RecGSalesHeader.GET(NewToSalesLines."Document No.");
         ToSalesHeader.GET(NewToSalesLines."Document Type",NewToSalesLines."Document No.");
@@ -1057,8 +1042,7 @@ page 50014 "Item Sales/Purch. History"
         BooGFilterCust := TRUE;
     end;
 
-    [Scope('Internal')]
-    procedure SetToPurchHeader(RecPurchLines: Record "39")
+    procedure SetToPurchHeader(RecPurchLines: Record 39)
     begin
         CodGCustNo := RecPurchLines."Buy-from Vendor No.";
         BooGFilterCust := TRUE;

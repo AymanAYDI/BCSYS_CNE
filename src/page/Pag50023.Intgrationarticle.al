@@ -1,25 +1,14 @@
-page 50023 "Intégration article"
+page 50023 "BC6_Intégration article"
 {
-    // //Bug Compilation CASC 18/01/2007
-    // //Change report Number CASC 18/01/2007 NSC1.01 : Change number Of Report 50101 to Report 50016
-    //                                                  Add field 'Net Weight'
-    // //Item import CASC 19/01/2007 FE06.V2 NSC1.01 : Block insertion
-    //                                                 Delete table after update
-    // 
-    // //TODOLIST point 68 MICO 07/03/07 : affichage d'un message de fin de mise à jour du coût standard
-    // 
-    // //>>CNE5.00
-    // TDL.76:20131120/CSC - Add fields "Bin Code" and "Stock"
-
     InsertAllowed = false;
     PageType = List;
-    SourceTable = Table50005;
+    SourceTable = "BC6_Temporary import catalogue";
 
     layout
     {
         area(content)
         {
-            repeater()
+            repeater(Control1)
             {
                 field(Ref_externe; Ref_externe)
                 {
@@ -103,19 +92,19 @@ page 50023 "Intégration article"
                 begin
                     IF FIND('-') THEN
                         IF CONFIRM(textg002, FALSE) THEN BEGIN
-                            RESET;
-                            DELETEALL;
+                            RESET();
+                            DELETEALL();
                         END;
 
-                    COMMIT;
+                    COMMIT();
 
                     XMLPORT.RUN(50023, TRUE, TRUE);
-                    RESET;
+                    RESET();
                     CurrPage.UPDATE(TRUE);
                     IF NOT FIND('-') THEN;
                 end;
             }
-            action(Update)
+            action("Update")
             {
                 Caption = 'Update';
                 Image = UpdateDescription;
@@ -124,12 +113,12 @@ page 50023 "Intégration article"
 
                 trigger OnAction()
                 begin
-                    RESET;
+                    RESET();
                     IF FIND('-') THEN
                         IF CONFIRM(textg001, FALSE) THEN BEGIN
-                            importdata;
+                            importdata();
                             //>>Item import CASC 19/01/2007 FE06.V2 NSC1.01 : delete table after update
-                            DELETEALL;
+                            DELETEALL();
                             //<<Item import CASC 19/01/2007 FE06.V2 NSC1.01 : delete table after update
                         END;
                 end;

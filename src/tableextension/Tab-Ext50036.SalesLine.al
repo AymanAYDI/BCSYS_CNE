@@ -1,4 +1,4 @@
-tableextension 50036 tableextension50036 extends "Sales Line"
+tableextension 50036 "BC6_SalesLine" extends "Sales Line"
 {
     // ------------------------------------------------------------------------
     // Prodware - www.prodware.fr
@@ -134,9 +134,9 @@ tableextension 50036 tableextension50036 extends "Sales Line"
     {
         modify("No.")
         {
-            TableRelation = IF (Type = CONST (" ")) "Standard Text"
+            TableRelation = IF (Type = CONST(" ")) "Standard Text"
             ELSE
-            IF (Type = CONST (G/L Account),
+            IF (Type = CONST(G/L Account),
                                      System-Created Entry=CONST(No)) "G/L Account" WHERE (Direct Posting=CONST(Yes),
                                                                                           Account Type=CONST(Posting),
                                                                                           Blocked=CONST(No))
@@ -1957,16 +1957,16 @@ tableextension 50036 tableextension50036 extends "Sales Line"
             ValidateReturnReasonCode(FIELDNO("Return Reason Code"));
             */
         //end;
-        field(56;"Recalculate Invoice Disc.";Boolean)
+        field(56; "BC6_Recalculate Invoice Disc."; Boolean)
         {
             Caption = 'Recalculate Invoice Disc.';
             Editable = false;
         }
-        field(84;"Tax Category";Code[10])
+        field(84; "BC6_Tax Category"; Code[10])
         {
             Caption = 'Tax Category';
         }
-        field(1700;"Deferral Code";Code[10])
+        field(1700; "BC6_Deferral Code"; Code[10])
         {
             Caption = 'Deferral Code';
             TableRelation = "Deferral Template"."Deferral Code";
@@ -1988,7 +1988,7 @@ tableextension 50036 tableextension50036 extends "Sales Line"
                       "Document Type","Document No.","Line No.","Deferral Code",SalesHeader."Posting Date");
             end;
         }
-        field(1702;"Returns Deferral Start Date";Date)
+        field(1702; "BC6_Returns Deferral Start Date"; Date)
         {
             Caption = 'Returns Deferral Start Date';
 
@@ -2006,7 +2006,7 @@ tableextension 50036 tableextension50036 extends "Sales Line"
                     SalesHeader."Currency Code");
             end;
         }
-        field(50000;"Document Date flow";Date)
+        field(50000; "BC6_Document Date flow"; Date)
         {
             CalcFormula = Lookup("Sales Header"."Document Date" WHERE (No.=FIELD(Document No.),
                                                                        Document Type=FIELD(Document Type)));
@@ -2014,32 +2014,32 @@ tableextension 50036 tableextension50036 extends "Sales Line"
             Description = 'CNE1.00';
             FieldClass = FlowField;
         }
-        field(50001;"To Prepare";Boolean)
+        field(50001; "BC6_To Prepare"; Boolean)
         {
             Caption = 'To Prepare';
             Description = 'CNE1.00';
         }
-        field(50002;"Purchase Receipt Date";Date)
+        field(50002; "BC6_Purchase Receipt Date"; Date)
         {
             Caption = 'Purchase Receipt Date';
             Description = 'CNE1.00';
         }
-        field(50003;"Qty. To Order";Decimal)
+        field(50003; "BC6_Qty. To Order"; Decimal)
         {
             Caption = 'Qty. To Order';
             Description = 'CNE1.00';
         }
-        field(50004;"Document Date";Date)
+        field(50004; "BC6_Document Date"; Date)
         {
             Description = 'CNE1.00';
         }
-        field(50005;"Forecast Inventory";Integer)
+        field(50005; "BC6_Forecast Inventory"; Integer)
         {
             Caption = 'Forecast Inventory';
             Description = 'CNE1.00';
             Editable = false;
         }
-        field(50007;"To Order";Boolean)
+        field(50007; "BC6_To Order"; Boolean)
         {
             Caption = 'To Order';
             Description = 'CNE2.05';
@@ -2055,24 +2055,24 @@ tableextension 50036 tableextension50036 extends "Sales Line"
                 //<<FEP-ACHAT-200706_18_A.002
             end;
         }
-        field(50008;"Promised Purchase Receipt Date";Boolean)
+        field(50008; "BC6_Promised Purchase Receipt Date"; Boolean)
         {
             Caption = 'Purchase Receipt Date';
             Description = 'CNE6.01';
         }
-        field(50020;"Customer Sales Profit Group";Code[10])
+        field(50020; "BC6_Customer Sales Profit Group"; Code[10])
         {
             Caption = 'Goupe Marge Vente Client';
             Description = 'GRPMARGECLT SM 15/10/06 NCS1.01 [FE024V1] Ajout du champ';
             TableRelation = "Customer Sales Profit Group";
         }
-        field(50021;"Item Sales Profit Group";Code[10])
+        field(50021; "BC6_Item Sales Profit Group"; Code[10])
         {
             Caption = 'Goupe Marge Vente Article';
             Description = 'GRPMARGEPROD SM 15/10/06 NCS1.01 [FE024V1] Ajout du champ';
             TableRelation = "Item Sales Profit Group";
         }
-        field(50022;"Public Price";Decimal)
+        field(50022; "BC6_Public Price"; Decimal)
         {
             AutoFormatType = 2;
             Caption = 'Tarif Public';
@@ -2080,23 +2080,23 @@ tableextension 50036 tableextension50036 extends "Sales Line"
             Description = 'TARIFPUB SM 15/10/06 NCS1.01 [FE024V1] Ajout du champ';
             Editable = false;
         }
-        field(50023;"External Document No.";Code[35])
+        field(50023; "BC6_External Document No."; Code[35])
         {
             Caption = 'External Document No.';
             Description = 'Pour Le Besoin De Regroupement BL par N° Doc Externe';
         }
-        field(50024;"Amount(LCY)";Decimal)
+        field(50024; "BC6_Amount(LCY)"; Decimal)
         {
             Caption = 'Amount (LCY)';
             Description = 'Pour Le Besoin De l''Etat Bible';
         }
-        field(50025;"Buy-from Vendor No.";Code[20])
+        field(50025; "BC6_Buy-from Vendor No."; Code[20])
         {
             Caption = 'Buy-from Vendor No.';
             Description = 'FE004 pour generer demande prix';
             TableRelation = Vendor;
         }
-        field(50026;"Purch. Order No.";Code[20])
+        field(50026; "BC6_Purch. Order No."; Code[20])
         {
             Caption = 'Purchase Order No.';
             Description = 'FE004';
@@ -2118,13 +2118,13 @@ tableextension 50036 tableextension50036 extends "Sales Line"
                 //<<FE004.4
             end;
         }
-        field(50027;"Purch. Line No.";Integer)
+        field(50027; "BC6_Purch. Line No."; Integer)
         {
             Caption = 'Purch. Order Line No.';
             Description = 'FE004';
             Editable = false;
         }
-        field(50028;"Purch. Document Type";Option)
+        field(50028; "BC6_Purch. Document Type"; Option)
         {
             Caption = 'Purch. Document Type';
             Description = 'CNE2.05';
@@ -2132,35 +2132,35 @@ tableextension 50036 tableextension50036 extends "Sales Line"
             OptionCaption = 'Quote,Order,Invoice,Credit Memo,Blanket Order,Return Order';
             OptionMembers = Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order";
         }
-        field(50029;"Ordered Quantity";Decimal)
+        field(50029; "BC6_Ordered Quantity"; Decimal)
         {
             Caption = 'Ordered Quantity';
             Description = 'FE001.V1';
         }
-        field(50030;"Qty Shipped";Decimal)
+        field(50030; "BC6_Qty Shipped"; Decimal)
         {
             Caption = 'Delivered Quantity';
             Description = 'FE001.V1';
             Enabled = false;
         }
-        field(50031;"Discount unit price";Decimal)
+        field(50031; "BC6_Discount unit price"; Decimal)
         {
             AutoFormatType = 2;
             Caption = 'Discount unit price excluding VAT';
             Editable = false;
         }
-        field(50032;"Availability Item";Decimal)
+        field(50032; "BC6_Availability Item"; Decimal)
         {
             Caption = 'Availability Item';
             Description = 'FE001.V1';
         }
-        field(50033;"Outstanding qty";Decimal)
+        field(50033; "BC6_Outstanding qty"; Decimal)
         {
             Caption = 'Outstanding Quantity';
             Description = 'FE001.V1';
             Enabled = false;
         }
-        field(50040;"Pick Qty.";Decimal)
+        field(50040; "BC6_Pick Qty."; Decimal)
         {
             BlankZero = true;
             CalcFormula = Sum("Warehouse Activity Line"."Qty. Outstanding (Base)" WHERE (Source Type=CONST(37),
@@ -2174,7 +2174,7 @@ tableextension 50036 tableextension50036 extends "Sales Line"
             Editable = false;
             FieldClass = FlowField;
         }
-        field(50041;"Purchase cost";Decimal)
+        field(50041; "BC6_Purchase cost"; Decimal)
         {
             AutoFormatType = 2;
             Caption = 'Purchase cost';
@@ -2223,63 +2223,63 @@ tableextension 50036 tableextension50036 extends "Sales Line"
                 //<<CNEIC : 06/2015
             end;
         }
-        field(50042;"Invoiced Date (Expected)";Date)
+        field(50042; "BC6_Invoiced Date (Expected)"; Date)
         {
             Caption = 'Date facturation prévue';
         }
-        field(50051;"Affect purchase order";Boolean)
+        field(50051; "BC6_Affect purchase order"; Boolean)
         {
             Caption = 'Affect purchase order';
         }
-        field(50052;"Order purchase affected";Boolean)
+        field(50052; "BC6_Order purchase affected"; Boolean)
         {
             Caption = 'Order purchase affected';
             Editable = false;
         }
-        field(50060;"Purchase No. Order Lien";Code[20])
+        field(50060; "BC6_Purchase No. Order Lien"; Code[20])
         {
             Caption = 'Purchase No. Order Lien';
             Description = 'CNEIC';
         }
-        field(50061;"Purchase No. Line Lien";Integer)
+        field(50061; "BC6_Purchase No. Line Lien"; Integer)
         {
             Caption = 'Purchase No. Line Lien';
             Description = 'CNEIC';
         }
-        field(50100;"Item Disc. Group";Code[10])
+        field(50100; "BC6_Item Disc. Group"; Code[10])
         {
             Caption = 'Groupe remise article';
             Description = 'CNE1.02';
             TableRelation = "Item Discount Group";
         }
-        field(50101;"Dispensation No.";Code[20])
+        field(50101; "BC6_Dispensation No."; Code[20])
         {
             Caption = 'N° dérogation';
             Description = 'CNE1.02';
         }
-        field(50102;"Additional Discount %";Decimal)
+        field(50102; "BC6_Additional Discount %"; Decimal)
         {
             Caption = '% remise complémentaire';
             Description = 'CNE1.02';
         }
-        field(50103;"Dispensed Purchase Cost";Decimal)
+        field(50103; "BC6_Dispensed Purchase Cost"; Decimal)
         {
             Caption = 'Coût d''achat dérogé';
             Description = 'CNE1.02';
         }
-        field(50104;"Standard Net Price";Decimal)
+        field(50104; "BC6_Standard Net Price"; Decimal)
         {
             Caption = 'Prix net standard';
             Description = 'CNE1.02';
         }
-        field(50120;"Return Order Type";Option)
+        field(50120; "BC6_Return Order Type"; Option)
         {
             Caption = 'Return Order Type';
             Description = 'BCSYS';
             OptionCaption = 'Location,SAV';
             OptionMembers = Location,SAV;
         }
-        field(50121;"Solution Code";Code[10])
+        field(50121; "BC6_Solution Code"; Code[10])
         {
             Caption = 'Solution Code';
             Description = 'BCSYS';
@@ -2288,22 +2288,22 @@ tableextension 50036 tableextension50036 extends "Sales Line"
                                 ELSE IF (Document Type=FILTER(Return Order),
                                          Return Order Type=FILTER(SAV)) "Return Solution" WHERE (Type=FILTER(SAV));
         }
-        field(50122;"Return Comment";Text[50])
+        field(50122; "BC6_Return Comment"; Text[50])
         {
             Caption = 'Return Comment';
             Description = 'BCSYS';
         }
-        field(50123;"Return Order-Shpt Sales Order";Code[20])
+        field(50123; "BC6_Return Order-Shpt Sales Order"; Code[20])
         {
             Caption = 'Return-Sales Order';
             Description = 'BCSYS';
         }
-        field(50124;"Series No.";Text[250])
+        field(50124; "BC6_Series No."; Text[250])
         {
             Caption = 'N° de série';
             Description = 'BCSYS';
         }
-        field(80800;"DEEE Category Code";Code[10])
+        field(80800; "BC6_DEEE Category Code"; Code[10])
         {
             Caption = 'DEEE Category Code';
             Description = 'DEEE1.00';
@@ -2316,7 +2316,7 @@ tableextension 50036 tableextension50036 extends "Sales Line"
                 //<<DEEE1.00
             end;
         }
-        field(80801;"DEEE Unit Price";Decimal)
+        field(80801; "BC6_DEEE Unit Price"; Decimal)
         {
             Caption = 'DEEE Unit Price';
             Description = 'DEEE1.00';
@@ -2347,7 +2347,7 @@ tableextension 50036 tableextension50036 extends "Sales Line"
                 //<<DEEE1.00  : calculate DEEE amount (LCY)
             end;
         }
-        field(80802;"DEEE HT Amount";Decimal)
+        field(80802; "BC6_DEEE HT Amount"; Decimal)
         {
             Caption = 'DEEE HT Amount';
             Description = 'DEEE1.00';
@@ -2374,38 +2374,38 @@ tableextension 50036 tableextension50036 extends "Sales Line"
                 //<<DEEE1.00  : calculate DEEE amount (LCY)
             end;
         }
-        field(80803;"DEEE Unit Price (LCY)";Decimal)
+        field(80803; "BC6_DEEE Unit Price (LCY)"; Decimal)
         {
             Caption = 'DEEE Unit Price (LCY)';
             Description = 'DEEE1.00';
             Editable = false;
         }
-        field(80804;"DEEE VAT Amount";Decimal)
+        field(80804; "BC6_DEEE VAT Amount"; Decimal)
         {
             Caption = 'DEEE VAT Amount';
             Description = 'DEEE1.00';
             Editable = false;
         }
-        field(80805;"DEEE TTC Amount";Decimal)
+        field(80805; "BC6_DEEE TTC Amount"; Decimal)
         {
             Caption = 'DEEE TTC Amount';
             Description = 'DEEE1.00';
             Editable = false;
         }
-        field(80806;"DEEE HT Amount (LCY)";Decimal)
+        field(80806; "BC6_DEEE HT Amount (LCY)"; Decimal)
         {
             Caption = 'DEEE HT Amount (LCY)';
             Description = 'DEEE1.00';
             Editable = false;
         }
-        field(80807;"Eco partner DEEE";Code[20])
+        field(80807; "BC6_Eco partner DEEE"; Code[20])
         {
             Caption = 'Eco partner DEEE';
             Description = 'DEEE1.00';
             Editable = false;
             TableRelation = Vendor;
         }
-        field(80808;"DEEE Amount (LCY) for Stat";Decimal)
+        field(80808; "BC6_DEEE Amount (LCY) for Stat"; Decimal)
         {
             Description = 'DEEE1.00';
         }

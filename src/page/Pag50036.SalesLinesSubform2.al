@@ -1,28 +1,17 @@
-page 50036 "Sales Lines Subform 2"
+page 50036 "BC6_Sales Lines Subform 2"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>DEEE1.00
-    // DEEE:JNPA 01/01/2007 : eco taxe
-    // 
-    // //>>CNE1.00
-    // FEP-ADVE-200706_18_B : MA 19/11/2007 :
-    //   - Add fields
-    // ------------------------------------------------------------------------
-
     Caption = 'Sales Lines Subform';
     Editable = false;
     MultipleNewLines = true;
     PageType = Card;
-    SourceTable = Table37;
-    SourceTableView = SORTING (Document Type, Bill-to Customer No., Currency Code);
+    SourceTable = "Sales Line";
+    SourceTableView = SORTING("Document Type", "Bill-to Customer No.", "Currency Code");
 
     layout
     {
         area(content)
         {
-            repeater()
+            repeater(Control1)
             {
                 field("Document No."; "Document No.")
                 {
@@ -195,7 +184,7 @@ page 50036 "Sales Lines Subform 2"
     trigger OnAfterGetRecord()
     begin
         "Document No.HideValue" := FALSE;
-        DocumentNoOnFormat;
+        DocumentNoOnFormat();
     end;
 
     trigger OnOpenPage()
@@ -204,12 +193,12 @@ page 50036 "Sales Lines Subform 2"
         CALCFIELDS("Document Date flow");
         REPEAT
             "Document Date" := "Document Date flow";
-        UNTIL Rec.NEXT = 0;
+        UNTIL Rec.NEXT() = 0;
         //SETCURRENTKEY("Document Type","No.");
     end;
 
     var
-        TempSalesLine: Record "37" temporary;
+        TempSalesLine: Record "Sales Line" temporary;
         [InDataSet]
         "Document No.HideValue": Boolean;
         [InDataSet]
@@ -217,9 +206,9 @@ page 50036 "Sales Lines Subform 2"
 
     local procedure IsFirstDocLine(): Boolean
     var
-        SalesLine: Record "37";
+        SalesLine: Record "Sales Line";
     begin
-        TempSalesLine.RESET;
+        TempSalesLine.RESET();
         TempSalesLine.COPYFILTERS(Rec);
         TempSalesLine.SETRANGE("Document Type", "Document Type");
         TempSalesLine.SETRANGE("Document No.", "Document No.");
@@ -229,14 +218,13 @@ page 50036 "Sales Lines Subform 2"
             SalesLine.SETRANGE("Document No.", "Document No.");
             SalesLine.FIND('-');
             TempSalesLine := SalesLine;
-            TempSalesLine.INSERT;
+            TempSalesLine.INSERT();
         END;
         IF "Line No." = TempSalesLine."Line No." THEN
             EXIT(TRUE);
     end;
 
-    [Scope('Internal')]
-    procedure GetSelectedLine(var FromSalesLine: Record "37")
+    procedure GetSelectedLine(var FromSalesLine: Record "Sales Line")
     begin
         FromSalesLine.COPY(Rec);
         CurrPage.SETSELECTIONFILTER(FromSalesLine);
@@ -244,7 +232,7 @@ page 50036 "Sales Lines Subform 2"
 
     local procedure DocumentNoOnFormat()
     begin
-        IF IsFirstDocLine THEN
+        IF IsFirstDocLine() THEN
             "Document No.Emphasize" := TRUE
         ELSE
             "Document No.HideValue" := TRUE;

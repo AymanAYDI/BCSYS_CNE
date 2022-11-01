@@ -1,23 +1,14 @@
-page 50017 "Purch. Rcpt. Lines Subform"
+page 50018 "BC6_Purch. Inv. Line Subform"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>CNE1.00
-    // FEP-ADVE-200706_18_B.001:MA 10/11/2007 : suivi historique
-    //             - Form Created
-    // ------------------------------------------------------------------------
-
-    Caption = 'Purch. Rcpt. Line';
+    Caption = 'Purchase Invoice Lines';
     PageType = List;
-    SaveValues = true;
-    SourceTable = Table121;
+    SourceTable = "Purch. Inv. Line";
 
     layout
     {
         area(content)
         {
-            repeater()
+            repeater(Control1)
             {
                 field("Document No."; "Document No.")
                 {
@@ -34,9 +25,6 @@ page 50017 "Purch. Rcpt. Lines Subform"
                 field("Expected Receipt Date"; "Expected Receipt Date")
                 {
                 }
-                field("Unit of Measure"; "Unit of Measure")
-                {
-                }
                 field(Quantity; Quantity)
                 {
                 }
@@ -49,13 +37,13 @@ page 50017 "Purch. Rcpt. Lines Subform"
                 field("VAT %"; "VAT %")
                 {
                 }
+                field("Line Discount Amount"; "Line Discount Amount")
+                {
+                }
+                field("Amount Including VAT"; "Amount Including VAT")
+                {
+                }
                 field("Unit Price (LCY)"; "Unit Price (LCY)")
-                {
-                }
-                field("Requested Receipt Date"; "Requested Receipt Date")
-                {
-                }
-                field("Promised Receipt Date"; "Promised Receipt Date")
                 {
                 }
             }
@@ -73,13 +61,9 @@ page 50017 "Purch. Rcpt. Lines Subform"
 
                 trigger OnAction()
                 begin
-
-                    //>>MIGRATION NAV 2013
-                    //CurrForm.PurchRcptline.FORM.GETRECORD(RecGPurchPostedRcpt);
-                    IF NOT RecGPurchPostedRcptHeader.GET("Document No.") THEN
+                    IF NOT RecGPurchInvHeader.GET("Document No.") THEN
                         EXIT;
-                    PAGE.RUN(PAGE::"Posted Purchase Receipt", RecGPurchPostedRcptHeader);
-                    //<<MIGRATION NAV 2013
+                    PAGE.RUN(PAGE::"Posted Purchase Invoice", RecGPurchInvHeader);
                 end;
             }
         }
@@ -88,7 +72,7 @@ page 50017 "Purch. Rcpt. Lines Subform"
     trigger OnAfterGetRecord()
     begin
         "Document No.HideValue" := FALSE;
-        DocumentNoOnFormat;
+        DocumentNoOnFormat();
     end;
 
     trigger OnOpenPage()
@@ -97,37 +81,37 @@ page 50017 "Purch. Rcpt. Lines Subform"
     end;
 
     var
-        TempPurchRcptLine: Record "121";
+        RecGPurchInvHeader: Record "Purch. Inv. Header";
+        TempPurchInvoice: Record "Purch. Inv. Line";
         [InDataSet]
         "Document No.HideValue": Boolean;
         [InDataSet]
         "Document No.Emphasize": Boolean;
         "-MIGNAV2013-": Integer;
-        RecGPurchPostedRcptHeader: Record "120";
 
-    [Scope('Internal')]
-    procedure IsFirstDocLine(): Boolean
+
+    procedure isFirstdocLine(): Boolean
     var
-        PurchRcptLine: Record "121";
+        PurchInvoice: Record "Purch. Inv. Line";
     begin
-        TempPurchRcptLine.RESET;
-        TempPurchRcptLine.COPYFILTERS(Rec);
-        TempPurchRcptLine.SETRANGE("Document No.", "Document No.");
-        IF NOT TempPurchRcptLine.FIND('-') THEN BEGIN
-            PurchRcptLine.COPYFILTERS(Rec);
-            PurchRcptLine.SETRANGE("Document No.", "Document No.");
-            PurchRcptLine.FIND('-');
-            TempPurchRcptLine := PurchRcptLine;
-            TempPurchRcptLine.INSERT;
+        TempPurchInvoice.RESET();
+        TempPurchInvoice.COPYFILTERS(Rec);
+        TempPurchInvoice.SETRANGE("Document No.", "Document No.");
+        IF NOT TempPurchInvoice.FIND('-') THEN BEGIN
+            PurchInvoice.COPYFILTERS(Rec);
+            PurchInvoice.SETRANGE("Document No.", "Document No.");
+            PurchInvoice.FIND('-');
+            TempPurchInvoice := PurchInvoice;
+            TempPurchInvoice.INSERT();
         END;
-        IF "Line No." = TempPurchRcptLine."Line No." THEN
+        IF "Line No." = TempPurchInvoice."Line No." THEN
             EXIT(TRUE);
     end;
 
     local procedure DocumentNoOnFormat()
     begin
         IF "Document No." <> '' THEN
-            IF IsFirstDocLine THEN
+            IF isFirstdocLine() THEN
                 "Document No.Emphasize" := TRUE
             ELSE
                 "Document No.HideValue" := TRUE;

@@ -17,18 +17,14 @@ tableextension 50072 "BC6_SalesLineDiscount" extends "Sales Line Discount"
             ELSE
             IF ("Sales Type" = CONST(Customer)) Customer
             ELSE
-            IF ("Sales Type" = CONST(Campaign)) Campaign
-            ELSE
-            IF ("Sales Type" = CONST(Customer Sales Profit Group)) "Customer Sales Profit Group";
-            Description = 'MARGEVENTE SM 15/10/06 NCS1.01 [FE024V1] Ajout Table Relation "Customer Sales Profit Group"';
+            IF ("Sales Type" = CONST(Campaign)) Campaign;
+            // ELSE
+            // IF ("Sales Type" = CONST("Customer Sales Profit Group")) "Customer Sales Profit Group"; TODO:
         }
         modify("Sales Type")
         {
             OptionCaption = 'Customer,Customer Disc. Group,All Customers,Campaign,Customer Sales Profit Group';
-
-            //Unsupported feature: Property Modification (OptionString) on ""Sales Type"(Field 13)".
-
-            Description = 'MARGEVENTE SM 15/10/06 NCS1.01 [FE024V1] Ajout OptionString"Customer Sales Profit Group"';
+            // OptionString = Customer,"Customer Disc. Group","All Customers",Campaign,"Customer Sales Profit Group"; TODO:
         }
         modify(Type)
         {
@@ -39,15 +35,13 @@ tableextension 50072 "BC6_SalesLineDiscount" extends "Sales Line Discount"
             Description = 'NEWTYPE';
         }
 
-      
+
         field(50000; "BC6_Profit %"; Decimal)
         {
-            Description = 'MARGEVENTE SM 15/10/06 NCS1.01 [FE024V1] Ajout champ';
         }
         field(50010; "BC6_Dispensation No."; Code[20])
         {
             Caption = 'N° dérogation';
-            Description = 'CNE1.04';
 
             trigger OnValidate()
             begin
@@ -57,7 +51,6 @@ tableextension 50072 "BC6_SalesLineDiscount" extends "Sales Line Discount"
         field(50011; "BC6_Added Discount %"; Decimal)
         {
             Caption = '% remise complémentaire';
-            Description = 'CNE1.04';
 
             trigger OnValidate()
             begin

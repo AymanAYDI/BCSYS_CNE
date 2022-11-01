@@ -5,9 +5,9 @@ codeunit 50000 "BC6_EventsMgt"
     [EventSubscriber(ObjectType::Table, Database::"VAT Amount Line", 'OnAfterCopyFromPurchInvLine', '', false, false)]
     local procedure T290_OnAfterCopyFromPurchInvLine_VATAmountLine(var VATAmountLine: Record "VAT Amount Line"; PurchInvLine: Record "Purch. Inv. Line")
     begin
-        VATAmountLine."DEEE HT Amount" := VATAmountLine."DEEE HT Amount" + PurchInvLine."BC6_DEEE HT Amount";
-        VATAmountLine."DEEE VAT Amount" := VATAmountLine."DEEE VAT Amount" + PurchInvLine."BC6_DEEE VAT Amount";
-        VATAmountLine."DEEE TTC Amount" := VATAmountLine."DEEE TTC Amount" + PurchInvLine."BC6_DEEE TTC Amount";
+        VATAmountLine."BC6_DEEE HT Amount" := VATAmountLine."BC6_DEEE HT Amount" + PurchInvLine."BC6_DEEE HT Amount";
+        VATAmountLine."BC6_DEEE VAT Amount" := VATAmountLine."BC6_DEEE VAT Amount" + PurchInvLine."BC6_DEEE VAT Amount";
+        VATAmountLine."BC6_DEEE TTC Amount" := VATAmountLine."BC6_DEEE TTC Amount" + PurchInvLine."BC6_DEEE TTC Amount";
         IF PurchInvLine."Allow Invoice Disc." THEN
             VATAmountLine."Inv. Disc. Base Amount" := VATAmountLine."Inv. Disc. Base Amount" + PurchInvLine."BC6_DEEE HT Amount";
     end;
@@ -15,9 +15,9 @@ codeunit 50000 "BC6_EventsMgt"
     [EventSubscriber(ObjectType::Table, Database::"VAT Amount Line", 'OnAfterCopyFromPurchCrMemoLine', '', false, false)]
     local procedure T290_OnAfterCopyFromPurchCrMemoLine_VATAmountLine(var VATAmountLine: Record "VAT Amount Line"; PurchCrMemoLine: Record "Purch. Cr. Memo Line")
     begin
-        VATAmountLine."DEEE HT Amount" := VATAmountLine."DEEE HT Amount" + PurchCrMemoLine."BC6_DEEE HT Amount";
-        VATAmountLine."DEEE VAT Amount" := VATAmountLine."DEEE VAT Amount" + PurchCrMemoLine."BC6_DEEE VAT Amount";
-        VATAmountLine."DEEE TTC Amount" := VATAmountLine."DEEE TTC Amount" + PurchCrMemoLine."BC6_DEEE TTC Amount";
+        VATAmountLine."BC6_DEEE HT Amount" := VATAmountLine."BC6_DEEE HT Amount" + PurchCrMemoLine."BC6_DEEE HT Amount";
+        VATAmountLine."BC6_DEEE VAT Amount" := VATAmountLine."BC6_DEEE VAT Amount" + PurchCrMemoLine."BC6_DEEE VAT Amount";
+        VATAmountLine."BC6_DEEE TTC Amount" := VATAmountLine."BC6_DEEE TTC Amount" + PurchCrMemoLine."BC6_DEEE TTC Amount";
 
         IF PurchCrMemoLine."Allow Invoice Disc." THEN
             VATAmountLine."Inv. Disc. Base Amount" := PurchCrMemoLine."Line Amount";
@@ -112,6 +112,50 @@ codeunit 50000 "BC6_EventsMgt"
 
     end;
 
+    [EventSubscriber(ObjectType::Table, Database::"VAT Amount Line", 'OnInsertLineOnBeforeModify', '', false, false)]
 
+    local procedure OnInsertLineOnBeforeModify(var VATAmountLine: Record "VAT Amount Line"; FromVATAmountLine: Record "VAT Amount Line")
+    begin
+        VATAmountLine."BC6_DEEE HT Amount" := VATAmountLine."BC6_DEEE HT Amount" + FromVATAmountLine."BC6_DEEE HT Amount";
+        VATAmountLine."BC6_DEEE VAT Amount" := VATAmountLine."BC6_DEEE VAT Amount" + FromVATAmountLine."BC6_DEEE VAT Amount";
+        VATAmountLine."BC6_DEEE TTC Amount" := VATAmountLine."BC6_DEEE TTC Amount" + FromVATAmountLine."BC6_DEEE TTC Amount";
+
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"VAT Amount Line", 'OnInsertLineOnBeforeInsert', '', false, false)]
+
+    local procedure OnInsertLineOnBeforeInsert(var VATAmountLine: Record "VAT Amount Line"; var FromVATAmountLine: Record "VAT Amount Line")
+    begin
+        VATAmountLine."BC6_DEEE HT Amount" := FromVATAmountLine."BC6_DEEE HT Amount";
+        VATAmountLine."BC6_DEEE VAT Amount" := FromVATAmountLine."BC6_DEEE VAT Amount";
+        VATAmountLine."BC6_DEEE TTC Amount" := FromVATAmountLine."BC6_DEEE TTC Amount";
+    end;
+
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnValidateSellToCustomerNoOnBeforeCheckBlockedCustOnDocs', '', false, false)]
+
+    local procedure OnValidateSellToCustomerNoOnBeforeCheckBlockedCustOnDocs(var SalesHeader: Record "Sales Header"; var Cust: Record Customer; var IsHandled: Boolean)
+    var
+        RecGCommentLine: Record 97;
+        FrmGLignesCommentaires: Page 124;
+        RecGParamNavi: Record 50004;
+    begin
+        IF CurrFieldNo <> 0 THEN
+            IF RecGParamNavi.FIND THEN BEGIN
+                IF RecGParamNavi."Used Post-it" <> '' THEN BEGIN
+                    RecGCommentLine.SETRANGE(Code, RecGParamNavi."Used Post-it");
+                    RecGCommentLine.SETRANGE("No.", "Sell-to Customer No.");
+                    IF RecGCommentLine.FIND('-') THEN BEGIN
+                        FrmGLignesCommentaires.EDITABLE(FALSE);
+                        FrmGLignesCommentaires.CAPTION('Post-it');
+                        FrmGLignesCommentaires.SETTABLEVIEW(RecGCommentLine);
+                        IF FrmGLignesCommentaires.RUNMODAL = ACTION::OK THEN;
+                    END;
+                END;
+                RecGCommentLine.SETRANGE(Code, '');
+            END;
+
+
+    end;
 
 }

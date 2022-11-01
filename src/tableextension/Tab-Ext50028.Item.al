@@ -16,8 +16,8 @@ tableextension 50028 "BC6_Item" extends Item
                         "BC6_Unit Price Includes VAT" := 0;
                         GetGLSetup;
                         InvSetup.GET;
-                        IF InvSetup."VAT Bus. Posting Gr. (Price)" <> '' THEN BEGIN
-                            VATPostingSetup2.GET(InvSetup."VAT Bus. Posting Gr. (Price)", "VAT Prod. Posting Group");
+                        IF InvSetup."BC6_VAT Bus. Post. Gr. (Price)" <> '' THEN BEGIN
+                            VATPostingSetup2.GET(InvSetup."BC6_VAT Bus. Post. Gr. (Price)", "VAT Prod. Posting Group");
                             "BC6_Unit Price Includes VAT" := ROUND("Unit Price" * (1 + VATPostingSetup2."VAT %" / 100), GLSetup."Unit-Amount Rounding Precision")
                         END;
                     END;

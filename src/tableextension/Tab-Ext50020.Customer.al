@@ -199,7 +199,7 @@ tableextension 50020 "BC6_Customer" extends Customer
                 RecLDetCustLedgEntry.SETRANGE("Cust. Ledger Entry No.", RecLCustLedgEntry."Entry No.");
                 IF RecLDetCustLedgEntry.FINDSET(TRUE, FALSE) THEN
                     REPEAT
-                        RecLDetCustLedgEntry."Pay-to Customer No." := CodLPayToNo;
+                        RecLDetCustLedgEntry."BC6_Pay-to Customer No." := CodLPayToNo;
                         RecLDetCustLedgEntry.MODIFY();
                     UNTIL RecLDetCustLedgEntry.NEXT() = 0;
             UNTIL RecLCustLedgEntry.NEXT() = 0;

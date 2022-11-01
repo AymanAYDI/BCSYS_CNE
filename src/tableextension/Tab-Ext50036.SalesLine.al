@@ -1,142 +1,14 @@
-tableextension 50036 tableextension50036 extends "Sales Line"
+tableextension 50036 "BC6_SalesLine" extends "Sales Line"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // //VENTES BRRI 01.08.2006 COR001 [14] Ajout TextConstant TextDate
-    // //MARGE  SOBH           NSC1.01 [024] Marge Ventes
-    // //GRPMARGEVENTE SM 15/10/06 NCS1.01 [FE024V1] Ajout du champ 50020,50021 et CALCULE des marges vente
-    // //TARIFPUB SM 15/10/06 NCS1.01 [FE024V1] Ajout du champ 50022 Tarif public + ramener le prix depuis la table Prix d'achat 7012
-    // //Demande de prix FE004 06/12/2006 ajout du champ 50025 "Buy-from Vendor No."
-    //                                    ajout de la clef "Document Type","Buy-from Vendor No."
-    //                   FE004.2 11/12/2006 ajout champ 50026 à 50028 et controle sur delete
-    // // blocage devis FE015 FLGR 07/12/2006
-    // //GESTION_REMISE FG 06/12/06 NSC1.01
-    // //Process achat vente FE25/26 FLGR 14/12/2006 modif gestion prix public ajout fonction calcprofit et calcunitprice;
-    // //BIBLE FG 19/12/06 NSC1.01 Création clé Document Type,Document No.,Sell-to Customer No.,No.
-    // //PRIX_VENTE_REMISE FG 20/12/06 NSC1.01
-    // //COUT_ACHAT FG 20/12/06 NSC1.01
-    // //CASC 12/01/2007 NSC1.01 : To authorize 5 figures after the comma on fields Purchase cost and Public Price
-    // //Propagation CASC 18/01/2007 NSC1.01 : Add fields
-    //                                         50024 Amount(LCY)
-    //                                         50029 Ordered Quantity
-    // //FE004.4 ajout lookup sur commande d'achat liée à la ligne.
-    // 
-    // //>>DEEE1.00
-    // DEEE:JNPA 01/01/2007 : eco taxe
-    //           - Add fields 80800, 80002..80007
-    //           - OnInsert()
-    //           - No. - OnValidate()
-    //           - Quantity - OnValidate()
-    //           - CalcVATAmountLines
-    //           - Add function CalculateDEEE
-    // //>>CNE1.00
-    // FEP-ADVE-200706_18_B.001:MA 09/11/2007 : - Suivi des historiques
-    //                                          - Add key "No."
-    // 
-    // //TODOLIST point 49  FLGR 07/02/2007 : autorisation modification du cout d'achat => purchase cost : editable = true !
-    //                                        bien avoir conscience que si un doc d'achat et lié, c'est la valeur du doc d'achat
-    //                                        qui serat mise à jour si on lance la cmd / devis, si il y a validation
-    //                                        des champs qte prix uitaire , etc... ou modification de l'article etc ...
-    //                                        et que par conséquent la saisie manuelle serat perdue
-    // 
-    // //TODOLIST point 54 FLGR 07/02/2007 : modif affichage des decimaux => modification format des champs 50022, 50031 et 50041
-    // //>>DEEE1.01:FLGR 19/02/2007 correct bug in quotes with customer template
-    // //VERSIONNING FG 28/02/07 suite au Merge
-    // 
-    // //>>NSC2.01
-    // FE032.001:PA 21/05/2007 : Quantity Modification
-    //                           - Don't modify the Price, Discount %, Merge %, Purchase Cost When quantity modification.
-    // 
-    // //>>NSC02.02
-    // TDL94.001:PA 24/05/2007 : Correct DEEE Stat
-    // 
-    // //>>CNE1.00
-    // FEP-ACHAT-200706_18_A.001:MA 08/11/2007 : Achats groupés
-    //                                           - Add Field 50001 : "To Prepare"
-    // 
-    // FEP-ACHAT-200706_18_A.001:MA 09/11/2007 : Achats groupés
-    //                                           - Add Field 50002 : "Purchase Receipt Date"
-    // 
-    // FEP-ACHAT-200706_18_A.001:MA 12/11/2007 : Achats groupés
-    //                                           - Add Field 50003 : "Qty. To Order"
-    // 
-    // //>>CNE1.00
-    // FEP-ACHAT-200706_18_A.001:MA 13/11/2007 : Achats groupés
-    //                                           - Add Field 50005 : "Forecast Inventory"
-    // 
-    // //>>CNE1.00
-    // FEP-ACHAT-200706_18_A.001:MA 15/11/2007 : Achats groupés
-    //                                           - Add Keys :
-    //                                               "Buy-from Vendor No.","Shipment Date"
-    //                                               "Buy-from Vendor No.","No.","Shipment Date"
-    // 
-    // //>>CNE1.00
-    // FEP-ACHAT-200706_18_A.001:MA 19/11/2007 : Achats groupés
-    //                                           - Add Field 50007 : "To Order"
-    // 
-    // //CNE2.05
-    // FEP-ACHAT-200706_18_A.001 09/01/2008 : - Change CaptionML
-    // FEP-ACHAT-200706_18_A.002 15/01/2008 : - Add test if a Purchase Order always existing for this sales line.
-    //                                        - Add key
-    //                                          "Buy-from Vendor No.","Qty. To Order","To Order"
-    // 
-    // //>>SUP_CNE1.00.00.01
-    // I005590.001 : DO 02/04/2008 : Modify Qty to Order affectation
-    // 
-    // 
-    // //>>CN1.04
-    //   FEP_ADVE_200711_21_1-DEROGATOIRE:SOBI  24/07/08 : - calc line discount %
-    // 
-    // 
-    // //>>CNE3.00
-    //    CorrectionSOBI 30/09/08 : - Change Qty To order Affectation
-    // 
-    // //>> MODIF HL 28/01/2010 SU-LALE cf appel I016274
-    //                        Ajout clé de tri To Order,Buy-from Vendor No.,No.,Purchase cost,Qty. To Order
-    // 
-    // //>> CNE4.01
-    // B:FE06 01.09.2011 : Sales Order Line - Show Quantity on Invt Pick List
-    //                   - Add Field : 50040 Pick Qty
-    // 
-    // //>> CNE4.02
-    // C:FE09 05.10.2011 : Availability Customer Area - Shipping Bin
-    //                   - Mod Function GetDefaultBin
-    // 
-    // //>> CNE6.01
-    // TDL:EC11 12.12.2014 : Not Group By Item
-    //                       - Add Key To Order,Buy-from Vendor No.,Document No.,Line No.,Qty. To Order
-    // 
-    // //>>MODIF HL
-    // TI271161 DO.GEPO 24/03/2015 : add new key "Shimpment Date","Document Type","Sell-to Customer No.","Document No.","Line No."
-    // 
-    // 
-    // ---------------------------------------------------------------------------------------------------------------------------------
-    // //>>PWD(SPI) : le 01/06/15 : Temporaire : on force le fournisseur CNE pour le nouvelle sté.
-    // //>>CNEIC : 06/2015 : Ajout des champs 50060 et 50061 pour le lien avec la ligne de commande Achat.
-    //                       Validate sur le champ "Purchase cost" lors du passage du Item."Standard Cost"
-    //                       Si sté non filiale + commande pour IC ==> Prix unitaire = Prix d'achat.
-    // 
-    // //>>TI301087 : RO : 08/12/2015
-    //                     - Add Keys
-    //                              Document Type,Type,Outstanding Quantity,Purchasing Code
-    //                              Document Type,Type,Outstanding Quantity,Purchasing Code,Drop Shipment
-    //                              Document Type,Type,Outstanding Quantity,Purchasing Code,Buy-from Vendor No.,Shipment Date
-    //                              Document Type,Type,Outstanding Quantity,Purchasing Code,Drop Shipment,Buy-from Vendor No.,No.,Shipment Date
-    //                              Document Type,Type,Outstanding Quantity,Purchasing Code,Buy-from Vendor No.,No.,Shipment Date
-    //                              Document Type,Type,Outstanding Quantity,Purchasing Code,Drop Shipment,Buy-from Vendor No.,Shipment Date
-    // 
-    // //BCSYS 260418 ajout date facturation prévue = shipment date
     LookupPageID = 516;
     DrillDownPageID = 516;
     fields
     {
         modify("No.")
         {
-            TableRelation = IF (Type = CONST (" ")) "Standard Text"
+            TableRelation = IF (Type = CONST(" ")) "Standard Text"
             ELSE
-            IF (Type = CONST (G/L Account),
+            IF (Type = CONST(G/L Account),
                                      System-Created Entry=CONST(No)) "G/L Account" WHERE (Direct Posting=CONST(Yes),
                                                                                           Account Type=CONST(Posting),
                                                                                           Blocked=CONST(No))
@@ -147,7 +19,6 @@ tableextension 50036 tableextension50036 extends "Sales Line"
                                                                                                    ELSE IF (Type=CONST(Fixed Asset)) "Fixed Asset"
                                                                                                    ELSE IF (Type=CONST("Charge (Item)")) "Item Charge";
 
-            //Unsupported feature: Property Insertion (ValidateTableRelation) on ""No."(Field 6)".
 
             CaptionClass = GetCaptionClass(FIELDNO("No."));
         }
@@ -157,7 +28,6 @@ tableextension 50036 tableextension50036 extends "Sales Line"
                             ELSE IF (Type=CONST(Fixed Asset)) "FA Posting Group";
         }
 
-        //Unsupported feature: Property Insertion (AccessByPermission) on ""Shipment Date"(Field 10)".
 
         modify(Description)
         {
@@ -173,19 +43,12 @@ tableextension 50036 tableextension50036 extends "Sales Line"
                                                                                               ELSE IF (Type=CONST(Fixed Asset)) "Fixed Asset"
                                                                                               ELSE IF (Type=CONST("Charge (Item)")) "Item Charge";
 
-            //Unsupported feature: Property Insertion (ValidateTableRelation) on "Description(Field 11)".
 
         }
         modify("Description 2")
         {
             Caption = 'Description 2';
         }
-
-        //Unsupported feature: Property Insertion (AccessByPermission) on ""Qty. to Ship"(Field 18)".
-
-
-        //Unsupported feature: Property Insertion (AccessByPermission) on ""Appl.-to Item Entry"(Field 38)".
-
         modify("Shortcut Dimension 1 Code")
         {
             TableRelation = "Dimension Value".Code WHERE (Global Dimension No.=CONST(1),
@@ -1957,16 +1820,16 @@ tableextension 50036 tableextension50036 extends "Sales Line"
             ValidateReturnReasonCode(FIELDNO("Return Reason Code"));
             */
         //end;
-        field(56;"Recalculate Invoice Disc.";Boolean)
+        field(56; "BC6_Recalculate Invoice Disc."; Boolean)
         {
             Caption = 'Recalculate Invoice Disc.';
             Editable = false;
         }
-        field(84;"Tax Category";Code[10])
+        field(84; "BC6_Tax Category"; Code[10])
         {
             Caption = 'Tax Category';
         }
-        field(1700;"Deferral Code";Code[10])
+        field(1700; "BC6_Deferral Code"; Code[10])
         {
             Caption = 'Deferral Code';
             TableRelation = "Deferral Template"."Deferral Code";
@@ -1988,7 +1851,7 @@ tableextension 50036 tableextension50036 extends "Sales Line"
                       "Document Type","Document No.","Line No.","Deferral Code",SalesHeader."Posting Date");
             end;
         }
-        field(1702;"Returns Deferral Start Date";Date)
+        field(1702; "BC6_Returns Deferral Start Date"; Date)
         {
             Caption = 'Returns Deferral Start Date';
 
@@ -2006,7 +1869,7 @@ tableextension 50036 tableextension50036 extends "Sales Line"
                     SalesHeader."Currency Code");
             end;
         }
-        field(50000;"Document Date flow";Date)
+        field(50000; "BC6_Document Date flow"; Date)
         {
             CalcFormula = Lookup("Sales Header"."Document Date" WHERE (No.=FIELD(Document No.),
                                                                        Document Type=FIELD(Document Type)));
@@ -2014,32 +1877,32 @@ tableextension 50036 tableextension50036 extends "Sales Line"
             Description = 'CNE1.00';
             FieldClass = FlowField;
         }
-        field(50001;"To Prepare";Boolean)
+        field(50001; "BC6_To Prepare"; Boolean)
         {
             Caption = 'To Prepare';
             Description = 'CNE1.00';
         }
-        field(50002;"Purchase Receipt Date";Date)
+        field(50002; "BC6_Purchase Receipt Date"; Date)
         {
             Caption = 'Purchase Receipt Date';
             Description = 'CNE1.00';
         }
-        field(50003;"Qty. To Order";Decimal)
+        field(50003; "BC6_Qty. To Order"; Decimal)
         {
             Caption = 'Qty. To Order';
             Description = 'CNE1.00';
         }
-        field(50004;"Document Date";Date)
+        field(50004; "BC6_Document Date"; Date)
         {
             Description = 'CNE1.00';
         }
-        field(50005;"Forecast Inventory";Integer)
+        field(50005; "BC6_Forecast Inventory"; Integer)
         {
             Caption = 'Forecast Inventory';
             Description = 'CNE1.00';
             Editable = false;
         }
-        field(50007;"To Order";Boolean)
+        field(50007; "BC6_To Order"; Boolean)
         {
             Caption = 'To Order';
             Description = 'CNE2.05';
@@ -2055,24 +1918,24 @@ tableextension 50036 tableextension50036 extends "Sales Line"
                 //<<FEP-ACHAT-200706_18_A.002
             end;
         }
-        field(50008;"Promised Purchase Receipt Date";Boolean)
+        field(50008; "BC6_Promised Purchase Receipt Date"; Boolean)
         {
             Caption = 'Purchase Receipt Date';
             Description = 'CNE6.01';
         }
-        field(50020;"Customer Sales Profit Group";Code[10])
+        field(50020; "BC6_Customer Sales Profit Group"; Code[10])
         {
             Caption = 'Goupe Marge Vente Client';
             Description = 'GRPMARGECLT SM 15/10/06 NCS1.01 [FE024V1] Ajout du champ';
             TableRelation = "Customer Sales Profit Group";
         }
-        field(50021;"Item Sales Profit Group";Code[10])
+        field(50021; "BC6_Item Sales Profit Group"; Code[10])
         {
             Caption = 'Goupe Marge Vente Article';
             Description = 'GRPMARGEPROD SM 15/10/06 NCS1.01 [FE024V1] Ajout du champ';
             TableRelation = "Item Sales Profit Group";
         }
-        field(50022;"Public Price";Decimal)
+        field(50022; "BC6_Public Price"; Decimal)
         {
             AutoFormatType = 2;
             Caption = 'Tarif Public';
@@ -2080,23 +1943,23 @@ tableextension 50036 tableextension50036 extends "Sales Line"
             Description = 'TARIFPUB SM 15/10/06 NCS1.01 [FE024V1] Ajout du champ';
             Editable = false;
         }
-        field(50023;"External Document No.";Code[35])
+        field(50023; "BC6_External Document No."; Code[35])
         {
             Caption = 'External Document No.';
             Description = 'Pour Le Besoin De Regroupement BL par N° Doc Externe';
         }
-        field(50024;"Amount(LCY)";Decimal)
+        field(50024; "BC6_Amount(LCY)"; Decimal)
         {
             Caption = 'Amount (LCY)';
             Description = 'Pour Le Besoin De l''Etat Bible';
         }
-        field(50025;"Buy-from Vendor No.";Code[20])
+        field(50025; "BC6_Buy-from Vendor No."; Code[20])
         {
             Caption = 'Buy-from Vendor No.';
             Description = 'FE004 pour generer demande prix';
             TableRelation = Vendor;
         }
-        field(50026;"Purch. Order No.";Code[20])
+        field(50026; "BC6_Purch. Order No."; Code[20])
         {
             Caption = 'Purchase Order No.';
             Description = 'FE004';
@@ -2118,13 +1981,13 @@ tableextension 50036 tableextension50036 extends "Sales Line"
                 //<<FE004.4
             end;
         }
-        field(50027;"Purch. Line No.";Integer)
+        field(50027; "BC6_Purch. Line No."; Integer)
         {
             Caption = 'Purch. Order Line No.';
             Description = 'FE004';
             Editable = false;
         }
-        field(50028;"Purch. Document Type";Option)
+        field(50028; "BC6_Purch. Document Type"; Option)
         {
             Caption = 'Purch. Document Type';
             Description = 'CNE2.05';
@@ -2132,35 +1995,35 @@ tableextension 50036 tableextension50036 extends "Sales Line"
             OptionCaption = 'Quote,Order,Invoice,Credit Memo,Blanket Order,Return Order';
             OptionMembers = Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order";
         }
-        field(50029;"Ordered Quantity";Decimal)
+        field(50029; "BC6_Ordered Quantity"; Decimal)
         {
             Caption = 'Ordered Quantity';
             Description = 'FE001.V1';
         }
-        field(50030;"Qty Shipped";Decimal)
+        field(50030; "BC6_Qty Shipped"; Decimal)
         {
             Caption = 'Delivered Quantity';
             Description = 'FE001.V1';
             Enabled = false;
         }
-        field(50031;"Discount unit price";Decimal)
+        field(50031; "BC6_Discount unit price"; Decimal)
         {
             AutoFormatType = 2;
             Caption = 'Discount unit price excluding VAT';
             Editable = false;
         }
-        field(50032;"Availability Item";Decimal)
+        field(50032; "BC6_Availability Item"; Decimal)
         {
             Caption = 'Availability Item';
             Description = 'FE001.V1';
         }
-        field(50033;"Outstanding qty";Decimal)
+        field(50033; "BC6_Outstanding qty"; Decimal)
         {
             Caption = 'Outstanding Quantity';
             Description = 'FE001.V1';
             Enabled = false;
         }
-        field(50040;"Pick Qty.";Decimal)
+        field(50040; "BC6_Pick Qty."; Decimal)
         {
             BlankZero = true;
             CalcFormula = Sum("Warehouse Activity Line"."Qty. Outstanding (Base)" WHERE (Source Type=CONST(37),
@@ -2174,7 +2037,7 @@ tableextension 50036 tableextension50036 extends "Sales Line"
             Editable = false;
             FieldClass = FlowField;
         }
-        field(50041;"Purchase cost";Decimal)
+        field(50041; "BC6_Purchase cost"; Decimal)
         {
             AutoFormatType = 2;
             Caption = 'Purchase cost';
@@ -2223,63 +2086,63 @@ tableextension 50036 tableextension50036 extends "Sales Line"
                 //<<CNEIC : 06/2015
             end;
         }
-        field(50042;"Invoiced Date (Expected)";Date)
+        field(50042; "BC6_Invoiced Date (Expected)"; Date)
         {
             Caption = 'Date facturation prévue';
         }
-        field(50051;"Affect purchase order";Boolean)
+        field(50051; "BC6_Affect purchase order"; Boolean)
         {
             Caption = 'Affect purchase order';
         }
-        field(50052;"Order purchase affected";Boolean)
+        field(50052; "BC6_Order purchase affected"; Boolean)
         {
             Caption = 'Order purchase affected';
             Editable = false;
         }
-        field(50060;"Purchase No. Order Lien";Code[20])
+        field(50060; "BC6_Purchase No. Order Lien"; Code[20])
         {
             Caption = 'Purchase No. Order Lien';
             Description = 'CNEIC';
         }
-        field(50061;"Purchase No. Line Lien";Integer)
+        field(50061; "BC6_Purchase No. Line Lien"; Integer)
         {
             Caption = 'Purchase No. Line Lien';
             Description = 'CNEIC';
         }
-        field(50100;"Item Disc. Group";Code[10])
+        field(50100; "BC6_Item Disc. Group"; Code[10])
         {
             Caption = 'Groupe remise article';
             Description = 'CNE1.02';
             TableRelation = "Item Discount Group";
         }
-        field(50101;"Dispensation No.";Code[20])
+        field(50101; "BC6_Dispensation No."; Code[20])
         {
             Caption = 'N° dérogation';
             Description = 'CNE1.02';
         }
-        field(50102;"Additional Discount %";Decimal)
+        field(50102; "BC6_Additional Discount %"; Decimal)
         {
             Caption = '% remise complémentaire';
             Description = 'CNE1.02';
         }
-        field(50103;"Dispensed Purchase Cost";Decimal)
+        field(50103; "BC6_Dispensed Purchase Cost"; Decimal)
         {
             Caption = 'Coût d''achat dérogé';
             Description = 'CNE1.02';
         }
-        field(50104;"Standard Net Price";Decimal)
+        field(50104; "BC6_Standard Net Price"; Decimal)
         {
             Caption = 'Prix net standard';
             Description = 'CNE1.02';
         }
-        field(50120;"Return Order Type";Option)
+        field(50120; "BC6_Return Order Type"; Option)
         {
             Caption = 'Return Order Type';
             Description = 'BCSYS';
             OptionCaption = 'Location,SAV';
             OptionMembers = Location,SAV;
         }
-        field(50121;"Solution Code";Code[10])
+        field(50121; "BC6_Solution Code"; Code[10])
         {
             Caption = 'Solution Code';
             Description = 'BCSYS';
@@ -2288,22 +2151,22 @@ tableextension 50036 tableextension50036 extends "Sales Line"
                                 ELSE IF (Document Type=FILTER(Return Order),
                                          Return Order Type=FILTER(SAV)) "Return Solution" WHERE (Type=FILTER(SAV));
         }
-        field(50122;"Return Comment";Text[50])
+        field(50122; "BC6_Return Comment"; Text[50])
         {
             Caption = 'Return Comment';
             Description = 'BCSYS';
         }
-        field(50123;"Return Order-Shpt Sales Order";Code[20])
+        field(50123; "BC6_Return Order-Shpt Sales Order"; Code[20])
         {
             Caption = 'Return-Sales Order';
             Description = 'BCSYS';
         }
-        field(50124;"Series No.";Text[250])
+        field(50124; "BC6_Series No."; Text[250])
         {
             Caption = 'N° de série';
             Description = 'BCSYS';
         }
-        field(80800;"DEEE Category Code";Code[10])
+        field(80800; "BC6_DEEE Category Code"; Code[10])
         {
             Caption = 'DEEE Category Code';
             Description = 'DEEE1.00';
@@ -2316,7 +2179,7 @@ tableextension 50036 tableextension50036 extends "Sales Line"
                 //<<DEEE1.00
             end;
         }
-        field(80801;"DEEE Unit Price";Decimal)
+        field(80801; "BC6_DEEE Unit Price"; Decimal)
         {
             Caption = 'DEEE Unit Price';
             Description = 'DEEE1.00';
@@ -2347,7 +2210,7 @@ tableextension 50036 tableextension50036 extends "Sales Line"
                 //<<DEEE1.00  : calculate DEEE amount (LCY)
             end;
         }
-        field(80802;"DEEE HT Amount";Decimal)
+        field(80802; "BC6_DEEE HT Amount"; Decimal)
         {
             Caption = 'DEEE HT Amount';
             Description = 'DEEE1.00';
@@ -2374,38 +2237,38 @@ tableextension 50036 tableextension50036 extends "Sales Line"
                 //<<DEEE1.00  : calculate DEEE amount (LCY)
             end;
         }
-        field(80803;"DEEE Unit Price (LCY)";Decimal)
+        field(80803; "BC6_DEEE Unit Price (LCY)"; Decimal)
         {
             Caption = 'DEEE Unit Price (LCY)';
             Description = 'DEEE1.00';
             Editable = false;
         }
-        field(80804;"DEEE VAT Amount";Decimal)
+        field(80804; "BC6_DEEE VAT Amount"; Decimal)
         {
             Caption = 'DEEE VAT Amount';
             Description = 'DEEE1.00';
             Editable = false;
         }
-        field(80805;"DEEE TTC Amount";Decimal)
+        field(80805; "BC6_DEEE TTC Amount"; Decimal)
         {
             Caption = 'DEEE TTC Amount';
             Description = 'DEEE1.00';
             Editable = false;
         }
-        field(80806;"DEEE HT Amount (LCY)";Decimal)
+        field(80806; "BC6_DEEE HT Amount (LCY)"; Decimal)
         {
             Caption = 'DEEE HT Amount (LCY)';
             Description = 'DEEE1.00';
             Editable = false;
         }
-        field(80807;"Eco partner DEEE";Code[20])
+        field(80807; "BC6_Eco partner DEEE"; Code[20])
         {
             Caption = 'Eco partner DEEE';
             Description = 'DEEE1.00';
             Editable = false;
             TableRelation = Vendor;
         }
-        field(80808;"DEEE Amount (LCY) for Stat";Decimal)
+        field(80808; "BC6_DEEE Amount (LCY) for Stat"; Decimal)
         {
             Description = 'DEEE1.00';
         }

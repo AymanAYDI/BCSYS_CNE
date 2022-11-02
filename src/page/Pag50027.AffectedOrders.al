@@ -1,26 +1,14 @@
-page 50027 "Affected Orders"
+page 50027 "BC6_Affected Orders"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // 
-    // //>>CNE1.00
-    // FEP-ACHAT-200706_18_A.001:MA 16/11/2007 : Achats groupés
-    //                                           - Creation
-    // 
-    // //>>CNE2.05
-    // FEP-ACHAT-200706_18_A.002:LY 23/01/2008 : add function Displayorder
-    // ------------------------------------------------------------------------
-
     Caption = 'Affected Orders';
     PageType = List;
-    SourceTable = Table37;
+    SourceTable = "Sales Line";
 
     layout
     {
         area(content)
         {
-            repeater()
+            repeater(Control1)
             {
                 field("Document No."; "Document No.")
                 {
@@ -30,8 +18,7 @@ page 50027 "Affected Orders"
                 {
                     Caption = 'Customer No.';
                 }
-                field(RecGCustomer.Name;
-                    RecGCustomer.Name)
+                field("Customer Name"; RecGCustomer.Name)
                 {
                     Caption = 'Customer Name';
                 }
@@ -67,7 +54,7 @@ page 50027 "Affected Orders"
 
                 trigger OnAction()
                 begin
-                    DisplayOrder;
+                    DisplayOrder();
                 end;
             }
             action("Imprimer bon préparation")
@@ -79,12 +66,12 @@ page 50027 "Affected Orders"
 
                 trigger OnAction()
                 begin
-                    RecGSalesHeader.RESET;
+                    RecGSalesHeader.RESET();
                     RecGSalesHeader.SETRANGE(RecGSalesHeader."Document Type", "Document Type");
                     RecGSalesHeader.SETRANGE(RecGSalesHeader."No.", "Document No.");
                     IF RecGSalesHeader.FIND('-') THEN;
 
-                    REPORT.RUNMODAL(REPORT::"Preparation NAVIDIIGEST", TRUE, FALSE, RecGSalesHeader);
+                    // REPORT.RUNMODAL(REPORT::"Preparation NAVIDIIGEST", TRUE, FALSE, RecGSalesHeader); TODO:
                 end;
             }
         }
@@ -92,7 +79,7 @@ page 50027 "Affected Orders"
 
     trigger OnAfterGetRecord()
     begin
-        RecGCustomer.RESET;
+        RecGCustomer.RESET();
         RecGCustomer.SETCURRENTKEY("No.");
         IF RecGCustomer.GET("Sell-to Customer No.") THEN;
     end;
@@ -105,24 +92,24 @@ page 50027 "Affected Orders"
 
     var
         "-FEP-ACHAT-200706_18_A-": Integer;
-        RecGCustomer: Record "18";
-        RecGSalesHeader: Record "36";
+        RecGCustomer: Record Customer;
+        RecGSalesHeader: Record "Sales Header";
 
-    [Scope('Internal')]
+
     procedure DisplayOrder()
     var
-        RecLSalesHdr: Record "36";
+        RecLSalesHdr: Record "Sales Header";
     begin
         RecLSalesHdr.GET("Document Type", "Document No.");
         CASE "Document Type" OF
             "Document Type"::Quote:
-                PAGE.RUNMODAL(41, RecLSalesHdr);
+                PAGE.RUNMODAL(Page::"Sales Quote", RecLSalesHdr);
             "Document Type"::Order:
-                PAGE.RUNMODAL(42, RecLSalesHdr);
+                PAGE.RUNMODAL(Page::"Sales Order", RecLSalesHdr);
             "Document Type"::Invoice:
-                PAGE.RUNMODAL(43, RecLSalesHdr);
+                PAGE.RUNMODAL(Page::"Sales Invoice", RecLSalesHdr);
             "Document Type"::"Credit Memo":
-                PAGE.RUNMODAL(44, RecLSalesHdr);
+                PAGE.RUNMODAL(Page::"Sales Credit Memo", RecLSalesHdr);
         END;
     end;
 }

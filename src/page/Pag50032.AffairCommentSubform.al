@@ -1,28 +1,20 @@
-page 50032 "Affair Comment Sub-form"
+page 50032 "BC6_Affair Comment Sub-form"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>CNE1.00
-    // FEP-ADVE-200706_18_A.001:MA 14/11/2007 : Gestion des appeles d'offres clients
-    //  - Form created
-    // ------------------------------------------------------------------------
-
     AutoSplitKey = true;
     Caption = 'Affair Comment Sub-form';
     DelayedInsert = true;
     LinksAllowed = false;
     MultipleNewLines = true;
     PageType = ListPart;
-    SourceTable = Table97;
+    SourceTable = "Comment Line";
 
     layout
     {
         area(content)
         {
-            repeater()
+            repeater(Control1)
             {
-                field(Date; Date)
+                field("Date"; Date)
                 {
                 }
                 field(Comment; Comment)
@@ -37,7 +29,7 @@ page 50032 "Affair Comment Sub-form"
                 field("Line No."; "Line No.")
                 {
                 }
-                field(Code; Code)
+                field("Code"; Code)
                 {
                 }
             }
@@ -50,7 +42,7 @@ page 50032 "Affair Comment Sub-form"
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        SetUpNewLine;
+        SetUpNewLine();
     end;
 }
 

@@ -1,17 +1,12 @@
-page 50022 "Sales Line Profit"
+page 50022 "BC6_Sales Line Profit"
 {
-    // //MARGEVENTE SM 15/10/06 NCS1.01 [FE024V1]  Création basé sur F7004 + Ajout du champ 50000 Profit %
-    // 
-    // //>>CN1.04
-    //   FEP_ADVE_200711_21_1-DEROGATOIRE:SOBI  24/07/08 : - design
-
     Caption = 'Sales Line Discounts';
-    DataCaptionExpression = GetCaption;
+    DataCaptionExpression = GetCaption();
     DelayedInsert = true;
     PageType = List;
     SaveValues = true;
-    SourceTable = Table7004;
-    SourceTableView = SORTING (Code, Sales Code, Sales Type, Type, Starting Date, Ending Date, Profit %)
+    SourceTable = "Sales Line Discount";
+    SourceTableView = SORTING(Code, "Sales Code", "Sales Type", Type, "Starting Date", "Ending Date", "BC6_Profit %")
                       ORDER(Ascending);
 
     layout
@@ -39,10 +34,10 @@ page 50022 "Sales Line Profit"
                     trigger OnLookup(var Text: Text): Boolean
                     var
                         "- MIGNAV2013": Integer;
-                        CustList: Page "22";
-                        CustDiscGrList: Page "512";
-                        CampaignList: Page "5087";
-                        ItemList: Page "31";
+                        CustList: Page "Customer List";
+                        CustDiscGrList: Page "Customer Disc. Groups";
+                        CampaignList: Page "Campaign List";
+                        ItemList: Page "Item List";
                     begin
                         IF SalesTypeFilter = SalesTypeFilter::"All Customers" THEN EXIT;
 
@@ -98,8 +93,8 @@ page 50022 "Sales Line Profit"
 
                     trigger OnLookup(var Text: Text): Boolean
                     var
-                        ItemList: Page "31";
-                        ItemDiscGrList: Page "513";
+                        ItemList: Page "Item List";
+                        ItemDiscGrList: Page "Item Disc. Groups";
                     begin
                         CASE Type OF
                             Type::Item:
@@ -134,14 +129,15 @@ page 50022 "Sales Line Profit"
 
                     trigger OnValidate()
                     var
-                        ApplicationMgt: Codeunit "1";
+                        ApplicationMgt: Codeunit "Filter Tokens";
                     begin
-                        IF ApplicationMgt.MakeDateFilter(StartingDateFilter) = 0 THEN;
+                        // IF ApplicationMgt.MakeDateFilter(StartingDateFilter) = 0 THEN; // TODO: Olde code
+                        ApplicationMgt.MakeDateFilter(StartingDateFilter);
                         StartingDateFilterOnAfterValid;
                     end;
                 }
             }
-            repeater()
+            repeater(Control1)
             {
                 field("Sales Type"; "Sales Type")
                 {
@@ -153,13 +149,13 @@ page 50022 "Sales Line Profit"
                 field(Type; Type)
                 {
                 }
-                field(Code; Code)
+                field("Code"; Code)
                 {
                 }
                 field("Line Discount %"; "Line Discount %")
                 {
                 }
-                field("Profit %"; "Profit %")
+                field("Profit %"; Rec."BC6_Profit %")
                 {
                     Visible = false;
                 }
@@ -173,10 +169,10 @@ page 50022 "Sales Line Profit"
                 field("Minimum Quantity"; "Minimum Quantity")
                 {
                 }
-                field("Dispensation No."; "Dispensation No.")
+                field("Dispensation No."; Rec."BC6_Dispensation No.")
                 {
                 }
-                field("Added Discount %"; "Added Discount %")
+                field("Added Discount %"; Rec."BC6_Added Discount %")
                 {
                 }
                 field("Starting Date"; "Starting Date")
@@ -195,7 +191,7 @@ page 50022 "Sales Line Profit"
 
                     trigger OnLookup(var Text: Text): Boolean
                     var
-                        CurrencyList: Page "5";
+                        CurrencyList: Page Currencies;
                     begin
                         CurrencyList.LOOKUPMODE := TRUE;
                         IF CurrencyList.RUNMODAL = ACTION::LookupOK THEN
@@ -230,7 +226,7 @@ page 50022 "Sales Line Profit"
                 trigger OnAction()
                 begin
                     //>> 29.03.2012 Extract Discount
-                    CODEUNIT.RUN(CODEUNIT::"Extract Item Group Discount", Rec);
+                    CODEUNIT.RUN(CODEUNIT::"Extract Item Group Discount", Rec); // TODO: 
                 end;
             }
         }
@@ -238,7 +234,7 @@ page 50022 "Sales Line Profit"
 
     trigger OnAfterGetRecord()
     begin
-        OnAfterGetCurrRecord;
+        OnAfterGetCurrRecord();
     end;
 
     trigger OnInit()
@@ -257,7 +253,7 @@ page 50022 "Sales Line Profit"
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        OnAfterGetCurrRecord;
+        OnAfterGetCurrRecord();
     end;
 
     trigger OnOpenPage()
@@ -268,11 +264,11 @@ page 50022 "Sales Line Profit"
     end;
 
     var
-        Cust: Record "18";
-        CustDiscGr: Record "340";
-        Campaign: Record "5071";
-        Item: Record "27";
-        ItemDiscGr: Record "341";
+        Cust: Record Customer;
+        CustDiscGr: Record "Customer Discount Group";
+        Campaign: Record Campaign;
+        Item: Record Item;
+        ItemDiscGr: Record "Item Discount Group";
         SalesTypeFilter: Option Customer,"Customer Discount Group","All Customers",Campaign,"None";
         SalesCodeFilter: Text[250];
         ItemTypeFilter: Option Item,"Item Discount Group","None";
@@ -280,7 +276,7 @@ page 50022 "Sales Line Profit"
         StartingDateFilter: Text[30];
         Text000: Label 'All Customers';
         CurrencyCodeFilter: Text[250];
-        "-NSC1.01--": ;
+        "-NSC1.01--": Text;
         Text004: Label 'Start Date Obligatory';
         [InDataSet]
         "Sales CodeEditable": Boolean;
@@ -289,7 +285,7 @@ page 50022 "Sales Line Profit"
         [InDataSet]
         CodeFilterCtrlEnable: Boolean;
 
-    [Scope('Internal')]
+
     procedure GetRecFilters()
     begin
         IF GETFILTERS <> '' THEN BEGIN
@@ -310,7 +306,7 @@ page 50022 "Sales Line Profit"
         END;
     end;
 
-    [Scope('Internal')]
+
     procedure SetRecFilters()
     begin
         SalesCodeFilterCtrlEnable := TRUE;
@@ -359,10 +355,9 @@ page 50022 "Sales Line Profit"
         CurrPage.UPDATE(FALSE);
     end;
 
-    [Scope('Internal')]
     procedure GetCaption(): Text[250]
     var
-        ObjTransl: Record "377";
+        ObjTransl: Record "Object Translation";
         SourceTableName: Text[100];
         SalesSrcTableName: Text[100];
         Description: Text[250];

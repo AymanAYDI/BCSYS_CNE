@@ -1,22 +1,14 @@
-page 50019 "Purch. Cr. Memo Line Subform"
+page 50030 "Return Shipment Line Subform"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>CNE1.00
-    // FEP-ADVE-200706_18_B.001:MA 10/11/2007 : suivi historique
-    //             - Form Created
-    // ------------------------------------------------------------------------
-
-    Caption = 'Purch. Credit Memo Lines';
+    Caption = 'Return Shipment Lines';
     PageType = List;
-    SourceTable = Table125;
+    SourceTable = "Return Shipment Line";
 
     layout
     {
         area(content)
         {
-            repeater()
+            repeater(Control1)
             {
                 field("Document No."; "Document No.")
                 {
@@ -42,9 +34,6 @@ page 50019 "Purch. Cr. Memo Line Subform"
                 field("VAT %"; "VAT %")
                 {
                 }
-                field("Amount Including VAT"; "Amount Including VAT")
-                {
-                }
                 field("Unit Price (LCY)"; "Unit Price (LCY)")
                 {
                 }
@@ -63,12 +52,9 @@ page 50019 "Purch. Cr. Memo Line Subform"
 
                 trigger OnAction()
                 begin
-                    //>>MIGRATION NAV 2013
-                    //CurrForm.PurchRcptline.FORM.GETRECORD(RecGPurchPostedRcpt);
-                    IF NOT RecGPurchCrMemoHdr.GET("Document No.") THEN
+                    IF NOT RecGReturnShipmentHeader.GET("Document No.") THEN
                         EXIT;
-                    PAGE.RUN(PAGE::"Posted Purchase Credit Memo", RecGPurchCrMemoHdr);
-                    //<<MIGRATION NAV 2013
+                    PAGE.RUN(PAGE::"Posted Return Shipment", RecGReturnShipmentHeader);
                 end;
             }
         }
@@ -77,7 +63,7 @@ page 50019 "Purch. Cr. Memo Line Subform"
     trigger OnAfterGetRecord()
     begin
         "Document No.HideValue" := FALSE;
-        DocumentNoOnFormat;
+        DocumentNoOnFormat();
     end;
 
     trigger OnOpenPage()
@@ -86,36 +72,35 @@ page 50019 "Purch. Cr. Memo Line Subform"
     end;
 
     var
-        TempPurchCrdMemo: Record "125";
+        RecGReturnShipmentHeader: Record "Return Shipment Header";
+        TempPurchShipement: Record "Return Shipment Line";
         [InDataSet]
         "Document No.HideValue": Boolean;
         [InDataSet]
         "Document No.Emphasize": Boolean;
-        RecGPurchCrMemoHdr: Record "124";
 
-    [Scope('Internal')]
     procedure isFirstDocLine(): Boolean
     var
-        PurchCrdMemo: Record "125";
+        PurchShipement: Record "Return Shipment Line";
     begin
-        TempPurchCrdMemo.RESET;
-        TempPurchCrdMemo.COPYFILTERS(Rec);
-        TempPurchCrdMemo.SETRANGE("Document No.", "Document No.");
-        IF NOT TempPurchCrdMemo.FIND('-') THEN BEGIN
-            PurchCrdMemo.COPYFILTERS(Rec);
-            PurchCrdMemo.SETRANGE("Document No.", "Document No.");
-            PurchCrdMemo.FIND('-');
-            TempPurchCrdMemo := PurchCrdMemo;
-            TempPurchCrdMemo.INSERT;
+        TempPurchShipement.RESET();
+        TempPurchShipement.COPYFILTERS(Rec);
+        TempPurchShipement.SETRANGE("Document No.", "Document No.");
+        IF NOT TempPurchShipement.FIND('-') THEN BEGIN
+            PurchShipement.COPYFILTERS(Rec);
+            PurchShipement.SETRANGE("Document No.", "Document No.");
+            PurchShipement.FIND('-');
+            TempPurchShipement := PurchShipement;
+            TempPurchShipement.INSERT();
         END;
-        IF "Line No." = TempPurchCrdMemo."Line No." THEN
+        IF "Line No." = TempPurchShipement."Line No." THEN
             EXIT(TRUE);
     end;
 
     local procedure DocumentNoOnFormat()
     begin
         IF "Document No." <> '' THEN
-            IF isFirstDocLine THEN
+            IF isFirstDocLine() THEN
                 "Document No.Emphasize" := TRUE
             ELSE
                 "Document No.HideValue" := TRUE;

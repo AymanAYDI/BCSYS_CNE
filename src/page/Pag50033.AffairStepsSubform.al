@@ -1,29 +1,14 @@
-page 50033 "Affair Steps Sub-form"
+page 50033 "BC6_Affair Steps Sub-form"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>CNE1.00
-    // FEP-ADVE-200706_18_A.001:MA 14/11/2007 : Gestion des appeles d'offres clients
-    //  - Form created
-    // 
-    // //>>CNE2.05
-    // FEP-ADVE-200706_18_A.002:LY 25/01/2008 : - Add Delay On Insert-> Yes
-    // 
-    // //>>CNE3.01
-    // FE-ADV_20080418_CNE_adjudic.001:NIRO 03/11/09 : - add code in onformat on all fields
-    // 
-    // ------------------------------------------------------------------------
-
     Caption = 'Affair Steps Sub-form';
     PageType = ListPart;
-    SourceTable = Table50010;
+    SourceTable = "BC6_Affair Steps";
 
     layout
     {
         area(content)
         {
-            repeater()
+            repeater(Control1)
             {
                 field("No."; "No.")
                 {
@@ -66,15 +51,15 @@ page 50033 "Affair Steps Sub-form"
 
     trigger OnAfterGetRecord()
     begin
-        NoOnFormat;
-        StepDateOnFormat;
-        InterlocutorOnFormat;
-        ContactOnFormat;
-        ContactNameOnFormat;
-        DescriptionOnFormat;
-        ReminderDateOnFormat;
-        DocumentNoOnFormat;
-        ResultOnFormat;
+        NoOnFormat();
+        StepDateOnFormat();
+        InterlocutorOnFormat();
+        ContactOnFormat();
+        ContactNameOnFormat();
+        DescriptionOnFormat();
+        ReminderDateOnFormat();
+        DocumentNoOnFormat();
+        ResultOnFormat();
     end;
 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
@@ -88,7 +73,7 @@ page 50033 "Affair Steps Sub-form"
     end;
 
     var
-        RecGContactProjectRelation: Record "50009";
+        RecGContactProjectRelation: Record "BC6_Contact Project Relation";
 
     local procedure NoOnFormat()
     begin

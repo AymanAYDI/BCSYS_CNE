@@ -1,26 +1,18 @@
-page 50016 "Purchase Lines Subform2"
+page 50016 "BC6_Purchase Lines Subform2"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>CNE1.00
-    // FEP-ADVE-200706_18_B.001:MA 10/11/2007 : suivi historique
-    //             - Form Created
-    // ------------------------------------------------------------------------
-
     Caption = 'Purchase Lines';
     Editable = false;
     MultipleNewLines = true;
     PageType = List;
     SaveValues = true;
-    SourceTable = Table39;
-    SourceTableView = SORTING (Document Date, Document Type, No.);
+    SourceTable = "Purchase Line";
+    SourceTableView = SORTING("Document Date", "Document Type", "No.");
 
     layout
     {
         area(content)
         {
-            repeater()
+            repeater(Control1)
             {
                 field("Document No."; "Document No.")
                 {
@@ -104,17 +96,17 @@ page 50016 "Purchase Lines Subform2"
     end;
 
     var
-        TempPurchLine: Record "39";
+        TempPurchLine: Record "Purchase Line";
         [InDataSet]
         "Document No.HideValue": Boolean;
         [InDataSet]
         "Document No.Emphasize": Boolean;
-        RecGPurchaseHeader: Record "38";
+        RecGPurchaseHeader: Record "Purchase Header";
 
-    [Scope('Internal')]
+
     procedure IsFirstDocLine(): Boolean
     var
-        PurchLine: Record "39";
+        PurchLine: Record "Purchase Line";
     begin
         TempPurchLine.RESET;
         TempPurchLine.COPYFILTERS(Rec);

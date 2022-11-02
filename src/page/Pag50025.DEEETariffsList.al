@@ -1,17 +1,14 @@
-page 50025 "DEEE Tariffs List"
+page 50025 "BC6_DEEE Tariffs List"
 {
-    // //DEEE1.00 MICO
-    //   Création du formulaire liste attaché à la table DEEE Tariffs
-
     Caption = 'DEEE Tariffs List';
     PageType = List;
-    SourceTable = Table50007;
+    SourceTable = "BC6_DEEE Tariffs";
 
     layout
     {
         area(content)
         {
-            repeater()
+            repeater(Control1)
             {
                 field("DEEE Code"; "DEEE Code")
                 {

@@ -1,30 +1,14 @@
-page 50031 "Contact Affair Subform"
+page 50031 "BC6_Contact Affair Subform"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // 
-    // //>>CNE1.00
-    // FEP-ADVE-200706_18_A.001:MA 14/11/2007 : Gestion des appeles d'offres clients
-    //                                          - Form created
-    // 
-    // //>>CNE2.05
-    // FEP-ADVE-200706_18_A.002:LY 25/01/2008 : Add Calfields
-    // 
-    // //>>CNE3.01
-    // FE-ADV_20080418_CNE_adjudic.001:NIRO 03/11/09 : - add field 12 Awarder
-    // 
-    // ------------------------------------------------------------------------
-
     Caption = 'Contact Affair Subform';
     PageType = ListPart;
-    SourceTable = Table50009;
+    SourceTable = "BC6_Contact Project Relation";
 
     layout
     {
         area(content)
         {
-            repeater()
+            repeater(Control1)
             {
                 field("Affair No."; "Affair No.")
                 {
@@ -88,29 +72,27 @@ page 50031 "Contact Affair Subform"
 
     trigger OnAfterGetRecord()
     begin
-        OnAfterGetCurrRecord;
-        AffairNoOnFormat;
-        ContactNoOnFormat;
-        ContactNameOnFormat;
-        RelationTypeOnFormat;
-        RelationDescriptionOnFormat;
-        PhoneNoOnFormat;
-        NoOnFormat;
-        CompanyNoOnFormat;
-        TypeOnFormat;
+        OnAfterGetCurrRecord();
+        AffairNoOnFormat();
+        ContactNoOnFormat();
+        ContactNameOnFormat();
+        RelationTypeOnFormat();
+        RelationDescriptionOnFormat();
+        PhoneNoOnFormat();
+        NoOnFormat();
+        CompanyNoOnFormat();
+        TypeOnFormat();
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        OnAfterGetCurrRecord;
+        OnAfterGetCurrRecord();
     end;
 
     local procedure OnAfterGetCurrRecord()
     begin
         xRec := Rec;
-        //>>CNE2.05
         CALCFIELDS("Company No.", Type);
-        //<<CNE2.05
     end;
 
     local procedure AffairNoOnFormat()

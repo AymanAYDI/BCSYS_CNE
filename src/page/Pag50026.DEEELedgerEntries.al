@@ -1,15 +1,15 @@
-page 50026 "DEEE Ledger Entries"
+page 50026 "BC6_DEEE Ledger Entries"
 {
     Caption = 'DEEE Ledger Entries';
     Editable = false;
     PageType = List;
-    SourceTable = Table50008;
+    SourceTable = "BC6_DEEE Ledger Entry";
 
     layout
     {
         area(content)
         {
-            repeater()
+            repeater(Control1)
             {
                 field("Gen. Bus. Posting Group"; "Gen. Bus. Posting Group")
                 {

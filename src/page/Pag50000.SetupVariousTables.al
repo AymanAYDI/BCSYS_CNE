@@ -322,7 +322,7 @@ page 50000 "BC6_Setup Various Tables"
                 trigger OnAction()
                 begin
                     TableDiv.SETRANGE(Radical, Code);
-                    PAGE.RUNMODAL(PAGE::"Various Tables", TableDiv);
+                    PAGE.RUNMODAL(PAGE::"BC6_Various Tables", TableDiv);
                 end;
             }
         }

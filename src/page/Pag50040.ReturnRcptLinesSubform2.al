@@ -16,7 +16,7 @@ page 50040 "Return Rcpt Lines Subform 2"
     Editable = false;
     PageType = List;
     SourceTable = Table6661;
-    SourceTableView = SORTING (Sell-to Customer No.);
+    SourceTableView = SORTING(Sell-to Customer No.);
 
     layout
     {

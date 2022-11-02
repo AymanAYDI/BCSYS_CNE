@@ -124,14 +124,13 @@ tableextension 50041 "BC6_PurchaseLine" extends "Purchase Line"
 
         // }
 
-        modify("Return Reason Code")
-        {
-            TableRelation = IF ("Document Type" = FILTER("Return Order"),
-                                "BC6_Return Order Type" = FILTER(Location)) "Return Reason" WHERE(BC6_Type = FILTER(Location))
-            ELSE
-            IF ("Document Type" = FILTER("Return Order"),
-                                         "BC6_Return Order Type" = FILTER(SAV)) "Return Reason" WHERE(BC6_Type = FILTER(SAV));
-        }
+        // modify("Return Reason Code")
+        // {
+        //     TableRelation = IF (Document Type=FILTER(Return Order),
+        //                         Return Order Type=FILTER(Location)) "Return Reason" WHERE (Type=FILTER(Location))
+        //                         ELSE IF (Document Type=FILTER(Return Order),
+        //                                  Return Order Type=FILTER(SAV)) "Return Reason" WHERE (Type=FILTER(SAV));
+        // }
         // modify("Operation No.")
         // {
         //     TableRelation = "Prod. Order Routing Line"."Operation No." WHERE (Status=CONST(Released),
@@ -159,7 +158,7 @@ tableextension 50041 "BC6_PurchaseLine" extends "Purchase Line"
                 RecLSalesLine: Record "Sales Line";
             begin
                 IF "Expected Receipt Date" <> 0D THEN BEGIN
-                    RecLSalesLine.RESET();
+                    RecLSalesLine.RESET;
                     RecLSalesLine.SETCURRENTKEY("BC6_Purch. Document Type", "BC6_Purch. Order No.", "BC6_Purch. Line No.");
                     RecLSalesLine.SETRANGE("BC6_Purch. Document Type", "Document Type");
                     RecLSalesLine.SETRANGE("BC6_Purch. Order No.", "Document No.");
@@ -168,60 +167,26 @@ tableextension 50041 "BC6_PurchaseLine" extends "Purchase Line"
                         REPEAT
                             RecLSalesLine.VALIDATE("BC6_Purchase Receipt Date", "Expected Receipt Date");
                             RecLSalesLine."BC6_Promised Purchase Receipt Date" := (PurchHeader."Expected Receipt Date" <> 0D);
-                            RecLSalesLine.MODIFY();
-                        UNTIL RecLSalesLine.NEXT() = 0;
+                            RecLSalesLine.MODIFY;
+                        UNTIL RecLSalesLine.NEXT = 0;
 
                 END;
             end;
         }
         modify(Quantity)
         {
-            trigger OnAfterValidate()
-            begin
-                VALIDATE("BC6_DEEE HT Amount", 0);
-                "BC6_DEEE VAT Amount" := 0;
-                "BC6_DEEE TTC Amount" := 0;
-                "BC6_DEEE Amount (LCY) for Stat" := 0;
+            VALIDATE("BC6_DEEE HT Amount",0) ;
+            "BC6_DEEE VAT Amount" := 0;
+            "BC6_DEEE TTC Amount" := 0;
+            "BC6_DEEE Amount (LCY) for Stat":=0;
 
-                RecGVendor.GET("Buy-from Vendor No.");
-                IF RecGVendor."BC6_Posting DEEE" THEN BEGIN
-                    VALIDATE("BC6_DEEE HT Amount", "BC6_DEEE Unit Price" * "Quantity (Base)");
-                    "BC6_DEEE VAT Amount" := ROUND("BC6_DEEE HT Amount" * "VAT %" / 100, Currency."Amount Rounding Precision");
-                    "BC6_DEEE TTC Amount" := "BC6_DEEE HT Amount" + "BC6_DEEE VAT Amount";
-                    "BC6_DEEE Amount (LCY) for Stat" := "Quantity (Base)" * "BC6_DEEE Unit Price (LCY)";
-                END;
-                Modify();
-            end;
-        }
-
-        modify("Direct Unit Cost")
-        {
-            trigger OnAfterValidate()
-            begin
-                IF (xRec."Direct Unit Cost" <> "Direct Unit Cost") AND (xRec."Direct Unit Cost" <> 0) THEN BEGIN
-                    RecGPurchsetup.GET;
-                    IF RecGPurchsetup."BC6_Ask custom purch price" THEN BEGIN
-
-                        IF CONFIRM(Tectg003, FALSE) THEN BEGIN
-                            RecGPurchPrice.RESET;
-                            RecGPurchPrice.SETFILTER("Vendor No.", "Buy-from Vendor No.");
-                            RecGPurchPrice.SETFILTER("Item No.", "No.");
-                            RecGPurchPrice.SETFILTER("Starting Date", '%1', WORKDATE);
-                            IF NOT RecGPurchPrice.FIND('-') THEN BEGIN
-                                RecGPurchPrice.INIT;
-                                RecGPurchPrice.VALIDATE("Item No.", "No.");
-                                RecGPurchPrice.VALIDATE("Vendor No.", "Buy-from Vendor No.");
-                                RecGPurchPrice.VALIDATE("Starting Date", WORKDATE);
-                                RecGPurchPrice.VALIDATE("Direct Unit Cost", "Direct Unit Cost");
-                                RecGPurchPrice.INSERT(TRUE);
-                            END;
-                            RecGPurchPrice.SETFILTER("Starting Date", '');
-                            PAGE.RUN(7012, RecGPurchPrice);
-                        END;
-                    END;
-                    Modify();
-                END;
-            end;
+            RecGVendor.GET("Buy-from Vendor No.");
+            IF RecGVendor."Posting DEEE" THEN BEGIN
+                                                                  VALIDATE("DEEE HT Amount","DEEE Unit Price" * "Quantity (Base)") ;
+            "DEEE VAT Amount" := ROUND("DEEE HT Amount" * "VAT %"/ 100,Currency."Amount Rounding Precision");
+            "DEEE TTC Amount" := "DEEE HT Amount" + "DEEE VAT Amount" ;
+            "DEEE Amount (LCY) for Stat":="Quantity (Base)"*"DEEE Unit Price (LCY)" ;
+                                                                END;
         }
 
 
@@ -435,36 +400,37 @@ tableextension 50041 "BC6_PurchaseLine" extends "Purchase Line"
         // {
         //     SumIndexFields = "Outstanding Qty. (Base)";
         // }
-        key(Key19; "No.")
-        {
-        }
-        key(Ke20; "Buy-from Vendor No.")
-        {
-        }
-        key(Key21; "Document Type", "Buy-from Vendor No.", "No.")
-        {
-        }
-        key(Key22; "Document Type", "No.")
-        {
-        }
-        // key(Key23; "BC6_Document Date", "Document Type", "No.") TODO:
+        // key(Key2; "No.")
         // {
         // }
-        key(Key24; "Buy-from Vendor No.", Type, "Document Type")
-        {
-        }
-        key(Key25; "Buy-from Vendor No.", Type, "Document Type", "Planned Receipt Date")
-        {
-        }
-        key(Key26; "BC6_Sales Document Type", "BC6_Sales Line No.", "BC6_Sales No.")
-        {
-        }
-        key(Key27; Type, "No.")
-        {
-        }
+        // key(Key3; "Buy-from Vendor No.")
+        // {
+        // }
+        // key(Key4; "Document Type", "Buy-from Vendor No.", "No.")
+        // {
+        // }
+        // key(Key5; "Document Type", "No.")
+        // {
+        // }
+        // key(Key6; "Document Date", "Document Type", "No.")
+        // {
+        // }
+        // key(Key7; "Buy-from Vendor No.", Type, "Document Type")
+        // {
+        // }
+        // key(Key8; "Buy-from Vendor No.", Type, "Document Type", "Planned Receipt Date")
+        // {
+        // }
+        // key(Key9; "Sales Document Type", "Sales Line No.", "Sales No.")
+        // {
+        // }
+        // key(Key10; Type, "No.")
+        // {
+        // }
     }
 
 
+    ///////////////////////////////////////////////////////////////////
     procedure "---NSC1.01---"()
     begin
     end;

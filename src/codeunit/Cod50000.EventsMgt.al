@@ -132,6 +132,33 @@ codeunit 50000 "BC6_EventsMgt"
     end;
 
     //Tab36
+    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterInsertEvent', '', false, false)]
+    local procedure T36_OnAfterInsertEvent_SalesHeader(var Rec: Record "Sales Header"; RunTrigger: Boolean)
+    begin
+        Rec.ID := USERID
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterDeleteEvent', '', false, false)]
+    local procedure T36_OnAfterDeleteEvent_SalesHeader(var Rec: Record "Sales Header"; RunTrigger: Boolean)
+    var
+        CompanyInfo: Record 79;
+        TextG003: Label 'Warning:This purchase order is linked to a sales order.';
+    //TODO:Codeunit // G_ReturnOrderMgt: Codeunit 50052;
+    begin
+        CompanyInfo.FINDFIRST();
+        IF CompanyInfo."BC6_Branch Company" THEN BEGIN
+            IF Rec."BC6_Purchase No. Order Lien" <> '' THEN
+                ERROR(TextG003);
+        END;
+        //TODO: codeunint 
+        // IF NOT IsDeleteFromReturnOrder THEN BEGIN
+        //          G_ReturnOrderMgt.DeleteRelatedDocument(Rec);
+
+        //          G_ReturnOrderMgt.DeleteRelatedSalesOrderNo(Rec);
+        //        END;
+    end;
+
+
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterCheckSellToCust', '', false, false)]
 
     local procedure T36_OnAfterCheckSellToCust_SalesHeader(var SalesHeader: Record "Sales Header"; xSalesHeader: Record "Sales Header"; Customer: Record Customer; CurrentFieldNo: Integer)
@@ -183,7 +210,7 @@ codeunit 50000 "BC6_EventsMgt"
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterTestStatusOpen', '', false, false)]
 
-    local procedure OnAfterTestStatusOpen(var SalesHeader: Record "Sales Header")
+    local procedure T36_OnAfterTestStatusOpen_SalesHeader(var SalesHeader: Record "Sales Header")
     var
         Cust: Record Customer;
     begin
@@ -193,6 +220,42 @@ codeunit 50000 "BC6_EventsMgt"
         //TODO  // SalesHeader.CheckCrLimit;
     end;
 
+    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnBeforeSetSalespersonCode', '', false, false)]
+
+    local procedure T36_OnBeforeSetSalespersonCode_SalesHeader(var SalesHeader: Record "Sales Header"; SalesPersonCodeToCheck: Code[20]; var SalesPersonCodeToAssign: Code[20]; var IsHandled: Boolean)
+    var
+        Cust: Record Customer;
+    begin
+        Cust.Get();
+        SalesHeader."BC6_Salesperson Filter" := Cust."BC6_Salesperson Filter";
+        SalesHeader."BC6_Customer Sales Profit Group" := Cust."BC6_Custom. Sales Profit Group";
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnBeforeShouldSearchForCustomerByName', '', false, false)]
+
+    local procedure T36_OnBeforeShouldSearchForCustomerByName_SalesHeader(CustomerNo: Code[20]; var Result: Boolean; var IsHandled: Boolean; var CallingFieldNo: Integer)
+    begin
+        IsHandled := true;
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnBeforeValidateSellToCustomerName', '', false, false)]
+
+    local procedure OnBeforeValidateSellToCustomerName(var SalesHeader: Record "Sales Header"; var Customer: Record Customer; var IsHandled: Boolean)
+    begin
+        IsHandled := true;
+    end;
+
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnBeforeValidateBillToName', '', false, false)]
+
+    local procedure T36_OnBeforeValidateBillToName_SalesHeader(var SalesHeader: Record "Sales Header"; var Customer: Record Customer; var IsHandled: Boolean)
+    begin
+
+
+
+    end;
+
+
     //TAB38
     [EventSubscriber(ObjectType::Table, Database::"Purchase Header", 'OnAfterInsertEvent', '', false, false)]
     local procedure T38_OnAfterInsertEvent_PurchHeader(var Rec: Record "Purchase Header"; RunTrigger: Boolean)
@@ -200,7 +263,66 @@ codeunit 50000 "BC6_EventsMgt"
         Rec.ID := USERID
     end;
 
+    [EventSubscriber(ObjectType::Table, Database::"Purchase Header", 'OnAfterDeleteEvent', '', false, false)]
+    local procedure T38_OnAfterDeleteEvent_PurchHeader(var Rec: Record "Purchase Header"; RunTrigger: Boolean)
+    var
+        CompanyInfo: Record 79;
+        TextG003: Label 'Warning:This purchase order is linked to a sales order.';
+    //TODO:Codeunit // G_ReturnOrderMgt: Codeunit 50052;
+    begin
+        CompanyInfo.FINDFIRST();
+        IF CompanyInfo."BC6_Branch Company" THEN BEGIN
+            IF Rec."BC6_Sales No. Order Lien" <> '' THEN
+                ERROR(TextG003);
+        END;     //    TODO:Codeunit 
+                 // IF Rec."Document Type" = Rec."Document Type"::Order THEN
+                 //G_ReturnOrderMgt.DeleteRelatedPurchOrderNo(Rec)
+                 // ELSE
+                 // IF (Rec."Document Type" = Rec."Document Type"::"Return Order") THEN
+                 //     G_ReturnOrderMgt.DeleteRelatedPurchReturnOrderNo(Rec);
+    end;
 
+    [EventSubscriber(ObjectType::Table, Database::"Purchase Header", 'OnValidateBuyFromVendorNoOnAfterRecreateLines', '', false, false)]
+    local procedure OnValidateBuyFromVendorNoOnAfterRecreateLines(var PurchaseHeader: Record "Purchase Header"; xPurchaseHeader: Record "Purchase Header"; CallingFieldNo: Integer)
+    var
+        RecGCommentLine: Record "Comment Line";
+        FrmGLignesCommentaires: Page "Comment Sheet";
+        RecGParamNavi: Record "BC6_Navi+ Setup";
+    //To check
+    begin
 
+        IF CallingFieldNo <> 0 THEN
+            IF RecGParamNavi.FIND THEN BEGIN
+                IF RecGParamNavi."Used Post-it" <> '' THEN BEGIN
+                    RecGCommentLine.SETRANGE(Code, RecGParamNavi."Used Post-it");
+                    RecGCommentLine.SETRANGE("No.", PurchaseHeader."Buy-from Vendor No.");
+                    IF RecGCommentLine.FIND('-') THEN BEGIN
+                        FrmGLignesCommentaires.EDITABLE(FALSE);
+                        FrmGLignesCommentaires.CAPTION('Post-it');
+                        FrmGLignesCommentaires.SETTABLEVIEW(RecGCommentLine);
+                        IF FrmGLignesCommentaires.RUNMODAL = ACTION::OK THEN;
+                    END;
+                END;
+                RecGCommentLine.SETRANGE(Code, '');
+            END;
+    end;
 
+    [EventSubscriber(ObjectType::Table, Database::"Purchase Header", 'OnBeforeValidateEmptySellToCustomerAndLocation', '', false, false)]
+
+    local procedure OnBeforeValidateEmptySellToCustomerAndLocation(var PurchaseHeader: Record "Purchase Header"; Vendor: Record Vendor; var IsHandled: Boolean; var xPurchaseHeader: Record "Purchase Header")
+    begin
+        PurchaseHeader."BC6_Pay-to Vend. No." := Vendor."BC6_Pay-to Vend. No.";
+
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Purchase Header", 'OnValidateBuyFromVendorNoOnAfterUpdateBuyFromCont', '', false, false)]
+
+    local procedure OnValidateBuyFromVendorNoOnAfterUpdateBuyFromCont(var PurchaseHeader: Record "Purchase Header"; xPurchaseHeader: Record "Purchase Header"; CallingFieldNo: Integer; var SkipBuyFromContact: Boolean)
+    begin
+        //TODO  // UpdateIncoterm;
+        IF PurchaseHeader."Document Type" IN [PurchaseHeader."Document Type"::Order, PurchaseHeader."Document Type"::Invoice, PurchaseHeader."Document Type"::"Credit Memo"] THEN
+            PurchaseHeader."Posting Description" := COPYSTR(FORMAT(PurchaseHeader."Buy-from Vendor Name") + ' : ' + FORMAT(PurchaseHeader."Document Type") + ' ' + PurchaseHeader."No."
+                                       , 1, MAXSTRLEN(PurchaseHeader."Posting Description"));
+
+    end;
 }

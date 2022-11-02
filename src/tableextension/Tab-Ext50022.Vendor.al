@@ -11,7 +11,7 @@ tableextension 50022 "BC6_Vendor" extends Vendor
                 GenBusPostingGrp: Record "Gen. Business Posting Group";
             begin
                 GenBusPostingGrp.GET("Gen. Bus. Posting Group");
-                "BC6_Posting DEEE" := GenBusPostingGrp."Subject to DEEE";
+                "BC6_Posting DEEE" := GenBusPostingGrp."BC6_Subject to DEEE";
 
             end;
         }

@@ -1,7 +1,7 @@
 tableextension 50011 "BC6_PurchInvHeader" extends "Purch. Inv. Header"
 {
-    LookupPageID = 146;
-    DrillDownPageID = 146;
+    LookupPageID = "Posted Purchase Invoice";
+    DrillDownPageID = "Posted Purchase Invoice";
     fields
     { //TODO //Paid n'est pas declarer dans le STD 
         // modify(Paid)

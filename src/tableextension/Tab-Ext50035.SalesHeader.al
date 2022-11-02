@@ -1,13 +1,114 @@
 tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
 {
-    LookupPageID = 45;
+    LookupPageID = "Sales List";
     fields
     {
-        field(50000; "BC6_Cause filing"; Option)
+        modify("Bill-to Name")
+        {
+            trigger OnAfterValidate()
+            var
+                Customer: Record Customer;
+            begin
+                IF xRec."Bill-to Customer No." = '' then
+                    if ShouldSearchForCustomerByName("Bill-to Customer No.") then
+                        Validate("Bill-to Customer No.", Customer.GetCustNo("Bill-to Name"));
+
+            end;
+        }
+        modify("Your Reference")
+        {
+            trigger OnAfterValidate()
+            begin
+                UpdateSalesShipment.UpdateYourRefOnSalesShpt(Rec);
+            end;
+        }
+        modify("Shipment Method Code")
+        {
+            trigger OnAfterValidate()
+            var
+                WMSManagement: Codeunit "WMS Management";
+                BinCode: Code[20];
+                Bin: Record Bin;
+                ShipmentMethodRec: Record "Shipment Method";
+
+            begin
+                IF ShipmentMethodRec.GET("Shipment Method Code") THEN
+                    //TODO // IF ShipmentMethodRec."To Make Available" THEN BEGIN
+                    IF (Bin.GET("Location Code", "BC6_Bin Code") AND
+                           NOT (Bin."BC6_To Make Available")) OR ("BC6_Bin Code" = '') THEN BEGIN
+                        //TODO  // WMSManagement.GetShipmentBin("Location Code", BinCode);
+                        IF "BC6_Bin Code" <> BinCode THEN
+                            VALIDATE("BC6_Bin Code", BinCode);
+                    END ELSE BEGIN
+                    END;
+            end;
+        }
+        modify("Currency Code")
+        {
+            trigger OnAfterValidate()
+            begin
+                IF "Currency Code" <> '' THEN
+                    MESSAGE(TextG001);
+            end;
+        }
+        modify("Reason Code")
+        {
+            trigger OnAfterValidate()
+            var
+                RecLReasonCode: Record "Reason Code";
+                RecLSalesLine: Record "Sales Line";
+            begin
+                IF xRec."Reason Code" <> Rec."Reason Code" THEN BEGIN
+                    RecLSalesLine.SETRANGE("Document Type", "Document Type");
+                    RecLSalesLine.SETRANGE("Document No.", "No.");
+                    IF RecLSalesLine.FIND('-') THEN
+                        REPEAT
+                            //TODO
+                            // RecLSalesLine."DEEE Category Code" := RecLSalesLine."DEEE Category Code";
+                            // RecLSalesLine.CalculateDEEE(Rec."Reason Code");
+                            RecLSalesLine.MODIFY;
+                        UNTIL RecLSalesLine.NEXT = 0;
+                END;
+            end;
+        }
+        modify("Sell-to Customer Name")
+        {
+            trigger OnAfterValidate()
+            var
+                Customer: Record Customer;
+                LookupStateManager: Codeunit "Lookup State Manager";
+                StandardCodesMgt: Codeunit "Standard Codes Mgt.";
+                IsHandled: Boolean;
+            begin
+                if IsHandled then begin
+                    if LookupStateManager.IsRecordSaved() then
+                        LookupStateManager.ClearSavedRecord();
+                    exit;
+                end;
+
+                if LookupStateManager.IsRecordSaved() then begin
+                    Customer := LookupStateManager.GetSavedRecord();
+                    if Customer."No." <> '' then begin
+                        LookupStateManager.ClearSavedRecord();
+                        Validate("Sell-to Customer No.", Customer."No.");
+
+                        GetShippingTime(FieldNo("Sell-to Customer Name"));
+                        if "No." <> '' then
+                            StandardCodesMgt.CheckCreateSalesRecurringLines(Rec);
+                        exit;
+                    end;
+                end;
+                IF xRec."Sell-to Customer Name" = '' THEN
+                    if ShouldSearchForCustomerByName("Sell-to Customer No.") then
+                        Validate("Sell-to Customer No.", Customer.GetCustNo("Sell-to Customer Name"));
+                CopySellToAddress(CurrFieldNo);
+                GetShippingTime(FieldNo("Sell-to Customer Name"));
+            end;
+        }
+
+        field(50000; "BC6_Cause filing"; Enum "BC6_Cause Filing")
         {
             Caption = 'Cause filing';
-            OptionCaption = 'No proceeded,Deleted,Change in Order';
-            OptionMembers = "No proceeded",Deleted,"Change in Order";
         }
         field(50001; "BC6_Purchaser Comments"; Text[50])
         {
@@ -34,9 +135,7 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
 
             trigger OnValidate()
             begin
-                //BC6 EABO 11/04/18 >>
                 UpdateSalesShipment.UpdateAffairNoOnSalesShpt(Rec);
-                //BC6 EABO 11/04/18 <<
             end;
         }
         field(50010; BC6_ID; Code[50])
@@ -109,12 +208,10 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
         field(50061; "BC6_Sell-to Fax No."; Text[30])
         {
             Caption = 'Sell-to Fax No.';
-            Description = 'FE005 SEBC 08/01/2007';
         }
         field(50062; "BC6_Sell-to E-Mail Address"; Text[50])
         {
             Caption = 'Sell-to E-Mail address';
-            Description = 'FE005 MICO 12/02/07';
         }
         field(50070; "BC6_Sales Counter"; Boolean)
         {
@@ -123,7 +220,6 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
         field(50080; "BC6_Purchase No. Order Lien"; Code[20])
         {
             Caption = 'Purchase No. Order Lien';
-            Description = 'CNEIC';
             //TODO
             // trigger OnLookup()
             // var
@@ -164,7 +260,7 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
 
             trigger OnLookup()
             var
-                WMSManagement: Codeunit 7302;
+                WMSManagement: Codeunit "WMS Management";
                 BinCode: Code[20];
             begin
                 IF NOT ("Document Type" = "Document Type"::Order) THEN
@@ -180,7 +276,7 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
             trigger OnValidate()
             var
                 Location: Record Location;
-                WMSManagement: Codeunit 7302;
+                WMSManagement: Codeunit "WMS Management";
             begin
                 //>> C:FE09 Begin
                 IF NOT ("Document Type" = "Document Type"::Order) THEN
@@ -246,7 +342,7 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
         // }
     }
 
-    local procedure CheckShipmentInfo(var SalesLine: Record 37; BillTo: Boolean)
+    local procedure CheckShipmentInfo(var SalesLine: Record "Sales Line"; BillTo: Boolean)
     begin
         IF "Document Type" = "Document Type"::Order THEN
             SalesLine.SETFILTER("Quantity Shipped", '<>0')
@@ -266,7 +362,7 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
         SalesLine.SETRANGE("Quantity Shipped");
     end;
 
-    local procedure CheckPrepmtInfo(var SalesLine: Record 37)
+    local procedure CheckPrepmtInfo(var SalesLine: Record "Sales Line")
     begin
         IF "Document Type" = "Document Type"::Order THEN BEGIN
             SalesLine.SETFILTER("Prepmt. Amt. Inv.", '<>0');
@@ -276,7 +372,7 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
         END;
     end;
 
-    local procedure CheckReturnInfo(var SalesLine: Record 37; BillTo: Boolean)
+    local procedure CheckReturnInfo(var SalesLine: Record "Sales Line"; BillTo: Boolean)
     begin
         IF "Document Type" = "Document Type"::"Return Order" THEN
             SalesLine.SETFILTER("Return Qty. Received", '<>0')
@@ -296,8 +392,8 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
 
     local procedure UpdateSellToCustTemplateCode()
     var
-        CustomerTemplate: Record 5105;
-        Contact: Record 5050;
+        CustomerTemplate: Record "Customer Template";
+        Contact: Record Contact;
     begin
         IF ("Document Type" = "Document Type"::Quote) AND ("Sell-to Customer No." = '') AND ("Sell-to Customer Template Code" = '') AND
            (GetFilterContNo = '')
@@ -330,10 +426,10 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
         END;
     end;
 
-    local procedure CollectParamsInBufferForCreateDimSet(var TempSalesLine: Record 37 temporary; SalesLine: Record 37)
+    local procedure CollectParamsInBufferForCreateDimSet(var TempSalesLine: Record "Sales Line" temporary; SalesLine: Record "Sales Line")
     var
-        GenPostingSetup: Record 252;
-        DefaultDimension: Record 352;
+        GenPostingSetup: Record "General Posting Setup";
+        DefaultDimension: Record "Default Dimension";
     begin
         TempSalesLine.SETRANGE("Gen. Bus. Posting Group", SalesLine."Gen. Bus. Posting Group");
         TempSalesLine.SETRANGE("Gen. Prod. Posting Group", SalesLine."Gen. Prod. Posting Group");
@@ -352,7 +448,7 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
             END;
     end;
 
-    local procedure InsertTempSalesLineInBuffer(var TempSalesLine: Record 37 temporary; SalesLine: Record 37; AccountNo: Code[20]; DefaultDimensionsNotExist: Boolean)
+    local procedure InsertTempSalesLineInBuffer(var TempSalesLine: Record "Sales Line" temporary; SalesLine: Record "Sales Line"; AccountNo: Code[20]; DefaultDimensionsNotExist: Boolean)
     begin
         TempSalesLine.INIT;
         TempSalesLine."Line No." := SalesLine."Line No.";
@@ -365,7 +461,7 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
         TempSalesLine.INSERT;
     end;
 
-    local procedure TransferItemChargeAssgntSalesToTemp(var ItemChargeAssgntSales: Record 5809; var TempItemChargeAssgntSales: Record 5809 temporary)
+    local procedure TransferItemChargeAssgntSalesToTemp(var ItemChargeAssgntSales: Record "Item Charge Assignment (Sales)"; var TempItemChargeAssgntSales: Record "Item Charge Assignment (Sales)" temporary)
     begin
         IF ItemChargeAssgntSales.FINDSET THEN BEGIN
             REPEAT
@@ -377,7 +473,7 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
         END;
     end;
 
-    local procedure CreateItemChargeAssgntSales(var ItemChargeAssgntSales: Record 5809; var TempItemChargeAssgntSales: Record 5809 temporary; var TempSalesLine: Record 37 temporary; var TempInteger: Record 2000000026 temporary)
+    local procedure CreateItemChargeAssgntSales(var ItemChargeAssgntSales: Record "Item Charge Assignment (Sales)"; var TempItemChargeAssgntSales: Record "Item Charge Assignment (Sales)" temporary; var TempSalesLine: Record "Sales Line" temporary; var TempInteger: Record Integer temporary)
     begin
         IF TempSalesLine.FINDSET THEN
             REPEAT
@@ -397,7 +493,7 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
     end;
 
 
-    local procedure CopySellToCustomerAddressFieldsFromSalesDocument(var Customer: Record 18)
+    local procedure CopySellToCustomerAddressFieldsFromSalesDocument(var Customer: Record Customer)
     begin
         Customer.Address := "Sell-to Address";
         Customer."Address 2" := "Sell-to Address 2";
@@ -409,7 +505,7 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
         Customer.MODIFY(TRUE);
     end;
 
-    local procedure CopyShipToCustomerAddressFieldsFromSalesDocument(var Customer: Record 18)
+    local procedure CopyShipToCustomerAddressFieldsFromSalesDocument(var Customer: Record Customer)
     begin
         Customer.Address := "Ship-to Address";
         Customer."Address 2" := "Ship-to Address 2";
@@ -421,7 +517,7 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
         Customer.MODIFY(TRUE);
     end;
 
-    local procedure CopyBillToCustomerAddressFieldsFromSalesDocument(var Customer: Record 18)
+    local procedure CopyBillToCustomerAddressFieldsFromSalesDocument(var Customer: Record Customer)
     begin
         Customer.Address := "Bill-to Address";
         Customer."Address 2" := "Bill-to Address 2";
@@ -461,7 +557,7 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
 
     local procedure GetOpportunityEntryNo(): Integer
     var
-        OpportunityEntry: Record 5093;
+        OpportunityEntry: Record "Opportunity Entry";
     begin
         IF OpportunityEntry.FINDLAST THEN
             EXIT(OpportunityEntry."Entry No." + 1);
@@ -470,7 +566,7 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
 
     local procedure GetOpportunityEntryEstimatedValue(): Decimal
     var
-        OpportunityEntry: Record 5093;
+        OpportunityEntry: Record "Opportunity Entry";
     begin
         OpportunityEntry.SETRANGE("Opportunity No.", "Opportunity No.");
         IF OpportunityEntry.FINDLAST THEN
@@ -493,23 +589,23 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
         END;
     end;
 
-    procedure CreatePurchaseQuote(RecLSalesHeader: Record 36)
+    procedure CreatePurchaseQuote(RecLSalesHeader: Record "Sales Header")
     var
-        RecLSalesLine: Record 37;
-        RecLItem: Record 27;
-        RecLPurchSetup: Record 312;
-        CduLNoSeriesMgt: Codeunit 396;
+        RecLSalesLine: Record "Sales Line";
+        RecLItem: Record Item;
+        RecLPurchSetup: Record "Purchases & Payables Setup";
+        CduLNoSeriesMgt: Codeunit NoSeriesManagement;
         TextL001: Label '%1 Purchase Quote already existfor vendor %3, the newest from %2 do you to create a new one ?';
-        CduLCopyDocMgt: Codeunit 6620;
-        RecLPurchLine: Record 39;
+        CduLCopyDocMgt: Codeunit "Copy Document Mgt.";
+        RecLPurchLine: Record "Purchase Line";
         NextLineNo: Integer;
         CodLLastVendor: Code[20];
-        RecLPurchquoteHeader2: Record 38;
-        RecLPurchquoteHeader: Record 38;
+        RecLPurchquoteHeader2: Record "Purchase Header";
+        RecLPurchquoteHeader: Record "Purchase Header";
         BooLCreate: Boolean;
         IntLnumberofQuote: Integer;
         TextL002: Label '%1 quote created';
-        RecLSalesLine2: Record 37;
+        RecLSalesLine2: Record "Sales Line";
     begin
         RecLSalesLine.RESET;
         RecLSalesLine.SETCURRENTKEY("Document Type", RecLSalesLine."Buy-from Vendor No.");
@@ -596,7 +692,7 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
             UNTIL RecLSalesLine.NEXT = 0;
             IF BooLCreate THEN BEGIN
                 MESSAGE(TextL002, IntLnumberofQuote);
-                PAGE.RUN(49, RecLPurchquoteHeader);
+                PAGE.RUN(Page::"Purchase Quote", RecLPurchquoteHeader);
             END;
         END;
 

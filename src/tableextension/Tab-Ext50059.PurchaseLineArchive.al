@@ -21,13 +21,11 @@ tableextension 50059 "BC6_PurchaseLineArchive" extends "Purchase Line Archive"
         field(50022; "BC6_Public Price"; Decimal)
         {
             Caption = 'Tarif Public';
-            Description = 'TARIFPUB SM 15/10/06 NCS1.01 [FE024V1] Ajout du champ';
         }
         field(50031; "BC6_Discount Direct Unit Cost"; Decimal)
         {
             AutoFormatExpression = "Currency Code";
             AutoFormatType = 2;
-            Caption = 'Discount Direct Unit Cost excluding VAT';
             Editable = false;
 
             trigger OnValidate()

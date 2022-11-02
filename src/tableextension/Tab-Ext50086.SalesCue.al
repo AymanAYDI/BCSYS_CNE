@@ -15,7 +15,7 @@ tableextension 50086 "BC6_SalesCue" extends "Sales Cue"
             CalcFormula = Count("Sales Header" WHERE("Document Type" = FILTER(Quote),
                                                       Status = FILTER(Open),
                                                       "Responsibility Center" = FIELD("Responsibility Center Filter"),
-                                                      "BC6_Salesperson Filter" = FIELD("Salesperson Filter")));
+                                                      "BC6_Salesperson Filter" = FIELD("BC6_Salesperson Filter")));
             Caption = 'Sales Quotes - Open';
             Editable = false;
         }
@@ -26,7 +26,7 @@ tableextension 50086 "BC6_SalesCue" extends "Sales Cue"
             CalcFormula = Count("Sales Header" WHERE("Document Type" = FILTER(Order),
                                                       Status = FILTER(Open),
                                                       "Responsibility Center" = FIELD("Responsibility Center Filter"),
-                                                      "BC6_Salesperson Filter" = FILTER("Salesperson Filter")));
+                                                      "BC6_Salesperson Filter" = FILTER("BC6_Salesperson Filter")));
             Caption = 'Sales Orders - Open';
             Editable = false;
         }
@@ -39,7 +39,7 @@ tableextension 50086 "BC6_SalesCue" extends "Sales Cue"
                                                       Ship = FILTER(false),
                                                       "Shipment Date" = FIELD("Date Filter2"),
                                                       "Responsibility Center" = FIELD("Responsibility Center Filter"),
-                                                      "BC6_Salesperson Filter" = FIELD("Salesperson Filter")));
+                                                      "BC6_Salesperson Filter" = FIELD("BC6_Salesperson Filter")));
             Caption = 'Ready to Ship';
             Editable = false;
         }
@@ -51,7 +51,7 @@ tableextension 50086 "BC6_SalesCue" extends "Sales Cue"
                                                       Status = FILTER(Released),
                                                       "Shipment Date" = FIELD("Date Filter"),
                                                       "Responsibility Center" = FIELD("Responsibility Center Filter"),
-                                                      "BC6_Salesperson Filter" = FIELD("Salesperson Filter")));
+                                                      "BC6_Salesperson Filter" = FIELD("BC6_Salesperson Filter")));
             Caption = 'Delayed';
             Editable = false;
         }
@@ -62,7 +62,7 @@ tableextension 50086 "BC6_SalesCue" extends "Sales Cue"
             CalcFormula = Count("Sales Header" WHERE("Document Type" = FILTER("Return Order"),
                                                       Status = FILTER(Open),
                                                       "Responsibility Center" = FIELD("Responsibility Center Filter"),
-                                                      "BC6_Salesperson Filter" = FIELD("Salesperson Filter")));
+                                                      "BC6_Salesperson Filter" = FIELD("BC6_Salesperson Filter")));
             Caption = 'Sales Return Orders - All';
             Editable = false;
         }
@@ -76,7 +76,7 @@ tableextension 50086 "BC6_SalesCue" extends "Sales Cue"
                                                       "Completely Shipped" = FILTER(false),
                                                       "Shipment Date" = FIELD("Date Filter2"),
                                                       "Responsibility Center" = FIELD("Responsibility Center Filter"),
-                                                      "BC6_Salesperson Filter" = FIELD("Salesperson Filter")));
+                                                      "BC6_Salesperson Filter" = FIELD("BC6_Salesperson Filter")));
             Caption = 'Partially Shipped';
             Editable = false;
         }

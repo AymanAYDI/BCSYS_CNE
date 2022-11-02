@@ -1,40 +1,30 @@
-tableextension 50040 tableextension50040 extends "Detailed CV Ledg. Entry Buffer"
+tableextension 50040 "BC6_DetailedCVLedgEntryBuffer" extends "Detailed CV Ledg. Entry Buffer"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // //>>DEEE1.00
-    // DEEE:JNPA 01/01/2007 : eco taxe
-    //           - Add fields 80802, 80004..80007
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013 - 2017
-    // //>>DEEE1.00 : write DEEE descriptions in customer ledger entry (jnp)
     LookupPageID = 573;
     DrillDownPageID = 573;
     fields
     {
-        field(80802; "DEEE HT Amount"; Decimal)
+        field(80802; "BC6_DEEE HT Amount"; Decimal)
         {
             Caption = 'Montant HT DEEE';
             Description = 'DEEE1.00';
         }
-        field(80804; "DEEE VAT Amount"; Decimal)
+        field(80804; "BC6_DEEE VAT Amount"; Decimal)
         {
             Caption = 'Montant TVA DEEE';
             Description = 'DEEE1.00';
         }
-        field(80805; "DEEE TTC Amount"; Decimal)
+        field(80805; "BC6_DEEE TTC Amount"; Decimal)
         {
             Description = 'DEEE1.00';
         }
-        field(80806; "DEEE HT Amount (LCY)"; Decimal)
+        field(80806; "BC6_DEEE HT Amount (LCY)"; Decimal)
         {
             Caption = 'DEEE HT Amount (LCY)';
             Description = 'DEEE1.00';
             Editable = false;
         }
-        field(80807; "Eco partner DEEE"; Code[20])
+        field(80807; "BC6_Eco partner DEEE"; Code[20])
         {
             Caption = 'Eco partner DEEE';
             Description = 'DEEE1.00';

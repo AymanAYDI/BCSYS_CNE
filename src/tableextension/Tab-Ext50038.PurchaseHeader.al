@@ -87,9 +87,9 @@ tableextension 50038 "BC6_PurchaseHeader" extends "Purchase Header"
         }
         field(50090; "BC6_Last Related Info Date"; DateTime)
         {
-            CalcFormula = Max("Purch. Comment Line"."Log Date" WHERE("Document Type" = FIELD("Document Type"),
+            CalcFormula = Max("Purch. Comment Line"."BC6_Log Date" WHERE("Document Type" = FIELD("Document Type"),
                                                                       "No." = FIELD("No."),
-                                                                      "Is Log" = CONST(true)));
+                                                                      "BC6_Is Log" = CONST(true)));
             Caption = 'Last Related Info Date';
             FieldClass = FlowField;
         }
@@ -326,7 +326,7 @@ tableextension 50038 "BC6_PurchaseHeader" extends "Purchase Header"
         L_PurchCommentLine."Document Type" := "Document Type";
         L_PurchCommentLine."No." := "No.";
         L_PurchCommentLine.Comment := FORMAT(_Qty) + ' ' + FORMAT(_ReceiptType);
-        L_PurchCommentLine."Is Log" := TRUE;
+        L_PurchCommentLine."BC6_Is Log" := TRUE;
 
         L_PurchCommentLine2.SETRANGE("Document Type", L_PurchCommentLine."Document Type");
         L_PurchCommentLine2.SETRANGE("No.", L_PurchCommentLine."No.");

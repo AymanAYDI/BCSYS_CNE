@@ -2,17 +2,13 @@ tableextension 50056 "BC6_SalesHeaderArchive" extends "Sales Header Archive"
 {
     fields
     {
-        field(50000; "BC6_Cause filing"; Option)
+        field(50000; "BC6_Cause filing"; enum "BC6_Cause filing")
         {
             Caption = 'Cause filing';
-            Description = 'NAVIDIIGEST BRRI 01.08.2006 NSC1.00 [Archivage_Devis] Ajout du champ';
-            OptionCaption = 'No proceeded,Deleted,Change in Order';
-            OptionMembers = "No proceeded",Deleted,"Change in Order";
         }
         field(50001; "BC6_Purchaser Comments"; Text[50])
         {
             Caption = 'Purchaser Comments';
-            Description = 'CNE1.00';
         }
         field(50002; "BC6_Warehouse Comments"; Text[50])
         {
@@ -96,11 +92,9 @@ tableextension 50056 "BC6_SalesHeaderArchive" extends "Sales Header Archive"
         {
             Caption = 'Document description';
         }
-        field(50060; "BC6_Quote statut"; Option)
+        field(50060; "BC6_Quote statut"; enum "BC6_Quote statut")
         {
             Caption = 'Quote status';
-            OptionCaption = ' ,Approved,Locked';
-            OptionMembers = " ",approved,locked;
         }
         field(50061; "BC6_Sell-to Fax No."; Text[30])
         {

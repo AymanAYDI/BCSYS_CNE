@@ -12,11 +12,9 @@ tableextension 50059 "BC6_PurchaseLineArchive" extends "Purchase Line Archive"
             Caption = 'Sales Order Line No.';
             Editable = false;
         }
-        field(50002; "BC6_Sales Document Type"; Option)
+        field(50002; "BC6_Sales Document Type"; Enum "BC6_Sales Document Type")
         {
             Caption = 'Document Type';
-            OptionCaption = 'Quote,Order,Invoice,Credit Memo,Blanket Order,Return Order';
-            OptionMembers = Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order";
         }
         field(50022; "BC6_Public Price"; Decimal)
         {

@@ -1,4 +1,4 @@
-enum 50010 "BC6_Return Order Type"
+enum 50011 "BC6_Return Order Type"
 {
     Extensible = true;
 

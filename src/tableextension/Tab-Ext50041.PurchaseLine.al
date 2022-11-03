@@ -632,7 +632,7 @@ tableextension 50041 "BC6_PurchaseLine" extends "Purchase Line"
         //>>BCSYS
         IF "Document Type" = "Document Type"::"Return Order" THEN BEGIN
             IF L_PurchaseHeader.GET("Document Type", "Document No.") THEN;
-            "BC6_Return Order Type" := L_PurchaseHeader."Return Order Type";
+            "BC6_Return Order Type" := L_PurchaseHeader."BC6_Return Order Type";
         END;
         //<<BCSYS
     end;

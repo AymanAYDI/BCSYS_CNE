@@ -119,9 +119,9 @@ tableextension 50022 "BC6_Vendor" extends Vendor
     local procedure MarkVendorsWithSimilarName(var Vendor: Record Vendor; VendorText: Text)
     var
         TypeHelper: Codeunit "Type Helper";
+        Treshold: Integer;
         VendorCount: Integer;
         VendorTextLenght: Integer;
-        Treshold: Integer;
     begin
         IF VendorText = '' THEN
             EXIT;
@@ -131,22 +131,22 @@ tableextension 50022 "BC6_Vendor" extends Vendor
         Treshold := VendorTextLenght DIV 5;
         IF Treshold = 0 THEN
             EXIT;
-        Vendor.RESET;
+        Vendor.RESET();
         Vendor.ASCENDING(FALSE); // most likely to search for newest Vendors
-        IF Vendor.FINDSET THEN
+        IF Vendor.FINDSET() THEN
             REPEAT
                 VendorCount += 1;
                 IF ABS(VendorTextLenght - STRLEN(Vendor.Name)) <= Treshold THEN
                     IF TypeHelper.TextDistance(UPPERCASE(VendorText), UPPERCASE(Vendor.Name)) <= Treshold THEN
                         Vendor.MARK(TRUE);
-            UNTIL Vendor.MARK OR (Vendor.NEXT = 0) OR (VendorCount > 1000);
+            UNTIL Vendor.MARK() OR (Vendor.NEXT() = 0) OR (VendorCount > 1000);
         Vendor.MARKEDONLY(TRUE);
     end;
 
     local procedure CreateNewVendor(VendorName: Text[50]): Code[20]
     var
+        MiniVendorTemplate: Record "Mini Vendor Template"; //TODO :for removal 
         Vendor: Record Vendor;
-        MiniVendorTemplate: Record "Mini Vendor Template";
         VendorCard: Page "Vendor Card";
     begin
         IF NOT MiniVendorTemplate.NewVendorFromTemplate(Vendor) THEN
@@ -154,10 +154,10 @@ tableextension 50022 "BC6_Vendor" extends Vendor
 
         Vendor.Name := VendorName;
         Vendor.MODIFY(TRUE);
-        COMMIT;
+        COMMIT();
         Vendor.SETRANGE("No.", Vendor."No.");
         VendorCard.SETTABLEVIEW(Vendor);
-        IF NOT (VendorCard.RUNMODAL = ACTION::OK) THEN
+        IF NOT (VendorCard.RUNMODAL() = ACTION::OK) THEN
             ERROR(SelectVendorErr);
 
         EXIT(Vendor."No.");
@@ -173,7 +173,7 @@ tableextension 50022 "BC6_Vendor" extends Vendor
         VendorList.SETTABLEVIEW(Vendor);
         VendorList.SETRECORD(Vendor);
         VendorList.LOOKUPMODE := TRUE;
-        IF VendorList.RUNMODAL = ACTION::LookupOK THEN
+        IF VendorList.RUNMODAL() = ACTION::LookupOK THEN
             VendorList.GETRECORD(Vendor)
         ELSE
             CLEAR(Vendor);
@@ -183,42 +183,42 @@ tableextension 50022 "BC6_Vendor" extends Vendor
 
     local procedure MarkVendorsByFilters(var Vendor: Record Vendor)
     begin
-        IF Vendor.FINDSET THEN
+        IF Vendor.FINDSET() THEN
             REPEAT
                 Vendor.MARK(TRUE);
-            UNTIL Vendor.NEXT = 0;
-        IF Vendor.FINDFIRST THEN;
+            UNTIL Vendor.NEXT() = 0;
+        IF Vendor.FINDFIRST() THEN;
         Vendor.MARKEDONLY := TRUE;
     end;
 
     PROCEDURE updateLedgerEntries(CodLVendNo: Code[20]; CodLPayToNo: Code[20]);
     VAR
-        RecLVendLedgEntry: Record "Vendor Ledger Entry";
         RecLDetVendLedgEntry: Record "Detailed Vendor Ledg. Entry";
+        RecLVendLedgEntry: Record "Vendor Ledger Entry";
     BEGIN
-        RecLVendLedgEntry.RESET;
+        RecLVendLedgEntry.RESET();
         RecLVendLedgEntry.SETRANGE("Vendor No.", CodLVendNo);
         RecLVendLedgEntry.SETRANGE(Open, TRUE);
         IF RecLVendLedgEntry.FINDSET(TRUE, FALSE) THEN
             REPEAT
                 //TODO
                 // RecLVendLedgEntry."Pay-to Vend. No." := CodLPayToNo;
-                RecLVendLedgEntry.MODIFY;
+                RecLVendLedgEntry.MODIFY();
 
                 //Mise … jour de la Table 380 Ecriture Forunisseur d‚taill‚
-                RecLDetVendLedgEntry.RESET;
+                RecLDetVendLedgEntry.RESET();
                 RecLDetVendLedgEntry.SETRANGE("Vendor Ledger Entry No.", RecLVendLedgEntry."Entry No.");
                 IF RecLDetVendLedgEntry.FINDSET(TRUE, FALSE) THEN
                     REPEAT
-                        RecLDetVendLedgEntry."Pay-to Vend. No." := CodLPayToNo;
-                        RecLDetVendLedgEntry.MODIFY;
-                    UNTIL RecLDetVendLedgEntry.NEXT = 0;
-            UNTIL RecLVendLedgEntry.NEXT = 0;
+                        RecLDetVendLedgEntry."BC6_Pay-to Vend. No." := CodLPayToNo;
+                        RecLDetVendLedgEntry.MODIFY();
+                    UNTIL RecLDetVendLedgEntry.NEXT() = 0;
+            UNTIL RecLVendLedgEntry.NEXT() = 0;
     END;
 
     var
-        TextGestTiersPayeur001: Label 'Do you want to update Open Ledger entries with new Pay-to customer No. %1?';
         SelectVendorErr: Label 'You must select an existing vendor.';
+        TextGestTiersPayeur001: Label 'Do you want to update Open Ledger entries with new Pay-to customer No. %1?';
 
 }
 

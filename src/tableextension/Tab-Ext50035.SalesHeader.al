@@ -76,36 +76,66 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
             trigger OnAfterValidate()
             var
                 Customer: Record Customer;
-                LookupStateManager: Codeunit "Lookup State Manager";
-                StandardCodesMgt: Codeunit "Standard Codes Mgt.";
-                IsHandled: Boolean;
             begin
-                if IsHandled then begin
-                    if LookupStateManager.IsRecordSaved() then
-                        LookupStateManager.ClearSavedRecord();
-                    exit;
-                end;
-
-                if LookupStateManager.IsRecordSaved() then begin
-                    Customer := LookupStateManager.GetSavedRecord();
-                    if Customer."No." <> '' then begin
-                        LookupStateManager.ClearSavedRecord();
-                        Validate("Sell-to Customer No.", Customer."No.");
-
-                        GetShippingTime(FieldNo("Sell-to Customer Name"));
-                        if "No." <> '' then
-                            StandardCodesMgt.CheckCreateSalesRecurringLines(Rec);
-                        exit;
-                    end;
-                end;
                 IF xRec."Sell-to Customer Name" = '' THEN
                     if ShouldSearchForCustomerByName("Sell-to Customer No.") then
-                        Validate("Sell-to Customer No.", Customer.GetCustNo("Sell-to Customer Name"));
+                        VALIDATE("Sell-to Customer No.", Customer.GetCustNo("Sell-to Customer Name"));
+                GetShippingTime(FIELDNO("Sell-to Customer Name"));
+
                 CopySellToAddress(CurrFieldNo);
-                GetShippingTime(FieldNo("Sell-to Customer Name"));
             end;
         }
+        modify("Sell-to Customer Name 2")
+        {
+            trigger OnAfterValidate()
+            begin
+                CopySellToAddress(CurrFieldNo);
 
+            end;
+        }
+        modify("Sell-to Address")
+        {
+            trigger OnAfterValidate()
+            begin
+                CopySellToAddress(CurrFieldNo);
+            end;
+        }
+        modify("Sell-to Address 2")
+        {
+            trigger OnAfterValidate()
+            begin
+                CopySellToAddress(CurrFieldNo);
+
+            end;
+        }
+        modify("Sell-to Contact")
+        {
+            trigger OnAfterValidate()
+            begin
+                CopySellToAddress(CurrFieldNo);
+            end;
+        }
+        modify("Sell-to Post Code")
+        {
+            trigger OnAfterValidate()
+            begin
+                CopySellToAddress(CurrFieldNo);
+            end;
+        }
+        modify("Sell-to County")
+        {
+            trigger OnAfterValidate()
+            begin
+                CopySellToAddress(CurrFieldNo);
+            end;
+        }
+        modify("Sell-to Country/Region Code")
+        {
+            trigger OnAfterValidate()
+            begin
+                CopySellToAddress(CurrFieldNo);
+            end;
+        }
         field(50000; "BC6_Cause filing"; Enum "BC6_Cause Filing")
         {
             Caption = 'Cause filing';
@@ -608,7 +638,7 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
         RecLSalesLine2: Record "Sales Line";
     begin
         RecLSalesLine.RESET;
-        RecLSalesLine.SETCURRENTKEY("Document Type", RecLSalesLine."Buy-from Vendor No.");
+        RecLSalesLine.SETCURRENTKEY("Document Type", RecLSalesLine."BC6_Buy-from Vendor No.");
         RecLSalesLine.SETRANGE(RecLSalesLine."Document Type", RecLSalesHeader."Document Type");
         RecLSalesLine.SETRANGE(RecLSalesLine."Document No.", RecLSalesHeader."No.");
         RecLSalesLine.SETRANGE(RecLSalesLine.Type, RecLSalesLine.Type::Item);
@@ -623,13 +653,13 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
             REPEAT
                 IF RecLItem.GET(RecLSalesLine."No.") THEN
                     //Entete devis achat
-                    IF CodLLastVendor <> RecLSalesLine."Buy-from Vendor No." THEN BEGIN
-                        CodLLastVendor := RecLSalesLine."Buy-from Vendor No.";
+                    IF CodLLastVendor <> RecLSalesLine."BC6_Buy-from Vendor No." THEN BEGIN
+                        CodLLastVendor := RecLSalesLine."BC6_Buy-from Vendor No.";
 
                         BooLCreate := TRUE;
                         RecLPurchquoteHeader2.RESET;
                         RecLPurchquoteHeader2.SETRANGE("Document Type", "Document Type"::Quote);
-                        RecLPurchquoteHeader2.SETFILTER("Buy-from Vendor No.", RecLSalesLine."Buy-from Vendor No.");
+                        RecLPurchquoteHeader2.SETFILTER("Buy-from Vendor No.", RecLSalesLine."BC6_Buy-from Vendor No.");
                         IF RecLPurchquoteHeader2.FIND('+') THEN
                             IF NOT CONFIRM(TextL001, TRUE, RecLPurchquoteHeader2.COUNT, RecLPurchquoteHeader2."Document Date",
                             RecLPurchquoteHeader2."Buy-from Vendor Name") THEN
@@ -646,13 +676,13 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
                             RecLPurchquoteHeader.VALIDATE("Sell-to Customer No.", RecLSalesHeader."Sell-to Customer No.");
                             RecLPurchquoteHeader.VALIDATE("Purchaser Code", RecLSalesHeader."Salesperson Code");
                             //FG
-                            RecLPurchquoteHeader."From Sales Module" := TRUE;
+                            RecLPurchquoteHeader."BC6_From Sales Module" := TRUE;
                             RecLPurchquoteHeader.INSERT(TRUE);
 
                             //Ligne Devis achat
                             NextLineNo := 10000;
 
-                            RecLSalesLine2.SETFILTER("Buy-from Vendor No.", RecLPurchquoteHeader."Buy-from Vendor No.");
+                            RecLSalesLine2.SETFILTER("BC6_Buy-from Vendor No.", RecLPurchquoteHeader."Buy-from Vendor No.");
                             IF RecLSalesLine2.FIND('-') THEN BEGIN
                                 REPEAT
                                     RecLPurchLine.INIT;
@@ -669,18 +699,13 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
                                     RecLPurchLine.INSERT(TRUE);
                                     NextLineNo := NextLineNo + 10000;
 
-                                    RecLSalesLine2.VALIDATE("Purch. Order No.", RecLPurchLine."Document No.");
-                                    RecLSalesLine2.VALIDATE("Purch. Line No.", RecLPurchLine."Line No.");
-                                    RecLSalesLine2.VALIDATE("Purch. Document Type", RecLPurchLine."Document Type");
-                                    RecLSalesLine2.VALIDATE("Purchase cost", RecLPurchLine."Discount Direct Unit Cost");
+                                    RecLSalesLine2.VALIDATE("BC6_Purch. Order No.", RecLPurchLine."Document No.");
+                                    RecLSalesLine2.VALIDATE("BC6_Purch. Line No.", RecLPurchLine."Line No.");
+                                    RecLSalesLine2.VALIDATE("BC6_Purch. Document Type", RecLPurchLine."Document Type");
+                                    RecLSalesLine2.VALIDATE("BC6_Purchase cost", RecLPurchLine."Discount Direct Unit Cost");
 
                                     //>>FEP-ACHAT-200706_18_A.001
-                                    RecLSalesLine2.VALIDATE("Purchase Receipt Date", RecLPurchLine."Expected Receipt Date");
-                                    //<<FEP-ACHAT-200706_18_A.001
-
-                                    /*RecLSalesLine2."Purch. Order No." := RecLPurchLine."Document No.";
-                                    RecLSalesLine2."Purch. Line No." := RecLPurchLine."Line No.";
-                                    RecLSalesLine2."Purch. Document Type" := RecLPurchLine."Document Type";*/
+                                    RecLSalesLine2.VALIDATE("BC6_Purchase Receipt Date", RecLPurchLine."Expected Receipt Date");
                                     RecLSalesLine2.MODIFY(TRUE);
 
                                 UNTIL RecLSalesLine2.NEXT = 0;
@@ -700,8 +725,8 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
 
     procedure verifyquotestatus(): Boolean
     var
-        RecLQuotehdr: Record "36";
-        RecLAccessControl: Record "2000000053";
+        RecLQuotehdr: Record 36;
+        RecLAccessControl: Record 2000000053;
     begin
         //>>FE015
         //>>MIGRATION NAV 2013

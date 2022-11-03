@@ -238,22 +238,8 @@ codeunit 50000 "BC6_EventsMgt"
         IsHandled := true;
     end;
 
-    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnBeforeValidateSellToCustomerName', '', false, false)]
-
-    local procedure OnBeforeValidateSellToCustomerName(var SalesHeader: Record "Sales Header"; var Customer: Record Customer; var IsHandled: Boolean)
-    begin
-        IsHandled := true;
-    end;
 
 
-    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnBeforeValidateBillToName', '', false, false)]
-
-    local procedure T36_OnBeforeValidateBillToName_SalesHeader(var SalesHeader: Record "Sales Header"; var Customer: Record Customer; var IsHandled: Boolean)
-    begin
-
-
-
-    end;
 
 
     //TAB38

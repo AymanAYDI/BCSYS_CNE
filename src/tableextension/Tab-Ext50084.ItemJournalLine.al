@@ -172,8 +172,8 @@ tableextension 50084 "BC6_ItemJournalLine" extends "Item Journal Line"
     begin
         IF ("Reason Code" = '') OR (RecLReasonCode.GET("Reason Code")) THEN BEGIN
             RecLSalesSetup.GET;
-            IF (NOT RecLSalesSetup."DEEE Management") OR ("BC6_DEEE Category Code" = '')
-              OR (RecLReasonCode."Disable DEEE")
+            IF (NOT RecLSalesSetup."BC6_DEEE Management") OR ("BC6_DEEE Category Code" = '')
+              OR (RecLReasonCode."BC6_Disable DEEE")
               OR (("Entry Type" <> "Entry Type"::Output) AND ("Entry Type" <> "Entry Type"::"Positive Adjmt.")) THEN BEGIN
                 "BC6_DEEE Unit Price" := 0;
                 "BC6_DEEE HT Amount" := 0;
@@ -187,17 +187,17 @@ tableextension 50084 "BC6_ItemJournalLine" extends "Item Journal Line"
         RecLItem.GET("Item No.");
         RecLDEEETariffs.RESET;
         RecLDEEETariffs.SETRANGE("DEEE Code", "BC6_DEEE Category Code");
-        RecLDEEETariffs.SETRANGE("Eco Partner", RecLItem."Eco partner DEEE");
+        RecLDEEETariffs.SETRANGE("Eco Partner", RecLItem."BC6_Eco partner DEEE");
         RecLDEEETariffs.SETFILTER("Date beginning", '<=%1', "Posting Date");
         IF NOT RecLDEEETariffs.FIND('+') THEN BEGIN
             ERROR(CntTxt100, RecLDEEETariffs.GETFILTERS);
         END;
 
-        "BC6_DEEE Unit Price" := RecLDEEETariffs."HT Unit Tax (LCY)" * RecLItem."Number of Units DEEE";
+        "BC6_DEEE Unit Price" := RecLDEEETariffs."HT Unit Tax (LCY)" * RecLItem."BC6_Number of Units DEEE";
         VALIDATE("BC6_DEEE HT Amount", "BC6_DEEE Unit Price" * "Quantity (Base)");
         "BC6_DEEE VAT Amount" := 0; //pas de tva
         "BC6_DEEE TTC Amount" := "BC6_DEEE HT Amount" + "BC6_DEEE VAT Amount";
-        "BC6_Eco partner DEEE" := RecLItem."Eco partner DEEE";
+        "BC6_Eco partner DEEE" := RecLItem."BC6_Eco partner DEEE";
         "BC6_DEEE HT Amount (LCY)" := "BC6_DEEE HT Amount";
     end;
 

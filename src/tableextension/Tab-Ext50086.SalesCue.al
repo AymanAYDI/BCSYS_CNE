@@ -23,10 +23,11 @@ tableextension 50086 "BC6_SalesCue" extends "Sales Cue"
         {
 
             FieldClass = FlowField;
+
             CalcFormula = Count("Sales Header" WHERE("Document Type" = FILTER(Order),
                                                       Status = FILTER(Open),
                                                       "Responsibility Center" = FIELD("Responsibility Center Filter"),
-                                                      "BC6_Salesperson Filter" = FILTER("BC6_Salesperson Filter")));
+                                                      "BC6_Salesperson Filter" = FIELD("BC6_Salesperson Filter")));
             Caption = 'Sales Orders - Open';
             Editable = false;
         }

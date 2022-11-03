@@ -175,18 +175,23 @@ tableextension 50041 "BC6_PurchaseLine" extends "Purchase Line"
         }
         modify(Quantity)
         {
-            VALIDATE("BC6_DEEE HT Amount",0) ;
-            "BC6_DEEE VAT Amount" := 0;
-            "BC6_DEEE TTC Amount" := 0;
-            "BC6_DEEE Amount (LCY) for Stat":=0;
+            trigger OnAfterValidate()
+            begin
+                VALIDATE("BC6_DEEE HT Amount", 0);
+                "BC6_DEEE VAT Amount" := 0;
+                "BC6_DEEE TTC Amount" := 0;
+                "BC6_DEEE Amount (LCY) for Stat" := 0;
 
-            RecGVendor.GET("Buy-from Vendor No.");
-            IF RecGVendor."Posting DEEE" THEN BEGIN
-                                                                  VALIDATE("DEEE HT Amount","DEEE Unit Price" * "Quantity (Base)") ;
-            "DEEE VAT Amount" := ROUND("DEEE HT Amount" * "VAT %"/ 100,Currency."Amount Rounding Precision");
-            "DEEE TTC Amount" := "DEEE HT Amount" + "DEEE VAT Amount" ;
-            "DEEE Amount (LCY) for Stat":="Quantity (Base)"*"DEEE Unit Price (LCY)" ;
-                                                                END;
+                RecGVendor.GET("Buy-from Vendor No.");
+                IF RecGVendor."BC6_Posting DEEE" THEN BEGIN
+                    VALIDATE("BC6_DEEE HT Amount", "BC6_DEEE Unit Price" * "Quantity (Base)");
+                    "BC6_DEEE VAT Amount" := ROUND("BC6_DEEE HT Amount" * "VAT %" / 100, Currency."Amount Rounding Precision");
+                    "BC6_DEEE TTC Amount" := "BC6_DEEE HT Amount" + "BC6_DEEE VAT Amount";
+                    "BC6_DEEE Amount (LCY) for Stat" := "Quantity (Base)" * "BC6_DEEE Unit Price (LCY)";
+                END;
+                Modify();
+            end;
+
         }
 
 
@@ -627,7 +632,7 @@ tableextension 50041 "BC6_PurchaseLine" extends "Purchase Line"
         //>>BCSYS
         IF "Document Type" = "Document Type"::"Return Order" THEN BEGIN
             IF L_PurchaseHeader.GET("Document Type", "Document No.") THEN;
-            "BC6_Return Order Type" := L_PurchaseHeader."Return Order Type";
+            "BC6_Return Order Type" := L_PurchaseHeader."BC6_Return Order Type";
         END;
         //<<BCSYS
     end;

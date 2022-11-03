@@ -19,14 +19,11 @@ tableextension 50063 "BC6_WarehouseActivityLine" extends "Warehouse Activity Lin
             Description = 'CNE4.01';
             Editable = false;
         }
-        field(50042; "BC6_Source Document 2"; Option)
+        field(50042; "BC6_Source Document 2"; enum "BC6_Source Document 2")
         {
             BlankZero = true;
             Caption = 'Source Document';
-            Description = 'CNE4.01';
             Editable = false;
-            OptionCaption = ',Sales Order,,,Sales Return Order,Purchase Order,,,Purchase Return Order,Inbound Transfer,Outbound Transfer,Prod. Consumption,Prod. Output';
-            OptionMembers = ,"Sales Order",,,"Sales Return Order","Purchase Order",,,"Purchase Return Order","Inbound Transfer","Outbound Transfer","Prod. Consumption","Prod. Output";
         }
         field(50043; "BC6_Source Bin Code"; Code[20])
         {
@@ -63,7 +60,7 @@ tableextension 50063 "BC6_WarehouseActivityLine" extends "Warehouse Activity Lin
 
                 //>>CNE5.00
                 IF RecLUserSetup.GET(USERID) THEN BEGIN
-                    IF NOT RecLUserSetup."Autorize Qty. to Handle Change" THEN
+                    IF NOT RecLUserSetup."BC6_Autorize Qty. to Handle Change" THEN
                         ERROR(CstL001);
                 END ELSE
                     ERROR(CstL001);

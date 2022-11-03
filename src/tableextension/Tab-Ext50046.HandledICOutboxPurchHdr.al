@@ -6,7 +6,6 @@ tableextension 50046 "BC6_HandledICOutboxPurchHdr" extends "Handled IC Outbox Pu
         field(50000; "BC6_Ship-to Contact"; Text[50])
         {
             Caption = 'Ship-to Contact';
-            Description = 'CNEIC';
         }
     }
 }

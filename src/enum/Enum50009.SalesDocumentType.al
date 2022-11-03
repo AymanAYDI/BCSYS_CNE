@@ -1,4 +1,4 @@
-enum 50009 "BC6_Sales Document Type"
+enum 50010 "BC6_Sales Document Type"
 {
     Extensible = true;
 

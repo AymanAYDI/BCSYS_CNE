@@ -3,16 +3,16 @@ page 50055 "Invt Pick List MiniForm"
     Caption = 'Invt Pick List';
     Editable = false;
     PageType = List;
-    SourceTable = Table5766;
-    SourceTableView = SORTING (Type, No.)
+    SourceTable = "Warehouse Activity Header";
+    SourceTableView = SORTING(Type, "No.")
                       ORDER(Ascending)
-                      WHERE (Type = CONST (Invt. Pick));
+                      WHERE(Type = CONST("Invt. Pick"));
 
     layout
     {
         area(content)
         {
-            repeater()
+            repeater(Control1)
             {
                 field(Type; Type)
                 {
@@ -30,7 +30,7 @@ page 50055 "Invt Pick List MiniForm"
                 field("Destination No."; "Destination No.")
                 {
                 }
-                field("Sales Counter"; "Sales Counter")
+                field("Sales Counter"; "BC6_Sales Counter")
                 {
                 }
                 field("No. of Lines"; "No. of Lines")

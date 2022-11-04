@@ -50,18 +50,14 @@ tableextension 50084 "BC6_ItemJournalLine" extends "Item Journal Line"
 
 
 
-        field(50046; "BC6_Whse. Document Type"; Option)
+        field(50046; "BC6_Whse. Document Type"; enum "BC6_Whse. Document Type 2")
         {
             Caption = 'Whse. Document Type';
-            Description = 'CNE4.01';
             Editable = false;
-            OptionCaption = ' ,Invt. Pick';
-            OptionMembers = " ","Invt. Pick";
         }
         field(50047; "BC6_Whse. Document No."; Code[20])
         {
             Caption = 'Whse. Document No.';
-            Description = 'CNE4.01';
             Editable = false;
             TableRelation = IF ("BC6_Whse. Document Type" = CONST("Invt. Pick")) "Warehouse Activity Header"."No." WHERE(Type = CONST("Invt. Pick"));
         }
@@ -69,13 +65,11 @@ tableextension 50084 "BC6_ItemJournalLine" extends "Item Journal Line"
         {
             BlankZero = true;
             Caption = 'Whse. Document Line No.';
-            Description = 'CNE4.01';
             Editable = false;
         }
         field(50060; "BC6_Qty. Refreshed (Phys. Inv.)"; Boolean)
         {
             Caption = 'Qty. (Phys. Inventory)';
-            Description = 'CNE4.01';
             Editable = false;
 
             trigger OnValidate()
@@ -86,55 +80,46 @@ tableextension 50084 "BC6_ItemJournalLine" extends "Item Journal Line"
         field(80800; "BC6_DEEE Category Code"; Code[10])
         {
             Caption = 'DEEE Category Code';
-            Description = 'DEEE1.00';
             TableRelation = "BC6_Categories of item".Category;
         }
         field(80801; "BC6_DEEE Unit Price"; Decimal)
         {
             Caption = 'DEEE Unit Price';
-            Description = 'DEEE1.00';
             Editable = false;
         }
         field(80802; "BC6_DEEE HT Amount"; Decimal)
         {
             Caption = 'DEEE HT Amount';
-            Description = 'DEEE1.00';
             Editable = false;
         }
         field(80803; "BC6_DEEE Unit Price (LCY)"; Decimal)
         {
             Caption = 'DEEE Unit Price (LCY)';
-            Description = 'DEEE1.00';
             Editable = false;
         }
         field(80804; "BC6_DEEE VAT Amount"; Decimal)
         {
             Caption = 'DEEE VAT Amount';
-            Description = 'DEEE1.00';
             Editable = false;
         }
         field(80805; "BC6_DEEE TTC Amount"; Decimal)
         {
             Caption = 'DEEE TTC Amount';
-            Description = 'DEEE1.00';
             Editable = false;
         }
         field(80806; "BC6_DEEE HT Amount (LCY)"; Decimal)
         {
             Caption = 'DEEE HT Amount (LCY)';
-            Description = 'DEEE1.00';
             Editable = false;
         }
         field(80807; "BC6_Eco partner DEEE"; Code[20])
         {
             Caption = 'Eco partner DEEE';
-            Description = 'DEEE1.00';
             Editable = false;
             TableRelation = Vendor;
         }
         field(80808; "BC6_DEEE Amount (LCY) for Stat"; Decimal)
         {
-            Description = 'DEEE1.00';
         }
     }
     keys

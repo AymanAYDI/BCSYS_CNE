@@ -1,11 +1,10 @@
-page 50036 "BC6_Sales Lines Subform 2"
+page 50043 "BC6_Invoice Lines Subform 3"
 {
-    Caption = 'Sales Lines Subform';
+    Caption = 'Sales Invoice Lines';
     Editable = false;
-    MultipleNewLines = true;
-    PageType = Card;
-    SourceTable = "Sales Line";
-    SourceTableView = SORTING("Document Type", "Bill-to Customer No.", "Currency Code");
+    PageType = List;
+    SourceTable = "Sales Invoice Line";
+    SourceTableView = SORTING("No.");
 
     layout
     {
@@ -17,25 +16,27 @@ page 50036 "BC6_Sales Lines Subform 2"
                 {
                     HideValue = "Document No.HideValue";
                     Lookup = false;
-                }
-                field("Document Date flow"; "BC6_Document Date flow")
-                {
+                    Style = StandardAccent;
+                    StyleExpr = TRUE;
                 }
                 field("Shipment Date"; "Shipment Date")
-                {
-                }
-                field("Profit %"; "Profit %")
-                {
-                }
-                field("Purchase cost"; "BC6_Purchase cost")
-                {
-                }
-                field("Public Price"; "BC6_Public Price")
                 {
                 }
                 field("Bill-to Customer No."; "Bill-to Customer No.")
                 {
                     Visible = false;
+                }
+                field("Discount Unit Price"; "BC6_Discount Unit Price")
+                {
+                }
+                field("Amount Including VAT"; "Amount Including VAT")
+                {
+                }
+                field("Line Amount"; "Line Amount")
+                {
+                }
+                field("Public Price"; "BC6_Public Price")
+                {
                 }
                 field("Sell-to Customer No."; "Sell-to Customer No.")
                 {
@@ -66,10 +67,6 @@ page 50036 "BC6_Sales Lines Subform 2"
                 {
                     Visible = false;
                 }
-                field("Currency Code"; "Currency Code")
-                {
-                    Visible = false;
-                }
                 field("Location Code"; "Location Code")
                 {
                     Visible = false;
@@ -91,7 +88,6 @@ page 50036 "BC6_Sales Lines Subform 2"
                 }
                 field(Quantity; Quantity)
                 {
-                    BlankZero = true;
                 }
                 field("Unit of Measure"; "Unit of Measure")
                 {
@@ -103,33 +99,11 @@ page 50036 "BC6_Sales Lines Subform 2"
                 }
                 field("Line Discount %"; "Line Discount %")
                 {
-                    BlankNumbers = DontBlank;
                     BlankZero = true;
-                }
-                field("DEEE Category Code"; "BC6_DEEE Category Code")
-                {
-                }
-                field("DEEE Unit Price"; "BC6_DEEE Unit Price")
-                {
-                }
-                field("DEEE HT Amount"; "BC6_DEEE HT Amount")
-                {
-                }
-                field("DEEE VAT Amount"; "BC6_DEEE VAT Amount")
-                {
-                }
-                field("DEEE TTC Amount"; "BC6_DEEE TTC Amount")
-                {
                 }
                 field("Line Discount Amount"; "Line Discount Amount")
                 {
                     Visible = false;
-                }
-                field("Line Amount"; "Line Amount")
-                {
-                }
-                field("Discount unit price"; "BC6_Discount unit price")
-                {
                 }
                 field("Allow Invoice Disc."; "Allow Invoice Disc.")
                 {
@@ -137,20 +111,6 @@ page 50036 "BC6_Sales Lines Subform 2"
                 }
                 field("Inv. Discount Amount"; "Inv. Discount Amount")
                 {
-                    Visible = false;
-                }
-                field("Allow Item Charge Assignment"; "Allow Item Charge Assignment")
-                {
-                    Visible = false;
-                }
-                field("Qty. to Assign"; "Qty. to Assign")
-                {
-                    BlankZero = true;
-                    Visible = false;
-                }
-                field("Qty. Assigned"; "Qty. Assigned")
-                {
-                    BlankZero = true;
                     Visible = false;
                 }
                 field("Job No."; "Job No.")
@@ -173,12 +133,33 @@ page 50036 "BC6_Sales Lines Subform 2"
                 {
                     Visible = false;
                 }
+                field("Posting Date"; "Posting Date")
+                {
+                }
             }
         }
     }
 
     actions
     {
+        area(processing)
+        {
+            action(Show)
+            {
+                Caption = '&Show';
+                Image = Document;
+
+                trigger OnAction()
+                begin
+
+                    //>>MIGRATION NAV 2013
+                    IF NOT RecGSalesInvoiceHeader.GET("Document No.") THEN
+                        EXIT;
+                    PAGE.RUN(PAGE::"Posted Sales Invoice", RecGSalesInvoiceHeader);
+                    //<<MIGRATION NAV 2013
+                end;
+            }
+        }
     }
 
     trigger OnAfterGetRecord()
@@ -187,47 +168,36 @@ page 50036 "BC6_Sales Lines Subform 2"
         DocumentNoOnFormat();
     end;
 
-    trigger OnOpenPage()
-    begin
-
-        CALCFIELDS("BC6_Document Date flow");
-        REPEAT
-            "BC6_Document Date" := "BC6_Document Date flow";
-        UNTIL Rec.NEXT() = 0;
-        //SETCURRENTKEY("Document Type","No.");
-    end;
-
     var
-        TempSalesLine: Record "Sales Line" temporary;
+        TempSalesInvLine: Record "Sales Invoice Line" temporary;
         [InDataSet]
         "Document No.HideValue": Boolean;
         [InDataSet]
         "Document No.Emphasize": Boolean;
+        RecGSalesInvoiceHeader: Record "Sales Invoice Header";
 
     local procedure IsFirstDocLine(): Boolean
     var
-        SalesLine: Record "Sales Line";
+        SalesInvLine: Record "Sales Invoice Line";
     begin
-        TempSalesLine.RESET();
-        TempSalesLine.COPYFILTERS(Rec);
-        TempSalesLine.SETRANGE("Document Type", "Document Type");
-        TempSalesLine.SETRANGE("Document No.", "Document No.");
-        IF NOT TempSalesLine.FIND('-') THEN BEGIN
-            SalesLine.COPYFILTERS(Rec);
-            SalesLine.SETRANGE("Document Type", "Document Type");
-            SalesLine.SETRANGE("Document No.", "Document No.");
-            SalesLine.FIND('-');
-            TempSalesLine := SalesLine;
-            TempSalesLine.INSERT();
+        TempSalesInvLine.RESET();
+        TempSalesInvLine.COPYFILTERS(Rec);
+        TempSalesInvLine.SETRANGE("Document No.", "Document No.");
+        IF NOT TempSalesInvLine.FIND('-') THEN BEGIN
+            SalesInvLine.COPYFILTERS(Rec);
+            SalesInvLine.SETRANGE("Document No.", "Document No.");
+            SalesInvLine.FIND('-');
+            TempSalesInvLine := SalesInvLine;
+            TempSalesInvLine.INSERT();
         END;
-        IF "Line No." = TempSalesLine."Line No." THEN
-            EXIT(TRUE);
+        EXIT("Line No." = TempSalesInvLine."Line No.");
     end;
 
-    procedure GetSelectedLine(var FromSalesLine: Record "Sales Line")
+
+    procedure GetSelectedLine(var FromSalesInvLine: Record "Sales Invoice Line")
     begin
-        FromSalesLine.COPY(Rec);
-        CurrPage.SETSELECTIONFILTER(FromSalesLine);
+        FromSalesInvLine.COPY(Rec);
+        CurrPage.SETSELECTIONFILTER(FromSalesInvLine);
     end;
 
     local procedure DocumentNoOnFormat()

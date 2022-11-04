@@ -1,11 +1,11 @@
-page 50036 "BC6_Sales Lines Subform 2"
+page 50041 "BC6_Sales Lines Subform 3"
 {
-    Caption = 'Sales Lines Subform';
+    Caption = 'Sales Lines';
     Editable = false;
     MultipleNewLines = true;
-    PageType = Card;
+    PageType = List;
     SourceTable = "Sales Line";
-    SourceTableView = SORTING("Document Type", "Bill-to Customer No.", "Currency Code");
+    SourceTableView = SORTING("Shipment Date", "Document Type", "Sell-to Customer No.", "Document No.", "Line No.");
 
     layout
     {
@@ -17,6 +17,8 @@ page 50036 "BC6_Sales Lines Subform 2"
                 {
                     HideValue = "Document No.HideValue";
                     Lookup = false;
+                    Style = StrongAccent;
+                    StyleExpr = TRUE;
                 }
                 field("Document Date flow"; "BC6_Document Date flow")
                 {
@@ -179,12 +181,45 @@ page 50036 "BC6_Sales Lines Subform 2"
 
     actions
     {
+        area(processing)
+        {
+            action(Show)
+            {
+                Caption = '&Show';
+                Image = Document;
+
+                trigger OnAction()
+                begin
+                    //>>MIGRATION NAV 2013
+                    //CurrForm.PurchRcptline.FORM.GETRECORD(RecGPurchPostedRcpt);
+                    IF NOT RecGSalesHeader.GET("Document Type", "Document No.") THEN
+                        EXIT;
+                    IF "Document Type" = "Document Type"::"Credit Memo" THEN
+                        PAGE.RUN(PAGE::"Sales Credit Memo", RecGSalesHeader);
+                    IF "Document Type" = "Document Type"::Order THEN
+                        PAGE.RUN(PAGE::"Sales Order", RecGSalesHeader);
+                    IF "Document Type" = "Document Type"::Quote THEN
+                        PAGE.RUN(PAGE::"Sales Quote", RecGSalesHeader);
+
+                    IF "Document Type" = "Document Type"::Invoice THEN
+                        PAGE.RUN(PAGE::"Sales Invoice", RecGSalesHeader);
+
+                    IF "Document Type" = "Document Type"::"Blanket Order" THEN
+                        PAGE.RUN(PAGE::"Blanket Sales Order", RecGSalesHeader);
+
+                    IF "Document Type" = "Document Type"::"Return Order" THEN
+                        PAGE.RUN(PAGE::"Sales Return Order", RecGSalesHeader);
+
+                    //<<MIGRATION NAV 2013
+                end;
+            }
+        }
     }
 
     trigger OnAfterGetRecord()
     begin
         "Document No.HideValue" := FALSE;
-        DocumentNoOnFormat();
+        DocumentNoOnFormat;
     end;
 
     trigger OnOpenPage()
@@ -193,7 +228,7 @@ page 50036 "BC6_Sales Lines Subform 2"
         CALCFIELDS("BC6_Document Date flow");
         REPEAT
             "BC6_Document Date" := "BC6_Document Date flow";
-        UNTIL Rec.NEXT() = 0;
+        UNTIL Rec.NEXT = 0;
         //SETCURRENTKEY("Document Type","No.");
     end;
 
@@ -203,12 +238,13 @@ page 50036 "BC6_Sales Lines Subform 2"
         "Document No.HideValue": Boolean;
         [InDataSet]
         "Document No.Emphasize": Boolean;
+        RecGSalesHeader: Record "Sales Header";
 
     local procedure IsFirstDocLine(): Boolean
     var
         SalesLine: Record "Sales Line";
     begin
-        TempSalesLine.RESET();
+        TempSalesLine.RESET;
         TempSalesLine.COPYFILTERS(Rec);
         TempSalesLine.SETRANGE("Document Type", "Document Type");
         TempSalesLine.SETRANGE("Document No.", "Document No.");
@@ -218,7 +254,7 @@ page 50036 "BC6_Sales Lines Subform 2"
             SalesLine.SETRANGE("Document No.", "Document No.");
             SalesLine.FIND('-');
             TempSalesLine := SalesLine;
-            TempSalesLine.INSERT();
+            TempSalesLine.INSERT;
         END;
         IF "Line No." = TempSalesLine."Line No." THEN
             EXIT(TRUE);
@@ -232,7 +268,7 @@ page 50036 "BC6_Sales Lines Subform 2"
 
     local procedure DocumentNoOnFormat()
     begin
-        IF IsFirstDocLine() THEN
+        IF IsFirstDocLine THEN
             "Document No.Emphasize" := TRUE
         ELSE
             "Document No.HideValue" := TRUE;

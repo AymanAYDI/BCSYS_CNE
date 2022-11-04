@@ -2,7 +2,7 @@ page 50112 "Purchase Return Order Cue"
 {
     Caption = 'Purchase Activities';
     PageType = CardPart;
-    SourceTable = Table9055;
+    SourceTable = "Purchase Cue";
 
     layout
     {
@@ -11,11 +11,11 @@ page 50112 "Purchase Return Order Cue"
             cuegroup("Purchase Returns Order")
             {
                 Caption = 'Purchase Returns Order';
-                field("Purchase Return - Location"; "Purchase Return - Location")
+                field("Purchase Return - Location"; "BC6_Purchase Return - Location")
                 {
                     DrillDownPageID = "LOC Purch. Return Order List";
                 }
-                field("Purchase Return - SAV"; "Purchase Return - SAV")
+                field("Purchase Return - SAV"; "BC6_Purchase Return - SAV")
                 {
                     DrillDownPageID = "SAV Purch. Return Order List";
                 }

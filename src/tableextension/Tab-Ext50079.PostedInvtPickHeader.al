@@ -5,7 +5,6 @@ tableextension 50079 "BC6_PostedInvtPickHeader" extends "Posted Invt. Pick Heade
         field(50000; "BC6_Sales Counter"; Boolean)
         {
             Caption = 'Sales Counter';
-            Description = 'CNE4.01';
         }
         field(50001; "BC6_Your Reference"; Text[35])
         {
@@ -26,7 +25,6 @@ tableextension 50079 "BC6_PostedInvtPickHeader" extends "Posted Invt. Pick Heade
         field(50403; "BC6_Bin Code"; Code[20])
         {
             Caption = 'Bin Code';
-            Description = 'CNE4.01';
 
             trigger OnLookup()
             var

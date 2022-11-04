@@ -5,7 +5,6 @@ tableextension 50063 "BC6_WarehouseActivityLine" extends "Warehouse Activity Lin
         field(50040; "BC6_Source No. 2"; Code[20])
         {
             Caption = 'Source No.';
-            Description = 'CNE4.01';
             Editable = false;
             TableRelation = IF ("BC6_Source Document 2" = CONST("Sales Order")) "Sales Header"."No." WHERE("Document Type" = CONST(Order));
             //This property is currently not supported
@@ -16,7 +15,6 @@ tableextension 50063 "BC6_WarehouseActivityLine" extends "Warehouse Activity Lin
         {
             BlankZero = true;
             Caption = 'Source Line No.';
-            Description = 'CNE4.01';
             Editable = false;
         }
         field(50042; "BC6_Source Document 2"; enum "BC6_Source Document 2")
@@ -28,7 +26,6 @@ tableextension 50063 "BC6_WarehouseActivityLine" extends "Warehouse Activity Lin
         field(50043; "BC6_Source Bin Code"; Code[20])
         {
             Caption = 'Lien code emplacement origine';
-            Description = 'CNE4.01';
             Editable = false;
 
             trigger OnLookup()
@@ -39,7 +36,6 @@ tableextension 50063 "BC6_WarehouseActivityLine" extends "Warehouse Activity Lin
         field(50045; "BC6_Warehouse Comment"; Text[50])
         {
             Caption = 'Warehouse Comments';
-            Description = 'CNE4.01';
         }
         field(50046; "BC6_Qty. Picked"; Decimal)
         {
@@ -98,8 +94,8 @@ tableextension 50063 "BC6_WarehouseActivityLine" extends "Warehouse Activity Lin
                 THEN
                     CheckReservedItemTrkg(1, "Lot No.");
 
-                IF "Qty. to Handle" = 0 THEN
-                    UpdateReservation(Rec, FALSE)
+                // IF "Qty. to Handle" = 0 THEN //TODO: function local "UpdateReservation"
+                // UpdateReservation(Rec, FALSE)
             end;
         }
     }
@@ -108,6 +104,7 @@ tableextension 50063 "BC6_WarehouseActivityLine" extends "Warehouse Activity Lin
 
     var
         RecLUserSetup: Record "User Setup";
+        WMSMgt: Codeunit "WMS Management";
         CstL001: Label 'Vous n''êtes pas autorisé à modifier les quantités à traiter';
         CstL002: Label 'Vous n''êtes pas autorisé à modifier la quantité à traiter, elle est supérieure à la quantité prélevée.';
         Text002: Label 'You cannot handle more than the outstanding %1 units.';

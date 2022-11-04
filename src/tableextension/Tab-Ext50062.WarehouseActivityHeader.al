@@ -21,7 +21,6 @@ tableextension 50062 "BC6_WarehouseActivityHeader" extends "Warehouse Activity H
         field(50000; "BC6_Sales Counter"; Boolean)
         {
             Caption = 'Sales Counter';
-            Description = 'CNE4.01';
 
             trigger OnValidate()
             begin

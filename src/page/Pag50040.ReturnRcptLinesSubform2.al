@@ -1,28 +1,16 @@
 page 50040 "Return Rcpt Lines Subform 2"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>CNE1.00
-    // FEP-ADVE-200706_18_B : MA 19/11/2007 :
-    //   - Add fields
-    // 
-    // //>>CNE3.00
-    //    CorrectionSOBI 30/09/08 : - Change size
-    // 
-    // ------------------------------------------------------------------------
-
     Caption = 'Return Rcpt Lines';
     Editable = false;
     PageType = List;
-    SourceTable = Table6661;
-    SourceTableView = SORTING(Sell-to Customer No.);
+    SourceTable = "Return Receipt Line";
+    SourceTableView = SORTING("Sell-to Customer No.");
 
     layout
     {
         area(content)
         {
-            repeater()
+            repeater(Control1)
             {
                 field("Document No."; "Document No.")
                 {
@@ -48,7 +36,7 @@ page 50040 "Return Rcpt Lines Subform 2"
                 field("Unit Price"; "Unit Price")
                 {
                 }
-                field("Public Price"; "Public Price")
+                field("Public Price"; "BC6_Public Price")
                 {
                 }
                 field("No."; "No.")
@@ -166,22 +154,22 @@ page 50040 "Return Rcpt Lines Subform 2"
     trigger OnAfterGetRecord()
     begin
         "Document No.HideValue" := FALSE;
-        DocumentNoOnFormat;
+        DocumentNoOnFormat();
     end;
 
     var
-        TempReturnRcptLine: Record "6661" temporary;
+        TempReturnRcptLine: Record "Return Receipt Line" temporary;
         [InDataSet]
         "Document No.HideValue": Boolean;
         [InDataSet]
         "Document No.Emphasize": Boolean;
-        RecGReturnReceiptHeader: Record "6660";
+        RecGReturnReceiptHeader: Record "Return Receipt Header";
 
     local procedure IsFirstDocLine(): Boolean
     var
-        ReturnRcptLine: Record "6661";
+        ReturnRcptLine: Record "Return Receipt Line";
     begin
-        TempReturnRcptLine.RESET;
+        TempReturnRcptLine.RESET();
         TempReturnRcptLine.COPYFILTERS(Rec);
         TempReturnRcptLine.SETRANGE("Document No.", "Document No.");
         IF NOT TempReturnRcptLine.FIND('-') THEN BEGIN
@@ -189,14 +177,14 @@ page 50040 "Return Rcpt Lines Subform 2"
             ReturnRcptLine.SETRANGE("Document No.", "Document No.");
             ReturnRcptLine.FIND('-');
             TempReturnRcptLine := ReturnRcptLine;
-            TempReturnRcptLine.INSERT;
+            TempReturnRcptLine.INSERT();
         END;
         IF "Line No." = TempReturnRcptLine."Line No." THEN
             EXIT(TRUE);
     end;
 
-    [Scope('Internal')]
-    procedure GetSelectedLine(var FromReturnRcptLine: Record "6661")
+
+    procedure GetSelectedLine(var FromReturnRcptLine: Record "Return Receipt Line")
     begin
         FromReturnRcptLine.COPY(Rec);
         CurrPage.SETSELECTIONFILTER(FromReturnRcptLine);
@@ -204,7 +192,7 @@ page 50040 "Return Rcpt Lines Subform 2"
 
     local procedure DocumentNoOnFormat()
     begin
-        IF IsFirstDocLine THEN
+        IF IsFirstDocLine() THEN
             "Document No.Emphasize" := TRUE
         ELSE
             "Document No.HideValue" := TRUE;

@@ -1,4 +1,4 @@
-page 50117 "Location Sales Return Order"
+page 50117 "BC6_Locat. Sales Return Order"
 {
 
     Caption = 'Sales Return Order';

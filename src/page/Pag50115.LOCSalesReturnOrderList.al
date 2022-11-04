@@ -1,7 +1,7 @@
 page 50115 "LOC Sales Return Order List"
 {
     Caption = 'Sales Return Orders';
-    CardPageID = "Location Sales Return Order";
+    CardPageID = "BC6_Locat. Sales Return Order";
     DataCaptionFields = "Sell-to Customer No.";
     Editable = false;
     PageType = List;

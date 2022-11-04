@@ -1,7 +1,7 @@
 page 50114 "SAV Sales Return Order List"
 {
     Caption = 'Sales Return Orders';
-    CardPageID = "SAV Sales Return Order";
+    CardPageID = "BC6_SAV Sales Return Order";
     DataCaptionFields = "Sell-to Customer No.";
     Description = 'BC6';
     Editable = false;
@@ -385,7 +385,7 @@ page 50114 "SAV Sales Return Order List"
 
                     trigger OnAction()
                     begin
-                        // GetPstdDocLinesToRevere; TODO:
+                        GetPstdDocLinesToRevere;
                     end;
                 }
                 separator(Action1)

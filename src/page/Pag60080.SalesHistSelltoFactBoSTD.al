@@ -2,7 +2,7 @@ page 60080 "Sales Hist. Sell-to FactBo STD"
 {
     Caption = 'Sell-to Customer Sales History';
     PageType = CardPart;
-    SourceTable = Table18;
+    SourceTable = Customer;
 
     layout
     {
@@ -74,7 +74,6 @@ page 60080 "Sales Hist. Sell-to FactBo STD"
     {
     }
 
-    [Scope('Internal')]
     procedure ShowDetails()
     begin
         PAGE.RUN(PAGE::"Customer Card", Rec);

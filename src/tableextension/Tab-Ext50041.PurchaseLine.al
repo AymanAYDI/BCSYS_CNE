@@ -216,7 +216,7 @@ tableextension 50041 "BC6_PurchaseLine" extends "Purchase Line"
             Caption = 'Sales Order Line No.';
             Editable = false;
         }
-        field(50002; "BC6_Sales Document Type"; Enum "BC6_Sales Document Type")
+        field(50002; "BC6_Sales Document Type"; Enum "Sales Document Type")
         {
             Caption = 'Document Type';
             Editable = false;
@@ -269,7 +269,7 @@ tableextension 50041 "BC6_PurchaseLine" extends "Purchase Line"
             Caption = 'Sales No. Line Lien';
             Description = 'CNEIC';
         }
-        field(50120; "BC6_Return Order Type"; Enum "BC6_Return Order Type")
+        field(50120; "BC6_Return Order Type"; Enum "BC6_Type Location")
         {
             Caption = 'Return Order Type';
         }

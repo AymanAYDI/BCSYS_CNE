@@ -76,7 +76,7 @@ tableextension 50057 "BC6_SalesLineArchive" extends "Sales Line Archive"
             Caption = 'Purch. Order Line No.';
             Editable = false;
         }
-        field(50028; "BC6_Purch. Document Type"; enum "BC6_Sales Document Type")
+        field(50028; "BC6_Purch. Document Type"; Enum "Sales Document Type")
         {
             Caption = 'Document Type';
         }

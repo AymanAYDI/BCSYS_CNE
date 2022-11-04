@@ -12,7 +12,7 @@ tableextension 50068 "BC6_ReturnShipmentLine" extends "Return Shipment Line"
             Caption = 'Sales Order Line No.';
             Editable = false;
         }
-        field(50002; "BC6_Sales Document Type"; Enum "BC6_Sales Document Type")
+        field(50002; "BC6_Sales Document Type"; Enum "Sales Document Type")
         {
             Caption = 'Document Type';
         }

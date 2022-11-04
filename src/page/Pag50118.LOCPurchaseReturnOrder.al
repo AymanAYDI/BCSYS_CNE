@@ -4,7 +4,7 @@ page 50118 "BC6_LOC Purchase Return Order"
     PageType = Document;
     PromotedActionCategories = 'New,Process,Report,Approve,Release,Posting,Prepare,Invoice,Request Approval';
     RefreshOnActivate = true;
-    SourceTable = Table38;
+    SourceTable = "Purchase Header";
     SourceTableView = WHERE("Document Type" = FILTER("Return Order"));
 
     layout
@@ -14,7 +14,7 @@ page 50118 "BC6_LOC Purchase Return Order"
             group(General)
             {
                 Caption = 'General';
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     Importance = Promoted;
                     ToolTip = 'Specifies the number of the purchase document. The field is only visible if you have not set up a number series for the type of purchase document, or if the Manual Nos. field is selected for the number series.';
@@ -22,11 +22,11 @@ page 50118 "BC6_LOC Purchase Return Order"
 
                     trigger OnAssistEdit()
                     begin
-                        IF AssistEdit(xRec) THEN
+                        IF Rec.AssistEdit(xRec) THEN
                             CurrPage.UPDATE;
                     end;
                 }
-                field("Buy-from Vendor Name"; "Buy-from Vendor Name")
+                field("Buy-from Vendor Name"; Rec."Buy-from Vendor Name")
                 {
                     Caption = 'Vendor';
                     Importance = Promoted;
@@ -35,9 +35,9 @@ page 50118 "BC6_LOC Purchase Return Order"
 
                     trigger OnValidate()
                     begin
-                        IF GETFILTER("Buy-from Vendor No.") = xRec."Buy-from Vendor No." THEN
-                            IF "Buy-from Vendor No." <> xRec."Buy-from Vendor No." THEN
-                                SETRANGE("Buy-from Vendor No.");
+                        IF Rec.GETFILTER("Buy-from Vendor No.") = xRec."Buy-from Vendor No." THEN
+                            IF Rec."Buy-from Vendor No." <> xRec."Buy-from Vendor No." THEN
+                                Rec.SETRANGE("Buy-from Vendor No.");
 
                         CurrPage.UPDATE;
                     end;
@@ -45,35 +45,35 @@ page 50118 "BC6_LOC Purchase Return Order"
                 group("Buy-from")
                 {
                     Caption = 'Buy-from';
-                    field("Buy-from Address"; "Buy-from Address")
+                    field("Buy-from Address"; Rec."Buy-from Address")
                     {
                         Caption = 'Address';
                         Importance = Additional;
                         QuickEntry = false;
                         ToolTip = 'Specifies the address of the vendor who ships the items.';
                     }
-                    field("Buy-from Address 2"; "Buy-from Address 2")
+                    field("Buy-from Address 2"; Rec."Buy-from Address 2")
                     {
                         Caption = 'Address 2';
                         Importance = Additional;
                         QuickEntry = false;
                         ToolTip = 'Specifies additional address information.';
                     }
-                    field("Buy-from Post Code"; "Buy-from Post Code")
+                    field("Buy-from Post Code"; Rec."Buy-from Post Code")
                     {
                         Caption = 'Post Code';
                         Importance = Additional;
                         QuickEntry = false;
                         ToolTip = 'Specifies the postal code.';
                     }
-                    field("Buy-from City"; "Buy-from City")
+                    field("Buy-from City"; Rec."Buy-from City")
                     {
                         Caption = 'City';
                         Importance = Additional;
                         QuickEntry = false;
                         ToolTip = 'Specifies the city of the vendor who ships the items.';
                     }
-                    field("Buy-from Contact No."; "Buy-from Contact No.")
+                    field("Buy-from Contact No."; Rec."Buy-from Contact No.")
                     {
                         Caption = 'Contact No.';
                         Importance = Additional;
@@ -81,51 +81,51 @@ page 50118 "BC6_LOC Purchase Return Order"
                         ToolTip = 'Specifies the number of your contact at the vendor.';
                     }
                 }
-                field(ID; ID)
+                field(ID; Rec.ID)
                 {
                 }
-                field("Buy-from Fax No."; "Buy-from Fax No.")
+                field("Buy-from Fax No."; Rec."BC6_Buy-from Fax No.")
                 {
                 }
-                field("Buy-from Contact"; "Buy-from Contact")
+                field("Buy-from Contact"; Rec."Buy-from Contact")
                 {
                     Caption = 'Contact';
                     QuickEntry = false;
                     ToolTip = 'Specifies the name of the person to contact about shipment of the item from this vendor.';
                 }
-                field("Document Date"; "Document Date")
+                field("Document Date"; Rec."Document Date")
                 {
                     QuickEntry = false;
                     ToolTip = 'Specifies the date on which the vendor created the purchase document.';
                 }
-                field("Posting Date"; "Posting Date")
+                field("Posting Date"; Rec."Posting Date")
                 {
                     QuickEntry = false;
                     ToolTip = 'Specifies the date when the posting of the purchase document will be recorded.';
                 }
-                field("No. of Archived Versions"; "No. of Archived Versions")
+                field("No. of Archived Versions"; Rec."No. of Archived Versions")
                 {
                     QuickEntry = false;
                 }
-                field("Order Date"; "Order Date")
+                field("Order Date"; Rec."Order Date")
                 {
                     Importance = Promoted;
                     QuickEntry = false;
                 }
-                field("Vendor Authorization No."; "Vendor Authorization No.")
+                field("Vendor Authorization No."; Rec."Vendor Authorization No.")
                 {
                     Importance = Promoted;
                 }
-                field("Vendor Cr. Memo No."; "Vendor Cr. Memo No.")
+                field("Vendor Cr. Memo No."; Rec."Vendor Cr. Memo No.")
                 {
                     Importance = Promoted;
                 }
-                field("Order Address Code"; "Order Address Code")
+                field("Order Address Code"; Rec."Order Address Code")
                 {
                     QuickEntry = false;
                     ToolTip = 'Specifies the order address code linked to the relevant vendor''s order address.';
                 }
-                field("Purchaser Code"; "Purchaser Code")
+                field("Purchaser Code"; Rec."Purchaser Code")
                 {
                     QuickEntry = false;
                     ToolTip = 'Specifies which purchaser is assigned to the vendor.';
@@ -135,50 +135,50 @@ page 50118 "BC6_LOC Purchase Return Order"
                         PurchaserCodeOnAfterValidate;
                     end;
                 }
-                field("Campaign No."; "Campaign No.")
+                field("Campaign No."; Rec."Campaign No.")
                 {
                     QuickEntry = false;
                     ToolTip = 'Specifies the campaign number the document is linked to.';
                 }
-                field("Responsibility Center"; "Responsibility Center")
+                field("Responsibility Center"; Rec."Responsibility Center")
                 {
                     QuickEntry = false;
                     ToolTip = 'Specifies the code of the responsibility center that is associated with the user, company, or vendor.';
                 }
-                field("Assigned User ID"; "Assigned User ID")
+                field("Assigned User ID"; Rec."Assigned User ID")
                 {
                     QuickEntry = false;
                     ToolTip = 'Specifies the ID of the user who is responsible for the document.';
                 }
-                field("Job Queue Status"; "Job Queue Status")
+                field("Job Queue Status"; Rec."Job Queue Status")
                 {
                     Importance = Additional;
                     QuickEntry = false;
                     Visible = JobQueueUsed;
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                     Importance = Promoted;
                     QuickEntry = false;
                     ToolTip = 'Specifies whether the record is open, waiting to be approved, invoiced for prepayment, or released to the next stage of processing.';
                 }
-                field("Return Order Type"; "Return Order Type")
+                field("Return Order Type"; Rec."BC6_Return Order Type")
                 {
 
                     trigger OnValidate()
                     begin
-                        IF "Return Order Type" = "Return Order Type"::SAV THEN
+                        IF Rec."BC6_Return Order Type" = Rec."BC6_Return Order Type"::SAV THEN
                             BooGReminderDateVisible := TRUE
                         ELSE
                             BooGReminderDateVisible := FALSE
                     end;
                 }
-                field("Reminder Date"; "Reminder Date")
+                field("Reminder Date"; Rec."BC6_Reminder Date")
                 {
                     Editable = BooGReminderDateVisible;
                 }
             }
-            part(PurchLines; 6641)
+            part(PurchLines; "Purchase Return Order Subform")
             {
                 SubPageLink = "Document No." = FIELD("No.");
                 UpdatePropagation = Both;
@@ -186,19 +186,19 @@ page 50118 "BC6_LOC Purchase Return Order"
             group("Invoice Details")
             {
                 Caption = 'Invoice Details';
-                field("Currency Code"; "Currency Code")
+                field("Currency Code"; Rec."Currency Code")
                 {
                     Importance = Promoted;
                     ToolTip = 'Specifies the currency code for amounts on the purchase lines.';
 
                     trigger OnAssistEdit()
                     begin
-                        IF "Posting Date" <> 0D THEN
-                            ChangeExchangeRate.SetParameter("Currency Code", "Currency Factor", "Posting Date")
+                        IF Rec."Posting Date" <> 0D THEN
+                            ChangeExchangeRate.SetParameter(Rec."Currency Code", Rec."Currency Factor", Rec."Posting Date")
                         ELSE
-                            ChangeExchangeRate.SetParameter("Currency Code", "Currency Factor", WORKDATE);
+                            ChangeExchangeRate.SetParameter(Rec."Currency Code", Rec."Currency Factor", WORKDATE);
                         IF ChangeExchangeRate.RUNMODAL = ACTION::OK THEN BEGIN
-                            VALIDATE("Currency Factor", ChangeExchangeRate.GetParameter);
+                            Rec.VALIDATE("Currency Factor", ChangeExchangeRate.GetParameter);
                             CurrPage.UPDATE;
                         END;
                         CLEAR(ChangeExchangeRate);
@@ -210,12 +210,12 @@ page 50118 "BC6_LOC Purchase Return Order"
                         PurchCalcDiscByType.ApplyDefaultInvoiceDiscount(0, Rec);
                     end;
                 }
-                field("Expected Receipt Date"; "Expected Receipt Date")
+                field("Expected Receipt Date"; Rec."Expected Receipt Date")
                 {
                     Importance = Promoted;
                     ToolTip = 'Specifies the date you expect to receive the items on the purchase document.';
                 }
-                field("Prices Including VAT"; "Prices Including VAT")
+                field("Prices Including VAT"; Rec."Prices Including VAT")
                 {
                     ToolTip = 'Specifies whether the unit price on the line should be displayed including or excluding VAT.';
 
@@ -224,15 +224,15 @@ page 50118 "BC6_LOC Purchase Return Order"
                         PricesIncludingVATOnAfterValid;
                     end;
                 }
-                field("VAT Bus. Posting Group"; "VAT Bus. Posting Group")
+                field("VAT Bus. Posting Group"; Rec."VAT Bus. Posting Group")
                 {
                     ToolTip = 'Specifies the vendor''s VAT specification to link transactions made for this vendor with the appropriate general ledger account according to the VAT posting setup.';
                 }
-                field("Transaction Type"; "Transaction Type")
+                field("Transaction Type"; Rec."Transaction Type")
                 {
                     ToolTip = 'Specifies the number for the transaction type, for the purpose of reporting to INTRASTAT.';
                 }
-                field("Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
+                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
                     ToolTip = 'Specifies the dimension value code associated with the purchase header.';
 
@@ -241,7 +241,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                         ShortcutDimension1CodeOnAfterV;
                     end;
                 }
-                field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
                     ToolTip = 'Specifies the dimension value code associated with the purchase header.';
 
@@ -250,20 +250,20 @@ page 50118 "BC6_LOC Purchase Return Order"
                         ShortcutDimension2CodeOnAfterV;
                     end;
                 }
-                field("Location Code"; "Location Code")
+                field("Location Code"; Rec."Location Code")
                 {
                     Importance = Promoted;
                     ToolTip = 'Specifies a code for the location where you want the items to be placed when they are received.';
                 }
-                field("Applies-to Doc. Type"; "Applies-to Doc. Type")
+                field("Applies-to Doc. Type"; Rec."Applies-to Doc. Type")
                 {
                     Importance = Promoted;
                 }
-                field("Applies-to Doc. No."; "Applies-to Doc. No.")
+                field("Applies-to Doc. No."; Rec."Applies-to Doc. No.")
                 {
                     Importance = Promoted;
                 }
-                field("Applies-to ID"; "Applies-to ID")
+                field("Applies-to ID"; Rec."Applies-to ID")
                 {
                 }
             }
@@ -273,37 +273,37 @@ page 50118 "BC6_LOC Purchase Return Order"
                 group("Ship-to")
                 {
                     Caption = 'Ship-to';
-                    field("Ship-to Name"; "Ship-to Name")
+                    field("Ship-to Name"; Rec."Ship-to Name")
                     {
                         Caption = 'Name';
                         Importance = Additional;
                         ToolTip = 'Specifies the name of the company at the address to which you want the items in the purchase order to be shipped.';
                     }
-                    field("Ship-to Address"; "Ship-to Address")
+                    field("Ship-to Address"; Rec."Ship-to Address")
                     {
                         Caption = 'Address';
                         Importance = Additional;
                         ToolTip = 'Specifies the address that you want the items in the purchase order to be shipped to.';
                     }
-                    field("Ship-to Address 2"; "Ship-to Address 2")
+                    field("Ship-to Address 2"; Rec."Ship-to Address 2")
                     {
                         Caption = 'Address 2';
                         Importance = Additional;
                         ToolTip = 'Specifies additional address information.';
                     }
-                    field("Ship-to Post Code"; "Ship-to Post Code")
+                    field("Ship-to Post Code"; Rec."Ship-to Post Code")
                     {
                         Caption = 'Post Code';
                         Importance = Additional;
                         ToolTip = 'Specifies the postal code.';
                     }
-                    field("Ship-to City"; "Ship-to City")
+                    field("Ship-to City"; Rec."Ship-to City")
                     {
                         Caption = 'City';
                         Importance = Additional;
                         ToolTip = 'Specifies the city the items in the purchase order will be shipped to.';
                     }
-                    field("Ship-to Contact"; "Ship-to Contact")
+                    field("Ship-to Contact"; Rec."Ship-to Contact")
                     {
                         Caption = 'Contact';
                         Importance = Additional;
@@ -313,43 +313,43 @@ page 50118 "BC6_LOC Purchase Return Order"
                 group("Pay-to")
                 {
                     Caption = 'Pay-to';
-                    field("Pay-to Name"; "Pay-to Name")
+                    field("Pay-to Name"; Rec."Pay-to Name")
                     {
                         Caption = 'Name';
                         Importance = Promoted;
                         ToolTip = 'Specifies the name of the vendor sending the invoice.';
                     }
-                    field("Pay-to Address"; "Pay-to Address")
+                    field("Pay-to Address"; Rec."Pay-to Address")
                     {
                         Caption = 'Address';
                         Importance = Additional;
                         ToolTip = 'Specifies the address of the vendor sending the invoice.';
                     }
-                    field("Pay-to Address 2"; "Pay-to Address 2")
+                    field("Pay-to Address 2"; Rec."Pay-to Address 2")
                     {
                         Caption = 'Address 2';
                         Importance = Additional;
                         ToolTip = 'Specifies additional address information.';
                     }
-                    field("Pay-to Post Code"; "Pay-to Post Code")
+                    field("Pay-to Post Code"; Rec."Pay-to Post Code")
                     {
                         Caption = 'Post Code';
                         Importance = Additional;
                         ToolTip = 'Specifies the postal code.';
                     }
-                    field("Pay-to City"; "Pay-to City")
+                    field("Pay-to City"; Rec."Pay-to City")
                     {
                         Caption = 'City';
                         Importance = Additional;
                         ToolTip = 'Specifies the city of the vendor sending the invoice.';
                     }
-                    field("Pay-to Contact No."; "Pay-to Contact No.")
+                    field("Pay-to Contact No."; Rec."Pay-to Contact No.")
                     {
                         Caption = 'Contact No.';
                         Importance = Additional;
                         ToolTip = 'Specifies the number of the contact who sends the invoice.';
                     }
-                    field("Pay-to Contact"; "Pay-to Contact")
+                    field("Pay-to Contact"; Rec."Pay-to Contact")
                     {
                         Caption = 'Contact';
                         Importance = Additional;
@@ -360,19 +360,19 @@ page 50118 "BC6_LOC Purchase Return Order"
             group("Foreign Trade")
             {
                 Caption = 'Foreign Trade';
-                field("Transaction Specification"; "Transaction Specification")
+                field("Transaction Specification"; Rec."Transaction Specification")
                 {
                     ToolTip = 'Specifies a code for the purchase header''s transaction specification here.';
                 }
-                field("Transport Method"; "Transport Method")
+                field("Transport Method"; Rec."Transport Method")
                 {
                     ToolTip = 'Specifies the code for the transport method to be used with this purchase header.';
                 }
-                field("Entry Point"; "Entry Point")
+                field("Entry Point"; Rec."Entry Point")
                 {
                     ToolTip = 'Specifies the code of the port of entry where the items pass into your country/region.';
                 }
-                field(BC6_Area; Area)
+                field(BC6_Area; Rec.Area)
                 {
                     ToolTip = 'Specifies the code for the area of the vendor''s address.';
                 }
@@ -380,36 +380,36 @@ page 50118 "BC6_LOC Purchase Return Order"
         }
         area(factboxes)
         {
-            part(; 9103)
+            part("Pending Approval FactBox"; "Pending Approval FactBox")
             {
                 SubPageLink = "Table ID" = CONST(38),
                               "Document Type" = FIELD("Document Type"),
-                              Document No.=FIELD(No.);
-                                  Visible = OpenApprovalEntriesExistForCurrUser;
+                              "Document No." = FIELD("No.");
+                Visible = OpenApprovalEntriesExistForCurrUser;
             }
-            part(ApprovalFactBox; 9092)
+            part(ApprovalFactBox; "Approval FactBox")
             {
                 Visible = false;
             }
-            part(; 9093)
+            part("Vendor Details FactBox"; "Vendor Details FactBox")
             {
-                SubPageLink = "No." = FIELD(Buy-from Vendor No.);
+                SubPageLink = "No." = FIELD("Buy-from Vendor No.");
             }
-            part(; 9094)
+            part("Vendor Statistics FactBox"; "Vendor Statistics FactBox")
             {
-                SubPageLink = "No." = FIELD(Pay-to Vendor No.);
+                SubPageLink = "No." = FIELD("Pay-to Vendor No.");
                 Visible = false;
             }
-            part(; 9095)
+            part("Vendor Hist. Buy-from FactBox"; "Vendor Hist. Buy-from FactBox")
             {
-                SubPageLink = "No." = FIELD(Buy-from Vendor No.);
+                SubPageLink = "No." = FIELD("Buy-from Vendor No.");
             }
-            part(; 9096)
+            part("Vendor Hist. Pay-to FactBox"; "Vendor Hist. Pay-to FactBox")
             {
-                SubPageLink = "No." = FIELD(Pay-to Vendor No.);
+                SubPageLink = "No." = FIELD("Pay-to Vendor No.");
                 Visible = false;
             }
-            part(; 9100)
+            part("Purchase Line FactBox"; "Purchase Line FactBox")
             {
                 Provider = PurchLines;
                 SubPageLink = "Document Type" = FIELD("Document Type"),
@@ -417,7 +417,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                               "Line No." = FIELD("Line No.");
                 Visible = false;
             }
-            part(WorkflowStatus; 1528)
+            part(WorkflowStatus; "Workflow Status FactBox")
             {
                 Editable = false;
                 Enabled = false;
@@ -453,7 +453,7 @@ page 50118 "BC6_LOC Purchase Return Order"
 
                     trigger OnAction()
                     begin
-                        OpenPurchaseOrderStatistics;
+                        Rec.OpenPurchaseOrderStatistics;
                         PurchCalcDiscByType.ResetRecalculateInvoiceDisc(Rec);
                     end;
                 }
@@ -461,37 +461,37 @@ page 50118 "BC6_LOC Purchase Return Order"
                 {
                     Caption = 'Vendor';
                     Image = Vendor;
-                    RunObject = Page 26;
-                    RunPageLink = "No." = FIELD(Buy-from Vendor No.);
+                    RunObject = Page "Vendor Card";
+                    RunPageLink = "No." = FIELD("Buy-from Vendor No.");
                     ShortCutKey = 'Shift+F7';
                 }
                 action(Dimensions)
                 {
-                    AccessByPermission = TableData 348 = R;
+                    AccessByPermission = TableData Dimension = R;
                     Caption = 'Dimensions';
-                    Enabled = "No." <> '';
+                    Enabled = Rec."No." <> '';
                     Image = Dimensions;
                     ShortCutKey = 'Shift+Ctrl+D';
                     ToolTip = 'View or edit dimensions, such as area, project, or department, that you can assign to sales and purchase documents to distribute costs and analyze transaction history.';
 
                     trigger OnAction()
                     begin
-                        ShowDocDim;
+                        Rec.ShowDocDim;
                         CurrPage.SAVERECORD;
                     end;
                 }
                 action(Approvals)
                 {
-                    AccessByPermission = TableData 454 = R;
+                    AccessByPermission = TableData "Approval Entry" = R;
                     Caption = 'Approvals';
                     Image = Approvals;
                     ToolTip = 'View a list of the records that are waiting to be approved. For example, you can see who requested the record to be approved, when it was sent, and when it is due to be approved.';
 
                     trigger OnAction()
                     var
-                        ApprovalEntries: Page "658";
+                        ApprovalEntries: Page "Approval Entries";
                     begin
-                        ApprovalEntries.Setfilters(DATABASE::"Purchase Header", "Document Type", "No.");
+                        ApprovalEntries.Setfilters(DATABASE::"Purchase Header", Rec."Document Type", Rec."No.");
                         ApprovalEntries.RUN;
                     end;
                 }
@@ -499,10 +499,10 @@ page 50118 "BC6_LOC Purchase Return Order"
                 {
                     Caption = 'Co&mments';
                     Image = ViewComments;
-                    RunObject = Page 66;
+                    RunObject = Page "Purch. Comment Sheet";
                     RunPageLink = "Document Type" = FIELD("Document Type"),
-                                  No.=FIELD(No.),
-                                  Document Line No.=CONST(0);
+                                  "No." = FIELD("No."),
+                                  "Document Line No." = CONST(0);
                     ToolTip = 'View or add notes about the purchase return order.';
                 }
             }
@@ -514,23 +514,23 @@ page 50118 "BC6_LOC Purchase Return Order"
                 {
                     Caption = 'Return Shipments';
                     Image = Shipment;
-                    RunObject = Page 6652;
-                                    RunPageLink = Return Order No.=FIELD(No.);
-                    RunPageView = SORTING(Return Order No.);
+                    RunObject = Page "Posted Return Shipments";
+                    RunPageLink = "Return Order No." = FIELD("No.");
+                    RunPageView = SORTING("Return Order No.");
                 }
                 action("Cred&it Memos")
                 {
                     Caption = 'Cred&it Memos';
                     Image = CreditMemo;
-                    RunObject = Page 147;
-                                    RunPageLink = Return Order No.=FIELD(No.);
-                    RunPageView = SORTING(Return Order No.);
+                    RunObject = Page "Posted Purchase Credit Memos";
+                    RunPageLink = "Return Order No." = FIELD("No.");
+                    RunPageView = SORTING("Return Order No.");
                 }
-                separator()
+                separator(sep)
                 {
                 }
             }
-            group(Warehouse)
+            group(Warehouses)
             {
                 Caption = 'Warehouse';
                 Image = Warehouse;
@@ -538,20 +538,20 @@ page 50118 "BC6_LOC Purchase Return Order"
                 {
                     Caption = 'Whse. Shipment Lines';
                     Image = ShipmentLines;
-                    RunObject = Page 7341;
-                                    RunPageLink = Source Type=CONST(39),
-                                  Source Subtype=FIELD(Document Type),
-                                  Source No.=FIELD(No.);
-                    RunPageView = SORTING(Source Type,Source Subtype,Source No.,Source Line No.);
+                    RunObject = Page "Whse. Shipment Lines";
+                    RunPageLink = "Source Type" = CONST(39),
+                                  "Source Subtype" = FIELD("Document Type"),
+                                  "Source No." = FIELD("No.");
+                    RunPageView = SORTING("Source Type", "Source Subtype", "Source No.", "Source Line No.");
                 }
                 action("In&vt. Put-away/Pick Lines")
                 {
                     Caption = 'In&vt. Put-away/Pick Lines';
                     Image = PickLines;
-                    RunObject = Page 5774;
-                                    RunPageLink = Source Document=CONST(Purchase Return Order),
-                                  Source No.=FIELD(No.);
-                    RunPageView = SORTING(Source Document,Source No.,Location Code);
+                    RunObject = Page "Warehouse Activity Lines";
+                    RunPageLink = "Source Document" = CONST("Purchase Return Order"),
+                                  "Source No." = FIELD("No.");
+                    RunPageView = SORTING("Source Document", "Source No.", "Location Code");
                 }
             }
         }
@@ -572,9 +572,9 @@ page 50118 "BC6_LOC Purchase Return Order"
 
                     trigger OnAction()
                     var
-                        ApprovalsMgmt: Codeunit "1535";
+                        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
                     begin
-                        ApprovalsMgmt.ApproveRecordApprovalRequest(RECORDID);
+                        ApprovalsMgmt.ApproveRecordApprovalRequest(Rec.RECORDID);
                     end;
                 }
                 action(Reject)
@@ -589,9 +589,9 @@ page 50118 "BC6_LOC Purchase Return Order"
 
                     trigger OnAction()
                     var
-                        ApprovalsMgmt: Codeunit "1535";
+                        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
                     begin
-                        ApprovalsMgmt.RejectRecordApprovalRequest(RECORDID);
+                        ApprovalsMgmt.RejectRecordApprovalRequest(Rec.RECORDID);
                     end;
                 }
                 action(Delegate)
@@ -605,9 +605,9 @@ page 50118 "BC6_LOC Purchase Return Order"
 
                     trigger OnAction()
                     var
-                        ApprovalsMgmt: Codeunit "1535";
+                        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
                     begin
-                        ApprovalsMgmt.DelegateRecordApprovalRequest(RECORDID);
+                        ApprovalsMgmt.DelegateRecordApprovalRequest(Rec.RECORDID);
                     end;
                 }
                 action(Comment)
@@ -621,7 +621,7 @@ page 50118 "BC6_LOC Purchase Return Order"
 
                     trigger OnAction()
                     var
-                        ApprovalsMgmt: Codeunit "1535";
+                        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
                     begin
                         ApprovalsMgmt.GetApprovalComment(Rec);
                     end;
@@ -637,17 +637,17 @@ page 50118 "BC6_LOC Purchase Return Order"
 
                 trigger OnAction()
                 var
-                    L_PurchaseHeader: Record "38";
+                    L_PurchaseHeader: Record "Purchase Header";
                 begin
                     //>>BCSYS
                     // OLD DocPrint.PrintPurchHeader(Rec)
-                    IF "Return Order Type" = "Return Order Type"::Location THEN
-                      DocPrint.PrintPurchHeader(Rec)
+                    IF Rec."BC6_Return Order Type" = Rec."BC6_Return Order Type"::Location THEN
+                        DocPrint.PrintPurchHeader(Rec)
                     ELSE BEGIN
-                      L_PurchaseHeader.RESET;
-                      L_PurchaseHeader.SETRANGE("Document Type","Document Type");
-                      L_PurchaseHeader.SETRANGE("No.","No.");
-                      REPORT.RUNMODAL(50061,TRUE,FALSE,L_PurchaseHeader);
+                        L_PurchaseHeader.RESET;
+                        L_PurchaseHeader.SETRANGE("Document Type", Rec."Document Type");
+                        L_PurchaseHeader.SETRANGE("No.", Rec."No.");
+                        REPORT.RUNMODAL(50061, TRUE, FALSE, L_PurchaseHeader);
                     END;
                     //<<BCSYS
                 end;
@@ -666,7 +666,7 @@ page 50118 "BC6_LOC Purchase Return Order"
 
                     trigger OnAction()
                     var
-                        ReleasePurchDoc: Codeunit "415";
+                        ReleasePurchDoc: Codeunit "Release Purchase Document";
                     begin
                         ReleasePurchDoc.PerformManualRelease(Rec);
                     end;
@@ -674,7 +674,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                 action(Reopen)
                 {
                     Caption = 'Re&open';
-                    Enabled = Status <> Status::Open;
+                    Enabled = Rec.Status <> Rec.Status::Open;
                     Image = ReOpen;
                     Promoted = true;
                     PromotedCategory = Category5;
@@ -682,12 +682,12 @@ page 50118 "BC6_LOC Purchase Return Order"
 
                     trigger OnAction()
                     var
-                        ReleasePurchDoc: Codeunit "415";
+                        ReleasePurchDoc: Codeunit "Release Purchase Document";
                     begin
                         ReleasePurchDoc.PerformManualReopen(Rec);
                     end;
                 }
-                separator()
+                separator(sep7)
                 {
                 }
             }
@@ -706,7 +706,7 @@ page 50118 "BC6_LOC Purchase Return Order"
 
                     trigger OnAction()
                     begin
-                        GetPstdDocLinesToRevere;
+                        Rec.GetPstdDocLinesToReverse;
                     end;
                 }
                 action("Apply Entries")
@@ -719,15 +719,15 @@ page 50118 "BC6_LOC Purchase Return Order"
 
                     trigger OnAction()
                     begin
-                        CODEUNIT.RUN(CODEUNIT::"Purchase Header Apply",Rec);
+                        CODEUNIT.RUN(CODEUNIT::"Purchase Header Apply", Rec);
                     end;
                 }
-                separator()
+                separator(sep1)
                 {
                 }
                 action(CalculateInvoiceDiscount)
                 {
-                    AccessByPermission = TableData 24=R;
+                    AccessByPermission = TableData "Vendor Invoice Disc." = R;
                     Caption = 'Calculate &Invoice Discount';
                     Image = CalculateInvoiceDiscount;
                     ToolTip = 'Calculate the invoice discount for the entire purchase invoice.';
@@ -738,7 +738,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                         PurchCalcDiscByType.ResetRecalculateInvoiceDisc(Rec);
                     end;
                 }
-                separator()
+                separator(sep2)
                 {
                 }
                 action(CopyDocument)
@@ -754,7 +754,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                         CopyPurchDoc.SetPurchHeader(Rec);
                         CopyPurchDoc.RUNMODAL;
                         CLEAR(CopyPurchDoc);
-                        IF GET("Document Type","No.") THEN;
+                        IF Rec.GET(Rec."Document Type", Rec."No.") THEN;
                     end;
                 }
                 action("Move Negative Lines")
@@ -784,20 +784,20 @@ page 50118 "BC6_LOC Purchase Return Order"
                 }
                 action("Send IC Return Order")
                 {
-                    AccessByPermission = TableData 410=R;
+                    AccessByPermission = TableData "IC G/L Account" = R;
                     Caption = 'Send IC Return Order';
                     Image = IntercompanyOrder;
 
                     trigger OnAction()
                     var
-                        ICInOutMgt: Codeunit "427";
-                        ApprovalsMgmt: Codeunit "1535";
+                        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
+                        ICInOutMgt: Codeunit ICInboxOutboxMgt;
                     begin
                         IF ApprovalsMgmt.PrePostApprovalCheckPurch(Rec) THEN
-                          ICInOutMgt.SendPurchDoc(Rec,FALSE);
+                            ICInOutMgt.SendPurchDoc(Rec, FALSE);
                     end;
                 }
-                separator()
+                separator(sep3)
                 {
                 }
             }
@@ -818,10 +818,10 @@ page 50118 "BC6_LOC Purchase Return Order"
 
                     trigger OnAction()
                     var
-                        ApprovalsMgmt: Codeunit "1535";
+                        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
                     begin
                         IF ApprovalsMgmt.CheckPurchaseApprovalPossible(Rec) THEN
-                          ApprovalsMgmt.OnSendPurchaseDocForApproval(Rec);
+                            ApprovalsMgmt.OnSendPurchaseDocForApproval(Rec);
                     end;
                 }
                 action(CancelApprovalRequest)
@@ -837,12 +837,12 @@ page 50118 "BC6_LOC Purchase Return Order"
 
                     trigger OnAction()
                     var
-                        ApprovalsMgmt: Codeunit "1535";
+                        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
                     begin
                         ApprovalsMgmt.OnCancelPurchaseApprovalRequest(Rec);
                     end;
                 }
-                separator()
+                separator(sep4)
                 {
                 }
             }
@@ -852,30 +852,30 @@ page 50118 "BC6_LOC Purchase Return Order"
                 Image = Warehouse;
                 action("Create &Whse. Shipment")
                 {
-                    AccessByPermission = TableData 7320=R;
+                    AccessByPermission = TableData "Warehouse Shipment Header" = R;
                     Caption = 'Create &Whse. Shipment';
                     Image = NewShipment;
 
                     trigger OnAction()
                     var
-                        GetSourceDocOutbound: Codeunit "5752";
+                        GetSourceDocOutbound: Codeunit "Get Source Doc. Outbound";
                     begin
                         GetSourceDocOutbound.CreateFromPurchaseReturnOrder(Rec);
                     end;
                 }
                 action("Create Inventor&y Put-away/Pick")
                 {
-                    AccessByPermission = TableData 7342=R;
+                    AccessByPermission = TableData "Posted Invt. Pick Header" = R;
                     Caption = 'Create Inventor&y Put-away/Pick';
                     Ellipsis = true;
                     Image = CreateInventoryPickup;
 
                     trigger OnAction()
                     begin
-                        CreateInvtPutAwayPick;
+                        Rec.CreateInvtPutAwayPick;
                     end;
                 }
-                separator()
+                separator(sep5)
                 {
                 }
             }
@@ -906,7 +906,7 @@ page 50118 "BC6_LOC Purchase Return Order"
 
                     trigger OnAction()
                     var
-                        PurchPostYesNo: Codeunit "91";
+                        PurchPostYesNo: Codeunit "Purch.-Post (Yes/No)";
                     begin
                         PurchPostYesNo.Preview(Rec);
                     end;
@@ -946,7 +946,7 @@ page 50118 "BC6_LOC Purchase Return Order"
 
                     trigger OnAction()
                     begin
-                        REPORT.RUNMODAL(REPORT::"Batch Post Purch. Ret. Orders",TRUE,TRUE,Rec);
+                        REPORT.RUNMODAL(REPORT::"Batch Post Purch. Ret. Orders", TRUE, TRUE, Rec);
                         CurrPage.UPDATE(FALSE);
                     end;
                 }
@@ -958,7 +958,7 @@ page 50118 "BC6_LOC Purchase Return Order"
 
                     trigger OnAction()
                     begin
-                        CancelBackgroundPosting;
+                        Rec.CancelBackgroundPosting;
                     end;
                 }
             }
@@ -967,8 +967,8 @@ page 50118 "BC6_LOC Purchase Return Order"
 
     trigger OnAfterGetCurrRecord()
     begin
-        ShowWorkflowStatus := CurrPage.WorkflowStatus.PAGE.SetFilterOnWorkflowRecord(RECORDID);
-        CurrPage.ApprovalFactBox.PAGE.UpdateApprovalEntriesFromSourceRecord(RECORDID);
+        ShowWorkflowStatus := CurrPage.WorkflowStatus.PAGE.SetFilterOnWorkflowRecord(Rec.RECORDID);
+        CurrPage.ApprovalFactBox.PAGE.UpdateApprovalEntriesFromSourceRecord(Rec.RECORDID);
     end;
 
     trigger OnAfterGetRecord()
@@ -979,33 +979,31 @@ page 50118 "BC6_LOC Purchase Return Order"
     trigger OnDeleteRecord(): Boolean
     begin
         CurrPage.SAVERECORD;
-        EXIT(ConfirmDeletion);
+        EXIT(Rec.ConfirmDeletion);
     end;
 
     trigger OnInit()
     var
-        PurchasesPayablesSetup: Record "312";
+        PurchasesPayablesSetup: Record "Purchases & Payables Setup";
     begin
         JobQueueUsed := PurchasesPayablesSetup.JobQueueActive;
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        "Responsibility Center" := UserMgt.GetPurchasesFilter;
-        IF (NOT DocNoVisible) AND ("No." = '') THEN
-          SetBuyFromVendorFromFilter;
+        Rec."Responsibility Center" := UserMgt.GetPurchasesFilter;
+        IF (NOT DocNoVisible) AND (Rec."No." = '') THEN
+            Rec.SetBuyFromVendorFromFilter;
 
-        //BCSYS 020321
-        "Return Order Type" := "Return Order Type"::Location;
-        //FIN BCSYS 020321
+        "BC6_Return Order Type" := "BC6_Return Order Type"::Location;
     end;
 
     trigger OnOpenPage()
     begin
         IF UserMgt.GetPurchasesFilter <> '' THEN BEGIN
-          FILTERGROUP(2);
-          SETRANGE("Responsibility Center",UserMgt.GetPurchasesFilter);
-          FILTERGROUP(0);
+            Rec.FILTERGROUP(2);
+            Rec.SETRANGE("Responsibility Center", UserMgt.GetPurchasesFilter);
+            Rec.FILTERGROUP(0);
         END;
 
         SetDocNoVisible;
@@ -1014,51 +1012,51 @@ page 50118 "BC6_LOC Purchase Return Order"
     trigger OnQueryClosePage(CloseAction: Action): Boolean
     begin
         IF NOT DocumentIsPosted THEN
-          EXIT(ConfirmCloseUnposted);
+            EXIT(Rec.ConfirmCloseUnposted);
     end;
 
     var
-        CopyPurchDoc: Report "492";
-                          MoveNegPurchLines: Report "6698";
-                          DocPrint: Codeunit "229";
-                          ReportPrint: Codeunit "228";
-                          UserMgt: Codeunit "5700";
-                          ArchiveManagement: Codeunit "5063";
-                          PurchCalcDiscByType: Codeunit "66";
-                          ChangeExchangeRate: Page "511";
-    [InDataSet]
-
-    JobQueueVisible: Boolean;
+        CopyPurchDoc: Report "Copy Purchase Document";
+        MoveNegPurchLines: Report "Move Negative Purchase Lines";
+        ArchiveManagement: Codeunit ArchiveManagement;
+        DocPrint: Codeunit "Document-Print";
+        PurchCalcDiscByType: Codeunit "Purch - Calc Disc. By Type";
+        ReportPrint: Codeunit "Test Report-Print";
+        UserMgt: Codeunit "User Setup Management";
+        ChangeExchangeRate: Page "Change Exchange Rate";
+        BooGReminderDateVisible: Boolean;
+        CanCancelApprovalForRecord: Boolean;
+        DocNoVisible: Boolean;
+        DocumentIsPosted: Boolean;
         [InDataSet]
         JobQueueUsed: Boolean;
-        DocNoVisible: Boolean;
+        [InDataSet]
+
+        JobQueueVisible: Boolean;
         OpenApprovalEntriesExist: Boolean;
         OpenApprovalEntriesExistForCurrUser: Boolean;
         ShowWorkflowStatus: Boolean;
-        CanCancelApprovalForRecord: Boolean;
-        DocumentIsPosted: Boolean;
-        OpenPostedPurchaseReturnOrderQst: Label 'The return order has been posted and moved to the Posted Purchase Credit Memos window.\\Do you want to open the posted credit memo?';
         "-BCSYS-": Integer;
-        BooGReminderDateVisible: Boolean;
+        OpenPostedPurchaseReturnOrderQst: Label 'The return order has been posted and moved to the Posted Purchase Credit Memos window.\\Do you want to open the posted credit memo?';
 
     local procedure Post(PostingCodeunitID: Integer)
     var
-        PurchaseHeader: Record "38";
-        InstructionMgt: Codeunit "1330";
+        PurchaseHeader: Record "Purchase Header";
+        InstructionMgt: Codeunit "Instruction Mgt.";
     begin
-        SendToPosting(PostingCodeunitID);
+        Rec.SendToPosting(PostingCodeunitID);
 
-        DocumentIsPosted := NOT PurchaseHeader.GET("Document Type","No.");
+        DocumentIsPosted := NOT PurchaseHeader.GET(Rec."Document Type", Rec."No.");
 
-        IF "Job Queue Status" = "Job Queue Status"::"Scheduled for Posting" THEN
-          CurrPage.CLOSE;
+        IF Rec."Job Queue Status" = Rec."Job Queue Status"::"Scheduled for Posting" THEN
+            CurrPage.CLOSE;
         CurrPage.UPDATE(FALSE);
 
         IF PostingCodeunitID <> CODEUNIT::"Purch.-Post (Yes/No)" THEN
-          EXIT;
+            EXIT;
 
         IF InstructionMgt.IsEnabled(InstructionMgt.ShowPostedConfirmationMessageCode) THEN
-          ShowPostedConfirmationMessage;
+            ShowPostedConfirmationMessage;
     end;
 
     local procedure ApproveCalcInvDisc()
@@ -1088,39 +1086,37 @@ page 50118 "BC6_LOC Purchase Return Order"
 
     local procedure SetDocNoVisible()
     var
-        DocumentNoVisibility: Codeunit "1400";
+        DocumentNoVisibility: Codeunit DocumentNoVisibility;
         DocType: Option Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order",Reminder,FinChMemo;
     begin
-        DocNoVisible := DocumentNoVisibility.PurchaseDocumentNoIsVisible(DocType::"Return Order","No.");
+        DocNoVisible := DocumentNoVisibility.PurchaseDocumentNoIsVisible(DocType::"Return Order", Rec."No.");
     end;
 
     local procedure SetControlAppearance()
     var
-        ApprovalsMgmt: Codeunit "1535";
+        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
     begin
-        JobQueueVisible := "Job Queue Status" = "Job Queue Status"::"Scheduled for Posting";
+        JobQueueVisible := Rec."Job Queue Status" = Rec."Job Queue Status"::"Scheduled for Posting";
 
-        OpenApprovalEntriesExistForCurrUser := ApprovalsMgmt.HasOpenApprovalEntriesForCurrentUser(RECORDID);
-        OpenApprovalEntriesExist := ApprovalsMgmt.HasOpenApprovalEntries(RECORDID);
-        CanCancelApprovalForRecord := ApprovalsMgmt.CanCancelApprovalForRecord(RECORDID);
+        OpenApprovalEntriesExistForCurrUser := ApprovalsMgmt.HasOpenApprovalEntriesForCurrentUser(Rec.RECORDID);
+        OpenApprovalEntriesExist := ApprovalsMgmt.HasOpenApprovalEntries(Rec.RECORDID);
+        CanCancelApprovalForRecord := ApprovalsMgmt.CanCancelApprovalForRecord(Rec.RECORDID);
 
-        //>>BCSYS
-        IF "Return Order Type" = "Return Order Type"::SAV THEN
-          BooGReminderDateVisible := TRUE;
-        //<<BCSYS
+        IF "BC6_Return Order Type" = "BC6_Return Order Type"::SAV THEN
+            BooGReminderDateVisible := TRUE;
     end;
 
     local procedure ShowPostedConfirmationMessage()
     var
-        ReturnOrderPurchaseHeader: Record "38";
-        PurchCrMemoHdr: Record "124";
-        InstructionMgt: Codeunit "1330";
+        PurchCrMemoHdr: Record "Purch. Cr. Memo Hdr.";
+        ReturnOrderPurchaseHeader: Record "Purchase Header";
+        InstructionMgt: Codeunit "Instruction Mgt.";
     begin
-        IF NOT ReturnOrderPurchaseHeader.GET("Document Type","No.") THEN BEGIN
-          PurchCrMemoHdr.SETRANGE("No.","Last Posting No.");
-          IF PurchCrMemoHdr.FINDFIRST THEN
-            IF InstructionMgt.ShowConfirm(OpenPostedPurchaseReturnOrderQst,InstructionMgt.ShowPostedConfirmationMessageCode) THEN
-              PAGE.RUN(PAGE::"Posted Purchase Credit Memo",PurchCrMemoHdr);
+        IF NOT ReturnOrderPurchaseHeader.GET(Rec."Document Type", Rec."No.") THEN BEGIN
+            PurchCrMemoHdr.SETRANGE("No.", Rec."Last Posting No.");
+            IF PurchCrMemoHdr.FINDFIRST THEN
+                IF InstructionMgt.ShowConfirm(OpenPostedPurchaseReturnOrderQst, InstructionMgt.ShowPostedConfirmationMessageCode) THEN
+                    PAGE.RUN(PAGE::"Posted Purchase Credit Memo", PurchCrMemoHdr);
         END;
     end;
 }

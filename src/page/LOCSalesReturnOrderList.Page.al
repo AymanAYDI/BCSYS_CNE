@@ -9,14 +9,14 @@ page 50115 "LOC Sales Return Order List"
     //                     Modify Function OnOpenPage
 
     Caption = 'Sales Return Orders';
-    CardPageID = "Location Sales Return Order";
+    CardPageID = "BC6_Locat. Sales Return Order";
     DataCaptionFields = "Sell-to Customer No.";
     Editable = false;
     PageType = List;
     PromotedActionCategories = 'New,Process,Report,Request Approval';
     RefreshOnActivate = true;
     SourceTable = Table36;
-    SourceTableView = WHERE (Document Type=CONST(Return Order),
+    SourceTableView = WHERE(Document Type=CONST(Return Order),
                             Return Order Type=CONST(Location));
 
     layout

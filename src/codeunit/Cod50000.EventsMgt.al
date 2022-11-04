@@ -238,9 +238,126 @@ codeunit 50000 "BC6_EventsMgt"
         IsHandled := true;
     end;
 
+    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterTestNoSeries', '', false, false)]
+
+    local procedure OnAfterTestNoSeries(var SalesHeader: Record "Sales Header"; var SalesReceivablesSetup: Record "Sales & Receivables Setup")
+    begin
+        case SalesHeader."Document Type" of
+            SalesHeader."Document Type"::"Return Order":
+                BEGIN
+                    IF SalesHeader."BC6_Return Order Type" = SalesHeader."BC6_Return Order Type"::SAV THEN
+                        SalesReceivablesSetup.TESTFIELD(SalesReceivablesSetup."BC6_SAV Return Order Nos.")
+                    ELSE
+                        SalesReceivablesSetup.TESTFIELD("Return Order Nos.");
+                END;
+        end;
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterGetNoSeriesCode', '', false, false)]
+
+    local procedure OnAfterGetNoSeriesCode(var SalesHeader: Record "Sales Header"; SalesReceivablesSetup: Record "Sales & Receivables Setup"; var NoSeriesCode: Code[20])
+    begin
+        case SalesHeader."Document Type" of
+            SalesHeader."Document Type"::"Return Order":
+                //>>BC6
+                // OLD STD NoSeriesCode := SalesSetup."Return Order Nos.";
+                BEGIN
+                    IF SalesHeader."BC6_Return Order Type" = SalesHeader."BC6_Return Order Type"::SAV THEN
+                        NoSeriesCode := SalesReceivablesSetup."BC6_SAV Return Order Nos."
+                    ELSE
+                        NoSeriesCode := SalesReceivablesSetup."Return Order Nos.";
+                END;
+        end
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnUpdateSalesLineByChangedFieldName', '', false, false)]
+
+    local procedure OnUpdateSalesLineByChangedFieldName(SalesHeader: Record "Sales Header"; var SalesLine: Record "Sales Line"; ChangedFieldName: Text[100]; ChangedFieldNo: Integer)
+    begin
+        case ChangedFieldNo of
+            SalesLine.FieldNo("Bin Code"):
+                if SalesLine."No." <> '' THEN
+                    IF (SalesLine."Location Code" = SalesHeader."Location Code") THEN
+                        SalesLine.VALIDATE("Bin Code", SalesLine."Bin Code");
+        end;
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterUpdateSellToCont', '', false, false)]
+
+    local procedure OnAfterUpdateSellToCont(var SalesHeader: Record "Sales Header"; Customer: Record Customer; Contact: Record Contact; HideValidationDialog: Boolean)
+    begin
+        SalesHeader.UpdateSellToFax(SalesHeader."Sell-to Contact No.");
+        SalesHeader.UpdateSellToMail(SalesHeader."Sell-to Contact No.");
+
+    end;
+
+    //TODO:not sure 
+    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterUpdateSellToCust', '', false, false)]
+    local procedure OnAfterUpdateSellToCust(var SalesHeader: Record "Sales Header"; Contact: Record Contact)
+    var
+        ContactNo: Code[20];
+    begin
+        Contact.GET(ContactNo);
+        SalesHeader.UpdateSellToFax(ContactNo);
+        SalesHeader.UpdateSellToMail(ContactNo);
+
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnBeforeUpdateOutboundWhseHandlingTime', '', false, false)]
+    local procedure OnBeforeUpdateOutboundWhseHandlingTime(var SalesHeader: Record "Sales Header"; var IsHandled: Boolean)
+    var
+        Location: Record location;
+        InvtSetup: Record "Inventory Setup";
+    begin
+        IsHandled := true;
+        if SalesHeader."Location Code" <> '' then begin
+            if Location.Get(SalesHeader."Location Code") then
+                SalesHeader."Outbound Whse. Handling Time" := Location."Outbound Whse. Handling Time";
+            SalesHeader.VALIDATE(SalesHeader."Shipment Method Code");
+            IF SalesHeader."BC6_Bin Code" = '' THEN
+                SalesHeader."BC6_Bin Code" := Location."Shipment Bin Code";
+        end else begin
+            if InvtSetup.Get then
+                SalesHeader."Outbound Whse. Handling Time" := InvtSetup."Outbound Whse. Handling Time";
+            SalesHeader."BC6_Bin Code" := '';
+        END;
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnBeforeInitFromSalesHeader', '', false, false)]
+    local procedure OnBeforeInitFromSalesHeader(var SalesHeader: Record "Sales Header"; SourceSalesHeader: Record "Sales Header")
+    begin
+        SalesHeader.VALIDATE("Order Date", WORKDATE);
+        SalesHeader.VALIDATE("Posting Date", WORKDATE);
+        IF SalesHeader."Shipment Date" < WORKDATE THEN
+            SalesHeader.VALIDATE("Shipment Date", WORKDATE)
+        ELSE
+            SalesHeader."Shipment Date" := SourceSalesHeader."Shipment Date";
+        SalesHeader."External Document No." := SourceSalesHeader."External Document No.";
+        SalesHeader."BC6_Document description" := SourceSalesHeader."BC6_Document description";
+    end;
+
+    local procedure OnAfterInitFromSalesHeader(var SalesHeader: Record "Sales Header"; SourceSalesHeader: Record "Sales Header")
+    var
+        Location: Record Location;
+    begin
+        IF SourceSalesHeader."Location Code" <> '' THEN BEGIN
+            IF Location.GET(SalesHeader."Location Code") THEN
+                IF SourceSalesHeader."BC6_Bin Code" = '' THEN
+                    SalesHeader."BC6_Bin Code" := Location."Shipment Bin Code";
+        END ELSE BEGIN
+            SalesHeader."BC6_Bin Code" := '';
+        END;
+
+    end;
 
 
 
+    // COD
+    [EventSubscriber(ObjectType::Codeunit, codeunit::"Instruction Mgt.", 'OnBeforeIsUnpostedEnabledForRecord', '', false, false)]
+    local procedure OnBeforeIsUnpostedEnabledForRecord(RecVariant: Variant; var Enabled: Boolean; var IsHandled: Boolean)
+    begin
+        IsHandled := true;
+    end;
 
     //TAB38
     [EventSubscriber(ObjectType::Table, Database::"Purchase Header", 'OnAfterInsertEvent', '', false, false)]

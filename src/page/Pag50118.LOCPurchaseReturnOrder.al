@@ -1,23 +1,11 @@
-page 50118 "LOC Purchase Return Order"
+page 50118 "BC6_LOC Purchase Return Order"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // 
-    // 
-    // //FE005 SEBC 08/01/2007 Add field
-    //                         50021 Buy-from Fax No.
-    // 
-    // 
-    // ------------------------------------------------------------------------
-
     Caption = 'Purchase Return Order';
     PageType = Document;
     PromotedActionCategories = 'New,Process,Report,Approve,Release,Posting,Prepare,Invoice,Request Approval';
     RefreshOnActivate = true;
     SourceTable = Table38;
-    SourceTableView = WHERE (Document Type=FILTER(Return Order));
+    SourceTableView = WHERE("Document Type" = FILTER("Return Order"));
 
     layout
     {
@@ -26,7 +14,7 @@ page 50118 "LOC Purchase Return Order"
             group(General)
             {
                 Caption = 'General';
-                field("No.";"No.")
+                field("No."; "No.")
                 {
                     Importance = Promoted;
                     ToolTip = 'Specifies the number of the purchase document. The field is only visible if you have not set up a number series for the type of purchase document, or if the Manual Nos. field is selected for the number series.';
@@ -35,10 +23,10 @@ page 50118 "LOC Purchase Return Order"
                     trigger OnAssistEdit()
                     begin
                         IF AssistEdit(xRec) THEN
-                          CurrPage.UPDATE;
+                            CurrPage.UPDATE;
                     end;
                 }
-                field("Buy-from Vendor Name";"Buy-from Vendor Name")
+                field("Buy-from Vendor Name"; "Buy-from Vendor Name")
                 {
                     Caption = 'Vendor';
                     Importance = Promoted;
@@ -48,8 +36,8 @@ page 50118 "LOC Purchase Return Order"
                     trigger OnValidate()
                     begin
                         IF GETFILTER("Buy-from Vendor No.") = xRec."Buy-from Vendor No." THEN
-                          IF "Buy-from Vendor No." <> xRec."Buy-from Vendor No." THEN
-                            SETRANGE("Buy-from Vendor No.");
+                            IF "Buy-from Vendor No." <> xRec."Buy-from Vendor No." THEN
+                                SETRANGE("Buy-from Vendor No.");
 
                         CurrPage.UPDATE;
                     end;
@@ -57,35 +45,35 @@ page 50118 "LOC Purchase Return Order"
                 group("Buy-from")
                 {
                     Caption = 'Buy-from';
-                    field("Buy-from Address";"Buy-from Address")
+                    field("Buy-from Address"; "Buy-from Address")
                     {
                         Caption = 'Address';
                         Importance = Additional;
                         QuickEntry = false;
                         ToolTip = 'Specifies the address of the vendor who ships the items.';
                     }
-                    field("Buy-from Address 2";"Buy-from Address 2")
+                    field("Buy-from Address 2"; "Buy-from Address 2")
                     {
                         Caption = 'Address 2';
                         Importance = Additional;
                         QuickEntry = false;
                         ToolTip = 'Specifies additional address information.';
                     }
-                    field("Buy-from Post Code";"Buy-from Post Code")
+                    field("Buy-from Post Code"; "Buy-from Post Code")
                     {
                         Caption = 'Post Code';
                         Importance = Additional;
                         QuickEntry = false;
                         ToolTip = 'Specifies the postal code.';
                     }
-                    field("Buy-from City";"Buy-from City")
+                    field("Buy-from City"; "Buy-from City")
                     {
                         Caption = 'City';
                         Importance = Additional;
                         QuickEntry = false;
                         ToolTip = 'Specifies the city of the vendor who ships the items.';
                     }
-                    field("Buy-from Contact No.";"Buy-from Contact No.")
+                    field("Buy-from Contact No."; "Buy-from Contact No.")
                     {
                         Caption = 'Contact No.';
                         Importance = Additional;
@@ -93,51 +81,51 @@ page 50118 "LOC Purchase Return Order"
                         ToolTip = 'Specifies the number of your contact at the vendor.';
                     }
                 }
-                field(ID;ID)
+                field(ID; ID)
                 {
                 }
-                field("Buy-from Fax No.";"Buy-from Fax No.")
+                field("Buy-from Fax No."; "Buy-from Fax No.")
                 {
                 }
-                field("Buy-from Contact";"Buy-from Contact")
+                field("Buy-from Contact"; "Buy-from Contact")
                 {
                     Caption = 'Contact';
                     QuickEntry = false;
                     ToolTip = 'Specifies the name of the person to contact about shipment of the item from this vendor.';
                 }
-                field("Document Date";"Document Date")
+                field("Document Date"; "Document Date")
                 {
                     QuickEntry = false;
                     ToolTip = 'Specifies the date on which the vendor created the purchase document.';
                 }
-                field("Posting Date";"Posting Date")
+                field("Posting Date"; "Posting Date")
                 {
                     QuickEntry = false;
                     ToolTip = 'Specifies the date when the posting of the purchase document will be recorded.';
                 }
-                field("No. of Archived Versions";"No. of Archived Versions")
+                field("No. of Archived Versions"; "No. of Archived Versions")
                 {
                     QuickEntry = false;
                 }
-                field("Order Date";"Order Date")
+                field("Order Date"; "Order Date")
                 {
                     Importance = Promoted;
                     QuickEntry = false;
                 }
-                field("Vendor Authorization No.";"Vendor Authorization No.")
+                field("Vendor Authorization No."; "Vendor Authorization No.")
                 {
                     Importance = Promoted;
                 }
-                field("Vendor Cr. Memo No.";"Vendor Cr. Memo No.")
+                field("Vendor Cr. Memo No."; "Vendor Cr. Memo No.")
                 {
                     Importance = Promoted;
                 }
-                field("Order Address Code";"Order Address Code")
+                field("Order Address Code"; "Order Address Code")
                 {
                     QuickEntry = false;
                     ToolTip = 'Specifies the order address code linked to the relevant vendor''s order address.';
                 }
-                field("Purchaser Code";"Purchaser Code")
+                field("Purchaser Code"; "Purchaser Code")
                 {
                     QuickEntry = false;
                     ToolTip = 'Specifies which purchaser is assigned to the vendor.';
@@ -147,58 +135,58 @@ page 50118 "LOC Purchase Return Order"
                         PurchaserCodeOnAfterValidate;
                     end;
                 }
-                field("Campaign No.";"Campaign No.")
+                field("Campaign No."; "Campaign No.")
                 {
                     QuickEntry = false;
                     ToolTip = 'Specifies the campaign number the document is linked to.';
                 }
-                field("Responsibility Center";"Responsibility Center")
+                field("Responsibility Center"; "Responsibility Center")
                 {
                     QuickEntry = false;
                     ToolTip = 'Specifies the code of the responsibility center that is associated with the user, company, or vendor.';
                 }
-                field("Assigned User ID";"Assigned User ID")
+                field("Assigned User ID"; "Assigned User ID")
                 {
                     QuickEntry = false;
                     ToolTip = 'Specifies the ID of the user who is responsible for the document.';
                 }
-                field("Job Queue Status";"Job Queue Status")
+                field("Job Queue Status"; "Job Queue Status")
                 {
                     Importance = Additional;
                     QuickEntry = false;
                     Visible = JobQueueUsed;
                 }
-                field(Status;Status)
+                field(Status; Status)
                 {
                     Importance = Promoted;
                     QuickEntry = false;
                     ToolTip = 'Specifies whether the record is open, waiting to be approved, invoiced for prepayment, or released to the next stage of processing.';
                 }
-                field("Return Order Type";"Return Order Type")
+                field("Return Order Type"; "Return Order Type")
                 {
 
                     trigger OnValidate()
                     begin
                         IF "Return Order Type" = "Return Order Type"::SAV THEN
-                          BooGReminderDateVisible := TRUE
+                            BooGReminderDateVisible := TRUE
                         ELSE
-                          BooGReminderDateVisible := FALSE
+                            BooGReminderDateVisible := FALSE
                     end;
                 }
-                field("Reminder Date";"Reminder Date")
+                field("Reminder Date"; "Reminder Date")
                 {
                     Editable = BooGReminderDateVisible;
                 }
             }
-            part(PurchLines;6641)
+            part(PurchLines; 6641)
             {
-                SubPageLink = Document No.=FIELD(No.);
+                SubPageLink = "Document No." = FIELD("No.");
                 UpdatePropagation = Both;
             }
             group("Invoice Details")
             {
                 Caption = 'Invoice Details';
-                field("Currency Code";"Currency Code")
+                field("Currency Code"; "Currency Code")
                 {
                     Importance = Promoted;
                     ToolTip = 'Specifies the currency code for amounts on the purchase lines.';
@@ -206,12 +194,12 @@ page 50118 "LOC Purchase Return Order"
                     trigger OnAssistEdit()
                     begin
                         IF "Posting Date" <> 0D THEN
-                          ChangeExchangeRate.SetParameter("Currency Code","Currency Factor","Posting Date")
+                            ChangeExchangeRate.SetParameter("Currency Code", "Currency Factor", "Posting Date")
                         ELSE
-                          ChangeExchangeRate.SetParameter("Currency Code","Currency Factor",WORKDATE);
+                            ChangeExchangeRate.SetParameter("Currency Code", "Currency Factor", WORKDATE);
                         IF ChangeExchangeRate.RUNMODAL = ACTION::OK THEN BEGIN
-                          VALIDATE("Currency Factor",ChangeExchangeRate.GetParameter);
-                          CurrPage.UPDATE;
+                            VALIDATE("Currency Factor", ChangeExchangeRate.GetParameter);
+                            CurrPage.UPDATE;
                         END;
                         CLEAR(ChangeExchangeRate);
                     end;
@@ -219,15 +207,15 @@ page 50118 "LOC Purchase Return Order"
                     trigger OnValidate()
                     begin
                         CurrPage.SAVERECORD;
-                        PurchCalcDiscByType.ApplyDefaultInvoiceDiscount(0,Rec);
+                        PurchCalcDiscByType.ApplyDefaultInvoiceDiscount(0, Rec);
                     end;
                 }
-                field("Expected Receipt Date";"Expected Receipt Date")
+                field("Expected Receipt Date"; "Expected Receipt Date")
                 {
                     Importance = Promoted;
                     ToolTip = 'Specifies the date you expect to receive the items on the purchase document.';
                 }
-                field("Prices Including VAT";"Prices Including VAT")
+                field("Prices Including VAT"; "Prices Including VAT")
                 {
                     ToolTip = 'Specifies whether the unit price on the line should be displayed including or excluding VAT.';
 
@@ -236,15 +224,15 @@ page 50118 "LOC Purchase Return Order"
                         PricesIncludingVATOnAfterValid;
                     end;
                 }
-                field("VAT Bus. Posting Group";"VAT Bus. Posting Group")
+                field("VAT Bus. Posting Group"; "VAT Bus. Posting Group")
                 {
                     ToolTip = 'Specifies the vendor''s VAT specification to link transactions made for this vendor with the appropriate general ledger account according to the VAT posting setup.';
                 }
-                field("Transaction Type";"Transaction Type")
+                field("Transaction Type"; "Transaction Type")
                 {
                     ToolTip = 'Specifies the number for the transaction type, for the purpose of reporting to INTRASTAT.';
                 }
-                field("Shortcut Dimension 1 Code";"Shortcut Dimension 1 Code")
+                field("Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
                 {
                     ToolTip = 'Specifies the dimension value code associated with the purchase header.';
 
@@ -253,7 +241,7 @@ page 50118 "LOC Purchase Return Order"
                         ShortcutDimension1CodeOnAfterV;
                     end;
                 }
-                field("Shortcut Dimension 2 Code";"Shortcut Dimension 2 Code")
+                field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
                 {
                     ToolTip = 'Specifies the dimension value code associated with the purchase header.';
 
@@ -262,20 +250,20 @@ page 50118 "LOC Purchase Return Order"
                         ShortcutDimension2CodeOnAfterV;
                     end;
                 }
-                field("Location Code";"Location Code")
+                field("Location Code"; "Location Code")
                 {
                     Importance = Promoted;
                     ToolTip = 'Specifies a code for the location where you want the items to be placed when they are received.';
                 }
-                field("Applies-to Doc. Type";"Applies-to Doc. Type")
+                field("Applies-to Doc. Type"; "Applies-to Doc. Type")
                 {
                     Importance = Promoted;
                 }
-                field("Applies-to Doc. No.";"Applies-to Doc. No.")
+                field("Applies-to Doc. No."; "Applies-to Doc. No.")
                 {
                     Importance = Promoted;
                 }
-                field("Applies-to ID";"Applies-to ID")
+                field("Applies-to ID"; "Applies-to ID")
                 {
                 }
             }
@@ -285,37 +273,37 @@ page 50118 "LOC Purchase Return Order"
                 group("Ship-to")
                 {
                     Caption = 'Ship-to';
-                    field("Ship-to Name";"Ship-to Name")
+                    field("Ship-to Name"; "Ship-to Name")
                     {
                         Caption = 'Name';
                         Importance = Additional;
                         ToolTip = 'Specifies the name of the company at the address to which you want the items in the purchase order to be shipped.';
                     }
-                    field("Ship-to Address";"Ship-to Address")
+                    field("Ship-to Address"; "Ship-to Address")
                     {
                         Caption = 'Address';
                         Importance = Additional;
                         ToolTip = 'Specifies the address that you want the items in the purchase order to be shipped to.';
                     }
-                    field("Ship-to Address 2";"Ship-to Address 2")
+                    field("Ship-to Address 2"; "Ship-to Address 2")
                     {
                         Caption = 'Address 2';
                         Importance = Additional;
                         ToolTip = 'Specifies additional address information.';
                     }
-                    field("Ship-to Post Code";"Ship-to Post Code")
+                    field("Ship-to Post Code"; "Ship-to Post Code")
                     {
                         Caption = 'Post Code';
                         Importance = Additional;
                         ToolTip = 'Specifies the postal code.';
                     }
-                    field("Ship-to City";"Ship-to City")
+                    field("Ship-to City"; "Ship-to City")
                     {
                         Caption = 'City';
                         Importance = Additional;
                         ToolTip = 'Specifies the city the items in the purchase order will be shipped to.';
                     }
-                    field("Ship-to Contact";"Ship-to Contact")
+                    field("Ship-to Contact"; "Ship-to Contact")
                     {
                         Caption = 'Contact';
                         Importance = Additional;
@@ -325,43 +313,43 @@ page 50118 "LOC Purchase Return Order"
                 group("Pay-to")
                 {
                     Caption = 'Pay-to';
-                    field("Pay-to Name";"Pay-to Name")
+                    field("Pay-to Name"; "Pay-to Name")
                     {
                         Caption = 'Name';
                         Importance = Promoted;
                         ToolTip = 'Specifies the name of the vendor sending the invoice.';
                     }
-                    field("Pay-to Address";"Pay-to Address")
+                    field("Pay-to Address"; "Pay-to Address")
                     {
                         Caption = 'Address';
                         Importance = Additional;
                         ToolTip = 'Specifies the address of the vendor sending the invoice.';
                     }
-                    field("Pay-to Address 2";"Pay-to Address 2")
+                    field("Pay-to Address 2"; "Pay-to Address 2")
                     {
                         Caption = 'Address 2';
                         Importance = Additional;
                         ToolTip = 'Specifies additional address information.';
                     }
-                    field("Pay-to Post Code";"Pay-to Post Code")
+                    field("Pay-to Post Code"; "Pay-to Post Code")
                     {
                         Caption = 'Post Code';
                         Importance = Additional;
                         ToolTip = 'Specifies the postal code.';
                     }
-                    field("Pay-to City";"Pay-to City")
+                    field("Pay-to City"; "Pay-to City")
                     {
                         Caption = 'City';
                         Importance = Additional;
                         ToolTip = 'Specifies the city of the vendor sending the invoice.';
                     }
-                    field("Pay-to Contact No.";"Pay-to Contact No.")
+                    field("Pay-to Contact No."; "Pay-to Contact No.")
                     {
                         Caption = 'Contact No.';
                         Importance = Additional;
                         ToolTip = 'Specifies the number of the contact who sends the invoice.';
                     }
-                    field("Pay-to Contact";"Pay-to Contact")
+                    field("Pay-to Contact"; "Pay-to Contact")
                     {
                         Caption = 'Contact';
                         Importance = Additional;
@@ -372,19 +360,19 @@ page 50118 "LOC Purchase Return Order"
             group("Foreign Trade")
             {
                 Caption = 'Foreign Trade';
-                field("Transaction Specification";"Transaction Specification")
+                field("Transaction Specification"; "Transaction Specification")
                 {
                     ToolTip = 'Specifies a code for the purchase header''s transaction specification here.';
                 }
-                field("Transport Method";"Transport Method")
+                field("Transport Method"; "Transport Method")
                 {
                     ToolTip = 'Specifies the code for the transport method to be used with this purchase header.';
                 }
-                field("Entry Point";"Entry Point")
+                field("Entry Point"; "Entry Point")
                 {
                     ToolTip = 'Specifies the code of the port of entry where the items pass into your country/region.';
                 }
-                field(Area;Area)
+                field(BC6_Area; Area)
                 {
                     ToolTip = 'Specifies the code for the area of the vendor''s address.';
                 }
@@ -392,55 +380,55 @@ page 50118 "LOC Purchase Return Order"
         }
         area(factboxes)
         {
-            part(;9103)
+            part(; 9103)
             {
-                SubPageLink = Table ID=CONST(38),
-                              Document Type=FIELD(Document Type),
+                SubPageLink = "Table ID" = CONST(38),
+                              "Document Type" = FIELD("Document Type"),
                               Document No.=FIELD(No.);
-                Visible = OpenApprovalEntriesExistForCurrUser;
+                                  Visible = OpenApprovalEntriesExistForCurrUser;
             }
-            part(ApprovalFactBox;9092)
+            part(ApprovalFactBox; 9092)
             {
                 Visible = false;
             }
-            part(;9093)
+            part(; 9093)
             {
-                SubPageLink = No.=FIELD(Buy-from Vendor No.);
+                SubPageLink = "No." = FIELD(Buy-from Vendor No.);
             }
-            part(;9094)
+            part(; 9094)
             {
-                SubPageLink = No.=FIELD(Pay-to Vendor No.);
+                SubPageLink = "No." = FIELD(Pay-to Vendor No.);
                 Visible = false;
             }
-            part(;9095)
+            part(; 9095)
             {
-                SubPageLink = No.=FIELD(Buy-from Vendor No.);
+                SubPageLink = "No." = FIELD(Buy-from Vendor No.);
             }
-            part(;9096)
+            part(; 9096)
             {
-                SubPageLink = No.=FIELD(Pay-to Vendor No.);
+                SubPageLink = "No." = FIELD(Pay-to Vendor No.);
                 Visible = false;
             }
-            part(;9100)
+            part(; 9100)
             {
                 Provider = PurchLines;
-                SubPageLink = Document Type=FIELD(Document Type),
-                              Document No.=FIELD(Document No.),
-                              Line No.=FIELD(Line No.);
+                SubPageLink = "Document Type" = FIELD("Document Type"),
+                              "Document No." = FIELD("Document No."),
+                              "Line No." = FIELD("Line No.");
                 Visible = false;
             }
-            part(WorkflowStatus;1528)
+            part(WorkflowStatus; 1528)
             {
                 Editable = false;
                 Enabled = false;
                 ShowFilter = false;
                 Visible = ShowWorkflowStatus;
             }
-            systempart(;Links)
+            systempart(Links; Links)
             {
                 Visible = false;
             }
-            systempart(;Notes)
+            systempart(Notes; Notes)
             {
             }
         }
@@ -474,12 +462,12 @@ page 50118 "LOC Purchase Return Order"
                     Caption = 'Vendor';
                     Image = Vendor;
                     RunObject = Page 26;
-                                    RunPageLink = No.=FIELD(Buy-from Vendor No.);
+                    RunPageLink = "No." = FIELD(Buy-from Vendor No.);
                     ShortCutKey = 'Shift+F7';
                 }
                 action(Dimensions)
                 {
-                    AccessByPermission = TableData 348=R;
+                    AccessByPermission = TableData 348 = R;
                     Caption = 'Dimensions';
                     Enabled = "No." <> '';
                     Image = Dimensions;
@@ -494,7 +482,7 @@ page 50118 "LOC Purchase Return Order"
                 }
                 action(Approvals)
                 {
-                    AccessByPermission = TableData 454=R;
+                    AccessByPermission = TableData 454 = R;
                     Caption = 'Approvals';
                     Image = Approvals;
                     ToolTip = 'View a list of the records that are waiting to be approved. For example, you can see who requested the record to be approved, when it was sent, and when it is due to be approved.';
@@ -503,7 +491,7 @@ page 50118 "LOC Purchase Return Order"
                     var
                         ApprovalEntries: Page "658";
                     begin
-                        ApprovalEntries.Setfilters(DATABASE::"Purchase Header","Document Type","No.");
+                        ApprovalEntries.Setfilters(DATABASE::"Purchase Header", "Document Type", "No.");
                         ApprovalEntries.RUN;
                     end;
                 }
@@ -512,7 +500,7 @@ page 50118 "LOC Purchase Return Order"
                     Caption = 'Co&mments';
                     Image = ViewComments;
                     RunObject = Page 66;
-                                    RunPageLink = Document Type=FIELD(Document Type),
+                    RunPageLink = "Document Type" = FIELD("Document Type"),
                                   No.=FIELD(No.),
                                   Document Line No.=CONST(0);
                     ToolTip = 'View or add notes about the purchase return order.';
@@ -910,7 +898,7 @@ page 50118 "LOC Purchase Return Order"
                         Post(CODEUNIT::"Purch.-Post (Yes/No)");
                     end;
                 }
-                action(Preview)
+                action("Preview")
                 {
                     Caption = 'Preview Posting';
                     Image = ViewPostedOrder;

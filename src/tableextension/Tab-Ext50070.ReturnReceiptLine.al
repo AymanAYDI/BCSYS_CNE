@@ -41,7 +41,7 @@ tableextension 50070 "BC6_ReturnReceiptLine" extends "Return Receipt Line"
             Caption = 'Purch. Order Line No.';
             Editable = false;
         }
-        field(50028; "BC6_Purch. Document Type"; enum "BC6_Sales Document Type")
+        field(50028; "BC6_Purch. Document Type"; Enum "Sales Document Type")
         {
             Caption = 'Document Type';
         }

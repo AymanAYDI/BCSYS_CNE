@@ -15,13 +15,14 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
 
             end;
         }
-        modify("Your Reference")
-        {
-            trigger OnAfterValidate()
-            begin
-                UpdateSalesShipment.UpdateYourRefOnSalesShpt(Rec);
-            end;
-        }
+        //TODO
+        // modify("Your Reference")
+        // {
+        // trigger OnAfterValidate()
+        // begin
+        //     UpdateSalesShipment.UpdateYourRefOnSalesShpt(Rec);
+        // end;
+        // }
         modify("Shipment Method Code")
         {
             trigger OnAfterValidate()
@@ -136,6 +137,51 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
                 CopySellToAddress(CurrFieldNo);
             end;
         }
+
+        modify("Shipping Agent Code")
+        {
+            trigger OnBeforeValidate()
+            begin
+                IF (Status <> Status::Open) AND (xRec."Shipping Agent Code" <> "Shipping Agent Code")
+          AND ("Document Type" = "Document Type"::Order)
+                THEN BEGIN
+                    CDUReleaseDoc.Reopen(Rec);
+                    BoolReclose := TRUE;
+                END;
+
+            end;
+
+            trigger OnAfterValidate()
+            begin
+                IF BoolReclose THEN BEGIN
+                    CDUReleaseDoc.RUN(Rec);
+                    BoolReclose := FALSE;
+                END;
+
+            end;
+        }
+        modify("Shipping Agent Service Code")
+        {
+            trigger OnBeforeValidate()
+            begin
+                IF (Status <> Status::Open) AND (xRec."Shipping Agent Service Code" <> "Shipping Agent Service Code")
+                AND ("Document Type" = "Document Type"::Order)
+                THEN BEGIN
+                    CDUReleaseDoc.Reopen(Rec);
+                    BoolReclose := TRUE;
+                END;
+            end;
+
+            trigger OnAfterValidate()
+            begin
+                IF BoolReclose THEN BEGIN
+                    CDUReleaseDoc.RUN(Rec);
+                    BoolReclose := FALSE;
+                END;
+
+            end;
+        }
+
         field(50000; "BC6_Cause filing"; Enum "BC6_Cause Filing")
         {
             Caption = 'Cause filing';
@@ -162,11 +208,11 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
         {
             Caption = 'Affair No.';
             TableRelation = Job."No.";
-
-            trigger OnValidate()
-            begin
-                UpdateSalesShipment.UpdateAffairNoOnSalesShpt(Rec);
-            end;
+            //TODO
+            // trigger OnValidate()
+            // begin
+            //     UpdateSalesShipment.UpdateAffairNoOnSalesShpt(Rec);
+            // end;
         }
         field(50010; BC6_ID; Code[50])
         {
@@ -196,7 +242,7 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
         }
         field(50026; "BC6_Purchase cost"; Decimal)
         {
-            CalcFormula = Sum("Sales Line"."Purchase cost" WHERE("Document Type" = FIELD("Document Type"),
+            CalcFormula = Sum("Sales Line"."BC6_Purchase cost" WHERE("Document Type" = FIELD("Document Type"),
                                                                   "Document No." = FIELD("No.")));
             Caption = 'Purchase Cost';
             Editable = false;
@@ -611,11 +657,11 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
     procedure UpdateIncoterm()
     begin
         IF RecGCustomer.GET("Bill-to Customer No.") THEN BEGIN
-            "Transaction Type" := RecGCustomer."Transaction Type";
-            "Transaction Specification" := RecGCustomer."Transaction Specification";
-            "Transport Method" := RecGCustomer."Transport Method";
-            "Exit Point" := RecGCustomer."Exit Point";
-            Area := RecGCustomer.Area;
+            "Transaction Type" := RecGCustomer."BC6_Transaction Type";
+            "Transaction Specification" := RecGCustomer."BC6_Transaction Specification";
+            "Transport Method" := RecGCustomer."BC6_Transport Method";
+            "Exit Point" := RecGCustomer."BC6_Exit Point";
+            Area := RecGCustomer.BC6_Area;
         END;
     end;
 
@@ -675,11 +721,9 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
                             RecLPurchquoteHeader.VALIDATE("Your Reference", RecLSalesHeader."No.");
                             RecLPurchquoteHeader.VALIDATE("Sell-to Customer No.", RecLSalesHeader."Sell-to Customer No.");
                             RecLPurchquoteHeader.VALIDATE("Purchaser Code", RecLSalesHeader."Salesperson Code");
-                            //FG
                             RecLPurchquoteHeader."BC6_From Sales Module" := TRUE;
                             RecLPurchquoteHeader.INSERT(TRUE);
 
-                            //Ligne Devis achat
                             NextLineNo := 10000;
 
                             RecLSalesLine2.SETFILTER("BC6_Buy-from Vendor No.", RecLPurchquoteHeader."Buy-from Vendor No.");
@@ -691,20 +735,16 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
                                     RecLPurchLine.VALIDATE("Line No.", NextLineNo);
                                     CduLCopyDocMgt.TransfldsFromSalesToPurchLine(RecLSalesLine2, RecLPurchLine);
                                     RecLPurchLine.VALIDATE("Purchasing Code", RecLSalesLine2."Purchasing Code");
-                                    //>>FE004.02
-                                    RecLPurchLine.VALIDATE("Sales No.", RecLSalesLine2."Document No.");
-                                    RecLPurchLine.VALIDATE("Sales Line No.", RecLSalesLine2."Line No.");
-                                    RecLPurchLine.VALIDATE("Sales Document Type", RecLSalesHeader."Document Type");
-                                    //>>FE004.02
+                                    RecLPurchLine.VALIDATE("BC6_Sales No.", RecLSalesLine2."Document No.");
+                                    RecLPurchLine.VALIDATE("BC6_Sales Line No.", RecLSalesLine2."Line No.");
+                                    RecLPurchLine.VALIDATE("BC6_Sales Document Type", RecLSalesHeader."Document Type");
                                     RecLPurchLine.INSERT(TRUE);
                                     NextLineNo := NextLineNo + 10000;
 
                                     RecLSalesLine2.VALIDATE("BC6_Purch. Order No.", RecLPurchLine."Document No.");
                                     RecLSalesLine2.VALIDATE("BC6_Purch. Line No.", RecLPurchLine."Line No.");
                                     RecLSalesLine2.VALIDATE("BC6_Purch. Document Type", RecLPurchLine."Document Type");
-                                    RecLSalesLine2.VALIDATE("BC6_Purchase cost", RecLPurchLine."Discount Direct Unit Cost");
-
-                                    //>>FEP-ACHAT-200706_18_A.001
+                                    RecLSalesLine2.VALIDATE("BC6_Purchase cost", RecLPurchLine."BC6_Discount Direct Unit Cost");
                                     RecLSalesLine2.VALIDATE("BC6_Purchase Receipt Date", RecLPurchLine."Expected Receipt Date");
                                     RecLSalesLine2.MODIFY(TRUE);
 
@@ -712,7 +752,6 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
                             END;
                         END;
                     END;
-            // RecLSalesLine.SETFILTER(RecLSalesLine."Buy-from Vendor No.",'');
 
             UNTIL RecLSalesLine.NEXT = 0;
             IF BooLCreate THEN BEGIN
@@ -723,81 +762,80 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
 
     end;
 
+    PROCEDURE GetPstdDocLinesToRevere();
+    VAR
+        SalesPostedDocLines: Page "Posted Sales Document Lines";
+        Cust: Record Customer;
+    BEGIN
+        GetCust("Sell-to Customer No.");
+        SalesPostedDocLines.SetToSalesHeader(Rec);
+        SalesPostedDocLines.SETRECORD(Cust);
+        SalesPostedDocLines.LOOKUPMODE := TRUE;
+        IF SalesPostedDocLines.RUNMODAL = ACTION::LookupOK THEN
+            SalesPostedDocLines.CopyLineToDoc;
+
+        CLEAR(SalesPostedDocLines);
+    END;
+
+
     procedure verifyquotestatus(): Boolean
     var
-        RecLQuotehdr: Record 36;
-        RecLAccessControl: Record 2000000053;
+        RecLQuotehdr: Record "Sales Header";
+        RecLAccessControl: Record "Access Control";
+        SalesSetup: Record "Sales & Receivables Setup";
     begin
-        //>>FE015
-        //>>MIGRATION NAV 2013
-        //OLD
-        /*
-        RecLMembers.RESET ;
-        RecLMembers.SETRANGE(RecLMembers."User ID",USERID) ;
-        RecLMembers.SETRANGE(RecLMembers."Role ID",'SUPER') ;
-        IF NOT RecLMembers.FIND('-') AND ("Document Type" = "Document Type"::Quote) THEN
-        */
-        //NEW
         RecLAccessControl.RESET;
         RecLAccessControl.SETRANGE("User Security ID", USERSECURITYID);
+        RecLAccessControl.SETRANGE("User Security ID", USERSECURITYID);
         RecLAccessControl.SETRANGE("Role ID", 'SUPER');
-        IF NOT RecLAccessControl.FINDFIRST AND ("Document Type" = "Document Type"::Quote) THEN
-        //<<MIGRATION NAV 2013
-
-        // aucun blocage si c'est l'admin !
-        BEGIN
+        IF NOT RecLAccessControl.FINDFIRST AND ("Document Type" = "Document Type"::Quote) THEN begin
             SalesSetup.GET;
-            SalesSetup.TESTFIELD(Nbr_Devis);
+            SalesSetup.TESTFIELD(BC6_Nbr_Devis);
             SalesSetup.TESTFIELD(Période);
             RecLQuotehdr.SETRANGE("Document Type", RecLQuotehdr."Document Type"::Quote);
             RecLQuotehdr.SETFILTER("Sell-to Customer No.", "Sell-to Customer No.");
             RecLQuotehdr.SETRANGE("Document Date", CALCDATE('-' + FORMAT(SalesSetup.Période), WORKDATE), WORKDATE);
-            IF (RecLQuotehdr.COUNT <= SalesSetup.Nbr_Devis) OR ("Quote statut" = "Quote statut"::approved) THEN
+            IF (RecLQuotehdr.COUNT <= SalesSetup.BC6_Nbr_Devis) OR ("BC6_Quote statut" = "BC6_Quote statut"::approved) THEN
                 EXIT(TRUE)
             ELSE BEGIN
-                "Quote statut" := "Quote statut"::locked;
-                PAGE.RUN(PAGE::"Quote Blocked", Rec);
+                "BC6_Quote statut" := "BC6_Quote statut"::locked;
+                PAGE.RUN(PAGE::"BC6_Quote Blocked", Rec);
                 EXIT(FALSE);
             END;
         END;
+
         EXIT(TRUE);
 
     end;
 
-    procedure UpdateSellToFax(CodContactNo: Code[20])
+    PROCEDURE UpdateSellToFax(CodContactNo: Code[20]);
+
     var
-        RecLContact: Record "5050";
+        RecLContact: Record Contact;
     begin
-        //>>FE005
         IF RecLContact.GET(CodContactNo) THEN
-            "Sell-to Fax No." := RecLContact."Fax No."
+            "BC6_Sell-to Fax No." := RecLContact."Fax No."
         ELSE
-            "Sell-to Fax No." := '';
-        //<<FE005
+            "BC6_Sell-to Fax No." := '';
     end;
 
     procedure UpdateSellToMail(CodContactNo: Code[20])
     var
-        RecLContact: Record "5050";
+        RecLContact: Record Contact;
     begin
-        //>>FE005
         IF RecLContact.GET(CodContactNo) THEN
-            "Sell-to E-Mail Address" := RecLContact."E-Mail"
+            "BC6_Sell-to E-Mail Address" := RecLContact."E-Mail"
         ELSE
-            "Sell-to E-Mail Address" := '';
-        //<<FE005
+            "BC6_Sell-to E-Mail Address" := '';
     end;
 
     procedure CopySellToAddress(var FromCurrFieldNo: Integer)
     begin
-        // CNE6.01
         IF (FromCurrFieldNo = 0) THEN
             EXIT;
 
-        IF NOT ("Copy Sell-to Address") THEN
+        IF NOT ("BC6_Copy Sell-to Address") THEN
             EXIT;
-
-        // Invoice To Address
         CASE FromCurrFieldNo OF
             FIELDNO("Sell-to Customer Name"):
                 "Bill-to Name" := "Sell-to Customer Name";
@@ -810,8 +848,6 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
             FIELDNO("Sell-to City"):
                 BEGIN
                     "Bill-to City" := "Sell-to City";
-                    // CNE6.01A
-                    // VALIDATE("Bill-to City")
                     "Bill-to Post Code" := "Sell-to Post Code";
                     "Bill-to County" := "Sell-to County";
                     "Bill-to Country/Region Code" := "Sell-to Country/Region Code";
@@ -819,8 +855,6 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
             FIELDNO("Sell-to Post Code"):
                 BEGIN
                     "Bill-to Post Code" := "Sell-to Post Code";
-                    // CNE6.01A
-                    // VALIDATE("Bill-to Post Code")
                     "Bill-to City" := "Sell-to City";
                     "Bill-to County" := "Sell-to County";
                     "Bill-to Country/Region Code" := "Sell-to Country/Region Code";
@@ -831,7 +865,6 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
                 "Bill-to Contact" := "Sell-to Contact";
         END;
 
-        // Ship-to Address
         CASE FromCurrFieldNo OF
             FIELDNO("Sell-to Customer Name"):
                 "Ship-to Name" := "Sell-to Customer Name";
@@ -844,8 +877,6 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
             FIELDNO("Sell-to City"):
                 BEGIN
                     "Ship-to City" := "Sell-to City";
-                    // CNE6.01A
-                    // VALIDATE("Ship-to City");
                     "Ship-to Post Code" := "Sell-to Post Code";
                     "Ship-to County" := "Sell-to County";
                     "Ship-to Country/Region Code" := "Sell-to Country/Region Code";
@@ -854,8 +885,6 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
             FIELDNO("Sell-to Post Code"):
                 BEGIN
                     "Ship-to Post Code" := "Sell-to Post Code";
-                    // CNE6.01A
-                    // VALIDATE("Ship-to Post Code");
                     "Ship-to City" := "Sell-to City";
                     "Ship-to County" := "Sell-to County";
                     "Ship-to Country/Region Code" := "Sell-to Country/Region Code";
@@ -873,17 +902,17 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
 
     local procedure UpdateSalesLineReturnType()
     var
-        L_SalesLine: Record "37";
+        L_SalesLine: Record "Sales Line";
     begin
         IF "Document Type" <> "Document Type"::"Return Order" THEN
             EXIT;
 
-        IF xRec."Return Order Type" <> Rec."Return Order Type" THEN
+        IF xRec."BC6_Return Order Type" <> Rec."BC6_Return Order Type" THEN
             L_SalesLine.RESET;
         L_SalesLine.SETRANGE("Document Type", "Document Type");
         L_SalesLine.SETRANGE("Document No.", "No.");
         IF L_SalesLine.FINDFIRST THEN
-            L_SalesLine.MODIFYALL("Return Order Type", "Return Order Type");
+            L_SalesLine.MODIFYALL("BC6_Return Order Type", "BC6_Return Order Type");
     end;
 
     procedure IsDeleteFromReturn(NewIsDeleteFromReturnOrder: Boolean)
@@ -891,112 +920,41 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
         IsDeleteFromReturnOrder := NewIsDeleteFromReturnOrder;
     end;
 
-    //Unsupported feature: Insertion (FieldGroupCollection) on "(FieldGroup: Brick)".
-
-
-    //Unsupported feature: Deletion (VariableCollection) on "RecreateSalesLines(PROCEDURE 4).SalesLineTmp(Variable 1001)".
-
-
-    //Unsupported feature: Deletion (VariableCollection) on "HandleItemTrackingDeletion(PROCEDURE 36).ReservEntry2(Variable 1000)".
-
-
-    //Unsupported feature: Property Insertion (Temporary) on "ClearItemAssgntSalesFilter(PROCEDURE 17).TempItemChargeAssgntSales(Parameter 1000)".
-
-
-    //Unsupported feature: Deletion (VariableCollection) on "Authorize(PROCEDURE 50).DOPaymentTransLogEntry(Variable 1001)".
-
-
-    //Unsupported feature: Deletion (VariableCollection) on "Void(PROCEDURE 51).DOPaymentTransLogEntry(Variable 1001)".
-
-
-    //Unsupported feature: Deletion (VariableCollection) on "Void(PROCEDURE 51).DOPaymentTransLogMgt(Variable 1002)".
-
-
-    //Unsupported feature: Deletion (VariableCollection) on "GetCreditcardNumber(PROCEDURE 44).DOPaymentCreditCard(Variable 1001)".
-
-
-    //Unsupported feature: Deletion (VariableCollection) on "IsApprovedForPosting(PROCEDURE 53).PurchaseHeader(Variable 1000)".
-
-
-    //Unsupported feature: Deletion (VariableCollection) on "IsApprovedForPostingBatch(PROCEDURE 54).PurchaseHeader(Variable 1000)".
-
-
-    //Unsupported feature: Deletion (VariableCollection) on "ShowDirectDebitMandates(PROCEDURE 58).SEPADirectDebitMandate(Variable 1000)".
-
-
-    //Unsupported feature: Deletion (VariableCollection) on "ShowDirectDebitMandates(PROCEDURE 58).SEPADirectDebitMandates(Variable 1001)".
 
 
     var
-        ShipToAddr: Record "222";
+        ShipToAddr: Record "Ship-to Address";
 
-    var
-        WMSManagement: Codeunit "7302";
+        WMSManagement: Codeunit "WMS Management";
         BinCode: Code[20];
-        Bin: Record "7354";
-        ShipmentMethodRec: Record "10";
+        Bin: Record Bin;
+        ShipmentMethodRec: Record "Shipment Method";
 
-    var
-        GenJnlLine: Record "81";
-        GenJnlApply: Codeunit "225";
-        ApplyCustEntries: Page "232";
 
-    var
+        GenJnlLine: Record "Gen. Journal Line";
+        GenJnlApply: Codeunit "Gen. Jnl.-Apply";
+        ApplyCustEntries: Page "Apply Customer Entries";
+
         BoolReclose: Boolean;
+        CustEntrySetApplID: Codeunit "Cust. Entry-SetAppl.ID";
 
-    var
-        CustEntrySetApplID: Codeunit "101";
+        FrmGLignesCommentaires: Page "Comment Sheet";
+        "---NSC1.01": label '';
+        TextG001: Label 'Warning, using foreign currency will generate wrong profit calculation.';
+        CDUReleaseDoc: Codeunit "Release Sales Document";
+        TextG002: Label 'Update Bill-to address ?';
+        TextG003: Label 'Warning: you have already placed this order purchase.';
+        //TODO:Codeunit   // UpdateSalesShipment: Codeunit 50015;
+        //  G_ReturnOrderMgt: Codeunit 50052;
+        "-BCSYS-": Integer;
 
-    var
-        BoolReclose: Boolean;
+        IsDeleteFromReturnOrder: Boolean;
+        PostSalesDelete: Codeunit "PostSales-Delete";
+        ArchiveManagement: Codeunit ArchiveManagement;
 
-    var
-        PostSalesDelete: Codeunit "363";
-        ArchiveManagement: Codeunit "5063";
-
-
-    //Unsupported feature: Property Modification (Id) on "ReservEntry(Variable 1079)".
-
-    //var
-    //>>>> ORIGINAL VALUE:
-    //ReservEntry : 1079;
-    //Variable type has not been exported.
-    //>>>> MODIFIED VALUE:
-    //ReservEntry : 1001;
-    //Variable type has not been exported.
-
-
-    //Unsupported feature: Property Modification (Id) on "TempReservEntry(Variable 1080)".
-
-    //var
-    //>>>> ORIGINAL VALUE:
-    //TempReservEntry : 1080;
-    //Variable type has not been exported.
-    //>>>> MODIFIED VALUE:
-    //TempReservEntry : 1000;
-    //Variable type has not been exported.
-
-
-    //Unsupported feature: Property Modification (Id) on "CompanyInfo(Variable 1094)".
-
-    //var
-    //>>>> ORIGINAL VALUE:
-    //CompanyInfo : 1094;
-    //Variable type has not been exported.
-    //>>>> MODIFIED VALUE:
-    //CompanyInfo : 1002;
-    //Variable type has not been exported.
-
-    var
         ConfirmChangeQst: Label 'Do you want to change %1?', Comment = '%1 = a Field Caption like Currency Code';
-
-    var
-        ApprovalsMgmt: Codeunit "1535";
-
-    var
+        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
         DeferralLineQst: Label 'Do you want to update the deferral schedules for the lines?';
-
-    var
         ShippingAdviceErr: Label 'This order must be a complete shipment.';
         PostedDocsToPrintCreatedMsg: Label 'One or more related posted documents have been generated during deletion to fill gaps in the posting number series. You can view or print the documents from the respective document archive.';
         SellToCustomerTxt: Label 'Sell-to Customer';
@@ -1005,18 +963,9 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
         SelectCustomerTemplateQst: Label 'Do you want to select the customer template?';
         SelectNoSeriesAllowed: Boolean;
         "-NSC1.00-": Integer;
-        RecGCustomer: Record "18";
-        RecGParamNavi: Record "50004";
-        RecGCommentLine: Record "97";
-        FrmGLignesCommentaires: Page "124";
-        "---NSC1.01": ;
-        TextG001: Label 'Warning, using foreign currency will generate wrong profit calculation.';
-        CDUReleaseDoc: Codeunit "414";
-        TextG002: Label 'Update Bill-to address ?';
-        TextG003: Label 'Warning: you have already placed this order purchase.';
-        UpdateSalesShipment: Codeunit "50015";
-        "-BCSYS-": Integer;
-        G_ReturnOrderMgt: Codeunit "50052";
-        IsDeleteFromReturnOrder: Boolean;
+        RecGCustomer: Record Customer;
+        RecGParamNavi: Record "BC6_Navi+ Setup";
+        RecGCommentLine: Record "Comment Line";
+
 }
 

@@ -1,30 +1,12 @@
-page 50116 "SAV Sales Return Order"
+page 50117 "Location Sales Return Order"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // //EMAIL SOBH NSC1.01 [005] Envoi document  dans bouton imprimer
-    // //FE005 SEBC 08/01/2007 Add field
-    //                         50061 Fax No.
-    // //>>CNE1.00
-    // FEP-ADVE-200706_18_A.001:MA 14/11/2007 : gestion des appeles d'offres clients
-    //     - Add field "Affair No."
-    // ------------------------------------------------------------------------
-    // +----------------------------------------------------------------------+
-    // |BC6                                                                   |
-    // |http://www.BCSYS.fr                                                   |
-    // +----------------------------------------------------------------------+
-    // BC6 01102020
-    //   - Add Code "OnNewRecord"
-    // +----------------------------------------------------------------------+
 
     Caption = 'Sales Return Order';
     PageType = Document;
     PromotedActionCategories = 'New,Process,Report,Approve,Release,Posting,Prepare,Invoice,Request Approval';
     RefreshOnActivate = true;
-    SourceTable = Table36;
-    SourceTableView = WHERE (Document Type=FILTER(Return Order));
+    SourceTable = "Sales Header";
+    SourceTableView = WHERE("Document Type" = FILTER("Return Order"));
 
     layout
     {
@@ -33,7 +15,7 @@ page 50116 "SAV Sales Return Order"
             group(General)
             {
                 Caption = 'General';
-                field("No.";"No.")
+                field("No."; Rec."No.")
                 {
                     Importance = Additional;
                     ToolTip = 'Specifies the number of the sales document. The field can be filled automatically or manually and can be set up to be invisible.';
@@ -41,11 +23,11 @@ page 50116 "SAV Sales Return Order"
 
                     trigger OnAssistEdit()
                     begin
-                        IF AssistEdit(xRec) THEN
-                          CurrPage.UPDATE;
+                        IF Rec.AssistEdit(xRec) THEN
+                            CurrPage.UPDATE;
                     end;
                 }
-                field("Sell-to Customer Name";"Sell-to Customer Name")
+                field("Sell-to Customer Name"; Rec."Sell-to Customer Name")
                 {
                     Caption = 'Customer';
                     Importance = Promoted;
@@ -55,9 +37,9 @@ page 50116 "SAV Sales Return Order"
 
                     trigger OnValidate()
                     begin
-                        IF GETFILTER("Sell-to Customer No.") = xRec."Sell-to Customer No." THEN
-                          IF "Sell-to Customer No." <> xRec."Sell-to Customer No." THEN
-                            SETRANGE("Sell-to Customer No.");
+                        IF Rec.GETFILTER("Sell-to Customer No.") = xRec."Sell-to Customer No." THEN
+                            IF Rec."Sell-to Customer No." <> xRec."Sell-to Customer No." THEN
+                                Rec.SETRANGE("Sell-to Customer No.");
 
                         CurrPage.UPDATE;
                     end;
@@ -65,32 +47,32 @@ page 50116 "SAV Sales Return Order"
                 group("Sell-to")
                 {
                     Caption = 'Sell-to';
-                    field("Sell-to Address";"Sell-to Address")
+                    field("Sell-to Address"; Rec."Sell-to Address")
                     {
                         Caption = 'Address';
                         Importance = Additional;
                         ToolTip = 'Specifies the address where the customer is located.';
                     }
-                    field("Sell-to Address 2";"Sell-to Address 2")
+                    field("Sell-to Address 2"; Rec."Sell-to Address 2")
                     {
                         Caption = 'Address 2';
                         Importance = Additional;
                         ToolTip = 'Specifies additional address information.';
                     }
-                    field("Sell-to Post Code";"Sell-to Post Code")
+                    field("Sell-to Post Code"; Rec."Sell-to Post Code")
                     {
                         Caption = 'Post Code';
                         Importance = Additional;
                         ToolTip = 'Specifies the postal code.';
                     }
-                    field("Sell-to City";"Sell-to City")
+                    field("Sell-to City"; Rec."Sell-to City")
                     {
                         Caption = 'City';
                         Importance = Additional;
                         QuickEntry = false;
                         ToolTip = 'Specifies the city where the customer is located.';
                     }
-                    field("Sell-to Contact No.";"Sell-to Contact No.")
+                    field("Sell-to Contact No."; Rec."Sell-to Contact No.")
                     {
                         Caption = 'Contact No.';
                         Importance = Additional;
@@ -98,52 +80,52 @@ page 50116 "SAV Sales Return Order"
 
                         trigger OnValidate()
                         begin
-                            IF GETFILTER("Sell-to Contact No.") = xRec."Sell-to Contact No." THEN
-                              IF "Sell-to Contact No." <> xRec."Sell-to Contact No." THEN
-                                SETRANGE("Sell-to Contact No.");
+                            IF Rec.GETFILTER("Sell-to Contact No.") = xRec."Sell-to Contact No." THEN
+                                IF Rec."Sell-to Contact No." <> xRec."Sell-to Contact No." THEN
+                                    Rec.SETRANGE("Sell-to Contact No.");
                         end;
                     }
                 }
-                field(ID;ID)
+                field(ID; Rec.ID)
                 {
                 }
-                field("Sell-to Fax No.";"Sell-to Fax No.")
+                field("Sell-to Fax No."; Rec."BC6_Sell-to Fax No.")
                 {
                 }
-                field("Affair No.";"Affair No.")
+                field("Affair No."; Rec."BC6_Affair No.")
                 {
                 }
-                field("Sell-to Contact";"Sell-to Contact")
+                field("Sell-to Contact"; Rec."Sell-to Contact")
                 {
                     Caption = 'Contact';
                     ToolTip = 'Specifies the name of the person to contact at the customer.';
                 }
-                field("Document Date";"Document Date")
+                field("Document Date"; Rec."Document Date")
                 {
                     QuickEntry = false;
                     ToolTip = 'Specifies the date on which you created the sales document.';
                 }
-                field("Posting Date";"Posting Date")
+                field("Posting Date"; Rec."Posting Date")
                 {
                     QuickEntry = false;
                     ToolTip = 'Specifies the date when the posting of the sales document will be recorded.';
                 }
-                field("Order Date";"Order Date")
+                field("Order Date"; Rec."Order Date")
                 {
                     Importance = Promoted;
                     QuickEntry = false;
                     ToolTip = 'Specifies the date on which the exchange rate applies to prices listed in a foreign currency on the sales order.';
                 }
-                field("External Document No.";"External Document No.")
+                field("External Document No."; Rec."External Document No.")
                 {
                     Importance = Promoted;
                     ToolTip = 'Specifies the number that the customer uses in their own system to refer to this sales document.';
                 }
-                field("No. of Archived Versions";"No. of Archived Versions")
+                field("No. of Archived Versions"; Rec."No. of Archived Versions")
                 {
                     ToolTip = 'Specifies the number of archived versions for this sales document.';
                 }
-                field("Salesperson Code";"Salesperson Code")
+                field("Salesperson Code"; Rec."Salesperson Code")
                 {
                     QuickEntry = false;
                     ToolTip = 'Specifies the name of the salesperson who is assigned to the customer.';
@@ -153,57 +135,57 @@ page 50116 "SAV Sales Return Order"
                         SalespersonCodeOnAfterValidate;
                     end;
                 }
-                field("Campaign No.";"Campaign No.")
+                field("Campaign No."; Rec."Campaign No.")
                 {
                     ToolTip = 'Specifies the number of the campaign that the document is linked to.';
                 }
-                field("Responsibility Center";"Responsibility Center")
+                field("Responsibility Center"; Rec."Responsibility Center")
                 {
                     ToolTip = 'Specifies the code of the responsibility center that is associated with the user, company, or vendor.';
                 }
-                field("Assigned User ID";"Assigned User ID")
+                field("Assigned User ID"; Rec."Assigned User ID")
                 {
                     ToolTip = 'Specifies the ID of the user who is responsible for the document.';
                 }
-                field("Job Queue Status";"Job Queue Status")
+                field("Job Queue Status"; Rec."Job Queue Status")
                 {
                     ApplicationArea = All;
                     Importance = Additional;
                     ToolTip = 'Specifies the status of a job queue entry or task that handles the posting of sales orders.';
                     Visible = JobQueueUsed;
                 }
-                field("Return Order Type";"Return Order Type")
+                field("Return Order Type"; Rec."BC6_Return Order Type")
                 {
                 }
-                field(Status;Status)
+                field(Status; Rec.Status)
                 {
                     Importance = Promoted;
                     QuickEntry = false;
                     ToolTip = 'Specifies whether the document is open, waiting to be approved, has been invoiced for prepayment, or has been released to the next stage of processing.';
                 }
             }
-            part(SalesLines;6631)
+            part(SalesLines; "Sales Return Order Subform")
             {
-                SubPageLink = Document No.=FIELD(No.);
+                SubPageLink = "Document No." = FIELD("No.");
                 UpdatePropagation = Both;
             }
             group("Invoice Details")
             {
                 Caption = 'Invoice Details';
-                field("Currency Code";"Currency Code")
+                field("Currency Code"; Rec."Currency Code")
                 {
                     Importance = Promoted;
                     ToolTip = 'Specifies the currency of amounts on the sales document.';
 
                     trigger OnAssistEdit()
                     begin
-                        IF "Posting Date" <> 0D THEN
-                          ChangeExchangeRate.SetParameter("Currency Code","Currency Factor","Posting Date")
+                        IF Rec."Posting Date" <> 0D THEN
+                            ChangeExchangeRate.SetParameter(Rec."Currency Code", Rec."Currency Factor", Rec."Posting Date")
                         ELSE
-                          ChangeExchangeRate.SetParameter("Currency Code","Currency Factor",WORKDATE);
+                            ChangeExchangeRate.SetParameter(Rec."Currency Code", Rec."Currency Factor", WORKDATE);
                         IF ChangeExchangeRate.RUNMODAL = ACTION::OK THEN BEGIN
-                          VALIDATE("Currency Factor",ChangeExchangeRate.GetParameter);
-                          CurrPage.UPDATE;
+                            Rec.VALIDATE("Currency Factor", ChangeExchangeRate.GetParameter);
+                            CurrPage.UPDATE;
                         END;
                         CLEAR(ChangeExchangeRate);
                     end;
@@ -211,10 +193,10 @@ page 50116 "SAV Sales Return Order"
                     trigger OnValidate()
                     begin
                         CurrPage.SAVERECORD;
-                        SalesCalcDiscByType.ApplyDefaultInvoiceDiscount(0,Rec);
+                        SalesCalcDiscByType.ApplyDefaultInvoiceDiscount(0, Rec);
                     end;
                 }
-                field("Prices Including VAT";"Prices Including VAT")
+                field("Prices Including VAT"; Rec."Prices Including VAT")
                 {
                     ToolTip = 'Specifies whether the unit price on the line should be displayed including or excluding VAT.';
 
@@ -223,15 +205,15 @@ page 50116 "SAV Sales Return Order"
                         PricesIncludingVATOnAfterValid;
                     end;
                 }
-                field("VAT Bus. Posting Group";"VAT Bus. Posting Group")
+                field("VAT Bus. Posting Group"; Rec."VAT Bus. Posting Group")
                 {
                     ToolTip = 'Specifies the customer''s VAT specification to link transactions made for this customer to.';
                 }
-                field("Transaction Type";"Transaction Type")
+                field("Transaction Type"; Rec."Transaction Type")
                 {
                     ToolTip = 'Specifies the type of transaction that the sales document represents, for the purpose of reporting to INTRASTAT.';
                 }
-                field("Shortcut Dimension 1 Code";"Shortcut Dimension 1 Code")
+                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
                     ToolTip = 'Specifies the dimension value code associated with the sales header.';
 
@@ -240,7 +222,7 @@ page 50116 "SAV Sales Return Order"
                         ShortcutDimension1CodeOnAfterV;
                     end;
                 }
-                field("Shortcut Dimension 2 Code";"Shortcut Dimension 2 Code")
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
                     ToolTip = 'Specifies the dimension value code associated with the sales header.';
 
@@ -249,22 +231,22 @@ page 50116 "SAV Sales Return Order"
                         ShortcutDimension2CodeOnAfterV;
                     end;
                 }
-                field("Shipment Date";"Shipment Date")
+                field("Shipment Date"; Rec."Shipment Date")
                 {
                     Importance = Promoted;
                     ToolTip = 'Specifies the date you expect to ship items on the sales document.';
                 }
-                field("Applies-to Doc. Type";"Applies-to Doc. Type")
+                field("Applies-to Doc. Type"; Rec."Applies-to Doc. Type")
                 {
                     Importance = Promoted;
                     ToolTip = 'Specifies the type of the posted document that this document or journal line will be applied to when you post, for example to register payment.';
                 }
-                field("Applies-to Doc. No.";"Applies-to Doc. No.")
+                field("Applies-to Doc. No."; Rec."Applies-to Doc. No.")
                 {
                     Importance = Promoted;
                     ToolTip = 'Specifies the number of the posted document that this document or journal line will be applied to when you post, for example to register payment.';
                 }
-                field("Applies-to ID";"Applies-to ID")
+                field("Applies-to ID"; Rec."Applies-to ID")
                 {
                     ToolTip = 'Specifies the ID of entries that will be applied to when you choose the Apply Entries action.';
                 }
@@ -275,19 +257,19 @@ page 50116 "SAV Sales Return Order"
                 group("Shipment Method")
                 {
                     Caption = 'Shipment Method';
-                    field("Shipping Agent Code";"Shipping Agent Code")
+                    field("Shipping Agent Code"; Rec."Shipping Agent Code")
                     {
                         Caption = 'Agent';
                         Importance = Additional;
                         ToolTip = 'Specifies which shipping agent is used to transport the items on the sales document to the customer.';
                     }
-                    field("Shipping Agent Service Code";"Shipping Agent Service Code")
+                    field("Shipping Agent Service Code"; Rec."Shipping Agent Service Code")
                     {
                         Caption = 'Agent Service';
                         Importance = Additional;
                         ToolTip = 'Specifies which shipping agent service is used to transport the items on the sales document to the customer.';
                     }
-                    field("Package Tracking No.";"Package Tracking No.")
+                    field("Package Tracking No."; Rec."Package Tracking No.")
                     {
                         Importance = Additional;
                         ToolTip = 'Specifies the shipping agent''s package number.';
@@ -296,38 +278,38 @@ page 50116 "SAV Sales Return Order"
                 group("Ship-to")
                 {
                     Caption = 'Ship-to';
-                    field("Location Code";"Location Code")
+                    field("Location Code"; Rec."Location Code")
                     {
                         Caption = 'Location';
                         Importance = Promoted;
                         ToolTip = 'Specifies the location from where inventory items to the customer on the sales document are to be shipped by default.';
                     }
-                    field("Ship-to Name";"Ship-to Name")
+                    field("Ship-to Name"; Rec."Ship-to Name")
                     {
                         Caption = 'Name';
                         ToolTip = 'Specifies the name that products on the sales document will be shipped to.';
                     }
-                    field("Ship-to Address";"Ship-to Address")
+                    field("Ship-to Address"; Rec."Ship-to Address")
                     {
                         Caption = 'Address';
                         ToolTip = 'Specifies the address that products on the sales document will be shipped to.';
                     }
-                    field("Ship-to Address 2";"Ship-to Address 2")
+                    field("Ship-to Address 2"; Rec."Ship-to Address 2")
                     {
                         Caption = 'Address 2';
                         ToolTip = 'Specifies additional address information.';
                     }
-                    field("Ship-to Post Code";"Ship-to Post Code")
+                    field("Ship-to Post Code"; Rec."Ship-to Post Code")
                     {
                         Caption = 'Post Code';
                         ToolTip = 'Specifies the postal code.';
                     }
-                    field("Ship-to City";"Ship-to City")
+                    field("Ship-to City"; Rec."Ship-to City")
                     {
                         Caption = 'City';
                         ToolTip = 'Specifies the city that products on the sales document will be shipped to.';
                     }
-                    field("Ship-to Contact";"Ship-to Contact")
+                    field("Ship-to Contact"; Rec."Ship-to Contact")
                     {
                         Caption = 'Contact';
                         ToolTip = 'Specifies the name of the contact person at the address that products on the sales document will be shipped to.';
@@ -336,43 +318,43 @@ page 50116 "SAV Sales Return Order"
                 group("Bill-to")
                 {
                     Caption = 'Bill-to';
-                    field("Bill-to Name";"Bill-to Name")
+                    field("Bill-to Name"; Rec."Bill-to Name")
                     {
                         Caption = 'Name';
                         Importance = Promoted;
                         ToolTip = 'Specifies the customer to whom you will send the sales invoice, when different from the customer that you are selling to.';
                     }
-                    field("Bill-to Address";"Bill-to Address")
+                    field("Bill-to Address"; Rec."Bill-to Address")
                     {
                         Caption = 'Address';
                         Importance = Additional;
                         ToolTip = 'Specifies the address of the customer that you will send the invoice to.';
                     }
-                    field("Bill-to Address 2";"Bill-to Address 2")
+                    field("Bill-to Address 2"; Rec."Bill-to Address 2")
                     {
                         Caption = 'Address 2';
                         Importance = Additional;
                         ToolTip = 'Specifies additional address information.';
                     }
-                    field("Bill-to Post Code";"Bill-to Post Code")
+                    field("Bill-to Post Code"; Rec."Bill-to Post Code")
                     {
                         Caption = 'Post Code';
                         Importance = Additional;
                         ToolTip = 'Specifies the postal code.';
                     }
-                    field("Bill-to City";"Bill-to City")
+                    field("Bill-to City"; Rec."Bill-to City")
                     {
                         Caption = 'City';
                         Importance = Additional;
                         ToolTip = 'Specifies the city you will send the invoice to.';
                     }
-                    field("Bill-to Contact No.";"Bill-to Contact No.")
+                    field("Bill-to Contact No."; Rec."Bill-to Contact No.")
                     {
                         Caption = 'Contact No.';
                         Importance = Additional;
                         ToolTip = 'Specifies the number of the contact the invoice will be sent to.';
                     }
-                    field("Bill-to Contact";"Bill-to Contact")
+                    field("Bill-to Contact"; Rec."Bill-to Contact")
                     {
                         Caption = 'Contact';
                         ToolTip = 'Specifies the name of the person you should contact at the customer who you are sending the invoice to.';
@@ -382,23 +364,23 @@ page 50116 "SAV Sales Return Order"
             group("Foreign Trade")
             {
                 Caption = 'Foreign Trade';
-                field("EU 3-Party Trade";"EU 3-Party Trade")
+                field("EU 3-Party Trade"; Rec."EU 3-Party Trade")
                 {
                     ToolTip = 'Specifies whether the sales document is part of a three-party trade.';
                 }
-                field("Transaction Specification";"Transaction Specification")
+                field("Transaction Specification"; Rec."Transaction Specification")
                 {
                     ToolTip = 'Specifies a code for the sales document''s transaction specification, for the purpose of reporting to INTRASTAT.';
                 }
-                field("Transport Method";"Transport Method")
+                field("Transport Method"; Rec."Transport Method")
                 {
                     ToolTip = 'Specifies the transport method, for the purpose of reporting to INTRASTAT.';
                 }
-                field("Exit Point";"Exit Point")
+                field("Exit Point"; Rec."Exit Point")
                 {
                     ToolTip = 'Specifies the point of exit through which you ship the items out of your country/region, for reporting to Intrastat.';
                 }
-                field(Area;Area)
+                field(BC6_Area; Rec.Area)
                 {
                     ToolTip = 'Specifies the area of the customer''s address, for the purpose of reporting to INTRASTAT.';
                 }
@@ -406,61 +388,61 @@ page 50116 "SAV Sales Return Order"
         }
         area(factboxes)
         {
-            part(;9103)
+            part("Pending Approval FactBox"; "Pending Approval FactBox")
             {
-                SubPageLink = Table ID=CONST(36),
-                              Document Type=FIELD(Document Type),
-                              Document No.=FIELD(No.);
+                SubPageLink = "Table ID" = CONST(36),
+                              "Document Type" = FIELD("Document Type"),
+                              "Document No." = FIELD("No.");
                 Visible = OpenApprovalEntriesExistForCurrUser;
             }
-            part(;9080)
+            part("Sales Hist. Sell-to FactBox"; "Sales Hist. Sell-to FactBox")
             {
-                SubPageLink = No.=FIELD(Sell-to Customer No.);
+                SubPageLink = "No." = FIELD("Sell-to Customer No.");
             }
-            part(;9081)
+            part("Sales Hist. Bill-to FactBox"; "Sales Hist. Bill-to FactBox")
             {
-                SubPageLink = No.=FIELD(Sell-to Customer No.);
+                SubPageLink = "No." = FIELD("Sell-to Customer No.");
                 Visible = false;
             }
-            part(;9082)
+            part("Customer Statistics FactBox"; "Customer Statistics FactBox")
             {
-                SubPageLink = No.=FIELD(Bill-to Customer No.);
+                SubPageLink = "No." = FIELD("Bill-to Customer No.");
                 Visible = false;
             }
-            part(;9084)
+            part("Customer Details FactBox"; "Customer Details FactBox")
             {
-                SubPageLink = No.=FIELD(Sell-to Customer No.);
+                SubPageLink = "No." = FIELD("Sell-to Customer No.");
             }
-            part(;9087)
+            part("Sales Line FactBox"; "Sales Line FactBox")
             {
                 Provider = SalesLines;
-                SubPageLink = Document Type=FIELD(Document Type),
-                              Document No.=FIELD(Document No.),
-                              Line No.=FIELD(Line No.);
+                SubPageLink = "Document Type" = FIELD("Document Type"),
+                              "Document No." = FIELD("Document No."),
+                              "Line No." = FIELD("Line No.");
                 Visible = false;
             }
-            part(ApprovalFactBox;9092)
+            part(ApprovalFactBox; "Approval FactBox")
             {
                 Visible = false;
             }
-            part(;9108)
+            part("Resource Details FactBox"; "Resource Details FactBox")
             {
                 Provider = SalesLines;
-                SubPageLink = No.=FIELD(No.);
+                SubPageLink = "No." = FIELD("No.");
                 Visible = false;
             }
-            part(WorkflowStatus;1528)
+            part(WorkflowStatus; "Workflow Status FactBox")
             {
                 Editable = false;
                 Enabled = false;
                 ShowFilter = false;
                 Visible = ShowWorkflowStatus;
             }
-            systempart(;Links)
+            systempart(Links; Links)
             {
                 Visible = false;
             }
-            systempart(;Notes)
+            systempart(Notes; Notes)
             {
             }
         }
@@ -488,10 +470,10 @@ page 50116 "SAV Sales Return Order"
                     var
                         Handled: Boolean;
                     begin
-                        OnBeforeStatisticsAction(Rec,Handled);
+                        OnBeforeStatisticsAction(Rec, Handled);
                         IF NOT Handled THEN BEGIN
-                          OpenSalesOrderStatistics;
-                          SalesCalcDiscByType.ResetRecalculateInvoiceDisc(Rec);
+                            Rec.OpenSalesOrderStatistics;
+                            SalesCalcDiscByType.ResetRecalculateInvoiceDisc(Rec);
                         END
                     end;
                 }
@@ -500,43 +482,39 @@ page 50116 "SAV Sales Return Order"
                     Caption = 'Card';
                     Image = EditLines;
                     Promoted = false;
-                    //The property 'PromotedIsBig' can only be set if the property 'Promoted' is set to 'true'
-                    //PromotedIsBig = false;
-                    RunObject = Page 21;
-                                    RunPageLink = No.=FIELD(Sell-to Customer No.);
+                    RunObject = Page "Customer Card";
+                    RunPageLink = "No." = FIELD("Sell-to Customer No.");
                     ShortCutKey = 'Shift+F7';
                     ToolTip = 'View or edit detailed information about the customer on the sales document.';
                 }
                 action(Dimensions)
                 {
-                    AccessByPermission = TableData 348=R;
+                    AccessByPermission = TableData Dimension = R;
                     Caption = 'Dimensions';
-                    Enabled = "No." <> '';
+                    Enabled = Rec."No." <> '';
                     Image = Dimensions;
                     Promoted = false;
-                    //The property 'PromotedIsBig' can only be set if the property 'Promoted' is set to 'true'
-                    //PromotedIsBig = false;
                     ShortCutKey = 'Shift+Ctrl+D';
                     ToolTip = 'View or edit dimensions, such as area, project, or department, that you can assign to sales and purchase documents to distribute costs and analyze transaction history.';
 
                     trigger OnAction()
                     begin
-                        ShowDocDim;
+                        Rec.ShowDocDim;
                         CurrPage.SAVERECORD;
                     end;
                 }
                 action(Approvals)
                 {
-                    AccessByPermission = TableData 454=R;
+                    AccessByPermission = TableData "Approval Entry" = R;
                     Caption = 'Approvals';
                     Image = Approvals;
                     ToolTip = 'View a list of the records that are waiting to be approved. For example, you can see who requested the record to be approved, when it was sent, and when it is due to be approved.';
 
                     trigger OnAction()
                     var
-                        ApprovalEntries: Page "658";
+                        ApprovalEntries: Page "Approval Entries";
                     begin
-                        ApprovalEntries.Setfilters(DATABASE::"Sales Header","Document Type","No.");
+                        ApprovalEntries.Setfilters(DATABASE::"Sales Header", Rec."Document Type", Rec."No.");
                         ApprovalEntries.RUN;
                     end;
                 }
@@ -545,12 +523,10 @@ page 50116 "SAV Sales Return Order"
                     Caption = 'Co&mments';
                     Image = ViewComments;
                     Promoted = false;
-                    //The property 'PromotedIsBig' can only be set if the property 'Promoted' is set to 'true'
-                    //PromotedIsBig = false;
-                    RunObject = Page 67;
-                                    RunPageLink = Document Type=CONST(Return Order),
-                                  No.=FIELD(No.),
-                                  Document Line No.=CONST(0);
+                    RunObject = Page "Sales Comment Sheet";
+                    RunPageLink = "Document Type" = CONST("Return Order"),
+                                  "No." = FIELD("No."),
+                                  "Document Line No." = CONST(0);
                     ToolTip = 'View or add notes about the sales return order.';
                 }
             }
@@ -562,23 +538,23 @@ page 50116 "SAV Sales Return Order"
                 {
                     Caption = 'Return Receipts';
                     Image = ReturnReceipt;
-                    RunObject = Page 6662;
-                                    RunPageLink = Return Order No.=FIELD(No.);
-                    RunPageView = SORTING(Return Order No.);
+                    RunObject = Page "Posted Return Receipts";
+                    RunPageLink = "Return Order No." = FIELD("No.");
+                    RunPageView = SORTING("Return Order No.");
                 }
                 action("Cred&it Memos")
                 {
                     Caption = 'Cred&it Memos';
                     Image = CreditMemo;
-                    RunObject = Page 144;
-                                    RunPageLink = Return Order No.=FIELD(No.);
-                    RunPageView = SORTING(Return Order No.);
+                    RunObject = Page "Posted Sales Credit Memos";
+                    RunPageLink = "Return Order No." = FIELD("No.");
+                    RunPageView = SORTING("Return Order No.");
                 }
-                separator()
+                separator(Sep)
                 {
                 }
             }
-            group(Warehouse)
+            group(Warehouses)
             {
                 Caption = 'Warehouse';
                 Image = Warehouse;
@@ -586,20 +562,20 @@ page 50116 "SAV Sales Return Order"
                 {
                     Caption = 'In&vt. Put-away/Pick Lines';
                     Image = PickLines;
-                    RunObject = Page 5774;
-                                    RunPageLink = Source Document=CONST(Sales Return Order),
-                                  Source No.=FIELD(No.);
-                    RunPageView = SORTING(Source Document,Source No.,Location Code);
+                    RunObject = Page "Warehouse Activity List";
+                    RunPageLink = "Source Document" = CONST("Sales Return Order"),
+                                  "Source No." = FIELD("No.");
+                    RunPageView = SORTING("Source Document", "Source No.", "Location Code");
                 }
                 action("Whse. Receipt Lines")
                 {
                     Caption = 'Whse. Receipt Lines';
                     Image = ReceiptLines;
-                    RunObject = Page 7342;
-                                    RunPageLink = Source Type=CONST(37),
-                                  Source Subtype=FIELD(Document Type),
-                                  Source No.=FIELD(No.);
-                    RunPageView = SORTING(Source Type,Source Subtype,Source No.,Source Line No.);
+                    RunObject = Page "Whse. Receipt Lines";
+                    RunPageLink = "Source Type" = CONST(37),
+                                  "Source Subtype" = FIELD("Document Type"),
+                                  "Source No." = FIELD("No.");
+                    RunPageView = SORTING("Source Type", "Source Subtype", "Source No.", "Source Line No.");
                 }
             }
         }
@@ -620,9 +596,9 @@ page 50116 "SAV Sales Return Order"
 
                     trigger OnAction()
                     var
-                        ApprovalsMgmt: Codeunit "1535";
+                        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
                     begin
-                        ApprovalsMgmt.ApproveRecordApprovalRequest(RECORDID);
+                        ApprovalsMgmt.ApproveRecordApprovalRequest(Rec.RECORDID);
                     end;
                 }
                 action(Reject)
@@ -637,9 +613,9 @@ page 50116 "SAV Sales Return Order"
 
                     trigger OnAction()
                     var
-                        ApprovalsMgmt: Codeunit "1535";
+                        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
                     begin
-                        ApprovalsMgmt.RejectRecordApprovalRequest(RECORDID);
+                        ApprovalsMgmt.RejectRecordApprovalRequest(Rec.RECORDID);
                     end;
                 }
                 action(Delegate)
@@ -653,9 +629,9 @@ page 50116 "SAV Sales Return Order"
 
                     trigger OnAction()
                     var
-                        ApprovalsMgmt: Codeunit "1535";
+                        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
                     begin
-                        ApprovalsMgmt.DelegateRecordApprovalRequest(RECORDID);
+                        ApprovalsMgmt.DelegateRecordApprovalRequest(Rec.RECORDID);
                     end;
                 }
                 action(Comment)
@@ -669,7 +645,7 @@ page 50116 "SAV Sales Return Order"
 
                     trigger OnAction()
                     var
-                        ApprovalsMgmt: Codeunit "1535";
+                        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
                     begin
                         ApprovalsMgmt.GetApprovalComment(Rec);
                     end;
@@ -685,45 +661,39 @@ page 50116 "SAV Sales Return Order"
 
                 trigger OnAction()
                 var
-                    L_SalesHeader: Record "36";
+                    L_SalesHeader: Record "Sales Header";
                 begin
-                    //>>MIGRATION NAV 2013
-
-                    //EMAIL SOBH NSC1.01 [005] Envoi document
-                    //STD DocPrint.PrintSalesHeader(Rec);
-                    //>>BCSYS 05072020
-                    IF "Return Order Type" = "Return Order Type"::Location THEN BEGIN
-                    //>>BCSYS 05072020
-                      CASE STRMENU (STR3+','+STR4+','+STR5) OF
-                           1:DocPrint.PrintSalesHeader(Rec);
-                           2:EnvoiMail;
-                      END;
-                    //Fin EMAIL SOBH NSC1.01 [005] Envoi document
-                    //<<MIGRATION NAV 2013
+                    IF Rec."BC6_Return Order Type" = Rec."BC6_Return Order Type"::Location THEN BEGIN
+                        CASE STRMENU(STR3 + ',' + STR4 + ',' + STR5) OF
+                            1:
+                                DocPrint.PrintSalesHeader(Rec);
+                            2:
+                                EnvoiMail;
+                        END;
                     END ELSE
-                      CASE STRMENU (STR3+','+STR4) OF
-                           1:
-                             BEGIN
-                               TESTFIELD(Status,Status::Released);
-                               L_SalesHeader.RESET;
-                               L_SalesHeader.SETRANGE("Document Type","Document Type");
-                               L_SalesHeader.SETRANGE("No.","No.");
-                               REPORT.RUNMODAL(50060,TRUE,FALSE,L_SalesHeader);
-                             END;
-                           2:
-                             BEGIN
-                               TESTFIELD(Status,Status::Released);
-                               EnvoiMail;
-                             END;
+                        CASE STRMENU(STR3 + ',' + STR4) OF
+                            1:
+                                BEGIN
+                                    Rec.TESTFIELD(Status, Rec.Status::Released);
+                                    L_SalesHeader.RESET;
+                                    L_SalesHeader.SETRANGE("Document Type", Rec."Document Type");
+                                    L_SalesHeader.SETRANGE("No.", Rec."No.");
+                                    REPORT.RUNMODAL(50060, TRUE, FALSE, L_SalesHeader);
+                                END;
+                            2:
+                                BEGIN
+                                    Rec.TESTFIELD(Status, Rec.Status::Released);
+                                    EnvoiMail;
+                                END;
 
-                      END;
+                        END;
                 end;
             }
             group(Release)
             {
                 Caption = 'Release';
                 Image = ReleaseDoc;
-                action(Release)
+                action("Re&lease")
                 {
                     Caption = 'Re&lease';
                     Image = ReleaseDoc;
@@ -731,19 +701,16 @@ page 50116 "SAV Sales Return Order"
 
                     trigger OnAction()
                     var
-                        ReleaseSalesDoc: Codeunit "414";
+                        ReleaseSalesDoc: Codeunit "Release Sales Document";
                     begin
                         ReleaseSalesDoc.PerformManualRelease(Rec);
-
-                        //>>BCSYS
                         FctSendNotification
-                        //<<BCSYS
                     end;
                 }
                 action(Reopen)
                 {
                     Caption = 'Re&open';
-                    Enabled = Status <> Status::Open;
+                    Enabled = Rec.Status <> Rec.Status::Open;
                     Image = ReOpen;
                     Promoted = true;
                     PromotedCategory = Process;
@@ -751,12 +718,12 @@ page 50116 "SAV Sales Return Order"
 
                     trigger OnAction()
                     var
-                        ReleaseSalesDoc: Codeunit "414";
+                        ReleaseSalesDoc: Codeunit "Release Sales Document";
                     begin
                         ReleaseSalesDoc.PerformManualReopen(Rec);
                     end;
                 }
-                separator()
+                separator(Sep1)
                 {
                 }
             }
@@ -766,7 +733,7 @@ page 50116 "SAV Sales Return Order"
                 Image = "Action";
                 action(CalculateInvoiceDiscount)
                 {
-                    AccessByPermission = TableData 19=R;
+                    AccessByPermission = TableData "Cust. Invoice Disc." = R;
                     Caption = 'Calculate &Invoice Discount';
                     Image = CalculateInvoiceDiscount;
                     ToolTip = 'Calculate the invoice discount that applies to the sales order.';
@@ -777,7 +744,7 @@ page 50116 "SAV Sales Return Order"
                         SalesCalcDiscByType.ResetRecalculateInvoiceDisc(Rec);
                     end;
                 }
-                separator()
+                separator(sep2)
                 {
                 }
                 action("Apply Entries")
@@ -792,7 +759,7 @@ page 50116 "SAV Sales Return Order"
 
                     trigger OnAction()
                     begin
-                        CODEUNIT.RUN(CODEUNIT::"Sales Header Apply",Rec);
+                        CODEUNIT.RUN(CODEUNIT::"Sales Header Apply", Rec);
                     end;
                 }
                 action("Create Return-Related &Documents")
@@ -811,7 +778,7 @@ page 50116 "SAV Sales Return Order"
                         CreateRetRelDocs.ShowDocuments;
                     end;
                 }
-                separator()
+                separator(sep3)
                 {
                 }
                 action(CopyDocument)
@@ -828,7 +795,7 @@ page 50116 "SAV Sales Return Order"
                         CopySalesDoc.SetSalesHeader(Rec);
                         CopySalesDoc.RUNMODAL;
                         CLEAR(CopySalesDoc);
-                        IF GET("Document Type","No.") THEN;
+                        IF Rec.GET(Rec."Document Type", Rec."No.") THEN;
                     end;
                 }
                 action(MoveNegativeLines)
@@ -873,71 +840,69 @@ page 50116 "SAV Sales Return Order"
                 }
                 action("Send IC Return Order Cnfmn.")
                 {
-                    AccessByPermission = TableData 410=R;
+                    AccessByPermission = TableData "IC G/L Account" = R;
                     Caption = 'Send IC Return Order Cnfmn.';
                     Image = IntercompanyOrder;
 
                     trigger OnAction()
                     var
-                        ICInOutboxMgt: Codeunit "427";
-                        ApprovalsMgmt: Codeunit "1535";
+                        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
+                        ICInOutboxMgt: Codeunit ICInboxOutboxMgt;
                     begin
                         IF ApprovalsMgmt.PrePostApprovalCheckSales(Rec) THEN
-                          ICInOutboxMgt.SendSalesDoc(Rec,FALSE);
+                            ICInOutboxMgt.SendSalesDoc(Rec, FALSE);
                     end;
                 }
-                separator()
+                separator(sep4)
                 {
                 }
                 action(DisplayRelatedDocuments)
                 {
                     Caption = 'Affichage documents associés';
                     Image = CopyDocument;
-                    //The property 'PromotedIsBig' can only be set if the property 'Promoted' is set to 'true'
-                    //PromotedIsBig = true;
 
-                    trigger OnAction()
-                    var
-                        L_ReturnOrderMgt: Codeunit "50052";
-                    begin
-                        L_ReturnOrderMgt.DisableRelatedDocuments("No.");
-                        CurrPage.UPDATE;
-                    end;
+                    // trigger OnAction()
+                    // var
+                    //     L_ReturnOrderMgt: Codeunit 50052;
+                    // begin
+                    //     L_ReturnOrderMgt.DisableRelatedDocuments("No.");
+                    //     CurrPage.UPDATE;
+                    // end;
                 }
             }
             group(Warehouse)
             {
                 Caption = 'Warehouse';
                 Image = Warehouse;
-                separator()
+                separator(Sep5)
                 {
                 }
                 action("Create &Whse. Receipt")
                 {
-                    AccessByPermission = TableData 7316=R;
+                    AccessByPermission = TableData "Warehouse Receipt Header" = R;
                     Caption = 'Create &Whse. Receipt';
                     Image = NewReceipt;
 
                     trigger OnAction()
                     var
-                        GetSourceDocInbound: Codeunit "5751";
+                        GetSourceDocInbound: Codeunit "Get Source Doc. Inbound";
                     begin
                         GetSourceDocInbound.CreateFromSalesReturnOrder(Rec);
                     end;
                 }
                 action("Create Inventor&y Put-away/Pick")
                 {
-                    AccessByPermission = TableData 7340=R;
+                    AccessByPermission = TableData "Posted Invt. Put-away Header" = R;
                     Caption = 'Create Inventor&y Put-away/Pick';
                     Ellipsis = true;
                     Image = CreateInventoryPickup;
 
                     trigger OnAction()
                     begin
-                        CreateInvtPutAwayPick;
+                        Rec.CreateInvtPutAwayPick;
                     end;
                 }
-                separator()
+                separator(Sep6)
                 {
                 }
             }
@@ -1008,7 +973,7 @@ page 50116 "SAV Sales Return Order"
 
                     trigger OnAction()
                     begin
-                        REPORT.RUNMODAL(REPORT::"Batch Post Sales Return Orders",TRUE,TRUE,Rec);
+                        REPORT.RUNMODAL(REPORT::"Batch Post Sales Return Orders", TRUE, TRUE, Rec);
                         CurrPage.UPDATE(FALSE);
                     end;
                 }
@@ -1021,7 +986,7 @@ page 50116 "SAV Sales Return Order"
 
                     trigger OnAction()
                     begin
-                        CancelBackgroundPosting;
+                        Rec.CancelBackgroundPosting;
                     end;
                 }
             }
@@ -1041,10 +1006,10 @@ page 50116 "SAV Sales Return Order"
 
                     trigger OnAction()
                     var
-                        ApprovalsMgmt: Codeunit "1535";
+                        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
                     begin
                         IF ApprovalsMgmt.CheckSalesApprovalPossible(Rec) THEN
-                          ApprovalsMgmt.OnSendSalesDocForApproval(Rec);
+                            ApprovalsMgmt.OnSendSalesDocForApproval(Rec);
                     end;
                 }
                 action(CancelApprovalRequest)
@@ -1060,7 +1025,7 @@ page 50116 "SAV Sales Return Order"
 
                     trigger OnAction()
                     var
-                        ApprovalsMgmt: Codeunit "1535";
+                        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
                     begin
                         ApprovalsMgmt.OnCancelSalesApprovalRequest(Rec);
                     end;
@@ -1071,8 +1036,8 @@ page 50116 "SAV Sales Return Order"
 
     trigger OnAfterGetCurrRecord()
     begin
-        ShowWorkflowStatus := CurrPage.WorkflowStatus.PAGE.SetFilterOnWorkflowRecord(RECORDID);
-        CurrPage.ApprovalFactBox.PAGE.UpdateApprovalEntriesFromSourceRecord(RECORDID);
+        ShowWorkflowStatus := CurrPage.WorkflowStatus.PAGE.SetFilterOnWorkflowRecord(Rec.RECORDID);
+        CurrPage.ApprovalFactBox.PAGE.UpdateApprovalEntriesFromSourceRecord(Rec.RECORDID);
     end;
 
     trigger OnAfterGetRecord()
@@ -1083,12 +1048,12 @@ page 50116 "SAV Sales Return Order"
     trigger OnDeleteRecord(): Boolean
     begin
         CurrPage.SAVERECORD;
-        EXIT(ConfirmDeletion);
+        EXIT(Rec.ConfirmDeletion);
     end;
 
     trigger OnInit()
     var
-        SalesReceivablesSetup: Record "311";
+        SalesReceivablesSetup: Record "Sales & Receivables Setup";
     begin
         JobQueueUsed := SalesReceivablesSetup.JobQueueActive;
     end;
@@ -1096,26 +1061,23 @@ page 50116 "SAV Sales Return Order"
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
         IF DocNoVisible THEN
-          CheckCreditMaxBeforeInsert;
+            Rec.CheckCreditMaxBeforeInsert;
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        "Responsibility Center" := UserMgt.GetSalesFilter;
-        IF (NOT DocNoVisible) AND ("No." = '') THEN
-          SetSellToCustomerFromFilter;
-
-        //>>BC6 01102020
-        "Return Order Type" := "Return Order Type"::SAV;
-        //<<BC6 01102020
+        Rec."Responsibility Center" := UserMgt.GetSalesFilter;
+        IF (NOT DocNoVisible) AND (Rec."No." = '') THEN
+            Rec.SetSellToCustomerFromFilter;
+        "BC6_Return Order Type" := "BC6_Return Order Type"::Location;
     end;
 
     trigger OnOpenPage()
     begin
         IF UserMgt.GetSalesFilter <> '' THEN BEGIN
-          FILTERGROUP(2);
-          SETRANGE("Responsibility Center",UserMgt.GetSalesFilter);
-          FILTERGROUP(0);
+            Rec.FILTERGROUP(2);
+            Rec.SETRANGE("Responsibility Center", UserMgt.GetSalesFilter);
+            Rec.FILTERGROUP(0);
         END;
 
         SetDocNoVisible;
@@ -1124,66 +1086,65 @@ page 50116 "SAV Sales Return Order"
     trigger OnQueryClosePage(CloseAction: Action): Boolean
     begin
         IF NOT DocumentIsPosted THEN
-          EXIT(ConfirmCloseUnposted);
+            EXIT(Rec.ConfirmCloseUnposted);
     end;
 
     var
-        CopySalesDoc: Report "292";
-                          MoveNegSalesLines: Report "6699";
-                          CreateRetRelDocs: Report "6697";
-                          ReportPrint: Codeunit "228";
-                          DocPrint: Codeunit "229";
-                          UserMgt: Codeunit "5700";
-                          ArchiveManagement: Codeunit "5063";
-                          SalesCalcDiscByType: Codeunit "56";
-                          ChangeExchangeRate: Page "511";
-    [InDataSet]
-
-    JobQueueVisible: Boolean;
-    "--NSC1.01--": Integer;
-    cust: Record "18";
-    nameF: Text[250];
-    Mail: Codeunit "397";
-    "Sales & Receivables Setup": Record "311";
-    Excel: Boolean;
-    HistMail: Record "99003";
-    "--MIGNAV2013--": ;
-    Text001: ;
-    Text004: ;
-    STR3: Label 'Print Document';
-    STR4: Label 'Envoyer par Mail';
-    STR5: Label 'Envoyer par Fax';
-    SalesSetup: Record "311";
+        HistMail: Record "BC6_Historique Mails Envoyés";
+        cust: Record Customer;
+        "Sales & Receivables Setup": Record "Sales & Receivables Setup";
+        SalesSetup: Record "Sales & Receivables Setup";
+        CopySalesDoc: Report "Copy Sales Document";
+        CreateRetRelDocs: Report "Create Ret.-Related Documents";
+        MoveNegSalesLines: Report "Move Negative Sales Lines";
+        ArchiveManagement: Codeunit ArchiveManagement;
+        DocPrint: Codeunit "Document-Print";
+        Mail: Codeunit Mail;
+        SalesCalcDiscByType: Codeunit "Sales - Calc Discount By Type";
+        ReportPrint: Codeunit "Test Report-Print";
+        UserMgt: Codeunit "User Setup Management";
+        ChangeExchangeRate: Page "Change Exchange Rate";
+        CanCancelApprovalForRecord: Boolean;
+        DocNoVisible: Boolean;
+        DocumentIsPosted: Boolean;
+        Excel: Boolean;
         [InDataSet]
         JobQueueUsed: Boolean;
-        DocNoVisible: Boolean;
-        OpenApprovalEntriesExistForCurrUser: Boolean;
+
+
+        JobQueueVisible: Boolean;
         OpenApprovalEntriesExist: Boolean;
+        OpenApprovalEntriesExistForCurrUser: Boolean;
         ShowWorkflowStatus: Boolean;
-        CanCancelApprovalForRecord: Boolean;
-        DocumentIsPosted: Boolean;
-        OpenPostedSalesReturnOrderQst: Label 'The return order has been posted and moved to the Posted Sales Credit Memos window.\\Do you want to open the posted credit memo?';
-        "--BCSYS--": ;
+        "--NSC1.01--": Integer;
         CstNewReturnOrder: Label 'Nouveau retour SAV';
+        OpenPostedSalesReturnOrderQst: Label 'The return order has been posted and moved to the Posted Sales Credit Memos window.\\Do you want to open the posted credit memo?';
+        STR3: Label 'Print Document';
+        STR4: Label 'Envoyer par Mail';
+        STR5: Label 'Envoyer par Fax';
+
+        Text001: label '';
+        Text004: label '';
+        nameF: Text[250];
 
     local procedure Post(PostingCodeunitID: Integer)
     var
-        SalesHeader: Record "36";
-        InstructionMgt: Codeunit "1330";
+        SalesHeader: Record "Sales Header";
+        InstructionMgt: Codeunit "Instruction Mgt.";
     begin
-        SendToPosting(PostingCodeunitID);
+        Rec.SendToPosting(PostingCodeunitID);
 
-        DocumentIsPosted := NOT SalesHeader.GET("Document Type","No.");
+        DocumentIsPosted := NOT SalesHeader.GET(Rec."Document Type", Rec."No.");
 
-        IF "Job Queue Status" = "Job Queue Status"::"Scheduled for Posting" THEN
-          CurrPage.CLOSE;
+        IF Rec."Job Queue Status" = Rec."Job Queue Status"::"Scheduled for Posting" THEN
+            CurrPage.CLOSE;
         CurrPage.UPDATE(FALSE);
 
         IF PostingCodeunitID <> CODEUNIT::"Sales-Post (Yes/No)" THEN
-          EXIT;
+            EXIT;
 
         IF InstructionMgt.IsEnabled(InstructionMgt.ShowPostedConfirmationMessageCode) THEN
-          ShowPostedConfirmationMessage;
+            ShowPostedConfirmationMessage;
     end;
 
     local procedure ApproveCalcInvDisc()
@@ -1213,110 +1174,84 @@ page 50116 "SAV Sales Return Order"
 
     local procedure SetDocNoVisible()
     var
-        DocumentNoVisibility: Codeunit "1400";
+        DocumentNoVisibility: Codeunit 1400;
         DocType: Option Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order",Reminder,FinChMemo;
     begin
-        DocNoVisible := DocumentNoVisibility.SalesDocumentNoIsVisible(DocType::"Return Order","No.");
+        DocNoVisible := DocumentNoVisibility.SalesDocumentNoIsVisible(DocType::"Return Order", Rec."No.");
     end;
 
-    [Scope('Internal')]
+
     procedure ShowPreview()
     var
-        SalesPostYesNo: Codeunit "81";
+        SalesPostYesNo: Codeunit "Sales-Post (Yes/No)";
     begin
         SalesPostYesNo.Preview(Rec);
     end;
 
     local procedure SetControlAppearance()
     var
-        ApprovalsMgmt: Codeunit "1535";
+        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
     begin
-        JobQueueVisible := "Job Queue Status" = "Job Queue Status"::"Scheduled for Posting";
+        JobQueueVisible := Rec."Job Queue Status" = Rec."Job Queue Status"::"Scheduled for Posting";
 
-        OpenApprovalEntriesExistForCurrUser := ApprovalsMgmt.HasOpenApprovalEntriesForCurrentUser(RECORDID);
-        OpenApprovalEntriesExist := ApprovalsMgmt.HasOpenApprovalEntries(RECORDID);
-        CanCancelApprovalForRecord := ApprovalsMgmt.CanCancelApprovalForRecord(RECORDID);
+        OpenApprovalEntriesExistForCurrUser := ApprovalsMgmt.HasOpenApprovalEntriesForCurrentUser(Rec.RECORDID);
+        OpenApprovalEntriesExist := ApprovalsMgmt.HasOpenApprovalEntries(Rec.RECORDID);
+        CanCancelApprovalForRecord := ApprovalsMgmt.CanCancelApprovalForRecord(Rec.RECORDID);
     end;
 
     local procedure ShowPostedConfirmationMessage()
     var
-        ReturnOrderSalesHeader: Record "36";
-        SalesCrMemoHeader: Record "114";
-        InstructionMgt: Codeunit "1330";
+        SalesCrMemoHeader: Record "Sales Cr.Memo Header";
+        ReturnOrderSalesHeader: Record "Sales Header";
+        InstructionMgt: Codeunit "Instruction Mgt.";
     begin
-        IF NOT ReturnOrderSalesHeader.GET("Document Type","No.") THEN BEGIN
-          SalesCrMemoHeader.SETRANGE("No.","Last Posting No.");
-          IF SalesCrMemoHeader.FINDFIRST THEN
-            IF InstructionMgt.ShowConfirm(OpenPostedSalesReturnOrderQst,InstructionMgt.ShowPostedConfirmationMessageCode) THEN
-              PAGE.RUN(PAGE::"Posted Sales Credit Memo",SalesCrMemoHeader);
+        IF NOT ReturnOrderSalesHeader.GET(Rec."Document Type", Rec."No.") THEN BEGIN
+            SalesCrMemoHeader.SETRANGE("No.", Rec."Last Posting No.");
+            IF SalesCrMemoHeader.FINDFIRST THEN
+                IF InstructionMgt.ShowConfirm(OpenPostedSalesReturnOrderQst, InstructionMgt.ShowPostedConfirmationMessageCode) THEN
+                    PAGE.RUN(PAGE::"Posted Sales Credit Memo", SalesCrMemoHeader);
         END;
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnBeforeStatisticsAction(var SalesHeader: Record "36";var Handled: Boolean)
+    local procedure OnBeforeStatisticsAction(var SalesHeader: Record "Sales Header"; var Handled: Boolean)
     begin
     end;
 
-    [Scope('Internal')]
+
     procedure "--Functions_NSC1.01--"()
     begin
     end;
 
-    [Scope('Internal')]
+
     procedure EnvoiMail()
     begin
-        //>>MIGRATION NAV 2013
-        //EMAIL NSC00.01 SBH [005] Envoi document
-        cust.SETRANGE(cust."No.","Sell-to Customer No.");
+        cust.SETRANGE(cust."No.", Rec."Sell-to Customer No.");
         IF cust.FIND('-') THEN
-        cust.TESTFIELD("E-Mail");
-          OpenFile;
-          IF nameF<>'' THEN BEGIN
-            //MIG 2017 >>
-            //Mail.NewMessage(cust."E-Mail",'',CurrPage.CAPTION+' '+"No.",'',nameF,FALSE);
-            Mail.NewMessage(cust."E-Mail",'','',CurrPage.CAPTION+' '+"No.",'',nameF,FALSE);
-            //MIG 2017 <<
+            cust.TESTFIELD("E-Mail");
+        OpenFile;
+        IF nameF <> '' THEN BEGIN
+            Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + Rec."No.", '', nameF, FALSE);
             ERASE(nameF);
-          END ELSE BEGIN
-            ERASE(SalesSetup.Repertoire +'Envoi'+'\'+CurrPage.CAPTION) ;
+        END ELSE BEGIN
+            ERASE(SalesSetup.BC6_Repertoire + 'Envoi' + '\' + CurrPage.CAPTION);
             ERROR(Text001);
-          END;
-        HistMail."No.":=cust."No.";
-        HistMail.Nom  :=cust.Name;
-        HistMail."E-Mail":=  cust."E-Mail";
-        HistMail."Date d'envoi":=TODAY;
-        HistMail."Document envoyé":=CurrPage.CAPTION+' '+"No.";
+        END;
+        HistMail."No." := cust."No.";
+        HistMail.Nom := cust.Name;
+        HistMail."E-Mail" := cust."E-Mail";
+        HistMail."Date d'envoi" := TODAY;
+        HistMail."Document envoyé" := CurrPage.CAPTION + ' ' + Rec."No.";
         HistMail.INSERT(TRUE);
-        //Fin EMAIL NSC00.01 SBH [005] Envoi document
-        //<<MIGRATION NAV 2013
     end;
 
-    [Scope('Internal')]
+
     procedure OpenFile()
     begin
-        //>>MIGRATION NAV 2013
-        /*//EMAIL NSC00.01 SBH [005] Envoi document
-        FileDialog.DialogTitle('Envoi'+' 'CurrPage.CAPTION);
-        FileDialog.Filter := Text004;
-        SalesSetup.GET;
-        FileDialog.FileName := '';
-        FileDialog.InitDir(SalesSetup.Repertoire);
-        FileDialog.Flags := 4096 + 2048; // vérification de l'existence du fichier, code qui suit inutile.
-        FileDialog.ShowOpen;
-        nameF:=FileDialog.FileName;
-        IF nameF='' THEN
-          BEGIN
-            Excel := FALSE;
-            EXIT;
-          END;
-        //Fin EMAIL NSC00.01 SBH [005] Envoi document
-        */
-        //<<MIGRATION NAV 2013
-
     end;
 
-    [Scope('Internal')]
-    procedure OpenFile1(WindowTitle: Text[50];DefaultFileName: Text[250];DefaultFileType: Option " ",Text,Excel,Word,Custom;FilterString: Text[250];"Action": Option Open,Save): Text[260]
+
+    procedure OpenFile1(WindowTitle: Text[50]; DefaultFileName: Text[250]; DefaultFileType: Option " ",Text,Excel,Word,Custom; FilterString: Text[250]; "Action": Option Open,Save): Text[260]
     begin
     end;
 
@@ -1326,18 +1261,19 @@ page 50116 "SAV Sales Return Order"
 
     local procedure FctSendNotification()
     var
-        L_UserSetup: Record "91";
-        NotificationEntry: Record "1511";
+        NotificationEntry: Record "Notification Entry";
+        L_UserSetup: Record "User Setup";
         notification: Notification;
     begin
         L_UserSetup.RESET;
-        L_UserSetup.SETRANGE("SAV Admin",TRUE);
-        IF L_UserSetup.FINDFIRST THEN
-          REPEAT
-            NotificationEntry.CreateNew(
-              NotificationEntry.Type::"New Record",L_UserSetup."User ID",
-              Rec,6630,'');
-          UNTIL L_UserSetup.NEXT = 0;
+        L_UserSetup.SETRANGE("BC6_SAV Admin", TRUE);
+        //   TODO
+        // IF L_UserSetup.FINDFIRST THEN
+        //     REPEAT
+        //         NotificationEntry.CreateNew(
+        //           NotificationEntry.Type::"New Record", L_UserSetup."User ID",
+        //           Rec, 6630, '');
+        //     UNTIL L_UserSetup.NEXT = 0;
     end;
 }
 

@@ -222,12 +222,12 @@ page 50022 "BC6_Sales Line Profit"
                 Image = Group;
                 Promoted = true;
                 PromotedCategory = Process;
-
-                trigger OnAction()
-                begin
-                    //>> 29.03.2012 Extract Discount
-                    CODEUNIT.RUN(CODEUNIT::"Extract Item Group Discount", Rec); // TODO: 
-                end;
+                // TODO
+                // trigger OnAction()
+                // begin
+                //     //>> 29.03.2012 Extract Discount
+                //     CODEUNIT.RUN(CODEUNIT::"Extract Item Group Discount", Rec); // TODO: 
+                // end;
             }
         }
     }

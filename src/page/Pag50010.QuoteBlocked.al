@@ -51,7 +51,7 @@ page 50010 "BC6_Quote Blocked"
 
                     TxtGBody := TxtG010 + "No." + ' ' + TxtG011 + ' ' + FORMAT("Document Date") + ', ' +
                                 USERID + ', ' + FORMAT(recgSalesHdr.COUNT) + ' ' + TxtG012;
-                    Mail.NewMessage(SalesSetup."E-Mail Administrateur", '', '', TxtGObject, TxtGBody, '', TRUE);
+                    Mail.NewMessage(SalesSetup."BC6_E-Mail Administrateur", '', '', TxtGObject, TxtGBody, '', TRUE);
                 end;
             }
             action(OK)
@@ -81,7 +81,7 @@ page 50010 "BC6_Quote Blocked"
     trigger OnOpenPage()
     begin
         SalesSetup.GET;
-        SalesSetup.TESTFIELD(Nbr_Devis);
+        SalesSetup.TESTFIELD(BC6_Nbr_Devis);
         SalesSetup.TESTFIELD(Période);
         recgSalesHdr.RESET;
         recgSalesHdr.SETRANGE("Document Type", "Document Type");

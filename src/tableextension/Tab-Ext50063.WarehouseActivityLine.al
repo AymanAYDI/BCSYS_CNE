@@ -7,8 +7,6 @@ tableextension 50063 "BC6_WarehouseActivityLine" extends "Warehouse Activity Lin
             Caption = 'Source No.';
             Editable = false;
             TableRelation = IF ("BC6_Source Document 2" = CONST("Sales Order")) "Sales Header"."No." WHERE("Document Type" = CONST(Order));
-            //This property is currently not supported
-            //TestTableRelation = false;
             ValidateTableRelation = false;
         }
         field(50041; "BC6_Source Line No. 2"; Integer)
@@ -62,7 +60,7 @@ tableextension 50063 "BC6_WarehouseActivityLine" extends "Warehouse Activity Lin
                     ERROR(CstL001);
                 //<<CNE5.00
 
-                GetLocation("Location Code");
+                Rec.GetLocation("Location Code");
                 IF Location."Directed Put-away and Pick" THEN
                     WMSMgt.CalcCubageAndWeight(
                       "Item No.", "Unit of Measure Code", "Qty. to Handle", Cubage, Weight);
@@ -105,8 +103,18 @@ tableextension 50063 "BC6_WarehouseActivityLine" extends "Warehouse Activity Lin
     var
         RecLUserSetup: Record "User Setup";
         WMSMgt: Codeunit "WMS Management";
+        Location: Record Location;
         CstL001: Label 'Vous n''êtes pas autorisé à modifier les quantités à traiter';
         CstL002: Label 'Vous n''êtes pas autorisé à modifier la quantité à traiter, elle est supérieure à la quantité prélevée.';
         Text002: Label 'You cannot handle more than the outstanding %1 units.';
+
+    procedure GetLocation(LocationCode: Code[10])
+    begin
+        if LocationCode = '' then
+            Clear(Location)
+        else
+            if Location.Code <> LocationCode then
+                Location.Get(LocationCode);
+    end;
 }
 

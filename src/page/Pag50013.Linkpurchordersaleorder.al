@@ -13,14 +13,14 @@ page 50013 "Link purch. order - sale order"
         {
             repeater(Control1)
             {
-                field("Affect purchase order"; "Affect purchase order")
+                field("Affect purchase order"; "BC6_Affect purchase order")
                 {
                     Editable = true;
 
                     trigger OnValidate()
                     begin
-                        IF "Affect purchase order" AND (Docstatus = RecLSalesHdr.Status::Released) THEN BEGIN
-                            "Affect purchase order" := FALSE;
+                        IF "BC6_Affect purchase order" AND (Docstatus = RecLSalesHdr.Status::Released) THEN BEGIN
+                            "BC6_Affect purchase order" := FALSE;
                             MESSAGE(textg001);
                         END;
                     end;

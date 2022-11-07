@@ -1,21 +1,10 @@
-page 55021 "Code Coverage Code 2"
+page 55021 "BC6_Code Coverage Code 2"
 {
-    // **************************************************************************************************************************
-    // Microsoft provides programming examples for illustration only, without warranty either expressed or implied, including,
-    // but not limited to, the implied warranties of merchantability or fitness for a particular purpose. This posting assumes
-    // that you are familiar with the programming language that is being demonstrated and the tools that are used to create and
-    // debug procedures.
-    // 
-    // Copyright ® Microsoft Corporation. All Rights Reserved.
-    // This code released under the terms of the
-    // Microsoft Public License (MS-PL, http://opensource.org/licenses/ms-pl.html)
-    // **************************************************************************************************************************
-
     DeleteAllowed = false;
     InsertAllowed = false;
     ModifyAllowed = false;
     PageType = List;
-    SourceTable = Table2000000049;
+    SourceTable = "Code Coverage";
 
     layout
     {

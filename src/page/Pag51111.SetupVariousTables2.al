@@ -1,29 +1,27 @@
-page 51111 "Setup Various Tables2"
+page 51111 "BC6_Setup Various Tables2"
 {
-    // //NAVIDIIGEST BRRI 01.08.2006 NSC1.00 [Tables_Diverses] Creation du FORM
-
     Caption = 'Setup Various Tables';
     PageType = Card;
-    SourceTable = Table50000;
+    SourceTable = "BC6_Setup Various Tables";
 
     layout
     {
         area(content)
         {
-            group()
+            group(Control1)
             {
-                field(Code; Code)
+                field("Code"; Code)
                 {
                 }
                 field(Description; Description)
                 {
                 }
             }
-            group()
+            group(Control1100267000)
             {
-                grid()
+                grid(Control1100267001)
                 {
-                    group()
+                    group(Control1100267005)
                     {
                         field("Text1 Use"; "Text1 Use")
                         {
@@ -149,9 +147,9 @@ page 51111 "Setup Various Tables2"
                         {
                         }
                     }
-                    group()
+                    group(Control1100267003)
                     {
-                        label("Text1 Description")
+                        label("Text 1 Description")
                         {
                             Caption = 'Text1 Description';
                             Enabled = "Text1 DescriptionEnable";
@@ -159,20 +157,20 @@ page 51111 "Setup Various Tables2"
                             Style = Standard;
                             StyleExpr = TRUE;
                         }
-                        label("Text2 Description")
+                        label("Text 2 Description")
                         {
                             Caption = 'Text2 Description';
                             Enabled = "Text2 DescriptionEnable";
                             ShowCaption = false;
                         }
-                        label("Text3 Description")
+                        label("Text 3 Description")
                         {
                             Caption = 'Text3 Description';
                             Enabled = "Text3 DescriptionEnable";
                             ShowCaption = false;
                         }
                     }
-                    group()
+                    group(Control1100267002)
                     {
                         field("Text1 Description"; "Text1 Description")
                         {
@@ -184,7 +182,7 @@ page 51111 "Setup Various Tables2"
                         {
                         }
                     }
-                    group()
+                    group(Control1100267009)
                     {
                         field("Number1 Description"; "Number1 Description")
                         {
@@ -247,7 +245,7 @@ page 51111 "Setup Various Tables2"
                             Enabled = "Obligatory Radical Code3Enable";
                         }
                     }
-                    group()
+                    group(Control1100267004)
                     {
                         field("Obligatory Text1"; "Obligatory Text1")
                         {
@@ -316,7 +314,7 @@ page 51111 "Setup Various Tables2"
                 trigger OnAction()
                 begin
                     TableDiv.SETRANGE(Radical, Code);
-                    PAGE.RUNMODAL(PAGE::"Various Tables", TableDiv);
+                    PAGE.RUNMODAL(PAGE::"BC6_Various Tables", TableDiv);
                 end;
             }
         }
@@ -328,8 +326,8 @@ page 51111 "Setup Various Tables2"
     end;
 
     var
-        "Object": Record "2000000001";
-        TableDiv: Record "50001";
+        "Object": Record Object;
+        TableDiv: Record "BC6_Various Tables";
         [InDataSet]
         "Text1 DescriptionEnable": Boolean;
         [InDataSet]
@@ -391,7 +389,6 @@ page 51111 "Setup Various Tables2"
         [InDataSet]
         "Obligatory Radical Code3Enable": Boolean;
 
-    [Scope('Internal')]
     procedure EnableFields()
     begin
         // Texte

@@ -1,187 +1,187 @@
-page 50121 "LOC Purch. Return Order List"
+page 50120 "BC6_SAV Purch. Ret. Order List"
 {
     Caption = 'Purchase Return Orders';
-    CardPageID = "LOC Purchase Return Order";
+    CardPageID = "BC6_SAV Purchase Return Order";
     DataCaptionFields = "Buy-from Vendor No.";
     Editable = false;
     PageType = List;
     PromotedActionCategories = 'New,Process,Report,Request Approval';
     RefreshOnActivate = true;
-    SourceTable = Table38;
-    SourceTableView = WHERE (Document Type=CONST(Return Order),
-                            Return Order Type=CONST(Location));
+    SourceTable = "Purchase Header";
+    SourceTableView = WHERE("Document Type" = CONST("Return Order"),
+                            "BC6_Return Order Type" = CONST(SAV));
 
     layout
     {
         area(content)
         {
-            repeater()
+            repeater(Control1)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ToolTip = 'Specifies the number of the purchase document. The field is only visible if you have not set up a number series for the type of purchase document, or if the Manual Nos. field is selected for the number series.';
                 }
-                field("Buy-from Vendor No."; "Buy-from Vendor No.")
+                field("Buy-from Vendor No."; Rec."Buy-from Vendor No.")
                 {
                     ToolTip = 'Specifies the nubmer of the vendor that you bought the items from.';
                 }
-                field("Order Address Code"; "Order Address Code")
+                field("Order Address Code"; Rec."Order Address Code")
                 {
                     ToolTip = 'Specifies the order address code linked to the relevant vendor''s order address.';
                     Visible = false;
                 }
-                field("Buy-from Vendor Name"; "Buy-from Vendor Name")
+                field("Buy-from Vendor Name"; Rec."Buy-from Vendor Name")
                 {
                     ToolTip = 'Specifies the name of the vendor who sends the items. The field is filled automatically when you fill the Buy-from Vendor No. field.';
                 }
-                field("Vendor Authorization No."; "Vendor Authorization No.")
+                field("Vendor Authorization No."; Rec."Vendor Authorization No.")
                 {
                     ToolTip = 'Specifies the compensation agreement identification number, sometimes referred to as the RMA No. (Returns Materials Authorization).';
                 }
-                field("Buy-from Post Code"; "Buy-from Post Code")
+                field("Buy-from Post Code"; Rec."Buy-from Post Code")
                 {
                     ToolTip = 'Specifies the postal code.';
                     Visible = false;
                 }
-                field("Buy-from Country/Region Code"; "Buy-from Country/Region Code")
+                field("Buy-from Country/Region Code"; Rec."Buy-from Country/Region Code")
                 {
                     ToolTip = 'Specifies the country/region code of the address.';
                     Visible = false;
                 }
-                field("Buy-from Contact"; "Buy-from Contact")
+                field("Buy-from Contact"; Rec."Buy-from Contact")
                 {
                     ToolTip = 'Specifies the name of the person to contact about shipment of the item from this vendor.';
                     Visible = false;
                 }
-                field("Pay-to Vendor No."; "Pay-to Vendor No.")
+                field("Pay-to Vendor No."; Rec."Pay-to Vendor No.")
                 {
                     ToolTip = 'Specifies the number of the vendor''s buy-from.';
                     Visible = false;
                 }
-                field("Pay-to Name"; "Pay-to Name")
+                field("Pay-to Name"; Rec."Pay-to Name")
                 {
                     ToolTip = 'Specifies the name of the vendor''s buy-from.';
                     Visible = false;
                 }
-                field("Pay-to Post Code"; "Pay-to Post Code")
+                field("Pay-to Post Code"; Rec."Pay-to Post Code")
                 {
                     ToolTip = 'Specifies the post code of the vendor''s buy-from.';
                     Visible = false;
                 }
-                field("Pay-to Country/Region Code"; "Pay-to Country/Region Code")
+                field("Pay-to Country/Region Code"; Rec."Pay-to Country/Region Code")
                 {
                     ToolTip = 'Specifies the country/region code of the address.';
                     Visible = false;
                 }
-                field("Pay-to Contact"; "Pay-to Contact")
+                field("Pay-to Contact"; Rec."Pay-to Contact")
                 {
                     ToolTip = 'Specifies the contact person of the vendor''s buy-from.';
                     Visible = false;
                 }
-                field("Ship-to Code"; "Ship-to Code")
+                field("Ship-to Code"; Rec."Ship-to Code")
                 {
                     ToolTip = 'Specifies a ship-to code if you want a different shipment address from the one that has been automatically entered.';
                     Visible = false;
                 }
-                field("Ship-to Name"; "Ship-to Name")
+                field("Ship-to Name"; Rec."Ship-to Name")
                 {
                     ToolTip = 'Specifies the name of the vendor''s buy-from.';
                     Visible = false;
                 }
-                field("Ship-to Post Code"; "Ship-to Post Code")
+                field("Ship-to Post Code"; Rec."Ship-to Post Code")
                 {
                     ToolTip = 'Specifies the postal code.';
                     Visible = false;
                 }
-                field("Ship-to Country/Region Code"; "Ship-to Country/Region Code")
+                field("Ship-to Country/Region Code"; Rec."Ship-to Country/Region Code")
                 {
                     ToolTip = 'Specifies the country/region of the address.';
                     Visible = false;
                 }
-                field("Ship-to Contact"; "Ship-to Contact")
+                field("Ship-to Contact"; Rec."Ship-to Contact")
                 {
                     ToolTip = 'Specifies the name of a contact person for the address where the items in the purchase order should be shipped.';
                     Visible = false;
                 }
-                field("Posting Date"; "Posting Date")
+                field("Posting Date"; Rec."Posting Date")
                 {
                     ToolTip = 'Specifies the date when the posting of the purchase document will be recorded.';
                     Visible = false;
                 }
-                field("Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
+                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
                     ToolTip = 'Specifies the dimension value code associated with the purchase header.';
                     Visible = false;
                 }
-                field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
                     ToolTip = 'Specifies the dimension value code associated with the purchase header.';
                     Visible = false;
                 }
-                field("Location Code"; "Location Code")
+                field("Location Code"; Rec."Location Code")
                 {
                     ToolTip = 'Specifies a code for the location where you want the items to be placed when they are received.';
                 }
-                field("Purchaser Code"; "Purchaser Code")
+                field("Purchaser Code"; Rec."Purchaser Code")
                 {
                     ToolTip = 'Specifies which purchaser is assigned to the vendor.';
                     Visible = false;
                 }
-                field("Assigned User ID"; "Assigned User ID")
+                field("Assigned User ID"; Rec."Assigned User ID")
                 {
                     ToolTip = 'Specifies the ID of the user who is responsible for the document.';
                 }
-                field("Currency Code"; "Currency Code")
+                field("Currency Code"; Rec."Currency Code")
                 {
                     ToolTip = 'Specifies the currency code for amounts on the purchase lines.';
                     Visible = false;
                 }
-                field("Document Date"; "Document Date")
+                field("Document Date"; Rec."Document Date")
                 {
                     ToolTip = 'Specifies the date of the vendor''s invoice.';
                     Visible = false;
                 }
-                field("Campaign No."; "Campaign No.")
+                field("Campaign No."; Rec."Campaign No.")
                 {
                     ToolTip = 'Specifies the campaign number the document is linked to.';
                     Visible = false;
                 }
-                field("Applies-to Doc. Type"; "Applies-to Doc. Type")
+                field("Applies-to Doc. Type"; Rec."Applies-to Doc. Type")
                 {
                     Visible = false;
                 }
-                field("Expected Receipt Date"; "Expected Receipt Date")
+                field("Expected Receipt Date"; Rec."Expected Receipt Date")
                 {
                     ToolTip = 'Specifies the date you expect to receive the items on the purchase document.';
                     Visible = false;
                 }
-                field("Job Queue Status"; "Job Queue Status")
+                field("Job Queue Status"; Rec."Job Queue Status")
                 {
                     Visible = JobQueueActive;
                 }
-                field("Affair No."; "Affair No.")
+                field("Affair No."; Rec."BC6_Affair No.")
                 {
                 }
-                field(Amount; Amount)
+                field(Amount; Rec.Amount)
                 {
                 }
-                field("Return Order Type"; "Return Order Type")
+                field("Return Order Type"; Rec."BC6_Return Order Type")
                 {
                 }
             }
         }
         area(factboxes)
         {
-            part(; 9093)
+            part("Vendor Details FactBox"; "Vendor Details FactBox")
             {
-                SubPageLink = No.=FIELD(Buy-from Vendor No.),
-                              Date Filter=FIELD(Date Filter);
+                SubPageLink = "No." = FIELD("Buy-from Vendor No."),
+                              "Date Filter" = FIELD("Date Filter");
             }
-            systempart(;Links)
+            systempart(Links; Links)
             {
                 Visible = false;
             }
-            systempart(;Notes)
+            systempart(Notes; Notes)
             {
                 Visible = false;
             }
@@ -207,12 +207,12 @@ page 50121 "LOC Purch. Return Order List"
 
                     trigger OnAction()
                     begin
-                        OpenPurchaseOrderStatistics;
+                        Rec.OpenPurchaseOrderStatistics;
                     end;
                 }
                 action(Dimensions)
                 {
-                    AccessByPermission = TableData 348=R;
+                    AccessByPermission = TableData Dimension = R;
                     Caption = 'Dimensions';
                     Image = Dimensions;
                     ShortCutKey = 'Shift+Ctrl+D';
@@ -220,21 +220,21 @@ page 50121 "LOC Purch. Return Order List"
 
                     trigger OnAction()
                     begin
-                        ShowDocDim;
+                        Rec.ShowDocDim;
                     end;
                 }
                 action(Approvals)
                 {
-                    AccessByPermission = TableData 454=R;
+                    AccessByPermission = TableData "Approval Entry" = R;
                     Caption = 'Approvals';
                     Image = Approvals;
                     ToolTip = 'View a list of the records that are waiting to be approved. For example, you can see who requested the record to be approved, when it was sent, and when it is due to be approved.';
 
                     trigger OnAction()
                     var
-                        ApprovalEntries: Page "658";
+                        ApprovalEntries: Page "Approval Entries";
                     begin
-                        ApprovalEntries.Setfilters(DATABASE::"Purchase Header","Document Type","No.");
+                        ApprovalEntries.Setfilters(DATABASE::"Purchase Header", Rec."Document Type", Rec."No.");
                         ApprovalEntries.RUN;
                     end;
                 }
@@ -242,10 +242,10 @@ page 50121 "LOC Purch. Return Order List"
                 {
                     Caption = 'Co&mments';
                     Image = ViewComments;
-                    RunObject = Page 66;
-                                    RunPageLink = Document Type=FIELD(Document Type),
-                                  No.=FIELD(No.),
-                                  Document Line No.=CONST(0);
+                    RunObject = Page "Purch. Comment Sheet";
+                    RunPageLink = "Document Type" = FIELD("Document Type"),
+                                  "No." = FIELD("No."),
+                                  "Document Line No." = CONST(0);
                     ToolTip = 'View or add notes about the purchase return order.';
                 }
             }
@@ -257,23 +257,23 @@ page 50121 "LOC Purch. Return Order List"
                 {
                     Caption = 'Return Shipments';
                     Image = Shipment;
-                    RunObject = Page 6652;
-                                    RunPageLink = Return Order No.=FIELD(No.);
-                    RunPageView = SORTING(Return Order No.);
+                    RunObject = Page "Posted Return Shipments";
+                    RunPageLink = "Return Order No." = FIELD("No.");
+                    RunPageView = SORTING("Return Order No.");
                 }
                 action("Cred&it Memos")
                 {
                     Caption = 'Cred&it Memos';
                     Image = CreditMemo;
-                    RunObject = Page 147;
-                                    RunPageLink = Return Order No.=FIELD(No.);
-                    RunPageView = SORTING(Return Order No.);
+                    RunObject = Page "Posted Purchase Credit Memos";
+                    RunPageLink = "Return Order No." = FIELD("No.");
+                    RunPageView = SORTING("Return Order No.");
                 }
-                separator()
+                separator(sep)
                 {
                 }
             }
-            group(Warehouse)
+            group(Warehouses)
             {
                 Caption = 'Warehouse';
                 Image = Warehouse;
@@ -281,20 +281,20 @@ page 50121 "LOC Purch. Return Order List"
                 {
                     Caption = 'In&vt. Put-away/Pick Lines';
                     Image = PickLines;
-                    RunObject = Page 5774;
-                                    RunPageLink = Source Document=CONST(Purchase Return Order),
-                                  Source No.=FIELD(No.);
-                    RunPageView = SORTING(Source Document,Source No.,Location Code);
+                    RunObject = Page "Warehouse Activity List";
+                    RunPageLink = "Source Document" = CONST("Purchase Return Order"),
+                                  "Source No." = FIELD("No.");
+                    RunPageView = SORTING("Source Document", "Source No.", "Location Code");
                 }
                 action("Whse. Shipment Lines")
                 {
                     Caption = 'Whse. Shipment Lines';
                     Image = ShipmentLines;
-                    RunObject = Page 7341;
-                                    RunPageLink = Source Type=CONST(39),
-                                  Source Subtype=FIELD(Document Type),
-                                  Source No.=FIELD(No.);
-                    RunPageView = SORTING(Source Type,Source Subtype,Source No.,Source Line No.);
+                    RunObject = Page "Whse. Shipment Lines";
+                    RunPageLink = "Source Type" = CONST(39),
+                                  "Source Subtype" = FIELD("Document Type"),
+                                  "Source No." = FIELD("No.");
+                    RunPageView = SORTING("Source Type", "Source Subtype", "Source No.", "Source Line No.");
                 }
             }
         }
@@ -310,17 +310,15 @@ page 50121 "LOC Purch. Return Order List"
 
                 trigger OnAction()
                 var
-                    L_PurchaseHeader: Record "38";
+                    L_PurchaseHeader: Record "Purchase Header";
                 begin
-                    //>>BCSYS
-                    //OLD STD DocPrint.PrintPurchHeader(Rec);
-                    IF "Return Order Type" = "Return Order Type"::Location THEN
-                      DocPrint.PrintPurchHeader(Rec)
+                    IF Rec."BC6_Return Order Type" = Rec."BC6_Return Order Type"::Location THEN
+                        DocPrint.PrintPurchHeader(Rec)
                     ELSE BEGIN
-                      L_PurchaseHeader.RESET;
-                      L_PurchaseHeader.SETRANGE("Document Type","Document Type");
-                      L_PurchaseHeader.SETRANGE("No.","No.");
-                      REPORT.RUNMODAL(50061,TRUE,FALSE,L_PurchaseHeader);
+                        L_PurchaseHeader.RESET;
+                        L_PurchaseHeader.SETRANGE("Document Type", Rec."Document Type");
+                        L_PurchaseHeader.SETRANGE("No.", Rec."No.");
+                        REPORT.RUNMODAL(50061, TRUE, FALSE, L_PurchaseHeader);
                     END;
                     //<<BCSYS
                 end;
@@ -329,7 +327,7 @@ page 50121 "LOC Purch. Return Order List"
             {
                 Caption = 'Release';
                 Image = ReleaseDoc;
-                action(Release)
+                action("Re&lease")
                 {
                     Caption = 'Re&lease';
                     Image = ReleaseDoc;
@@ -337,7 +335,7 @@ page 50121 "LOC Purch. Return Order List"
 
                     trigger OnAction()
                     var
-                        ReleasePurchDoc: Codeunit "415";
+                        ReleasePurchDoc: Codeunit "Release Purchase Document";
                     begin
                         ReleasePurchDoc.PerformManualRelease(Rec);
                     end;
@@ -350,12 +348,12 @@ page 50121 "LOC Purch. Return Order List"
 
                     trigger OnAction()
                     var
-                        ReleasePurchDoc: Codeunit "415";
+                        ReleasePurchDoc: Codeunit "Release Purchase Document";
                     begin
                         ReleasePurchDoc.PerformManualReopen(Rec);
                     end;
                 }
-                separator()
+                separator(sep3)
                 {
                 }
             }
@@ -371,28 +369,28 @@ page 50121 "LOC Purch. Return Order List"
 
                     trigger OnAction()
                     begin
-                        GetPstdDocLinesToRevere;
+                        Rec.GetPstdDocLinesToReverse;
                     end;
                 }
-                separator()
+                separator(sep2)
                 {
                 }
                 action("Send IC Return Order")
                 {
-                    AccessByPermission = TableData 410=R;
+                    AccessByPermission = TableData "IC G/L Account" = R;
                     Caption = 'Send IC Return Order';
                     Image = IntercompanyOrder;
 
                     trigger OnAction()
                     var
-                        ICInOutMgt: Codeunit "427";
-                        ApprovalsMgmt: Codeunit "1535";
+                        ICInOutMgt: Codeunit ICInboxOutboxMgt;
+                        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
                     begin
                         IF ApprovalsMgmt.PrePostApprovalCheckPurch(Rec) THEN
-                          ICInOutMgt.SendPurchDoc(Rec,FALSE);
+                            ICInOutMgt.SendPurchDoc(Rec, FALSE);
                     end;
                 }
-                separator()
+                separator(sep4)
                 {
                 }
             }
@@ -412,10 +410,10 @@ page 50121 "LOC Purch. Return Order List"
 
                     trigger OnAction()
                     var
-                        ApprovalsMgmt: Codeunit "1535";
+                        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
                     begin
                         IF ApprovalsMgmt.CheckPurchaseApprovalPossible(Rec) THEN
-                          ApprovalsMgmt.OnSendPurchaseDocForApproval(Rec);
+                            ApprovalsMgmt.OnSendPurchaseDocForApproval(Rec);
                     end;
                 }
                 action(CancelApprovalRequest)
@@ -431,7 +429,7 @@ page 50121 "LOC Purch. Return Order List"
 
                     trigger OnAction()
                     var
-                        ApprovalsMgmt: Codeunit "1535";
+                        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
                     begin
                         ApprovalsMgmt.OnCancelPurchaseApprovalRequest(Rec);
                     end;
@@ -443,30 +441,30 @@ page 50121 "LOC Purch. Return Order List"
                 Image = Warehouse;
                 action("Create Inventor&y Put-away/Pick")
                 {
-                    AccessByPermission = TableData 7342=R;
+                    AccessByPermission = TableData "Posted Invt. Pick Header" = R;
                     Caption = 'Create Inventor&y Put-away/Pick';
                     Ellipsis = true;
                     Image = CreatePutawayPick;
 
                     trigger OnAction()
                     begin
-                        CreateInvtPutAwayPick;
+                        Rec.CreateInvtPutAwayPick;
                     end;
                 }
                 action("Create &Whse. Shipment")
                 {
-                    AccessByPermission = TableData 7320=R;
+                    AccessByPermission = TableData "Warehouse Shipment Header" = R;
                     Caption = 'Create &Whse. Shipment';
                     Image = NewShipment;
 
                     trigger OnAction()
                     var
-                        GetSourceDocOutbound: Codeunit "5752";
+                        GetSourceDocOutbound: Codeunit "Get Source Doc. Outbound";
                     begin
                         GetSourceDocOutbound.CreateFromPurchaseReturnOrder(Rec);
                     end;
                 }
-                separator()
+                separator(sep5)
                 {
                 }
             }
@@ -498,10 +496,10 @@ page 50121 "LOC Purch. Return Order List"
 
                     trigger OnAction()
                     begin
-                        SendToPosting(CODEUNIT::"Purch.-Post (Yes/No)");
+                        Rec.SendToPosting(CODEUNIT::"Purch.-Post (Yes/No)");
                     end;
                 }
-                action(Preview)
+                action("Preview")
                 {
                     Caption = 'Preview Posting';
                     Image = ViewPostedOrder;
@@ -509,7 +507,7 @@ page 50121 "LOC Purch. Return Order List"
 
                     trigger OnAction()
                     var
-                        PurchPostYesNo: Codeunit "91";
+                        PurchPostYesNo: Codeunit "Purch.-Post (Yes/No)";
                     begin
                         PurchPostYesNo.Preview(Rec);
                     end;
@@ -526,7 +524,7 @@ page 50121 "LOC Purch. Return Order List"
 
                     trigger OnAction()
                     begin
-                        SendToPosting(CODEUNIT::"Purch.-Post + Print");
+                        Rec.SendToPosting(CODEUNIT::"Purch.-Post + Print");
                     end;
                 }
                 action(PostBatch)
@@ -539,7 +537,7 @@ page 50121 "LOC Purch. Return Order List"
 
                     trigger OnAction()
                     begin
-                        REPORT.RUNMODAL(REPORT::"Batch Post Purch. Ret. Orders",TRUE,TRUE,Rec);
+                        REPORT.RUNMODAL(REPORT::"Batch Post Purch. Ret. Orders", TRUE, TRUE, Rec);
                         CurrPage.UPDATE(FALSE);
                     end;
                 }
@@ -551,7 +549,7 @@ page 50121 "LOC Purch. Return Order List"
 
                     trigger OnAction()
                     begin
-                        CancelBackgroundPosting;
+                        Rec.CancelBackgroundPosting;
                     end;
                 }
             }
@@ -565,18 +563,18 @@ page 50121 "LOC Purch. Return Order List"
 
     trigger OnOpenPage()
     var
-        PurchasesPayablesSetup: Record "312";
+        PurchasesPayablesSetup: Record "Purchases & Payables Setup";
     begin
-        SetSecurityFilterOnRespCenter;
+        Rec.SetSecurityFilterOnRespCenter;
 
         JobQueueActive := PurchasesPayablesSetup.JobQueueActive;
 
-        CopyBuyFromVendorFilter;
+        Rec.CopyBuyFromVendorFilter;
     end;
 
     var
-        DocPrint: Codeunit "229";
-        ReportPrint: Codeunit "228";
+        DocPrint: Codeunit "Document-Print";
+        ReportPrint: Codeunit "Test Report-Print";
         [InDataSet]
         JobQueueActive: Boolean;
         OpenApprovalEntriesExist: Boolean;
@@ -584,11 +582,11 @@ page 50121 "LOC Purch. Return Order List"
 
     local procedure SetControlAppearance()
     var
-        ApprovalsMgmt: Codeunit "1535";
+        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
     begin
-        OpenApprovalEntriesExist := ApprovalsMgmt.HasOpenApprovalEntries(RECORDID);
+        OpenApprovalEntriesExist := ApprovalsMgmt.HasOpenApprovalEntries(Rec.RECORDID);
 
-        CanCancelApprovalForRecord := ApprovalsMgmt.CanCancelApprovalForRecord(RECORDID);
+        CanCancelApprovalForRecord := ApprovalsMgmt.CanCancelApprovalForRecord(Rec.RECORDID);
     end;
 }
 

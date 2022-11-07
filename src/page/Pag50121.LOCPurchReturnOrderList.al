@@ -1,21 +1,21 @@
-page 50120 "SAV Purch. Return Order List"
+page 50121 "LOC Purch. Return Order List"
 {
     Caption = 'Purchase Return Orders';
-    CardPageID = "SAV Purchase Return Order";
+    CardPageID = "BC6_LOC Purchase Return Order";
     DataCaptionFields = "Buy-from Vendor No.";
     Editable = false;
     PageType = List;
     PromotedActionCategories = 'New,Process,Report,Request Approval';
     RefreshOnActivate = true;
-    SourceTable = Table38;
-    SourceTableView = WHERE (Document Type=CONST(Return Order),
-                            Return Order Type=CONST(SAV));
+    SourceTable = "Purchase Header";
+    SourceTableView = WHERE("Document Type" = CONST("Return Order"),
+                            "BC6_Return Order Type" = CONST("Location"));
 
     layout
     {
         area(content)
         {
-            repeater()
+            repeater(Control1)
             {
                 field("No."; "No.")
                 {
@@ -159,29 +159,29 @@ page 50120 "SAV Purch. Return Order List"
                 {
                     Visible = JobQueueActive;
                 }
-                field("Affair No."; "Affair No.")
+                field("Affair No."; "BC6_Affair No.")
                 {
                 }
                 field(Amount; Amount)
                 {
                 }
-                field("Return Order Type"; "Return Order Type")
+                field("Return Order Type"; "BC6_Return Order Type")
                 {
                 }
             }
         }
         area(factboxes)
         {
-            part(; 9093)
+            part("Vendor Details FactBox"; "Vendor Details FactBox")
             {
-                SubPageLink = No.=FIELD(Buy-from Vendor No.),
-                              Date Filter=FIELD(Date Filter);
+                SubPageLink = "No." = FIELD("Buy-from Vendor No."),
+                              "Date Filter" = FIELD("Date Filter");
             }
-            systempart(;Links)
+            systempart(Links; Links)
             {
                 Visible = false;
             }
-            systempart(;Notes)
+            systempart(Notes; Notes)
             {
                 Visible = false;
             }
@@ -212,7 +212,7 @@ page 50120 "SAV Purch. Return Order List"
                 }
                 action(Dimensions)
                 {
-                    AccessByPermission = TableData 348=R;
+                    AccessByPermission = TableData Dimension = R;
                     Caption = 'Dimensions';
                     Image = Dimensions;
                     ShortCutKey = 'Shift+Ctrl+D';
@@ -225,16 +225,16 @@ page 50120 "SAV Purch. Return Order List"
                 }
                 action(Approvals)
                 {
-                    AccessByPermission = TableData 454=R;
+                    AccessByPermission = TableData "Approval Entry" = R;
                     Caption = 'Approvals';
                     Image = Approvals;
                     ToolTip = 'View a list of the records that are waiting to be approved. For example, you can see who requested the record to be approved, when it was sent, and when it is due to be approved.';
 
                     trigger OnAction()
                     var
-                        ApprovalEntries: Page "658";
+                        ApprovalEntries: Page "Approval Entries";
                     begin
-                        ApprovalEntries.Setfilters(DATABASE::"Purchase Header","Document Type","No.");
+                        ApprovalEntries.Setfilters(DATABASE::"Purchase Header", "Document Type", "No.");
                         ApprovalEntries.RUN;
                     end;
                 }
@@ -242,10 +242,10 @@ page 50120 "SAV Purch. Return Order List"
                 {
                     Caption = 'Co&mments';
                     Image = ViewComments;
-                    RunObject = Page 66;
-                                    RunPageLink = Document Type=FIELD(Document Type),
-                                  No.=FIELD(No.),
-                                  Document Line No.=CONST(0);
+                    RunObject = Page "Purch. Comment Sheet";
+                    RunPageLink = "Document Type" = FIELD("Document Type"),
+                                  "No." = FIELD("No."),
+                                  "Document Line No." = CONST(0);
                     ToolTip = 'View or add notes about the purchase return order.';
                 }
             }
@@ -257,23 +257,23 @@ page 50120 "SAV Purch. Return Order List"
                 {
                     Caption = 'Return Shipments';
                     Image = Shipment;
-                    RunObject = Page 6652;
-                                    RunPageLink = Return Order No.=FIELD(No.);
-                    RunPageView = SORTING(Return Order No.);
+                    RunObject = Page "Posted Return Shipments";
+                    RunPageLink = "Return Order No." = FIELD("No.");
+                    RunPageView = SORTING("Return Order No.");
                 }
                 action("Cred&it Memos")
                 {
                     Caption = 'Cred&it Memos';
                     Image = CreditMemo;
-                    RunObject = Page 147;
-                                    RunPageLink = Return Order No.=FIELD(No.);
-                    RunPageView = SORTING(Return Order No.);
+                    RunObject = Page "Posted Purchase Credit Memos";
+                    RunPageLink = "Return Order No." = FIELD("No.");
+                    RunPageView = SORTING("Return Order No.");
                 }
-                separator()
+                separator(Action1102601034)
                 {
                 }
             }
-            group(Warehouse)
+            group(Warehouse1)
             {
                 Caption = 'Warehouse';
                 Image = Warehouse;
@@ -281,20 +281,20 @@ page 50120 "SAV Purch. Return Order List"
                 {
                     Caption = 'In&vt. Put-away/Pick Lines';
                     Image = PickLines;
-                    RunObject = Page 5774;
-                                    RunPageLink = Source Document=CONST(Purchase Return Order),
-                                  Source No.=FIELD(No.);
-                    RunPageView = SORTING(Source Document,Source No.,Location Code);
+                    RunObject = Page "Warehouse Activity List";
+                    RunPageLink = "Source Document" = CONST("Purchase Return Order"),
+                                  "Source No." = FIELD("No.");
+                    RunPageView = SORTING("Source Document", "Source No.", "Location Code");
                 }
                 action("Whse. Shipment Lines")
                 {
                     Caption = 'Whse. Shipment Lines';
                     Image = ShipmentLines;
-                    RunObject = Page 7341;
-                                    RunPageLink = Source Type=CONST(39),
-                                  Source Subtype=FIELD(Document Type),
-                                  Source No.=FIELD(No.);
-                    RunPageView = SORTING(Source Type,Source Subtype,Source No.,Source Line No.);
+                    RunObject = Page "Whse. Shipment Lines";
+                    RunPageLink = "Source Type" = CONST(39),
+                                  "Source Subtype" = FIELD("Document Type"),
+                                  "Source No." = FIELD("No.");
+                    RunPageView = SORTING("Source Type", "Source Subtype", "Source No.", "Source Line No.");
                 }
             }
         }
@@ -310,17 +310,17 @@ page 50120 "SAV Purch. Return Order List"
 
                 trigger OnAction()
                 var
-                    L_PurchaseHeader: Record "38";
+                    L_PurchaseHeader: Record "Purchase Header";
                 begin
                     //>>BCSYS
                     //OLD STD DocPrint.PrintPurchHeader(Rec);
-                    IF "Return Order Type" = "Return Order Type"::Location THEN
-                      DocPrint.PrintPurchHeader(Rec)
+                    IF "BC6_Return Order Type" = "BC6_Return Order Type"::Location THEN
+                        DocPrint.PrintPurchHeader(Rec)
                     ELSE BEGIN
-                      L_PurchaseHeader.RESET;
-                      L_PurchaseHeader.SETRANGE("Document Type","Document Type");
-                      L_PurchaseHeader.SETRANGE("No.","No.");
-                      REPORT.RUNMODAL(50061,TRUE,FALSE,L_PurchaseHeader);
+                        L_PurchaseHeader.RESET;
+                        L_PurchaseHeader.SETRANGE("Document Type", "Document Type");
+                        L_PurchaseHeader.SETRANGE("No.", "No.");
+                        REPORT.RUNMODAL(50061, TRUE, FALSE, L_PurchaseHeader);
                     END;
                     //<<BCSYS
                 end;
@@ -329,7 +329,7 @@ page 50120 "SAV Purch. Return Order List"
             {
                 Caption = 'Release';
                 Image = ReleaseDoc;
-                action(Release)
+                action(ReleaseAction)
                 {
                     Caption = 'Re&lease';
                     Image = ReleaseDoc;
@@ -337,7 +337,7 @@ page 50120 "SAV Purch. Return Order List"
 
                     trigger OnAction()
                     var
-                        ReleasePurchDoc: Codeunit "415";
+                        ReleasePurchDoc: Codeunit "Release Purchase Document";
                     begin
                         ReleasePurchDoc.PerformManualRelease(Rec);
                     end;
@@ -350,12 +350,12 @@ page 50120 "SAV Purch. Return Order List"
 
                     trigger OnAction()
                     var
-                        ReleasePurchDoc: Codeunit "415";
+                        ReleasePurchDoc: Codeunit "Release Purchase Document";
                     begin
                         ReleasePurchDoc.PerformManualReopen(Rec);
                     end;
                 }
-                separator()
+                separator(Action1102601023)
                 {
                 }
             }
@@ -371,28 +371,28 @@ page 50120 "SAV Purch. Return Order List"
 
                     trigger OnAction()
                     begin
-                        GetPstdDocLinesToRevere;
+                        // GetPstdDocLinesToRevere; TODO: missing function in record id 38
                     end;
                 }
-                separator()
+                separator(Action1102601020)
                 {
                 }
                 action("Send IC Return Order")
                 {
-                    AccessByPermission = TableData 410=R;
+                    AccessByPermission = TableData "IC G/L Account" = R;
                     Caption = 'Send IC Return Order';
                     Image = IntercompanyOrder;
 
                     trigger OnAction()
                     var
-                        ICInOutMgt: Codeunit "427";
-                        ApprovalsMgmt: Codeunit "1535";
+                        ICInOutMgt: Codeunit ICInboxOutboxMgt;
+                        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
                     begin
                         IF ApprovalsMgmt.PrePostApprovalCheckPurch(Rec) THEN
-                          ICInOutMgt.SendPurchDoc(Rec,FALSE);
+                            ICInOutMgt.SendPurchDoc(Rec, FALSE);
                     end;
                 }
-                separator()
+                separator(Action1102601014)
                 {
                 }
             }
@@ -412,10 +412,10 @@ page 50120 "SAV Purch. Return Order List"
 
                     trigger OnAction()
                     var
-                        ApprovalsMgmt: Codeunit "1535";
+                        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
                     begin
                         IF ApprovalsMgmt.CheckPurchaseApprovalPossible(Rec) THEN
-                          ApprovalsMgmt.OnSendPurchaseDocForApproval(Rec);
+                            ApprovalsMgmt.OnSendPurchaseDocForApproval(Rec);
                     end;
                 }
                 action(CancelApprovalRequest)
@@ -431,7 +431,7 @@ page 50120 "SAV Purch. Return Order List"
 
                     trigger OnAction()
                     var
-                        ApprovalsMgmt: Codeunit "1535";
+                        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
                     begin
                         ApprovalsMgmt.OnCancelPurchaseApprovalRequest(Rec);
                     end;
@@ -443,7 +443,7 @@ page 50120 "SAV Purch. Return Order List"
                 Image = Warehouse;
                 action("Create Inventor&y Put-away/Pick")
                 {
-                    AccessByPermission = TableData 7342=R;
+                    AccessByPermission = TableData "Posted Invt. Pick Header" = R;
                     Caption = 'Create Inventor&y Put-away/Pick';
                     Ellipsis = true;
                     Image = CreatePutawayPick;
@@ -455,18 +455,18 @@ page 50120 "SAV Purch. Return Order List"
                 }
                 action("Create &Whse. Shipment")
                 {
-                    AccessByPermission = TableData 7320=R;
+                    AccessByPermission = TableData "Warehouse Shipment Header" = R;
                     Caption = 'Create &Whse. Shipment';
                     Image = NewShipment;
 
                     trigger OnAction()
                     var
-                        GetSourceDocOutbound: Codeunit "5752";
+                        GetSourceDocOutbound: Codeunit "Get Source Doc. Outbound";
                     begin
                         GetSourceDocOutbound.CreateFromPurchaseReturnOrder(Rec);
                     end;
                 }
-                separator()
+                separator(Action1102601017)
                 {
                 }
             }
@@ -501,7 +501,7 @@ page 50120 "SAV Purch. Return Order List"
                         SendToPosting(CODEUNIT::"Purch.-Post (Yes/No)");
                     end;
                 }
-                action(Preview)
+                action("Preview")
                 {
                     Caption = 'Preview Posting';
                     Image = ViewPostedOrder;
@@ -509,7 +509,7 @@ page 50120 "SAV Purch. Return Order List"
 
                     trigger OnAction()
                     var
-                        PurchPostYesNo: Codeunit "91";
+                        PurchPostYesNo: Codeunit "Purch.-Post (Yes/No)";
                     begin
                         PurchPostYesNo.Preview(Rec);
                     end;
@@ -539,7 +539,7 @@ page 50120 "SAV Purch. Return Order List"
 
                     trigger OnAction()
                     begin
-                        REPORT.RUNMODAL(REPORT::"Batch Post Purch. Ret. Orders",TRUE,TRUE,Rec);
+                        REPORT.RUNMODAL(REPORT::"Batch Post Purch. Ret. Orders", TRUE, TRUE, Rec);
                         CurrPage.UPDATE(FALSE);
                     end;
                 }
@@ -565,7 +565,7 @@ page 50120 "SAV Purch. Return Order List"
 
     trigger OnOpenPage()
     var
-        PurchasesPayablesSetup: Record "312";
+        PurchasesPayablesSetup: Record "Purchases & Payables Setup";
     begin
         SetSecurityFilterOnRespCenter;
 
@@ -575,8 +575,8 @@ page 50120 "SAV Purch. Return Order List"
     end;
 
     var
-        DocPrint: Codeunit "229";
-        ReportPrint: Codeunit "228";
+        DocPrint: Codeunit "Document-Print";
+        ReportPrint: Codeunit "Test Report-Print";
         [InDataSet]
         JobQueueActive: Boolean;
         OpenApprovalEntriesExist: Boolean;
@@ -584,7 +584,7 @@ page 50120 "SAV Purch. Return Order List"
 
     local procedure SetControlAppearance()
     var
-        ApprovalsMgmt: Codeunit "1535";
+        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
     begin
         OpenApprovalEntriesExist := ApprovalsMgmt.HasOpenApprovalEntries(RECORDID);
 

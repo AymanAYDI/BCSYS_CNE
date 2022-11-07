@@ -17,7 +17,7 @@ page 50112 "Purchase Return Order Cue"
                 }
                 field("Purchase Return - SAV"; "BC6_Purchase Return - SAV")
                 {
-                    DrillDownPageID = "SAV Purch. Return Order List";
+                    DrillDownPageID = "BC6_SAV Purch. Ret. Order List";
                 }
             }
         }

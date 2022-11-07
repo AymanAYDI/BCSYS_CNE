@@ -1,29 +1,21 @@
 page 50115 "LOC Sales Return Order List"
 {
-    // ---------------------------------------------------------------
-    //  Prodware - www.prodware.fr
-    // ---------------------------------------------------------------
-    // 
-    // //>>CNE7.01
-    // //>>P24233_001 SOBI APA 02/02/17
-    //                     Modify Function OnOpenPage
-
     Caption = 'Sales Return Orders';
-    CardPageID = "Location Sales Return Order";
+    CardPageID = "BC6_Locat. Sales Return Order";
     DataCaptionFields = "Sell-to Customer No.";
     Editable = false;
     PageType = List;
     PromotedActionCategories = 'New,Process,Report,Request Approval';
     RefreshOnActivate = true;
-    SourceTable = Table36;
-    SourceTableView = WHERE (Document Type=CONST(Return Order),
-                            Return Order Type=CONST(Location));
+    SourceTable = "Sales Header";
+    SourceTableView = WHERE("Document Type" = CONST("Return Order"),
+                            "BC6_Return Order Type" = CONST(Location));
 
     layout
     {
         area(content)
         {
-            repeater()
+            repeater(Action1)
             {
                 field("No."; "No.")
                 {
@@ -164,19 +156,19 @@ page 50115 "LOC Sales Return Order List"
                     ToolTip = 'Specifies the status of a job queue entry or task that handles the posting of sales orders.';
                     Visible = JobQueueActive;
                 }
-                field(ID; ID)
+                field(ID; Rec.ID)
                 {
                 }
                 field("Your Reference"; "Your Reference")
                 {
                 }
-                field("Affair No."; "Affair No.")
+                field("Affair No."; "BC6_Affair No.")
                 {
                 }
-                field("Return Order Type"; "Return Order Type")
+                field("Return Order Type"; "BC6_Return Order Type")
                 {
                 }
-                field("Purchase No. Order Lien"; "Purchase No. Order Lien")
+                field("Purchase No. Order Lien"; "BC6_Purchase No. Order Lien")
                 {
                     Caption = 'Purchase No. Order Link';
                 }
@@ -187,21 +179,21 @@ page 50115 "LOC Sales Return Order List"
         }
         area(factboxes)
         {
-            part(; 9082)
+            part("Customer Statistics FactBox"; "Customer Statistics FactBox")
             {
-                SubPageLink = No.=FIELD(Bill-to Customer No.),
-                              Date Filter=FIELD(Date Filter);
+                SubPageLink = "No." = FIELD("Bill-to Customer No."),
+                              "Date Filter" = FIELD("Date Filter");
             }
-            part(;9084)
+            part("Customer Details FactBox"; "Customer Details FactBox")
             {
-                SubPageLink = No.=FIELD(Bill-to Customer No.),
-                              Date Filter=FIELD(Date Filter);
+                SubPageLink = "No." = FIELD("Bill-to Customer No."),
+                              "Date Filter" = FIELD("Date Filter");
             }
-            systempart(;Links)
+            systempart(Links; Links)
             {
                 Visible = false;
             }
-            systempart(;Notes)
+            systempart(Notes; Notes)
             {
                 Visible = false;
             }
@@ -233,7 +225,7 @@ page 50115 "LOC Sales Return Order List"
                 }
                 action(Dimensions)
                 {
-                    AccessByPermission = TableData 348=R;
+                    AccessByPermission = TableData Dimension = R;
                     Caption = 'Dimensions';
                     Image = Dimensions;
                     Promoted = false;
@@ -249,16 +241,16 @@ page 50115 "LOC Sales Return Order List"
                 }
                 action(Approvals)
                 {
-                    AccessByPermission = TableData 454=R;
+                    AccessByPermission = TableData "Approval Entry" = R;
                     Caption = 'Approvals';
                     Image = Approvals;
                     ToolTip = 'View a list of the records that are waiting to be approved. For example, you can see who requested the record to be approved, when it was sent, and when it is due to be approved.';
 
                     trigger OnAction()
                     var
-                        ApprovalEntries: Page "658";
+                        ApprovalEntries: Page "Approval Entries";
                     begin
-                        ApprovalEntries.Setfilters(DATABASE::"Sales Header","Document Type","No.");
+                        ApprovalEntries.Setfilters(DATABASE::"Sales Header", "Document Type", "No.");
                         ApprovalEntries.RUN;
                     end;
                 }
@@ -269,10 +261,10 @@ page 50115 "LOC Sales Return Order List"
                     Promoted = false;
                     //The property 'PromotedIsBig' can only be set if the property 'Promoted' is set to 'true'
                     //PromotedIsBig = false;
-                    RunObject = Page 67;
-                                    RunPageLink = Document Type=CONST(Return Order),
-                                  No.=FIELD(No.),
-                                  Document Line No.=CONST(0);
+                    RunObject = Page "Sales Comment Sheet";
+                    RunPageLink = "Document Type" = CONST("Return Order"),
+                                  "No." = FIELD("No."),
+                                  "Document Line No." = CONST(0);
                     ToolTip = 'View or add notes about the sales return order.';
                 }
             }
@@ -284,20 +276,20 @@ page 50115 "LOC Sales Return Order List"
                 {
                     Caption = 'Return Receipts';
                     Image = ReturnReceipt;
-                    RunObject = Page 6662;
-                                    RunPageLink = Return Order No.=FIELD(No.);
-                    RunPageView = SORTING(Return Order No.);
+                    RunObject = Page "Posted Return Receipts";
+                    RunPageLink = "Return Order No." = FIELD("No.");
+                    RunPageView = SORTING("Return Order No.");
                 }
                 action("Cred&it Memos")
                 {
                     Caption = 'Cred&it Memos';
                     Image = CreditMemo;
-                    RunObject = Page 144;
-                                    RunPageLink = Return Order No.=FIELD(No.);
-                    RunPageView = SORTING(Return Order No.);
+                    RunObject = Page "Posted Sales Credit Memos";
+                    RunPageLink = "Return Order No." = FIELD("No.");
+                    RunPageView = SORTING("Return Order No.");
                 }
             }
-            group(Warehouse)
+            group(Warehouse1)
             {
                 Caption = 'Warehouse';
                 Image = Warehouse;
@@ -305,20 +297,20 @@ page 50115 "LOC Sales Return Order List"
                 {
                     Caption = 'In&vt. Put-away/Pick Lines';
                     Image = PickLines;
-                    RunObject = Page 5774;
-                                    RunPageLink = Source Document=CONST(Sales Return Order),
-                                  Source No.=FIELD(No.);
-                    RunPageView = SORTING(Source Document,Source No.,Location Code);
+                    RunObject = Page "Warehouse Activity List";
+                    RunPageLink = "Source Document" = CONST("Sales Return Order"),
+                                  "Source No." = FIELD("No.");
+                    RunPageView = SORTING("Source Document", "Source No.", "Location Code");
                 }
                 action("Whse. Receipt Lines")
                 {
                     Caption = 'Whse. Receipt Lines';
                     Image = ReceiptLines;
-                    RunObject = Page 7342;
-                                    RunPageLink = Source Type=CONST(37),
-                                  Source Subtype=FIELD(Document Type),
-                                  Source No.=FIELD(No.);
-                    RunPageView = SORTING(Source Type,Source Subtype,Source No.,Source Line No.);
+                    RunObject = Page "Whse. Receipt Lines";
+                    RunPageLink = "Source Type" = CONST(37),
+                                  "Source Subtype" = FIELD("Document Type"),
+                                  "Source No." = FIELD("No.");
+                    RunPageView = SORTING("Source Type", "Source Subtype", "Source No.", "Source Line No.");
                 }
             }
         }
@@ -334,17 +326,17 @@ page 50115 "LOC Sales Return Order List"
 
                 trigger OnAction()
                 var
-                    L_SalesHeader: Record "36";
+                    L_SalesHeader: Record "Sales Header";
                 begin
                     //>>BCSYS
                     //old DocPrint.PrintSalesHeader(Rec);
-                    IF "Return Order Type" = "Return Order Type"::Location THEN
-                      DocPrint.PrintSalesHeader(Rec)
+                    IF "BC6_Return Order Type" = "BC6_Return Order Type"::Location THEN
+                        DocPrint.PrintSalesHeader(Rec)
                     ELSE BEGIN
-                      L_SalesHeader.RESET;
-                      L_SalesHeader.SETRANGE("Document Type","Document Type");
-                      L_SalesHeader.SETRANGE("No.","No.");
-                      REPORT.RUNMODAL(50060,TRUE,FALSE,L_SalesHeader);
+                        L_SalesHeader.RESET;
+                        L_SalesHeader.SETRANGE("Document Type", "Document Type");
+                        L_SalesHeader.SETRANGE("No.", "No.");
+                        REPORT.RUNMODAL(50060, TRUE, FALSE, L_SalesHeader);
                     END;
                 end;
             }
@@ -352,7 +344,7 @@ page 50115 "LOC Sales Return Order List"
             {
                 Caption = 'Release';
                 Image = ReleaseDoc;
-                action(Release)
+                action(ReleaseAction)
                 {
                     Caption = 'Re&lease';
                     Image = ReleaseDoc;
@@ -360,7 +352,7 @@ page 50115 "LOC Sales Return Order List"
 
                     trigger OnAction()
                     var
-                        ReleaseSalesDoc: Codeunit "414";
+                        ReleaseSalesDoc: Codeunit "Release Sales Document";
                     begin
                         ReleaseSalesDoc.PerformManualRelease(Rec);
                     end;
@@ -373,7 +365,7 @@ page 50115 "LOC Sales Return Order List"
 
                     trigger OnAction()
                     var
-                        ReleaseSalesDoc: Codeunit "414";
+                        ReleaseSalesDoc: Codeunit "Release Sales Document";
                     begin
                         ReleaseSalesDoc.PerformManualReopen(Rec);
                     end;
@@ -395,22 +387,22 @@ page 50115 "LOC Sales Return Order List"
                         GetPstdDocLinesToRevere;
                     end;
                 }
-                separator()
+                separator(Separator1)
                 {
                 }
                 action("Send IC Return Order Cnfmn.")
                 {
-                    AccessByPermission = TableData 410=R;
+                    AccessByPermission = TableData "IC G/L Account" = R;
                     Caption = 'Send IC Return Order Cnfmn.';
                     Image = IntercompanyOrder;
 
                     trigger OnAction()
                     var
-                        ICInboxOutboxMgt: Codeunit "427";
-                        ApprovalsMgmt: Codeunit "1535";
+                        ICInboxOutboxMgt: Codeunit ICInboxOutboxMgt;
+                        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
                     begin
                         IF ApprovalsMgmt.PrePostApprovalCheckSales(Rec) THEN
-                          ICInboxOutboxMgt.SendSalesDoc(Rec,FALSE);
+                            ICInboxOutboxMgt.SendSalesDoc(Rec, FALSE);
                     end;
                 }
             }
@@ -430,10 +422,10 @@ page 50115 "LOC Sales Return Order List"
 
                     trigger OnAction()
                     var
-                        ApprovalsMgmt: Codeunit "1535";
+                        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
                     begin
                         IF ApprovalsMgmt.CheckSalesApprovalPossible(Rec) THEN
-                          ApprovalsMgmt.OnSendSalesDocForApproval(Rec);
+                            ApprovalsMgmt.OnSendSalesDocForApproval(Rec);
                     end;
                 }
                 action(CancelApprovalRequest)
@@ -449,19 +441,19 @@ page 50115 "LOC Sales Return Order List"
 
                     trigger OnAction()
                     var
-                        ApprovalsMgmt: Codeunit "1535";
+                        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
                     begin
                         ApprovalsMgmt.OnCancelSalesApprovalRequest(Rec);
                     end;
                 }
             }
-            group(Warehouse)
+            group(Warehouse2)
             {
                 Caption = 'Warehouse';
                 Image = Warehouse;
                 action("Create Inventor&y Put-away/Pick")
                 {
-                    AccessByPermission = TableData 7340=R;
+                    AccessByPermission = TableData "Posted Invt. Put-away Header" = R;
                     Caption = 'Create Inventor&y Put-away/Pick';
                     Ellipsis = true;
                     Image = CreatePutawayPick;
@@ -473,13 +465,13 @@ page 50115 "LOC Sales Return Order List"
                 }
                 action("Create &Whse. Receipt")
                 {
-                    AccessByPermission = TableData 7316=R;
+                    AccessByPermission = TableData "Warehouse Receipt Header" = R;
                     Caption = 'Create &Whse. Receipt';
                     Image = NewReceipt;
 
                     trigger OnAction()
                     var
-                        GetSourceDocInbound: Codeunit "5751";
+                        GetSourceDocInbound: Codeunit "Get Source Doc. Inbound";
                     begin
                         GetSourceDocInbound.CreateFromSalesReturnOrder(Rec);
                     end;
@@ -524,7 +516,7 @@ page 50115 "LOC Sales Return Order List"
 
                     trigger OnAction()
                     var
-                        SalesPostYesNo: Codeunit "81";
+                        SalesPostYesNo: Codeunit "Sales-Post (Yes/No)";
                     begin
                         SalesPostYesNo.Preview(Rec);
                     end;
@@ -552,7 +544,7 @@ page 50115 "LOC Sales Return Order List"
 
                     trigger OnAction()
                     var
-                        SalesPostPrint: Codeunit "82";
+                        SalesPostPrint: Codeunit "Sales-Post + Print";
                     begin
                         SalesPostPrint.PostAndEmail(Rec);
                     end;
@@ -567,7 +559,7 @@ page 50115 "LOC Sales Return Order List"
 
                     trigger OnAction()
                     begin
-                        REPORT.RUNMODAL(REPORT::"Batch Post Sales Return Orders",TRUE,TRUE,Rec);
+                        REPORT.RUNMODAL(REPORT::"Batch Post Sales Return Orders", TRUE, TRUE, Rec);
                         CurrPage.UPDATE(FALSE);
                     end;
                 }
@@ -593,17 +585,17 @@ page 50115 "LOC Sales Return Order List"
 
     trigger OnOpenPage()
     var
-        SalesSetup: Record "311";
+        SalesSetup: Record "Sales & Receivables Setup";
     begin
         SetSecurityFilterOnRespCenter;
 
         //>>P24233_001 SOBI APA 02/02/17
         IF NOT RecGUserSeup.GET(USERID) THEN
-           RecGUserSeup.INIT;
-        IF RecGUserSeup."Limited User" THEN BEGIN
-          FILTERGROUP(2);
-          SETFILTER("Salesperson Filter",'*'+RecGUserSeup."Salespers./Purch. Code"+'*');
-          FILTERGROUP(0);
+            RecGUserSeup.INIT;
+        IF RecGUserSeup."BC6_Limited User" THEN BEGIN
+            FILTERGROUP(2);
+            SETFILTER("BC6_Salesperson Filter", '*' + RecGUserSeup."Salespers./Purch. Code" + '*');
+            FILTERGROUP(0);
         END;
         //<<P24233_001 SOBI APA 02/02/17
 
@@ -613,17 +605,17 @@ page 50115 "LOC Sales Return Order List"
     end;
 
     var
-        ReportPrint: Codeunit "228";
-        DocPrint: Codeunit "229";
+        ReportPrint: Codeunit "Test Report-Print";
+        DocPrint: Codeunit "Document-Print";
         [InDataSet]
         JobQueueActive: Boolean;
-        RecGUserSeup: Record "91";
+        RecGUserSeup: Record "User Setup";
         OpenApprovalEntriesExist: Boolean;
         CanCancelApprovalForRecord: Boolean;
 
     local procedure SetControlAppearance()
     var
-        ApprovalsMgmt: Codeunit "1535";
+        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
     begin
         OpenApprovalEntriesExist := ApprovalsMgmt.HasOpenApprovalEntries(RECORDID);
 

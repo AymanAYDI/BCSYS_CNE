@@ -473,9 +473,9 @@ page 50028 "Sales History Sell-to FactBox"
         RecGSalesInvoiceLine: Record "Sales Invoice Line";
         RecGReturnReceiptLine: Record "Return Receipt Line";
         RecGSalesCrMemoLine: Record "Sales Cr.Memo Line";
-        PagGShipmentLinesSubform3: page "Shipment Lines Subform 3";
-        PagGSalesLinesSubform3: Page "Sales Lines Subform 3";
-        PagGInvoiceLinesSubform3: Page "Invoice Lines Subform 3";
+        PagGShipmentLinesSubform3: page "BC6_Shipment Lines Subform 3";
+        PagGSalesLinesSubform3: Page "BC6_Sales Lines Subform 3";
+        PagGInvoiceLinesSubform3: Page "BC6_Invoice Lines Subform 3";
         PagGCreditMemoLinesSubform2: Page "Credit Memo Lines Subform 2";
         PagGGReturnRcptLinesSubform2: Page "Return Rcpt Lines Subform 2";
 

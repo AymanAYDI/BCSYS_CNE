@@ -84,7 +84,7 @@ page 50004 "BC6_Special Extended Text"
                         SpecialExtendedTextLine2.SETRANGE("Table Name", "Table Name"::Vendor);
                     SpecialExtendedTextLine2.SETRANGE("Table Name", "Table Name");
                     SpecialExtendedTextLine2.SETRANGE("No.", "No.");
-                    IF PAGE.RUNMODAL(PAGE::"Special Extended Text list", SpecialExtendedTextLine2) = ACTION::LookupOK THEN BEGIN
+                    IF PAGE.RUNMODAL(PAGE::"BC6_Special Extended Text list", SpecialExtendedTextLine2) = ACTION::LookupOK THEN BEGIN
                         CurrPage.UPDATE(FALSE);
                         Code := SpecialExtendedTextLine2.Code;
                         //currform.VALIDATE(Code);

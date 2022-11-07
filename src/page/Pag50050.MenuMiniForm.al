@@ -22,16 +22,8 @@ page 50050 "BC6_Menu MiniForm"
                 Image = ItemLines;
                 Promoted = true;
                 PromotedCategory = Process;
-                RunObject = Page "Item Invt.";
+                RunObject = Page "BC6_Item Invt.";
                 Visible = true;
-
-                trigger OnAction()
-                var
-                    Page50057: Page "Inventory Card MiniForm";
-                begin
-                    //Page50057.RUN;
-                    //Page50057.NewLine;
-                end;
             }
             action(Inventory_2)
             {
@@ -39,7 +31,7 @@ page 50050 "BC6_Menu MiniForm"
                 Image = InventoryJournal;
                 Promoted = true;
                 PromotedCategory = Process;
-                RunObject = Page "Inventory Card MiniForm";
+                RunObject = Page "BC6_Inventory Card MiniForm";
                 RunPageMode = Create;
             }
             action(PalletReclass)
@@ -48,7 +40,7 @@ page 50050 "BC6_Menu MiniForm"
                 Image = TransferReceipt;
                 Promoted = true;
                 PromotedCategory = Process;
-                RunObject = Page "Reclass. Card MiniForm";
+                RunObject = Page "BC6_Reclass. Card MiniForm";
                 RunPageMode = Create;
                 ShortCutKey = 'F2';
             }
@@ -58,7 +50,7 @@ page 50050 "BC6_Menu MiniForm"
                 Image = PickLines;
                 Promoted = true;
                 PromotedCategory = Process;
-                RunObject = Page "Invt. Pick Card MiniForm";
+                RunObject = Page "BC6_Invt. Pick Card MiniForm";
                 RunPageMode = Create;
                 ShortCutKey = 'F3';
             }

@@ -1527,7 +1527,7 @@ page 50082 "BC6_Item Replanishment List"
                     Caption = 'Update IC Partner Items';
                     Enabled = UpdateICPartnerItemsEnabled;
                     Image = UpdateDescription;
-                    RunObject = Codeunit 50021;
+                    RunObject = Codeunit "BC6_Update IC Partner Items";
                 }
             }
             action("Créer code-barres interne")

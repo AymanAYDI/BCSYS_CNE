@@ -1,23 +1,21 @@
-codeunit 50015 UpdateSalesShipment
+codeunit 50015 "BC6_UpdateSalesShipment"
 {
-    Permissions = TableData 110 = rm;
+    Permissions = TableData "Sales Shipment Header" = rm;
 
     trigger OnRun()
     var
-        SalesHeader: Record "36";
+        SalesHeader: Record "Sales Header";
         Counter: Integer;
         UpdateCounter: Boolean;
         Nb: Integer;
     begin
         SalesHeader.SETAUTOCALCFIELDS(Shipped);
-        SalesHeader.LOCKTABLE;
-        //SalesHeader.SETFILTER("Your Reference",'<>%1','');
+        SalesHeader.LOCKTABLE();
         SalesHeader.SETRANGE("Document Type", SalesHeader."Document Type"::Order);
         SalesHeader.SETRANGE(Shipped, TRUE);
 
         Nb := SalesHeader.COUNT;
-        // ERROR(FORMAT(Nb));
-        IF SalesHeader.FINDSET THEN
+        IF SalesHeader.FINDSET() THEN
             REPEAT
                 UpdateCounter := FALSE;
                 IF SalesHeader.Shipped THEN BEGIN
@@ -25,7 +23,7 @@ codeunit 50015 UpdateSalesShipment
                         UpdateYourRefOnSalesShpt(SalesHeader);
                         UpdateCounter := TRUE;
                     END;
-                    IF SalesHeader."Affair No." <> '' THEN BEGIN
+                    IF SalesHeader."BC6_Affair No." <> '' THEN BEGIN
                         UpdateAffairNoOnSalesShpt(SalesHeader);
                         IF NOT UpdateCounter THEN
                             UpdateCounter := TRUE;
@@ -34,15 +32,15 @@ codeunit 50015 UpdateSalesShipment
                         Counter += 1;
                 END;
                 IF Counter MOD 50 = 0 THEN
-                    COMMIT;
-            UNTIL SalesHeader.NEXT = 0;
+                    COMMIT();
+            UNTIL SalesHeader.NEXT() = 0;
         MESSAGE('%1 updated orders', Counter);
     end;
 
     [Scope('Internal')]
-    procedure UpdateYourRefOnSalesShpt(SalesHeader: Record "36")
+    procedure UpdateYourRefOnSalesShpt(SalesHeader: Record "Sales Header")
     var
-        SalesShipmentHeader: Record "110";
+        SalesShipmentHeader: Record "Sales Shipment Header";
     begin
         SalesShipmentHeader.SETFILTER("Your Reference", '%1', '');
         SalesShipmentHeader.SETRANGE("Order No.", SalesHeader."No.");
@@ -51,14 +49,14 @@ codeunit 50015 UpdateSalesShipment
     end;
 
     [Scope('Internal')]
-    procedure UpdateAffairNoOnSalesShpt(SalesHeader: Record "36")
+    procedure UpdateAffairNoOnSalesShpt(SalesHeader: Record "Sales Header")
     var
-        SalesShipmentHeader: Record "110";
+        SalesShipmentHeader: Record "Sales Shipment Header";
     begin
-        SalesShipmentHeader.SETFILTER("Affair No.", '%1', '');
+        SalesShipmentHeader.SETFILTER("BC6_Affair No.", '%1', '');
         SalesShipmentHeader.SETRANGE("Order No.", SalesHeader."No.");
         IF NOT SalesShipmentHeader.ISEMPTY THEN
-            SalesShipmentHeader.MODIFYALL("Affair No.", SalesHeader."Affair No.");
+            SalesShipmentHeader.MODIFYALL("BC6_Affair No.", SalesHeader."BC6_Affair No.");
     end;
 }
 

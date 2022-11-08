@@ -944,7 +944,7 @@ tableextension 50035 "BC6_SalesHeader" extends "Sales Header"
         CDUReleaseDoc: Codeunit "Release Sales Document";
         TextG002: Label 'Update Bill-to address ?';
         TextG003: Label 'Warning: you have already placed this order purchase.';
-        //TODO:Codeunit   // UpdateSalesShipment: Codeunit 50015;
+        UpdateSalesShipment: Codeunit BC6_UpdateSalesShipment;
         //  G_ReturnOrderMgt: Codeunit 50052;
         "-BCSYS-": Integer;
 

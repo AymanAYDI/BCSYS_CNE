@@ -1,13 +1,12 @@
-codeunit 50007 "CustEntry-Apply Posted SPE"
+codeunit 50007 "BC6_CustEntry-Apply Posted SPE"
 {
-    // //NAVEASY BRRI 01.08.2006 NSC1.00 [Gestion_Tiers_Payeur] Création du CU par copie du CU 226 Version List NAVW14.00.02
 
-    Permissions = TableData 25 = rm;
-    TableNo = 21;
+    Permissions = TableData "Vendor Ledger Entry" = rm;
+    TableNo = "Cust. Ledger Entry";
 
     trigger OnRun()
     var
-        EntriesToApply: Record "21";
+        EntriesToApply: Record "Cust. Ledger Entry";
         ApplicationDate: Date;
     begin
         WITH Rec DO BEGIN
@@ -24,30 +23,17 @@ codeunit 50007 "CustEntry-Apply Posted SPE"
                 IF EntriesToApply."Posting Date" > ApplicationDate THEN
                     ApplicationDate := EntriesToApply."Posting Date";
             UNTIL EntriesToApply.NEXT = 0;
-
-            //std PostApplication.SetValues("Document No.",ApplicationDate);
-            //std PostApplication.LOOKUPMODE(TRUE);
-            //std IF ACTION::LookupOK = PostApplication.RUNMODAL THEN BEGIN
             GenJnlLine.INIT;
-            //std PostApplication.GetValues(GenJnlLine."Document No.",GenJnlLine."Posting Date");
-
-            //>>JNP
             GenJnlLine."Document No." := "Document No.";
             GenJnlLine."Posting Date" := "Posting Date";
             IF GenJnlLine."Posting Date" < ApplicationDate
                THEN
                 GenJnlLine."Posting Date" := ApplicationDate;
-            //<<JNP
 
             IF GenJnlLine."Posting Date" < ApplicationDate THEN
                 ERROR(
                   Text003,
                   GenJnlLine.FIELDCAPTION("Posting Date"), FIELDCAPTION("Posting Date"), TABLECAPTION);
-            //std END ELSE
-            //std   EXIT;
-
-            //std Window.OPEN(Text001);
-
             SourceCodeSetup.GET;
 
             GenJnlLine."Account Type" := GenJnlLine."Account Type"::Customer;
@@ -71,35 +57,25 @@ codeunit 50007 "CustEntry-Apply Posted SPE"
             GenJnlPostLine.CustPostApplyCustLedgEntry(GenJnlLine, Rec);
 
             EntryNoAfterApplication := FindLastApplDtldCustLedgEntry;
-            /*std
-            IF EntryNoAfterApplication = EntryNoBeforeApplication THEN
-              ERROR(Text004);
-
-            COMMIT;
-            Window.CLOSE;
-            MESSAGE(Text002);
-          END;
-             std*/
-
 
             IF EntryNoAfterApplication <> EntryNoBeforeApplication THEN BEGIN
                 COMMIT;
-                //std Window.CLOSE;
             END;
         END;
 
     end;
 
     var
+        SourceCodeSetup: Record "Source Code Setup";
+        GenJnlLine: Record "Gen. Journal Line";
+        GenJnlCheckLine: Codeunit "Gen. Jnl.-Check Line";
+        GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line";
+        PaymentToleracenMgt: Codeunit "Payment Tolerance Management";
+
         Text001: Label 'Posting application...';
         Text002: Label 'The application was successfully posted.';
         Text003: Label 'The %1 entered must not be before the %2 on the %3.';
         Text004: Label 'The application was successfully posted though no entries have been applied.';
-        SourceCodeSetup: Record "242";
-        GenJnlLine: Record "81";
-        GenJnlCheckLine: Codeunit "11";
-        GenJnlPostLine: Codeunit "12";
-        PaymentToleracenMgt: Codeunit "426";
         Window: Dialog;
         EntryNoBeforeApplication: Integer;
         EntryNoAfterApplication: Integer;
@@ -120,7 +96,7 @@ codeunit 50007 "CustEntry-Apply Posted SPE"
 
     local procedure FindLastApplDtldCustLedgEntry(): Integer
     var
-        DtldCustLedgEntry: Record "379";
+        DtldCustLedgEntry: Record "Detailed Cust. Ledg. Entry";
     begin
         DtldCustLedgEntry.LOCKTABLE;
         IF DtldCustLedgEntry.FIND('+') THEN
@@ -131,7 +107,7 @@ codeunit 50007 "CustEntry-Apply Posted SPE"
 
     local procedure FindLastApplEntry(CustLedgEntryNo: Integer): Integer
     var
-        DtldCustLedgEntry: Record "379";
+        DtldCustLedgEntry: Record "Detailed Cust. Ledg. Entry";
         ApplicationEntryNo: Integer;
     begin
         DtldCustLedgEntry.SETCURRENTKEY("Cust. Ledger Entry No.", "Entry Type");
@@ -148,7 +124,7 @@ codeunit 50007 "CustEntry-Apply Posted SPE"
 
     local procedure FindLastTransactionNo(CustLedgEntryNo: Integer): Integer
     var
-        DtldCustLedgEntry: Record "379";
+        DtldCustLedgEntry: Record "Detailed Cust. Ledg. Entry";
         LastTransactionNo: Integer;
     begin
         DtldCustLedgEntry.SETCURRENTKEY("Cust. Ledger Entry No.", "Entry Type");
@@ -163,7 +139,7 @@ codeunit 50007 "CustEntry-Apply Posted SPE"
     end;
 
     [Scope('Internal')]
-    procedure UnApplyDtldCustLedgEntry(DtldCustLedgEntry: Record "379")
+    procedure UnApplyDtldCustLedgEntry(DtldCustLedgEntry: Record "Detailed Cust. Ledg. Entry")
     var
         ApplicationEntryNo: Integer;
     begin
@@ -180,8 +156,8 @@ codeunit 50007 "CustEntry-Apply Posted SPE"
     [Scope('Internal')]
     procedure UnApplyCustLedgEntry(CustLedgEntryNo: Integer)
     var
-        CustLedgentry: Record "21";
-        DtldCustLedgEntry: Record "379";
+        CustLedgentry: Record "Cust. Ledger Entry";
+        DtldCustLedgEntry: Record "Detailed Cust. Ledg. Entry";
         ApplicationEntryNo: Integer;
     begin
         CheckReversal(CustLedgEntryNo);
@@ -192,9 +168,9 @@ codeunit 50007 "CustEntry-Apply Posted SPE"
         UnApplyCustomer(DtldCustLedgEntry);
     end;
 
-    local procedure UnApplyCustomer(DtldCustLedgEntry: Record "379")
+    local procedure UnApplyCustomer(DtldCustLedgEntry: Record "Detailed Cust. Ledg. Entry")
     var
-        UnapplyCustEntries: Page "623";
+        UnapplyCustEntries: Page "Unapply Customer Entries";
     begin
         WITH DtldCustLedgEntry DO BEGIN
             TESTFIELD("Entry Type", "Entry Type"::Application);
@@ -206,15 +182,15 @@ codeunit 50007 "CustEntry-Apply Posted SPE"
     end;
 
     [Scope('Internal')]
-    procedure PostUnApplyCustomer(var DtldCustLedgEntryBuf: Record "379"; DtldCustLedgEntry2: Record "379"; var DocNo: Code[20]; var PostingDate: Date)
+    procedure PostUnApplyCustomer(var DtldCustLedgEntryBuf: Record "Detailed Cust. Ledg. Entry"; DtldCustLedgEntry2: Record "Detailed Cust. Ledg. Entry"; var DocNo: Code[20]; var PostingDate: Date)
     var
-        GLEntry: Record "17";
-        CustLedgEntry: Record "21";
-        SourceCodeSetup: Record "242";
-        GenJnlLine: Record "81";
-        DtldCustLedgEntry: Record "379";
-        GenJnlPostLine: Codeunit "12";
-        DateComprReg: Record "87";
+        GLEntry: Record "G/L Entry";
+        CustLedgEntry: Record "Cust. Ledger Entry";
+        SourceCodeSetup: Record "Source Code Setup";
+        GenJnlLine: Record "Gen. Journal Line";
+        DtldCustLedgEntry: Record "Detailed Cust. Ledg. Entry";
+        GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line";
+        DateComprReg: Record "Date Compr. Register";
         Window: Dialog;
         ApplicationEntryNo: Integer;
         LastTransactionNo: Integer;
@@ -291,7 +267,7 @@ codeunit 50007 "CustEntry-Apply Posted SPE"
 
     local procedure CheckPostingDate(PostingDate: Date; Caption: Text[50]; EntryNo: Integer)
     var
-        CustLedgEntry: Record "21";
+        CustLedgEntry: Record "Cust. Ledger Entry";
     begin
         IF GenJnlCheckLine.DateNotAllowed(PostingDate) THEN BEGIN
             IF Caption <> '' THEN
@@ -305,8 +281,8 @@ codeunit 50007 "CustEntry-Apply Posted SPE"
 
     local procedure CheckAdditionalCurrency(OldPostingDate: Date; NewPostingDate: Date)
     var
-        GLSetup: Record "98";
-        CurrExchRate: Record "330";
+        GLSetup: Record "General Ledger Setup";
+        CurrExchRate: Record "Currency Exchange Rate";
     begin
         IF OldPostingDate = NewPostingDate THEN
             EXIT;
@@ -321,7 +297,7 @@ codeunit 50007 "CustEntry-Apply Posted SPE"
     [Scope('Internal')]
     procedure CheckReversal(CustLedgEntryNo: Integer)
     var
-        CustLedgEntry: Record "21";
+        CustLedgEntry: Record "Cust. Ledger Entry";
     begin
         CustLedgEntry.GET(CustLedgEntryNo);
         IF CustLedgEntry.Reversed THEN

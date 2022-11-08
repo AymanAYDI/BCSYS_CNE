@@ -1,31 +1,25 @@
-codeunit 50002 "Reconstitue lettrage CLI"
+codeunit 50002 "BC6_Reconstitue lettrage CLI"
 {
-    // //NAVIDIIGEST BRRI 01.08.2006 NSC1.00 [Gestion_Tiers_Payeur] Création du CU
-    //                                                              => permet d'initialiser les écritures a lettrer
-    //                                                              => permet de lancer le CU 50005 lettrant les écritures
-    // //TDL point 97 09/05/07 DARI
-    // // Error CustEntryApplyPostedEntries.RUN(CustLedgerEntry); : 50 001 from NAVEASY
-    // // Rename in 50 007
 
-    Permissions = TableData 21 = rimd;
+    Permissions = TableData "Cust. Ledger Entry" = rimd;
 
     trigger OnRun()
     begin
     end;
 
     var
-        CustEntryApplyPostedEntries: Codeunit "50007";
+        CustEntryApplyPostedEntries: Codeunit "BC6_CustEntry-Apply Posted SPE";
         flag: Text[100];
 
     [Scope('Internal')]
-    procedure InitialisationLettrage(CustLedgerEntry: Record "21")
+    procedure InitialisationLettrage(CustLedgerEntry: Record "Cust. Ledger Entry")
     begin
 
         CustLedgerEntry."Applies-to ID" := USERID;
         IF CustLedgerEntry."Applies-to ID" = '' THEN
             CustLedgerEntry."Applies-to ID" := '***';
 
-        CustLedgerEntry."Applying Entry" := TRUE; // !!!!!!!!!!!
+        CustLedgerEntry."Applying Entry" := TRUE;
         CustLedgerEntry.CALCFIELDS("Remaining Amount");
         CustLedgerEntry."Amount to Apply" := CustLedgerEntry."Remaining Amount";
         CustLedgerEntry.MODIFY;
@@ -34,8 +28,8 @@ codeunit 50002 "Reconstitue lettrage CLI"
     [Scope('Internal')]
     procedure Lettrage(CustNo: Code[20])
     var
-        CustLedgerEntry: Record "21";
-        CustLedgerEntry2: Record "21";
+        CustLedgerEntry: Record "Cust. Ledger Entry";
+        CustLedgerEntry2: Record "Cust. Ledger Entry";
     begin
         CustLedgerEntry2.SETCURRENTKEY("Customer No.", "Applies-to ID");
         CustLedgerEntry2.SETRANGE("Customer No.", CustNo);

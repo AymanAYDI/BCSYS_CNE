@@ -1,43 +1,35 @@
-codeunit 50003 "Reconstitue lettrage FOU"
+codeunit 50003 "BC6_Reconstitue lettrage FOU"
 {
-    // //NAVIDIIGEST BRRI 01.08.2006 NSC1.00 [Gestion_Tiers_Payeur] Création du CU
-    //                                                              => permet d'initialiser les écritures a lettrer
-    //                                                              => permet de lancer le CU 50006 lettrant les écritures
-    // //TDL point 97 09/05/07 DARI
-    //                   VendEntryApplyPostedEntries.RUN(VendLedgerEntry);
-    // // Error CustEntryApplyPostedEntries.RUN(CustLedgerEntry); : 50 002 from NAVEASY
-    // // Rename in 50 008
-    // // SU Change Rigths on Vendor Ledger Entry
 
-    Permissions = TableData 25 = rim;
+    Permissions = TableData "Vendor Ledger Entry" = rim;
 
     trigger OnRun()
     begin
     end;
 
     var
-        VendEntryApplyPostedEntries: Codeunit "50008";
+        VendEntryApplyPostedEntries: Codeunit "BC6_VendEntry-Apply Posted SPE";
         flag: Text[100];
 
     [Scope('Internal')]
-    procedure InitialisationLettrage(VendLedgerEntry: Record "25")
+    procedure InitialisationLettrage(VendLedgerEntry: Record "Vendor Ledger Entry")
     begin
 
         VendLedgerEntry."Applies-to ID" := USERID;
         IF VendLedgerEntry."Applies-to ID" = '' THEN
             VendLedgerEntry."Applies-to ID" := '***';
 
-        VendLedgerEntry."Applying Entry" := TRUE; // !!!!!!!!!!!
+        VendLedgerEntry."Applying Entry" := TRUE;
         VendLedgerEntry.CALCFIELDS("Remaining Amount");
         VendLedgerEntry."Amount to Apply" := VendLedgerEntry."Remaining Amount"; //devise ?
-        VendLedgerEntry.MODIFY;
+        VendLedgerEntry.MODIFY();
     end;
 
     [Scope('Internal')]
     procedure Lettrage(VendorNo: Code[20])
     var
-        VendLedgerEntry: Record "25";
-        VendLedgerEntry2: Record "25";
+        VendLedgerEntry: Record "Vendor Ledger Entry";
+        VendLedgerEntry2: Record "Vendor Ledger Entry";
     begin
         VendLedgerEntry2.SETCURRENTKEY("Vendor No.", "Applies-to ID");
         VendLedgerEntry2.SETRANGE("Vendor No.", VendorNo);
@@ -55,7 +47,7 @@ codeunit 50003 "Reconstitue lettrage FOU"
                     VendEntryApplyPostedEntries.RUN(VendLedgerEntry);
                     flag := VendLedgerEntry2."Applies-to ID";
                 END;
-            UNTIL VendLedgerEntry2.NEXT = 0; //écritures
+            UNTIL VendLedgerEntry2.NEXT() = 0; //écritures
     end;
 }
 

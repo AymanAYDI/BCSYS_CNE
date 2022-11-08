@@ -1,13 +1,5 @@
-codeunit 50000 "PDF Mail Management"
+codeunit 50000 "BC6_PDF Mail Management"
 {
-    // ------------------------------------------------------------------------
-    // www.Prodware.Fr
-    // ------------------------------------------------------------------------
-    // 
-    // //>>NSC1.01
-    // 
-    // FE005.001:SEBC 05/01/2007 : - PDF Mail Management
-    //                             - Creation
 
 
     trigger OnRun()
@@ -16,12 +8,12 @@ codeunit 50000 "PDF Mail Management"
 
     var
         TxtGMail: Text[250];
-        RecGContact: Record "5050";
-        RecGSalesSetup: Record "311";
+        RecGContact: Record Contact;
+        RecGSalesSetup: Record "Sales & Receivables Setup";
         OptGSelection: Option Print,Fax,"E-mail";
 
     [Scope('Internal')]
-    procedure GetSalesTag(RecSalesHeader: Record "36") TxtTag: Text[250]
+    procedure GetSalesTag(RecSalesHeader: Record "Sales Header") TxtTag: Text[250]
     begin
         WITH RecSalesHeader DO BEGIN
             //Search Contact info to create PDF document and e-mail it
@@ -29,12 +21,12 @@ codeunit 50000 "PDF Mail Management"
 
             IF RecGContact.GET("Sell-to Contact No.") THEN
                 IF RecGContact."E-Mail" <> '' THEN
-                    TxtTag := RecGSalesSetup."PDF Mail Tag" + RecGContact."E-Mail";
+                    TxtTag := RecGSalesSetup."BC6_PDF Mail Tag" + RecGContact."E-Mail";
         END;
     end;
 
     [Scope('Internal')]
-    procedure GetPurchTag(RecPurchHeader: Record "38") TxtTag: Text[250]
+    procedure GetPurchTag(RecPurchHeader: Record "Purchase Header") TxtTag: Text[250]
     begin
         WITH RecPurchHeader DO BEGIN
             //Search Contact info to create PDF document and e-mail it
@@ -42,7 +34,7 @@ codeunit 50000 "PDF Mail Management"
 
             IF RecGContact.GET("Pay-to Contact No.") THEN
                 IF RecGContact."E-Mail" <> '' THEN
-                    TxtTag := RecGSalesSetup."PDF Mail Tag" + RecGContact."E-Mail";
+                    TxtTag := RecGSalesSetup."BC6_PDF Mail Tag" + RecGContact."E-Mail";
         END;
     end;
 }

@@ -1,13 +1,12 @@
-codeunit 50008 "VendEntry-Apply Posted SPE"
+codeunit 50008 "BC6_VendEntry-Apply Posted SPE"
 {
-    // //NAVEASY BRRI 01.08.2006 NSC1.00 [Gestion_Tiers_Payeur] Création du CU par copie du CU 227 Version List NAVW14.00.02
 
-    Permissions = TableData 25 = rm;
-    TableNo = 25;
+    Permissions = TableData "Vendor Ledger Entry" = rm;
+    TableNo = "Vendor Ledger Entry";
 
     trigger OnRun()
     var
-        EntriesToApply: Record "25";
+        EntriesToApply: Record "Vendor Ledger Entry";
         ApplicationDate: Date;
     begin
         WITH Rec DO BEGIN
@@ -25,29 +24,18 @@ codeunit 50008 "VendEntry-Apply Posted SPE"
                     ApplicationDate := EntriesToApply."Posting Date";
             UNTIL EntriesToApply.NEXT = 0;
 
-            //std PostApplication.SetValues("Document No.",ApplicationDate);
-            //std PostApplication.LOOKUPMODE(TRUE);
-            //std IF ACTION::LookupOK = PostApplication.RUNMODAL THEN BEGIN
             GenJnlLine.INIT;
-            //std  PostApplication.GetValues(GenJnlLine."Document No.",GenJnlLine."Posting Date");
-
-            //>>JNP
             GenJnlLine."Document No." := "Document No.";
-            GenJnlLine."Posting Date" := "Posting Date";   //"Récup : code lettrage" ;
+            GenJnlLine."Posting Date" := "Posting Date";
             IF GenJnlLine."Posting Date" < ApplicationDate
                THEN
                 GenJnlLine."Posting Date" := ApplicationDate;
-            //<< JNP
 
             IF GenJnlLine."Posting Date" < ApplicationDate THEN
                 ERROR(
                   Text003,
                   GenJnlLine.FIELDCAPTION("Posting Date"), FIELDCAPTION("Posting Date"), TABLECAPTION,
                   GenJnlLine."Posting Date", ApplicationDate, "Applies-to ID");
-            //std  END ELSE
-            //std    EXIT;
-
-            //std  Window.OPEN(Text001);
 
             SourceCodeSetup.GET;
 
@@ -70,36 +58,25 @@ codeunit 50008 "VendEntry-Apply Posted SPE"
             EntryNoBeforeApplication := FindLastApplDtldVendLedgEntry;
 
             GenJnlPostLine.VendPostApplyVendLedgEntry(GenJnlLine, Rec);
-            /*std
-              EntryNoAfterApplication := FindLastApplDtldVendLedgEntry;
-              IF EntryNoAfterApplication = EntryNoBeforeApplication THEN
-                ERROR(Text004);
-
-              COMMIT;
-              Window.CLOSE;
-              MESSAGE(Text002);
-            END;
-             std*/
-
 
             IF EntryNoAfterApplication <> EntryNoBeforeApplication THEN BEGIN
                 COMMIT;
-                //std Window.CLOSE;
             END;
         END;
 
     end;
 
     var
+        SourceCodeSetup: Record "Source Code Setup";
+        GenJnlLine: Record "Gen. Journal Line";
+        GenJnlCheckLine: Codeunit "Gen. Jnl.-Check Line";
+        GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line";
+        PaymentToleranceMgt: Codeunit "Payment Tolerance Management";
+
         Text001: Label 'Posting application...';
         Text002: Label 'The application was successfully posted.';
         Text003: Label 'The %1 entered must not be before the %2 on the %3.';
         Text004: Label 'The application was successfully posted though no entries have been applied.';
-        SourceCodeSetup: Record "242";
-        GenJnlLine: Record "81";
-        GenJnlCheckLine: Codeunit "11";
-        GenJnlPostLine: Codeunit "12";
-        PaymentToleranceMgt: Codeunit "426";
         Window: Dialog;
         EntryNoBeforeApplication: Integer;
         EntryNoAfterApplication: Integer;
@@ -120,7 +97,7 @@ codeunit 50008 "VendEntry-Apply Posted SPE"
 
     local procedure FindLastApplDtldVendLedgEntry(): Integer
     var
-        DtldVendLedgEntry: Record "380";
+        DtldVendLedgEntry: Record "Detailed Vendor Ledg. Entry";
     begin
         DtldVendLedgEntry.LOCKTABLE;
         IF DtldVendLedgEntry.FIND('+') THEN
@@ -131,7 +108,7 @@ codeunit 50008 "VendEntry-Apply Posted SPE"
 
     local procedure FindLastApplEntry(VendLedgEntryNo: Integer): Integer
     var
-        DtldVendLedgEntry: Record "380";
+        DtldVendLedgEntry: Record "Detailed Vendor Ledg. Entry";
         ApplicationEntryNo: Integer;
     begin
         DtldVendLedgEntry.SETCURRENTKEY("Vendor Ledger Entry No.", "Entry Type");
@@ -148,7 +125,7 @@ codeunit 50008 "VendEntry-Apply Posted SPE"
 
     local procedure FindLastTransactionNo(VendLedgEntryNo: Integer): Integer
     var
-        DtldVendLedgEntry: Record "380";
+        DtldVendLedgEntry: Record "Detailed Vendor Ledg. Entry";
         LastTransactionNo: Integer;
     begin
         DtldVendLedgEntry.SETCURRENTKEY("Vendor Ledger Entry No.", "Entry Type");
@@ -163,7 +140,7 @@ codeunit 50008 "VendEntry-Apply Posted SPE"
     end;
 
     [Scope('Internal')]
-    procedure UnApplyDtldVendLedgEntry(DtldVendLedgEntry: Record "380")
+    procedure UnApplyDtldVendLedgEntry(DtldVendLedgEntry: Record "Detailed Vendor Ledg. Entry")
     var
         ApplicationEntryNo: Integer;
     begin
@@ -180,8 +157,8 @@ codeunit 50008 "VendEntry-Apply Posted SPE"
     [Scope('Internal')]
     procedure UnApplyVendLedgEntry(VendLedgEntryNo: Integer)
     var
-        VendLedgentry: Record "25";
-        DtldVendLedgEntry: Record "380";
+        VendLedgentry: Record "Vendor Ledger Entry";
+        DtldVendLedgEntry: Record "Detailed Vendor Ledg. Entry";
         ApplicationEntryNo: Integer;
     begin
         CheckReversal(VendLedgEntryNo);
@@ -192,9 +169,9 @@ codeunit 50008 "VendEntry-Apply Posted SPE"
         UnApplyVendor(DtldVendLedgEntry);
     end;
 
-    local procedure UnApplyVendor(DtldVendLedgEntry: Record "380")
+    local procedure UnApplyVendor(DtldVendLedgEntry: Record "Detailed Vendor Ledg. Entry")
     var
-        UnapplyVendEntries: Page "624";
+        UnapplyVendEntries: Page "Unapply Vendor Entries";
     begin
         WITH DtldVendLedgEntry DO BEGIN
             TESTFIELD("Entry Type", "Entry Type"::Application);
@@ -206,15 +183,15 @@ codeunit 50008 "VendEntry-Apply Posted SPE"
     end;
 
     [Scope('Internal')]
-    procedure PostUnApplyVendor(var DtldVendLedgEntryBuf: Record "380"; DtldVendLedgEntry2: Record "380"; var DocNo: Code[20]; var PostingDate: Date)
+    procedure PostUnApplyVendor(var DtldVendLedgEntryBuf: Record "Detailed Vendor Ledg. Entry"; DtldVendLedgEntry2: Record "Detailed Vendor Ledg. Entry"; var DocNo: Code[20]; var PostingDate: Date)
     var
-        GLEntry: Record "17";
-        VendLedgEntry: Record "25";
-        DtldVendLedgEntry: Record "380";
-        SourceCodeSetup: Record "242";
-        GenJnlLine: Record "81";
-        DateComprReg: Record "87";
-        GenJnlPostLine: Codeunit "12";
+        GLEntry: Record "G/L Entry";
+        VendLedgEntry: Record "Vendor Ledger Entry";
+        DtldVendLedgEntry: Record "Detailed Vendor Ledg. Entry";
+        SourceCodeSetup: Record "Source Code Setup";
+        GenJnlLine: Record "Gen. Journal Line";
+        DateComprReg: Record "Date Compr. Register";
+        GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line";
         Window: Dialog;
         ApplicationEntryNo: Integer;
         LastTransactionNo: Integer;
@@ -291,7 +268,7 @@ codeunit 50008 "VendEntry-Apply Posted SPE"
 
     local procedure CheckPostingDate(PostingDate: Date; Caption: Text[50]; EntryNo: Integer)
     var
-        VendLedgEntry: Record "25";
+        VendLedgEntry: Record "Vendor Ledger Entry";
     begin
         IF GenJnlCheckLine.DateNotAllowed(PostingDate) THEN BEGIN
             IF Caption <> '' THEN
@@ -305,8 +282,8 @@ codeunit 50008 "VendEntry-Apply Posted SPE"
 
     local procedure CheckAdditionalCurrency(OldPostingDate: Date; NewPostingDate: Date)
     var
-        GLSetup: Record "98";
-        CurrExchRate: Record "330";
+        GLSetup: Record "General Ledger Setup";
+        CurrExchRate: Record "Currency Exchange Rate";
     begin
         IF OldPostingDate = NewPostingDate THEN
             EXIT;
@@ -321,7 +298,7 @@ codeunit 50008 "VendEntry-Apply Posted SPE"
     [Scope('Internal')]
     procedure CheckReversal(VendLedgEntryNo: Integer)
     var
-        VendLedgEntry: Record "25";
+        VendLedgEntry: Record "Vendor Ledger Entry";
     begin
         VendLedgEntry.GET(VendLedgEntryNo);
         IF VendLedgEntry.Reversed THEN

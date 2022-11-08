@@ -1,4 +1,4 @@
-codeunit 50090 ScanDeviceHelper
+codeunit 50090 "BC6_ScanDeviceHelper"
 {
 
     trigger OnRun()
@@ -10,17 +10,17 @@ codeunit 50090 ScanDeviceHelper
         ConvertTo: Label '1234567890';
         ConfChange: Label 'Change default Bin Content for Item %1 ?';
 
-    [Scope('Internal')]
+
     procedure ConvertScanData(_TextToConvert: Text): Text
     begin
         EXIT(CONVERTSTR(_TextToConvert, ConvertFrom, ConvertTo));
     end;
 
-    [Scope('Internal')]
+
     procedure ChangeDefaultBinContent(ItemNo: Code[20]; VariantCode: Code[10])
     var
-        BinContent: Record "7302";
-        BinContent2: Record "7302";
+        BinContent: Record 7302;
+        BinContent2: Record 7302;
     begin
         IF CONFIRM(ConfChange, FALSE, ItemNo) THEN BEGIN
             BinContent.FILTERGROUP(4);
@@ -42,10 +42,10 @@ codeunit 50090 ScanDeviceHelper
         END;
     end;
 
-    [Scope('Internal')]
+
     procedure GetDefaultBinContent(ItemNo: Code[20]; VariantCode: Code[10]): Code[20]
     var
-        BinContent: Record "7302";
+        BinContent: Record 7302;
     begin
         BinContent.SETRANGE("Item No.", ItemNo);
         BinContent.SETRANGE("Variant Code", VariantCode);
@@ -54,19 +54,20 @@ codeunit 50090 ScanDeviceHelper
             EXIT(BinContent."Bin Code");
     end;
 
-    [Scope('Internal')]
+
     procedure GetValueOfSubmition(ControlID: Integer; _Xml: Text): Text
     var
-        dotXmlDocument: DotNet XmlDocument;
-        dotXmlElement: DotNet XmlElement;
-        dotXmlCDATA: DotNet XmlCDataSection;
+    //TODO: DotNet 
+    // dotXmlDocument: DotNet XmlDocument;
+    // dotXmlElement: DotNet XmlElement;
+    // dotXmlCDATA: DotNet XmlCDataSection;
     begin
-        dotXmlDocument := dotXmlDocument.XmlDocument();
-        dotXmlDocument.LoadXml(_Xml);
-        dotXmlElement := dotXmlDocument.SelectSingleNode('/root/control[@id=''' + FORMAT(ControlID) + ''']');
-        IF ISNULL(dotXmlElement) THEN
-            EXIT('');
-        EXIT(dotXmlElement.InnerText);
+        // dotXmlDocument := dotXmlDocument.XmlDocument();
+        // dotXmlDocument.LoadXml(_Xml);
+        // dotXmlElement := dotXmlDocument.SelectSingleNode('/root/control[@id=''' + FORMAT(ControlID) + ''']');
+        // IF ISNULL(dotXmlElement) THEN
+        //     EXIT('');
+        // EXIT(dotXmlElement.InnerText);
     end;
 }
 

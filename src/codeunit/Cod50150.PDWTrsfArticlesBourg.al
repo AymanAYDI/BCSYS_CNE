@@ -1,16 +1,15 @@
-codeunit 50150 "PDW Trsf Articles Bourg"
+codeunit 50150 "BC6_PDW Trsf Articles Bourg"
 {
-    // // PrODWARE : Transfert des articles de CNE ==> SCENEO Bourgogne
 
 
     trigger OnRun()
     begin
         Dialog_D.OPEN('Article #1######################');
 
-        PXAch_Cible.RESET;
+        PXAch_Cible.RESET();
         PXAch_Cible.CHANGECOMPANY('SCENEO_Bourgogne');
 
-        PXAch_Source.RESET;
+        PXAch_Source.RESET();
         PXAch_Source.SETRANGE("Item No.", '3EI322210');
         IF PXAch_Source.FIND('-') THEN
             REPEAT
@@ -22,14 +21,14 @@ codeunit 50150 "PDW Trsf Articles Bourg"
                 PXAch_Cible.TRANSFERFIELDS(PXAch_Source);
                 PXAch_Cible."Vendor No." := 'CNE';
                 IF PXAch_Cible.INSERT(FALSE) THEN;
-            UNTIL PXAch_Source.NEXT <= 0;
+            UNTIL PXAch_Source.NEXT() <= 0;
 
-        Dialog_D.CLOSE;
+        Dialog_D.CLOSE();
     end;
 
     var
-        PXAch_Source: Record "7012";
-        PXAch_Cible: Record "7012";
+        PXAch_Source: Record "Purchase Price"; //TODO:for removal
+        PXAch_Cible: Record "Purchase Price";
         Dialog_D: Dialog;
         I: Integer;
 }

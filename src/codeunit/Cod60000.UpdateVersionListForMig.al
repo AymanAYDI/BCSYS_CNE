@@ -1,4 +1,4 @@
-codeunit 60000 UpdateVersionListForMig
+codeunit 60000 "BC6_UpdateVersionListForMig"
 {
 
     trigger OnRun()
@@ -7,14 +7,13 @@ codeunit 60000 UpdateVersionListForMig
         Pos: Integer;
     begin
         MyTag := 'MIG2017';
-        //DeleteATag;
         AddATag;
         MESSAGE('End');
     end;
 
     var
-        "Object": Record "2000000001";
-        LicPermission: Record "2000000043";
+        "Object": Record Object;
+        LicPermission: Record "License Permission";
         MyTag: Text;
 
     local procedure DeleteATag()
@@ -22,11 +21,9 @@ codeunit 60000 UpdateVersionListForMig
         Pos: Integer;
     begin
         Object.SETRANGE(Modified, TRUE);
-        //Object.SETRANGE(Object.Type,Object.Type::Page);
-        //Object.SETRANGE(ID,1,27);
         Object.SETFILTER("Version List", '*%1*', MyTag);
         ERROR('%1', Object.COUNT);
-        IF Object.FINDFIRST THEN
+        IF Object.FINDFIRST THEN   //TODO: Unreachable code detected.
             REPEAT
                 Pos := STRPOS(Object."Version List", ',MyTag');
                 IF Pos <> 0 THEN BEGIN
@@ -43,8 +40,6 @@ codeunit 60000 UpdateVersionListForMig
     begin
         Object.SETRANGE(Modified, TRUE);
         Object.SETFILTER("Version List", '<>*%1*', MyTag);
-        //Object.SETRANGE(Object.Type,Object.Type::PAGE);
-        //Object.SETFILTER(Object.Type,'<>%1&<>%2',Object.Type::PAGE,Object.Type::TableData);
         Object.SETFILTER(Object.Type, '<>%1&', Object.Type::TableData);
         Object.SETFILTER(ID, '<50000|>99999');
         IF Object.FINDFIRST THEN

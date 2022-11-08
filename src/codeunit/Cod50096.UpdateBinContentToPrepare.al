@@ -7,32 +7,31 @@ codeunit 50096 "Update Bin Content/To Prepare"
     end;
 
     var
-        SalesLine: Record "37";
+        BinContent: Record "Bin Content";
+        SalesLine: Record "Sales Line";
         Counter: Integer;
-        BinContent: Record "7302";
 
-    [Scope('Internal')]
     procedure UpdateToPrepare()
     begin
-        SalesLine.RESET;
+        SalesLine.RESET();
         SalesLine.SETRANGE("Document Type", SalesLine."Document Type"::Order);
         SalesLine.SETRANGE(Type, SalesLine.Type::Item);
         IF SalesLine.FIND('-') THEN
             REPEAT
-                IF NOT SalesLine."To Prepare" THEN BEGIN
-                    SalesLine."To Prepare" := TRUE;
+                IF NOT SalesLine."BC6_To Prepare" THEN BEGIN
+                    SalesLine."BC6_To Prepare" := TRUE;
                     SalesLine.MODIFY(FALSE);
                     Counter += 1;
                 END;
-            UNTIL SalesLine.NEXT = 0;
+            UNTIL SalesLine.NEXT() = 0;
 
         MESSAGE('%1 ligne(s) commande vente traitée(s)', Counter);
     end;
 
-    [Scope('Internal')]
+
     procedure InitBinContent()
     begin
-        BinContent.RESET;
+        BinContent.RESET();
         BinContent.SETRANGE("Location Code", 'ACTI');
         IF BinContent.FIND('-') THEN
             REPEAT
@@ -40,7 +39,7 @@ codeunit 50096 "Update Bin Content/To Prepare"
                     BinContent.Default := FALSE;
                     BinContent.MODIFY(FALSE);
                 END;
-            UNTIL BinContent.NEXT = 0;
+            UNTIL BinContent.NEXT() = 0;
     end;
 }
 

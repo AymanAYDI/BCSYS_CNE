@@ -1,37 +1,26 @@
-codeunit 50099 "Barcode Mngt AutoID"
+codeunit 50099 "BC6_Barcode Mngt AutoID"
 {
-    // -----------------------------------------------
-    // Prodware -www.prodware.fr
-    // -----------------------------------------------
-    // 
-    // //>>  CNE4.01
-    // A:FE01 01.09.2011 : Bin Label Print
-    // 
-    // A:FE03 01.09.2011 : Item Label Print
-    //                   - EAN13 Encode To Print
-
 
     trigger OnRun()
     begin
     end;
 
     var
-        Correspondances: array[83, 2] of Char;
-        i: Integer;
-        j: Integer;
-        pos: Integer;
-        trouve: Boolean;
-        CharTxt: Text[13];
-        Char2: Char;
-        f: Integer;
-        LeadingDigit: Char;
-        Encoding: Text[12];
         IntegerOk: Boolean;
+        trouve: Boolean;
+        Char2: Char;
+        Correspondances: array[83, 2] of Char;
         DigitValueArrayF11: array[10, 3] of Char;
         DigitValueArrayF13: array[15, 2] of Char;
         DigitValueArrayF14: array[14] of Char;
+        LeadingDigit: Char;
+        f: Integer;
+        i: Integer;
+        j: Integer;
+        pos: Integer;
+        Encoding: Text[12];
+        CharTxt: Text[13];
 
-    [Scope('Internal')]
     procedure EncodeBarcodeEAN13(FromEAN13Bar: Text[13]; var EAN13Txt: Text[13]) EAN13Bar: Text[120]
     begin
         EAN13Bar := '';
@@ -53,7 +42,7 @@ codeunit 50099 "Barcode Mngt AutoID"
         Encoding := '';
         LeadingDigit := FromEAN13Bar[1];
         // MESSAGE('%1',FORMAT(LeadingDigit));
-        LoadEncoding;
+        LoadEncoding();
 
         j := 0;
         EAN13Bar := FORMAT(FindCharF13(FromEAN13Bar[1]));
@@ -80,7 +69,6 @@ codeunit 50099 "Barcode Mngt AutoID"
 
     end;
 
-    [Scope('Internal')]
     procedure LoadEncoding()
     begin
         CASE LeadingDigit OF
@@ -106,7 +94,6 @@ codeunit 50099 "Barcode Mngt AutoID"
                 Encoding := 'ABBABACCCCCC';
         END;
 
-        // F11 - Character Set A UPC / EAN barcodes with human readable characters
         DigitValueArrayF11[1, 1] := '0';
         DigitValueArrayF11[2, 1] := '1';
         DigitValueArrayF11[3, 1] := '2';
@@ -118,7 +105,6 @@ codeunit 50099 "Barcode Mngt AutoID"
         DigitValueArrayF11[9, 1] := '8';
         DigitValueArrayF11[10, 1] := '9';
 
-        // F11 -Character Set B UPC / EAN barcodes with human readable characters
         DigitValueArrayF11[1, 2] := 'A';
         DigitValueArrayF11[2, 2] := 'B';
         DigitValueArrayF11[3, 2] := 'C';
@@ -130,7 +116,6 @@ codeunit 50099 "Barcode Mngt AutoID"
         DigitValueArrayF11[9, 2] := 'I';
         DigitValueArrayF11[10, 2] := 'J';
 
-        // F11 -Character Set C UPC / EAN barcodes with human readable characters
         DigitValueArrayF11[1, 3] := 'K';
         DigitValueArrayF11[2, 3] := 'L';
         DigitValueArrayF11[3, 3] := 'M';
@@ -142,7 +127,6 @@ codeunit 50099 "Barcode Mngt AutoID"
         DigitValueArrayF11[9, 3] := 'S';
         DigitValueArrayF11[10, 3] := 'T';
 
-        // F13 - Character UPC / EAN numbers and characters without barcodes
         DigitValueArrayF13[1, 1] := '0';
         DigitValueArrayF13[2, 1] := '1';
         DigitValueArrayF13[3, 1] := '2';
@@ -159,7 +143,6 @@ codeunit 50099 "Barcode Mngt AutoID"
         DigitValueArrayF13[14, 1] := ' ';
         DigitValueArrayF13[15, 1] := ' ';
 
-        // F13 - Character UPC / EAN numbers and characters without barcodes
         DigitValueArrayF13[1, 2] := 'U';
         DigitValueArrayF13[2, 2] := 'V';
         DigitValueArrayF13[3, 2] := 'W';
@@ -177,7 +160,6 @@ codeunit 50099 "Barcode Mngt AutoID"
         DigitValueArrayF13[15, 2] := ' ';
 
 
-        // F14 - UPC / EAN guard patterns and special characters.
         DigitValueArrayF14[1] := '(';
         DigitValueArrayF14[2] := '*';
         DigitValueArrayF14[3] := ')';
@@ -189,16 +171,14 @@ codeunit 50099 "Barcode Mngt AutoID"
         DigitValueArrayF14[9] := '|';
         DigitValueArrayF14[10] := '>';
         DigitValueArrayF14[11] := '<';
-        // DigitValueArrayF14[12] := ''';
         DigitValueArrayF14[13] := '-';
         DigitValueArrayF14[14] := '~';
     end;
 
-    [Scope('Internal')]
     procedure FindCharF13(FromASCIIChar: Char) ToASCIIChar: Char
     var
-        k: Integer;
         Finded: Boolean;
+        k: Integer;
     begin
         k := 0;
         Finded := FALSE;
@@ -212,11 +192,10 @@ codeunit 50099 "Barcode Mngt AutoID"
         END;
     end;
 
-    [Scope('Internal')]
     procedure FindCharF11(FromASCIIChar: Char; FromSetChar: Char) ToASCIIChar: Char
     var
-        k: Integer;
         Finded: Boolean;
+        k: Integer;
     begin
         k := 0;
         Finded := FALSE;
@@ -237,17 +216,15 @@ codeunit 50099 "Barcode Mngt AutoID"
         END;
     end;
 
-    [Scope('Internal')]
     procedure "-- Code39 --"()
     begin
     end;
 
-    [Scope('Internal')]
     procedure EncodeBarcode39(From39BarCode: Text[50]) "39BarCode": Text[50]
     var
-        "Sum": Integer;
-        k: Integer;
         BarCode39Ok: Boolean;
+        k: Integer;
+        "Sum": Integer;
     begin
         "39BarCode" := '';
         BarCode39Ok := TRUE;
@@ -261,7 +238,6 @@ codeunit 50099 "Barcode Mngt AutoID"
         EXIT("39BarCode");
     end;
 
-    [Scope('Internal')]
     procedure CheckCharBarcode39(FromASCIIChar: Char): Boolean
     begin
         IF FromASCIIChar IN ['0' .. '9'] THEN

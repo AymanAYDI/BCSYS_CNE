@@ -1,16 +1,12 @@
-codeunit 50094 "Update Inv. Amount"
+codeunit 50094 "BC6_Update Inv. Amount"
 {
-    // //MIG 2017 >>
-
-
     trigger OnRun()
     begin
         Window.OPEN('Mise à jour valeur inventaire');
         InvDate := DMY2DATE(19, 12, 2011);
 
-        ItemJnlLine.RESET;
+        ItemJnlLine.RESET();
         ItemJnlLine.SETRANGE("Journal Template Name", 'INV');
-        // ItemJnlLine.SETRANGE("Journal Batch Name",'CTRL');
         ItemJnlLine.FIND('-');
         REPEAT
             CLEAR(Item);
@@ -23,22 +19,19 @@ codeunit 50094 "Update Inv. Amount"
                     ItemJnlLine.VALIDATE("Posting Date", InvDate);
                 ItemJnlLine."Unit Cost" := Item."Unit Cost";
                 ItemJnlLine."Unit Amount" := ItemJnlLine."Unit Cost";
-                //MIG 2017 >>
-                //ItemJnlLine.UpdateAmount;
                 ItemJnlLine.Amount := ROUND(ItemJnlLine.Quantity * ItemJnlLine."Unit Amount");
-                //MIG 2017 <<
                 ItemJnlLine.MODIFY(TRUE);
                 Counter += 1;
             END;
-        UNTIL ItemJnlLine.NEXT = 0;
+        UNTIL ItemJnlLine.NEXT() = 0;
 
 
         MESSAGE('%1 ligne(s) traitée(s)', Counter);
     end;
 
     var
-        ItemJnlLine: Record "83";
-        Item: Record "27";
+        ItemJnlLine: Record "Item Journal Line";
+        Item: Record Item;
         Counter: Integer;
         Window: Dialog;
         InvDate: Date;

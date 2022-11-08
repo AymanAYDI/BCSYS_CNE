@@ -1,4 +1,4 @@
-codeunit 50052 "Return Order Mgt."
+codeunit 50052 "BC6_Return Order Mgt."
 {
     Permissions = TableData 50016 = rimd;
 
@@ -7,24 +7,23 @@ codeunit 50052 "Return Order Mgt."
     end;
 
     var
-        "--BCSYS--": ;
+
         ComfirmDeleteAllRelatedDocuments: Label 'Souhaitez-vous supprimer tous les documents associés?';
         NoyExistingRelatedDocuments: Label 'Aucun document associé n''est crée pour ce retour vente.';
         ErrValidateReturnPurchOrder: Label 'Validation Impossible. \Le retour vente associé %1 n''a pas été validé.';
 
-    [Scope('Internal')]
-    procedure DeleteRelatedDocument(P_SalesHeader: Record "36")
+    procedure DeleteRelatedDocument(P_SalesHeader: Record 36)
     var
         "-BCSYS-": Integer;
-        L_ReturnOrderRelation: Record "50016";
-        L_SalesHeader: Record "36";
-        L_RealedPurchReturn: Record "38";
-        L_RelatedPurchOrder: Record "38";
+        L_ReturnOrderRelation: Record 50016;
+        L_SalesHeader: Record 36;
+        L_RealedPurchReturn: Record 38;
+        L_RelatedPurchOrder: Record 38;
         Confirm: Boolean;
-        L_ReturnOrderRelation1: Record "50016";
+        L_ReturnOrderRelation1: Record 50016;
     begin
         WITH P_SalesHeader DO BEGIN
-            IF ("Document Type" = "Document Type"::"Return Order") AND ("Return Order Type" = "Return Order Type"::SAV) THEN
+            IF ("Document Type" = "Document Type"::"Return Order") AND ("BC6_Return Order Type" = "BC6_Return Order Type"::SAV) THEN
                 IF L_ReturnOrderRelation.GET("No.") THEN
                     Confirm := DIALOG.CONFIRM(ComfirmDeleteAllRelatedDocuments, FALSE);
             IF Confirm THEN BEGIN
@@ -61,11 +60,10 @@ codeunit 50052 "Return Order Mgt."
         END;
     end;
 
-    [Scope('Internal')]
     procedure DisableRelatedDocuments(P_ReturnOrderNo: Code[20])
     var
-        L_ReturnOrderRelation: Record "50016";
-        TempRetRelDoc: Record "6670" temporary;
+        L_ReturnOrderRelation: Record 50016;
+        TempRetRelDoc: Record 6670 temporary;
     begin
         TempRetRelDoc.DELETEALL;
 
@@ -96,13 +94,13 @@ codeunit 50052 "Return Order Mgt."
         END;
     end;
 
-    local procedure ExtractOrderNo(P_SalesInvoiceLine: Record "113"): Code[20]
+    local procedure ExtractOrderNo(P_SalesInvoiceLine: Record 113): Code[20]
     var
-        SalesShptLine: Record "111";
-        ItemLedgEntry: Record "32";
-        ValueEntry: Record "5802";
-        SalesShptHeader: Record "110";
-        L_SalesHeader: Record "36";
+        SalesShptLine: Record 111;
+        ItemLedgEntry: Record 32;
+        ValueEntry: Record 5802;
+        SalesShptHeader: Record 110;
+        L_SalesHeader: Record 36;
     begin
         IF P_SalesInvoiceLine.Type <> P_SalesInvoiceLine.Type::Item THEN
             EXIT;
@@ -118,8 +116,8 @@ codeunit 50052 "Return Order Mgt."
         EXIT(SalesShptHeader."Order No.");
     end;
 
-    [Scope('Internal')]
-    procedure FilterPstdDocLineValueEntries(P_SalesInvoiceLine: Record "113"; var ValueEntry: Record "5802")
+
+    procedure FilterPstdDocLineValueEntries(P_SalesInvoiceLine: Record 113; var ValueEntry: Record 5802)
     begin
         ValueEntry.RESET;
         ValueEntry.SETCURRENTKEY("Document No.");
@@ -128,10 +126,10 @@ codeunit 50052 "Return Order Mgt."
         ValueEntry.SETRANGE("Document Line No.", P_SalesInvoiceLine."Line No.");
     end;
 
-    [Scope('Internal')]
-    procedure DeleteRelatedSalesOrderNo(var P_SalesHeader: Record "36")
+
+    procedure DeleteRelatedSalesOrderNo(var P_SalesHeader: Record 36)
     var
-        L_ReturnOrderRelation: Record "50016";
+        L_ReturnOrderRelation: Record 50016;
     begin
         WITH P_SalesHeader DO BEGIN
             IF ("Document Type" = "Document Type"::Order) THEN BEGIN
@@ -145,10 +143,9 @@ codeunit 50052 "Return Order Mgt."
         END;
     end;
 
-    [Scope('Internal')]
-    procedure DeleteRelatedPurchOrderNo(var P_PurchaseHeader: Record "38")
+    procedure DeleteRelatedPurchOrderNo(var P_PurchaseHeader: Record 38)
     var
-        L_ReturnOrderRelation: Record "50016";
+        L_ReturnOrderRelation: Record 50016;
     begin
         WITH P_PurchaseHeader DO BEGIN
             IF ("Document Type" = "Document Type"::Order) THEN BEGIN
@@ -162,10 +159,10 @@ codeunit 50052 "Return Order Mgt."
         END;
     end;
 
-    [Scope('Internal')]
-    procedure DeleteRelatedPurchReturnOrderNo(var P_PurchaseHeader: Record "38")
+
+    procedure DeleteRelatedPurchReturnOrderNo(var P_PurchaseHeader: Record 38)
     var
-        L_ReturnOrderRelation: Record "50016";
+        L_ReturnOrderRelation: Record 50016;
     begin
         WITH P_PurchaseHeader DO BEGIN
             IF ("Document Type" = "Document Type"::"Return Order") THEN BEGIN
@@ -179,22 +176,22 @@ codeunit 50052 "Return Order Mgt."
         END;
     end;
 
-    local procedure DeleteSalesAndPurchDoc(var P_SalesHeader: Record "36")
+    local procedure DeleteSalesAndPurchDoc(var P_SalesHeader: Record 36)
     begin
     end;
 
     [EventSubscriber(ObjectType::Codeunit, 90, 'OnBeforePostPurchaseDoc', '', false, false)]
-    [Scope('Internal')]
-    procedure OnBeforePostPurchaseDoc(var PurchaseHeader: Record "38")
+
+    procedure OnBeforePostPurchaseDoc(var PurchaseHeader: Record 38)
     var
-        L_ReturnOrderRelation: Record "50016";
-        L_SalesCrMemoHeader: Record "114";
+        L_ReturnOrderRelation: Record 50016;
+        L_SalesCrMemoHeader: Record 114;
     begin
         WITH PurchaseHeader DO BEGIN
             IF "Document Type" <> "Document Type"::"Return Order" THEN
                 EXIT;
 
-            IF "Return Order Type" <> "Return Order Type"::SAV THEN
+            IF "BC6_Return Order Type" <> "BC6_Return Order Type"::SAV THEN
                 EXIT;
 
             L_ReturnOrderRelation.RESET;
@@ -209,19 +206,19 @@ codeunit 50052 "Return Order Mgt."
     end;
 
     [EventSubscriber(ObjectType::Table, 36, 'OnAfterModifyEvent', '', false, false)]
-    [Scope('Internal')]
-    procedure OnAfterModifySalesHeader(var Rec: Record "36"; var xRec: Record "36"; RunTrigger: Boolean)
+
+    procedure OnAfterModifySalesHeader(var Rec: Record 36; var xRec: Record 36; RunTrigger: Boolean)
     var
-        RecLModifiedSalesHeader: Record "36";
-        RecLSalesReceivablesSetup: Record "311";
-        RecLNoSeries: Record "308";
-        CduNoSeriesMgt: Codeunit "396";
+        RecLModifiedSalesHeader: Record 36;
+        RecLSalesReceivablesSetup: Record 311;
+        RecLNoSeries: Record 308;
+        CduNoSeriesMgt: Codeunit 396;
     begin
         WITH Rec DO BEGIN
             IF "Document Type" <> "Document Type"::"Return Order" THEN
                 EXIT;
 
-            IF ("Return Order Type" <> xRec."Return Order Type") AND ("Return Order Type" = "Return Order Type"::Location) THEN BEGIN
+            IF ("BC6_Return Order Type" <> xRec."BC6_Return Order Type") AND ("BC6_Return Order Type" = "BC6_Return Order Type"::Location) THEN BEGIN
                 RecLSalesReceivablesSetup.GET;
                 RecLNoSeries.GET(RecLSalesReceivablesSetup."Return Order Nos.");
                 RecLModifiedSalesHeader.GET("Document Type", "No.");

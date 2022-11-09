@@ -1,4 +1,4 @@
-codeunit 50000 "BC6_EventsMgt"
+codeunit 50201 "BC6_EventsMgt"
 {
     //TAB290
     //TODO:check code

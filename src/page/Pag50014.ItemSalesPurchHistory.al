@@ -106,29 +106,6 @@ page 50014 "BC6_Item Sales/Purch. History"
 
                     trigger OnValidate()
                     begin
-                        /*
-                        IF CurrentMenuTypeOpt = CurrentMenuTypeOpt::"x19" THEN
-                          x19CurrentMenuTypeOptOnValidate;
-                        IF CurrentMenuTypeOpt = CurrentMenuTypeOpt::"x18" THEN
-                          x18CurrentMenuTypeOptOnValidate;
-                        IF CurrentMenuTypeOpt = CurrentMenuTypeOpt::"x17" THEN
-                          x17CurrentMenuTypeOptOnValidate;
-                        IF CurrentMenuTypeOpt = CurrentMenuTypeOpt::"x16" THEN
-                          x16CurrentMenuTypeOptOnValidate;
-                        IF CurrentMenuTypeOpt = CurrentMenuTypeOpt::"x13" THEN
-                          x13CurrentMenuTypeOptOnValidate;
-                        IF CurrentMenuTypeOpt = CurrentMenuTypeOpt::"x15" THEN
-                          x15CurrentMenuTypeOptOnValidate;
-                        IF CurrentMenuTypeOpt = CurrentMenuTypeOpt::"x12" THEN
-                          x12CurrentMenuTypeOptOnValidate;
-                        IF CurrentMenuTypeOpt = CurrentMenuTypeOpt::"x11" THEN
-                          x11CurrentMenuTypeOptOnValidate;
-                        IF CurrentMenuTypeOpt = CurrentMenuTypeOpt::"x14" THEN
-                          x14CurrentMenuTypeOptOnValidate;
-                        IF CurrentMenuTypeOpt = CurrentMenuTypeOpt::"x10" THEN
-                          x10CurrentMenuTypeOptOnValidate;
-                        */
-
                     end;
                 }
                 field(STRSUBSTNO('(%1)',NbrOfPurchQuote);STRSUBSTNO('(%1)',NbrOfPurchQuote))
@@ -892,8 +869,8 @@ page 50014 "BC6_Item Sales/Purch. History"
 
     local procedure SetSubMenu(MenuType: Integer;Visible: Boolean)
     var
-        SalesLine: Record 37;
-        RecGSalesHeader: Record 36;
+        SalesLine: Record "Sales Line";
+        RecGSalesHeader: Record "Sales Header";
     begin
         CASE MenuType OF
           0..5:
@@ -1032,11 +1009,10 @@ page 50014 "BC6_Item Sales/Purch. History"
     begin
     end;
 
-    procedure SetToSalesHeader(NewToSalesLines: Record "37";FilterCust: Boolean)
+    procedure SetToSalesHeader(NewToSalesLines: Record "Sales Line" ;FilterCust: Boolean)
     var
-        RecGSalesHeader: Record 36;
+        RecGSalesHeader: Record "Sales Header";
     begin
-        //RecGSalesHeader.GET(NewToSalesLines."Document No.");
         ToSalesHeader.GET(NewToSalesLines."Document Type",NewToSalesLines."Document No.");
         CodGCustNo := NewToSalesLines."Sell-to Customer No.";
         BooGFilterCust := TRUE;

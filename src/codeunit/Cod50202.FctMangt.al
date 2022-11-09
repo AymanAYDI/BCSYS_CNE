@@ -1,4 +1,4 @@
-codeunit 50003 "BC6_FctMangt"
+codeunit 50202 "BC6_FctMangt"
 {
     trigger OnRun()
     begin

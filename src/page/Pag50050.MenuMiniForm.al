@@ -25,6 +25,7 @@ page 50050 "BC6_Menu MiniForm"
                 RunObject = Page "BC6_Item Invt.";
                 Visible = true;
 
+
                 trigger OnAction()
                 var
                     Page50057: Page "BC6_Inventory Card MiniForm";
@@ -32,6 +33,7 @@ page 50050 "BC6_Menu MiniForm"
                     //Page50057.RUN;
                     //Page50057.NewLine;
                 end;
+
             }
             action(Inventory_2)
             {

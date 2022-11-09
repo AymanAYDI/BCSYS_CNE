@@ -87,7 +87,7 @@ page 50047 "BC6_Salesperson Role Center"
             action("Pro Forma")
             {
                 Caption = 'Pro Forma';
-                RunObject = Report 50090;
+                //TODO:Report   // RunObject = Report 50090;
             }
         }
         area(embedding)

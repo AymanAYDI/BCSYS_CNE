@@ -296,13 +296,13 @@ codeunit 50200 "BC6_CNE_EventsMgt"
                 ERROR('')
             ELSE BEGIN
                 RecLPurchLine.RESET;
-                RecLPurchLine.SETFILTER("Sales Document Type", '%1', "Document Type");
-                RecLPurchLine.SETFILTER("Sales Line No.", '%1', "Line No.");
-                RecLPurchLine.SETFILTER("Sales No.", "Document No.");
+                RecLPurchLine.SETFILTER("BC6_Sales Document Type", '%1', SalesHeader."Document Type");
+                RecLPurchLine.SETFILTER("BC6_Sales Line No.", '%1', SalesLine."Line No.");
+                RecLPurchLine.SETFILTER("BC6_Sales No.", SalesLine."Document No.");
                 IF RecLPurchLine.FIND('-') THEN
                     REPEAT
-                        RecLPurchLine."Sales No." := '';
-                        RecLPurchLine."Sales Line No." := 0;
+                        RecLPurchLine."BC6_Sales No." := '';
+                        RecLPurchLine."BC6_Sales Line No." := 0;
                         SalesLine."BC6_Purch. Order No." := '';
                         SalesLine."BC6_Purch. Line No." := 0;
                         RecLPurchLine.MODIFY(TRUE);

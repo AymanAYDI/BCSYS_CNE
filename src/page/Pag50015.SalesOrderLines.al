@@ -66,7 +66,7 @@ page 50015 "BC6_Sales Order Lines"
                 field(CodGVendorFilter; CodGVendorFilter)
                 {
                     Caption = 'Vendor No. Filter';
-                    TableRelation = Vendor.No.;
+                    TableRelation = Vendor."No.";
 
                     trigger OnValidate()
                     begin
@@ -110,7 +110,7 @@ page 50015 "BC6_Sales Order Lines"
                 {
                     Editable = false;
                 }
-                field("Pick Qty."; "Pick Qty.")
+                field("Pick Qty."; "BC6_Pick Qty.")
                 {
                 }
                 field("Quantity Shipped"; "Quantity Shipped")
@@ -130,13 +130,13 @@ page 50015 "BC6_Sales Order Lines"
                     Caption = 'CNE Spokesman Name';
                     Editable = false;
                 }
-                field(RecGSalesHeader."Purchaser Comments";
-                    RecGSalesHeader."Purchaser Comments")
+                field("Purchaser Comments";
+                    RecGSalesHeader."BC6_Purchaser Comments")
                 {
                     Caption = 'Purchaser Comments';
                 }
-                field(RecGSalesHeader."Warehouse Comments";
-                    RecGSalesHeader."Warehouse Comments")
+                field("Warehouse Comments";
+                    RecGSalesHeader."BC6_Warehouse Comments")
                 {
                     Caption = 'Warehouse Comments';
                 }
@@ -164,20 +164,20 @@ page 50015 "BC6_Sales Order Lines"
                 {
                     Editable = false;
                 }
-                field(FORMAT(RecGSalesHeader."Shipping Advice"); FORMAT(RecGSalesHeader."Shipping Advice"))
-                {
-                    Caption = 'Shipping Advice';
-                    Editable = false;
-                }
-                field("Purch. Order No."; "Purch. Order No.")
-                {
-                    Editable = false;
-                }
-                field("Purchase cost"; "Purchase cost")
+                // field("Shipping Advice"; FORMAT(RecGSalesHeader."Shipping Advice"))
+                // {
+                //     Caption = 'Shipping Advice';
+                //     Editable = false;
+                // }
+                field("Purch. Order No."; "BC6_Purch. Order No.")
                 {
                     Editable = false;
                 }
-                field("Buy-from Vendor No."; "Buy-from Vendor No.")
+                field("Purchase cost"; "BC6_Purchase cost")
+                {
+                    Editable = false;
+                }
+                field("Buy-from Vendor No."; "BC6_Buy-from Vendor No.")
                 {
                     Caption = 'Vendor No.';
                 }
@@ -186,8 +186,8 @@ page 50015 "BC6_Sales Order Lines"
                     Caption = 'Vendor Name';
                     Editable = false;
                 }
-                field(RecGVendor."Mini Amount";
-                    RecGVendor."Mini Amount")
+                field("Mini Amount";
+                    RecGVendor."BC6_Mini Amount")
                 {
                     Caption = 'Mini Amount';
                     Editable = false;
@@ -197,45 +197,45 @@ page 50015 "BC6_Sales Order Lines"
                     Caption = 'Qty In Inventory';
                     Editable = false;
                 }
-                field(RecGItem."Qty. on Sales Order";
+                field("Qty. on Sales Order";
                     RecGItem."Qty. on Sales Order")
                 {
                     Caption = 'Qty. on Sales Order';
                     Editable = false;
                     Visible = false;
                 }
-                field(RecGItem."Qty. on Purch. Order";
+                field("Qty. on Purch. Order";
                     RecGItem."Qty. on Purch. Order")
                 {
                     Caption = 'Qty. on Purchase Order';
                     Editable = false;
                     Visible = false;
                 }
-                field(RecGItem.Inventory - RecGItem."Qty. on Sales Order" + RecGItem."Qty. on Purch. Order";
+                field("Stock prévisionnel";
                     RecGItem.Inventory - RecGItem."Qty. on Sales Order" + RecGItem."Qty. on Purch. Order")
                 {
                     Caption = 'Stock prévisionnel';
                     Editable = false;
                     Visible = false;
                 }
-                field(RecGSalesHeader."Sell-to Customer Name";
+                field("Sell-to Customer Name";
                     RecGSalesHeader."Sell-to Customer Name")
                 {
                     Caption = 'Customer Name';
                     Editable = false;
                     Visible = true;
                 }
-                field("To Prepare"; "To Prepare")
+                field("To Prepare"; "BC6_To Prepare")
                 {
                 }
-                field("Qty. To Order"; "Qty. To Order")
+                field("Qty. To Order"; "BC6_Qty. To Order")
                 {
                 }
-                field("To Order"; "To Order")
+                field("To Order"; "BC6_To Order")
                 {
                     Caption = 'To Order';
                 }
-                field("Purch. Document Type"; "Purch. Document Type")
+                field("Purch. Document Type"; "BC6_Purch. Document Type")
                 {
                     Visible = false;
                 }
@@ -290,12 +290,12 @@ page 50015 "BC6_Sales Order Lines"
                             //RecLSalesLines.SETCURRENTKEY("Buy-from Vendor No.","No.");
                             //>> MODIF HL 28/01/2010 SU-LALE cf appel I016274
                             //RecLSalesLines.SETCURRENTKEY("Buy-from Vendor No.","Qty. To Order","To Order");
-                            RecLSalesLines.SETCURRENTKEY("To Order", "Buy-from Vendor No.", "No.", "Purchase cost", "Qty. To Order");
+                            RecLSalesLines.SETCURRENTKEY("BC6_To Order", "BC6_Buy-from Vendor No.", "No.", "BC6_Purchase cost", "BC6_Qty. To Order");
                             //<< MODIF HL 28/01/2010 SU-LALE cf appel I016274
                             //<<FEP-ACHAT-200706_18_A.004
-                            RecLSalesLines.SETFILTER(RecLSalesLines."Buy-from Vendor No.", '<>%1', '');
-                            RecLSalesLines.SETFILTER(RecLSalesLines."Qty. To Order", '<>%1', 0);
-                            RecLSalesLines.SETRANGE(RecLSalesLines."To Order", TRUE);
+                            RecLSalesLines.SETFILTER(RecLSalesLines."BC6_Buy-from Vendor No.", '<>%1', '');
+                            RecLSalesLines.SETFILTER(RecLSalesLines."BC6_Qty. To Order", '<>%1', 0);
+                            RecLSalesLines.SETRANGE(RecLSalesLines."BC6_To Order", TRUE);
 
                             //>>FEP-ACHAT-200706_18_A.004
                             //IF RecLSalesLines.FIND('-') THEN BEGIN
@@ -309,14 +309,14 @@ page 50015 "BC6_Sales Order Lines"
                                     DiaGWindow.UPDATE(1, STRSUBSTNO('%1 %2', RecLSalesLines."Document Type",
                                                                            RecLSalesLines."Document No."));
                                     DiaGWindow.UPDATE(2, RecLSalesLines."No.");
-                                    IF CodLVendorNo <> RecLSalesLines."Buy-from Vendor No." THEN BEGIN
+                                    IF CodLVendorNo <> RecLSalesLines."BC6_Buy-from Vendor No." THEN BEGIN
                                         // Create Purchase Header
                                         RecLPurchHeader.INIT;
                                         RecLPurchHeader.VALIDATE("No.", '');
                                         RecLPurchHeader.VALIDATE("Document Type", RecLSalesLines."Document Type");
                                         RecLPurchHeader.INSERT(TRUE);
                                         RecLPurchHeader.VALIDATE("Document Date", WORKDATE);
-                                        RecLPurchHeader.VALIDATE("Buy-from Vendor No.", RecLSalesLines."Buy-from Vendor No.");
+                                        RecLPurchHeader.VALIDATE("Buy-from Vendor No.", RecLSalesLines."BC6_Buy-from Vendor No.");
                                         RecLPurchHeader.MODIFY(TRUE);
                                         DiaGWindow.UPDATE(3, RecLPurchHeader."No.");
 

@@ -24,6 +24,16 @@ page 50050 "BC6_Menu MiniForm"
                 PromotedCategory = Process;
                 RunObject = Page "BC6_Item Invt.";
                 Visible = true;
+
+
+                trigger OnAction()
+                var
+                    Page50057: Page "BC6_Inventory Card MiniForm";
+                begin
+                    //Page50057.RUN;
+                    //Page50057.NewLine;
+                end;
+
             }
             action(Inventory_2)
             {

@@ -459,7 +459,7 @@ page 50058 "BC6_Reclass. Card MiniForm"
 
                 trigger OnAction()
                 var
-                    PgeLReclassItemSelection: Page "Reclass. Card MiniForm F2";
+                    PgeLReclassItemSelection: Page "BC6_Reclass. Card MiniForm F2";
                 begin
                     CurrPage.ScanZone.SubmitAllData(2);
                 end;
@@ -475,7 +475,7 @@ page 50058 "BC6_Reclass. Card MiniForm"
 
                 trigger OnAction()
                 var
-                    PgeLReclassBinSelection: Page "Reclass. Card MiniForm F3";
+                    PgeLReclassBinSelection: Page "BC6_Reclass. Card MiniForm F3";
                 begin
                     CurrPage.ScanZone.SubmitAllData(3);
                 end;
@@ -1032,7 +1032,7 @@ page 50058 "BC6_Reclass. Card MiniForm"
 
     local procedure CloseAndOpenCurrentPickAndBin()
     var
-        InvtPickCardMiniForm: Page "Invt. Pick Card MiniForm";
+        InvtPickCardMiniForm: Page "BC6_Invt. Pick Card MiniForm";
         LastJnlLine: Record "Item Journal Line";
     begin
         IF MODIFY(TRUE) THEN;
@@ -1059,7 +1059,7 @@ page 50058 "BC6_Reclass. Card MiniForm"
 
     local procedure CloseAndOpenCurrentPick()
     var
-        InvtPickCardMiniForm: Page "Invt. Pick Card MiniForm";
+        InvtPickCardMiniForm: Page "BC6_Invt. Pick Card MiniForm";
         LastJnlLine: Record "Item Journal Line";
     begin
         IF MODIFY(TRUE) THEN;

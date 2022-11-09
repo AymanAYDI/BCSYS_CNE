@@ -221,7 +221,7 @@ page 50056 "BC6_Item Invt."
         }
         area(factboxes)
         {
-            part(ItemDetailsFB; "Item ScanDevice Factbox")
+            part(ItemDetailsFB; "BC6_Item ScanDevice Factbox")
             {
                 Caption = 'Item Details';
                 SubPageLink = "No." = FIELD("Item No.");

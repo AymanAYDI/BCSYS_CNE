@@ -236,7 +236,7 @@ page 50068 "BC6_Reclass. Card MiniForm F3"
 
                 trigger OnAction()
                 var
-                    PgeLReclassBinSelection: Page "Reclass. Card MiniForm F3";
+                    PgeLReclassBinSelection: Page "BC6_Reclass. Card MiniForm F3";
                 begin
                     CLEAR(LastJnlLine);
                     LastJnlLine.RESET;
@@ -305,7 +305,7 @@ page 50068 "BC6_Reclass. Card MiniForm F3"
 
                 trigger OnAction()
                 var
-                    page50068: Page "Reclass. Card MiniForm F3";
+                    page50068: Page "BC6_Reclass. Card MiniForm F3";
                 begin
                     DELETE(TRUE);
 

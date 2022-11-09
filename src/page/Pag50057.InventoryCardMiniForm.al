@@ -346,7 +346,7 @@ page 50057 "BC6_Inventory Card MiniForm"
 
                 trigger OnAction()
                 var
-                    PgeLInventoryItemSelection: Page "Inventory Card MiniForm F2";
+                    PgeLInventoryItemSelection: Page "BC6_Inventory Card MiniForm F2";
                 begin
                     CurrPage.ScanZone.SubmitAllData(2);
                 end;
@@ -362,7 +362,7 @@ page 50057 "BC6_Inventory Card MiniForm"
 
                 trigger OnAction()
                 var
-                    PgeLInventoryBinSelection: Page "Inventory Card MiniForm F3";
+                    PgeLInventoryBinSelection: Page "BC6_Inventory Card MiniForm F3";
                 begin
                     CurrPage.ScanZone.SubmitAllData(3);
                 end;
@@ -514,7 +514,7 @@ page 50057 "BC6_Inventory Card MiniForm"
         EditableLotCtrl: Boolean;
         EditableFromBinCtrl: Boolean;
         ItemNo2: Code[20];
-        DistInt: Codeunit "5702";
+        DistInt: Codeunit "Dist. Integration";
         [InDataSet]
         FromBinCodeCtrlVisible: Boolean;
         [InDataSet]
@@ -856,7 +856,7 @@ page 50057 "BC6_Inventory Card MiniForm"
 
     local procedure CloseAndOpenCurrentPickAndBin()
     var
-        InvtPickCardMiniForm: Page "Invt. Pick Card MiniForm";
+        InvtPickCardMiniForm: Page "BC6_Invt. Pick Card MiniForm";
         LastJnlLine: Record "Item Journal Line";
     begin
         IF MODIFY(TRUE) THEN;
@@ -883,7 +883,7 @@ page 50057 "BC6_Inventory Card MiniForm"
 
     local procedure CloseAndOpenCurrentPick()
     var
-        InvtPickCardMiniForm: Page "Invt. Pick Card MiniForm";
+        InvtPickCardMiniForm: Page "BC6_Invt. Pick Card MiniForm";
         LastJnlLine: Record "Item Journal Line";
     begin
         IF MODIFY(TRUE) THEN;

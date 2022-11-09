@@ -73,7 +73,7 @@ page 50073 "Order Processor Role Center CN"
             {
                 Caption = 'Price &List';
                 Image = "Report";
-                RunObject = Report 715;
+                RunObject = Report "Price List";
             }
             separator(Action22)
             {
@@ -82,7 +82,7 @@ page 50073 "Order Processor Role Center CN"
             {
                 Caption = 'Inventory - Sales &Back Orders';
                 Image = "Report";
-                RunObject = Report 718;
+                RunObject = Report "Inventory - Sales Back Orders";
             }
         }
         area(embedding)
@@ -183,35 +183,35 @@ page 50073 "Order Processor Role Center CN"
                 {
                     Caption = 'Posted Sales Shipments';
                     Image = PostedShipment;
-                    RunObject = Page 142;
+                    RunObject = Page "Posted Sales Shipments";
                 }
                 action("Posted Sales Invoices")
                 {
                     Caption = 'Posted Sales Invoices';
                     Image = PostedOrder;
-                    RunObject = Page 143;
+                    RunObject = Page "Posted Sales Invoices";
                 }
                 action("Posted Return Receipts")
                 {
                     Caption = 'Posted Return Receipts';
                     Image = PostedReturnReceipt;
-                    RunObject = Page 6662;
+                    RunObject = Page "Posted Return Receipts";
                 }
                 action("Posted Sales Credit Memos")
                 {
                     Caption = 'Posted Sales Credit Memos';
                     Image = PostedOrder;
-                    RunObject = Page 144;
+                    RunObject = Page "Posted Sales Credit Memos";
                 }
                 action("Posted Purchase Receipts")
                 {
                     Caption = 'Posted Purchase Receipts';
-                    RunObject = Page 145;
+                    RunObject = Page "Posted Purchase Receipts";
                 }
                 action("Posted Purchase Invoices")
                 {
                     Caption = 'Posted Purchase Invoices';
-                    RunObject = Page 146;
+                    RunObject = Page "Posted Purchase Invoices";
                 }
             }
         }
@@ -285,7 +285,7 @@ page 50073 "Order Processor Role Center CN"
             {
                 Caption = 'Sales Price &Worksheet';
                 Image = PriceWorksheet;
-                RunObject = Page 7023;
+                RunObject = Page "Sales Price Worksheet";
             }
             separator(Action42)
             {
@@ -294,13 +294,13 @@ page 50073 "Order Processor Role Center CN"
             {
                 Caption = 'Sales &Prices';
                 Image = SalesPrices;
-                RunObject = Page 7002;
+                RunObject = Page "Sales Prices";
             }
             action("Sales &Line Discounts")
             {
                 Caption = 'Sales &Line Discounts';
                 Image = SalesLineDisc;
-                RunObject = Page 7004;
+                RunObject = Page "Sales Line Discounts";
             }
             separator(History)
             {

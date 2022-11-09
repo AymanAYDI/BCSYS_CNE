@@ -6,7 +6,7 @@ page 50016 "BC6_Purchase Lines Subform2"
     PageType = List;
     SaveValues = true;
     SourceTable = "Purchase Line";
-    SourceTableView = SORTING("Document Date", "Document Type", "No.");
+    SourceTableView = SORTING("BC6_Document Date", "Document Type", "No.");
 
     layout
     {
@@ -36,7 +36,7 @@ page 50016 "BC6_Purchase Lines Subform2"
                 field("Amount Including VAT"; "Amount Including VAT")
                 {
                 }
-                field("Document Date flow"; "Document Date flow")
+                field("Document Date flow"; "BC6_Document Date flow")
                 {
                 }
             }
@@ -89,9 +89,9 @@ page 50016 "BC6_Purchase Lines Subform2"
     trigger OnOpenPage()
     begin
         SETCURRENTKEY("Document Type", "No.");
-        CALCFIELDS("Document Date flow");
+        CALCFIELDS("BC6_Document Date flow");
         REPEAT
-            "Document Date" := "Document Date flow";
+            "BC6_Document Date" := "BC6_Document Date flow";
         UNTIL Rec.NEXT = 0;
     end;
 

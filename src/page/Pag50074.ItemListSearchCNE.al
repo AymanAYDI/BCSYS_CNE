@@ -269,42 +269,42 @@ page 50074 "BC6_Item List Search CNE"
             part(; 875)
             {
                 ApplicationArea = All;
-                SubPageLink = Source Type=CONST(Item),
-                              Source No.=FIELD(No.);
-                                             Visible = SocialListeningVisible;
+                SubPageLink = "Source Type" = CONST(Item),
+                              "Source No." = FIELD("No.");
+                Visible = SocialListeningVisible;
             }
             part(; 876)
             {
                 ApplicationArea = All;
-                SubPageLink = Source Type=CONST(Item),
-                              Source No.=FIELD(No.);
+                SubPageLink = "Source Type"=CONST(Item),
+                              "Source No."=FIELD("No.");
                                              UpdatePropagation = Both;
                                              Visible = SocialListeningSetupVisible;
             }
-            part(; 9089)
+            part("Item Invoicing FactBox"; "Item Invoicing FactBox")
             {
-                SubPageLink = No.=FIELD(No.),
-                              Date Filter=FIELD(Date Filter),
-                              Global Dimension 1 Filter=FIELD(Global Dimension 1 Filter),
-                              Global Dimension 2 Filter=FIELD(Global Dimension 2 Filter),
-                              Location Filter=FIELD(Location Filter),
-                              Drop Shipment Filter=FIELD(Drop Shipment Filter),
-                              Bin Filter=FIELD(Bin Filter),
-                              Variant Filter=FIELD(Variant Filter),
-                              Lot No. Filter=FIELD(Lot No. Filter),
-                              Serial No. Filter=FIELD(Serial No. Filter);
+                SubPageLink = "No."=FIELD("No."),
+                              "Date Filter"=FIELD("Date Filter"),
+                              "Global Dimension 1 Filter"=FIELD("Global Dimension 1 Filter"),
+                              "Global Dimension 2 Filter"=FIELD("Global Dimension 2 Filter"),
+                              "Location Filter"=FIELD("Location Filter"),
+                              "Drop Shipment Filter"=FIELD("Drop Shipment Filter"),
+                              "Bin Filter"=FIELD("Bin Filter"),
+                              "Variant Filter"=FIELD("Variant Filter"),
+                              "Lot No. Filter"=FIELD("Lot No. Filter"),
+                              "Serial No. Filter"=FIELD("Serial No. Filter");
             }
-            part(;9090)
+            part("Item Replenishment FactBox";"Item Replenishment FactBox")
             {
-                SubPageLink = No.=FIELD(No.),
-                              Date Filter=FIELD(Date Filter),
-                              Global Dimension 1 Filter=FIELD(Global Dimension 1 Filter),
-                              Global Dimension 2 Filter=FIELD(Global Dimension 2 Filter),
-                              Location Filter=FIELD(Location Filter),
-                              Drop Shipment Filter=FIELD(Drop Shipment Filter),
-                              Bin Filter=FIELD(Bin Filter),
-                              Variant Filter=FIELD(Variant Filter),
-                              Lot No. Filter=FIELD(Lot No. Filter),
+                SubPageLink = "No."=FIELD(No.""),
+                              "Date Filter"=FIELD("Date Filter"),
+                              "Global Dimension 1 Filter"=FIELD("Global Dimension 1 Filter"),
+                              "Global Dimension 2 Filter"=FIELD("Global Dimension 2 Filter"),
+                              "Location Filter"=FIELD("Location Filter"),
+                              "Drop Shipment Filter"=FIELD("Drop Shipment Filter"),
+                              "Bin Filter"=FIELD("Bin Filter"),
+                              "Variant Filter"=FIELD("Variant Filter"),
+                              "Lot No. Filter"=FIELD(" "),
                               Serial No. Filter=FIELD(Serial No. Filter);
                 Visible = false;
             }

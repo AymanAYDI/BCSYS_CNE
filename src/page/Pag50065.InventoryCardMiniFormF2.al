@@ -173,7 +173,7 @@ page 50065 "BC6_Inventory Card MiniForm F2"
 
                 trigger OnAction()
                 var
-                    PgeLInventoryItemSelection: Page "Inventory Card MiniForm F2";
+                    PgeLInventoryItemSelection: Page "BC6_Inventory Card MiniForm F2";
                 begin
                     CLEAR(LastJnlLine);
                     LastJnlLine.RESET;
@@ -209,7 +209,7 @@ page 50065 "BC6_Inventory Card MiniForm F2"
 
                 trigger OnAction()
                 var
-                    PgeLInventoryBinSelection: Page "Inventory Card MiniForm F3";
+                    PgeLInventoryBinSelection: Page "BC6_Inventory Card MiniForm F3";
                 begin
                     CLEAR(LastJnlLine);
                     LastJnlLine.RESET;
@@ -253,7 +253,7 @@ page 50065 "BC6_Inventory Card MiniForm F2"
 
                 trigger OnAction()
                 var
-                    page50065: Page "Inventory Card MiniForm F2";
+                    page50065: Page "BC6_Inventory Card MiniForm F2";
                 begin
                     DELETE(TRUE);
 

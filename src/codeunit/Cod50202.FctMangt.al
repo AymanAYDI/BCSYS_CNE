@@ -60,4 +60,53 @@ codeunit 50202 "BC6_FctMangt"
 
     var
         myInt: Integer;
+    //COD12
+    procedure TotalVATAmountOnJnlLines(GenJnlLine: Record "Gen. Journal Line") TotalVATAmount: Decimal
+    var
+        GenJnlLine2: Record "Gen. Journal Line";
+    begin
+        with GenJnlLine2 do begin
+            SetRange("Source Code", GenJnlLine."Source Code");
+            SetRange("Document No.", GenJnlLine."Document No.");
+            SetRange("Posting Date", GenJnlLine."Posting Date");
+            CalcSums("VAT Amount (LCY)", "Bal. VAT Amount (LCY)");
+            TotalVATAmount := "VAT Amount (LCY)" - "Bal. VAT Amount (LCY)";
+        end;
+        exit(TotalVATAmount);
+    end;
+    //COD21
+    procedure CheckInTransitLocation(LocationCode: Code[10])
+    var
+        UseInTransitLocationErr: Label 'You can use In-Transit location %1 for transfer orders only.';
+        Location: Record Location;
+    begin
+        if Location.IsInTransit(LocationCode) then
+            Error(ErrorInfo.Create(StrSubstNo(UseInTransitLocationErr, LocationCode), true));
+    end;
+
+    //COD80
+    PROCEDURE IncrementDEEE(VAR Nombre: Decimal; Nombre2: Decimal);
+    BEGIN
+        Nombre := Nombre + Nombre2;
+    END;
+
+    PROCEDURE xUpdateShipmentInvoiced(RecPSalesInvoiceHeader: Record "Sales Invoice Header");
+    VAR
+        RecLShipmentInvoiced: Record "Shipment Invoiced";
+        TxtLShipmentInvoiced: Text[250];
+    BEGIN
+        RecLShipmentInvoiced.RESET();
+        RecLShipmentInvoiced.SETRANGE(RecLShipmentInvoiced."Invoice No.", RecPSalesInvoiceHeader."No.");
+        IF RecLShipmentInvoiced.FIND('-') THEN BEGIN
+            TxtLShipmentInvoiced := '';
+            REPEAT
+                IF STRLEN(TxtLShipmentInvoiced) <= 229 THEN
+                    IF STRPOS(TxtLShipmentInvoiced, RecLShipmentInvoiced."Shipment No.") = 0 THEN
+                        TxtLShipmentInvoiced := TxtLShipmentInvoiced + RecLShipmentInvoiced."Shipment No." + '-';
+            UNTIL RecLShipmentInvoiced.NEXT() = 0;
+            RecPSalesInvoiceHeader."BC6_Shipment Invoiced" := COPYSTR(TxtLShipmentInvoiced, 1, STRLEN(TxtLShipmentInvoiced) - 1);
+            RecPSalesInvoiceHeader.MODIFY();
+        END;
+    END;
+
 }

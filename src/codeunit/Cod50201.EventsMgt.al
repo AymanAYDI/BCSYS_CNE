@@ -428,4 +428,6 @@ codeunit 50201 "BC6_EventsMgt"
                                        , 1, MAXSTRLEN(PurchaseHeader."Posting Description"));
 
     end;
+
+
 }

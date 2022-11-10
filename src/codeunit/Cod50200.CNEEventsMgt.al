@@ -418,4 +418,277 @@ codeunit 50200 "BC6_CNE_EventsMgt"
     begin
         FctMngt.FindVeryBestCost(PurchaseLine, PurchHeader);
     end;
+
+    //COD12
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Gen. Jnl.-Post Line", 'OnBeforeCalcPmtDiscPossible', '', false, false)]
+
+    local procedure COD12_OnBeforeCalcPmtDiscPossible(var GenJnlLine: Record "Gen. Journal Line"; var CVLedgEntryBuf: Record "CV Ledger Entry Buffer"; var IsHandled: Boolean; RoundingPrecision: Decimal)
+    var
+        PaymentDiscountDateWithGracePeriod: Date;
+        GLSetup: Record "General Ledger Setup";
+        FctMngt: Codeunit BC6_FctMangt;
+
+    begin
+        IsHandled := true;
+        with GenJnlLine do
+            if "Amount (LCY)" <> 0 then begin
+                PaymentDiscountDateWithGracePeriod := CVLedgEntryBuf."Pmt. Discount Date";
+                GLSetup.GetRecordOnce();
+                if PaymentDiscountDateWithGracePeriod <> 0D then
+                    PaymentDiscountDateWithGracePeriod :=
+                      CalcDate(GLSetup."Payment Discount Grace Period", PaymentDiscountDateWithGracePeriod);
+                if (PaymentDiscountDateWithGracePeriod >= CVLedgEntryBuf."Posting Date") or
+                   (PaymentDiscountDateWithGracePeriod = 0D)
+                then begin
+                    if GLSetup."Pmt. Disc. Excl. VAT" then begin
+                        if "Sales/Purch. (LCY)" = 0 then
+                            CVLedgEntryBuf."Original Pmt. Disc. Possible" := ("Amount (LCY)" + FctMngt.TotalVATAmountOnJnlLines(GenJnlLine)) * (Amount - "BC6_DEEE HT Amount") / ("Amount (LCY)" - "BC6_DEEE HT Amount (LCY)")
+                        else
+                            CVLedgEntryBuf."Original Pmt. Disc. Possible" := "Sales/Purch. (LCY)" * (Amount - "BC6_DEEE HT Amount") / ("Amount (LCY)" - "BC6_DEEE HT Amount (LCY)")
+                    end else
+                        CVLedgEntryBuf."Original Pmt. Disc. Possible" := (Amount - "BC6_DEEE HT Amount");
+                end;
+            end;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Gen. Jnl.-Post Line", 'OnBeforeInsertDtldCustLedgEntry', '', false, false)]
+    local procedure COD12_OnBeforeInsertDtldCustLedgEntry(var DtldCustLedgEntry: Record "Detailed Cust. Ledg. Entry"; GenJournalLine: Record "Gen. Journal Line"; DtldCVLedgEntryBuffer: Record "Detailed CV Ledg. Entry Buffer")
+    begin
+        DtldCustLedgEntry."BC6_Pay-to Customer No." := GenJournalLine."BC6_Pay-to No.";
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Gen. Jnl.-Post Line", 'OnBeforeInsertDtldVendLedgEntry', '', false, false)]
+    local procedure COD12_OnBeforeInsertDtldVendLedgEntry(var DtldVendLedgEntry: Record "Detailed Vendor Ledg. Entry"; GenJournalLine: Record "Gen. Journal Line"; DtldCVLedgEntryBuffer: Record "Detailed CV Ledg. Entry Buffer")
+    begin
+        DtldVendLedgEntry."BC6_Pay-to Vend. No." := GenJournalLine."BC6_Pay-to No.";
+    end;
+
+    //COD21
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Jnl.-Check Line", 'OnBeforeCheckInTransitLocations', '', false, false)]
+
+    local procedure COD21_OnBeforeCheckInTransitLocations(var ItemJournalLine: Record "Item Journal Line"; var IsHandled: Boolean)
+    var
+        Location: Record Location;
+        FctMngt: Codeunit BC6_FctMangt;
+    begin
+        IsHandled := true;
+        with ItemJournalLine do
+            if (("Entry Type" <> "Entry Type"::Transfer) or ("Order Type" <> "Order Type"::Transfer)) and
+               not Adjustment
+            then begin
+                FctMngt.CheckInTransitLocation("Location Code");
+                Location.TESTFIELD("BC6_Blocked", FALSE);
+            end;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Jnl.-Check Line", 'OnBeforeCheckPhysInventory', '', false, false)]
+
+    local procedure COD21_OnBeforeCheckPhysInventory(ItemJnlLine: Record "Item Journal Line"; var IsHandled: Boolean)
+    var
+        ItemJnlLine2: Record "Item Journal Line";
+        ItemJnlLine3: Record "Item Journal Line";
+        Text005: Label 'must be %1 or %2 when %3 is %4';
+        ItemJournalBatch: Record "Item Journal Batch";
+    begin
+        IsHandled := true;
+        with ItemJnlLine do begin
+            if not
+               ("Entry Type" in
+                ["Entry Type"::"Positive Adjmt.", "Entry Type"::"Negative Adjmt."])
+            then begin
+                ItemJnlLine2."Entry Type" := ItemJnlLine2."Entry Type"::"Positive Adjmt.";
+                ItemJnlLine3."Entry Type" := ItemJnlLine3."Entry Type"::"Negative Adjmt.";
+                FieldError(
+                    "Entry Type",
+                    ErrorInfo.Create(
+                        StrSubstNo(
+                            Text005, ItemJnlLine2."Entry Type", ItemJnlLine3."Entry Type", FieldCaption("Phys. Inventory"), true),
+                        true));
+            end;
+            IF ("Entry Type" IN
+              ["Entry Type"::"Positive Adjmt.",
+               "Entry Type"::"Negative Adjmt."]) THEN
+                IF ItemJournalBatch.GET("Journal Template Name", ItemJnlLine."Journal Batch Name") THEN
+                    ItemJournalBatch.TESTFIELD("BC6_Phys. Inv. Survey", FALSE);
+
+        end;
+    end;
+
+    //COD22: to be continued
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Jnl.-Post Line", 'OnBeforeInsertItemLedgEntry', '', false, false)]
+    local procedure COD22_OnBeforeInsertItemLedgEntry(var ItemLedgerEntry: Record "Item Ledger Entry"; ItemJournalLine: Record "Item Journal Line"; TransferItem: Boolean; OldItemLedgEntry: Record "Item Ledger Entry"; ItemJournalLineOrigin: Record "Item Journal Line")
+    var
+        RecLDEEEEntry: Record "BC6_DEEE Ledger Entry";
+    begin
+        IF (ItemJournalLine."BC6_DEEE Category Code" <> '')
+          THEN BEGIN
+            RecLDEEEEntry.TRANSFERFIELDS(ItemJournalLine);
+            RecLDEEEEntry."DEEE Category Code" := ItemJournalLine."BC6_DEEE Category Code";
+            RecLDEEEEntry."DEEE Unit Tax" := ItemJournalLine."BC6_DEEE Unit Price";
+            RecLDEEEEntry."DEEE HT Amount" := ItemJournalLine."BC6_DEEE HT Amount";
+            RecLDEEEEntry."DEEE VAT Amount" := ItemJournalLine."BC6_DEEE VAT Amount";
+            RecLDEEEEntry."DEEE TTC Amount" := ItemJournalLine."BC6_DEEE TTC Amount";
+            RecLDEEEEntry."Eco partner DEEE" := ItemJournalLine."BC6_Eco partner DEEE";
+            RecLDEEEEntry."DEEE HT Amount (LCY)" := ItemJournalLine."BC6_DEEE HT Amount (LCY)";
+            RecLDEEEEntry."DEEE Unit Price (LCY)" := ItemJournalLine."BC6_DEEE Unit Price (LCY)";
+            RecLDEEEEntry."Gen. Bus. Posting Group" := ItemJournalLine."Gen. Bus. Posting Group";
+            RecLDEEEEntry."DEEE Amount (LCY) for Stat" := ItemJournalLine."BC6_DEEE Amount (LCY) for Stat";
+            RecLDEEEEntry.INSERT;
+        END;
+    end;
+
+    //COD23
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Jnl.-Post Batch", 'OnBeforeOpenProgressDialog', '', false, false)]
+    local procedure COD23_OnBeforeOpenProgressDialog(var ItemJnlLine: Record "Item Journal Line"; var Window: Dialog; var WindowIsOpen: Boolean; var IsHandled: Boolean)
+    var
+        ItemJnlTemplate: Record "Item Journal Template";
+        Text001: Label 'Journal Batch Name    #1##########\\';
+        Text002: Label 'Checking lines        #2######\';
+        Text003: Label 'Posting lines         #3###### @4@@@@@@@@@@@@@\';
+        Text004: Label 'Updating lines        #5###### @6@@@@@@@@@@@@@';
+        Text005: Label 'Posting lines         #3###### @4@@@@@@@@@@@@@';
+        Text101: Label 'ENU=Jnl. Batch #1###\\';
+        Text102: Label 'ENU=Chec. lines #2###\';
+        Text105: label 'ENU=Post. #3### @4@;FRA=Valid.#3### @4@@@';
+        InvtSetup: Record "Inventory Setup";  //NOT SUREE
+    begin
+        IsHandled := true;
+        ItemJnlTemplate.Get(ItemJnlLine."Journal Template Name");
+
+        if ItemJnlTemplate.Recurring then
+            Window.Open(
+              Text001 +
+              Text002 +
+              Text003 +
+              Text004)
+        else
+            IF (ItemJnlTemplate.Name = InvtSetup."BC6_Item Jnl Template Name 1") OR
+               (ItemJnlTemplate.Name = InvtSetup."BC6_Item Jnl Template Name 2") THEN
+                Window.OPEN(
+                  Text101 +
+                  Text102 +
+                  Text105)
+            ELSE
+                Window.Open(
+                  Text001 +
+                  Text002 +
+                  Text005);
+        Window.Update(1, ItemJnlLine."Journal Batch Name");
+        WindowIsOpen := true;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Jnl.-Post Batch", 'OnItemJnlPostSumLineOnAfterGetItem', '', false, false)]
+    //TODO: not sure of it(ItemJournalLine was ItemJournalLine4 in the old code)
+    local procedure COD23_OnItemJnlPostSumLineOnAfterGetItem(var Item: Record Item; ItemJournalLine: Record "Item Journal Line")
+    var
+        IncludeExpectedCost: Boolean;
+    begin
+        IncludeExpectedCost :=
+    (Item."Costing Method" = Item."Costing Method"::Average) and
+    (ItemJournalLine."Inventory Value Per" <> ItemJournalLine."Inventory Value Per"::" ");
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Jnl.-Post Batch", 'OnBeforeWhseJnlPostLineRun', '', false, false)]
+    local procedure COD23_OnBeforeWhseJnlPostLineRun(ItemJournalLine: Record "Item Journal Line"; var TempWarehouseJournalLine: Record "Warehouse Journal Line" temporary; var IsHandled: Boolean)
+    var
+        InvtToReclass: Codeunit "BC6_Invt. Pick To Reclass.";
+    begin
+        InvtToReclass.RUN(TempWarehouseJournalLine);
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Jnl.-Post Batch", 'OnBeforeCheckItemAvailabilityHandled', '', false, false)]
+    local procedure COD23_OnBeforeCheckItemAvailabilityHandled(var ItemJournalLine: Record "Item Journal Line"; var IsHandled: Boolean)
+    var
+        InvtSetup: Record "Inventory Setup";
+    begin
+        InvtSetup.GET; //To check this event(InvtSetup is declared as a global variable)
+    end;
+
+    //COD 57 to be continued .. 
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Document Totals", 'OnAfterSalesLineSetFilters', '', false, false)]
+    local procedure COD57_OnAfterSalesLineSetFilters(var TotalSalesLine: Record "Sales Line"; SalesLine: Record "Sales Line")
+    begin
+        TotalSalesLine.CALCSUMS("Line Amount", Amount, "Amount Including VAT", "Inv. Discount Amount", TotalSalesLine."BC6_DEEE HT Amount", TotalSalesLine."BC6_DEEE VAT Amount", TotalSalesLine."BC6_DEEE TTC Amount", TotalSalesLine."BC6_DEEE HT Amount (LCY)");
+        TotalSalesLine."Amount Including VAT" := TotalSalesLine."Amount Including VAT" + TotalSalesLine."BC6_DEEE TTC Amount";
+        TotalSalesLine.Amount := TotalSalesLine.Amount + TotalSalesLine."BC6_DEEE HT Amount";
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Document Totals", 'OnAfterPurchaseLineSetFilters', '', false, false)]
+    local procedure COD57_OnAfterPurchaseLineSetFilters(var TotalPurchaseLine: Record "Purchase Line"; PurchaseLine: Record "Purchase Line")
+    begin
+        //BC6>>
+        TotalPurchaseLine.CALCSUMS("Line Amount", Amount, "Amount Including VAT", "Inv. Discount Amount", TotalPurchaseLine."BC6_DEEE HT Amount", TotalPurchaseLine."BC6_DEEE VAT Amount", TotalPurchaseLine."BC6_DEEE TTC Amount", TotalPurchaseLine."BC6_DEEE HT Amount (LCY)");
+        TotalPurchaseLine."Amount Including VAT" := TotalPurchaseLine."Amount Including VAT" + TotalPurchaseLine."BC6_DEEE TTC Amount";
+        TotalPurchaseLine.Amount := TotalPurchaseLine.Amount + TotalPurchaseLine."BC6_DEEE HT Amount";
+        //BC6<<
+    end;
+
+    //COD80
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnAfterPostSalesLines', '', false, false)]
+    local procedure COD80_OnAfterPostSalesLines(var SalesHeader: Record "Sales Header"; var SalesShipmentHeader: Record "Sales Shipment Header"; var SalesInvoiceHeader: Record "Sales Invoice Header"; var SalesCrMemoHeader: Record "Sales Cr.Memo Header"; var ReturnReceiptHeader: Record "Return Receipt Header"; WhseShip: Boolean; WhseReceive: Boolean; var SalesLinesProcessed: Boolean; CommitIsSuppressed: Boolean; EverythingInvoiced: Boolean; var TempSalesLineGlobal: Record "Sales Line" temporary)
+    var
+        FctMngt: Codeunit BC6_FctMangt;
+    begin
+        IF SalesHeader.Invoice THEN BEGIN
+            IF SalesHeader."Document Type" IN [SalesHeader."Document Type"::Order, SalesHeader."Document Type"::Invoice] THEN BEGIN
+                FctMngt.xUpdateShipmentInvoiced(SalesInvoiceHeader);
+            END;
+        END;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnAfterReverseAmount', '', false, false)]
+    local procedure COD80_OnAfterReverseAmount(var SalesLine: Record "Sales Line")
+    begin
+        SalesLine."BC6_Purchase cost" := -SalesLine."BC6_Purchase cost";
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnBeforePostDropOrderShipment', '', false, false)]
+    local procedure COD80_OnBeforePostDropOrderShipment(var SalesHeader: Record "Sales Header"; var TempDropShptPostBuffer: Record "Drop Shpt. Post. Buffer" temporary)
+    var
+        TotalSalesLineLCY: Record "sales line";
+    begin
+        TotalSalesLineLCY.get();
+        if not SalesHeader.IsCreditDocType then begin
+            TotalSalesLineLCY."Unit Cost (LCY)" := -TotalSalesLineLCY."Unit Cost (LCY)";
+            TotalSalesLineLCY."BC6_Purchase cost" := -TotalSalesLineLCY."BC6_Purchase cost";
+        end;
+    end; //TO CHECK which is more coherent 
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnBeforeCalcItemJnlAmountsFromQtyToBeShipped', '', false, false)]
+    local procedure COD80_OnBeforeCalcItemJnlAmountsFromQtyToBeShipped(var ItemJnlLine: Record "Item Journal Line"; SalesHeader: Record "Sales Header"; SalesLine: Record "Sales Line"; QtyToBeShipped: Decimal; var IsHandled: Boolean)
+    begin
+        SalesLine."BC6_DEEE Category Code" := SalesLine."BC6_DEEE Category Code";
+
+        IF SalesLine."Qty. to Ship" <> 0 THEN
+            SalesLine."BC6_DEEE HT Amount" :=
+              ROUND(
+                SalesLine."BC6_DEEE HT Amount" *
+                (QtyToBeShipped / SalesLine."Qty. to Ship"));
+
+        IF SalesLine."Qty. to Ship" <> 0 THEN
+            SalesLine."BC6_DEEE TTC Amount" :=
+              ROUND(
+              SalesLine."BC6_DEEE TTC Amount" *
+              (QtyToBeShipped / SalesLine."Qty. to Ship"));
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnAfterUpdateWhseDocuments', '', false, false)]
+    local procedure COD80_OnAfterUpdateWhseDocuments(SalesHeader: Record "Sales Header"; WhseShip: Boolean; WhseReceive: Boolean; WhseShptHeader: Record "Warehouse Shipment Header"; WhseRcptHeader: Record "Warehouse Receipt Header"; EverythingInvoiced: Boolean)
+    var
+        FctMngt: Codeunit BC6_FctMangt;
+        RecGParmNavi: Record "BC6_Navi+ Setup";
+        RecGArchiveManagement: Codeunit ArchiveManagement;
+        SalesInvHeader: Record "sales invoice header";
+    begin
+        SalesInvHeader.get();
+        IF RecGParmNavi.GET THEN
+            IF RecGParmNavi."Filing Sales Orders" THEN
+                RecGArchiveManagement.StoreSalesDocument(SalesHeader, FALSE);
+        FctMngt.xUpdateShipmentInvoiced(SalesInvHeader);
+    end;
+
+
 }
+
+
+

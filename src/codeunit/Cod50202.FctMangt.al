@@ -57,6 +57,7 @@ codeunit 50202 "BC6_FctMangt"
                 END;
             END;
     end;
+
     //COD419
     PROCEDURE CopyAndRenameClientFile(OldFilePath: Text; DirectoryPath: Text; NewSubDirectoryName: Text) NewFilePath: Text;
     VAR
@@ -66,6 +67,9 @@ codeunit 50202 "BC6_FctMangt"
         Text003: Label 'You must enter a file name.';
         Text1100267000: Label 'You must enter a file name.';
         Text1100267001: Label 'The directory %1 does not exist.';
+    begin
+
+    end;
 
     procedure "--"(); // TODO: related to codeunit 7302
     begin
@@ -243,6 +247,8 @@ codeunit 50202 "BC6_FctMangt"
             RecPSalesInvoiceHeader.MODIFY();
         END;
     END;
+
+    var
 
         BinCode: Code[20];
 }

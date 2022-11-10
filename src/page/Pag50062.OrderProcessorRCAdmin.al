@@ -349,7 +349,7 @@ page 50062 "BC6_Order Processor RC Admin"
                 {
                     Caption = 'Sales Price &Worksheet';
                     Image = PriceWorksheet;
-                    RunObject = Page 7023;
+                    RunObject = Page "Sales Price Worksheet";
                 }
             }
             group(Sales)
@@ -360,7 +360,7 @@ page 50062 "BC6_Order Processor RC Admin"
                     ApplicationArea = Basic, Suite;
                     Caption = '&Prices';
                     Image = SalesPrices;
-                    RunObject = Page 7002;
+                    RunObject = Page "Sales Prices";
                     ToolTip = 'Set up different prices for items that you sell to the customer. An item price is automatically granted on invoice lines when the specified criteria are met, such as customer, quantity, or ending date.';
                 }
                 action("&Line Discounts")
@@ -368,7 +368,7 @@ page 50062 "BC6_Order Processor RC Admin"
                     ApplicationArea = Basic, Suite;
                     Caption = '&Line Discounts';
                     Image = SalesLineDisc;
-                    RunObject = Page 7004;
+                    RunObject = Page "Sales Line Discounts";
                     ToolTip = 'Set up different discounts for items that you sell to the customer. An item discount is automatically granted on invoice lines when the specified criteria are met, such as customer, quantity, or ending date.';
                 }
             }
@@ -421,7 +421,7 @@ page 50062 "BC6_Order Processor RC Admin"
                         ApplicationArea = Basic, Suite;
                         Caption = 'Price &List';
                         Image = "Report";
-                        RunObject = Report 715;
+                        RunObject = Report "Price List";
                         ToolTip = 'View a list of your items and their prices, for example, to send to customers. You can create the list for specific customers, campaigns, currencies, or other criteria.';
                     }
                     action("Inventory - Sales &Back Orders")
@@ -429,7 +429,7 @@ page 50062 "BC6_Order Processor RC Admin"
                         ApplicationArea = Basic, Suite;
                         Caption = 'Inventory - Sales &Back Orders';
                         Image = "Report";
-                        RunObject = Report 718;
+                        RunObject = Report "Inventory - Sales Back Orders";
                         ToolTip = 'View a list with the order lines whose shipment date has been exceeded. The following information is shown for the individual orders for each item: number, customer name, customer''s telephone number, shipment date, order quantity and quantity on back order. The report also shows whether there are other items for the customer on back order.';
                     }
                 }

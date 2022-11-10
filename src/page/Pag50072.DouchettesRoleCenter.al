@@ -22,7 +22,7 @@ page 50072 "BC6_Douchettes Role Center"
             {
                 Caption = 'Picking Liste';
                 Image = PickLines;
-                RunObject = Page "Item Journal Pick List";
+                RunObject = Page "BC6_Item Journal Pick List";
                 Visible = false;
             }
         }
@@ -55,7 +55,7 @@ page 50072 "BC6_Douchettes Role Center"
                 {
                     Caption = 'Search Bar Code';
                     Image = Find;
-                    RunObject = Page "Item List Search CNE";
+                    RunObject = Page "BC6_Item List Search CNE";
                     Visible = false;
                 }
                 action(Inventory2)

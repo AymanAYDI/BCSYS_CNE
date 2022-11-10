@@ -1025,7 +1025,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
     var
         i: Integer;
     begin
-        PickNo := "Whse. Document No.";
+        PickNo := "BC6_Whse. Document No.";
         LocationCode := "Location Code";
         IF NOT Location.GET("Location Code") THEN BEGIN
             Location.INIT;

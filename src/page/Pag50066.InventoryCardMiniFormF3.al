@@ -333,7 +333,7 @@ page 50066 "BC6_Inventory Card MiniForm F3"
         EditableLotCtrl: Boolean;
         EditableFromBinCtrl: Boolean;
         ItemNo2: Code[20];
-        DistInt: Codeunit "5702";
+        DistInt: Codeunit "Dist. Integration";
         [InDataSet]
         FromBinCodeCtrlVisible: Boolean;
         [InDataSet]

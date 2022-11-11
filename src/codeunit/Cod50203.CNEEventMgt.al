@@ -155,17 +155,197 @@ codeunit 50203 "BC6__CNEEventMgt"
     //                 end;
     // end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Whse.-Act.-Post (Yes/No)", 'OnBeforeSetParamsAndRunWhseActivityPost', '', false, false)]
-    local procedure CU7323_OnBeforeSetParamsAndRunWhseActivityPost_WhseActPostYesN(var WarehouseActivityLine: Record "Warehouse Activity Line"; HideDialog: Boolean; PrintDoc: Boolean; Selection: Integer; var IsHandled: Boolean)
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Whse.-Act.-Post (Yes/No)", 'OnBeforeConfirmPost', '', false, false)]
+    local procedure CU7323_OnBeforeConfirmPost(var WhseActivLine: Record "Warehouse Activity Line"; var HideDialog: Boolean; var Selection: Integer; var DefaultOption: Integer; var IsHandled: Boolean; var PrintDoc: Boolean)
     var
         WhseActivityPost: Codeunit "Whse.-Activity-Post";
+        FctMangt: Codeunit "BC6_FctMangt";
+        Text001: Label '&Ship,Ship &and Invoice';
+        Text002: Label 'Do you want to post the %1 and %2?';
     begin
-        IF HideDialog THEN
-            // WhseActivityPost.SetPostingDate(HideDialog); // TODO: missing function
+        DefaultOption := 1;
+        HideDialog := false;
+        WITH WhseActivLine DO BEGIN
+            IF "Activity Type" = "Activity Type"::"Invt. Put-away" THEN BEGIN
+                IF ("Source Document" = "Source Document"::"Prod. Output") OR
+                   ("Source Document" = "Source Document"::"Inbound Transfer") OR
+                   ("Source Document" = "Source Document"::"Prod. Consumption")
+                THEN BEGIN
+                    IF NOT CONFIRM(Text002, FALSE, "Activity Type", "Source Document") THEN
+                        EXIT;
+                END ELSE BEGIN
+                    Selection := STRMENU(Text001, 1);
+                    IF Selection = 0 THEN
+                        EXIT;
+                    HideDialog := ("Source Document" = "Source Document"::"Purchase Order");
+                END;
+            END ELSE
+                IF ("Source Document" = "Source Document"::"Prod. Consumption") OR
+                   ("Source Document" = "Source Document"::"Outbound Transfer")
+                THEN BEGIN
+                    IF NOT CONFIRM(Text002, FALSE, "Activity Type", "Source Document") THEN
+                        EXIT;
+                END ELSE BEGIN
+                    Selection := STRMENU(Text002, 1);
+                    IF Selection = 0 THEN
+                        EXIT;
+                    HideDialog := ("Source Document" = "Source Document"::"Sales Order");
+                END;
+            IF HideDialog THEN
+                FctMangt.SetPostingDate(WORKDATE());
+
             WhseActivityPost.SetInvoiceSourceDoc(Selection = 2);
-        WhseActivityPost.PrintDocument(PrintDoc);
-        WhseActivityPost.Run(WarehouseActivityLine);
-        Clear(WhseActivityPost);
+            WhseActivityPost.PrintDocument(PrintDoc);
+            WhseActivityPost.RUN(WhseActivLine);
+            CLEAR(WhseActivityPost);
+        END;
+    end;
+
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Whse.-Activity-Post", 'OnAfterCreateWhseJnlLine', '', false, false)]
+    local procedure CU7324_OnAfterCreateWhseJnlLine(var WarehouseJournalLine: Record "Warehouse Journal Line"; WarehouseActivityLine: Record "Warehouse Activity Line")
+    begin
+        WarehouseJournalLine."BC6_Source Type 2" := WarehouseActivityLine."Source Type";
+        WarehouseJournalLine."BC6_Source Subtype 2" := WarehouseActivityLine."Source Subtype";
+        WarehouseJournalLine."BC6_Source No. 2" := WarehouseActivityLine."Source No.";
+        WarehouseJournalLine."BC6_Source Line No. 2" := WarehouseActivityLine."Source Line No.";
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Payment Management", 'OnGenerInvPostingBufferOnBeforeUpdtBuffer', '', false, false)]
+    local procedure OnGenerInvPostingBufferOnBeforeUpdtBuffer(var InvPostingBuffer: array[2] of Record "Payment Post. Buffer" temporary; PaymentLine: Record "Payment Line"; StepLedger: Record "Payment Step Ledger")
+    var
+        FctMangt: Codeunit BC6_FctMangt;
+    begin
+        IF InvPostingBuffer[1]."Account Type" IN [InvPostingBuffer[1]."Account Type"::Customer] THEN
+            IF FctMangt.VerifTierPayeur(InvPostingBuffer[1]."Account Type", InvPostingBuffer[1]."Account No.",
+                               InvPostingBuffer[1]."Applies-to ID") THEN
+                FctMangt.CreateEntryTierPayeurCustomer(InvPostingBuffer[1], StepLedger.Description);
+
+        IF InvPostingBuffer[1]."Account Type" IN [InvPostingBuffer[1]."Account Type"::Vendor] THEN
+            IF FctMangt.VerifTierPayeur(InvPostingBuffer[1]."Account Type", InvPostingBuffer[1]."Account No.",
+                               InvPostingBuffer[1]."Applies-to ID") THEN
+                FctMangt.CreateEntryTierPayeurVendor(InvPostingBuffer[1], StepLedger.Description);
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Payment Management", 'OnPostInvPostingBufferOnBeforeGenJnlPostLineRunWithCheck', '', false, false)]
+    local procedure CU10860_OnPostInvPostingBufferOnBeforeGenJnlPostLineRunWithCheck(var GenJnlLine: Record "Gen. Journal Line"; var PaymentHeader: Record "Payment Header"; var PaymentClass: Record "Payment Class")
+    begin
+        // GenJnlLine."BC6_Pay-to No." := InvPostingBuffer[1]."Pay-to No.";  TODO: 
+        IF (GenJnlLine."Document Type" = GenJnlLine."Document Type"::Payment) AND
+            (GenJnlLine."BC6_Pay-to No." = '') THEN
+            GenJnlLine."BC6_Pay-to No." := GenJnlLine."Account No.";
+    end;
+
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Release Purchase Document", 'OnCodeOnAfterCheckPurchaseReleaseRestrictions', '', false, false)]
+    local procedure CU415_OnCodeOnAfterCheckPurchaseReleaseRestrictions(var PurchaseHeader: Record "Purchase Header"; var IsHandled: Boolean)
+    var
+        Fctmangt: Codeunit "BC6_FctMangt";
+    begin
+        IF PurchaseHeader."Document Type" = PurchaseHeader."Document Type"::Order then begin
+            Fctmangt.SetHideValidationDialog(Fctmangt.GetHideValidationDialog());
+            IF PurchaseHeader.ControleMinimMNTandQTE THEN
+                EXIT;
+        end;
+        Fctmangt.CheckReturnOrderMandatoryFields(PurchaseHeader);
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Release Purchase Document", 'OnAfterReleasePurchaseDoc', '', false, false)]
+    local procedure CU415OnAfterReleasePurchaseDoc(var PurchaseHeader: Record "Purchase Header"; PreviewMode: Boolean; var LinesWereModified: Boolean)
+    begin
+        COMMIT();
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Release Purchase Document", 'OnCodeOnBeforeModifyHeader', '', false, false)]
+    local procedure CU415_OnCodeOnBeforeModifyHeader(var PurchaseHeader: Record "Purchase Header"; var PurchaseLine: Record "Purchase Line"; PreviewMode: Boolean; var LinesWereModified: Boolean)
+    var
+        RecLPurchLine2: Record "Purchase Line";
+        RecLSalesLine: Record "Sales Line";
+        RelPruchDoc: Codeunit "Release Purchase Document";
+    begin
+        RecLPurchLine2.RESET;
+        RecLPurchLine2.SETRANGE(RecLPurchLine2."Document Type", PurchaseHeader."Document Type");
+        RecLPurchLine2.SETRANGE(RecLPurchLine2."Document No.", PurchaseHeader."No.");
+        IF RecLPurchLine2.FIND('-') THEN BEGIN
+            REPEAT
+                IF (RecLPurchLine2."BC6_Sales No." <> '') AND (RecLPurchLine2."BC6_Sales Line No." <> 0) THEN BEGIN
+                    RecLSalesLine.RESET;
+                    RecLSalesLine.SETRANGE(RecLSalesLine."Document Type", RecLPurchLine2."BC6_Sales Document Type");
+                    RecLSalesLine.SETRANGE(RecLSalesLine."Document No.", RecLPurchLine2."BC6_Sales No.");
+                    RecLSalesLine.SETRANGE(RecLSalesLine."Line No.", RecLPurchLine2."BC6_Sales Line No.");
+                    IF RecLSalesLine.FIND('-') THEN BEGIN
+                        RecLSalesLine.SuspendStatusCheck(TRUE);
+                        RecLSalesLine.VALIDATE("BC6_Purchase cost", RecLPurchLine2."BC6_Discount Direct Unit Cost");
+                        RecLSalesLine.MODIFY;
+                    END;
+                END;
+            UNTIL RecLPurchLine2.NEXT = 0;
+        END;
+
+        LinesWereModified := LinesWereModified or RelPruchDoc.CalcAndUpdateVATOnLines(PurchaseHeader, PurchaseLine);
+        Commit();
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Release Purchase Document", 'OnBeforePerformManualRelease', '', false, false)]
+    local procedure CU415_OnBeforePerformManualRelease(var PurchaseHeader: Record "Purchase Header"; PreviewMode: Boolean; var IsHandled: Boolean)
+    begin
+        Commit();
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Release Sales Document", 'OnCodeOnAfterCheckCustomerCreated', '', false, false)]
+    local procedure OnCodeOnAfterCheckCustomerCreated(var SalesHeader: Record "Sales Header"; PreviewMode: Boolean; var IsHandled: Boolean)
+    var
+        SalesSetup: Record "Sales & Receivables Setup";
+        RecGSalesLine: Record "Sales Line";
+        FctMangt: Codeunit BC6_FctMangt;
+    begin
+        SalesSetup.GET;
+        IF SalesSetup."BC6_Promised Delivery Date" THEN
+            IF SalesHeader."Document Type" = SalesHeader."Document Type"::Order THEN
+                SalesHeader.TESTFIELD(SalesHeader."Promised Delivery Date");
+        IF SalesSetup."BC6_Requested Delivery Date" THEN
+            IF SalesHeader."Document Type" = SalesHeader."Document Type"::Order THEN
+                SalesHeader.TESTFIELD(SalesHeader."Requested Delivery Date");
+        IF (SalesHeader."Document Type" = SalesHeader."Document Type"::Order) THEN BEGIN
+            RecGSalesLine.RESET;
+            RecGSalesLine.SETCURRENTKEY("Document Type", "Document No.", "Line No.");
+            RecGSalesLine.SETRANGE(RecGSalesLine."Document Type", SalesHeader."Document Type");
+            RecGSalesLine.SETRANGE(RecGSalesLine.Type, RecGSalesLine.Type::Item);
+            RecGSalesLine.SETRANGE(RecGSalesLine."Document No.", SalesHeader."No.");
+            IF RecGSalesLine.FINDFIRST THEN
+                REPEAT
+                    RecGSalesLine.TESTFIELD("Purchasing Code");
+                UNTIL RecGSalesLine.NEXT = 0;
+        END;
+        FctMangt.CheckReturnOrderMandatoryFields(SalesHeader);
+    end;
+
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Release Sales Document", 'OnBeforeCheckSalesLines', '', false, false)]
+    local procedure OnBeforeCheckSalesLines(var SalesHeader: Record "Sales Header"; var SalesLine: Record "Sales Line"; var IsHandled: Boolean)
+    var
+        InvtSetup: Record "Inventory Setup";
+        Text001: Label 'There is nothing to release for the document of type %1 with the number %2.';
+    begin
+        with SalesHeader do begin
+            SalesLine.SetRange("Document Type", "Document Type");
+            SalesLine.SetRange("Document No.", "No.");
+            SalesLine.SetFilter(Type, '>0');
+            SalesLine.SetFilter(Quantity, '<>0');
+            if not SalesLine.Find('-') then
+                IF NOT "BC6_Sales Counter" THEN
+                    Error(Text001, "Document Type", "No.");
+            InvtSetup.Get();
+            if InvtSetup."Location Mandatory" then begin
+                SalesLine.SetRange(Type, SalesLine.Type::Item);
+                if SalesLine.FindSet() then
+                    repeat
+                        if SalesLine.IsInventoriableItem then
+                            SalesLine.TestField("Location Code");
+                    until SalesLine.Next() = 0;
+                SalesLine.SetFilter(Type, '>0');
+            end;
+        end;
     end;
 
 

@@ -58,19 +58,16 @@ codeunit 50202 "BC6_FctMangt"
             END;
     end;
     //COD419
-    PROCEDURE CopyAndRenameClientFile(OldFilePath: Text; DirectoryPath: Text; NewSubDirectoryName: Text) NewFilePath: Text;
-    VAR
-        directory: Text;
-        NewFileName: Text;
-        fileMgt: Codeunit "File Management";
-        Text003: Label 'You must enter a file name.';
-        Text1100267000: Label 'You must enter a file name.';
-        Text1100267001: Label 'The directory %1 does not exist.';
+    // PROCEDURE CopyAndRenameClientFile(OldFilePath: Text; DirectoryPath: Text; NewSubDirectoryName: Text) NewFilePath: Text;
+    // VAR
+    //     directory: Text;
+    //     NewFileName: Text;
+    //     fileMgt: Codeunit "File Management";
+    //     Text003: Label 'You must enter a file name.';
+    //     Text1100267000: Label 'You must enter a file name.';
+    //     Text1100267001: Label 'The directory %1 does not exist.';
 
-    procedure "--"(); // TODO: related to codeunit 7302
-    begin
 
-    end;
 
     procedure GetShipmentBin(LocationCode: Code[10]; VAR BinCode: Code[20]); // TODO: related to codeunit 7302
     var
@@ -171,10 +168,6 @@ codeunit 50202 "BC6_FctMangt"
         END;
     END;
 
-
-
-
-
     procedure GetLocation(LocationCode: Code[10])// TODO: fonction dupliquée
     var
         Location: Record Location;
@@ -193,6 +186,281 @@ codeunit 50202 "BC6_FctMangt"
         BinCode := _BinCode;
     end;
 
+
+    // TODO: function specific related to codeunit 7324 "Whse.-Activity-Post"
+    PROCEDURE SetPostingDate(NewPostingDate: Date);
+    BEGIN
+        PostingDate := NewPostingDate;
+    END;
+
+
+    // TODO:  specific function related to codeunit 10860 "Payment Management"
+    PROCEDURE VerifTierPayeur(OptLAccountType: Enum "Gen. Journal Account Type"; CodLNoTiers: Code[20]; CodLAppliesID: Code[20]): Boolean;
+    VAR
+        RecLCustLedEntry: Record "Cust. Ledger Entry";
+        RecLVendLedEntry: Record "Vendor Ledger Entry";
+    BEGIN
+        CASE OptLAccountType OF
+            OptLAccountType::Customer:
+                BEGIN
+                    RecLCustLedEntry.RESET;
+                    RecLCustLedEntry.SETCURRENTKEY("BC6_Pay-to Customer No.", Open, Positive, "Due Date");
+                    RecLCustLedEntry.SETRANGE("BC6_Pay-to Customer No.", CodLNoTiers);
+                    RecLCustLedEntry.SETRANGE(Open, TRUE);
+                    RecLCustLedEntry.SETFILTER("Customer No.", '<>%1', CodLNoTiers);
+                    RecLCustLedEntry.SETFILTER("Applies-to ID", '%1*', CodLAppliesID);
+                    IF RecLCustLedEntry.FINDFIRST THEN
+                        EXIT(TRUE)
+                    ELSE
+                        EXIT(FALSE);
+                END;
+            OptLAccountType::Vendor:
+                BEGIN
+                    RecLVendLedEntry.RESET;
+                    RecLVendLedEntry.SETCURRENTKEY("BC6_Pay-to Vend. No.", Open, Positive, "Due Date");
+                    RecLVendLedEntry.SETRANGE("BC6_Pay-to Vend. No.", CodLNoTiers);
+                    RecLVendLedEntry.SETRANGE(Open, TRUE);
+                    RecLVendLedEntry.SETFILTER("Vendor No.", '<>%1', CodLNoTiers);
+                    RecLVendLedEntry.SETFILTER("Applies-to ID", '%1*', CodLAppliesID);
+                    IF RecLVendLedEntry.FINDFIRST THEN
+                        EXIT(TRUE)
+                    ELSE
+                        EXIT(FALSE);
+                END;
+        END;
+    END;
+
+    // TODO:  specific function related to codeunit 10860 "Payment Management"
+    PROCEDURE CreateEntryTierPayeurCustomer(RecLInvPostingBuffer: Record "Payment Post. Buffer"; StepLedgerDescription: Text[50]);
+    VAR
+        RecLInvPostingBufferCopy: ARRAY[2] OF Record "Payment Post. Buffer";
+        RecLCustLedEntry: Record "Cust. Ledger Entry";
+        TierPayeurCree: Code[20];
+        i: Integer;
+    BEGIN
+        //Creation des ecritures pour la partie CLIENT
+
+        TierPayeurCree := '';
+        i := 0;
+        RecLCustLedEntry.RESET;
+        RecLCustLedEntry.SETCURRENTKEY("BC6_Pay-to Customer No.", "Applies-to ID", "Customer No.");
+        RecLCustLedEntry.SETRANGE("BC6_Pay-to Customer No.", RecLInvPostingBuffer."Account No.");
+        RecLCustLedEntry.SETRANGE("Applies-to ID", RecLInvPostingBuffer."Applies-to ID");
+        RecLCustLedEntry.SETFILTER("Customer No.", '<>%1', RecLInvPostingBuffer."Account No.");
+        IF RecLCustLedEntry.FINDSET(FALSE, FALSE) THEN
+            REPEAT
+                IF TierPayeurCree <> RecLCustLedEntry."Customer No." THEN
+                    GenereEntryTierPayeurCustomer(RecLCustLedEntry, RecLInvPostingBuffer, StepLedgerDescription, i);
+                i += 1;
+                TierPayeurCree := RecLCustLedEntry."Customer No.";
+            UNTIL RecLCustLedEntry.NEXT = 0;
+    END;
+
+    // TODO:  specific function related to codeunit 10860 "Payment Management"
+    PROCEDURE GenereEntryTierPayeurCustomer(RecLCustLedEntry: Record "Cust. Ledger Entry"; RecLInvPostingBuffer: Record "Payment Post. Buffer"; StepLedgerDescription: Text[50]; i: Integer);
+    VAR
+        RecLCustLedEntry2: Record "Cust. Ledger Entry";
+        RecLInvPostingBufferCopy: Record "Payment Post. Buffer";
+        AmountTot: Decimal;
+        AmountTotDS: Decimal;
+        Description2: Text[98];
+        CurrExchRate: Record "Currency Exchange Rate";
+        Currency: Record Currency;
+    BEGIN
+        RecLCustLedEntry2.RESET;
+        RecLCustLedEntry2.SETCURRENTKEY("BC6_Pay-to Customer No.", "Applies-to ID", "Customer No.");
+        RecLCustLedEntry2.SETRANGE("BC6_Pay-to Customer No.", RecLInvPostingBuffer."Account No.");
+        RecLCustLedEntry2.SETRANGE("Applies-to ID", RecLInvPostingBuffer."Applies-to ID");
+        RecLCustLedEntry2.SETFILTER("Customer No.", '<>%1', RecLInvPostingBuffer."Account No.");
+
+        RecLCustLedEntry2.SETRANGE("Customer No.", RecLCustLedEntry."Customer No.");
+        IF RecLCustLedEntry2.FINDSET(FALSE, FALSE) THEN
+            REPEAT
+                AmountTot += RecLCustLedEntry2."Amount to Apply";
+            UNTIL RecLCustLedEntry2.NEXT = 0;
+
+        IF RecLInvPostingBuffer."Currency Code" = '' THEN
+            Currency.InitRoundingPrecision
+        ELSE BEGIN
+            Currency.GET(RecLInvPostingBuffer."Currency Code");
+            Currency.TESTFIELD("Amount Rounding Precision");
+        END;
+
+        AmountTotDS :=
+            ROUND(
+              CurrExchRate.ExchangeAmtFCYToLCY(
+                RecLInvPostingBuffer."Due Date", RecLInvPostingBuffer."Currency Code",
+                AmountTot, CurrExchRate.ExchangeRate(RecLInvPostingBuffer."Due Date", RecLInvPostingBuffer."Currency Code")),
+                Currency."Amount Rounding Precision");
+
+        RecLInvPostingBufferCopy.INIT;
+        RecLInvPostingBufferCopy.COPY(RecLInvPostingBuffer);
+        RecLInvPostingBufferCopy.VALIDATE("Account No.", RecLCustLedEntry."Customer No.");
+        RecLInvPostingBufferCopy.VALIDATE(Amount, -AmountTot);
+        RecLInvPostingBufferCopy.VALIDATE("Amount (LCY)", -AmountTotDS);
+        RecLInvPostingBufferCopy."Document Type" := RecLInvPostingBufferCopy."Document Type"::" ";
+        RecLInvPostingBufferCopy."Auxiliary Entry No." := i;
+        RecLInvPostingBufferCopy."BC6_Pay-to No." := RecLCustLedEntry."BC6_Pay-to Customer No.";
+        RecLInvPostingBufferCopy.INSERT;
+
+        RecLInvPostingBufferCopy.INIT;
+        RecLInvPostingBufferCopy.COPY(RecLInvPostingBuffer);
+        RecLInvPostingBufferCopy.VALIDATE(Amount, AmountTot);
+        RecLInvPostingBufferCopy.VALIDATE("Amount (LCY)", AmountTotDS);
+        RecLInvPostingBufferCopy."Document Type" := RecLInvPostingBufferCopy."Document Type"::" ";
+        Description2 :=
+          STRSUBSTNO(StepLedgerDescription, RecLInvPostingBufferCopy."Due Date", RecLCustLedEntry."Customer No.", '');
+        RecLInvPostingBufferCopy.Description := COPYSTR(Description2, 1, 50);
+        RecLInvPostingBufferCopy."Auxiliary Entry No." := i;
+        RecLInvPostingBufferCopy."BC6_Pay-to No." := RecLCustLedEntry."BC6_Pay-to Customer No.";
+        RecLInvPostingBufferCopy.INSERT;
+    END;
+
+    // TODO:  specific function related to codeunit 10860 "Payment Management"
+    PROCEDURE CreateEntryTierPayeurVendor(RecLInvPostingBuffer: Record "Payment Post. Buffer"; StepLedgerDescription: Text[50]);
+    VAR
+        RecLInvPostingBufferCopy: ARRAY[2] OF Record "Payment Post. Buffer";
+        RecLVendLedEntry: Record "Vendor Ledger Entry";
+        TierPayeurCree: Code[20];
+        i: Integer;
+    BEGIN
+        //Creation des ecritures pour la partie FOURNISSEUR
+
+        TierPayeurCree := '';
+        i := 0;
+        RecLVendLedEntry.RESET;
+        RecLVendLedEntry.SETCURRENTKEY("BC6_Pay-to Vend. No.", "Applies-to ID", "Vendor No.");
+        RecLVendLedEntry.SETRANGE("BC6_Pay-to Vend. No.", RecLInvPostingBuffer."Account No.");
+        RecLVendLedEntry.SETRANGE("Applies-to ID", RecLInvPostingBuffer."Applies-to ID");
+        RecLVendLedEntry.SETFILTER("Vendor No.", '<>%1', RecLInvPostingBuffer."Account No.");
+        IF RecLVendLedEntry.FINDSET(FALSE, FALSE) THEN
+            REPEAT
+                IF TierPayeurCree <> RecLVendLedEntry."Vendor No." THEN
+                    GenereEntryTierPayeurVendor(RecLVendLedEntry, RecLInvPostingBuffer, StepLedgerDescription, i);
+                i += 1;
+                TierPayeurCree := RecLVendLedEntry."Vendor No.";
+            UNTIL RecLVendLedEntry.NEXT = 0;
+    END;
+
+    // TODO:  specific function related to codeunit 10860 "Payment Management"
+    PROCEDURE GenereEntryTierPayeurVendor(RecLVendLedEntry: Record "Vendor Ledger Entry"; RecLInvPostingBuffer: Record "Payment Post. Buffer"; StepLedgerDescription: Text[50]; i: Integer);
+    VAR
+        RecLVendLedEntry2: Record "Vendor Ledger Entry";
+        RecLInvPostingBufferCopy: Record "Payment Post. Buffer";
+        AmountTot: Decimal;
+        AmountTotDS: Decimal;
+        Description2: Text[98];
+        CurrExchRate: Record "Currency Exchange Rate";
+        Currency: Record Currency;
+    BEGIN
+        RecLVendLedEntry2.RESET;
+        RecLVendLedEntry2.SETCURRENTKEY("BC6_Pay-to Vend. No.", "Applies-to ID", "Vendor No.");
+        RecLVendLedEntry2.SETRANGE("BC6_Pay-to Vend. No.", RecLInvPostingBuffer."Account No.");
+        RecLVendLedEntry2.SETRANGE("Applies-to ID", RecLInvPostingBuffer."Applies-to ID");
+        RecLVendLedEntry2.SETFILTER("Vendor No.", '<>%1', RecLInvPostingBuffer."Account No.");
+
+        RecLVendLedEntry2.SETRANGE("Vendor No.", RecLVendLedEntry."Vendor No.");
+        IF RecLVendLedEntry2.FINDSET(FALSE, FALSE) THEN
+            REPEAT
+                AmountTot += RecLVendLedEntry2."Amount to Apply";
+            UNTIL RecLVendLedEntry2.NEXT = 0;
+
+        IF RecLInvPostingBuffer."Currency Code" = '' THEN
+            Currency.InitRoundingPrecision
+        ELSE BEGIN
+            Currency.GET(RecLInvPostingBuffer."Currency Code");
+            Currency.TESTFIELD("Amount Rounding Precision");
+        END;
+
+        AmountTotDS :=
+            ROUND(
+              CurrExchRate.ExchangeAmtFCYToLCY(
+                RecLInvPostingBuffer."Due Date", RecLInvPostingBuffer."Currency Code",
+                AmountTot, CurrExchRate.ExchangeRate(RecLInvPostingBuffer."Due Date", RecLInvPostingBuffer."Currency Code")),
+                Currency."Amount Rounding Precision");
+
+        RecLInvPostingBufferCopy.INIT;
+        RecLInvPostingBufferCopy.COPY(RecLInvPostingBuffer);
+        RecLInvPostingBufferCopy.VALIDATE("Account No.", RecLVendLedEntry."Vendor No.");
+        RecLInvPostingBufferCopy.VALIDATE(Amount, -AmountTot);
+        RecLInvPostingBufferCopy.VALIDATE("Amount (LCY)", -AmountTotDS);
+        RecLInvPostingBufferCopy."Document Type" := RecLInvPostingBufferCopy."Document Type"::" ";
+        RecLInvPostingBufferCopy."Auxiliary Entry No." := i;
+        RecLInvPostingBufferCopy."BC6_Pay-to No." := RecLVendLedEntry."BC6_Pay-to Vend. No.";
+        RecLInvPostingBufferCopy.INSERT;
+
+        RecLInvPostingBufferCopy.INIT;
+        RecLInvPostingBufferCopy.COPY(RecLInvPostingBuffer);
+        RecLInvPostingBufferCopy.VALIDATE(Amount, AmountTot);
+        RecLInvPostingBufferCopy.VALIDATE("Amount (LCY)", AmountTotDS);
+        RecLInvPostingBufferCopy."Document Type" := RecLInvPostingBufferCopy."Document Type"::" ";
+        Description2 :=
+          STRSUBSTNO(StepLedgerDescription, RecLInvPostingBufferCopy."Due Date", RecLVendLedEntry."Vendor No.", '');
+        RecLInvPostingBufferCopy.Description := COPYSTR(Description2, 1, 50);
+        RecLInvPostingBufferCopy."Auxiliary Entry No." := i;
+        RecLInvPostingBufferCopy."BC6_Pay-to No." := RecLVendLedEntry."BC6_Pay-to Vend. No.";
+        RecLInvPostingBufferCopy.INSERT;
+    END;
+
+    PROCEDURE SetHideValidationDialog(NewHideValidationDialog: Boolean);
+    BEGIN
+        HideValidationDialog := NewHideValidationDialog;
+    END;
+
+    PROCEDURE GetHideValidationDialog(): Boolean;
+    BEGIN
+        exit(HideValidationDialog);
+    END;
+
+
+    PROCEDURE CheckReturnOrderMandatoryFields(PurchaseHeader: Record "Purchase Header");
+    VAR
+        PurchaseLine: Record "Purchase Line";
+    BEGIN
+        WITH PurchaseHeader DO BEGIN
+            IF ("Document Type" = "Document Type"::"Return Order") THEN
+                IF "BC6_Return Order Type" = "BC6_Return Order Type"::SAV THEN BEGIN
+
+                    PurchaseLine.RESET;
+                    PurchaseLine.SETCURRENTKEY("Document Type", "Document No.", "Line No.");
+                    PurchaseLine.SETRANGE(PurchaseLine."Document Type", "Document Type");
+                    PurchaseLine.SETRANGE(PurchaseLine.Type, PurchaseLine.Type::Item);
+                    PurchaseLine.SETRANGE(PurchaseLine."Document No.", "No.");
+                    IF PurchaseLine.FINDFIRST THEN
+                        REPEAT
+                            PurchaseLine.TESTFIELD("Return Reason Code");
+                            PurchaseLine.TESTFIELD("BC6_Solution Code");
+                            PurchaseLine.TESTFIELD("BC6_Return Comment");
+                        UNTIL PurchaseLine.NEXT = 0;
+                END;
+        END;
+    END;
+
+
+    PROCEDURE CheckReturnOrderMandatoryFields(P_SalesHeader: Record "Sales Header");
+    VAR
+        L_SalesLine: Record "Sales Line";
+    BEGIN
+        WITH P_SalesHeader DO BEGIN
+            IF ("Document Type" = "Document Type"::"Return Order") THEN
+                IF "BC6_Return Order Type" = "BC6_Return Order Type"::SAV THEN BEGIN
+                    L_SalesLine.RESET;
+                    L_SalesLine.SETCURRENTKEY("Document Type", "Document No.", "Line No.");
+                    L_SalesLine.SETRANGE(L_SalesLine."Document Type", "Document Type");
+                    L_SalesLine.SETRANGE(L_SalesLine.Type, L_SalesLine.Type::Item);
+                    L_SalesLine.SETRANGE(L_SalesLine."Document No.", "No.");
+                    IF L_SalesLine.FINDFIRST THEN
+                        REPEAT
+                            L_SalesLine.TESTFIELD("Return Reason Code");
+                            L_SalesLine.TESTFIELD("BC6_Solution Code");
+                            L_SalesLine.TESTFIELD("BC6_Return Comment");
+                        UNTIL L_SalesLine.NEXT = 0;
+                END;
+        END;
+    END;
+
     var
-        BinCode: Code[20];
+        BinCode: Code[20]; // TODO: related to codeunit 7302
+        PostingDate: Date; // TODO: related to codeunit 7324 "Whse.-Activity-Post"
+        HideValidationDialog: Boolean;
 }

@@ -2,7 +2,6 @@ codeunit 50202 "BC6_FctMangt"
 {
     trigger OnRun()
     begin
-
     end;
 
     procedure FindVeryBestCost(VAR RecLPurchaseLine: Record "Purchase Line"; RecLPurchaseHeader: Record "Purchase Header")
@@ -67,11 +66,6 @@ codeunit 50202 "BC6_FctMangt"
         Text003: Label 'You must enter a file name.';
         Text1100267000: Label 'You must enter a file name.';
         Text1100267001: Label 'The directory %1 does not exist.';
-    begin
-
-    end;
-
-
     BEGIN
         IF OldFilePath = '' THEN
             EXIT('');
@@ -276,18 +270,18 @@ codeunit 50202 "BC6_FctMangt"
     BEGIN
     END;
 
-    PROCEDURE ArchiveSalesDocumentWithoutMessage(VAR SalesHeader: Record 36);
+    PROCEDURE ArchiveSalesDocumentWithoutMessage(VAR SalesHeader: Record "Sales Header");
     var
         archMgt: Codeunit ArchiveManagement;
     BEGIN
         archMgt.StoreSalesDocument(SalesHeader, FALSE);
     END;
 
-    PROCEDURE PrintInvtPickHeaderCheck(WhseActivHeader: Record 5766; HideDialog: Boolean);
+    PROCEDURE PrintInvtPickHeaderCheck(WhseActivHeader: Record "Warehouse Activity Header"; HideDialog: Boolean);
     VAR
         //TODO:report
         // WhsePick: Report 50047;
-        WhsePick2: Report 5752;
+        WhsePick2: Report "Picking List";
     BEGIN
         WhseActivHeader.SETRANGE("No.", WhseActivHeader."No.");
         //TODO:report
@@ -476,7 +470,173 @@ codeunit 50202 "BC6_FctMangt"
         END;
     END;
 
-    var
+    procedure Increment(var Number: Decimal; Number2: Decimal) //PROC dupliquée de COD80
+    begin
+        Number := Number + Number2;
+    end;
 
+    PROCEDURE SetIncrPurchCost(Value: Boolean);
+    BEGIN
+        EnableIncrPurchCost := Value;
+    END;
+
+    PROCEDURE "**NSC1.01**"();
+    BEGIN
+    END;
+
+    PROCEDURE CalcProfit(VAR SalesHeader: Record "Sales Header");
+    VAR
+        SalesLine: Record "Sales Line";
+        TempSalesLine: Record "Sales Line" TEMPORARY;
+        TotalSalesLine: ARRAY[3] OF Record "Sales Line";
+        TotalSalesLineLCY: ARRAY[3] OF Record "Sales Line";
+        Cust: Record Customer;
+        TempVATAmountLine1: Record "VAT Amount Line" TEMPORARY;
+        TempVATAmountLine2: Record "VAT Amount Line" TEMPORARY;
+        TempVATAmountLine3: Record "VAT Amount Line" TEMPORARY;
+        SalesSetup: Record "Sales & Receivables Setup";
+        SalesPost: Codeunit "Sales-Post";
+        TotalAmount1: ARRAY[3] OF Decimal;
+        TotalAmount2: ARRAY[3] OF Decimal;
+        VATAmount: ARRAY[3] OF Decimal;
+        VATAmountText: ARRAY[3] OF Text[30];
+        ProfitLCY: ARRAY[3] OF Decimal;
+        ProfitPct: ARRAY[3] OF Decimal;
+        CreditLimitLCYExpendedPct: Decimal;
+        PrevNo: Code[20];
+        ActiveTab: Option General,Invoicing,Shipping;
+        PrevTab: Option General,Invoicing,Shipping;
+        SubformIsReady: Boolean;
+        SubformIsEditable: Boolean;
+        AllowInvDisc: Boolean;
+        AllowVATDifference: Boolean;
+        rec_Order: Record "Sales Header";
+        "--- MIGNAV2013 ---": Integer;
+        DecLTotalAdjCostLCY: Decimal;
+    BEGIN
+        //MODIF pour utilis‚ le calcul specifique
+        PrevNo := SalesHeader."No.";
+        CLEAR(SalesLine);
+        CLEAR(TotalSalesLine);
+        CLEAR(TotalSalesLineLCY);
+        TempSalesLine.DELETEALL;
+        CLEAR(TempSalesLine);
+        CLEAR(SalesPost);
+        SalesPost.GetSalesLines(SalesHeader, TempSalesLine, 2);
+        CLEAR(SalesPost);
+        SalesLine.CalcVATAmountLines(0, SalesHeader, TempSalesLine, TempVATAmountLine3);
+
+        //TODO SalesPost.SumSalesLinesTemp(
+        //   SalesHeader, TempSalesLine, 2, TotalSalesLine[3], TotalSalesLineLCY[3],
+        //   VATAmount[3], VATAmountText[3], ProfitLCY[3], ProfitPct[3],
+        //   DecLTotalAdjCostLCY,
+        //   TotalSalesLine[3]."BC6_DEEE HT Amount", TotalSalesLine[3]."BC6_DEEE VAT Amount",
+        //   TotalSalesLine[3]."BC6_DEEE TTC Amount", TotalSalesLine[3]."BC6_DEEE HT Amount (LCY)");
+
+        IF SalesHeader."Prices Including VAT" THEN BEGIN
+            TotalAmount2[3] := TotalSalesLine[3].Amount;
+            TotalAmount1[3] := TotalAmount2[3] + VATAmount[3];
+            TotalSalesLine[3]."Line Amount" := TotalAmount1[3] + TotalSalesLine[3]."Inv. Discount Amount";
+        END ELSE BEGIN
+            TotalAmount1[3] := TotalSalesLine[3].Amount;
+            TotalAmount2[3] := TotalSalesLine[3]."Amount Including VAT";
+        END;
+
+        TempVATAmountLine3.MODIFYALL(Modified, FALSE);
+        SalesHeader."BC6_Sales LCY" := TotalSalesLineLCY[3].Amount;
+        SalesHeader."BC6_Profit LCY" := ProfitLCY[3];
+        SalesHeader."BC6_% Profit" := ProfitPct[3];
+        SalesHeader.MODIFY
+    END;
+
+    //COD82
+    PROCEDURE CalcProfit2(var SalesHeader: Record "Sales Header");
+    VAR
+        SalesLine: Record "Sales Line";
+        TempSalesLine: Record "Sales Line" TEMPORARY;
+        TotalSalesLine: ARRAY[3] OF Record "Sales Line";
+        TotalSalesLineLCY: ARRAY[3] OF Record "Sales Line";
+        Cust: Record Customer;
+        TempVATAmountLine1: Record "VAT Amount Line" TEMPORARY;
+        TempVATAmountLine2: Record "VAT Amount Line" TEMPORARY;
+        TempVATAmountLine3: Record "VAT Amount Line" TEMPORARY;
+        SalesSetup: Record "Sales & Receivables Setup";
+        SalesPost: Codeunit "Sales-Post";
+        TotalAmount1: ARRAY[3] OF Decimal;
+        TotalAmount2: ARRAY[3] OF Decimal;
+        VATAmount: ARRAY[3] OF Decimal;
+        VATAmountText: ARRAY[3] OF Text[30];
+        ProfitLCY: ARRAY[3] OF Decimal;
+        ProfitPct: ARRAY[3] OF Decimal;
+        CreditLimitLCYExpendedPct: Decimal;
+        PrevNo: Code[20];
+        ActiveTab: OPTION General,Invoicing,Shipping;
+        PrevTab: OPTION General,Invoicing,Shipping;
+        SubformIsReady: Boolean;
+        SubformIsEditable: Boolean;
+        AllowInvDisc: Boolean;
+        AllowVATDifference: Boolean;
+        rec_Order: Record "Sales Header";
+        "--- MIGNAV2013 ---": Integer;
+        DecLTotalAdjCostLCY: Decimal;
+    BEGIN
+
+        PrevNo := SalesHeader."No.";
+        CLEAR(SalesLine);
+        CLEAR(TotalSalesLine);
+        CLEAR(TotalSalesLineLCY);
+        TempSalesLine.DELETEALL;
+        CLEAR(TempSalesLine);
+        CLEAR(SalesPost);
+        SalesPost.GetSalesLines(SalesHeader, TempSalesLine, 2);
+        CLEAR(SalesPost);
+
+        SalesLine.CalcVATAmountLines(0, SalesHeader, TempSalesLine, TempVATAmountLine3);
+        //TODO SalesPost.SumSalesLinesTemp(
+        //   SalesHeader, TempSalesLine, 2, TotalSalesLine[3], TotalSalesLineLCY[3],
+        //   VATAmount[3], VATAmountText[3], ProfitLCY[3], ProfitPct[3],
+        //   DecLTotalAdjCostLCY,
+        //   TotalSalesLine[3]."BC6_DEEE HT Amount", TotalSalesLine[3]."BC6_DEEE VAT Amount",
+        //   TotalSalesLine[3]."BC6_DEEE TTC Amount", TotalSalesLine[3]."BC6_DEEE HT Amount (LCY)");
+
+        IF SalesHeader."Prices Including VAT" THEN BEGIN
+            TotalAmount2[3] := TotalSalesLine[3].Amount;
+            TotalAmount1[3] := TotalAmount2[3] + VATAmount[3];
+            TotalSalesLine[3]."Line Amount" := TotalAmount1[3] + TotalSalesLine[3]."Inv. Discount Amount";
+        END ELSE BEGIN
+            TotalAmount1[3] := TotalSalesLine[3].Amount;
+            TotalAmount2[3] := TotalSalesLine[3]."Amount Including VAT";
+        END;
+
+        TempVATAmountLine3.MODIFYALL(Modified, FALSE);
+        SalesHeader."BC6_Sales LCY" := TotalSalesLineLCY[3].Amount;
+        SalesHeader."BC6_Profit LCY" := ProfitLCY[3];
+        SalesHeader."BC6_% Profit" := ProfitPct[3];
+        SalesHeader.MODIFY
+    END;
+
+    //COD86
+    PROCEDURE UpdatePurchasedoc(var SalesOrderLine: Record "Sales Line"; SalesQuoteLine: Record "Sales Line");
+    VAR
+        RecLPurchLine: Record "Purchase Line";
+    BEGIN
+        RecLPurchLine.RESET;
+        //>> MODIF HL 22/10/2012 SU-LALE cf appel TI127191
+        RecLPurchLine.SETCURRENTKEY("BC6_Sales Document Type", "BC6_Sales Line No.", "BC6_Sales No.");
+        //<< MODIF HL 22/10/2012 SU-LALE cf appel TI127191
+        RecLPurchLine.SETFILTER("BC6_Sales Document Type", '%1', SalesQuoteLine."Document Type");
+        RecLPurchLine.SETFILTER("BC6_Sales Line No.", '%1', SalesQuoteLine."Line No.");
+        RecLPurchLine.SETFILTER("BC6_Sales No.", SalesQuoteLine."Document No.");
+        IF RecLPurchLine.FIND('-') THEN
+            REPEAT
+                RecLPurchLine."BC6_Sales No." := SalesOrderLine."Document No.";
+                RecLPurchLine."BC6_Sales Line No." := SalesOrderLine."Line No.";
+                RecLPurchLine."BC6_Sales Document Type" := SalesOrderLine."Document Type";
+                RecLPurchLine.MODIFY(TRUE);
+            UNTIL RecLPurchLine.NEXT = 0;
+    END;
+
+    var
+        EnableIncrPurchCost: Boolean;
         BinCode: Code[20];
 }

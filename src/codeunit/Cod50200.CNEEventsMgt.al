@@ -418,7 +418,6 @@ codeunit 50200 "BC6_CNE_EventsMgt"
     begin
         FctMngt.FindVeryBestCost(PurchaseLine, PurchHeader);
     end;
-
     //COD12
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Gen. Jnl.-Post Line", 'OnBeforeCalcPmtDiscPossible', '', false, false)]
 
@@ -647,7 +646,7 @@ codeunit 50200 "BC6_CNE_EventsMgt"
     var
         TotalSalesLineLCY: Record "sales line";
     begin
-        TotalSalesLineLCY.get();
+        TotalSalesLineLCY.get(TotalSalesLineLCY."Document Type", TotalSalesLineLCY."Document No.", TotalSalesLineLCY."Line No.");
         if not SalesHeader.IsCreditDocType then begin
             TotalSalesLineLCY."Unit Cost (LCY)" := -TotalSalesLineLCY."Unit Cost (LCY)";
             TotalSalesLineLCY."BC6_Purchase cost" := -TotalSalesLineLCY."BC6_Purchase cost";
@@ -687,8 +686,165 @@ codeunit 50200 "BC6_CNE_EventsMgt"
         FctMngt.xUpdateShipmentInvoiced(SalesInvHeader);
     end;
 
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnBeforeRoundAmount', '', false, false)]
+    local procedure COD80_OnBeforeRoundAmount(var SalesHeader: Record "Sales Header"; var SalesLine: Record "Sales Line"; SalesLineQty: Decimal; var CurrExchRate: Record "Currency Exchange Rate")
+    begin
+
+        if SalesHeader."Currency Code" <> '' then begin
+            //>>MIGRATION NAV 2013 - 2017
+            SalesLine."BC6_DEEE Unit Price" :=
+              ROUND(
+                CurrExchRate.ExchangeAmtFCYToLCY(
+                   SalesHeader.GetUseDate(), SalesHeader."Currency Code",
+                  SalesLine."BC6_DEEE Unit Price", SalesHeader."Currency Factor")) -
+                    SalesLine."BC6_DEEE Unit Price";
+            //<<MIGRATION NAV 2013 - 2017
+        end;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnRoundAmountOnBeforeIncrAmount', '', false, false)]
+    local procedure COD80_OnRoundAmountOnBeforeIncrAmount(SalesHeader: Record "Sales Header"; var SalesLine: Record "Sales Line"; SalesLineQty: Decimal; var TotalSalesLine: Record "Sales Line"; var TotalSalesLineLCY: Record "Sales Line"; var xSalesLine: Record "Sales Line")
+    var
+        FctMngt: Codeunit BC6_FctMangt;
+        EnableIncrPurchCost: Boolean; //(variable globale que je la déclaré locale, car elle est utilisée slmnt dans cette partie)
+        L_Item: Record Item;
+    begin
+
+        // FctMngt.Increment(TotalSalesLine."BC6_Purchase cost",ROUND(SalesLineQty * TotalSalesLine."BC6_Purchase cost"));
+        // IF EnableIncrPurchCost THEN
+        //   IF L_Item.Type = L_Item.Type::Item THEN BEGIN
+        //     L_Item.GET("No.");
+        //     FctMngt.Increment(SalesLine."BC6_Purchase cost", ROUND(TotalSalesLine."BC6_Purchase cost" * L_Item."BC6_Cost Increase Coeff %" / 100) * SalesLineQty);
+        //   END; //TODO: Item n'existe plus dans la liste des options de l'enum Type
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnAfterIncrAmount', '', false, false)]
+    local procedure COD80_OnAfterIncrAmount(var TotalSalesLine: Record "Sales Line"; SalesLine: Record "Sales Line"; SalesHeader: Record "Sales Header")
+    var
+        FctMngt: Codeunit BC6_FctMangt;
+
+    begin
+        FctMngt.Increment(TotalSalesLine."BC6_DEEE HT Amount", TotalSalesLine."BC6_DEEE HT Amount");
+        FctMngt.Increment(TotalSalesLine."BC6_DEEE TTC Amount", TotalSalesLine."BC6_DEEE TTC Amount");
+        FctMngt.Increment(TotalSalesLine."BC6_DEEE VAT Amount", TotalSalesLine."BC6_DEEE VAT Amount");
+        FctMngt.Increment(TotalSalesLine."BC6_DEEE HT Amount (LCY)", TotalSalesLine."BC6_DEEE HT Amount (LCY)");
+    end;
+
+
+    //COD81
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post (Yes/No)", 'OnConfirmPostOnBeforeSetSelection', '', false, false)]
+    local procedure COD81_OnConfirmPostOnBeforeSetSelection(var SalesHeader: Record "Sales Header")
+    begin
+        //>>MIGRATION NAV 2013
+        //FG
+        IF SalesHeader."Document Type" <> SalesHeader."Document Type"::Invoice THEN
+            SalesHeader.TESTFIELD(SalesHeader.Status, SalesHeader.Status::Released);
+        //<<MIGRATION NAV 2013
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post (Yes/No)", 'OnBeforeConfirmPost', '', false, false)]
+
+    local procedure COD81_OnBeforeConfirmPost(var SalesHeader: Record "Sales Header"; var DefaultOption: Integer; var Result: Boolean; var IsHandled: Boolean)
+    var
+        RecLNaviSetup: Record "BC6_Navi+ Setup";
+        AssmPost: Codeunit "Assembly-Post"; // Procedure moved from CDU80 to CDU900 and changed arguments .. 
+    begin
+        RecLNaviSetup.GET();
+        IF RecLNaviSetup."Date jour en factur/livraison" THEN
+            AssmPost.SetPostingDate(TRUE, WORKDATE);
+    end;
+    //COD82
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post + Print", 'OnBeforeConfirmPostProcedure', '', false, false)]
+    local procedure COD82_OnBeforeConfirmPostProcedure(var SalesHeader: Record "Sales Header"; var DefaultOption: Integer; var Result: Boolean; var IsHandled: Boolean)
+    var
+        Selection: Integer;
+        ReceiveInvoiceQst: Label '&Receive,&Invoice,Receive &and Invoice';
+        ShipInvoiceQst: Label '&Ship,&Invoice,Ship &and Invoice';
+        FctMngt: Codeunit BC6_FctMangt;
+        ConfirmManagement: Codeunit "Confirm Management";
+        SalesPostPrint: Codeunit "Sales-Post + Print";
+        RecLNaviSetup: Record "BC6_Navi+ Setup";
+        AsmPost: Codeunit "Assembly-Post";
+    begin
+        IsHandled := true;
+        if DefaultOption > 3 then
+            DefaultOption := 3;
+        if DefaultOption <= 0 then
+            DefaultOption := 1;
+        with SalesHeader do begin
+            case "Document Type" of
+                "Document Type"::Order:
+                    begin
+                        Selection := StrMenu(ShipInvoiceQst, DefaultOption);
+                        if Selection = 0 then
+                            exit;
+                        Ship := Selection in [1, 3];
+                        Invoice := Selection in [2, 3];
+                    end;
+                "Document Type"::"Return Order":
+                    begin
+                        Selection := StrMenu(ReceiveInvoiceQst, DefaultOption);
+                        if Selection = 0 then
+                            exit;
+                        Receive := Selection in [1, 3];
+                        IF Ship THEN FctMngt.CalcProfit2(SalesHeader);
+                        Invoice := Selection in [2, 3];
+
+                    end
+                else
+                    if not ConfirmManagement.GetResponseOrDefault(
+                         StrSubstNo(SalesPostPrint.ConfirmationMessage, "Document Type"), true)
+                    then
+                        exit;
+
+            end;
+            "Print Posted Documents" := true;
+            //>>MIGRATION NAV 2013
+            //>> NavEasy Correction FRGO 14/03/2007
+            IF RecLNaviSetup.GET THEN BEGIN
+                IF RecLNaviSetup."Date jour en factur/livraison" THEN
+                    AsmPost.SetPostingDate(TRUE, WORKDATE);
+            END;
+            //<<NavEasy Correction FRGO 14/03/2007
+            //<<MIGRATION NAV 2013
+
+        end;
+    end;
+    //COD83
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Quote to Order (Yes/No)", 'OnBeforeConfirmConvertToOrder', '', false, false)]
+    local procedure COD83_OnBeforeConfirmConvertToOrder(SalesHeader: Record "Sales Header"; var Result: Boolean; var IsHandled: Boolean)
+    var
+        RecLSalesLine: Record "Sales Line";
+        RecLItem: Record Item;
+
+    begin
+        //>>MIGRATION NAV 2013
+        SalesHeader.TESTFIELD("Shipment Method Code", '');
+        //>> MODIF HL 17/05/2011 SU-LALE cf appel TI046353
+        // on vient v‚rifier si dans le devis les articles ne sont pas bloqu‚s.
+        RecLSalesLine.SETRANGE("Document Type", SalesHeader."Document Type");
+        RecLSalesLine.SETRANGE("Document No.", SalesHeader."No.");
+        RecLSalesLine.SETRANGE(Type, RecLSalesLine.Type::Item);
+        RecLSalesLine.SETFILTER("No.", '<>%1', '');
+        IF RecLSalesLine.FINDFIRST THEN
+            REPEAT
+                RecLItem.GET(RecLSalesLine."No.");
+                RecLItem.TESTFIELD(Blocked, FALSE);
+            UNTIL RecLSalesLine.NEXT = 0;
+        //<< MODIF HL 17/05/2011 SU-LALE cf appel TI046353
+        //<<MIGRATION NAV 2013
+    end;
+
+    //COD 86
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Quote to Order", 'OnBeforeInsertSalesOrderLine', '', false, false)]
+    local procedure COD86_OnBeforeInsertSalesOrderLine(var SalesOrderLine: Record "Sales Line"; SalesOrderHeader: Record "Sales Header"; SalesQuoteLine: Record "Sales Line"; SalesQuoteHeader: Record "Sales Header")
+    var
+        FctMngt: Codeunit BC6_FctMangt;
+    begin
+        FctMngt.UpdatePurchasedoc(SalesQuoteLine, SalesQuoteLine);
+    end;
+
+
 
 }
-
-
-

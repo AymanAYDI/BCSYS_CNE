@@ -7,7 +7,7 @@ table 50000 "BC6_Setup Various Tables"
 
     fields
     {
-        field(1; "Code"; Code[10])
+        field(1; "Code"; Code[20])
         {
             Caption = 'Code';
             NotBlank = true;
@@ -137,7 +137,7 @@ table 50000 "BC6_Setup Various Tables"
             Caption = 'Radical Code2 Description';
             FieldClass = FlowField;
         }
-        field(33; "Radical Code2"; Code[10])
+        field(33; "Radical Code2"; Code[20])
         {
             Caption = 'Radical Code2';
             TableRelation = "BC6_Setup Various Tables".Code;
@@ -152,7 +152,7 @@ table 50000 "BC6_Setup Various Tables"
             Caption = 'Radical Code3 Description';
             FieldClass = FlowField;
         }
-        field(37; "Radical Code3"; Code[10])
+        field(37; "Radical Code3"; Code[20])
         {
             Caption = 'Radical Code3';
             TableRelation = "BC6_Setup Various Tables".Code;
@@ -236,4 +236,3 @@ table 50000 "BC6_Setup Various Tables"
     var
         RecGDiv: Record "BC6_Various Tables";
 }
-

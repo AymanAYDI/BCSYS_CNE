@@ -1,4 +1,4 @@
-tableextension 50016 "BC6_Location" extends Location
+tableextension 50016 "BC6_Location" extends Location //14
 {
     LookupPageID = 15;
     DrillDownPageID = 15;

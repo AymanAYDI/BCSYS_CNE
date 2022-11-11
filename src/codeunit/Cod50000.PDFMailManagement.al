@@ -37,5 +37,6 @@ codeunit 50000 "BC6_PDF Mail Management"
                     TxtTag := RecGSalesSetup."BC6_PDF Mail Tag" + RecGContact."E-Mail";
         END;
     end;
+
 }
 

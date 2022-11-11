@@ -26,7 +26,7 @@
     "includeSourceInSymbolFile": false
   },
   "runtime": "9.0",
-  "contextSensitiveHelpUrl": "https://gs1.com/help/",
+  "contextSensitiveHelpUrl": "https://cne.com/help/",
   "features": [
     "TranslationFile"
   ],

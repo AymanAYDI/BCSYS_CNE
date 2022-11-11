@@ -45,7 +45,7 @@ codeunit 50201 "BC6_EventsMgt"
     //TAB290
     //TODO:check code
     [EventSubscriber(ObjectType::Table, Database::"VAT Amount Line", 'OnAfterCopyFromPurchInvLine', '', false, false)]
-    local procedure T290_OnAfterCopyFromPurchInvLine_VATAmountLine(var VATAmountLine: Record "VAT Amount Line"; PurchInvLine: Record "Purch. Inv. Line")
+    procedure T290_OnAfterCopyFromPurchInvLine_VATAmountLine(var VATAmountLine: Record "VAT Amount Line"; PurchInvLine: Record "Purch. Inv. Line")
     begin
         VATAmountLine."BC6_DEEE HT Amount" := VATAmountLine."BC6_DEEE HT Amount" + PurchInvLine."BC6_DEEE HT Amount";
         VATAmountLine."BC6_DEEE VAT Amount" := VATAmountLine."BC6_DEEE VAT Amount" + PurchInvLine."BC6_DEEE VAT Amount";
@@ -55,7 +55,7 @@ codeunit 50201 "BC6_EventsMgt"
     end;
     //TAB290
     [EventSubscriber(ObjectType::Table, Database::"VAT Amount Line", 'OnAfterCopyFromPurchCrMemoLine', '', false, false)]
-    local procedure T290_OnAfterCopyFromPurchCrMemoLine_VATAmountLine(var VATAmountLine: Record "VAT Amount Line"; PurchCrMemoLine: Record "Purch. Cr. Memo Line")
+    procedure T290_OnAfterCopyFromPurchCrMemoLine_VATAmountLine(var VATAmountLine: Record "VAT Amount Line"; PurchCrMemoLine: Record "Purch. Cr. Memo Line")
     begin
         VATAmountLine."BC6_DEEE HT Amount" := VATAmountLine."BC6_DEEE HT Amount" + PurchCrMemoLine."BC6_DEEE HT Amount";
         VATAmountLine."BC6_DEEE VAT Amount" := VATAmountLine."BC6_DEEE VAT Amount" + PurchCrMemoLine."BC6_DEEE VAT Amount";
@@ -69,7 +69,7 @@ codeunit 50201 "BC6_EventsMgt"
     //TAB5765 
     //TODO: check si No. appartient au record commentLine 
     [EventSubscriber(ObjectType::Table, Database::"Warehouse Request", 'OnAfterDeleteRequest', '', false, false)]
-    local procedure T5765_OnAfterDeleteRequest_WarehouseReq(SourceType: Integer; SourceSubtype: Integer; SourceNo: Code[20])
+    procedure T5765_OnAfterDeleteRequest_WarehouseReq(SourceType: Integer; SourceSubtype: Integer; SourceNo: Code[20])
     var
         RecLAffairStep: Record "BC6_Affair Steps";
         CommentLine: Record "Comment Line";
@@ -82,14 +82,14 @@ codeunit 50201 "BC6_EventsMgt"
     //TAB36
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterOnInsert', '', false, false)]
 
-    local procedure T36_OnAfterOnInsert_SalesHeader(var SalesHeader: Record "Sales Header")
+    procedure T36_OnAfterOnInsert_SalesHeader(var SalesHeader: Record "Sales Header")
     begin
         SalesHeader.ID := USERID;
     end;
 
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnDeleteOnBeforeArchiveSalesDocument', '', false, false)]
-    local procedure OnDeleteOnBeforeArchiveSalesDocument(var SalesHeader: Record "Sales Header"; xSalesHeader: Record "Sales Header")
+    procedure OnDeleteOnBeforeArchiveSalesDocument(var SalesHeader: Record "Sales Header"; xSalesHeader: Record "Sales Header")
     var
         CompanyInfo: Record "Company Information";
         TextG003: label 'Warning: you have already placed this order purchase.';
@@ -108,7 +108,7 @@ codeunit 50201 "BC6_EventsMgt"
     //TAB27
     [EventSubscriber(ObjectType::Table, Database::Item, 'OnAfterOnInsert', '', false, false)]
 
-    local procedure t27_OnAfterOnInsert_Item(var Item: Record Item; var xItem: Record Item)
+    procedure t27_OnAfterOnInsert_Item(var Item: Record Item; var xItem: Record Item)
     var
         NaviSetup: Record "BC6_Navi+ Setup";
         ItemUnitOfMeasure: Record "Item Unit of Measure";
@@ -147,7 +147,7 @@ codeunit 50201 "BC6_EventsMgt"
     end;
 
     [EventSubscriber(ObjectType::Table, Database::Item, 'OnBeforeModifyEvent', '', false, false)]
-    local procedure OnBeforeModifyEvent(var Rec: Record Item; var xRec: Record Item; RunTrigger: Boolean)
+    procedure OnBeforeModifyEvent(var Rec: Record Item; var xRec: Record Item; RunTrigger: Boolean)
     begin
         if not (UPPERCASE(USERID) in ['CNE\BCSYS']) then
             Rec.TESTFIELD(Rec."Vendor No.");
@@ -156,7 +156,7 @@ codeunit 50201 "BC6_EventsMgt"
     //TAB290
     [EventSubscriber(ObjectType::Table, Database::"VAT Amount Line", 'OnInsertLineOnBeforeModify', '', false, false)]
 
-    local procedure T290_OnInsertLineOnBeforeModify_VATAmountLine(var VATAmountLine: Record "VAT Amount Line"; FromVATAmountLine: Record "VAT Amount Line")
+    procedure T290_OnInsertLineOnBeforeModify_VATAmountLine(var VATAmountLine: Record "VAT Amount Line"; FromVATAmountLine: Record "VAT Amount Line")
     begin
         VATAmountLine."BC6_DEEE HT Amount" := VATAmountLine."BC6_DEEE HT Amount" + FromVATAmountLine."BC6_DEEE HT Amount";
         VATAmountLine."BC6_DEEE VAT Amount" := VATAmountLine."BC6_DEEE VAT Amount" + FromVATAmountLine."BC6_DEEE VAT Amount";
@@ -166,7 +166,7 @@ codeunit 50201 "BC6_EventsMgt"
 
     [EventSubscriber(ObjectType::Table, Database::"VAT Amount Line", 'OnInsertLineOnBeforeInsert', '', false, false)]
 
-    local procedure T290_OnInsertLineOnBeforeInsert_VATAmountLine(var VATAmountLine: Record "VAT Amount Line"; var FromVATAmountLine: Record "VAT Amount Line")
+    procedure T290_OnInsertLineOnBeforeInsert_VATAmountLine(var VATAmountLine: Record "VAT Amount Line"; var FromVATAmountLine: Record "VAT Amount Line")
     begin
         VATAmountLine."BC6_DEEE HT Amount" := FromVATAmountLine."BC6_DEEE HT Amount";
         VATAmountLine."BC6_DEEE VAT Amount" := FromVATAmountLine."BC6_DEEE VAT Amount";
@@ -175,13 +175,13 @@ codeunit 50201 "BC6_EventsMgt"
 
     //Tab36
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterInsertEvent', '', false, false)]
-    local procedure T36_OnAfterInsertEvent_SalesHeader(var Rec: Record "Sales Header"; RunTrigger: Boolean)
+    procedure T36_OnAfterInsertEvent_SalesHeader(var Rec: Record "Sales Header"; RunTrigger: Boolean)
     begin
         Rec.ID := USERID
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterDeleteEvent', '', false, false)]
-    local procedure T36_OnAfterDeleteEvent_SalesHeader(var Rec: Record "Sales Header"; RunTrigger: Boolean)
+    procedure T36_OnAfterDeleteEvent_SalesHeader(var Rec: Record "Sales Header"; RunTrigger: Boolean)
     var
         CompanyInfo: Record "Company Information";
         TextG003: label 'Warning:This purchase order is linked to a sales order.';
@@ -203,7 +203,7 @@ codeunit 50201 "BC6_EventsMgt"
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterCheckSellToCust', '', false, false)]
 
-    local procedure T36_OnAfterCheckSellToCust_SalesHeader(var SalesHeader: Record "Sales Header"; xSalesHeader: Record "Sales Header"; Customer: Record Customer; CurrentFieldNo: Integer)
+    procedure T36_OnAfterCheckSellToCust_SalesHeader(var SalesHeader: Record "Sales Header"; xSalesHeader: Record "Sales Header"; Customer: Record Customer; CurrentFieldNo: Integer)
     var
         RecGParamNavi: Record "BC6_Navi+ Setup";
         RecGCommentLine: Record "Comment Line";
@@ -229,7 +229,7 @@ codeunit 50201 "BC6_EventsMgt"
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterCopySellToCustomerAddressFieldsFromCustomer', '', false, false)]
 
-    local procedure T36_OnAfterCopySellToCustomerAddressFieldsFromCustomer_SalesHeader(var SalesHeader: Record "Sales Header"; SellToCustomer: Record Customer; CurrentFieldNo: Integer; var SkipBillToContact: Boolean)
+    procedure T36_OnAfterCopySellToCustomerAddressFieldsFromCustomer_SalesHeader(var SalesHeader: Record "Sales Header"; SellToCustomer: Record Customer; CurrentFieldNo: Integer; var SkipBillToContact: Boolean)
     begin
         SellToCustomer."BC6_Combine Shipments by Order" := SellToCustomer."BC6_Combine Shipments by Order";
         SellToCustomer."BC6_Pay-to Customer No." := SellToCustomer."BC6_Pay-to Customer No.";
@@ -242,7 +242,7 @@ codeunit 50201 "BC6_EventsMgt"
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnValidateSellToCustomerNoOnBeforeRecallModifyAddressNotification', '', false, false)]
 
-    local procedure T36_OnValidateSellToCustomerNoOnBeforeRecallModifyAddressNotification(var SalesHeader: Record "Sales Header"; xSalesHeader: Record "Sales Header")
+    procedure T36_OnValidateSellToCustomerNoOnBeforeRecallModifyAddressNotification(var SalesHeader: Record "Sales Header"; xSalesHeader: Record "Sales Header")
     begin
         SalesHeader.UpdateIncoterm();  //procedure specifique 
         if SalesHeader."Document Type" in [SalesHeader."Document Type"::Order, SalesHeader."Document Type"::Invoice, SalesHeader."Document Type"::"Credit Memo"] then
@@ -252,7 +252,7 @@ codeunit 50201 "BC6_EventsMgt"
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterTestStatusOpen', '', false, false)]
 
-    local procedure T36_OnAfterTestStatusOpen_SalesHeader(var SalesHeader: Record "Sales Header")
+    procedure T36_OnAfterTestStatusOpen_SalesHeader(var SalesHeader: Record "Sales Header")
     var
         Cust: Record Customer;
     begin
@@ -264,7 +264,7 @@ codeunit 50201 "BC6_EventsMgt"
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnBeforeSetSalespersonCode', '', false, false)]
 
-    local procedure T36_OnBeforeSetSalespersonCode_SalesHeader(var SalesHeader: Record "Sales Header"; SalesPersonCodeToCheck: Code[20]; var SalesPersonCodeToAssign: Code[20]; var IsHandled: Boolean)
+    procedure T36_OnBeforeSetSalespersonCode_SalesHeader(var SalesHeader: Record "Sales Header"; SalesPersonCodeToCheck: Code[20]; var SalesPersonCodeToAssign: Code[20]; var IsHandled: Boolean)
     var
         Cust: Record Customer;
     begin
@@ -275,14 +275,14 @@ codeunit 50201 "BC6_EventsMgt"
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnBeforeShouldSearchForCustomerByName', '', false, false)]
 
-    local procedure T36_OnBeforeShouldSearchForCustomerByName_SalesHeader(CustomerNo: Code[20]; var Result: Boolean; var IsHandled: Boolean; var CallingFieldNo: Integer)
+    procedure T36_OnBeforeShouldSearchForCustomerByName_SalesHeader(CustomerNo: Code[20]; var Result: Boolean; var IsHandled: Boolean; var CallingFieldNo: Integer)
     begin
         IsHandled := true;
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterTestNoSeries', '', false, false)]
 
-    local procedure OnAfterTestNoSeries(var SalesHeader: Record "Sales Header"; var SalesReceivablesSetup: Record "Sales & Receivables Setup")
+    procedure OnAfterTestNoSeries(var SalesHeader: Record "Sales Header"; var SalesReceivablesSetup: Record "Sales & Receivables Setup")
     begin
         case SalesHeader."Document Type" of
             SalesHeader."Document Type"::"Return Order":
@@ -297,7 +297,7 @@ codeunit 50201 "BC6_EventsMgt"
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterGetNoSeriesCode', '', false, false)]
 
-    local procedure OnAfterGetNoSeriesCode(var SalesHeader: Record "Sales Header"; SalesReceivablesSetup: Record "Sales & Receivables Setup"; var NoSeriesCode: Code[20])
+    procedure OnAfterGetNoSeriesCode(var SalesHeader: Record "Sales Header"; SalesReceivablesSetup: Record "Sales & Receivables Setup"; var NoSeriesCode: Code[20])
     begin
         case SalesHeader."Document Type" of
             SalesHeader."Document Type"::"Return Order":
@@ -314,7 +314,7 @@ codeunit 50201 "BC6_EventsMgt"
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnUpdateSalesLineByChangedFieldName', '', false, false)]
 
-    local procedure OnUpdateSalesLineByChangedFieldName(SalesHeader: Record "Sales Header"; var SalesLine: Record "Sales Line"; ChangedFieldName: Text[100]; ChangedFieldNo: Integer)
+    procedure OnUpdateSalesLineByChangedFieldName(SalesHeader: Record "Sales Header"; var SalesLine: Record "Sales Line"; ChangedFieldName: Text[100]; ChangedFieldNo: Integer)
     begin
         case ChangedFieldNo of
             SalesLine.FieldNo("Bin Code"):
@@ -326,7 +326,7 @@ codeunit 50201 "BC6_EventsMgt"
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterUpdateSellToCont', '', false, false)]
 
-    local procedure OnAfterUpdateSellToCont(var SalesHeader: Record "Sales Header"; Customer: Record Customer; Contact: Record Contact; HideValidationDialog: Boolean)
+    procedure OnAfterUpdateSellToCont(var SalesHeader: Record "Sales Header"; Customer: Record Customer; Contact: Record Contact; HideValidationDialog: Boolean)
     begin
         SalesHeader.UpdateSellToFax(SalesHeader."Sell-to Contact No.");
         SalesHeader.UpdateSellToMail(SalesHeader."Sell-to Contact No.");
@@ -335,7 +335,7 @@ codeunit 50201 "BC6_EventsMgt"
 
     //TODO:not sure 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterUpdateSellToCust', '', false, false)]
-    local procedure OnAfterUpdateSellToCust(var SalesHeader: Record "Sales Header"; Contact: Record Contact)
+    procedure OnAfterUpdateSellToCust(var SalesHeader: Record "Sales Header"; Contact: Record Contact)
     var
         ContactNo: Code[20];
     begin
@@ -346,7 +346,7 @@ codeunit 50201 "BC6_EventsMgt"
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnBeforeUpdateOutboundWhseHandlingTime', '', false, false)]
-    local procedure OnBeforeUpdateOutboundWhseHandlingTime(var SalesHeader: Record "Sales Header"; var IsHandled: Boolean)
+    procedure OnBeforeUpdateOutboundWhseHandlingTime(var SalesHeader: Record "Sales Header"; var IsHandled: Boolean)
     var
         InvtSetup: Record "Inventory Setup";
         Location: Record location;
@@ -366,7 +366,7 @@ codeunit 50201 "BC6_EventsMgt"
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnBeforeInitFromSalesHeader', '', false, false)]
-    local procedure OnBeforeInitFromSalesHeader(var SalesHeader: Record "Sales Header"; SourceSalesHeader: Record "Sales Header")
+    procedure OnBeforeInitFromSalesHeader(var SalesHeader: Record "Sales Header"; SourceSalesHeader: Record "Sales Header")
     begin
         SalesHeader.VALIDATE("Order Date", WORKDATE());
         SalesHeader.VALIDATE("Posting Date", WORKDATE());
@@ -378,7 +378,7 @@ codeunit 50201 "BC6_EventsMgt"
         SalesHeader."BC6_Document description" := SourceSalesHeader."BC6_Document description";
     end;
 
-    local procedure OnAfterInitFromSalesHeader(var SalesHeader: Record "Sales Header"; SourceSalesHeader: Record "Sales Header")
+    procedure OnAfterInitFromSalesHeader(var SalesHeader: Record "Sales Header"; SourceSalesHeader: Record "Sales Header")
     var
         Location: Record Location;
     begin
@@ -396,20 +396,20 @@ codeunit 50201 "BC6_EventsMgt"
 
     // COD
     [EventSubscriber(ObjectType::Codeunit, codeunit::"Instruction Mgt.", 'OnBeforeIsUnpostedEnabledForRecord', '', false, false)]
-    local procedure OnBeforeIsUnpostedEnabledForRecord(RecVariant: Variant; var Enabled: Boolean; var IsHandled: Boolean)
+    procedure OnBeforeIsUnpostedEnabledForRecord(RecVariant: Variant; var Enabled: Boolean; var IsHandled: Boolean)
     begin
         IsHandled := true;
     end;
 
     //TAB38
     [EventSubscriber(ObjectType::Table, Database::"Purchase Header", 'OnAfterInsertEvent', '', false, false)]
-    local procedure T38_OnAfterInsertEvent_PurchHeader(var Rec: Record "Purchase Header"; RunTrigger: Boolean)
+    procedure T38_OnAfterInsertEvent_PurchHeader(var Rec: Record "Purchase Header"; RunTrigger: Boolean)
     begin
         Rec.ID := USERID
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Purchase Header", 'OnAfterDeleteEvent', '', false, false)]
-    local procedure T38_OnAfterDeleteEvent_PurchHeader(var Rec: Record "Purchase Header"; RunTrigger: Boolean)
+    procedure T38_OnAfterDeleteEvent_PurchHeader(var Rec: Record "Purchase Header"; RunTrigger: Boolean)
     var
         CompanyInfo: Record "Company Information";
         TextG003: label 'Warning:This purchase order is linked to a sales order.';
@@ -428,7 +428,7 @@ codeunit 50201 "BC6_EventsMgt"
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Purchase Header", 'OnValidateBuyFromVendorNoOnAfterRecreateLines', '', false, false)]
-    local procedure OnValidateBuyFromVendorNoOnAfterRecreateLines(var PurchaseHeader: Record "Purchase Header"; xPurchaseHeader: Record "Purchase Header"; CallingFieldNo: Integer)
+    procedure OnValidateBuyFromVendorNoOnAfterRecreateLines(var PurchaseHeader: Record "Purchase Header"; xPurchaseHeader: Record "Purchase Header"; CallingFieldNo: Integer)
     var
         RecGParamNavi: Record "BC6_Navi+ Setup";
         RecGCommentLine: Record "Comment Line";
@@ -454,7 +454,7 @@ codeunit 50201 "BC6_EventsMgt"
 
     [EventSubscriber(ObjectType::Table, Database::"Purchase Header", 'OnBeforeValidateEmptySellToCustomerAndLocation', '', false, false)]
 
-    local procedure OnBeforeValidateEmptySellToCustomerAndLocation(var PurchaseHeader: Record "Purchase Header"; Vendor: Record Vendor; var IsHandled: Boolean; var xPurchaseHeader: Record "Purchase Header")
+    procedure OnBeforeValidateEmptySellToCustomerAndLocation(var PurchaseHeader: Record "Purchase Header"; Vendor: Record Vendor; var IsHandled: Boolean; var xPurchaseHeader: Record "Purchase Header")
     begin
         PurchaseHeader."BC6_Pay-to Vend. No." := Vendor."BC6_Pay-to Vend. No.";
 
@@ -462,7 +462,7 @@ codeunit 50201 "BC6_EventsMgt"
 
     [EventSubscriber(ObjectType::Table, Database::"Purchase Header", 'OnValidateBuyFromVendorNoOnAfterUpdateBuyFromCont', '', false, false)]
 
-    local procedure OnValidateBuyFromVendorNoOnAfterUpdateBuyFromCont(var PurchaseHeader: Record "Purchase Header"; xPurchaseHeader: Record "Purchase Header"; CallingFieldNo: Integer; var SkipBuyFromContact: Boolean)
+    procedure OnValidateBuyFromVendorNoOnAfterUpdateBuyFromCont(var PurchaseHeader: Record "Purchase Header"; xPurchaseHeader: Record "Purchase Header"; CallingFieldNo: Integer; var SkipBuyFromContact: Boolean)
     begin
         //TODO  // UpdateIncoterm;
         if PurchaseHeader."Document Type" in [PurchaseHeader."Document Type"::Order, PurchaseHeader."Document Type"::Invoice, PurchaseHeader."Document Type"::"Credit Memo"] then
@@ -473,14 +473,14 @@ codeunit 50201 "BC6_EventsMgt"
     //cod427
     [EventSubscriber(ObjectType::Codeunit, codeunit::ICInboxOutboxMgt, 'OnAfterICOutBoxSalesHeaderTransferFields', '', false, false)]
 
-    local procedure OnAfterICOutBoxSalesHeaderTransferFields(var ICOutboxSalesHeader: Record "IC Outbox Sales Header"; SalesHeader: Record "Sales Header")
+    procedure OnAfterICOutBoxSalesHeaderTransferFields(var ICOutboxSalesHeader: Record "IC Outbox Sales Header"; SalesHeader: Record "Sales Header")
     begin
         ICOutBoxSalesHeader."BC6_Ship-to Contact" := SalesHeader."Ship-to Contact";
     end;
 
     [EventSubscriber(ObjectType::Codeunit, codeunit::ICInboxOutboxMgt, 'OnCreateOutboxSalesInvTransOnAfterTransferFieldsFromSalesInvHeader', '', false, false)]
 
-    local procedure OnCreateOutboxSalesInvTransOnAfterTransferFieldsFromSalesInvHeader(var ICOutboxSalesHeader: Record "IC Outbox Sales Header"; SalesInvHdr: Record "Sales Invoice Header"; ICOutboxTransaction: Record "IC Outbox Transaction")
+    procedure OnCreateOutboxSalesInvTransOnAfterTransferFieldsFromSalesInvHeader(var ICOutboxSalesHeader: Record "IC Outbox Sales Header"; SalesInvHdr: Record "Sales Invoice Header"; ICOutboxTransaction: Record "IC Outbox Transaction")
     begin
         ICOutBoxSalesHeader."BC6_Ship-to Contact" := SalesInvHdr."Ship-to Contact";
 
@@ -488,7 +488,7 @@ codeunit 50201 "BC6_EventsMgt"
 
     [EventSubscriber(ObjectType::Codeunit, codeunit::ICInboxOutboxMgt, 'OnCreateOutboxSalesCrMemoTransOnAfterTransferFieldsFromSalesCrMemoHeader', '', false, false)]
 
-    local procedure OnCreateOutboxSalesCrMemoTransOnAfterTransferFieldsFromSalesCrMemoHeader(var ICOutboxSalesHeader: Record "IC Outbox Sales Header"; SalesCrMemoHdr: Record "Sales Cr.Memo Header"; ICOutboxTransaction: Record "IC Outbox Transaction")
+    procedure OnCreateOutboxSalesCrMemoTransOnAfterTransferFieldsFromSalesCrMemoHeader(var ICOutboxSalesHeader: Record "IC Outbox Sales Header"; SalesCrMemoHdr: Record "Sales Cr.Memo Header"; ICOutboxTransaction: Record "IC Outbox Transaction")
     begin
         ICOutBoxSalesHeader."BC6_Ship-to Contact" := SalesCrMemoHdr."Ship-to Contact";
 
@@ -496,7 +496,7 @@ codeunit 50201 "BC6_EventsMgt"
 
     [EventSubscriber(ObjectType::Codeunit, codeunit::ICInboxOutboxMgt, 'OnCreateOutboxPurchDocTransOnAfterTransferFieldsFromPurchHeader', '', false, false)]
 
-    local procedure OnCreateOutboxPurchDocTransOnAfterTransferFieldsFromPurchHeader(var ICOutboxPurchHeader: Record "IC Outbox Purchase Header"; PurchHeader: Record "Purchase Header")
+    procedure OnCreateOutboxPurchDocTransOnAfterTransferFieldsFromPurchHeader(var ICOutboxPurchHeader: Record "IC Outbox Purchase Header"; PurchHeader: Record "Purchase Header")
     begin
         ICOutBoxPurchHeader."BC6_Ship-to Contact" := PurchHeader."Ship-to Contact";
 
@@ -506,33 +506,33 @@ codeunit 50201 "BC6_EventsMgt"
     //TODO: to check if the event is true
     [EventSubscriber(ObjectType::Codeunit, codeunit::ICInboxOutboxMgt, 'OnCreateSalesDocumentOnBeforeSalesHeaderInsert', '', false, false)]
 
-    local procedure OnCreateSalesDocumentOnBeforeSalesHeaderInsert(var SalesHeader: Record "Sales Header"; ICInboxSalesHeader: Record "IC Inbox Sales Header")
+    procedure OnCreateSalesDocumentOnBeforeSalesHeaderInsert(var SalesHeader: Record "Sales Header"; ICInboxSalesHeader: Record "IC Inbox Sales Header")
     begin
         SalesHeader."Your Reference" := ICInboxSalesHeader."External Document No.";
         SalesHeader."Ship-to Contact" := ICInboxSalesHeader."BC6_Ship-to Contact";
     end;
 
     [EventSubscriber(ObjectType::Codeunit, codeunit::ICInboxOutboxMgt, 'OnCreateSalesLinesOnAfterValidateNo', '', false, false)]
-    local procedure OnCreateSalesLinesOnAfterValidateNo(var SalesLine: Record "Sales Line"; SalesHeader: Record "Sales Header"; ICInboxSalesLine: Record "IC Inbox Sales Line")
+    procedure OnCreateSalesLinesOnAfterValidateNo(var SalesLine: Record "Sales Line"; SalesHeader: Record "Sales Header"; ICInboxSalesLine: Record "IC Inbox Sales Line")
     begin
         SalesLine."BC6_Purchase No. Order Lien" := ICInboxSalesLine."Document No.";
         SalesLine."BC6_Purchase No. Line Lien" := ICInboxSalesLine."Line No.";
     end;
 
     [EventSubscriber(ObjectType::Codeunit, codeunit::ICInboxOutboxMgt, 'OnCreatePurchDocumentOnBeforePurchHeaderInsert', '', false, false)]
-    local procedure OnCreatePurchDocumentOnBeforePurchHeaderInsert(var PurchaseHeader: Record "Purchase Header"; ICInboxPurchaseHeader: Record "IC Inbox Purchase Header")
+    procedure OnCreatePurchDocumentOnBeforePurchHeaderInsert(var PurchaseHeader: Record "Purchase Header"; ICInboxPurchaseHeader: Record "IC Inbox Purchase Header")
     begin
         PurchaseHeader."Ship-to Contact" := ICInboxPurchaseHeader."BC6_Ship-to Contact";
     end;
 
     [EventSubscriber(ObjectType::Codeunit, codeunit::ICInboxOutboxMgt, 'OnBeforeICInboxPurchHeaderInsert', '', false, false)]
-    local procedure OnBeforeICInboxPurchHeaderInsert(var ICInboxPurchaseHeader: Record "IC Inbox Purchase Header"; ICOutboxSalesHeader: Record "IC Outbox Sales Header")
+    procedure OnBeforeICInboxPurchHeaderInsert(var ICInboxPurchaseHeader: Record "IC Inbox Purchase Header"; ICOutboxSalesHeader: Record "IC Outbox Sales Header")
     begin
         ICInboxPurchaseHeader."BC6_Ship-to Contact" := ICOutboxSalesHeader."BC6_Ship-to Contact";
     end;
 
     [EventSubscriber(ObjectType::Codeunit, codeunit::ICInboxOutboxMgt, 'OnBeforeICInboxSalesHeaderInsert', '', false, false)]
-    local procedure OnBeforeICInboxSalesHeaderInsert(var ICInboxSalesHeader: Record "IC Inbox Sales Header"; ICOutboxPurchaseHeader: Record "IC Outbox Purchase Header")
+    procedure OnBeforeICInboxSalesHeaderInsert(var ICInboxSalesHeader: Record "IC Inbox Sales Header"; ICOutboxPurchaseHeader: Record "IC Outbox Purchase Header")
     begin
         ICInboxSalesHeader."BC6_Ship-to Contact" := ICOutboxPurchaseHeader."BC6_Ship-to Contact";
 
@@ -540,14 +540,14 @@ codeunit 50201 "BC6_EventsMgt"
 
     [EventSubscriber(ObjectType::Codeunit, codeunit::ICInboxOutboxMgt, 'OnAfterICInboxSalesHeaderInsert', '', false, false)]
 
-    local procedure OnAfterICInboxSalesHeaderInsert(var ICInboxSalesHeader: Record "IC Inbox Sales Header"; ICOutboxPurchaseHeader: Record "IC Outbox Purchase Header")
+    procedure OnAfterICInboxSalesHeaderInsert(var ICInboxSalesHeader: Record "IC Inbox Sales Header"; ICOutboxPurchaseHeader: Record "IC Outbox Purchase Header")
     begin
         ICInboxSalesHeader."External Document No." := ICOutboxPurchaseHeader."Your Reference";
     end;
     //COD550
     [EventSubscriber(ObjectType::Codeunit, codeunit::"VAT Rate Change Conversion", 'OnBeforeUpdateItem', '', false, false)]
 
-    local procedure COD550_OnBeforeUpdateItem(var Item: Record Item; var VATRateChangeSetup: Record "VAT Rate Change Setup"; var IsHandled: Boolean)
+    procedure COD550_OnBeforeUpdateItem(var Item: Record Item; var VATRateChangeSetup: Record "VAT Rate Change Setup"; var IsHandled: Boolean)
     var
         fctMgt: Codeunit "BC6_FctMangt";
         VATRateChangeConv: Codeunit "VAT Rate Change Conversion";
@@ -567,7 +567,7 @@ codeunit 50201 "BC6_EventsMgt"
     //COD841  
     [EventSubscriber(ObjectType::Codeunit, codeunit::"Cash Flow Management", 'OnBeforeGetTaxAmountFromSalesOrder', '', false, false)]
 
-    local procedure COD841_OnBeforeGetTaxAmountFromSalesOrder(SalesHeader: Record "Sales Header"; var VATAmount: Decimal; var IsHandled: Boolean)
+    procedure COD841_OnBeforeGetTaxAmountFromSalesOrder(SalesHeader: Record "Sales Header"; var VATAmount: Decimal; var IsHandled: Boolean)
     var
         fctMgt: Codeunit "BC6_FctMangt";
     begin
@@ -577,7 +577,7 @@ codeunit 50201 "BC6_EventsMgt"
 
     [EventSubscriber(ObjectType::Codeunit, codeunit::"Cash Flow Management", 'OnBeforeGetTaxAmountFromPurchaseOrder', '', false, false)]
 
-    local procedure OnBeforeGetTaxAmountFromPurchaseOrder(PurchaseHeader: Record "Purchase Header"; var VATAmount: Decimal; var IsHandled: Boolean)
+    procedure OnBeforeGetTaxAmountFromPurchaseOrder(PurchaseHeader: Record "Purchase Header"; var VATAmount: Decimal; var IsHandled: Boolean)
     var
         fctMgt: Codeunit "BC6_FctMangt";
     begin
@@ -586,7 +586,7 @@ codeunit 50201 "BC6_EventsMgt"
 
     //COD1302 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterIsBillToAddressEqualToSellToAddress', '', false, false)]
-    local procedure OnAfterIsBillToAddressEqualToSellToAddress(SellToSalesHeader: Record "Sales Header"; BillToSalesHeader: Record "Sales Header"; var Result: Boolean)
+    procedure OnAfterIsBillToAddressEqualToSellToAddress(SellToSalesHeader: Record "Sales Header"; BillToSalesHeader: Record "Sales Header"; var Result: Boolean)
     begin
         Result := Result and (BillToSalesHeader."Bill-to Name" = SellToSalesHeader."Sell-to Customer Name");
     end;
@@ -594,7 +594,7 @@ codeunit 50201 "BC6_EventsMgt"
 
     [EventSubscriber(ObjectType::Codeunit, codeunit::"Instruction Mgt.", 'OnAfterIsEnabled', '', false, false)]
 
-    local procedure OnAfterIsEnabled(InstructionType: Code[50]; var Result: Boolean)
+    procedure OnAfterIsEnabled(InstructionType: Code[50]; var Result: Boolean)
     var
         fctMgt: Codeunit "BC6_FctMangt";
     begin
@@ -605,7 +605,7 @@ codeunit 50201 "BC6_EventsMgt"
 
     [EventSubscriber(ObjectType::Codeunit, codeunit::ArchiveManagement, 'OnAfterStoreSalesDocument', '', false, false)]
 
-    local procedure OnAfterStoreSalesDocument(var SalesHeader: Record "Sales Header"; var SalesHeaderArchive: Record "Sales Header Archive")
+    procedure OnAfterStoreSalesDocument(var SalesHeader: Record "Sales Header"; var SalesHeaderArchive: Record "Sales Header Archive")
     begin
         SalesHeader."BC6_Prod. Version No." := SalesHeaderArchive."Version No.";
         SalesHeader.MODIFY();
@@ -613,14 +613,14 @@ codeunit 50201 "BC6_EventsMgt"
     end;
 
     [EventSubscriber(ObjectType::Codeunit, codeunit::ArchiveManagement, 'OnRestoreSalesDocumentOnAfterSalesHeaderInsert', '', false, false)]
-    local procedure OnRestoreSalesDocumentOnAfterSalesHeaderInsert(var SalesHeader: Record "Sales Header"; SalesHeaderArchive: Record "Sales Header Archive");
+    procedure OnRestoreSalesDocumentOnAfterSalesHeaderInsert(var SalesHeader: Record "Sales Header"; SalesHeaderArchive: Record "Sales Header Archive");
     begin
         SalesHeader."BC6_Prod. Version No." := SalesHeaderArchive."Version No.";
     end;
 
     [EventSubscriber(ObjectType::Codeunit, codeunit::"Warehouse Document-Print", 'OnBeforePrintInvtPickHeader', '', false, false)]
 
-    local procedure OnBeforePrintInvtPickHeader(var WarehouseActivityHeader: Record "Warehouse Activity Header"; var IsHandled: Boolean; var HideDialog: Boolean)
+    procedure OnBeforePrintInvtPickHeader(var WarehouseActivityHeader: Record "Warehouse Activity Header"; var IsHandled: Boolean; var HideDialog: Boolean)
     var
     //TODO:report   //  WhsePick : Report 50047;
     begin
@@ -636,10 +636,12 @@ codeunit 50201 "BC6_EventsMgt"
     //COD5813
     [EventSubscriber(ObjectType::Codeunit, codeunit::"Undo Purchase Receipt Line", 'OnPostItemJnlLineOnAfterInsertTempWhseJnlLine', '', false, false)]
 
-    local procedure OnPostItemJnlLineOnAfterInsertTempWhseJnlLine(PurchRcptLine: Record "Purch. Rcpt. Line"; var ItemJnlLine: Record "Item Journal Line"; var TempWhseJnlLine: Record "Warehouse Journal Line" temporary; var NextLineNo: Integer)
+    procedure COD5813_OnPostItemJnlLineOnAfterInsertTempWhseJnlLine(PurchRcptLine: Record "Purch. Rcpt. Line"; var ItemJnlLine: Record "Item Journal Line"; var TempWhseJnlLine: Record "Warehouse Journal Line" temporary; var NextLineNo: Integer)
     var
         fctMgt: Codeunit "BC6_FctMangt";
         WhseUndoQty: Codeunit "Whse. Undo Quantity";
+        PurchLine: Record "Purchase Line";
+
     begin
         fctMgt.InsertTempWhseJnlLine2(ItemJnlLine,
   DATABASE::"Purch. Rcpt. Header",
@@ -648,7 +650,7 @@ codeunit 50201 "BC6_EventsMgt"
   0,
   TempWhseJnlLine."Reference Document"::"Posted Rcpt.",
   DATABASE::"Purchase Line",
- "Document Type"::Order,
+ PurchLine."Document Type"::Order,
   PurchRcptLine."Order No.",
   PurchRcptLine."Order Line No.",
   TempWhseJnlLine,
@@ -656,6 +658,167 @@ codeunit 50201 "BC6_EventsMgt"
     end;
 
     //COD5814
+    [EventSubscriber(ObjectType::Codeunit, codeunit::"Undo Return Shipment Line", 'OnAfterCopyItemJnlLineFromReturnShpt', '', false, false)]
+    procedure OnAfterCopyItemJnlLineFromReturnShpt(var ItemJournalLine: Record "Item Journal Line"; ReturnShipmentHeader: Record "Return Shipment Header"; ReturnShipmentLine: Record "Return Shipment Line"; var WhseUndoQty: Codeunit "Whse. Undo Quantity")
 
+    var
+        //TODO: à verifier srtt les declarations 
+        fctMgt: Codeunit "BC6_FctMangt";
+        TempWhseJnlLine: Record "Warehouse Journal Line" temporary;
+        PurchLine: Record "Purchase Line";
+        NextLineNo: Integer;
+    begin
+        fctMgt.InsertTempWhseJnlLine2(ItemJournalLine,
+          DATABASE::"Return Shipment Header",
+          0,
+          PurchLine."Document No.",
+          0,
+          TempWhseJnlLine."Reference Document"::"Posted Rtrn. Shipment",
+          DATABASE::"Purchase Line",
+          PurchLine."Document Type"::"Return Order",
+          ReturnShipmentLine."Return Order No.",
+          ReturnShipmentLine."Return Order Line No.",
+          TempWhseJnlLine, NextLineNo);
+    end;
+    //COD5815
+    [EventSubscriber(ObjectType::Codeunit, codeunit::"Undo Sales Shipment Line", 'OnCodeOnBeforeUndoLoop', '', false, false)]
+    procedure OnCodeOnBeforeUndoLoop(var SalesShptLine: Record "Sales Shipment Line")
+    var
+        TempWhseJnlLine: Record 7311 TEMPORARY;
+
+    begin
+        IF NOT TempWhseJnlLine.ISEMPTY THEN
+            TempWhseJnlLine.DELETEALL;
+
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, codeunit::"Undo Sales Shipment Line", 'OnPostItemJnlLineOnAfterInsertTempWhseJnlLine', '', false, false)]
+    procedure COD5815_OnPostItemJnlLineOnAfterInsertTempWhseJnlLine(SalesShptLine: Record "Sales Shipment Line"; var ItemJnlLine: Record "Item Journal Line"; var TempWhseJnlLine: Record "Warehouse Journal Line" temporary; var NextLineNo: Integer)
+    var
+        fctMgt: Codeunit "BC6_FctMangt";
+        WhseUndoQty: Codeunit "Whse. Undo Quantity";
+        SalesLine: Record "Sales Line";
+    begin
+        fctMgt.InsertTempWhseJnlLine2(ItemJnlLine,
+  DATABASE::"Sales Shipment Header",
+  0,
+ItemJnlLine."Document No.",
+  0,
+  TempWhseJnlLine."Reference Document"::"Posted Shipment",
+  DATABASE::"Sales Line",
+  SalesLine."Document Type"::Order,
+  ItemJnlLine."Order No.",
+  ItemJnlLine."Order Line No.",
+  TempWhseJnlLine,
+  NextLineNo);
+
+    end;
+    //COD5817
+    [EventSubscriber(ObjectType::Codeunit, codeunit::"Undo Posting Management", 'OnBeforeTestPostedInvtPutAwayLine', '', false, false)]
+
+    procedure OnBeforeTestPostedInvtPutAwayLine(UndoLineNo: Integer; SourceType: Integer; SourceSubtype: Integer; SourceID: Code[20]; SourceRefNo: Integer; var IsHandled: Boolean; UndoType: Integer; UndoID: Code[20])
+    var
+        RegisteredWhseActivityLine: Record "Registered Whse. Activity Line";
+        WhseWorksheetLine: Record "Whse. Worksheet Line";
+        Text008: label 'You cannot undo line %1 because warehouse receipt lines have already been posted.';
+        Text002: Label 'You cannot undo line %1 because warehouse put-away lines have already been created.';
+    begin
+        IsHandled := true;
+        IF NOT ((SourceType = 39) AND (SourceSubtype = 1)) AND
+           NOT ((SourceType = 37) AND (SourceSubtype = 5)) THEN
+            //la partie du TestPostedInvtPutAwayLine
+            with RegisteredWhseActivityLine do begin
+                SetSourceFilter(SourceType, SourceSubtype, SourceID, SourceRefNo, -1, true);
+                SetRange("Activity Type", "Activity Type"::"Put-away");
+                if not IsEmpty() then
+                    Error(Text002, UndoLineNo);
+            end;
+        //la partie du TestPostedInvtPutAwayLine
+
+        IF NOT ((SourceType = 39) AND (SourceSubtype = 5)) AND NOT ((SourceType = 37) AND (SourceSubtype = 1)) THEN
+            //la partie du TestWhseWorksheetLine
+            with WhseWorksheetLine do begin
+                SetSourceFilter(SourceType, SourceSubtype, SourceID, SourceRefNo, true);
+                if not IsEmpty() then
+                    Error(Text008, UndoLineNo);
+            end;
+        //la partie du TestWhseWorksheetLine
+
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, codeunit::"Undo Posting Management", 'OnBeforeTestWhseWorksheetLine', '', false, false)]
+
+    procedure OnBeforeTestWhseWorksheetLine(UndoLineNo: Integer; SourceType: Integer; SourceSubtype: Integer; SourceID: Code[20]; SourceRefNo: Integer; var IsHandled: Boolean)
+    begin
+        //la partie du TestWhseWorksheetLine
+        IsHandled := true;
+    end;
+
+    //COD6620
+    [EventSubscriber(ObjectType::Codeunit, codeunit::"Copy Document Mgt.", 'OnCopyFromSalesToPurchDocOnBeforePurchaseHeaderInsert', '', false, false)]
+    procedure OnCopyFromSalesToPurchDocOnBeforePurchaseHeaderInsert(var ToPurchaseHeader: Record "Purchase Header"; FromSalesHeader: Record "Sales Header")
+    var
+        IsSAVReturnOrder: Boolean;
+    begin
+        IF (FromSalesHeader."Document Type" = FromSalesHeader."Document Type"::"Return Order") THEN
+            IsSAVReturnOrder := TRUE;
+        ToPurchaseHeader."BC6_Return Order Type" := FromSalesHeader."BC6_Return Order Type";
+
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, codeunit::"Copy Document Mgt.", 'OnBeforeAssignDescriptionsFromSalesLine', '', false, false)]
+
+    procedure OnBeforeAssignDescriptionsFromSalesLine(var PurchaseLine: Record "Purchase Line"; SalesLine: Record "Sales Line")
+    begin
+        PurchaseLine."BC6_Return Order Type" := SalesLine."BC6_Return Order Type";
+        //TODO: je dois avoir la valeur du IsSAVReturnOrder pour faire le test 
+        // IF IsSAVReturnOrder THEN BEGIN
+        //   "Solution Code" := FromSalesLine."Solution Code";
+        //   "Return Comment" := FromSalesLine."Return Comment";
+        //   "Return Order-Shpt Sales Order" := FromSalesLine."Return Order-Shpt Sales Order";
+        //   "Series No." := FromSalesLine."Series No.";
+        // END;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, codeunit::"Copy Document Mgt.", 'OnBeforeCheckFromSalesHeader', '', false, false)]
+
+    procedure OnBeforeCheckFromSalesHeader(SalesHeaderFrom: Record "Sales Header"; SalesHeaderTo: Record "Sales Header"; var IsHandled: Boolean)
+    var
+        SalesDocType: enum "Sales Document Type";
+        BoolGCopyLinesExactly: Boolean;
+
+    begin
+        IsHandled := true;
+        CASE SalesHeaderFrom."Document Type" OF
+            SalesDocType::Quote,
+  SalesDocType::"Blanket Order",
+  SalesDocType::Order,
+  SalesDocType::Invoice,
+  SalesDocType::"Return Order",
+  SalesDocType::"Credit Memo":
+                IF NOT BoolGCopyLinesExactly THEN BEGIN
+                    SalesHeaderFrom.TESTFIELD("Sell-to Customer No.", SalesHeaderTo."Sell-to Customer No.");
+                    SalesHeaderFrom.TESTFIELD("Bill-to Customer No.", SalesHeaderTo."Bill-to Customer No.");
+                    SalesHeaderFrom.TESTFIELD("Customer Posting Group", SalesHeaderTo."Customer Posting Group");
+                    SalesHeaderFrom.TESTFIELD("Gen. Bus. Posting Group", SalesHeaderTo."Gen. Bus. Posting Group");
+                    SalesHeaderFrom.TESTFIELD("Currency Code", SalesHeaderTo."Currency Code");
+                    SalesHeaderFrom.TESTFIELD("Prices Including VAT", SalesHeaderTo."Prices Including VAT");
+                END ELSE BEGIN
+                    SalesHeaderFrom.TESTFIELD("Currency Code", SalesHeaderTo."Currency Code");
+                    SalesHeaderFrom.TESTFIELD("Prices Including VAT", SalesHeaderTo."Prices Including VAT");
+                    SalesHeaderFrom."Your Reference" := SalesHeaderTo."Your Reference";
+                    SalesHeaderFrom."BC6_Affair No." := SalesHeaderTo."BC6_Affair No.";
+                    // IF NOT SalesHeaderFrom.MODIFY THEN;      //TODO:then what ? 
+                END;
+            ELSE BEGIN
+                SalesHeaderFrom.TESTFIELD("Sell-to Customer No.", SalesHeaderTo."Sell-to Customer No.");
+                SalesHeaderFrom.TESTFIELD("Bill-to Customer No.", SalesHeaderTo."Bill-to Customer No.");
+                SalesHeaderFrom.TESTFIELD("Customer Posting Group", SalesHeaderTo."Customer Posting Group");
+                SalesHeaderFrom.TESTFIELD("Gen. Bus. Posting Group", SalesHeaderTo."Gen. Bus. Posting Group");
+                SalesHeaderFrom.TESTFIELD("Currency Code", SalesHeaderTo."Currency Code");
+                SalesHeaderFrom.TESTFIELD("Prices Including VAT", SalesHeaderTo."Prices Including VAT");
+            END;
+        end;
+    end;
 
 }

@@ -1,4 +1,4 @@
-tableextension 50002 "BC6_PaymentLine" extends "Payment Line"
+tableextension 50015 "BC6_PaymentLine" extends "Payment Line"
 {
     LookupPageID = "Payment Lines List";
     DrillDownPageID = "Payment Lines List";

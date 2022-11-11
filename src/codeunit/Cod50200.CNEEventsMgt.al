@@ -136,27 +136,6 @@ codeunit 50200 "BC6_CNE_EventsMgt"
         ItemJournalLine.CalculateDEEE('');
     end;
 
-    [EventSubscriber(ObjectType::Table, Database::"Planning Assignment", 'OnBeforeChkAssignOne', '', false, false)]
-    local procedure OnBeforeChkAssignOne(ItemNo: Code[20]; VariantCode: Code[10]; LocationCode: Code[10]; UpdateDate: Date; var IsHandled: Boolean)
-    var
-        Item: Record Item;
-        SKU: Record "Stockkeeping Unit";
-        ReorderingPolicy: Enum "Reordering Policy";
-        planAssign: Record "Planning Assignment";
-    begin
-        ReorderingPolicy := Item."Reordering Policy"::" ";
-
-        if SKU.Get(LocationCode, ItemNo, VariantCode) then
-            ReorderingPolicy := SKU."Reordering Policy"
-        else
-            if Item.Get(ItemNo) then
-                ReorderingPolicy := Item."Reordering Policy";
-
-        if ReorderingPolicy <> Item."Reordering Policy"::"Maximum Qty." then
-            planAssign.AssignOne(ItemNo, VariantCode, LocationCode, UpdateDate);
-
-        IsHandled := true;
-    end;
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnCalcVATAmountLinesOnBeforeQtyTypeGeneralCase', '', false, false)]
     local procedure T37_OnCalcVATAmountLinesOnBeforeQtyTypeGeneralCase_SalesLine(var SalesHeader: Record "Sales Header"; var SalesLine: Record "Sales Line"; var VATAmountLine: Record "VAT Amount Line"; IncludePrepayments: Boolean; QtyType: Option; var QtyToHandle: Decimal; var AmtToHandle: Decimal)
@@ -513,14 +492,13 @@ codeunit 50200 "BC6_CNE_EventsMgt"
         end;
     end;
 
-    //COD22: to be continued
+    //COD22
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Jnl.-Post Line", 'OnBeforeInsertItemLedgEntry', '', false, false)]
-    local procedure COD22_OnBeforeInsertItemLedgEntry(var ItemLedgerEntry: Record "Item Ledger Entry"; ItemJournalLine: Record "Item Journal Line"; TransferItem: Boolean; OldItemLedgEntry: Record "Item Ledger Entry"; ItemJournalLineOrigin: Record "Item Journal Line")
+    local procedure COD22_OnBeforeInsertItemLedgEntry_ItemJnlPostLine(var ItemLedgerEntry: Record "Item Ledger Entry"; ItemJournalLine: Record "Item Journal Line"; TransferItem: Boolean; OldItemLedgEntry: Record "Item Ledger Entry"; ItemJournalLineOrigin: Record "Item Journal Line")
     var
         RecLDEEEEntry: Record "BC6_DEEE Ledger Entry";
     begin
-        IF (ItemJournalLine."BC6_DEEE Category Code" <> '')
-          THEN BEGIN
+        IF (ItemJournalLine."BC6_DEEE Category Code" <> '') THEN BEGIN
             RecLDEEEEntry.TRANSFERFIELDS(ItemJournalLine);
             RecLDEEEEntry."DEEE Category Code" := ItemJournalLine."BC6_DEEE Category Code";
             RecLDEEEEntry."DEEE Unit Tax" := ItemJournalLine."BC6_DEEE Unit Price";

@@ -599,21 +599,21 @@ codeunit 50201 "BC6_EventsMgt"
 
     local procedure OnPostItemJnlLineOnAfterInsertTempWhseJnlLine(PurchRcptLine: Record "Purch. Rcpt. Line"; var ItemJnlLine: Record "Item Journal Line"; var TempWhseJnlLine: Record "Warehouse Journal Line" temporary; var NextLineNo: Integer)
     var
+        fctMgt: Codeunit "BC6_FctMangt";
         WhseUndoQty: Codeunit "Whse. Undo Quantity";
     begin
-        //TODO: InsertTempWhseJnlLine2 n'existe pas 
-        //         WhseUndoQty.InsertTempWhseJnlLine2(ItemJnlLine,
-        //   DATABASE::"Purch. Rcpt. Header",
-        //   0,
-        //   PurchRcptLine."Document No.",
-        //   0,
-        //   TempWhseJnlLine."Reference Document"::"Posted Rcpt.",
-        //   DATABASE::"Purchase Line",
-        //  "Document Type"::Order,
-        //   PurchRcptLine."Order No.",
-        //   PurchRcptLine."Order Line No.",
-        //   TempWhseJnlLine,
-        //   NextLineNo);
+        fctMgt.InsertTempWhseJnlLine2(ItemJnlLine,
+  DATABASE::"Purch. Rcpt. Header",
+  0,
+  PurchRcptLine."Document No.",
+  0,
+  TempWhseJnlLine."Reference Document"::"Posted Rcpt.",
+  DATABASE::"Purchase Line",
+ "Document Type"::Order,
+  PurchRcptLine."Order No.",
+  PurchRcptLine."Order Line No.",
+  TempWhseJnlLine,
+  NextLineNo);
     end;
 
     //COD5814

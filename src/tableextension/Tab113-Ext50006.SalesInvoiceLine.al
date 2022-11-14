@@ -1,22 +1,23 @@
-tableextension 50004 "BC6_SalesShipmentLine" extends "Sales Shipment Line" //111
+tableextension 50006 "BC6_SalesInvoiceLine" extends "Sales Invoice Line" //113
 {
     fields
     {
-        field(50020; "BC6_Custom. Sales Profit Group"; Code[10])
+
+        field(50020; "BC6_Custom. Sales Profit Group"; Code[20])
         {
-            Caption = 'Goupe Marge Vente Client', comment = 'FRA="Goupe Marge Vente Client"';
+            Caption = 'Custom. Sales Profit Group', comment = 'FRA="Goupe Marge Vente Client"';
             TableRelation = "Customer Sales Profit Group";
             DataClassification = CustomerContent;
         }
-        field(50021; "BC6_Item Sales Profit Group"; Code[10])
+        field(50021; "BC6_Item Sales Profit Group"; Code[20])
         {
-            Caption = 'Goupe Marge Vente Article', comment = 'FRA="Goupe Marge Vente Article"';
+            Caption = 'Item Sales Profit Group', comment = 'FRA="Goupe Marge Vente Article"';
             TableRelation = "BC6_Item Sales Profit Group";
             DataClassification = CustomerContent;
         }
         field(50022; "BC6_Public Price"; Decimal)
         {
-            Caption = 'Tarif Public', comment = 'FRA="Tarif Public"';
+            Caption = 'Public Price', comment = 'FRA="Tarif Public"';
             Editable = false;
             DataClassification = CustomerContent;
         }
@@ -24,19 +25,6 @@ tableextension 50004 "BC6_SalesShipmentLine" extends "Sales Shipment Line" //111
         {
             Caption = 'External Document No.', comment = 'FRA="N° doc. externe"';
             DataClassification = CustomerContent;
-
-            trigger OnLookup()
-            var
-                Rec_ShptHeader: Record "Sales Shipment Header";
-                PagLSalesShipments: Page "Posted Sales Shipments";
-            begin
-                Rec_ShptHeader.RESET();
-                Rec_ShptHeader.SETFILTER(Rec_ShptHeader."External Document No.", "BC6_External Document No.");
-                if Rec_ShptHeader.FIND('-') then begin
-                    PagLSalesShipments.SETRECORD(Rec_ShptHeader);
-                    PagLSalesShipments.RUN();
-                end;
-            end;
         }
         field(50024; "BC6_Amount(LCY)"; Decimal)
         {
@@ -61,7 +49,7 @@ tableextension 50004 "BC6_SalesShipmentLine" extends "Sales Shipment Line" //111
             Editable = false;
             DataClassification = CustomerContent;
         }
-        field(50028; "BC6_Purch. Document Type"; enum "Purchase Document Type")
+        field(50028; "BC6_Purch. Document Type"; Enum "Sales Document Type")
         {
             Caption = 'Document Type', comment = 'FRA="Type document"';
             DataClassification = CustomerContent;
@@ -74,12 +62,12 @@ tableextension 50004 "BC6_SalesShipmentLine" extends "Sales Shipment Line" //111
         field(50030; "BC6_Qty Shipped"; Decimal)
         {
             Caption = 'Delivered Quantity', comment = 'FRA="Quantité livrée"';
+            Enabled = false;
             DataClassification = CustomerContent;
         }
         field(50031; "BC6_Discount Unit Price"; Decimal)
         {
-            Caption = 'Discount unit price excluding VAT', comment = 'FRA="Prix unitaire remisé HT"';
-            Editable = false;
+            Caption = 'Discount unit price', comment = 'FRA="Prix unitaire remisé"';
             DataClassification = CustomerContent;
         }
         field(50032; "BC6_Availability Item"; Decimal)
@@ -87,9 +75,10 @@ tableextension 50004 "BC6_SalesShipmentLine" extends "Sales Shipment Line" //111
             Caption = 'Availability Item', comment = 'FRA="Disponibilité article"';
             DataClassification = CustomerContent;
         }
-        field(50033; "BC6_Outstanding Quantity"; Decimal)
+        field(50033; "BC6_Outstanding Qty"; Decimal)
         {
             Caption = 'Outstanding Quantity', comment = 'FRA="quantité restante"';
+            Enabled = false;
             DataClassification = CustomerContent;
         }
         field(50041; "BC6_Purchase Cost"; Decimal)
@@ -109,53 +98,96 @@ tableextension 50004 "BC6_SalesShipmentLine" extends "Sales Shipment Line" //111
             Editable = false;
             DataClassification = CustomerContent;
         }
-        field(50060; "BC6_Purchase No. Order Lien"; Code[20])
+        field(50100; "BC6_Item Disc. Group"; Code[10])
         {
-            Caption = 'Purchase No. Order Lien', comment = 'FRA="N° Commande Achat Lien"';
-            DataClassification = CustomerContent;
-        }
-        field(50061; "BC6_Purchase No. Line Lien"; Integer)
-        {
-            Caption = 'Purchase No. Line Lien', comment = 'FRA="N° ligne Commande Achat Lien"';
-            DataClassification = CustomerContent;
-        }
-        field(50100; "BC6_Item Disc. Group"; Code[20])
-        {
-            Caption = 'Groupe remise article', comment = 'FRA="Groupe remise article"';
+            Caption = 'Item Disc. Group', comment = 'FRA="Groupe remise article"';
             TableRelation = "Item Discount Group";
             DataClassification = CustomerContent;
         }
         field(50101; "BC6_Dispensation No."; Code[20])
         {
-            Caption = 'N° dérogation', comment = 'FRA="N° dérogation"';
+            Caption = 'Dispensation No.', comment = 'FRA="N° dérogation"';
             DataClassification = CustomerContent;
         }
         field(50102; "BC6_Additional Discount %"; Decimal)
         {
-            Caption = '% remise complémentaire', comment = 'FRA="% remise complémentaire"';
+            Caption = 'Additional Discount %', comment = 'FRA="% remise complémentaire"';
             DataClassification = CustomerContent;
         }
         field(50103; "BC6_Dispensed Purchase Cost"; Decimal)
         {
-            Caption = 'Coût d''achat dérogé', comment = 'FRA="Coût d''achat dérogé"';
+            Caption = 'Dispensed Purchase Cost', comment = 'FRA="coût d''achat dérogé"';
             DataClassification = CustomerContent;
         }
         field(50104; "BC6_Standard Net Price"; Decimal)
         {
-            Caption = 'Prix net standard', comment = 'FRA="Prix net standard"';
+            Caption = 'Standard Net Price', comment = 'FRA="Prix net standard"';
+            DataClassification = CustomerContent;
+        }
+        field(80800; "BC6_DEEE Category Code"; Code[10])
+        {
+            Caption = 'DEEE Category Code', comment = 'FRA="Code Catégorie DEEE"';
+
+            TableRelation = "BC6_Categories of item".Category;
+            DataClassification = CustomerContent;
+        }
+        field(80801; "BC6_DEEE Unit Price"; Decimal)
+        {
+            Caption = 'DEEE Unit Price', comment = 'FRA="Prix Unitaire DEEE"';
+            Editable = true;
+            DataClassification = CustomerContent;
+        }
+        field(80802; "BC6_DEEE HT Amount"; Decimal)
+        {
+            Caption = 'DEEE HT Amount', comment = 'FRA="Montant HT DEEE"';
+            Editable = true;
+            DataClassification = CustomerContent;
+        }
+        field(80803; "BC6_DEEE Bases VAT Amount"; Decimal)
+        {
+            Caption = 'DEEE Bases VAT Amount', comment = 'FRA="Montant Base TVA DEEE"';
+            Editable = true;
+            DataClassification = CustomerContent;
+        }
+        field(80804; "BC6_DEEE VAT Amount"; Decimal)
+        {
+            Caption = 'DEEE VAT Amount', comment = 'FRA="Montant TVA DEEE"';
+            Editable = true;
+            DataClassification = CustomerContent;
+        }
+        field(80805; "BC6_DEEE TTC Amount"; Decimal)
+        {
+            Caption = 'DEEE TTC Amount', comment = 'FRA="Montant TTC DEEE"';
+            Editable = true;
+            DataClassification = CustomerContent;
+        }
+        field(80806; "BC6_DEEE HT Amount (LCY)"; Decimal)
+        {
+            Caption = 'DEEE HT Amount (LCY)', comment = 'FRA="=Montant HT DEEE (DS)"';
+            Editable = true;
+            DataClassification = CustomerContent;
+        }
+        field(80807; "BC6_Eco partner DEEE"; Code[20])
+        {
+            Caption = 'Eco partner DEEE', comment = 'FRA="=Eco partenaire DEEE"';
+            Editable = false;
+            TableRelation = Vendor;
             DataClassification = CustomerContent;
         }
     }
     keys
     {
-        key(Key8; "Document No.", "Sell-to Customer No.", "No.")
+        key(Key10; "No.")
         {
         }
-        key(Key9; "No.")
+        key(Key11; "BC6_Buy-from Vendor No.")
         {
         }
-        key(Key10; Type, "No.")
+        key(Key12; "Document No.", "No.")
         {
         }
     }
+
+
 }
+

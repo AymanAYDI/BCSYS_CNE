@@ -44,7 +44,7 @@ tableextension 50007 "BC6_SalesCrMemoHeader" extends "Sales Cr.Memo Header" //11
         }
         field(50026; "BC6_Purchase cost"; Decimal)
         {
-            Caption = 'Purchase Cost', comment = 'FRA=""';
+            Caption = 'Purchase Cost', comment = 'FRA="Coùt d''achat"';
             Editable = false;
             FieldClass = Normal;
             DataClassification = CustomerContent;
@@ -76,12 +76,12 @@ tableextension 50007 "BC6_SalesCrMemoHeader" extends "Sales Cr.Memo Header" //11
         }
         field(50050; "BC6_Document description"; Text[50])
         {
-            Caption = 'Document description', comment = 'FRA="N° version"';
+            Caption = 'Document description', comment = 'FRA="Libelle document"';
             DataClassification = CustomerContent;
         }
         field(50060; "BC6_Quote statut"; Enum "BC6_Quote statut")
         {
-            Caption = 'Quote status', comment = 'FRA=""';
+            Caption = 'Quote status', comment = 'FRA="Statut devis"';
             DataClassification = CustomerContent;
         }
         field(50061; "BC6_Sell-to Fax No."; Text[30])

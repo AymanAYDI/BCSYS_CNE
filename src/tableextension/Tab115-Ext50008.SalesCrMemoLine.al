@@ -48,11 +48,9 @@ tableextension 50008 "BC6_SalesCrMemoLine" extends "Sales Cr.Memo Line" //115
             Editable = false;
             DataClassification = CustomerContent;
         }
-        field(50028; "BC6_Purch. Document Type"; Option)
+        field(50028; "BC6_Purch. Document Type"; enum "Purchase Document Type")
         {
             Caption = 'Document Type', comment = 'FRA="Type document"';
-            OptionCaption = 'Quote,Order,Invoice,Credit Memo,Blanket Order,Return Order';
-            OptionMembers = Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order";
             DataClassification = CustomerContent;
         }
         field(50029; "BC6_Ordered Quantity"; Decimal)
@@ -102,7 +100,6 @@ tableextension 50008 "BC6_SalesCrMemoLine" extends "Sales Cr.Memo Line" //115
         field(50100; "BC6_Item Disc. Group"; Code[10])
         {
             Caption = 'Item Disc. Group', comment = 'FRA="Groupe remise article"';
-
             TableRelation = "Item Discount Group";
             DataClassification = CustomerContent;
         }
@@ -110,72 +107,61 @@ tableextension 50008 "BC6_SalesCrMemoLine" extends "Sales Cr.Memo Line" //115
         {
             Caption = 'Dispensation No.', comment = 'FRA="N° dérogation"';
             DataClassification = CustomerContent;
-
         }
         field(50102; "BC6_Additional Discount %"; Decimal)
         {
             Caption = 'Additional Discount %', comment = 'FRA="% remise complémentaire"';
             DataClassification = CustomerContent;
-
         }
         field(50103; "BC6_Dispensed Purchase Cost"; Decimal)
         {
             Caption = 'Dispensed Purchase Cost', comment = 'FRA="coût d''achat dérogé"';
             DataClassification = CustomerContent;
-
         }
         field(50104; "BC6_Standard Net Price"; Decimal)
         {
             Caption = 'Standard Net Price', comment = 'FRA="Prix net standard"';
             DataClassification = CustomerContent;
-
         }
         field(80800; "BC6_DEEE Category Code"; Code[10])
         {
             Caption = 'DEEE Category Code', comment = 'FRA="Code Catégorie DEEE"';
-
             TableRelation = "BC6_Categories of item".Category;
             DataClassification = CustomerContent;
         }
         field(80801; "BC6_DEEE Unit Price"; Decimal)
         {
             Caption = 'DEEE Unit Price', comment = 'FRA="Prix Unitaire DEEE"';
-
             Editable = false;
             DataClassification = CustomerContent;
         }
         field(80802; "BC6_DEEE HT Amount"; Decimal)
         {
             Caption = 'DEEE HT Amount', comment = 'FRA="Montant HT DEEE"';
-
             Editable = false;
             DataClassification = CustomerContent;
         }
         field(80804; "BC6_DEEE VAT Amount"; Decimal)
         {
             Caption = 'DEEE Bases VAT Amount', comment = 'FRA="Montant Base TVA DEEE"';
-
             Editable = false;
             DataClassification = CustomerContent;
         }
         field(80805; "BC6_DEEE TTC Amount"; Decimal)
         {
             Caption = 'DEEE TTC Amount', comment = 'FRA="Montant TTC DEEE"';
-
             Editable = false;
             DataClassification = CustomerContent;
         }
         field(80806; "BC6_DEEE HT Amount (LCY)"; Decimal)
         {
             Caption = 'DEEE HT Amount (LCY)', comment = 'FRA="=Montant HT DEEE (DS)"';
-
             Editable = false;
             DataClassification = CustomerContent;
         }
         field(80807; "BC6_Eco partner DEEE"; Code[20])
         {
             Caption = 'Eco partner DEEE', comment = 'FRA="=Eco partenaire DEEE"';
-
             Editable = false;
             TableRelation = Vendor;
             DataClassification = CustomerContent;
@@ -190,7 +176,4 @@ tableextension 50008 "BC6_SalesCrMemoLine" extends "Sales Cr.Memo Line" //115
         {
         }
     }
-
-
 }
-

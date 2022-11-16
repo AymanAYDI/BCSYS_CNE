@@ -1,18 +1,16 @@
-tableextension 50039 "BC6_DetailedVendorLedgEntry" extends "Detailed Vendor Ledg. Entry"
+tableextension 50039 "BC6_DetailedVendorLedgEntry" extends "Detailed Vendor Ledg. Entry" //380
 {
-    LookupPageID = "Detailed Vendor Ledg. Entries";
-    DrillDownPageID = "Detailed Vendor Ledg. Entries";
     fields
     {
         field(50003; "BC6_Pay-to Vend. No."; Code[20])
         {
-            Caption = 'Pay-to Vend. No.';
+            Caption = 'Pay-to Vend. No.', comment = 'FRA="Tiers payeur"';
             TableRelation = Vendor;
+            DataClassification = CustomerContent;
         }
     }
     keys
     {
-
         key(Key14; "Ledger Entry Amount", "Vendor Ledger Entry No.", "Posting Date")
         {
             MaintainSIFTIndex = false;
@@ -29,13 +27,4 @@ tableextension 50039 "BC6_DetailedVendorLedgEntry" extends "Detailed Vendor Ledg
             SumIndexFields = Amount, "Amount (LCY)";
         }
     }
-
-
-    local procedure SetLedgerEntryAmount()
-    begin
-        "Ledger Entry Amount" :=
-          NOT (("Entry Type" = "Entry Type"::Application) OR ("Entry Type" = "Entry Type"::"Appln. Rounding"));
-    end;
-
 }
-

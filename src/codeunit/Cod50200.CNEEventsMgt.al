@@ -102,6 +102,13 @@ codeunit 50200 "BC6_CNE_EventsMgt"
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Gen. Journal Line", 'OnAfterCopyGenJnlLineFromSalesHeader', '', false, false)]
+    local procedure TAB81_OnAfterCopyGenJnlLineFromSalesHeader(SalesHeader: Record "Sales Header"; var GenJournalLine: Record "Gen. Journal Line")
+    begin
+        GenJournalLine."Payment Method Code" := GenJournalLine."Payment Method Code";
+        GenJournalLine."BC6_Pay-to No." := SalesHeader."BC6_Pay-to Customer No.";
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Gen. Journal Line", 'OnAfterCopyGenJnlLineFromSalesHeader', '', false, false)]
     local procedure OnAfterCopyGenJnlLineFromSalesHeader(SalesHeader: Record "Sales Header"; var GenJournalLine: Record "Gen. Journal Line")
     begin
         GenJournalLine."Payment Method Code" := SalesHeader."Payment Method Code";

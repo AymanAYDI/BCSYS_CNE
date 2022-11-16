@@ -32,10 +32,6 @@ tableextension 50026 "BC6_VendorLedgerEntry" extends "Vendor Ledger Entry" //25
         // }
     }
 
-    procedure "---NSC1.00---"()
-    begin
-    end;
-
     procedure getVendorName(CodLVendNo: Code[20]): Text[30]
     var
         RecgLVendor: Record Vendor;

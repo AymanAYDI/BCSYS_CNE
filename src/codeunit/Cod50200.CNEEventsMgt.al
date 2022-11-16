@@ -59,25 +59,26 @@ codeunit 50200 "BC6_CNE_EventsMgt"
 
     [EventSubscriber(ObjectType::Table, Database::"Bin Content", 'OnBeforeCalcQtyAvailToTake', '', false, false)]
     local procedure T7302_OnBeforeCalcQtyAvailToTake_BinContent(var BinContent: Record "Bin Content"; ExcludeQtyBase: Decimal; var QtyAvailToTake: Decimal; var IsHandled: Boolean)
+    var
+        Bin: Record Bin;
+        FctMangt: Codeunit BC6_FctMangt;
     begin
-        // IsHandled := true;
-        // GetBin("Location Code","Bin Code");
-        // IF Bin."Exclude Inventory Pick" THEN // TODO: procedure local Getbin , Bin variable global
-        //     EXIT(0);
+        FctMangt.GetBin(BinContent."Location Code", BinContent."Bin Code", Bin);
+        IF Bin."BC6_Exclude Inventory Pick" THEN
+            IsHandled := true;
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Report Selections", 'OnBeforeSendEmailDirectly', '', false, false)]
     local procedure T77_OnBeforeSendEmailDirectly_ReportSelections(var ReportSelections: Record "Report Selections"; ReportUsage: Enum "Report Selection Usage"; RecordVariant: Variant; var DocNo: Code[20]; var DocName: Text[150]; FoundBody: Boolean; FoundAttachment: Boolean; ServerEmailBodyFilePath: Text[250]; var DefaultEmailAddress: Text[250]; ShowDialog: Boolean; var TempAttachReportSelections: Record "Report Selections" temporary; var CustomReportSelection: Record "Custom Report Selection"; var AllEmailsWereSuccessful: Boolean; var IsHandled: Boolean)
     var
         SalesHeader: Record "Sales Header";
-        PurchHeader: Record "Purchase Header";
-        DocumentMailing: codeunit "Document-Mailing";
+        FctMangt: Codeunit BC6_FctMangt;
     begin
         CASE ReportUsage OF
             ReportUsage::"S.Order", ReportUsage::"S.Quote":
                 BEGIN
                     SalesHeader := RecordVariant;
-                    //   DocumentMailing.SetYourReference(SalesHeader."Your Reference"); //TODO: missing function SetYourReference
+                    FctMangt.SetYourReference(SalesHeader."Your Reference");
                 END;
         end;
     end;
@@ -86,12 +87,11 @@ codeunit 50200 "BC6_CNE_EventsMgt"
     local procedure T77_OnSendEmailDirectlyOnBeforeSaveReportAsPDFInTempBlob_ReportSelection(ReportSelection: Record "Report Selections"; RecordVariant: Variant; ReportUsage: Enum "Report Selection Usage"; var TempBlob: Codeunit "Temp Blob"; var IsHandled: Boolean)
     var
         SalesHeader: Record "Sales Header";
-        PurchHeader: Record "Purchase Header";
     begin
-        // IF ReportUsage IN [ReportUsage::"S.Order", ReportUsage::"S.Quote"] THEN BEGIN  TODO:
+        // IF ReportUsage IN [ReportUsage::"S.Order", ReportUsage::"S.Quote"] THEN BEGIN   TODO:
         //       SalesHeader := RecordVariant;
-        //       IF SalesHeader."Sell-to E-Mail Address" <> '' THEN
-        //         EmailAddress := SalesHeader."Sell-to E-Mail Address";
+        //       IF SalesHeader."BC6_Sell-to E-Mail Address" <> '' THEN
+        //         EmailAddress := SalesHeader."BC6_Sell-to E-Mail Address";
         //     END;
     end;
 
@@ -164,7 +164,7 @@ codeunit 50200 "BC6_CNE_EventsMgt"
     begin
         PriceCalcMgt.FindSalesLineLineDisc(SalesHeader, SalesLine);
         PriceCalcMgt.FindSalesLinePrice(SalesHeader, SalesLine, CalledByFieldNo);
-        // PriceCalcMgt.FindVeryBestPrice(SalesLine, SalesHeader); TODO:
+        // PriceCalcMgt.FindVeryBestPrice(SalesLine, SalesHeader);  TODO:
         SalesLine.FctGCalcLineDiscount();
     end;
 
@@ -191,7 +191,7 @@ codeunit 50200 "BC6_CNE_EventsMgt"
         L_UserSetup: Record "User Setup";
         L_IncrPurchCost: Decimal;
         L_IncrProfit: Decimal;
-        UpdateProfitErr: Label '%1 cannot be less than %2 in %3 %4';
+        UpdateProfitErr: Label '%1 cannot be less than %2 in %3 %4', Comment = 'FRA="%1 ne peut pas être inférieur à %2 dans %3 %4"';
     begin
         SalesLine.CalcDiscountUnitPrice();
         IF ((SalesLine."Document Type" = SalesLine."Document Type"::Quote) OR (SalesLine."Document Type" = SalesLine."Document Type"::Order)) AND
@@ -208,6 +208,14 @@ codeunit 50200 "BC6_CNE_EventsMgt"
                 END;
             END;
         END;
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnAfterValidateEvent', 'Profit %', false, false)]
+    local procedure T37_OnAfterValidateEvent_SalesLine_Profit(var Rec: Record "Sales Line"; var xRec: Record "Sales Line")
+    begin
+        Rec.CalcDiscount;
+        Rec.CalcDiscountUnitPrice;
+        Rec.VALIDATE(Rec."Line Discount %");
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnValidateQtyToShipAfterInitQty', '', false, false)]
@@ -254,6 +262,49 @@ codeunit 50200 "BC6_CNE_EventsMgt"
         if ReturnValue then
             SalesLine.SetSkipPurchCostVerif(false);
     end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnValidateQuantityOnBeforeCheckAssocPurchOrder', '', false, false)]
+    local procedure OnValidateQuantityOnBeforeCheckAssocPurchOrder(var SalesLine: Record "Sales Line")
+    begin
+        SalesLine.SetSkipPurchCostVerif(false);
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnValidateQuantityOnBeforeValidateQtyToAssembleToOrder', '', false, false)]
+    local procedure OnValidateQuantityOnBeforeValidateQtyToAssembleToOrder(var SalesLine: Record "Sales Line"; StatusCheckSuspended: Boolean; var IsHandled: Boolean);
+    var
+        RecLSalesReceivablesSetup: Record "Sales & Receivables Setup";
+    begin
+        RecLSalesReceivablesSetup.GET;
+        IF NOT RecLSalesReceivablesSetup."BC6_Active Quantity Management" THEN
+            SalesLine.UpdateUnitPrice(SalesLine.FIELDNO(Quantity))
+        ELSE
+            SalesLine.VALIDATE("Unit Price", SalesLine."Unit Price");
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnAfterValidateEvent', 'Quantity', false, false)]
+    local procedure T37_OnAfterValidateEvent_SalesLine(var Rec: Record "Sales Line"; xRec: Record "Sales Line")
+    var
+        RecGCustomer: Record Customer;
+        Currency: Record Currency;
+    begin
+        Rec.VALIDATE("BC6_DEEE HT Amount", 0);
+        Rec."BC6_DEEE VAT Amount" := 0;
+        Rec."BC6_DEEE TTC Amount" := 0;
+        Rec."BC6_DEEE Amount (LCY) for Stat" := 0;
+
+        RecGCustomer.GET(Rec."Sell-to Customer No.");
+        IF RecGCustomer."BC6_Submitted to DEEE" THEN BEGIN
+            Rec.VALIDATE("BC6_DEEE HT Amount", Rec."BC6_DEEE Unit Price" * Rec."Quantity (Base)");
+            Rec."BC6_DEEE VAT Amount" := ROUND(Rec."BC6_DEEE HT Amount" * Rec."VAT %" / 100, Currency."Amount Rounding Precision");
+            Rec."BC6_DEEE TTC Amount" := Rec."BC6_DEEE HT Amount" + Rec."BC6_DEEE VAT Amount";
+            Rec."BC6_DEEE Amount (LCY) for Stat" := Rec."Quantity (Base)" * Rec."BC6_DEEE Unit Price (LCY)";
+        END;
+        Rec."BC6_Qty. To Order" := Rec.Quantity;
+
+        Rec.SetSkipPurchCostVerif(false);
+        Rec.Modify();
+    end;
+
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnValidateNoOnAfterUpdateUnitPrice', '', false, false)]
     local procedure T37_OnValidateNoOnAfterUpdateUnitPrice_SalesLine(var SalesLine: Record "Sales Line"; xSalesLine: Record "Sales Line"; var TempSalesLine: Record "Sales Line" temporary)
@@ -313,6 +364,14 @@ codeunit 50200 "BC6_CNE_EventsMgt"
     end;
 
 
+    [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnAfterUpdateAmountsDone', '', false, false)]
+    local procedure OnAfterUpdateAmountsDone(var SalesLine: Record "Sales Line"; var xSalesLine: Record "Sales Line"; CurrentFieldNo: Integer)
+    begin
+        SalesLine.CalcDiscountUnitPrice();
+        SalesLine.CalcProfit();
+    end;
+
+
     [EventSubscriber(ObjectType::Table, Database::"Purchase Line", 'OnAfterInsertEvent', '', false, false)]
     local procedure T39_OnAfterInsertEvent_PurchaseLine(var Rec: Record "Purchase Line"; RunTrigger: Boolean)
     var
@@ -363,6 +422,7 @@ codeunit 50200 "BC6_CNE_EventsMgt"
 
         IsHandled := true;
     end;
+
 
     [EventSubscriber(ObjectType::Table, Database::"Purchase Line", 'OnAfterAssignItemValues', '', false, false)]
     local procedure OnAfterAssignItemValues(var PurchLine: Record "Purchase Line"; Item: Record Item; CurrentFieldNo: Integer; PurchHeader: Record "Purchase Header")
@@ -823,6 +883,18 @@ codeunit 50200 "BC6_CNE_EventsMgt"
         FctMngt.UpdatePurchasedoc(SalesQuoteLine, SalesQuoteLine);
     end;
 
+    [EventSubscriber(ObjectType::Table, Database::"Item Journal Line", 'OnAfterValidateEvent', 'Qty. (Phys. Inventory)', false, false)]
+    local procedure T83_OnAfterValidateEvent(var Rec: Record "Item Journal Line"; var xRec: Record "Item Journal Line")
+    begin
+        Rec."BC6_Qty. Refreshed (Phys. Inv.)" := FALSE;
+        Rec.Modify();
+    end;
 
+    [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnAfterValidateEvent', 'Shipment Date', false, false)]
+    local procedure T37_OnAfterValidateEvent(var Rec: Record "Sales Line"; var xRec: Record "Sales Line")
+    begin
+        Rec."BC6_Invoiced Date (Expected)" := Rec."Shipment Date";
+        Rec.Modify();
+    end;
 
 }

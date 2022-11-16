@@ -1,23 +1,24 @@
-tableextension 50026 "BC6_VendorLedgerEntry" extends "Vendor Ledger Entry"
+tableextension 50026 "BC6_VendorLedgerEntry" extends "Vendor Ledger Entry" //25
 {
-    LookupPageID = "Vendor Ledger Entries";
-    DrillDownPageID = "Vendor Ledger Entries";
     fields
     {
         field(50000; BC6_PaymentMethodCode; Code[10])
         {
-            Caption = 'Payment Method Code';
+            Caption = 'Payment Method Code', comment = 'FRA="Code mode de règlement"';
             TableRelation = "Payment Method";
+            DataClassification = CustomerContent;
         }
         field(50001; "BC6_Payment Terms Code"; Code[10])
         {
-            Caption = 'Payment Terms Code';
+            Caption = 'Payment Terms Code', comment = 'FRA="Code condition paiement"';
             TableRelation = "Payment Terms";
+            DataClassification = CustomerContent;
         }
         field(50003; "BC6_Pay-to Vend. No."; Code[20])
         {
-            Caption = 'Pay-to Vend. No.';
+            Caption = 'Pay-to Vend. No.', comment = 'FRA="Tiers payeur"';
             TableRelation = Vendor;
+            DataClassification = CustomerContent;
         }
     }
     keys
@@ -29,9 +30,7 @@ tableextension 50026 "BC6_VendorLedgerEntry" extends "Vendor Ledger Entry"
         // key(Key27; "BC6_Pay-to Vend. No.", "Applies-to ID", "Vendor No.")
         // {
         // }
-
     }
-
 
     procedure "---NSC1.00---"()
     begin
@@ -46,6 +45,4 @@ tableextension 50026 "BC6_VendorLedgerEntry" extends "Vendor Ledger Entry"
         ELSE
             EXIT('');
     end;
-
 }
-

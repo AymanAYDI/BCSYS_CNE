@@ -874,7 +874,6 @@ codeunit 50200 "BC6_CNE_EventsMgt"
     end;
 
     //COD 86
-
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Quote to Order", 'OnBeforeInsertSalesOrderLine', '', false, false)]
     local procedure COD86_OnBeforeInsertSalesOrderLine(var SalesOrderLine: Record "Sales Line"; SalesOrderHeader: Record "Sales Header"; SalesQuoteLine: Record "Sales Line"; SalesQuoteHeader: Record "Sales Header")
     var
@@ -888,6 +887,47 @@ codeunit 50200 "BC6_CNE_EventsMgt"
     begin
         Rec."BC6_Qty. Refreshed (Phys. Inv.)" := FALSE;
         Rec.Modify();
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Quote to Order", 'OnBeforeTransferQuoteLineToOrderLineLoop', '', false, false)]
+    local procedure OnBeforeTransferQuoteLineToOrderLineLoop(var SalesQuoteLine: Record "Sales Line"; var SalesQuoteHeader: Record "Sales Header"; var SalesOrderHeader: Record "Sales Header"; var IsHandled: Boolean)
+    begin
+
+        // IF (SalesQuoteLine.Type = SalesQuoteLine.Type::Item) AND (SalesQuoteLine."No." <> '') THEN
+        //     SalesQuoteLine.TESTFIELD("Purchasing Code");
+        // CLEAR(Location);
+        // IF (SalesQuoteLine."Location Code" <> '') THEN BEGIN
+        //     Location.GET(SalesQuoteLine."Location Code");
+        //     Location.TESTFIELD(Blocked, FALSE);
+        //     IF Location."Bin Mandatory" THEN
+        //         SalesQuoteLine.TESTFIELD("Bin Code");
+        // END; //TODO Blocked & location are globales variables
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Quote to Order", 'OnBeforeTransferQuoteLineToOrderLineLoop', '', false, false)]
+    local procedure COD86_OnAfterInsertSalesOrderHeader(var SalesOrderHeader: Record "Sales Header"; SalesQuoteHeader: Record "Sales Header")
+    begin
+        SalesOrderHeader."BC6_Bin Code" := SalesOrderHeader."BC6_Bin Code";
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Quote to Order", 'OnBeforeDeleteSalesQuote', '', false, false)]
+
+    local procedure COD86_OnBeforeDeleteSalesQuote(var QuoteSalesHeader: Record "Sales Header"; var OrderSalesHeader: Record "Sales Header"; var IsHandled: Boolean; var SalesQuoteLine: Record "Sales Line")
+    var
+        RecGParmNavi: Record "BC6_Navi+ Setup";
+        RecGArchiveManagement: Codeunit ArchiveManagement;
+        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
+
+    begin
+        if not IsHandled then begin
+            ApprovalsMgmt.DeleteApprovalEntries(RecordId);
+
+            SalesCommentLine.DeleteComments(QuoteSalesHeader."Document Type".AsInteger(), QuoteSalesHeader."No.");
+            QuoteSalesHeader.DeleteLinks;
+            QuoteSalesHeader.Delete;
+            SalesQuoteLine.DeleteAll();
+        end;
+
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnAfterValidateEvent', 'Shipment Date', false, false)]

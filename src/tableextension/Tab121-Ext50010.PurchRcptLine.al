@@ -1,36 +1,36 @@
-tableextension 50010 "BC6_PurchRcptLine" extends "Purch. Rcpt. Line"
+tableextension 50010 "BC6_PurchRcptLine" extends "Purch. Rcpt. Line" //121 
 {
-    LookupPageID = "Posted Purchase Receipt Lines";
-    DrillDownPageID = "Posted Purchase Receipt Lines";
     fields
     {
         field(50000; "BC6_Sales No."; Code[20])
         {
-            Caption = 'Sales Order No.';
+            Caption = 'Sales Order No.', comment = 'FRA="N° commande vente"';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(50001; "BC6_Sales Line No."; Integer)
         {
-            Caption = 'Sales Order Line No.';
+            Caption = 'Sales Order Line No.', comment = 'FRA="N° ligne commande vente"';
             Editable = false;
+            DataClassification = CustomerContent;
         }
-        field(50002; "BC6_Sales Document Type"; Option)
+        field(50002; "BC6_Sales Document Type"; Enum "Sales Document Type")
         {
-            Caption = 'Document Type';
-            OptionCaption = 'Quote,Order,Invoice,Credit Memo,Blanket Order,Return Order';
-            OptionMembers = Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order";
+            Caption = 'Document Type', comment = 'FRA="Type document"';
+            DataClassification = CustomerContent;
         }
         field(50022; "BC6_Public Price"; Decimal)
         {
-            Caption = 'Tarif Public';
-            Description = 'TARIFPUB SM 15/10/06 NCS1.01 [FE024V1] Ajout du champ';
+            Caption = 'Public Price', comment = 'FRA="Tarif Public"';
+            DataClassification = CustomerContent;
         }
         field(50031; "BC6_Discount Direct Unit Cost"; Decimal)
         {
             AutoFormatExpression = "Currency Code";
             AutoFormatType = 2;
-            Caption = 'Discount Direct Unit Cost excluding VAT';
+            Caption = 'Discount Direct Unit Cost excluding VAT', comment = 'FRA="Coût unitaire direct remisé HT"';
             Editable = false;
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin

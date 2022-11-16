@@ -1,19 +1,22 @@
 table 50001 "BC6_Various Tables"
 {
     Caption = 'Various Tables';
+    DataClassification = CustomerContent;
     //   TODO: Page  // LookupPageID = 50003;
 
     fields
     {
         field(1; Radical; Code[10])
         {
-            Caption = 'Radical';
+            Caption = 'Radical', comment = 'FRA="Radical"';
             NotBlank = true;
+            DataClassification = CustomerContent;
         }
         field(2; "Code"; Code[10])
         {
-            Caption = 'Code';
+            Caption = 'Code', comment = 'FRA="Code"';
             NotBlank = true;
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin
@@ -22,79 +25,97 @@ table 50001 "BC6_Various Tables"
         }
         field(3; Description; Text[200])
         {
-            Caption = 'Description';
+            Caption = 'Description', comment = 'FRA="Libellé"';
+            DataClassification = CustomerContent;
         }
         field(4; Text1; Text[30])
         {
-            Caption = 'Text1';
+            Caption = 'Text1', comment = 'FRA="Texte1"';
+            DataClassification = CustomerContent;
         }
         field(5; Text2; Text[30])
         {
-            Caption = 'Text2';
+            Caption = 'Text2', comment = 'FRA="Texte2"';
+            DataClassification = CustomerContent;
         }
         field(6; Text3; Text[30])
         {
-            Caption = 'Text3';
+            Caption = 'Text3', comment = 'FRA="Texte3"';
+            DataClassification = CustomerContent;
         }
         field(7; Number1; Decimal)
         {
-            Caption = 'Number1';
+            Caption = 'Number1', comment = 'FRA="Nombre1"';
             DecimalPlaces = 0 : 5;
+            DataClassification = CustomerContent;
         }
         field(8; Number2; Decimal)
         {
-            Caption = 'Number2';
+            Caption = 'Number2', comment = 'FRA="Nombre2"';
             DecimalPlaces = 0 : 5;
+            DataClassification = CustomerContent;
         }
         field(9; Number3; Decimal)
         {
-            Caption = 'Number3';
+            Caption = 'Number3', comment = 'FRA="Nombre3"';
             DecimalPlaces = 0 : 5;
+            DataClassification = CustomerContent;
         }
         field(10; Date1; Date)
         {
-            Caption = 'Date1';
+            Caption = 'Date1', comment = 'FRA="Date1"';
+            DataClassification = CustomerContent;
         }
         field(11; Date2; Date)
         {
-            Caption = 'Date2';
+            Caption = 'Date2', comment = 'FRA="Date2"';
+            DataClassification = CustomerContent;
         }
         field(12; Date3; Date)
         {
-            Caption = 'Date3';
+            Caption = 'Date3', comment = 'FRA="Date3"';
+            DataClassification = CustomerContent;
         }
         field(13; "Top Logical1"; Boolean)
         {
-            Caption = 'Top Logical1';
+            Caption = 'Top Logical1', comment = 'FRA="Top Logique1"';
+            DataClassification = CustomerContent;
         }
         field(14; "Top Logical2"; Boolean)
         {
-            Caption = 'Top Logical2';
+            Caption = 'Top Logical2', comment = 'FRA="Top Logique2"';
+            DataClassification = CustomerContent;
         }
         field(15; "Top Logical3"; Boolean)
         {
-            Caption = 'Top Logical3';
+            Caption = 'Top Logical3', comment = 'FRA="Top Logique3"';
+            DataClassification = CustomerContent;
         }
         field(16; "Radical Code1"; Code[10])
         {
-            Caption = 'Radical Code1';
+            Caption = 'Radical Code1', comment = 'FRA="Code Radical1"';
+            DataClassification = CustomerContent;
         }
         field(17; "Radical Code2"; Code[10])
         {
-            Caption = 'Radical Code2';
+            Caption = 'Radical Code2', comment = 'FRA="Code Radical2"';
+            DataClassification = CustomerContent;
         }
         field(18; "Radical Code3"; Code[10])
         {
-            Caption = 'Radical Code3';
+            Caption = 'Radical Code3', comment = 'FRA="Code Radical3"';
+            DataClassification = CustomerContent;
         }
         field(19; Comment; Boolean)
         {
-            Caption = 'Comment';
+            Caption = 'Comment', comment = 'FRA="Comment"';
             InitValue = false;
+            DataClassification = CustomerContent;
         }
         field(20; "Radical Code"; Code[20])
         {
-            Caption = 'Radical Code';
+            Caption = 'Radical Code', comment = 'FRA="Code Radical"';
+            DataClassification = CustomerContent;
         }
     }
 

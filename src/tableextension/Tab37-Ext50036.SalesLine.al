@@ -274,7 +274,7 @@ tableextension 50036 "BC6_SalesLine" extends "Sales Line" //37
             Caption = 'Prix net standard', Comment = 'FRA="Prix net standard"';
             DataClassification = CustomerContent;
         }
-        field(50120; "BC6_Return Order Type"; Enum "BC6_Return Order Type")
+        field(50120; "BC6_Return Order Type"; Enum "BC6_Type Location")
         {
             Caption = 'Return Order Type', Comment = 'FRA="Type  retour vente"';
             DataClassification = CustomerContent;

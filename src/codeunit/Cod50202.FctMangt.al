@@ -913,7 +913,141 @@ codeunit 50202 "BC6_FctMangt"
             UNTIL RecLPurchLine.NEXT = 0;
     END;
 
+
+    procedure GetBin(_LocationCode: Code[10]; _BinCode: Code[20]; var _Bin: Record Bin) // Fonction dupliquer
+    begin
+        if (_LocationCode = '') or (BinCode = '') then
+            _Bin.Init
+        else
+            if (_Bin."Location Code" <> _LocationCode) or
+               (_Bin.Code <> BinCode)
+            then
+                _Bin.Get(_LocationCode, BinCode);
+    end;
+
+    PROCEDURE SetYourReference(_YourRef: Text);
+    BEGIN
+        YourReference := _YourRef;
+    END;
+
+    PROCEDURE FindVeryBestPrice(VAR RecLSalesLine: Record 37; RecLSalesHeader: Record 36);
+    VAR
+        Item: Record Item;
+        PriceCalcMgt: Codeunit "Sales Price Calc. Mgt.";
+        ItemUnitPrice: Decimal;
+        BestDiscount: Decimal;
+        BestPrice: Decimal;
+        ItemUnitPriceBestDiscount: Decimal;
+    BEGIN
+        WITH RecLSalesLine DO BEGIN
+            IF RecLSalesLine.Type = Type::Item THEN BEGIN
+
+                PriceCalcMgt.SetCurrency(
+                  RecLSalesHeader."Currency Code", RecLSalesHeader."Currency Factor", PriceCalcMgt.SalesHeaderExchDate(RecLSalesHeader));
+                PriceCalcMgt.SetVAT(RecLSalesHeader."Prices Including VAT", "VAT %", "VAT Calculation Type", "VAT Bus. Posting Group");
+                PriceCalcMgt.SetUoM(ABS(Quantity), "Qty. per Unit of Measure");
+                PriceCalcMgt.SetLineDisc("Line Discount %", "Allow Line Disc.", "Allow Invoice Disc.");
+
+
+
+                //Prix unitaire
+                Item.RESET;
+                Item.GET(RecLSalesLine."No.");
+                ItemUnitPrice := Item."Unit Price";
+                IF RecLSalesHeader."Prices Including VAT" THEN
+                    ItemUnitPrice := ItemUnitPrice * (1 + RecLSalesLine."VAT %" / 100);
+
+                //Meilleur remise
+                IF PriceCalcMgt.SalesLineLineDiscExists(RecLSalesHeader, RecLSalesLine, FALSE) THEN BEGIN
+                    // PriceCalcMgt.CalcBestLineDisc(TempSalesLineDisc); TODO:
+                    // BestDiscount := TempSalesLineDisc."Line Discount %"; TODO:
+                END ELSE BEGIN
+                    BestDiscount := 0;
+                END;
+
+                //Meilleur prix
+                IF PriceCalcMgt.SalesLinePriceExists(RecLSalesHeader, RecLSalesLine, FALSE) THEN BEGIN
+                    // PriceCalcMgt.CalcBestUnitPrice(TempSalesPrice); TODO:
+                    // BestPrice := TempSalesPrice."Unit Price" ; TODO:
+                END ELSE BEGIN
+                    BestPrice := 0;
+                END;
+
+                ItemUnitPriceBestDiscount := (ItemUnitPrice * (1 - BestDiscount / 100));
+
+                IF (BestPrice <> 0) THEN BEGIN
+                    IF (ItemUnitPriceBestDiscount < BestPrice) THEN BEGIN
+                        RecLSalesLine."Unit Price" := ItemUnitPrice;
+                        RecLSalesLine."Line Discount %" := BestDiscount;
+                        RecLSalesLine."Allow Line Disc." := TRUE;
+                        RecLSalesLine."Allow Invoice Disc." := TRUE;
+                    END ELSE BEGIN
+                        RecLSalesLine."Unit Price" := BestPrice;
+                        RecLSalesLine."Line Discount %" := 0;
+                        RecLSalesLine."Allow Line Disc." := FALSE;
+                        RecLSalesLine."Allow Invoice Disc." := TRUE;
+                    END;
+                END ELSE BEGIN
+                    RecLSalesLine."Unit Price" := ItemUnitPrice;
+                    RecLSalesLine."Line Discount %" := BestDiscount;
+                    RecLSalesLine."Allow Line Disc." := TRUE;
+                    RecLSalesLine."Allow Invoice Disc." := TRUE;
+                END;
+                PriceCalcMgt.ConvertPriceLCYToFCY('', RecLSalesLine."Unit Price");
+            END;
+        END;
+    END;
+
+    // Deplicated function from table "Warehouse Activity Line" Id 5767
+    procedure UpdateReservation(TempWhseActivLine2: Record "Warehouse Activity Line" temporary; Deletion: Boolean)
     var
+        TempTrackingSpecification: Record "Tracking Specification" temporary;
+        ItemTrackingMgt: Codeunit "Item Tracking Management";
+    begin
+        with TempWhseActivLine2 do begin
+            if ("Action Type" <> "Action Type"::Take) and ("Breakbulk No." = 0) and
+               ("Whse. Document Type" = "Whse. Document Type"::Shipment)
+            then begin
+                InitTrackingSpecFromWhseActivLine(TempTrackingSpecification, TempWhseActivLine2);
+                TempTrackingSpecification."Qty. to Handle (Base)" := 0;
+                TempTrackingSpecification."Entry No." := TempTrackingSpecification."Entry No." + 1;
+                TempTrackingSpecification."Creation Date" := Today;
+                TempTrackingSpecification."Warranty Date" := "Warranty Date";
+                TempTrackingSpecification."Expiration Date" := "Expiration Date";
+                TempTrackingSpecification.Correction := true;
+                TempTrackingSpecification.Insert();
+            end;
+            ItemTrackingMgt.SetPick("Activity Type" = "Activity Type"::Pick);
+            ItemTrackingMgt.SynchronizeWhseItemTracking(TempTrackingSpecification, '', Deletion);
+        end;
+    end;
+
+    // Deplicated function from table "Warehouse Activity Line" Id 5767
+    procedure InitTrackingSpecFromWhseActivLine(var TrackingSpecification: Record "Tracking Specification"; WhseActivityLine: Record "Warehouse Activity Line")
+    begin
+        with WhseActivityLine do begin
+            TrackingSpecification.Init();
+            if "Source Type" = DATABASE::"Prod. Order Component" then
+                TrackingSpecification.SetSource(
+                  "Source Type", "Source Subtype", "Source No.", "Source Subline No.", '', "Source Line No.")
+            else
+                TrackingSpecification.SetSource(
+                  "Source Type", "Source Subtype", "Source No.", "Source Line No.", '', 0);
+
+            TrackingSpecification."Item No." := "Item No.";
+            TrackingSpecification."Location Code" := "Location Code";
+            TrackingSpecification.Description := Description;
+            TrackingSpecification."Variant Code" := "Variant Code";
+            TrackingSpecification."Qty. per Unit of Measure" := "Qty. per Unit of Measure";
+            TrackingSpecification.CopyTrackingFromWhseActivityLine(WhseActivityLine);
+            TrackingSpecification."Expiration Date" := "Expiration Date";
+            TrackingSpecification."Bin Code" := "Bin Code";
+            TrackingSpecification."Qty. to Handle (Base)" := "Qty. to Handle (Base)";
+        end;
+    end;
+
+    var
+        YourReference: Text; // related to SetYourReference function
         EnableIncrPurchCost: Boolean;
-        BinCode: Code[20];
+
 }

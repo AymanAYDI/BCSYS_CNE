@@ -1,26 +1,26 @@
-tableextension 50082 "BC6_CompanyInformation" extends "Company Information" //79
+tableextension 50060 "BC6_ResponsibilityCenter" extends "Responsibility Center" //5714
 {
     fields
     {
-        field(50000; "BC6_Alt Picture"; BLOB)
+        field(50000; BC6_Picture; BLOB)
         {
-            Caption = 'Picture', comment = 'FRA="Alt Image"';
+            Caption = 'Picture', Comment = 'FRA="Image"';
             SubType = Bitmap;
             DataClassification = CustomerContent;
         }
         field(50001; "BC6_Alt Name"; Text[50])
         {
-            Caption = 'Name', comment = 'FRA="Alt Nom"';
+            Caption = 'Name', Comment = 'FRA="Alt Nom"';
             DataClassification = CustomerContent;
         }
         field(50002; "BC6_Alt Name 2"; Text[50])
         {
-            Caption = 'Name 2', comment = 'FRA="Alt Nom 2"';
+            Caption = 'Name 2', Comment = 'FRA="Alt Nom 2"';
             DataClassification = CustomerContent;
         }
         field(50003; "BC6_Alt Address"; Text[50])
         {
-            Caption = 'Address', comment = 'FRA="Alt Adresse"';
+            Caption = 'Address', Comment = 'FRA="Alt Adresse"';
             DataClassification = CustomerContent;
         }
         field(50004; "BC6_Alt Address 2"; Text[50])
@@ -30,23 +30,33 @@ tableextension 50082 "BC6_CompanyInformation" extends "Company Information" //79
         }
         field(50005; "BC6_Alt City"; Text[30])
         {
-            Caption = 'City', comment = 'FRA="Alt Ville"';
+            Caption = 'City', Comment = 'FRA="Alt Ville"';
             TableRelation = IF ("BC6_Alt Country Code" = CONST()) "Post Code".City
             ELSE
             IF ("BC6_Alt Country Code" = FILTER(<> '')) "Post Code".City WHERE("Country/Region Code" = FIELD("BC6_Alt Country Code"));
             DataClassification = CustomerContent;
-            trigger onvalidate() //TODO CHECK
-            var
-                PostCode: Record "Post Code";
-                TxtLAltCounty: text[30];
-            begin
-                PostCode.get(PostCode.code, PostCode."Search City");
 
+            trigger OnLookup()
+            begin
+                //>>MIGRATION NAV 2013
+                //OLD PostCode.LookUpCity("Alt City","Alt Post Code",TRUE);
+                //<<MIGRATION NAV 2013
+            end;
+
+            trigger OnValidate()
+            var
+                "- MIGNAV2013 -": Integer;
+                TxtLCounty: Text[30];
+            begin
+                //>>MIGRATION NAV 2013
+                //OLD PostCode.ValidateCity("Alt City","Alt Post Code");
+                PostCode.ValidateCity("BC6_Alt City", "BC6_Alt Post Code", TxtLCounty, "BC6_Alt Country Code", (CurrFieldNo <> 0) AND GUIALLOWED);
+                //<<MIGRATION NAV 2013
             end;
         }
         field(50006; "BC6_Alt Phone No."; Text[20])
         {
-            Caption = 'Phone No.', comment = 'FRA="Alt N° téléphone"';
+            Caption = 'Phone No.', Comment = 'FRA="Alt N° téléphone"';
             DataClassification = CustomerContent;
         }
         field(50007; "BC6_Alt Phone No. 2"; Text[20])
@@ -67,21 +77,30 @@ tableextension 50082 "BC6_CompanyInformation" extends "Company Information" //79
         field(50010; "BC6_Alt Post Code"; Code[20])
         {
             Caption = 'Post Code', Comment = 'FRA="Alt Code postal"';
-            TableRelation = IF ("BC6_Alt Country Code" = CONST()) "Post Code".Code
+            TableRelation = IF ("BC6_Alt Country Code" = CONST()) "Post Code"
             ELSE
-            IF ("BC6_Alt Country Code" = FILTER(<> '')) "Post Code".Code WHERE("Country/Region Code" = FIELD("BC6_Alt Country Code"));
+            IF ("BC6_Alt Country Code" = FILTER(<> '')) "Post Code" WHERE("Country/Region Code" = FIELD("BC6_Alt Country Code"));
             //This property is currently not supported
             //TestTableRelation = false;
             ValidateTableRelation = false;
             DataClassification = CustomerContent;
 
+            trigger OnLookup()
+            begin
+                //>>MIGRATION NAV 2013
+                //OLDPostCode.LookUpPostCode("Alt City","Alt Post Code",TRUE);
+                //<<MIGRATION NAV 2013
+            end;
+
             trigger OnValidate()
             var
-                PostCode: Record "Post Code";
-                TxtLAltCounty: Text[30];
+                "- MIGNAV2013 -": Integer;
+                TxtLCounty: Text[30];
             begin
-                PostCode.get(PostCode.code, PostCode."Search City");
-                PostCode.ValidateCity("BC6_Alt City", "BC6_Alt Post Code", TxtLAltCounty, "BC6_Alt Country Code", (CurrFieldNo <> 0) AND GUIALLOWED); // TODO: function PostCode Declarer Global
+                //>>MIGRATION NAV 2013
+                //OLD PostCode.ValidatePostCode("Alt City","Alt Post Code");
+                PostCode.ValidatePostCode("BC6_Alt City", "BC6_Alt Post Code", TxtLCounty, "BC6_Alt Country Code", (CurrFieldNo <> 0) AND GUIALLOWED);
+                //<<MIGRATION NAV 2013
             end;
         }
         field(50011; "BC6_Alt E-Mail"; Text[80])
@@ -97,39 +116,18 @@ tableextension 50082 "BC6_CompanyInformation" extends "Company Information" //79
         }
         field(50013; "BC6_Alt Home Page"; Text[80])
         {
-            Caption = 'Home page', Comment = 'FRA="Page d''accueil"';
+            Caption = 'Alt Home Page', Comment = 'FRA="Alt Page d''accueil"';
             DataClassification = CustomerContent;
         }
-        field(50014; "BC6_Branch Company"; Boolean)
+        field(50014; "BC6_Alt Picture"; BLOB)
         {
-            Caption = 'Branch Company', Comment = 'FRA="Société Filiale"';
-            DataClassification = CustomerContent;
-        }
-        field(50015; "BC6_Purchaser E-Mail"; Text[80])
-        {
-            Caption = 'Purchaser E-Mail', Comment = 'FRA="Email Service achat"';
-            DataClassification = CustomerContent;
-        }
-        field(50016; "BC6_Alt2 Name"; Text[50])
-        {
-            Caption = 'Name', Comment = 'FRA="Alt2 Nom"';
-            DataClassification = CustomerContent;
-        }
-        field(50017; "BC6_Alt2 Phone No."; Text[20])
-        {
-            Caption = 'Phone No.', Comment = 'FRA="Alt2 N° téléphone"';
-            DataClassification = CustomerContent;
-        }
-        field(50018; "BC6_Alt2 Fax No."; Text[20])
-        {
-            Caption = 'Fax No.', Comment = 'FRA="Alt2 N° télécopie"';
-            DataClassification = CustomerContent;
-        }
-        field(50019; "BC6_Alt2 E-Mail"; Text[80])
-        {
-            Caption = 'E-Mail', comment = 'FRA="Alt2 E-mail"';
+            Caption = 'Alt Picture', Comment = 'FRA="Alt Image"';
+            SubType = Bitmap;
             DataClassification = CustomerContent;
         }
     }
+
+    var
+        PostCode: Record "Post Code";
 }
 

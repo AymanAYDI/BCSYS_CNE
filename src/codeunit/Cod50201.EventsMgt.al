@@ -1501,7 +1501,30 @@ ItemJnlLine."Document No.",
         PurchaseLineDiscount.SETRANGE("Item No.", Rec.Code);
         PurchaseLineDiscount.DELETEALL(TRUE);
     end;
+    //TAB 10866
+    [EventSubscriber(ObjectType::Table, Database::"Payment Line", 'OnAfterSetUpNewLine', '', false, false)]
 
+    local procedure T10866_OnAfterSetUpNewLine(var PaymentLine: Record "Payment Line")
+    var
+        BottomLine: Boolean;
+        PaymentClass: Record "Payment Class";
+        NoSeriesMgt: codeunit NoSeriesManagement;
+    begin
+        if PaymentLine."No." <> '' then begin
+            if PaymentClass."Line No. Series" = '' then
+                exit
+            else
+                if PaymentLine."Document No." = '' then
+                    IF BottomLine AND (PaymentLine."Line No." <> PaymentLine."Line No.") THEN
+                        PaymentLine."Document No." := INCSTR(PaymentLine."Document No.")
+                    ELSE
+                        IF PaymentLine."Document No." = '' THEN
+                            PaymentLine."Document No." := NoSeriesMgt.GetNextNo(PaymentClass."Line No. Series", PaymentLine."Posting Date", FALSE)
+                        ELSE
+                            PaymentLine."Document No." := PaymentLine."Document No.";
+
+        end;
+    end;
 
 
 }

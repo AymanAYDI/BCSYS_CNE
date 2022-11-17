@@ -926,14 +926,14 @@ codeunit 50200 "BC6_CNE_EventsMgt"
         ApprovalsMgmt: Codeunit "Approvals Mgmt.";
 
     begin
-        if not IsHandled then begin
-            ApprovalsMgmt.DeleteApprovalEntries(RecordId);
+        //TODO if not IsHandled then begin
+        //     ApprovalsMgmt.DeleteApprovalEntries(RecordId);
 
-            SalesCommentLine.DeleteComments(QuoteSalesHeader."Document Type".AsInteger(), QuoteSalesHeader."No.");
-            QuoteSalesHeader.DeleteLinks;
-            QuoteSalesHeader.Delete;
-            SalesQuoteLine.DeleteAll();
-        end;
+        //     SalesCommentLine.DeleteComments(QuoteSalesHeader."Document Type".AsInteger(), QuoteSalesHeader."No.");
+        //     QuoteSalesHeader.DeleteLinks;
+        //     QuoteSalesHeader.Delete;
+        //     SalesQuoteLine.DeleteAll();
+        // end;
 
     end;
 

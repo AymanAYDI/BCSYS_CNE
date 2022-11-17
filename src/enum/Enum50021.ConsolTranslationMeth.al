@@ -1,4 +1,4 @@
-enum 50015 "BC6_ConsolTranslationMeth"
+enum 50021 "BC6_ConsolTranslationMeth"
 {
     Extensible = false;
 

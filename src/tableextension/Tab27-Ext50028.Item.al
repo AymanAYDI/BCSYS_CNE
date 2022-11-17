@@ -6,17 +6,20 @@ tableextension 50028 "BC6_Item" extends Item //27
         {
             Caption = 'Creation Date', comment = 'FRA="Date de création"';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(50001; BC6_User; Code[50])
         {
             Caption = 'User', comment = 'FRA="Utilisateur"';
             Editable = false;
             TableRelation = User;
+            DataClassification = CustomerContent;
         }
         field(50021; "BC6_Item Sales Profit Group"; Code[10])
         {
             Caption = 'Item Sales Profit Group', comment = 'FRA="Goupe Marge Vente Article"';
             TableRelation = "BC6_Item Sales Profit Group";
+            DataClassification = CustomerContent;
         }
         field(50040; "BC6_Pick Qty."; Decimal)
         {
@@ -37,22 +40,26 @@ tableextension 50028 "BC6_Item" extends Item //27
             AutoFormatType = 2;
             Caption = 'Unit Price Includes VAT', comment = 'FRA="Prix Public TTC"';
             MinValue = 0;
+            DataClassification = CustomerContent;
         }
         field(50042; "BC6_Print Unit Price Incl. VAT"; Boolean)
         {
             AutoFormatType = 2;
             Caption = 'Print Unit Price Includes VAT On Label', comment = 'FRA="Imprimer Prix Public TTC sur étiquette"';
             MinValue = false;
+            DataClassification = CustomerContent;
         }
         field(50050; "BC6_Cost Increase Coeff %"; Decimal)
         {
             Caption = 'Cost Increase Coeff (%)', comment = 'FRA="Coeff majoration du coût (%)"';
             MaxValue = 100;
             MinValue = 0;
+            DataClassification = CustomerContent;
         }
         field(50051; "BC6_Search Description 2"; Code[50])
         {
             Caption = 'Search Description 2', comment = 'FRA="Désignation de recherche 2"';
+            DataClassification = CustomerContent;
         }
         field(50060; "BC6_Qty. Return Order SAV"; Decimal)
         {
@@ -74,6 +81,7 @@ tableextension 50028 "BC6_Item" extends Item //27
         {
             Caption = 'DEEE Category Code ', comment = 'FRA="Code tarif DEEE"';
             TableRelation = "BC6_Categories of item".Category WHERE("Eco Partner" = FIELD("BC6_Eco partner DEEE"));
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin
@@ -89,15 +97,18 @@ tableextension 50028 "BC6_Item" extends Item //27
         field(80801; "BC6_DEEE Unit Tax"; Decimal)
         {
             Caption = 'DEEE Unit Tax', comment = 'FRA="Coût unitaire de la taxe"';
+            DataClassification = CustomerContent;
         }
         field(80802; "BC6_Number of Units DEEE"; Decimal)
         {
             Caption = 'Number of Units DEEE', comment = 'FRA="Nombre d''unités DEEE"';
+            DataClassification = CustomerContent;
         }
         field(80803; "BC6_Eco partner DEEE"; Code[20])
         {
             Caption = 'Eco partner DEEE', comment = 'FRA="Eco partenaire DEEE"';
             TableRelation = Vendor;
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin

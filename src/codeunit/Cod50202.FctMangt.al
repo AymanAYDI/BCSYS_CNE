@@ -913,7 +913,45 @@ codeunit 50202 "BC6_FctMangt"
             UNTIL RecLPurchLine.NEXT = 0;
     END;
 
+    //TODO : procedure CreateInvtPutAwayPick STD j'ai pas trouver des event pour inserer mon code donc j la dupliquer en+ la fct est utilisée juste dans des pages 
+    PROCEDURE CreateInvtPutAwayPick();
+    VAR
+        PurchHeader: Record "Purchase Header";
+        WhseRequest: Record "Warehouse Request";
+        RepLCreateInvtPutPickMvmt: Report "Create Invt Put-away/Pick/Mvmt";
+    BEGIN
+        PurchHeader.get;
+        PurchHeader.TESTFIELD(Status, Status::Released);
+        WhseRequest.RESET;
+        WhseRequest.SETCURRENTKEY("Source Document", "Source No.");
+        CASE PurchHeader."Document Type" OF
+            PurchHeader."Document Type"::Order:
+                WhseRequest.SETRANGE("Source Document", WhseRequest."Source Document"::"Purchase Order");
+            PurchHeader."Document Type"::"Return Order":
+                WhseRequest.SETRANGE("Source Document", WhseRequest."Source Document"::"Purchase Return Order");
+        END;
+        WhseRequest.SETRANGE("Source No.", PurchHeader."No.");
+        RepLCreateInvtPutPickMvmt.SETTABLEVIEW(WhseRequest);
+        RepLCreateInvtPutPickMvmt.InitializeRequest(TRUE, FALSE, FALSE, TRUE, FALSE);
+        RepLCreateInvtPutPickMvmt.RUN;
+    END;
+
+    //TODO: //fct du std , j la dupliquer et effacer le reste du code qui ne sert a rien , cette fct est utilisé juste ds les pages on peut apres passer la valeur true simplement sans avoir besoin a cette fct 
+    PROCEDURE ConfirmCloseUnposted(): Boolean;
+    BEGIN
+        EXIT(TRUE);
+    END;
+
+procedure GetContactAsCompany2(Contact: Record Contact; var SearchContact: Record Contact): Boolean;
+    var
+        IsHandled: Boolean;
+    begin
+        if not IsHandled then
+            if Contact."Company No." <> '' then
+                exit(SearchContact.Get(Contact."Company No."));
+    end;
+
     var
         EnableIncrPurchCost: Boolean;
-        BinCode: Code[20];
+
 }

@@ -1,25 +1,28 @@
 table 50013 "BC6_Salesperson authorized"
 {
     Caption = 'Salesperson authorized';
-    //TODO:Page
-    // DrillDownPageID = 50046;
-    // LookupPageID = 50046;
+    DrillDownPageID = "BC6_Salesperson authorized";
+    LookupPageID = "BC6_Salesperson authorized";
+    DataClassification = CustomerContent;
 
     fields
     {
         field(1; "Customer No."; Code[20])
         {
-            Caption = 'Customer No.';
+            Caption = 'Customer No.', comment = 'FRA="N° client"';
             TableRelation = Customer;
+            DataClassification = CustomerContent;
         }
-        field(2; "Salesperson code"; Code[10])
+        field(2; "Salesperson code"; Code[20])
         {
-            Caption = 'Salesperson code';
+            Caption = 'Salesperson code', comment = 'FRA="Code vendeur"';
             TableRelation = "Salesperson/Purchaser";
+            DataClassification = CustomerContent;
         }
         field(3; authorized; Boolean)
         {
-            Caption = 'authorized';
+            Caption = 'authorized', comment = 'FRA="Autorisé"';
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin
@@ -46,6 +49,6 @@ table 50013 "BC6_Salesperson authorized"
 
     var
         RecGCustomer: Record Customer;
-        Error001: Label 'You can not uncheck for the salesperson of the customer card';
+        Error001: Label 'You can not uncheck for the salesperson of the customer card', comment = 'FRA="Vous ne pouvez décocher pour le vendeur de la fiche client"';
 }
 

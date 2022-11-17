@@ -1,61 +1,24 @@
-tableextension 50038 "BC6_PurchaseHeader" extends "Purchase Header"
+tableextension 50038 "BC6_PurchaseHeader" extends "Purchase Header" //38
 {
     LookupPageID = "Purchase List";
     fields
     {
-        modify("Currency Code")
-        {
-            trigger OnAfterValidate()
-            var
-                TextG001: Label 'Warning, using foreign currency will generate wrong profit calculation.';
-
-            begin
-                IF "Currency Code" <> '' THEN
-                    MESSAGE(TextG001);
-
-            end;
-        }
-        modify("Reason Code")
-        {
-            trigger OnAfterValidate()
-            var
-                RecLReasonCode: Record "Reason Code";
-                RecLPurchLine: Record "Purchase Line";
-            begin
-                IF xRec."Reason Code" <> Rec."Reason Code" THEN BEGIN
-                    RecLPurchLine.SETRANGE("Document Type", "Document Type");
-                    RecLPurchLine.SETRANGE("Document No.", "No.");
-                    IF RecLPurchLine.FIND('-') THEN
-                        REPEAT
-                        //TODO: tabext 
-                        // RecLPurchLine."DEEE Category Code" := RecLPurchLine."DEEE Category Code";
-                        // RecLPurchLine.CalculateDEEE(Rec."Reason Code");
-                        // RecLPurchLine.MODIFY;
-                        UNTIL RecLPurchLine.NEXT = 0;
-                END;
-            end;
-        }
-        modify("Buy-from Vendor Name")
-        {
-            trigger OnBeforeValidate()
-            begin
-                //TODO: L'AJOUT UNE CONDITION DE TEST AVANT UNE LIGNE STD 
-            end;
-        }
         field(50000; "BC6_Affair No."; Code[20])
         {
-            Caption = 'Affair No.';
+            Caption = 'Affair No.', comment = 'FRA="N° Affaire"';
             TableRelation = Job."No.";
+            DataClassification = CustomerContent;
         }
         field(50003; "BC6_Pay-to Vend. No."; Code[20])
         {
-            Caption = 'Pay-to Vend. No.';
+            Caption = 'Pay-to Vend. No.', comment = 'FRA="Tiers payeur"';
             TableRelation = Vendor;
+            DataClassification = CustomerContent;
         }
         field(50010; BC6_ID; Code[50])
         {
-            Description = 'AjoutCodeUtilisateur RD 13/11/06 NCS1.01 [FE019V1] Ajout du code utilisateur dans les documents achats';
             Editable = false;
+            DataClassification = CustomerContent;
             //TODO
             // trigger OnLookup()
             // var
@@ -68,51 +31,53 @@ tableextension 50038 "BC6_PurchaseHeader" extends "Purchase Header"
         }
         field(50020; "BC6_From Sales Module"; Boolean)
         {
-            Caption = 'From Sales Module';
+            Caption = 'From Sales Module', comment = 'FRA="Depuis Module Vente"';
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(50021; "BC6_Buy-from Fax No."; Text[30])
         {
-            Caption = 'Buy-from Fax No.';
-            Description = 'FE005 SEBC 08/01/2007';
+            Caption = 'Buy-from Fax No.', comment = 'FRA="N° télécopie preneur d''ordre"';
+            DataClassification = CustomerContent;
         }
         field(50022; "BC6_Buy-from E-Mail Address"; Text[50])
         {
-            Description = 'FE005 MICO 12/02/2007';
+            DataClassification = CustomerContent;
         }
         field(50080; "BC6_Sales No. Order Lien"; Code[20])
         {
-            Caption = 'Sales No. Order Lien';
-            Description = 'CNEIC';
+            Caption = 'Sales No. Order Lien', comment = 'FRA="N° Commande Vente Lien Lien"';
+            DataClassification = CustomerContent;
         }
         field(50090; "BC6_Last Related Info Date"; DateTime)
         {
             CalcFormula = Max("Purch. Comment Line"."BC6_Log Date" WHERE("Document Type" = FIELD("Document Type"),
                                                                       "No." = FIELD("No."),
                                                                       "BC6_Is Log" = CONST(true)));
-            Caption = 'Last Related Info Date';
+            Caption = 'Last Related Info Date', comment = 'FRA="Date dernière info connexe"';
             FieldClass = FlowField;
         }
         field(50100; "BC6_Return Order Type"; Enum "BC6_Type Location")
         {
-            Caption = 'Return Order Type';
+            Caption = 'Return Order Type', comment = 'FRA="Type  retour achat"';
             Description = 'BC6';
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin
-                //TODO
-                // UpdateSalesLineReturnType
+                UpdateSalesLineReturnType
             end;
         }
         field(50101; "BC6_Reminder Date"; Date)
         {
-            Caption = 'Reminder Date';
+            Caption = 'Reminder Date', comment = 'FRA="Date de relance"';
+            DataClassification = CustomerContent;
         }
         field(50102; "BC6_Related Sales Return Order"; Code[20])
         {
             FieldClass = FlowField;
             CalcFormula = Lookup("BC6_Return Order Relation"."Sales Return Order" WHERE("Purchase Order No." = FIELD("No.")));
-            Caption = 'N° retour vente associé';
+            Caption = 'Related Sales Return Order', comment = 'FRA="N° retour vente associé"';
             Editable = false;
 
         }
@@ -145,14 +110,14 @@ tableextension 50038 "BC6_PurchaseHeader" extends "Purchase Header"
 
     procedure ControleMinimMNTandQTE(): Boolean
     var
+        RecLPurchaseLine: Record "Purchase Line";
+        PurchSetup: Record "Purchases & Payables Setup";
+        Frs: Record Vendor;
         MntTot: Decimal;
         QteTot: Decimal;
-        Frs: Record Vendor;
-        Msg: Text[150];
-        TextControleMinima01: Label 'Total Purchase Amount %1, lower than minimum Purchase Amount %2. Do You want add freight charge?';
-        RecLPurchaseLine: Record "Purchase Line";
         NumLigne: Integer;
-        PurchSetup: Record "Purchases & Payables Setup";
+        TextControleMinima01: Label 'Total Purchase Amount %1, lower than minimum Purchase Amount %2. Do You want add freight charge?';
+        Msg: Text[150];
     begin
         PurchSetup.GET;
         IF NOT PurchSetup."BC6_Minima de cde" THEN
@@ -221,17 +186,17 @@ tableextension 50038 "BC6_PurchaseHeader" extends "Purchase Header"
         TempPurchLine: Record "Purchase Line" temporary;
         TotalPurchLine: Record "Purchase Line";
         TotalPurchLineLCY: Record "Purchase Line";
-        Vend: Record Vendor;
-        TempVATAmountLine: Record "VAT Amount Line" temporary;
         PurchSetup: Record "Purchases & Payables Setup";
+        TempVATAmountLine: Record "VAT Amount Line" temporary;
+        Vend: Record Vendor;
         PurchPost: Codeunit "Purch.-Post";
+        AllowInvDisc: Boolean;
+        AllowVATDifference: Boolean;
+        PrevNo: Code[20];
         TotalAmount1: Decimal;
         TotalAmount2: Decimal;
         VATAmount: Decimal;
         VATAmountText: Text[30];
-        PrevNo: Code[20];
-        AllowInvDisc: Boolean;
-        AllowVATDifference: Boolean;
     begin
         CLEAR(PurchLine);
         CLEAR(TotalPurchLine);
@@ -243,8 +208,8 @@ tableextension 50038 "BC6_PurchaseHeader" extends "Purchase Header"
         //TODO
         // PurchPost.SumPurchLinesTemp(
         //   Rec, TempPurchLine, 0, TotalPurchLine, TotalPurchLineLCY, VATAmount, VATAmountText,
-        //   TotalPurchLine."DEEE HT Amount", TotalPurchLine."DEEE VAT Amount", TotalPurchLine."DEEE TTC Amount",
-        //   TotalPurchLine."DEEE HT Amount (LCY)");
+        //   TotalPurchLine."BC6_DEEE HT Amount", TotalPurchLine."BC6_DEEE VAT Amount", TotalPurchLine."BC6_DEEE TTC Amount",
+        //   TotalPurchLine."BC6_DEEE HT Amount (LCY)");
 
 
 
@@ -259,14 +224,13 @@ tableextension 50038 "BC6_PurchaseHeader" extends "Purchase Header"
 
         MntTot := TotalAmount1;
         QteTot := TotalPurchLine.Quantity;
-        //FIN CALCMNTTOTAL SM 11/07/06 NCS1.01 [COMPLEMENT_ACHAT0206]  MAJ Montant Total HT Et Montant Total TTC de l'entête achat
     end;
 
     procedure Existfreightcharge(): Boolean
     var
+        PurchLine: Record "Purchase Line";
         RecLSalesLine: Record "Purchase Line";
         PurchSetup: Record "Purchases & Payables Setup";
-        PurchLine: Record "Purchase Line";
     begin
         IF PurchLinesExist THEN BEGIN
             REPEAT
@@ -301,21 +265,19 @@ tableextension 50038 "BC6_PurchaseHeader" extends "Purchase Header"
 
     procedure ExistFreightChargeSSAmount(): Boolean
     var
-        PurchSetup: Record "Purchases & Payables Setup";
         PurchLine: record "Purchase Line";
+        PurchSetup: Record "Purchases & Payables Setup";
     begin
         IF PurchLinesExist THEN BEGIN
             REPEAT
                 IF (PurchLine.Type = PurchSetup.BC6_Type) AND (PurchLine."No." = PurchSetup."BC6_No.") THEN
-                    //AND (PurchLine."Line Amount" <> 0)
                     EXIT(TRUE);
             UNTIL PurchLine.NEXT = 0;
         END ELSE
             EXIT(FALSE);
-        //<<FE002.2 CASC
     end;
 
-    procedure AddLogComment(_Qty: Decimal; _ReceiptType: Option Colis,Palette)
+    procedure AddLogComment(_Qty: Decimal; _ReceiptType: Enum BC6_ReceiptType)
     var
         L_PurchCommentLine: Record "Purch. Comment Line";
         L_PurchCommentLine2: Record "Purch. Comment Line";
@@ -353,28 +315,28 @@ tableextension 50038 "BC6_PurchaseHeader" extends "Purchase Header"
             L_PurchaseLine.RESET;
         L_PurchaseLine.SETRANGE("Document Type", "Document Type");
         L_PurchaseLine.SETRANGE("Document No.", "No.");
-        //TODO // IF L_PurchaseLine.FINDFIRST THEN
-        //   L_PurchaseLine.MODIFYALL("BC6_Return Order Type", "BC6_Return Order Type");
+        IF L_PurchaseLine.FINDFIRST THEN
+            L_PurchaseLine.MODIFYALL("BC6_Return Order Type", "BC6_Return Order Type");
     end;
 
 
     var
-        ConfirmChangeQst: Label 'Do you want to change %1?', Comment = '%1 = a Field Caption like Currency Code';
-        YouCannotChangeFieldErr: Label 'You cannot change %1 because the order is associated with one or more sales orders.', Comment = '%1 - fieldcaption';
+        RecGParamNavi: Record "BC6_Navi+ Setup";
+        RecGCommentLine: Record "Comment Line";
+        RecGVendor: Record Vendor;
         ApprovalsMgmt: Codeunit "Approvals Mgmt.";
+        G_ReturnOrderMgt: Codeunit "BC6_Return Order Mgt.";
+        FrmGLignesCommentaires: Page "Comment Sheet";
+        Confirmed: Boolean;
+        "-BCSYS-": Integer;
+        "-NSC1.00-": Integer;
         "---NSC1.01": Label '';
+        ConfirmChangeQst: Label 'Do you want to change %1?';
+        Text50000: Label 'Quantity cannot be 0.';
 
         TextG001: Label 'Warning, using foreign currency will generate wrong profit calculation.';
         TextG002: Label 'Thank to inform freight charge amount for line %1, No. %2';
         TextG003: Label 'Warning:This purchase order is linked to a sales order.';
-        Text50000: Label 'Quantity cannot be 0.';
-        "-BCSYS-": Integer;
-        //TODO   // G_ReturnOrderMgt: Codeunit 50052;
-        "-NSC1.00-": Integer;
-        RecGVendor: Record Vendor;
-        RecGParamNavi: Record "BC6_Navi+ Setup";
-        RecGCommentLine: Record "Comment Line";
-        FrmGLignesCommentaires: Page "Comment Sheet";
-        Confirmed: Boolean;
+        YouCannotChangeFieldErr: Label 'You cannot change %1 because the order is associated with one or more sales orders.', Comment = '%1 - fieldcaption';
 
 }

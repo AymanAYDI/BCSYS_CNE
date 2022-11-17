@@ -1,16 +1,20 @@
 table 99001 "Customer Sales Profit Group"
 {
     Caption = 'Groupe Marge Vente Client';
-    //   TODO: Page 
-    // LookupPageID = 50020;
+    LookupPageID = 50020;
+    DataClassification = CustomerContent;
 
     fields
     {
-        field(1; "Code"; Code[10])
+        field(1; "Code"; Code[20])
         {
+            Caption = 'Code', comment = 'FRA="Code"';
+            DataClassification = CustomerContent;
         }
         field(2; Designation; Text[50])
         {
+            Caption = 'Designation', comment = 'FRA="Designation"';
+            DataClassification = CustomerContent;
         }
     }
 
@@ -25,8 +29,5 @@ table 99001 "Customer Sales Profit Group"
     fieldgroups
     {
     }
-
-    var
-        SalesLineDiscount: Record "Sales Line Discount";
 }
 

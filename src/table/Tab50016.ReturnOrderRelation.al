@@ -1,23 +1,28 @@
 table 50016 "BC6_Return Order Relation"
 {
+    DataClassification = CustomerContent;
 
     fields
     {
         field(1; "Sales Return Order"; Code[20])
         {
-            Caption = 'N° retour vente';
+            Caption = 'Sales Return Order', comment = 'FRA="N° retour vente"';
+            DataClassification = CustomerContent;
         }
         field(2; "Purchase Return Order"; Code[20])
         {
-            Caption = 'N° retour achat lié';
+            Caption = 'Purchase Return Order', comment = 'FRA="N° retour achat lié"';
+            DataClassification = CustomerContent;
         }
         field(3; "Purchase Order No."; Code[20])
         {
-            Caption = 'N° commande achat liée';
+            Caption = 'Purchase Order No.', comment = 'FRA="N° commande achat liée"';
+            DataClassification = CustomerContent;
         }
         field(4; "Sales Order No."; Code[20])
         {
-            Caption = 'N° commande vente liée';
+            Caption = 'Sales Order No.', comment = 'FRA="N° commande vente liée"';
+            DataClassification = CustomerContent;
         }
     }
 

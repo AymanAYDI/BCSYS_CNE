@@ -9,109 +9,101 @@ table 99004 "BC6_G/L Account Test"
     {
         field(1; "No."; Code[20])
         {
-            Caption = 'No.';
+            Caption = 'No.', comment = 'FRA="N°"';
             NotBlank = true;
         }
         field(2; Name; Text[30])
         {
-            Caption = 'Name';
+            Caption = 'Name', comment = 'FRA="Nom"';
         }
         field(3; "Search Name"; Code[30])
         {
-            Caption = 'Search Name';
+            Caption = 'Search Name', comment = 'FRA="Nom de recherche"';
         }
-        field(4; "Account Type"; Option)
+        field(4; "Account Type"; Enum "G/L Account Type")
         {
-            Caption = 'Account Type';
-            OptionCaption = 'Posting,Heading,Total,Begin-Total,End-Total';
-            OptionMembers = Posting,Heading,Total,"Begin-Total","End-Total";
-
-
+            Caption = 'Account Type', comment = 'FRA="Type compte"';
         }
         field(6; "Global Dimension 1 Code"; Code[20])
         {
             CaptionClass = '1,1,1';
-            Caption = 'Global Dimension 1 Code';
+            Caption = 'Global Dimension 1 Code', comment = 'FRA="Code axe principal 1"';
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1));
         }
         field(7; "Global Dimension 2 Code"; Code[20])
         {
             CaptionClass = '1,1,2';
-            Caption = 'Global Dimension 2 Code';
+            Caption = 'Global Dimension 2 Code', comment = 'FRA="Code axe principal 2"';
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2));
         }
-        field(9; "Income/Balance"; Option)
+        field(9; "Income/Balance"; Enum "BC6_IncomeBalance")
         {
-            Caption = 'Income/Balance';
-            OptionCaption = 'Income Statement,Balance Sheet';
-            OptionMembers = "Income Statement","Balance Sheet";
+            Caption = 'Income/Balance', comment = 'FRA="Gestion/Bilan"';
         }
-        field(10; "Debit/Credit"; Option)
+        field(10; "Debit/Credit"; Enum BC6_DebitCredit)
         {
-            Caption = 'Debit/Credit';
-            OptionCaption = 'Both,Debit,Credit';
-            OptionMembers = Both,Debit,Credit;
+            Caption = 'Debit/Credit', comment = 'FRA="Débit/Crédit"';
         }
         field(11; "No. 2"; Code[20])
         {
-            Caption = 'No. 2';
+            Caption = 'No. 2', comment = 'FRA="N° 2"';
         }
         field(12; Comment; Boolean)
         {
             CalcFormula = Exist("Comment Line" WHERE("Table Name" = CONST("G/L Account"),
                                                       "No." = FIELD("No.")));
-            Caption = 'Comment';
+            Caption = 'Comment', comment = 'FRA="Commentaires"';
             Editable = false;
             FieldClass = FlowField;
         }
         field(13; Blocked; Boolean)
         {
-            Caption = 'Blocked';
+            Caption = 'Blocked', comment = 'FRA="Bloqué"';
         }
         field(14; "Direct Posting"; Boolean)
         {
-            Caption = 'Direct Posting';
+            Caption = 'Direct Posting', comment = 'FRA="Imputation directe"';
             InitValue = true;
         }
         field(16; "Reconciliation Account"; Boolean)
         {
-            Caption = 'Reconciliation Account';
+            Caption = 'Reconciliation Account', comment = 'FRA="Compte de simulation"';
         }
         field(17; "New Page"; Boolean)
         {
-            Caption = 'New Page';
+            Caption = 'New Page', comment = 'FRA="Nouvelle page"';
         }
         field(18; "No. of Blank Lines"; Integer)
         {
-            Caption = 'No. of Blank Lines';
+            Caption = 'No. of Blank Lines', comment = 'FRA="Nbre lignes blanches"';
             MinValue = 0;
         }
         field(19; Indentation; Integer)
         {
-            Caption = 'Indentation';
+            Caption = 'Indentation', comment = 'FRA="Indentation"';
             MinValue = 0;
         }
         field(26; "Last Date Modified"; Date)
         {
-            Caption = 'Last Date Modified';
+            Caption = 'Last Date Modified', comment = 'FRA="Date dern. modification"';
             Editable = false;
         }
         field(28; "Date Filter"; Date)
         {
-            Caption = 'Date Filter';
+            Caption = 'Date Filter', comment = 'FRA="Filtre date"';
             FieldClass = FlowFilter;
         }
         field(29; "Global Dimension 1 Filter"; Code[20])
         {
             CaptionClass = '1,3,1';
-            Caption = 'Global Dimension 1 Filter';
+            Caption = 'Global Dimension 1 Filter', comment = 'FRA="Filtre axe principal 1"';
             FieldClass = FlowFilter;
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1));
         }
         field(30; "Global Dimension 2 Filter"; Code[20])
         {
             CaptionClass = '1,3,2';
-            Caption = 'Global Dimension 2 Filter';
+            Caption = 'Global Dimension 2 Filter', comment = 'FRA="Filtre axe principal 2"';
             FieldClass = FlowFilter;
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2));
         }
@@ -126,7 +118,7 @@ table 99004 "BC6_G/L Account Test"
                                                         "Posting Date" = FIELD(UPPERLIMIT("Date Filter"))
                                                                                //TODO:is removed // ,"Entry Type" = FIELD("G/L Entry Type Filter")
                                                                                ));
-            Caption = 'Balance at Date';
+            Caption = 'Balance at Date', comment = 'FRA="Solde au"';
             Editable = false;
             FieldClass = FlowField;
         }
@@ -141,7 +133,7 @@ table 99004 "BC6_G/L Account Test"
                                                         "Posting Date" = FIELD(UPPERLIMIT("Date Filter"))
                                                                                //TODO:is removed // ,"Entry Type" = FIELD("G/L Entry Type Filter")
                                                                                ));
-            Caption = 'Net Change';
+            Caption = 'Net Change', comment = 'FRA="Solde période"';
             Editable = false;
             FieldClass = FlowField;
         }
@@ -155,12 +147,12 @@ table 99004 "BC6_G/L Account Test"
                                                         "Global Dimension 2 Code" = FIELD("Global Dimension 2 Filter"),
                                                                Date = FIELD("Date Filter"),
                                                                "Budget Name" = FIELD("Budget Filter")));
-            Caption = 'Budgeted Amount';
+            Caption = 'Budgeted Amount', comment = 'FRA="Montant budgété"';
             FieldClass = FlowField;
         }
         field(34; Totaling; Text[250])
         {
-            Caption = 'Totaling';
+            Caption = 'Totaling', comment = 'FRA="Totalisation"';
             TableRelation = "G/L Account";
             //This property is currently not supported
             //TestTableRelation = false;
@@ -168,7 +160,7 @@ table 99004 "BC6_G/L Account Test"
         }
         field(35; "Budget Filter"; Code[10])
         {
-            Caption = 'Budget Filter';
+            Caption = 'Budget Filter', comment = 'FRA="Totalisation"';
             FieldClass = FlowFilter;
             TableRelation = "G/L Budget Name";
         }
@@ -182,7 +174,7 @@ table 99004 "BC6_G/L Account Test"
                                                         "Global Dimension 2 Code" = FIELD("Global Dimension 2 Filter")
                                                                                //TODO:is removed // ,"Entry Type" = FIELD("G/L Entry Type Filter")
                                                                                ));
-            Caption = 'Balance';
+            Caption = 'Balance', comment = 'FRA="Solde"';
             Editable = false;
             FieldClass = FlowField;
         }
@@ -196,57 +188,49 @@ table 99004 "BC6_G/L Account Test"
                                                         "Global Dimension 2 Code" = FIELD("Global Dimension 2 Filter"),
                                                                Date = FIELD(UPPERLIMIT("Date Filter")),
                                                                "Budget Name" = FIELD("Budget Filter")));
-            Caption = 'Budget at Date';
+            Caption = 'Budget at Date', comment = 'FRA="Budget période"';
             Editable = false;
             FieldClass = FlowField;
         }
-        field(39; "Consol. Translation Method"; Option)
+        field(39; "Consol. Translation Method"; Enum "BC6_ConsolTranslationMeth")
         {
-            Caption = 'Consol. Translation Method';
-            OptionCaption = 'Average Rate (Manual),Closing Rate,Historical Rate,Composite Rate,Equity Rate';
-            OptionMembers = "Average Rate (Manual)","Closing Rate","Historical Rate","Composite Rate","Equity Rate";
-
-
+            Caption = 'Consol. Translation Method', comment = 'FRA="Consolider la méthode de traduction"';
         }
         field(40; "Consol. Debit Acc."; Code[20])
         {
-            Caption = 'Consol. Debit Acc.';
+            Caption = 'Consol. Debit Acc.', comment = 'FRA="Compte débit consolidation"';
         }
         field(41; "Consol. Credit Acc."; Code[20])
         {
-            Caption = 'Consol. Credit Acc.';
+            Caption = 'Consol. Credit Acc.', comment = 'FRA="Compte crédit consolidation"';
 
 
         }
         field(42; "Business Unit Filter"; Code[10])
         {
-            Caption = 'Business Unit Filter';
+            Caption = 'Business Unit Filter', comment = 'FRA="Filtre centre de profit"';
             FieldClass = FlowFilter;
             TableRelation = "Business Unit";
         }
-        field(43; "Gen. Posting Type"; Option)
+        field(43; "Gen. Posting Type"; Enum "General Posting Type")
         {
-            Caption = 'Gen. Posting Type';
-            OptionCaption = ' ,Purchase,Sale';
-            OptionMembers = " ",Purchase,Sale;
+            Caption = 'Gen. Posting Type', comment = 'FRA="Type compta. TVA"';
         }
         field(44; "Gen. Bus. Posting Group"; Code[10])
         {
-            Caption = 'Gen. Bus. Posting Group';
+            Caption = 'Gen. Bus. Posting Group', comment = 'FRA="Groupe compta. marché"';
             TableRelation = "Gen. Business Posting Group";
-
-
         }
         field(45; "Gen. Prod. Posting Group"; Code[10])
         {
-            Caption = 'Gen. Prod. Posting Group';
+            Caption = 'Gen. Prod. Posting Group', comment = 'FRA="Groupe compta. produit"';
             TableRelation = "Gen. Product Posting Group";
 
 
         }
         field(46; Picture; BLOB)
         {
-            Caption = 'Picture';
+            Caption = 'Picture', comment = 'FRA="Image"';
             SubType = Bitmap;
         }
         field(47; "Debit Amount"; Decimal)
@@ -261,7 +245,7 @@ table 99004 "BC6_G/L Account Test"
                                                                 "Posting Date" = FIELD("Date Filter")
                                                                                //TODO:is removed // ,"Entry Type" = FIELD("G/L Entry Type Filter")
                                                                                ));
-            Caption = 'Debit Amount';
+            Caption = 'Debit Amount', comment = 'FRA="Montant débit"';
             Editable = false;
             FieldClass = FlowField;
         }
@@ -277,13 +261,13 @@ table 99004 "BC6_G/L Account Test"
                                                                  "Posting Date" = FIELD("Date Filter")
                                                                                //TODO:is removed // ,"Entry Type" = FIELD("G/L Entry Type Filter")
                                                                                ));
-            Caption = 'Credit Amount';
+            Caption = 'Credit Amount', comment = 'FRA="Montant crédit"';
             Editable = false;
             FieldClass = FlowField;
         }
         field(49; "Automatic Ext. Texts"; Boolean)
         {
-            Caption = 'Automatic Ext. Texts';
+            Caption = 'Automatic Ext. Texts', comment = 'FRA="Textes étendus automatiques"';
         }
         field(52; "Budgeted Debit Amount"; Decimal)
         {
@@ -296,7 +280,7 @@ table 99004 "BC6_G/L Account Test"
                                                         "Global Dimension 2 Code" = FIELD("Global Dimension 2 Filter"),
                                                                Date = FIELD("Date Filter"),
                                                                "Budget Name" = FIELD("Budget Filter")));
-            Caption = 'Budgeted Debit Amount';
+            Caption = 'Budgeted Debit Amount', comment = 'FRA="Montant débit budgété"';
             FieldClass = FlowField;
         }
         field(53; "Budgeted Credit Amount"; Decimal)
@@ -310,31 +294,31 @@ table 99004 "BC6_G/L Account Test"
                                                         "Global Dimension 2 Code" = FIELD("Global Dimension 2 Filter"),
                                                                 Date = FIELD("Date Filter"),
                                                                 "Budget Name" = FIELD("Budget Filter")));
-            Caption = 'Budgeted Credit Amount';
+            Caption = 'Budgeted Credit Amount', comment = 'FRA="Montant crédit budgété"';
             FieldClass = FlowField;
         }
         field(54; "Tax Area Code"; Code[20])
         {
-            Caption = 'Tax Area Code';
+            Caption = 'Tax Area Code', comment = 'FRA="Code zone recouvrement"';
             TableRelation = "Tax Area";
         }
         field(55; "Tax Liable"; Boolean)
         {
-            Caption = 'Tax Liable';
+            Caption = 'Tax Liable', comment = 'FRA="Soumis à recouvrement"';
         }
         field(56; "Tax Group Code"; Code[10])
         {
-            Caption = 'Tax Group Code';
+            Caption = 'Tax Group Code', comment = 'FRA="Code groupe taxes"';
             TableRelation = "Tax Group";
         }
         field(57; "VAT Bus. Posting Group"; Code[10])
         {
-            Caption = 'VAT Bus. Posting Group';
+            Caption = 'VAT Bus. Posting Group', comment = 'FRA="Groupe compta. marché TVA"';
             TableRelation = "VAT Business Posting Group";
         }
         field(58; "VAT Prod. Posting Group"; Code[10])
         {
-            Caption = 'VAT Prod. Posting Group';
+            Caption = 'VAT Prod. Posting Group', comment = 'FRA="Groupe compta. produit TVA"';
             TableRelation = "VAT Product Posting Group";
         }
         field(60; "Additional-Currency Net Change"; Decimal)
@@ -349,7 +333,7 @@ table 99004 "BC6_G/L Account Test"
                                                                              "Posting Date" = FIELD("Date Filter")
                                                                                //TODO:is removed // ,"Entry Type" = FIELD("G/L Entry Type Filter")
                                                                                ));
-            Caption = 'Additional-Currency Net Change';
+            Caption = 'Additional-Currency Net Change', comment = 'FRA="Solde période DR"';
             Editable = false;
             FieldClass = FlowField;
         }
@@ -365,7 +349,7 @@ table 99004 "BC6_G/L Account Test"
                                                                               "Posting Date" = FIELD(UPPERLIMIT("Date Filter"))
                                                                                //TODO:is removed // ,"Entry Type" = FIELD("G/L Entry Type Filter")
                                                                                ));
-            Caption = 'Add.-Currency Balance at Date';
+            Caption = 'Add.-Currency Balance at Date', comment = 'FRA="Solde au DR"';
             Editable = false;
             FieldClass = FlowField;
         }
@@ -380,13 +364,13 @@ table 99004 "BC6_G/L Account Test"
                                                         "Global Dimension 2 Code" = FIELD("Global Dimension 2 Filter")
                                                                               //TODO:is removed      //   ,"Entry Type" = FIELD("G/L Entry Type Filter")
                                                                               ));
-            Caption = 'Additional-Currency Balance';
+            Caption = 'Additional-Currency Balance', comment = 'FRA="Solde DR"';
             Editable = false;
             FieldClass = FlowField;
         }
         field(63; "Exchange Rate Adjustment"; Enum "Exch. Rate Adjustment Type")
         {
-            Caption = 'Exchange Rate Adjustment';
+            Caption = 'Exchange Rate Adjustment', comment = 'FRA="Ajustement taux de change"';
         }
         field(64; "Add.-Currency Debit Amount"; Decimal)
         {
@@ -400,7 +384,7 @@ table 99004 "BC6_G/L Account Test"
                                                                               "Posting Date" = FIELD("Date Filter")
                                                                               //TODO:is removed    //  ,"Entry Type" = FIELD("G/L Entry Type Filter")
                                                                               ));
-            Caption = 'Add.-Currency Debit Amount';
+            Caption = 'Add.-Currency Debit Amount', comment = 'FRA="Montant débit DR"';
             Editable = false;
             FieldClass = FlowField;
         }
@@ -416,21 +400,19 @@ table 99004 "BC6_G/L Account Test"
                                                                                "Posting Date" = FIELD("Date Filter")
                                                                                //TODO:is removed // ,"Entry Type" = FIELD("G/L Entry Type Filter")
                                                                                ));
-            Caption = 'Add.-Currency Credit Amount';
+            Caption = 'Add.-Currency Credit Amount', comment = 'FRA="Montant crédit DR"';
             Editable = false;
             FieldClass = FlowField;
         }
         field(66; "Default IC Partner G/L Acc. No"; Code[20])
         {
-            Caption = 'Default IC Partner G/L Acc. No';
+            Caption = 'Default IC Partner G/L Acc. No', comment = 'FRA="N° cpte gén par déf parten IC"';
             TableRelation = "IC G/L Account"."No.";
         }
-        field(10810; "G/L Entry Type Filter"; Option)
+        field(10810; "G/L Entry Type Filter"; Enum BC6_EntryTypeFilter)
         {
-            Caption = 'G/L Entry Type Filter';
+            Caption = 'G/L Entry Type Filter', comment = 'FRA="Filtre type écriture"';
             FieldClass = FlowFilter;
-            OptionCaption = 'Definitives,Simulations';
-            OptionMembers = Definitives,Simulations;
         }
     }
 
@@ -450,12 +432,11 @@ table 99004 "BC6_G/L Account Test"
 
     var
         GLSetup: Record "General Ledger Setup";
-        DimMgt: Codeunit DimensionManagement;
         GLSetupRead: Boolean;
-        Text000: Label 'You cannot change %1 because there are one or more ledger entries associated with this account.';
-        Text001: Label 'You cannot change %1 because this account is part of one or more budgets.';
-        Text002: Label 'There is another %1: %2; which refers to the same %3, but with a different %4: %5.';
-        Text10800: Label 'The first number in %1 must be from 1 to 9.';
+        Text000: Label 'You cannot change %1 because there are one or more ledger entries associated with this account.', comment = 'FRA="Vous ne pouvez pas modifier %1 car il existe des écritures associées à ce compte."';
+        Text001: Label 'You cannot change %1 because this account is part of one or more budgets.', comment = 'FRA="Vous ne pouvez pas modifier %1 car ce compte fait partie d un ou plusieurs budget(s)."';
+        Text002: Label 'There is another %1: %2; which refers to the same %3, but with a different %4: %5.', comment = 'FRA="Il existe un autre %1 : %2, qui concerne le(la) même %3, mais avec un(e) autre %4 : %5."';
+        Text10800: Label 'The first number in %1 must be from 1 to 9.', comment = 'FRA="Le premier nombre dans %1 doit se trouver entre 1 et 9."';
 
 
     procedure SetupNewGLAcc(OldGLAcc: Record "G/L Account"; BelowOldGLAcc: Boolean)

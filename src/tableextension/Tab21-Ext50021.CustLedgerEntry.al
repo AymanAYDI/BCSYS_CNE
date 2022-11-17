@@ -1,57 +1,64 @@
-tableextension 50021 "BC6_CustLedgerEntry" extends "Cust. Ledger Entry"
+tableextension 50021 "BC6_CustLedgerEntry" extends "Cust. Ledger Entry" //21
 {
-    LookupPageID = "Customer Ledger Entries";
-    DrillDownPageID = "Customer Ledger Entries";
     fields
     {
 
         field(50000; BC6_PaymentMethodCode; Code[10])
         {
-            Caption = 'Payment Method Code';
+            Caption = 'Payment Method Code', Comment = 'FRA="Code mode de règlement"';
             TableRelation = "Payment Method";
+            DataClassification = CustomerContent;
         }
         field(50001; "BC6_Payment Terms Code"; Code[10])
         {
-            Caption = 'Payment Terms Code';
+            Caption = 'Payment Terms Code', Comment = 'FRA="Code condition paiement"';
             TableRelation = "Payment Terms";
+            DataClassification = CustomerContent;
         }
         field(50003; "BC6_Pay-to Customer No."; Code[20])
         {
-            Caption = 'Pay-to Customer No.';
+            Caption = 'Pay-to Customer No.', Comment = 'FRA="Tiers payeur"';
             TableRelation = Customer;
+            DataClassification = CustomerContent;
         }
         field(80800; "BC6_DEEE Category Code"; Code[10])
         {
-            Caption = 'DEEE Category Code';
+            Caption = 'DEEE Category Code', Comment = 'FRA="Code Catégorie DEEE"';
 
             TableRelation = "BC6_Categories of item".Category;
+            DataClassification = CustomerContent;
         }
         field(80802; "BC6_DEEE HT Amount"; Decimal)
         {
-            Caption = 'Montant HT DEEE';
+            Caption = 'Montant HT DEEE', Comment = 'FRA="Montant HT DEEE"';
+            DataClassification = CustomerContent;
 
         }
         field(80804; "BC6_DEEE VAT Amount"; Decimal)
         {
-            Caption = 'Montant TVA DEEE';
+            Caption = 'Montant TVA DEEE', Comment = 'FRA="Montant TVA DEEE"';
+            DataClassification = CustomerContent;
 
         }
         field(80805; "BC6_DEEE TTC Amount"; Decimal)
         {
+            DataClassification = CustomerContent;
 
         }
         field(80806; "BC6_DEEE HT Amount (LCY)"; Decimal)
         {
-            Caption = 'DEEE HT Amount (LCY)';
+            Caption = 'DEEE HT Amount (LCY)', Comment = 'FRA="Montant Unitaire DEEE (DS)"';
 
             Editable = false;
+            DataClassification = CustomerContent;
         }
         field(80807; "BC6_Eco partner DEEE"; Code[20])
         {
-            Caption = 'Eco partner DEEE';
+            Caption = 'Eco partner DEEE', Comment = 'FRA="Eco partenaire DEEE"';
 
             Editable = false;
             TableRelation = Vendor;
+            DataClassification = CustomerContent;
         }
     }
     keys
@@ -88,6 +95,9 @@ tableextension 50021 "BC6_CustLedgerEntry" extends "Cust. Ledger Entry"
         }
     }
 
+    PROCEDURE "---NSC1.00---"();
+    BEGIN
+    END;
 
     procedure getCustomerName(CodLCustNo: Code[20]): Text[100]
     var
@@ -101,4 +111,3 @@ tableextension 50021 "BC6_CustLedgerEntry" extends "Cust. Ledger Entry"
 
 
 }
-

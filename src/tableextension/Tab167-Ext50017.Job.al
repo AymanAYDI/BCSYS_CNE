@@ -1,33 +1,36 @@
-tableextension 50017 "BC6_Job" extends Job
+tableextension 50017 "BC6_Job" extends Job //167
 {
-    LookupPageID = "Job List";
-    DrillDownPageID = "Job List";
     fields
     {
         field(50000; "BC6_Affair Responsible"; Code[20])
         {
-            Caption = 'Affair Responsible';
+            Caption = 'Affair Responsible', comment = 'FRA="Chargé d''affaire"';
+            DataClassification = CustomerContent;
 
         }
         field(50001; BC6_Statut; Enum BC6_Statut)
         {
-
+            Caption = 'Status', comment = 'FRA="Statut"';
+            DataClassification = CustomerContent;
         }
         field(50002; BC6_Address; Text[30])
         {
-            Caption = 'Address';
+            Caption = 'Address', comment = 'FRA="Adresse"';
+            DataClassification = CustomerContent;
 
         }
         field(50003; "BC6_Address 2"; Text[30])
         {
-            Caption = 'Address';
+            Caption = 'Address', comment = 'FRA="Adresse 2"';
+            DataClassification = CustomerContent;
 
         }
         field(50004; "BC6_Post Code"; Code[20])
         {
-            Caption = 'Post Code';
+            Caption = 'Post Code', comment = 'FRA="Code postale"';
 
             TableRelation = "Post Code".Code;
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
 
@@ -41,20 +44,22 @@ tableextension 50017 "BC6_Job" extends Job
         }
         field(50005; BC6_City; Text[30])
         {
-            Caption = 'Ville';
+            Caption = 'City', comment = 'FRA="Ville"';
+            DataClassification = CustomerContent;
 
         }
         field(50006; BC6_Country; Code[20])
         {
-            Caption = 'Country';
+            Caption = 'Country', comment = 'FRA="Pays"';
 
             TableRelation = "Country/Region".Code;
+            DataClassification = CustomerContent;
         }
         field(50010; BC6_Awarder; Boolean)
         {
             CalcFormula = Lookup("BC6_Contact Project Relation".Awarder WHERE("Affair No." = FIELD("No."),
                                                                            Awarder = CONST(true)));
-            Caption = 'Awarder';
+            Caption = 'Awarder', comment = 'FRA="Adjudicataire"';
             FieldClass = FlowField;
 
         }
@@ -63,7 +68,7 @@ tableextension 50017 "BC6_Job" extends Job
             FieldClass = FlowField;
             CalcFormula = Lookup("BC6_Contact Project Relation"."Contact Name" WHERE("Affair No." = FIELD("No."),
                                                                                   Awarder = CONST(true)));
-            Caption = 'Nom contact adjudicataire';
+            Caption = 'Awarder Contact Name', comment = 'FRA="Nom contact adjudicataire"';
 
         }
     }
@@ -78,6 +83,6 @@ tableextension 50017 "BC6_Job" extends Job
     end;
 
     var
-        DifferentCurrenciesErr: Label 'You cannot plan and invoice a job in different currencies.';
+        DifferentCurrenciesErr: Label 'You cannot plan and invoice a job in different currencies.', comment = 'FRA="Vous ne pouvez pas planifier et facturer un projet dans des devises différentes."';
 }
 

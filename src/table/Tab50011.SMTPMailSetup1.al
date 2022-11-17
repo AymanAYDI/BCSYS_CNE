@@ -1,20 +1,24 @@
 table 50011 "BC6_SMTP Mail Setup1"
 {
     Caption = 'SMTP Mail Setup';
+    DataClassification = CustomerContent;
 
     fields
     {
         field(1; "Primary Key"; Code[10])
         {
-            Caption = 'Primary Key';
+            Caption = 'Primary Key', comment = 'FRA="Clé primaire"';
+            DataClassification = CustomerContent;
         }
         field(2; "SMTP Server"; Text[250])
         {
-            Caption = 'SMTP Server';
+            Caption = 'SMTP Server', comment = 'FRA="Serveur SMTP"';
+            DataClassification = CustomerContent;
         }
         field(3; Authentication; Enum BC6_AuthentificationMail)
         {
-            Caption = 'Authentication';
+            Caption = 'Authentication', comment = 'FRA="Authentication"';
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin
@@ -26,7 +30,8 @@ table 50011 "BC6_SMTP Mail Setup1"
         }
         field(4; "User ID"; Text[30])
         {
-            Caption = 'User ID';
+            Caption = 'User ID', comment = 'FRA="Code utilisateur"';
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin
@@ -35,7 +40,8 @@ table 50011 "BC6_SMTP Mail Setup1"
         }
         field(5; Password; Text[30])
         {
-            Caption = 'Password';
+            Caption = 'Password', comment = 'FRA="Mot de passe"';
+            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin

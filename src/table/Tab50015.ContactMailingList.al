@@ -7,33 +7,33 @@ table 50015 "BC6_Contact Mailing List"
     {
         field(1; "Contact No."; Code[20])
         {
-            Caption = 'Contact No.';
+            Caption = 'Contact No.', comment = 'FRA="N° contact"';
             NotBlank = true;
             TableRelation = Contact;
         }
         field(2; "Mailing List Code"; Code[10])
         {
-            Caption = 'Mailing Group Code';
+            Caption = 'Mailing Group Code', comment = 'FRA="Code groupe de distribution"';
             NotBlank = true;
             TableRelation = "Mailing Group";
         }
         field(3; "Contact Name"; Text[100])
         {
             CalcFormula = Lookup(Contact.Name WHERE("No." = FIELD("Contact No.")));
-            Caption = 'Contact Name';
+            Caption = 'Contact Name', comment = 'FRA="Nom contact"';
             Editable = false;
             FieldClass = FlowField;
         }
         field(4; "Contact Company Name"; Text[100])
         {
             CalcFormula = Lookup(Contact."Company Name" WHERE("No." = FIELD("Contact No.")));
-            Caption = 'Contact Company Name';
+            Caption = 'Contact Company Name', comment = 'FRA="Nom société contact"';
             Editable = false;
             FieldClass = FlowField;
         }
         field(5; "Mailing Group Description"; Text[50])
         {
-            Caption = 'Mailing Group Description';
+            Caption = 'Mailing Group Description', comment = 'FRA="Description gpe de distrib."';
             Editable = false;
         }
     }
@@ -52,22 +52,6 @@ table 50015 "BC6_Contact Mailing List"
     fieldgroups
     {
     }
-
-    trigger OnDelete()
-    begin
-        TouchContact("Contact No.");
-    end;
-
-    trigger OnInsert()
-    begin
-        TouchContact("Contact No.");
-    end;
-
-    trigger OnModify()
-    begin
-        TouchContact("Contact No.");
-    end;
-
     trigger OnRename()
     begin
         IF xRec."Contact No." = "Contact No." THEN

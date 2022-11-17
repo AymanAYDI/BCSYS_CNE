@@ -1,4 +1,4 @@
-enum 50015 "Ord. Track. Policy"
+enum 50015 "BC6_Ord. Track. Policy"
 {
     Extensible = false;
 

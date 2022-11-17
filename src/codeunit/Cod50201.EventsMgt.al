@@ -228,7 +228,7 @@ codeunit 50201 "BC6_EventsMgt"
         CompanyInfo: Record "Company Information";
         G_ReturnOrderMgt: Codeunit "BC6_Return Order Mgt.";
         IsDeleteFromReturnOrder: Boolean;
-        TextG003: label 'Warning:This purchase order is linked to a sales order.';
+        TextG003: label 'Warning:This purchase order is linked to a sales order.', Comment = 'FRA="Attention : vous avez déjà passé cette commande en achat."';
     begin
         CompanyInfo.FINDFIRST();
         if CompanyInfo."BC6_Branch Company" then
@@ -350,7 +350,7 @@ codeunit 50201 "BC6_EventsMgt"
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterValidateEvent', 'Currency Code', false, false)]
     procedure T36_OnAfterValidateEvent_CurrencyCode(var Rec: Record "Sales Header"; var xRec: Record "Sales Header"; CurrFieldNo: Integer)
     var
-        TextG001: Label 'Warning, using foreign currency will generate wrong profit calculation.';
+        TextG001: Label 'Warning, using foreign currency will generate wrong profit calculation.', Comment = 'FRA=""';
 
     begin
         IF Rec."Currency Code" <> '' THEN
@@ -565,7 +565,6 @@ codeunit 50201 "BC6_EventsMgt"
         SalesSetup: record "Sales & Receivables Setup";
         FonctionMgt: Codeunit BC6_FctMangt;
         TextG002: Label 'Update Bill-to address ?';
-
     begin
         SalesSetup.Get;
         IF (SalesHeader."Document Type" = SalesHeader."Document Type"::Quote)
@@ -643,7 +642,6 @@ codeunit 50201 "BC6_EventsMgt"
         end else
             SalesHeader."BC6_Bin Code" := '';
     end;
-
     // COD
     [EventSubscriber(ObjectType::Codeunit, codeunit::"Instruction Mgt.", 'OnBeforeIsUnpostedEnabledForRecord', '', false, false)]
     procedure OnBeforeIsUnpostedEnabledForRecord(RecVariant: Variant; var Enabled: Boolean; var IsHandled: Boolean)

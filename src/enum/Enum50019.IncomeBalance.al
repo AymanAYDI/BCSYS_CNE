@@ -1,4 +1,4 @@
-enum 50013 "BC6_IncomeBalance"
+enum 50019 "BC6_IncomeBalance"
 {
     Extensible = false;
 

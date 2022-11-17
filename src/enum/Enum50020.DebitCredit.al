@@ -1,4 +1,4 @@
-enum 50014 "BC6_DebitCredit"
+enum 50020 "BC6_DebitCredit"
 {
     Extensible = false;
 

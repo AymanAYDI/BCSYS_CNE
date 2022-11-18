@@ -922,7 +922,7 @@ codeunit 50202 "BC6_FctMangt"
         RepLCreateInvtPutPickMvmt: Report "Create Invt Put-away/Pick/Mvmt";
     BEGIN
         PurchHeader.get;
-        PurchHeader.TESTFIELD(Status, Status::Released);
+        PurchHeader.TESTFIELD(Status, "Purchase Document Status"::Released);
         WhseRequest.RESET;
         WhseRequest.SETCURRENTKEY("Source Document", "Source No.");
         CASE PurchHeader."Document Type" OF

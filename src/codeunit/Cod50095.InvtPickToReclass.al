@@ -5,7 +5,6 @@ codeunit 50095 "BC6_Invt. Pick To Reclass."
 
     trigger OnRun()
     begin
-
         WhseJnlLine.COPY(Rec);
         Code();
         Rec := WhseJnlLine;

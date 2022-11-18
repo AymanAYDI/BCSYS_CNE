@@ -8,7 +8,7 @@ codeunit 50005 "BC6_G/L Reg.-DEEE Ledger"
             DEEEEntry.SETRANGE("Entry No.", "From Entry No.", "To Entry No.")
         ELSE
             DEEEEntry.SETRANGE("Entry No.", "To Entry No.", "From Entry No.");
-        PAGE.RUN(PAGE::"BC6_DEEE Ledger Entries", DEEEEntry);
+        //TODO PAGE.RUN(PAGE::"BC6_DEEE Ledger Entries", DEEEEntry);
     end;
 
     var

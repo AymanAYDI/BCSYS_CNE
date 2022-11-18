@@ -1,8 +1,8 @@
 table 50018 "BC6_Return Solution"
 {
 
-    DrillDownPageID = "BC6_Return Solutions";
-    LookupPageID = "BC6_Return Solutions";
+    //TODO DrillDownPageID = "BC6_Return Solutions";
+    // LookupPageID = "BC6_Return Solutions";
     DataClassification = CustomerContent;
 
     fields

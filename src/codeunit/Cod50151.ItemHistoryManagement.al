@@ -7,7 +7,8 @@ codeunit 50151 "BC6_Item History Management"
 
     var
         RecGItem: Record Item;
-    // RecGItemHistory: Page "BC6_Item Sales/Purch. History";
+    //TODO RecGItemHistory: Page "BC6_Item Sales/Purch. History";
+
 
     procedure GetItem(ItemNo: Code[20])
     begin

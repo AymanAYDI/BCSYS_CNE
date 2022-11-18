@@ -1,6 +1,7 @@
 table 50013 "BC6_Salesperson authorized"
 {
-    // DrillDownPageID = "BC6_Salesperson authorized";
+
+    //TODO DrillDownPageID = "BC6_Salesperson authorized";
     // LookupPageID = "BC6_Salesperson authorized";
     DataClassification = CustomerContent;
 

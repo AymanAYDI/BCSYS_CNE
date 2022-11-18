@@ -247,7 +247,7 @@ table 50004 "BC6_Navi+ Setup"
             DataClassification = CustomerContent;
         }
         field(307; "Application Method Customer"; Enum "App. Meth. Cust")
- { 
+        {
             Caption = 'Application Method Customer', comment = 'FRA="Mode de lettrage client"';
             DataClassification = CustomerContent;
         }

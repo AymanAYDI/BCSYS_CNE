@@ -452,7 +452,7 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
                 EXIT(TRUE)
             ELSE BEGIN
                 "BC6_Quote statut" := "BC6_Quote statut"::locked;
-                PAGE.RUN(PAGE::"BC6_Quote Blocked", Rec);
+                //TODO // PAGE.RUN(PAGE::"BC6_Quote Blocked", Rec);
                 EXIT(FALSE);
             END;
         END;

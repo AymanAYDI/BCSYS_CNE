@@ -139,7 +139,7 @@ codeunit 50008 "BC6_VendEntry-Apply Posted SPE"
         EXIT(LastTransactionNo);
     end;
 
-    [Scope('Internal')]
+
     procedure UnApplyDtldVendLedgEntry(DtldVendLedgEntry: Record "Detailed Vendor Ledg. Entry")
     var
         ApplicationEntryNo: Integer;
@@ -154,7 +154,7 @@ codeunit 50008 "BC6_VendEntry-Apply Posted SPE"
         UnApplyVendor(DtldVendLedgEntry);
     end;
 
-    [Scope('Internal')]
+
     procedure UnApplyVendLedgEntry(VendLedgEntryNo: Integer)
     var
         VendLedgentry: Record "Vendor Ledger Entry";
@@ -182,7 +182,7 @@ codeunit 50008 "BC6_VendEntry-Apply Posted SPE"
         END;
     end;
 
-    [Scope('Internal')]
+
     procedure PostUnApplyVendor(var DtldVendLedgEntryBuf: Record "Detailed Vendor Ledg. Entry"; DtldVendLedgEntry2: Record "Detailed Vendor Ledg. Entry"; var DocNo: Code[20]; var PostingDate: Date)
     var
         GLEntry: Record "G/L Entry";
@@ -295,7 +295,7 @@ codeunit 50008 "BC6_VendEntry-Apply Posted SPE"
                 ERROR(Text016, NewPostingDate);
     end;
 
-    [Scope('Internal')]
+
     procedure CheckReversal(VendLedgEntryNo: Integer)
     var
         VendLedgEntry: Record "Vendor Ledger Entry";

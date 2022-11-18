@@ -37,7 +37,7 @@ codeunit 50015 "BC6_UpdateSalesShipment"
         MESSAGE('%1 updated orders', Counter);
     end;
 
-    [Scope('Internal')]
+
     procedure UpdateYourRefOnSalesShpt(SalesHeader: Record "Sales Header")
     var
         SalesShipmentHeader: Record "Sales Shipment Header";
@@ -48,7 +48,7 @@ codeunit 50015 "BC6_UpdateSalesShipment"
             SalesShipmentHeader.MODIFYALL("Your Reference", SalesHeader."Your Reference");
     end;
 
-    [Scope('Internal')]
+
     procedure UpdateAffairNoOnSalesShpt(SalesHeader: Record "Sales Header")
     var
         SalesShipmentHeader: Record "Sales Shipment Header";

@@ -1,7 +1,7 @@
 table 99002 "BC6_Item Sales Profit Group"
 {
     Caption = 'Item Sales Profit Group', comment = 'FRA="Groupe Marge Vente Article"';
-    //TODO LookupPageID = "BC6_Item Sales Profit Group";
+    //    TODO // LookupPageID = "BC6_Item Sales Profit Group";
     DataClassification = CustomerContent;
 
     fields

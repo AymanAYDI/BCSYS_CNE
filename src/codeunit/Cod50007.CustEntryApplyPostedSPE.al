@@ -138,7 +138,7 @@ codeunit 50007 "BC6_CustEntry-Apply Posted SPE"
         EXIT(LastTransactionNo);
     end;
 
-    [Scope('Internal')]
+
     procedure UnApplyDtldCustLedgEntry(DtldCustLedgEntry: Record "Detailed Cust. Ledg. Entry")
     var
         ApplicationEntryNo: Integer;
@@ -153,7 +153,7 @@ codeunit 50007 "BC6_CustEntry-Apply Posted SPE"
         UnApplyCustomer(DtldCustLedgEntry);
     end;
 
-    [Scope('Internal')]
+
     procedure UnApplyCustLedgEntry(CustLedgEntryNo: Integer)
     var
         CustLedgentry: Record "Cust. Ledger Entry";
@@ -181,7 +181,7 @@ codeunit 50007 "BC6_CustEntry-Apply Posted SPE"
         END;
     end;
 
-    [Scope('Internal')]
+
     procedure PostUnApplyCustomer(var DtldCustLedgEntryBuf: Record "Detailed Cust. Ledg. Entry"; DtldCustLedgEntry2: Record "Detailed Cust. Ledg. Entry"; var DocNo: Code[20]; var PostingDate: Date)
     var
         GLEntry: Record "G/L Entry";
@@ -294,7 +294,7 @@ codeunit 50007 "BC6_CustEntry-Apply Posted SPE"
                 ERROR(Text016, NewPostingDate);
     end;
 
-    [Scope('Internal')]
+
     procedure CheckReversal(CustLedgEntryNo: Integer)
     var
         CustLedgEntry: Record "Cust. Ledger Entry";

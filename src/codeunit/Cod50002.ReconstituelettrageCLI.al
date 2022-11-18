@@ -11,7 +11,7 @@ codeunit 50002 "BC6_Reconstitue lettrage CLI"
         CustEntryApplyPostedEntries: Codeunit "BC6_CustEntry-Apply Posted SPE";
         flag: Text[100];
 
-    [Scope('Internal')]
+
     procedure InitialisationLettrage(CustLedgerEntry: Record "Cust. Ledger Entry")
     begin
 
@@ -25,7 +25,7 @@ codeunit 50002 "BC6_Reconstitue lettrage CLI"
         CustLedgerEntry.MODIFY;
     end;
 
-    [Scope('Internal')]
+
     procedure Lettrage(CustNo: Code[20])
     var
         CustLedgerEntry: Record "Cust. Ledger Entry";

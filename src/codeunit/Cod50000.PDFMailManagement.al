@@ -12,7 +12,7 @@ codeunit 50000 "BC6_PDF Mail Management"
         RecGSalesSetup: Record "Sales & Receivables Setup";
         OptGSelection: Option Print,Fax,"E-mail";
 
-    [Scope('Internal')]
+
     procedure GetSalesTag(RecSalesHeader: Record "Sales Header") TxtTag: Text[250]
     begin
         WITH RecSalesHeader DO BEGIN
@@ -25,7 +25,7 @@ codeunit 50000 "BC6_PDF Mail Management"
         END;
     end;
 
-    [Scope('Internal')]
+
     procedure GetPurchTag(RecPurchHeader: Record "Purchase Header") TxtTag: Text[250]
     begin
         WITH RecPurchHeader DO BEGIN

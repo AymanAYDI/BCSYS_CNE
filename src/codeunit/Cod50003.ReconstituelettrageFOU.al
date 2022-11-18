@@ -11,7 +11,7 @@ codeunit 50003 "BC6_Reconstitue lettrage FOU"
         VendEntryApplyPostedEntries: Codeunit "BC6_VendEntry-Apply Posted SPE";
         flag: Text[100];
 
-    [Scope('Internal')]
+
     procedure InitialisationLettrage(VendLedgerEntry: Record "Vendor Ledger Entry")
     begin
 
@@ -25,7 +25,7 @@ codeunit 50003 "BC6_Reconstitue lettrage FOU"
         VendLedgerEntry.MODIFY();
     end;
 
-    [Scope('Internal')]
+
     procedure Lettrage(VendorNo: Code[20])
     var
         VendLedgerEntry: Record "Vendor Ledger Entry";

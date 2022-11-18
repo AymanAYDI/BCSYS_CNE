@@ -27,7 +27,7 @@ codeunit 50006 "BC6_Create Pur. Ord From Sales"
         NextLineNo: Integer;
         InsertPurchHeaderOk: Boolean;
 
-    [Scope('Internal')]
+
     procedure "Code"()
     begin
         SalesSetup.GET();
@@ -90,7 +90,7 @@ codeunit 50006 "BC6_Create Pur. Ord From Sales"
         Window.CLOSE();
     end;
 
-    [Scope('Internal')]
+
     procedure InsertPurchHeader(var FromPurchHeader: Record "Purchase Header"; var FromVendorNo: Code[20])
     begin
         // Insert Purchase Header
@@ -109,7 +109,7 @@ codeunit 50006 "BC6_Create Pur. Ord From Sales"
         END;
     end;
 
-    [Scope('Internal')]
+
     procedure InsertPurchLine(var SalesLine: Record "Sales Line")
     begin
         // Insert Purchase Line
@@ -143,7 +143,7 @@ codeunit 50006 "BC6_Create Pur. Ord From Sales"
         END;
     end;
 
-    [Scope('Internal')]
+
     procedure FinalizePurchHeader(FromPurchHeader: Record "Purchase Header")
     var
         //TODO  TransferExtendedText: Codeunit "Transfer Extended Text";

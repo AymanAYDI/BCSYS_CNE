@@ -89,7 +89,7 @@ codeunit 50021 "BC6_Update IC Partner Items"
         Windows: Dialog;
         ItemPartnerOldCostIncreaseCoeff: Decimal;
 
-    [Scope('Internal')]
+
     procedure FctGUpdatePurchasePriceVendor(RecPVendor: Record Vendor)
     begin
         Windows.OPEN('Partenaire #1###################### \ Fournisseur #2######################## \ Article #3#################');

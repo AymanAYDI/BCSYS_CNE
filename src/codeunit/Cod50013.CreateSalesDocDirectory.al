@@ -36,7 +36,7 @@ codeunit 50013 "BC6_Create SalesDoc Directory"
         Text012: Label 'Aucun fichier copié';
         LastTargetFileName: Text;
 
-    [Scope('Internal')]
+
     procedure "Code"()
     begin
         WITH SalesHeader DO BEGIN

@@ -24,7 +24,7 @@ codeunit 50011 "BC6_Business Reminder Mail"
         RecGUser: Record User;
         AffaireResponsableEmail: Text[100];
 
-    [Scope('Internal')]
+
     procedure FctGCreateMail(CodPUserID: Code[50])
     var
         //TODO CduLSMTP: Codeunit 400;

@@ -6,7 +6,7 @@ codeunit 50014 "BC6_Format Report Footer Add"
     begin
     end;
 
-    [Scope('Internal')]
+
     procedure FormatAddrFooter(var AddrArray: array[5] of Text[400]; var CompInfo: Record "Company Information")
     var
         PhoneCaption: Label 'TEL : %1';

@@ -17,7 +17,7 @@ codeunit 50020 "BC6_Tsf Trf Ach CNE ==> Bourg"
         Dialog_D: Dialog;
         Text001: Label 'FORBIDDEN treatment in this company';
 
-    [Scope('Internal')]
+
     procedure Transfert(CodeFourn: Code[20])
     begin
         // Traitement uniquement de CNE vers les autres stés.

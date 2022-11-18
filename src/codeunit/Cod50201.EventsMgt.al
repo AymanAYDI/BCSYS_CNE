@@ -141,7 +141,7 @@ codeunit 50201 "BC6_EventsMgt"
     end;
 
     [EventSubscriber(ObjectType::Table, Database::Item, 'OnAfterValidateEvent', 'Blocked', false, false)]
-    procedure t27_OnAfterValidateEvent_Item(var Rec: Record Item; var xRec: Record Item; CurrFieldNo: Integer)
+    procedure T27_OnAfterValidateEvent_Blocked(var Rec: Record Item; var xRec: Record Item; CurrFieldNo: Integer)
     var
         RecLAccessControl: Record "Access Control";
         CstG001: Label 'You are not authorized to perform this operation.', comment = 'FRA="Vous n''avez pas l''autorisation d''effectuer cette opération."';
@@ -1083,12 +1083,12 @@ ItemJnlLine."Document No.",
     //COD5817
     [EventSubscriber(ObjectType::Codeunit, codeunit::"Undo Posting Management", 'OnBeforeTestPostedInvtPutAwayLine', '', false, false)]
 
-    procedure OnBeforeTestPostedInvtPutAwayLine(UndoLineNo: Integer; SourceType: Integer; SourceSubtype: Integer; SourceID: Code[20]; SourceRefNo: Integer; var IsHandled: Boolean; UndoType: Integer; UndoID: Code[20])
+    procedure COD5817_OnBeforeTestPostedInvtPutAwayLine(UndoLineNo: Integer; SourceType: Integer; SourceSubtype: Integer; SourceID: Code[20]; SourceRefNo: Integer; var IsHandled: Boolean; UndoType: Integer; UndoID: Code[20])
     var
         RegisteredWhseActivityLine: Record "Registered Whse. Activity Line";
         WhseWorksheetLine: Record "Whse. Worksheet Line";
-        Text002: Label 'You cannot undo line %1 because warehouse put-away lines have already been created.', Comment = 'FRA=""';
-        Text008: label 'You cannot undo line %1 because warehouse receipt lines have already been posted.', Comment = 'FRA=""';
+        Text002: Label 'You cannot undo line %1 because warehouse put-away lines have already been created.', Comment = 'FRA="Vous ne pouvez pas annuler la ligne %1 car des lignes rangement entrepôt ont déjà été créées."';
+        Text008: label 'You cannot undo line %1 because warehouse receipt lines have already been posted.', Comment = 'FRA="Vous ne pouvez pas annuler la ligne %1 car des lignes réception entrepôt ont déjà été enregistrées."';
     begin
         IsHandled := true;
         IF NOT ((SourceType = 39) AND (SourceSubtype = 1)) AND
@@ -1541,8 +1541,8 @@ ItemJnlLine."Document No.",
     local procedure T5767_OnBeforeValidateQtyToHandle_WarehouseActivityLine(var WarehouseActivityLine: Record "Warehouse Activity Line"; var IsHandled: Boolean)
     var
         RecLUserSetup: Record "User Setup";
-        CstL001: Label 'Vous n''êtes pas autorisé à modifier les quantités à traiter', Comment = 'FRA=""';
-        CstL002: Label 'Vous n''êtes pas autorisé à modifier la quantité à traiter, elle est supérieure à la quantité prélevée.', Comment = 'FRA=""';
+        CstL001: Label 'Vous n''êtes pas autorisé à modifier les quantités à traiter', Comment = 'FRA="Vous n''êtes pas autorisé à modifier les quantités à traiter"';
+        CstL002: Label 'Vous n''êtes pas autorisé à modifier la quantité à traiter, elle est supérieure à la quantité prélevée.', Comment = 'FRA="Vous n''êtes pas autorisé à modifier la quantité à traiter, elle est supérieure à la quantité prélevée."';
         Text002: Label 'You cannot handle more than the outstanding %1 units.', Comment = 'FRA="Vous ne pouvez pas traiter plus que les %1 unités restantes."';
     begin
         if WarehouseActivityLine."Qty. to Handle" > WarehouseActivityLine."Qty. Outstanding" then

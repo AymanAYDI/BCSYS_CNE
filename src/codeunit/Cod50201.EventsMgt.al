@@ -119,14 +119,14 @@ codeunit 50201 "BC6_EventsMgt"
     end;
 
     [EventSubscriber(ObjectType::Table, Database::Item, 'OnBeforeModifyEvent', '', false, false)]
-    procedure OnBeforeModifyEvent(var Rec: Record Item; var xRec: Record Item; RunTrigger: Boolean)
+    procedure T27_OnBeforeModifyEvent_Item(var Rec: Record Item; var xRec: Record Item; RunTrigger: Boolean)
     begin
         if not (UPPERCASE(USERID) in ['CNE\BCSYS']) then
             Rec.TESTFIELD(Rec."Vendor No.");
     end;
 
     [EventSubscriber(ObjectType::Table, Database::Item, 'OnAfterValidateEvent', 'Vendor No.', false, false)]
-    procedure t27_OnAfterValidateEvent(var Rec: Record Item; var xRec: Record Item; CurrFieldNo: Integer)
+    procedure t27_OnAfterValidateEvent_Item(var Rec: Record Item; var xRec: Record Item; CurrFieldNo: Integer)
     var
         Vend: Record Vendor;
     begin

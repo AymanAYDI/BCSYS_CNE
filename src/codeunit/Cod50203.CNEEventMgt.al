@@ -66,33 +66,7 @@ codeunit 50203 "BC6__CNEEventMgt"
         FctMgt.SetBinCode(WarehouseActivityLine."Bin Code");
     end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Create Inventory Pick/Movement", 'OnAfterGetSourceDocHeader', '', false, false)]
-    local procedure OnAfterGetSourceDocHeader(var WarehouseRequest: Record "Warehouse Request"; var PostingDate: Date; var VendorDocNo: Code[35])
-    var
-        SalesHeader: Record "Sales Header";
-    begin
 
-        if WarehouseRequest."Source Document" = WarehouseRequest."Source Document"::"Sales Order" then begin
-            SalesHeader.Get(SalesHeader."Document Type"::Order, WarehouseRequest."Source No.");
-            BinCode := SalesHeader."BC6_Bin Code";
-            YourRef := SalesHeader."Your Reference";
-            DestName := SalesHeader."Sell-to Customer Name";
-            DestName2 := SalesHeader."Sell-to Customer Name 2";
-            WhseComments := SalesHeader."BC6_Warehouse Comments";
-        end;
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Create Inventory Pick/Movement", 'OnAfterUpdateWhseActivHeader', '', false, false)]
-    local procedure CU7322_OnAfterUpdateWhseActivHeader_CreateInventoryPickMovement(var WarehouseActivityHeader: Record "Warehouse Activity Header"; var WarehouseRequest: Record "Warehouse Request")
-    begin
-        if WarehouseActivityHeader."Source Document" <> WarehouseActivityHeader."Source Document"::" " then begin
-            WarehouseActivityHeader."BC6_Your Reference" := YourRef;
-            WarehouseActivityHeader."BC6_Destination Name" := DestName;
-            WarehouseActivityHeader."BC6_Destination Name 2" := DestName2;
-            WarehouseActivityHeader.BC6_Comments := WhseComments;
-            WarehouseActivityHeader."BC6_Bin Code" := BinCode;
-        end
-    end;
 
     // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Create Inventory Pick/Movement", 'OnBeforeCreatePickOrMoveLineFromSalesLoop', '', false, false)] // TODO:
     // local procedure OnBeforeCreatePickOrMoveLineFromSalesLoop(var WarehouseActivityHeader: Record "Warehouse Activity Header"; SalesHeader: Record "Sales Header"; var IsHandled: Boolean; SalesLine: Record "Sales Line")
@@ -161,8 +135,8 @@ codeunit 50203 "BC6__CNEEventMgt"
     var
         WhseActivityPost: Codeunit "Whse.-Activity-Post";
         FctMangt: Codeunit "BC6_FctMangt";
-        Text001: Label '&Ship,Ship &and Invoice';
-        Text002: Label 'Do you want to post the %1 and %2?';
+        Text001: Label '&Ship,Ship &and Invoice', Comment = 'FRA="&Livrer,Livrer et fact&urer"';
+        Text002: Label 'Do you want to post the %1 and %2?', Comment = 'FRA="Souhaitez-vous valider les enregistrements %1 et %2 ?"';
     begin
         DefaultOption := 1;
         HideDialog := false;
@@ -326,7 +300,7 @@ codeunit 50203 "BC6__CNEEventMgt"
     local procedure CU414_OnBeforeCheckSalesLines(var SalesHeader: Record "Sales Header"; var SalesLine: Record "Sales Line"; var IsHandled: Boolean)
     var
         InvtSetup: Record "Inventory Setup";
-        Text001: Label 'There is nothing to release for the document of type %1 with the number %2.';
+        Text001: Label 'There is nothing to release for the document of type %1 with the number %2.', Comment = 'FRA="Il n''y a rien à lancer pour le document de type %1 avec le numéro %2."';
     begin
         with SalesHeader do begin
             SalesLine.SetRange("Document Type", "Document Type");
@@ -350,10 +324,4 @@ codeunit 50203 "BC6__CNEEventMgt"
     end;
 
 
-    var
-        BinCode: Code[20]; // TODO: Related to function CU7322_OnAfterUpdateWhseActivHeader_CreateInventoryPickMovement of Codeunit 7322
-        YourRef: Text[35]; // TODO: Related to function CU7322_OnAfterUpdateWhseActivHeader_CreateInventoryPickMovement of Codeunit 7322
-        DestName: Text[50]; // TODO: Related to function CU7322_OnAfterUpdateWhseActivHeader_CreateInventoryPickMovement of Codeunit 7322
-        DestName2: Text[50]; // TODO: Related to function CU7322_OnAfterUpdateWhseActivHeader_CreateInventoryPickMovement of Codeunit 7322
-        WhseComments: Text[50]; // TODO: Related to function CU7322_OnAfterUpdateWhseActivHeader_CreateInventoryPickMovement of Codeunit 7322
 }

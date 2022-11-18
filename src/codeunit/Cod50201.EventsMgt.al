@@ -350,7 +350,7 @@ codeunit 50201 "BC6_EventsMgt"
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterValidateEvent', 'Currency Code', false, false)]
     procedure T36_OnAfterValidateEvent_CurrencyCode(var Rec: Record "Sales Header"; var xRec: Record "Sales Header"; CurrFieldNo: Integer)
     var
-        TextG001: Label 'Warning, using foreign currency will generate wrong profit calculation.', Comment = 'FRA=""';
+        TextG001: Label 'Warning, using foreign currency will generate wrong profit calculation.', Comment = 'FRA="Attention, l''utilisation de devises va provoquer un calcul erronné des marges."';
 
     begin
         IF Rec."Currency Code" <> '' THEN
@@ -564,7 +564,7 @@ codeunit 50201 "BC6_EventsMgt"
         Customer: record Customer;
         SalesSetup: record "Sales & Receivables Setup";
         FonctionMgt: Codeunit BC6_FctMangt;
-        TextG002: Label 'Update Bill-to address ?';
+        TextG002: Label 'Update Bill-to address ?',Comment = 'FRA="Voulez-vous mettre à jour l''adresse de Facturation ?"';
     begin
         SalesSetup.Get;
         IF (SalesHeader."Document Type" = SalesHeader."Document Type"::Quote)
@@ -661,7 +661,7 @@ codeunit 50201 "BC6_EventsMgt"
     var
         CompanyInfo: Record "Company Information";
         G_ReturnOrderMgt: Codeunit "BC6_Return Order Mgt.";
-        TextG003: label 'Warning:This purchase order is linked to a sales order.';
+        TextG003: label 'Warning:This purchase order is linked to a sales order.',Comment = 'FRA="Attention : vous avez déjà passé cette commande en achat. "';
     begin
         CompanyInfo.FINDFIRST();
         if CompanyInfo."BC6_Branch Company" then
@@ -719,7 +719,7 @@ codeunit 50201 "BC6_EventsMgt"
     [EventSubscriber(ObjectType::Table, Database::"Purchase Header", 'OnAfterValidateEvent', 'Currency Code', false, false)]
     procedure T38_OnAfterValidateEvent_CurrCode(var Rec: Record "Purchase Header"; var xRec: Record "Purchase Header"; CurrFieldNo: Integer)
     var
-        TextG001: Label 'Warning, using foreign currency will generate wrong profit calculation.';
+        TextG001: Label 'Warning, using foreign currency will generate wrong profit calculation.',Comment = 'FRA="Attention, l''utilisation de devises va provoquer un calcul erronné des marges."';
 
     begin
         IF Rec."Currency Code" <> '' THEN
@@ -1087,8 +1087,8 @@ ItemJnlLine."Document No.",
     var
         RegisteredWhseActivityLine: Record "Registered Whse. Activity Line";
         WhseWorksheetLine: Record "Whse. Worksheet Line";
-        Text002: Label 'You cannot undo line %1 because warehouse put-away lines have already been created.';
-        Text008: label 'You cannot undo line %1 because warehouse receipt lines have already been posted.';
+        Text002: Label 'You cannot undo line %1 because warehouse put-away lines have already been created.',Comment = 'FRA=""';
+        Text008: label 'You cannot undo line %1 because warehouse receipt lines have already been posted.',Comment = 'FRA=""';
     begin
         IsHandled := true;
         IF NOT ((SourceType = 39) AND (SourceSubtype = 1)) AND
@@ -1529,7 +1529,6 @@ ItemJnlLine."Document No.",
 
 
     //CodeunitCNEEvent 
-
     [EventSubscriber(ObjectType::Table, Database::Contact, 'OnCreateCustomerOnBeforeCustomerModify', '', false, false)]
     local procedure T5050_OnCreateCustomerOnBeforeCustomerModify_Contact(var Customer: Record Customer; Contact: Record Contact)
     var
@@ -1542,9 +1541,9 @@ ItemJnlLine."Document No.",
     local procedure T5767_OnBeforeValidateQtyToHandle_WarehouseActivityLine(var WarehouseActivityLine: Record "Warehouse Activity Line"; var IsHandled: Boolean)
     var
         RecLUserSetup: Record "User Setup";
-        CstL001: Label 'Vous n''êtes pas autorisé à modifier les quantités à traiter';
-        CstL002: Label 'Vous n''êtes pas autorisé à modifier la quantité à traiter, elle est supérieure à la quantité prélevée.';
-        Text002: Label 'You cannot handle more than the outstanding %1 units.';
+        CstL001: Label 'Vous n''êtes pas autorisé à modifier les quantités à traiter',Comment = 'FRA=""';
+        CstL002: Label 'Vous n''êtes pas autorisé à modifier la quantité à traiter, elle est supérieure à la quantité prélevée.',Comment = 'FRA=""';
+        Text002: Label 'You cannot handle more than the outstanding %1 units.',Comment = 'FRA="Vous ne pouvez pas traiter plus que les %1 unités restantes."';
     begin
         if WarehouseActivityLine."Qty. to Handle" > WarehouseActivityLine."Qty. Outstanding" then
             Error(Text002, WarehouseActivityLine."Qty. Outstanding");

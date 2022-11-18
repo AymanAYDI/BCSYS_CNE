@@ -4,14 +4,14 @@ enum 50001 "BC6_AuthentificationMail"
 
     value(0; Anonymous)
     {
-        Caption = 'Anonymous';
+        Caption = 'Anonymous', comment = 'FRA="Anonyme"';
     }
     value(1; NTLM)
     {
-        Caption = 'NTLM';
+        Caption = 'NTLM', comment = 'FRA="NTLM"';
     }
     value(2; Basic)
     {
-        Caption = 'Basic';
+        Caption = 'Basic', comment = 'FRA="Standard"';
     }
 }

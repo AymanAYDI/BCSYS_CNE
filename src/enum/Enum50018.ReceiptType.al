@@ -4,10 +4,10 @@ enum 50018 "BC6_ReceiptType"
 
     value(0; Colis)
     {
-        Caption = 'Colis';
+        Caption = 'Colis', comment = 'FRA="Colis"';
     }
     value(1; Palette)
     {
-        Caption = 'Palette';
+        Caption = 'Palette', comment = 'FRA="Palette"';
     }
 }

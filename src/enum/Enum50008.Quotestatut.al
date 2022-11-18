@@ -8,10 +8,10 @@ enum 50008 "BC6_Quote statut"
     }
     value(1; approved)
     {
-        Caption = 'Approved';
+        Caption = 'Approved', comment = 'FRA="Approuvé"';
     }
     value(2; locked)
     {
-        Caption = 'Locked';
+        Caption = 'Locked', comment = 'FRA="Verrouillé"';
     }
 }

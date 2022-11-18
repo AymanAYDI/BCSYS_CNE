@@ -64,37 +64,31 @@ table 50004 "BC6_Navi+ Setup"
         {
             Caption = 'Affichage du N° BL', comment = 'FRA="=Affichage du N° BL"';
             DataClassification = CustomerContent;
-
         }
         field(13; "Affichage du N° BR"; Boolean)
         {
             Caption = 'Affichage du N° BR', comment = 'FRA="=Affichage du N° BR"';
             DataClassification = CustomerContent;
-
         }
         field(14; "Four: Date jour en Fact/recept"; Boolean)
         {
             Caption = 'Four: Date jour en Fact/recept', comment = 'FRA="=Four: Date jour en Fact/recept"';
             DataClassification = CustomerContent;
-
         }
         field(15; "Affichage N° facture Ventes"; Boolean)
         {
             Caption = 'Affichage N° facture Ventes', comment = 'FRA="=Affichage N° facture Ventes"';
             DataClassification = CustomerContent;
-
         }
         field(16; "Affichage N° facture Achat"; Boolean)
         {
             Caption = 'Affichage N° facture Achat', comment = 'FRA="=Affichage N° facture Achat"';
             DataClassification = CustomerContent;
-
         }
         field(17; "Date jour ds date facture Acha"; Boolean)
         {
             Caption = 'Date jour ds date facture Acha', comment = 'FRA="=Date jour ds date facture Acha"';
             DataClassification = CustomerContent;
-
         }
         field(101; "Base Unit of Measure"; Code[10])
         {
@@ -159,6 +153,7 @@ table 50004 "BC6_Navi+ Setup"
             InitValue = Optional;
             DataClassification = CustomerContent;
         }
+
         field(112; "Order Tracking Policy"; Enum "Order Tracking Policy")
         {
             Caption = 'Order Tracking Policy', comment = 'FRA="Chaînage dynamique"';
@@ -193,7 +188,7 @@ table 50004 "BC6_Navi+ Setup"
             TableRelation = "Salesperson/Purchaser";
             DataClassification = CustomerContent;
         }
-        field(206; "Application Method Vendor"; Enum "App. Meth. Cust")
+        field(206; "Application Method Vendor"; Enum "BC6_App. Meth. Cust")
         {
             Caption = 'Application Method Vendor', comment = 'FRA="Mode de lettrage fournisseur"';
             DataClassification = CustomerContent;
@@ -246,8 +241,10 @@ table 50004 "BC6_Navi+ Setup"
             InitValue = true;
             DataClassification = CustomerContent;
         }
-        field(307; "Application Method Customer"; Enum "App. Meth. Cust")
+
+        field(307; "Application Method Customer"; Enum "BC6_App. Meth. Cust")
         {
+
             Caption = 'Application Method Customer', comment = 'FRA="Mode de lettrage client"';
             DataClassification = CustomerContent;
         }
@@ -333,4 +330,3 @@ table 50004 "BC6_Navi+ Setup"
     {
     }
 }
-

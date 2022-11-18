@@ -4,10 +4,10 @@ enum 50002 "BC6_Type Location"
 
     value(0; Location)
     {
-        Caption = 'Location';
+        Caption = 'Location', comment = 'FRA="Magasin"';
     }
     value(1; SAV)
     {
-        Caption = 'SAV';
+        Caption = 'SAV', comment = 'FRA="SAV"';
     }
 }

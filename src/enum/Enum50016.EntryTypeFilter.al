@@ -4,10 +4,11 @@ enum 50016 "BC6_EntryTypeFilter"
 
     value(0; Definitives)
     {
-        Caption = 'Definitives';
+        Caption = 'Definitives', comment = 'FRA="Définitives"';
     }
     value(1; Simulations)
     {
-        Caption = 'Simulations';
+        Caption = 'Simulations', comment = 'FRA="Simulations"';
     }
+    //Définitives,Simulations
 }

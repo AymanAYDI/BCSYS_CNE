@@ -4,14 +4,14 @@ enum 50000 "BC6_Statut"
 
     value(0; Outstanding)
     {
-        Caption = 'Outstanding';
+        Caption = 'Outstanding', comment = 'FRA="Outstanding"';
     }
     value(1; Lost)
     {
-        Caption = 'Lost';
+        Caption = 'Lost', comment = 'FRA="Lost"';
     }
     value(2; Won)
     {
-        Caption = 'Won';
+        Caption = 'Won', comment = 'FRA="Won"';
     }
 }

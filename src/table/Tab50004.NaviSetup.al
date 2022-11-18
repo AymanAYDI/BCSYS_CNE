@@ -159,12 +159,10 @@ table 50004 "BC6_Navi+ Setup"
             InitValue = Optional;
             DataClassification = CustomerContent;
         }
-        field(112; "Order Tracking Policy"; Enum "Ord. Track. Policy")
+        field(112; "Order Tracking Policy"; Enum "Order Tracking Policy")
         {
             Caption = 'Order Tracking Policy', comment = 'FRA="Chaînage dynamique"';
             DataClassification = CustomerContent;
-
-
         }
         field(201; "Gen. Bus. Posting Group Vendor"; Code[10])
         {
@@ -249,7 +247,7 @@ table 50004 "BC6_Navi+ Setup"
             DataClassification = CustomerContent;
         }
         field(307; "Application Method Customer"; Enum "App. Meth. Cust")
-        {
+ { 
             Caption = 'Application Method Customer', comment = 'FRA="Mode de lettrage client"';
             DataClassification = CustomerContent;
         }

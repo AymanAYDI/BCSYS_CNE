@@ -2,4 +2,3 @@ tableextension 50062 "BC6_ContactBusinessRelation" extends "Contact Business Rel
 {
     //TODO  // LookupPageID = "BC6_Contact Affair Relation";
 }
-

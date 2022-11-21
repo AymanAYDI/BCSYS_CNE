@@ -143,9 +143,9 @@ table 50009 "BC6_Contact Project Relation"
     }
 
     var
+        RecGContactRelation: Record "Business Relation";
         RecGcontact: Record Contact;
         RecGCntBusinessRelation: Record "Contact Business Relation";
-        RecGContactRelation: Record "Business Relation";
 
     procedure GetContact()
     begin

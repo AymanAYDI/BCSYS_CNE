@@ -2,9 +2,9 @@ table 50008 "BC6_DEEE Ledger Entry"
 {
     Caption = 'DEEE Entry', comment = 'FRA="Ecritures DEEE"';
     DataClassification = CustomerContent;
-    //TODO
-    // DrillDownPageID = 50026;
-    // LookupPageID = 50026;
+
+    DrillDownPageID = 50026;
+    LookupPageID = 50026;
 
     fields
     {
@@ -113,6 +113,7 @@ table 50008 "BC6_DEEE Ledger Entry"
         field(80803; "DEEE Unit Price (LCY)"; Decimal)
         {
             DataClassification = CustomerContent;
+            Caption = 'DEEE Unit Price (LCY)';
         }
         field(80804; "DEEE VAT Amount"; Decimal)
         {
@@ -141,7 +142,6 @@ table 50008 "BC6_DEEE Ledger Entry"
         {
             Caption = 'Amount (LCY) for Stat', comment = 'FRA="Montant (LCY) pour Stat"';
             DataClassification = CustomerContent;
-
         }
     }
 
@@ -163,4 +163,3 @@ table 50008 "BC6_DEEE Ledger Entry"
     {
     }
 }
-

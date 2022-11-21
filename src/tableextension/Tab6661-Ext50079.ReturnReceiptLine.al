@@ -2,7 +2,7 @@ tableextension 50079 "BC6_ReturnReceiptLine" extends "Return Receipt Line" //666
 {
     fields
     {
-        field(50020; "BC6_Customer Sales Profit Group"; Code[10])
+        field(50020; "BC6_Cust. Sales Profit Group"; Code[10])
         {
             Caption = 'Goupe Marge Vente Client', Comment = 'FRA="Goupe Marge Vente Client"';
             TableRelation = "Customer Sales Profit Group";
@@ -118,4 +118,3 @@ tableextension 50079 "BC6_ReturnReceiptLine" extends "Return Receipt Line" //666
         }
     }
 }
-

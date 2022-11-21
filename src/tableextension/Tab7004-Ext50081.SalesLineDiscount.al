@@ -17,22 +17,7 @@ tableextension 50081 "BC6_SalesLineDiscount" extends "Sales Line Discount" //700
             IF ("Sales Type" = CONST(Customer)) Customer
             ELSE
             IF ("Sales Type" = CONST(Campaign)) Campaign;
-            // ELSE
-            // IF ("Sales Type" = CONST("Customer Sales Profit Group")) "Customer Sales Profit Group"; TODO:
         }
-        modify("Sales Type")
-        {
-            OptionCaption = 'Customer,Customer Disc. Group,All Customers,Campaign,Customer Sales Profit Group';
-            // OptionString = Customer,"Customer Disc. Group","All Customers",Campaign,"Customer Sales Profit Group"; TODO:
-        }
-        modify(Type)
-        {
-            OptionCaption = 'Item,Item Disc. Group,,,,,Vendor';
-
-            //Unsupported feature: Property Modification (OptionString) on "Type(Field 21)". TODO:
-        }
-
-
         field(50000; "BC6_Profit %"; Decimal)
         {
             Caption = 'Profit %', Comment = 'FRA="% Profit"';
@@ -65,9 +50,4 @@ tableextension 50081 "BC6_SalesLineDiscount" extends "Sales Line Discount" //700
         // {
         // }
     }
-
-    var
-        "-NSC1.01--": TextConst;
-        Text004: Label 'Start Date Must Mandatory', Comment = 'FRA="Date Début Doit Obligatoire"';
 }
-

@@ -1,6 +1,5 @@
 enum 50005 "BC6_Whse. Document Type 2"
 {
-
     value(0; " ")
     {
         Caption = ' ';

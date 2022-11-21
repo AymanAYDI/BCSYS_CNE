@@ -8,7 +8,7 @@ tableextension 50094 "BC6_SalesCue" extends "Sales Cue" //9053
             Editable = false;
             FieldClass = FlowFilter;
         }
-        field(50001; "BC6_Sales Quotes Salesperson-Open"; Integer)
+        field(50001; "BC6_Sales Quot.Sales/per-Open"; Integer)
         {
             FieldClass = FlowField;
             CalcFormula = Count("Sales Header" WHERE("Document Type" = FILTER(Quote),
@@ -18,7 +18,7 @@ tableextension 50094 "BC6_SalesCue" extends "Sales Cue" //9053
             Caption = 'Sales Quotes - Open', Comment = 'FRA="Devis - Ouverts"';
             Editable = false;
         }
-        field(50002; "BC6_Sales Orders Salesperson- Open"; Integer)
+        field(50002; "BC6_Sales Ord Sales/per- Open"; Integer)
         {
             FieldClass = FlowField;
             CalcFormula = Count("Sales Header" WHERE("Document Type" = FILTER(Order),
@@ -51,7 +51,7 @@ tableextension 50094 "BC6_SalesCue" extends "Sales Cue" //9053
             Caption = 'Delayed', Comment = 'FRA="En retard"';
             Editable = false;
         }
-        field(50005; "BC6_Sales Return Orders Salesperso"; Integer)
+        field(50005; "BC6_Sales Ret. Ord. Sales/per"; Integer)
         {
             FieldClass = FlowField;
             CalcFormula = Count("Sales Header" WHERE("Document Type" = FILTER("Return Order"),
@@ -61,7 +61,7 @@ tableextension 50094 "BC6_SalesCue" extends "Sales Cue" //9053
             Caption = 'Sales Return Orders - All', Comment = 'FRA="Retours vente - Tous"';
             Editable = false;
         }
-        field(50007; "BC6_Partially Shipped Salesperson"; Integer)
+        field(50007; "BC6_Partially Ship. Sales/per"; Integer)
         {
             FieldClass = FlowField;
             CalcFormula = Count("Sales Header" WHERE("Document Type" = FILTER(Order),

@@ -45,4 +45,3 @@ table 50014 "BC6_Mailing List"
         TESTFIELD("No. of Contacts", 0);
     end;
 }
-

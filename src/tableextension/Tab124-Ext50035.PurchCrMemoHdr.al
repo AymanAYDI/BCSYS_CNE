@@ -18,6 +18,7 @@ tableextension 50035 "BC6_PurchCrMemoHdr" extends "Purch. Cr. Memo Hdr." //124
         {
             TableRelation = User;
             DataClassification = CustomerContent;
+            Caption = 'ID';
         }
         field(50020; "BC6_From Sales Module"; Boolean)
         {
@@ -38,4 +39,3 @@ tableextension 50035 "BC6_PurchCrMemoHdr" extends "Purch. Cr. Memo Hdr." //124
         }
     }
 }
-

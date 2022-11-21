@@ -1,8 +1,7 @@
 table 50013 "BC6_Salesperson authorized"
 {
-
-    //TODO DrillDownPageID = "BC6_Salesperson authorized";
-    // LookupPageID = "BC6_Salesperson authorized";
+    DrillDownPageID = "BC6_Salesperson authorized";
+    LookupPageID = "BC6_Salesperson authorized";
     DataClassification = CustomerContent;
 
     fields
@@ -51,4 +50,3 @@ table 50013 "BC6_Salesperson authorized"
         RecGCustomer: Record Customer;
         Error001: Label 'You can not uncheck for the salesperson of the customer card', comment = 'FRA="Vous ne pouvez décocher pour le vendeur de la fiche client"';
 }
-

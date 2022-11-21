@@ -34,7 +34,6 @@ tableextension 50046 "BC6_PurchasesPayablesSetup" extends "Purchases & Payables 
             ELSE
             IF (BC6_Type = CONST("Charge (Item)")) "Item Charge";
             DataClassification = CustomerContent;
-
         }
         field(60003; "BC6_Ask custom purch price"; Boolean)
         {
@@ -48,4 +47,3 @@ tableextension 50046 "BC6_PurchasesPayablesSetup" extends "Purchases & Payables 
         }
     }
 }
-

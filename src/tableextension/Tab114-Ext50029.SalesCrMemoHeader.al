@@ -93,7 +93,6 @@ tableextension 50029 "BC6_SalesCrMemoHeader" extends "Sales Cr.Memo Header" //11
         {
             Caption = 'Sell-to E-Mail Address', comment = 'FRA="Email donneur d''ordre"';
             DataClassification = CustomerContent;
-
         }
         field(50100; "BC6_Salesperson Filter"; Text[250])
         {
@@ -104,12 +103,8 @@ tableextension 50029 "BC6_SalesCrMemoHeader" extends "Sales Cr.Memo Header" //11
     }
     keys
     {
-
         key(Key10; "Posting Date")
         {
         }
     }
-
-
 }
-

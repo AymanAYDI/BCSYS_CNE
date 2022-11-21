@@ -9,4 +9,3 @@ tableextension 50002 "BC6_Location" extends Location //14
         }
     }
 }
-

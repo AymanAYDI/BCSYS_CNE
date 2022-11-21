@@ -45,4 +45,3 @@ tableextension 50068 "BC6_PurchaseLineArchive" extends "Purchase Line Archive" /
         }
     }
 }
-

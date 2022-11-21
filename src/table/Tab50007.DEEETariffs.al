@@ -42,7 +42,6 @@ table 50007 "BC6_DEEE Tariffs"
     {
     }
 
-
     procedure GetLine(Number: Integer)
     begin
         IF Number = 1 THEN
@@ -51,4 +50,3 @@ table 50007 "BC6_DEEE Tariffs"
             NEXT();
     end;
 }
-

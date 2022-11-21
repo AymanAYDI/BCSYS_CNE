@@ -7,4 +7,3 @@ tableextension 50101 "BC6_PaymentLine" extends "Payment Line"  //10866
         }
     }
 }
-

@@ -8,8 +8,4 @@ tableextension 50038 "BC6_StandardCustomerSalesCode" extends "Standard Customer 
             DataClassification = CustomerContent;
         }
     }
-
-
-
 }
-

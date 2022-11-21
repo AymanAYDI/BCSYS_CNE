@@ -1,4 +1,4 @@
-tableextension 50011 "BC6_PurchaseLine" extends "Purchase Line" //39 
+tableextension 50011 "BC6_PurchaseLine" extends "Purchase Line" //39
 {
     fields
     {
@@ -45,7 +45,7 @@ tableextension 50011 "BC6_PurchaseLine" extends "Purchase Line" //39
         }
         field(50004; "BC6_Document Date"; Date)
         {
-            Caption = 'Document Date', comment = 'FRA=""';
+            Caption = 'Document Date', comment = 'FRA="Date Document"';
             DataClassification = CustomerContent;
         }
         field(50022; "BC6_Public Price"; Decimal)
@@ -94,7 +94,7 @@ tableextension 50011 "BC6_PurchaseLine" extends "Purchase Line" //39
         }
         field(50121; "BC6_Solution Code"; Code[10])
         {
-            Caption = 'Solution Code', comment = 'FRA=""';
+            Caption = 'Solution Code', comment = 'FRA="Code Solution"';
             TableRelation = IF ("Document Type" = FILTER("Return Order"),
                                 "BC6_Return Order Type" = FILTER(Location)) "BC6_Return Solution" WHERE(Type = FILTER(Location))
             ELSE
@@ -104,17 +104,17 @@ tableextension 50011 "BC6_PurchaseLine" extends "Purchase Line" //39
         }
         field(50122; "BC6_Return Comment"; Text[50])
         {
-            Caption = 'Return Comment', comment = 'FRA="Code solution"';
+            Caption = 'Return Comment', comment = 'FRA="Commentaire retour"';
             DataClassification = CustomerContent;
         }
-        field(50123; "BC6_Return Order-Shpt Sales Order"; Code[20])
+        field(50123; "BC6_Retrn. Sales OrderShpt"; Code[20])
         {
             Caption = 'Return-Sales Order', comment = 'FRA="Retour-Commande vente"';
             DataClassification = CustomerContent;
         }
         field(50124; "BC6_Series No."; Text[250])
         {
-            Caption = 'N° de série', comment = 'FRA=""';
+            Caption = 'N° de série', comment = 'FRA="N° de série"';
             DataClassification = CustomerContent;
         }
         field(80800; "BC6_DEEE Category Code"; Code[10])
@@ -137,13 +137,13 @@ tableextension 50011 "BC6_PurchaseLine" extends "Purchase Line" //39
             var
                 RecLCurrency: Record Currency;
             begin
-                GetPurchHeader;
-                RecLCurrency.InitRoundingPrecision;
+                GetPurchHeader();
+                RecLCurrency.InitRoundingPrecision();
                 IF PurchHeader."Currency Code" <> '' THEN
                     "BC6_DEEE Unit Price (LCY)" :=
                       ROUND(
                         CurrExchRate.ExchangeAmtFCYToLCY(
-                          GetDate, "Currency Code",
+                          GetDate(), "Currency Code",
                           "BC6_DEEE Unit Price", PurchHeader."Currency Factor"),
                         RecLCurrency."Amount Rounding Precision")
                 ELSE
@@ -166,19 +166,18 @@ tableextension 50011 "BC6_PurchaseLine" extends "Purchase Line" //39
             var
                 RecLCurrency: Record Currency;
             begin
-                GetPurchHeader;
-                RecLCurrency.InitRoundingPrecision;
+                GetPurchHeader();
+                RecLCurrency.InitRoundingPrecision();
                 IF PurchHeader."Currency Code" <> '' THEN
                     "BC6_DEEE HT Amount (LCY)" :=
                       ROUND(
                         CurrExchRate.ExchangeAmtFCYToLCY(
-                          GetDate, "Currency Code",
+                          GetDate(), "Currency Code",
                           "BC6_DEEE HT Amount", PurchHeader."Currency Factor"),
                         RecLCurrency."Amount Rounding Precision")
                 ELSE
                     "BC6_DEEE HT Amount (LCY)" :=
                       ROUND("BC6_DEEE HT Amount", RecLCurrency."Amount Rounding Precision");
-
             end;
         }
         field(80803; "BC6_DEEE Unit Price (LCY)"; Decimal)
@@ -215,12 +214,10 @@ tableextension 50011 "BC6_PurchaseLine" extends "Purchase Line" //39
         {
             Caption = 'DEEE Amount (LCY) for Stat', comment = 'FRA="Montant pour (DS)"';
             DataClassification = CustomerContent;
-
         }
     }
     keys
     {
-
     }
 
     procedure CalcDiscountDirectUnitCost()
@@ -228,7 +225,7 @@ tableextension 50011 "BC6_PurchaseLine" extends "Purchase Line" //39
         RecLSalesLine: Record "Sales Line";
     begin
         IF (Type = Type::Item) THEN BEGIN
-            GetPurchHeader;
+            GetPurchHeader();
             "BC6_Discount Direct Unit Cost" :=
               ROUND("Direct Unit Cost" - ("Direct Unit Cost" * "Line Discount %" / 100), Currency."Amount Rounding Precision");
 
@@ -247,8 +244,8 @@ tableextension 50011 "BC6_PurchaseLine" extends "Purchase Line" //39
                         RecLSalesLine.SuspendStatusCheck(TRUE);
                         //<<PDW : le 03/08/2015
                         RecLSalesLine.VALIDATE("BC6_Purchase cost", "BC6_Discount Direct Unit Cost");
-                        RecLSalesLine.MODIFY;
-                    UNTIL RecLSalesLine.NEXT = 0;
+                        RecLSalesLine.MODIFY();
+                    UNTIL RecLSalesLine.NEXT() = 0;
                 END;
             END;
         END;
@@ -263,8 +260,8 @@ tableextension 50011 "BC6_PurchaseLine" extends "Purchase Line" //39
         RecLVendor: Record Vendor;
         IntLGenerate: Integer;
     begin
-        RecLPurchSetup.GET;
-        GetPurchHeader;
+        RecLPurchSetup.GET();
+        GetPurchHeader();
         RecLVendor.GET(PurchHeader."Buy-from Vendor No.");
 
         IF CodPNewReasonCode <> ''
@@ -288,7 +285,6 @@ tableextension 50011 "BC6_PurchaseLine" extends "Purchase Line" //39
             END;
         END;
 
-
         IF IntLGenerate = 0 THEN BEGIN
             "BC6_DEEE Unit Price" := 0;
             "BC6_DEEE HT Amount" := 0;
@@ -300,7 +296,7 @@ tableextension 50011 "BC6_PurchaseLine" extends "Purchase Line" //39
         END;
 
         //found the last tariff with the posting date (just one eco partner)
-        RecLDEEETariffs.RESET;
+        RecLDEEETariffs.RESET();
         RecLDEEETariffs.SETRANGE("DEEE Code", "BC6_DEEE Category Code");
         RecLDEEETariffs.SETRANGE("Eco Partner", RecLItem."BC6_Eco partner DEEE");
         RecLDEEETariffs.SETFILTER("Date beginning", '<=%1', PurchHeader."Posting Date");
@@ -325,8 +321,6 @@ tableextension 50011 "BC6_PurchaseLine" extends "Purchase Line" //39
         "BC6_DEEE VAT Amount" := ROUND("BC6_DEEE HT Amount" * "VAT %" / 100, Currency."Amount Rounding Precision");
         "BC6_DEEE TTC Amount" := "BC6_DEEE HT Amount" + "BC6_DEEE VAT Amount";
         "BC6_DEEE Amount (LCY) for Stat" := "Quantity (Base)" * "BC6_DEEE Unit Price (LCY)";
-
-
     end;
 
     procedure UpdateReturnOrderTypeFromSalesHeader()
@@ -346,4 +340,3 @@ tableextension 50011 "BC6_PurchaseLine" extends "Purchase Line" //39
         RecGSalesLine: Record "Sales Line";
         TextG001: Label 'There is nothing to affect', comment = 'FRA="Il n''y a rien à affecter"';
 }
-

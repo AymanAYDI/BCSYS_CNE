@@ -21,6 +21,7 @@ tableextension 50049 "BC6_DetailedCustLedgEntry" extends "Detailed Cust. Ledg. E
         field(80805; "BC6_DEEE TTC Amount"; Decimal)
         {
             DataClassification = CustomerContent;
+            Caption = 'DEEE TTC Amount';
         }
         field(80806; "BC6_DEEE HT Amount (LCY)"; Decimal)
         {
@@ -37,4 +38,3 @@ tableextension 50049 "BC6_DetailedCustLedgEntry" extends "Detailed Cust. Ledg. E
         }
     }
 }
-

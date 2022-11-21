@@ -27,4 +27,3 @@ tableextension 50074 "BC6_ItemReference" extends "Item Reference" //5777
     var
         Text001: Label 'This %1 is not a bar code.', Comment = 'FRA = "Cette %1 n''est pas un code barre."';
 }
-

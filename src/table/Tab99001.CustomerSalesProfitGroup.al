@@ -1,7 +1,7 @@
 table 99001 "Customer Sales Profit Group"
 {
     Caption = 'Groupe Marge Vente Client';
-    //TODO: LookupPageID = 50020;
+    LookupPageID = 50020;
     DataClassification = CustomerContent;
 
     fields
@@ -30,4 +30,3 @@ table 99001 "Customer Sales Profit Group"
     {
     }
 }
-

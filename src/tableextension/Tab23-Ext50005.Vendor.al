@@ -2,18 +2,15 @@ tableextension 50005 "BC6_Vendor" extends Vendor //23
 {
     fields
     {
-
         field(50000; "BC6_Creation Date"; Date)
         {
             Caption = 'Creation Date', Comment = 'FRA="Date de création"';
-
             Editable = false;
             DataClassification = CustomerContent;
         }
         field(50001; BC6_User; Code[20])
         {
             Caption = 'User', Comment = 'FRA="Utilisateur"';
-
             Editable = false;
             TableRelation = User;
             DataClassification = CustomerContent;
@@ -21,7 +18,6 @@ tableextension 50005 "BC6_Vendor" extends Vendor //23
         field(50002; "BC6_Transaction Type"; Code[10])
         {
             Caption = 'Transaction Type', Comment = 'FRA="Nature Transaction"';
-
             TableRelation = "Transaction Type";
             DataClassification = CustomerContent;
         }
@@ -70,6 +66,7 @@ tableextension 50005 "BC6_Vendor" extends Vendor //23
         {
             Enabled = false;
             DataClassification = CustomerContent;
+            Caption = 'MinFranco';
         }
         field(50013; "BC6_Order Minimum"; Decimal)
         {
@@ -137,7 +134,5 @@ tableextension 50005 "BC6_Vendor" extends Vendor //23
     END;
 
     var
-        SelectVendorErr: Label 'You must select an existing vendor.', Comment = 'FRA="Vous devez sélectionner un fournisseur existant."';
         TextGestTiersPayeur001: Label 'Do you want to update Open Ledger entries with new Pay-to customer No. %1?', Comment = 'FRA="Voulez-vous mettre à jour les Ecritures ouvertes avec le Nouveau N° Tiers payeur %1?"';
-
 }

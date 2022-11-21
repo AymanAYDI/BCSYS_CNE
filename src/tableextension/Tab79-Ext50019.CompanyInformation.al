@@ -38,10 +38,8 @@ tableextension 50019 "BC6_CompanyInformation" extends "Company Information" //79
             trigger onvalidate() //TODO CHECK
             var
                 PostCode: Record "Post Code";
-                TxtLAltCounty: text[30];
             begin
                 PostCode.get(PostCode.code, PostCode."Search City");
-
             end;
         }
         field(50006; "BC6_Alt Phone No."; Text[20])
@@ -132,4 +130,3 @@ tableextension 50019 "BC6_CompanyInformation" extends "Company Information" //79
         }
     }
 }
-

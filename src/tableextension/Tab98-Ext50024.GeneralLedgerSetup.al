@@ -35,6 +35,4 @@ tableextension 50024 "BC6_GeneralLedgerSetup" extends "General Ledger Setup" //9
             DataClassification = CustomerContent;
         }
     }
-
 }
-

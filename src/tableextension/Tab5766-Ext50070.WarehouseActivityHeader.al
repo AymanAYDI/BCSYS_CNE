@@ -55,8 +55,7 @@ tableextension 50070 "BC6_WarehouseActivityHeader" extends "Warehouse Activity H
 
             trigger OnValidate()
             var
-                WMSManagement: Codeunit "WMS Management";
-                FctMangt: Codeunit BC6_FctMangt;
+                FctMangt: Codeunit "BC6_Functions Mgt";
             begin
                 // IF xRec."BC6_Bin Code" <> "BC6_Bin Code" THEN BEGIN //TODO: Check empty Conditional Statements
                 // END;
@@ -73,8 +72,6 @@ tableextension 50070 "BC6_WarehouseActivityHeader" extends "Warehouse Activity H
     }
 
     var
-        Customer: Record Customer;
         Location: Record Location;
         Text002: Label 'You cannot change %1 because one or more lines exist.', Comment = 'FRA="Vous ne pouvez pas modifier %1 car il existe une ou plusieurs lignes."';
 }
-

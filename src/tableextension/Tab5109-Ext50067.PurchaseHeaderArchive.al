@@ -12,6 +12,7 @@ tableextension 50067 "BC6_PurchaseHeaderArchive" extends "Purchase Header Archiv
         {
             TableRelation = User;
             DataClassification = CustomerContent;
+            Caption = 'ID';
         }
         field(50020; "BC6_From Sales Module"; Boolean)
         {
@@ -26,4 +27,3 @@ tableextension 50067 "BC6_PurchaseHeaderArchive" extends "Purchase Header Archiv
         }
     }
 }
-

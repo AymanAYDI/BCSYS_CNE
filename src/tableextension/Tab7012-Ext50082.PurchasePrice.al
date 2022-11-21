@@ -10,4 +10,3 @@ tableextension 50082 "BC6_PurchasePrice" extends "Purchase Price" //7012
         }
     }
 }
-

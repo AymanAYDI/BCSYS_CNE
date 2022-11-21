@@ -9,4 +9,3 @@ tableextension 50057 "BC6_ICInboxSalesHeader" extends "IC Inbox Sales Header" //
         }
     }
 }
-

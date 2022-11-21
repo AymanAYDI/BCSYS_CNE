@@ -38,4 +38,3 @@ table 50016 "BC6_Return Order Relation"
     {
     }
 }
-

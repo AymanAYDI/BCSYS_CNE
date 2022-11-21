@@ -1,6 +1,5 @@
 tableextension 50066 "BC6_SalesLineArchive" extends "Sales Line Archive" //5108
 {
-
     fields
     {
         field(50000; "BC6_Document Date flow"; Date)
@@ -27,6 +26,7 @@ tableextension 50066 "BC6_SalesLineArchive" extends "Sales Line Archive" //5108
         field(50004; "BC6_Document Date"; Date)
         {
             DataClassification = CustomerContent;
+            Caption = 'Document Date';
         }
         field(50005; "BC6_Forecast Inventory"; Integer)
         {
@@ -39,12 +39,12 @@ tableextension 50066 "BC6_SalesLineArchive" extends "Sales Line Archive" //5108
             Caption = 'To Order', Comment = 'FRA="A commander"';
             DataClassification = CustomerContent;
         }
-        field(50008; "BC6_Promised Purchase Receipt Date"; Boolean)
+        field(50008; "BC6_Promised Pur. Receipt Date"; Boolean)
         {
             Caption = 'Purchase Receipt Date', Comment = 'FRA="Date réception achat confirmée"';
             DataClassification = CustomerContent;
         }
-        field(50020; "BC6_Customer Sales Profit Group"; Code[10])
+        field(50020; "BC6_Cust. Sales Profit Group"; Code[10])
         {
             Caption = 'Goupe Marge Vente Client', Comment = 'FRA="Goupe Marge Vente Client"';
             TableRelation = "Customer Sales Profit Group";
@@ -211,24 +211,12 @@ tableextension 50066 "BC6_SalesLineArchive" extends "Sales Line Archive" //5108
         {
             Caption = 'DEEE Unit Price', Comment = 'FRA="Prix Unitaire DEEE"';
             DataClassification = CustomerContent;
-
-            trigger OnValidate()
-            var
-                RecLCurrency: Record Currency;
-            begin
-            end;
         }
         field(80802; "BC6_DEEE HT Amount"; Decimal)
         {
             Caption = 'DEEE HT Amount', Comment = 'FRA="Montant HT DEEE"';
             Editable = false;
             DataClassification = CustomerContent;
-
-            trigger OnValidate()
-            var
-                Currency2: Record Currency;
-            begin
-            end;
         }
         field(80803; "BC6_DEEE Unit Price (LCY)"; Decimal)
         {
@@ -264,6 +252,7 @@ tableextension 50066 "BC6_SalesLineArchive" extends "Sales Line Archive" //5108
         field(80808; "BC6_DEEE Amount (LCY) for Stat"; Decimal)
         {
             DataClassification = CustomerContent;
+            Caption = 'DEEE Amount (LCY) for Stat';
         }
     }
     keys
@@ -273,4 +262,3 @@ tableextension 50066 "BC6_SalesLineArchive" extends "Sales Line Archive" //5108
         }
     }
 }
-

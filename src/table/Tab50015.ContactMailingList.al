@@ -73,4 +73,3 @@ table 50015 "BC6_Contact Mailing List"
         Cont.MODIFY();
     end;
 }
-

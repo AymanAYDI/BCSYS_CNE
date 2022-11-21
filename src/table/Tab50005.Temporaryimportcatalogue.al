@@ -1,8 +1,7 @@
 table 50005 "BC6_Temporary import catalogue"
 {
     DataClassification = CustomerContent;
-    //   TODO: Page
-    // LookupPageID = 50023;
+    LookupPageID = 50023;
 
     fields
     {
@@ -27,9 +26,9 @@ table 50005 "BC6_Temporary import catalogue"
                 IF (Ref_Interne <> '') THEN BEGIN
                     CLEAR(DistInt);
                     //TODO   // "Item BarCode" := DistInt.GetItemEAN13Code(Ref_Interne);
-                END ELSE BEGIN
+                END ELSE
                     "Item BarCode" := '';
-                END;
+
                 VALIDATE("Item BarCode");
             end;
         }
@@ -86,7 +85,6 @@ table 50005 "BC6_Temporary import catalogue"
         field(14; "Product Group Code"; Code[10])
         {
             Caption = 'Product Group Code', comment = 'FRA="Code groupe produits"';
-            TableRelation = "Product Group".Code WHERE("Item Category Code" = FIELD("Item Category Code"));
             DataClassification = CustomerContent;
         }
         field(15; "Net Weight"; Decimal)
@@ -197,8 +195,8 @@ table 50005 "BC6_Temporary import catalogue"
         i: Integer;
         IntLCounter: Integer;
     begin
-        FINDFIRST;
-        GeneralLedgerSetup.GET;
+        FINDFIRST();
+        GeneralLedgerSetup.GET();
         IF GeneralLedgerSetup."BC6_DEEE Management" THEN
             GeneralLedgerSetup.TESTFIELD("BC6_Defaut Eco partner DEEE");
         IntLCounter := COUNT;
@@ -217,9 +215,9 @@ table 50005 "BC6_Temporary import catalogue"
             TESTFIELD("date debut");
 
             IF Ref_Interne <> '' THEN BEGIN
-                create_disc_familly;
+                create_disc_familly();
                 IF NOT recgItem.GET(Ref_Interne) THEN BEGIN
-                    recgItem.INIT;
+                    recgItem.INIT();
                     recgItem.VALIDATE("No.", Ref_Interne);
                     recgItem.VALIDATE("Vendor No.", Vendor);
                     recgItem.VALIDATE("Vendor Item No.", Ref_externe);
@@ -231,14 +229,14 @@ table 50005 "BC6_Temporary import catalogue"
                     IF "Net Weight" <> 0 THEN
                         recgItem.VALIDATE("Net Weight", "Net Weight");
                     IF ("Number of Units DEEE" <> 0) THEN
-                        InsertDEEE;
+                        InsertDEEE();
                     recgItem.INSERT(TRUE);
 
                     recgItem.VALIDATE("BC6_Number of Units DEEE", Rec."Number of Units DEEE");
                     recgItem.MODIFY(TRUE);
-                    insertlongdescription;
+                    insertlongdescription();
 
-                    insertitemcrossref;
+                    insertitemcrossref();
                 END
                 ELSE BEGIN
                     recgItem.Blocked := FALSE;
@@ -252,22 +250,22 @@ table 50005 "BC6_Temporary import catalogue"
                     recgItem.VALIDATE("Item Category Code", "Item Category Code");
                     recgItem.VALIDATE("Item Disc. Group", famille);
                     recgItem.VALIDATE(recgItem."Net Weight", "Net Weight");
-                    IF ("Number of Units DEEE" <> 0) THEN InsertDEEE;
+                    IF ("Number of Units DEEE" <> 0) THEN InsertDEEE();
                     recgItem.VALIDATE("BC6_Number of Units DEEE", Rec."Number of Units DEEE");
                     recgItem.MODIFY(TRUE);
                     recgItem.MODIFY(TRUE);
-                    insertlongdescription;
-                    insertitemcrossref;
+                    insertlongdescription();
+                    insertitemcrossref();
                 END;
 
                 IF remise <> 0 THEN
-                    InsertDiscount;
+                    InsertDiscount();
                 IF prix_net <> 0 THEN
-                    InsertpurchPrice;
+                    InsertpurchPrice();
             END;
-        UNTIL NEXT = 0;
+        UNTIL NEXT() = 0;
 
-        DiaLWindow.CLOSE;
+        DiaLWindow.CLOSE();
 
         MESSAGE(Txt002);
     end;
@@ -277,7 +275,7 @@ table 50005 "BC6_Temporary import catalogue"
         RecLItemDiscGrp: Record "Item Discount Group";
     begin
         IF NOT RecLItemDiscGrp.GET(famille) THEN BEGIN
-            RecLItemDiscGrp.INIT;
+            RecLItemDiscGrp.INIT();
             RecLItemDiscGrp.Code := famille;
             RecLItemDiscGrp.INSERT(TRUE);
         END;
@@ -285,14 +283,14 @@ table 50005 "BC6_Temporary import catalogue"
 
     procedure insertitemcrossref()
     begin
-        RecGItemCrossRef.RESET;
+        RecGItemCrossRef.RESET();
         RecGItemCrossRef.SETFILTER("Item No.", recgItem."No.");
         RecGItemCrossRef.SETFILTER("Reference Type", '%1', RecGItemCrossRef."Reference Type"::Vendor);
         RecGItemCrossRef.SETFILTER("Reference Type No.", recgItem."Vendor No.");
         IF NOT RecGItemCrossRef.ISEMPTY THEN
-            RecGItemCrossRef.DELETEALL;
+            RecGItemCrossRef.DELETEALL();
 
-        RecGItemCrossRef.INIT;
+        RecGItemCrossRef.INIT();
         RecGItemCrossRef.VALIDATE("Item No.", recgItem."No.");
         RecGItemCrossRef.VALIDATE("Unit of Measure", recgItem."Base Unit of Measure");
         RecGItemCrossRef.VALIDATE(Description, recgItem.Description);
@@ -302,14 +300,14 @@ table 50005 "BC6_Temporary import catalogue"
         RecGItemCrossRef.INSERT(TRUE);
 
         IF (BarCode <> '') THEN BEGIN
-            RecGItemCrossRef.RESET;
+            RecGItemCrossRef.RESET();
             RecGItemCrossRef.SETFILTER("Item No.", recgItem."No.");
             RecGItemCrossRef.SETFILTER("Unit of Measure", recgItem."Base Unit of Measure");
             RecGItemCrossRef.SETFILTER("Reference Type", '%1', RecGItemCrossRef."Reference Type"::"Bar Code");
             IF NOT RecGItemCrossRef.ISEMPTY THEN
-                RecGItemCrossRef.DELETEALL;
+                RecGItemCrossRef.DELETEALL();
 
-            RecGItemCrossRef.INIT;
+            RecGItemCrossRef.INIT();
             RecGItemCrossRef.VALIDATE("Item No.", recgItem."No.");
             RecGItemCrossRef.VALIDATE("Reference Type", RecGItemCrossRef."Reference Type"::"Bar Code");
             RecGItemCrossRef.VALIDATE("Reference Type No.", 'EAN13');
@@ -324,9 +322,9 @@ table 50005 "BC6_Temporary import catalogue"
     var
         RecLExtTextHeader: Record "Extended Text Header";
         RecLExtTextLine: Record "Extended Text Line";
-        "--point55": Integer;
         intlLineno: Integer;
         intLstartpos: Integer;
+        "--point55": Integer;
         TxtLExtendedtext: Text[250];
     begin
         TxtLExtendedtext := COPYSTR(designation, MAXSTRLEN(recgItem.Description) + 1);
@@ -336,9 +334,9 @@ table 50005 "BC6_Temporary import catalogue"
             IF RecLExtTextHeader.FIND('-') THEN
                 RecLExtTextHeader.DELETE(TRUE);
             recgItem."Automatic Ext. Texts" := TRUE;
-            recgItem.MODIFY;
-            RecLExtTextHeader.INIT;
-            RecLExtTextLine.INIT;
+            recgItem.MODIFY();
+            RecLExtTextHeader.INIT();
+            RecLExtTextLine.INIT();
             RecLExtTextHeader.VALIDATE("Table Name", RecLExtTextHeader."Table Name"::Item);
             RecLExtTextHeader.VALIDATE("No.", recgItem."No.");
             RecLExtTextHeader.VALIDATE("All Language Codes", TRUE);
@@ -362,7 +360,7 @@ table 50005 "BC6_Temporary import catalogue"
             intLstartpos := 1;
             REPEAT
                 intlLineno += 10000;
-                RecLExtTextLine.INIT;
+                RecLExtTextLine.INIT();
                 RecLExtTextLine.VALIDATE("Table Name", RecLExtTextHeader."Table Name");
                 RecLExtTextLine.VALIDATE("No.", RecLExtTextHeader."No.");
                 RecLExtTextLine.VALIDATE("Text No.", RecLExtTextHeader."Text No.");
@@ -376,7 +374,7 @@ table 50005 "BC6_Temporary import catalogue"
 
     procedure InsertpurchPrice()
     begin
-        RecGPurchPrice.RESET;
+        RecGPurchPrice.RESET();
         RecGPurchPrice.SETCURRENTKEY("Item No.", "Vendor No.", "Currency Code");
         RecGPurchPrice.SETRANGE("Item No.", Ref_Interne);
         RecGPurchPrice.SETRANGE("Vendor No.", Vendor);
@@ -387,8 +385,8 @@ table 50005 "BC6_Temporary import catalogue"
                 REPEAT
                     RecGPurchPrice.VALIDATE("Ending Date", CALCDATE('<-1D>', "date debut"));
                     RecGPurchPrice.MODIFY(TRUE);
-                UNTIL RecGPurchPrice.NEXT = 0;
-        RecGPurchPrice.INIT;
+                UNTIL RecGPurchPrice.NEXT() = 0;
+        RecGPurchPrice.INIT();
         RecGPurchPrice.VALIDATE("Item No.", Ref_Interne);
         RecGPurchPrice.VALIDATE("Direct Unit Cost", prix_net);
         RecGPurchPrice.VALIDATE("Vendor No.", Vendor);
@@ -411,13 +409,13 @@ table 50005 "BC6_Temporary import catalogue"
             recgItem.VALIDATE("BC6_Number of Units DEEE", Rec."Number of Units DEEE");
             IF ("DEEE Category Code" = '') THEN BEGIN
                 IF "DEEE Unit Amount" <> 0 THEN BEGIN
-                    DEEETariffs.RESET;
+                    DEEETariffs.RESET();
                     DEEETariffs.SETRANGE(DEEETariffs."HT Unit Tax (LCY)", "DEEE Unit Amount");
                     DEEETariffs.SETRANGE(DEEETariffs."Eco Partner", recgItem."BC6_Eco partner DEEE");
                     DEEETariffs.SETFILTER(DEEETariffs."Date beginning", '<= %1', "date debut");
                     IF "date fin" <> 0D THEN
                         DEEETariffs.SETFILTER(DEEETariffs."Date beginning", '<= %1', "date fin");
-                    IF DEEETariffs.FINDLAST THEN BEGIN
+                    IF DEEETariffs.FINDLAST() THEN BEGIN
                         recgItem.VALIDATE("BC6_DEEE Category Code", DEEETariffs."DEEE Code");
                     END
                     ELSE
@@ -434,7 +432,7 @@ table 50005 "BC6_Temporary import catalogue"
 
     procedure InsertDiscount()
     begin
-        RecGDiscount.RESET;
+        RecGDiscount.RESET();
         RecGDiscount.SETCURRENTKEY("Item No.", "Vendor No.", "BC6_Type");
         RecGDiscount.SETFILTER("BC6_Type", '%1', RecGDiscount."BC6_Type"::Item);
         RecGDiscount.SETFILTER(RecGDiscount."Ending Date", FORMAT(0D));
@@ -445,8 +443,8 @@ table 50005 "BC6_Temporary import catalogue"
                 REPEAT
                     RecGDiscount.VALIDATE("Ending Date", CALCDATE('<-1D>', "date debut"));
                     RecGDiscount.MODIFY(TRUE);
-                UNTIL RecGDiscount.NEXT = 0;
-        RecGDiscount.INIT;
+                UNTIL RecGDiscount.NEXT() = 0;
+        RecGDiscount.INIT();
         RecGDiscount.VALIDATE("BC6_Type", RecGDiscount."BC6_Type"::Item);
         RecGDiscount.VALIDATE("Item No.", Ref_Interne);
         RecGDiscount.VALIDATE("Vendor No.", Vendor);

@@ -40,8 +40,9 @@ tableextension 50065 "BC6_SalesHeaderArchive" extends "Sales Header Archive" //5
         {
             TableRelation = User;
             DataClassification = CustomerContent;
+            Caption = 'ID';
         }
-        field(50020; "BC6_Customer Sales Profit Group"; Code[10])
+        field(50020; "BC6_Cust. Sales Profit Group"; Code[10])
         {
             Caption = 'Goupe Marge Vente Client', Comment = 'FRA="Goupe Marge Vente Client"';
             TableRelation = "Customer Sales Profit Group";
@@ -119,31 +120,11 @@ tableextension 50065 "BC6_SalesHeaderArchive" extends "Sales Header Archive" //5
         {
             Caption = 'Purchase No. Order Lien', Comment = 'FRA="° Commande Achat Lien"';
             DataClassification = CustomerContent;
-
-            trigger OnLookup()
-            var
-                reclPurchHdr: Record "Purchase Header";
-            begin
-            end;
         }
         field(50403; "BC6_Bin Code"; Code[20])
         {
             DataClassification = CustomerContent;
-
-            trigger OnLookup()
-            var
-                WMSManagement: Codeunit "WMS Management";
-                BinCode: Code[20];
-            begin
-            end;
-
-            trigger OnValidate()
-            var
-                WMSManagement: Codeunit "WMS Management";
-            begin
-            end;
+            Caption = 'Bin Code';
         }
     }
-
 }
-

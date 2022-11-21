@@ -43,4 +43,3 @@ tableextension 50013 "BC6_InvoicePostBuffer" extends "Invoice Post. Buffer" //49
         }
     }
 }
-

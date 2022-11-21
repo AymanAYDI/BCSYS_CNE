@@ -12,6 +12,7 @@ tableextension 50076 "BC6_ReturnShipmentHeader" extends "Return Shipment Header"
         {
             TableRelation = User;
             DataClassification = CustomerContent;
+            Caption = 'ID';
         }
         field(50020; "BC6_From Sales Module"; Boolean)
         {
@@ -25,6 +26,4 @@ tableextension 50076 "BC6_ReturnShipmentHeader" extends "Return Shipment Header"
             DataClassification = CustomerContent;
         }
     }
-
 }
-

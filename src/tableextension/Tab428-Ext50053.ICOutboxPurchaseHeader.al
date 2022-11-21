@@ -1,4 +1,4 @@
-tableextension 50053 "BC6_ICOutboxPurchaseHeader" extends "IC Outbox Purchase Header" //428 
+tableextension 50053 "BC6_ICOutboxPurchaseHeader" extends "IC Outbox Purchase Header" //428
 {
     fields
     {
@@ -9,4 +9,3 @@ tableextension 50053 "BC6_ICOutboxPurchaseHeader" extends "IC Outbox Purchase He
         }
     }
 }
-

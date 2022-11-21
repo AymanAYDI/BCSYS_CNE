@@ -1,4 +1,4 @@
-tableextension 50032 "BC6_PurchRcptLine" extends "Purch. Rcpt. Line" //121 
+tableextension 50032 "BC6_PurchRcptLine" extends "Purch. Rcpt. Line" //121
 {
     fields
     {
@@ -50,7 +50,4 @@ tableextension 50032 "BC6_PurchRcptLine" extends "Purch. Rcpt. Line" //121
         {
         }
     }
-
-
 }
-

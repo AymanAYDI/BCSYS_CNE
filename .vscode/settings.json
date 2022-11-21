@@ -31,4 +31,5 @@
         "TODO",
         "XXX"
     ],
+    "todo-tree.tree.showCountsInTree": true,
 }

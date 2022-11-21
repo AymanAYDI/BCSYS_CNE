@@ -42,6 +42,7 @@ page 50005 "BC6_Special Extended Text list"
             IF Customer.GET(Code) THEN
                 Name := Customer.Name;
         END ELSE
+
             IF "Table Name" = "Table Name"::Vendor THEN
                 IF Vendor.GET(Code) THEN
                     Name := Vendor.Name;

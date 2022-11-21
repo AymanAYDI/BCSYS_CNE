@@ -51,7 +51,7 @@ tableextension 50071 "BC6_WarehouseActivityLine" extends "Warehouse Activity Lin
             trigger OnValidate()
             var
                 RecLUserSetup: Record "User Setup";
-                FctMangt: Codeunit BC6_FctMangt;
+                FctMangt: Codeunit "BC6_Functions Mgt";
                 CstL001: Label 'Vous n''êtes pas autorisé à modifier les quantités à traiter';
             begin
                 IF "Qty. to Handle" > "Qty. Outstanding" THEN
@@ -61,7 +61,7 @@ tableextension 50071 "BC6_WarehouseActivityLine" extends "Warehouse Activity Lin
 
                 //>>CNE5.00
                 IF RecLUserSetup.GET(USERID) THEN BEGIN
-                    IF NOT RecLUserSetup."BC6_Autorize Qty. to Handle Change" THEN
+                    IF NOT RecLUserSetup."BC6_Auth.Qty.to Handle Change" THEN
                         ERROR(CstL001);
                 END ELSE
                     ERROR(CstL001);
@@ -81,7 +81,7 @@ tableextension 50071 "BC6_WarehouseActivityLine" extends "Warehouse Activity Lin
                     IF GetBin("Location Code", "Bin Code") THEN
                         CheckIncreaseCapacity(TRUE);
 
-                // IF NOT UseBaseQty THEN BEGIN  //TODO: varible global
+                // IF NOT UseBaseQty THEN BEGIN //TODO: STD Global variable 
                 //     "Qty. to Handle (Base)" := CalcBaseQty("Qty. to Handle");
                 //     IF "Qty. to Handle (Base)" > "Qty. Outstanding (Base)" THEN // rounding error- qty same, not base qty
                 //         "Qty. to Handle (Base)" := "Qty. Outstanding (Base)";
@@ -105,16 +105,8 @@ tableextension 50071 "BC6_WarehouseActivityLine" extends "Warehouse Activity Lin
         }
     }
 
-
-
     var
-        RecLUserSetup: Record "User Setup";
-        WMSMgt: Codeunit "WMS Management";
         Location: Record Location;
-        CstL001: Label 'Vous n''êtes pas autorisé à modifier les quantités à traiter';
-        CstL002: Label 'Vous n''êtes pas autorisé à modifier la quantité à traiter, elle est supérieure à la quantité prélevée.';
-        Text002: Label 'You cannot handle more than the outstanding %1 units.';
-
-
+        WMSMgt: Codeunit "WMS Management";
+        Text002: Label 'You cannot handle more than the outstanding %1 units.', Comment = 'FRA="Vous ne pouvez pas traiter plus que les %1 unités restantes."';
 }
-

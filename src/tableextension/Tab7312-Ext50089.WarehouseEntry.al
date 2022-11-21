@@ -60,4 +60,3 @@ tableextension 50089 "BC6_WarehouseEntry" extends "Warehouse Entry" //7312
         }
     }
 }
-

@@ -20,10 +20,10 @@ tableextension 50041 "BC6_ItemJournalBatch" extends "Item Journal Batch" //233
                     ItemJnlTemplate.GET("Journal Template Name");
                     ItemJnlTemplate.TESTFIELD(Type, ItemJnlTemplate.Type::"Phys. Inventory");
                 END ELSE
-                    "BC6_Phys. Inv. Check Batch Name" := '';
+                    "BC6_Phys. Inv. Check Bat. Name" := '';
             end;
         }
-        field(50002; "BC6_Phys. Inv. Check Batch Name"; Code[10])
+        field(50002; "BC6_Phys. Inv. Check Bat. Name"; Code[10])
         {
             Caption = 'Nom feuille contrôle inventaire', Comment = 'FRA="Nom feuille contrôle inventaire"';
             TableRelation = "Item Journal Batch".Name WHERE("Journal Template Name" = FIELD("Journal Template Name"),
@@ -38,11 +38,9 @@ tableextension 50041 "BC6_ItemJournalBatch" extends "Item Journal Batch" //233
                     ItemJnlTemplate.TESTFIELD(Type, ItemJnlTemplate.Type::"Phys. Inventory");
                     TESTFIELD("BC6_Phys. Inv. Survey");
                 END;
-
             end;
         }
     }
     var
         ItemJnlTemplate: Record "Item Journal Template";
 }
-

@@ -2,7 +2,7 @@ tableextension 50047 "BC6_InventorySetup" extends "Inventory Setup" //313
 {
     fields
     {
-        field(50000; "BC6_Cross. Ref. Type No. BarCode"; Code[10])
+        field(50000; "BC6_Cross.Ref.Type No.BarCode"; Code[10])
         {
             Caption = 'Cross. Ref. Type No. BarCode', Comment = 'FRA="Type N° externe Code barres"';
             DataClassification = CustomerContent;
@@ -57,9 +57,6 @@ tableextension 50047 "BC6_InventorySetup" extends "Inventory Setup" //313
         }
     }
 
-
-
     var
         ItemJnlTemplate: Record "Item Journal Template";
 }
-

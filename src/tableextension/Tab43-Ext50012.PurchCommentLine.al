@@ -29,6 +29,4 @@ tableextension 50012 "BC6_PurchCommentLine" extends "Purch. Comment Line" //43
             "BC6_User ID" := USERID;
         END;
     END;
-
 }
-

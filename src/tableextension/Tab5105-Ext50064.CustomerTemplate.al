@@ -9,4 +9,3 @@ tableextension 50064 "BC6_CustomerTemplate" extends "Customer Template" //5105
         }
     }
 }
-

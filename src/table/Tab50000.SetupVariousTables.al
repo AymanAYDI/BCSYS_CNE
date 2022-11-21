@@ -2,9 +2,8 @@ table 50000 "BC6_Setup Various Tables"
 {
     Caption = 'Setup Various Tables';
     DataClassification = CustomerContent;
-    //   TODO: Page
-    // DrillDownPageID = 50002;
-    // LookupPageID = 50002;
+    DrillDownPageID = "BC6_Various Tables List";
+    LookupPageID = "BC6_Various Tables List";
 
     fields
     {

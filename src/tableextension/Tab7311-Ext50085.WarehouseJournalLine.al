@@ -45,6 +45,4 @@ tableextension 50085 "BC6_WarehouseJournalLine" extends "Warehouse Journal Line"
             DataClassification = CustomerContent;
         }
     }
-
 }
-

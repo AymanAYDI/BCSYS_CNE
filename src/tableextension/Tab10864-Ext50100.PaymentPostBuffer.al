@@ -9,4 +9,3 @@ tableextension 50100 "BC6_PaymentPostBuffer" extends "Payment Post. Buffer" //10
         }
     }
 }
-

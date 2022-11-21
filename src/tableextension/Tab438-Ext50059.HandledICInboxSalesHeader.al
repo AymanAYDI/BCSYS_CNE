@@ -9,4 +9,3 @@ tableextension 50059 "BC6_HandledICInboxSalesHeader" extends "Handled IC Inbox S
         }
     }
 }
-

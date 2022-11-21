@@ -38,17 +38,17 @@ tableextension 50045 "BC6_SalesReceivablesSetup" extends "Sales & Receivables Se
         }
         field(60001; "BC6_E-Mail Administrateur"; Text[250])
         {
-            Caption = 'E-Mail Administrateur', comment = 'FRA="Date Livraison Confirmée"';
+            Caption = 'E-Mail Administrateur', comment = 'FRA="-Mail Administrateur"';
             DataClassification = CustomerContent;
         }
         field(60002; "BC6_Promised Delivery Date"; Boolean)
         {
-            Caption = 'Promised Delivery Date', comment = 'FRA="Date Livraison Demandée"';
+            Caption = 'Promised Delivery Date', comment = 'FRA="Date Livraison Confirmée"';
             DataClassification = CustomerContent;
         }
         field(60003; "BC6_Requested Delivery Date"; Boolean)
         {
-            Caption = 'Requested Delivery Date', comment = 'FRA=""';
+            Caption = 'Requested Delivery Date', comment = 'FRA="Date Livraison Demandée"';
             DataClassification = CustomerContent;
         }
         field(60004; "Période"; DateFormula)
@@ -74,7 +74,7 @@ tableextension 50045 "BC6_SalesReceivablesSetup" extends "Sales & Receivables Se
         field(60008; "BC6_allow Profit% to"; Code[20])
         {
             Caption = 'Allow Profit % visualisation to ', comment = 'FRA="Autoriser la visualisation des marges à"';
-            TableRelation = "Permission Set"."Role ID";
+            // TableRelation = "Permission Set"."Role ID";
             //TODO: Table 'Permission Set' is marked for removal.
             DataClassification = CustomerContent;
         }

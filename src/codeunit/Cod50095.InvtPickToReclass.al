@@ -1,6 +1,5 @@
 codeunit 50095 "BC6_Invt. Pick To Reclass."
 {
-
     TableNo = "Warehouse Journal Line";
 
     trigger OnRun()
@@ -11,34 +10,33 @@ codeunit 50095 "BC6_Invt. Pick To Reclass."
     end;
 
     var
-        Location: Record Location;
         Bin: Record Bin;
         Item: Record Item;
-        WhseJnlLine: Record "Warehouse Journal Line";
-        WhseActivHeader: Record "Warehouse Activity Header";
-        WhseActivLine: Record "Warehouse Activity Line";
-        TmpWhseActivLine: Record "Warehouse Activity Line" temporary;
-        NewWhseActivLine: Record "Warehouse Activity Line";
+        Location: Record Location;
+        Purchasing: Record Purchasing;
+        SalesSetup: Record "Sales & Receivables Setup";
         SalesHeader: Record "Sales Header";
         SalesLine: Record "Sales Line";
-        CurrentDate: Date;
-        RemQtyToPickBase: Decimal;
-        QtyBase: Decimal;
-        QtyAvailToPickBase: Decimal;
-        NextLineNo: Integer;
-        LineCreated: Boolean;
-        SourceLineNo: Integer;
-        DueDate: Date;
-        ShippingAdvice: Option;
-        LineSpacing: Integer;
-        NextSourceLineNo: Integer;
-        Purchasing: Record Purchasing;
-        WhseSalesRelease: Codeunit "Whse.-Sales Release";
+        WhseActivHeader: Record "Warehouse Activity Header";
+        NewWhseActivLine: Record "Warehouse Activity Line";
+        TempWhseActivLine: Record "Warehouse Activity Line" temporary;
+        WhseActivLine: Record "Warehouse Activity Line";
+        WhseJnlLine: Record "Warehouse Journal Line";
         ReleaseSalesDoc: Codeunit "Release Sales Document";
-        SalesOrderCreatedOk: Boolean;
+        WhseSalesRelease: Codeunit "Whse.-Sales Release";
+        LineCreated: Boolean;
         LineCreatedOk: Boolean;
-        SalesSetup: Record "Sales & Receivables Setup";
-
+        SalesOrderCreatedOk: Boolean;
+        CurrentDate: Date;
+        DueDate: Date;
+        QtyAvailToPickBase: Decimal;
+        QtyBase: Decimal;
+        RemQtyToPickBase: Decimal;
+        LineSpacing: Integer;
+        NextLineNo: Integer;
+        NextSourceLineNo: Integer;
+        SourceLineNo: Integer;
+        ShippingAdvice: Option;
 
     procedure "Code"()
     begin
@@ -70,8 +68,8 @@ codeunit 50095 "BC6_Invt. Pick To Reclass."
             CLEAR(ShippingAdvice);
 
             IF ("From Bin Code" <> '') THEN BEGIN
-                TmpWhseActivLine.RESET();
-                TmpWhseActivLine.DELETEALL();
+                TempWhseActivLine.RESET();
+                TempWhseActivLine.DELETEALL();
 
                 RemQtyToPickBase := "Qty. (Base)";
                 QtyBase := 0;
@@ -114,101 +112,98 @@ codeunit 50095 "BC6_Invt. Pick To Reclass."
                             NextLineNo := WhseActivLine."Line No." + CalcLineSpacing(WhseActivLine);
                             SourceLineNo := WhseActivLine."Source Line No.";
                         END
-                        ELSE BEGIN
+                        ELSE
                             SourceLineNo := 0;
-                        END;
                         DueDate := WhseActivLine."Due Date";
-                        ShippingAdvice := WhseActivLine."Shipping Advice";
+                        ShippingAdvice := WhseActivLine."Shipping Advice".AsInteger();
                     END ELSE BEGIN
                         SourceLineNo := 0;
                         DueDate := WORKDATE();
                         ShippingAdvice := 0;
                     END;
 
-                    TmpWhseActivLine.INIT();
-                    TmpWhseActivLine."Activity Type" := WhseActivHeader.Type;
-                    TmpWhseActivLine."No." := WhseActivHeader."No.";
-                    TmpWhseActivLine."Action Type" := NewWhseActivLine."Action Type"::Take;
-                    TmpWhseActivLine."Source Type" := DATABASE::"Sales Line";
-                    TmpWhseActivLine."Source Subtype" := WhseActivHeader."Source Subtype";
-                    TmpWhseActivLine."Source Document" := WhseActivHeader."Source Document";
-                    TmpWhseActivLine."Source No." := WhseActivHeader."Source No.";
-                    TmpWhseActivLine."Source Line No." := SourceLineNo;
-                    TmpWhseActivLine."Location Code" := "Location Code";
-                    TmpWhseActivLine."Zone Code" := "From Zone Code";
-                    TmpWhseActivLine."Bin Code" := "From Bin Code";
-                    TmpWhseActivLine."Item No." := "Item No.";
-                    TmpWhseActivLine."Variant Code" := "Variant Code";
-                    TmpWhseActivLine."Unit of Measure Code" := "Unit of Measure Code";
-                    TmpWhseActivLine."Qty. per Unit of Measure" := "Qty. per Unit of Measure";
-                    TmpWhseActivLine.Description := Item.Description;
-                    TmpWhseActivLine."Description 2" := Item."Description 2";
-                    TmpWhseActivLine."Due Date" := DueDate;
-                    TmpWhseActivLine."Shipping Advice" := ShippingAdvice;
-                    TmpWhseActivLine."Line No." := NextLineNo;
-                    TmpWhseActivLine.Quantity := TmpWhseActivLine.CalcQty(RemQtyToPickBase);
-                    TmpWhseActivLine."Qty. (Base)" := RemQtyToPickBase;
-                    TmpWhseActivLine."Qty. Outstanding" := TmpWhseActivLine.Quantity;
-                    TmpWhseActivLine."Qty. Outstanding (Base)" := TmpWhseActivLine."Qty. (Base)";
-                    TmpWhseActivLine."Qty. to Handle" := 0;
-                    TmpWhseActivLine."Qty. to Handle (Base)" := 0;
-                    TmpWhseActivLine."BC6_Qty. Picked" := TmpWhseActivLine.Quantity;
-                    TmpWhseActivLine.INSERT();
+                    TempWhseActivLine.INIT();
+                    TempWhseActivLine."Activity Type" := WhseActivHeader.Type;
+                    TempWhseActivLine."No." := WhseActivHeader."No.";
+                    TempWhseActivLine."Action Type" := NewWhseActivLine."Action Type"::Take;
+                    TempWhseActivLine."Source Type" := DATABASE::"Sales Line";
+                    TempWhseActivLine."Source Subtype" := WhseActivHeader."Source Subtype";
+                    TempWhseActivLine."Source Document" := WhseActivHeader."Source Document";
+                    TempWhseActivLine."Source No." := WhseActivHeader."Source No.";
+                    TempWhseActivLine."Source Line No." := SourceLineNo;
+                    TempWhseActivLine."Location Code" := "Location Code";
+                    TempWhseActivLine."Zone Code" := "From Zone Code";
+                    TempWhseActivLine."Bin Code" := "From Bin Code";
+                    TempWhseActivLine."Item No." := "Item No.";
+                    TempWhseActivLine."Variant Code" := "Variant Code";
+                    TempWhseActivLine."Unit of Measure Code" := "Unit of Measure Code";
+                    TempWhseActivLine."Qty. per Unit of Measure" := "Qty. per Unit of Measure";
+                    TempWhseActivLine.Description := Item.Description;
+                    TempWhseActivLine."Description 2" := Item."Description 2";
+                    TempWhseActivLine."Due Date" := DueDate;
+                    TempWhseActivLine."Shipping Advice" := ShippingAdvice;
+                    TempWhseActivLine."Line No." := NextLineNo;
+                    TempWhseActivLine.Quantity := TempWhseActivLine.CalcQty(RemQtyToPickBase);
+                    TempWhseActivLine."Qty. (Base)" := RemQtyToPickBase;
+                    TempWhseActivLine."Qty. Outstanding" := TempWhseActivLine.Quantity;
+                    TempWhseActivLine."Qty. Outstanding (Base)" := TempWhseActivLine."Qty. (Base)";
+                    TempWhseActivLine."Qty. to Handle" := 0;
+                    TempWhseActivLine."Qty. to Handle (Base)" := 0;
+                    TempWhseActivLine."BC6_Qty. Picked" := TempWhseActivLine.Quantity;
+                    TempWhseActivLine.INSERT();
                 END;
-
             END;
 
             IF ("To Bin Code" <> '') THEN BEGIN
-                TmpWhseActivLine.CALCSUMS("Qty. (Base)");
-                IF TmpWhseActivLine."Qty. (Base)" <> "Qty. (Base)" THEN
-                    ERROR('%1 %2', "Qty. (Base)", TmpWhseActivLine."Qty. (Base)");
-                TmpWhseActivLine.FIND('-');
+                TempWhseActivLine.CALCSUMS("Qty. (Base)");
+                IF TempWhseActivLine."Qty. (Base)" <> "Qty. (Base)" THEN
+                    ERROR('%1 %2', "Qty. (Base)", TempWhseActivLine."Qty. (Base)");
+                TempWhseActivLine.FIND('-');
                 REPEAT
                     InsertPickBinWhseActivLine(NewWhseActivLine);
-                UNTIL TmpWhseActivLine.NEXT() = 0;
-                TmpWhseActivLine.RESET();
-                TmpWhseActivLine.DELETEALL();
+                UNTIL TempWhseActivLine.NEXT() = 0;
+                TempWhseActivLine.RESET();
+                TempWhseActivLine.DELETEALL();
             END;
-
         END;
     end;
 
-    local procedure ModifyPickBinWhseActivLine(WhseActivLine: Record "Warehouse Activity Line"; QtyToPickBase: Decimal; var RemQtyToPickBase: Decimal)
+    local procedure ModifyPickBinWhseActivLine(WhseActivityLine: Record "Warehouse Activity Line"; QtyToPickBase: Decimal; var RemQuantityToPickBase: Decimal)
     var
-        QtyAvailToPickBase: Decimal;
         ITQtyToPickBase: Decimal;
+        QtyAvailbToPickBase: Decimal;
     begin
         IF QtyToPickBase <= 0 THEN
             EXIT;
 
-        TmpWhseActivLine.INIT();
-        TmpWhseActivLine := WhseActivLine;
-        TmpWhseActivLine."Bin Code" := WhseJnlLine."From Bin Code";
-        TmpWhseActivLine.Quantity := WhseActivLine.CalcQty(QtyToPickBase);
-        TmpWhseActivLine."Qty. (Base)" := QtyToPickBase;
-        TmpWhseActivLine."Qty. Outstanding" := WhseActivLine.Quantity;
-        TmpWhseActivLine."Qty. Outstanding (Base)" := WhseActivLine."Qty. (Base)";
-        TmpWhseActivLine."Qty. to Handle" := 0;
-        TmpWhseActivLine."Qty. to Handle (Base)" := 0;
+        TempWhseActivLine.INIT();
+        TempWhseActivLine := WhseActivityLine;
+        TempWhseActivLine."Bin Code" := WhseJnlLine."From Bin Code";
+        TempWhseActivLine.Quantity := WhseActivityLine.CalcQty(QtyToPickBase);
+        TempWhseActivLine."Qty. (Base)" := QtyToPickBase;
+        TempWhseActivLine."Qty. Outstanding" := WhseActivityLine.Quantity;
+        TempWhseActivLine."Qty. Outstanding (Base)" := WhseActivityLine."Qty. (Base)";
+        TempWhseActivLine."Qty. to Handle" := 0;
+        TempWhseActivLine."Qty. to Handle (Base)" := 0;
         //>> CNE6.01
-        TmpWhseActivLine."BC6_Qty. Picked" := TmpWhseActivLine.Quantity;
-        TmpWhseActivLine.INSERT();
+        TempWhseActivLine."BC6_Qty. Picked" := TempWhseActivLine.Quantity;
+        TempWhseActivLine.INSERT();
 
-        WhseActivLine.Quantity := WhseActivLine.Quantity - WhseActivLine.CalcQty(QtyToPickBase);
-        WhseActivLine."Qty. (Base)" := WhseActivLine."Qty. (Base)" - QtyToPickBase;
-        WhseActivLine."Qty. Outstanding" := WhseActivLine.Quantity;
-        WhseActivLine."Qty. Outstanding (Base)" := WhseActivLine."Qty. (Base)";
-        WhseActivLine."Qty. to Handle" := 0;
-        WhseActivLine."Qty. to Handle (Base)" := 0;
-        WhseActivLine.MODIFY();
+        WhseActivityLine.Quantity := WhseActivityLine.Quantity - WhseActivityLine.CalcQty(QtyToPickBase);
+        WhseActivityLine."Qty. (Base)" := WhseActivityLine."Qty. (Base)" - QtyToPickBase;
+        WhseActivityLine."Qty. Outstanding" := WhseActivityLine.Quantity;
+        WhseActivityLine."Qty. Outstanding (Base)" := WhseActivityLine."Qty. (Base)";
+        WhseActivityLine."Qty. to Handle" := 0;
+        WhseActivityLine."Qty. to Handle (Base)" := 0;
+        WhseActivityLine.MODIFY();
 
-        RemQtyToPickBase := RemQtyToPickBase - QtyToPickBase;
+        RemQuantityToPickBase := RemQuantityToPickBase - QtyToPickBase;
     end;
 
-    local procedure InsertPickBinWhseActivLine(NewWhseActivLine: Record "Warehouse Activity Line")
+    local procedure InsertPickBinWhseActivLine(NewWhseActivityLine: Record "Warehouse Activity Line")
     var
+        QtyAvaileToPickBase: Decimal;
         QtyToPickBase: Decimal;
-        QtyAvailToPickBase: Decimal;
     begin
         WITH WhseJnlLine DO BEGIN
             QtyToPickBase := "Qty. (Base)";
@@ -230,10 +225,10 @@ codeunit 50095 "BC6_Invt. Pick To Reclass."
                     WhseActivHeader.MODIFY();
                 END;
 
-                IF TmpWhseActivLine."Source No." = '' THEN
-                    TmpWhseActivLine."Source No." := WhseActivHeader."Source No.";
+                IF TempWhseActivLine."Source No." = '' THEN
+                    TempWhseActivLine."Source No." := WhseActivHeader."Source No.";
 
-                IF TmpWhseActivLine."Source Line No." = 0 THEN BEGIN
+                IF TempWhseActivLine."Source Line No." = 0 THEN BEGIN
                     SalesHeader.GET(SalesHeader."Document Type"::Order, WhseActivHeader."Source No.");
 
                     // Purchasing Code
@@ -253,31 +248,30 @@ codeunit 50095 "BC6_Invt. Pick To Reclass."
                         ELSE
                             NextSourceLineNo := 10000;
                     END;
-                    LineCreatedOk := CreateSalesLine(TmpWhseActivLine, SalesHeader, SalesLine);
+                    LineCreatedOk := CreateSalesLine(TempWhseActivLine, SalesHeader, SalesLine);
                     IF LineCreatedOk THEN BEGIN
                         NextSourceLineNo += 10000;
-                        TmpWhseActivLine."Source No." := SalesLine."Document No.";
-                        TmpWhseActivLine."Source Line No." := SalesLine."Line No.";
-                        TmpWhseActivLine.MODIFY();
+                        TempWhseActivLine."Source No." := SalesLine."Document No.";
+                        TempWhseActivLine."Source Line No." := SalesLine."Line No.";
+                        TempWhseActivLine.MODIFY();
 
                         IF SalesOrderCreatedOk THEN BEGIN
                         END;
-
                     END;
                 END;
 
-                NewWhseActivLine.INIT();
-                NewWhseActivLine := TmpWhseActivLine;
-                NewWhseActivLine."Line No." := TmpWhseActivLine."Line No." + CalcLineSpacing(TmpWhseActivLine);
-                NewWhseActivLine."Zone Code" := WhseJnlLine."To Zone Code";
-                NewWhseActivLine."Bin Code" := WhseJnlLine."To Bin Code";
-                NewWhseActivLine."Qty. Outstanding" := NewWhseActivLine.Quantity;
-                NewWhseActivLine."Qty. Outstanding (Base)" := NewWhseActivLine."Qty. (Base)";
-                NewWhseActivLine."Qty. to Handle" := NewWhseActivLine."Qty. Outstanding";
-                NewWhseActivLine."Qty. to Handle (Base)" := NewWhseActivLine."Qty. Outstanding (Base)";
-                NewWhseActivLine."BC6_Qty. Picked" := NewWhseActivLine.Quantity;
+                NewWhseActivityLine.INIT();
+                NewWhseActivityLine := TempWhseActivLine;
+                NewWhseActivityLine."Line No." := TempWhseActivLine."Line No." + CalcLineSpacing(TempWhseActivLine);
+                NewWhseActivityLine."Zone Code" := WhseJnlLine."To Zone Code";
+                NewWhseActivityLine."Bin Code" := WhseJnlLine."To Bin Code";
+                NewWhseActivityLine."Qty. Outstanding" := NewWhseActivityLine.Quantity;
+                NewWhseActivityLine."Qty. Outstanding (Base)" := NewWhseActivityLine."Qty. (Base)";
+                NewWhseActivityLine."Qty. to Handle" := NewWhseActivityLine."Qty. Outstanding";
+                NewWhseActivityLine."Qty. to Handle (Base)" := NewWhseActivityLine."Qty. Outstanding (Base)";
+                NewWhseActivityLine."BC6_Qty. Picked" := NewWhseActivityLine.Quantity;
 
-                NewWhseActivLine.INSERT();
+                NewWhseActivityLine.INSERT();
 
                 LineCreated := TRUE;
             END;
@@ -304,7 +298,6 @@ codeunit 50095 "BC6_Invt. Pick To Reclass."
             Item.GET(ItemNo);
     end;
 
-
     procedure CalcLineSpacing(FromWhseActivLine: Record "Warehouse Activity Line") LineSpacing: Integer
     var
         WhseActivLine2: Record "Warehouse Activity Line";
@@ -316,7 +309,6 @@ codeunit 50095 "BC6_Invt. Pick To Reclass."
         ELSE
             LineSpacing := 10000;
     end;
-
 
     procedure CreateSalesOrder(var FromWhseActivHeader: Record "Warehouse Activity Header"; var ToSalesHeader: Record "Sales Header") SalesOrderCreatedOk: Boolean
     begin
@@ -337,7 +329,6 @@ codeunit 50095 "BC6_Invt. Pick To Reclass."
             SalesOrderCreatedOk := TRUE;
         END;
     end;
-
 
     procedure CreateSalesLine(var FromWhseActivLine: Record "Warehouse Activity Line"; var FromSalesHeader: Record "Sales Header"; var ToSalesLine: Record "Sales Line") LineCreatedOk: Boolean
     begin
@@ -363,4 +354,3 @@ codeunit 50095 "BC6_Invt. Pick To Reclass."
         END;
     end;
 }
-

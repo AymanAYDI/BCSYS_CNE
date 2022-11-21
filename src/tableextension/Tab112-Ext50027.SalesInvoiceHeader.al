@@ -53,7 +53,6 @@ tableextension 50027 "BC6_SalesInvoiceHeader" extends "Sales Invoice Header" //1
         {
             Caption = 'Sales LCY', comment = 'FRA="Ventes DS"';
             DataClassification = CustomerContent;
-
         }
         field(50031; "BC6_Profit LCY"; Decimal)
         {
@@ -96,7 +95,6 @@ tableextension 50027 "BC6_SalesInvoiceHeader" extends "Sales Invoice Header" //1
         {
             Caption = 'Sell-to E-Mail Address', comment = 'FRA="Email donneur d''ordre"';
             DataClassification = CustomerContent;
-
         }
         field(50071; "BC6_Shipment Invoiced"; Text[250])
         {
@@ -113,10 +111,8 @@ tableextension 50027 "BC6_SalesInvoiceHeader" extends "Sales Invoice Header" //1
     }
     keys
     {
-
         key(Key14; "Prepayment Invoice", "Document Exchange Status")
         {
         }
     }
 }
-

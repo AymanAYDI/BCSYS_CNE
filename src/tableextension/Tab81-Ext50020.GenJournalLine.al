@@ -1,10 +1,7 @@
-tableextension 50020 "BC6_GenJournalLine" extends "Gen. Journal Line" //81 
+tableextension 50020 "BC6_GenJournalLine" extends "Gen. Journal Line" //81
 {
-
-
     fields
     {
-
         field(50000; BC6_PaymentMethodCode; Code[10])
         {
             Caption = 'Payment Method Code', comment = 'FRA="Code mode de règlement"';
@@ -27,7 +24,6 @@ tableextension 50020 "BC6_GenJournalLine" extends "Gen. Journal Line" //81
             Caption = 'DEEE HT Amount', comment = 'FRA="Montant HT DEEE"';
             Editable = false;
             DataClassification = CustomerContent;
-
         }
         field(80804; "BC6_DEEE VAT Amount"; Decimal)
         {
@@ -56,4 +52,3 @@ tableextension 50020 "BC6_GenJournalLine" extends "Gen. Journal Line" //81
         }
     }
 }
-

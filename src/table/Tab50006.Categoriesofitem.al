@@ -2,7 +2,7 @@ table 50006 "BC6_Categories of item"
 {
     Caption = 'Catégories d''article';
     DataClassification = CustomerContent;
-    //TODO: Page// LookupPageID = 50024;
+    LookupPageID = 50024;
 
     fields
     {

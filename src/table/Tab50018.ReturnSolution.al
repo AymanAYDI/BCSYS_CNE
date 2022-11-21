@@ -1,8 +1,7 @@
 table 50018 "BC6_Return Solution"
 {
-    // TODO
-    // DrillDownPageID = "BC6_Return Solutions";
-    // LookupPageID = "BC6_Return Solutions";
+    DrillDownPageID = "BC6_Return Solutions";
+    LookupPageID = "BC6_Return Solutions";
     DataClassification = CustomerContent;
 
     fields
@@ -37,4 +36,3 @@ table 50018 "BC6_Return Solution"
     {
     }
 }
-

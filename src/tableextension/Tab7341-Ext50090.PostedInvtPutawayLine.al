@@ -37,4 +37,3 @@ tableextension 50090 "BC6_PostedInvtPutawayLine" extends "Posted Invt. Put-away 
         }
     }
 }
-

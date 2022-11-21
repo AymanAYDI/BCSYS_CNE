@@ -2,7 +2,7 @@ table 50001 "BC6_Various Tables"
 {
     Caption = 'Various Tables';
     DataClassification = CustomerContent;
-    //   TODO: Page  // LookupPageID = 50003;
+    LookupPageID = 50003;
 
     fields
     {
@@ -134,4 +134,3 @@ table 50001 "BC6_Various Tables"
     {
     }
 }
-

@@ -40,7 +40,7 @@ table 50010 "BC6_Affair Steps"
             begin
                 RecLContact.RESET();
                 RecLContact.SETFILTER(RecLContact."No.", Contact);
-                IF RecLContact.FIND() THEN
+                IF RecLContact.FindFirst() THEN
                     "Contact Name" := RecLContact.Name;
             end;
         }
@@ -103,7 +103,7 @@ table 50010 "BC6_Affair Steps"
         RecGJob: Record Job;
     begin
         RecGJob.SETFILTER(RecGJob."No.", "Affair No.");
-        IF RecGJob.FIND() THEN
+        IF RecGJob.FindFirst() THEN
             "Affair Description" := RecGJob.Description;
     end;
 

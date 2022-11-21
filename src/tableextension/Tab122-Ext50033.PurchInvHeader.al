@@ -36,4 +36,3 @@ tableextension 50033 "BC6_PurchInvHeader" extends "Purch. Inv. Header" //122
     {
     }
 }
-

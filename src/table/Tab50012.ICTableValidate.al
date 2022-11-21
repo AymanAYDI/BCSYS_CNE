@@ -81,4 +81,3 @@ table 50012 "BC6_IC Table Validate"
     {
     }
 }
-

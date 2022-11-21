@@ -36,9 +36,4 @@ tableextension 50083 "BC6_PurchaseLineDiscount" extends "Purchase Line Discount"
         // {
         // }
     }
-
-    var
-        Item: Record Item;
-        "-NSC1.01-": Integer;
 }
-

@@ -9,4 +9,3 @@ tableextension 50058 "BC6_ICInboxPurchaseHeader" extends "IC Inbox Purchase Head
         }
     }
 }
-

@@ -8,7 +8,4 @@ tableextension 50043 "BC6_GenBusinessPostingGroup" extends "Gen. Business Postin
             DataClassification = CustomerContent;
         }
     }
-
-
 }
-

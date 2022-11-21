@@ -5,16 +5,13 @@ codeunit 50015 "BC6_UpdateSalesShipment"
     trigger OnRun()
     var
         SalesHeader: Record "Sales Header";
-        Counter: Integer;
         UpdateCounter: Boolean;
-        Nb: Integer;
+        Counter: Integer;
     begin
         SalesHeader.SETAUTOCALCFIELDS(Shipped);
         SalesHeader.LOCKTABLE();
         SalesHeader.SETRANGE("Document Type", SalesHeader."Document Type"::Order);
         SalesHeader.SETRANGE(Shipped, TRUE);
-
-        Nb := SalesHeader.COUNT;
         IF SalesHeader.FINDSET() THEN
             REPEAT
                 UpdateCounter := FALSE;
@@ -37,7 +34,6 @@ codeunit 50015 "BC6_UpdateSalesShipment"
         MESSAGE('%1 updated orders', Counter);
     end;
 
-
     procedure UpdateYourRefOnSalesShpt(SalesHeader: Record "Sales Header")
     var
         SalesShipmentHeader: Record "Sales Shipment Header";
@@ -47,7 +43,6 @@ codeunit 50015 "BC6_UpdateSalesShipment"
         IF NOT SalesShipmentHeader.ISEMPTY THEN
             SalesShipmentHeader.MODIFYALL("Your Reference", SalesHeader."Your Reference");
     end;
-
 
     procedure UpdateAffairNoOnSalesShpt(SalesHeader: Record "Sales Header")
     var
@@ -59,4 +54,3 @@ codeunit 50015 "BC6_UpdateSalesShipment"
             SalesShipmentHeader.MODIFYALL("BC6_Affair No.", SalesHeader."BC6_Affair No.");
     end;
 }
-

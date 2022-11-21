@@ -25,7 +25,7 @@ tableextension 50078 "BC6_ReturnReceiptHeader" extends "Return Receipt Header" /
             TableRelation = User;
             DataClassification = CustomerContent;
         }
-        field(50020; "BC6_Customer Sales Profit Group"; Code[10])
+        field(50020; "BC6_Cust. Sales Profit Group"; Code[10])
         {
             Caption = 'Goupe Marge Vente Client', Comment = 'FRA="Goupe Marge Vente Client"';
             TableRelation = "Customer Sales Profit Group";
@@ -40,6 +40,7 @@ tableextension 50078 "BC6_ReturnReceiptHeader" extends "Return Receipt Header" /
         {
             Editable = false;
             DataClassification = CustomerContent;
+            Caption = 'Purchase Cost';
         }
         field(50030; "BC6_Sales LCY"; Decimal)
         {
@@ -83,6 +84,4 @@ tableextension 50078 "BC6_ReturnReceiptHeader" extends "Return Receipt Header" /
             DataClassification = CustomerContent;
         }
     }
-
 }
-

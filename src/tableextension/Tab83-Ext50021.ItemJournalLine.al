@@ -49,7 +49,7 @@ tableextension 50021 "BC6_ItemJournalLine" extends "Item Journal Line" //83
             Editable = false;
             DataClassification = CustomerContent;
         }
-        field(50060; "BC6_Qty. Refreshed (Phys. Inv.)"; Boolean)
+        field(50060; "BC6_Qty.(Phys. Inv.)"; Boolean)
         {
             Caption = 'Qty. (Phys. Inventory)', Comment = 'FRA="Qté (constatée) actualisée"';
             Editable = false;
@@ -127,19 +127,18 @@ tableextension 50021 "BC6_ItemJournalLine" extends "Item Journal Line" //83
     }
     fieldgroups
     {
-        // TODO: L'ajout d'un nouveau fieldgroup à une tableextension n'est pas possible. 
-        // addlast(Brick;"Line No.","Journal Template Name","Item No.","Document No.","Bin Code","New Bin Code") 
+        // TODO: L'ajout d'un nouveau fieldgroup à une tableextension n'est pas possible.
+        // addlast(Brick;"Line No.","Journal Template Name","Item No.","Document No.","Bin Code","New Bin Code")
         // {
         // }
     }
 
     procedure CalculateDEEE(PCodNewReasonCode: Code[10])
     var
-        RecLCustomer: Record Customer;
-        RecLReasonCode: Record "Reason Code";
         RecLDEEETariffs: Record "BC6_DEEE Tariffs";
-        RecLSalesSetup: Record "Sales & Receivables Setup";
         RecLItem: Record Item;
+        RecLReasonCode: Record "Reason Code";
+        RecLSalesSetup: Record "Sales & Receivables Setup";
         CntTxt100: Label 'Incorrect setting for %1 filters.', Comment = 'FRA="Paramétrage incorrect pour les filtres %1."';
     begin
         IF ("Reason Code" = '') OR (RecLReasonCode.GET("Reason Code")) THEN BEGIN
@@ -161,9 +160,8 @@ tableextension 50021 "BC6_ItemJournalLine" extends "Item Journal Line" //83
         RecLDEEETariffs.SETRANGE("DEEE Code", "BC6_DEEE Category Code");
         RecLDEEETariffs.SETRANGE("Eco Partner", RecLItem."BC6_Eco partner DEEE");
         RecLDEEETariffs.SETFILTER("Date beginning", '<=%1', "Posting Date");
-        IF NOT RecLDEEETariffs.FIND('+') THEN BEGIN
+        IF NOT RecLDEEETariffs.FIND('+') THEN
             ERROR(CntTxt100, RecLDEEETariffs.GETFILTERS);
-        END;
 
         "BC6_DEEE Unit Price" := RecLDEEETariffs."HT Unit Tax (LCY)" * RecLItem."BC6_Number of Units DEEE";
         VALIDATE("BC6_DEEE HT Amount", "BC6_DEEE Unit Price" * "Quantity (Base)");

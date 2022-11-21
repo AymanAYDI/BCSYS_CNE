@@ -30,40 +30,34 @@ tableextension 50003 "BC6_Customer" extends Customer //18
         field(50004; "BC6_Transport Method"; Code[10])
         {
             Caption = 'Transport Method', Comment = 'FRA="Mode transport"';
-            Description = 'NAVIDIIGEST BRRI 01.08.2006 NSC1.00 [Incoterm] Ajout du champ - Mode de transport';
             TableRelation = "Transport Method";
             DataClassification = CustomerContent;
         }
         field(50005; "BC6_Exit Point"; Code[10])
         {
             Caption = 'Exit Point', Comment = 'FRA="Pays Destination"';
-            Description = 'NAVIDIIGEST BRRI 01.08.2006 NSC1.00 [Incoterm] Ajout du champ - Pays Destination';
             TableRelation = "Entry/Exit Point";
             DataClassification = CustomerContent;
         }
         field(50006; BC6_Area; Code[10])
         {
             Caption = 'Area', Comment = 'FRA="Departement Destination"';
-            Description = 'NAVIDIIGEST BRRI 01.08.2006 NSC1.00 [Incoterm] Ajout du champ - Dep destination';
             TableRelation = Area;
             DataClassification = CustomerContent;
         }
         field(50007; "BC6_SFAC Contract Date"; Date)
         {
             Caption = 'SFAC Contract Date', Comment = 'FRA="Date contrat SFAC"';
-            Description = 'NAVIDIIGEST BRRI 01.08.2006 NSC1.00 [SFAC] Ajout du champ';
             DataClassification = CustomerContent;
         }
         field(50008; "BC6_SFAC Contract No."; Code[20])
         {
             Caption = 'SFAC Contract No.', Comment = 'FRA="N° contrat SFAC"';
-            Description = 'NAVIDIIGEST BRRI 01.08.2006 NSC1.00 [SFAC] Ajout du champ';
             DataClassification = CustomerContent;
         }
         field(50009; "BC6_Pay-to Customer No."; Code[20])
         {
             Caption = 'Pay-to Customer No.', Comment = 'FRA="Tiers payeur"';
-            Description = 'NAVIDIIGEST BRRI 01.08.2006 NSC1.00 [Gestion_Tiers_Payeur] Ajout du champ';
             TableRelation = Customer;
             DataClassification = CustomerContent;
 
@@ -82,9 +76,9 @@ tableextension 50003 "BC6_Customer" extends Customer //18
             trigger OnValidate()
             var
                 RecLSalesHeader: Record "Sales Header";
-                RecLSalesShptHeader: Record "Sales Shipment Header";
                 RecLSalesInvHeader: Record "Sales Invoice Header";
                 RecLSalesCrMemoHeader: Record "Sales Shipment Header";
+                RecLSalesShptHeader: Record "Sales Shipment Header";
             begin
 
                 RecLSalesHeader.SETCURRENTKEY("Document Type", "Bill-to Customer No.");
@@ -107,19 +101,17 @@ tableextension 50003 "BC6_Customer" extends Customer //18
         field(50020; "BC6_Custom. Sales Profit Group"; Code[10])
         {
             Caption = 'Goupe Marge Vente Client', Comment = 'FRA="Goupe Marge Vente Client"';
-            Description = 'GRPMARGECLT SM 15/10/06 NCS1.01 [FE024V1] Ajout du champ';
             TableRelation = "Customer Sales Profit Group";
             DataClassification = CustomerContent;
         }
         field(50024; "BC6_Code SIREN"; Code[14])
         {
-            Description = 'ImportFichiersBase RD 15/11/06 NCS1.01 [FE021] Ajout du champ Code SIREN';
             DataClassification = CustomerContent;
+            Caption = 'Code SIREN';
         }
         field(50025; "BC6_Combine Shipments by Order"; Boolean)
         {
             Caption = 'Combine Shipments by Order', Comment = 'FRA="Regrouper BL par commande"';
-            Description = 'FE018 regroupement BL par CMD';
             DataClassification = CustomerContent;
 
             trigger OnValidate()
@@ -143,13 +135,11 @@ tableextension 50003 "BC6_Customer" extends Customer //18
         {
             Caption = 'Shipt Print All Order Line', Comment = 'FRA="Impression B.L. toute ligne commandée"';
             DataClassification = CustomerContent;
-
         }
         field(50029; "BC6_Copy Sell-to Address"; Boolean)
         {
             Caption = 'Copy Sell-to Address', Comment = 'FRA="Copie adresse donneur d''ordre"';
             DataClassification = CustomerContent;
-
         }
         field(80800; "BC6_Submitted to DEEE"; Boolean)
         {
@@ -164,10 +154,6 @@ tableextension 50003 "BC6_Customer" extends Customer //18
         }
     }
 
-    PROCEDURE "---NSC1.00---"()
-    BEGIN
-    END;
-
     procedure updateLedgerEntries(CodLCustNo: Code[20]; CodLPayToNo: Code[20])
     var
         RecLCustLedgEntry: Record "Cust. Ledger Entry";
@@ -179,7 +165,7 @@ tableextension 50003 "BC6_Customer" extends Customer //18
         RecLCustLedgEntry.SETRANGE(Open, TRUE);
         IF RecLCustLedgEntry.FINDSET(TRUE, FALSE) THEN
             REPEAT
-                //TODO  // RecLCustLedgEntry."BC6_Pay-to Customer No." := CodLPayToNo;
+                RecLCustLedgEntry."BC6_Pay-to Customer No." := CodLPayToNo;
                 RecLCustLedgEntry.MODIFY();
 
                 RecLDetCustLedgEntry.RESET();
@@ -192,10 +178,7 @@ tableextension 50003 "BC6_Customer" extends Customer //18
             UNTIL RecLCustLedgEntry.NEXT() = 0;
     end;
 
-
     var
 
         TextGestTiersPayeur001: Label 'Do you want to update Open Ledger entries with new Pay-to customer No. %1?', Comment = 'FRA="Voulez-vous mettre à jour les Ecritures ouvertes avec le Nouveau N° Tiers payeur %1?"';
-
 }
-

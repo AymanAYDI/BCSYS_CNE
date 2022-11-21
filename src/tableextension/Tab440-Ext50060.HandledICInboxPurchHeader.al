@@ -8,4 +8,3 @@ tableextension 50060 "BC6_HandledICInboxPurchHeader" extends "Handled IC Inbox P
         }
     }
 }
-

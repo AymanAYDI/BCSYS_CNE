@@ -44,6 +44,4 @@ tableextension 50077 "BC6_ReturnShipmentLine" extends "Return Shipment Line" //6
         {
         }
     }
-
 }
-

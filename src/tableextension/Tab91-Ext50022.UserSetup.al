@@ -12,12 +12,12 @@ tableextension 50022 "BC6_UserSetup" extends "User Setup" //91
             Caption = 'Portable Terminal Menu', Comment = 'FRA="Menu terminal portable"';
             DataClassification = CustomerContent;
         }
-        field(50002; "BC6_Autorize Qty. to Handle Change"; Boolean)
+        field(50002; "BC6_Auth.Qty.to Handle Change"; Boolean)
         {
             Caption = 'Autorize Qty. to Handle Change', Comment = 'FRA="Autoriser. modif qté à traiter"';
             DataClassification = CustomerContent;
         }
-        field(50003; "BC6_Aut. Qty. to Han. Test PickQty"; Boolean)
+        field(50003; "BC6_Aut.Qty.toHan.TestPickQty"; Boolean)
         {
             Caption = 'Aut. Qty. to Hand. withPickQty', Comment = 'FRA="Autoriser. modif qté à traiter vérif. qté prélevée"';
             DataClassification = CustomerContent;

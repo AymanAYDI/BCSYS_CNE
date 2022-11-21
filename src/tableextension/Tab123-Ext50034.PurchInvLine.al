@@ -63,28 +63,24 @@ tableextension 50034 "BC6_PurchInvLine" extends "Purch. Inv. Line" //123
         field(80804; "BC6_DEEE VAT Amount"; Decimal)
         {
             Caption = 'DEEE VAT Amount', comment = 'FRA="Montant TVA DEEE"';
-
             Editable = false;
             DataClassification = CustomerContent;
         }
         field(80805; "BC6_DEEE TTC Amount"; Decimal)
         {
             Caption = 'DEEE TTC Amount', comment = 'FRA="Montant TTC DEEE"';
-
             Editable = false;
             DataClassification = CustomerContent;
         }
         field(80806; "BC6_DEEE HT Amount (LCY)"; Decimal)
         {
             Caption = 'DEEE HT Amount (LCY)', comment = 'FRA="Montant TTC DEEE"';
-
             Editable = false;
             DataClassification = CustomerContent;
         }
         field(80807; "BC6_Eco partner DEEE"; Code[20])
         {
             Caption = 'Eco partner DEEE', comment = 'FRA="Eco partenaire DEEE"';
-
             Editable = false;
             TableRelation = Vendor;
             DataClassification = CustomerContent;
@@ -102,7 +98,4 @@ tableextension 50034 "BC6_PurchInvLine" extends "Purch. Inv. Line" //123
         {
         }
     }
-
-
 }
-

@@ -4,14 +4,14 @@ enum 50010 "BC6_QtyType"
 
     value(0; General)
     {
-        Caption = 'General', comment = 'FRA=""';
+        Caption = 'General', comment = 'FRA="Général"';
     }
     value(1; Invoicing)
     {
-        Caption = 'Invoicing', comment = 'FRA=""';
+        Caption = 'Invoicing', comment = 'FRA="Facturation"';
     }
     value(2; Shipping)
     {
-        Caption = 'Shipping', comment = 'FRA=""';
+        Caption = 'Shipping', comment = 'FRA="Expédition"';
     }
 }

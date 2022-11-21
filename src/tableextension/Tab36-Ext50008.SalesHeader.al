@@ -45,19 +45,8 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
             Caption = 'User ID', Comment = 'FRA="Code utilisateur"';
             Editable = false;
             DataClassification = CustomerContent;
-            //TODO :COD418
-            // trigger OnLookup()
-            // var
-            //     RecLUserMgt: Codeunit 418;
-            //     CodLUserID: Code[50];
-            // begin
-            //     //>>MIGRATION NAV 2013
-            //     CodLUserID := ID;
-            //     RecLUserMgt.LookupUserID(CodLUserID);
-            //     //<<MIGRATION NAV 2013
-            // end;
         }
-        field(50020; "BC6_Customer Sales Profit Group"; Code[10])
+        field(50020; "BC6_Cust. Sales Profit Group"; Code[10])
         {
             Caption = 'Customer Sales Profit Group', Comment = 'FRA="Goupe Marge Vente Client"';
             Enabled = false;
@@ -168,16 +157,17 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
             DataClassification = CustomerContent;
             trigger OnValidate()
             begin
-                UpdateSalesLineReturnType
+                UpdateSalesLineReturnType()
             end;
         }
         field(50403; "BC6_Bin Code"; Code[20])
         {
             DataClassification = CustomerContent;
+            Caption = 'Bin Code';
 
             trigger OnLookup()
             var
-                FonctionMgt: codeunit BC6_FctMangt;
+                FonctionMgt: codeunit "BC6_Functions Mgt";
                 BinCode: Code[20];
 
             begin
@@ -198,7 +188,6 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
                 IF NOT ("Document Type" = "Document Type"::Order) THEN
                     EXIT;
 
-
                 IF "BC6_Bin Code" <> '' THEN BEGIN
                     TESTFIELD("Location Code");
                     Location.GET("Location Code");
@@ -210,7 +199,6 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
                 IF xRec."BC6_Bin Code" <> "BC6_Bin Code" THEN BEGIN
                     UpdateSalesLines(FIELDCAPTION("BC6_Bin Code"), CurrFieldNo <> 0);
                 END;
-
             end;
         }
     }
@@ -258,7 +246,7 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
         // }
     }
 
-    //ces 2 procedures sont dupliqué du std car ils sont locales 
+    //ces 2 procedures sont dupliqué du std car ils sont locales
     procedure CheckCrLimitCondition(): Boolean
     var
         RunCheck: Boolean;
@@ -278,7 +266,7 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
         SalesHeader := Rec;
         BilltoCustomerNoChanged := xRec."Bill-to Customer No." <> "Bill-to Customer No.";
         if GuiAllowed and
-           (CurrFieldNo <> 0) and CheckCrLimitCondition and SalesHeader.Find
+           (CurrFieldNo <> 0) and CheckCrLimitCondition() and SalesHeader.Find()
         then begin
             "Amount Including VAT" := 0;
             if "Document Type" = "Document Type"::Order then
@@ -336,7 +324,7 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
         TextL001: Label '%1 Purchase Quote already existfor vendor %3, the newest from %2 do you to create a new one ?';
         TextL002: Label '%1 quote created';
     begin
-        RecLSalesLine.RESET;
+        RecLSalesLine.RESET();
         RecLSalesLine.SETCURRENTKEY("Document Type", RecLSalesLine."BC6_Buy-from Vendor No.");
         RecLSalesLine.SETRANGE(RecLSalesLine."Document Type", RecLSalesHeader."Document Type");
         RecLSalesLine.SETRANGE(RecLSalesLine."Document No.", RecLSalesHeader."No.");
@@ -356,7 +344,7 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
                         CodLLastVendor := RecLSalesLine."BC6_Buy-from Vendor No.";
 
                         BooLCreate := TRUE;
-                        RecLPurchquoteHeader2.RESET;
+                        RecLPurchquoteHeader2.RESET();
                         RecLPurchquoteHeader2.SETRANGE("Document Type", "Document Type"::Quote);
                         RecLPurchquoteHeader2.SETFILTER("Buy-from Vendor No.", RecLSalesLine."BC6_Buy-from Vendor No.");
                         IF RecLPurchquoteHeader2.FIND('+') THEN
@@ -367,9 +355,9 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
                         IF BooLCreate THEN BEGIN
                             IntLnumberofQuote += 1;
                             RecLPurchquoteHeader.SetHideValidationDialog(TRUE);
-                            RecLPurchquoteHeader.INIT;
+                            RecLPurchquoteHeader.INIT();
                             RecLPurchquoteHeader."No." := '';
-                            RecLPurchquoteHeader.VALIDATE("Document Date", WORKDATE);
+                            RecLPurchquoteHeader.VALIDATE("Document Date", WORKDATE());
                             RecLPurchquoteHeader.VALIDATE("Buy-from Vendor No.", RecLItem."Vendor No.");
                             RecLPurchquoteHeader.VALIDATE("Your Reference", RecLSalesHeader."No.");
                             RecLPurchquoteHeader.VALIDATE("Sell-to Customer No.", RecLSalesHeader."Sell-to Customer No.");
@@ -382,7 +370,7 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
                             RecLSalesLine2.SETFILTER("BC6_Buy-from Vendor No.", RecLPurchquoteHeader."Buy-from Vendor No.");
                             IF RecLSalesLine2.FIND('-') THEN BEGIN
                                 REPEAT
-                                    RecLPurchLine.INIT;
+                                    RecLPurchLine.INIT();
                                     RecLPurchLine.VALIDATE("Document Type", RecLPurchLine."Document Type"::Quote);
                                     RecLPurchLine.VALIDATE("Document No.", RecLPurchquoteHeader."No.");
                                     RecLPurchLine.VALIDATE("Line No.", NextLineNo);
@@ -400,19 +388,16 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
                                     RecLSalesLine2.VALIDATE("BC6_Purchase cost", RecLPurchLine."BC6_Discount Direct Unit Cost");
                                     RecLSalesLine2.VALIDATE("BC6_Purchase Receipt Date", RecLPurchLine."Expected Receipt Date");
                                     RecLSalesLine2.MODIFY(TRUE);
-
-                                UNTIL RecLSalesLine2.NEXT = 0;
+                                UNTIL RecLSalesLine2.NEXT() = 0;
                             END;
                         END;
                     END;
-
-            UNTIL RecLSalesLine.NEXT = 0;
+            UNTIL RecLSalesLine.NEXT() = 0;
             IF BooLCreate THEN BEGIN
                 MESSAGE(TextL002, IntLnumberofQuote);
                 PAGE.RUN(Page::"Purchase Quote", RecLPurchquoteHeader);
             END;
         END;
-
     end;
 
     PROCEDURE GetPstdDocLinesToRevere();
@@ -424,12 +409,11 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
         SalesPostedDocLines.SetToSalesHeader(Rec);
         SalesPostedDocLines.SETRECORD(Cust);
         SalesPostedDocLines.LOOKUPMODE := TRUE;
-        IF SalesPostedDocLines.RUNMODAL = ACTION::LookupOK THEN
-            SalesPostedDocLines.CopyLineToDoc;
+        IF SalesPostedDocLines.RUNMODAL() = ACTION::LookupOK THEN
+            SalesPostedDocLines.CopyLineToDoc();
 
         CLEAR(SalesPostedDocLines);
     END;
-
 
     procedure verifyquotestatus(): Boolean
     var
@@ -437,17 +421,17 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
         SalesSetup: Record "Sales & Receivables Setup";
         RecLQuotehdr: Record "Sales Header";
     begin
-        RecLAccessControl.RESET;
-        RecLAccessControl.SETRANGE("User Security ID", USERSECURITYID);
-        RecLAccessControl.SETRANGE("User Security ID", USERSECURITYID);
+        RecLAccessControl.RESET();
+        RecLAccessControl.SETRANGE("User Security ID", USERSECURITYID());
+        RecLAccessControl.SETRANGE("User Security ID", USERSECURITYID());
         RecLAccessControl.SETRANGE("Role ID", 'SUPER');
-        IF NOT RecLAccessControl.FINDFIRST AND ("Document Type" = "Document Type"::Quote) THEN begin
-            SalesSetup.GET;
+        IF NOT RecLAccessControl.FINDFIRST() AND ("Document Type" = "Document Type"::Quote) THEN begin
+            SalesSetup.GET();
             SalesSetup.TESTFIELD(BC6_Nbr_Devis);
             SalesSetup.TESTFIELD(Période);
             RecLQuotehdr.SETRANGE("Document Type", RecLQuotehdr."Document Type"::Quote);
             RecLQuotehdr.SETFILTER("Sell-to Customer No.", "Sell-to Customer No.");
-            RecLQuotehdr.SETRANGE("Document Date", CALCDATE('-' + FORMAT(SalesSetup.Période), WORKDATE), WORKDATE);
+            RecLQuotehdr.SETRANGE("Document Date", CALCDATE('-' + FORMAT(SalesSetup.Période), WORKDATE()), WORKDATE());
             IF (RecLQuotehdr.COUNT <= SalesSetup.BC6_Nbr_Devis) OR ("BC6_Quote statut" = "BC6_Quote statut"::approved) THEN
                 EXIT(TRUE)
             ELSE BEGIN
@@ -458,7 +442,6 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
         END;
 
         EXIT(TRUE);
-
     end;
 
     PROCEDURE UpdateSellToFax(CodContactNo: Code[20]);
@@ -557,10 +540,10 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
             EXIT;
 
         IF xRec."BC6_Return Order Type" <> Rec."BC6_Return Order Type" THEN
-            L_SalesLine.RESET;
+            L_SalesLine.RESET();
         L_SalesLine.SETRANGE("Document Type", "Document Type");
         L_SalesLine.SETRANGE("Document No.", "No.");
-        IF L_SalesLine.FINDFIRST THEN
+        IF L_SalesLine.FINDFIRST() THEN
             L_SalesLine.MODIFYALL("BC6_Return Order Type", "BC6_Return Order Type");
     end;
 
@@ -569,16 +552,14 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
         IsDeleteFromReturnOrder := NewIsDeleteFromReturnOrder;
     end;
 
-
-
     var
         RecGParamNavi: Record "BC6_Navi+ Setup";
         Bin: Record Bin;
         RecGCommentLine: Record "Comment Line";
         RecGCustomer: Record Customer;
         GenJnlLine: Record "Gen. Journal Line";
-        ShipToAddr: Record "Ship-to Address";
         ShipmentMethodRec: Record "Shipment Method";
+        ShipToAddr: Record "Ship-to Address";
         ApprovalsMgmt: Codeunit "Approvals Mgmt.";
         UpdateSalesShipment: Codeunit BC6_UpdateSalesShipment;
         CustEntrySetApplID: Codeunit "Cust. Entry-SetAppl.ID";
@@ -597,16 +578,12 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
         //  G_ReturnOrderMgt: Codeunit 50052;
         "-BCSYS-": Integer;
         "-NSC1.00-": Integer;
-        "---NSC1.01": label '';
         BillToCustomerTxt: Label 'Bill-to Customer', Comment = 'FRA="Client facturé"';
         ConfirmChangeQst: Label 'Do you want to change %1?', Comment = 'FRA="Souhaitez-vous modifier la valeur du champ %1 ?"';
         DeferralLineQst: Label 'Do you want to update the deferral schedules for the lines?', Comment = 'FRA="Souhaitez-vous mettre à jour les tableaux d''échelonnement pour les lignes ?"';
         DocumentNotPostedClosePageQst: Label 'The document has not been posted.\Are you sure you want to exit?', Comment = 'FRA="Le document n''a pas été validé.\Voulez-vous vraiment quitter ?"';
-        PostedDocsToPrintCreatedMsg: Label 'One or more related posted documents have been generated during deletion to fill gaps in the posting number series. You can view or print the documents from the respective document archive.', Comment = 'FRA=""';
         SelectCustomerTemplateQst: Label 'Do you want to select the customer template?', Comment = 'FRA="Un ou plusieurs documents validés connexes ont été générés lors de la suppression pour éviter une discontinuité dans la souche de numéros de validation. Vous pouvez afficher ou imprimer les documents à partir de l''archive de document correspondant."';
         SellToCustomerTxt: Label 'Sell-to Customer', Comment = 'FRA="Donneur d''ordre"';
         ShippingAdviceErr: Label 'This order must be a complete shipment.', Comment = 'FRA="Cette commande doit faire l''objet d''une expédition totale."';
         TextG003: Label 'Warning: you have already placed this order purchase.', Comment = 'FRA="Attention : vous avez déjà passé cette commande en achat. "';
-
 }
-

@@ -42,13 +42,6 @@ tableextension 50091 "BC6_PostedInvtPickHeader" extends "Posted Invt. Pick Heade
                 IF BinCode <> '' THEN
                     VALIDATE("BC6_Bin Code", BinCode);
             end;
-
-            trigger OnValidate()
-            var
-                WMSManagement: Codeunit "WMS Management";
-            begin
-            end;
         }
     }
 }
-

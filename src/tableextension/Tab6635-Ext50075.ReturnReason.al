@@ -8,4 +8,3 @@ tableextension 50075 "BC6_ReturnReason" extends "Return Reason" //6635
         }
     }
 }
-

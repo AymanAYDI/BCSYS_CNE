@@ -19,6 +19,7 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
         {
             Editable = false;
             DataClassification = CustomerContent;
+            Caption = 'ID';
             //TODO
             // trigger OnLookup()
             // var
@@ -43,6 +44,7 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
         field(50022; "BC6_Buy-from E-Mail Address"; Text[50])
         {
             DataClassification = CustomerContent;
+            Caption = 'Buy-from E-Mail Address';
         }
         field(50080; "BC6_Sales No. Order Lien"; Code[20])
         {
@@ -65,7 +67,7 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
 
             trigger OnValidate()
             begin
-                UpdateSalesLineReturnType
+                UpdateSalesLineReturnType()
             end;
         }
         field(50101; "BC6_Reminder Date"; Date)
@@ -79,7 +81,6 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
             CalcFormula = Lookup("BC6_Return Order Relation"."Sales Return Order" WHERE("Purchase Order No." = FIELD("No.")));
             Caption = 'Related Sales Return Order', comment = 'FRA="N° retour vente associé"';
             Editable = false;
-
         }
     }
     keys
@@ -119,7 +120,7 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
         TextControleMinima01: Label 'Total Purchase Amount %1, lower than minimum Purchase Amount %2. Do You want add freight charge?';
         Msg: Text[150];
     begin
-        PurchSetup.GET;
+        PurchSetup.GET();
         IF NOT PurchSetup."BC6_Minima de cde" THEN
             EXIT(FALSE)
         ELSE BEGIN
@@ -127,7 +128,7 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
             PurchSetup.TESTFIELD(PurchSetup."BC6_No.");
         END;
 
-        Frs.RESET;
+        Frs.RESET();
         Frs.GET("Buy-from Vendor No.");
 
         CalcMntHTandMntTTCandQTE(MntTot, QteTot);
@@ -135,15 +136,15 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
         Msg := '\';
 
         IF MntTot < Frs."BC6_Mini Amount" THEN BEGIN
-            IF NOT Existfreightcharge THEN BEGIN
-                IF NOT ExistFreightChargeSSAmount THEN BEGIN
+            IF NOT Existfreightcharge() THEN BEGIN
+                IF NOT ExistFreightChargeSSAmount() THEN BEGIN
                     Msg := Msg + TextControleMinima01;
                     IF HideValidationDialog THEN
                         Confirmed := TRUE
                     ELSE
                         Confirmed := CONFIRM(Msg, TRUE, MntTot, Frs."BC6_Mini Amount", QteTot);
                     IF Confirmed THEN BEGIN
-                        RecLPurchaseLine.RESET;
+                        RecLPurchaseLine.RESET();
                         RecLPurchaseLine.SETRANGE(RecLPurchaseLine."Document Type", "Document Type");
                         RecLPurchaseLine.SETRANGE(RecLPurchaseLine."Document No.", "No.");
                         IF RecLPurchaseLine.FIND('+') THEN
@@ -151,7 +152,7 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
                         ELSE
                             NumLigne := 10000;
 
-                        RecLPurchaseLine.INIT;
+                        RecLPurchaseLine.INIT();
                         RecLPurchaseLine.VALIDATE("Document Type", "Document Type");
                         RecLPurchaseLine.VALIDATE("Document No.", "No.");
                         RecLPurchaseLine.VALIDATE("Line No.", NumLigne);
@@ -167,7 +168,6 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
                             IF NOT HideValidationDialog THEN
                                 MESSAGE('Merci d''indiquer un coût unitaire direct pour la ligne %1, N° %2.', PurchSetup.BC6_Type, PurchSetup."BC6_No.");
                     END;
-
                 END
                 ELSE BEGIN
                     IF NOT HideValidationDialog THEN
@@ -211,8 +211,6 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
         //   TotalPurchLine."BC6_DEEE HT Amount", TotalPurchLine."BC6_DEEE VAT Amount", TotalPurchLine."BC6_DEEE TTC Amount",
         //   TotalPurchLine."BC6_DEEE HT Amount (LCY)");
 
-
-
         IF "Prices Including VAT" THEN BEGIN
             TotalAmount2 := TotalPurchLine.Amount;
             TotalAmount1 := TotalAmount2 + VATAmount;
@@ -232,13 +230,13 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
         RecLSalesLine: Record "Purchase Line";
         PurchSetup: Record "Purchases & Payables Setup";
     begin
-        IF PurchLinesExist THEN BEGIN
+        IF PurchLinesExist() THEN BEGIN
             REPEAT
                 IF (PurchLine.Type = PurchSetup.BC6_Type)
                   AND (PurchLine."No." = PurchSetup."BC6_No.")
                   AND (PurchLine."Line Amount" <> 0) THEN
                     EXIT(TRUE);
-            UNTIL PurchLine.NEXT = 0;
+            UNTIL PurchLine.NEXT() = 0;
         END ELSE
             EXIT(FALSE);
     end;
@@ -268,11 +266,11 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
         PurchLine: record "Purchase Line";
         PurchSetup: Record "Purchases & Payables Setup";
     begin
-        IF PurchLinesExist THEN BEGIN
+        IF PurchLinesExist() THEN BEGIN
             REPEAT
                 IF (PurchLine.Type = PurchSetup.BC6_Type) AND (PurchLine."No." = PurchSetup."BC6_No.") THEN
                     EXIT(TRUE);
-            UNTIL PurchLine.NEXT = 0;
+            UNTIL PurchLine.NEXT() = 0;
         END ELSE
             EXIT(FALSE);
     end;
@@ -284,7 +282,7 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
     begin
         IF _Qty = 0 THEN
             ERROR(Text50000);
-        L_PurchCommentLine.INIT;
+        L_PurchCommentLine.INIT();
         L_PurchCommentLine."Document Type" := "Document Type";
         L_PurchCommentLine."No." := "No.";
         L_PurchCommentLine.Comment := FORMAT(_Qty) + ' ' + FORMAT(_ReceiptType);
@@ -292,7 +290,7 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
 
         L_PurchCommentLine2.SETRANGE("Document Type", L_PurchCommentLine."Document Type");
         L_PurchCommentLine2.SETRANGE("No.", L_PurchCommentLine."No.");
-        IF L_PurchCommentLine2.FINDLAST THEN
+        IF L_PurchCommentLine2.FINDLAST() THEN
             L_PurchCommentLine."Line No." := L_PurchCommentLine2."Line No." + 10000
         ELSE
             L_PurchCommentLine."Line No." := 10000;
@@ -312,13 +310,12 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
             EXIT;
 
         IF xRec."BC6_Return Order Type" <> Rec."BC6_Return Order Type" THEN
-            L_PurchaseLine.RESET;
+            L_PurchaseLine.RESET();
         L_PurchaseLine.SETRANGE("Document Type", "Document Type");
         L_PurchaseLine.SETRANGE("Document No.", "No.");
-        IF L_PurchaseLine.FINDFIRST THEN
+        IF L_PurchaseLine.FINDFIRST() THEN
             L_PurchaseLine.MODIFYALL("BC6_Return Order Type", "BC6_Return Order Type");
     end;
-
 
     var
         RecGParamNavi: Record "BC6_Navi+ Setup";
@@ -330,13 +327,12 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
         Confirmed: Boolean;
         "-BCSYS-": Integer;
         "-NSC1.00-": Integer;
-        "---NSC1.01": Label '';
         ConfirmChangeQst: Label 'Do you want to change %1?';
+        "---NSC1.01": Label '';
         Text50000: Label 'Quantity cannot be 0.';
 
         TextG001: Label 'Warning, using foreign currency will generate wrong profit calculation.';
         TextG002: Label 'Thank to inform freight charge amount for line %1, No. %2';
         TextG003: Label 'Warning:This purchase order is linked to a sales order.';
         YouCannotChangeFieldErr: Label 'You cannot change %1 because the order is associated with one or more sales orders.', Comment = '%1 - fieldcaption';
-
 }

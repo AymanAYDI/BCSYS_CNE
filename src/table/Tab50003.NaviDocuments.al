@@ -1,10 +1,9 @@
 table 50003 "BC6_Navi+ Documents"
 {
     Caption = 'Document';
-    //   TODO: Page 
     DataCaptionFields = Description;
     DataClassification = CustomerContent;
-    // DrillDownPageID = 50063;
+    //TODO // DrillDownPageID = 50063;
     // LookupPageID = 50063;
 
     fields
@@ -15,7 +14,6 @@ table 50003 "BC6_Navi+ Documents"
             Caption = 'Table No.', comment = 'FRA="Table N°"';
             TableRelation = "Table Information"."Table No.";
             DataClassification = CustomerContent;
-
         }
         field(2; "Reference No. 1"; Code[20])
         {
@@ -164,6 +162,5 @@ table 50003 "BC6_Navi+ Documents"
         CodGFiltreRef1: Code[20];
         CodGFiltreRef2: Code[20];
         TxtGFiltreRef3: Code[20];
-        CodGFiltreTable: Text[30];
+        CodGFiltreTable: Text;
 }
-

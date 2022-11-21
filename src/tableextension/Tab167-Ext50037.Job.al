@@ -6,7 +6,6 @@ tableextension 50037 "BC6_Job" extends Job //167
         {
             Caption = 'Affair Responsible', comment = 'FRA="Chargé d''affaire"';
             DataClassification = CustomerContent;
-
         }
         field(50001; BC6_Statut; Enum BC6_Statut)
         {
@@ -17,18 +16,15 @@ tableextension 50037 "BC6_Job" extends Job //167
         {
             Caption = 'Address', comment = 'FRA="Adresse"';
             DataClassification = CustomerContent;
-
         }
         field(50003; "BC6_Address 2"; Text[30])
         {
             Caption = 'Address', comment = 'FRA="Adresse 2"';
             DataClassification = CustomerContent;
-
         }
         field(50004; "BC6_Post Code"; Code[20])
         {
             Caption = 'Post Code', comment = 'FRA="Code postale"';
-
             TableRelation = "Post Code".Code;
             DataClassification = CustomerContent;
 
@@ -46,12 +42,10 @@ tableextension 50037 "BC6_Job" extends Job //167
         {
             Caption = 'City', comment = 'FRA="Ville"';
             DataClassification = CustomerContent;
-
         }
-        field(50006; BC6_Country; Code[20])
+        field(50006; BC6_Country; Code[10])
         {
             Caption = 'Country', comment = 'FRA="Pays"';
-
             TableRelation = "Country/Region".Code;
             DataClassification = CustomerContent;
         }
@@ -61,7 +55,6 @@ tableextension 50037 "BC6_Job" extends Job //167
                                                                            Awarder = CONST(true)));
             Caption = 'Awarder', comment = 'FRA="Adjudicataire"';
             FieldClass = FlowField;
-
         }
         field(50011; "BC6_Awarder Contact Name"; Text[100])
         {
@@ -69,7 +62,6 @@ tableextension 50037 "BC6_Job" extends Job //167
             CalcFormula = Lookup("BC6_Contact Project Relation"."Contact Name" WHERE("Affair No." = FIELD("No."),
                                                                                   Awarder = CONST(true)));
             Caption = 'Awarder Contact Name', comment = 'FRA="Nom contact adjudicataire"';
-
         }
     }
     keys
@@ -85,4 +77,3 @@ tableextension 50037 "BC6_Job" extends Job //167
     var
         DifferentCurrenciesErr: Label 'You cannot plan and invoice a job in different currencies.', comment = 'FRA="Vous ne pouvez pas planifier et facturer un projet dans des devises différentes."';
 }
-

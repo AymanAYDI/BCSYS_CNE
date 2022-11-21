@@ -35,17 +35,8 @@ tableextension 50069 "BC6_ResponsibilityCenter" extends "Responsibility Center" 
             ELSE
             IF ("BC6_Alt Country Code" = FILTER(<> '')) "Post Code".City WHERE("Country/Region Code" = FIELD("BC6_Alt Country Code"));
             DataClassification = CustomerContent;
-
-            trigger OnLookup()
-            begin
-                //>>MIGRATION NAV 2013
-                //OLD PostCode.LookUpCity("Alt City","Alt Post Code",TRUE);
-                //<<MIGRATION NAV 2013
-            end;
-
             trigger OnValidate()
             var
-                "- MIGNAV2013 -": Integer;
                 TxtLCounty: Text[30];
             begin
                 //>>MIGRATION NAV 2013
@@ -94,7 +85,6 @@ tableextension 50069 "BC6_ResponsibilityCenter" extends "Responsibility Center" 
 
             trigger OnValidate()
             var
-                "- MIGNAV2013 -": Integer;
                 TxtLCounty: Text[30];
             begin
                 //>>MIGRATION NAV 2013
@@ -130,4 +120,3 @@ tableextension 50069 "BC6_ResponsibilityCenter" extends "Responsibility Center" 
     var
         PostCode: Record "Post Code";
 }
-

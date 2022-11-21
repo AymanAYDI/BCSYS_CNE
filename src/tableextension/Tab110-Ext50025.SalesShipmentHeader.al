@@ -2,7 +2,6 @@ tableextension 50025 "BC6_SalesShipmentHeader" extends "Sales Shipment Header" /
 {
     fields
     {
-
         field(50000; "BC6_Cause filing"; Enum "BC6_Cause Filing")
         {
             Caption = 'Cause filing', comment = 'FRA="Cause archivage"';
@@ -94,7 +93,6 @@ tableextension 50025 "BC6_SalesShipmentHeader" extends "Sales Shipment Header" /
         {
             Caption = 'Sell-to E-Mail Address', comment = 'FRA="N° télécopie donneur d''ordre"';
             DataClassification = CustomerContent;
-
         }
         field(50100; "BC6_Salesperson Filter"; Text[250])
         {
@@ -113,10 +111,8 @@ tableextension 50025 "BC6_SalesShipmentHeader" extends "Sales Shipment Header" /
     }
     keys
     {
-
         key(Key8; "External Document No.", "No.")
         {
         }
     }
 }
-

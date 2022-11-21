@@ -2,7 +2,6 @@ tableextension 50028 "BC6_SalesInvoiceLine" extends "Sales Invoice Line" //113
 {
     fields
     {
-
         field(50020; "BC6_Custom. Sales Profit Group"; Code[20])
         {
             Caption = 'Custom. Sales Profit Group', comment = 'FRA="Goupe Marge Vente Client"';
@@ -127,7 +126,6 @@ tableextension 50028 "BC6_SalesInvoiceLine" extends "Sales Invoice Line" //113
         field(80800; "BC6_DEEE Category Code"; Code[10])
         {
             Caption = 'DEEE Category Code', comment = 'FRA="Code Catégorie DEEE"';
-
             TableRelation = "BC6_Categories of item".Category;
             DataClassification = CustomerContent;
         }
@@ -187,7 +185,4 @@ tableextension 50028 "BC6_SalesInvoiceLine" extends "Sales Invoice Line" //113
         {
         }
     }
-
-
 }
-

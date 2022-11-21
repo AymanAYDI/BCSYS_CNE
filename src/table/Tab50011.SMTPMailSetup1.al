@@ -62,4 +62,3 @@ table 50011 "BC6_SMTP Mail Setup1"
     {
     }
 }
-

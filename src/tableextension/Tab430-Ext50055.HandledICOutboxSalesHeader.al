@@ -2,8 +2,6 @@ tableextension 50055 "BC6_HandledICOutboxSalesHeader" extends "Handled IC Outbox
 {
     fields
     {
-
-
         field(50006; "BC6_Ship-to Contact"; Text[50])
         {
             Caption = 'Ship-to Contact', comment = 'FRA="Contact destinataire"';
@@ -11,4 +9,3 @@ tableextension 50055 "BC6_HandledICOutboxSalesHeader" extends "Handled IC Outbox
         }
     }
 }
-

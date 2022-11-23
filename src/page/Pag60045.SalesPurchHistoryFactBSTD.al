@@ -1,6 +1,6 @@
 page 60045 "Sales/Purch. History FactB STD"
 {
-    Caption = 'Item Sales/Purchase History';
+    Caption = 'Item Sales/Purchase History', Comment = 'FRA=""';
     PageType = CardPart;
     SourceTable = Item;
 
@@ -10,10 +10,11 @@ page 60045 "Sales/Purch. History FactB STD"
         {
             group(Sales)
             {
-                Caption = 'Sales';
+                Caption = 'Sales', Comment = 'FRA="Ventes"';
                 field(Quotes; STRSUBSTNO('(%1)', NoOfQuotes))
                 {
-                    Caption = '&Quotes';
+                    Caption = '&Quotes', Comment = 'FRA="&Devis"';
+                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -27,7 +28,8 @@ page 60045 "Sales/Purch. History FactB STD"
                 }
                 field("Blanket Orders"; STRSUBSTNO('(%1)', NoOfBlanketOrders))
                 {
-                    Caption = '&Blanket Orders';
+                    Caption = '&Blanket Orders', Comment = 'FRA="&Commandes ouvertes"';
+                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -41,8 +43,9 @@ page 60045 "Sales/Purch. History FactB STD"
                 }
                 field(Orders; STRSUBSTNO('(%1)', NoOfOrders))
                 {
-                    Caption = '&Orders';
+                    Caption = '&Orders', Comment = 'FRA="C&ommandes"';
                     Editable = false;
+                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -56,8 +59,9 @@ page 60045 "Sales/Purch. History FactB STD"
                 }
                 field("Invoices"; STRSUBSTNO('(%1)', NoofInvoices))
                 {
-                    Caption = '&Invoices';
+                    Caption = '&Invoices', Comment = 'FRA="&Factures"';
                     Editable = false;
+                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -71,8 +75,9 @@ page 60045 "Sales/Purch. History FactB STD"
                 }
                 field("Return Orders"; STRSUBSTNO('(%1)', NoOfReturnOrders))
                 {
-                    Caption = '&Return Orders';
+                    Caption = '&Return Orders', Comment = 'FRA="&Retours"';
                     Editable = false;
+                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -86,8 +91,9 @@ page 60045 "Sales/Purch. History FactB STD"
                 }
                 field("Credit Memos"; STRSUBSTNO('(%1)', NoOfCreditMemos))
                 {
-                    Caption = 'Cre&dit Memos';
+                    Caption = 'Cre&dit Memos', Comment = 'FRA="A&voirs"';
                     Editable = false;
+                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -101,8 +107,9 @@ page 60045 "Sales/Purch. History FactB STD"
                 }
                 field("Posted Shipments"; STRSUBSTNO('(%1)', NoOfPstdShipments))
                 {
-                    Caption = '&Posted Shipments';
+                    Caption = '&Posted Shipments', Comment = 'FRA="Ex&péditions enregistrées"';
                     Editable = false;
+                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -115,8 +122,9 @@ page 60045 "Sales/Purch. History FactB STD"
                 }
                 field("Posted Invoices"; STRSUBSTNO('(%1)', NoOfPstdInvoices))
                 {
-                    Caption = 'Posted I&nvoices';
+                    Caption = 'Posted I&nvoices', Comment = 'FRA="Factures e&nregistrées"';
                     Editable = false;
+                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -129,8 +137,9 @@ page 60045 "Sales/Purch. History FactB STD"
                 }
                 field("Posted Return Receipts"; STRSUBSTNO('(%1)', NoOfPstdReturnReceipts))
                 {
-                    Caption = 'Posted Ret&urn Receipts';
+                    Caption = 'Posted Ret&urn Receipts', Comment = 'FRA="Réceptions reto&ur enregistrées"';
                     Editable = false;
+                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -143,8 +152,9 @@ page 60045 "Sales/Purch. History FactB STD"
                 }
                 field("Posted Cr. Memos"; STRSUBSTNO('(%1)', NoOfPstdCreditMemos))
                 {
-                    Caption = 'Posted Cr. &Memos';
+                    Caption = 'Posted Cr. &Memos', Comment = 'FRA="&Avoirs enregistrés"';
                     Editable = false;
+                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -158,11 +168,12 @@ page 60045 "Sales/Purch. History FactB STD"
             }
             group(Purchases)
             {
-                Caption = 'Purchases';
+                Caption = 'Purchases', Comment = 'FRA="Achats"';
                 field("Purch Quote"; STRSUBSTNO('(%1)', NbrOfPurchQuote))
                 {
-                    Caption = 'Purch Quote';
+                    Caption = 'Purch Quote', Comment = 'FRA="Demandes de prix"';
                     Editable = false;
+                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -176,8 +187,9 @@ page 60045 "Sales/Purch. History FactB STD"
                 }
                 field("Blanket Order Purchas"; STRSUBSTNO('(%1)', NbrOfPurchBlanketOrder))
                 {
-                    Caption = 'Blanket Order Purchas ';
+                    Caption = 'Blanket Order Purchas ', Comment = 'FRA="Commandes achat ouvertes"';
                     Editable = false;
+                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -191,8 +203,9 @@ page 60045 "Sales/Purch. History FactB STD"
                 }
                 field("Purchase Order"; STRSUBSTNO('(%1)', NbrOfPurchOrder))
                 {
-                    Caption = 'Purchase Order';
+                    Caption = 'Purchase Order', Comment = 'FRA="Commandes achat"';
                     Editable = false;
+                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -206,8 +219,9 @@ page 60045 "Sales/Purch. History FactB STD"
                 }
                 field("Purchase Invoice"; STRSUBSTNO('(%1)', NbrOfPurchInvoice))
                 {
-                    Caption = 'Purchase Invoice';
+                    Caption = 'Purchase Invoice', Comment = 'FRA="Factures achat"';
                     Editable = false;
+                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -221,8 +235,9 @@ page 60045 "Sales/Purch. History FactB STD"
                 }
                 field("Purchase Return"; STRSUBSTNO('(%1)', NbrOfPurchReturn))
                 {
-                    Caption = 'Purchase Return';
+                    Caption = 'Purchase Return', Comment = 'FRA="Retours achat"';
                     Editable = false;
+                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -236,8 +251,9 @@ page 60045 "Sales/Purch. History FactB STD"
                 }
                 field("Purchase Credit Memo"; STRSUBSTNO('(%1)', NbrOfPurchCrdMemo))
                 {
-                    Caption = 'Purchase Credit Memo';
+                    Caption = 'Purchase Credit Memo', Comment = 'FRA="Avoirs achat"';
                     Editable = false;
+                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -251,8 +267,9 @@ page 60045 "Sales/Purch. History FactB STD"
                 }
                 field("Posted Purchase Receipt"; STRSUBSTNO('(%1)', NbrOfPurchPostedRcpt))
                 {
-                    Caption = 'Posted Purchase Receipt';
+                    Caption = 'Posted Purchase Receipt', Comment = 'FRA="Réceptions achat enregistrées"';
                     Editable = false;
+                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -265,8 +282,9 @@ page 60045 "Sales/Purch. History FactB STD"
                 }
                 field("Posted Purchase Invoice"; STRSUBSTNO('(%1)', NbrOfPurchPostedInvoice))
                 {
-                    Caption = 'Posted Purchase Invoice';
+                    Caption = 'Posted Purchase Invoice', Comment = 'FRA="Factures achat enregistrées"';
                     Editable = false;
+                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -279,8 +297,9 @@ page 60045 "Sales/Purch. History FactB STD"
                 }
                 field("Posted Purchase Return Shipement"; STRSUBSTNO('(%1)', NbrOfPurchPostedReturnShipemen))
                 {
-                    Caption = 'Posted Purchase Return Shipement';
+                    Caption = 'Posted Purchase Return Shipement', Comment = 'FRA="Expéditions retour achat"';
                     Editable = false;
+                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -294,8 +313,9 @@ page 60045 "Sales/Purch. History FactB STD"
                 }
                 field("Posted Purchase Credit Memo"; STRSUBSTNO('(%1)', NbrOfPurchPostedCrdMemo))
                 {
-                    Caption = 'Posted Purchase Credit Memo';
+                    Caption = 'Posted Purchase Credit Memo', Comment = 'FRA="Avoirs achat enregistrés"';
                     Editable = false;
+                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin

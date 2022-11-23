@@ -11,9 +11,11 @@ page 50090 "BC6_Item List Test"
             {
                 field("No."; "No.")
                 {
+                    ApplicationArea = All;
                 }
                 field(Description; Description)
                 {
+                    ApplicationArea = All;
                 }
             }
         }

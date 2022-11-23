@@ -1,6 +1,6 @@
 page 50071 "BC6_Contact Affair List"
 {
-    Caption = 'Contact Affair Subform';
+    Caption = 'Contact Affair Subform', Comment = 'FRA="Contact affaire"';
     PageType = List;
     SourceTable = "BC6_Contact Project Relation";
 
@@ -12,58 +12,74 @@ page 50071 "BC6_Contact Affair List"
             {
                 field("Affair No."; "Affair No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Affair Description"; "Affair Description")
                 {
+                    ApplicationArea = All;
                 }
                 field("Affair Responsible"; "Affair Responsible")
                 {
+                    ApplicationArea = All;
                 }
                 field(Statut; Statut)
                 {
+                    ApplicationArea = All;
                 }
                 field(Blocked; Blocked)
                 {
+                    ApplicationArea = All;
                 }
                 field("Contact No."; "Contact No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Contact Name"; "Contact Name")
                 {
                     Editable = false;
+                    ApplicationArea = All;
                 }
                 field("Contact City"; "Contact City")
                 {
+                    ApplicationArea = All;
                 }
                 field("Contact Post Code"; "Contact Post Code")
                 {
+                    ApplicationArea = All;
                 }
                 field(Awarder; Awarder)
                 {
+                    ApplicationArea = All;
                 }
                 field("Relation Type"; "Relation Type")
                 {
+                    ApplicationArea = All;
                 }
                 field("Relation Description"; "Relation Description")
                 {
                     Editable = false;
                     Enabled = true;
+                    ApplicationArea = All;
                 }
                 field("Phone No."; "Phone No.")
                 {
                     Editable = false;
+                    ApplicationArea = All;
                 }
                 field("No."; "No.")
                 {
                     Editable = false;
+                    ApplicationArea = All;
                 }
                 field("Company No."; "Company No.")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field(Type; Type)
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
             }
         }
@@ -78,6 +94,7 @@ page 50071 "BC6_Contact Affair List"
                 Promoted = true;
                 RunObject = Page "Job Card";
                 RunPageLink = "No." = FIELD("Affair No.");
+                ApplicationArea = All;
             }
         }
     }
@@ -98,7 +115,7 @@ page 50071 "BC6_Contact Affair List"
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        OnAfterGetCurrRecord;
+        OnAfterGetCurrRecord();
     end;
 
     local procedure OnAfterGetCurrRecord()

@@ -12,34 +12,44 @@ page 50033 "BC6_Affair Steps Sub-form"
             {
                 field("No."; "No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Step Date"; "Step Date")
                 {
+                    ApplicationArea = All;
                 }
                 field(Interlocutor; Interlocutor)
                 {
+                    ApplicationArea = All;
                 }
                 field(Contact; Contact)
                 {
+                    ApplicationArea = All;
                 }
                 field("Contact Name"; "Contact Name")
                 {
                     Editable = false;
+                    ApplicationArea = All;
                 }
                 field(Description; Description)
                 {
+                    ApplicationArea = All;
                 }
                 field("Reminder Date"; "Reminder Date")
                 {
+                    ApplicationArea = All;
                 }
                 field("Document No."; "Document No.")
                 {
+                    ApplicationArea = All;
                 }
                 field(Terminated; Terminated)
                 {
+                    ApplicationArea = All;
                 }
                 field(Result; Result)
                 {
+                    ApplicationArea = All;
                 }
             }
         }

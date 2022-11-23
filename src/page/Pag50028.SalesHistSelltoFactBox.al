@@ -1,6 +1,6 @@
-page 50028 "Sales History Sell-to FactBox"
+page 50028 "BC6_Sales Hist. Sellto FactBox"
 {
-    Caption = 'Item Sales History';
+    Caption = 'Item Sales History', Comment = 'FRA="Historique vente article"';
     PageType = CardPart;
     SourceTable = "Sales Line";
 
@@ -11,27 +11,32 @@ page 50028 "Sales History Sell-to FactBox"
             field(LastPrice; LastPrice)
             {
                 Caption = 'DP';
+                ApplicationArea = All;
             }
             field(LastMarge; LastMarge)
             {
                 Caption = 'DM';
+                ApplicationArea = All;
             }
             field(LastRemise; LastRemise)
             {
                 Caption = 'DR';
+                ApplicationArea = All;
             }
             field("Customer No."; RecGCustomer."No.")
             {
-                Caption = 'Customer No.';
+                Caption = 'Customer No.', Comment = 'FRA="N° client"';
+                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
                     ShowDetails();
                 end;
             }
-            field("&Quotes"; STRSUBSTNO('(%1)', NoOfQuotes))
+            field("&Quotes"; STRSUBSTNO(Txt1, NoOfQuotes))
             {
-                Caption = '&Quotes';
+                Caption = '&Quotes', Comment = 'FRA="&Devis"';
+                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -44,10 +49,11 @@ page 50028 "Sales History Sell-to FactBox"
                     PagGSalesLinesSubform3.RUN();
                 end;
             }
-            field("&Blanket Orders"; STRSUBSTNO('(%1)', NoOfBlanketOrders))
+            field("&Blanket Orders"; STRSUBSTNO(Txt1, NoOfBlanketOrders))
             {
-                Caption = '&Blanket Orders';
+                Caption = '&Blanket Orders', Comment = 'FRA="&Commandes ouvertes"';
                 Visible = false;
+                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -60,10 +66,11 @@ page 50028 "Sales History Sell-to FactBox"
                     PagGSalesLinesSubform3.RUN();
                 end;
             }
-            field("&Orders"; STRSUBSTNO('(%1)', NoOfOrders))
+            field("&Orders"; STRSUBSTNO(Txt1, NoOfOrders))
             {
-                Caption = '&Orders';
+                Caption = '&Orders', Comment = 'FRA="C&ommandes"';
                 Editable = false;
+                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -76,11 +83,12 @@ page 50028 "Sales History Sell-to FactBox"
                     PagGSalesLinesSubform3.RUN();
                 end;
             }
-            field("&Invoices"; STRSUBSTNO('(%1)', NoofInvoices))
+            field("&Invoices"; STRSUBSTNO(Txt1, NoofInvoices))
             {
-                Caption = '&Invoices';
+                Caption = '&Invoices', Comment = 'FRA="&Factures"';
                 Editable = false;
                 Visible = false;
+                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -93,11 +101,12 @@ page 50028 "Sales History Sell-to FactBox"
                     PagGSalesLinesSubform3.RUN();
                 end;
             }
-            field("&Return Orders"; STRSUBSTNO('(%1)', NoOfReturnOrders))
+            field("&Return Orders"; STRSUBSTNO(Txt1, NoOfReturnOrders))
             {
-                Caption = '&Return Orders';
+                Caption = '&Return Orders', Comment = 'FRA="&Retours"';
                 Editable = false;
                 Visible = false;
+                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -110,11 +119,12 @@ page 50028 "Sales History Sell-to FactBox"
                     PagGSalesLinesSubform3.RUN();
                 end;
             }
-            field("Cre&dit Memos"; STRSUBSTNO('(%1)', NoOfCreditMemos))
+            field("Cre&dit Memos"; STRSUBSTNO(Txt1, NoOfCreditMemos))
             {
-                Caption = 'Cre&dit Memos';
+                Caption = 'Cre&dit Memos', Comment = 'FRA="A&voirs"';
                 Editable = false;
                 Visible = false;
+                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -127,11 +137,12 @@ page 50028 "Sales History Sell-to FactBox"
                     PagGSalesLinesSubform3.RUN();
                 end;
             }
-            field("&Posted Shipments"; STRSUBSTNO('(%1)', NoOfPstdShipments))
+            field("&Posted Shipments"; STRSUBSTNO(Txt1, NoOfPstdShipments))
             {
-                Caption = '&Posted Shipments';
+                Caption = '&Posted Shipments', Comment = 'FRA="Ex&péditions enregistrées"';
                 Editable = false;
                 Visible = false;
+                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -143,10 +154,11 @@ page 50028 "Sales History Sell-to FactBox"
                     PagGShipmentLinesSubform3.RUN();
                 end;
             }
-            field("Posted I&nvoices"; STRSUBSTNO('(%1)', NoOfPstdInvoices))
+            field("Posted I&nvoices"; STRSUBSTNO(Txt1, NoOfPstdInvoices))
             {
-                Caption = 'Posted I&nvoices';
+                Caption = 'Posted I&nvoices', Comment = 'FRA="Factures e&nregistrées"';
                 Editable = false;
+                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -158,11 +170,12 @@ page 50028 "Sales History Sell-to FactBox"
                     PagGInvoiceLinesSubform3.RUN();
                 end;
             }
-            field("Posted Ret&urn Receipts"; STRSUBSTNO('(%1)', NoOfPstdReturnReceipts))
+            field("Posted Ret&urn Receipts"; STRSUBSTNO(Txt1, NoOfPstdReturnReceipts))
             {
-                Caption = 'Posted Ret&urn Receipts';
+                Caption = 'Posted Ret&urn Receipts', Comment = 'FRA="Réceptions reto&ur enregistrées"';
                 Editable = false;
                 Visible = false;
+                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -174,10 +187,11 @@ page 50028 "Sales History Sell-to FactBox"
                     PagGGReturnRcptLinesSubform2.RUN();
                 end;
             }
-            field("Posted Cr. &Memos"; STRSUBSTNO('(%1)', NoOfPstdCreditMemos))
+            field("Posted Cr. &Memos"; STRSUBSTNO(Txt1, NoOfPstdCreditMemos))
             {
-                Caption = 'Posted Cr. &Memos';
+                Caption = 'Posted Cr. &Memos', Comment = 'FRA="&Avoirs enregistrés"';
                 Editable = false;
+                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -200,12 +214,8 @@ page 50028 "Sales History Sell-to FactBox"
     var
         RecGSalesLine2: Record "Sales Line";
     begin
-        //>>MIGRATION 2013
-        //RecGCustomer.GET("Sell-to Customer No.");
         IF NOT RecGCustomer.GET("Sell-to Customer No.") THEN
             RecGCustomer.INIT();
-        //<<MIGRATION 2013
-
         CLEAR(CodGDocNo);
         NoOfQuotes := 0;
         NoOfBlanketOrders := 0;
@@ -217,187 +227,49 @@ page 50028 "Sales History Sell-to FactBox"
         NoOfPstdInvoices := 0;
         NoOfPstdReturnReceipts := 0;
         NoOfPstdCreditMemos := 0;
-
-        //>>MIGRATION 2013
         IF "No." = '' THEN
             EXIT;
-        //<<MIGRATION 2013
-
         RecGSalesLine.RESET();
         RecGSalesLine.SETCURRENTKEY("Document Type", RecGSalesLine."No.");
         RecGSalesLine.SETRANGE("Document Type", RecGSalesLine."Document Type"::Quote);
         RecGSalesLine.SETFILTER("No.", "No.");
-
-        //IF BooGFilterCust THEN BEGIN
         RecGSalesLine.SETCURRENTKEY("Document Type", RecGSalesLine."Sell-to Customer No.");
         RecGSalesLine.SETFILTER("Sell-to Customer No.", "Sell-to Customer No.");
-        //END;
-
-        //>>MIGRATION 2013 ALMI
-        //IF RecGSalesLine.FIND('-') THEN BEGIN
-        IF RecGSalesLine.FINDSET() THEN BEGIN
-            //<<
+        IF RecGSalesLine.FINDSET() THEN
             REPEAT
                 IF CodGDocNo <> RecGSalesLine."Document No." THEN
                     NoOfQuotes := NoOfQuotes + 1;
                 CodGDocNo := RecGSalesLine."Document No.";
             UNTIL RecGSalesLine.NEXT() = 0;
-        END;
 
-        /*
-        //Blanket Order
-        CLEAR(CodGDocNo);
-        RecGSalesLine.RESET;
-        RecGSalesLine.SETCURRENTKEY("Document Type",RecGSalesLine."No.");
-        RecGSalesLine.SETRANGE("Document Type",RecGSalesLine."Document Type"::"Blanket Order");
-        RecGSalesLine.SETFILTER("No.","No.");
-        
-        //IF BooGFilterCust THEN BEGIN
-          RecGSalesLine.SETCURRENTKEY("Document Type",RecGSalesLine."Sell-to Customer No.");
-          RecGSalesLine.SETFILTER("Sell-to Customer No.","Sell-to Customer No.");
-        //END;
-        
-        
-        
-        //IF RecGSalesLine.FIND('-') THEN BEGIN
-        IF RecGSalesLine.FINDSET THEN BEGIN
-          REPEAT
-            IF  CodGDocNo <> RecGSalesLine."Document No." THEN
-              NoOfBlanketOrders := NoOfBlanketOrders + 1;
-            CodGDocNo := RecGSalesLine."Document No.";
-          UNTIL RecGSalesLine.NEXT =0;
-        END;
-        */
-
-        //Order
         CLEAR(CodGDocNo);
         RecGSalesLine.RESET();
         RecGSalesLine.SETCURRENTKEY("Document Type", RecGSalesLine."No.");
         RecGSalesLine.SETRANGE("Document Type", RecGSalesLine."Document Type"::Order);
         RecGSalesLine.SETFILTER("No.", "No.");
 
-        //IF BooGFilterCust THEN BEGIN
         RecGSalesLine.SETCURRENTKEY("Document Type", RecGSalesLine."Sell-to Customer No.");
         RecGSalesLine.SETFILTER("Sell-to Customer No.", "Sell-to Customer No.");
-        //END;
-
-        //IF RecGSalesLine.FIND('-') THEN BEGIN
-        IF RecGSalesLine.FINDSET() THEN BEGIN
+        IF RecGSalesLine.FINDSET() THEN
             REPEAT
                 IF CodGDocNo <> RecGSalesLine."Document No." THEN
                     NoOfOrders := NoOfOrders + 1;
                 CodGDocNo := RecGSalesLine."Document No.";
             UNTIL RecGSalesLine.NEXT() = 0;
-        END;
 
-        //Last Order
+
         RecGSalesLine2.RESET();
-        //RecGSalesLine2.SETCURRENTKEY("Document Type","No.");
-        //>>TI271161
-        //RecGSalesLine2.SETCURRENTKEY("Document Type","Sell-to Customer No.");
         RecGSalesLine2.SETCURRENTKEY("Shipment Date", "Document Type", "Sell-to Customer No.", "Document No.", "Line No.");
-        //<<TI271161
         RecGSalesLine2.SETRANGE("Document Type", RecGSalesLine2."Document Type"::Order);
         RecGSalesLine2.SETRANGE("Sell-to Customer No.", "Sell-to Customer No.");
         RecGSalesLine2.SETRANGE("No.", "No.");
-
-        //RecGSalesLine2.SETRANGE("Document No.",'<>%1',"Document No.");
-        //>>TDL.52
         RecGSalesLine2.SETFILTER("Document No.", '<>%1', "Document No.");
-        //<<TDL.52
         IF RecGSalesLine2.FINDLAST() THEN BEGIN
-            //>>TDL.52
-            //IF "Document Type" = "Document Type"::Order THEN
-            //  RecGSalesLine2.NEXT(-1);
-            //<<TDL.52
             LastPrice := RecGSalesLine2."BC6_Discount unit price";
             LastMarge := RecGSalesLine2."Profit %";
             LastRemise := RecGSalesLine2."Line Discount %";
         END;
 
-        /*
-        //Invoices
-        CLEAR(CodGDocNo);
-        RecGSalesLine.RESET;
-        RecGSalesLine.SETCURRENTKEY("Document Type",RecGSalesLine."No.");
-        RecGSalesLine.SETRANGE("Document Type",RecGSalesLine."Document Type"::Invoice);
-        RecGSalesLine.SETFILTER("No.","No.");
-        
-        RecGSalesLine.SETCURRENTKEY("Document Type",RecGSalesLine."Sell-to Customer No.");
-        RecGSalesLine.SETFILTER("Sell-to Customer No.","Sell-to Customer No.");
-        
-        //IF RecGSalesLine.FIND('-')
-        IF RecGSalesLine.FINDSET THEN BEGIN
-          REPEAT
-            IF  CodGDocNo <> RecGSalesLine."Document No." THEN
-              NoofInvoices := NoofInvoices + 1;
-            CodGDocNo := RecGSalesLine."Document No.";
-          UNTIL RecGSalesLine.NEXT =0;
-        END;
-        */
-
-        /*
-        //Return Order
-        CLEAR(CodGDocNo);
-        RecGSalesLine.RESET;
-        RecGSalesLine.SETCURRENTKEY("Document Type",RecGSalesLine."No.");
-        RecGSalesLine.SETRANGE("Document Type",RecGSalesLine."Document Type"::"Return Order");
-        RecGSalesLine.SETFILTER("No.","No.");
-        RecGSalesLine.SETCURRENTKEY("Document Type",RecGSalesLine."Sell-to Customer No.");
-        RecGSalesLine.SETFILTER("Sell-to Customer No.","Sell-to Customer No.");
-        //IF RecGSalesLine.FIND('-') THEN BEGIN
-        IF RecGSalesLine.FINDSET THEN BEGIN
-          REPEAT
-            IF  CodGDocNo <> RecGSalesLine."Document No." THEN
-              NoOfReturnOrders := NoOfReturnOrders + 1;
-            CodGDocNo := RecGSalesLine."Document No.";
-          UNTIL RecGSalesLine.NEXT =0;
-        END;
-        */
-
-        /*
-        //Credit Memo
-        CLEAR(CodGDocNo);
-        RecGSalesLine.RESET;
-        RecGSalesLine.SETCURRENTKEY("Document Type",RecGSalesLine."No.");
-        RecGSalesLine.SETRANGE("Document Type",RecGSalesLine."Document Type"::"Credit Memo");
-        RecGSalesLine.SETFILTER("No.","No.");
-        
-        RecGSalesLine.SETCURRENTKEY("Document Type",RecGSalesLine."Sell-to Customer No.");
-        RecGSalesLine.SETFILTER("Sell-to Customer No.","Sell-to Customer No.");
-        
-        //IF RecGSalesLine.FIND('-') THEN BEGIN
-        IF RecGSalesLine.FINDSET THEN BEGIN
-          REPEAT
-            IF  CodGDocNo <> RecGSalesLine."Document No." THEN
-              NoOfCreditMemos := NoOfCreditMemos + 1;
-            CodGDocNo := RecGSalesLine."Document No.";
-          UNTIL RecGSalesLine.NEXT =0;
-        END;
-        */
-
-        /*
-        //Posted SHipements
-        CLEAR(CodGDocNo);
-        RecGSalesShipementLine.RESET;
-        RecGSalesShipementLine.SETCURRENTKEY("No.");
-        RecGSalesShipementLine.SETFILTER("No.","No.");
-        
-        RecGSalesShipementLine.SETCURRENTKEY(RecGSalesShipementLine."Sell-to Customer No.");
-        RecGSalesShipementLine.SETFILTER("Sell-to Customer No.","Sell-to Customer No.");
-        
-        //IF RecGSalesShipementLine.FIND('-') THEN BEGIN
-        IF RecGSalesShipementLine.FINDSET THEN BEGIN
-          REPEAT
-            IF  CodGDocNo <> RecGSalesShipementLine."Document No." THEN
-              NoOfPstdShipments:= NoOfPstdShipments + 1;
-            CodGDocNo := RecGSalesShipementLine."Document No.";
-          UNTIL RecGSalesShipementLine.NEXT =0;
-        END;
-        */
-
-
-        // Posted Invoices
         CLEAR(CodGDocNo);
         RecGPostdSalesInvoices.RESET();
         RecGPostdSalesInvoices.SETCURRENTKEY("No.");
@@ -406,37 +278,13 @@ page 50028 "Sales History Sell-to FactBox"
         RecGPostdSalesInvoices.SETCURRENTKEY(RecGPostdSalesInvoices."Sell-to Customer No.");
         RecGPostdSalesInvoices.SETFILTER("Sell-to Customer No.", "Sell-to Customer No.");
 
-        //IF RecGPostdSalesInvoices.FIND('-') THEN BEGIN
-        IF RecGPostdSalesInvoices.FINDSET() THEN BEGIN
+        IF RecGPostdSalesInvoices.FINDSET() THEN
             REPEAT
                 IF CodGDocNo <> RecGPostdSalesInvoices."Document No." THEN
                     NoOfPstdInvoices := NoOfPstdInvoices + 1;
                 CodGDocNo := RecGPostdSalesInvoices."Document No.";
             UNTIL RecGPostdSalesInvoices.NEXT() = 0;
-        END;
 
-
-        /*
-        // Posted Return Receipts
-        CLEAR(CodGDocNo);
-        RecGPostdReturnSales.RESET;
-        RecGPostdReturnSales.SETCURRENTKEY("No.");
-        RecGPostdReturnSales.SETFILTER("No.","No.");
-        
-        RecGPostdReturnSales.SETCURRENTKEY(RecGPostdReturnSales."Sell-to Customer No.");
-        RecGPostdReturnSales.SETFILTER("Sell-to Customer No.","Sell-to Customer No.");
-        
-        IF RecGPostdReturnSales.FINDSET THEN BEGIN
-        //IF RecGPostdReturnSales.FIND('-') THEN BEGIN
-          REPEAT
-            IF  CodGDocNo <> RecGPostdReturnSales."Document No." THEN
-              NoOfPstdReturnReceipts:= NoOfPstdReturnReceipts + 1;
-            CodGDocNo := RecGPostdReturnSales."Document No.";
-          UNTIL RecGPostdReturnSales.NEXT =0;
-        END;
-        */
-
-        // Posted Credit Memo
         CLEAR(CodGDocNo);
         RecGPostdCrdMemo.RESET();
         RecGPostdCrdMemo.SETCURRENTKEY("No.");
@@ -445,20 +293,16 @@ page 50028 "Sales History Sell-to FactBox"
         RecGPostdCrdMemo.SETCURRENTKEY(RecGPostdCrdMemo."Sell-to Customer No.");
         RecGPostdCrdMemo.SETFILTER("Sell-to Customer No.", "Sell-to Customer No.");
 
-        //IF RecGPostdCrdMemo.FIND('-') THEN BEGIN
         IF RecGPostdCrdMemo.FINDSET() THEN
             REPEAT
                 IF CodGDocNo <> RecGPostdCrdMemo."Document No." THEN
                     NoOfPstdCreditMemos := NoOfPstdCreditMemos + 1;
                 CodGDocNo := RecGPostdCrdMemo."Document No.";
             UNTIL RecGPostdCrdMemo.NEXT() = 0;
-
     end;
 
     trigger OnOpenPage()
     begin
-
-        //Quote
     end;
 
     var
@@ -476,7 +320,7 @@ page 50028 "Sales History Sell-to FactBox"
         PagGShipmentLinesSubform3: page "BC6_Shipment Lines Subform 3";
         PagGSalesLinesSubform3: Page "BC6_Sales Lines Subform 3";
         PagGInvoiceLinesSubform3: Page "BC6_Invoice Lines Subform 3";
-        PagGCreditMemoLinesSubform2: Page "Credit Memo Lines Subform 2";
+        PagGCreditMemoLinesSubform2: Page "BC6_Cred. Memo Lines Subform 2";
         PagGGReturnRcptLinesSubform2: Page "Return Rcpt Lines Subform 2";
 
         NoOfBlanketOrders: Integer;
@@ -489,12 +333,11 @@ page 50028 "Sales History Sell-to FactBox"
         NoOfPstdInvoices: Integer;
         NoOfPstdReturnReceipts: Integer;
         NoOfPstdCreditMemos: Integer;
-        "-PRODWARE MIG 2013-": Integer;
         LastPrice: Decimal;
         LastMarge: Decimal;
         LastRemise: Decimal;
         CodGDocNo: Code[20];
-
+        Txt1: Label '(%1)';
 
     procedure ShowDetails()
     begin
@@ -502,4 +345,3 @@ page 50028 "Sales History Sell-to FactBox"
         PAGE.RUN(PAGE::"Customer Card", RecGCustomer);
     end;
 }
-

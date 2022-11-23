@@ -1,6 +1,6 @@
-page 50029 "Purch History By-From FactBox"
+page 50029 "BC6_Purch His. By-From FactBox"
 {
-    Caption = 'Item Purchases History';
+    Caption = 'Item Purchases History', Comment = 'FRA="Historique des Achats article"';
     PageType = CardPart;
     SourceTable = "Purchase Line";
 
@@ -10,17 +10,18 @@ page 50029 "Purch History By-From FactBox"
         {
             field("Vendor No."; RecGVendor."No.")
             {
-                Caption = 'Vendor No.';
-
+                Caption = 'Vendor No.', Comment = 'FRA="N°fournisseur"';
+                ApplicationArea = All;
                 trigger OnDrillDown()
                 begin
                     ShowDetails;
                 end;
             }
-            field("Purch Quote"; STRSUBSTNO('(%1)', NbrOfPurchQuote))
+            field("Purch Quote"; STRSUBSTNO(Txt1, NbrOfPurchQuote))
             {
-                Caption = 'Purch Quote';
+                Caption = 'Purch Quote', Comment = 'FRA="Demandes de prix"';
                 Editable = false;
+                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -33,10 +34,11 @@ page 50029 "Purch History By-From FactBox"
                     PagGPurchaseLinesSubform2.RUN;
                 end;
             }
-            field("Blanket Order Purchas"; STRSUBSTNO('(%1)', NbrOfPurchBlanketOrder))
+            field("Blanket Order Purchas"; STRSUBSTNO(Txt1, NbrOfPurchBlanketOrder))
             {
-                Caption = 'Blanket Order Purchas';
+                Caption = 'Blanket Order Purchas', Comment = 'FRA="Commandes achat ouvertes"';
                 Editable = false;
+                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -49,10 +51,11 @@ page 50029 "Purch History By-From FactBox"
                     PagGPurchaseLinesSubform2.RUN;
                 end;
             }
-            field("Purchase Order"; STRSUBSTNO('(%1)', NbrOfPurchOrder))
+            field("Purchase Order"; STRSUBSTNO(Txt1, NbrOfPurchOrder))
             {
-                Caption = 'Purchase Order';
+                Caption = 'Purchase Order', Comment = 'FRA="Commandes achat"';
                 Editable = false;
+                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -65,10 +68,11 @@ page 50029 "Purch History By-From FactBox"
                     PagGPurchaseLinesSubform2.RUN;
                 end;
             }
-            field("Purchase Invoice"; STRSUBSTNO('(%1)', NbrOfPurchInvoice))
+            field("Purchase Invoice"; STRSUBSTNO(Txt1, NbrOfPurchInvoice))
             {
-                Caption = 'Purchase Invoice';
+                Caption = 'Purchase Invoice', Comment = 'FRA="Factures achat"';
                 Editable = false;
+                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -81,10 +85,11 @@ page 50029 "Purch History By-From FactBox"
                     PagGPurchaseLinesSubform2.RUN;
                 end;
             }
-            field("Purchase Return"; STRSUBSTNO('(%1)', NbrOfPurchReturn))
+            field("Purchase Return"; STRSUBSTNO(Txt1, NbrOfPurchReturn))
             {
-                Caption = 'Purchase Return';
+                Caption = 'Purchase Return', Comment = 'FRA="Retours achat"';
                 Editable = false;
+                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -97,10 +102,11 @@ page 50029 "Purch History By-From FactBox"
                     PagGPurchaseLinesSubform2.RUN;
                 end;
             }
-            field("Purchase Credit Memo"; STRSUBSTNO('(%1)', NbrOfPurchCrdMemo))
+            field("Purchase Credit Memo"; STRSUBSTNO(Txt1, NbrOfPurchCrdMemo))
             {
-                Caption = 'Purchase Credit Memo';
+                Caption = 'Purchase Credit Memo', Comment = 'FRA="Avoirs achat"';
                 Editable = false;
+                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -113,10 +119,11 @@ page 50029 "Purch History By-From FactBox"
                     PagGPurchaseLinesSubform2.RUN;
                 end;
             }
-            field("Posted Purchase Receipt"; STRSUBSTNO('(%1)', NbrOfPurchPostedRcpt))
+            field("Posted Purchase Receipt"; STRSUBSTNO(Txt1, NbrOfPurchPostedRcpt))
             {
-                Caption = 'Posted Purchase Receipt';
+                Caption = 'Posted Purchase Receipt', Comment = 'FRA="Réceptions achat enregistrées"';
                 Editable = false;
+                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -128,10 +135,11 @@ page 50029 "Purch History By-From FactBox"
                     PagGPurchRcpLinesSubform.RUN;
                 end;
             }
-            field("Posted Purchase Invoice"; STRSUBSTNO('(%1)', NbrOfPurchPostedInvoice))
+            field("Posted Purchase Invoice"; STRSUBSTNO(Txt1, NbrOfPurchPostedInvoice))
             {
-                Caption = 'Posted Purchase Invoice';
+                Caption = 'Posted Purchase Invoice', Comment = 'FRA="Factures achat enregistrées"';
                 Editable = false;
+                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -143,10 +151,11 @@ page 50029 "Purch History By-From FactBox"
                     PagGPurchInvLineSubform.RUN;
                 end;
             }
-            field("Posted Purchase Return Shipement"; STRSUBSTNO('(%1)', NbrOfPurchPostedReturnShipemen))
+            field("Posted Purchase Return Shipement"; STRSUBSTNO(Txt1, NbrOfPurchPostedReturnShipemen))
             {
-                Caption = 'Posted Purchase Return Shipement';
+                Caption = 'Posted Purchase Return Shipement', Comment = 'FRA="Expéditions retour achat"';
                 Editable = false;
+                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -159,10 +168,11 @@ page 50029 "Purch History By-From FactBox"
                     PagGReturnShipmentLineSubform.RUN;
                 end;
             }
-            field("Posted Purchase Credit Memo"; STRSUBSTNO('(%1)', NbrOfPurchPostedCrdMemo))
+            field("Posted Purchase Credit Memo"; STRSUBSTNO(Txt1, NbrOfPurchPostedCrdMemo))
             {
-                Caption = 'Posted Purchase Credit Memo';
+                Caption = 'Posted Purchase Credit Memo', Comment = 'FRA="Avoirs achat enregistrés"';
                 Editable = false;
+                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -178,18 +188,10 @@ page 50029 "Purch History By-From FactBox"
         }
     }
 
-    actions
-    {
-    }
-
     trigger OnAfterGetRecord()
     begin
-        //>>MIGRATION 2013
-        //RecGVendor.GET("Buy-from Vendor No.");
         IF NOT RecGVendor.GET("Buy-from Vendor No.") THEN
             RecGVendor.INIT;
-
-        //<<MIGRATIONS 2013
         CLEAR(CodGDocNo);
         NbrOfPurchQuote := 0;
         NbrOfPurchBlanketOrder := 0;
@@ -202,22 +204,16 @@ page 50029 "Purch History By-From FactBox"
         NbrOfPurchPostedReturnShipemen := 0;
         NbrOfPurchPostedCrdMemo := 0;
 
-        //>>MIGRATION 2013
         IF "No." = '' THEN
             EXIT;
-        //<<MIGRATION 2013
-
-        //Purchase quote
         CLEAR(CodGDocNo);
         RecGPurchLines.RESET;
         RecGPurchLines.SETCURRENTKEY("Document Type", "No.");
         RecGPurchLines.SETFILTER("No.", "No.");
         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::Quote);
 
-        //IF BooGFilterCust THEN BEGIN
         RecGPurchLines.SETCURRENTKEY(RecGPurchLines."Buy-from Vendor No.");
         RecGPurchLines.SETFILTER("Buy-from Vendor No.", "Buy-from Vendor No.");
-        //END;
         IF RecGPurchLines.FIND('-') THEN BEGIN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
@@ -226,17 +222,14 @@ page 50029 "Purch History By-From FactBox"
             UNTIL RecGPurchLines.NEXT = 0;
         END;
 
-        //Purchase blanket order
         CLEAR(CodGDocNo);
         RecGPurchLines.RESET;
         RecGPurchLines.SETCURRENTKEY("Document Type", "No.");
         RecGPurchLines.SETFILTER("No.", "No.");
         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::"Blanket Order");
 
-        //IF BooGFilterCust THEN BEGIN
         RecGPurchLines.SETCURRENTKEY(RecGPurchLines."Buy-from Vendor No.");
         RecGPurchLines.SETFILTER("Buy-from Vendor No.", "Buy-from Vendor No.");
-        //END;
         IF RecGPurchLines.FIND('-') THEN BEGIN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
@@ -245,17 +238,14 @@ page 50029 "Purch History By-From FactBox"
             UNTIL RecGPurchLines.NEXT = 0;
         END;
 
-        //Purchase order
         CLEAR(CodGDocNo);
         RecGPurchLines.RESET;
         RecGPurchLines.SETCURRENTKEY("Document Type", "No.");
         RecGPurchLines.SETFILTER("No.", "No.");
         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::Order);
 
-        //IF BooGFilterCust THEN BEGIN
         RecGPurchLines.SETCURRENTKEY(RecGPurchLines."Buy-from Vendor No.");
         RecGPurchLines.SETFILTER("Buy-from Vendor No.", "Buy-from Vendor No.");
-        //END;
         IF RecGPurchLines.FIND('-') THEN BEGIN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
@@ -264,17 +254,14 @@ page 50029 "Purch History By-From FactBox"
             UNTIL RecGPurchLines.NEXT = 0;
         END;
 
-        //Purchase invoice
         CLEAR(CodGDocNo);
         RecGPurchLines.RESET;
         RecGPurchLines.SETCURRENTKEY("Document Type", "No.");
         RecGPurchLines.SETFILTER("No.", "No.");
         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::Invoice);
 
-        //IF BooGFilterCust THEN BEGIN
         RecGPurchLines.SETCURRENTKEY(RecGPurchLines."Buy-from Vendor No.");
         RecGPurchLines.SETFILTER("Buy-from Vendor No.", "Buy-from Vendor No.");
-        //END;
         IF RecGPurchLines.FIND('-') THEN BEGIN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
@@ -283,17 +270,14 @@ page 50029 "Purch History By-From FactBox"
             UNTIL RecGPurchLines.NEXT = 0;
         END;
 
-        //Purchase return
         CLEAR(CodGDocNo);
         RecGPurchLines.RESET;
         RecGPurchLines.SETCURRENTKEY("Document Type", "No.");
         RecGPurchLines.SETFILTER("No.", "No.");
         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::"Return Order");
 
-        //IF BooGFilterCust THEN BEGIN
         RecGPurchLines.SETCURRENTKEY(RecGPurchLines."Buy-from Vendor No.");
         RecGPurchLines.SETFILTER("Buy-from Vendor No.", "Buy-from Vendor No.");
-        //END;
         IF RecGPurchLines.FIND('-') THEN BEGIN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
@@ -302,17 +286,14 @@ page 50029 "Purch History By-From FactBox"
             UNTIL RecGPurchLines.NEXT = 0;
         END;
 
-        //Purchase credit memo
         CLEAR(CodGDocNo);
         RecGPurchLines.RESET;
         RecGPurchLines.SETCURRENTKEY("Document Type", "No.");
         RecGPurchLines.SETFILTER("No.", "No.");
         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::"Credit Memo");
 
-        //IF BooGFilterCust THEN BEGIN
         RecGPurchLines.SETCURRENTKEY(RecGPurchLines."Buy-from Vendor No.");
         RecGPurchLines.SETFILTER("Buy-from Vendor No.", "Buy-from Vendor No.");
-        //END;
         IF RecGPurchLines.FIND('-') THEN BEGIN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
@@ -321,16 +302,12 @@ page 50029 "Purch History By-From FactBox"
             UNTIL RecGPurchLines.NEXT = 0;
         END;
 
-        // Posted Purchase Receipt
         CLEAR(CodGDocNo);
         RecGPurchPostedRcpt.RESET;
         RecGPurchPostedRcpt.SETCURRENTKEY("No.");
         RecGPurchPostedRcpt.SETFILTER("No.", "No.");
-
-        //IF BooGFilterCust THEN BEGIN
         RecGPurchPostedRcpt.SETCURRENTKEY(RecGPurchPostedRcpt."Buy-from Vendor No.");
         RecGPurchPostedRcpt.SETFILTER("Buy-from Vendor No.", "Buy-from Vendor No.");
-        //END;
 
         IF RecGPurchPostedRcpt.FIND('-') THEN BEGIN
             REPEAT
@@ -340,16 +317,13 @@ page 50029 "Purch History By-From FactBox"
             UNTIL RecGPurchPostedRcpt.NEXT = 0;
         END;
 
-        // Posted Purchase invoice
         CLEAR(CodGDocNo);
         RecGPurchPostedInvoice.RESET;
         RecGPurchPostedInvoice.SETCURRENTKEY("No.");
         RecGPurchPostedInvoice.SETFILTER("No.", "No.");
 
-        //IF BooGFilterCust THEN BEGIN
         RecGPurchPostedInvoice.SETCURRENTKEY(RecGPurchPostedInvoice."Buy-from Vendor No.");
         RecGPurchPostedInvoice.SETFILTER("Buy-from Vendor No.", "Buy-from Vendor No.");
-        //END;
 
         IF RecGPurchPostedInvoice.FIND('-') THEN BEGIN
             REPEAT
@@ -359,16 +333,13 @@ page 50029 "Purch History By-From FactBox"
             UNTIL RecGPurchPostedInvoice.NEXT = 0;
         END;
 
-        // Posted Purchase Return Shipement
         CLEAR(CodGDocNo);
         RecGPurchPostedReturnShipement.RESET;
         RecGPurchPostedReturnShipement.SETCURRENTKEY("No.");
         RecGPurchPostedReturnShipement.SETFILTER("No.", "No.");
 
-        //IF BooGFilterCust THEN BEGIN
         RecGPurchPostedReturnShipement.SETCURRENTKEY(RecGPurchPostedReturnShipement."Buy-from Vendor No.");
         RecGPurchPostedReturnShipement.SETFILTER("Buy-from Vendor No.", "Buy-from Vendor No.");
-        //END;
 
         IF RecGPurchPostedReturnShipement.FIND('-') THEN BEGIN
             REPEAT
@@ -378,16 +349,13 @@ page 50029 "Purch History By-From FactBox"
             UNTIL RecGPurchPostedReturnShipement.NEXT = 0;
         END;
 
-        // Posted Credit Memo
         CLEAR(CodGDocNo);
         RecGPurchPostedCrdMemo.RESET;
         RecGPurchPostedCrdMemo.SETCURRENTKEY("No.");
         RecGPurchPostedCrdMemo.SETFILTER("No.", "No.");
 
-        //IF BooGFilterCust THEN BEGIN
         RecGPurchPostedCrdMemo.SETCURRENTKEY(RecGPurchPostedCrdMemo."Buy-from Vendor No.");
         RecGPurchPostedCrdMemo.SETFILTER("Buy-from Vendor No.", "Buy-from Vendor No.");
-        //END;
 
         IF RecGPurchPostedCrdMemo.FIND('-') THEN BEGIN
             REPEAT
@@ -408,7 +376,7 @@ page 50029 "Purch History By-From FactBox"
         PagGPurchaseLinesSubform2: Page "BC6_Purchase Lines Subform2";
         PagGPurchRcpLinesSubform: Page "BC6_Purch. Rcpt. Lines Subform";
         PagGPurchInvLineSubform: Page "BC6_Purch. Inv. Line Subform";
-        PagGReturnShipmentLineSubform: Page "Return Shipment Line Subform";
+        PagGReturnShipmentLineSubform: Page "BC6_Return Ship. Line Subform";
         PagGPurchCrMemoLineSubform: Page "Purch. Cr. Memo Line Subform";
         NbrOfPurchQuote: Integer;
         NbrOfPurchBlanketOrder: Integer;
@@ -421,7 +389,7 @@ page 50029 "Purch History By-From FactBox"
         NbrOfPurchPostedReturnShipemen: Integer;
         NbrOfPurchPostedCrdMemo: Integer;
         CodGDocNo: Code[20];
-
+        Txt1: Label '(%1)';
 
     procedure ShowDetails()
     begin
@@ -429,4 +397,3 @@ page 50029 "Purch History By-From FactBox"
         PAGE.RUN(PAGE::"Vendor Card", RecGVendor);
     end;
 }
-

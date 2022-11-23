@@ -61,6 +61,7 @@ page 50005 "BC6_Special Extended Text list"
                         SaveCode := Code;
                     END;
             UNTIL NEXT() = 0;
+
         MARKEDONLY(TRUE);
     end;
 

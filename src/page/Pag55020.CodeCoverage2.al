@@ -6,6 +6,8 @@ page 55020 "BC6_Code Coverage 2"
     PageType = List;
     SourceTable = "Code Coverage";
     SourceTableTemporary = true;
+    UsageCategory = Lists;
+    ApplicationArea = All;
 
     layout
     {
@@ -15,10 +17,12 @@ page 55020 "BC6_Code Coverage 2"
             {
                 field(Line; Line)
                 {
+                    ApplicationArea = All;
                 }
                 field(HitRatio; HitRatio)
                 {
                     Caption = 'Hit Ratio %';
+                    ApplicationArea = All;
                 }
             }
         }
@@ -36,6 +40,7 @@ page 55020 "BC6_Code Coverage 2"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
+                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -50,6 +55,7 @@ page 55020 "BC6_Code Coverage 2"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
+                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -59,11 +65,12 @@ page 55020 "BC6_Code Coverage 2"
             }
             action("Code")
             {
-                Caption = 'Code';
+                Caption = 'Code', Comment = 'FRA="Code"';
                 Image = DesignCodeBehind;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
+                ApplicationArea = All;
 
                 trigger OnAction()
                 var

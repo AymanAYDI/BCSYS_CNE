@@ -1,10 +1,12 @@
 page 50022 "BC6_Sales Line Profit"
 {
-    Caption = 'Sales Line Discounts';
+    Caption = 'Sales Line Discounts', Comment = 'FRA="Remises ligne vente"';
     DataCaptionExpression = GetCaption();
     DelayedInsert = true;
     PageType = List;
     SaveValues = true;
+    ApplicationArea = All;
+    UsageCategory = Lists;
     SourceTable = "Sales Line Discount";
     SourceTableView = SORTING(Code, "Sales Code", "Sales Type", Type, "Starting Date", "Ending Date", "BC6_Profit %")
                       ORDER(Ascending);
@@ -15,11 +17,11 @@ page 50022 "BC6_Sales Line Profit"
         {
             group(General)
             {
-                Caption = 'General';
+                Caption = 'General', Comment = 'FRA="Général"';
                 field(SalesTypeFilter; SalesTypeFilter)
                 {
-                    Caption = 'Sales Type Filter';
-                    OptionCaption = 'Customer,Customer Discount Group,All Customers,Campaign,None';
+                    Caption = 'Sales Type Filter', Comment = 'FRA="Filtre type vente"';
+                    ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
@@ -28,8 +30,9 @@ page 50022 "BC6_Sales Line Profit"
                 }
                 field(SalesCodeFilterCtrl; SalesCodeFilter)
                 {
-                    Caption = 'Sales Code Filter';
+                    Caption = 'Sales Code Filter', Comment = 'FRA="Filtre code vente"';
                     Enabled = SalesCodeFilterCtrlEnable;
+                    ApplicationArea = All;
 
                     trigger OnLookup(var Text: Text): Boolean
                     var
@@ -78,8 +81,8 @@ page 50022 "BC6_Sales Line Profit"
                 }
                 field(ItemTypeFilter; ItemTypeFilter)
                 {
-                    Caption = 'Type Filter';
-                    OptionCaption = 'Item,Item Discount Group,None';
+                    Caption = 'Type Filter', Comment = 'FRA="Filtre type"';
+                    ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
@@ -88,8 +91,9 @@ page 50022 "BC6_Sales Line Profit"
                 }
                 field(CodeFilterCtrl; CodeFilter)
                 {
-                    Caption = 'Code Filter';
+                    Caption = 'Code Filter', Comment = 'FRA="Filtre code"';
                     Enabled = CodeFilterCtrlEnable;
+                    ApplicationArea = All;
 
                     trigger OnLookup(var Text: Text): Boolean
                     var
@@ -125,13 +129,14 @@ page 50022 "BC6_Sales Line Profit"
                 }
                 field(StartingDateFilter; StartingDateFilter)
                 {
-                    Caption = 'Starting Date Filter';
+                    Caption = 'Starting Date Filter', Comment = 'FRA="Filtre date début"';
+                    ApplicationArea = All;
 
                     trigger OnValidate()
                     var
                         ApplicationMgt: Codeunit "Filter Tokens";
                     begin
-                        // IF ApplicationMgt.MakeDateFilter(StartingDateFilter) = 0 THEN; // TODO: Olde code
+                        // IF ApplicationMgt.MakeDateFilter(StartingDateFilter) = 0 THEN; // TODO: Old code
                         ApplicationMgt.MakeDateFilter(StartingDateFilter);
                         StartingDateFilterOnAfterValid;
                     end;
@@ -141,45 +146,58 @@ page 50022 "BC6_Sales Line Profit"
             {
                 field("Sales Type"; "Sales Type")
                 {
+                    ApplicationArea = All;
                 }
                 field("Sales Code"; "Sales Code")
                 {
                     Editable = "Sales CodeEditable";
+                    ApplicationArea = All;
                 }
                 field(Type; Type)
                 {
+                    ApplicationArea = All;
                 }
                 field("Code"; Code)
                 {
+                    ApplicationArea = All;
                 }
                 field("Line Discount %"; "Line Discount %")
                 {
+                    ApplicationArea = All;
                 }
                 field("Profit %"; Rec."BC6_Profit %")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Currency Code"; "Currency Code")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Unit of Measure Code"; "Unit of Measure Code")
                 {
+                    ApplicationArea = All;
                 }
                 field("Minimum Quantity"; "Minimum Quantity")
                 {
+                    ApplicationArea = All;
                 }
                 field("Dispensation No."; Rec."BC6_Dispensation No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Added Discount %"; Rec."BC6_Added Discount %")
                 {
+                    ApplicationArea = All;
                 }
                 field("Starting Date"; "Starting Date")
                 {
+                    ApplicationArea = All;
                 }
                 field("Ending Date"; "Ending Date")
                 {
+                    ApplicationArea = All;
                 }
             }
             group(Options)
@@ -188,6 +206,7 @@ page 50022 "BC6_Sales Line Profit"
                 field(SalesCodeFilterCtrl2; CurrencyCodeFilter)
                 {
                     Caption = 'Currency Code Filter';
+                    ApplicationArea = All;
 
                     trigger OnLookup(var Text: Text): Boolean
                     var
@@ -222,6 +241,7 @@ page 50022 "BC6_Sales Line Profit"
                 Image = Group;
                 Promoted = true;
                 PromotedCategory = Process;
+                ApplicationArea = All;
                 // TODO
                 // trigger OnAction()
                 // begin
@@ -269,15 +289,14 @@ page 50022 "BC6_Sales Line Profit"
         Campaign: Record Campaign;
         Item: Record Item;
         ItemDiscGr: Record "Item Discount Group";
-        SalesTypeFilter: Option Customer,"Customer Discount Group","All Customers",Campaign,"None";
+        SalesTypeFilter: Enum "Sales Price Type";
         SalesCodeFilter: Text[250];
-        ItemTypeFilter: Option Item,"Item Discount Group","None";
+        ItemTypeFilter: Enum "Sales Line Discount Type";
         CodeFilter: Text[250];
         StartingDateFilter: Text[30];
-        Text000: Label 'All Customers';
+        Text000: Label 'All Customers', Comment = 'FRA="Tous les clients"';
         CurrencyCodeFilter: Text[250];
-        "-NSC1.01--": Text;
-        Text004: Label 'Start Date Obligatory';
+        Text004: Label 'Start Date Obligatory', Comment = 'FRA="Date Début Obligatoire"';
         [InDataSet]
         "Sales CodeEditable": Boolean;
         [InDataSet]
@@ -372,7 +391,7 @@ page 50022 "BC6_Sales Line Profit"
                     SourceTableName := ObjTransl.TranslateObject(ObjTransl."Object Type"::Table, 27);
                     Item."No." := CodeFilter;
                 END;
-            ItemTypeFilter::"Item Discount Group":
+            ItemTypeFilter::"Item Disc. Group":
                 BEGIN
                     SourceTableName := ObjTransl.TranslateObject(ObjTransl."Object Type"::Table, 341);
                     ItemDiscGr.Code := CodeFilter;

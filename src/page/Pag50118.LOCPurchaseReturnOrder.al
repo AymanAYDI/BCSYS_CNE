@@ -6,6 +6,8 @@ page 50118 "BC6_LOC Purchase Return Order"
     RefreshOnActivate = true;
     SourceTable = "Purchase Header";
     SourceTableView = WHERE("Document Type" = FILTER("Return Order"));
+    UsageCategory = Administration;
+    ApplicationArea = All;
 
     layout
     {
@@ -20,6 +22,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     ToolTip = 'Specifies the number of the purchase document. The field is only visible if you have not set up a number series for the type of purchase document, or if the Manual Nos. field is selected for the number series.'
                     , comment = 'FRA="Spécifie le numéro du document achat. Le champ n''est visible que si vous n''avez défini aucune souche de numéros pour ce type de document achat, ou si le champ Nø manuels est sélectionné pour la souche de numéros."';
                     Visible = DocNoVisible;
+                    ApplicationArea = All;
 
                     trigger OnAssistEdit()
                     begin
@@ -88,9 +91,11 @@ page 50118 "BC6_LOC Purchase Return Order"
                 }
                 field(ID; Rec.ID)
                 {
+                    ApplicationArea = All;
                 }
                 field("Buy-from Fax No."; Rec."BC6_Buy-from Fax No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Buy-from Contact"; Rec."Buy-from Contact")
                 {
@@ -112,19 +117,23 @@ page 50118 "BC6_LOC Purchase Return Order"
                 field("No. of Archived Versions"; Rec."No. of Archived Versions")
                 {
                     QuickEntry = false;
+                    ApplicationArea = All;
                 }
                 field("Order Date"; Rec."Order Date")
                 {
                     Importance = Promoted;
                     QuickEntry = false;
+                    ApplicationArea = All;
                 }
                 field("Vendor Authorization No."; Rec."Vendor Authorization No.")
                 {
                     Importance = Promoted;
+                    ApplicationArea = All;
                 }
                 field("Vendor Cr. Memo No."; Rec."Vendor Cr. Memo No.")
                 {
                     Importance = Promoted;
+                    ApplicationArea = All;
                 }
                 field("Order Address Code"; Rec."Order Address Code")
                 {
@@ -161,6 +170,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Importance = Additional;
                     QuickEntry = false;
                     Visible = JobQueueUsed;
+                    ApplicationArea = All;
                 }
                 field(Status; Rec.Status)
                 {
@@ -170,6 +180,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                 }
                 field("Return Order Type"; Rec."BC6_Return Order Type")
                 {
+                    ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
@@ -182,12 +193,14 @@ page 50118 "BC6_LOC Purchase Return Order"
                 field("Reminder Date"; Rec."BC6_Reminder Date")
                 {
                     Editable = BooGReminderDateVisible;
+                    ApplicationArea = All;
                 }
             }
             part(PurchLines; "Purchase Return Order Subform")
             {
                 SubPageLink = "Document No." = FIELD("No.");
                 UpdatePropagation = Both;
+                ApplicationArea = All;
             }
             group("Invoice Details")
             {
@@ -264,13 +277,16 @@ page 50118 "BC6_LOC Purchase Return Order"
                 field("Applies-to Doc. Type"; Rec."Applies-to Doc. Type")
                 {
                     Importance = Promoted;
+                    ApplicationArea = All;
                 }
                 field("Applies-to Doc. No."; Rec."Applies-to Doc. No.")
                 {
                     Importance = Promoted;
+                    ApplicationArea = All;
                 }
                 field("Applies-to ID"; Rec."Applies-to ID")
                 {
+                    ApplicationArea = All;
                 }
             }
             group("Shipping and Payment")
@@ -393,28 +409,34 @@ page 50118 "BC6_LOC Purchase Return Order"
                               "Document Type" = FIELD("Document Type"),
                               "Document No." = FIELD("No.");
                 Visible = OpenApprovalEntriesExistForCurrUser;
+                ApplicationArea = All;
             }
             part(ApprovalFactBox; "Approval FactBox")
             {
                 Visible = false;
+                ApplicationArea = All;
             }
             part("Vendor Details FactBox"; "Vendor Details FactBox")
             {
                 SubPageLink = "No." = FIELD("Buy-from Vendor No.");
+                ApplicationArea = All;
             }
             part("Vendor Statistics FactBox"; "Vendor Statistics FactBox")
             {
                 SubPageLink = "No." = FIELD("Pay-to Vendor No.");
                 Visible = false;
+                ApplicationArea = All;
             }
             part("Vendor Hist. Buy-from FactBox"; "Vendor Hist. Buy-from FactBox")
             {
                 SubPageLink = "No." = FIELD("Buy-from Vendor No.");
+                ApplicationArea = All;
             }
             part("Vendor Hist. Pay-to FactBox"; "Vendor Hist. Pay-to FactBox")
             {
                 SubPageLink = "No." = FIELD("Pay-to Vendor No.");
                 Visible = false;
+                ApplicationArea = All;
             }
             part("Purchase Line FactBox"; "Purchase Line FactBox")
             {
@@ -423,6 +445,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                               "Document No." = FIELD("Document No."),
                               "Line No." = FIELD("Line No.");
                 Visible = false;
+                ApplicationArea = All;
             }
             part(WorkflowStatus; "Workflow Status FactBox")
             {
@@ -430,13 +453,16 @@ page 50118 "BC6_LOC Purchase Return Order"
                 Enabled = false;
                 ShowFilter = false;
                 Visible = ShowWorkflowStatus;
+                ApplicationArea = All;
             }
             systempart(Links; Links)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
             systempart(Notes; Notes)
             {
+                ApplicationArea = All;
             }
         }
     }
@@ -471,6 +497,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     RunObject = Page "Vendor Card";
                     RunPageLink = "No." = FIELD("Buy-from Vendor No.");
                     ShortCutKey = 'Shift+F7';
+                    ApplicationArea = All;
                 }
                 action(Dimensions)
                 {
@@ -527,6 +554,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     RunObject = Page "Posted Return Shipments";
                     RunPageLink = "Return Order No." = FIELD("No.");
                     RunPageView = SORTING("Return Order No.");
+                    ApplicationArea = All;
                 }
                 action("Cred&it Memos")
                 {
@@ -535,6 +563,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     RunObject = Page "Posted Purchase Credit Memos";
                     RunPageLink = "Return Order No." = FIELD("No.");
                     RunPageView = SORTING("Return Order No.");
+                    ApplicationArea = All;
                 }
                 separator(sep)
                 {
@@ -553,6 +582,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                                   "Source Subtype" = FIELD("Document Type"),
                                   "Source No." = FIELD("No.");
                     RunPageView = SORTING("Source Type", "Source Subtype", "Source No.", "Source Line No.");
+                    ApplicationArea = All;
                 }
                 action("In&vt. Put-away/Pick Lines")
                 {
@@ -562,6 +592,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     RunPageLink = "Source Document" = CONST("Purchase Return Order"),
                                   "Source No." = FIELD("No.");
                     RunPageView = SORTING("Source Document", "Source No.", "Location Code");
+                    ApplicationArea = All;
                 }
             }
         }
@@ -579,6 +610,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     PromotedIsBig = true;
                     ToolTip = 'Approve the requested changes.', comment = 'FRA="Approuvez les modifications demandées."';
                     Visible = OpenApprovalEntriesExistForCurrUser;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -596,6 +628,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     PromotedIsBig = true;
                     ToolTip = 'Reject the approval request.', comment = 'FRA="Rejetez la demande d''approbation."';
                     Visible = OpenApprovalEntriesExistForCurrUser;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -612,6 +645,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     PromotedCategory = Category4;
                     ToolTip = 'Delegate the approval to a substitute approver.', comment = 'FRA="Déléguez l''approbation … un approbateur rempla‡ant."';
                     Visible = OpenApprovalEntriesExistForCurrUser;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -629,6 +663,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     PromotedCategory = Category4;
                     ToolTip = 'View or add comments.', comment = 'FRA="Affichez ou ajoutez des commentaires."';
                     Visible = OpenApprovalEntriesExistForCurrUser;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -645,6 +680,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                 Image = Print;
                 Promoted = true;
                 PromotedCategory = Process;
+                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -671,6 +707,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Promoted = true;
                     PromotedCategory = Process;
                     ShortCutKey = 'Ctrl+F9';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -712,6 +749,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Promoted = true;
                     PromotedCategory = Process;
                     PromotedIsBig = true;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -725,6 +763,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Promoted = true;
                     PromotedCategory = Process;
                     ShortCutKey = 'Shift+F11';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -757,6 +796,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Image = CopyDocument;
                     Promoted = true;
                     PromotedCategory = Process;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -771,6 +811,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Caption = 'Move Negative Lines', comment = 'FRA="Déplacer lignes négatives"';
                     Ellipsis = true;
                     Image = MoveNegativeLines;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -784,6 +825,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                 {
                     Caption = 'Archive Document', comment = 'FRA="Archiver Document"';
                     Image = Archive;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -796,6 +838,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     AccessByPermission = TableData "IC G/L Account" = R;
                     Caption = 'Send IC Return Order .', comment = 'FRA="Envoi retour IC"';
                     Image = IntercompanyOrder;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -864,6 +907,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     AccessByPermission = TableData "Warehouse Shipment Header" = R;
                     Caption = 'Create &Whse. Receipt', comment = 'FRA="Créer &réception entrepot"';
                     Image = NewShipment;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -878,6 +922,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Caption = 'Create Inventor&y Put-away/Pick', comment = 'FRA="Créer prélèv./rangement stoc&k"';
                     Ellipsis = true;
                     Image = CreateInventoryPickup;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -901,6 +946,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     PromotedCategory = Process;
                     PromotedIsBig = true;
                     ShortCutKey = 'F9';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -943,6 +989,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     PromotedCategory = Process;
                     PromotedIsBig = true;
                     ShortCutKey = 'Shift+F9';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -954,6 +1001,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Caption = 'Post &Batch', comment = 'FRA="Valider par l&ot"';
                     Ellipsis = true;
                     Image = PostBatch;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -966,6 +1014,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Caption = 'Remove From Job Queue', comment = 'FRA="Supprimer de la file d''attente des travaux"';
                     Image = RemoveLine;
                     Visible = JobQueueVisible;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin

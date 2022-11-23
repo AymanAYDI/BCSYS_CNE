@@ -22,153 +22,186 @@ page 50121 "LOC Purch. Return Order List"
                 field("No."; "No.")
                 {
                     ToolTip = 'Specifies the number of the purchase document. The field is only visible if you have not set up a number series for the type of purchase document, or if the Manual Nos. field is selected for the number series.', Comment = 'FRA="Spécifie le numéro du document achat. Le champ n''est visible que si vous n''avez défini aucune souche de numéros pour ce type de document achat, ou si le champ N° manuels est sélectionné pour la souche de numéros."';
+                    ApplicationArea = All;
                 }
                 field("Buy-from Vendor No."; "Buy-from Vendor No.")
                 {
                     ToolTip = 'Specifies the nubmer of the vendor that you bought the items from.', Comment = 'FRA="Indique le numéro du fournisseur auprès duquel vous avez acheté les articles."';
+                    ApplicationArea = All;
                 }
                 field("Order Address Code"; "Order Address Code")
                 {
                     ToolTip = 'Specifies the order address code linked to the relevant vendor''s order address.', Comment = 'FRA="Spécifie le code adresse commande lié à l''adresse de commande du fournisseur concerné."';
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Buy-from Vendor Name"; "Buy-from Vendor Name")
                 {
                     ToolTip = 'Specifies the name of the vendor who sends the items. The field is filled automatically when you fill the Buy-from Vendor No. field.', Comment = 'FRA="Spécifie le nom du fournisseur qui envoie les articles. Le champ est rempli automatiquement lorsque vous remplissez le champ N° fournisseur."';
+                    ApplicationArea = All;
                 }
                 field("Vendor Authorization No."; "Vendor Authorization No.")
                 {
                     ToolTip = 'Specifies the compensation agreement identification number, sometimes referred to as the RMA No. (Returns Materials Authorization).', Comment = 'FRA="Spécifie le numéro d''identification d''un accord de compensation. Ce numéro est parfois appelé numéro d''autorisation de retour de matériel (RMA)."';
+                    ApplicationArea = All;
                 }
                 field("Buy-from Post Code"; "Buy-from Post Code")
                 {
                     ToolTip = 'Specifies the postal code.', Comment = 'FRA="Spécifie le code postal."';
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Buy-from Country/Region Code"; "Buy-from Country/Region Code")
                 {
                     ToolTip = 'Specifies the country/region code of the address.', Comment = 'FRA="Spécifie le code pays/la région de l''adresse."';
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Buy-from Contact"; "Buy-from Contact")
                 {
                     ToolTip = 'Specifies the name of the person to contact about shipment of the item from this vendor.', Comment = 'FRA="Spécifie le nom de la personne à contacter à propos de l''expédition de l''article chez le fournisseur."';
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Pay-to Vendor No."; "Pay-to Vendor No.")
                 {
                     ToolTip = 'Specifies the number of the vendor''s buy-from.', Comment = 'FRA="Spécifie le numéro du fournisseur auprès duquel vous effectuez vos achats."';
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Pay-to Name"; "Pay-to Name")
                 {
                     ToolTip = 'Specifies the name of the vendor''s buy-from.', Comment = 'FRA="Spécifie le nom du fournisseur auprès duquel vous effectuez vos achats."';
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Pay-to Post Code"; "Pay-to Post Code")
                 {
                     ToolTip = 'Specifies the post code of the vendor''s buy-from.', Comment = 'FRA="Spécifie le code postal du fournisseur auprès duquel vous effectuez vos achats."';
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Pay-to Country/Region Code"; "Pay-to Country/Region Code")
                 {
                     ToolTip = 'Specifies the country/region code of the address.', Comment = 'FRA="Spécifie le code pays/la région de l''adresse."';
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Pay-to Contact"; "Pay-to Contact")
                 {
                     ToolTip = 'Specifies the contact person of the vendor''s buy-from.', Comment = 'FRA="Spécifie le numéro de la personne à contacter chez le fournisseur auprès duquel vous effectuez vos achats."';
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Ship-to Code"; "Ship-to Code")
                 {
                     ToolTip = 'Specifies a ship-to code if you want a different shipment address from the one that has been automatically entered.', Comment = 'FRA="Spécifie un code destinataire si vous souhaitez utiliser une adresse destinataire différente de celle automatiquement renseignée."';
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Ship-to Name"; "Ship-to Name")
                 {
                     ToolTip = 'Specifies the name of the vendor''s buy-from.', Comment = 'FRA="Spécifie le nom du fournisseur auprès duquel vous effectuez vos achats."';
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Ship-to Post Code"; "Ship-to Post Code")
                 {
                     ToolTip = 'Specifies the postal code.', Comment = 'FRA="Spécifie le code postal."';
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Ship-to Country/Region Code"; "Ship-to Country/Region Code")
                 {
                     ToolTip = 'Specifies the country/region of the address.', Comment = 'FRA="Spécifie le pays/la région de l''adresse."';
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Ship-to Contact"; "Ship-to Contact")
                 {
                     ToolTip = 'Specifies the name of a contact person for the address where the items in the purchase order should be shipped.', Comment = 'FRA="Spécifie le nom d''un contact pour l''adresse à laquelle les articles de la commande achat devraient être expédiés."';
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Posting Date"; "Posting Date")
                 {
                     ToolTip = 'Specifies the date when the posting of the purchase document will be recorded.', Comment = 'FRA="Spécifie la date à laquelle la validation du document achat sera validée."';
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
                 {
                     ToolTip = 'Specifies the dimension value code associated with the purchase header.', Comment = 'FRA="Spécifie le code de la section analytique associée à l''en-tête achat."';
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
                 {
                     ToolTip = 'Specifies the dimension value code associated with the purchase header.', Comment = 'FRA="Spécifie le code de la section analytique associée à l''en-tête achat."';
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Location Code"; "Location Code")
                 {
                     ToolTip = 'Specifies a code for the location where you want the items to be placed when they are received.', Comment = 'FRA="Spécifie un code pour le magasin dans lequel vous souhaitez que les articles soient stockés lorsqu''ils sont réceptionnés."';
+                    ApplicationArea = All;
                 }
                 field("Purchaser Code"; "Purchaser Code")
                 {
                     ToolTip = 'Specifies which purchaser is assigned to the vendor.', Comment = 'FRA="Spécifie l''acheteur affecté au fournisseur."';
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Assigned User ID"; "Assigned User ID")
                 {
                     ToolTip = 'Specifies the ID of the user who is responsible for the document.', Comment = 'FRA="Spécifie le code de l''utilisateur qui est responsable du document."';
+                    ApplicationArea = All;
                 }
                 field("Currency Code"; "Currency Code")
                 {
                     ToolTip = 'Specifies the currency code for amounts on the purchase lines.', Comment = 'FRA="Spécifie le code devise des montants des lignes achat."';
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Document Date"; "Document Date")
                 {
                     ToolTip = 'Specifies the date of the vendor''s invoice.', Comment = 'FRA="Spécifie la date de la facture du fournisseur."';
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Campaign No."; "Campaign No.")
                 {
                     ToolTip = 'Specifies the campaign number the document is linked to.', Comment = 'FRA="Spécifie le numéro de campagne auquel le document est lié."';
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Applies-to Doc. Type"; "Applies-to Doc. Type")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Expected Receipt Date"; "Expected Receipt Date")
                 {
                     ToolTip = 'Specifies the date you expect to receive the items on the purchase document.', Comment = 'FRA="Spécifie la date à laquelle vous pensez recevoir les articles indiqués sur le document achat."';
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Job Queue Status"; "Job Queue Status")
                 {
                     Visible = JobQueueActive;
+                    ApplicationArea = All;
                 }
                 field("Affair No."; "BC6_Affair No.")
                 {
+                    ApplicationArea = All;
                 }
                 field(Amount; Amount)
                 {
+                    ApplicationArea = All;
                 }
                 field("Return Order Type"; "BC6_Return Order Type")
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -178,14 +211,17 @@ page 50121 "LOC Purch. Return Order List"
             {
                 SubPageLink = "No." = FIELD("Buy-from Vendor No."),
                               "Date Filter" = FIELD("Date Filter");
+                ApplicationArea = All;
             }
             systempart(Links; Links)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
             systempart(Notes; Notes)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
         }
     }
@@ -206,10 +242,11 @@ page 50121 "LOC Purch. Return Order List"
                     PromotedCategory = Process;
                     ShortCutKey = 'F7';
                     ToolTip = 'View statistical information, such as the value of posted entries, for the record.', Comment = 'FRA="Affichez les informations statistiques telles que la valeur des écritures validées pour l''enregistrement."';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
-                        OpenPurchaseOrderStatistics;
+                        OpenPurchaseOrderStatistics();
                     end;
                 }
                 action(Dimensions)
@@ -219,10 +256,11 @@ page 50121 "LOC Purch. Return Order List"
                     Image = Dimensions;
                     ShortCutKey = 'Shift+Ctrl+D';
                     ToolTip = 'View or edit dimensions, such as area, project, or department, that you can assign to sales and purchase documents to distribute costs and analyze transaction history.', Comment = 'FRA="Affichez ou modifiez les axes analytiques, tels que la zone, le projet ou le département que vous pouvez affecter aux documents vente et achat afin de distribuer les coûts et analyser l''historique des transactions."';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
-                        ShowDocDim;
+                        ShowDocDim();
                     end;
                 }
                 action(Approvals)
@@ -231,13 +269,14 @@ page 50121 "LOC Purch. Return Order List"
                     Caption = 'Approvals', Comment = 'FRA="Approbations"';
                     Image = Approvals;
                     ToolTip = 'View a list of the records that are waiting to be approved. For example, you can see who requested the record to be approved, when it was sent, and when it is due to be approved.', Comment = 'FRA="Affichez une liste des enregistrements en attente d''approbation. Par exemple, vous pouvez voir qui a demandé l''approbation de l''enregistrement, quand il a été envoyé et quand son approbation est due."';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
                         ApprovalEntries: Page "Approval Entries";
                     begin
-                        ApprovalEntries.Setfilters(DATABASE::"Purchase Header", "Document Type", "No.");
-                        ApprovalEntries.RUN;
+                        ApprovalEntries.Setfilters(DATABASE::"Purchase Header", "Document Type".AsInteger(), "No.");
+                        ApprovalEntries.RUN();
                     end;
                 }
                 action("Co&mments")
@@ -249,6 +288,7 @@ page 50121 "LOC Purch. Return Order List"
                                   "No." = FIELD("No."),
                                   "Document Line No." = CONST(0);
                     ToolTip = 'View or add notes about the purchase return order.', Comment = 'FRA="Affichez ou ajoutez des remarques sur le retour commande achat."';
+                    ApplicationArea = All;
                 }
             }
             group(Documents)
@@ -262,6 +302,7 @@ page 50121 "LOC Purch. Return Order List"
                     RunObject = Page "Posted Return Shipments";
                     RunPageLink = "Return Order No." = FIELD("No.");
                     RunPageView = SORTING("Return Order No.");
+                    ApplicationArea = All;
                 }
                 action("Cred&it Memos")
                 {
@@ -270,6 +311,7 @@ page 50121 "LOC Purch. Return Order List"
                     RunObject = Page "Posted Purchase Credit Memos";
                     RunPageLink = "Return Order No." = FIELD("No.");
                     RunPageView = SORTING("Return Order No.");
+                    ApplicationArea = All;
                 }
                 separator(Action1102601034)
                 {
@@ -287,6 +329,7 @@ page 50121 "LOC Purch. Return Order List"
                     RunPageLink = "Source Document" = CONST("Purchase Return Order"),
                                   "Source No." = FIELD("No.");
                     RunPageView = SORTING("Source Document", "Source No.", "Location Code");
+                    ApplicationArea = All;
                 }
                 action("Whse. Shipment Lines")
                 {
@@ -297,6 +340,7 @@ page 50121 "LOC Purch. Return Order List"
                                   "Source Subtype" = FIELD("Document Type"),
                                   "Source No." = FIELD("No.");
                     RunPageView = SORTING("Source Type", "Source Subtype", "Source No.", "Source Line No.");
+                    ApplicationArea = All;
                 }
             }
         }
@@ -309,6 +353,7 @@ page 50121 "LOC Purch. Return Order List"
                 Image = Print;
                 Promoted = true;
                 PromotedCategory = Process;
+                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -317,7 +362,7 @@ page 50121 "LOC Purch. Return Order List"
                     IF "BC6_Return Order Type" = "BC6_Return Order Type"::Location THEN
                         DocPrint.PrintPurchHeader(Rec)
                     ELSE BEGIN
-                        L_PurchaseHeader.RESET;
+                        L_PurchaseHeader.RESET();
                         L_PurchaseHeader.SETRANGE("Document Type", "Document Type");
                         L_PurchaseHeader.SETRANGE("No.", "No.");
                         REPORT.RUNMODAL(50061, TRUE, FALSE, L_PurchaseHeader);
@@ -334,6 +379,7 @@ page 50121 "LOC Purch. Return Order List"
                     Caption = 'Re&lease', Comment = 'FRA="&Lancer"';
                     Image = ReleaseDoc;
                     ShortCutKey = 'Ctrl+F9';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -347,6 +393,7 @@ page 50121 "LOC Purch. Return Order List"
                     Caption = 'Re&open', Comment = 'FRA="R&ouvrir"';
                     Image = ReOpen;
                     ToolTip = 'Reopen the document to change it after it has been approved. Approved documents have the Released status and must be opened before they can be changed', Comment = 'FRA="Rouvrez le document pour le modifier après son approbation. Les documents approuvés ont le statut Lancé et doivent être ouverts pour pouvoir être modifiés"';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -368,6 +415,7 @@ page 50121 "LOC Purch. Return Order List"
                     Caption = 'Get Posted Doc&ument Lines to Reverse', Comment = 'FRA="Extraire lignes doc&ument enreg. à contrepasser"';
                     Ellipsis = true;
                     Image = ReverseLines;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -382,11 +430,12 @@ page 50121 "LOC Purch. Return Order List"
                     AccessByPermission = TableData "IC G/L Account" = R;
                     Caption = 'Send IC Return Order', Comment = 'FRA="Envoyer retour IC"';
                     Image = IntercompanyOrder;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
-                        ICInOutMgt: Codeunit ICInboxOutboxMgt;
                         ApprovalsMgmt: Codeunit "Approvals Mgmt.";
+                        ICInOutMgt: Codeunit ICInboxOutboxMgt;
                     begin
                         IF ApprovalsMgmt.PrePostApprovalCheckPurch(Rec) THEN
                             ICInOutMgt.SendPurchDoc(Rec, FALSE);
@@ -409,6 +458,7 @@ page 50121 "LOC Purch. Return Order List"
                     PromotedIsBig = true;
                     PromotedOnly = true;
                     ToolTip = 'Send an approval request.', Comment = 'FRA="Envoyer demande d''approbation"';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -428,6 +478,7 @@ page 50121 "LOC Purch. Return Order List"
                     PromotedIsBig = true;
                     PromotedOnly = true;
                     ToolTip = 'Cancel the approval request.', Comment = 'FRA="Annuler demande d''approbation"';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -447,10 +498,11 @@ page 50121 "LOC Purch. Return Order List"
                     Caption = 'Create Inventor&y Put-away/Pick', Comment = 'FRA="Créer prélèv./rangement stoc&k"';
                     Ellipsis = true;
                     Image = CreatePutawayPick;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
-                        CreateInvtPutAwayPick;
+                        CreateInvtPutAwayPick();
                     end;
                 }
                 action("Create &Whse. Shipment")
@@ -458,6 +510,7 @@ page 50121 "LOC Purch. Return Order List"
                     AccessByPermission = TableData "Warehouse Shipment Header" = R;
                     Caption = 'Create &Whse. Shipment', Comment = 'FRA="Créer e&xpédition entrepôt"';
                     Image = NewShipment;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -480,6 +533,7 @@ page 50121 "LOC Purch. Return Order List"
                     Ellipsis = true;
                     Image = TestReport;
                     ToolTip = 'View a test report so that you can find and correct any errors before you perform the actual posting of the journal or document.', Comment = 'FRA="Affichez une impression test afin que vous puissiez trouver et corriger toutes les erreurs avant de procéder à la validation effective de la feuille ou du document."';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -495,6 +549,7 @@ page 50121 "LOC Purch. Return Order List"
                     PromotedCategory = Process;
                     PromotedIsBig = true;
                     ShortCutKey = 'F9';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -506,6 +561,7 @@ page 50121 "LOC Purch. Return Order List"
                     Caption = 'Preview Posting', Comment = 'FRA="Aperçu compta."';
                     Image = ViewPostedOrder;
                     ToolTip = 'Review the different types of entries that will be created when you post the document or journal.', Comment = 'FRA="Examinez les différents types d''écritures qui seront créés lorsque vous validez le document ou la feuille."';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -523,6 +579,7 @@ page 50121 "LOC Purch. Return Order List"
                     PromotedCategory = Process;
                     PromotedIsBig = true;
                     ShortCutKey = 'Shift+F9';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -536,6 +593,7 @@ page 50121 "LOC Purch. Return Order List"
                     Image = PostBatch;
                     Promoted = true;
                     PromotedCategory = Process;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -548,10 +606,11 @@ page 50121 "LOC Purch. Return Order List"
                     Caption = 'Remove From Job Queue', Comment = 'FRA="Supprimer de la file d''attente des travaux"';
                     Image = RemoveLine;
                     Visible = JobQueueActive;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
-                        CancelBackgroundPosting;
+                        CancelBackgroundPosting();
                     end;
                 }
             }
@@ -560,27 +619,27 @@ page 50121 "LOC Purch. Return Order List"
 
     trigger OnAfterGetCurrRecord()
     begin
-        SetControlAppearance;
+        SetControlAppearance();
     end;
 
     trigger OnOpenPage()
     var
         PurchasesPayablesSetup: Record "Purchases & Payables Setup";
     begin
-        SetSecurityFilterOnRespCenter;
+        SetSecurityFilterOnRespCenter();
 
-        JobQueueActive := PurchasesPayablesSetup.JobQueueActive;
+        JobQueueActive := PurchasesPayablesSetup.JobQueueActive();
 
-        CopyBuyFromVendorFilter;
+        CopyBuyFromVendorFilter();
     end;
 
     var
         DocPrint: Codeunit "Document-Print";
         ReportPrint: Codeunit "Test Report-Print";
+        CanCancelApprovalForRecord: Boolean;
         [InDataSet]
         JobQueueActive: Boolean;
         OpenApprovalEntriesExist: Boolean;
-        CanCancelApprovalForRecord: Boolean;
 
     local procedure SetControlAppearance()
     var
@@ -591,4 +650,3 @@ page 50121 "LOC Purch. Return Order List"
         CanCancelApprovalForRecord := ApprovalsMgmt.CanCancelApprovalForRecord(RECORDID);
     end;
 }
-

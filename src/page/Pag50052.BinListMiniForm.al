@@ -1,6 +1,6 @@
 page 50052 "BC6_Bin List MiniForm"
 {
-    Caption = 'Bin List';
+    Caption = 'Bin List', Comment = 'FRA="Liste emplacements"';
     Editable = false;
     PageType = List;
     SourceTable = Bin;
@@ -16,12 +16,15 @@ page 50052 "BC6_Bin List MiniForm"
                 field("Location Code"; "Location Code")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Code"; Code)
                 {
+                    ApplicationArea = All;
                 }
                 field(Empty; Empty)
                 {
+                    ApplicationArea = All;
                 }
             }
         }

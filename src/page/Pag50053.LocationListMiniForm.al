@@ -1,6 +1,6 @@
 page 50053 "BC6_Location List MiniForm"
 {
-    Caption = 'Location List';
+    Caption = 'Location List', Comment = 'FRA="Liste des magasins"';
     Editable = false;
     PageType = List;
     SourceTable = Location;
@@ -15,13 +15,16 @@ page 50053 "BC6_Location List MiniForm"
             {
                 field("Code"; Code)
                 {
+                    ApplicationArea = All;
                 }
                 field("Bin Mandatory"; "Bin Mandatory")
                 {
+                    ApplicationArea = All;
                 }
                 field(Name; Name)
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
             }
         }

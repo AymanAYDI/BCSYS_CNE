@@ -1,6 +1,6 @@
 page 50051 "BC6_Item List MiniForm"
 {
-    Caption = 'Item List';
+    Caption = 'Item List', Comment = 'FRA="Liste articles"';
     Editable = false;
     PageType = List;
     SourceTable = Item;
@@ -14,23 +14,29 @@ page 50051 "BC6_Item List MiniForm"
             {
                 field("No."; "No.")
                 {
+                    ApplicationArea = All;
                 }
                 field(Blocked; Blocked)
                 {
+                    ApplicationArea = All;
                 }
                 field(EAN13Code; EAN13Code)
                 {
-                    Caption = 'EAN13 Code';
+                    Caption = 'EAN13 Code', Comment = 'FRA="Code EAN13"';
                     Editable = false;
+                    ApplicationArea = All;
                 }
                 field(Description; Description)
                 {
+                    ApplicationArea = All;
                 }
                 field("Description 2"; "Description 2")
                 {
+                    ApplicationArea = All;
                 }
                 field(Inventory; Inventory)
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -70,10 +76,10 @@ page 50051 "BC6_Item List MiniForm"
                 LastItem := FirstItem;
                 More := (ItemCount > 0);
                 WHILE More DO
-                    IF Item.NEXT = 0 THEN
+                    IF Item.NEXT() = 0 THEN
                         More := FALSE
                     ELSE
-                        IF NOT Item.MARK THEN
+                        IF NOT Item.MARK() THEN
                             More := FALSE
                         ELSE BEGIN
                             LastItem := Item."No.";
@@ -89,7 +95,7 @@ page 50051 "BC6_Item List MiniForm"
                     SelectionFilter := SelectionFilter + FirstItem + '..' + LastItem;
                 IF ItemCount > 0 THEN BEGIN
                     Item.MARKEDONLY(TRUE);
-                    Item.NEXT;
+                    Item.NEXT();
                 END;
             END;
         END;

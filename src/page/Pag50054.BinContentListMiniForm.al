@@ -1,6 +1,6 @@
 page 50054 "BC6_Bin Content List MiniForm"
 {
-    Caption = 'Bin Content List MiniForm';
+    Caption = 'Bin Content List MiniForm', Comment = 'FRA="Contenu emplacement"';
     PageType = List;
     SourceTable = "Bin Content";
 
@@ -14,6 +14,7 @@ page 50054 "BC6_Bin Content List MiniForm"
                 field("Location Code"; "Location Code")
                 {
                     Visible = false;
+                    ApplicationArea = All;
 
                     trigger OnLookup(var Text: Text): Boolean
                     begin
@@ -30,6 +31,7 @@ page 50054 "BC6_Bin Content List MiniForm"
                 field("Item No."; "Item No.")
                 {
                     Visible = false;
+                    ApplicationArea = All;
 
                     trigger OnLookup(var Text: Text): Boolean
                     begin
@@ -45,6 +47,7 @@ page 50054 "BC6_Bin Content List MiniForm"
                 }
                 field("Bin Code"; "Bin Code")
                 {
+                    ApplicationArea = All;
 
                     trigger OnLookup(var Text: Text): Boolean
                     begin
@@ -60,6 +63,7 @@ page 50054 "BC6_Bin Content List MiniForm"
                 }
                 field(Quantity; Quantity)
                 {
+                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -69,15 +73,18 @@ page 50054 "BC6_Bin Content List MiniForm"
                 field("Pick Qty."; "Pick Qty.")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Available Qty. to Take"; CalcAvailQty())
                 {
-                    Caption = 'Available Qty. to Take';
+                    Caption = 'Available Qty. to Take', Comment = 'FRA="Qté disponible pour prélèv."';
                     DecimalPlaces = 0 : 5;
+                    ApplicationArea = All;
                 }
                 field("Unit of Measure Code"; "Unit of Measure Code")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
             }
         }

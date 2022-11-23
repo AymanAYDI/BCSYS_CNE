@@ -1,6 +1,6 @@
 page 50040 "Return Rcpt Lines Subform 2"
 {
-    Caption = 'Return Rcpt Lines';
+    Caption = 'Return Rcpt Lines', Comment = 'FRA="Lignes réception retour"';
     Editable = false;
     PageType = List;
     SourceTable = "Return Receipt Line";
@@ -18,112 +18,141 @@ page 50040 "Return Rcpt Lines Subform 2"
                     Lookup = false;
                     Style = StrongAccent;
                     StyleExpr = TRUE;
+                    ApplicationArea = All;
                 }
                 field("Shipment Date"; "Shipment Date")
                 {
+                    ApplicationArea = All;
                 }
                 field("Bill-to Customer No."; "Bill-to Customer No.")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Sell-to Customer No."; "Sell-to Customer No.")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field(Type; Type)
                 {
+                    ApplicationArea = All;
                 }
                 field("Unit Price"; "Unit Price")
                 {
+                    ApplicationArea = All;
                 }
                 field("Public Price"; "BC6_Public Price")
                 {
+                    ApplicationArea = All;
                 }
                 field("No."; "No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Cross-Reference No."; "Cross-Reference No.")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Variant Code"; "Variant Code")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field(Nonstock; Nonstock)
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field(Description; Description)
                 {
+                    ApplicationArea = All;
                 }
                 field("Return Reason Code"; "Return Reason Code")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Currency Code"; "Currency Code")
                 {
                     DrillDown = false;
                     Lookup = false;
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Location Code"; "Location Code")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Bin Code"; "Bin Code")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Unit of Measure Code"; "Unit of Measure Code")
                 {
+                    ApplicationArea = All;
                 }
                 field(Quantity; Quantity)
                 {
+                    ApplicationArea = All;
                 }
                 field("Unit of Measure"; "Unit of Measure")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Unit Cost (LCY)"; "Unit Cost (LCY)")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Line Discount %"; "Line Discount %")
                 {
                     BlankZero = true;
+                    ApplicationArea = All;
                 }
                 field("Allow Invoice Disc."; "Allow Invoice Disc.")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Job No."; "Job No.")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Blanket Order No."; "Blanket Order No.")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Blanket Order Line No."; "Blanket Order Line No.")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Appl.-from Item Entry"; "Appl.-from Item Entry")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Appl.-to Item Entry"; "Appl.-to Item Entry")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
             }
         }
@@ -135,8 +164,9 @@ page 50040 "Return Rcpt Lines Subform 2"
         {
             action(Show)
             {
-                Caption = '&Show';
+                Caption = 'Show', Comment = 'FRA="Afficher"';
                 Image = Document;
+                ApplicationArea = All;
 
                 trigger OnAction()
                 begin

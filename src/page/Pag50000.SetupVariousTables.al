@@ -1,6 +1,6 @@
 page 50000 "BC6_Setup Various Tables"
 {
-    Caption = 'Setup Various Tables';
+    Caption = 'Setup Various Tables', comment = 'FRA="Parametrage Tables Diverses"';
     PageType = Card;
     SourceTable = "BC6_Setup Various Tables";
 
@@ -23,7 +23,6 @@ page 50000 "BC6_Setup Various Tables"
                 {
                     field("Text1 Use"; "Text1 Use")
                     {
-
                         trigger OnValidate()
                         begin
                             Text1UseOnAfterValidate;
@@ -31,7 +30,6 @@ page 50000 "BC6_Setup Various Tables"
                     }
                     field("Text2 Use"; "Text2 Use")
                     {
-
                         trigger OnValidate()
                         begin
                             Text2UseOnAfterValidate;
@@ -39,7 +37,6 @@ page 50000 "BC6_Setup Various Tables"
                     }
                     field("Text3 Use"; "Text3 Use")
                     {
-
                         trigger OnValidate()
                         begin
                             Text3UseOnAfterValidate;
@@ -47,7 +44,6 @@ page 50000 "BC6_Setup Various Tables"
                     }
                     field("Number1 Use"; "Number1 Use")
                     {
-
                         trigger OnValidate()
                         begin
                             Number1UseOnAfterValidate;
@@ -55,7 +51,6 @@ page 50000 "BC6_Setup Various Tables"
                     }
                     field("Number2 Use"; "Number2 Use")
                     {
-
                         trigger OnValidate()
                         begin
                             Number2UseOnAfterValidate;
@@ -63,7 +58,6 @@ page 50000 "BC6_Setup Various Tables"
                     }
                     field("Number3 Use"; "Number3 Use")
                     {
-
                         trigger OnValidate()
                         begin
                             Number3UseOnAfterValidate;
@@ -71,7 +65,6 @@ page 50000 "BC6_Setup Various Tables"
                     }
                     field("Date1 Use"; "Date1 Use")
                     {
-
                         trigger OnValidate()
                         begin
                             Date1UseOnAfterValidate;
@@ -79,7 +72,6 @@ page 50000 "BC6_Setup Various Tables"
                     }
                     field("Date2 Use"; "Date2 Use")
                     {
-
                         trigger OnValidate()
                         begin
                             Date2UseOnAfterValidate;
@@ -87,7 +79,6 @@ page 50000 "BC6_Setup Various Tables"
                     }
                     field("Date3 Use"; "Date3 Use")
                     {
-
                         trigger OnValidate()
                         begin
                             Date3UseOnAfterValidate;
@@ -189,7 +180,6 @@ page 50000 "BC6_Setup Various Tables"
             {
                 field("Top Logical1 Use"; "Top Logical1 Use")
                 {
-
                     trigger OnValidate()
                     begin
                         TopLogical1UseOnAfterValidate;
@@ -197,7 +187,6 @@ page 50000 "BC6_Setup Various Tables"
                 }
                 field("Top Logical2 Use"; "Top Logical2 Use")
                 {
-
                     trigger OnValidate()
                     begin
                         TopLogical2UseOnAfterValidate;
@@ -205,7 +194,6 @@ page 50000 "BC6_Setup Various Tables"
                 }
                 field("Top Logical3 Use"; "Top Logical3 Use")
                 {
-
                     trigger OnValidate()
                     begin
                         TopLogical3UseOnAfterValidate;
@@ -230,7 +218,6 @@ page 50000 "BC6_Setup Various Tables"
                 {
                     field("Radical Code1 Use"; "Radical Code1 Use")
                     {
-
                         trigger OnValidate()
                         begin
                             RadicalCode1UseOnAfterValidate;
@@ -238,7 +225,6 @@ page 50000 "BC6_Setup Various Tables"
                     }
                     field("Radical Code2 Use"; "Radical Code2 Use")
                     {
-
                         trigger OnValidate()
                         begin
                             RadicalCode2UseOnAfterValidate;
@@ -246,7 +232,6 @@ page 50000 "BC6_Setup Various Tables"
                     }
                     field("Radical Code3 Use"; "Radical Code3 Use")
                     {
-
                         trigger OnValidate()
                         begin
                             RadicalCode3UseOnAfterValidate;
@@ -431,7 +416,6 @@ page 50000 "BC6_Setup Various Tables"
         [InDataSet]
         "Obligatory Radical Code3Enable": Boolean;
 
-
     procedure EnableFields()
     begin
         // Texte
@@ -550,4 +534,3 @@ page 50000 "BC6_Setup Various Tables"
         EnableFields;
     end;
 }
-

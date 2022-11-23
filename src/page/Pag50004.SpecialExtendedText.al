@@ -13,11 +13,12 @@ page 50004 "BC6_Special Extended Text"
             {
                 field("No."; "No.")
                 {
-                    Caption = 'Item Code';
+                    Caption = 'Item Code', comment = 'FRA="Code Article"';
                     Editable = false;
                 }
                 field(ItemName; ItemName)
                 {
+                    Caption = 'Item Name', comment = 'FRA="Nom de l''article "';
                     Editable = false;
                     Enabled = true;
                 }
@@ -32,11 +33,12 @@ page 50004 "BC6_Special Extended Text"
 
                     trigger OnValidate()
                     begin
-                        CodeOnAfterValidate;
+                        CodeOnAfterValidate();
                     end;
                 }
                 field(CustomerName; CustomerName)
                 {
+                    Caption = 'Customer Name', comment = 'FRA="Nom de client"';
                     Editable = false;
                     Enabled = true;
                 }
@@ -77,7 +79,7 @@ page 50004 "BC6_Special Extended Text"
                 trigger OnAction()
                 begin
 
-                    SpecialExtendedTextLine2.RESET;
+                    SpecialExtendedTextLine2.RESET();
                     IF CurrentType = CurrentType::Customer THEN
                         SpecialExtendedTextLine2.SETRANGE("Table Name", "Table Name"::Customer);
                     IF CurrentType = CurrentType::vendor THEN
@@ -87,7 +89,6 @@ page 50004 "BC6_Special Extended Text"
                     IF PAGE.RUNMODAL(PAGE::"BC6_Special Extended Text list", SpecialExtendedTextLine2) = ACTION::LookupOK THEN BEGIN
                         CurrPage.UPDATE(FALSE);
                         Code := SpecialExtendedTextLine2.Code;
-                        //currform.VALIDATE(Code);
                         CurrentCode := SpecialExtendedTextLine2.Code;
                         // Lecture de la table Customer ou Vendor
                         IF "Table Name" = "Table Name"::Customer THEN BEGIN
@@ -101,12 +102,11 @@ page 50004 "BC6_Special Extended Text"
                         END;
                         CurrentCode := Code;
 
-                        RESET;
+                        RESET();
                         SETRANGE("Table Name", "Table Name");
                         SETRANGE("No.", "No.");
                         SETRANGE(Code, CurrentCode);
-                        FIND('-');
-                        //CurrForm.UPDATE(FALSE);
+                        FIND();
                     END;
                 end;
             }
@@ -117,15 +117,15 @@ page 50004 "BC6_Special Extended Text"
     begin
 
         CurrentCode := '';
-        RESET;
+        RESET();
         SETRANGE("Table Name", CurrentType);
         SETRANGE("No.", CurrentNo);
         SETRANGE(Code, Code);
         IF (CurrentType <> "Table Name") OR (Code = '') THEN BEGIN
             CurrentCode := '';
             Code := '';
-            RESET;
-            SpecialExtendedTextLine.RESET;
+            RESET();
+            SpecialExtendedTextLine.RESET();
             SpecialExtendedTextLine.SETRANGE(SpecialExtendedTextLine."Table Name", CurrentType);
             SpecialExtendedTextLine.SETRANGE(SpecialExtendedTextLine."No.", CurrentNo);
             IF SpecialExtendedTextLine.FIND('-') THEN BEGIN
@@ -136,7 +136,7 @@ page 50004 "BC6_Special Extended Text"
             SETRANGE("No.", CurrentNo);
             SETRANGE(Code, Code);
         END;
-        OnActivateForm;
+        OnActivateForm();
     end;
 
     var
@@ -145,39 +145,11 @@ page 50004 "BC6_Special Extended Text"
         TableItem: Record Item;
         SpecialExtendedTextLine: Record "BC6_Special Extended Text Line";
         SpecialExtendedTextLine2: Record "BC6_Special Extended Text Line";
-        CurrentType: Option Customer,vendor;
+        CurrentType: Enum "Credit Transfer Account Type";
         CurrentCode: Code[20];
         CurrentNo: Code[20];
-        CustomerName: Text[30];
-        ItemName: Text[30];
-        text001: Label '%TYpe Code';
-
-
-    procedure "--Functions_NSC1.00--"()
-    begin
-    end;
-
-    procedure fctSetTYpe(var fctType: Text[30])
-    begin
-        IF fctType = 'Customer' THEN
-            "Table Name" := "Table Name"::Customer;
-        IF fctType = 'Vendor' THEN
-            "Table Name" := "Table Name"::Vendor;
-
-        CurrentType := "Table Name";
-    end;
-
-
-    procedure "fctSetNo."(var "fctNo.": Code[10])
-    begin
-        "No." := "fctNo.";
-        CurrentNo := "No.";
-    end;
-
-
-    procedure Search()
-    begin
-    end;
+        CustomerName: Text[100];
+        ItemName: Text[100];
 
     local procedure CodeOnAfterValidate()
     begin
@@ -191,7 +163,7 @@ page 50004 "BC6_Special Extended Text"
             Code := TableVendor."No.";
         END;
         CurrentCode := Code;
-        RESET;
+        RESET();
         SETRANGE("Table Name", "Table Name");
         SETRANGE("No.", "No.");
         SETRANGE(Code, CurrentCode);
@@ -204,4 +176,3 @@ page 50004 "BC6_Special Extended Text"
         ItemName := TableItem.Description;
     end;
 }
-

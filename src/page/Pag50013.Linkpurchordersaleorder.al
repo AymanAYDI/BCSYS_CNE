@@ -1,6 +1,6 @@
 page 50013 "Link purch. order - sale order"
 {
-    Caption = 'Link purch. order - sale order';
+    Caption = 'Link purch. order - sale order', comment = 'FRA="Lien commande achat - commande vente"';
     DeleteAllowed = false;
     InsertAllowed = false;
     PageType = List;
@@ -32,10 +32,10 @@ page 50013 "Link purch. order - sale order"
                 field("document status"; RecLSalesHdr.Status)
                 {
                     BlankZero = false;
-                    Caption = 'Document status';
+                    Caption = 'Document status', comment = 'FRA="Statut Document"';
                     Editable = false;
                     Lookup = false;
-                    OptionCaption = 'Open,Released';
+                    //TODO: //the field is already declared Enum// OptionCaption = 'Open,Released';
                 }
                 field("Document No."; "Document No.")
                 {
@@ -78,12 +78,13 @@ page 50013 "Link purch. order - sale order"
         IF RecLSalesHdr.GET("Document Type", "Document No.") THEN
             Docstatus := RecLSalesHdr.Status
         ELSE
-            Docstatus := 0;
+            // Docstatus := 0;
+            Docstatus := RecLSalesHdr.Status::Open;
     end;
 
     var
         RecLSalesHdr: Record "Sales Header";
-        Docstatus: Option Open,Released;
-        textg001: Label 'Order isn''t modifiable';
+        Docstatus: Enum "Sales Document Status";
+        textg001: Label 'Order isn''t modifiable', comment = 'FRA="Commande non modifiable"';
 }
 

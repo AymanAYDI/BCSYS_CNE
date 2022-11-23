@@ -1,7 +1,7 @@
 page 50105 "BC6_Log Purch. Comment Lines"
 {
     AutoSplitKey = true;
-    Caption = 'Receipt related information';
+    Caption = 'Receipt related information', comment = 'FRA=" Informations connexes de réception"';
     DataCaptionFields = "Document Type", "No.", "BC6_Is Log";
     DelayedInsert = true;
     DeleteAllowed = true;

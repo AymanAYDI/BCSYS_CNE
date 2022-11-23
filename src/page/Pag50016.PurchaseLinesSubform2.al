@@ -1,6 +1,6 @@
 page 50016 "BC6_Purchase Lines Subform2"
 {
-    Caption = 'Purchase Lines';
+    Caption = 'Purchase Lines', comment = 'FRA="Lignes Achat"';
     Editable = false;
     MultipleNewLines = true;
     PageType = List;
@@ -49,13 +49,11 @@ page 50016 "BC6_Purchase Lines Subform2"
         {
             action(Show)
             {
-                Caption = '&Show';
+                Caption = '&Show', comment = 'FRA="Affic&her"';
                 Image = Document;
 
                 trigger OnAction()
                 begin
-                    //>>MIGRATION NAV 2013
-                    //CurrForm.PurchRcptline.FORM.GETRECORD(RecGPurchPostedRcpt);
                     IF NOT RecGPurchaseHeader.GET("Document Type", "Document No.") THEN
                         EXIT;
                     IF "Document Type" = "Document Type"::"Credit Memo" THEN
@@ -74,7 +72,6 @@ page 50016 "BC6_Purchase Lines Subform2"
                     IF "Document Type" = "Document Type"::"Return Order" THEN
                         PAGE.RUN(PAGE::"Purchase Return Order", RecGPurchaseHeader);
 
-                    //<<MIGRATION NAV 2013
                 end;
             }
         }
@@ -83,7 +80,7 @@ page 50016 "BC6_Purchase Lines Subform2"
     trigger OnAfterGetRecord()
     begin
         "Document No.HideValue" := FALSE;
-        DocumentNoOnFormat;
+        DocumentNoOnFormat();
     end;
 
     trigger OnOpenPage()
@@ -92,33 +89,33 @@ page 50016 "BC6_Purchase Lines Subform2"
         CALCFIELDS("BC6_Document Date flow");
         REPEAT
             "BC6_Document Date" := "BC6_Document Date flow";
-        UNTIL Rec.NEXT = 0;
+        UNTIL Rec.NEXT() = 0;
     end;
 
     var
-        TempPurchLine: Record "Purchase Line";
-        [InDataSet]
-        "Document No.HideValue": Boolean;
+        RecGPurchaseHeader: Record "Purchase Header";
+        TempPurchLine: Record "Purchase Line" temporary; //TODO CHECK IF IS IT TEMPORARY
         [InDataSet]
         "Document No.Emphasize": Boolean;
-        RecGPurchaseHeader: Record "Purchase Header";
+        [InDataSet]
+        "Document No.HideValue": Boolean;
 
 
     procedure IsFirstDocLine(): Boolean
     var
         PurchLine: Record "Purchase Line";
     begin
-        TempPurchLine.RESET;
+        TempPurchLine.RESET();
         TempPurchLine.COPYFILTERS(Rec);
         TempPurchLine.SETRANGE("Document Type", "Document Type");
         TempPurchLine.SETRANGE("Document No.", "Document No.");
-        IF NOT TempPurchLine.FIND('-') THEN BEGIN
+        IF NOT TempPurchLine.FindFirst() THEN BEGIN
             PurchLine.COPYFILTERS(Rec);
             PurchLine.SETRANGE("Document Type", "Document Type");
             PurchLine.SETRANGE("Document No.", "Document No.");
-            PurchLine.FIND('-');
+            PurchLine.FindLast();
             TempPurchLine := PurchLine;
-            TempPurchLine.INSERT;
+            TempPurchLine.INSERT();
         END;
         IF "Line No." = TempPurchLine."Line No." THEN
             EXIT(TRUE);
@@ -127,7 +124,7 @@ page 50016 "BC6_Purchase Lines Subform2"
     local procedure DocumentNoOnFormat()
     begin
         IF "Document No." <> '' THEN
-            IF IsFirstDocLine THEN
+            IF IsFirstDocLine() THEN
                 "Document No.Emphasize" := TRUE
             ELSE
                 "Document No.HideValue" := TRUE;

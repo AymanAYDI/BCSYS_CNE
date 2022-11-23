@@ -848,13 +848,10 @@ page 50098 "BC6_Sales Order (MAGASIN)"
         Mail: Codeunit Mail;
         "Sales & Receivables Setup": Record "Sales & Receivables Setup";
         Excel: Boolean;
-        PreparationNAVIDIIGEST: Report 50097;
-        "--NSC1.01--": ;
+        //TODO PreparationNAVIDIIGEST: Report 50097;
         STR3: Label 'Impimer le document';
         STR4: Label 'Envoyer le document par E-Mail';
         STR5: Label 'Envoyer le document par Fax';
-        Text001: ;
-        Text004: ;
         [InDataSet]
         SalesHistoryBtnVisible: Boolean;
         [InDataSet]
@@ -865,7 +862,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
         SalesHistoryStnVisible: Boolean;
         Text19070588: Label 'Sell-to Customer';
         Text19069283: Label 'Bill-to Customer';
-        ChangeExchangeRate: Page "511";
+        ChangeExchangeRate: Page "Change Exchange Rate";
 
     procedure UpdateAllowed(): Boolean
     begin

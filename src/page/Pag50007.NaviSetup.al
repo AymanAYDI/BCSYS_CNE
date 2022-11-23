@@ -1,7 +1,6 @@
 page 50007 "BC6_Navi+ Setup"
 {
-
-    Caption = 'Navi+ Setup';
+    Caption = 'Navi+ Setup', comment = 'FRA="Paramètres Navi+"';
     PageType = Card;
     SourceTable = "BC6_Navi+ Setup";
 
@@ -11,7 +10,7 @@ page 50007 "BC6_Navi+ Setup"
         {
             group(General)
             {
-                Caption = 'General';
+                Caption = 'General', comment = 'FRA="Général"';
                 field("Parm Msg franco de port"; "Parm Msg franco de port")
                 {
                 }
@@ -69,7 +68,7 @@ page 50007 "BC6_Navi+ Setup"
             }
             group(Item)
             {
-                Caption = 'Item';
+                Caption = 'Item', comment = 'FRA="Article"';
                 field("Base Unit of Measure"; "Base Unit of Measure")
                 {
                 }
@@ -112,7 +111,7 @@ page 50007 "BC6_Navi+ Setup"
             }
             group(Vendor)
             {
-                Caption = 'Vendor';
+                Caption = 'Vendor', comment = 'FRA="Fournisseur"';
                 field("Gen. Bus. Posting Group Vendor"; "Gen. Bus. Posting Group Vendor")
                 {
                 }
@@ -149,7 +148,7 @@ page 50007 "BC6_Navi+ Setup"
             }
             group(Customer)
             {
-                Caption = 'Customer';
+                Caption = 'Customer', comment = 'FRA="Client"';
                 field("Country Code"; "Country Code")
                 {
                 }
@@ -195,7 +194,7 @@ page 50007 "BC6_Navi+ Setup"
             }
             group(Project)
             {
-                Caption = 'Project';
+                Caption = 'Project', comment = 'FRA="Projet"';
                 field("Default Directory"; "Default Directory")
                 {
                 }
@@ -207,4 +206,3 @@ page 50007 "BC6_Navi+ Setup"
     {
     }
 }
-

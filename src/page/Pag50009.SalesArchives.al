@@ -1,6 +1,6 @@
 page 50009 "BC6_Sales Archives"
 {
-    Caption = 'Sales Orders';
+    Caption = 'Sales Orders', comment = 'FRA="Liste commande historiques"';
     DataCaptionFields = "No.";
     Editable = false;
     PageType = List;
@@ -62,10 +62,10 @@ page 50009 "BC6_Sales Archives"
         {
             group("&Line")
             {
-                Caption = '&Line';
+                Caption = '&Line', comment = 'FRA="&Ligne"';
                 action("Show Order")
                 {
-                    Caption = 'Show Order';
+                    Caption = 'Show Order', comment = 'FRA="Afficher commande"';
                     Image = "Order";
                     RunObject = Page "Sales Order Archive";
                     RunPageLink = "Document Type" = FIELD("Document Type"),

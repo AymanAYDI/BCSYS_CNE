@@ -1,6 +1,6 @@
 page 50011 "BC6_Sales Quote Arch. Cde"
 {
-    Caption = 'Sales Quote Arch. Cde';
+    Caption = 'Sales Quote Arch. Cde', comment = 'FRA="Archives devis Cde"';
     Editable = false;
     PageType = Document;
     SourceTable = "Sales Header Archive";
@@ -12,7 +12,7 @@ page 50011 "BC6_Sales Quote Arch. Cde"
         {
             group(General)
             {
-                Caption = 'General';
+                Caption = 'General', comment = 'FRA="Général"';
                 field("No."; "No.")
                 {
                 }
@@ -71,7 +71,7 @@ page 50011 "BC6_Sales Quote Arch. Cde"
                 {
                 }
             }
-            part(SalesLinesArchive; "Sales Quote Arch. Sub. Cde")
+            part(SalesLinesArchive; "BC6_Sales Quote Arch. Sub. Cde")
             {
                 SubPageLink = "Document No." = FIELD("No."),
                               "Doc. No. Occurrence" = FIELD("Doc. No. Occurrence"),
@@ -79,7 +79,7 @@ page 50011 "BC6_Sales Quote Arch. Cde"
             }
             group(Invoicing)
             {
-                Caption = 'Invoicing';
+                Caption = 'Invoicing', comment = 'FRA="Facturation"';
                 field("Bill-to Customer No."; "Bill-to Customer No.")
                 {
                 }
@@ -134,7 +134,7 @@ page 50011 "BC6_Sales Quote Arch. Cde"
             }
             group(Shipping)
             {
-                Caption = 'Shipping';
+                Caption = 'Shipping', comment = 'FRA="Livraison"';
                 field("Ship-to Code"; "Ship-to Code")
                 {
                 }
@@ -168,7 +168,7 @@ page 50011 "BC6_Sales Quote Arch. Cde"
             }
             group("Foreign Trade")
             {
-                Caption = 'Foreign Trade';
+                Caption = 'Foreign Trade', comment = 'FRA="International"';
                 field("Currency Code"; "Currency Code")
                 {
                 }
@@ -193,7 +193,7 @@ page 50011 "BC6_Sales Quote Arch. Cde"
             }
             group(Version)
             {
-                Caption = 'Version';
+                Caption = 'Version', comment = 'FRA="Version"';
                 field("Archived By"; "Archived By")
                 {
                 }
@@ -216,28 +216,27 @@ page 50011 "BC6_Sales Quote Arch. Cde"
         {
             group("Ver&sion")
             {
-                Caption = 'Ver&sion';
+                Caption = 'Ver&sion', comment = 'FRA="Ver&sion"';
                 action(Card)
                 {
-                    Caption = 'Card';
+                    Caption = 'Card', comment = 'FRA="Fiche"';
                     Image = EditLines;
                     RunObject = Page "Customer Card";
-                                    RunPageLink = "No." = FIELD("Sell-to Customer No.");
-                                    ShortCutKey = 'Shift+F5';
+                    RunPageLink = "No." = FIELD("Sell-to Customer No.");
+                    ShortCutKey = 'Shift+F5';
                 }
                 action(Dimensions)
                 {
-                    Caption = 'Dimensions';
+                    Caption = 'Dimensions', comment = 'FRA="A&xes analytiques"';
                     Image = Dimensions;
 
                     trigger OnAction()
                     begin
-                        ShowDimensions;
-                        CurrPage.SAVERECORD;
+                        ShowDimensions();
+                        CurrPage.SAVERECORD();
                     end;
                 }
             }
         }
     }
 }
-

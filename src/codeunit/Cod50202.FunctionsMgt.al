@@ -1068,6 +1068,34 @@ codeunit 50202 "BC6_Functions Mgt"
         end;
     end;
 
+    procedure InsertRec(NewType: Enum "Notification Entry Type"; NewUserID: Code[50]; NewRecordID: RecordID; NewLinkTargetPage: Integer; NewCustomLink: Text[250]; NewSenderUserID: Code[50]): Boolean;
+    var
+        NotificationEntry: record "Notification Entry";
+    begin
+        if not DoesTableMatchType(NewType, NewRecordID.TableNo) then
+            exit(false);
+
+        Clear(NotificationEntry);
+        NotificationEntry.Type := NewType;
+        NotificationEntry."Recipient User ID" := NewUserID;
+        NotificationEntry."Triggered By Record" := NewRecordID;
+        NotificationEntry."Link Target Page" := NewLinkTargetPage;
+        NotificationEntry."Custom Link" := NewCustomLink;
+        NotificationEntry."Sender User ID" := NewSenderUserID;
+        exit(NotificationEntry.Insert(true));
+    end;
+
+    procedure DoesTableMatchType(NewType: Enum "Notification Entry Type"; TableNo: Integer): Boolean;
+    begin
+        case NewType of
+            "Notification Entry Type"::Approval:
+                exit(TableNo = Database::"Approval Entry");
+            "Notification Entry Type"::Overdue:
+                exit(TableNo = Database::"Overdue Approval Entry");
+        end;
+        exit(true);
+    end;
+
     var
         EnableIncrPurchCost: Boolean;
         YourReference: Text; // related to SetYourReference function

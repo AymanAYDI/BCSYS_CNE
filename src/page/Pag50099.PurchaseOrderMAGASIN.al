@@ -1,6 +1,6 @@
 page 50099 "BC6_Purchase Order (MAGASIN)"
 {
-    Caption = 'Purchase Order';
+    Caption = 'Purchase Order', comment = 'FRA="Commande achat"';
     PageType = Document;
     RefreshOnActivate = true;
     SourceTable = "Purchase Header";
@@ -12,7 +12,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
         {
             group(General)
             {
-                Caption = 'General';
+                Caption = 'General', comment = 'FRA="Général"';
                 field("No."; "No.")
                 {
 
@@ -44,7 +44,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                 }
                 field("Buy-from Post Code"; "Buy-from Post Code")
                 {
-                    Caption = 'Buy-from Post Code/City';
+                    Caption = 'Buy-from Post Code/City', comment = 'FRA="CP/Ville preneur d''ordre"';
                 }
                 field("Buy-from City"; "Buy-from City")
                 {
@@ -90,9 +90,9 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                 field("No. of Archived Versions"; "No. of Archived Versions")
                 {
                 }
-                field(ID; ID)
+                field(ID; Rec.ID)
                 {
-                    Caption = 'User ID';
+                    Caption = 'User ID', comment = 'FRA="Code Utilisateur"';
                     Editable = false;
                 }
                 field(Status; Status)
@@ -107,7 +107,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
             }
             group(Invoicing)
             {
-                Caption = 'Invoicing';
+                Caption = 'Invoicing', comment = 'FRA="Facturation"';
                 field("Pay-to Vendor No."; "Pay-to Vendor No.")
                 {
 
@@ -130,7 +130,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                 }
                 field("Pay-to Post Code"; "Pay-to Post Code")
                 {
-                    Caption = 'Pay-to Post Code/City';
+                    Caption = 'Pay-to Post Code/City', comment = 'FRA="CP/Ville"';
                 }
                 field("Pay-to City"; "Pay-to City")
                 {
@@ -186,7 +186,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
             }
             group(Shipping)
             {
-                Caption = 'Shipping';
+                Caption = 'Shipping', comment = 'FRA="Livraison"';
                 field("Ship-to Name"; "Ship-to Name")
                 {
                 }
@@ -198,7 +198,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                 }
                 field("Ship-to Post Code"; "Ship-to Post Code")
                 {
-                    Caption = 'Ship-to Post Code/City';
+                    Caption = 'Ship-to Post Code/City', comment = 'FRA="CP/Ville destinataire"';
                 }
                 field("Ship-to City"; "Ship-to City")
                 {
@@ -236,7 +236,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
             }
             group("Foreign Trade")
             {
-                Caption = 'Foreign Trade';
+                Caption = 'Foreign Trade', comment = 'FRA="International"';
                 field("Currency Code"; "Currency Code")
                 {
 
@@ -276,10 +276,10 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
         {
             group("O&rder")
             {
-                Caption = 'O&rder';
+                Caption = 'O&rder', comment = 'FRA="&Commande"';
                 action(Statistics)
                 {
-                    Caption = 'Statistics';
+                    Caption = 'Statistics', comment = 'FRA="Statistiques"';
                     Image = Statistics;
                     Promoted = true;
                     PromotedCategory = Process;
@@ -289,10 +289,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                     begin
                         PurchSetup.GET;
                         IF PurchSetup."Calc. Inv. Discount" THEN BEGIN
-                            //MIG 2017 >>
-                            //CurrPage.PurchLines.PAGE.CalcInvDisc;
                             CurrPage.PurchLines.PAGE.ApproveCalcInvDisc;
-                            //MIG 2017 <<
                             COMMIT;
                         END;
                         PAGE.RUNMODAL(PAGE::"Purchase Order Statistics", Rec);
@@ -300,7 +297,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                 }
                 action(Card)
                 {
-                    Caption = 'Card';
+                    Caption = 'Card', comment = 'FRA="Fiche"';
                     Image = EditLines;
                     RunObject = Page "Vendor Card";
                     RunPageLink = "No." = FIELD("Buy-from Vendor No.");
@@ -308,7 +305,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                 }
                 action("Co&mments")
                 {
-                    Caption = 'Co&mments';
+                    Caption = 'Co&mments', comment = 'FRA="Co&mmentaires"';
                     Image = ViewComments;
                     RunObject = Page "Purch. Comment Sheet";
                     RunPageLink = "Document Type" = FIELD("Document Type"),
@@ -316,7 +313,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                 }
                 action(Receipts)
                 {
-                    Caption = 'Receipts';
+                    Caption = 'Receipts', comment = 'FRA="Réception"';
                     Image = PostedReceipts;
                     RunObject = Page "Posted Purchase Receipts";
                     RunPageLink = "Order No." = FIELD("No.");
@@ -324,7 +321,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                 }
                 action(Invoices)
                 {
-                    Caption = 'Invoices';
+                    Caption = 'Invoices', comment = 'FRA="F&actures"';
                     Image = Invoice;
                     RunObject = Page "Posted Purchase Invoices";
                     RunPageLink = "Order No." = FIELD("No.");
@@ -332,7 +329,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                 }
                 action(Dimensions)
                 {
-                    Caption = 'Dimensions';
+                    Caption = 'Dimensions', comment = 'FRA="A&xes analytiques"';
                     Image = Dimensions;
 
                     trigger OnAction()
@@ -345,7 +342,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                 }
                 action("Whse. Receipt Lines")
                 {
-                    Caption = 'Whse. Receipt Lines';
+                    Caption = 'Whse. Receipt Lines', comment = 'FRA="Lignes réception mag."';
                     Image = WarehouseRegisters;
                     RunObject = Page "Whse. Receipt Lines";
                     RunPageLink = "Source Type" = CONST(39),
@@ -355,7 +352,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                 }
                 action("In&vt. Put-away/Pick Lines")
                 {
-                    Caption = 'In&vt. Put-away/Pick Lines';
+                    Caption = 'In&vt. Put-away/Pick Lines', comment = 'FRA="Lignes prélévement/rangement stock"';
                     Image = Warehouse;
                     RunObject = Page "Warehouse Activity List";
                     RunPageLink = "Source Document" = CONST("Purchase Order"),
@@ -367,42 +364,35 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                 }
                 group("Dr&op Shipment")
                 {
-                    Caption = 'Dr&op Shipment';
+                    Caption = 'Dr&op Shipment', comment = 'FRA="Livraison &directe"';
                     Image = Purchasing;
                     action("BC6_Get &Sales Order")
                     {
-                        Caption = 'Get &Sales Order';
+                        Caption = 'Get &Sales Order', comment = 'FRA="Ex&traire commande vente"';
                         Image = GetLines;
                         RunObject = Codeunit "Purch.-Get Drop Shpt.";
                     }
                     action("BC6_Sales &Order")
                     {
-                        Caption = 'Sales &Order';
+                        Caption = 'Sales &Order', comment = 'FRA="Commande &vente"';
                         Image = Document;
                         Visible = false;
 
-                        trigger OnAction()
-                        begin
-                            //MIG 2017 >>
-                            //n'existe plus sur entete en 2017
-                            //CurrPage.PurchLines.PAGE.OpenSalesOrderForm;
-                            //MIG 2017 <<
-                        end;
                     }
                 }
                 group("Speci&al Order")
                 {
-                    Caption = 'Speci&al Order';
+                    Caption = 'Speci&al Order', comment = 'FRA="C&ommande spéciale"';
                     Image = Purchasing;
                     action("Get &Sales Order")
                     {
-                        Caption = 'Get &Sales Order';
+                        Caption = 'Get &Sales Order', comment = 'FRA="Ex&traire commande vente"';
                         Image = GetEntries;
 
                         trigger OnAction()
                         var
-                            DistIntegration: Codeunit "Dist. Integration";
                             PurchHeader: Record "Purchase Header";
+                            DistIntegration: Codeunit "Dist. Integration";
                         begin
                             PurchHeader.COPY(Rec);
                             DistIntegration.GetSpecialOrders(PurchHeader);
@@ -411,17 +401,9 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                     }
                     action("Sales &Order")
                     {
-                        Caption = 'Sales &Order';
+                        Caption = 'Sales &Order', comment = 'FRA="Commande &vente"';
                         Image = Document;
                         Visible = false;
-
-                        trigger OnAction()
-                        begin
-                            //MIG 2017 >>
-                            //n'existe plus sur entete en 2017
-                            //CurrPage.PurchLines.PAGE.OpenSpecOrderSalesOrderForm;
-                            //MIG 2017 <<
-                        end;
                     }
                 }
             }
@@ -430,25 +412,25 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
         {
             action("Affecter commande")
             {
-                Caption = 'Affecter commande';
+                Caption = 'Affecter commande', comment = 'FRA="Affecter commande"';
                 Image = OrderReminder;
                 Promoted = true;
                 PromotedCategory = Process;
 
                 trigger OnAction()
                 begin
-                    // IF NOT "BC6_From Sales Module" THEN
-                    //     CurrPage.PurchLines.PAGE.ChooseSalesLineOrderToAffect TODO:
+                    //TODO IF NOT "BC6_From Sales Module" THEN
+                    //     CurrPage.PurchLines.PAGE.ChooseSalesLineOrderToAffect
                     // ELSE
                     //     MESSAGE(txtg001);
                 end;
             }
             group("F&unctions")
             {
-                Caption = 'F&unctions';
+                Caption = 'F&unctions', comment = 'FRA="Fonction&s"';
                 action("Calculate &Invoice Discount")
                 {
-                    Caption = 'Calculate &Invoice Discount';
+                    Caption = 'Calculate &Invoice Discount', comment = 'FRA="C&alculer remise facture"';
                     Image = CalculateInvoiceDiscount;
 
                     trigger OnAction()
@@ -461,38 +443,24 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                 }
                 action("E&xplode BOM")
                 {
-                    Caption = 'E&xplode BOM';
+                    Caption = 'E&xplode BOM', comment = 'FRA="&Eclater nomenclature"';
                     Image = ExplodeBOM;
                     Visible = false;
 
-                    trigger OnAction()
-                    begin
-                        //MIG 2017 >>
-                        //n'existe plus sur entete en 2017
-                        //CurrPage.PurchLines.PAGE.ExplodeBOM;
-                        //MIG 2017 >>
-                    end;
                 }
                 action("Insert &Ext. Texts")
                 {
-                    Caption = 'Insert &Ext. Texts';
+                    Caption = 'Insert &Ext. Texts', comment = 'FRA="Insérer te&xtes étendus"';
                     Image = Text;
                     Visible = false;
 
-                    trigger OnAction()
-                    begin
-                        //MIG 2017 >>
-                        //n'existe plus sur entete en 2017
-                        //CurrPage.PurchLines.PAGE.InsertExtendedText(TRUE);
-                        //MIG 2017 <<
-                    end;
                 }
                 separator(Action152)
                 {
                 }
                 action("Get St&d. Vend. Purchase Codes")
                 {
-                    Caption = 'Get St&d. Vend. Purchase Codes';
+                    Caption = 'Get St&d. Vend. Purchase Codes', comment = 'FRA="Extraire codes &achat fourn. std"';
                     Ellipsis = true;
                     Image = GetStandardJournal;
 
@@ -508,7 +476,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                 }
                 action("Order &Tracking")
                 {
-                    Caption = 'Order &Tracking';
+                    Caption = 'Order &Tracking', comment = 'FRA="ChaŒnage"';
                     Image = OrderTracking;
 
                     trigger OnAction()
@@ -521,7 +489,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                 }
                 action("Copy Document")
                 {
-                    Caption = 'Copy Document';
+                    Caption = 'Copy Document', comment = 'FRA="Copier &document"';
                     Ellipsis = true;
                     Image = CopyDocument;
 
@@ -534,7 +502,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                 }
                 action("Archi&ve Document")
                 {
-                    Caption = 'Archi&ve Document';
+                    Caption = 'Archi&ve Document', comment = 'FRA="Archi&ver document"';
                     Image = Archive;
 
                     trigger OnAction()
@@ -545,7 +513,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                 }
                 action("Move Negative Lines")
                 {
-                    Caption = 'Move Negative Lines';
+                    Caption = 'Move Negative Lines', comment = 'FRA="Déplacer lignes &négatives"';
                     Ellipsis = true;
                     Image = MoveNegativeLines;
 
@@ -562,7 +530,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                 }
                 action("Create &Whse. Receipt")
                 {
-                    Caption = 'Create &Whse. Receipt';
+                    Caption = 'Create &Whse. Receipt', comment = 'FRA="Créer &réception magasin"';
                     Image = WarehouseRegisters;
 
                     trigger OnAction()
@@ -574,7 +542,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                 }
                 action("Create Inventor&y Put-away / Pick")
                 {
-                    Caption = 'Create Inventor&y Put-away / Pick';
+                    Caption = 'Create Inventor&y Put-away / Pick', comment = 'FRA="Créer prélév./rangement stoc&k"';
                     Ellipsis = true;
                     Image = CreateInventoryPickup;
 
@@ -588,14 +556,14 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                 }
                 action("Re&lease")
                 {
-                    Caption = 'Re&lease';
+                    Caption = 'Re&lease', comment = 'FRA="Lancer"';
                     Image = ReleaseDoc;
                     RunObject = Codeunit "Release Purchase Document";
                     ShortCutKey = 'Ctrl+F9';
                 }
                 action("Re&open")
                 {
-                    Caption = 'Re&open';
+                    Caption = 'Re&open', comment = 'FRA="R&ouvrir"';
                     Image = ReOpen;
                     Visible = false;
 
@@ -611,7 +579,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                 }
                 action("Send IC Purchase Order")
                 {
-                    Caption = 'Send IC Purchase Order';
+                    Caption = 'Send IC Purchase Order', comment = 'FRA="Envoyer commande achat IC"';
                     Image = SendElectronicDocument;
 
                     trigger OnAction()
@@ -624,24 +592,22 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
             }
             group("P&osting")
             {
-                Caption = 'P&osting';
+                Caption = 'P&osting', comment = 'FRA="&Validation"';
                 action("Test Report")
                 {
-                    Caption = 'Test Report';
+                    Caption = 'Test Report', comment = 'FRA="Valider et i&mprimer"';
                     Ellipsis = true;
                     Image = TestReport;
 
                     trigger OnAction()
                     begin
-                        //CONTROLEMINIMA SM 11/10/06 NCS1.01 [FE02] Contrôle Minima MNT
                         IF NOT ControleMinimMNTandQTE THEN
                             ReportPrint.PrintPurchHeader(Rec);
-                        //FIN CONTROLEMINIMA SM 11/10/06 NCS1.01 [FE02]  Contrôle Minima MNT
                     end;
                 }
                 action("P&ost")
                 {
-                    Caption = 'P&ost';
+                    Caption = 'P&ost', comment = 'FRA="Valider"';
                     Ellipsis = true;
                     Image = Post;
                     Promoted = true;
@@ -652,7 +618,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                 }
                 action("Post and &Print")
                 {
-                    Caption = 'Post and &Print';
+                    Caption = 'Post and &Print', comment = 'FRA="Valider et i&mprimer"';
                     Ellipsis = true;
                     Image = PostPrint;
                     Promoted = true;
@@ -663,24 +629,22 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                 }
                 action("Post &Batch")
                 {
-                    Caption = 'Post &Batch';
+                    Caption = 'Post &Batch', comment = 'FRA="Valider par lot"';
                     Ellipsis = true;
                     Image = PostBatch;
 
                     trigger OnAction()
                     begin
-                        //CONTROLEMINIMA SM 11/10/06 NCS1.01 [FE02]  Contrôle Minima MNT
                         IF NOT ControleMinimMNTandQTE THEN BEGIN
                             REPORT.RUNMODAL(REPORT::"Batch Post Purchase Orders", TRUE, TRUE, Rec);
                             CurrPage.UPDATE(FALSE);
                         END;
-                        //FIN CONTROLEMINIMA SM 11/10/06 NCS1.01 [FE02]  Contrôle Minima MNT
                     end;
                 }
             }
             action("Bc6_&Print")
             {
-                Caption = '&Print';
+                Caption = '&Print', comment = 'FRA="&Imprimer"';
                 Ellipsis = true;
                 Image = Print;
                 Promoted = true;
@@ -688,17 +652,15 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
 
                 trigger OnAction()
                 begin
-                    //>>FE002.2
                     IF ControleMinimMNTandQTE THEN
                         EXIT;
-                    //<<FE002.2
 
                     DocPrint.PrintPurchHeader(Rec);
                 end;
             }
             action("&Print")
             {
-                Caption = '&Print';
+                Caption = '&Print', comment = 'FRA="&Envoyer/Imprimer"';
                 Ellipsis = true;
                 Image = Print;
                 Promoted = true;
@@ -706,10 +668,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
 
                 trigger OnAction()
                 begin
-                    //EMAIL NSC00.01  SBH [005] Envoi document Par Email
-                    //DocPrint.PrintSalesHeader(Rec);
                     CASE STRMENU(STR3 + ',' + STR4 + ',' + STR5) OF
-                        //1:DocPrint.PrintSalesHeader(Rec);
                         1:
                             BEGIN
                                 DocPrint.PrintPurchHeader(Rec);
@@ -717,7 +676,6 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                         2:
                             EnvoiMail;
                     END;
-                    //Fin EMAIL NSC00.01 SBH [005] Envoi document Par Email
                 end;
             }
         }
@@ -744,42 +702,38 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
     end;
 
     var
-        PurchSetup: Record "Purchases & Payables Setup";
-        CopyPurchDoc: Report "Copy Purchase Document";
-        MoveNegPurchLines: Report "Move Negative Purchase Lines";
-        ReportPrint: Codeunit "Test Report-Print";
-        UserMgt: Codeunit "User Setup Management";
-        DocPrint: Codeunit "Document-Print";
-        ArchiveManagement: Codeunit ArchiveManagement;
         HistMail: Record "BC6_Historique Mails Envoyés";
         cust: Record Customer;
-        nameF: Text[250];
-        Mail: Codeunit Mail;
+        PurchSetup: Record "Purchases & Payables Setup";
         SalesSetup: Record "Sales & Receivables Setup";
+        CopyPurchDoc: Report "Copy Purchase Document";
+        MoveNegPurchLines: Report "Move Negative Purchase Lines";
+        ArchiveManagement: Codeunit ArchiveManagement;
+        DocPrint: Codeunit "Document-Print";
+        Mail: Codeunit Mail;
+        ReportPrint: Codeunit "Test Report-Print";
+        UserMgt: Codeunit "User Setup Management";
+        ChangeExchangeRate: Page "Change Exchange Rate";
         Excel: Boolean;
-        STR1: Label 'Archiver Devis';
+        STR1: Label 'Archiver Devis', comment = 'FRA="Archiver Devis"';
         STR2: Label 'Créer Commande';
         STR3: Label 'Imprimer le document ?';
         STR4: Label 'Envoyer le document par mail ?';
         STR5: Label 'Envoyer le document par fax ?';
-        Text004: Label 'Fichiers Pdf (*.pdf)|*.pdf|Tous les fichiers (*.*)|*.*';
         Text001: Label '';
-        txtg001: Label 'This Purchase Order is already linked with a sales document \ You can''t affect a new one';
-        ChangeExchangeRate: Page "Change Exchange Rate";
+        Text004: Label 'Fichiers Pdf (*.pdf)|*.pdf|Tous les fichiers (*.*)|*.*';
+        txtg001: Label 'This Purchase Order is already linked with a sales document \ You can''t affect a new one', comment = 'FRA="Cette commande d''achat est déjà lié a un document \ Vous ne pouvez pas l''affecter … un autre"';
+        nameF: Text[250];
 
 
     procedure EnvoiMail()
     begin
-        //EMAIL NSC00.01 SBH [005] Envoi document
         cust.SETRANGE(cust."No.", "Sell-to Customer No.");
-        IF cust.FIND('-') THEN
+        IF cust.FindFirst() THEN
             cust.TESTFIELD("E-Mail");
         OpenFile;
         IF nameF <> '' THEN BEGIN
-            //MIG2017
-            //Mail.NewMessage(cust."E-Mail",'',CurrPage.CAPTION+' '+"No.",'',nameF,FALSE);
             Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + "No.", '', nameF, FALSE);
-            //MIG2017
             ERASE(nameF);
         END
         ELSE BEGIN
@@ -792,28 +746,11 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
         HistMail."Date d'envoi" := TODAY;
         HistMail."Document envoyé" := CurrPage.CAPTION + ' ' + "No.";
         HistMail.INSERT(TRUE);
-        //Fin EMAIL NSC00.01 SBH [005] Envoi document
     end;
 
 
     procedure OpenFile()
     begin
-        /*//EMAIL NSC00.01 SBH [005] Envoi document
-        FileDialog.DialogTitle('Envoi'+' '+CurrForm.CAPTION);
-        FileDialog.Filter := Text004;
-        SalesSetup.GET;
-        FileDialog.FileName := '';
-        FileDialog.InitDir(SalesSetup.Repertoire);
-        FileDialog.Flags := 4096 + 2048; // vérification de l'existence du fichier, code qui suit inutile.
-        FileDialog.ShowOpen;
-        nameF:=FileDialog.FileName;
-        IF nameF='' THEN
-          BEGIN
-            Excel := FALSE;
-            EXIT;
-          END;
-        //Fin EMAIL NSC00.01 SBH [005] Envoi document
-        */
 
     end;
 

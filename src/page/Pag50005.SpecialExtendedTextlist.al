@@ -54,7 +54,7 @@ page 50005 "BC6_Special Extended Text list"
 
         IF "No." <> '' THEN
             SETRANGE("No.", "No.");
-        IF FIND('-') THEN BEGIN
+        IF FIND('-') THEN
             REPEAT
                 IF ("No." <> '') AND (Text <> '') THEN
                     IF (Code <> '') AND (Code <> SaveCode) THEN BEGIN
@@ -62,7 +62,7 @@ page 50005 "BC6_Special Extended Text list"
                         SaveCode := Code;
                     END;
             UNTIL NEXT = 0;
-        END;
+
         MARKEDONLY(TRUE);
     end;
 

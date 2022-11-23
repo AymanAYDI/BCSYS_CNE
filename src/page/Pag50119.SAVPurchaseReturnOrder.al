@@ -6,6 +6,8 @@ page 50119 "BC6_SAV Purchase Return Order"
     RefreshOnActivate = true;
     SourceTable = "Purchase Header";
     SourceTableView = WHERE("Document Type" = FILTER("Return Order"));
+    UsageCategory = Administration;
+    ApplicationArea = All;
 
     layout
     {
@@ -740,7 +742,7 @@ page 50119 "BC6_SAV Purchase Return Order"
                     PromotedCategory = Process;
                     ShortCutKey = 'Ctrl+F9';
                     ApplicationArea = All;
-
+                
                     trigger OnAction()
                     var
                         ReleasePurchDoc: Codeunit "Release Purchase Document";
@@ -760,7 +762,7 @@ page 50119 "BC6_SAV Purchase Return Order"
 
                     trigger OnAction()
                     var
-                        ReleasePurchDoc: Codeunit "Release Purchase Document";
+                                        ReleasePurchDoc: Codeunit "Release Purchase Document";
                     begin
                         ReleasePurchDoc.PerformManualReopen(Rec);
                     end;
@@ -769,7 +771,7 @@ page 50119 "BC6_SAV Purchase Return Order"
                 {
                 }
             }
-            group("F&unctions")
+            group("F                &unctions")
             {
                 Caption = 'F&unctions', Comment = 'FRA="Fonction&s"';
                 Image = "Action";
@@ -786,7 +788,7 @@ page 50119 "BC6_SAV Purchase Return Order"
                     trigger OnAction()
                     begin
                         Rec.GetPstdDocLinesToReverse;
-                    end;
+                                    end;
                 }
                 action("Apply Entries")
                 {
@@ -797,7 +799,7 @@ page 50119 "BC6_SAV Purchase Return Order"
                     ShortCutKey = 'Shift+F11';
                     ApplicationArea = All;
 
-                    trigger OnAction()
+                                    trigger OnAction()
                     begin
                         CODEUNIT.RUN(CODEUNIT::"Purchase Header Apply", Rec);
                     end;
@@ -1216,3 +1218,4 @@ page 50119 "BC6_SAV Purchase Return Order"
     end;
 }
 
+                                                                                                                              

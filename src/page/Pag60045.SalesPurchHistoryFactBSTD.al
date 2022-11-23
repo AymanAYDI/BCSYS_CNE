@@ -687,7 +687,7 @@ page 60045 "Sales/Purch. History FactB STD"
         RecGSalesInvoiceLine: Record "Sales Invoice Line";
         PagGInvoiceLinesSubform3: Page "BC6_Invoice Lines Subform 3";
         RecGSalesCrMemoLine: Record "Sales Cr.Memo Line";
-        PagGCreditMemoLinesSubform2: Page "Credit Memo Lines Subform 2";
+        PagGCreditMemoLinesSubform2: Page "BC6_Cred. Memo Lines Subform 2";
         PagGGReturnRcptLinesSubform2: Page "Return Rcpt Lines Subform 2";
         RecGReturnReceiptLine: Record "Return Receipt Line";
         "---------": Integer;
@@ -709,7 +709,7 @@ page 60045 "Sales/Purch. History FactB STD"
         PagGPurchaseLinesSubform2: Page "BC6_Purchase Lines Subform2";
         PagGPurchRcpLinesSubform: Page "BC6_Purch. Rcpt. Lines Subform";
         PagGPurchInvLineSubform: Page "BC6_Purch. Inv. Line Subform";
-        PagGReturnShipmentLineSubform: Page "Return Shipment Line Subform";
+        PagGReturnShipmentLineSubform: Page "BC6_Return Ship. Line Subform";
         PagGPurchCrMemoLineSubform: Page "Purch. Cr. Memo Line Subform";
 }
 

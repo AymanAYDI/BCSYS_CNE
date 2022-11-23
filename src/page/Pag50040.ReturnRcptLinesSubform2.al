@@ -5,7 +5,7 @@ page 50040 "Return Rcpt Lines Subform 2"
     PageType = List;
     SourceTable = "Return Receipt Line";
     SourceTableView = SORTING("Sell-to Customer No.");
-
+    UsageCategory = Lists;
     layout
     {
         area(content)

@@ -1,28 +1,31 @@
 page 50061 "BC6_Recherche Fichier"
 {
     PageType = Card;
-
+    UsageCategory = Administration;
+    ApplicationArea = All;
     layout
     {
         area(content)
         {
             group(Rechercher)
             {
-                Caption = 'Rechercher';
                 field(Init_Dir; Init_Dir)
                 {
-                    Caption = 'Initial Directory';
                     Enabled = true;
+                    ApplicationArea = All;
+                    Caption = 'Init_Dir';
                 }
                 field(Filtre; Filtre)
                 {
-                    Caption = 'Filter';
                     Enabled = true;
+                    ApplicationArea = All;
+                    Caption = 'Filtre';
                 }
                 field(File_Name; File_Name)
                 {
-                    Caption = 'File';
                     Enabled = true;
+                    ApplicationArea = All;
+                    Caption = 'File_Name';
                 }
             }
         }
@@ -42,7 +45,7 @@ page 50061 "BC6_Recherche Fichier"
         File_Name: Text[100];
         Filtre: Text[10];
         Init_Dir: Text[100];
-        Text19062749: Label 'Filter';
-        Text19016114: Label 'File';
+        Text19062749: Label 'Filter', Comment = 'FRA="Filtre"';
+        Text19016114: Label 'File', Comment = 'FRA="Fichier"';
 }
 

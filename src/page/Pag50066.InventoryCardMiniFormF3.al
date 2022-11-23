@@ -1,7 +1,7 @@
 page 50066 "BC6_Inventory Card MiniForm F3"
 {
     AutoSplitKey = false;
-    Caption = 'Inventory';
+    Caption = 'Inventory', Comment = 'FRA="Inventaire article"';
     DelayedInsert = false;
     LinksAllowed = false;
     PageType = Card;
@@ -9,6 +9,8 @@ page 50066 "BC6_Inventory Card MiniForm F3"
     SourceTable = "Item Journal Line";
     SourceTableView = SORTING("Journal Template Name", "Journal Batch Name", "Line No.")
                       ORDER(Ascending);
+    UsageCategory = Administration;
+    ApplicationArea = All;
 
     layout
     {
@@ -16,38 +18,18 @@ page 50066 "BC6_Inventory Card MiniForm F3"
         {
             field(FromBinCodeCtrl; FromBinCode)
             {
-                Caption = 'Bin Code';
+                Caption = 'Bin Code', Comment = 'FRA="De empl."';
                 Editable = true;
                 Style = Standard;
                 StyleExpr = TRUE;
                 TableRelation = Bin.Code;
                 Visible = FromBinCodeCtrlVisible;
+                ApplicationArea = All;
 
                 trigger OnLookup(var Text: Text): Boolean
                 var
                     Bin: Record Bin;
                 begin
-                    /*IF ItemNo <> '' THEN
-                      BEGIN
-                        CLEAR(BinContentForm);
-                        BinContent.RESET;
-                        IF LocationCode <> '' THEN
-                          BinContent.SETRANGE("Location Code",LocationCode);
-                        IF ItemNo <> '' THEN
-                          BinContent.SETRANGE("Item No.",ItemNo);
-                        BinContent.SETFILTER(Quantity,'>%1',0);
-                        IF BinContent.FIND('-') THEN
-                          BinContentForm.SETRECORD(BinContent);
-                        BinContentForm.SETTABLEVIEW(BinContent);
-                        BinContentForm.LOOKUPMODE(TRUE);
-                        IF BinContent.FIND('-') THEN
-                          BinContentForm.SETRECORD(BinContent);
-                        IF BinContentForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
-                          BinContentForm.GETRECORD(BinContent);
-                          FromBinCode := BinContent."Bin Code";
-                          AssignFromBinCode(FromBinCode);
-                        END;
-                    END ELSE BEGIN*/
                     CLEAR(BinForm);
                     Bin.RESET;
                     IF LocationCode <> '' THEN
@@ -73,11 +55,12 @@ page 50066 "BC6_Inventory Card MiniForm F3"
             }
             field(ItemNoCtrl; ItemNo)
             {
-                Caption = 'Item nr';
+                Caption = 'Item nr', Comment = 'FRA="N° article"';
                 NotBlank = false;
                 Style = Standard;
                 StyleExpr = TRUE;
                 Visible = ItemNoCtrlVisible;
+                ApplicationArea = All;
 
                 trigger OnLookup(var Text: Text): Boolean
                 var
@@ -105,15 +88,18 @@ page 50066 "BC6_Inventory Card MiniForm F3"
             field(Description; Description)
             {
                 Editable = false;
+                ApplicationArea = All;
+                Caption = 'Description';
             }
             field(QtyCtrl; Qty)
             {
                 // BlankZero = true; TODO:
-                Caption = 'Quantity';
+                Caption = 'Quantity', Comment = 'FRA="Quantité"';
                 Editable = QtyCtrlEditable;
                 Style = Standard;
                 StyleExpr = TRUE;
                 Visible = QtyCtrlVisible;
+                ApplicationArea = All;
 
                 trigger OnValidate()
                 begin
@@ -125,12 +111,13 @@ page 50066 "BC6_Inventory Card MiniForm F3"
             }
             field(LocationCodeCtrl; LocationCode)
             {
-                Caption = 'Location';
+                Caption = 'Location', Comment = 'FRA="Magasin"';
                 Editable = false;
                 Numeric = false;
                 Style = Standard;
                 StyleExpr = TRUE;
                 TableRelation = Location;
+                ApplicationArea = All;
 
                 trigger OnLookup(var Text: Text): Boolean
                 var
@@ -165,11 +152,12 @@ page 50066 "BC6_Inventory Card MiniForm F3"
         {
             action(Item)
             {
-                Caption = 'Item';
+                Caption = 'Item', Comment = 'FRA="N°&art."';
                 Image = Item;
                 Promoted = true;
                 PromotedCategory = Process;
                 ShortCutKey = 'F2';
+                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -201,11 +189,12 @@ page 50066 "BC6_Inventory Card MiniForm F3"
             }
             action("&Bin.")
             {
-                Caption = '&Bin.';
+                Caption = '&Bin.', Comment = 'FRA="&Emp."';
                 Image = Bin;
                 Promoted = true;
                 PromotedCategory = Process;
                 ShortCutKey = 'F3';
+                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -236,10 +225,11 @@ page 50066 "BC6_Inventory Card MiniForm F3"
             }
             action("&Quit")
             {
-                Caption = '&Quit';
-                Image = cancel;
+                Caption = '&Quit', Comment = 'FRA="&Quitter"';
+                Image = Cancel;
                 Promoted = true;
                 PromotedCategory = Process;
+                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -248,8 +238,9 @@ page 50066 "BC6_Inventory Card MiniForm F3"
             }
             action("&Delete")
             {
-                Caption = '&Delete';
+                Caption = '&Delete', Comment = 'FRA="&Delete"';
                 ShortCutKey = 'F9';
+                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -266,7 +257,7 @@ page 50066 "BC6_Inventory Card MiniForm F3"
 
     trigger OnAfterGetRecord()
     begin
-        OnAfterGetCurrRecord;
+        AfterGetCurrRecord;
     end;
 
     trigger OnInit()
@@ -280,8 +271,7 @@ page 50066 "BC6_Inventory Card MiniForm F3"
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        //NewLine();
-        OnAfterGetCurrRecord;
+        AfterGetCurrRecord;
     end;
 
     trigger OnOpenPage()
@@ -289,66 +279,61 @@ page 50066 "BC6_Inventory Card MiniForm F3"
         OpenWithWhseEmployee();
         ShowCtrl := TRUE;
         EditableCtrl := TRUE;
-
-        //>>MIGRATION 2013
-        //NewLine();
-        //OnAfterGetCurrRecord;
-        //<<MIGRATION 2013
     end;
 
     var
-        InvSetup: Record "Inventory Setup";
-        ItemJnlTemplate: Record "Item Journal Template";
-        ItemBatchJnl: Record "Item Journal Batch";
-        txt003: Label 'You cannot delete the entry';
-        WhseEmployee: Record "Warehouse Employee";
-        LastJnlLine: Record "Item Journal Line";
-        Location: Record Location;
-        Text001: Label 'User %1 does not exist on warehouse salary list';
-        Text002: Label 'Location %1 incorrect';
-        Text006: Label 'Palette nr (%1) incorrect';
-        Text011: Label 'Inventory Item';
-        Text015: Label 'User %1 model sheet does not exist';
-        Text013: Label 'Bar code incorrect \ %1';
-        Text014: Label 'Item %1 blocked';
         Bin: Record Bin;
-        Item: Record Item;
         BinContent: Record "Bin Content";
-        JnlPostBatch: Codeunit "Item Jnl.-Post Batch";
-        BatchName: Code[20];
-        CurrentLocationCode: Code[20];
-        "---": Integer;
-        LocationCode: Code[20];
-        FromBinCode: Code[20];
-        ToBinCode: Code[20];
-        ItemNo: Code[20];
-        Qty: Code[10];
-        PostingDate: Date;
-        DocNo: Code[20];
-        EntryNo: Integer;
-        ShowCtrl: Boolean;
-        BarTxt: Text[30];
-        PalletBarCode: Boolean;
-        EditableCtrl: Boolean;
-        EditableLotCtrl: Boolean;
-        EditableFromBinCtrl: Boolean;
-        ItemNo2: Code[20];
+        InvSetup: Record "Inventory Setup";
+        Item: Record Item;
+        ItemBatchJnl: Record "Item Journal Batch";
+        LastJnlLine: Record "Item Journal Line";
+        ItemJnlTemplate: Record "Item Journal Template";
+        Location: Record Location;
+        WhseEmployee: Record "Warehouse Employee";
         DistInt: Codeunit "Dist. Integration";
+        JnlPostBatch: Codeunit "Item Jnl.-Post Batch";
+        BinForm: Page "BC6_Bin List MiniForm";
+        ItemForm: Page "BC6_Item List MiniForm";
+        LocationForm: Page "BC6_Location List MiniForm";
+        // WshShell: Automation; TODO:
+        BoolWait: Boolean;
+        EditableCtrl: Boolean;
+        EditableFromBinCtrl: Boolean;
+        EditableLotCtrl: Boolean;
         [InDataSet]
         FromBinCodeCtrlVisible: Boolean;
         [InDataSet]
         ItemNoCtrlVisible: Boolean;
         [InDataSet]
         ItemNoLibCtrlVisible: Boolean;
-        [InDataSet]
-        QtyCtrlVisible: Boolean;
+        PalletBarCode: Boolean;
         [InDataSet]
         QtyCtrlEditable: Boolean;
-        ItemForm: Page "BC6_Item List MiniForm";
-        LocationForm: Page "BC6_Location List MiniForm";
-        BinForm: Page "BC6_Bin List MiniForm";
-        // WshShell: Automation; TODO:
-        BoolWait: Boolean;
+        [InDataSet]
+        QtyCtrlVisible: Boolean;
+        ShowCtrl: Boolean;
+        Qty: Code[10];
+        BatchName: Code[20];
+        CurrentLocationCode: Code[20];
+        DocNo: Code[20];
+        FromBinCode: Code[20];
+        ItemNo: Code[20];
+        ItemNo2: Code[20];
+        LocationCode: Code[20];
+        ToBinCode: Code[20];
+        PostingDate: Date;
+        "---": Integer;
+        EntryNo: Integer;
+        Text001: Label 'User %1 does not exist on warehouse salary list', Comment = 'FRA="L''utilisateur %1 n''est pas un salarié magasin."';
+        Text002: Label 'Location %1 incorrect', Comment = 'FRA="Emplacement (%1) erroné"';
+        Text006: Label 'Palette nr (%1) incorrect', Comment = 'FRA="Quantité (%1) erronée"';
+        Text011: Label 'Inventory Item', Comment = 'FRA="Inventaire article"';
+        Text013: Label 'Bar code incorrect \ %1', Comment = 'FRA="Code barres erroné \ %1"';
+        Text014: Label 'Item %1 blocked', Comment = 'FRA="%1 article bloqué"';
+        Text015: Label 'User %1 model sheet does not exist', Comment = 'FRA="Pas de nom de feuille article utilisateur %1"';
+        txt003: Label 'You cannot delete the entry', Comment = 'FRA="Vous ne pouvez pas supprimer la saisie."';
+        BarTxt: Text[30];
 
     procedure NewLine()
     begin
@@ -384,20 +369,20 @@ page 50066 "BC6_Inventory Card MiniForm F3"
 
     procedure OpenWithWhseEmployee(): Boolean
     var
-        WhseEmployee: Record "Warehouse Employee";
+        WhsEmployee: Record "Warehouse Employee";
         WmsManagement: Codeunit "WMS Management";
-        CurrentLocationCode: Code[10];
+        CurrentLocatCode: Code[10];
     begin
         CurrPage.CAPTION := Text011;
 
         InvSetup.GET;
         InvSetup.TESTFIELD("BC6_Item Jnl Template Name 3");
         IF USERID <> '' THEN BEGIN
-            WhseEmployee.SETRANGE("User ID", USERID);
-            IF WhseEmployee.FIND('-') THEN BEGIN
-                WhseEmployee.SETRANGE(Default, TRUE);
-                IF WhseEmployee.FIND('-') THEN
-                    LocationCode := WhseEmployee."Location Code"
+            WhsEmployee.SETRANGE("User ID", USERID);
+            IF WhsEmployee.FIND('-') THEN BEGIN
+                WhsEmployee.SETRANGE(Default, TRUE);
+                IF WhsEmployee.FIND('-') THEN
+                    LocationCode := WhsEmployee."Location Code"
                 ELSE
                     LocationCode := WmsManagement.GetDefaultLocation;
                 IF NOT Location.GET(LocationCode) THEN
@@ -432,7 +417,7 @@ page 50066 "BC6_Inventory Card MiniForm F3"
 
     procedure AssignLocationCode(var LocationCode: Code[20])
     var
-        Text004: Label 'Bar code incorrect';
+        Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
         CLEAR(Location);
         IF (LocationCode <> '') AND
@@ -448,7 +433,7 @@ page 50066 "BC6_Inventory Card MiniForm F3"
 
     procedure AssignBinCode(var BinCode: Code[20])
     var
-        Text004: Label 'Bar code incorrect';
+        Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
         IF (BinCode <> '') AND
            (STRLEN(BinCode) < 20) THEN BEGIN
@@ -466,12 +451,11 @@ page 50066 "BC6_Inventory Card MiniForm F3"
 
     procedure AssignFromBinCode(var BinCode: Code[20])
     var
-        Text004: Label 'Bar code incorrect';
+        Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
         IF (BinCode <> '') AND
            (STRLEN(BinCode) < 20) THEN BEGIN
             IF (BinCode <> "Bin Code") THEN
-                // VALIDATE("Bin Code",BinCode);
                 "Bin Code" := BinCode;
             UpdateCurrForm();
             EXIT;
@@ -484,7 +468,7 @@ page 50066 "BC6_Inventory Card MiniForm F3"
 
     procedure AssignItemNo(var ItemNo: Code[20])
     var
-        Text004: Label 'Bar code incorrect';
+        Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
         IF (ItemNo <> '') THEN BEGIN
             IF CodeEANOk(ItemNo) THEN BEGIN
@@ -513,7 +497,7 @@ page 50066 "BC6_Inventory Card MiniForm F3"
 
     procedure AssignQty(var Qty: Code[20])
     var
-        Text004: Label 'Bar code incorrect';
+        Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
         IF (Qty <> '') THEN BEGIN
             "Phys. Inventory" := TRUE;
@@ -598,7 +582,7 @@ page 50066 "BC6_Inventory Card MiniForm F3"
         AssignQty(Qty);
     end;
 
-    local procedure OnAfterGetCurrRecord()
+    local procedure AfterGetCurrRecord()
     begin
         xRec := Rec;
         UpdateCurrForm();

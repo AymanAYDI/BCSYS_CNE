@@ -1,43 +1,50 @@
 page 50034 "BC6_Affair Steps Tracking"
 {
-    Caption = 'Affair Steps Tracking';
+    Caption = 'Affair Steps Tracking', Comment = 'FRA="Suivi étapes affaire"';
     DeleteAllowed = false;
     InsertAllowed = false;
     PageType = List;
     ShowFilter = false;
     SourceTable = "BC6_Affair Steps";
-
+    UsageCategory = Lists;
+    ApplicationArea = All;
     layout
     {
         area(content)
         {
             group(Control1)
             {
-                label(Control1000000004)
+                label(Interlocuteur)
                 {
                     CaptionClass = Text19001151;
-                    Caption = 'Interlocutor';
+                    Caption = 'Interlocutor', Comment = 'FRA="Interlocuteur"';
+                    ApplicationArea = All;
                 }
-                label(Control1000000005)
+                label("Date rappel")
                 {
                     CaptionClass = Text19017858;
-                    Caption = 'Reminder Date';
+                    Caption = 'Date rappel', Comment = 'FRA="Date rappel"';
+                    ApplicationArea = All;
                 }
                 label(Finished)
                 {
                     CaptionClass = Text19022765;
-                    Caption = 'Finished';
+                    Caption = 'Finished', Comment = 'FRA="Teminer"';
+                    ApplicationArea = All;
                 }
                 field(TxtGIntelocutor; TxtGIntelocutor)
                 {
                     Lookup = true;
                     TableRelation = "User Setup";
+                    ApplicationArea = All;
                 }
                 field(DatLRminderDate; DatLRminderDate)
                 {
+                    ApplicationArea = All;
                 }
                 field(BooGFinichedfilter; BooGFinichedfilter)
                 {
+                    ApplicationArea = All;
                 }
             }
             repeater(Control2)
@@ -45,28 +52,35 @@ page 50034 "BC6_Affair Steps Tracking"
                 field("Affair No."; "Affair No.")
                 {
                     Editable = false;
+                    ApplicationArea = All;
                 }
                 field("Affair Description"; "Affair Description")
                 {
                     Editable = false;
+                    ApplicationArea = All;
                 }
                 field(Interlocutor; Interlocutor)
                 {
                     Editable = false;
+                    ApplicationArea = All;
                 }
                 field("Reminder Date"; "Reminder Date")
                 {
                     Editable = false;
+                    ApplicationArea = All;
                 }
                 field(Description; Description)
                 {
                     Editable = false;
+                    ApplicationArea = All;
                 }
                 field(Result; Result)
                 {
+                    ApplicationArea = All;
                 }
                 field(Terminated; Terminated)
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -78,10 +92,11 @@ page 50034 "BC6_Affair Steps Tracking"
         {
             action("Fi&nd")
             {
-                Caption = 'Fi&nd';
+                Caption = 'Fi&nd', Comment = 'FRA="&Rechercher"';
                 Image = Find;
                 Promoted = true;
                 PromotedCategory = Process;
+                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -93,6 +108,7 @@ page 50034 "BC6_Affair Steps Tracking"
                 Promoted = true;
                 RunObject = Page "Job Card";
                 RunPageLink = "No." = FIELD("Affair No.");
+                ApplicationArea = All;
             }
         }
     }
@@ -112,22 +128,22 @@ page 50034 "BC6_Affair Steps Tracking"
         DatLRminderDate: Date;
         RecGStepsAffair: Record "BC6_Affair Steps";
         DiaGWindow: Dialog;
-        Text001: Label 'Steps search in prgress...';
-        Text19001151: Label 'Interlocutor';
-        Text19017858: Label 'Reminder Date';
-        Text19022765: Label 'Finished';
+        Text001: Label 'Steps search in prgress...', Comment = 'FRA="Recherche des étapes en cours..."';
+        Text19001151: Label 'Interlocutor', Comment = 'FRA="Interlocuteur"';
+        Text19017858: Label 'Reminder Date', Comment = 'FRA="Date rappel"';
+        Text19022765: Label 'Finished', Comment = 'FRA="Terminer"';
 
 
-    procedure SearchAffairSteps(finished: Boolean; Interlocutor: Text[30]; ReminderDate: Date)
+    procedure SearchAffairSteps(finish: Boolean; Interlocuteur: Text[30]; ReminderDate: Date)
     begin
         DiaGWindow.OPEN(Text001);
 
         RecGStepsAffair.RESET();
         RecGStepsAffair.SETCURRENTKEY(RecGStepsAffair.Interlocutor, RecGStepsAffair."Reminder Date", RecGStepsAffair.Terminated);
 
-        RecGStepsAffair.SETFILTER(RecGStepsAffair.Interlocutor, Interlocutor);
+        RecGStepsAffair.SETFILTER(RecGStepsAffair.Interlocutor, Interlocuteur);
         RecGStepsAffair.SETFILTER("Reminder Date", '..%1', ReminderDate);
-        RecGStepsAffair.SETRANGE(RecGStepsAffair.Terminated, finished);
+        RecGStepsAffair.SETRANGE(RecGStepsAffair.Terminated, finish);
         COPY(RecGStepsAffair);
 
         //CurrForm.UPDATE(TRUE);

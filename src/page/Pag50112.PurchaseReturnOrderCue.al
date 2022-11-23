@@ -1,4 +1,4 @@
-page 50112 "Purchase Return Order Cue"
+page 50112 "BC6_Purchase Return Order Cue"
 {
     Caption = 'Purchase Activities';
     PageType = CardPart;

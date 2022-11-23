@@ -1,7 +1,7 @@
 page 50067 "BC6_Reclass. Card MiniForm F2"
 {
     AutoSplitKey = false;
-    Caption = 'Reclass.';
+    Caption = 'Reclass.', Comment = 'FRA="Reclassement article"';
     DelayedInsert = false;
     LinksAllowed = false;
     PageType = Card;
@@ -16,11 +16,12 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
         {
             field(ItemNoCtrl; ItemNo)
             {
-                Caption = 'Item nr';
+                Caption = 'Item nr', Comment = 'FRA="N° article"';
                 NotBlank = false;
                 Style = Standard;
                 StyleExpr = TRUE;
                 Visible = ItemNoCtrlVisible;
+                ApplicationArea = All;
 
                 trigger OnLookup(var Text: Text): Boolean
                 var
@@ -48,15 +49,18 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
             field(Description; Description)
             {
                 Editable = false;
+                Caption = 'Description';
+                ApplicationArea = All;
             }
             field(QtyCtrl; Qty)
             {
                 // BlankZero = true; TODO:
-                Caption = 'Quantity';
+                Caption = 'Quantity', Comment = 'FRA="Quantité"';
                 Editable = QtyCtrlEditable;
                 Style = Standard;
                 StyleExpr = TRUE;
                 Visible = QtyCtrlVisible;
+                ApplicationArea = All;
 
                 trigger OnValidate()
                 begin
@@ -65,12 +69,13 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
             }
             field(ToBinCodeCtrl; ToBinCode)
             {
-                Caption = 'Bin Code';
+                Caption = 'Bin Code', Comment = 'FRA="Vers emp."';
                 Editable = ToBinCodeCtrlEditable;
                 Style = Standard;
                 StyleExpr = TRUE;
                 TableRelation = Bin.Code;
                 Visible = ToBinCodeCtrlVisible;
+                ApplicationArea = All;
 
                 trigger OnLookup(var Text: Text): Boolean
                 var
@@ -99,12 +104,13 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
             }
             field(FromBinCodeCtrl; FromBinCode)
             {
-                Caption = 'Bin Code';
+                Caption = 'Bin Code', Comment = 'FRA="De empl."';
                 Editable = true;
                 Style = Standard;
                 StyleExpr = TRUE;
                 TableRelation = Bin.Code;
                 Visible = FromBinCodeCtrlVisible;
+                ApplicationArea = All;
 
                 trigger OnLookup(var Text: Text): Boolean
                 var
@@ -153,12 +159,13 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
             }
             field(LocationCodeCtrl; LocationCode)
             {
-                Caption = 'Location';
+                Caption = 'Location', Comment = 'FRA="Magasin"';
                 Editable = false;
                 Numeric = false;
                 Style = Standard;
                 StyleExpr = TRUE;
                 TableRelation = Location;
+                ApplicationArea = All;
 
                 trigger OnLookup(var Text: Text): Boolean
                 var
@@ -193,11 +200,12 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
         {
             action("&Item")
             {
-                Caption = '&Item';
+                Caption = '&Item', Comment = 'FRA="Magasin"';
                 Image = Item;
                 Promoted = true;
                 PromotedCategory = Process;
                 ShortCutKey = 'F2';
+                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -228,11 +236,12 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
             }
             action("&Bin")
             {
-                Caption = '&Bin';
+                Caption = '&Bin', Comment = 'FRA="&Emp."';
                 Image = Bin;
                 Promoted = true;
                 PromotedCategory = Process;
                 ShortCutKey = 'F3';
+                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -262,12 +271,13 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
             }
             action("&Post")
             {
-                Caption = '&Post';
+                Caption = '&Post', Comment = 'FRA="&Valider"';
                 Image = Post;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ShortCutKey = 'F8';
+                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -289,9 +299,10 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
             }
             action("&Quit")
             {
-                Caption = '&Quit';
+                Caption = '&Quit', Comment = 'FRA="&Quitter"';
                 Promoted = true;
                 PromotedCategory = Process;
+                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -300,8 +311,9 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
             }
             action("&Delete")
             {
-                Caption = '&Delete';
+                Caption = '&Delete', Comment = 'FRA="&Delete"';
                 ShortCutKey = 'F9';
+                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -334,7 +346,6 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        //NewLine();
         OnAfterGetCurrRecord;
     end;
 
@@ -343,75 +354,71 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
         OpenWithWhseEmployee();
         ShowCtrl := TRUE;
         EditableCtrl := TRUE;
-
-        //>>MIGRATION 2013
-        //NewLine();
-        //OnAfterGetCurrRecord;
-        //<<MIGRATION 2013
     end;
 
     var
-        InvSetup: Record "Inventory Setup";
-        ItemJnlTemplate: Record "Item Journal Template";
-        ItemBatchJnl: Record "Item Journal Batch";
-        WhseEmployee: Record "Warehouse Employee";
-        LastJnlLine: Record "Item Journal Line";
-        Location: Record Location;
         Bin: Record Bin;
-        Item: Record Item;
         BinContent: Record "Bin Content";
-        JnlPostBatch: Codeunit "Item Jnl.-Post Batch";
-        BatchName: Code[20];
-        CurrentLocationCode: Code[20];
-        "---": Integer;
-        LocationCode: Code[20];
-        FromBinCode: Code[20];
-        ToBinCode: Code[20];
-        ItemNo: Code[20];
-        Qty: Code[10];
-        PostingDate: Date;
-        DocNo: Code[20];
-        EntryNo: Integer;
-        ShowCtrl: Boolean;
-        BarCode: Code[20];
-        BarTxt: Text[30];
-        PalletBarCode: Boolean;
-        EditableCtrl: Boolean;
-        EditableLotCtrl: Boolean;
-        EditableFromBinCtrl: Boolean;
-        ItemNo2: Code[20];
-        DistInt: Codeunit "Dist. Integration";
-        txt003: Label 'You cannot delete the entry';
-        Text001: Label 'User %1 does not exist on warehouse salary list';
-        Text002: Label 'Location %1 incorrect';
-        Text006: Label 'Palette nr (%1) incorrect';
-        Text013: Label 'Item No. %1 Incorrect';
-        Text014: Label 'Item %1 blocked';
-        Text012: Label 'Item %1 with tracking';
-        ItemError: Boolean;
-        ErrorTxt: Text[250];
+        InvSetup: Record "Inventory Setup";
+        Item: Record Item;
+        ItemBatchJnl: Record "Item Journal Batch";
+        LastJnlLine: Record "Item Journal Line";
+        ItemJnlTemplate: Record "Item Journal Template";
         ItemTrackingCode: Record "Item Tracking Code";
-        Text015: Label 'User %1 model sheet does not exist';
+        Location: Record Location;
+        WhseEmployee: Record "Warehouse Employee";
+        DistInt: Codeunit "Dist. Integration";
+        JnlPostBatch: Codeunit "Item Jnl.-Post Batch";
+        BinContentForm: Page "BC6_Bin Content List MiniForm";
+        BinForm: Page "BC6_Bin List MiniForm";
+        ItemForm: Page "BC6_Item List MiniForm";
+        LocationForm: Page "BC6_Location List MiniForm";
+        // WshShell: Automation; TODO:
+        BoolWait: Boolean;
+        EditableCtrl: Boolean;
+        EditableFromBinCtrl: Boolean;
+        EditableLotCtrl: Boolean;
         [InDataSet]
         FromBinCodeCtrlVisible: Boolean;
-        [InDataSet]
-        ToBinCodeCtrlVisible: Boolean;
+        ItemError: Boolean;
         [InDataSet]
         ItemNoCtrlVisible: Boolean;
         [InDataSet]
         ItemNoLibCtrlVisible: Boolean;
+        PalletBarCode: Boolean;
+        [InDataSet]
+        QtyCtrlEditable: Boolean;
         [InDataSet]
         QtyCtrlVisible: Boolean;
+        ShowCtrl: Boolean;
         [InDataSet]
         ToBinCodeCtrlEditable: Boolean;
         [InDataSet]
-        QtyCtrlEditable: Boolean;
-        ItemForm: Page "BC6_Item List MiniForm";
-        LocationForm: Page "BC6_Location List MiniForm";
-        BinForm: Page "BC6_Bin List MiniForm";
-        BinContentForm: Page "BC6_Bin Content List MiniForm";
-        // WshShell: Automation; TODO:
-        BoolWait: Boolean;
+        ToBinCodeCtrlVisible: Boolean;
+        Qty: Code[10];
+        BarCode: Code[20];
+        BatchName: Code[20];
+        CurrentLocationCode: Code[20];
+        DocNo: Code[20];
+        FromBinCode: Code[20];
+        ItemNo: Code[20];
+        ItemNo2: Code[20];
+        LocationCode: Code[20];
+        ToBinCode: Code[20];
+        PostingDate: Date;
+        "---": Integer;
+        EntryNo: Integer;
+        Text001: Label 'User %1 does not exist on warehouse salary list', Comment = 'FRA="L''utilisateur %1 n''est pas un salarié magasin."';
+        Text002: Label 'Location %1 incorrect', Comment = 'FRA="Emplacement (%1) erroné"';
+        Text006: Label 'Palette nr (%1) incorrect', Comment = 'FRA="Quantité (%1) erronée"';
+        Text011: Label 'Inventory Item', Comment = 'FRA="Inventaire article"';
+        Text012: Label 'Item %1 with tracking', Comment = 'FRA="%1 article avec traçabilité"';
+        Text013: Label 'Item No. %1 Incorrect', Comment = 'FRA="%1 n° article erroné"';
+        Text014: Label 'Item %1 blocked', Comment = 'FRA="%1 article bloqué"';
+        Text015: Label 'User %1 model sheet does not exist', Comment = 'FRA="Pas de nom de feuille article utilisateur %1"';
+        txt003: Label 'You cannot delete the entry', Comment = 'FRA="Vous ne pouvez pas supprimer la saisie."';
+        BarTxt: Text[30];
+        ErrorTxt: Text[250];
 
     procedure NewLine()
     begin
@@ -447,20 +454,20 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
 
     procedure OpenWithWhseEmployee(): Boolean
     var
-        WhseEmployee: Record "Warehouse Employee";
+        WhsEmployee: Record "Warehouse Employee";
         WmsManagement: Codeunit "WMS Management";
-        CurrentLocationCode: Code[10];
+        CurrentLocatCode: Code[10];
     begin
 
         InvSetup.GET;
         InvSetup.TESTFIELD("BC6_Item Jnl Template Name 2");
 
         IF USERID <> '' THEN BEGIN
-            WhseEmployee.SETRANGE("User ID", USERID);
-            IF WhseEmployee.FIND('-') THEN BEGIN
-                WhseEmployee.SETRANGE(Default, TRUE);
-                IF WhseEmployee.FIND('-') THEN
-                    LocationCode := WhseEmployee."Location Code"
+            WhsEmployee.SETRANGE("User ID", USERID);
+            IF WhsEmployee.FIND('-') THEN BEGIN
+                WhsEmployee.SETRANGE(Default, TRUE);
+                IF WhsEmployee.FIND('-') THEN
+                    LocationCode := WhsEmployee."Location Code"
                 ELSE
                     LocationCode := WmsManagement.GetDefaultLocation;
                 IF NOT Location.GET(LocationCode) THEN
@@ -496,7 +503,7 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
 
     procedure AssignLocationCode(var LocationCode: Code[20])
     var
-        Text004: Label 'Bar code incorrect';
+        Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
         CLEAR(Location);
         IF (LocationCode <> '') AND
@@ -512,7 +519,7 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
 
     procedure AssignBinCode(var BinCode: Code[20])
     var
-        Text004: Label 'Bar code incorrect';
+        Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
         IF (BinCode <> '') AND
            (STRLEN(BinCode) < 20) THEN BEGIN
@@ -530,7 +537,7 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
 
     procedure AssignFromBinCode(var BinCode: Code[20])
     var
-        Text004: Label 'Bar code incorrect';
+        Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
         IF (BinCode <> '') AND
            (STRLEN(BinCode) < 20) THEN BEGIN
@@ -546,26 +553,26 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
         "Bin Code" := BinCode;
     end;
 
-    procedure AssignItemNo(var ItemNo: Code[20])
+    procedure AssignItemNo(var ItemN: Code[20])
     var
-        Text004: Label 'Bar code incorrect';
+        Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
         ItemError := FALSE;
         ErrorTxt := '';
 
-        IF (ItemNo <> '') THEN BEGIN
-            IF CodeEANOk(ItemNo) THEN BEGIN
+        IF (ItemN <> '') THEN BEGIN
+            IF CodeEANOk(ItemN) THEN BEGIN
                 // ItemNo2 := DistInt.GetItem(ItemNo); TODO:
                 IF Item.GET(ItemNo2) THEN
-                    ItemNo := Item."No."
+                    ItemN := Item."No."
                 ELSE BEGIN
                     ItemError := TRUE;
-                    ErrorTxt := STRSUBSTNO(Text013, ItemNo);
+                    ErrorTxt := STRSUBSTNO(Text013, ItemN);
                 END;
             END ELSE BEGIN
-                IF NOT Item.GET(ItemNo) THEN BEGIN
+                IF NOT Item.GET(ItemN) THEN BEGIN
                     ItemError := TRUE;
-                    ErrorTxt := STRSUBSTNO(Text013, ItemNo);
+                    ErrorTxt := STRSUBSTNO(Text013, ItemN);
                 END;
             END;
 
@@ -590,7 +597,7 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
         IF ItemError THEN BEGIN
             MESSAGE('%1', ErrorTxt);
         END ELSE BEGIN
-            VALIDATE("Item No.", ItemNo);
+            VALIDATE("Item No.", ItemN);
             VALIDATE("Bin Code", FromBinCode);
             VALIDATE(Quantity, 1);
         END;
@@ -600,7 +607,7 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
 
     procedure AssignQty(var Qty: Code[20])
     var
-        Text004: Label 'Bar code incorrect';
+        Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
         IF (Qty <> '') THEN BEGIN
             EVALUATE(Quantity, Qty);

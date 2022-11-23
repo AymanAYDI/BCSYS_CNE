@@ -5,6 +5,8 @@ page 55021 "BC6_Code Coverage Code 2"
     ModifyAllowed = false;
     PageType = List;
     SourceTable = "Code Coverage";
+    UsageCategory = Lists;
+    ApplicationArea = All;
 
     layout
     {
@@ -15,10 +17,12 @@ page 55021 "BC6_Code Coverage Code 2"
                 field("Line No."; "Line No.")
                 {
                     StyleExpr = LineStyle;
+                    ApplicationArea = All;
                 }
                 field(Line; Line)
                 {
                     StyleExpr = LineStyle;
+                    ApplicationArea = All;
                 }
             }
         }

@@ -1,7 +1,7 @@
 page 50064 "Invt. Pick Card MiniForm F3"
 {
     AutoSplitKey = false;
-    Caption = 'Invt Pick Card';
+    Caption = 'Invt Pick Card', Comment = 'FRA="Prélèvement stock"';
     DataCaptionFields = "BC6_Whse. Document No.", "Line No.";
     DelayedInsert = false;
     LinksAllowed = false;
@@ -10,20 +10,22 @@ page 50064 "Invt. Pick Card MiniForm F3"
     SourceTable = "Item Journal Line";
     SourceTableView = SORTING("Journal Template Name", "Journal Batch Name", "Line No.")
                       ORDER(Ascending);
-
+    UsageCategory = Administration;
+    ApplicationArea = All;
     layout
     {
         area(content)
         {
             field(LocationCodeCtrl; LocationCode)
             {
-                Caption = 'Location';
+                Caption = 'Location', Comment = 'FRA="Magasin"';
                 Editable = false;
                 Numeric = false;
                 Style = Standard;
                 StyleExpr = TRUE;
                 TableRelation = Location;
                 Visible = LocationCodeVisible;
+                ApplicationArea = All;
 
                 trigger OnLookup(var Text: Text): Boolean
                 var
@@ -51,12 +53,13 @@ page 50064 "Invt. Pick Card MiniForm F3"
             }
             field(FromBinCodeCtrl; FromBinCode)
             {
-                Caption = 'Bin Code';
+                Caption = 'Bin Code', Comment = 'FRA="De empl."';
                 Editable = true;
                 Style = Standard;
                 StyleExpr = TRUE;
                 TableRelation = Bin.Code;
                 Visible = FromBinCodeCtrlVisible;
+                ApplicationArea = All;
 
                 trigger OnLookup(var Text: Text): Boolean
                 var
@@ -105,11 +108,12 @@ page 50064 "Invt. Pick Card MiniForm F3"
             }
             field(ItemNoCtrl; ItemNo)
             {
-                Caption = 'Item nr';
+                Caption = 'Item nr', Comment = 'FRA="N° article"';
                 NotBlank = false;
                 Style = Standard;
                 StyleExpr = TRUE;
                 Visible = ItemNoCtrlVisible;
+                ApplicationArea = All;
 
                 trigger OnLookup(var Text: Text): Boolean
                 var
@@ -137,15 +141,17 @@ page 50064 "Invt. Pick Card MiniForm F3"
             field(Description; Description)
             {
                 Editable = false;
+                ApplicationArea = All;
             }
             field(QtyCtrl; Qty)
             {
                 // BlankZero = true; TODO:
-                Caption = 'Quantity';
+                Caption = 'Quantity', Comment = 'FRA="Quantité"';
                 Editable = QtyCtrlEditable;
                 Style = Standard;
                 StyleExpr = TRUE;
                 Visible = QtyCtrlVisible;
+                ApplicationArea = All;
 
                 trigger OnValidate()
                 begin
@@ -154,12 +160,13 @@ page 50064 "Invt. Pick Card MiniForm F3"
             }
             field(ToBinCodeCtrl; ToBinCode)
             {
-                Caption = 'Bin Code';
+                Caption = 'Bin Code', Comment = 'FRA="Vers emp."';
                 Editable = ToBinCodeCtrlEditable;
                 Style = Standard;
                 StyleExpr = TRUE;
                 TableRelation = Bin.Code;
                 Visible = ToBinCodeCtrlVisible;
+                ApplicationArea = All;
 
                 trigger OnLookup(var Text: Text): Boolean
                 var
@@ -190,12 +197,13 @@ page 50064 "Invt. Pick Card MiniForm F3"
             }
             field(PickNoCtrl; PickNo)
             {
-                Caption = 'Pick No.';
+                Caption = 'Pick No.', Comment = 'FRA="N° prélèvement"';
                 Editable = false;
                 Numeric = false;
                 Style = Standard;
                 StyleExpr = TRUE;
                 Visible = PickNoCtrlVisible;
+                ApplicationArea = All;
 
                 trigger OnLookup(var Text: Text): Boolean
                 var
@@ -230,11 +238,12 @@ page 50064 "Invt. Pick Card MiniForm F3"
         {
             action("&Item")
             {
-                Caption = '&Item';
-                Image = item;
+                Caption = '&Item', Comment = 'FRA="&Art."';
+                Image = Item;
                 Promoted = true;
                 PromotedCategory = Process;
                 ShortCutKey = 'F2';
+                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -269,11 +278,12 @@ page 50064 "Invt. Pick Card MiniForm F3"
             }
             action("&Bin")
             {
-                Caption = '&Bin';
+                Caption = '&Bin', Comment = 'FRA="&Emp."';
                 Image = Bin;
                 Promoted = true;
                 PromotedCategory = Process;
                 ShortCutKey = 'F3';
+                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -309,12 +319,13 @@ page 50064 "Invt. Pick Card MiniForm F3"
             }
             action("&Post")
             {
-                Caption = '&Post';
+                Caption = '&Post', Comment = 'FRA="&Valider"';
                 Image = Post;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ShortCutKey = 'F8';
+                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -335,10 +346,11 @@ page 50064 "Invt. Pick Card MiniForm F3"
             }
             action("&Quit")
             {
-                Caption = '&Quit';
-                Image = cancel;
+                Caption = '&Quit', Comment = 'FRA="&Quitter"';
+                Image = Cancel;
                 Promoted = true;
                 PromotedCategory = Process;
+                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -347,8 +359,9 @@ page 50064 "Invt. Pick Card MiniForm F3"
             }
             action("&Delete")
             {
-                Caption = '&Delete';
+                Caption = '&Delete', Comment = 'FRA="&Delete"';
                 ShortCutKey = 'F9';
+                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -365,7 +378,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
 
     trigger OnAfterGetRecord()
     begin
-        OnAfterGetCurrRecord;
+        AfterGetCurrRecord;
     end;
 
     trigger OnInit()
@@ -387,7 +400,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
         //NewLine();
-        OnAfterGetCurrRecord;
+        AfterGetCurrRecord;
     end;
 
     trigger OnOpenPage()
@@ -400,74 +413,69 @@ page 50064 "Invt. Pick Card MiniForm F3"
     end;
 
     var
+        Bin: Record Bin;
+        BinContent: Record "Bin Content";
         InvSetup: Record "Inventory Setup";
-        ItemJnlTemplate: Record "Item Journal Template";
+        Item: Record Item;
         ItemBatchJnl: Record "Item Journal Batch";
-        txt003: Label 'You cannot delete the entry';
-        WhseEmployee: Record "Warehouse Employee";
         LastJnlLine: Record "Item Journal Line";
-        InvtPick: Record "Warehouse Activity Header";
-        InvtPickLine: Record "Warehouse Activity Line";
+        ItemJnlTemplate: Record "Item Journal Template";
         ItemTrackingCode: Record "Item Tracking Code";
         Location: Record Location;
-        Text001: Label 'User %1 does not exist on warehouse salary list';
-        Text002: Label 'Location %1 incorrect';
-        Text006: Label 'Palette nr (%1) incorrect';
-        Bin: Record Bin;
-        Item: Record Item;
-        BinContent: Record "Bin Content";
+        InvtPick: Record "Warehouse Activity Header";
+        InvtPickLine: Record "Warehouse Activity Line";
         JnlPostBatch: Codeunit "Item Jnl.-Post Batch";
-        BatchName: Code[20];
-        CurrentLocationCode: Code[20];
-        DefaultLocationCode: Code[20];
-        "---": Integer;
-        PickNo: Code[20];
-        LocationCode: Code[20];
-        FromBinCode: Code[20];
-        ToBinCode: Code[20];
-        ShipBinCode: Code[20];
-        ItemNo: Code[20];
-        Qty: Code[10];
-        PostingDate: Date;
-        DocNo: Code[20];
-        ShowCtrl: Boolean;
+        BinContentForm: Page "BC6_Bin Content List MiniForm";
+        BinForm: Page "BC6_Bin List MiniForm";
+        ItemForm: Page "BC6_Item List MiniForm";
+        LocationForm: Page "BC6_Location List MiniForm";
+        InvtPickForm: Page "Invt Pick List MiniForm";
+        // WshShell: Automation; TODO:
         EditableCtrl: Boolean;
-        EditableFromBinCtrl: Boolean;
-        ItemNo2: Code[20];
-        DistInt: Codeunit "Dist. Integration";
-        Text016: Label 'Item %1 not exit on Invt. Pick';
-        ErrorTxt: Text[250];
-        Text013: Label 'Item No. %1 Incorrect';
-        Text014: Label 'Item %1 blocked';
-        Text012: Label 'Item %1 with tracking';
-        Text015: Label 'User %1 model sheet does not exist';
         [InDataSet]
-        ToBinCodeCtrlEditable: Boolean;
+        FromBinCodeCtrlVisible: Boolean;
+        [InDataSet]
+        ItemNoCtrlVisible: Boolean;
+        [InDataSet]
+        ItemNoLibCtrlVisible: Boolean;
+        LocationCodeVisible: Boolean;
         [InDataSet]
         PickNoCtrlVisible: Boolean;
         [InDataSet]
         PickNoLibCtrlVisible: Boolean;
         [InDataSet]
-        FromBinCodeCtrlVisible: Boolean;
-        [InDataSet]
-        ToBinCodeCtrlVisible: Boolean;
-        [InDataSet]
-        ItemNoCtrlVisible: Boolean;
-        [InDataSet]
-        ItemNoLibCtrlVisible: Boolean;
+        QtyCtrlEditable: Boolean;
         [InDataSet]
         QtyCtrlVisible: Boolean;
+        ShowCtrl: Boolean;
         [InDataSet]
-        QtyCtrlEditable: Boolean;
-        LocationCodeVisible: Boolean;
-        InvtPickForm: Page "Invt Pick List MiniForm";
-        LocationForm: Page "BC6_Location List MiniForm";
-        BinContentForm: Page "BC6_Bin Content List MiniForm";
-        BinForm: Page "BC6_Bin List MiniForm";
-        ItemForm: Page "BC6_Item List MiniForm";
+        ToBinCodeCtrlEditable: Boolean;
+        [InDataSet]
+        ToBinCodeCtrlVisible: Boolean;
         VisibleTestBool: Boolean;
-        // WshShell: Automation; TODO:
-        BoolWait: Boolean;
+        Qty: Code[10];
+        BatchName: Code[20];
+        CurrentLocationCode: Code[20];
+        DefaultLocationCode: Code[20];
+        FromBinCode: Code[20];
+        ItemNo: Code[20];
+        ItemNo2: Code[20];
+        LocationCode: Code[20];
+        PickNo: Code[20];
+        ShipBinCode: Code[20];
+        ToBinCode: Code[20];
+        PostingDate: Date;
+        "---": Integer;
+        Text001: Label 'User %1 does not exist on warehouse salary list', Comment = 'FRA="L''utilisateur %1 n''est pas un salarié magasin."';
+        Text002: Label 'Location %1 incorrect', Comment = 'FRA="Emplacement (%1) erroné"';
+        Text006: Label 'Palette nr (%1) incorrect', Comment = 'FRA="Quantité (%1) erronée"';
+        Text012: Label 'Item %1 with tracking', Comment = 'FRA="%1 article avec traçabilité"';
+        Text013: Label 'Item No. %1 Incorrect', Comment = 'FRA="%1 n° article erroné"';
+        Text014: Label 'Item %1 blocked', Comment = 'FRA="%1 article bloqué"';
+        Text015: Label 'User %1 model sheet does not exist', Comment = 'FRA=""';
+        Text016: Label 'Item %1 not exit on Invt. Pick', Comment = 'FRA="Pas de nom de feuille article utilisateur %1"';
+        txt003: Label 'You cannot delete the entry', Comment = 'FRA="Vous ne pouvez pas supprimer la saisie."';
+        ErrorTxt: Text[250];
 
     procedure NewLine()
     begin
@@ -506,20 +514,20 @@ page 50064 "Invt. Pick Card MiniForm F3"
 
     procedure OpenWithWhseEmployee(): Boolean
     var
-        WhseEmployee: Record "Warehouse Employee";
+        WhsEmployee: Record "Warehouse Employee";
         WmsManagement: Codeunit "WMS Management";
-        CurrentLocationCode: Code[10];
+        CurrentLocatCode: Code[10];
     begin
 
         InvSetup.GET;
         InvSetup.TESTFIELD("BC6_Item Jnl Template Name 1");
 
         IF USERID <> '' THEN BEGIN
-            WhseEmployee.SETRANGE("User ID", USERID);
-            IF WhseEmployee.FIND('-') THEN BEGIN
-                WhseEmployee.SETRANGE(Default, TRUE);
-                IF WhseEmployee.FIND('-') THEN
-                    DefaultLocationCode := WhseEmployee."Location Code"
+            WhsEmployee.SETRANGE("User ID", USERID);
+            IF WhsEmployee.FIND('-') THEN BEGIN
+                WhsEmployee.SETRANGE(Default, TRUE);
+                IF WhsEmployee.FIND('-') THEN
+                    DefaultLocationCode := WhsEmployee."Location Code"
                 ELSE
                     DefaultLocationCode := WmsManagement.GetDefaultLocation;
                 IF NOT Location.GET(LocationCode) THEN
@@ -552,11 +560,11 @@ page 50064 "Invt. Pick Card MiniForm F3"
         END;
     end;
 
-    procedure AssignPickNo(var PickNo: Code[20])
+    procedure AssignPickNo(var PickN: Code[20])
     begin
-        IF InvtPick.GET(InvtPick.Type::"Invt. Pick", PickNo) THEN BEGIN
+        IF InvtPick.GET(InvtPick.Type::"Invt. Pick", PickN) THEN BEGIN
             "BC6_Whse. Document Type" := "BC6_Whse. Document Type"::"Invt. Pick";
-            VALIDATE("BC6_Whse. Document No.", PickNo);
+            VALIDATE("BC6_Whse. Document No.", PickN);
         END ELSE BEGIN
             "BC6_Whse. Document Type" := "BC6_Whse. Document Type"::" ";
             VALIDATE("BC6_Whse. Document No.", '');
@@ -566,27 +574,27 @@ page 50064 "Invt. Pick Card MiniForm F3"
         UpdateCurrForm();
     end;
 
-    procedure AssignLocationCode(var LocationCode: Code[20])
+    procedure AssignLocationCode(var LocatCode: Code[20])
     var
-        Text004: Label 'Bar code incorrect';
+        Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
         CLEAR(Location);
-        IF (LocationCode <> '') AND
-           (STRLEN(LocationCode) < 20) THEN BEGIN
-            IF Location.GET(LocationCode) THEN BEGIN
-                "Location Code" := LocationCode;
+        IF (LocatCode <> '') AND
+           (STRLEN(LocatCode) < 20) THEN BEGIN
+            IF Location.GET(LocatCode) THEN BEGIN
+                "Location Code" := LocatCode;
                 ShipBinCode := Location."Shipment Bin Code";
             END;
         END ELSE BEGIN
             ShipBinCode := '';
-            LocationCode := '';
-            "Location Code" := LocationCode;
+            LocatCode := '';
+            "Location Code" := LocatCode;
         END;
     end;
 
     procedure AssignBinCode(var BinCode: Code[20])
     var
-        Text004: Label 'Bar code incorrect';
+        Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
         IF (BinCode <> '') AND
            (STRLEN(BinCode) < 20) THEN BEGIN
@@ -605,7 +613,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
 
     procedure AssignFromBinCode(var BinCode: Code[20])
     var
-        Text004: Label 'Bar code incorrect';
+        Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
         // TESTFIELD("Whse. Document No.");
         IF (BinCode <> '') AND
@@ -623,7 +631,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
     end;
 
 
-    procedure AssignItemNo(var ItemNo: Code[20])
+    procedure AssignItemNo(var ItemNum: Code[20])
     var
         ItemError: Boolean;
     begin
@@ -631,20 +639,20 @@ page 50064 "Invt. Pick Card MiniForm F3"
         ItemError := FALSE;
         ErrorTxt := '';
 
-        IF (ItemNo <> '') THEN BEGIN
+        IF (ItemNum <> '') THEN BEGIN
             TESTFIELD("BC6_Whse. Document No.");
-            IF CodeEANOk(ItemNo) THEN BEGIN
+            IF CodeEANOk(ItemNum) THEN BEGIN
                 // ItemNo2 := DistInt.GetItem(ItemNo); TODO:
                 IF Item.GET(ItemNo2) THEN
-                    ItemNo := Item."No."
+                    ItemNum := Item."No."
                 ELSE BEGIN
                     ItemError := TRUE;
-                    ErrorTxt := STRSUBSTNO(Text013, ItemNo);
+                    ErrorTxt := STRSUBSTNO(Text013, ItemNum);
                 END;
             END ELSE BEGIN
-                IF NOT Item.GET(ItemNo) THEN BEGIN
+                IF NOT Item.GET(ItemNum) THEN BEGIN
                     ItemError := TRUE;
-                    ErrorTxt := STRSUBSTNO(Text013, ItemNo);
+                    ErrorTxt := STRSUBSTNO(Text013, ItemNum);
                 END;
             END;
 
@@ -664,9 +672,9 @@ page 50064 "Invt. Pick Card MiniForm F3"
                 ItemError := TRUE;
             END;
 
-            IF NOT ItemExistOnInvtPick(ItemNo, '') THEN BEGIN
+            IF NOT ItemExistOnInvtPick(ItemNum, '') THEN BEGIN
                 IF NOT ItemError THEN
-                    ErrorTxt := STRSUBSTNO(Text016, ItemNo, "BC6_Whse. Document No.");
+                    ErrorTxt := STRSUBSTNO(Text016, ItemNum, "BC6_Whse. Document No.");
                 ItemError := TRUE;
             END;
         END;
@@ -674,7 +682,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
         IF ItemError THEN BEGIN
             MESSAGE('%1', ErrorTxt);
         END ELSE BEGIN
-            VALIDATE("Item No.", ItemNo);
+            VALIDATE("Item No.", ItemNum);
             VALIDATE("Bin Code", FromBinCode);
             VALIDATE(Quantity, 1);
             IF ShipBinCode <> '' THEN BEGIN
@@ -686,23 +694,23 @@ page 50064 "Invt. Pick Card MiniForm F3"
         UpdateCurrForm();
     end;
 
-    procedure AssignQty(var Qty: Code[20])
+    procedure AssignQty(var Quantity: Code[20])
     var
-        Text004: Label 'Bar code incorrect';
+        Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
-        IF (Qty <> '') THEN BEGIN
-            EVALUATE(Quantity, Qty);
+        IF (Quantity <> '') THEN BEGIN
+            EVALUATE(Quantity, Quantity);
             VALIDATE(Quantity);
             AssignBinCode(ToBinCode);
             UpdateCurrForm();
             EXIT;
         END;
 
-        IF Qty <> '' THEN
-            MESSAGE(Text006, Qty);
-        Qty := '';
+        IF Quantity <> '' THEN
+            MESSAGE(Text006, Quantity);
+        Quantity := '';
         VALIDATE(Quantity, 0);
-        Qty := FORMAT(Quantity);
+        Quantity := FORMAT(Quantity);
     end;
 
     procedure PostBatch()
@@ -754,12 +762,11 @@ page 50064 "Invt. Pick Card MiniForm F3"
         SalesLine: Record "Sales Line";
     begin
         IF ("BC6_Whse. Document No." <> '') THEN BEGIN
-            IF InvtPick.GET(InvtPick.Type::"Invt. Pick", "BC6_Whse. Document No.") AND
-               InvtPick."BC6_Sales Counter" THEN BEGIN
+            IF InvtPick.GET(InvtPick.Type::"Invt. Pick", "BC6_Whse. Document No.") AND InvtPick."BC6_Sales Counter" THEN
                 IF Location.GET("Location Code") THEN
                     ShipBinCode := Location."Shipment Bin Code";
-                EXIT(TRUE);
-            END;
+            EXIT(TR UE);
+           
 
             InvtPickLine.RESET;
             InvtPickLine.SETRANGE("Activity Type", InvtPickLine."Activity Type"::"Invt. Pick");
@@ -827,7 +834,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
         AssignPickNo(PickNo);
     end;
 
-    local procedure OnAfterGetCurrRecord()
+    local procedure AfterGetCurrRecord()
     begin
         xRec := Rec;
         UpdateCurrForm();

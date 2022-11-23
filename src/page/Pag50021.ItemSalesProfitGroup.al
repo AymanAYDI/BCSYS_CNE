@@ -1,8 +1,10 @@
 page 50021 "BC6_Item Sales Profit Group"
 {
-    Caption = 'Groupe Marge Vente Article';
+    Caption = 'Groupe Marge Vente Article', Comment = 'FRA=""';
     PageType = List;
     SourceTable = "BC6_Item Sales Profit Group";
+    UsageCategory = Lists;
+    ApplicationArea = All;
 
     layout
     {
@@ -12,16 +14,14 @@ page 50021 "BC6_Item Sales Profit Group"
             {
                 field("Code"; Code)
                 {
+                    ApplicationArea = All;
                 }
                 field(Designation; Designation)
                 {
+                    ApplicationArea = All;
                 }
             }
         }
-    }
-
-    actions
-    {
     }
 }
 

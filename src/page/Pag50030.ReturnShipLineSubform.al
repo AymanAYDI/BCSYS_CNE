@@ -1,8 +1,10 @@
-page 50030 "Return Shipment Line Subform"
+page 50030 "BC6_Return Ship. Line Subform"
 {
-    Caption = 'Return Shipment Lines';
+    Caption = 'Return Shipment Lines', Comment = 'FRA="Lignes éxpidition retour"';
     PageType = List;
     SourceTable = "Return Shipment Line";
+    UsageCategory = Lists;
+    ApplicationArea = All;
 
     layout
     {
@@ -15,27 +17,35 @@ page 50030 "Return Shipment Line Subform"
                     HideValue = "Document No.HideValue";
                     Style = StrongAccent;
                     StyleExpr = TRUE;
+                    ApplicationArea = All;
                 }
                 field(Type; Type)
                 {
+                    ApplicationArea = All;
                 }
                 field("No."; "No.")
                 {
+                    ApplicationArea = All;
                 }
                 field(Quantity; Quantity)
                 {
+                    ApplicationArea = All;
                 }
                 field("Direct Unit Cost"; "Direct Unit Cost")
                 {
+                    ApplicationArea = All;
                 }
                 field("Unit Cost (LCY)"; "Unit Cost (LCY)")
                 {
+                    ApplicationArea = All;
                 }
                 field("VAT %"; "VAT %")
                 {
+                    ApplicationArea = All;
                 }
                 field("Unit Price (LCY)"; "Unit Price (LCY)")
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -47,8 +57,9 @@ page 50030 "Return Shipment Line Subform"
         {
             action(Show)
             {
-                Caption = '&Show';
+                Caption = '&Show', Comment = 'FRA="Affic&her"';
                 Image = Document;
+                ApplicationArea = All;
 
                 trigger OnAction()
                 begin

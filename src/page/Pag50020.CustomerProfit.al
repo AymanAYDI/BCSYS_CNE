@@ -1,8 +1,10 @@
 page 50020 "BC6_Customer Profit"
 {
-    Caption = 'Marge Client';
+    Caption = 'Marge Client', Comment = 'FRA=""';
     PageType = List;
     SourceTable = "Customer Sales Profit Group";
+    UsageCategory = Lists;
+    ApplicationArea = All;
 
     layout
     {
@@ -12,16 +14,14 @@ page 50020 "BC6_Customer Profit"
             {
                 field("Code"; Code)
                 {
+                    ApplicationArea = All;
                 }
                 field(Designation; Designation)
                 {
+                    ApplicationArea = All;
                 }
             }
         }
-    }
-
-    actions
-    {
     }
 }
 

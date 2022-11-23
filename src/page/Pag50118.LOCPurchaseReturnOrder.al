@@ -6,6 +6,8 @@ page 50118 "BC6_LOC Purchase Return Order"
     RefreshOnActivate = true;
     SourceTable = "Purchase Header";
     SourceTableView = WHERE("Document Type" = FILTER("Return Order"));
+    UsageCategory = Administration;
+    ApplicationArea = All;
 
     layout
     {
@@ -19,6 +21,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Importance = Promoted;
                     ToolTip = 'Specifies the number of the purchase document. The field is only visible if you have not set up a number series for the type of purchase document, or if the Manual Nos. field is selected for the number series.';
                     Visible = DocNoVisible;
+                    ApplicationArea = All;
 
                     trigger OnAssistEdit()
                     begin
@@ -32,6 +35,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Importance = Promoted;
                     QuickEntry = false;
                     ToolTip = 'Specifies the name of the vendor who sends the items. The field is filled automatically when you fill the Buy-from Vendor No. field.';
+                    ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
@@ -51,6 +55,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                         Importance = Additional;
                         QuickEntry = false;
                         ToolTip = 'Specifies the address of the vendor who ships the items.';
+                        ApplicationArea = All;
                     }
                     field("Buy-from Address 2"; Rec."Buy-from Address 2")
                     {
@@ -58,6 +63,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                         Importance = Additional;
                         QuickEntry = false;
                         ToolTip = 'Specifies additional address information.';
+                        ApplicationArea = All;
                     }
                     field("Buy-from Post Code"; Rec."Buy-from Post Code")
                     {
@@ -65,6 +71,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                         Importance = Additional;
                         QuickEntry = false;
                         ToolTip = 'Specifies the postal code.';
+                        ApplicationArea = All;
                     }
                     field("Buy-from City"; Rec."Buy-from City")
                     {
@@ -72,6 +79,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                         Importance = Additional;
                         QuickEntry = false;
                         ToolTip = 'Specifies the city of the vendor who ships the items.';
+                        ApplicationArea = All;
                     }
                     field("Buy-from Contact No."; Rec."Buy-from Contact No.")
                     {
@@ -79,56 +87,68 @@ page 50118 "BC6_LOC Purchase Return Order"
                         Importance = Additional;
                         QuickEntry = false;
                         ToolTip = 'Specifies the number of your contact at the vendor.';
+                        ApplicationArea = All;
                     }
                 }
                 field(ID; Rec.ID)
                 {
+                    ApplicationArea = All;
                 }
                 field("Buy-from Fax No."; Rec."BC6_Buy-from Fax No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Buy-from Contact"; Rec."Buy-from Contact")
                 {
                     Caption = 'Contact';
                     QuickEntry = false;
                     ToolTip = 'Specifies the name of the person to contact about shipment of the item from this vendor.';
+                    ApplicationArea = All;
                 }
                 field("Document Date"; Rec."Document Date")
                 {
                     QuickEntry = false;
                     ToolTip = 'Specifies the date on which the vendor created the purchase document.';
+                    ApplicationArea = All;
                 }
                 field("Posting Date"; Rec."Posting Date")
                 {
                     QuickEntry = false;
                     ToolTip = 'Specifies the date when the posting of the purchase document will be recorded.';
+                    ApplicationArea = All;
                 }
                 field("No. of Archived Versions"; Rec."No. of Archived Versions")
                 {
                     QuickEntry = false;
+                    ApplicationArea = All;
                 }
                 field("Order Date"; Rec."Order Date")
                 {
                     Importance = Promoted;
                     QuickEntry = false;
+                    ApplicationArea = All;
                 }
                 field("Vendor Authorization No."; Rec."Vendor Authorization No.")
                 {
                     Importance = Promoted;
+                    ApplicationArea = All;
                 }
                 field("Vendor Cr. Memo No."; Rec."Vendor Cr. Memo No.")
                 {
                     Importance = Promoted;
+                    ApplicationArea = All;
                 }
                 field("Order Address Code"; Rec."Order Address Code")
                 {
                     QuickEntry = false;
                     ToolTip = 'Specifies the order address code linked to the relevant vendor''s order address.';
+                    ApplicationArea = All;
                 }
                 field("Purchaser Code"; Rec."Purchaser Code")
                 {
                     QuickEntry = false;
                     ToolTip = 'Specifies which purchaser is assigned to the vendor.';
+                    ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
@@ -139,31 +159,37 @@ page 50118 "BC6_LOC Purchase Return Order"
                 {
                     QuickEntry = false;
                     ToolTip = 'Specifies the campaign number the document is linked to.';
+                    ApplicationArea = All;
                 }
                 field("Responsibility Center"; Rec."Responsibility Center")
                 {
                     QuickEntry = false;
                     ToolTip = 'Specifies the code of the responsibility center that is associated with the user, company, or vendor.';
+                    ApplicationArea = All;
                 }
                 field("Assigned User ID"; Rec."Assigned User ID")
                 {
                     QuickEntry = false;
                     ToolTip = 'Specifies the ID of the user who is responsible for the document.';
+                    ApplicationArea = All;
                 }
                 field("Job Queue Status"; Rec."Job Queue Status")
                 {
                     Importance = Additional;
                     QuickEntry = false;
                     Visible = JobQueueUsed;
+                    ApplicationArea = All;
                 }
                 field(Status; Rec.Status)
                 {
                     Importance = Promoted;
                     QuickEntry = false;
                     ToolTip = 'Specifies whether the record is open, waiting to be approved, invoiced for prepayment, or released to the next stage of processing.';
+                    ApplicationArea = All;
                 }
                 field("Return Order Type"; Rec."BC6_Return Order Type")
                 {
+                    ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
@@ -176,12 +202,14 @@ page 50118 "BC6_LOC Purchase Return Order"
                 field("Reminder Date"; Rec."BC6_Reminder Date")
                 {
                     Editable = BooGReminderDateVisible;
+                    ApplicationArea = All;
                 }
             }
             part(PurchLines; "Purchase Return Order Subform")
             {
                 SubPageLink = "Document No." = FIELD("No.");
                 UpdatePropagation = Both;
+                ApplicationArea = All;
             }
             group("Invoice Details")
             {
@@ -190,6 +218,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                 {
                     Importance = Promoted;
                     ToolTip = 'Specifies the currency code for amounts on the purchase lines.';
+                    ApplicationArea = All;
 
                     trigger OnAssistEdit()
                     begin
@@ -214,10 +243,12 @@ page 50118 "BC6_LOC Purchase Return Order"
                 {
                     Importance = Promoted;
                     ToolTip = 'Specifies the date you expect to receive the items on the purchase document.';
+                    ApplicationArea = All;
                 }
                 field("Prices Including VAT"; Rec."Prices Including VAT")
                 {
                     ToolTip = 'Specifies whether the unit price on the line should be displayed including or excluding VAT.';
+                    ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
@@ -227,14 +258,17 @@ page 50118 "BC6_LOC Purchase Return Order"
                 field("VAT Bus. Posting Group"; Rec."VAT Bus. Posting Group")
                 {
                     ToolTip = 'Specifies the vendor''s VAT specification to link transactions made for this vendor with the appropriate general ledger account according to the VAT posting setup.';
+                    ApplicationArea = All;
                 }
                 field("Transaction Type"; Rec."Transaction Type")
                 {
                     ToolTip = 'Specifies the number for the transaction type, for the purpose of reporting to INTRASTAT.';
+                    ApplicationArea = All;
                 }
                 field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
                     ToolTip = 'Specifies the dimension value code associated with the purchase header.';
+                    ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
@@ -244,6 +278,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                 field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
                     ToolTip = 'Specifies the dimension value code associated with the purchase header.';
+                    ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
@@ -254,17 +289,21 @@ page 50118 "BC6_LOC Purchase Return Order"
                 {
                     Importance = Promoted;
                     ToolTip = 'Specifies a code for the location where you want the items to be placed when they are received.';
+                    ApplicationArea = All;
                 }
                 field("Applies-to Doc. Type"; Rec."Applies-to Doc. Type")
                 {
                     Importance = Promoted;
+                    ApplicationArea = All;
                 }
                 field("Applies-to Doc. No."; Rec."Applies-to Doc. No.")
                 {
                     Importance = Promoted;
+                    ApplicationArea = All;
                 }
                 field("Applies-to ID"; Rec."Applies-to ID")
                 {
+                    ApplicationArea = All;
                 }
             }
             group("Shipping and Payment")
@@ -278,36 +317,42 @@ page 50118 "BC6_LOC Purchase Return Order"
                         Caption = 'Name';
                         Importance = Additional;
                         ToolTip = 'Specifies the name of the company at the address to which you want the items in the purchase order to be shipped.';
+                        ApplicationArea = All;
                     }
                     field("Ship-to Address"; Rec."Ship-to Address")
                     {
                         Caption = 'Address';
                         Importance = Additional;
                         ToolTip = 'Specifies the address that you want the items in the purchase order to be shipped to.';
+                        ApplicationArea = All;
                     }
                     field("Ship-to Address 2"; Rec."Ship-to Address 2")
                     {
                         Caption = 'Address 2';
                         Importance = Additional;
                         ToolTip = 'Specifies additional address information.';
+                        ApplicationArea = All;
                     }
                     field("Ship-to Post Code"; Rec."Ship-to Post Code")
                     {
                         Caption = 'Post Code';
                         Importance = Additional;
                         ToolTip = 'Specifies the postal code.';
+                        ApplicationArea = All;
                     }
                     field("Ship-to City"; Rec."Ship-to City")
                     {
                         Caption = 'City';
                         Importance = Additional;
                         ToolTip = 'Specifies the city the items in the purchase order will be shipped to.';
+                        ApplicationArea = All;
                     }
                     field("Ship-to Contact"; Rec."Ship-to Contact")
                     {
                         Caption = 'Contact';
                         Importance = Additional;
                         ToolTip = 'Specifies the name of a contact person for the address where the items in the purchase order should be shipped.';
+                        ApplicationArea = All;
                     }
                 }
                 group("Pay-to")
@@ -318,42 +363,49 @@ page 50118 "BC6_LOC Purchase Return Order"
                         Caption = 'Name';
                         Importance = Promoted;
                         ToolTip = 'Specifies the name of the vendor sending the invoice.';
+                        ApplicationArea = All;
                     }
                     field("Pay-to Address"; Rec."Pay-to Address")
                     {
                         Caption = 'Address';
                         Importance = Additional;
                         ToolTip = 'Specifies the address of the vendor sending the invoice.';
+                        ApplicationArea = All;
                     }
                     field("Pay-to Address 2"; Rec."Pay-to Address 2")
                     {
                         Caption = 'Address 2';
                         Importance = Additional;
                         ToolTip = 'Specifies additional address information.';
+                        ApplicationArea = All;
                     }
                     field("Pay-to Post Code"; Rec."Pay-to Post Code")
                     {
                         Caption = 'Post Code';
                         Importance = Additional;
                         ToolTip = 'Specifies the postal code.';
+                        ApplicationArea = All;
                     }
                     field("Pay-to City"; Rec."Pay-to City")
                     {
                         Caption = 'City';
                         Importance = Additional;
                         ToolTip = 'Specifies the city of the vendor sending the invoice.';
+                        ApplicationArea = All;
                     }
                     field("Pay-to Contact No."; Rec."Pay-to Contact No.")
                     {
                         Caption = 'Contact No.';
                         Importance = Additional;
                         ToolTip = 'Specifies the number of the contact who sends the invoice.';
+                        ApplicationArea = All;
                     }
                     field("Pay-to Contact"; Rec."Pay-to Contact")
                     {
                         Caption = 'Contact';
                         Importance = Additional;
                         ToolTip = 'Specifies the name of the person to contact about an invoice from this vendor.';
+                        ApplicationArea = All;
                     }
                 }
             }
@@ -363,18 +415,22 @@ page 50118 "BC6_LOC Purchase Return Order"
                 field("Transaction Specification"; Rec."Transaction Specification")
                 {
                     ToolTip = 'Specifies a code for the purchase header''s transaction specification here.';
+                    ApplicationArea = All;
                 }
                 field("Transport Method"; Rec."Transport Method")
                 {
                     ToolTip = 'Specifies the code for the transport method to be used with this purchase header.';
+                    ApplicationArea = All;
                 }
                 field("Entry Point"; Rec."Entry Point")
                 {
                     ToolTip = 'Specifies the code of the port of entry where the items pass into your country/region.';
+                    ApplicationArea = All;
                 }
                 field(BC6_Area; Rec.Area)
                 {
                     ToolTip = 'Specifies the code for the area of the vendor''s address.';
+                    ApplicationArea = All;
                 }
             }
         }
@@ -386,28 +442,34 @@ page 50118 "BC6_LOC Purchase Return Order"
                               "Document Type" = FIELD("Document Type"),
                               "Document No." = FIELD("No.");
                 Visible = OpenApprovalEntriesExistForCurrUser;
+                ApplicationArea = All;
             }
             part(ApprovalFactBox; "Approval FactBox")
             {
                 Visible = false;
+                ApplicationArea = All;
             }
             part("Vendor Details FactBox"; "Vendor Details FactBox")
             {
                 SubPageLink = "No." = FIELD("Buy-from Vendor No.");
+                ApplicationArea = All;
             }
             part("Vendor Statistics FactBox"; "Vendor Statistics FactBox")
             {
                 SubPageLink = "No." = FIELD("Pay-to Vendor No.");
                 Visible = false;
+                ApplicationArea = All;
             }
             part("Vendor Hist. Buy-from FactBox"; "Vendor Hist. Buy-from FactBox")
             {
                 SubPageLink = "No." = FIELD("Buy-from Vendor No.");
+                ApplicationArea = All;
             }
             part("Vendor Hist. Pay-to FactBox"; "Vendor Hist. Pay-to FactBox")
             {
                 SubPageLink = "No." = FIELD("Pay-to Vendor No.");
                 Visible = false;
+                ApplicationArea = All;
             }
             part("Purchase Line FactBox"; "Purchase Line FactBox")
             {
@@ -416,6 +478,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                               "Document No." = FIELD("Document No."),
                               "Line No." = FIELD("Line No.");
                 Visible = false;
+                ApplicationArea = All;
             }
             part(WorkflowStatus; "Workflow Status FactBox")
             {
@@ -423,13 +486,16 @@ page 50118 "BC6_LOC Purchase Return Order"
                 Enabled = false;
                 ShowFilter = false;
                 Visible = ShowWorkflowStatus;
+                ApplicationArea = All;
             }
             systempart(Links; Links)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
             systempart(Notes; Notes)
             {
+                ApplicationArea = All;
             }
         }
     }
@@ -450,6 +516,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     PromotedCategory = Process;
                     ShortCutKey = 'F7';
                     ToolTip = 'View statistical information, such as the value of posted entries, for the record.';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -464,6 +531,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     RunObject = Page "Vendor Card";
                     RunPageLink = "No." = FIELD("Buy-from Vendor No.");
                     ShortCutKey = 'Shift+F7';
+                    ApplicationArea = All;
                 }
                 action(Dimensions)
                 {
@@ -473,6 +541,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Image = Dimensions;
                     ShortCutKey = 'Shift+Ctrl+D';
                     ToolTip = 'View or edit dimensions, such as area, project, or department, that you can assign to sales and purchase documents to distribute costs and analyze transaction history.';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -486,6 +555,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Caption = 'Approvals';
                     Image = Approvals;
                     ToolTip = 'View a list of the records that are waiting to be approved. For example, you can see who requested the record to be approved, when it was sent, and when it is due to be approved.';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -504,6 +574,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                                   "No." = FIELD("No."),
                                   "Document Line No." = CONST(0);
                     ToolTip = 'View or add notes about the purchase return order.';
+                    ApplicationArea = All;
                 }
             }
             group(Documents)
@@ -517,6 +588,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     RunObject = Page "Posted Return Shipments";
                     RunPageLink = "Return Order No." = FIELD("No.");
                     RunPageView = SORTING("Return Order No.");
+                    ApplicationArea = All;
                 }
                 action("Cred&it Memos")
                 {
@@ -525,6 +597,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     RunObject = Page "Posted Purchase Credit Memos";
                     RunPageLink = "Return Order No." = FIELD("No.");
                     RunPageView = SORTING("Return Order No.");
+                    ApplicationArea = All;
                 }
                 separator(sep)
                 {
@@ -543,6 +616,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                                   "Source Subtype" = FIELD("Document Type"),
                                   "Source No." = FIELD("No.");
                     RunPageView = SORTING("Source Type", "Source Subtype", "Source No.", "Source Line No.");
+                    ApplicationArea = All;
                 }
                 action("In&vt. Put-away/Pick Lines")
                 {
@@ -552,6 +626,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     RunPageLink = "Source Document" = CONST("Purchase Return Order"),
                                   "Source No." = FIELD("No.");
                     RunPageView = SORTING("Source Document", "Source No.", "Location Code");
+                    ApplicationArea = All;
                 }
             }
         }
@@ -569,6 +644,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     PromotedIsBig = true;
                     ToolTip = 'Approve the requested changes.';
                     Visible = OpenApprovalEntriesExistForCurrUser;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -586,6 +662,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     PromotedIsBig = true;
                     ToolTip = 'Reject the approval request.';
                     Visible = OpenApprovalEntriesExistForCurrUser;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -602,6 +679,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     PromotedCategory = Category4;
                     ToolTip = 'Delegate the approval to a substitute approver.';
                     Visible = OpenApprovalEntriesExistForCurrUser;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -618,6 +696,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     PromotedCategory = Category4;
                     ToolTip = 'View or add comments.';
                     Visible = OpenApprovalEntriesExistForCurrUser;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -634,6 +713,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                 Image = Print;
                 Promoted = true;
                 PromotedCategory = Process;
+                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -663,6 +743,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Promoted = true;
                     PromotedCategory = Process;
                     ShortCutKey = 'Ctrl+F9';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -679,6 +760,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Promoted = true;
                     PromotedCategory = Category5;
                     ToolTip = 'Reopen the document to change it after it has been approved. Approved documents have the Released status and must be opened before they can be changed';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -703,6 +785,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Promoted = true;
                     PromotedCategory = Process;
                     PromotedIsBig = true;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -716,6 +799,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Promoted = true;
                     PromotedCategory = Process;
                     ShortCutKey = 'Shift+F11';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -731,6 +815,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Caption = 'Calculate &Invoice Discount';
                     Image = CalculateInvoiceDiscount;
                     ToolTip = 'Calculate the invoice discount for the entire purchase invoice.';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -748,6 +833,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Image = CopyDocument;
                     Promoted = true;
                     PromotedCategory = Process;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -762,6 +848,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Caption = 'Move Negative Lines';
                     Ellipsis = true;
                     Image = MoveNegativeLines;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -775,6 +862,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                 {
                     Caption = 'Archive Document';
                     Image = Archive;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -787,6 +875,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     AccessByPermission = TableData "IC G/L Account" = R;
                     Caption = 'Send IC Return Order';
                     Image = IntercompanyOrder;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -815,6 +904,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     PromotedIsBig = true;
                     PromotedOnly = true;
                     ToolTip = 'Send an approval request.';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -834,6 +924,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     PromotedIsBig = true;
                     PromotedOnly = true;
                     ToolTip = 'Cancel the approval request.';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -855,6 +946,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     AccessByPermission = TableData "Warehouse Shipment Header" = R;
                     Caption = 'Create &Whse. Shipment';
                     Image = NewShipment;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -869,6 +961,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Caption = 'Create Inventor&y Put-away/Pick';
                     Ellipsis = true;
                     Image = CreateInventoryPickup;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -892,6 +985,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     PromotedCategory = Process;
                     PromotedIsBig = true;
                     ShortCutKey = 'F9';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -903,6 +997,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Caption = 'Preview Posting';
                     Image = ViewPostedOrder;
                     ToolTip = 'Review the different types of entries that will be created when you post the document or journal.';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -917,6 +1012,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Ellipsis = true;
                     Image = TestReport;
                     ToolTip = 'View a test report so that you can find and correct any errors before you perform the actual posting of the journal or document.';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -932,6 +1028,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     PromotedCategory = Process;
                     PromotedIsBig = true;
                     ShortCutKey = 'Shift+F9';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -943,6 +1040,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Caption = 'Post &Batch';
                     Ellipsis = true;
                     Image = PostBatch;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -955,6 +1053,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Caption = 'Remove From Job Queue';
                     Image = RemoveLine;
                     Visible = JobQueueVisible;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin

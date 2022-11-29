@@ -2495,4 +2495,243 @@ ItemJnlLine."Document No.",
         //     SalesQuoteLine.DeleteAll();
         // end;
     end;
+
+    [EventSubscriber(ObjectType::Page, Page::Navigate, 'OnAfterNavigateFindRecords', '', false, false)]
+    local procedure P344_OnAfterNavigateFindRecords(var DocumentEntry: Record "Document Entry"; DocNoFilter: Text; PostingDateFilter: Text; var NewSourceRecVar: Variant)
+    var
+        GRecEntry: Record "BC6_DEEE Ledger Entry";
+        Navigate: Page Navigate;
+    begin
+        IF GRecEntry.READPERMISSION THEN BEGIN
+            GRecEntry.RESET;
+            GRecEntry.SETCURRENTKEY("Document No.", "Posting Date");
+            GRecEntry.SETFILTER("Document No.", DocNoFilter);
+            GRecEntry.SETFILTER("Posting Date", PostingDateFilter);
+            Navigate.InsertIntoDocEntry(DocumentEntry, DATABASE::"BC6_DEEE Ledger Entry", 0, GRecEntry.TABLECAPTION, GRecEntry.COUNT);
+        END;
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::Navigate, 'OnAfterNavigateShowRecords', '', false, false)]
+    local procedure P344_OnAfterNavigateShowRecords(TableID: Integer; DocNoFilter: Text; PostingDateFilter: Text; ItemTrackingSearch: Boolean; var TempDocumentEntry: Record "Document Entry" temporary; SalesInvoiceHeader: Record "Sales Invoice Header"; SalesCrMemoHeader: Record "Sales Cr.Memo Header"; PurchInvHeader: Record "Purch. Inv. Header"; PurchCrMemoHdr: Record "Purch. Cr. Memo Hdr."; ServiceInvoiceHeader: Record "Service Invoice Header"; ServiceCrMemoHeader: Record "Service Cr.Memo Header"; ContactType: Enum "Navigate Contact Type"; ContactNo: Code[250]; ExtDocNo: Code[250])
+    var
+        GRecEntry: Record "BC6_DEEE Ledger Entry";
+    begin
+        GRecEntry.RESET;
+        GRecEntry.SETCURRENTKEY("Document No.", "Posting Date");
+        GRecEntry.SETFILTER("Document No.", DocNoFilter);
+        GRecEntry.SETFILTER("Posting Date", PostingDateFilter);
+        if TableID = DATABASE::"BC6_DEEE Ledger Entry" then
+            PAGE.RUN(0, GRecEntry);
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Purchase Invoice Statistics", 'OnCalculateTotalsOnAfterAddLineTotals', '', false, false)]
+    local procedure P400_OnCalculateTotalsOnAfterAddLineTotals(var PurchInvLine: Record "Purch. Inv. Line"; var VendAmount: Decimal; var AmountInclVAT: Decimal; var InvDiscAmount: Decimal; var LineQty: Decimal; var TotalNetWeight: Decimal; var TotalGrossWeight: Decimal; var TotalVolume: Decimal; var TotalParcels: Decimal; var VATPercentage: Decimal; PurchInvHeader: Record "Purch. Inv. Header")
+    var
+        PurchInvStat: Page "Purchase Invoice Statistics";
+    begin
+        PurchInvStat.IncrementDecGMntHTDEEE(PurchInvLine."BC6_DEEE HT Amount");
+        PurchInvStat.IncrementDecGMntTTCDEEE(PurchInvLine."BC6_DEEE TTC Amount");
+        AmountInclVAT := AmountInclVAT + PurchInvLine."BC6_DEEE TTC Amount";
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Purch. Credit Memo Statistics", 'OnCalculateTotalsOnAfterAddLineTotals', '', false, false)]
+    local procedure P401_OnCalculateTotalsOnAfterAddLineTotals(var PurchCrMemoLine: Record "Purch. Cr. Memo Line"; var VendAmount: Decimal; var AmountInclVAT: Decimal; var InvDiscAmount: Decimal; var LineQty: Decimal; var TotalNetWeight: Decimal; var TotalGrossWeight: Decimal; var TotalVolume: Decimal; var TotalParcels: Decimal; var VATPercentage: Decimal; PurchCrMemoHeader: Record "Purch. Cr. Memo Hdr.")
+    var
+        PurchCreditMemoStat: Page "Purch. Credit Memo Statistics";
+    begin
+        PurchCreditMemoStat.Increment_MntHTDEEE(PurchCrMemoLine."BC6_DEEE HT Amount");
+        AmountInclVAT := AmountInclVAT + PurchCrMemoLine."BC6_DEEE TTC Amount";
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Purchase Return Order Subform", 'OnBeforeUpdateTypeText', '', false, false)]
+    local procedure P6641_OnBeforeUpdateTypeText(var PurchaseLine: Record "Purchase Line")
+    var
+        PurchHeader: Record "Purchase Header";
+        PurRetOrdSubf: Page "Purchase Return Order Subform";
+    begin
+        PurchHeader.Get(PurchaseLine."Document Type", PurchaseLine."Document No.");
+        PurRetOrdSubf.SetBooGSAVVisible(PurchHeader."BC6_Return Order Type" = PurchHeader."BC6_Return Order Type"::SAV);
+    end;
+
+
+    [EventSubscriber(ObjectType::Page, Page::"Sales Return Order List", 'OnAfterActionEvent', '&Print', false, false)]
+    local procedure P9304_OnAfterActionEvent_Print(var Rec: Record "Sales Header")
+    var
+        SalesHeader: Record 36;
+        DocPrint: Codeunit "Document-Print";
+    begin
+        IF Rec."BC6_Return Order Type" = Rec."BC6_Return Order Type"::Location THEN
+            DocPrint.PrintSalesHeader(Rec)
+        ELSE BEGIN
+            SalesHeader.RESET;
+            SalesHeader.SETRANGE("Document Type", Rec."Document Type");
+            SalesHeader.SETRANGE("No.", Rec."No.");
+            // REPORT.RUNMODAL(50060, TRUE, FALSE, SalesHeader); TODO: missing report
+        END;
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Sales Order List", 'OnBeforeActionEvent', 'Print Confirmation', false, false)]
+    local procedure P9304_OnBeforeActionEvent_PrintConfirmation(var Rec: Record "Sales Header")
+    var
+        SalesOrderList: Page "Sales Order List";
+    begin
+        SalesOrderList.CheckIfReleased();
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Sales Order Subform", 'OnAfterValidateEvent', 'No.', false, false)]
+    local procedure P46_OnAfterValidateEvent_No()
+    var
+        SalOrdSub: Page "Sales Order Subform";
+    begin
+        SalOrdSub.UpdateIncreasedFields();
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Sales Invoice Statistics", 'OnBeforeCalculateTotals', '', false, false)]
+    local procedure OnBeforeCalculateTotals(SalesInvoiceHeader: Record "Sales Invoice Header"; var CustAmount: Decimal; var AmountInclVAT: Decimal; var InvDiscAmount: Decimal; var CostLCY: Decimal; var TotalAdjCostLCY: Decimal; var LineQty: Decimal; var TotalNetWeight: Decimal; var TotalGrossWeight: Decimal; var TotalVolume: Decimal; var TotalParcels: Decimal; var IsHandled: Boolean; var VATPercentage: Decimal)
+    var
+        SalesInvLine: Record "Sales Invoice Line";
+        SalesInvStat: Page "Sales Invoice Statistics";
+        CostCalcMgt: Codeunit "Cost Calculation Management";
+    begin
+        SalesInvLine.SetRange("Document No.", SalesInvoiceHeader."No.");
+        if SalesInvLine.Find('-') then
+            repeat
+                CustAmount += SalesInvLine.Amount;
+                AmountInclVAT += SalesInvLine."Amount Including VAT";
+                //<<DEEE1.00 : Update DEEE amount (F9 without clic)
+                SalesInvStat.IncrementDecGMntTTCDEEE(SalesInvLine."BC6_DEEE TTC Amount");
+                SalesInvStat.IncrementDecGMntHTDEEE(SalesInvLine."BC6_DEEE HT Amount");
+                AmountInclVAT := AmountInclVAT + SalesInvLine."BC6_DEEE TTC Amount";
+                //>>DEEE1.00 : Update DEEE amount (F9 without clic)
+                if SalesInvoiceHeader."Prices Including VAT" then
+                    InvDiscAmount += SalesInvLine."Inv. Discount Amount" / (1 + SalesInvLine."VAT %" / 100)
+                else
+                    InvDiscAmount += SalesInvLine."Inv. Discount Amount";
+                CostLCY += SalesInvLine.Quantity * SalesInvLine."BC6_Purchase Cost";
+                LineQty += SalesInvLine.Quantity;
+                TotalNetWeight += SalesInvLine.Quantity * SalesInvLine."Net Weight";
+                TotalGrossWeight += SalesInvLine.Quantity * SalesInvLine."Gross Weight";
+                TotalVolume += SalesInvLine.Quantity * SalesInvLine."Unit Volume";
+                if SalesInvLine."Units per Parcel" > 0 then
+                    TotalParcels += Round(SalesInvLine.Quantity / SalesInvLine."Units per Parcel", 1, '>');
+                if SalesInvLine."VAT %" <> VATPercentage then
+                    if VATPercentage = 0 then
+                        VATPercentage := SalesInvLine."VAT %"
+                    else
+                        VATPercentage := -1;
+                TotalAdjCostLCY +=
+                  CostCalcMgt.CalcSalesInvLineCostLCY(SalesInvLine) + CostCalcMgt.CalcSalesInvLineNonInvtblCostAmt(SalesInvLine);
+
+
+            until SalesInvLine.Next() = 0;
+        SalesInvStat.SetNewCustAmount(CustAmount);
+
+        IsHandled := true;
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Sales Credit Memo Statistics", 'OnBeforeCalculateTotals', '', false, false)]
+    local procedure P398_OnBeforeCalculateTotals(SalesCrMemoHeader: Record "Sales Cr.Memo Header"; var CustAmount: Decimal; var AmountInclVAT: Decimal; var InvDiscAmount: Decimal; var CostLCY: Decimal; var TotalAdjCostLCY: Decimal; var LineQty: Decimal; var TotalNetWeight: Decimal; var TotalGrossWeight: Decimal; var TotalVolume: Decimal; var TotalParcels: Decimal; var IsHandled: Boolean; var VATpercentage: Decimal)
+    var
+        SalesCrMemoLine: Record "Sales Cr.Memo Line";
+        SalesCreditMemoStat: Page "Sales Credit Memo Statistics";
+        CostCalcMgt: Codeunit "Cost Calculation Management";
+    begin
+        SalesCrMemoLine.SetRange("Document No.", SalesCrMemoHeader."No.");
+        if SalesCrMemoLine.Find('-') then
+            repeat
+                CustAmount += SalesCrMemoLine.Amount;
+                AmountInclVAT += SalesCrMemoLine."Amount Including VAT";
+                //<<DEEE1.00 : Update DEEE amount (F9 without clic)
+                SalesCreditMemoStat.IncremntDecGMntHTDEEE(SalesCrMemoLine."BC6_DEEE HT Amount");
+                //>>DEEE1.00 : Update DEEE amount (F9 without clic)
+                if SalesCrMemoHeader."Prices Including VAT" then
+                    InvDiscAmount += SalesCrMemoLine."Inv. Discount Amount" / (1 + SalesCrMemoLine."VAT %" / 100)
+                else
+                    InvDiscAmount += SalesCrMemoLine."Inv. Discount Amount";
+                CostLCY += SalesCrMemoLine.Quantity * SalesCrMemoLine."BC6_Purchase cost";
+                LineQty += SalesCrMemoLine.Quantity;
+                TotalNetWeight += SalesCrMemoLine.Quantity * SalesCrMemoLine."Net Weight";
+                TotalGrossWeight += SalesCrMemoLine.Quantity * SalesCrMemoLine."Gross Weight";
+                TotalVolume += SalesCrMemoLine.Quantity * SalesCrMemoLine."Unit Volume";
+                if SalesCrMemoLine."Units per Parcel" > 0 then
+                    TotalParcels += Round(SalesCrMemoLine.Quantity / SalesCrMemoLine."Units per Parcel", 1, '>');
+                if SalesCrMemoLine."VAT %" <> VATpercentage then
+                    if VATpercentage = 0 then
+                        VATpercentage := SalesCrMemoLine."VAT %"
+                    else
+                        VATpercentage := -1;
+                TotalAdjCostLCY +=
+                  CostCalcMgt.CalcSalesCrMemoLineCostLCY(SalesCrMemoLine) + CostCalcMgt.CalcSalesCrMemoLineNonInvtblCostAmt(SalesCrMemoLine);
+
+
+            until SalesCrMemoLine.Next() = 0;
+
+        SalesCreditMemoStat.SetNewCustAmount(CustAmount);
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Sales Order Statistics", 'OnRefreshOnAfterGetRecordOnAfterGetSalesLines', '', false, false)]
+    local procedure P402_OnRefreshOnAfterGetRecordOnAfterGetSalesLines(SalesHeader: Record "Sales Header"; var TempSalesLine: Record "Sales Line" temporary)
+    var
+        SalesPost: Codeunit "Sales-Post";
+    begin
+        // SalesPost.GetSalesLinesspec(Rec, TempSalesLine, i - 1); TODO: fonctio specifique dans la codeunit "Sales-Post"
+    end;
+
+    // [EventSubscriber(ObjectType::Page, Page::"Sales Order Statistics", 'OnUpdateHeaderInfoOnBeforeSetAmount', '', false, false)] TODO:
+    // local procedure P402_OnUpdateHeaderInfoOnBeforeSetAmount(IndexNo: Integer)
+    // var
+    //     Salesheader: Record "Sales Header";
+    //     VATAmountLine: Record "VAT Amount Line";
+    //     RecGCustomer: Record Customer;
+    //     SalesOrderStat: page "Sales Order Statistics";
+    // begin
+    //   SalesOrderStat.GetRecord(Salesheader); TODO:
+    //   RecGCustomer.GET(Salesheader."Sell-to Customer No.");
+    //   IF RecGCustomer."BC6_Submitted to DEEE" THEN BEGIN
+    //     DecGVATAmount[IndexNo]:=VATAmountLine.GetTotalVATDEEEAmount ;
+    //     DecGTTCAmount[IndexNo]:=VATAmountLine.GetTotalAmountDEEEInclVAT ;
+    //     VATAmount[IndexNo]:=VATAmount[IndexNo]+DecGVATAmount[IndexNo] ;
+    //   END ELSE BEGIN
+    //     TotalSalesLineLCY[IndexNo]."DEEE HT Amount (LCY)" := 0;
+    //     TotalSalesLine[IndexNo]."DEEE HT Amount":= 0;
+    //     DecGVATAmount[IndexNo] := 0;
+    //     DecGTTCAmount[IndexNo] := 0;
+    //   END;
+
+
+
+    // if not Salesheader."Prices Including VAT" then begin TODO:
+    //     TotalAmount2[IndexNo] := TotalAmount1[IndexNo] + VATAmount[IndexNo];
+    //     TotalAmount2[IndexNo] := TotalAmount2[IndexNo] + DecGTTCAmount[IndexNo] - DecGVATAmount[IndexNo];
+    // END;
+    // end;
+
+
+    [EventSubscriber(ObjectType::Page, Page::"Sales Line Discounts", 'OnLookupCodeFilterCaseElse', '', false, false)]
+    local procedure OnLookupCodeFilterCaseElse(SalesLineDiscount: Record "Sales Line Discount"; var Text: Text; var Result: Boolean)
+    var
+        VendorList: Page "Vendor List";
+    begin
+        if SalesLineDiscount.Type = SalesLineDiscount.Type::Vendor then BEGIN
+            VendorList.LOOKUPMODE := TRUE;
+            IF VendorList.RUNMODAL = ACTION::LookupOK THEN
+                Text := VendorList.GetSelectionFilter
+            ELSE
+                Result := FALSE;
+        END;
+    end;
+
+    [EventSubscriber(ObjectType::Page, Page::"Vendor Card", 'OnBeforeActivateFields', '', false, false)]
+    local procedure OnBeforeActivateFields(var IsCountyVisible: Boolean; var FormatAddress: Codeunit "Format Address"; var IsHandled: Boolean)
+    var
+        UserSetup: Record "User Setup";
+        VendorCard: Page "Vendor Card";
+    begin
+        IF UserSetup.GET(USERID) AND UserSetup."BC6_Aut. Real Sales Profit %" THEN
+            VendorCard.SetShowMiniMargin(true)
+        ELSE
+            VendorCard.SetShowMiniMargin(false);
+    end;
+
+
 }

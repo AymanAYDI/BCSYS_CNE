@@ -1,5 +1,5 @@
-pageextension 50002 pageextension50002 extends "Apply G/L Entries"
-{
+pageextension 50002 "BC6_ApplyGLEntries" extends "Apply G/L Entries"
+{ //TODO
     actions
     {
 

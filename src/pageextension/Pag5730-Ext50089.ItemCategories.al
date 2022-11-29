@@ -1,6 +1,6 @@
-pageextension 50089 pageextension50089 extends "Item Categories"
+pageextension 50089 "BC6_ItemCategories" extends "Item Categories" //5730
 {
-
+    //TODO
     //Unsupported feature: Code Modification on "OnOpenPage".
 
     //trigger OnOpenPage()

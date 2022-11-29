@@ -1,7 +1,8 @@
-pageextension 50120 pageextension50120 extends "Sales Line FactBox"
+pageextension 50120 "BC6_SalesLineFactBox" extends "Sales Line FactBox"  //9087
 {
     layout
     {
+
         modify("Item Availability")
         {
             Visible = ShowCNEInfo;
@@ -24,7 +25,7 @@ pageextension 50120 pageextension50120 extends "Sales Line FactBox"
         }
         addafter(Availability)
         {
-            group(ACTI)
+            group(BC6_ACTI)
             {
                 Caption = 'ACTI';
                 Visible = ShowAvaibility;
@@ -32,7 +33,7 @@ pageextension 50120 pageextension50120 extends "Sales Line FactBox"
                 {
                     ApplicationArea = Basic, Suite;
                     Caption = 'Available Inventory ACTI';
-                    DecimalPlaces = 0 : 5;
+                    //TODO // DecimalPlaces = 0 : 5;
                     ToolTip = 'Specifies the quantity of the item that is currently in inventory and not reserved for other demand.';
                     Visible = ShowAvaibility;
                 }
@@ -40,27 +41,22 @@ pageextension 50120 pageextension50120 extends "Sales Line FactBox"
                 {
                     ApplicationArea = Basic, Suite;
                     Caption = 'Item Availability ACTI';
-                    DecimalPlaces = 0 : 5;
+                    //TODO // DecimalPlaces = 0 : 5;
                     DrillDown = false;
                     ToolTip = 'Specifies how may units of the item on the sales line are available, in inventory or incoming before the shipment date.';
                     Visible = ShowAvaibility;
 
-                    trigger OnDrillDown()
-                    begin
-                        //ItemAvailFormsMgt.ShowItemAvailFromSalesLine(Rec,ItemAvailFormsMgt.ByEvent);
-                        //CurrPage.UPDATE(TRUE);
-                    end;
                 }
             }
-            group(METZ)
+            group(BC6_METZ)
             {
                 Caption = 'METZ';
                 Visible = ShowAvaibility;
                 field("Available Inventory METZ"; SalesInfoPaneMgt.CalcAvailableInventoryMETZ(Rec, GR_ItemMETZ))
                 {
-                    ApplicationArea = Basic, Suite;
+                    ApplicationArea = Basic, Suite;f
                     Caption = 'Available Inventory METZ';
-                    DecimalPlaces = 0 : 5;
+                    //TODO // DecimalPlaces = 0 : 5;
                     ToolTip = 'Specifies the quantity of the item that is currently in inventory and not reserved for other demand.';
                     Visible = ShowAvaibility;
                 }
@@ -68,33 +64,28 @@ pageextension 50120 pageextension50120 extends "Sales Line FactBox"
                 {
                     ApplicationArea = Basic, Suite;
                     Caption = 'Item Availability METZ';
-                    DecimalPlaces = 0 : 5;
+                    //TODO // DecimalPlaces = 0 : 5;
                     DrillDown = false;
                     ToolTip = 'Specifies how may units of the item on the sales line are available, in inventory or incoming before the shipment date.';
                     Visible = ShowAvaibility;
 
-                    trigger OnDrillDown()
-                    begin
-                        //ItemAvailFormsMgt.ShowItemAvailFromSalesLine(Rec,ItemAvailFormsMgt.ByEvent);
-                        //CurrPage.UPDATE(TRUE);
-                    end;
                 }
             }
-            group()
-            {
-            }
+
         }
         addafter("Reserved Requirements")
         {
-            field("CNE Inventory"; SalesInfoPaneMgt.CalcCNEInventory(Rec))
+            field("BC6_CNE Inventory"; SalesInfoPaneMgt.CalcCNEInventory(Rec))
             {
                 Caption = 'CNE Inventory';
                 Visible = ShowCNEInfo;
+                ApplicationArea = All;
             }
-            field("CNE Qty. on Purch. Order"; SalesInfoPaneMgt.CalcCNEQtyOnPurchOrder(Rec))
+            field("BC6_CNE Qty. on Purch. Order"; SalesInfoPaneMgt.CalcCNEQtyOnPurchOrder(Rec))
             {
                 Caption = 'CNE Qty. on Purch. Order';
                 Visible = ShowCNEInfo;
+                ApplicationArea = All;
             }
         }
         addafter(Item)
@@ -102,21 +93,20 @@ pageextension 50120 pageextension50120 extends "Sales Line FactBox"
             field(AvailabilityToPick; STRSUBSTNO('%1', SalesInfoPaneMgt.CalcQtyAvailToPick(Rec)))
             {
                 Caption = 'Availa&bility To Pick';
+                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
-                    //>>MIGRATION NAV 2013
                     SalesInfoPaneMgt.LookupItem(Rec);
-                    //<<MIGRATION NAV 2013
                 end;
             }
             field(QtyOnPurchOrder; STRSUBSTNO('%1', SalesInfoPaneMgt.CalcQtyOnPurchOrder(Rec)))
             {
                 Caption = 'Qty. on Purch. Order';
+                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
-                    //>> CNE 5.01
                     SalesInfoPaneMgt.LookupQtyOnPurchOrder(Rec);
                 end;
             }
@@ -124,59 +114,36 @@ pageextension 50120 pageextension50120 extends "Sales Line FactBox"
     }
 
     var
-        "-MIGNAV2013-": ;
-        TxtGTxt001: Label '......';
-        ShowCNEInfo: Boolean;
-        GR_ItemCNE: Record "27";
-        GR_ItemMETZ: Record "27";
+        GR_ItemCNE: Record 27;
+        GR_ItemMETZ: Record 27;
         ShowAvaibility: Boolean;
+        ShowCNEInfo: Boolean;
 
 
-        //Unsupported feature: Code Modification on "OnAfterGetRecord".
-
-        //trigger OnAfterGetRecord()
-        //>>>> ORIGINAL CODE:
-        //begin
-        /*
-        CALCFIELDS("Reserved Quantity");
-        */
-        //end;
-        //>>>> MODIFIED CODE:
-        //begin
-        /*
-        CALCFIELDS("Reserved Quantity");
-        //BCSYS 220321
-        IF (Type = Type::Item) AND ("No." <> '') THEN
-          InitItemAvailibility;
-        */
-        //end;
 
 
-        //Unsupported feature: Code Insertion on "OnOpenPage".
-
-        //trigger OnOpenPage()
-        //begin
-        /*
-        //BCSYS - MM
+    trigger OnOpenPage()
+    begin
         IF COMPANYNAME = 'CNE 2007' THEN BEGIN
-          ShowCNEInfo := FALSE;
-          ShowAvaibility := TRUE;
+            ShowCNEInfo := FALSE;
+            ShowAvaibility := TRUE;
         END
         ELSE BEGIN
-          ShowCNEInfo := TRUE;
-          ShowAvaibility := FALSE;
+            ShowCNEInfo := TRUE;
+            ShowAvaibility := FALSE;
         END;
-        //FIN BCSYS - MM
-        */
-        //end;
+    end;
+
+    trigger OnAfterGetRecord()
+    begin
+        IF (Type = Type::Item) AND ("No." <> '') THEN
+            InitItemAvailibility();
+    end;
 
     local procedure InitItemAvailibility()
     begin
-        //Calcul du stock Dispo CNE
         GR_ItemCNE.GET("No.");
         GR_ItemCNE.SETRANGE("Location Filter", 'ACTI');
-
-        //Calcul du stock Dispo METZ
         GR_ItemMETZ.GET("No.");
         GR_ItemMETZ.SETRANGE("Location Filter", 'METZ');
     end;

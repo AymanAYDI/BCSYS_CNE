@@ -158,7 +158,7 @@ page 50014 "BC6_Item Sales/Purch. History"
                     Editable = false;
                 }
             }
-            part(PurchReturnShipement; "Return Shipment Line Subform")
+            part(PurchReturnShipement; "BC6_Return Ship. Line Subform")
             {
                 SubPageLink = "No." = FIELD("No.");
                 Visible = PurchReturnShipementVisible;
@@ -174,7 +174,7 @@ page 50014 "BC6_Item Sales/Purch. History"
                 SubPageView = SORTING("No.");
                 Visible = PostedReturnRcptsVisible;
             }
-            part(PostedCrMemos; "Credit Memo Lines Subform 2")
+            part(PostedCrMemos; "BC6_Cred. Memo Lines Subform 2")
             {
                 SubPageLink = "No." = FIELD("No.");
                 SubPageView = SORTING("No.");

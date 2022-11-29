@@ -2495,4 +2495,5 @@ ItemJnlLine."Document No.",
         //     SalesQuoteLine.DeleteAll();
         // end;
     end;
+
 }

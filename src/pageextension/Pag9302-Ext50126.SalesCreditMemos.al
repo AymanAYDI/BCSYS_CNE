@@ -1,14 +1,18 @@
-pageextension 50130 "BC6_PurchaseQuotes" extends "Purchase Quotes" //9306
+pageextension 50126 "BC6_SalesCreditMemos" extends "Sales Credit Memos" //9302
 {
     layout
     {
-        addafter(Status)
+        addafter("Job Queue Status")
         {
             field(BC6_ID; ID)
             {
                 ApplicationArea = All;
             }
             field("BC6_Your Reference"; "Your Reference")
+            {
+                ApplicationArea = All;
+            }
+            field("BC6_Affair No."; "BC6_Affair No.")
             {
                 ApplicationArea = All;
             }

@@ -1,10 +1,10 @@
-pageextension 50014 pageextension50014 extends "Posted Sales Cr. Memo Subform"
+pageextension 50014 pageextension50014 extends "Posted Sales Cr. Memo Subform" //135
 {
     layout
     {
-        addafter("Control 24")
+        addafter("Unit of Measure Code")
         {
-            field("Purchase cost"; "Purchase cost")
+            field("Purchase cost"; "BC6_Purchase cost")
             {
             }
         }

@@ -1,13 +1,6 @@
 page 50070 "BC6_Inventory Pick Mini"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // 
-    // ------------------------------------------------------------------------
-
-    Caption = 'Inventory Pick';
+    Caption = 'Inventory Pick', Comment = 'FRA="Prélèvement stock"';
     PageType = Document;
     RefreshOnActivate = true;
     SaveValues = true;
@@ -20,27 +13,31 @@ page 50070 "BC6_Inventory Pick Mini"
         {
             group(General)
             {
-                Caption = 'General';
+                Caption = 'General', Comment = 'FRA="Général"';
                 field("No."; "No.")
                 {
+                    ApplicationArea = All;
 
                     trigger OnAssistEdit()
                     begin
                         IF AssistEdit(xRec) THEN
-                            CurrPage.UPDATE;
+                            CurrPage.UPDATE();
                     end;
                 }
                 field("Location Code"; "Location Code")
                 {
+                    ApplicationArea = All;
                 }
                 field("Source Document"; "Source Document")
                 {
                     DrillDown = false;
                     Lookup = false;
+                    ApplicationArea = All;
                 }
                 field(SourceNoCtrl; "Source No.")
                 {
                     Editable = BooGSourceNoCtrl;
+                    ApplicationArea = All;
 
                     trigger OnLookup(var Text: Text): Boolean
                     var
@@ -52,29 +49,31 @@ page 50070 "BC6_Inventory Pick Mini"
                         CtrlEditable();
                         //<<MIGRATION NAV 2013
 
-                        CurrPage.UPDATE;
-                        CurrPage.WhseActivityLines.PAGE.UpdateForm;
+                        CurrPage.UPDATE();
+                        CurrPage.WhseActivityLines.PAGE.UpdateForm();
                     end;
 
                     trigger OnValidate()
                     begin
-                        SourceNoOnAfterValidate;
+                        SourceNoOnAfterValidate();
                     end;
                 }
                 field(DestinationNoCtrl; "Destination No.")
                 {
                     CaptionClass = FORMAT(WMSMgt.GetCaption("Destination Type", "Source Document", 0));
                     Editable = BooGDestinationNoCtrl;
+                    ApplicationArea = All;
                 }
-                field(WMSMgt.GetDestinationName("Destination Type","Destination No.");
-                    WMSMgt.GetDestinationName("Destination Type","Destination No."))
+                field(DestinationName; WMSMgt.GetDestinationEntityName("Destination Type", "Destination No."))
                 {
-                    CaptionClass = FORMAT(WMSMgt.GetCaption("Destination Type","Source Document",1));
-                    Caption = 'Name';
+                    CaptionClass = FORMAT(WMSMgt.GetCaption(Rec."Destination Type", Rec."Source Document", 1));
+                    Caption = 'Name', Comment = 'FRA="Nom"';
                     Editable = false;
+                    ApplicationArea = All;
                 }
                 field("Sales Counter"; "BC6_Sales Counter")
                 {
+                    ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
@@ -85,34 +84,43 @@ page 50070 "BC6_Inventory Pick Mini"
                 }
                 field("No. Printed"; "No. Printed")
                 {
+                    ApplicationArea = All;
                 }
                 field("Bin Code"; "BC6_Bin Code")
                 {
+                    ApplicationArea = All;
                 }
                 field("Your Reference"; "BC6_Your Reference")
                 {
+                    ApplicationArea = All;
                 }
                 field("Destination Name"; "BC6_Destination Name")
                 {
                     Editable = false;
+                    ApplicationArea = All;
                 }
                 field(Comments; BC6_Comments)
                 {
+                    ApplicationArea = All;
                 }
                 field("Posting Date"; "Posting Date")
                 {
+                    ApplicationArea = All;
                 }
                 field("Shipment Date"; "Shipment Date")
                 {
                     Editable = false;
+                    ApplicationArea = All;
                 }
                 field("External Document No."; "External Document No.")
                 {
                     CaptionClass = FORMAT(WMSMgt.GetCaption(Rec."Destination Type", Rec."Source Document", 2));
+                    ApplicationArea = All;
                 }
                 field("External Document No.2"; "External Document No.2")
                 {
                     CaptionClass = FORMAT(WMSMgt.GetCaption("Destination Type", "Source Document", 3));
+                    ApplicationArea = All;
                 }
             }
             part(WhseActivityLines; "Invt. Pick Subform")
@@ -121,6 +129,7 @@ page 50070 "BC6_Inventory Pick Mini"
                               "No." = FIELD("No.");
                 SubPageView = SORTING("Activity Type", "No.", "Sorting Sequence No.")
                               WHERE(Breakbulk = CONST(false));
+                ApplicationArea = All;
             }
         }
         area(factboxes)
@@ -132,14 +141,17 @@ page 50070 "BC6_Inventory Pick Mini"
                               "Variant Code" = FIELD("Variant Code"),
                               "Location Code" = FIELD("Location Code");
                 Visible = false;
+                ApplicationArea = All;
             }
             systempart("RecordLinks"; Links)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
             systempart("Notes"; Notes)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
         }
     }
@@ -150,13 +162,14 @@ page 50070 "BC6_Inventory Pick Mini"
         {
             group("P&ick")
             {
-                Caption = 'P&ick';
+                Caption = 'P&ick', Comment = 'FRA="&Prélèvement"';
                 Image = CreateInventoryPickup;
                 action(List)
                 {
-                    Caption = 'List';
+                    Caption = 'List', Comment = 'FRA="Lister"';
                     Image = OpportunitiesList;
                     ShortCutKey = 'Shift+Ctrl+L';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -165,35 +178,39 @@ page 50070 "BC6_Inventory Pick Mini"
                 }
                 action("Co&mments")
                 {
-                    Caption = 'Co&mments';
+                    Caption = 'Co&mments', Comment = 'FRA="Co&mmentaires"';
                     Image = ViewComments;
                     RunObject = Page "Warehouse Comment Sheet";
                     RunPageLink = "Table Name" = CONST("Whse. Activity Header"),
                                   Type = FIELD(Type),
                                   "No." = FIELD("No.");
+                    ApplicationArea = All;
                 }
                 action("Posted Picks")
                 {
-                    Caption = 'Posted Picks';
+                    Caption = 'Posted Picks', Comment = 'FRA="Prélèvements enregistrés"';
                     Image = PostedInventoryPick;
                     RunObject = Page "Posted Invt. Pick List";
                     RunPageLink = "Invt Pick No." = FIELD("No.");
                     RunPageView = SORTING("Invt Pick No.");
+                    ApplicationArea = All;
                 }
                 action("Posted Mouvement")
                 {
-                    Caption = 'Posted Mouvement';
+                    Caption = 'Posted Mouvement', Comment = 'FRA="Mouvements enregistrés"';
                     Image = PostedTaxInvoice;
                     RunObject = Page "Warehouse Entries";
                     RunPageLink = "BC6_Whse. Document No. 2" = FIELD("No.");
                     RunPageView = SORTING("BC6_Whse. Document Type 2", "BC6_Whse. Document No. 2")
                                   ORDER(Ascending)
                                   WHERE("BC6_Whse. Document Type 2" = CONST("Invt. Pick"));
+                    ApplicationArea = All;
                 }
                 action("Source Document")
                 {
-                    Caption = 'Source Document';
+                    Caption = 'Source Document', Comment = 'FRA="Document origine"';
                     Image = "Order";
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -208,16 +225,17 @@ page 50070 "BC6_Inventory Pick Mini"
         {
             group("F&unctions")
             {
-                Caption = 'F&unctions';
+                Caption = 'F&unctions', Comment = 'FRA="Fonction&s"';
                 Image = "Action";
                 action("&Get Source Document")
                 {
-                    Caption = '&Get Source Document';
+                    Caption = '&Get Source Document', Comment = 'FRA="E&xtraire document origine"';
                     Ellipsis = true;
                     Image = GetSourceDoc;
                     Promoted = true;
                     PromotedCategory = Process;
                     ShortCutKey = 'Ctrl+F7';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -231,73 +249,78 @@ page 50070 "BC6_Inventory Pick Mini"
                 }
                 action(AutofillQtyToHandle)
                 {
-                    Caption = 'Autofill Qty. to Handle';
+                    Caption = 'Autofill Qty. to Handle', Comment = 'FRA="Remplir qté à traiter"';
                     Image = AutofillQtyToHandle;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
                         //>>MIGRATION NAV 2013
                         IF CurrFormEditableOk THEN
                             //<<MIGRATION NAV 2013
-                            AutofillQtyToHandle;
+                            AutofillQtyToHandle();
                     end;
                 }
                 action("Delete Qty. to Handle")
                 {
-                    Caption = 'Delete Qty. to Handle';
+                    Caption = 'Delete Qty. to Handle', Comment = 'FRA="Vider quantité à traiter"';
                     Image = DeleteQtyToHandle;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
                         //>>MIGRATION NAV 2013
                         IF CurrFormEditableOk THEN
                             //<<MIGRATION NAV 2013
-                            DeleteQtyToHandle;
+                            DeleteQtyToHandle();
                     end;
                 }
             }
             group("P&osting")
             {
-                Caption = 'P&osting';
+                Caption = 'P&osting', Comment = 'FRA="&Validation"';
                 Image = Post;
                 action("P&ost")
                 {
-                    Caption = 'P&ost';
+                    Caption = 'P&ost', Comment = 'FRA="&Valider"';
                     Ellipsis = true;
                     Image = PostOrder;
                     Promoted = true;
                     PromotedCategory = Process;
                     PromotedIsBig = true;
                     ShortCutKey = 'F9';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
-                        PostPickYesNo;
+                        PostPickYesNo();
                     end;
                 }
                 action(PostAndPrint)
                 {
-                    Caption = 'Post and &Print';
+                    Caption = 'Post and &Print', Comment = 'FRA="Valider et i&mprimer"';
                     Ellipsis = true;
                     Image = PostPrint;
                     Promoted = true;
                     PromotedCategory = Process;
                     PromotedIsBig = true;
                     ShortCutKey = 'Shift+F9';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
-                        PostAndPrint;
+                        PostAndPrint();
                     end;
                 }
             }
             action("&Print")
             {
-                Caption = '&Print';
+                Caption = '&Print', Comment = 'FRA="&Imprimer"';
                 Ellipsis = true;
                 Image = Print;
                 Promoted = true;
                 PromotedCategory = Process;
+                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -306,14 +329,13 @@ page 50070 "BC6_Inventory Pick Mini"
             }
             action("&ToCheck")
             {
-                Caption = '&ToCheck';
+                Caption = '&ToCheck', Comment = 'FRA="&Contrôler"';
                 Image = Confirm;
+                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
-                    //>>MIGRATION NAV 2013
-                    WhseActPrint.PrintInvtPickHeaderCheck(Rec, FALSE);
-                    //<<MIGRATION NAV 2013
+                    WhseActPrint.PrintInvtPickHeader(Rec, FALSE);
                 end;
             }
         }
@@ -321,12 +343,13 @@ page 50070 "BC6_Inventory Pick Mini"
         {
             action("Picking List")
             {
-                Caption = 'Picking List';
+                Caption = 'Picking List', Comment = 'FRA="Liste des prélèvements"';
                 Image = "Report";
                 Promoted = false;
                 //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
                 //PromotedCategory = "Report";
                 RunObject = Report "Picking List";
+                ApplicationArea = All;
             }
         }
     }
@@ -334,13 +357,13 @@ page 50070 "BC6_Inventory Pick Mini"
     trigger OnAfterGetRecord()
     begin
         //>>MIGRATION NAV 2013
-        CtrlEditable;
+        CtrlEditable();
         //<<MIGRATION NAV 2013
     end;
 
     trigger OnDeleteRecord(): Boolean
     begin
-        CurrPage.UPDATE;
+        CurrPage.UPDATE();
     end;
 
     trigger OnFindRecord(Which: Text): Boolean
@@ -350,7 +373,7 @@ page 50070 "BC6_Inventory Pick Mini"
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        "Location Code" := GetUserLocation;
+        "Location Code" := GetUserLocation();
     end;
 
     trigger OnNextRecord(Steps: Integer): Integer
@@ -360,25 +383,15 @@ page 50070 "BC6_Inventory Pick Mini"
 
     trigger OnOpenPage()
     var
-        PermissionForm: Codeunit 50091;
+    // PermissionForm: Codeunit 50091; TODO:
     begin
-        ErrorIfUserIsNotWhseEmployee;
-        //>>AAYDI
-        //>>MIGRATION NAV 2013
+        ErrorIfUserIsNotWhseEmployee();
         CurrFormEditableOk := TRUE;
-        //MIGRATION 2013 ALMI
-        //IF NOT PermissionForm.HasEditablePermission(USERID,2,7377) THEN
-        IF NOT PermissionForm.HasEditablePermission(USERID, 8, 7377) THEN
-            //MIGRATION 2013 ALMI
-            CurrPage.EDITABLE(FALSE);
-        //MIGRATION 2013 ALMI
-        //IF NOT PermissionForm.HasEditablePermission(USERID,2,7378) THEN
-        IF NOT PermissionForm.HasEditablePermission(USERID, 8, 7378) THEN
-            //MIGRATION 2013 ALMI
-            CurrFormEditableOk := FALSE;
+        // IF NOT PermissionForm.HasEditablePermission(USERID, 8, 7377) THEN TODO:
+        //     CurrPage.EDITABLE(FALSE);
+        // IF NOT PermissionForm.HasEditablePermission(USERID, 8, 7378) THEN
+        //     CurrFormEditableOk := FALSE;
         BooGWhseActivityLines := CurrFormEditableOk;
-        //<<MIGRATION NAV 2013
-        //<<AAYDI
     end;
 
     var
@@ -396,28 +409,28 @@ page 50070 "BC6_Inventory Pick Mini"
 
     local procedure AutofillQtyToHandle()
     begin
-        CurrPage.WhseActivityLines.PAGE.AutofillQtyToHandle;
+        CurrPage.WhseActivityLines.PAGE.AutofillQtyToHandle();
     end;
 
     local procedure DeleteQtyToHandle()
     begin
-        CurrPage.WhseActivityLines.PAGE.DeleteQtyToHandle;
+        CurrPage.WhseActivityLines.PAGE.DeleteQtyToHandle();
     end;
 
     local procedure PostPickYesNo()
     begin
-        CurrPage.WhseActivityLines.PAGE.PostPickYesNo;
+        CurrPage.WhseActivityLines.PAGE.PostPickYesNo();
     end;
 
     local procedure PostAndPrint()
     begin
-        CurrPage.WhseActivityLines.PAGE.PostAndPrint;
+        CurrPage.WhseActivityLines.PAGE.PostAndPrint();
     end;
 
     local procedure SourceNoOnAfterValidate()
     begin
-        CurrPage.UPDATE;
-        CurrPage.WhseActivityLines.PAGE.UpdateForm;
+        CurrPage.UPDATE();
+        CurrPage.WhseActivityLines.PAGE.UpdateForm();
     end;
 
     procedure "--- MIGNAV2013 ---"()

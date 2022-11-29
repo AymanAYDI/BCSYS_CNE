@@ -287,28 +287,8 @@ page 50003 "BC6_Tab. Diverses (Non Modif)"
         [InDataSet]
         CommentVisible: Boolean;
 
-    local procedure TopLogical1OnActivate()
-    begin
-        Descriptif := Param."Top Logical1 Description";
-        CurrPage.UPDATE;
-    end;
-
-    local procedure TopLogical2OnActivate()
-    begin
-        Descriptif := Param."Top Logical2 Description";
-        CurrPage.UPDATE;
-    end;
-
-    local procedure TopLogical3OnActivate()
-    begin
-        Descriptif := Param."Top Logical3 Description";
-        CurrPage.UPDATE;
-    end;
-
     local procedure OnActivateForm()
     begin
-
-        //Descriptif := 'Code';
 
         IF Param.GET(Radical) THEN BEGIN
 
@@ -339,110 +319,4 @@ page 50003 "BC6_Tab. Diverses (Non Modif)"
             CommentVisible := Param."Comment Use";
         END;
     end;
-
-    local procedure CodeOnBeforeInput()
-    begin
-        Descriptif := 'Code (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure DescriptionOnBeforeInput()
-    begin
-        Descriptif := 'Libellé (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure Text1OnBeforeInput()
-    begin
-        Descriptif := Param."Text1 Description";
-        IF Param."Obligatory Text1" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure Text2OnBeforeInput()
-    begin
-        Descriptif := Param."Text2 Description";
-        IF Param."Obligatory Text2" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure Text3OnBeforeInput()
-    begin
-        Descriptif := Param."Text3 Description";
-        IF Param."Obligatory Text3" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure Number1OnBeforeInput()
-    begin
-        Descriptif := Param."Number1 Description";
-        IF Param."Obligatory Number1" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure Number2OnBeforeInput()
-    begin
-        Descriptif := Param."Number2 Description";
-        IF Param."Obligatory Number2" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure Number3OnBeforeInput()
-    begin
-        Descriptif := Param."Number3 Description";
-        IF Param."Obligatory Number3" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure Date1OnBeforeInput()
-    begin
-        Descriptif := Param."Date1 Description";
-        IF Param."Obligatory Date1" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure Date2OnBeforeInput()
-    begin
-        Descriptif := Param."Date2 Description";
-        IF Param."Obligatory Date2" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure Date3OnBeforeInput()
-    begin
-        Descriptif := Param."Date3 Description";
-        IF Param."Obligatory Date3" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure RadicalCode1OnBeforeInput()
-    begin
-        Param.CALCFIELDS("Radical Code1 Description");
-        Descriptif := Param."Radical Code1 Description";
-        IF Param."Obligatory Radical Code1" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure RadicalCode2OnBeforeInput()
-    begin
-        Param.CALCFIELDS("Radical Code2 Description");
-        Descriptif := Param."Radical Code2 Description";
-        IF Param."Obligatory Radical Code2" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure RadicalCode3OnBeforeInput()
-    begin
-        Param.CALCFIELDS("Radical Code3 Description");
-        Descriptif := Param."Radical Code3 Description";
-        IF Param."Obligatory Radical Code3" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure CommentOnBeforeInput()
-    begin
-        Descriptif := 'Commentaire';
-        CurrPage.UPDATE;
-    end;
 }
-

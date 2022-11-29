@@ -1,6 +1,6 @@
 page 50098 "BC6_Sales Order (MAGASIN)"
 {
-    Caption = 'Sales Order';
+    Caption = 'Sales Order', Comment = 'FRA="Commande vente"';
     PageType = Document;
     RefreshOnActivate = true;
     SourceTable = "Sales Header";
@@ -12,9 +12,10 @@ page 50098 "BC6_Sales Order (MAGASIN)"
         {
             group(General)
             {
-                Caption = 'General';
+                Caption = 'General', Comment = 'FRA="Général"';
                 field("No."; "No.")
                 {
+                    ApplicationArea = All;
 
                     trigger OnAssistEdit()
                     begin
@@ -24,61 +25,78 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 }
                 field("Sell-to Customer No."; "Sell-to Customer No.")
                 {
+                    ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
-                        SelltoCustomerNoOnAfterValidate;
+                        // SelltoCustomerNoOnAfterValidate; TODO:
                     end;
                 }
                 field("Sell-to Contact No."; "Sell-to Contact No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Sell-to Customer Name"; "Sell-to Customer Name")
                 {
+                    ApplicationArea = All;
                 }
                 field("Sell-to Address"; "Sell-to Address")
                 {
+                    ApplicationArea = All;
                 }
                 field("Sell-to Address 2"; "Sell-to Address 2")
                 {
+                    ApplicationArea = All;
                 }
                 field("Sell-to Post Code"; "Sell-to Post Code")
                 {
-                    Caption = 'Sell-to Post Code/City';
+                    Caption = 'Sell-to Post Code/City', Comment = 'FRA="CP/Ville donneur d''ordre"';
+                    ApplicationArea = All;
                 }
                 field("Sell-to Contact"; "Sell-to Contact")
                 {
+                    ApplicationArea = All;
                 }
                 field("Sell-to Fax No."; "BC6_Sell-to Fax No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Sell-to City"; "Sell-to City")
                 {
+                    ApplicationArea = All;
                 }
                 field("Your Reference"; "Your Reference")
                 {
-                    Caption = 'Votre référence';
+                    Caption = 'Votre référence', Comment = 'FRA="Votre référence"';
+                    ApplicationArea = All;
                 }
                 field("Posting Date"; "Posting Date")
                 {
+                    ApplicationArea = All;
                 }
                 field("Order Date"; "Order Date")
                 {
+                    ApplicationArea = All;
                 }
                 field("Document Date"; "Document Date")
                 {
+                    ApplicationArea = All;
                 }
                 field("Requested Delivery Date"; "Requested Delivery Date")
                 {
+                    ApplicationArea = All;
                 }
                 field("Promised Delivery Date"; "Promised Delivery Date")
                 {
+                    ApplicationArea = All;
                 }
                 field("External Document No."; "External Document No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Salesperson Code"; "Salesperson Code")
                 {
+                    ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
@@ -87,27 +105,32 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 }
                 field("No. of Archived Versions"; "No. of Archived Versions")
                 {
+                    ApplicationArea = All;
                 }
                 field(ID; ID)
                 {
-                    Caption = 'User ID';
+                    Caption = 'User ID', Comment = 'FRA="Code Utilisateur"';
                     Editable = false;
+                    ApplicationArea = All;
                 }
                 field(Status; Status)
                 {
                     Style = Standard;
                     StyleExpr = TRUE;
+                    ApplicationArea = All;
                 }
             }
             part(SalesLines; "Sales Order Subform")
             {
                 SubPageLink = "Document No." = FIELD("No.");
+                ApplicationArea = All;
             }
             group(Invoicing)
             {
-                Caption = 'Invoicing';
+                Caption = 'Invoicing', Comment = 'FRA="Facturation"';
                 field("Bill-to Customer No."; "Bill-to Customer No.")
                 {
+                    ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
@@ -116,115 +139,149 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 }
                 field("Bill-to Contact No."; "Bill-to Contact No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Bill-to Contact"; "Bill-to Contact")
                 {
+                    ApplicationArea = All;
                 }
                 field("Bill-to Name"; "Bill-to Name")
                 {
+                    ApplicationArea = All;
                 }
                 field("Bill-to Address"; "Bill-to Address")
                 {
+                    ApplicationArea = All;
                 }
                 field("Bill-to Address 2"; "Bill-to Address 2")
                 {
+                    ApplicationArea = All;
                 }
                 field("Bill-to Post Code"; "Bill-to Post Code")
                 {
-                    Caption = 'Bill-to Post Code/City';
+                    Caption = 'Bill-to Post Code/City', Comment = 'FRA="CP/Ville"';
+                    ApplicationArea = All;
                 }
                 field("Bill-to City"; "Bill-to City")
                 {
+                    ApplicationArea = All;
                 }
                 field("Payment Terms Code"; "Payment Terms Code")
                 {
+                    ApplicationArea = All;
                 }
                 field("Due Date"; "Due Date")
                 {
+                    ApplicationArea = All;
                 }
                 field("Payment Discount %"; "Payment Discount %")
                 {
+                    ApplicationArea = All;
                 }
                 field("Pmt. Discount Date"; "Pmt. Discount Date")
                 {
+                    ApplicationArea = All;
                 }
                 field("Payment Method Code"; "Payment Method Code")
                 {
+                    ApplicationArea = All;
                 }
                 field("VAT Bus. Posting Group"; "VAT Bus. Posting Group")
                 {
+                    ApplicationArea = All;
                 }
                 field("Advance Payment"; "BC6_Advance Payment")
                 {
+                    ApplicationArea = All;
                 }
                 field("Combine Shipments"; "Combine Shipments")
                 {
+                    ApplicationArea = All;
                 }
                 field("Combine Shipments by Order"; "BC6_Combine Shipments by Order")
                 {
+                    ApplicationArea = All;
                 }
             }
             group(Shipping)
             {
-                Caption = 'Shipping';
+                Caption = 'Shipping', Comment = 'FRA="Livraison"';
                 field("Ship-to Code"; "Ship-to Code")
                 {
+                    ApplicationArea = All;
                 }
                 field("Ship-to Name"; "Ship-to Name")
                 {
+                    ApplicationArea = All;
                 }
                 field("Ship-to Address"; "Ship-to Address")
                 {
+                    ApplicationArea = All;
                 }
                 field("Ship-to Address 2"; "Ship-to Address 2")
                 {
+                    ApplicationArea = All;
                 }
                 field("Ship-to Post Code"; "Ship-to Post Code")
                 {
-                    Caption = 'Ship-to Post Code/City';
+                    Caption = 'Ship-to Post Code/City', Comment = 'FRA="CP/Ville destinataire"';
+                    ApplicationArea = All;
                 }
                 field("Ship-to City"; "Ship-to City")
                 {
+                    ApplicationArea = All;
                 }
                 field("Ship-to Contact"; "Ship-to Contact")
                 {
+                    ApplicationArea = All;
                 }
                 field("Location Code"; "Location Code")
                 {
+                    ApplicationArea = All;
                 }
                 field("Outbound Whse. Handling Time"; "Outbound Whse. Handling Time")
                 {
+                    ApplicationArea = All;
                 }
                 field("Shipment Method Code"; "Shipment Method Code")
                 {
+                    ApplicationArea = All;
                 }
                 field("Shipping Agent Code"; "Shipping Agent Code")
                 {
+                    ApplicationArea = All;
                 }
                 field("Shipping Agent Service Code"; "Shipping Agent Service Code")
                 {
+                    ApplicationArea = All;
                 }
                 field("Shipping Time"; "Shipping Time")
                 {
+                    ApplicationArea = All;
                 }
                 field("Late Order Shipping"; "Late Order Shipping")
                 {
+                    ApplicationArea = All;
                 }
                 field("Package Tracking No."; "Package Tracking No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Shipment Date"; "Shipment Date")
                 {
+                    ApplicationArea = All;
                 }
                 field("Shipping Advice"; "Shipping Advice")
                 {
+                    ApplicationArea = All;
                 }
             }
             group("Foreign Trade")
             {
-                Caption = 'Foreign Trade';
+                Caption = 'Foreign Trade', Comment = 'FRA="International"';
                 field("Currency Code"; "Currency Code")
                 {
+                    ApplicationArea = All;
 
                     trigger OnAssistEdit()
                     begin
@@ -239,21 +296,27 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 }
                 field("EU 3-Party Trade"; "EU 3-Party Trade")
                 {
+                    ApplicationArea = All;
                 }
                 field("Transaction Type"; "Transaction Type")
                 {
+                    ApplicationArea = All;
                 }
                 field("Transaction Specification"; "Transaction Specification")
                 {
+                    ApplicationArea = All;
                 }
                 field("Transport Method"; "Transport Method")
                 {
+                    ApplicationArea = All;
                 }
                 field("Exit Point"; "Exit Point")
                 {
+                    ApplicationArea = All;
                 }
                 field("Area"; Area)
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -263,30 +326,35 @@ page 50098 "BC6_Sales Order (MAGASIN)"
             {
                 SubPageLink = "No." = FIELD("Sell-to Customer No.");
                 Visible = true;
+                ApplicationArea = All;
             }
             part("Customer Statistics FactBox"; "Customer Statistics FactBox")
             {
                 SubPageLink = "No." = FIELD("Bill-to Customer No.");
                 Visible = false;
+                ApplicationArea = All;
             }
             part("Customer Details FactBox 1"; "Customer Details FactBox")
             {
                 SubPageLink = "No." = FIELD("Sell-to Customer No.");
                 Visible = false;
+                ApplicationArea = All;
             }
             part("Customer Details FactBox 2"; "Customer Details FactBox")
             {
                 Provider = SalesLines;
-                SubPageLink = "Document Type" = FIELD("Document Type"),
-                              "Document No." = FIELD("Document No."),
-                              "Line No." = FIELD("Line No.");
+                // SubPageLink = "Document Type" = FIELD("Document Type"), TODO:
+                //               "Document No." = FIELD("Document No."),
+                //               "Line No." = FIELD("Line No.");
                 Visible = true;
+                ApplicationArea = All;
             }
             part("Item Invoicing FactBox"; "Item Invoicing FactBox")
             {
                 Provider = SalesLines;
                 SubPageLink = "No." = FIELD("No.");
                 Visible = false;
+                ApplicationArea = All;
             }
             part("Approval FactBox"; "Approval FactBox")
             {
@@ -294,31 +362,37 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                               "Document Type" = FIELD("Document Type"),
                               "Document No." = FIELD("No.");
                 Visible = false;
+                ApplicationArea = All;
             }
             part("Resource Details FactBox 1"; "Resource Details FactBox")
             {
                 Provider = SalesLines;
                 SubPageLink = "No." = FIELD("No.");
                 Visible = false;
+                ApplicationArea = All;
             }
             part("Resource Details FactBox 2"; "Resource Details FactBox")
             {
                 Provider = SalesLines;
                 SubPageLink = "No." = FIELD("No.");
                 Visible = false;
+                ApplicationArea = All;
             }
             part("Sales Hist. Bill-to FactBox"; "Sales Hist. Bill-to FactBox")
             {
                 SubPageLink = "No." = FIELD("Bill-to Customer No.");
                 Visible = false;
+                ApplicationArea = All;
             }
             systempart(Links; Links)
             {
                 Visible = false;
+                ApplicationArea = All;
             }
             systempart(Notes; Notes)
             {
                 Visible = true;
+                ApplicationArea = All;
             }
         }
     }
@@ -329,14 +403,15 @@ page 50098 "BC6_Sales Order (MAGASIN)"
         {
             group("O&rder")
             {
-                Caption = 'O&rder';
+                Caption = 'O&rder', Comment = 'FRA="&Commande"';
                 action(Statistics)
                 {
-                    Caption = 'Statistics';
+                    Caption = 'Statistics', Comment = 'FRA="Statistiques"';
                     Image = Statistics;
                     Promoted = true;
                     PromotedCategory = Process;
                     ShortCutKey = 'F7';
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -350,40 +425,45 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 }
                 action(Card)
                 {
-                    Caption = 'Card';
+                    Caption = 'Card', Comment = 'FRA="Fiche"';
                     Image = EditLines;
                     RunObject = Page "Customer Card";
                     RunPageLink = "No." = FIELD("Sell-to Customer No.");
                     ShortCutKey = 'Shift+F5';
+                    ApplicationArea = All;
                 }
                 action("Co&mments")
                 {
-                    Caption = 'Co&mments';
+                    Caption = 'Co&mments', Comment = 'FRA="Co&mmentaires"';
                     Image = ViewComments;
                     RunObject = Page "Sales Comment Sheet";
                     RunPageLink = "Document Type" = FIELD("Document Type"),
                                   "No." = FIELD("No.");
+                    ApplicationArea = All;
                 }
                 action("S&hipments")
                 {
-                    Caption = 'S&hipments';
+                    Caption = 'S&hipments', Comment = 'FRA="Li&vraisons"';
                     Image = Shipment;
                     RunObject = Page "Posted Sales Shipments";
                     RunPageLink = "Order No." = FIELD("No.");
                     RunPageView = SORTING("Order No.");
+                    ApplicationArea = All;
                 }
                 action(Invoices)
                 {
-                    Caption = 'Invoices';
+                    Caption = 'Invoices', Comment = 'FRA="F&actures"';
                     Image = Invoice;
                     RunObject = Page "Posted Sales Invoices";
                     RunPageLink = "Order No." = FIELD("No.");
                     RunPageView = SORTING("Order No.");
+                    ApplicationArea = All;
                 }
                 action(Dimensions)
                 {
-                    Caption = 'Dimensions';
+                    Caption = 'Dimensions', Comment = 'FRA="A&xes analytiques"';
                     Image = Dimensions;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -395,30 +475,33 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 }
                 action("Whse. Shipment Lines")
                 {
-                    Caption = 'Whse. Shipment Lines';
+                    Caption = 'Whse. Shipment Lines', Comment = 'FRA="Lignes expédition mag."';
                     Image = WarehouseRegisters;
                     RunObject = Page "Whse. Shipment Lines";
                     RunPageLink = "Source Type" = CONST(37),
                                   "Source Subtype" = FIELD("Document Type"),
                                   "Source No." = FIELD("No.");
                     RunPageView = SORTING("Source Type", "Source Subtype", "Source No.", "Source Line No.");
+                    ApplicationArea = All;
                 }
                 action("In&vt. Put-away/Pick Lines")
                 {
-                    Caption = 'In&vt. Put-away/Pick Lines';
+                    Caption = 'In&vt. Put-away/Pick Lines', Comment = 'FRA="Lignes prélè&v./rangement stock"';
                     Image = PickLines;
                     RunObject = Page "Warehouse Activity List";
                     RunPageLink = "Source Document" = CONST("Sales Order"),
                                   "Source No." = FIELD("No.");
                     RunPageView = SORTING("Source Document", "Source No.", "Location Code");
+                    ApplicationArea = All;
                 }
                 separator(Action176)
                 {
                 }
                 action("Pla&nning")
                 {
-                    Caption = 'Pla&nning';
+                    Caption = 'Pla&nning', Comment = 'FRA="Pla&nification"';
                     Image = Planning;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -430,8 +513,9 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 }
                 action("Order &Promising")
                 {
-                    Caption = 'Order &Promising';
+                    Caption = 'Order &Promising', Comment = 'FRA="Pro&messe de livraison"';
                     Image = OrderPromising;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -444,12 +528,13 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 }
                 group("Dr&op Shipment")
                 {
-                    Caption = 'Dr&op Shipment';
+                    Caption = 'Dr&op Shipment', Comment = 'FRA="Livraison &directe"';
                     Image = Sales;
                     action("BC6_Purchase &Order")
                     {
-                        Caption = 'Purchase &Order';
+                        Caption = 'Purchase &Order', Comment = 'FRA="&Commande achat"';
                         Image = Document;
+                        ApplicationArea = All;
 
                         trigger OnAction()
                         begin
@@ -459,12 +544,13 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 }
                 group("Speci&al Order")
                 {
-                    Caption = 'Speci&al Order';
+                    Caption = 'Speci&al Order', Comment = 'FRA="C&ommande spéciale"';
                     Image = Sales;
                     action("Purchase &Order")
                     {
-                        Caption = 'Purchase &Order';
+                        Caption = 'Purchase &Order', Comment = 'FRA="&Commande achat"';
                         Image = Document;
+                        ApplicationArea = All;
 
                         trigger OnAction()
                         begin
@@ -478,11 +564,12 @@ page 50098 "BC6_Sales Order (MAGASIN)"
         {
             group("F&unctions")
             {
-                Caption = 'F&unctions';
+                Caption = 'F&unctions', Comment = 'FRA="Fonction&s"';
                 action("Calculate &Invoice Discount")
                 {
-                    Caption = 'Calculate &Invoice Discount';
+                    Caption = 'Calculate &Invoice Discount', Comment = 'FRA="C&alculer remise facture"';
                     Image = CalculateInvoiceDiscount;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -491,9 +578,10 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 }
                 action("Get Price")
                 {
-                    Caption = 'Get Price';
+                    Caption = 'Get Price', Comment = 'FRA="Extraire prix"';
                     Ellipsis = true;
                     Image = SalesPrices;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -502,9 +590,10 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 }
                 action("Get Li&ne Discount")
                 {
-                    Caption = 'Get Li&ne Discount';
+                    Caption = 'Get Li&ne Discount', Comment = 'FRA="Ex&traire remise ligne"';
                     Ellipsis = true;
                     Image = Discount;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -516,8 +605,9 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 }
                 action("E&xplode BOM")
                 {
-                    Caption = 'E&xplode BOM';
+                    Caption = 'E&xplode BOM', Comment = 'FRA="&Eclater nomenclature"';
                     Image = ExplodeBOM;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -526,8 +616,9 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 }
                 action("Insert &Ext. Texts")
                 {
-                    Caption = 'Insert &Ext. Texts';
+                    Caption = 'Insert &Ext. Texts', Comment = 'FRA="Insérer textes étend&us"';
                     Image = Text;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -539,9 +630,10 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 }
                 action("Get St&d. Cust. Sales Codes")
                 {
-                    Caption = 'Get St&d. Cust. Sales Codes';
+                    Caption = 'Get St&d. Cust. Sales Codes', Comment = 'FRA="Extraire &codes vente client std"';
                     Ellipsis = true;
                     Image = GetStandardJournal;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -552,8 +644,9 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 }
                 action("Order &Tracking")
                 {
-                    Caption = 'Order &Tracking';
+                    Caption = 'Order &Tracking', Comment = 'FRA="Chaînage"';
                     Image = OrderTracking;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -565,8 +658,9 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 }
                 action("Nonstoc&k Items")
                 {
-                    Caption = 'Nonstoc&k Items';
+                    Caption = 'Nonstoc&k Items', Comment = 'FRA="Articles &non stockés"';
                     Image = NonStockItem;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -581,9 +675,10 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 }
                 action("Copy Document")
                 {
-                    Caption = 'Copy Document';
+                    Caption = 'Copy Document', Comment = 'FRA="Copier &document"';
                     Ellipsis = true;
                     Image = CopyDocument;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -594,8 +689,9 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 }
                 action("Archi&ve Document")
                 {
-                    Caption = 'Archi&ve Document';
+                    Caption = 'Archi&ve Document', Comment = 'FRA="Archi&ver document"';
                     Image = Archive;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -605,9 +701,10 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 }
                 action("Move Negative Lines")
                 {
-                    Caption = 'Move Negative Lines';
+                    Caption = 'Move Negative Lines', Comment = 'FRA="Déplacer lignes né&gatives"';
                     Ellipsis = true;
                     Image = MoveNegativeLines;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -622,8 +719,9 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 }
                 action("Create &Whse. Shipment")
                 {
-                    Caption = 'Create &Whse. Shipment';
+                    Caption = 'Create &Whse. Shipment', Comment = 'FRA="Créer e&xpédition magasin"';
                     Image = CreateWarehousePick;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -634,9 +732,10 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 }
                 action("Create Inventor&y Put-away / Pick")
                 {
-                    Caption = 'Create Inventor&y Put-away / Pick';
+                    Caption = 'Create Inventor&y Put-away / Pick', Comment = 'FRA="Créer prélèv./rangement stoc&k"';
                     Ellipsis = true;
                     Image = CreateInventoryPickup;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -648,16 +747,18 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 }
                 action("Re&lease")
                 {
-                    Caption = 'Re&lease';
+                    Caption = 'Re&lease', Comment = 'FRA="Lancer"';
                     Image = ReleaseDoc;
                     RunObject = Codeunit "Release Sales Document";
                     ShortCutKey = 'Ctrl+F9';
+                    ApplicationArea = All;
                 }
                 action("Re&open")
                 {
-                    Caption = 'Re&open';
+                    Caption = 'Re&open', Comment = 'FRA="R&ouvrir"';
                     Image = ReOpen;
                     Visible = false;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -671,8 +772,9 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 }
                 action("Send IC Sales Order Cnfmn.")
                 {
-                    Caption = 'Send IC Sales Order Cnfmn.';
+                    Caption = 'Send IC Sales Order Cnfmn.', Comment = 'FRA="Confirmation envoi commande vente IC"';
                     Image = SendElectronicDocument;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -684,12 +786,13 @@ page 50098 "BC6_Sales Order (MAGASIN)"
             }
             group("P&osting")
             {
-                Caption = 'P&osting';
+                Caption = 'P&osting', Comment = 'FRA="&Validation"';
                 action("Test Report")
                 {
-                    Caption = 'Test Report';
+                    Caption = 'Test Report', Comment = 'FRA="Impression test"';
                     Ellipsis = true;
                     Image = TestReport;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -698,7 +801,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 }
                 action("P&ost")
                 {
-                    Caption = 'P&ost';
+                    Caption = 'P&ost', Comment = 'FRA="&Valider"';
                     Ellipsis = true;
                     Image = Post;
                     Promoted = true;
@@ -706,10 +809,11 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                     PromotedIsBig = true;
                     RunObject = Codeunit "Sales-Post (Yes/No)";
                     ShortCutKey = 'F9';
+                    ApplicationArea = All;
                 }
                 action("Post and &Print")
                 {
-                    Caption = 'Post and &Print';
+                    Caption = 'Post and &Print', Comment = 'FRA="Valider et i&mprimer"';
                     Ellipsis = true;
                     Image = PostPrint;
                     Promoted = true;
@@ -717,12 +821,14 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                     PromotedIsBig = true;
                     RunObject = Codeunit "Sales-Post + Print";
                     ShortCutKey = 'Shift+F11';
+                    ApplicationArea = All;
                 }
                 action("Post &Batch")
                 {
-                    Caption = 'Post &Batch';
+                    Caption = 'Post &Batch', Comment = 'FRA="Valider par l&ot"';
                     Ellipsis = true;
                     Image = PostBatch;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -732,24 +838,27 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 }
                 action("&Valider Livraison")
                 {
-                    Caption = '&Valider Livraison';
+                    Caption = '&Valider Livraison', Comment = 'FRA="&Valider Livraison"';
                     Image = PostedReceipt;
-                    RunObject = Codeunit 50001;
+                    // RunObject = Codeunit 50001; TODO:
+                    ApplicationArea = All;
                 }
                 action("&Valider Facture")
                 {
-                    Caption = '&Valider Facture';
+                    Caption = '&Valider Facture', Comment = 'FRA="&Valider Facture"';
                     Image = PostedVendorBill;
-                    RunObject = Codeunit 50002;
+                    // RunObject = Codeunit 50002; TODO:
+                    ApplicationArea = All;
                 }
             }
             group("&Print")
             {
-                Caption = '&Print';
+                Caption = '&Print', Comment = 'FRA="Im&primer"';
                 action("Order Confirmation")
                 {
-                    Caption = 'Order Confirmation';
+                    Caption = 'Order Confirmation', Comment = 'FRA="Confirmation de commande"';
                     Image = Print;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -767,8 +876,9 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 }
                 action("Work Order")
                 {
-                    Caption = 'Work Order';
+                    Caption = 'Work Order', Comment = 'FRA="Edition Bon Prépa"';
                     Image = Print;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -779,7 +889,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                         RecGSalesHeader.SETRANGE(RecGSalesHeader."No.", "No.");
                         RecGSalesHeader.FIND('-');
 
-                        REPORT.RUNMODAL(REPORT::"Preparation NAVIDIIGEST1", TRUE, TRUE, RecGSalesHeader);
+                        // REPORT.RUNMODAL(REPORT::"Preparation NAVIDIIGEST1", TRUE, TRUE, RecGSalesHeader); TODO:
                     end;
                 }
             }
@@ -828,7 +938,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
     end;
 
     var
-        Text000: Label 'Unable to execute this function while in view only mode.';
+        Text000: Label 'Unable to execute this function while in view only mode.', Comment = 'FRA="Impossible d''exécuter cette fonction quand vous êtes en mode visualisation seule."';
         CopySalesDoc: Report "Copy Sales Document";
         MoveNegSalesLines: Report "Move Negative Sales Lines";
         ReportPrint: Codeunit "Test Report-Print";
@@ -848,13 +958,12 @@ page 50098 "BC6_Sales Order (MAGASIN)"
         Mail: Codeunit Mail;
         "Sales & Receivables Setup": Record "Sales & Receivables Setup";
         Excel: Boolean;
-        PreparationNAVIDIIGEST: Report 50097;
-        "--NSC1.01--": ;
-        STR3: Label 'Impimer le document';
-        STR4: Label 'Envoyer le document par E-Mail';
-        STR5: Label 'Envoyer le document par Fax';
-        Text001: ;
-        Text004: ;
+        // PreparationNAVIDIIGEST: Report 50097; TODO:
+        STR3: Label 'Impimer le document', Comment = 'FRA="Impimer le document"';
+        STR4: Label 'Envoyer le document par E-Mail', Comment = 'FRA="Envoyer le document par E-Mail"';
+        STR5: Label 'Envoyer le document par Fax', Comment = 'FRA="Envoyer le document par Fax"';
+        Text001: Label '';
+        Text004: Label '';
         [InDataSet]
         SalesHistoryBtnVisible: Boolean;
         [InDataSet]
@@ -863,9 +972,9 @@ page 50098 "BC6_Sales Order (MAGASIN)"
         BillToCommentBtnVisible: Boolean;
         [InDataSet]
         SalesHistoryStnVisible: Boolean;
-        Text19070588: Label 'Sell-to Customer';
-        Text19069283: Label 'Bill-to Customer';
-        ChangeExchangeRate: Page "511";
+        Text19070588: Label 'Sell-to Customer', Comment = 'FRA="Donneur d''ordre"';
+        Text19069283: Label 'Bill-to Customer', Comment = 'FRA="Client facturé"';
+        ChangeExchangeRate: Page "Change Exchange Rate";
 
     procedure UpdateAllowed(): Boolean
     begin

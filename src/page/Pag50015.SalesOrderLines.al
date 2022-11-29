@@ -1,6 +1,6 @@
 page 50015 "BC6_Sales Order Lines"
 {
-    Caption = 'Sales Order Lines';
+    Caption = 'Sales Order Lines', comment = 'FRA=""';
     DeleteAllowed = false;
     InsertAllowed = false;
     PageType = List;
@@ -16,10 +16,10 @@ page 50015 "BC6_Sales Order Lines"
         {
             group("Filters :")
             {
-                Caption = 'Filters :';
+                Caption = 'Filters :', comment = 'FRA=""';
                 field(OptGSort; OptGSort)
                 {
-                    Caption = 'Sorting';
+                    Caption = 'Sorting', comment = 'FRA=""';
                     OptionCaption = 'Document No. - Line No.,Vendor No. - Shipment Date,Vendor No. - No. - Shipment Date';
 
                     trigger OnValidate()
@@ -29,7 +29,7 @@ page 50015 "BC6_Sales Order Lines"
                 }
                 field(BooGExcDropShipFilter; BooGExcDropShipFilter)
                 {
-                    Caption = 'Exclude Drop Shipments';
+                    Caption = 'Exclude Drop Shipments', comment = 'FRA=""';
 
                     trigger OnValidate()
                     begin
@@ -38,7 +38,7 @@ page 50015 "BC6_Sales Order Lines"
                 }
                 field(BooGExcQuoteFilter; BooGExcQuoteFilter)
                 {
-                    Caption = 'Exclude Sales Quotes';
+                    Caption = 'Exclude Sales Quotes', comment = 'FRA=""';
 
                     trigger OnValidate()
                     begin
@@ -47,7 +47,7 @@ page 50015 "BC6_Sales Order Lines"
                 }
                 field(BooGOneTimeOrdering; BooGOneTimeOrdering)
                 {
-                    Caption = 'Exclude Orders Already Send';
+                    Caption = 'Exclude Orders Already Send', comment = 'FRA=""';
 
                     trigger OnValidate()
                     begin
@@ -56,7 +56,7 @@ page 50015 "BC6_Sales Order Lines"
                 }
                 field(BooGNegForecastInv; BooGNegForecastInv)
                 {
-                    Caption = 'Negative Forecast Inventory';
+                    Caption = 'Negative Forecast Inventory', comment = 'FRA=""';
 
                     trigger OnValidate()
                     begin
@@ -65,7 +65,7 @@ page 50015 "BC6_Sales Order Lines"
                 }
                 field(CodGVendorFilter; CodGVendorFilter)
                 {
-                    Caption = 'Vendor No. Filter';
+                    Caption = 'Vendor No. Filter', comment = 'FRA=""';
                     TableRelation = Vendor."No.";
 
                     trigger OnValidate()
@@ -75,7 +75,7 @@ page 50015 "BC6_Sales Order Lines"
                 }
                 field(BooGExcShipOrders; BooGExcShipOrders)
                 {
-                    Caption = 'Exclude Shipment Orders';
+                    Caption = 'Exclude Shipment Orders', comment = 'FRA=""';
 
                     trigger OnValidate()
                     begin
@@ -84,7 +84,7 @@ page 50015 "BC6_Sales Order Lines"
                 }
                 field(TxtGShipmentDateFilter; TxtGShipmentDateFilter)
                 {
-                    Caption = 'ShipmentDateFilter';
+                    Caption = 'ShipmentDateFilter', comment = 'FRA=""';
 
                     trigger OnValidate()
                     begin
@@ -93,7 +93,7 @@ page 50015 "BC6_Sales Order Lines"
                 }
                 field(BooGNotGroupByItem; BooGNotGroupByItem)
                 {
-                    Caption = 'Not group by Item';
+                    Caption = 'Not group by Item', comment = 'FRA=""';
                 }
             }
             repeater(Control1000000000)
@@ -122,23 +122,23 @@ page 50015 "BC6_Sales Order Lines"
                 }
                 field("Requested Delivery Date"; "Requested Delivery Date")
                 {
-                    Caption = 'Requested Receipt Date';
+                    Caption = 'Requested Receipt Date', comment = 'FRA=""';
                     Editable = false;
                 }
                 field("RecGSalesHeader.ID"; RecGSalesHeader.ID)
                 {
-                    Caption = 'CNE Spokesman Name';
+                    Caption = 'CNE Spokesman Name', comment = 'FRA=""';
                     Editable = false;
                 }
                 field("Purchaser Comments";
-                    RecGSalesHeader."BC6_Purchaser Comments")
+                RecGSalesHeader."BC6_Purchaser Comments")
                 {
-                    Caption = 'Purchaser Comments';
+                    Caption = 'Purchaser Comments', comment = 'FRA=""';
                 }
                 field("Warehouse Comments";
-                    RecGSalesHeader."BC6_Warehouse Comments")
+                RecGSalesHeader."BC6_Warehouse Comments")
                 {
-                    Caption = 'Warehouse Comments';
+                    Caption = 'Warehouse Comments', comment = 'FRA=""';
                 }
                 field("Drop Shipment"; "Drop Shipment")
                 {
@@ -179,49 +179,49 @@ page 50015 "BC6_Sales Order Lines"
                 }
                 field("Buy-from Vendor No."; "BC6_Buy-from Vendor No.")
                 {
-                    Caption = 'Vendor No.';
+                    Caption = 'Vendor No.', comment = 'FRA=""';
                 }
                 field("RecGVendor.Name"; RecGVendor.Name)
                 {
-                    Caption = 'Vendor Name';
+                    Caption = 'Vendor Name', comment = 'FRA=""';
                     Editable = false;
                 }
                 field("Mini Amount";
-                    RecGVendor."BC6_Mini Amount")
+                RecGVendor."BC6_Mini Amount")
                 {
-                    Caption = 'Mini Amount';
+                    Caption = 'Mini Amount', comment = 'FRA=""';
                     Editable = false;
                 }
                 field("RecGItem.Inventory"; RecGItem.Inventory)
                 {
-                    Caption = 'Qty In Inventory';
+                    Caption = 'Qty In Inventory', comment = 'FRA=""';
                     Editable = false;
                 }
                 field("Qty. on Sales Order";
-                    RecGItem."Qty. on Sales Order")
+                RecGItem."Qty. on Sales Order")
                 {
-                    Caption = 'Qty. on Sales Order';
+                    Caption = 'Qty. on Sales Order', comment = 'FRA=""';
                     Editable = false;
                     Visible = false;
                 }
                 field("Qty. on Purch. Order";
-                    RecGItem."Qty. on Purch. Order")
+                RecGItem."Qty. on Purch. Order")
                 {
-                    Caption = 'Qty. on Purchase Order';
+                    Caption = 'Qty. on Purchase Order', comment = 'FRA=""';
                     Editable = false;
                     Visible = false;
                 }
                 field("Stock prévisionnel";
-                    RecGItem.Inventory - RecGItem."Qty. on Sales Order" + RecGItem."Qty. on Purch. Order")
+                RecGItem.Inventory - RecGItem."Qty. on Sales Order" + RecGItem."Qty. on Purch. Order")
                 {
-                    Caption = 'Stock prévisionnel';
+                    Caption = 'Stock prévisionnel', comment = 'FRA=""';
                     Editable = false;
                     Visible = false;
                 }
                 field("Sell-to Customer Name";
-                    RecGSalesHeader."Sell-to Customer Name")
+                RecGSalesHeader."Sell-to Customer Name")
                 {
-                    Caption = 'Customer Name';
+                    Caption = 'Customer Name', comment = 'FRA=""';
                     Editable = false;
                     Visible = true;
                 }
@@ -233,7 +233,7 @@ page 50015 "BC6_Sales Order Lines"
                 }
                 field("To Order"; "BC6_To Order")
                 {
-                    Caption = 'To Order';
+                    Caption = 'To Order', comment = 'FRA=""';
                 }
                 field("Purch. Document Type"; "BC6_Purch. Document Type")
                 {
@@ -249,10 +249,10 @@ page 50015 "BC6_Sales Order Lines"
         {
             group(Functions)
             {
-                Caption = 'Functions';
+                Caption = 'Functions', comment = 'FRA=""';
                 action("Create Purchase Orders")
                 {
-                    Caption = 'Create Purchase Orders';
+                    Caption = 'Create Purchase Orders', comment = 'FRA=""';
 
                     trigger OnAction()
                     var
@@ -286,21 +286,12 @@ page 50015 "BC6_Sales Order Lines"
                             //<<I012437.001
 
                             RecLSalesLines.COPYFILTERS(Rec);
-                            //>>FEP-ACHAT-200706_18_A.004
-                            //RecLSalesLines.SETCURRENTKEY("Buy-from Vendor No.","No.");
-                            //>> MODIF HL 28/01/2010 SU-LALE cf appel I016274
-                            //RecLSalesLines.SETCURRENTKEY("Buy-from Vendor No.","Qty. To Order","To Order");
                             RecLSalesLines.SETCURRENTKEY("BC6_To Order", "BC6_Buy-from Vendor No.", "No.", "BC6_Purchase cost", "BC6_Qty. To Order");
-                            //<< MODIF HL 28/01/2010 SU-LALE cf appel I016274
-                            //<<FEP-ACHAT-200706_18_A.004
                             RecLSalesLines.SETFILTER(RecLSalesLines."BC6_Buy-from Vendor No.", '<>%1', '');
                             RecLSalesLines.SETFILTER(RecLSalesLines."BC6_Qty. To Order", '<>%1', 0);
                             RecLSalesLines.SETRANGE(RecLSalesLines."BC6_To Order", TRUE);
 
-                            //>>FEP-ACHAT-200706_18_A.004
-                            //IF RecLSalesLines.FIND('-') THEN BEGIN
                             IF RecLSalesLines.FINDSET THEN BEGIN
-                                //<<FEP-ACHAT-200706_18_A.004
                                 RecLPurchLine.LOCKTABLE;
                                 IF NOT RECORDLEVELLOCKING THEN
                                     RecLPurchHeader.LOCKTABLE(TRUE, TRUE); // Only version check
@@ -320,18 +311,14 @@ page 50015 "BC6_Sales Order Lines"
                                         RecLPurchHeader.MODIFY(TRUE);
                                         DiaGWindow.UPDATE(3, RecLPurchHeader."No.");
 
-                                        CodLVendorNo := RecLSalesLines."Buy-from Vendor No.";
+                                        CodLVendorNo := RecLSalesLines."BC6_Buy-from Vendor No.";
                                         IntLLineNo := 10000;
                                         CodLItemNo := '';
                                         DecLQuantity := 0;
                                     END;
 
-                                    // Group lines with same items
-                                    //>>I012437.001
-                                    //IF (CodLItemNo <> RecLSalesLines."No.")
-                                    IF (CodLItemNo <> RecLSalesLines."No.") OR ((GPurchCost <> RecLSalesLines."Purchase cost") AND (
+                                    IF (CodLItemNo <> RecLSalesLines."No.") OR ((GPurchCost <> RecLSalesLines."BC6_Purchase cost") AND (
                                        CodLItemNo = RecLSalesLines."No."))
-                                      //<<I012437.001
                                       THEN BEGIN
 
                                         // Insert Line
@@ -347,92 +334,77 @@ page 50015 "BC6_Sales Order Lines"
                                         IF (RecLPurchLine.Type = RecLPurchLine.Type::Item) AND (RecLPurchLine."No." <> '') THEN
                                             RecLPurchLine.UpdateUOMQtyPerStockQty;
                                         RecLPurchLine.VALIDATE("Expected Receipt Date", RecLSalesLines."Shipment Date");
-                                        // RecLPurchLine.VALIDATE("Bin Code",RecLSalesLines."Bin Code");
-                                        RecLPurchLine.VALIDATE(Quantity, RecLSalesLines."Qty. To Order");
+                                        RecLPurchLine.VALIDATE(Quantity, RecLSalesLines."BC6_Qty. To Order");
                                         RecLPurchLine.VALIDATE("Return Reason Code", RecLSalesLines."Return Reason Code");
-                                        RecLPurchLine.VALIDATE("Direct Unit Cost", RecLSalesLines."Purchase cost");
+                                        RecLPurchLine.VALIDATE("Direct Unit Cost", RecLSalesLines."BC6_Purchase cost");
                                         RecLPurchLine.VALIDATE("Purchasing Code", RecLSalesLines."Purchasing Code");
 
                                         // If Multi Sales Lines : No Link
-                                        RecLPurchLine.VALIDATE("Sales No.", RecLSalesLines."Document No.");
-                                        RecLPurchLine.VALIDATE("Sales Line No.", RecLSalesLines."Line No.");
-                                        RecLPurchLine.VALIDATE("Sales Document Type", RecLSalesLines."Document Type");
+                                        RecLPurchLine.VALIDATE("BC6_Sales No.", RecLSalesLines."Document No.");
+                                        RecLPurchLine.VALIDATE("BC6_Sales Line No.", RecLSalesLines."Line No.");
+                                        RecLPurchLine.VALIDATE("BC6_Sales Document Type", RecLSalesLines."Document Type");
 
-                                        //>>CorrectionSOBI
                                         RecLPurchLine.VALIDATE("Line Discount %", 0);
-                                        //<<CorrectionSOBI
 
                                         RecLPurchLine.INSERT(TRUE);
                                         CodLItemNo := RecLSalesLines."No.";
                                         IntLLineNo += 10000;
-                                        DecLQuantity := RecLSalesLines."Qty. To Order";
-                                        //>>I012437.001
-                                        GPurchCost := RecLSalesLines."Purchase cost";
-                                        //<<I012437.001
+                                        DecLQuantity := RecLSalesLines."BC6_Qty. To Order";
+                                        GPurchCost := RecLSalesLines."BC6_Purchase cost";
                                     END ELSE BEGIN
-                                        DecLQuantity += RecLSalesLines."Qty. To Order";
+                                        DecLQuantity += RecLSalesLines."BC6_Qty. To Order";
 
                                         // If Multi Sales Lines : No Link
-                                        RecLPurchLine.VALIDATE("Sales No.", '');
-                                        RecLPurchLine.VALIDATE("Sales Line No.", 0);
+                                        RecLPurchLine.VALIDATE("BC6_Sales No.", '');
+                                        RecLPurchLine.VALIDATE("BC6_Sales Line No.", 0);
                                         RecLPurchLine.VALIDATE(Quantity, DecLQuantity);
                                         //almi
-                                        RecLPurchLine.VALIDATE("Direct Unit Cost", RecLSalesLines."Purchase cost");
+                                        RecLPurchLine.VALIDATE("Direct Unit Cost", RecLSalesLines."BC6_Purchase cost");
                                         RecLPurchLine.MODIFY(TRUE);
 
                                         DiaGWindow.UPDATE(4, RecLSalesLines."No.");
 
                                     END;
 
-                                    RecLSalesLines."Purch. Document Type" := RecLSalesLines."Purch. Document Type"::Order;
-                                    RecLSalesLines."Purch. Order No." := RecLPurchLine."Document No.";
-                                    RecLSalesLines."Purch. Line No." := RecLPurchLine."Line No.";
-                                    //>>
-                                    RecLSalesLines."Purchase Receipt Date" := RecLPurchLine."Expected Receipt Date";
-                                    //<<
-                                    RecLSalesLines."Qty. To Order" := 0;
-                                    RecLSalesLines."To Order" := FALSE;
-                                    //>>I011762.001
-                                    //>> Insert Temp table
+                                    RecLSalesLines."BC6_Purch. Document Type" := RecLSalesLines."BC6_Purch. Document Type"::Order;
+                                    RecLSalesLines."BC6_Purch. Order No." := RecLPurchLine."Document No.";
+                                    RecLSalesLines."BC6_Purch. Line No." := RecLPurchLine."Line No.";
+                                    RecLSalesLines."BC6_Purchase Receipt Date" := RecLPurchLine."Expected Receipt Date";
+                                    RecLSalesLines."BC6_Qty. To Order" := 0;
+                                    RecLSalesLines."BC6_To Order" := FALSE;
                                     RecLSalesLineTmp.TRANSFERFIELDS(RecLSalesLines);
                                     RecLSalesLineTmp.INSERT(FALSE);
-                                    //<<I011762.001
                                     RecLSalesLines.MODIFY(FALSE);
 
                                 UNTIL RecLSalesLines.NEXT = 0;
-                                //>>I011762.001
                                 // Insert extended text
                                 RecLSalesLineTmp.RESET;
                                 IF RecLSalesLineTmp.FIND('-') THEN
                                     REPEAT
                                         RecLPurchLine2.RESET;
-                                        RecLPurchLine2.SETRANGE("Document Type", RecLSalesLineTmp."Purch. Document Type"::Order);
-                                        RecLPurchLine2.SETRANGE("Document No.", RecLSalesLineTmp."Purch. Order No.");
-                                        RecLPurchLine2.SETRANGE("Line No.", RecLSalesLineTmp."Purch. Line No.");
+                                        RecLPurchLine2.SETRANGE("Document Type", RecLSalesLineTmp."BC6_Purch. Document Type"::Order);
+                                        RecLPurchLine2.SETRANGE("Document No.", RecLSalesLineTmp."BC6_Purch. Order No.");
+                                        RecLPurchLine2.SETRANGE("Line No.", RecLSalesLineTmp."BC6_Purch. Line No.");
                                         IF RecLPurchLine2.FIND('-') THEN
                                             REPEAT
                                                 InsertExtendedText(TRUE, RecLPurchLine2);
                                                 RecLPurchLine2.MODIFY(FALSE);
                                             UNTIL RecLPurchLine2.NEXT = 0;
                                     UNTIL RecLSalesLineTmp.NEXT = 0;
-                                //<<I011762.001
                             END;
 
                             DiaGWindow.CLOSE;
 
-                            //<<FEP-ACHAT-200706_18_A.002:GR
 
                         END;
 
-                        //>>FEP-ACHAT-200706_18_A.004
                         CurrPage.UPDATE(FALSE);
-                        //<<FEP-ACHAT-200706_18_A.004
                     end;
                 }
             }
             action(RAZ)
             {
-                Caption = 'RAZ';
+                Caption = 'RAZ', comment = 'FRA=""';
                 Promoted = true;
                 PromotedCategory = Process;
 
@@ -441,7 +413,7 @@ page 50015 "BC6_Sales Order Lines"
                     IF FIND('-') THEN BEGIN
                         REPEAT
                             CurrPage.UPDATE(FALSE);
-                            "Qty. To Order" := 0;
+                            "BC6_Qty. To Order" := 0;
                             CurrPage.UPDATE(TRUE);
                         UNTIL NEXT = 0;
                         FIND('-');
@@ -463,13 +435,9 @@ page 50015 "BC6_Sales Order Lines"
 
         RecGVendor.RESET;
         RecGVendor.INIT;
-        IF RecGVendor.GET("Buy-from Vendor No.") THEN;
+        IF RecGVendor.GET("BC6_Buy-from Vendor No.") THEN;
 
         // voir si c'est une commande en demande de prix  (Quote Order)
-        //IF ("Document Type" = 0) THEN // and ("Purchase Order No." <>'') then
-        //  "Forecast Inventory" := FALSE
-        //ELSE
-        //  "Forecast Inventory" := FALSE;
     end;
 
     trigger OnDeleteRecord(): Boolean
@@ -479,13 +447,10 @@ page 50015 "BC6_Sales Order Lines"
 
     trigger OnOpenPage()
     begin
-        //>>FEP-ACHAT-200706_18_A.002:GR
         BooGOneTimeOrdering := TRUE;
-        //<<FEP-ACHAT-200706_18_A.002:GR
 
         BooGExcDropShipFilter := TRUE;
         BooGExcQuoteFilter := FALSE;
-        //>> CNE6.01
         BooGNotGroupByItem := FALSE;
 
         SetRecFilters;
@@ -506,11 +471,10 @@ page 50015 "BC6_Sales Order Lines"
         TxtGShipmentDateFilter: Text[50];
         OptGSort: Option;
         DiaGWindow: Dialog;
-        "--Var Txt--": ;
-        CstGText50006: Label 'Created lines                 #1##########\';
-        CstGText50001: Label 'Item No.          #2##########\';
-        CstGText50002: Label 'Purchase Header          #2##########\';
-        CstGText50003: Label 'Purchase Lines             #3###########\';
+        CstGText50006: Label 'Created lines                 #1##########\', comment = 'FRA=""';
+        CstGText50001: Label 'Item No.          #2##########\', comment = 'FRA=""';
+        CstGText50002: Label 'Purchase Header          #2##########\', comment = 'FRA=""';
+        CstGText50003: Label 'Purchase Lines             #3###########\', comment = 'FRA=""';
         "<<<PRODWARE>>>": Integer;
         RecLSalesLineTmp: Record "Sales Line" temporary;
         GPurchCost: Decimal;
@@ -520,32 +484,30 @@ page 50015 "BC6_Sales Order Lines"
     var
         RecLSalesSetup: Record "Sales & Receivables Setup";
     begin
-        //>>FEP-ACHAT-200706_18_A.002:GR
         RecLSalesSetup.GET;
-        RecLSalesSetup.TESTFIELD("Purchasing Code Grouping Line");
-        SETRANGE("Purchasing Code", RecLSalesSetup."Purchasing Code Grouping Line");
+        RecLSalesSetup.TESTFIELD("BC6_Purcha. Code Grouping Line");
+        SETRANGE("Purchasing Code", RecLSalesSetup."BC6_Purcha. Code Grouping Line");
 
         // Exclude Orders Already Send
         IF BooGOneTimeOrdering THEN BEGIN
             //SETFILTER("Purch. Order No.",'%1',''); //TODO 39 21/01/08
-            SETFILTER("Purch. Document Type", '<>%1', "Purch. Document Type"::Order);
+            SETFILTER("BC6_Purch. Document Type", '<>%1', "BC6_Purch. Document Type"::Order);
         END ELSE BEGIN
-            SETRANGE("Purch. Order No.");
-            SETRANGE("Purch. Document Type");
+            SETRANGE("BC6_Purch. Order No.");
+            SETRANGE("BC6_Purch. Document Type");
         END;
 
         // Exclude Sales Quotes
         IF BooGExcQuoteFilter THEN BEGIN
-            SETFILTER("Purch. Document Type", '%1', "Purch. Document Type"::Quote);            //TODO 39 21/01/08
-            SETFILTER("Purch. Order No.", '%1', '');                                           //TODO 39 21/01/08
+            SETFILTER("BC6_Purch. Document Type", '%1', "BC6_Purch. Document Type"::Quote);            //TODO 39 21/01/08
+            SETFILTER("BC6_Purch. Order No.", '%1', '');                                           //TODO 39 21/01/08
         END ELSE BEGIN
             IF NOT BooGOneTimeOrdering THEN BEGIN
-                SETRANGE("Purch. Document Type");
-                SETRANGE("Purch. Order No.");
+                SETRANGE("BC6_Purch. Document Type");
+                SETRANGE("BC6_Purch. Order No.");
             END;
         END;
 
-        //<<FEP-ACHAT-200706_18_A.002:GR
 
         // Exclude Drop Shipment
         IF BooGExcDropShipFilter THEN
@@ -554,26 +516,16 @@ page 50015 "BC6_Sales Order Lines"
             SETRANGE("Drop Shipment");
 
         // Negative Forecast Inventory (Stock prévisionnel négatif)
-        //>FEP-ACHAT-200706_18_A.003
-        /*
-        IF BooGNegForecastInv THEN
-          SETFILTER("Forecast Inventory",'<%1',0)
-        ELSE
-          SETRANGE("Forecast Inventory");
-        */
-        //<FEP-ACHAT-200706_18_A.003
-
-        // Vendor No. Filter
         IF CodGVendorFilter <> '' THEN
-            SETRANGE("Buy-from Vendor No.", CodGVendorFilter)
+            SETRANGE("BC6_Buy-from Vendor No.", CodGVendorFilter)
         ELSE
-            SETRANGE("Buy-from Vendor No.");
+            SETRANGE("BC6_Buy-from Vendor No.");
 
         // Exclude Shipment Orders
         IF BooGExcShipOrders THEN
-            SETRANGE("To Prepare", FALSE)
+            SETRANGE("BC6_To Prepare", FALSE)
         ELSE
-            SETRANGE("To Prepare");
+            SETRANGE("BC6_To Prepare");
 
         // Shipment Date Filter
         IF TxtGShipmentDateFilter <> '' THEN
@@ -581,7 +533,6 @@ page 50015 "BC6_Sales Order Lines"
         ELSE
             SETRANGE("Shipment Date");
 
-        //>FEP-ACHAT-200706_18_A.003
         CLEARMARKS;
         IF BooGNegForecastInv THEN BEGIN
             IF NOT ISEMPTY THEN BEGIN
@@ -598,16 +549,11 @@ page 50015 "BC6_Sales Order Lines"
 
         END ELSE
             MARKEDONLY(FALSE);
-        //<FEP-ACHAT-200706_18_A.003
 
         CurrPage.UPDATE(FALSE);
 
     end;
 
-
-    procedure "<<<PRODWARE FUNCTIONS>>>"()
-    begin
-    end;
 
 
     procedure InsertExtendedText(Unconditionally: Boolean; var RecLPurch: Record "Purchase Line")
@@ -617,15 +563,12 @@ page 50015 "BC6_Sales Order Lines"
         IF TransferExtendedText.PurchCheckIfAnyExtText(RecLPurch, Unconditionally) THEN BEGIN
             COMMIT;
             TransferExtendedText.InsertPurchExtText(RecLPurch);
-            TransferExtendedText.InsertPurchExtTextSpe(RecLPurch);
+            //TODO TransferExtendedText.InsertPurchExtTextSpe(RecLPurch);
         END;
     end;
 
     local procedure BooGExcDropShipFilterOnAfterVa()
     begin
-        //>>TI301087
-        //SetRecFilters;
-        // Exclude Drop Shipment
         OptGSortOnAfterValidate;
         IF BooGExcDropShipFilter THEN
             SETRANGE("Drop Shipment", FALSE)
@@ -637,26 +580,20 @@ page 50015 "BC6_Sales Order Lines"
 
     local procedure BooGExcQuoteFilterOnAfterValid()
     begin
-        //>>TI301087
-        //SetRecFilters;
-        // Exclude Sales Quotes
         IF BooGExcQuoteFilter THEN BEGIN
-            SETFILTER("Purch. Document Type", '%1', "Purch. Document Type"::Quote);
-            SETFILTER("Purch. Order No.", '%1', '');
+            SETFILTER("BC6_Purch. Document Type", '%1', "BC6_Purch. Document Type"::Quote);
+            SETFILTER("BC6_Purch. Order No.", '%1', '');
         END ELSE BEGIN
             IF NOT BooGOneTimeOrdering THEN BEGIN
-                SETRANGE("Purch. Document Type");
-                SETRANGE("Purch. Order No.");
+                SETRANGE("BC6_Purch. Document Type");
+                SETRANGE("BC6_Purch. Order No.");
             END;
         END;
         CurrPage.UPDATE(FALSE);
-        //<<TI301087
     end;
 
     local procedure BooGNegForecastInvOnAfterValid()
     begin
-        //>>TI301087
-        //SetRecFilters;
         CLEARMARKS;
         IF BooGNegForecastInv THEN BEGIN
             IF NOT ISEMPTY THEN BEGIN
@@ -674,40 +611,29 @@ page 50015 "BC6_Sales Order Lines"
         END ELSE
             MARKEDONLY(FALSE);
         CurrPage.UPDATE(FALSE);
-        //<<TI301087
     end;
 
     local procedure CodGVendorFilterOnAfterValidat()
     begin
-        //>>TI301087
-        //SetRecFilters;
-        // Vendor No. Filter
         IF CodGVendorFilter <> '' THEN
-            SETRANGE("Buy-from Vendor No.", CodGVendorFilter)
+            SETRANGE("BC6_Buy-from Vendor No.", CodGVendorFilter)
         ELSE
-            SETRANGE("Buy-from Vendor No.");
+            SETRANGE("BC6_Buy-from Vendor No.");
         CurrPage.UPDATE(FALSE);
-        //<<TI301087
     end;
 
     local procedure BooGExcShipOrdersOnAfterValida()
     begin
-        //>>TI301087
-        //SetRecFilters;
         // Exclude Shipment Orders
         IF BooGExcShipOrders THEN
-            SETRANGE("To Prepare", FALSE)
+            SETRANGE("BC6_To Prepare", FALSE)
         ELSE
-            SETRANGE("To Prepare");
+            SETRANGE("BC6_To Prepare");
         CurrPage.UPDATE(FALSE);
-        //<<TI301087
     end;
 
     local procedure TxtGShipmentDateFilterOnAfterV()
     begin
-        //>>TI301087
-        //SetRecFilters;
-
         // Shipment Date Filter
         IF TxtGShipmentDateFilter <> '' THEN
             SETFILTER("Shipment Date", TxtGShipmentDateFilter)
@@ -715,59 +641,44 @@ page 50015 "BC6_Sales Order Lines"
             SETRANGE("Shipment Date");
 
         CurrPage.UPDATE(FALSE);
-        //<<TI301087
     end;
 
     local procedure OptGSortOnAfterValidate()
     begin
-        //>>TI301087
-        /*
-        CASE OptGSort OF
-        
-          0 : SETCURRENTKEY("Document Type","Document No.","Line No.");
-          1 : SETCURRENTKEY("Buy-from Vendor No.","Shipment Date");
-          2 : SETCURRENTKEY("Buy-from Vendor No.","No.","Shipment Date");
-        */
         IF BooGExcDropShipFilter THEN BEGIN
             CASE OptGSort OF
                 0:
                     SETCURRENTKEY("Document Type", Type, "Outstanding Quantity", "Purchasing Code", "Drop Shipment");
                 1:
-                    SETCURRENTKEY("Document Type", Type, "Outstanding Quantity", "Purchasing Code", "Drop Shipment", "Buy-from Vendor No.", "Shipment Date");
+                    SETCURRENTKEY("Document Type", Type, "Outstanding Quantity", "Purchasing Code", "Drop Shipment", "BC6_Buy-from Vendor No.", "Shipment Date");
                 2:
-                    SETCURRENTKEY("Document Type", Type, "Outstanding Quantity", "Purchasing Code", "Drop Shipment", "Buy-from Vendor No.", "No.", "Shipment Date");
+                    SETCURRENTKEY("Document Type", Type, "Outstanding Quantity", "Purchasing Code", "Drop Shipment", "BC6_Buy-from Vendor No.", "No.", "Shipment Date");
             END;
         END ELSE BEGIN
             CASE OptGSort OF
                 0:
                     SETCURRENTKEY("Document Type", Type, "Outstanding Quantity", "Purchasing Code");
                 1:
-                    SETCURRENTKEY("Document Type", Type, "Outstanding Quantity", "Purchasing Code", "Buy-from Vendor No.", "Shipment Date");
+                    SETCURRENTKEY("Document Type", Type, "Outstanding Quantity", "Purchasing Code", "BC6_Buy-from Vendor No.", "Shipment Date");
                 2:
-                    SETCURRENTKEY("Document Type", Type, "Outstanding Quantity", "Purchasing Code", "Buy-from Vendor No.", "No.", "Shipment Date");
+                    SETCURRENTKEY("Document Type", Type, "Outstanding Quantity", "Purchasing Code", "BC6_Buy-from Vendor No.", "No.", "Shipment Date");
             END;
         END;
 
-        //SetRecFilters;
-        //<<TI301087
 
     end;
 
     local procedure BooGOneTimeOrderingOnAfterVali()
     begin
-        //>>TI301087
-        //SetRecFilters;
-
         // Exclude Orders Already Send
         IF BooGOneTimeOrdering THEN BEGIN
-            SETFILTER("Purch. Document Type", '<>%1', "Purch. Document Type"::Order);
+            SETFILTER("BC6_Purch. Document Type", '<>%1', "BC6_Purch. Document Type"::Order);
         END ELSE BEGIN
-            SETRANGE("Purch. Order No.");
-            SETRANGE("Purch. Document Type");
+            SETRANGE("BC6_Purch. Order No.");
+            SETRANGE("BC6_Purch. Document Type");
         END;
 
         CurrPage.UPDATE(FALSE);
-        //<<TI301087
     end;
 }
 

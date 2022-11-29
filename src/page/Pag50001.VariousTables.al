@@ -1,6 +1,6 @@
 page 50001 "BC6_Various Tables"
 {
-    Caption = 'Various Tables';
+    Caption = 'Various Tables', comment = 'FRA="Tables Diverses"';
     PageType = List;
     SourceTable = "BC6_Various Tables";
 
@@ -186,7 +186,7 @@ page 50001 "BC6_Various Tables"
         TableDiv: Record "BC6_Various Tables";
         DivTableParam_G: Record "BC6_Setup Various Tables";
         CommentLine: Record "Comment Line";
-        Text001: Label 'This field cannot be empty.';
+        Text001: Label 'This field cannot be empty.', comment = 'FRA="Ce champ ne doit pas être vide."';
         Descriptif: Text[50];
         TitreTexte1: Text[30];
         CodeCaptionClass: Text[80];
@@ -259,8 +259,6 @@ page 50001 "BC6_Various Tables"
     local procedure OnActivateForm()
     begin
 
-        //Descriptif := 'Code';
-
         IF GETFILTER(Radical) <> '' THEN
             IF GETRANGEMIN(Radical) = GETRANGEMAX(Radical) THEN
                 IF Param.GET(Radical) THEN BEGIN
@@ -315,7 +313,6 @@ page 50001 "BC6_Various Tables"
                         END;
                     END;
 
-
                     // Libelle du formulaire
                     CurrPage.CAPTION := Param.Description;
 
@@ -343,110 +340,4 @@ page 50001 "BC6_Various Tables"
                     CommentVisible := Param."Comment Use";
                 END;
     end;
-
-    local procedure CodeOnBeforeInput()
-    begin
-        Descriptif := 'Code (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure DescriptionOnBeforeInput()
-    begin
-        Descriptif := 'Libellé (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure Text1OnBeforeInput()
-    begin
-        Descriptif := Param."Text1 Description";
-        IF Param."Obligatory Text1" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure Text2OnBeforeInput()
-    begin
-        Descriptif := Param."Text2 Description";
-        IF Param."Obligatory Text2" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure Text3OnBeforeInput()
-    begin
-        Descriptif := Param."Text3 Description";
-        IF Param."Obligatory Text3" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure Number1OnBeforeInput()
-    begin
-        Descriptif := Param."Number1 Description";
-        IF Param."Obligatory Number1" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure Number2OnBeforeInput()
-    begin
-        Descriptif := Param."Number2 Description";
-        IF Param."Obligatory Number2" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure Number3OnBeforeInput()
-    begin
-        Descriptif := Param."Number3 Description";
-        IF Param."Obligatory Number3" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure Date1OnBeforeInput()
-    begin
-        Descriptif := Param."Date1 Description";
-        IF Param."Obligatory Date1" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure Date2OnBeforeInput()
-    begin
-        Descriptif := Param."Date2 Description";
-        IF Param."Obligatory Date2" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure Date3OnBeforeInput()
-    begin
-        Descriptif := Param."Date3 Description";
-        IF Param."Obligatory Date3" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure RadicalCode1OnBeforeInput()
-    begin
-        Param.CALCFIELDS("Radical Code1 Description");
-        Descriptif := Param."Radical Code1 Description";
-        IF Param."Obligatory Radical Code1" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure RadicalCode2OnBeforeInput()
-    begin
-        Param.CALCFIELDS("Radical Code2 Description");
-        Descriptif := Param."Radical Code2 Description";
-        IF Param."Obligatory Radical Code2" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure RadicalCode3OnBeforeInput()
-    begin
-        Param.CALCFIELDS("Radical Code3 Description");
-        Descriptif := Param."Radical Code3 Description";
-        IF Param."Obligatory Radical Code3" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure CommentOnBeforeInput()
-    begin
-        Descriptif := 'Commentaire';
-        CurrPage.UPDATE;
-    end;
 }
-

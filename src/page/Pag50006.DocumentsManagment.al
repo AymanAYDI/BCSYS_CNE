@@ -1,6 +1,6 @@
 page 50006 "BC6_Documents Managment"
 {
-    Caption = 'Documents Managment';
+    Caption = 'Documents Managment', comment = 'FRA="Gestion Documents"';
     DataCaptionFields = "Table No.", "Table Name", "Reference No. 1";
     DelayedInsert = true;
     DeleteAllowed = false;
@@ -74,7 +74,7 @@ page 50006 "BC6_Documents Managment"
         {
             action("Choose a document")
             {
-                Caption = 'Choose a document';
+                Caption = 'Choose a document', comment = 'FRA="Choisir un document"';
                 Image = SelectChart;
                 Promoted = true;
                 PromotedCategory = Process;
@@ -82,22 +82,28 @@ page 50006 "BC6_Documents Managment"
                 trigger OnAction()
                 var
                     RecGNaviSetup: Record "BC6_Navi+ Setup";
+                    InStr: InStream;
                 begin
-                    // IF "Table No." <> 167 THEN
-                    //     "Path and file" := CduGFileManagement.OpenFileDialog(STRSUBSTNO(TxtG001), "Path and file", '*.*|*.*') TODO: funtion OnPrem
-                    // ELSE
-                    //     IF RecGNaviSetup.FIND('-') THEN
-                    //         IF RecGNaviSetup."Default Directory" <> '' THEN
-                    //             "Path and file" := CduGFileManagement.OpenFileDialog(STRSUBSTNO(TxtG001), RecGNaviSetup."Default Directory" + '\' + Text004, '*.*|*.*') TODO: function OnPrem
-                    //         ELSE
-                    //             ERROR(Text003);
+
+                    IF "Table No." <> 167 THEN
+                        //TODO:CHEKME "Path and file" := CduGFileManagement.OpenFileDialog(STRSUBSTNO(TxtG001), "Path and file", '*.*|*.*')
+                    UPLOADINTOSTREAM(STRSUBSTNO(TxtG001), '', '(*.*)|*.*', "Path and file", InStr)
+
+                    ELSE
+                        IF RecGNaviSetup.FindFirst() THEN
+                            IF RecGNaviSetup."Default Directory" <> '' THEN
+                                //TODO:CHECKME "Path and file" := CduGFileManagement.OpenFileDialog(STRSUBSTNO(TxtG001), RecGNaviSetup."Default Directory" + '\' + Text004, '*.*|*.*')
+                                UPLOADINTOSTREAM(STRSUBSTNO(TxtG001), '', '(*.*)|*.*', RecGNaviSetup."Default Directory", InStr)
+
+                            ELSE
+                                ERROR(Text003);
 
                     CurrPage.UPDATE(TRUE);
                 end;
             }
             action(View)
             {
-                Caption = 'View';
+                Caption = 'View', comment = 'FRA="Vue"';
                 Image = View;
                 Promoted = true;
                 PromotedCategory = Process;
@@ -105,9 +111,6 @@ page 50006 "BC6_Documents Managment"
                 trigger OnAction()
                 begin
                     IF "Path and file" <> '' THEN
-                        //>>TI040038.001
-                        //SHELL("Path and file")
-                        //<<TI040038.001
                         ExplorerFolder("Path and file")
                     ELSE
                         MESSAGE(TxtG002);
@@ -117,23 +120,21 @@ page 50006 "BC6_Documents Managment"
     }
 
     var
-        CduGFileManagement: Codeunit "File Management";
-        ToFile: Variant;
-        TxtG001: Label 'Select a document';
-        TxtG002: Label 'The field "Path and file" must not be empty to have the view';
-        Text003: Label 'You must define a default directory';
+        CduGFileManagement: Codeunit "File Management"; //does not contain the opendialog proc
+        Text003: Label 'You must define a default directory', comment = 'FRA="Veuillez configurer un répertoire par defaut "';
         Text004: Label 'fichier';
+        TxtG001: Label 'Select a document', comment = 'FRA="Choisir un document"';
+        TxtG002: Label 'The field "Path and file" must not be empty to have the view', comment = 'FRA="Le champ "chemin et fichier" doit être renseigné pour afficher le document"';
 
     procedure ExplorerFolder(var FolderName: Text[1000])
-    // var // TODO: unused
-    //     WindowsShell: Automation;
-    //     CduLFileManagement: Codeunit "File Management"; 
-    //     FolderName2: Text[1000];
+    var
+    //TODO WindowsShell: Automation;
+    // CduLFileManagement: Codeunit "File Management";
+    // FolderName2: Text[1000];
     begin
-        //IF ISCLEAR(WindowsShell) THEN
+        // IF ISCLEAR(WindowsShell) THEN
         //  CREATE(WindowsShell);
 
-        //WindowsShell.Open(FolderName);
+        // WindowsShell.Open(FolderName);
     end;
 }
-

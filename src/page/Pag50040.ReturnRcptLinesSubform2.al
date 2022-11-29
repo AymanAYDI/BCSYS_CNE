@@ -1,6 +1,6 @@
 page 50040 "Return Rcpt Lines Subform 2"
 {
-    Caption = 'Return Rcpt Lines';
+    Caption = 'Return Rcpt Lines', Comment = 'FRA="Lignes réception retour"';
     Editable = false;
     PageType = List;
     SourceTable = "Return Receipt Line";
@@ -164,7 +164,7 @@ page 50040 "Return Rcpt Lines Subform 2"
         {
             action(Show)
             {
-                Caption = '&Show';
+                Caption = 'Show', Comment = 'FRA="Afficher"';
                 Image = Document;
                 ApplicationArea = All;
 

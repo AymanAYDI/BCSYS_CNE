@@ -1,6 +1,6 @@
 page 50018 "BC6_Purch. Inv. Line Subform"
 {
-    Caption = 'Purchase Invoice Lines';
+    Caption = 'Purchase Invoice Lines', comment = 'FRA="Lignes Facture Achat"';
     PageType = List;
     SourceTable = "Purch. Inv. Line";
 
@@ -56,7 +56,7 @@ page 50018 "BC6_Purch. Inv. Line Subform"
         {
             action(Show)
             {
-                Caption = '&Show';
+                Caption = '&Show', comment = 'FRA="Affic&her"';
                 Image = Document;
 
                 trigger OnAction()
@@ -82,12 +82,11 @@ page 50018 "BC6_Purch. Inv. Line Subform"
 
     var
         RecGPurchInvHeader: Record "Purch. Inv. Header";
-        TempPurchInvoice: Record "Purch. Inv. Line";
+        TempPurchInvoice: Record "Purch. Inv. Line" temporary;
         [InDataSet]
         "Document No.HideValue": Boolean;
         [InDataSet]
         "Document No.Emphasize": Boolean;
-        "-MIGNAV2013-": Integer;
 
 
     procedure isFirstdocLine(): Boolean
@@ -97,10 +96,10 @@ page 50018 "BC6_Purch. Inv. Line Subform"
         TempPurchInvoice.RESET();
         TempPurchInvoice.COPYFILTERS(Rec);
         TempPurchInvoice.SETRANGE("Document No.", "Document No.");
-        IF NOT TempPurchInvoice.FIND('-') THEN BEGIN
+        IF NOT TempPurchInvoice.FindFirst() THEN BEGIN
             PurchInvoice.COPYFILTERS(Rec);
             PurchInvoice.SETRANGE("Document No.", "Document No.");
-            PurchInvoice.FIND('-');
+            PurchInvoice.FindLast();
             TempPurchInvoice := PurchInvoice;
             TempPurchInvoice.INSERT();
         END;

@@ -1,6 +1,6 @@
 page 50019 "Purch. Cr. Memo Line Subform"
 {
-    Caption = 'Purch. Credit Memo Lines';
+    Caption = 'Purch. Credit Memo Lines', comment = 'FRA="Lignes avoirs achat"';
     PageType = List;
     SourceTable = "Purch. Cr. Memo Line";
 
@@ -50,7 +50,7 @@ page 50019 "Purch. Cr. Memo Line Subform"
         {
             action(Show)
             {
-                Caption = '&Show';
+                Caption = '&Show', comment = 'FRA="Affic&her"';
                 Image = Document;
 
                 trigger OnAction()
@@ -76,7 +76,7 @@ page 50019 "Purch. Cr. Memo Line Subform"
 
     var
         RecGPurchCrMemoHdr: Record "Purch. Cr. Memo Hdr.";
-        TempPurchCrdMemo: Record "Purch. Cr. Memo Line";
+        TempPurchCrdMemo: Record "Purch. Cr. Memo Line" temporary;
         [InDataSet]
         "Document No.HideValue": Boolean;
         [InDataSet]
@@ -90,10 +90,10 @@ page 50019 "Purch. Cr. Memo Line Subform"
         TempPurchCrdMemo.RESET();
         TempPurchCrdMemo.COPYFILTERS(Rec);
         TempPurchCrdMemo.SETRANGE("Document No.", "Document No.");
-        IF NOT TempPurchCrdMemo.FIND('-') THEN BEGIN
+        IF NOT TempPurchCrdMemo.FindFirst() THEN BEGIN
             PurchCrdMemo.COPYFILTERS(Rec);
             PurchCrdMemo.SETRANGE("Document No.", "Document No.");
-            PurchCrdMemo.FIND('-');
+            PurchCrdMemo.FindLast();
             TempPurchCrdMemo := PurchCrdMemo;
             TempPurchCrdMemo.INSERT();
         END;

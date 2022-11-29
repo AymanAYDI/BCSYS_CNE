@@ -1,6 +1,6 @@
 page 50017 "BC6_Purch. Rcpt. Lines Subform"
 {
-    Caption = 'Purch. Rcpt. Line';
+    Caption = 'Purch. Rcpt. Line', comment = 'FRA="Reception lignes achats"';
     PageType = List;
     SaveValues = true;
     SourceTable = "Purch. Rcpt. Line";
@@ -60,18 +60,15 @@ page 50017 "BC6_Purch. Rcpt. Lines Subform"
         {
             action(Show)
             {
-                Caption = '&Show';
+                Caption = '&Show', comment = 'FRA="Affic&her"';
                 Image = Document;
 
                 trigger OnAction()
                 begin
 
-                    //>>MIGRATION NAV 2013
-                    //CurrForm.PurchRcptline.FORM.GETRECORD(RecGPurchPostedRcpt);
                     IF NOT RecGPurchPostedRcptHeader.GET(Rec."Document No.") THEN
                         EXIT;
                     PAGE.RUN(PAGE::"Posted Purchase Receipt", RecGPurchPostedRcptHeader);
-                    //<<MIGRATION NAV 2013
                 end;
             }
         }
@@ -90,24 +87,24 @@ page 50017 "BC6_Purch. Rcpt. Lines Subform"
 
     var
         RecGPurchPostedRcptHeader: Record "Purch. Rcpt. Header";
-        TempPurchRcptLine: Record "Purch. Rcpt. Line";
+        TempPurchRcptLine: Record "Purch. Rcpt. Line" temporary;
         [InDataSet]
         "Document No.HideValue": Boolean;
         [InDataSet]
         "Document No.Emphasize": Boolean;
-        "-MIGNAV2013-": Integer;
 
     procedure IsFirstDocLine(): Boolean
     var
-        PurchRcptLine: Record "Purch. Rcpt. Header";
+        PurchRcptLine: Record "Purch. Rcpt. Line";
     begin
         TempPurchRcptLine.RESET();
         TempPurchRcptLine.COPYFILTERS(Rec);
         TempPurchRcptLine.SETRANGE("Document No.", Rec."Document No.");
-        IF NOT TempPurchRcptLine.FIND('-') THEN BEGIN
+
+        IF NOT TempPurchRcptLine.FindFirst() THEN BEGIN
             PurchRcptLine.COPYFILTERS(Rec);
             PurchRcptLine.SETRANGE("Document No.", Rec."Document No.");
-            PurchRcptLine.FIND('-');
+            PurchRcptLine.FindLast();
             TempPurchRcptLine := PurchRcptLine;
             TempPurchRcptLine.INSERT();
         END;

@@ -1,6 +1,6 @@
 page 50012 "BC6_Sales Quote Arch. Sub. Cde"
 {
-    Caption = 'Sales Quote Arch. Sub. Cde';
+    Caption = 'Sales Quote Arch. Sub. Cde', comment = 'FRA="Sous-form. archives devis Cde"';
     Editable = false;
     PageType = List;
     SourceTable = "Sales Line Archive";
@@ -18,7 +18,7 @@ page 50012 "BC6_Sales Quote Arch. Sub. Cde"
                 field("No."; "No.")
                 {
                 }
-                field("Cross-Reference No."; "Cross-Reference No.")
+                field("Cross-Reference No."; "Item Reference No.")
                 {
                     Visible = false;
                 }
@@ -116,19 +116,16 @@ page 50012 "BC6_Sales Quote Arch. Sub. Cde"
         {
             group("&Line")
             {
-                Caption = '&Line';
+                Caption = '&Line', comment = 'FRA=""';
                 action(Dimensions)
                 {
-                    Caption = 'Dimensions';
+                    Caption = 'Dimensions', comment = 'FRA=""';
                     Image = Dimensions;
                     ShortCutKey = 'Shift+Ctrl+D';
 
                     trigger OnAction()
                     begin
-                        //This functionality was copied from page #50011. Unsupported part was commented. Please check it.
-                        /*CurrPage.SalesLinesArchive.FORM.*/
                         _ShowDimensions();
-
                     end;
                 }
             }
@@ -139,10 +136,4 @@ page 50012 "BC6_Sales Quote Arch. Sub. Cde"
     begin
         Rec.ShowDimensions();
     end;
-
-    procedure ShowDimensions()
-    begin
-        Rec.ShowDimensions();
-    end;
 }
-

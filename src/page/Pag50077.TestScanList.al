@@ -11,6 +11,7 @@ page 50077 "BC6_Test Scan List"
             {
                 field("Line No."; "Line No.")
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -24,6 +25,7 @@ page 50077 "BC6_Test Scan List"
             {
                 Gesture = LeftSwipe;
                 Promoted = true;
+                ApplicationArea = All;
 
                 trigger OnAction()
                 begin

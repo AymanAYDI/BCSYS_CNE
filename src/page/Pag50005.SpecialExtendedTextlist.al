@@ -24,7 +24,7 @@ page 50005 "BC6_Special Extended Text list"
                 }
                 field(Name; Name)
                 {
-                    Caption = 'Name';
+                    Caption = 'Name', comment = 'FRA="Nom"';
                 }
             }
         }
@@ -42,7 +42,6 @@ page 50005 "BC6_Special Extended Text list"
             IF Customer.GET(Code) THEN
                 Name := Customer.Name;
         END ELSE
-
             IF "Table Name" = "Table Name"::Vendor THEN
                 IF Vendor.GET(Code) THEN
                     Name := Vendor.Name;
@@ -61,20 +60,16 @@ page 50005 "BC6_Special Extended Text list"
                         MARK(TRUE);
                         SaveCode := Code;
                     END;
-            UNTIL NEXT = 0;
+            UNTIL NEXT() = 0;
 
         MARKEDONLY(TRUE);
     end;
 
     var
-        Name: Text[30];
         Customer: Record Customer;
         Vendor: Record Vendor;
         SaveCode: Code[20];
+        Name: Text[100];
 
-    local procedure OnBeforePutRecord()
-    begin
-        MARK(FALSE);
-    end;
 }
 

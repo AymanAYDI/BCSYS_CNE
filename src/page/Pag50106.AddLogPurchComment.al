@@ -1,6 +1,6 @@
 page 50106 "BC6_Add Log Purch. Comment"
 {
-    Caption = 'Add Log Purch. Comment';
+    Caption = 'Add Log Purch. Comment', comment = 'FRA="Ajouter information connexe"';
     DeleteAllowed = false;
     InsertAllowed = false;
     ModifyAllowed = false;
@@ -16,12 +16,14 @@ page 50106 "BC6_Add Log Purch. Comment"
             {
                 field(Qty; Qty)
                 {
-                    Caption = 'Qty';
+                    Caption = 'Qty', comment = 'FRA="Qté"';
                 }
                 field(ReceiptType2; ReceiptType)
                 {
-                    Caption = 'Type';
-                    OptionCaption = 'Package,Pallet';
+                    Caption = 'Type', comment = 'FRA="Type"';
+
+                    //TODO: optioncaption
+                    // OptionCaption = 'Package,Pallet';
                 }
             }
         }
@@ -39,6 +41,6 @@ page 50106 "BC6_Add Log Purch. Comment"
 
     var
         Qty: Integer;
-        ReceiptType: Option Colis,Palette;
+        ReceiptType: Enum "BC6_ReceiptType";
 }
 

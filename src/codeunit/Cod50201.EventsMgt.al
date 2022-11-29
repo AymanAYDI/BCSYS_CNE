@@ -2526,8 +2526,7 @@ ItemJnlLine."Document No.",
     begin
         Rec.verifyquotestatus;
     end;
-
-
+    
     [EventSubscriber(ObjectType::Page, Page::"Item Card", 'OnAfterInitControls', '', true, false)]
     procedure OnAfterInitControls()
     var

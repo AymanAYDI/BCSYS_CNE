@@ -1,4 +1,4 @@
-codeunit 50151 "BC6_Item History Management"
+codeunit 50009 "BC6_Item History Management"
 {
 
     trigger OnRun()

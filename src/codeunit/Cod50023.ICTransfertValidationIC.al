@@ -76,7 +76,6 @@ codeunit 50023 "BC6_IC Transfert Validation IC"
         RecGDocICIn: Record "BC6_IC Table Validate";
         RecGDocICOut: Record "BC6_IC Table Validate";
         RecGSalesShipment: Record "Sales Shipment Line";
-        RecGDocICIn2: Record "BC6_IC Table Validate";
-        Text001: Label 'Treatment Completed';
+        Text001: Label 'Treatment Completed', Comment = 'FRA="Traitement Terminé"';
 }
 

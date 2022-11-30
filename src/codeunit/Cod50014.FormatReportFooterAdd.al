@@ -2,22 +2,17 @@ codeunit 50014 "BC6_Format Report Footer Add"
 {
 
 
-    trigger OnRun()
-    begin
-    end;
-
-    [Scope('Internal')]
     procedure FormatAddrFooter(var AddrArray: array[5] of Text[400]; var CompInfo: Record "Company Information")
     var
-        PhoneCaption: Label 'TEL : %1';
-        FaxCaption: Label 'FAX : %1';
-        StockCapitalCaption: Label '%1 wtih a capital of %2';
-        VatRegistrationNoCaption: Label 'VAT No. : %1';
-        EmailCaption: Label 'email : %1';
-        TextAPECode: Label ' APE%1';
-        TextBankInfo: Label 'Bank Details : ';
-        TextSwiftCode: Label ' BIC : %1';
-        RegistrationNoCaption: Label 'Registration No. %1 :';
+        PhoneCaption: Label 'TEL : %1', Comment = 'FRA="TEL : %1"';
+        FaxCaption: Label 'FAX : %1', Comment = 'FRA="FAX : %1"';
+        StockCapitalCaption: Label '%1 wtih a capital of %2', Comment = 'FRA="%1 au capital de %2"';
+        VatRegistrationNoCaption: Label 'VAT No. : %1', Comment = 'FRA="No. TVA : %1"';
+        EmailCaption: Label 'email : %1', Comment = 'FRA="email : %1"';
+        TextAPECode: Label ' APE%1', Comment = 'FRA="APE%1"';
+        TextBankInfo: Label 'Bank Details : ', Comment = 'FRA="Coordonnées bancaires : ""';
+        TextSwiftCode: Label ' BIC : %1', Comment = 'FRA="BIC : %1"';
+        RegistrationNoCaption: Label 'Registration No. %1 :', Comment = 'FRA="SIRET : %1"';
     begin
         WITH CompInfo DO
             IF NOT CompInfo."BC6_Branch Company" THEN BEGIN

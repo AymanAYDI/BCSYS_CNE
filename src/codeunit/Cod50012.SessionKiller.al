@@ -3,7 +3,7 @@ codeunit 50012 "BC6_Session Killer"
 
     trigger OnRun()
     var
-        gSession: Record "Active Session";
+    //gSession: Record "Active Session";
     begin
         //TODON IF ISCLEAR(ADOConnection) THEN
         //     IF NOT CREATE(ADOConnection, FALSE, TRUE) THEN

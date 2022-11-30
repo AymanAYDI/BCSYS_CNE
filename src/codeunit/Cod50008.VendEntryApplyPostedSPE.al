@@ -73,27 +73,27 @@ codeunit 50008 "BC6_VendEntry-Apply Posted SPE"
         GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line";
         PaymentToleranceMgt: Codeunit "Payment Tolerance Management";
 
-        Text001: Label 'Posting application...';
-        Text002: Label 'The application was successfully posted.';
-        Text003: Label 'The %1 entered must not be before the %2 on the %3.';
-        Text004: Label 'The application was successfully posted though no entries have been applied.';
+        Text001: Label 'Posting application...', Comment = 'FRA="Validation du lettrage..."';
+        Text002: Label 'The application was successfully posted.', Comment = 'FRA="Le lettrage a été validé avec succés."';
+        Text003: Label 'The %1 entered must not be before the %2 on the %3.', Comment = 'FRA="La %1 saisie ne doit pas étre antérieure … la %2 sur %3."';
+        Text004: Label 'The application was successfully posted though no entries have been applied.', Comment = 'FRA="Le lettrage a été validé avec succŠs bien qu''aucune écriture n''ait été lettré."';
         Window: Dialog;
         EntryNoBeforeApplication: Integer;
         EntryNoAfterApplication: Integer;
-        Text005: Label 'Before you can unapply this entry, you must first unapply all application entries that were posted after this entry.';
-        Text006: Label '%1 No. %2 does not have an application entry.';
-        Text007: Label 'Do you want to unapply the entries?';
-        Text008: Label 'Unapplying and posting...';
-        Text009: Label 'The entries were successfully unapplied.';
-        Text010: Label 'There is nothing to unapply. ';
-        Text011: Label 'To unapply these entries, the program will post correcting entries.\';
-        Text012: Label 'Before you can unapply this entry, you must first unapply all application entries in %1 No. %2 that were posted after this entry.';
-        Text013: Label '%1 is not within your range of allowed posting dates in %2 No. %3.';
-        Text014: Label '%1 is not within your range of allowed posting dates.';
-        Text015: Label 'The latest %3 must be an application in %1 No. %2.';
-        Text016: Label 'You cannot unapply the entry with the posting date %1, because the exchange rate for the additional reporting currency has been changed. ';
+        Text005: Label 'Before you can unapply this entry, you must first unapply all application entries that were posted after this entry.', Comment = 'FRA="Avant de délettrer cette écriture, vous devez délettrer toutes les écritures comptabilisées postérieurement."';
+        Text006: Label '%1 No. %2 does not have an application entry.', Comment = 'FRA="Le (la) %1 nø %2 n''a pas d''écriture de lettrage."';
+        Text007: Label 'Do you want to unapply the entries?', Comment = 'FRA="Souhaitez-vous délettrer les écritures ?"';
+        Text008: Label 'Unapplying and posting...', Comment = 'FRA="Délettrage et comptabilisation..."';
+        Text009: Label 'The entries were successfully unapplied.', Comment = 'FRA="Délettrage des écritures réussi."';
+        Text010: Label 'There is nothing to unapply. ', Comment = 'FRA="Aucun délettrage … effectuer. "';
+        Text011: Label 'To unapply these entries, the program will post correcting entries.\', Comment = 'FRA="Pour délettrer ces écritures, le programme va valider les écritures correctrices.\"';
+        Text012: Label 'Before you can unapply this entry, you must first unapply all application entries in %1 No. %2 that were posted after this entry.', Comment = 'FRA="Avant de délettrer cette écriture, vous devez délettrer toutes les écritures de %1 nø %2 comptabilisées postérieurement."';
+        Text013: Label '%1 is not within your range of allowed posting dates in %2 No. %3.', Comment = 'FRA="%1 n''appartient pas … la plage de dates de comptabilisation autorisée dans %2 nø %3."';
+        Text014: Label '%1 is not within your range of allowed posting dates.', Comment = 'FRA="%1 n''appartient pas … la plage de dates de comptabilisation autorisée."';
+        Text015: Label 'The latest %3 must be an application in %1 No. %2.', Comment = 'FRA="Le (la) dernier (derniŠre) %3 doit correspondre … un lettrage dans %1 nø %2."';
+        Text016: Label 'You cannot unapply the entry with the posting date %1, because the exchange rate for the additional reporting currency has been changed. ', Comment = 'FRA="Vous ne pouvez pas délettrer l''écriture dont la date de comptabilisation est %1, car le taux de change de la devise report supplémentaire a changé."';
         MaxPostingDate: Date;
-        Text017: Label 'You cannot unapply %1 No. %2 because the entry has been involved in a reversal.';
+        Text017: Label 'You cannot unapply %1 No. %2 because the entry has been involved in a reversal.', Comment = 'FRA="Vous ne pouvez pas délettrer %1 nø %2, car l''écriture a été impliquée dans une contrepassation."';
 
     local procedure FindLastApplDtldVendLedgEntry(): Integer
     var
@@ -139,7 +139,6 @@ codeunit 50008 "BC6_VendEntry-Apply Posted SPE"
         EXIT(LastTransactionNo);
     end;
 
-    [Scope('Internal')]
     procedure UnApplyDtldVendLedgEntry(DtldVendLedgEntry: Record "Detailed Vendor Ledg. Entry")
     var
         ApplicationEntryNo: Integer;
@@ -154,7 +153,6 @@ codeunit 50008 "BC6_VendEntry-Apply Posted SPE"
         UnApplyVendor(DtldVendLedgEntry);
     end;
 
-    [Scope('Internal')]
     procedure UnApplyVendLedgEntry(VendLedgEntryNo: Integer)
     var
         VendLedgentry: Record "Vendor Ledger Entry";
@@ -182,22 +180,21 @@ codeunit 50008 "BC6_VendEntry-Apply Posted SPE"
         END;
     end;
 
-    [Scope('Internal')]
     procedure PostUnApplyVendor(var DtldVendLedgEntryBuf: Record "Detailed Vendor Ledg. Entry"; DtldVendLedgEntry2: Record "Detailed Vendor Ledg. Entry"; var DocNo: Code[20]; var PostingDate: Date)
     var
         GLEntry: Record "G/L Entry";
         VendLedgEntry: Record "Vendor Ledger Entry";
         DtldVendLedgEntry: Record "Detailed Vendor Ledg. Entry";
-        SourceCodeSetup: Record "Source Code Setup";
-        GenJnlLine: Record "Gen. Journal Line";
+        BC6_SourceCodeSetup: Record "Source Code Setup";
+        BC6_GenJnlLine: Record "Gen. Journal Line";
         DateComprReg: Record "Date Compr. Register";
-        GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line";
-        Window: Dialog;
+        BC6_GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line";
+        BC6_Window: Dialog;
         ApplicationEntryNo: Integer;
         LastTransactionNo: Integer;
         AddCurrChecked: Boolean;
     begin
-        IF NOT DtldVendLedgEntryBuf.FIND('-') THEN
+        IF NOT DtldVendLedgEntryBuf.FindFirst() THEN
             ERROR(Text010);
         IF NOT CONFIRM(Text011 + Text007, FALSE) THEN
             EXIT;
@@ -210,7 +207,7 @@ codeunit 50008 "BC6_VendEntry-Apply Posted SPE"
         DtldVendLedgEntry.SETCURRENTKEY("Transaction No.", "Vendor No.", "Entry Type");
         DtldVendLedgEntry.SETRANGE("Transaction No.", DtldVendLedgEntry2."Transaction No.");
         DtldVendLedgEntry.SETRANGE("Vendor No.", DtldVendLedgEntry2."Vendor No.");
-        IF DtldVendLedgEntry.FIND('-') THEN
+        IF DtldVendLedgEntry.FindFirst() THEN
             REPEAT
                 IF (DtldVendLedgEntry."Entry Type" <> DtldVendLedgEntry."Entry Type"::"Initial Entry") AND
                    NOT DtldVendLedgEntry.Unapplied
@@ -239,29 +236,29 @@ codeunit 50008 "BC6_VendEntry-Apply Posted SPE"
         DateComprReg.CheckMaxDateCompressed(MaxPostingDate, 0);
 
         WITH DtldVendLedgEntry2 DO BEGIN
-            SourceCodeSetup.GET;
+            BC6_SourceCodeSetup.GET;
             VendLedgEntry.GET("Vendor Ledger Entry No.");
-            GenJnlLine."Document No." := DocNo;
-            GenJnlLine."Posting Date" := PostingDate;
-            GenJnlLine."Account Type" := GenJnlLine."Account Type"::Vendor;
-            GenJnlLine."Account No." := "Vendor No.";
-            GenJnlLine.Correction := TRUE;
-            GenJnlLine."Document Type" := GenJnlLine."Document Type"::" ";
-            GenJnlLine.Description := VendLedgEntry.Description;
-            GenJnlLine."Shortcut Dimension 1 Code" := VendLedgEntry."Global Dimension 1 Code";
-            GenJnlLine."Shortcut Dimension 2 Code" := VendLedgEntry."Global Dimension 2 Code";
-            GenJnlLine."Posting Group" := VendLedgEntry."Vendor Posting Group";
-            GenJnlLine."Source Type" := GenJnlLine."Source Type"::Vendor;
-            GenJnlLine."Source No." := "Vendor No.";
-            GenJnlLine."Source Code" := SourceCodeSetup."Unapplied Purch. Entry Appln.";
-            GenJnlLine."System-Created Entry" := TRUE;
-            Window.OPEN(Text008);
-            GenJnlPostLine.UnapplyVendLedgEntry(GenJnlLine, DtldVendLedgEntry2);
+            BC6_GenJnlLine."Document No." := DocNo;
+            BC6_GenJnlLine."Posting Date" := PostingDate;
+            BC6_GenJnlLine."Account Type" := BC6_GenJnlLine."Account Type"::Vendor;
+            BC6_GenJnlLine."Account No." := "Vendor No.";
+            BC6_GenJnlLine.Correction := TRUE;
+            BC6_GenJnlLine."Document Type" := BC6_GenJnlLine."Document Type"::" ";
+            BC6_GenJnlLine.Description := VendLedgEntry.Description;
+            BC6_GenJnlLine."Shortcut Dimension 1 Code" := VendLedgEntry."Global Dimension 1 Code";
+            BC6_GenJnlLine."Shortcut Dimension 2 Code" := VendLedgEntry."Global Dimension 2 Code";
+            BC6_GenJnlLine."Posting Group" := VendLedgEntry."Vendor Posting Group";
+            BC6_GenJnlLine."Source Type" := BC6_GenJnlLine."Source Type"::Vendor;
+            BC6_GenJnlLine."Source No." := "Vendor No.";
+            BC6_GenJnlLine."Source Code" := BC6_SourceCodeSetup."Unapplied Purch. Entry Appln.";
+            BC6_GenJnlLine."System-Created Entry" := TRUE;
+            BC6_Window.OPEN(Text008);
+            BC6_GenJnlPostLine.UnapplyVendLedgEntry(BC6_GenJnlLine, DtldVendLedgEntry2);
             DtldVendLedgEntryBuf.DELETEALL;
             DocNo := '';
             PostingDate := 0D;
             COMMIT;
-            Window.CLOSE;
+            BC6_Window.CLOSE;
             MESSAGE(Text009);
         END;
     end;
@@ -295,7 +292,6 @@ codeunit 50008 "BC6_VendEntry-Apply Posted SPE"
                 ERROR(Text016, NewPostingDate);
     end;
 
-    [Scope('Internal')]
     procedure CheckReversal(VendLedgEntryNo: Integer)
     var
         VendLedgEntry: Record "Vendor Ledger Entry";

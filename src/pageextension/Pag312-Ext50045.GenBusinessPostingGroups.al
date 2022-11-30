@@ -1,0 +1,14 @@
+pageextension 50045 "BC6_GenBusinessPostingGroups" extends "Gen. Business Posting Groups" //312
+{
+    layout
+    {
+        addafter("Auto Insert Default")
+        {
+            field("BC6_Subject to DEEE"; "BC6_Subject to DEEE")
+            {
+                ApplicationArea = All;
+            }
+        }
+    }
+}
+

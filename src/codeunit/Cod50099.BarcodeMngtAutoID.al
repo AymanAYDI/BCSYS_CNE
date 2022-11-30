@@ -1,15 +1,7 @@
 codeunit 50099 "BC6_Barcode Mngt AutoID"
 {
-
-    trigger OnRun()
-    begin
-    end;
-
     var
         IntegerOk: Boolean;
-        trouve: Boolean;
-        Char2: Char;
-        Correspondances: array[83, 2] of Char;
         DigitValueArrayF11: array[10, 3] of Char;
         DigitValueArrayF13: array[15, 2] of Char;
         DigitValueArrayF14: array[14] of Char;
@@ -17,7 +9,6 @@ codeunit 50099 "BC6_Barcode Mngt AutoID"
         f: Integer;
         i: Integer;
         j: Integer;
-        pos: Integer;
         Encoding: Text[12];
         CharTxt: Text[13];
 
@@ -27,7 +18,6 @@ codeunit 50099 "BC6_Barcode Mngt AutoID"
         IF (FromEAN13Bar = '') THEN
             EXIT;
 
-        // Check Integer Char
         IF STRLEN(FromEAN13Bar) > 13 THEN
             EXIT;
 
@@ -38,10 +28,8 @@ codeunit 50099 "BC6_Barcode Mngt AutoID"
         END;
 
         EAN13Txt := FromEAN13Bar;
-        // EAN13Bar := FromEAN13Bar;
         Encoding := '';
         LeadingDigit := FromEAN13Bar[1];
-        // MESSAGE('%1',FORMAT(LeadingDigit));
         LoadEncoding();
 
         j := 0;
@@ -54,17 +42,6 @@ codeunit 50099 "BC6_Barcode Mngt AutoID"
                 EAN13Bar += FORMAT(DigitValueArrayF14[2]);
         END;
         EAN13Bar += FORMAT(DigitValueArrayF14[1]);
-
-        // EAN13 CheckDigit
-        /*Checksum := 0;
-        FOR i := 1 TO STRLEN(EAN13Bar) DO
-          BEGIN
-            currentchar := EAN13Bar[i];
-            Checksum := Checksum + (i * currentchar);
-        END;
-        ChecksumRes := Checksum MOD 13;*/
-
-        // EAN13
         EXIT(EAN13Bar);
 
     end;
@@ -224,7 +201,6 @@ codeunit 50099 "BC6_Barcode Mngt AutoID"
     var
         BarCode39Ok: Boolean;
         k: Integer;
-        "Sum": Integer;
     begin
         "39BarCode" := '';
         BarCode39Ok := TRUE;

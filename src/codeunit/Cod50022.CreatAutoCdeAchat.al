@@ -39,12 +39,7 @@ codeunit 50022 "BC6_Creat Auto Cde Achat"
                 RecGPurchaseHeader.VALIDATE("Buy-from Vendor No.", RecGVendor."No.");
                 RecGPurchaseHeader.VALIDATE("Sell-to Customer No.", "Sell-to Customer No.");
                 RecGPurchaseHeader.VALIDATE("Requested Receipt Date", "Requested Delivery Date");
-                //>>PDW : le 13/07/2015 : prise en compte de la réf client.
-                //RecGPurchaseHeader.VALIDATE("Your Reference","No.");
                 RecGPurchaseHeader.VALIDATE("Your Reference", "Your Reference");
-                //<<PDW : le 13/07/2015
-
-                // Reprise de l'adresse de livraison
                 RecGPurchaseHeader."Ship-to Name" := "Ship-to Name";
                 RecGPurchaseHeader."Ship-to Name 2" := "Ship-to Name 2";
                 RecGPurchaseHeader."Ship-to Address" := "Ship-to Address";

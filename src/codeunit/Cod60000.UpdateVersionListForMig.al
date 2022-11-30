@@ -20,39 +20,39 @@ codeunit 60000 "BC6_UpdateVersionListForMig"
     var
         Pos: Integer;
     begin
-        Object.SETRANGE(Modified, TRUE);
+        Object.SETRANGE(Modified, true);
         Object.SETFILTER("Version List", '*%1*', MyTag);
         ERROR('%1', Object.COUNT);
-        IF Object.FINDFIRST THEN   //TODO: Unreachable code detected.
-            REPEAT
+        if Object.FINDFIRST then   //TODO: Unreachable code detected.
+            repeat
                 Pos := STRPOS(Object."Version List", ',MyTag');
-                IF Pos <> 0 THEN BEGIN
+                if Pos <> 0 then begin
                     Object."Version List" := DELSTR(Object."Version List", Pos, STRLEN(',MyTag'));
                     Object.MODIFY;
-                END;
-            UNTIL Object.NEXT = 0;
+                end;
+            until Object.NEXT = 0;
         MESSAGE('End');
 
-        EXIT;
+        exit;
     end;
 
     local procedure AddATag()
     begin
-        Object.SETRANGE(Modified, TRUE);
+        Object.SETRANGE(Modified, true);
         Object.SETFILTER("Version List", '<>*%1*', MyTag);
         Object.SETFILTER(Object.Type, '<>%1&', Object.Type::TableData);
         Object.SETFILTER(ID, '<50000|>99999');
-        IF Object.FINDFIRST THEN
+        if Object.FINDFIRST then
             ERROR('%1', Object);
-        REPEAT
-            IF STRPOS(Object."Version List", MyTag) = 0 THEN BEGIN
-                IF Object."Version List" <> '' THEN
+        repeat
+            if STRPOS(Object."Version List", MyTag) = 0 then begin
+                if Object."Version List" <> '' then
                     Object."Version List" := Object."Version List" + ',' + MyTag
-                ELSE
+                else
                     Object."Version List" := MyTag;
                 Object.MODIFY();
-            END;
-        UNTIL Object.NEXT = 0;
+            end;
+        until Object.NEXT = 0;
     end;
 }
 

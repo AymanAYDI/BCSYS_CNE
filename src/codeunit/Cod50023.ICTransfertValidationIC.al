@@ -1,20 +1,20 @@
 codeunit 50023 "BC6_IC Transfert Validation IC"
 {
 
-    Permissions = TableData "BC6_IC Table Validate" = rimd;
+    Permissions = tabledata "BC6_IC Table Validate" = rimd;
 
     trigger OnRun()
     begin
         RecGCompagnyInfo.FINDFIRST();
 
-        IF RecGCompagnyInfo."BC6_Branch Company" = TRUE THEN
-            EXIT;
+        if RecGCompagnyInfo."BC6_Branch Company" = true then
+            exit;
 
         RecGDocICIn.RESET();
-        RecGDocICIn.SETRANGE(Validate, FALSE);
+        RecGDocICIn.SETRANGE(Validate, false);
 
-        IF RecGDocICIn.FINDSET(TRUE, TRUE) THEN
-            REPEAT
+        if RecGDocICIn.FINDSET(true, true) then
+            repeat
 
                 RecGDocICOut.RESET();
                 RecGDocICOut.CHANGECOMPANY(RecGDocICIn."Navision Company");
@@ -23,8 +23,8 @@ codeunit 50023 "BC6_IC Transfert Validation IC"
                 RecGSalesShipment.SETFILTER("BC6_Purchase No. Order Lien", '<> %1', '');
                 RecGSalesShipment.SETFILTER("BC6_Purchase No. Line Lien", '<> %1', 0);
 
-                IF RecGSalesShipment.FIND('-') THEN
-                    REPEAT
+                if RecGSalesShipment.FIND('-') then
+                    repeat
 
                         RecGDocICOut.TRANSFERFIELDS(RecGDocICIn);
                         RecGDocICOut."Purch Order IC Line" := RecGSalesShipment."BC6_Purchase No. Line Lien";
@@ -32,42 +32,42 @@ codeunit 50023 "BC6_IC Transfert Validation IC"
                         RecGDocICOut."Shipment Line No." := RecGSalesShipment."Line No.";
                         RecGDocICOut."Qty. to Receive" := RecGSalesShipment.Quantity;
                         RecGDocICOut."Purchase cost" := RecGSalesShipment."BC6_Purchase Cost";
-                        IF RecGSalesShipment.Correction THEN BEGIN
+                        if RecGSalesShipment.Correction then begin
 
-                            IF NOT RecGDocICOut.FIND() THEN BEGIN
+                            if not RecGDocICOut.FIND() then begin
                                 RecGDocICOut.TRANSFERFIELDS(RecGDocICIn);
                                 RecGDocICOut."Purch Order IC Line" := RecGSalesShipment."BC6_Purchase No. Line Lien";
 
                                 RecGDocICOut."Shipment Line No." := RecGSalesShipment."Line No.";
                                 RecGDocICOut."Qty. to Receive" := RecGSalesShipment.Quantity;
                                 RecGDocICOut."Purchase cost" := RecGSalesShipment."BC6_Purchase Cost";
-                                RecGDocICOut.Canceled := TRUE;
-                                RecGDocICIn.Canceled := TRUE;
-                                RecGDocICOut.Validate := TRUE;
+                                RecGDocICOut.Canceled := true;
+                                RecGDocICIn.Canceled := true;
+                                RecGDocICOut.Validate := true;
                                 RecGDocICOut."Validate Date" := TODAY;
 
                                 RecGDocICOut.INSERT()
-                            END ELSE BEGIN
-                                RecGDocICOut.Canceled := TRUE;
-                                RecGDocICIn.Canceled := TRUE;
-                                RecGDocICOut.Validate := TRUE;
+                            end else begin
+                                RecGDocICOut.Canceled := true;
+                                RecGDocICIn.Canceled := true;
+                                RecGDocICOut.Validate := true;
                                 RecGDocICOut."Validate Date" := TODAY;
                                 RecGDocICOut.MODIFY();
-                            END;
+                            end;
 
-                        END ELSE
+                        end else
                             RecGDocICOut.INSERT();
 
 
-                    UNTIL RecGSalesShipment.NEXT() <= 0;
+                    until RecGSalesShipment.NEXT() <= 0;
 
-                RecGDocICIn.Validate := TRUE;
+                RecGDocICIn.Validate := true;
                 RecGDocICIn."Validate Date" := TODAY;
                 RecGDocICIn.MODIFY();
 
-            UNTIL RecGDocICIn.NEXT() <= 0;
+            until RecGDocICIn.NEXT() <= 0;
 
-        IF GUIALLOWED THEN
+        if GUIALLOWED then
             MESSAGE(Text001);
     end;
 

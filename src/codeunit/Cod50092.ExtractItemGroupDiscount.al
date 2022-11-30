@@ -22,24 +22,24 @@ codeunit 50092 "Extract Item Group Discount"
         CLEAR(ItemDiscGroupForm);
         ItemDiscGroupForm.SETRECORD(ItemDiscGroup);
         ItemDiscGroupForm.SETTABLEVIEW(ItemDiscGroup);
-        ItemDiscGroupForm.EDITABLE(FALSE);
-        ItemDiscGroupForm.LOOKUPMODE := TRUE;
-        IF ItemDiscGroupForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
+        ItemDiscGroupForm.EDITABLE(false);
+        ItemDiscGroupForm.LOOKUPMODE := true;
+        if ItemDiscGroupForm.RUNMODAL() = ACTION::LookupOK then begin
             CLEAR(ItemDiscGroup);
-            // ItemDiscGroupForm.GetSelectionFilter2(ItemDiscGroup);  //TODO: GetSelectionFilter2 : tabextension 
-        END ELSE
-            EXIT;
+            // ItemDiscGroupForm.GetSelectionFilter2(ItemDiscGroup);  //TODO
+        end else
+            exit;
 
         SalesLineDiscount.RESET();
         SalesLineDiscount.SETRANGE("Sales Type", FromSalesLineDiscount."Sales Type");
         SalesLineDiscount.SETRANGE("Sales Code", FromSalesLineDiscount."Sales Code");
         SalesLineDiscount.SETRANGE(Type, FromSalesLineDiscount.Type::"Item Disc. Group");
-        IF ItemDiscGroup.FIND('-') THEN
-            REPEAT
+        if ItemDiscGroup.FIND('-') then
+            repeat
 
                 SalesLineDiscount.SETRANGE(Code, ItemDiscGroup.Code);
-                IF NOT SalesLineDiscount.ISEMPTY THEN
-                    SalesLineDiscount.DELETEALL(TRUE);
+                if not SalesLineDiscount.ISEMPTY then
+                    SalesLineDiscount.DELETEALL(true);
 
                 ToSalesLineDiscount.INIT();
                 ToSalesLineDiscount.Type := FromSalesLineDiscount.Type::"Item Disc. Group";
@@ -58,10 +58,10 @@ codeunit 50092 "Extract Item Group Discount"
                 ToSalesLineDiscount."BC6_Added Discount %" := FromSalesLineDiscount."BC6_Added Discount %";
                 ToSalesLineDiscount.INSERT();
 
-            UNTIL ItemDiscGroup.NEXT() = 0;
+            until ItemDiscGroup.NEXT() = 0;
     end;
 
     var
-        Text001: Label 'Souhaitez-vous supprimer les %1 remises existantes ?';
+        Text001: label 'Souhaitez-vous supprimer les %1 remises existantes ?', comment = 'FRA=""';
 }
 

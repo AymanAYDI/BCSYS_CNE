@@ -83,13 +83,12 @@ codeunit 50021 "BC6_Update IC Partner Items"
         RecGPurchasePricePartner: Record "Purchase Price";
         RecGVendorPartner: Record Vendor;
         RecGItem: Record Item;
-        CstGText000: Label 'Treatment allowed only for CNE.';
+        CstGText000: Label 'Treatment allowed only for CNE.', Comment = 'FRA="Traitement autorisé seulement sur CNE."';
 
-        CstGText001: Label 'Item %1 duplicate on Partner %2.';
+        CstGText001: Label 'Item %1 duplicate on Partner %2.', Comment = 'FRA="Article %1 dupliqué sur partenaire %2."';
         Windows: Dialog;
         ItemPartnerOldCostIncreaseCoeff: Decimal;
 
-    [Scope('Internal')]
     procedure FctGUpdatePurchasePriceVendor(RecPVendor: Record Vendor)
     begin
         Windows.OPEN('Partenaire #1###################### \ Fournisseur #2######################## \ Article #3#################');

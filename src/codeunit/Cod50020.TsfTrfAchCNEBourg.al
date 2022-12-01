@@ -2,9 +2,6 @@ codeunit 50020 "BC6_Tsf Trf Ach CNE ==> Bourg"
 {
 
 
-    trigger OnRun()
-    begin
-    end;
 
     var
         PurchPrice_Source: Record "Purchase Price";
@@ -15,9 +12,8 @@ codeunit 50020 "BC6_Tsf Trf Ach CNE ==> Bourg"
         ItemU_Cible: Record "Item Unit of Measure";
 
         Dialog_D: Dialog;
-        Text001: Label 'FORBIDDEN treatment in this company';
+        Text001: Label 'FORBIDDEN treatment in this company', Comment = 'FRA="Traitement INTERDIT dans cette société"';
 
-    [Scope('Internal')]
     procedure Transfert(CodeFourn: Code[20])
     begin
         // Traitement uniquement de CNE vers les autres stés.
@@ -36,7 +32,7 @@ codeunit 50020 "BC6_Tsf Trf Ach CNE ==> Bourg"
         // No.
         Item_Source.RESET();
         Item_Source.SETRANGE("Vendor No.", CodeFourn);
-        IF Item_Source.FIND('-') THEN
+        IF Item_Source.FindFirst() THEN
             REPEAT
                 Dialog_D.UPDATE(1, Item_Source."No.");
                 Dialog_D.UPDATE(3, CodeFourn);
@@ -49,7 +45,7 @@ codeunit 50020 "BC6_Tsf Trf Ach CNE ==> Bourg"
                     // Item No.,Code
                     ItemU_Source.RESET();
                     ItemU_Source.SETRANGE("Item No.", Item_Source."No.");
-                    IF ItemU_Source.FIND('-') THEN
+                    IF ItemU_Source.FindFirst() THEN
                         REPEAT
                             IF NOT (ItemU_Cible.GET(PurchPrice_Source."Item No.", ItemU_Source.Code)) THEN BEGIN
                                 ItemU_Cible.TRANSFERFIELDS(ItemU_Source);
@@ -69,7 +65,7 @@ codeunit 50020 "BC6_Tsf Trf Ach CNE ==> Bourg"
 
         PurchPrice_Source.RESET();
         PurchPrice_Source.SETRANGE("Vendor No.", CodeFourn);
-        IF PurchPrice_Source.FIND('-') THEN
+        IF PurchPrice_Source.FindFirst() THEN
             REPEAT
                 Dialog_D.UPDATE(1, PurchPrice_Source."Item No.");
                 Dialog_D.UPDATE(2, PurchPrice_Source."Starting Date");

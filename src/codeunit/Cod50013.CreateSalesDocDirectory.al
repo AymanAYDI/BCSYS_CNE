@@ -11,32 +11,30 @@ codeunit 50013 "BC6_Create SalesDoc Directory"
     end;
 
     var
+        Item: Record Item;
+        RecLink: Record "Record Link"; //2000000068
         SalesSetup: Record "Sales & Receivables Setup";
         SalesHeader: Record "Sales Header";
         SalesLine: Record "Sales Line";
-        Item: Record Item;
-        RecLink: Record "Record Link"; //2000000068
 
         FileMngt: Codeunit "File Management";
+        ItemRecID: RecordID;
+        ItemRecRef: RecordRef;
+        ItemExist: Boolean;
         Window: Dialog;
+        FileCounter: Integer;
         Text001: Label 'Création dossier %1 ...';
         Text002: Label 'URL #1#############';
         Text003: Label 'Nombre fichier(s) copié(s) #2####';
         Text010: Label 'Il n''y a pas de ligne article';
-        ItemExist: Boolean;
-        ItemRecRef: RecordRef;
-        ItemRecID: RecordID;
-        SourceFilePath: Text;
-        TargetDirectoryPath: Text;
-        TargetNewSubDirectory: Text;
-        TargetFileName: Text;
-        FileCounter: Integer;
-        TargetDirectoryName: Text;
-        Text011: Label 'Dossier technique : %1 fichier(s) copié(s)';
         Text012: Label 'Aucun fichier copié';
         LastTargetFileName: Text;
+        SourceFilePath: Text;
+        TargetDirectoryName: Text;
+        TargetDirectoryPath: Text;
+        TargetFileName: Text;
+        TargetNewSubDirectory: Text;
 
-    [Scope('Internal')]
     procedure "Code"()
     begin
         WITH SalesHeader DO BEGIN

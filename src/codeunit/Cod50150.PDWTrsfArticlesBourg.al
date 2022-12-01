@@ -27,7 +27,7 @@ codeunit 50150 "BC6_PDW Trsf Articles Bourg"
     end;
 
     var
-        PXAch_Source: Record "Purchase Price"; //TODO:for removal
+        PXAch_Source: Record "Purchase Price"; 
         PXAch_Cible: Record "Purchase Price";
         Dialog_D: Dialog;
         I: Integer;

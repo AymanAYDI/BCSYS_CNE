@@ -3,22 +3,22 @@ codeunit 50050 "BC6_Temp EA"
 
     trigger OnRun()
     begin
-        EXIT;
+        exit;
         location.SETRANGE(Code, 'METZ');  //TODO: Unreachable code detected.( warning)
-        IF location.FINDFIRST() THEN BEGIN
+        if location.FINDFIRST() then begin
             location."Receipt Bin Code" := 'R.R.01.1';
             location.MODIFY();
-        END;
+        end;
         MESSAGE('terminé');
 
         location.SETRANGE(Code, 'METZ');
-        IF location.FINDFIRST() THEN BEGIN
+        if location.FINDFIRST() then begin
             location."Shipment Bin Code" := 'E.E.01.1';
             location.MODIFY();
-        END;
+        end;
         MESSAGE('terminé');
 
-        EXIT;
+        exit;
 
         Field.SETRANGE(FieldName, 'Salesperson Code');
         MESSAGE(FORMAT(Field.COUNT));

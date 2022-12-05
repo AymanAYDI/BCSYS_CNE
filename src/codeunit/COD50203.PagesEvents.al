@@ -585,5 +585,20 @@ codeunit 50203 "BC6_PagesEvents"
         //TODO: checkMe ! 
     end;
 
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Release Purchase Document", 'OnBeforeCheckPurchaseHeaderPendingApproval', '', false, false)]
+    local procedure COD415_OnBeforeCheckPurchaseHeaderPendingApproval(var PurchaseHeader: Record "Purchase Header"; var IsHandled: Boolean)
+    var
+        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
+        Text002: Label 'This document can only be released when the approval process is complete.';
+
+    begin
+        IsHandled := true;
+        if IsHandled then
+            exit;
+
+        if ApprovalsMgmt.IsPurchaseHeaderPendingApproval(PurchaseHeader) then
+            Error(Text002);
+        COMMIT;
+    end;
 
 }

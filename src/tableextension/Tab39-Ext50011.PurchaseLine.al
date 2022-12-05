@@ -215,6 +215,7 @@ tableextension 50011 "BC6_PurchaseLine" extends "Purchase Line" //39
             Caption = 'DEEE Amount (LCY) for Stat', comment = 'FRA="Montant pour (DS)"';
             DataClassification = CustomerContent;
         }
+
     }
     keys
     {

@@ -266,9 +266,6 @@ codeunit 50202 "BC6_Functions Mgt"
 
     //COD 5063////////////////////////////
 
-    procedure "***CNE-ARCHIVAGE"();
-    begin
-    end;
 
     procedure ArchiveSalesDocumentWithoutMessage(var SalesHeader: Record "Sales Header");
     var
@@ -326,9 +323,6 @@ codeunit 50202 "BC6_Functions Mgt"
             exit(Bin.Code);
     end;
 
-    procedure "--- MIGNAV2013 ---"();
-    begin
-    end;
 
     procedure InsertTempWhseJnlLine2(ItemJnlLine: Record "Item Journal Line"; SourceType: Integer; SourceSubType: Integer; SourceNo: Code[20]; SourceLineNo: Integer; RefDoc: Integer; SourceType2: Integer; SourceSubType2: Integer; SourceNo2: Code[20]; SourceLineNo2: Integer; var TempWhseJnlLine: Record "Warehouse Journal Line" temporary; var NextLineNo: Integer);
     var
@@ -1163,7 +1157,24 @@ codeunit 50202 "BC6_Functions Mgt"
             AppVendEnt.CalcApplnAmount();
         end;
     end;
-
+    //COD90
+    PROCEDURE MntDivisionDEEE(DecPQtyPurchLine: Decimal; VAR PurchLine: Record "Purchase Line"); //COD90
+    var
+        GLSetup: Record "General Ledger Setup";
+    BEGIN
+        WITH PurchLine DO BEGIN
+            "BC6_DEEE HT Amount" := ROUND("BC6_DEEE HT Amount" * DecPQtyPurchLine / Quantity, 0.01);
+            IF ("VAT Calculation Type" = "VAT Calculation Type"::"Sales Tax") AND
+               (Quantity <> "Qty. to Invoice") AND
+               GLSetup."BC6_Sales Tax Recalcul"
+            THEN
+                "BC6_DEEE TTC Amount" :=
+                  "BC6_DEEE HT Amount" + 0
+            ELSE
+                "BC6_DEEE TTC Amount" := ROUND("BC6_DEEE TTC Amount" * DecPQtyPurchLine / Quantity);
+            "BC6_DEEE VAT Amount" := "BC6_DEEE TTC Amount" - "BC6_DEEE HT Amount";
+        END;
+    END;
 
     //COD6620
     procedure RecalculateSalesLineAmounts2(FromSalesLine: Record "Sales Line"; var ToSalesLine: Record "Sales Line"; Currency: Record Currency)
@@ -1211,7 +1222,7 @@ codeunit 50202 "BC6_Functions Mgt"
         BoolGCopyLinesExactly := NewCopyLinesExactly;
     END;
 
- PROCEDURE InsertOldOrders(FromSalesInvoiceLine: Record 113; ToSalesHeader: Record 36; VAR NextLineNo: Integer);
+    PROCEDURE InsertOldOrders(FromSalesInvoiceLine: Record 113; ToSalesHeader: Record 36; VAR NextLineNo: Integer);
     BEGIN
         IF (ToSalesHeader."Document Type" = ToSalesHeader."Document Type"::"Return Order") AND (ToSalesHeader."BC6_Return Order Type" = ToSalesHeader."BC6_Return Order Type"::SAV) THEN BEGIN
             NextLineNoNewInsert := NextLineNo;
@@ -1279,6 +1290,40 @@ codeunit 50202 "BC6_Functions Mgt"
     END;
 
 
+
+
+    PROCEDURE MntInverseDEEE(VAR RecLPurchLine: Record "Purchase Line");
+    BEGIN
+
+        WITH RecLPurchLine DO BEGIN
+            "BC6_DEEE HT Amount" := -"BC6_DEEE HT Amount";
+            "BC6_DEEE VAT Amount" := -"BC6_DEEE VAT Amount";
+            "BC6_DEEE TTC Amount" := -"BC6_DEEE TTC Amount";
+        END;
+    END;
+
+    PROCEDURE MntIncrDEEE(VAR RecLPurchLine: Record "Purchase Line");
+    var
+        GenJnlLine: Record "Gen. Journal Line";
+    BEGIN
+        IncrementDEEE(GenJnlLine."BC6_GDecMntHTDEEE", RecLPurchLine."BC6_DEEE HT Amount");
+        IncrementDEEE(GenJnlLine."BC6_GDecMntTTCDEEE", RecLPurchLine."BC6_DEEE TTC Amount");
+    END;
+
+    procedure UpdateInvoicePostBuffer(var InvoicePostBuffer: Record "Invoice Post. Buffer"; TempInvoicePostBuffer: Record "Invoice Post. Buffer" temporary)
+    var
+        FALineNo: Integer;
+        DeferralLineNo: Integer;
+        InvDefLineNo: Integer;
+
+    begin
+        InvoicePostBuffer.get(InvoicePostBuffer.Type, InvoicePostBuffer."G/L Account", InvoicePostBuffer."Gen. Bus. Posting Group", InvoicePostBuffer."Gen. Prod. Posting Group", InvoicePostBuffer."VAT Bus. Posting Group", InvoicePostBuffer."VAT Prod. Posting Group", InvoicePostBuffer."Tax Area Code", InvoicePostBuffer."Tax Group Code", InvoicePostBuffer."Tax Liable", InvoicePostBuffer."Use Tax", InvoicePostBuffer."Dimension Set ID", InvoicePostBuffer."Job No.", InvoicePostBuffer."Fixed Asset Line No.", InvoicePostBuffer."Deferral Code");
+        if InvoicePostBuffer.Type = InvoicePostBuffer.Type::"Fixed Asset" then begin
+            FALineNo := FALineNo + 1;
+            InvoicePostBuffer."Fixed Asset Line No." := FALineNo;
+        end;
+        TempInvoicePostBuffer.Update(InvoicePostBuffer, InvDefLineNo, DeferralLineNo);
+    end;
 
     var
         EnableIncrPurchCost: Boolean;

@@ -4,12 +4,12 @@ pageextension 50067 "BC6_SalesOrderStatistics" extends "Sales Order Statistics" 
     {
         modify("AdjProfitLCY[1]")
         {
-            Caption = 'Adjusted Profit (LCY)', Comment = 'FRA="Marge r‚elle DS"';
+            Caption = 'Adjusted Profit (LCY)', Comment = 'FRA="Marge réelle DS"';
             Visible = ShowRealProfit;
         }
         modify("AdjProfitPct[1]")
         {
-            Caption = 'Adjusted Profit %', Comment = 'FRA="% marge r‚elle"';
+            Caption = 'Adjusted Profit %', Comment = 'FRA="% marge réelle"';
             Visible = ShowRealProfit;
         }
         modify("TotalSalesLineLCY[1].""Unit Cost (LCY)""")
@@ -19,22 +19,22 @@ pageextension 50067 "BC6_SalesOrderStatistics" extends "Sales Order Statistics" 
         }
         modify("TotalAdjCostLCY[1]")
         {
-            Caption = 'Adjusted Cost (LCY)', Comment = 'FRA="Co–t r‚el DS"';
+            Caption = 'Adjusted Cost (LCY)', Comment = 'FRA="Cout réel DS"';
             Visible = ShowRealProfit;
         }
         modify("AdjProfitLCY[2]")
         {
-            Caption = 'Adjusted Profit (LCY)', Comment = 'FRA="Marge r‚elle DS"';
+            Caption = 'Adjusted Profit (LCY)', Comment = 'FRA="Marge réelle DS"';
             Visible = ShowRealProfit;
         }
         modify("AdjProfitPct[2]")
         {
-            Caption = 'Adjusted Profit %', Comment = 'FRA="% marge r‚elle"';
+            Caption = 'Adjusted Profit %', Comment = 'FRA="% marge réelle"';
             Visible = ShowRealProfit;
         }
         modify("TotalAdjCostLCY[2]")
         {
-            Caption = 'Adjusted Cost (LCY)', Comment = 'FRA="Co–t r‚el DS"';
+            Caption = 'Adjusted Cost (LCY)', Comment = 'FRA="Cout réel DS"';
             Visible = ShowRealProfit;
         }
 
@@ -62,7 +62,7 @@ pageextension 50067 "BC6_SalesOrderStatistics" extends "Sales Order Statistics" 
         {
             field("TotalSalesLineLCY[1].""Purchase cost"""; TotalSalesLineLCY[1]."BC6_Purchase cost")
             {
-                Caption = 'Purchase Cost (LCY)', Comment = 'FRA="Co–t d''achat DS"';
+                Caption = 'Purchase Cost (LCY)', Comment = 'FRA="Cout d''achat DS"';
                 Editable = false;
             }
         }
@@ -86,7 +86,7 @@ pageextension 50067 "BC6_SalesOrderStatistics" extends "Sales Order Statistics" 
         {
             field("TotalSalesLineLCY[2].""Purchase cost"""; TotalSalesLineLCY[2]."BC6_Purchase cost")
             {
-                Caption = 'Purchase Cost (LCY)', Comment = 'FRA="Co–t d''achat DS"';
+                Caption = 'Purchase Cost (LCY)', Comment = 'FRA="Cout d''achat DS"';
             }
         }
 
@@ -105,7 +105,7 @@ pageextension 50067 "BC6_SalesOrderStatistics" extends "Sales Order Statistics" 
         {
             field("TotalSalesLineLCY[3].""Purchase cost"""; TotalSalesLineLCY[3]."BC6_Purchase cost")
             {
-                Caption = 'Purchase Cost (LCY)', Comment = 'FRA="CoÍt d''achat DS"';
+                Caption = 'Purchase Cost (LCY)', Comment = 'FRA="Cout d''achat DS"';
             }
         }
 

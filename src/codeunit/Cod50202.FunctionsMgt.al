@@ -326,13 +326,13 @@ codeunit 50202 "BC6_Functions Mgt"
 
 
     // related to codeunit 73020
-    PROCEDURE InsertTempWhseJnlLine2(ItemJnlLine: Record "Item Journal Line"; SourceType: Integer; SourceSubType: Integer; SourceNo: Code[20]; SourceLineNo: Integer; RefDoc: Integer; SourceType2: Integer; SourceSubType2: Integer; SourceNo2: Code[20]; SourceLineNo2: Integer; VAR TempWhseJnlLine: Record "Warehouse Journal Line" temporary; VAR NextLineNo: Integer);
-    VAR
+    procedure InsertTempWhseJnlLine2(ItemJnlLine: Record "Item Journal Line"; SourceType: Integer; SourceSubType: Integer; SourceNo: Code[20]; SourceLineNo: Integer; RefDoc: Integer; SourceType2: Integer; SourceSubType2: Integer; SourceNo2: Code[20]; SourceLineNo2: Integer; var TempWhseJnlLine: Record "Warehouse Journal Line" temporary; var NextLineNo: Integer);
+    var
         WhseEntry: Record "Warehouse Entry";
         WhseMgt: Codeunit "Whse. Management";
         WMSMgmt: Codeunit "WMS Management";
-    BEGIN
-        WITH ItemJnlLine DO BEGIN
+    begin
+        with ItemJnlLine do begin
 
             WhseEntry.RESET();
             WhseEntry.SETCURRENTKEY("Source Type", "Source Subtype", "Source No.");
@@ -355,7 +355,7 @@ codeunit 50202 "BC6_Functions Mgt"
                         "Entry Type" := "Entry Type"::"Positive Adjmt.";
                     Quantity := ABS(WhseEntry.Quantity);
                     "Quantity (Base)" := ABS(WhseEntry."Qty. (Base)");
-                    WMSMgmt.CreateWhseJnlLine(ItemJnlLine, 0, TempWhseJnlLine, FALSE);
+                    WMSMgmt.CreateWhseJnlLine(ItemJnlLine, 0, TempWhseJnlLine, false);
                     TempWhseJnlLine."Source Type" := SourceType;
                     TempWhseJnlLine."Source Subtype" := SourceSubType;
                     TempWhseJnlLine."Source No." := SourceNo;
@@ -1162,23 +1162,23 @@ codeunit 50202 "BC6_Functions Mgt"
         end;
     end;
     //COD90
-    PROCEDURE MntDivisionDEEE(DecPQtyPurchLine: Decimal; VAR PurchLine: Record "Purchase Line"); //COD90
+    procedure MntDivisionDEEE(DecPQtyPurchLine: Decimal; var PurchLine: Record "Purchase Line"); //COD90
     var
         GLSetup: Record "General Ledger Setup";
-    BEGIN
-        WITH PurchLine DO BEGIN
+    begin
+        with PurchLine do begin
             "BC6_DEEE HT Amount" := ROUND("BC6_DEEE HT Amount" * DecPQtyPurchLine / Quantity, 0.01);
-            IF ("VAT Calculation Type" = "VAT Calculation Type"::"Sales Tax") AND
-               (Quantity <> "Qty. to Invoice") AND
+            if ("VAT Calculation Type" = "VAT Calculation Type"::"Sales Tax") and
+               (Quantity <> "Qty. to Invoice") and
                GLSetup."BC6_Sales Tax Recalcul"
-            THEN
+            then
                 "BC6_DEEE TTC Amount" :=
                   "BC6_DEEE HT Amount" + 0
-            ELSE
+            else
                 "BC6_DEEE TTC Amount" := ROUND("BC6_DEEE TTC Amount" * DecPQtyPurchLine / Quantity);
             "BC6_DEEE VAT Amount" := "BC6_DEEE TTC Amount" - "BC6_DEEE HT Amount";
-        END;
-    END;
+        end;
+    end;
 
     //COD6620
     procedure RecalculateSalesLineAmounts2(FromSalesLine: Record "Sales Line"; var ToSalesLine: Record "Sales Line"; Currency: Record Currency)
@@ -1221,45 +1221,45 @@ codeunit 50202 "BC6_Functions Mgt"
         exit(0);
     end;
 
-    PROCEDURE Fct_SetProperties(NewCopyLinesExactly: Boolean);
-    BEGIN
+    procedure Fct_SetProperties(NewCopyLinesExactly: Boolean);
+    begin
         BoolGCopyLinesExactly := NewCopyLinesExactly;
-    END;
+    end;
 
-    PROCEDURE InsertOldOrders(FromSalesInvoiceLine: Record 113; ToSalesHeader: Record 36; VAR NextLineNo: Integer);
-    BEGIN
-        IF (ToSalesHeader."Document Type" = ToSalesHeader."Document Type"::"Return Order") AND (ToSalesHeader."BC6_Return Order Type" = ToSalesHeader."BC6_Return Order Type"::SAV) THEN BEGIN
+    procedure InsertOldOrders(FromSalesInvoiceLine: Record 113; ToSalesHeader: Record 36; var NextLineNo: Integer);
+    begin
+        if (ToSalesHeader."Document Type" = ToSalesHeader."Document Type"::"Return Order") and (ToSalesHeader."BC6_Return Order Type" = ToSalesHeader."BC6_Return Order Type"::SAV) then begin
             NextLineNoNewInsert := NextLineNo;
             InsertSalesAndPurOrderShptLine(FromSalesInvoiceLine, ToSalesHeader, NextLineNoNewInsert);
             NextLineNo := NextLineNo + 10000;
-        END;
-    END;
+        end;
+    end;
 
-    PROCEDURE InsertSalesAndPurOrderShptLine(FromSalesInvoiceLine: Record 113; ToSalesHeader: Record 36; VAR NextLineNo: Integer);
-    VAR
+    procedure InsertSalesAndPurOrderShptLine(FromSalesInvoiceLine: Record 113; ToSalesHeader: Record 36; var NextLineNo: Integer);
+    var
         L_ShipmentInvoiced: Record 10825;
         L_SalesShptHeader: Record 110;
         L_SalesHeader: Record 36;
         L_PurchaseHeader: Record 38;
         ToSalesLine2: Record 37;
         LanguageManagement: Codeunit 43;
-        Text018: Label '%1 - %2:';
-    BEGIN
+        Text018: label '%1 - %2:';
+    begin
         L_ShipmentInvoiced.RESET;
         L_ShipmentInvoiced.SETCURRENTKEY("Invoice No.", "Invoice Line No.", "Shipment No.", "Shipment Line No.");
         L_ShipmentInvoiced.SETRANGE("Invoice No.", FromSalesInvoiceLine."Document No.");
         L_ShipmentInvoiced.SETRANGE("Invoice Line No.", FromSalesInvoiceLine."Line No.");
-        IF L_ShipmentInvoiced.FINDFIRST THEN
-            IF L_SalesShptHeader.GET(L_ShipmentInvoiced."Shipment No.") THEN
-                IF L_SalesHeader.GET(L_SalesHeader."Document Type"::Order, L_SalesShptHeader."Order No.") THEN BEGIN
-                    SalesOrderExists := TRUE;
-                    IF L_PurchaseHeader.GET(L_PurchaseHeader."Document Type"::Order, L_SalesHeader."BC6_Purchase No. Order Lien") THEN;
-                    PurchaseOrderExists := TRUE;
-                END;
+        if L_ShipmentInvoiced.FINDFIRST then
+            if L_SalesShptHeader.GET(L_ShipmentInvoiced."Shipment No.") then
+                if L_SalesHeader.GET(L_SalesHeader."Document Type"::Order, L_SalesShptHeader."Order No.") then begin
+                    SalesOrderExists := true;
+                    if L_PurchaseHeader.GET(L_PurchaseHeader."Document Type"::Order, L_SalesHeader."BC6_Purchase No. Order Lien") then;
+                    PurchaseOrderExists := true;
+                end;
 
         G_LinkedPurchOrderNo := L_SalesShptHeader."Order No.";
 
-        IF SalesOrderExists THEN BEGIN
+        if SalesOrderExists then begin
             NextLineNo := NextLineNo + 10000;
             ToSalesLine2.INIT;
             ToSalesLine2."Line No." := NextLineNo;
@@ -1268,13 +1268,13 @@ codeunit 50202 "BC6_Functions Mgt"
 
             //TODO   // LanguageManagement.SetGlobalLanguageByCode(ToSalesHeader."Language Code");
 
-            IF PurchaseOrderExists THEN
+            if PurchaseOrderExists then
                 ToSalesLine2.Description :=
                 STRSUBSTNO(
                   Text018,
                   COPYSTR(SELECTSTR(1, Text50000) + L_SalesShptHeader."Order No.", 1, 23),
                   COPYSTR(SELECTSTR(2, Text50000) + L_SalesHeader."BC6_Purchase No. Order Lien", 1, 23))
-            ELSE
+            else
                 ToSalesLine2.Description :=
                 STRSUBSTNO(
                   Text50001,
@@ -1283,36 +1283,36 @@ codeunit 50202 "BC6_Functions Mgt"
             //TODO     // LanguageManagement.RestoreGlobalLanguage;
 
             ToSalesLine2.INSERT;
-        END;
-    END;
+        end;
+    end;
 
-    PROCEDURE SetSkipTestCreditLimit(NewSkipTestCreditLimit: Boolean);
+    procedure SetSkipTestCreditLimit(NewSkipTestCreditLimit: Boolean);
     var
         SkipTestCreditLimit: Boolean;
-    BEGIN
+    begin
         SkipTestCreditLimit := NewSkipTestCreditLimit;
-    END;
+    end;
 
 
 
 
-    PROCEDURE MntInverseDEEE(VAR RecLPurchLine: Record "Purchase Line");
-    BEGIN
+    procedure MntInverseDEEE(var RecLPurchLine: Record "Purchase Line");
+    begin
 
-        WITH RecLPurchLine DO BEGIN
+        with RecLPurchLine do begin
             "BC6_DEEE HT Amount" := -"BC6_DEEE HT Amount";
             "BC6_DEEE VAT Amount" := -"BC6_DEEE VAT Amount";
             "BC6_DEEE TTC Amount" := -"BC6_DEEE TTC Amount";
-        END;
-    END;
+        end;
+    end;
 
-    PROCEDURE MntIncrDEEE(VAR RecLPurchLine: Record "Purchase Line");
+    procedure MntIncrDEEE(var RecLPurchLine: Record "Purchase Line");
     var
         GenJnlLine: Record "Gen. Journal Line";
-    BEGIN
+    begin
         IncrementDEEE(GenJnlLine."BC6_GDecMntHTDEEE", RecLPurchLine."BC6_DEEE HT Amount");
         IncrementDEEE(GenJnlLine."BC6_GDecMntTTCDEEE", RecLPurchLine."BC6_DEEE TTC Amount");
-    END;
+    end;
 
     procedure UpdateInvoicePostBuffer(var InvoicePostBuffer: Record "Invoice Post. Buffer"; TempInvoicePostBuffer: Record "Invoice Post. Buffer" temporary)
     var
@@ -1330,8 +1330,8 @@ codeunit 50202 "BC6_Functions Mgt"
     end;
 
 
-    PROCEDURE OnRunTiersPayeur(VAR Rec: Record "Payment Line");
-    VAR
+    procedure OnRunTiersPayeur(var Rec: Record "Payment Line");
+    var
         Header: Record "Payment Header";
         GenJnlLine: Record "Gen. Journal Line";
         CurrExchRate: Record "Currency Exchange Rate";
@@ -1346,13 +1346,13 @@ codeunit 50202 "BC6_Functions Mgt"
         AccNo: Code[20];
         CurrencyCode2: Code[10];
         OK: Boolean;
-        Text001: Label 'The %1 in the %2 will be changed from %3 to %4.\', Comment = 'FRA="Remplacement de %1 %3 par %4 dans %2.\"';
-        Text002: Label 'Do you wish to continue?', Comment = 'FRA="Souhaitez-vous continuer ?"';
-        Text003: Label 'The update has been interrupted to respect the warning.', Comment = 'FRA="La mise à jour a été interrompue pour respecter l''alerte."';
-        Text005: Label 'The %1 or %2 must be Customer or Vendor.', Comment = 'FRA="%1 ou %2 doit être un client ou un fournisseur."';
-        Text006: Label 'All entries in one application must be in the same currency.', Comment = 'FRA="La même devise doit être utilisée pour toutes les écritures lettrage."';
-        Text007: Label 'All entries in one application must be in the same currency or one or more of the EMU currencies.', Comment = 'FRA="Toutes les écritures d''une même application doivent être indiquées dans la même devise ou dans une ou plusieurs devises UME. "';
-    BEGIN
+        Text001: label 'The %1 in the %2 will be changed from %3 to %4.\', Comment = 'FRA="Remplacement de %1 %3 par %4 dans %2.\"';
+        Text002: label 'Do you wish to continue?', Comment = 'FRA="Souhaitez-vous continuer ?"';
+        Text003: label 'The update has been interrupted to respect the warning.', Comment = 'FRA="La mise à jour a été interrompue pour respecter l''alerte."';
+        Text005: label 'The %1 or %2 must be Customer or Vendor.', Comment = 'FRA="%1 ou %2 doit être un client ou un fournisseur."';
+        Text006: label 'All entries in one application must be in the same currency.', Comment = 'FRA="La même devise doit être utilisée pour toutes les écritures lettrage."';
+        Text007: label 'All entries in one application must be in the same currency or one or more of the EMU currencies.', Comment = 'FRA="Toutes les écritures d''une même application doivent être indiquées dans la même devise ou dans une ou plusieurs devises UME. "';
+    begin
         Header.GET(Rec."No.");
 
         GenJnlLine."Account Type" := Rec."Account Type";
@@ -1362,37 +1362,37 @@ codeunit 50202 "BC6_Functions Mgt"
         GenJnlLine."Currency Code" := Rec."Currency Code";
         GenJnlLine."Posting Date" := Header."Posting Date";
 
-        WITH GenJnlLine DO BEGIN
+        with GenJnlLine do begin
             PayApply.GetCurrency;
             AccType := "Account Type";
             AccNo := "Account No.";
 
-            CASE AccType OF
+            case AccType of
                 AccType::Customer:
-                    BEGIN
+                    begin
                         CustLedgEntry.SETCURRENTKEY("BC6_Pay-to Customer No.", Open, Positive);
                         CustLedgEntry.SETRANGE("BC6_Pay-to Customer No.", AccNo);
-                        CustLedgEntry.SETRANGE(Open, TRUE);
-                        IF "Applies-to ID" = '' THEN
+                        CustLedgEntry.SETRANGE(Open, true);
+                        if "Applies-to ID" = '' then
                             "Applies-to ID" := Rec."No." + '/' + FORMAT(Rec."Line No.");
                         ApplyCustEntries.SetGenJnlLine(GenJnlLine, GenJnlLine.FIELDNO("Applies-to ID"));
                         ApplyCustEntries.SETRECORD(CustLedgEntry);
                         ApplyCustEntries.SETTABLEVIEW(CustLedgEntry);
-                        ApplyCustEntries.LOOKUPMODE(TRUE);
+                        ApplyCustEntries.LOOKUPMODE(true);
                         OK := ApplyCustEntries.RUNMODAL = ACTION::LookupOK;
                         CLEAR(ApplyCustEntries);
-                        IF NOT OK THEN
-                            EXIT;
+                        if not OK then
+                            exit;
                         CustLedgEntry.RESET;
                         CustLedgEntry.SETCURRENTKEY("BC6_Pay-to Customer No.", Open, Positive);
                         CustLedgEntry.SETRANGE("BC6_Pay-to Customer No.", AccNo);
-                        CustLedgEntry.SETRANGE(Open, TRUE);
+                        CustLedgEntry.SETRANGE(Open, true);
                         CustLedgEntry.SETRANGE("Applies-to ID", "Applies-to ID");
-                        IF CustLedgEntry.FIND('-') THEN BEGIN
+                        if CustLedgEntry.FIND('-') then begin
                             CurrencyCode2 := CustLedgEntry."Currency Code";
-                            IF Amount = 0 THEN BEGIN
-                                REPEAT
-                                    PayApply.CheckAgainstApplnCurrency(CurrencyCode2, CustLedgEntry."Currency Code", AccType::Customer, TRUE);
+                            if Amount = 0 then begin
+                                repeat
+                                    PayApply.CheckAgainstApplnCurrency(CurrencyCode2, CustLedgEntry."Currency Code", AccType::Customer, true);
                                     CustLedgEntry.CALCFIELDS("Remaining Amount");
                                     CustLedgEntry."Remaining Amount" :=
                                       CurrExchRate.ExchangeAmount(
@@ -1406,70 +1406,70 @@ codeunit 50202 "BC6_Functions Mgt"
                                         CustLedgEntry."Currency Code", "Currency Code", "Posting Date");
                                     CustLedgEntry."Remaining Pmt. Disc. Possible" :=
                                       ROUND(CustLedgEntry."Remaining Pmt. Disc. Possible", Currency."Amount Rounding Precision");
-                                    IF (CustLedgEntry."Document Type" = CustLedgEntry."Document Type"::Invoice) AND
+                                    if (CustLedgEntry."Document Type" = CustLedgEntry."Document Type"::Invoice) and
                                        ("Posting Date" <= CustLedgEntry."Pmt. Discount Date")
-                                    THEN
+                                    then
                                         Amount := Amount - (CustLedgEntry."Amount to Apply" - CustLedgEntry."Remaining Pmt. Disc. Possible")
-                                    ELSE
+                                    else
                                         Amount := Amount - CustLedgEntry."Amount to Apply";
-                                UNTIL CustLedgEntry.NEXT = 0;
+                                until CustLedgEntry.NEXT = 0;
                                 "Amount (LCY)" := Amount;
                                 "Currency Factor" := 1;
-                                IF ("Bal. Account Type" = "Bal. Account Type"::Customer) OR
+                                if ("Bal. Account Type" = "Bal. Account Type"::Customer) or
                                    ("Bal. Account Type" = "Bal. Account Type"::Vendor)
-                                THEN BEGIN
+                                then begin
                                     Amount := -Amount;
                                     "Amount (LCY)" := -"Amount (LCY)";
-                                END;
+                                end;
                                 VALIDATE(Amount);
                                 VALIDATE("Amount (LCY)");
-                            END ELSE
-                                REPEAT
-                                    PayApply.CheckAgainstApplnCurrency(CurrencyCode2, CustLedgEntry."Currency Code", AccType::Customer, TRUE);
-                                UNTIL CustLedgEntry.NEXT = 0;
-                            IF "Currency Code" <> CurrencyCode2 THEN
-                                IF Amount = 0 THEN BEGIN
-                                    IF NOT
+                            end else
+                                repeat
+                                    PayApply.CheckAgainstApplnCurrency(CurrencyCode2, CustLedgEntry."Currency Code", AccType::Customer, true);
+                                until CustLedgEntry.NEXT = 0;
+                            if "Currency Code" <> CurrencyCode2 then
+                                if Amount = 0 then begin
+                                    if not
                                        CONFIRM(
                                          Text001 +
-                                         Text002, TRUE,
+                                         Text002, true,
                                          FIELDCAPTION("Currency Code"), TABLECAPTION, "Currency Code",
                                          CustLedgEntry."Currency Code")
-                                    THEN
+                                    then
                                         ERROR(Text003);
                                     "Currency Code" := CustLedgEntry."Currency Code"
-                                END ELSE
-                                    PayApply.CheckAgainstApplnCurrency("Currency Code", CustLedgEntry."Currency Code", AccType::Customer, TRUE);
+                                end else
+                                    PayApply.CheckAgainstApplnCurrency("Currency Code", CustLedgEntry."Currency Code", AccType::Customer, true);
                             "Applies-to Doc. Type" := 0;
                             "Applies-to Doc. No." := '';
-                        END ELSE
+                        end else
                             "Applies-to ID" := '';
                         "Due Date" := CustLedgEntry."Due Date";
-                    END;
+                    end;
                 AccType::Vendor:
-                    BEGIN
+                    begin
                         VendLedgEntry.SETCURRENTKEY("BC6_Pay-to Vend. No.", Open, Positive);
                         VendLedgEntry.SETRANGE("BC6_Pay-to Vend. No.", AccNo);
-                        VendLedgEntry.SETRANGE(Open, TRUE);
+                        VendLedgEntry.SETRANGE(Open, true);
                         "Applies-to ID" := GetAppliesToID("Applies-to ID", Rec);
                         ApplyVendEntries.SetGenJnlLine(GenJnlLine, GenJnlLine.FIELDNO("Applies-to ID"));
                         ApplyVendEntries.SETRECORD(VendLedgEntry);
                         ApplyVendEntries.SETTABLEVIEW(VendLedgEntry);
-                        ApplyVendEntries.LOOKUPMODE(TRUE);
+                        ApplyVendEntries.LOOKUPMODE(true);
                         OK := ApplyVendEntries.RUNMODAL = ACTION::LookupOK;
                         CLEAR(ApplyVendEntries);
-                        IF NOT OK THEN
-                            EXIT;
+                        if not OK then
+                            exit;
                         VendLedgEntry.RESET;
                         VendLedgEntry.SETCURRENTKEY("BC6_Pay-to Vend. No.", Open, Positive);
                         VendLedgEntry.SETRANGE("BC6_Pay-to Vend. No.", AccNo);
-                        VendLedgEntry.SETRANGE(Open, TRUE);
+                        VendLedgEntry.SETRANGE(Open, true);
                         VendLedgEntry.SETRANGE("Applies-to ID", "Applies-to ID");
-                        IF VendLedgEntry.FIND('-') THEN BEGIN
+                        if VendLedgEntry.FIND('-') then begin
                             CurrencyCode2 := VendLedgEntry."Currency Code";
-                            IF Amount = 0 THEN BEGIN
-                                REPEAT
-                                    PayApply.CheckAgainstApplnCurrency(CurrencyCode2, VendLedgEntry."Currency Code", AccType::Vendor, TRUE);
+                            if Amount = 0 then begin
+                                repeat
+                                    PayApply.CheckAgainstApplnCurrency(CurrencyCode2, VendLedgEntry."Currency Code", AccType::Vendor, true);
                                     VendLedgEntry.CALCFIELDS("Remaining Amount");
                                     VendLedgEntry."Remaining Amount" :=
                                       CurrExchRate.ExchangeAmount(
@@ -1483,52 +1483,52 @@ codeunit 50202 "BC6_Functions Mgt"
                                         VendLedgEntry."Currency Code", "Currency Code", "Posting Date");
                                     VendLedgEntry."Remaining Pmt. Disc. Possible" :=
                                       ROUND(VendLedgEntry."Remaining Pmt. Disc. Possible", Currency."Amount Rounding Precision");
-                                    IF (VendLedgEntry."Document Type" = VendLedgEntry."Document Type"::Invoice) AND
+                                    if (VendLedgEntry."Document Type" = VendLedgEntry."Document Type"::Invoice) and
                                        ("Posting Date" <= VendLedgEntry."Pmt. Discount Date")
-                                    THEN
+                                    then
                                         Amount := Amount - (VendLedgEntry."Amount to Apply" - VendLedgEntry."Remaining Pmt. Disc. Possible")
-                                    ELSE
+                                    else
                                         Amount := Amount - VendLedgEntry."Amount to Apply";
-                                UNTIL VendLedgEntry.NEXT = 0;
+                                until VendLedgEntry.NEXT = 0;
                                 "Amount (LCY)" := Amount;
                                 "Currency Factor" := 1;
-                                IF ("Bal. Account Type" = "Bal. Account Type"::Customer) OR
+                                if ("Bal. Account Type" = "Bal. Account Type"::Customer) or
                                    ("Bal. Account Type" = "Bal. Account Type"::Vendor)
-                                THEN BEGIN
+                                then begin
                                     Amount := -Amount;
                                     "Amount (LCY)" := -"Amount (LCY)";
-                                END;
+                                end;
                                 VALIDATE(Amount);
                                 VALIDATE("Amount (LCY)");
-                            END ELSE
-                                REPEAT
-                                    PayApply.CheckAgainstApplnCurrency(CurrencyCode2, VendLedgEntry."Currency Code", AccType::Vendor, TRUE);
-                                UNTIL VendLedgEntry.NEXT = 0;
-                            IF "Currency Code" <> CurrencyCode2 THEN
-                                IF Amount = 0 THEN BEGIN
-                                    IF NOT
+                            end else
+                                repeat
+                                    PayApply.CheckAgainstApplnCurrency(CurrencyCode2, VendLedgEntry."Currency Code", AccType::Vendor, true);
+                                until VendLedgEntry.NEXT = 0;
+                            if "Currency Code" <> CurrencyCode2 then
+                                if Amount = 0 then begin
+                                    if not
                                        CONFIRM(
                                          Text001 +
-                                         Text002, TRUE,
+                                         Text002, true,
                                          FIELDCAPTION("Currency Code"), TABLECAPTION, "Currency Code",
                                          VendLedgEntry."Currency Code")
-                                    THEN
+                                    then
                                         ERROR(Text003);
                                     "Currency Code" := VendLedgEntry."Currency Code"
-                                END ELSE
-                                    PayApply.CheckAgainstApplnCurrency("Currency Code", VendLedgEntry."Currency Code", AccType::Vendor, TRUE);
+                                end else
+                                    PayApply.CheckAgainstApplnCurrency("Currency Code", VendLedgEntry."Currency Code", AccType::Vendor, true);
                             "Applies-to Doc. Type" := 0;
                             "Applies-to Doc. No." := '';
-                        END ELSE
+                        end else
                             "Applies-to ID" := '';
                         "Due Date" := VendLedgEntry."Due Date";
-                    END;
-                ELSE
+                    end;
+                else
                     ERROR(
                       Text005,
                       FIELDCAPTION("Account Type"), FIELDCAPTION("Bal. Account Type"));
-            END;
-        END;
+            end;
+        end;
         Rec."Applies-to Doc. Type" := GenJnlLine."Applies-to Doc. Type";
         Rec."Applies-to Doc. No." := GenJnlLine."Applies-to Doc. No.";
         Rec."Applies-to ID" := GenJnlLine."Applies-to ID";
@@ -1537,13 +1537,13 @@ codeunit 50202 "BC6_Functions Mgt"
         Rec."Amount (LCY)" := GenJnlLine."Amount (LCY)";
         Rec.VALIDATE(Amount);
         Rec.VALIDATE("Amount (LCY)");
-    END;
+    end;
 
     procedure GetAppliesToID(AppliesToID: Code[50]; PaymentLine: Record "Payment Line"): Code[50]
     begin
-        IF AppliesToID = '' THEN
+        if AppliesToID = '' then
             AppliesToID := PaymentLine."No." + '/' + FORMAT(PaymentLine."Line No.");
-        EXIT(AppliesToID);
+        exit(AppliesToID);
     end;
 
     procedure CalcQtyAvailToPick(var SalesLine: Record "Sales Line"): Decimal;
@@ -1561,13 +1561,13 @@ codeunit 50202 "BC6_Functions Mgt"
             Item.RESET;
             Item.SETRANGE("Variant Filter", SalesLine."Variant Code");
             Item.SETRANGE("Location Filter", SalesLine."Location Code");
-            Item.SETRANGE("Drop Shipment Filter", FALSE);
+            Item.SETRANGE("Drop Shipment Filter", false);
             exit(Item.CalcQtyAvailToPick(0));
         end;
     end;
 
-    PROCEDURE CalcQtyOnPurchOrder(VAR SalesLine: Record "Sales Line"): Decimal;
-    VAR
+    procedure CalcQtyOnPurchOrder(var SalesLine: Record "Sales Line"): Decimal;
+    var
         Item: Record Item;
         SIPM: Codeunit "Sales Info-Pane Management";
         AvailableToPromis: Codeunit "Available to Promise";
@@ -1576,31 +1576,31 @@ codeunit 50202 "BC6_Functions Mgt"
         PeriodType: enum "Analysis Period Type";
         AvailabilityDate: Date;
         LookaheadDateformula: DateFormula;
-    BEGIN
-        IF SIPM.GetItem(SalesLine) THEN BEGIN
+    begin
+        if SIPM.GetItem(SalesLine) then begin
             Item.RESET;
             Item.SETRANGE("Variant Filter", SalesLine."Variant Code");
             Item.SETRANGE("Location Filter", SalesLine."Location Code");
-            Item.SETRANGE("Drop Shipment Filter", FALSE);
+            Item.SETRANGE("Drop Shipment Filter", false);
             Item.CALCFIELDS("Qty. on Purch. Order");
-            EXIT(Item."Qty. on Purch. Order");
-        END;
-    END;
+            exit(Item."Qty. on Purch. Order");
+        end;
+    end;
 
-    PROCEDURE LookupQtyOnPurchOrder(SalesLine: Record "Sales Line");
-    VAR
+    procedure LookupQtyOnPurchOrder(SalesLine: Record "Sales Line");
+    var
         Item: Record Item;
         SIPM: Codeunit "Sales Info-Pane Management";
         PurchLine: Record "Purchase Line";
         ItemAvailFormsMgt: Codeunit "Item Availability Forms Mgt";
-    BEGIN
+    begin
         SalesLine.TESTFIELD(Type, SalesLine.Type::Item);
         SalesLine.TESTFIELD("No.");
-        IF SIPM.GetItem(SalesLine) THEN BEGIN
+        if SIPM.GetItem(SalesLine) then begin
             Item.RESET;
             Item.SETRANGE("Variant Filter", SalesLine."Variant Code");
             Item.SETRANGE("Location Filter", SalesLine."Location Code");
-            Item.SETRANGE("Drop Shipment Filter", FALSE);
+            Item.SETRANGE("Drop Shipment Filter", false);
 
             PurchLine.RESET;
             PurchLine.SETCURRENTKEY("Document Type", Type, "No.", "Variant Code", "Drop Shipment", "Location Code", "Expected Receipt Date");
@@ -1614,56 +1614,56 @@ codeunit 50202 "BC6_Functions Mgt"
             PurchLine.SETFILTER("Shortcut Dimension 1 Code", Item.GETFILTER("Global Dimension 1 Filter"));
             PurchLine.SETFILTER("Shortcut Dimension 2 Code", Item.GETFILTER("Global Dimension 2 Filter"));
             PAGE.RUN(0, PurchLine);
-        END;
-    END;
+        end;
+    end;
 
-    PROCEDURE CalcCNEInventory(SalesLine: Record "Sales Line"): Decimal;
-    VAR
+    procedure CalcCNEInventory(SalesLine: Record "Sales Line"): Decimal;
+    var
         L_Item: Record Item;
-    BEGIN
-        IF COMPANYNAME <> 'CNE 2007' THEN
+    begin
+        if COMPANYNAME <> 'CNE 2007' then
             L_Item.CHANGECOMPANY('CNE 2007');
-        IF NOT L_Item.READPERMISSION THEN
-            EXIT(0);
+        if not L_Item.READPERMISSION then
+            exit(0);
 
-        IF L_Item.GET(SalesLine."No.") THEN
+        if L_Item.GET(SalesLine."No.") then
             L_Item.CALCFIELDS(Inventory);
-        EXIT(L_Item.Inventory);
-    END;
+        exit(L_Item.Inventory);
+    end;
 
-    PROCEDURE CalcCNEQtyOnPurchOrder(SalesLine: Record "Sales Line"): Decimal;
-    VAR
+    procedure CalcCNEQtyOnPurchOrder(SalesLine: Record "Sales Line"): Decimal;
+    var
         L_Item: Record Item;
-    BEGIN
-        IF COMPANYNAME <> 'CNE 2007' THEN
+    begin
+        if COMPANYNAME <> 'CNE 2007' then
             L_Item.CHANGECOMPANY('CNE 2007');
 
-        IF NOT L_Item.READPERMISSION THEN
-            EXIT(0);
+        if not L_Item.READPERMISSION then
+            exit(0);
 
-        IF L_Item.GET(SalesLine."No.") THEN
+        if L_Item.GET(SalesLine."No.") then
             L_Item.CALCFIELDS("Qty. on Purch. Order");
-        EXIT(L_Item."Qty. on Purch. Order");
-    END;
+        exit(L_Item."Qty. on Purch. Order");
+    end;
 
-    PROCEDURE CalcAvailableInventoryCNE(SalesLine: Record "Sales Line"; VAR Item: Record Item): Decimal;
-    VAR
+    procedure CalcAvailableInventoryCNE(SalesLine: Record "Sales Line"; var Item: Record Item): Decimal;
+    var
         CopyOfItem: Record Item;
         SIPM: Codeunit "Sales Info-Pane Management";
         AvailableToPromise: Codeunit "Available to Promise";
-    BEGIN
+    begin
         //BCSYS 220321
         CopyOfItem.COPY(Item);
-        IF SalesLine.Type <> SalesLine.Type::Item THEN EXIT(0);
-        IF CopyOfItem.GET(CopyOfItem."No.") THEN BEGIN
+        if SalesLine.Type <> SalesLine.Type::Item then exit(0);
+        if CopyOfItem.GET(CopyOfItem."No.") then begin
             //SetItemFilter(Item,SalesLine);
             Item.SETRANGE("Date Filter", 0D, SIPM.CalcAvailabilityDate(SalesLine));
             Item.SETRANGE("Variant Filter", SalesLine."Variant Code");
-            Item.SETRANGE("Drop Shipment Filter", FALSE);
+            Item.SETRANGE("Drop Shipment Filter", false);
 
-            EXIT(ConvertQty(AvailableToPromise.CalcAvailableInventory(Item), SalesLine."Qty. per Unit of Measure"));
-        END;
-    END;
+            exit(ConvertQty(AvailableToPromise.CalcAvailableInventory(Item), SalesLine."Qty. per Unit of Measure"));
+        end;
+    end;
 
     procedure ConvertQty(Qty: Decimal; PerUoMQty: Decimal) Result: Decimal
     var
@@ -1674,26 +1674,26 @@ codeunit 50202 "BC6_Functions Mgt"
         Result := Round(Qty / PerUoMQty, UOMMgt.QtyRndPrecision);
     end;
 
-    PROCEDURE CalcAvailableInventoryMETZ(SalesLine: Record "Sales Line"; VAR Item: Record Item): Decimal;
-    VAR
+    procedure CalcAvailableInventoryMETZ(SalesLine: Record "Sales Line"; var Item: Record Item): Decimal;
+    var
         CopyOfItem: Record Item;
         AvailableToPromise: Codeunit "Available to Promise";
         SIPM: Codeunit "Sales Info-Pane Management";
-    BEGIN
+    begin
         CopyOfItem.COPY(Item);
-        IF SalesLine.Type <> SalesLine.Type::Item THEN EXIT(0);
-        IF CopyOfItem.GET(CopyOfItem."No.") THEN BEGIN
+        if SalesLine.Type <> SalesLine.Type::Item then exit(0);
+        if CopyOfItem.GET(CopyOfItem."No.") then begin
             Item.SETRANGE("Date Filter", 0D, SIPM.CalcAvailabilityDate(SalesLine));
             Item.SETRANGE("Variant Filter", SalesLine."Variant Code");
             Item.SETRANGE("Drop Shipment Filter", false);
 
-            EXIT(ConvertQty(AvailableToPromise.CalcAvailableInventory(Item), SalesLine."Qty. per Unit of Measure"));
-        END;
-    END;
+            exit(ConvertQty(AvailableToPromise.CalcAvailableInventory(Item), SalesLine."Qty. per Unit of Measure"));
+        end;
+    end;
 
 
-    PROCEDURE CalcAvailabilityCNE(VAR SalesLine: Record "Sales Line"; VAR Item: Record Item): Decimal;
-    VAR
+    procedure CalcAvailabilityCNE(var SalesLine: Record "Sales Line"; var Item: Record Item): Decimal;
+    var
         SIPM: Codeunit "Sales Info-Pane Management";
         AvailableToPromise: Codeunit "Available to Promise";
         GrossRequirement: Decimal;
@@ -1701,21 +1701,21 @@ codeunit 50202 "BC6_Functions Mgt"
         PeriodType: enum "Analysis Period Type";
         LookaheadDateformula: DateFormula;
         CopyOfItem: Record Item;
-    BEGIN
+    begin
         CopyOfItem.COPY(Item);
-        IF SalesLine.Type <> SalesLine.Type::Item THEN EXIT(0);
-        IF CopyOfItem.GET(CopyOfItem."No.") THEN BEGIN
+        if SalesLine.Type <> SalesLine.Type::Item then exit(0);
+        if CopyOfItem.GET(CopyOfItem."No.") then begin
             CopyOfItem.SETRANGE("Date Filter", 0D, SIPM.CalcAvailabilityDate(SalesLine));
             CopyOfItem.SETRANGE("Variant Filter", SalesLine."Variant Code");
-            CopyOfItem.SETRANGE("Drop Shipment Filter", FALSE);
+            CopyOfItem.SETRANGE("Drop Shipment Filter", false);
 
-            EXIT(ConvertQty(AvailableToPromise.QtyAvailabletoPromise(CopyOfItem, GrossRequirement, ScheduledReceipt, SIPM.CalcAvailabilityDate(SalesLine), PeriodType, LookaheadDateformula), SalesLine."Qty. per Unit of Measure"));
-        END;
-    END;
+            exit(ConvertQty(AvailableToPromise.QtyAvailabletoPromise(CopyOfItem, GrossRequirement, ScheduledReceipt, SIPM.CalcAvailabilityDate(SalesLine), PeriodType, LookaheadDateformula), SalesLine."Qty. per Unit of Measure"));
+        end;
+    end;
 
 
-    PROCEDURE CalcAvailabilityMETZ(VAR SalesLine: Record "Sales Line"; VAR Item: Record Item): Decimal;
-    VAR
+    procedure CalcAvailabilityMETZ(var SalesLine: Record "Sales Line"; var Item: Record Item): Decimal;
+    var
         SIPM: Codeunit "Sales Info-Pane Management";
         AvailableToPromise: Codeunit "Available to Promise";
         GrossRequirement: Decimal;
@@ -1723,62 +1723,62 @@ codeunit 50202 "BC6_Functions Mgt"
         PeriodType: enum "Analysis Period Type";
         LookaheadDateformula: DateFormula;
         CopyOfItem: Record 27;
-    BEGIN
+    begin
         CopyOfItem.COPY(Item);
-        IF SalesLine.Type <> SalesLine.Type::Item THEN EXIT(0);
-        IF CopyOfItem.GET(CopyOfItem."No.") THEN BEGIN
+        if SalesLine.Type <> SalesLine.Type::Item then exit(0);
+        if CopyOfItem.GET(CopyOfItem."No.") then begin
             CopyOfItem.SETRANGE("Date Filter", 0D, SIPM.CalcAvailabilityDate(SalesLine));
             CopyOfItem.SETRANGE("Variant Filter", SalesLine."Variant Code");
-            CopyOfItem.SETRANGE("Drop Shipment Filter", FALSE);
+            CopyOfItem.SETRANGE("Drop Shipment Filter", false);
 
-            EXIT(
+            exit(
             ConvertQty(AvailableToPromise.QtyAvailabletoPromise(CopyOfItem, GrossRequirement, ScheduledReceipt, SIPM.CalcAvailabilityDate(SalesLine), PeriodType, LookaheadDateformula), SalesLine."Qty. per Unit of Measure"));
-        END;
-    END;
+        end;
+    end;
 
-    procedure FindPurchLineDisc(VAR ToPurchLineDisc: Record "Purchase Line Discount"; VendorNo: Code[20]; ItemNo: Code[20]; VariantCode: Code[10]; UOM: Code[10]; CurrencyCode: Code[10]; StartingDate: Date; ShowAll: Boolean; ItemDiscGrCode: Code[10])
+    procedure FindPurchLineDisc(var ToPurchLineDisc: Record "Purchase Line Discount"; VendorNo: Code[20]; ItemNo: Code[20]; VariantCode: Code[10]; UOM: Code[10]; CurrencyCode: Code[10]; StartingDate: Date; ShowAll: Boolean; ItemDiscGrCode: Code[10])
     var
         FromPurchLineDisc: Record "Purchase Line Discount";
     begin
-        WITH FromPurchLineDisc DO BEGIN
+        with FromPurchLineDisc do begin
             SETRANGE("Item No.", ItemNo);
             SETRANGE("Vendor No.", VendorNo);
             SETFILTER("Ending Date", '%1|>=%2', 0D, StartingDate);
             SETFILTER("Variant Code", '%1|%2', VariantCode, '');
-            IF NOT ShowAll THEN BEGIN
+            if not ShowAll then begin
                 SETRANGE("Starting Date", 0D, StartingDate);
                 SETFILTER("Currency Code", '%1|%2', CurrencyCode, '');
                 SETFILTER("Unit of Measure Code", '%1|%2', UOM, '');
-            END;
+            end;
 
             ToPurchLineDisc.RESET;
             ToPurchLineDisc.DELETEALL;
-            FOR BC6_Type := BC6_Type::Item TO BC6_Type::"All items" DO BEGIN
-                IF (BC6_Type = BC6_Type::"All items") OR
-                  ((BC6_Type = BC6_Type::Item) AND (ItemNo <> '')) OR
-                  ((BC6_Type = BC6_Type::"Item Disc. Group") AND (ItemDiscGrCode <> '')) THEN BEGIN
+            for BC6_Type := BC6_Type::Item to BC6_Type::"All items" do begin
+                if (BC6_Type = BC6_Type::"All items") or
+                  ((BC6_Type = BC6_Type::Item) and (ItemNo <> '')) or
+                  ((BC6_Type = BC6_Type::"Item Disc. Group") and (ItemDiscGrCode <> '')) then begin
 
                     SETRANGE(BC6_Type, BC6_Type);
 
-                    CASE BC6_Type OF
+                    case BC6_Type of
                         BC6_Type::"All items":
                             SETRANGE("Item No.");
                         BC6_Type::Item:
                             SETRANGE("Item No.", ItemNo);
                         BC6_Type::"Item Disc. Group":
                             SETRANGE("Item No.", ItemDiscGrCode);
-                    END;
+                    end;
                     //Fin GESTION_REMISE FG 06/12/06 NSC1.01
                     //<<MIGRATION NAV 2013
 
-                    IF FIND('-') THEN
-                        REPEAT
+                    if FIND('-') then
+                        repeat
                             ToPurchLineDisc := FromPurchLineDisc;
                             ToPurchLineDisc.INSERT;
-                        UNTIL NEXT = 0;
-                END;
-            END;
-        END;
+                        until NEXT = 0;
+                end;
+            end;
+        end;
     end;
 
     procedure PurchHeaderStartDate(var PurchHeader: Record "Purchase Header"; var DateCaption: Text[30]) StartDate: Date
@@ -1794,8 +1794,8 @@ codeunit 50202 "BC6_Functions Mgt"
     end;
 
     // function specifique codeunit 378 "Transfer Extended Text"
-    PROCEDURE InsertSalesExtTextSpe(VAR SalesLine: Record "Sales Line");
-    VAR
+    procedure InsertSalesExtTextSpe(var SalesLine: Record "Sales Line");
+    var
         ToSalesLine: Record "Sales Line";
         SalesHeader: Record "Sales Header";
         Item: Record Item;
@@ -1805,17 +1805,17 @@ codeunit 50202 "BC6_Functions Mgt"
         OKA: Boolean;
         NextLineNo: Integer; // TODO: check variable global dans la codeunit 378 "Transfer Extended Text"
         LineSpacing: Integer; // TODO: check variable global dans la codeunit 378 "Transfer Extended Text"
-        Text000: Label 'There is not enough space to insert extended text lines.', Comment = 'FRA="Il n''y a pas suffisamment de place pour ins‚rer des lignes texte ‚tendu."';
-    BEGIN
-        OKA := FALSE;
+        Text000: label 'There is not enough space to insert extended text lines.', Comment = 'FRA="Il n''y a pas suffisamment de place pour ins‚rer des lignes texte ‚tendu."';
+    begin
+        OKA := false;
 
-        IF SalesLine.Type = SalesLine.Type::Item THEN
-            OKA := TRUE
-        ELSE
-            EXIT;
+        if SalesLine.Type = SalesLine.Type::Item then
+            OKA := true
+        else
+            exit;
         Item.GET(SalesLine."No.");
         OKA := Item."Automatic Ext. Texts";
-        IF BooGAutoTextSpe = TRUE THEN BEGIN
+        if BooGAutoTextSpe = true then begin
 
             SalesHeader.GET(SalesLine."Document Type", SalesLine."Document No.");
             RecGTmpExtTexLineSpe.RESET;
@@ -1830,23 +1830,23 @@ codeunit 50202 "BC6_Functions Mgt"
 
             ToSalesLine := SalesLine;
 
-            IF ToSalesLine.FIND('>') THEN BEGIN
+            if ToSalesLine.FIND('>') then begin
                 LineSpacing :=
-                   (ToSalesLine."Line No." - SalesLine."Line No.") DIV
+                   (ToSalesLine."Line No." - SalesLine."Line No.") div
                    (1 + RecGTmpExtTexLineSpe.COUNT);
-                IF LineSpacing = 0 THEN
+                if LineSpacing = 0 then
                     ERROR(Text000);
 
 
-            END ELSE BEGIN
+            end else begin
                 LineSpacing := 10000;
-            END;
+            end;
 
 
             NextLineNo := SalesLine."Line No." + LineSpacing;
 
-            IF RecGTmpExtTexLineSpe.FIND('-') THEN BEGIN
-                REPEAT
+            if RecGTmpExtTexLineSpe.FIND('-') then begin
+                repeat
                     ToSalesLine.INIT;
                     ToSalesLine."Document Type" := SalesLine."Document Type";
                     ToSalesLine."Document No." := SalesLine."Document No.";
@@ -1855,16 +1855,16 @@ codeunit 50202 "BC6_Functions Mgt"
                     ToSalesLine.Description := RecGTmpExtTexLineSpe.Text;
                     ToSalesLine."Attached to Line No." := SalesLine."Line No.";
                     ToSalesLine.INSERT;
-                UNTIL RecGTmpExtTexLineSpe.NEXT = 0;
-                MakeUpdateRequired := TRUE;
-            END;
-        END;
-    END;
+                until RecGTmpExtTexLineSpe.NEXT = 0;
+                MakeUpdateRequired := true;
+            end;
+        end;
+    end;
 
 
     // function specifique codeunit 378 "Transfer Extended Text"
-    PROCEDURE InsertPurchExtTextSpe(VAR PurchLine: Record "Purchase Line");
-    VAR
+    procedure InsertPurchExtTextSpe(var PurchLine: Record "Purchase Line");
+    var
         ToPurchLine: Record "Purchase Line";
         PurchHeader: Record "Purchase Header";
         Item: Record Item;
@@ -1874,18 +1874,18 @@ codeunit 50202 "BC6_Functions Mgt"
         OKA: Boolean;
         NextLineNo: Integer; // TODO: check variable global dans la codeunit 378 "Transfer Extended Text"
         LineSpacing: Integer; // TODO: check variable global dans la codeunit 378 "Transfer Extended Text"
-    BEGIN
-        OKA := FALSE;
-        IF PurchLine.Type = PurchLine.Type::Item THEN
-            OKA := TRUE
-        ELSE
-            EXIT;
+    begin
+        OKA := false;
+        if PurchLine.Type = PurchLine.Type::Item then
+            OKA := true
+        else
+            exit;
 
         Item.GET(PurchLine."No.");
         OKA := Item."Automatic Ext. Texts";
 
 
-        IF BooGAutoTextSpe = TRUE THEN BEGIN
+        if BooGAutoTextSpe = true then begin
             PurchHeader.GET(PurchLine."Document Type", PurchLine."Document No.");
 
             RecGTmpExtTexLineSpe.RESET;
@@ -1899,19 +1899,19 @@ codeunit 50202 "BC6_Functions Mgt"
             ToPurchLine.SETRANGE("Document No.", PurchLine."Document No.");
 
             ToPurchLine := PurchLine;
-            IF ToPurchLine.FIND('>') THEN BEGIN
+            if ToPurchLine.FIND('>') then begin
                 LineSpacing :=
-                   (ToPurchLine."Line No." - PurchLine."Line No.") DIV
+                   (ToPurchLine."Line No." - PurchLine."Line No.") div
                    (1 + RecGTmpExtTexLineSpe.COUNT);
 
-            END ELSE BEGIN
+            end else begin
                 LineSpacing := 10000;
-            END;
+            end;
 
             NextLineNo := PurchLine."Line No." + LineSpacing;
 
-            IF RecGTmpExtTexLineSpe.FIND('-') THEN BEGIN
-                REPEAT
+            if RecGTmpExtTexLineSpe.FIND('-') then begin
+                repeat
                     ToPurchLine.INIT;
                     ToPurchLine."Document Type" := PurchLine."Document Type";
                     ToPurchLine."Document No." := PurchLine."Document No.";
@@ -1920,11 +1920,129 @@ codeunit 50202 "BC6_Functions Mgt"
                     ToPurchLine.Description := RecGTmpExtTexLineSpe.Text;
                     ToPurchLine."Attached to Line No." := PurchLine."Line No.";
                     ToPurchLine.INSERT;
-                UNTIL RecGTmpExtTexLineSpe.NEXT = 0;
-                MakeUpdateRequired := TRUE;
-            END;
-        END;
-    END;
+                until RecGTmpExtTexLineSpe.NEXT = 0;
+                MakeUpdateRequired := true;
+            end;
+        end;
+    end;
+
+    procedure ActivatedCampaignExists(var ToCampaignTargetGr: Record 7030; CustNo: Code[20]; ContNo: Code[20]; CampaignNo: Code[20]): Boolean;
+    var
+        FromCampaignTargetGr: Record 7030;
+        Cont: Record 5050;
+    begin
+        with FromCampaignTargetGr do begin
+            ToCampaignTargetGr.RESET;
+            ToCampaignTargetGr.DELETEALL;
+
+            if CampaignNo <> '' then begin
+                ToCampaignTargetGr."Campaign No." := CampaignNo;
+                ToCampaignTargetGr.INSERT;
+            end else begin
+                SETRANGE(Type, Type::Customer);
+                SETRANGE("No.", CustNo);
+                if FINDSET then
+                    repeat
+                        ToCampaignTargetGr := FromCampaignTargetGr;
+                        ToCampaignTargetGr.INSERT;
+                    until NEXT = 0
+                else begin
+                    if Cont.GET(ContNo) then begin
+                        SETRANGE(Type, Type::Contact);
+                        SETRANGE("No.", Cont."Company No.");
+                        if FINDSET then
+                            repeat
+                                ToCampaignTargetGr := FromCampaignTargetGr;
+                                ToCampaignTargetGr.INSERT;
+                            until NEXT = 0;
+                    end;
+                end;
+            end;
+            exit(ToCampaignTargetGr.FINDFIRST);
+        end;
+    end;
+    // COD 7000
+    procedure CopySalesDiscToSalesDisc(var FromSalesLineDisc: Record 7004; var ToSalesLineDisc: Record 7004);
+    begin
+        with ToSalesLineDisc do begin
+            if FromSalesLineDisc.FINDSET then
+                repeat
+                    ToSalesLineDisc := FromSalesLineDisc;
+                    INSERT;
+                until FromSalesLineDisc.NEXT = 0;
+        end;
+    end;
+
+    procedure FindSalesLineDisc(var ToSalesLineDisc: Record 7004; CustNo: Code[20]; ContNo: Code[20]; CustDiscGrCode: Code[10]; CampaignNo: Code[20]; ItemNo: Code[20]; ItemDiscGrCode: Code[10]; VariantCode: Code[10]; UOM: Code[10]; CurrencyCode: Code[10]; StartingDate: Date; ShowAll: Boolean; VendorNo: Code[20]);
+
+    var
+        FromSalesLineDisc: Record "Sales Line Discount";
+        SalesPriceCalMgt: codeunit "Sales Price Calc. Mgt.";
+        TempCampaignTargetGr: Record "Campaign Target Group" temporary;
+        InclCampaigns: Boolean;
+    begin
+        with FromSalesLineDisc do begin
+            SETFILTER("Ending Date", '%1|>=%2', 0D, StartingDate);
+            SETFILTER("Variant Code", '%1|%2', VariantCode, '');
+            if not ShowAll then begin
+                SETRANGE("Starting Date", 0D, StartingDate);
+                SETFILTER("Currency Code", '%1|%2', CurrencyCode, '');
+                if UOM <> '' then
+                    SETFILTER("Unit of Measure Code", '%1|%2', UOM, '');
+            end;
+
+            ToSalesLineDisc.RESET;
+            ToSalesLineDisc.DELETEALL;
+            for "Sales Type" := "Sales Type"::Customer to "Sales Type"::Campaign do
+                if ("Sales Type" = "Sales Type"::"All Customers") or
+                   (("Sales Type" = "Sales Type"::Customer) and (CustNo <> '')) or
+                   (("Sales Type" = "Sales Type"::"Customer Disc. Group") and (CustDiscGrCode <> '')) or
+                   (("Sales Type" = "Sales Type"::Campaign) and
+                    not ((CustNo = '') and (ContNo = '') and (CampaignNo = '')))
+                then begin
+                    InclCampaigns := false;
+
+                    SETRANGE("Sales Type", "Sales Type");
+                    case "Sales Type" of
+                        "Sales Type"::"All Customers":
+                            SETRANGE("Sales Code");
+                        "Sales Type"::Customer:
+                            SETRANGE("Sales Code", CustNo);
+                        "Sales Type"::"Customer Disc. Group":
+                            SETRANGE("Sales Code", CustDiscGrCode);
+                        "Sales Type"::Campaign:
+                            begin
+                                InclCampaigns := ActivatedCampaignExists(TempCampaignTargetGr, CustNo, ContNo, CampaignNo);
+                                SETRANGE("Sales Code", TempCampaignTargetGr."Campaign No.");
+                            end;
+                    end;
+
+                    repeat
+                        SETRANGE(Type, Type::Item);
+                        SETRANGE(Code, ItemNo);
+                        CopySalesDiscToSalesDisc(FromSalesLineDisc, ToSalesLineDisc);
+
+                        if ItemDiscGrCode <> '' then begin
+                            SETRANGE(Type, Type::"Item Disc. Group");
+                            SETRANGE(Code, ItemDiscGrCode);
+                            CopySalesDiscToSalesDisc(FromSalesLineDisc, ToSalesLineDisc);
+                        end;
+
+                        if VendorNo <> '' then begin
+                            SETRANGE(Type, Type::Vendor);
+                            SETRANGE(Code, VendorNo);
+                            CopySalesDiscToSalesDisc(FromSalesLineDisc, ToSalesLineDisc);
+                        end;
+
+                        if InclCampaigns then begin
+                            InclCampaigns := TempCampaignTargetGr.NEXT <> 0;
+                            SETRANGE("Sales Code", TempCampaignTargetGr."Campaign No.");
+                        end;
+                    until not InclCampaigns;
+                end;
+        end;
+    end;
+
 
     var
         EnableIncrPurchCost: Boolean;
@@ -1932,8 +2050,8 @@ codeunit 50202 "BC6_Functions Mgt"
         NextLineNoNewInsert: Integer;
         SalesOrderExists: Boolean;
         PurchaseOrderExists: Boolean;
-        Text50000: Label 'Sales Oder No., Purch Order No.', comment = 'FRA="N° Cde vente.,N° Cde achat."';
-        Text50001: Label '%1:';
+        Text50000: label 'Sales Oder No., Purch Order No.', comment = 'FRA="N° Cde vente.,N° Cde achat."';
+        Text50001: label '%1:';
         G_LinkedPurchOrderNo: Code[20];
         IsSAVReturnOrder: Boolean;
 

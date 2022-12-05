@@ -41,14 +41,14 @@ pageextension 50043 "BC6_SalesOrderStatistics" extends "Sales Order Statistics" 
 
         addafter("TotalAmount1[1]")
         {
-            field("TotalSalesLine[1].DEEE HT Amount"; TotalSalesLine[1]."BC6_DEEE HT Amount")
+            field("TotalSalesLine[1].""DEEE HT Amount"""; TotalSalesLine[1]."BC6_DEEE HT Amount")
             {
                 Caption = 'Total DEEE';
                 Style = StandardAccent;
                 StyleExpr = TRUE;
             }
 
-            field("TotalAmount1[1]+TotalSalesLine[1].DEEE HT Amount"; TotalAmount1[1] + TotalSalesLine[1]."BC6_DEEE HT Amount")
+            field("TotalAmount1[1]+TotalSalesLine[1].""DEEE HT Amount"""; TotalAmount1[1] + TotalSalesLine[1]."BC6_DEEE HT Amount")
             {
                 Caption = 'Total HT DEEE comprise';
                 Editable = false;
@@ -112,13 +112,13 @@ pageextension 50043 "BC6_SalesOrderStatistics" extends "Sales Order Statistics" 
 
         addafter("TempVATAmountLine3.COUNT")
         {
-            field(TotalSalesLineLCY[3]."DEEE HT Amount (LCY)";TotalSalesLineLCY[3]."DEEE HT Amount (LCY)")
-                {
-                    Caption = 'Montant DEEE (DS)';
-                    Style = StandardAccent;
-                    StyleExpr = TRUE;
-                }
+            field("TotalSalesLineLCY[3].""DEEE HT Amount (LCY)"""; TotalSalesLineLCY[3]."BC6_DEEE HT Amount (LCY)")
+            {
+                Caption = 'Montant DEEE (DS)';
+                Style = StandardAccent;
+                StyleExpr = TRUE;
             }
+        }
 
 
     }

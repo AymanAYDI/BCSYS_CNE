@@ -1,18 +1,17 @@
-report 50000 "Item rere"
+report 50000 "BC6_Item rere"
 {
     ProcessingOnly = true;
 
     dataset
     {
-        dataitem(DataItem1100267000; Table27)
+        dataitem(Item; Item)
         {
-            DataItemTableView = WHERE (Description = CONST (COLLIER EN INOX DE LIAISON));
+            DataItemTableView = WHERE(Description = CONST('COLLIER EN INOX DE LIAISON'));
 
             trigger OnAfterGetRecord()
             begin
-                IF Item."No." <> 'CEL0-031820' THEN BEGIN
+                IF Item."No." <> 'CEL0-031820' THEN
                     Item.RENAME('MIGRATION 2013');
-                END;
             end;
         }
     }

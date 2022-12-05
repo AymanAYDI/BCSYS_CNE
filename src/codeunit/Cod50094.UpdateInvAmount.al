@@ -8,22 +8,22 @@ codeunit 50094 "BC6_Update Inv. Amount"
         ItemJnlLine.RESET();
         ItemJnlLine.SETRANGE("Journal Template Name", 'INV');
         ItemJnlLine.FIND('-');
-        REPEAT
+        repeat
             CLEAR(Item);
-            IF Item.GET(ItemJnlLine."Item No.") THEN BEGIN
-                IF Item."Costing Method" = Item."Costing Method"::Standard THEN BEGIN
+            if Item.GET(ItemJnlLine."Item No.") then begin
+                if Item."Costing Method" = Item."Costing Method"::Standard then begin
                     Item."Unit Cost" := Item."Standard Cost";
-                    Item.MODIFY(FALSE);
-                END;
-                IF ItemJnlLine."Posting Date" <> InvDate THEN
+                    Item.MODIFY(false);
+                end;
+                if ItemJnlLine."Posting Date" <> InvDate then
                     ItemJnlLine.VALIDATE("Posting Date", InvDate);
                 ItemJnlLine."Unit Cost" := Item."Unit Cost";
                 ItemJnlLine."Unit Amount" := ItemJnlLine."Unit Cost";
                 ItemJnlLine.Amount := ROUND(ItemJnlLine.Quantity * ItemJnlLine."Unit Amount");
-                ItemJnlLine.MODIFY(TRUE);
+                ItemJnlLine.MODIFY(true);
                 Counter += 1;
-            END;
-        UNTIL ItemJnlLine.NEXT() = 0;
+            end;
+        until ItemJnlLine.NEXT() = 0;
 
 
         MESSAGE('%1 ligne(s) traitée(s)', Counter);

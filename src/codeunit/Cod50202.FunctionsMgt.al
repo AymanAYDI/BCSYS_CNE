@@ -4,7 +4,7 @@ codeunit 50202 "BC6_Functions Mgt"
     begin
     end;
 
-    procedure FindVeryBestCost(VAR RecLPurchaseLine: Record "Purchase Line"; RecLPurchaseHeader: Record "Purchase Header")
+    procedure FindVeryBestCost(var RecLPurchaseLine: Record "Purchase Line"; RecLPurchaseHeader: Record "Purchase Header")
     var
         Item: Record Item;
         PurchLineDisc: Record "Purchase Line Discount";
@@ -15,8 +15,8 @@ codeunit 50202 "BC6_Functions Mgt"
         ItemDirectUnitCost: Decimal;
         ItemDirectUnitCostBestDiscount: Decimal;
     begin
-        WITH RecLPurchaseLine DO
-            IF RecLPurchaseLine.Type = Type::Item THEN BEGIN
+        with RecLPurchaseLine do
+            if RecLPurchaseLine.Type = Type::Item then begin
 
                 //Prix unitaire
                 Item.RESET();
@@ -24,71 +24,64 @@ codeunit 50202 "BC6_Functions Mgt"
                 ItemDirectUnitCost := Item."Unit Price";
 
                 //Meilleur prix
-                IF PurPriCalMgt.PurchLinePriceExists(RecLPurchaseHeader, RecLPurchaseLine, FALSE) THEN BEGIN
+                if PurPriCalMgt.PurchLinePriceExists(RecLPurchaseHeader, RecLPurchaseLine, false) then begin
                     PurPriCalMgt.CalcBestDirectUnitCost(PurchPrice);
                     BestCost := PurchPrice."Direct Unit Cost";
-                END ELSE
+                end else
                     BestCost := 0;
 
                 //Meilleur remise
-                IF PurPriCalMgt.PurchLineLineDiscExists(RecLPurchaseHeader, RecLPurchaseLine, FALSE) THEN BEGIN
+                if PurPriCalMgt.PurchLineLineDiscExists(RecLPurchaseHeader, RecLPurchaseLine, false) then begin
                     PurPriCalMgt.CalcBestLineDisc(PurchLineDisc);
                     BestDiscount := PurchLineDisc."Line Discount %";
-                END ELSE
+                end else
                     BestDiscount := 0;
 
                 ItemDirectUnitCostBestDiscount := (ItemDirectUnitCost * (1 - BestDiscount / 100));
 
-                IF (BestCost <> 0) THEN BEGIN
-                    IF (ItemDirectUnitCostBestDiscount < BestCost) THEN BEGIN
+                if (BestCost <> 0) then begin
+                    if (ItemDirectUnitCostBestDiscount < BestCost) then begin
                         RecLPurchaseLine."Direct Unit Cost" := ItemDirectUnitCost;
                         RecLPurchaseLine."Line Discount %" := BestDiscount;
-                        RecLPurchaseLine."Allow Invoice Disc." := TRUE;
-                    END ELSE BEGIN
+                        RecLPurchaseLine."Allow Invoice Disc." := true;
+                    end else begin
                         RecLPurchaseLine."Direct Unit Cost" := BestCost;
                         RecLPurchaseLine."Line Discount %" := 0;
-                        RecLPurchaseLine."Allow Invoice Disc." := TRUE;
-                    END;
-                END ELSE BEGIN
+                        RecLPurchaseLine."Allow Invoice Disc." := true;
+                    end;
+                end else begin
                     RecLPurchaseLine."Direct Unit Cost" := ItemDirectUnitCost;
                     RecLPurchaseLine."Line Discount %" := BestDiscount;
-                    RecLPurchaseLine."Allow Invoice Disc." := TRUE;
-                END;
-            END;
+                    RecLPurchaseLine."Allow Invoice Disc." := true;
+                end;
+            end;
     end;
 
     //COD419
-    // PROCEDURE CopyAndRenameClientFile(OldFilePath: Text; DirectoryPath: Text; NewSubDirectoryName: Text) NewFilePath: Text;
-    // VAR
-    //     directory: Text;
-    //     NewFileName: Text;
-    //     fileMgt: Codeunit "File Management";
-    //     Text003: Label 'You must enter a file name.';
-    //     Text1100267000: Label 'You must enter a file name.';
-    //     Text1100267001: Label 'The directory %1 does not exist.';
-    PROCEDURE CopyAndRenameClientFile(OldFilePath: Text; DirectoryPath: Text; NewSubDirectoryName: Text) NewFilePath: Text;
-    VAR
+
+    procedure CopyAndRenameClientFile(OldFilePath: Text; DirectoryPath: Text; NewSubDirectoryName: Text) NewFilePath: Text;
+    var
         fileMgt: Codeunit "File Management";
-        Text003: Label 'You must enter a file name.';
-        Text1100267000: Label 'You must enter a file name.';
-        Text1100267001: Label 'The directory %1 does not exist.';
+        Text003: label 'You must enter a file name.';
+        Text1100267000: label 'You must enter a file name.';
+        Text1100267001: label 'The directory %1 does not exist.';
         directory: Text;
         NewFileName: Text;
-    BEGIN
-        IF OldFilePath = '' THEN
-            EXIT('');
+    begin
+        if OldFilePath = '' then
+            exit('');
         //TODO: dotnet
         // IF NOT ClientFileHelper.Exists(OldFilePath) THEN
         //     EXIT('');
 
         NewFileName := fileMgt.GetFileName(OldFilePath);
-        IF NewFileName = '' THEN
+        if NewFileName = '' then
             ERROR(Text003);
 
-        IF DirectoryPath = '' THEN
+        if DirectoryPath = '' then
             ERROR(Text1100267000);
 
-        IF NOT fileMgt.ServerDirectoryExists(DirectoryPath) THEN
+        if not fileMgt.ServerDirectoryExists(DirectoryPath) then
             ERROR(Text1100267001, DirectoryPath);
 
         directory := DirectoryPath;
@@ -110,8 +103,8 @@ codeunit 50202 "BC6_Functions Mgt"
         //TODO: dotnet
         // ClientFileHelper.Copy(OldFilePath, NewFilePath);
 
-        EXIT(NewFilePath);
-    END;
+        exit(NewFilePath);
+    end;
 
     procedure UpdateRec(var RecRef: RecordRef; ConvertVATProdPostingGroup: Boolean; ConvertGenProdPostingGroup: Boolean)
     var
@@ -180,7 +173,7 @@ codeunit 50202 "BC6_Functions Mgt"
     procedure WriteLogEntry(VATRateChangeLogEntry: Record "VAT Rate Change Log Entry")
     var
         VATRateChangeSetup: Record "VAT Rate Change Setup";
-        Text0009: Label 'Conversion cannot be performed before %1 is set to true.';
+        Text0009: label 'Conversion cannot be performed before %1 is set to true.';
     begin
         with VATRateChangeLogEntry do begin
             if Converted then
@@ -206,8 +199,8 @@ codeunit 50202 "BC6_Functions Mgt"
           VATAmount, VATAmountText, ProfitLCY, ProfitPct, TotalAdjCostLCY, DEEEHTAmount, DEEEVATAmount, DEEETTCAmount, DEEEHTAmountLCY);
     end;
 
-    PROCEDURE GetTaxAmountFromSalesOrder_CNE(SalesHeader: Record "Sales Header"): Decimal;
-    VAR
+    procedure GetTaxAmountFromSalesOrder_CNE(SalesHeader: Record "Sales Header"): Decimal;
+    var
         NewSalesLine: Record "Sales Line";
         NewSalesLineLCY: Record "Sales Line";
         SalesPost: Codeunit "Sales-Post";
@@ -219,7 +212,7 @@ codeunit 50202 "BC6_Functions Mgt"
         VATAmountText: Text[30];
     begin
         SumSalesLines(SalesHeader, QtyType::Invoicing, NewSalesLine, NewSalesLineLCY, VATAmount, VATAmountText, ProfitLCY, ProfitPct, TotalAdjCostLCY, NewSalesLine."BC6_DEEE HT Amount", NewSalesLine."BC6_DEEE VAT Amount", NewSalesLine."BC6_DEEE TTC Amount", NewSalesLine."BC6_DEEE HT Amount (LCY)");
-        EXIT(-1 * VATAmount);
+        exit(-1 * VATAmount);
     end;
 
     //event OnBeforeGetTaxAmountFromPurchaseOrder
@@ -266,39 +259,36 @@ codeunit 50202 "BC6_Functions Mgt"
     //         EXIT(VATAmount);
     //     END;
 
-    PROCEDURE ShowPostedConfirmationMessageCode(): Code[50];
-    BEGIN
-        EXIT(UPPERCASE('ShowPostedConfirmationMessage'));
-    END;
+    procedure ShowPostedConfirmationMessageCode(): Code[50];
+    begin
+        exit(UPPERCASE('ShowPostedConfirmationMessage'));
+    end;
 
     //COD 5063////////////////////////////
 
-    PROCEDURE "***CNE-ARCHIVAGE"();
-    BEGIN
-    END;
 
-    PROCEDURE ArchiveSalesDocumentWithoutMessage(VAR SalesHeader: Record "Sales Header");
+    procedure ArchiveSalesDocumentWithoutMessage(var SalesHeader: Record "Sales Header");
     var
         archMgt: Codeunit ArchiveManagement;
-    BEGIN
-        archMgt.StoreSalesDocument(SalesHeader, FALSE);
-    END;
+    begin
+        archMgt.StoreSalesDocument(SalesHeader, false);
+    end;
 
-    PROCEDURE PrintInvtPickHeaderCheck(WhseActivHeader: Record "Warehouse Activity Header"; HideDialog: Boolean);
-    VAR
+    procedure PrintInvtPickHeaderCheck(WhseActivHeader: Record "Warehouse Activity Header"; HideDialog: Boolean);
+    var
         //TODO:report
         // WhsePick: Report 50047;
         WhsePick2: Report "Picking List";
-    BEGIN
+    begin
         WhseActivHeader.SETRANGE("No.", WhseActivHeader."No.");
         //TODO:report
         // WhsePick.SETTABLEVIEW(WhseActivHeader);
         // WhsePick.InitRequest(0, FALSE, TRUE);
         // WhsePick.USEREQUESTPAGE(NOT HideDialog);
         // WhsePick.RUNMODAL;
-    END;
+    end;
 
-    procedure GetShipmentBin(LocationCode: Code[10]; VAR BinCod: Code[20]); // TODO: related to codeunit 7302
+    procedure GetShipmentBin(LocationCode: Code[10]; var BinCod: Code[20]); // TODO: related to codeunit 7302
     var
         Bin: Record Bin;
         Location: Record Location;
@@ -306,18 +296,18 @@ codeunit 50202 "BC6_Functions Mgt"
     begin
         GetLocation(LocationCode);
 
-        IF NOT Location."Bin Mandatory" THEN
-            EXIT;
+        if not Location."Bin Mandatory" then
+            exit;
 
-        IF Location."Directed Put-away and Pick" THEN
-            EXIT;
+        if Location."Directed Put-away and Pick" then
+            exit;
 
         Bin.RESET();
         Bin.SETRANGE("Location Code", Location.Code);
-        Bin.SETRANGE(Empty, TRUE);
-        Bin.SETRANGE("BC6_Sales Order Not Shipped", FALSE);
-        Bin.SETRANGE("BC6_To Make Available", TRUE);
-        IF Bin.FINDFIRST() THEN
+        Bin.SETRANGE(Empty, true);
+        Bin.SETRANGE("BC6_Sales Order Not Shipped", false);
+        Bin.SETRANGE("BC6_To Make Available", true);
+        if Bin.FINDFIRST() then
             BinCod := Bin.Code;
     end;
 
@@ -326,16 +316,14 @@ codeunit 50202 "BC6_Functions Mgt"
         Bin: Record Bin;
     begin
         Bin.SETRANGE("Location Code", LocationCode);
-        IF BinCod <> '' THEN
-            IF Bin.GET(LocationCode, BinCod) THEN;
+        if BinCod <> '' then
+            if Bin.GET(LocationCode, BinCod) then;
 
-        IF PAGE.RUNMODAL(0, Bin) = ACTION::LookupOK THEN
-            EXIT(Bin.Code);
+        if PAGE.RUNMODAL(0, Bin) = ACTION::LookupOK then
+            exit(Bin.Code);
     end;
 
-    PROCEDURE "--- MIGNAV2013 ---"();
-    BEGIN
-    END;
+
 
     // related to codeunit 73020
     PROCEDURE InsertTempWhseJnlLine2(ItemJnlLine: Record "Item Journal Line"; SourceType: Integer; SourceSubType: Integer; SourceNo: Code[20]; SourceLineNo: Integer; RefDoc: Integer; SourceType2: Integer; SourceSubType2: Integer; SourceNo2: Code[20]; SourceLineNo2: Integer; VAR TempWhseJnlLine: Record "Warehouse Journal Line" temporary; VAR NextLineNo: Integer);
@@ -345,6 +333,7 @@ codeunit 50202 "BC6_Functions Mgt"
         WMSMgmt: Codeunit "WMS Management";
     BEGIN
         WITH ItemJnlLine DO BEGIN
+
             WhseEntry.RESET();
             WhseEntry.SETCURRENTKEY("Source Type", "Source Subtype", "Source No.");
             WhseEntry.SETRANGE("BC6_Source Type 2", SourceType);
@@ -357,12 +346,12 @@ codeunit 50202 "BC6_Functions Mgt"
             WhseEntry.SETRANGE("BC6_Source Subtype 2", SourceSubType2);
             WhseEntry.SETRANGE("BC6_Source No. 2", SourceNo2);
             WhseEntry.SETRANGE("BC6_Source Line No. 2", SourceLineNo2);
-            IF WhseEntry.FIND('-') THEN
-                REPEAT
+            if WhseEntry.FIND('-') then
+                repeat
                     TempWhseJnlLine.INIT();
-                    IF WhseEntry."Entry Type" = WhseEntry."Entry Type"::"Positive Adjmt." THEN
+                    if WhseEntry."Entry Type" = WhseEntry."Entry Type"::"Positive Adjmt." then
                         "Entry Type" := "Entry Type"::"Negative Adjmt."
-                    ELSE
+                    else
                         "Entry Type" := "Entry Type"::"Positive Adjmt.";
                     Quantity := ABS(WhseEntry.Quantity);
                     "Quantity (Base)" := ABS(WhseEntry."Qty. (Base)");
@@ -386,18 +375,18 @@ codeunit 50202 "BC6_Functions Mgt"
                     TempWhseJnlLine."Line No." := NextLineNo;
                     TempWhseJnlLine."Serial No." := WhseEntry."Serial No.";
                     TempWhseJnlLine."Lot No." := WhseEntry."Lot No.";
-                    IF "Entry Type" = "Entry Type"::"Negative Adjmt." THEN BEGIN
+                    if "Entry Type" = "Entry Type"::"Negative Adjmt." then begin
                         TempWhseJnlLine."From Zone Code" := TempWhseJnlLine."Zone Code";
                         TempWhseJnlLine."From Bin Code" := TempWhseJnlLine."Bin Code";
-                    END ELSE BEGIN
+                    end else begin
                         TempWhseJnlLine."To Zone Code" := TempWhseJnlLine."Zone Code";
                         TempWhseJnlLine."To Bin Code" := TempWhseJnlLine."Bin Code";
-                    END;
+                    end;
                     TempWhseJnlLine.INSERT();
                     NextLineNo := TempWhseJnlLine."Line No." + 10000;
-                UNTIL WhseEntry.NEXT() = 0;
-        END;
-    END;
+                until WhseEntry.NEXT() = 0;
+        end;
+    end;
 
     procedure GetLocation(LocationCode: Code[10])// TODO: fonction dupliquée
     var
@@ -416,55 +405,55 @@ codeunit 50202 "BC6_Functions Mgt"
     end;
 
     // TODO: function specific related to codeunit 7324 "Whse.-Activity-Post"
-    PROCEDURE SetPostingDate(NewPostingDate: Date);
-    BEGIN
+    procedure SetPostingDate(NewPostingDate: Date);
+    begin
         PostingDate := NewPostingDate;
-    END;
+    end;
 
     // TODO:  specific function related to codeunit 10860 "Payment Management"
-    PROCEDURE VerifTierPayeur(OptLAccountType: Enum "Gen. Journal Account Type"; CodLNoTiers: Code[20]; CodLAppliesID: Code[20]): Boolean;
-    VAR
+    procedure VerifTierPayeur(OptLAccountType: Enum "Gen. Journal Account Type"; CodLNoTiers: Code[20]; CodLAppliesID: Code[20]): Boolean;
+    var
         RecLCustLedEntry: Record "Cust. Ledger Entry";
         RecLVendLedEntry: Record "Vendor Ledger Entry";
-    BEGIN
-        CASE OptLAccountType OF
+    begin
+        case OptLAccountType of
             OptLAccountType::Customer:
-                BEGIN
+                begin
                     RecLCustLedEntry.RESET();
                     RecLCustLedEntry.SETCURRENTKEY("BC6_Pay-to Customer No.", Open, Positive, "Due Date");
                     RecLCustLedEntry.SETRANGE("BC6_Pay-to Customer No.", CodLNoTiers);
-                    RecLCustLedEntry.SETRANGE(Open, TRUE);
+                    RecLCustLedEntry.SETRANGE(Open, true);
                     RecLCustLedEntry.SETFILTER("Customer No.", '<>%1', CodLNoTiers);
                     RecLCustLedEntry.SETFILTER("Applies-to ID", '%1*', CodLAppliesID);
-                    IF RecLCustLedEntry.FINDFIRST() THEN
-                        EXIT(TRUE)
-                    ELSE
-                        EXIT(FALSE);
-                END;
+                    if RecLCustLedEntry.FINDFIRST() then
+                        exit(true)
+                    else
+                        exit(false);
+                end;
             OptLAccountType::Vendor:
-                BEGIN
+                begin
                     RecLVendLedEntry.RESET();
                     RecLVendLedEntry.SETCURRENTKEY("BC6_Pay-to Vend. No.", Open, Positive, "Due Date");
                     RecLVendLedEntry.SETRANGE("BC6_Pay-to Vend. No.", CodLNoTiers);
-                    RecLVendLedEntry.SETRANGE(Open, TRUE);
+                    RecLVendLedEntry.SETRANGE(Open, true);
                     RecLVendLedEntry.SETFILTER("Vendor No.", '<>%1', CodLNoTiers);
                     RecLVendLedEntry.SETFILTER("Applies-to ID", '%1*', CodLAppliesID);
-                    IF RecLVendLedEntry.FINDFIRST() THEN
-                        EXIT(TRUE)
-                    ELSE
-                        EXIT(FALSE);
-                END;
-        END;
-    END;
+                    if RecLVendLedEntry.FINDFIRST() then
+                        exit(true)
+                    else
+                        exit(false);
+                end;
+        end;
+    end;
 
     // TODO:  specific function related to codeunit 10860 "Payment Management"
-    PROCEDURE CreateEntryTierPayeurCustomer(RecLInvPostingBuffer: Record "Payment Post. Buffer"; StepLedgerDescription: Text[50]);
-    VAR
+    procedure CreateEntryTierPayeurCustomer(RecLInvPostingBuffer: Record "Payment Post. Buffer"; StepLedgerDescription: Text[50]);
+    var
         RecLCustLedEntry: Record "Cust. Ledger Entry";
-        RecLInvPostingBufferCopy: ARRAY[2] OF Record "Payment Post. Buffer";
+        RecLInvPostingBufferCopy: array[2] of Record "Payment Post. Buffer";
         TierPayeurCree: Code[20];
         i: Integer;
-    BEGIN
+    begin
         //Creation des ecritures pour la partie CLIENT
 
         TierPayeurCree := '';
@@ -474,18 +463,18 @@ codeunit 50202 "BC6_Functions Mgt"
         RecLCustLedEntry.SETRANGE("BC6_Pay-to Customer No.", RecLInvPostingBuffer."Account No.");
         RecLCustLedEntry.SETRANGE("Applies-to ID", RecLInvPostingBuffer."Applies-to ID");
         RecLCustLedEntry.SETFILTER("Customer No.", '<>%1', RecLInvPostingBuffer."Account No.");
-        IF RecLCustLedEntry.FINDSET(FALSE, FALSE) THEN
-            REPEAT
-                IF TierPayeurCree <> RecLCustLedEntry."Customer No." THEN
+        if RecLCustLedEntry.FINDSET(false, false) then
+            repeat
+                if TierPayeurCree <> RecLCustLedEntry."Customer No." then
                     GenereEntryTierPayeurCustomer(RecLCustLedEntry, RecLInvPostingBuffer, StepLedgerDescription, i);
                 i += 1;
                 TierPayeurCree := RecLCustLedEntry."Customer No.";
-            UNTIL RecLCustLedEntry.NEXT() = 0;
-    END;
+            until RecLCustLedEntry.NEXT() = 0;
+    end;
 
     // TODO:  specific function related to codeunit 10860 "Payment Management"
-    PROCEDURE GenereEntryTierPayeurCustomer(RecLCustLedEntry: Record "Cust. Ledger Entry"; RecLInvPostingBuffer: Record "Payment Post. Buffer"; StepLedgerDescription: Text[50]; i: Integer);
-    VAR
+    procedure GenereEntryTierPayeurCustomer(RecLCustLedEntry: Record "Cust. Ledger Entry"; RecLInvPostingBuffer: Record "Payment Post. Buffer"; StepLedgerDescription: Text[50]; i: Integer);
+    var
         Currency: Record Currency;
         CurrExchRate: Record "Currency Exchange Rate";
         RecLCustLedEntry2: Record "Cust. Ledger Entry";
@@ -493,7 +482,7 @@ codeunit 50202 "BC6_Functions Mgt"
         AmountTot: Decimal;
         AmountTotDS: Decimal;
         Description2: Text[98];
-    BEGIN
+    begin
         RecLCustLedEntry2.RESET();
         RecLCustLedEntry2.SETCURRENTKEY("BC6_Pay-to Customer No.", "Applies-to ID", "Customer No.");
         RecLCustLedEntry2.SETRANGE("BC6_Pay-to Customer No.", RecLInvPostingBuffer."Account No.");
@@ -501,17 +490,17 @@ codeunit 50202 "BC6_Functions Mgt"
         RecLCustLedEntry2.SETFILTER("Customer No.", '<>%1', RecLInvPostingBuffer."Account No.");
 
         RecLCustLedEntry2.SETRANGE("Customer No.", RecLCustLedEntry."Customer No.");
-        IF RecLCustLedEntry2.FINDSET(FALSE, FALSE) THEN
-            REPEAT
+        if RecLCustLedEntry2.FINDSET(false, false) then
+            repeat
                 AmountTot += RecLCustLedEntry2."Amount to Apply";
-            UNTIL RecLCustLedEntry2.NEXT() = 0;
+            until RecLCustLedEntry2.NEXT() = 0;
 
-        IF RecLInvPostingBuffer."Currency Code" = '' THEN
+        if RecLInvPostingBuffer."Currency Code" = '' then
             Currency.InitRoundingPrecision()
-        ELSE BEGIN
+        else begin
             Currency.GET(RecLInvPostingBuffer."Currency Code");
             Currency.TESTFIELD("Amount Rounding Precision");
-        END;
+        end;
 
         AmountTotDS :=
             ROUND(
@@ -541,16 +530,16 @@ codeunit 50202 "BC6_Functions Mgt"
         RecLInvPostingBufferCopy."Auxiliary Entry No." := i;
         RecLInvPostingBufferCopy."BC6_Pay-to No." := RecLCustLedEntry."BC6_Pay-to Customer No.";
         RecLInvPostingBufferCopy.INSERT();
-    END;
+    end;
 
     // TODO:  specific function related to codeunit 10860 "Payment Management"
-    PROCEDURE CreateEntryTierPayeurVendor(RecLInvPostingBuffer: Record "Payment Post. Buffer"; StepLedgerDescription: Text[50]);
-    VAR
-        RecLInvPostingBufferCopy: ARRAY[2] OF Record "Payment Post. Buffer";
+    procedure CreateEntryTierPayeurVendor(RecLInvPostingBuffer: Record "Payment Post. Buffer"; StepLedgerDescription: Text[50]);
+    var
+        RecLInvPostingBufferCopy: array[2] of Record "Payment Post. Buffer";
         RecLVendLedEntry: Record "Vendor Ledger Entry";
         TierPayeurCree: Code[20];
         i: Integer;
-    BEGIN
+    begin
         //Creation des ecritures pour la partie FOURNISSEUR
 
         TierPayeurCree := '';
@@ -560,18 +549,18 @@ codeunit 50202 "BC6_Functions Mgt"
         RecLVendLedEntry.SETRANGE("BC6_Pay-to Vend. No.", RecLInvPostingBuffer."Account No.");
         RecLVendLedEntry.SETRANGE("Applies-to ID", RecLInvPostingBuffer."Applies-to ID");
         RecLVendLedEntry.SETFILTER("Vendor No.", '<>%1', RecLInvPostingBuffer."Account No.");
-        IF RecLVendLedEntry.FINDSET(FALSE, FALSE) THEN
-            REPEAT
-                IF TierPayeurCree <> RecLVendLedEntry."Vendor No." THEN
+        if RecLVendLedEntry.FINDSET(false, false) then
+            repeat
+                if TierPayeurCree <> RecLVendLedEntry."Vendor No." then
                     GenereEntryTierPayeurVendor(RecLVendLedEntry, RecLInvPostingBuffer, StepLedgerDescription, i);
                 i += 1;
                 TierPayeurCree := RecLVendLedEntry."Vendor No.";
-            UNTIL RecLVendLedEntry.NEXT() = 0;
-    END;
+            until RecLVendLedEntry.NEXT() = 0;
+    end;
 
     // TODO:  specific function related to codeunit 10860 "Payment Management"
-    PROCEDURE GenereEntryTierPayeurVendor(RecLVendLedEntry: Record "Vendor Ledger Entry"; RecLInvPostingBuffer: Record "Payment Post. Buffer"; StepLedgerDescription: Text[50]; i: Integer);
-    VAR
+    procedure GenereEntryTierPayeurVendor(RecLVendLedEntry: Record "Vendor Ledger Entry"; RecLInvPostingBuffer: Record "Payment Post. Buffer"; StepLedgerDescription: Text[50]; i: Integer);
+    var
         Currency: Record Currency;
         CurrExchRate: Record "Currency Exchange Rate";
         RecLInvPostingBufferCopy: Record "Payment Post. Buffer";
@@ -579,7 +568,7 @@ codeunit 50202 "BC6_Functions Mgt"
         AmountTot: Decimal;
         AmountTotDS: Decimal;
         Description2: Text[98];
-    BEGIN
+    begin
         RecLVendLedEntry2.RESET();
         RecLVendLedEntry2.SETCURRENTKEY("BC6_Pay-to Vend. No.", "Applies-to ID", "Vendor No.");
         RecLVendLedEntry2.SETRANGE("BC6_Pay-to Vend. No.", RecLInvPostingBuffer."Account No.");
@@ -587,17 +576,17 @@ codeunit 50202 "BC6_Functions Mgt"
         RecLVendLedEntry2.SETFILTER("Vendor No.", '<>%1', RecLInvPostingBuffer."Account No.");
 
         RecLVendLedEntry2.SETRANGE("Vendor No.", RecLVendLedEntry."Vendor No.");
-        IF RecLVendLedEntry2.FINDSET(FALSE, FALSE) THEN
-            REPEAT
+        if RecLVendLedEntry2.FINDSET(false, false) then
+            repeat
                 AmountTot += RecLVendLedEntry2."Amount to Apply";
-            UNTIL RecLVendLedEntry2.NEXT() = 0;
+            until RecLVendLedEntry2.NEXT() = 0;
 
-        IF RecLInvPostingBuffer."Currency Code" = '' THEN
+        if RecLInvPostingBuffer."Currency Code" = '' then
             Currency.InitRoundingPrecision()
-        ELSE BEGIN
+        else begin
             Currency.GET(RecLInvPostingBuffer."Currency Code");
             Currency.TESTFIELD("Amount Rounding Precision");
-        END;
+        end;
 
         AmountTotDS :=
             ROUND(
@@ -627,62 +616,62 @@ codeunit 50202 "BC6_Functions Mgt"
         RecLInvPostingBufferCopy."Auxiliary Entry No." := i;
         RecLInvPostingBufferCopy."BC6_Pay-to No." := RecLVendLedEntry."BC6_Pay-to Vend. No.";
         RecLInvPostingBufferCopy.INSERT();
-    END;
+    end;
 
-    PROCEDURE SetHideValidationDialog(NewHideValidationDialog: Boolean);
-    BEGIN
+    procedure SetHideValidationDialog(NewHideValidationDialog: Boolean);
+    begin
         HideValidationDialog := NewHideValidationDialog;
-    END;
+    end;
 
-    PROCEDURE GetHideValidationDialog(): Boolean;
-    BEGIN
+    procedure GetHideValidationDialog(): Boolean;
+    begin
         exit(HideValidationDialog);
-    END;
+    end;
 
-    PROCEDURE CheckReturnOrderMandatoryFields(PurchaseHeader: Record "Purchase Header");
-    VAR
+    procedure CheckReturnOrderMandatoryFields(PurchaseHeader: Record "Purchase Header");
+    var
         PurchaseLine: Record "Purchase Line";
-    BEGIN
-        WITH PurchaseHeader DO BEGIN
-            IF ("Document Type" = "Document Type"::"Return Order") THEN
-                IF "BC6_Return Order Type" = "BC6_Return Order Type"::SAV THEN BEGIN
+    begin
+        with PurchaseHeader do begin
+            if ("Document Type" = "Document Type"::"Return Order") then
+                if "BC6_Return Order Type" = "BC6_Return Order Type"::SAV then begin
 
                     PurchaseLine.RESET();
                     PurchaseLine.SETCURRENTKEY("Document Type", "Document No.", "Line No.");
                     PurchaseLine.SETRANGE(PurchaseLine."Document Type", "Document Type");
                     PurchaseLine.SETRANGE(PurchaseLine.Type, PurchaseLine.Type::Item);
                     PurchaseLine.SETRANGE(PurchaseLine."Document No.", "No.");
-                    IF PurchaseLine.FINDFIRST() THEN
-                        REPEAT
+                    if PurchaseLine.FINDFIRST() then
+                        repeat
                             PurchaseLine.TESTFIELD("Return Reason Code");
                             PurchaseLine.TESTFIELD("BC6_Solution Code");
                             PurchaseLine.TESTFIELD("BC6_Return Comment");
-                        UNTIL PurchaseLine.NEXT() = 0;
-                END;
-        END;
-    END;
+                        until PurchaseLine.NEXT() = 0;
+                end;
+        end;
+    end;
 
-    PROCEDURE CheckReturnOrderMandatoryFields(P_SalesHeader: Record "Sales Header");
-    VAR
+    procedure CheckReturnOrderMandatoryFields(P_SalesHeader: Record "Sales Header");
+    var
         L_SalesLine: Record "Sales Line";
-    BEGIN
-        WITH P_SalesHeader DO BEGIN
-            IF ("Document Type" = "Document Type"::"Return Order") THEN
-                IF "BC6_Return Order Type" = "BC6_Return Order Type"::SAV THEN BEGIN
+    begin
+        with P_SalesHeader do begin
+            if ("Document Type" = "Document Type"::"Return Order") then
+                if "BC6_Return Order Type" = "BC6_Return Order Type"::SAV then begin
                     L_SalesLine.RESET();
                     L_SalesLine.SETCURRENTKEY("Document Type", "Document No.", "Line No.");
                     L_SalesLine.SETRANGE(L_SalesLine."Document Type", "Document Type");
                     L_SalesLine.SETRANGE(L_SalesLine.Type, L_SalesLine.Type::Item);
                     L_SalesLine.SETRANGE(L_SalesLine."Document No.", "No.");
-                    IF L_SalesLine.FINDFIRST() THEN
-                        REPEAT
+                    if L_SalesLine.FINDFIRST() then
+                        repeat
                             L_SalesLine.TESTFIELD("Return Reason Code");
                             L_SalesLine.TESTFIELD("BC6_Solution Code");
                             L_SalesLine.TESTFIELD("BC6_Return Comment");
-                        UNTIL L_SalesLine.NEXT() = 0;
-                END;
-        END;
-    END;
+                        until L_SalesLine.NEXT() = 0;
+                end;
+        end;
+    end;
 
     var
         HideValidationDialog: Boolean;
@@ -707,63 +696,63 @@ codeunit 50202 "BC6_Functions Mgt"
     procedure CheckInTransitLocation(LocationCode: Code[10])
     var
         Location: Record Location;
-        UseInTransitLocationErr: Label 'You can use In-Transit location %1 for transfer orders only.';
+        UseInTransitLocationErr: label 'You can use In-Transit location %1 for transfer orders only.';
     begin
         if Location.IsInTransit(LocationCode) then
             Error(ErrorInfo.Create(StrSubstNo(UseInTransitLocationErr, LocationCode), true));
     end;
 
     //COD80
-    PROCEDURE IncrementDEEE(VAR Nombre: Decimal; Nombre2: Decimal);
-    BEGIN
+    procedure IncrementDEEE(var Nombre: Decimal; Nombre2: Decimal);
+    begin
         Nombre := Nombre + Nombre2;
-    END;
+    end;
 
-    PROCEDURE xUpdateShipmentInvoiced(RecPSalesInvoiceHeader: Record "Sales Invoice Header");
-    VAR
+    procedure xUpdateShipmentInvoiced(RecPSalesInvoiceHeader: Record "Sales Invoice Header");
+    var
         RecLShipmentInvoiced: Record "Shipment Invoiced";
         TxtLShipmentInvoiced: Text[250];
-    BEGIN
+    begin
         RecLShipmentInvoiced.RESET();
         RecLShipmentInvoiced.SETRANGE(RecLShipmentInvoiced."Invoice No.", RecPSalesInvoiceHeader."No.");
-        IF RecLShipmentInvoiced.FIND('-') THEN BEGIN
+        if RecLShipmentInvoiced.FIND('-') then begin
             TxtLShipmentInvoiced := '';
-            REPEAT
-                IF STRLEN(TxtLShipmentInvoiced) <= 229 THEN
-                    IF STRPOS(TxtLShipmentInvoiced, RecLShipmentInvoiced."Shipment No.") = 0 THEN
+            repeat
+                if STRLEN(TxtLShipmentInvoiced) <= 229 then
+                    if STRPOS(TxtLShipmentInvoiced, RecLShipmentInvoiced."Shipment No.") = 0 then
                         TxtLShipmentInvoiced := TxtLShipmentInvoiced + RecLShipmentInvoiced."Shipment No." + '-';
-            UNTIL RecLShipmentInvoiced.NEXT() = 0;
+            until RecLShipmentInvoiced.NEXT() = 0;
             RecPSalesInvoiceHeader."BC6_Shipment Invoiced" := COPYSTR(TxtLShipmentInvoiced, 1, STRLEN(TxtLShipmentInvoiced) - 1);
             RecPSalesInvoiceHeader.MODIFY();
-        END;
-    END;
+        end;
+    end;
 
     procedure Increment(var Number: Decimal; Number2: Decimal) //PROC dupliquée de COD80
     begin
         Number := Number + Number2;
     end;
 
-    PROCEDURE SetIncrPurchCost(Value: Boolean);
-    BEGIN
+    procedure SetIncrPurchCost(Value: Boolean);
+    begin
         EnableIncrPurchCost := Value;
-    END;
+    end;
 
-    PROCEDURE "**NSC1.01**"();
-    BEGIN
-    END;
+    procedure "**NSC1.01**"();
+    begin
+    end;
 
-    PROCEDURE CalcProfit(VAR SalesHeader: Record "Sales Header");
-    VAR
+    procedure CalcProfit(var SalesHeader: Record "Sales Header");
+    var
         Cust: Record Customer;
         SalesSetup: Record "Sales & Receivables Setup";
         rec_Order: Record "Sales Header";
         SalesLine: Record "Sales Line";
-        TempSalesLine: Record "Sales Line" TEMPORARY;
-        TotalSalesLine: ARRAY[3] OF Record "Sales Line";
-        TotalSalesLineLCY: ARRAY[3] OF Record "Sales Line";
-        TempVATAmountLine1: Record "VAT Amount Line" TEMPORARY;
-        TempVATAmountLine2: Record "VAT Amount Line" TEMPORARY;
-        TempVATAmountLine3: Record "VAT Amount Line" TEMPORARY;
+        TempSalesLine: Record "Sales Line" temporary;
+        TotalSalesLine: array[3] of Record "Sales Line";
+        TotalSalesLineLCY: array[3] of Record "Sales Line";
+        TempVATAmountLine1: Record "VAT Amount Line" temporary;
+        TempVATAmountLine2: Record "VAT Amount Line" temporary;
+        TempVATAmountLine3: Record "VAT Amount Line" temporary;
         SalesPost: Codeunit "Sales-Post";
         AllowInvDisc: Boolean;
         AllowVATDifference: Boolean;
@@ -772,15 +761,15 @@ codeunit 50202 "BC6_Functions Mgt"
         PrevNo: Code[20];
         CreditLimitLCYExpendedPct: Decimal;
         DecLTotalAdjCostLCY: Decimal;
-        ProfitLCY: ARRAY[3] OF Decimal;
-        ProfitPct: ARRAY[3] OF Decimal;
-        TotalAmount1: ARRAY[3] OF Decimal;
-        TotalAmount2: ARRAY[3] OF Decimal;
-        VATAmount: ARRAY[3] OF Decimal;
+        ProfitLCY: array[3] of Decimal;
+        ProfitPct: array[3] of Decimal;
+        TotalAmount1: array[3] of Decimal;
+        TotalAmount2: array[3] of Decimal;
+        VATAmount: array[3] of Decimal;
         ActiveTab: Option General,Invoicing,Shipping;
         PrevTab: Option General,Invoicing,Shipping;
-        VATAmountText: ARRAY[3] OF Text[30];
-    BEGIN
+        VATAmountText: array[3] of Text[30];
+    begin
         //MODIF pour utilis‚ le calcul specifique
         PrevNo := SalesHeader."No.";
         CLEAR(SalesLine);
@@ -800,35 +789,35 @@ codeunit 50202 "BC6_Functions Mgt"
         //   TotalSalesLine[3]."BC6_DEEE HT Amount", TotalSalesLine[3]."BC6_DEEE VAT Amount",
         //   TotalSalesLine[3]."BC6_DEEE TTC Amount", TotalSalesLine[3]."BC6_DEEE HT Amount (LCY)");
 
-        IF SalesHeader."Prices Including VAT" THEN BEGIN
+        if SalesHeader."Prices Including VAT" then begin
             TotalAmount2[3] := TotalSalesLine[3].Amount;
             TotalAmount1[3] := TotalAmount2[3] + VATAmount[3];
             TotalSalesLine[3]."Line Amount" := TotalAmount1[3] + TotalSalesLine[3]."Inv. Discount Amount";
-        END ELSE BEGIN
+        end else begin
             TotalAmount1[3] := TotalSalesLine[3].Amount;
             TotalAmount2[3] := TotalSalesLine[3]."Amount Including VAT";
-        END;
+        end;
 
-        TempVATAmountLine3.MODIFYALL(Modified, FALSE);
+        TempVATAmountLine3.MODIFYALL(Modified, false);
         SalesHeader."BC6_Sales LCY" := TotalSalesLineLCY[3].Amount;
         SalesHeader."BC6_Profit LCY" := ProfitLCY[3];
         SalesHeader."BC6_% Profit" := ProfitPct[3];
         SalesHeader.MODIFY()
-    END;
+    end;
 
     //COD82
-    PROCEDURE CalcProfit2(var SalesHeader: Record "Sales Header");
-    VAR
+    procedure CalcProfit2(var SalesHeader: Record "Sales Header");
+    var
         Cust: Record Customer;
         SalesSetup: Record "Sales & Receivables Setup";
         rec_Order: Record "Sales Header";
         SalesLine: Record "Sales Line";
-        TempSalesLine: Record "Sales Line" TEMPORARY;
-        TotalSalesLine: ARRAY[3] OF Record "Sales Line";
-        TotalSalesLineLCY: ARRAY[3] OF Record "Sales Line";
-        TempVATAmountLine1: Record "VAT Amount Line" TEMPORARY;
-        TempVATAmountLine2: Record "VAT Amount Line" TEMPORARY;
-        TempVATAmountLine3: Record "VAT Amount Line" TEMPORARY;
+        TempSalesLine: Record "Sales Line" temporary;
+        TotalSalesLine: array[3] of Record "Sales Line";
+        TotalSalesLineLCY: array[3] of Record "Sales Line";
+        TempVATAmountLine1: Record "VAT Amount Line" temporary;
+        TempVATAmountLine2: Record "VAT Amount Line" temporary;
+        TempVATAmountLine3: Record "VAT Amount Line" temporary;
         SalesPost: Codeunit "Sales-Post";
         AllowInvDisc: Boolean;
         AllowVATDifference: Boolean;
@@ -837,15 +826,15 @@ codeunit 50202 "BC6_Functions Mgt"
         PrevNo: Code[20];
         CreditLimitLCYExpendedPct: Decimal;
         DecLTotalAdjCostLCY: Decimal;
-        ProfitLCY: ARRAY[3] OF Decimal;
-        ProfitPct: ARRAY[3] OF Decimal;
-        TotalAmount1: ARRAY[3] OF Decimal;
-        TotalAmount2: ARRAY[3] OF Decimal;
-        VATAmount: ARRAY[3] OF Decimal;
+        ProfitLCY: array[3] of Decimal;
+        ProfitPct: array[3] of Decimal;
+        TotalAmount1: array[3] of Decimal;
+        TotalAmount2: array[3] of Decimal;
+        VATAmount: array[3] of Decimal;
         ActiveTab: OPTION General,Invoicing,Shipping;
         PrevTab: OPTION General,Invoicing,Shipping;
-        VATAmountText: ARRAY[3] OF Text[30];
-    BEGIN
+        VATAmountText: array[3] of Text[30];
+    begin
 
         PrevNo := SalesHeader."No.";
         CLEAR(SalesLine);
@@ -865,27 +854,27 @@ codeunit 50202 "BC6_Functions Mgt"
         //   TotalSalesLine[3]."BC6_DEEE HT Amount", TotalSalesLine[3]."BC6_DEEE VAT Amount",
         //   TotalSalesLine[3]."BC6_DEEE TTC Amount", TotalSalesLine[3]."BC6_DEEE HT Amount (LCY)");
 
-        IF SalesHeader."Prices Including VAT" THEN BEGIN
+        if SalesHeader."Prices Including VAT" then begin
             TotalAmount2[3] := TotalSalesLine[3].Amount;
             TotalAmount1[3] := TotalAmount2[3] + VATAmount[3];
             TotalSalesLine[3]."Line Amount" := TotalAmount1[3] + TotalSalesLine[3]."Inv. Discount Amount";
-        END ELSE BEGIN
+        end else begin
             TotalAmount1[3] := TotalSalesLine[3].Amount;
             TotalAmount2[3] := TotalSalesLine[3]."Amount Including VAT";
-        END;
+        end;
 
-        TempVATAmountLine3.MODIFYALL(Modified, FALSE);
+        TempVATAmountLine3.MODIFYALL(Modified, false);
         SalesHeader."BC6_Sales LCY" := TotalSalesLineLCY[3].Amount;
         SalesHeader."BC6_Profit LCY" := ProfitLCY[3];
         SalesHeader."BC6_% Profit" := ProfitPct[3];
         SalesHeader.MODIFY()
-    END;
+    end;
 
     //COD86
-    PROCEDURE UpdatePurchasedoc(var SalesOrderLine: Record "Sales Line"; SalesQuoteLine: Record "Sales Line");
-    VAR
+    procedure UpdatePurchasedoc(var SalesOrderLine: Record "Sales Line"; SalesQuoteLine: Record "Sales Line");
+    var
         RecLPurchLine: Record "Purchase Line";
-    BEGIN
+    begin
         RecLPurchLine.RESET();
         //>> MODIF HL 22/10/2012 SU-LALE cf appel TI127191
         RecLPurchLine.SETCURRENTKEY("BC6_Sales Document Type", "BC6_Sales Line No.", "BC6_Sales No.");
@@ -893,43 +882,43 @@ codeunit 50202 "BC6_Functions Mgt"
         RecLPurchLine.SETFILTER("BC6_Sales Document Type", '%1', SalesQuoteLine."Document Type");
         RecLPurchLine.SETFILTER("BC6_Sales Line No.", '%1', SalesQuoteLine."Line No.");
         RecLPurchLine.SETFILTER("BC6_Sales No.", SalesQuoteLine."Document No.");
-        IF RecLPurchLine.FIND('-') THEN
-            REPEAT
+        if RecLPurchLine.FIND('-') then
+            repeat
                 RecLPurchLine."BC6_Sales No." := SalesOrderLine."Document No.";
                 RecLPurchLine."BC6_Sales Line No." := SalesOrderLine."Line No.";
                 RecLPurchLine."BC6_Sales Document Type" := SalesOrderLine."Document Type";
-                RecLPurchLine.MODIFY(TRUE);
-            UNTIL RecLPurchLine.NEXT() = 0;
-    END;
+                RecLPurchLine.MODIFY(true);
+            until RecLPurchLine.NEXT() = 0;
+    end;
 
     //TODO : procedure CreateInvtPutAwayPick STD j'ai pas trouver des event pour inserer mon code donc j la dupliquer en+ la fct est utilisée juste dans des pages
-    PROCEDURE CreateInvtPutAwayPick();
-    VAR
+    procedure CreateInvtPutAwayPick();
+    var
         PurchHeader: Record "Purchase Header";
         WhseRequest: Record "Warehouse Request";
         RepLCreateInvtPutPickMvmt: Report "Create Invt Put-away/Pick/Mvmt";
-    BEGIN
+    begin
         PurchHeader.get();
         PurchHeader.TESTFIELD(Status, "Purchase Document Status"::Released);
         WhseRequest.RESET();
         WhseRequest.SETCURRENTKEY("Source Document", "Source No.");
-        CASE PurchHeader."Document Type" OF
+        case PurchHeader."Document Type" of
             PurchHeader."Document Type"::Order:
                 WhseRequest.SETRANGE("Source Document", WhseRequest."Source Document"::"Purchase Order");
             PurchHeader."Document Type"::"Return Order":
                 WhseRequest.SETRANGE("Source Document", WhseRequest."Source Document"::"Purchase Return Order");
-        END;
+        end;
         WhseRequest.SETRANGE("Source No.", PurchHeader."No.");
         RepLCreateInvtPutPickMvmt.SETTABLEVIEW(WhseRequest);
-        RepLCreateInvtPutPickMvmt.InitializeRequest(TRUE, FALSE, FALSE, TRUE, FALSE);
+        RepLCreateInvtPutPickMvmt.InitializeRequest(true, false, false, true, false);
         RepLCreateInvtPutPickMvmt.RUN();
-    END;
+    end;
 
     //TODO: //fct du std , j la dupliquer et effacer le reste du code qui ne sert a rien , cette fct est utilisé juste ds les pages on peut apres passer la valeur true simplement sans avoir besoin a cette fct
-    PROCEDURE ConfirmCloseUnposted(): Boolean;
-    BEGIN
-        EXIT(TRUE);
-    END;
+    procedure ConfirmCloseUnposted(): Boolean;
+    begin
+        exit(true);
+    end;
 
     procedure GetContactAsCompany2(Contact: Record Contact; var SearchContact: Record Contact): Boolean;
     var
@@ -951,22 +940,22 @@ codeunit 50202 "BC6_Functions Mgt"
                 _Bin.Get(_LocationCode, BinCode);
     end;
 
-    PROCEDURE SetYourReference(_YourRef: Text);
-    BEGIN
+    procedure SetYourReference(_YourRef: Text);
+    begin
         YourReference := _YourRef;
-    END;
+    end;
 
-    PROCEDURE FindVeryBestPrice(VAR RecLSalesLine: Record "Sales Line"; RecLSalesHeader: Record "Sales Header");
-    VAR
+    procedure FindVeryBestPrice(var RecLSalesLine: Record "Sales Line"; RecLSalesHeader: Record "Sales Header");
+    var
         Item: Record Item;
         PriceCalcMgt: Codeunit "Sales Price Calc. Mgt.";
         BestDiscount: Decimal;
         BestPrice: Decimal;
         ItemUnitPrice: Decimal;
         ItemUnitPriceBestDiscount: Decimal;
-    BEGIN
-        WITH RecLSalesLine DO BEGIN
-            IF RecLSalesLine.Type = Type::Item THEN BEGIN
+    begin
+        with RecLSalesLine do begin
+            if RecLSalesLine.Type = Type::Item then begin
 
                 PriceCalcMgt.SetCurrency(
                   RecLSalesHeader."Currency Code", RecLSalesHeader."Currency Factor", PriceCalcMgt.SalesHeaderExchDate(RecLSalesHeader));
@@ -978,49 +967,49 @@ codeunit 50202 "BC6_Functions Mgt"
                 Item.RESET();
                 Item.GET(RecLSalesLine."No.");
                 ItemUnitPrice := Item."Unit Price";
-                IF RecLSalesHeader."Prices Including VAT" THEN
+                if RecLSalesHeader."Prices Including VAT" then
                     ItemUnitPrice := ItemUnitPrice * (1 + RecLSalesLine."VAT %" / 100);
 
                 //Meilleur remise
-                IF PriceCalcMgt.SalesLineLineDiscExists(RecLSalesHeader, RecLSalesLine, FALSE) THEN BEGIN
+                if PriceCalcMgt.SalesLineLineDiscExists(RecLSalesHeader, RecLSalesLine, false) then begin
                     // PriceCalcMgt.CalcBestLineDisc(TempSalesLineDisc); TODO:
                     // BestDiscount := TempSalesLineDisc."Line Discount %"; TODO:
-                END ELSE BEGIN
+                end else begin
                     BestDiscount := 0;
-                END;
+                end;
 
                 //Meilleur prix
-                IF PriceCalcMgt.SalesLinePriceExists(RecLSalesHeader, RecLSalesLine, FALSE) THEN BEGIN
+                if PriceCalcMgt.SalesLinePriceExists(RecLSalesHeader, RecLSalesLine, false) then begin
                     // PriceCalcMgt.CalcBestUnitPrice(TempSalesPrice); TODO:
                     // BestPrice := TempSalesPrice."Unit Price" ; TODO:
-                END ELSE BEGIN
+                end else begin
                     BestPrice := 0;
-                END;
+                end;
 
                 ItemUnitPriceBestDiscount := (ItemUnitPrice * (1 - BestDiscount / 100));
 
-                IF (BestPrice <> 0) THEN BEGIN
-                    IF (ItemUnitPriceBestDiscount < BestPrice) THEN BEGIN
+                if (BestPrice <> 0) then begin
+                    if (ItemUnitPriceBestDiscount < BestPrice) then begin
                         RecLSalesLine."Unit Price" := ItemUnitPrice;
                         RecLSalesLine."Line Discount %" := BestDiscount;
-                        RecLSalesLine."Allow Line Disc." := TRUE;
-                        RecLSalesLine."Allow Invoice Disc." := TRUE;
-                    END ELSE BEGIN
+                        RecLSalesLine."Allow Line Disc." := true;
+                        RecLSalesLine."Allow Invoice Disc." := true;
+                    end else begin
                         RecLSalesLine."Unit Price" := BestPrice;
                         RecLSalesLine."Line Discount %" := 0;
-                        RecLSalesLine."Allow Line Disc." := FALSE;
-                        RecLSalesLine."Allow Invoice Disc." := TRUE;
-                    END;
-                END ELSE BEGIN
+                        RecLSalesLine."Allow Line Disc." := false;
+                        RecLSalesLine."Allow Invoice Disc." := true;
+                    end;
+                end else begin
                     RecLSalesLine."Unit Price" := ItemUnitPrice;
                     RecLSalesLine."Line Discount %" := BestDiscount;
-                    RecLSalesLine."Allow Line Disc." := TRUE;
-                    RecLSalesLine."Allow Invoice Disc." := TRUE;
-                END;
+                    RecLSalesLine."Allow Line Disc." := true;
+                    RecLSalesLine."Allow Invoice Disc." := true;
+                end;
                 PriceCalcMgt.ConvertPriceLCYToFCY('', RecLSalesLine."Unit Price");
-            END;
-        END;
-    END;
+            end;
+        end;
+    end;
 
     // Deplicated function from table "Warehouse Activity Line" Id 5767
     procedure UpdateReservation(TempWhseActivLine2: Record "Warehouse Activity Line" temporary; Deletion: Boolean)
@@ -1171,6 +1160,173 @@ codeunit 50202 "BC6_Functions Mgt"
             end;
             AppVendEnt.CalcApplnAmount();
         end;
+    end;
+    //COD90
+    PROCEDURE MntDivisionDEEE(DecPQtyPurchLine: Decimal; VAR PurchLine: Record "Purchase Line"); //COD90
+    var
+        GLSetup: Record "General Ledger Setup";
+    BEGIN
+        WITH PurchLine DO BEGIN
+            "BC6_DEEE HT Amount" := ROUND("BC6_DEEE HT Amount" * DecPQtyPurchLine / Quantity, 0.01);
+            IF ("VAT Calculation Type" = "VAT Calculation Type"::"Sales Tax") AND
+               (Quantity <> "Qty. to Invoice") AND
+               GLSetup."BC6_Sales Tax Recalcul"
+            THEN
+                "BC6_DEEE TTC Amount" :=
+                  "BC6_DEEE HT Amount" + 0
+            ELSE
+                "BC6_DEEE TTC Amount" := ROUND("BC6_DEEE TTC Amount" * DecPQtyPurchLine / Quantity);
+            "BC6_DEEE VAT Amount" := "BC6_DEEE TTC Amount" - "BC6_DEEE HT Amount";
+        END;
+    END;
+
+    //COD6620
+    procedure RecalculateSalesLineAmounts2(FromSalesLine: Record "Sales Line"; var ToSalesLine: Record "Sales Line"; Currency: Record Currency)
+    var
+        IsHandled: Boolean;
+    begin
+        IsHandled := false;
+        if IsHandled then
+            exit;
+
+        ToSalesLine.Validate("Unit Price", FromSalesLine."Unit Price");
+        ToSalesLine.Validate("Line Discount %", FromSalesLine."Line Discount %");
+        ToSalesLine.Validate(
+            "Line Discount Amount",
+            Round(FromSalesLine."Line Discount Amount", Currency."Amount Rounding Precision"));
+        ToSalesLine.Validate(
+            "Inv. Discount Amount",
+            Round(FromSalesLine."Inv. Discount Amount", Currency."Amount Rounding Precision"));
+    end;
+
+    procedure InitShipmentDateInLine2(SalesHeader: Record "Sales Header"; var SalesLine: Record "Sales Line")
+    begin
+        if SalesHeader."Shipment Date" <> 0D then
+            SalesLine."Shipment Date" := SalesHeader."Shipment Date"
+        else
+            SalesLine."Shipment Date" := WorkDate;
+    end;
+
+
+
+    procedure GetLastToSalesLineNo(ToSalesHeader: Record "Sales Header"): Decimal
+    var
+        ToSalesLine: Record "Sales Line";
+    begin
+        ToSalesLine.LockTable();
+        ToSalesLine.SetRange("Document Type", ToSalesHeader."Document Type");
+        ToSalesLine.SetRange("Document No.", ToSalesHeader."No.");
+        if ToSalesLine.FindLast() then
+            exit(ToSalesLine."Line No.");
+        exit(0);
+    end;
+
+    PROCEDURE Fct_SetProperties(NewCopyLinesExactly: Boolean);
+    BEGIN
+        BoolGCopyLinesExactly := NewCopyLinesExactly;
+    END;
+
+    PROCEDURE InsertOldOrders(FromSalesInvoiceLine: Record 113; ToSalesHeader: Record 36; VAR NextLineNo: Integer);
+    BEGIN
+        IF (ToSalesHeader."Document Type" = ToSalesHeader."Document Type"::"Return Order") AND (ToSalesHeader."BC6_Return Order Type" = ToSalesHeader."BC6_Return Order Type"::SAV) THEN BEGIN
+            NextLineNoNewInsert := NextLineNo;
+            InsertSalesAndPurOrderShptLine(FromSalesInvoiceLine, ToSalesHeader, NextLineNoNewInsert);
+            NextLineNo := NextLineNo + 10000;
+        END;
+    END;
+
+    PROCEDURE InsertSalesAndPurOrderShptLine(FromSalesInvoiceLine: Record 113; ToSalesHeader: Record 36; VAR NextLineNo: Integer);
+    VAR
+        L_ShipmentInvoiced: Record 10825;
+        L_SalesShptHeader: Record 110;
+        L_SalesHeader: Record 36;
+        L_PurchaseHeader: Record 38;
+        ToSalesLine2: Record 37;
+        LanguageManagement: Codeunit 43;
+        Text018: Label '%1 - %2:';
+    BEGIN
+        L_ShipmentInvoiced.RESET;
+        L_ShipmentInvoiced.SETCURRENTKEY("Invoice No.", "Invoice Line No.", "Shipment No.", "Shipment Line No.");
+        L_ShipmentInvoiced.SETRANGE("Invoice No.", FromSalesInvoiceLine."Document No.");
+        L_ShipmentInvoiced.SETRANGE("Invoice Line No.", FromSalesInvoiceLine."Line No.");
+        IF L_ShipmentInvoiced.FINDFIRST THEN
+            IF L_SalesShptHeader.GET(L_ShipmentInvoiced."Shipment No.") THEN
+                IF L_SalesHeader.GET(L_SalesHeader."Document Type"::Order, L_SalesShptHeader."Order No.") THEN BEGIN
+                    SalesOrderExists := TRUE;
+                    IF L_PurchaseHeader.GET(L_PurchaseHeader."Document Type"::Order, L_SalesHeader."BC6_Purchase No. Order Lien") THEN;
+                    PurchaseOrderExists := TRUE;
+                END;
+
+        G_LinkedPurchOrderNo := L_SalesShptHeader."Order No.";
+
+        IF SalesOrderExists THEN BEGIN
+            NextLineNo := NextLineNo + 10000;
+            ToSalesLine2.INIT;
+            ToSalesLine2."Line No." := NextLineNo;
+            ToSalesLine2."Document Type" := ToSalesHeader."Document Type";
+            ToSalesLine2."Document No." := ToSalesHeader."No.";
+
+            //TODO   // LanguageManagement.SetGlobalLanguageByCode(ToSalesHeader."Language Code");
+
+            IF PurchaseOrderExists THEN
+                ToSalesLine2.Description :=
+                STRSUBSTNO(
+                  Text018,
+                  COPYSTR(SELECTSTR(1, Text50000) + L_SalesShptHeader."Order No.", 1, 23),
+                  COPYSTR(SELECTSTR(2, Text50000) + L_SalesHeader."BC6_Purchase No. Order Lien", 1, 23))
+            ELSE
+                ToSalesLine2.Description :=
+                STRSUBSTNO(
+                  Text50001,
+                  COPYSTR(SELECTSTR(1, Text50000) + L_SalesShptHeader."Order No.", 1, 23));
+
+            //TODO     // LanguageManagement.RestoreGlobalLanguage;
+
+            ToSalesLine2.INSERT;
+        END;
+    END;
+
+    PROCEDURE SetSkipTestCreditLimit(NewSkipTestCreditLimit: Boolean);
+    var
+        SkipTestCreditLimit: Boolean;
+    BEGIN
+        SkipTestCreditLimit := NewSkipTestCreditLimit;
+    END;
+
+
+
+
+    PROCEDURE MntInverseDEEE(VAR RecLPurchLine: Record "Purchase Line");
+    BEGIN
+
+        WITH RecLPurchLine DO BEGIN
+            "BC6_DEEE HT Amount" := -"BC6_DEEE HT Amount";
+            "BC6_DEEE VAT Amount" := -"BC6_DEEE VAT Amount";
+            "BC6_DEEE TTC Amount" := -"BC6_DEEE TTC Amount";
+        END;
+    END;
+
+    PROCEDURE MntIncrDEEE(VAR RecLPurchLine: Record "Purchase Line");
+    var
+        GenJnlLine: Record "Gen. Journal Line";
+    BEGIN
+        IncrementDEEE(GenJnlLine."BC6_GDecMntHTDEEE", RecLPurchLine."BC6_DEEE HT Amount");
+        IncrementDEEE(GenJnlLine."BC6_GDecMntTTCDEEE", RecLPurchLine."BC6_DEEE TTC Amount");
+    END;
+
+    procedure UpdateInvoicePostBuffer(var InvoicePostBuffer: Record "Invoice Post. Buffer"; TempInvoicePostBuffer: Record "Invoice Post. Buffer" temporary)
+    var
+        FALineNo: Integer;
+        DeferralLineNo: Integer;
+        InvDefLineNo: Integer;
+
+    begin
+        InvoicePostBuffer.get(InvoicePostBuffer.Type, InvoicePostBuffer."G/L Account", InvoicePostBuffer."Gen. Bus. Posting Group", InvoicePostBuffer."Gen. Prod. Posting Group", InvoicePostBuffer."VAT Bus. Posting Group", InvoicePostBuffer."VAT Prod. Posting Group", InvoicePostBuffer."Tax Area Code", InvoicePostBuffer."Tax Group Code", InvoicePostBuffer."Tax Liable", InvoicePostBuffer."Use Tax", InvoicePostBuffer."Dimension Set ID", InvoicePostBuffer."Job No.", InvoicePostBuffer."Fixed Asset Line No.", InvoicePostBuffer."Deferral Code");
+        if InvoicePostBuffer.Type = InvoicePostBuffer.Type::"Fixed Asset" then begin
+            FALineNo := FALineNo + 1;
+            InvoicePostBuffer."Fixed Asset Line No." := FALineNo;
+        end;
+        TempInvoicePostBuffer.Update(InvoicePostBuffer, InvDefLineNo, DeferralLineNo);
     end;
 
 
@@ -1772,5 +1928,14 @@ codeunit 50202 "BC6_Functions Mgt"
 
     var
         EnableIncrPurchCost: Boolean;
+        BoolGCopyLinesExactly: Boolean;
+        NextLineNoNewInsert: Integer;
+        SalesOrderExists: Boolean;
+        PurchaseOrderExists: Boolean;
+        Text50000: Label 'Sales Oder No., Purch Order No.', comment = 'FRA="N° Cde vente.,N° Cde achat."';
+        Text50001: Label '%1:';
+        G_LinkedPurchOrderNo: Code[20];
+        IsSAVReturnOrder: Boolean;
+
         YourReference: Text; // related to SetYourReference function
 }

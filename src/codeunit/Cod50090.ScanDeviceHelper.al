@@ -1,57 +1,52 @@
 codeunit 50090 "BC6_ScanDeviceHelper"
 {
-
-    trigger OnRun()
-    begin
-    end;
-
     var
-        ConvertFrom: Label '&é"''(-è_çà';
-        ConvertTo: Label '1234567890';
-        ConfChange: Label 'Change default Bin Content for Item %1 ?';
+        ConvertFrom: label '&é"''(-è_çà';
+        ConvertTo: label '1234567890';
+        ConfChange: label 'Change default Bin Content for Item %1 ?', comment = 'FRA="Changer l''emplacement par défaut pour l''article %1 ?"';
 
 
     procedure ConvertScanData(_TextToConvert: Text): Text
     begin
-        EXIT(CONVERTSTR(_TextToConvert, ConvertFrom, ConvertTo));
+        exit(CONVERTSTR(_TextToConvert, ConvertFrom, ConvertTo));
     end;
 
 
     procedure ChangeDefaultBinContent(ItemNo: Code[20]; VariantCode: Code[10])
     var
-        BinContent: Record 7302;
-        BinContent2: Record 7302;
+        BinContent: Record "Bin Content";
+        BinContent2: Record "Bin Content";
     begin
-        IF CONFIRM(ConfChange, FALSE, ItemNo) THEN BEGIN
+        if CONFIRM(ConfChange, false, ItemNo) then begin
             BinContent.FILTERGROUP(4);
             BinContent.SETRANGE("Item No.", ItemNo);
             BinContent.SETRANGE("Variant Code", VariantCode);
             BinContent.FILTERGROUP(0);
-            IF ACTION::LookupOK = PAGE.RUNMODAL(PAGE::"Item Bin Contents", BinContent) THEN BEGIN
-                IF NOT BinContent.Default THEN BEGIN
+            if ACTION::LookupOK = PAGE.RUNMODAL(PAGE::"Item Bin Contents", BinContent) then begin
+                if not BinContent.Default then begin
                     BinContent2.SETRANGE("Item No.", ItemNo);
                     BinContent2.SETRANGE("Variant Code", VariantCode);
-                    BinContent2.SETRANGE(Default, TRUE);
-                    BinContent2.MODIFYALL(Default, FALSE);
+                    BinContent2.SETRANGE(Default, true);
+                    BinContent2.MODIFYALL(Default, false);
                     BinContent2 := BinContent;
-                    BinContent2.VALIDATE(Default, TRUE);
-                    BinContent2.MODIFY(TRUE);
-                END;
-            END;
+                    BinContent2.VALIDATE(Default, true);
+                    BinContent2.MODIFY(true);
+                end;
+            end;
 
-        END;
+        end;
     end;
 
 
     procedure GetDefaultBinContent(ItemNo: Code[20]; VariantCode: Code[10]): Code[20]
     var
-        BinContent: Record 7302;
+        BinContent: Record "Bin Content";
     begin
         BinContent.SETRANGE("Item No.", ItemNo);
         BinContent.SETRANGE("Variant Code", VariantCode);
-        BinContent.SETRANGE(Default, TRUE);
-        IF BinContent.FINDFIRST THEN
-            EXIT(BinContent."Bin Code");
+        BinContent.SETRANGE(Default, true);
+        if BinContent.FINDFIRST then
+            exit(BinContent."Bin Code");
     end;
 
 

@@ -11,23 +11,22 @@ codeunit 50006 "BC6_Create Pur. Ord From Sales"
     end;
 
     var
-        SalesSetup: Record "Sales & Receivables Setup";
-
-        Text001: Label 'Processing...  #1##########\';
-        Text002: Label 'Line No.       #3###########\';
-        Text003: Label 'Purchase Header          #3##########\';
-        Window: Dialog;
-        NewHeaderOk: Boolean;
         PurchHeader: Record "Purchase Header";
         PurchLine: Record "Purchase Line";
+        SalesSetup: Record "Sales & Receivables Setup";
         SalesLine: Record "Sales Line";
-        Text004: Label 'Nothing to Post';
-        VendorNo: Code[20];
-        SalesLineNo: Integer;
-        NextLineNo: Integer;
         InsertPurchHeaderOk: Boolean;
+        NewHeaderOk: Boolean;
+        VendorNo: Code[20];
+        Window: Dialog;
+        NextLineNo: Integer;
+        SalesLineNo: Integer;
 
-    [Scope('Internal')]
+        Text001: Label 'Processing...  #1##########\', Comment = 'FRA="Traitement... #1###########\"';
+        Text002: Label 'Line No.       #3###########\', Comment = 'FRA="Nø ligne       #2###########\"';
+        Text003: Label 'Purchase Header          #3##########\', Comment = 'FRA="Commande achat         #3###########\"';
+        Text004: Label 'Nothing to Post';
+
     procedure "Code"()
     begin
         SalesSetup.GET();
@@ -90,7 +89,6 @@ codeunit 50006 "BC6_Create Pur. Ord From Sales"
         Window.CLOSE();
     end;
 
-    [Scope('Internal')]
     procedure InsertPurchHeader(var FromPurchHeader: Record "Purchase Header"; var FromVendorNo: Code[20])
     begin
         // Insert Purchase Header
@@ -109,7 +107,6 @@ codeunit 50006 "BC6_Create Pur. Ord From Sales"
         END;
     end;
 
-    [Scope('Internal')]
     procedure InsertPurchLine(var SalesLine: Record "Sales Line")
     begin
         // Insert Purchase Line
@@ -143,7 +140,6 @@ codeunit 50006 "BC6_Create Pur. Ord From Sales"
         END;
     end;
 
-    [Scope('Internal')]
     procedure FinalizePurchHeader(FromPurchHeader: Record "Purchase Header")
     var
         //TODO  TransferExtendedText: Codeunit "Transfer Extended Text";

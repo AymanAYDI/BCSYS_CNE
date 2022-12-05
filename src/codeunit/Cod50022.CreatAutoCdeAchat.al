@@ -27,7 +27,7 @@ codeunit 50022 "BC6_Creat Auto Cde Achat"
         SETRANGE(Status, Status::Released);
         SETRANGE("Document Type", "Document Type"::Order);
 
-        IF FIND('-') THEN
+        IF FindFirst() THEN
             REPEAT
 
                 RecGPurchaseHeader.INIT();
@@ -39,12 +39,7 @@ codeunit 50022 "BC6_Creat Auto Cde Achat"
                 RecGPurchaseHeader.VALIDATE("Buy-from Vendor No.", RecGVendor."No.");
                 RecGPurchaseHeader.VALIDATE("Sell-to Customer No.", "Sell-to Customer No.");
                 RecGPurchaseHeader.VALIDATE("Requested Receipt Date", "Requested Delivery Date");
-                //>>PDW : le 13/07/2015 : prise en compte de la réf client.
-                //RecGPurchaseHeader.VALIDATE("Your Reference","No.");
                 RecGPurchaseHeader.VALIDATE("Your Reference", "Your Reference");
-                //<<PDW : le 13/07/2015
-
-                // Reprise de l'adresse de livraison
                 RecGPurchaseHeader."Ship-to Name" := "Ship-to Name";
                 RecGPurchaseHeader."Ship-to Name 2" := "Ship-to Name 2";
                 RecGPurchaseHeader."Ship-to Address" := "Ship-to Address";
@@ -114,20 +109,20 @@ codeunit 50022 "BC6_Creat Auto Cde Achat"
     end;
 
     var
+        RecGInfoSoc: Record "Company Information";
         RecGPartnerIC: Record "IC Partner";
-        RecGVendor: Record Vendor;
-        RecGSalesLines: Record "Sales Line";
-        RecGSalesHeader2: Record "Sales Header";
         RecGPurchaseHeader: Record "Purchase Header";
         RecGPurchaseLine: Record "Purchase Line";
-        RecGInfoSoc: Record "Company Information";
-        IntGNextLineNo: Integer;
-        DialogG: Dialog;
-        Text0001: Label 'Création Commandes Achats : #1##################/#2##################';
-        Text0002: Label 'Unable only one partner IC';
-        CuGICInOutboxMgt: Codeunit ICInboxOutboxMgt;
         RecGSalesHeader: Record "Sales Header";
+        RecGSalesHeader2: Record "Sales Header";
+        RecGSalesLines: Record "Sales Line";
+        RecGVendor: Record Vendor;
         CuGApprovalMgt: Codeunit "Approvals Mgmt.";
+        CuGICInOutboxMgt: Codeunit ICInboxOutboxMgt;
         CuGReleasePurchDoc: Codeunit "Release Purchase Document";
+        DialogG: Dialog;
+        IntGNextLineNo: Integer;
+        Text0001: Label 'Création Commandes Achats : #1##################/#2##################';
+        Text0002: Label 'Unable only one partner IC', Comment = 'FRA="Impossible uniquement 1 partenaire IC"';
 }
 

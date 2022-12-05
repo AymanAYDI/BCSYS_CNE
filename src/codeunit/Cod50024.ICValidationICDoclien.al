@@ -5,64 +5,64 @@ codeunit 50024 "BC6_IC Validation IC Doc lien"
     begin
         RecGCompagnyInfo.FINDFIRST();
 
-        IF RecGCompagnyInfo."BC6_Branch Company" = FALSE THEN
-            EXIT;
+        if RecGCompagnyInfo."BC6_Branch Company" = false then
+            exit;
 
         RecGDocIC.RESET();
-        RecGDocIC.SETRANGE(Validate, FALSE);
+        RecGDocIC.SETRANGE(Validate, false);
 
-        IF RecGDocIC.FIND('-') THEN
-            REPEAT
-                IF Rupture = '' THEN BEGIN
+        if RecGDocIC.FindFirst() then
+            repeat
+                if Rupture = '' then begin
                     CodeGAncPurchOrder := RecGDocIC."Purch Order IC No.";
                     Rupture := RecGDocIC."Shipment No." + RecGDocIC."Purch Order IC No.";
-                END;
-                IF Rupture <> STRSUBSTNO('%1%2', RecGDocIC."Shipment No.", RecGDocIC."Purch Order IC No.") THEN BEGIN
-                    IF RecGICPurchOrder.GET(RecGICPurchOrder."Document Type"::Order, CodeGAncPurchOrder) THEN BEGIN
-                        RecGICPurchOrder.Invoice := FALSE;
-                        RecGICPurchOrder.Receive := TRUE;
-                        IF CanBeReceived(RecGICPurchOrderLines, RecGICPurchOrder) THEN
+                end;
+                if Rupture <> STRSUBSTNO('%1%2', RecGDocIC."Shipment No.", RecGDocIC."Purch Order IC No.") then begin
+                    if RecGICPurchOrder.GET(RecGICPurchOrder."Document Type"::Order, CodeGAncPurchOrder) then begin
+                        RecGICPurchOrder.Invoice := false;
+                        RecGICPurchOrder.Receive := true;
+                        if CanBeReceived(RecGICPurchOrderLines, RecGICPurchOrder) then
                             CODEUNIT.RUN(CODEUNIT::"Purch.-Post", RecGICPurchOrder);
-                    END;
+                    end;
                     CodeGAncPurchOrder := RecGDocIC."Purch Order IC No.";
                     Rupture := RecGDocIC."Shipment No." + RecGDocIC."Purch Order IC No.";
-                END;
-                IF RecGICPurchOrderLines.GET(RecGICPurchOrderLines."Document Type"::Order, RecGDocIC."Purch Order IC No.", RecGDocIC."Purch Order IC Line") THEN BEGIN
-                    IF RecGICPurchOrderLines."Unit Cost" <> RecGDocIC."Purchase cost" THEN BEGIN
-                        RecGICPurchOrderLines.SuspendStatusCheck(TRUE);
+                end;
+                if RecGICPurchOrderLines.GET(RecGICPurchOrderLines."Document Type"::Order, RecGDocIC."Purch Order IC No.", RecGDocIC."Purch Order IC Line") then begin
+                    if RecGICPurchOrderLines."Unit Cost" <> RecGDocIC."Purchase cost" then begin
+                        RecGICPurchOrderLines.SuspendStatusCheck(true);
                         RecGICPurchOrderLines.VALIDATE("Direct Unit Cost", RecGDocIC."Purchase cost");
 
-                        IF RecGICSalesOrderLines.GET(RecGICSalesOrderLines."Document Type"::Order, RecGICPurchOrderLines."BC6_Sales No. Order Lien", RecGICPurchOrderLines."BC6_Sales No. Line Lien") THEN BEGIN
-                            RecGICSalesOrderLines.SuspendStatusCheck(TRUE);
+                        if RecGICSalesOrderLines.GET(RecGICSalesOrderLines."Document Type"::Order, RecGICPurchOrderLines."BC6_Sales No. Order Lien", RecGICPurchOrderLines."BC6_Sales No. Line Lien") then begin
+                            RecGICSalesOrderLines.SuspendStatusCheck(true);
                             RecGICSalesOrderLines.VALIDATE("BC6_Purchase cost", RecGDocIC."Purchase cost");
                             RecGICSalesOrderLines.MODIFY();
-                        END;
-                    END;
-                    IF RecGICPurchOrderLines."Outstanding Quantity" <> 0 THEN
-                        IF (RecGICPurchOrderLines.Quantity - (RecGICPurchOrderLines."Quantity Received" + RecGDocIC."Qty. to Receive")) >= 0 THEN
-                            IF (RecGICPurchOrderLines."Outstanding Quantity" >= RecGICPurchOrderLines.Quantity - (RecGICPurchOrderLines."Quantity Received" + RecGDocIC."Qty. to Receive")) THEN
+                        end;
+                    end;
+                    if RecGICPurchOrderLines."Outstanding Quantity" <> 0 then
+                        if (RecGICPurchOrderLines.Quantity - (RecGICPurchOrderLines."Quantity Received" + RecGDocIC."Qty. to Receive")) >= 0 then
+                            if (RecGICPurchOrderLines."Outstanding Quantity" >= RecGICPurchOrderLines.Quantity - (RecGICPurchOrderLines."Quantity Received" + RecGDocIC."Qty. to Receive")) then
                                 RecGICPurchOrderLines.VALIDATE("Qty. to Receive", RecGDocIC."Qty. to Receive")
-                            ELSE
+                            else
                                 RecGICPurchOrderLines.VALIDATE("Qty. to Receive", RecGICPurchOrderLines."Outstanding Quantity");
 
                     RecGICPurchOrderLines.MODIFY();
 
-                END;
-                RecGDocIC.Validate := TRUE;
+                end;
+                RecGDocIC.Validate := true;
                 RecGDocIC."Validate Date" := TODAY;
                 RecGDocIC.MODIFY();
 
-            UNTIL RecGDocIC.NEXT() <= 0;
+            until RecGDocIC.NEXT() <= 0;
 
-        IF CodeGAncPurchOrder <> '' THEN
-            IF RecGICPurchOrder.GET(RecGICPurchOrder."Document Type"::Order, CodeGAncPurchOrder) THEN BEGIN
-                RecGICPurchOrder.Invoice := FALSE;
-                RecGICPurchOrder.Receive := TRUE;
-                IF CanBeReceived(RecGICPurchOrderLines, RecGICPurchOrder) THEN
+        if CodeGAncPurchOrder <> '' then
+            if RecGICPurchOrder.GET(RecGICPurchOrder."Document Type"::Order, CodeGAncPurchOrder) then begin
+                RecGICPurchOrder.Invoice := false;
+                RecGICPurchOrder.Receive := true;
+                if CanBeReceived(RecGICPurchOrderLines, RecGICPurchOrder) then
                     CODEUNIT.RUN(CODEUNIT::"Purch.-Post", RecGICPurchOrder);
-            END;
+            end;
 
-        IF GUIALLOWED THEN
+        if GUIALLOWED then
             MESSAGE(Text001);
     end;
 
@@ -73,7 +73,7 @@ codeunit 50024 "BC6_IC Validation IC Doc lien"
         RecGICSalesOrderLines: Record "Sales Line";
         RecGICPurchOrder: Record "Purchase Header";
         CodeGAncPurchOrder: Code[20];
-        Text001: Label 'Treatment Completed';
+        Text001: Label 'Treatment Completed', Comment = 'FRA="Traitement Terminé"';
         Rupture: Code[50];
 
     local procedure CanBeReceived(var PurchLine2: Record "Purchase Line"; PurchHeader2: Record "Purchase Header") OK: Boolean
@@ -83,7 +83,7 @@ codeunit 50024 "BC6_IC Validation IC Doc lien"
         PurchLine2.SETRANGE("Document No.", PurchHeader2."No.");
         PurchLine2.SETFILTER("Qty. to Receive", '<>%1', 0);
 
-        OK := NOT PurchLine2.ISEMPTY;
+        OK := not PurchLine2.ISEMPTY;
         PurchLine2.SETRANGE("Qty. to Receive");
     end;
 }

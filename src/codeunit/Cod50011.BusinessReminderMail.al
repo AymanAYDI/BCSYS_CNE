@@ -13,25 +13,21 @@ codeunit 50011 "BC6_Business Reminder Mail"
     end;
 
     var
-        RecGUserSetup: Record "User Setup";
-        CstG0001: Label 'Affair No.';
-        CstG0002: Label 'Affair description';
-        CstG0003: Label 'Reminder date';
-        CstG0004: Label 'Description';
-        CstG0005: Label 'Result';
-        CstG0006: Label 'Affair Reminder';
-        Char1: Char;
         RecGUser: Record User;
-        AffaireResponsableEmail: Text[100];
+        RecGUserSetup: Record "User Setup";
+        Char1: Char;
+        CstG0001: Label 'Affair No.', Comment = 'FRA="Nø affaire"';
+        CstG0002: Label 'Affair description', Comment = 'FRA="Nom affaire"';
+        CstG0003: Label 'Reminder date', Comment = 'FRA="Date de relance"';
+        CstG0004: Label 'Description', Comment = 'FRA="Désignation"';
 
-    [Scope('Internal')]
     procedure FctGCreateMail(CodPUserID: Code[50])
     var
-        //TODO CduLSMTP: Codeunit 400;
+        //TODO//CHECK ME PLEASE !
+        // CduLSMTP: Codeunit 400;
         RecLAffaireSteps: Record "BC6_Affair Steps";
-
-        CduLSMTP: Codeunit "Email Message";
         Email: Codeunit "email";
+        CduLSMTP: Codeunit "Email Message";
     begin
         RecGUser.RESET();
         RecGUser.SETRANGE("User Name", CodPUserID);

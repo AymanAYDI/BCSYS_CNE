@@ -5,8 +5,8 @@ codeunit 50098 "Batch Upd. Cross Ref. Bar Code"
     begin
 
         InvSetup.GET();
-        InvSetup.TESTFIELD("BC6_Cross. Ref. Type No. BarCode");
-        CrossRefTypeNo := InvSetup."BC6_Cross. Ref. Type No. BarCode";
+        InvSetup.TESTFIELD("BC6_Cross.Ref.Type No.BarCode");
+        CrossRefTypeNo := InvSetup."BC6_Cross.Ref.Type No.BarCode";
 
         Counter := 0;
         ItemCrossReference.RESET();
@@ -39,13 +39,12 @@ codeunit 50098 "Batch Upd. Cross Ref. Bar Code"
         Item: Record Item;
         InvSetup: Record "Inventory Setup";
         ItemCrossReference: Record "Item Cross Reference";  //TODO: crossRef
-        ToItemCrossReference: Record "Item Cross Reference";
         CrossRefTypeNo: Code[20];
         Window: Dialog;
         Counter: Integer;
         TotalCounter: Integer;
-        Text001: Label 'Update Cross. Ref. Bar Code...';
+        Text001: Label 'Update Cross. Ref. Bar Code...', comment = 'FRA="Mise à jour magasin..."';
         Text002: Label '#1#####';
-        Text003: Label 'Update Cross. Ref. Bar Code...';
+        Text003: Label 'Update Cross. Ref. Bar Code...', comment = 'FRA="Mise à jour magasin..."';
 }
 

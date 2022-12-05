@@ -65,7 +65,7 @@ codeunit 50097 "BC6_Batch.Update Location"
         TotalCounter2: Integer;
         TotalCounter3: Integer;
         TotalCounter4: Integer;
-        Text001: Label 'Update Cross. Ref. Bar Code...';
+        Text001: Label 'Update Cross. Ref. Bar Code...', comment = 'FRA="Mise à jour magasin..."';
         Text002: Label 'Clients         #1### / #2###';
         Text003: Label 'Commandes vente #3### / #4###';
         Text004: Label 'Fournisseurs    #5### / #6###';

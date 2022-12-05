@@ -3,15 +3,10 @@ codeunit 50003 "BC6_Reconstitue lettrage FOU"
 
     Permissions = TableData "Vendor Ledger Entry" = rim;
 
-    trigger OnRun()
-    begin
-    end;
-
     var
         VendEntryApplyPostedEntries: Codeunit "BC6_VendEntry-Apply Posted SPE";
         flag: Text[100];
 
-    [Scope('Internal')]
     procedure InitialisationLettrage(VendLedgerEntry: Record "Vendor Ledger Entry")
     begin
 
@@ -25,7 +20,6 @@ codeunit 50003 "BC6_Reconstitue lettrage FOU"
         VendLedgerEntry.MODIFY();
     end;
 
-    [Scope('Internal')]
     procedure Lettrage(VendorNo: Code[20])
     var
         VendLedgerEntry: Record "Vendor Ledger Entry";
@@ -35,7 +29,7 @@ codeunit 50003 "BC6_Reconstitue lettrage FOU"
         VendLedgerEntry2.SETRANGE("Vendor No.", VendorNo);
         VendLedgerEntry2.SETFILTER("Applies-to ID", '<>%1', '');
         flag := 'jnpat';
-        IF VendLedgerEntry2.FIND('-') THEN
+        IF VendLedgerEntry2.FIND() THEN
             REPEAT
 
                 IF flag <> VendLedgerEntry2."Applies-to ID"
@@ -43,7 +37,7 @@ codeunit 50003 "BC6_Reconstitue lettrage FOU"
                     VendLedgerEntry.SETCURRENTKEY("Vendor No.", "Applies-to ID");
                     VendLedgerEntry.SETRANGE("Vendor No.", VendLedgerEntry2."Vendor No.");
                     VendLedgerEntry.SETRANGE(VendLedgerEntry."Applies-to ID", VendLedgerEntry2."Applies-to ID");
-                    VendLedgerEntry.FIND('-');
+                    VendLedgerEntry.FIND();
                     VendEntryApplyPostedEntries.RUN(VendLedgerEntry);
                     flag := VendLedgerEntry2."Applies-to ID";
                 END;

@@ -9,26 +9,26 @@ codeunit 50051 "BC6_tmp SH"
         GLEntry.SETRANGE("Source Type", GLEntry."Source Type"::Customer);
         GenJnlLine.SETRANGE("Journal Template Name", 'OD');
         GenJnlLine.SETRANGE("Journal Batch Name", 'COR');
-        GenJnlLine.DELETEALL(TRUE);
+        GenJnlLine.DELETEALL(true);
 
         LineNo := 10000;
-        IF CustLedgerEntry.FINDSET() THEN
-            REPEAT
+        if CustLedgerEntry.FINDSET() then
+            repeat
                 CustLedgerEntry.CALCFIELDS(Amount);
                 GLEntry.SETRANGE("Document No.", CustLedgerEntry."Document No.");
                 GLEntry.SETRANGE("Posting Date", CustLedgerEntry."Posting Date");
                 GLEntry.SETFILTER("G/L Account No.", '41*');
                 GLEntry.FINDFIRST();
                 GLEntry.CALCSUMS(Amount);
-                IF CustLedgerEntry."Document Type" = CustLedgerEntry."Document Type"::"Credit Memo" THEN
+                if CustLedgerEntry."Document Type" = CustLedgerEntry."Document Type"::"Credit Memo" then
                     CustLedgerEntry."BC6_DEEE TTC Amount" := CustLedgerEntry."BC6_DEEE TTC Amount" * -1;
-                IF ABS(GLEntry.Amount) <> ABS(CustLedgerEntry.Amount + CustLedgerEntry."BC6_DEEE TTC Amount") THEN BEGIN
+                if ABS(GLEntry.Amount) <> ABS(CustLedgerEntry.Amount + CustLedgerEntry."BC6_DEEE TTC Amount") then begin
                     LineNo := LineNo + 10000;
                     GenJnlLine.INIT();
                     GenJnlLine."Journal Template Name" := 'OD';
                     GenJnlLine."Journal Batch Name" := 'COR';
                     GenJnlLine."Line No." := LineNo;
-                    GenJnlLine."System-Created Entry" := TRUE;
+                    GenJnlLine."System-Created Entry" := true;
                     GenJnlLine."Account Type" := GenJnlLine."Account Type"::"G/L Account";
                     GenJnlLine.VALIDATE("Account No.", '708000');
                     GenJnlLine.VALIDATE("Posting Date", CustLedgerEntry."Posting Date");
@@ -44,9 +44,9 @@ codeunit 50051 "BC6_tmp SH"
                     GenJnlLine.VALIDATE(Amount, GLEntry.Amount - (CustLedgerEntry.Amount + CustLedgerEntry."BC6_DEEE TTC Amount"));
                     GenJnlLine.Description := COPYSTR(STRSUBSTNO('%1 %2 - Régul. Imputation DEEE', CustLedgerEntry."Document Type", CustLedgerEntry."Document No."), 1, MAXSTRLEN(GenJnlLine.Description));
                     GenJnlLine."Dimension Set ID" := CustLedgerEntry."Dimension Set ID";
-                    GenJnlLine.INSERT(TRUE);
-                END;
-            UNTIL CustLedgerEntry.NEXT() = 0;
+                    GenJnlLine.INSERT(true);
+                end;
+            until CustLedgerEntry.NEXT() = 0;
         MESSAGE('OK');
     end;
 

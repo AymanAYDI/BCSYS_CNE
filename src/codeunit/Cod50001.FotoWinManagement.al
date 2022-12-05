@@ -1,14 +1,10 @@
 codeunit 50001 "BC6_FotoWin Management"
 {
-    trigger OnRun()
-    begin
-    end;
 
     var
         RecGContact: Record Contact;
         RecGSalesSetup: Record "Sales & Receivables Setup";
 
-    [Scope('Internal')]
     procedure GetSalesTag(RecSalesHeader: Record "Sales Header")
     var
         TxtLString: Text[250];
@@ -24,7 +20,6 @@ codeunit 50001 "BC6_FotoWin Management"
         END;
     end;
 
-    [Scope('Internal')]
     procedure GetPurchTag(RecPurchHeader: Record "Purchase Header")
     var
         TxtLString: Text[250];

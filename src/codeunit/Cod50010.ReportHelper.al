@@ -1,11 +1,6 @@
 codeunit 50010 "BC6_ReportHelper"
 {
 
-    trigger OnRun()
-    begin
-    end;
-
-    [Scope('Internal')]
     procedure DownloadToClientFileName(ServerFileName: Text[250]; ToFile: Text[250]): Text[250]
     var
         ClientFileName: Text[250];

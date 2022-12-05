@@ -5,12 +5,12 @@ pageextension 50067 "BC6_SalesOrderStatistics" extends "Sales Order Statistics" 
         modify("AdjProfitLCY[1]")
         {
             Caption = 'Adjusted Profit (LCY)', Comment = 'FRA="Marge r‚elle DS"';
-            Visible = ShowRealProfit;
+            //TODO Visible = ShowRealProfit;
         }
         modify("AdjProfitPct[1]")
         {
             Caption = 'Adjusted Profit %', Comment = 'FRA="% marge r‚elle"';
-            Visible = ShowRealProfit;
+            // Visible = ShowRealProfit;
         }
         modify("TotalSalesLineLCY[1].""Unit Cost (LCY)""")
         {
@@ -20,22 +20,22 @@ pageextension 50067 "BC6_SalesOrderStatistics" extends "Sales Order Statistics" 
         modify("TotalAdjCostLCY[1]")
         {
             Caption = 'Adjusted Cost (LCY)', Comment = 'FRA="Co–t r‚el DS"';
-            Visible = ShowRealProfit;
+            // Visible = ShowRealProfit;
         }
         modify("AdjProfitLCY[2]")
         {
             Caption = 'Adjusted Profit (LCY)', Comment = 'FRA="Marge r‚elle DS"';
-            Visible = ShowRealProfit;
+            // Visible = ShowRealProfit;
         }
         modify("AdjProfitPct[2]")
         {
             Caption = 'Adjusted Profit %', Comment = 'FRA="% marge r‚elle"';
-            Visible = ShowRealProfit;
+            // Visible = ShowRealProfit;
         }
         modify("TotalAdjCostLCY[2]")
         {
             Caption = 'Adjusted Cost (LCY)', Comment = 'FRA="Co–t r‚el DS"';
-            Visible = ShowRealProfit;
+            // Visible = ShowRealProfit;
         }
 
 
@@ -119,11 +119,9 @@ pageextension 50067 "BC6_SalesOrderStatistics" extends "Sales Order Statistics" 
                     StyleExpr = TRUE;
                 }
         }
- }
+    }
   
    
-
-
     var
         "-MIGNAV2013-": Integer;
         "-DEEE1.00-": Integer;
@@ -136,6 +134,4 @@ pageextension 50067 "BC6_SalesOrderStatistics" extends "Sales Order Statistics" 
         "---BCSYS---": Integer;
         ShowRealProfit: Boolean;
         UserSetup: Record "User Setup";
-
-
 }

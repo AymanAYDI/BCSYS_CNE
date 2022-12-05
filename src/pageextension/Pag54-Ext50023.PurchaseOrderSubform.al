@@ -1,4 +1,4 @@
-pageextension 50123 "BC6_PurchaseOrderSubform" extends "Purchase Order Subform" //54
+pageextension 50023 "BC6_PurchaseOrderSubform" extends "Purchase Order Subform" //54
 {
 
     layout

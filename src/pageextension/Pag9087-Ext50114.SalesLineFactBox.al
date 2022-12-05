@@ -29,7 +29,7 @@ pageextension 50114 "BC6_SalesLineFactBox" extends "Sales Line FactBox"  //9087
             {
                 Caption = 'ACTI';
                 Visible = ShowAvaibility;
-                field("Available Inventory ACTI"; SalesInfoPaneMgt.CalcAvailableInventoryCNE(Rec, GR_ItemCNE))
+                field("Available Inventory ACTI"; FunctionMgt.CalcAvailableInventoryCNE(Rec, GR_ItemCNE))
                 {
                     ApplicationArea = Basic, Suite;
                     Caption = 'Available Inventory ACTI';
@@ -37,7 +37,7 @@ pageextension 50114 "BC6_SalesLineFactBox" extends "Sales Line FactBox"  //9087
                     ToolTip = 'Specifies the quantity of the item that is currently in inventory and not reserved for other demand.';
                     Visible = ShowAvaibility;
                 }
-                field("Item Availability ACTI"; SalesInfoPaneMgt.CalcAvailabilityCNE(Rec, GR_ItemCNE))
+                field("Item Availability ACTI"; FunctionMgt.CalcAvailabilityCNE(Rec, GR_ItemCNE))
                 {
                     ApplicationArea = Basic, Suite;
                     Caption = 'Item Availability ACTI';
@@ -52,7 +52,7 @@ pageextension 50114 "BC6_SalesLineFactBox" extends "Sales Line FactBox"  //9087
             {
                 Caption = 'METZ';
                 Visible = ShowAvaibility;
-                field("Available Inventory METZ"; SalesInfoPaneMgt.CalcAvailableInventoryMETZ(Rec, GR_ItemMETZ))
+                field("Available Inventory METZ"; FunctionMgt.CalcAvailableInventoryMETZ(Rec, GR_ItemMETZ))
                 {
                     ApplicationArea = Basic, Suite;
                     Caption = 'Available Inventory METZ';
@@ -60,7 +60,7 @@ pageextension 50114 "BC6_SalesLineFactBox" extends "Sales Line FactBox"  //9087
                     ToolTip = 'Specifies the quantity of the item that is currently in inventory and not reserved for other demand.';
                     Visible = ShowAvaibility;
                 }
-                field("Item Availability METZ"; SalesInfoPaneMgt.CalcAvailabilityMETZ(Rec, GR_ItemMETZ))
+                field("Item Availability METZ"; FunctionMgt.CalcAvailabilityMETZ(Rec, GR_ItemMETZ))
                 {
                     ApplicationArea = Basic, Suite;
                     Caption = 'Item Availability METZ';
@@ -75,13 +75,13 @@ pageextension 50114 "BC6_SalesLineFactBox" extends "Sales Line FactBox"  //9087
         }
         addafter("Reserved Requirements")
         {
-            field("BC6_CNE Inventory"; SalesInfoPaneMgt.CalcCNEInventory(Rec))
+            field("BC6_CNE Inventory"; FunctionMgt.CalcCNEInventory(Rec))
             {
                 Caption = 'CNE Inventory';
                 Visible = ShowCNEInfo;
                 ApplicationArea = All;
             }
-            field("BC6_CNE Qty. on Purch. Order"; SalesInfoPaneMgt.CalcCNEQtyOnPurchOrder(Rec))
+            field("BC6_CNE Qty. on Purch. Order"; FunctionMgt.CalcCNEQtyOnPurchOrder(Rec))
             {
                 Caption = 'CNE Qty. on Purch. Order';
                 Visible = ShowCNEInfo;
@@ -90,7 +90,7 @@ pageextension 50114 "BC6_SalesLineFactBox" extends "Sales Line FactBox"  //9087
         }
         addafter(Item)
         {
-            field(AvailabilityToPick; STRSUBSTNO('%1', SalesInfoPaneMgt.CalcQtyAvailToPick(Rec)))
+            field(AvailabilityToPick; STRSUBSTNO('%1', FunctionMgt.CalcQtyAvailToPick(Rec)))
             {
                 Caption = 'Availa&bility To Pick';
                 ApplicationArea = All;
@@ -100,14 +100,14 @@ pageextension 50114 "BC6_SalesLineFactBox" extends "Sales Line FactBox"  //9087
                     SalesInfoPaneMgt.LookupItem(Rec);
                 end;
             }
-            field(QtyOnPurchOrder; STRSUBSTNO('%1', SalesInfoPaneMgt.CalcQtyOnPurchOrder(Rec)))
+            field(QtyOnPurchOrder; STRSUBSTNO('%1', FunctionMgt.CalcQtyOnPurchOrder(Rec)))
             {
                 Caption = 'Qty. on Purch. Order';
                 ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
-                    SalesInfoPaneMgt.LookupQtyOnPurchOrder(Rec);
+                    FunctionMgt.LookupQtyOnPurchOrder(Rec);
                 end;
             }
         }
@@ -118,6 +118,7 @@ pageextension 50114 "BC6_SalesLineFactBox" extends "Sales Line FactBox"  //9087
         GR_ItemMETZ: Record 27;
         ShowAvaibility: Boolean;
         ShowCNEInfo: Boolean;
+        FunctionMgt: Codeunit "BC6_Functions Mgt";
 
 
 

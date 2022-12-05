@@ -1,4 +1,4 @@
-pageextension 50004 "BC6_GeneralLedgerEntries" extends "General Ledger Entries" //20
+pageextension 50003 "BC6_GeneralLedgerEntries" extends "General Ledger Entries" //20
 {
     layout
     {

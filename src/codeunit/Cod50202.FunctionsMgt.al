@@ -1164,7 +1164,132 @@ codeunit 50202 "BC6_Functions Mgt"
         end;
     end;
 
+
+    //COD6620
+    procedure RecalculateSalesLineAmounts2(FromSalesLine: Record "Sales Line"; var ToSalesLine: Record "Sales Line"; Currency: Record Currency)
+    var
+        IsHandled: Boolean;
+    begin
+        IsHandled := false;
+        if IsHandled then
+            exit;
+
+        ToSalesLine.Validate("Unit Price", FromSalesLine."Unit Price");
+        ToSalesLine.Validate("Line Discount %", FromSalesLine."Line Discount %");
+        ToSalesLine.Validate(
+            "Line Discount Amount",
+            Round(FromSalesLine."Line Discount Amount", Currency."Amount Rounding Precision"));
+        ToSalesLine.Validate(
+            "Inv. Discount Amount",
+            Round(FromSalesLine."Inv. Discount Amount", Currency."Amount Rounding Precision"));
+    end;
+
+    procedure InitShipmentDateInLine2(SalesHeader: Record "Sales Header"; var SalesLine: Record "Sales Line")
+    begin
+        if SalesHeader."Shipment Date" <> 0D then
+            SalesLine."Shipment Date" := SalesHeader."Shipment Date"
+        else
+            SalesLine."Shipment Date" := WorkDate;
+    end;
+
+
+
+    procedure GetLastToSalesLineNo(ToSalesHeader: Record "Sales Header"): Decimal
+    var
+        ToSalesLine: Record "Sales Line";
+    begin
+        ToSalesLine.LockTable();
+        ToSalesLine.SetRange("Document Type", ToSalesHeader."Document Type");
+        ToSalesLine.SetRange("Document No.", ToSalesHeader."No.");
+        if ToSalesLine.FindLast() then
+            exit(ToSalesLine."Line No.");
+        exit(0);
+    end;
+
+    PROCEDURE Fct_SetProperties(NewCopyLinesExactly: Boolean);
+    BEGIN
+        BoolGCopyLinesExactly := NewCopyLinesExactly;
+    END;
+
+ PROCEDURE InsertOldOrders(FromSalesInvoiceLine: Record 113; ToSalesHeader: Record 36; VAR NextLineNo: Integer);
+    BEGIN
+        IF (ToSalesHeader."Document Type" = ToSalesHeader."Document Type"::"Return Order") AND (ToSalesHeader."BC6_Return Order Type" = ToSalesHeader."BC6_Return Order Type"::SAV) THEN BEGIN
+            NextLineNoNewInsert := NextLineNo;
+            InsertSalesAndPurOrderShptLine(FromSalesInvoiceLine, ToSalesHeader, NextLineNoNewInsert);
+            NextLineNo := NextLineNo + 10000;
+        END;
+    END;
+
+    PROCEDURE InsertSalesAndPurOrderShptLine(FromSalesInvoiceLine: Record 113; ToSalesHeader: Record 36; VAR NextLineNo: Integer);
+    VAR
+        L_ShipmentInvoiced: Record 10825;
+        L_SalesShptHeader: Record 110;
+        L_SalesHeader: Record 36;
+        L_PurchaseHeader: Record 38;
+        ToSalesLine2: Record 37;
+        LanguageManagement: Codeunit 43;
+        Text018: Label '%1 - %2:';
+    BEGIN
+        L_ShipmentInvoiced.RESET;
+        L_ShipmentInvoiced.SETCURRENTKEY("Invoice No.", "Invoice Line No.", "Shipment No.", "Shipment Line No.");
+        L_ShipmentInvoiced.SETRANGE("Invoice No.", FromSalesInvoiceLine."Document No.");
+        L_ShipmentInvoiced.SETRANGE("Invoice Line No.", FromSalesInvoiceLine."Line No.");
+        IF L_ShipmentInvoiced.FINDFIRST THEN
+            IF L_SalesShptHeader.GET(L_ShipmentInvoiced."Shipment No.") THEN
+                IF L_SalesHeader.GET(L_SalesHeader."Document Type"::Order, L_SalesShptHeader."Order No.") THEN BEGIN
+                    SalesOrderExists := TRUE;
+                    IF L_PurchaseHeader.GET(L_PurchaseHeader."Document Type"::Order, L_SalesHeader."BC6_Purchase No. Order Lien") THEN;
+                    PurchaseOrderExists := TRUE;
+                END;
+
+        G_LinkedPurchOrderNo := L_SalesShptHeader."Order No.";
+
+        IF SalesOrderExists THEN BEGIN
+            NextLineNo := NextLineNo + 10000;
+            ToSalesLine2.INIT;
+            ToSalesLine2."Line No." := NextLineNo;
+            ToSalesLine2."Document Type" := ToSalesHeader."Document Type";
+            ToSalesLine2."Document No." := ToSalesHeader."No.";
+
+            //TODO   // LanguageManagement.SetGlobalLanguageByCode(ToSalesHeader."Language Code");
+
+            IF PurchaseOrderExists THEN
+                ToSalesLine2.Description :=
+                STRSUBSTNO(
+                  Text018,
+                  COPYSTR(SELECTSTR(1, Text50000) + L_SalesShptHeader."Order No.", 1, 23),
+                  COPYSTR(SELECTSTR(2, Text50000) + L_SalesHeader."BC6_Purchase No. Order Lien", 1, 23))
+            ELSE
+                ToSalesLine2.Description :=
+                STRSUBSTNO(
+                  Text50001,
+                  COPYSTR(SELECTSTR(1, Text50000) + L_SalesShptHeader."Order No.", 1, 23));
+
+            //TODO     // LanguageManagement.RestoreGlobalLanguage;
+
+            ToSalesLine2.INSERT;
+        END;
+    END;
+
+    PROCEDURE SetSkipTestCreditLimit(NewSkipTestCreditLimit: Boolean);
+    var
+        SkipTestCreditLimit: Boolean;
+    BEGIN
+        SkipTestCreditLimit := NewSkipTestCreditLimit;
+    END;
+
+
+
     var
         EnableIncrPurchCost: Boolean;
+        BoolGCopyLinesExactly: Boolean;
+        NextLineNoNewInsert: Integer;
+        SalesOrderExists: Boolean;
+        PurchaseOrderExists: Boolean;
+        Text50000: Label 'Sales Oder No., Purch Order No.', comment = 'FRA="N° Cde vente.,N° Cde achat."';
+        Text50001: Label '%1:';
+        G_LinkedPurchOrderNo: Code[20];
+        IsSAVReturnOrder: Boolean;
+
         YourReference: Text; // related to SetYourReference function
 }

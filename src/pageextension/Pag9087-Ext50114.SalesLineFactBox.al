@@ -54,7 +54,7 @@ pageextension 50114 "BC6_SalesLineFactBox" extends "Sales Line FactBox"  //9087
                 Visible = ShowAvaibility;
                 field("Available Inventory METZ"; SalesInfoPaneMgt.CalcAvailableInventoryMETZ(Rec, GR_ItemMETZ))
                 {
-                    ApplicationArea = Basic, Suite;f
+                    ApplicationArea = Basic, Suite;
                     Caption = 'Available Inventory METZ';
                     //TODO // DecimalPlaces = 0 : 5;
                     ToolTip = 'Specifies the quantity of the item that is currently in inventory and not reserved for other demand.';

@@ -1,4 +1,4 @@
-enum 50011 "BC6_CurrentMenuTypeOpt"
+enum 50022 "BC6_CurrentMenuTypeOpt"
 {
     Extensible = true;
 

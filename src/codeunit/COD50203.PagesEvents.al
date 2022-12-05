@@ -570,6 +570,20 @@ codeunit 50203 "BC6_PagesEvents"
         Commit();
     end;
 
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Release Purchase Document", 'OnBeforeReleasePurchaseDoc', '', false, false)]
+
+    local procedure COD415_OnBeforeReleasePurchaseDoc(var PurchaseHeader: Record "Purchase Header"; PreviewMode: Boolean)
+    var
+        HideValidationDialog: Boolean;
+        FctMngt: Codeunit "BC6_Functions Mgt";
+    begin
+        IF PurchaseHeader."Document Type" = PurchaseHeader."Document Type"::Order THEN BEGIN
+            FctMngt.SetHideValidationDialog(HideValidationDialog);
+            IF PurchaseHeader.ControleMinimMNTandQTE THEN
+                EXIT;
+        END;
+        //TODO: checkMe ! 
+    end;
 
 
 }

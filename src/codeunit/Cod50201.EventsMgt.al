@@ -2431,9 +2431,7 @@ ItemJnlLine."Document No.",
         RecLSalesLine: Record "Sales Line";
 
     begin
-        //>>MIGRATION NAV 2013
         SalesHeader.TESTFIELD("Shipment Method Code", '');
-        //>> MODIF HL 17/05/2011 SU-LALE cf appel TI046353
         // on vient v‚rifier si dans le devis les articles ne sont pas bloqu‚s.
         RecLSalesLine.SETRANGE("Document Type", SalesHeader."Document Type");
         RecLSalesLine.SETRANGE("Document No.", SalesHeader."No.");
@@ -2444,8 +2442,6 @@ ItemJnlLine."Document No.",
                 RecLItem.GET(RecLSalesLine."No.");
                 RecLItem.TESTFIELD(Blocked, false);
             until RecLSalesLine.NEXT() = 0;
-        //<< MODIF HL 17/05/2011 SU-LALE cf appel TI046353
-        //<<MIGRATION NAV 2013
     end;
 
     //COD 86
@@ -2458,24 +2454,30 @@ ItemJnlLine."Document No.",
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Quote to Order", 'OnBeforeTransferQuoteLineToOrderLineLoop', '', false, false)]
-    local procedure OnBeforeTransferQuoteLineToOrderLineLoop(var SalesQuoteLine: Record "Sales Line"; var SalesQuoteHeader: Record "Sales Header"; var SalesOrderHeader: Record "Sales Header"; var IsHandled: Boolean)
+    local procedure COD86_OnBeforeTransferQuoteLineToOrderLineLoop(var SalesQuoteLine: Record "Sales Line"; var SalesQuoteHeader: Record "Sales Header"; var SalesOrderHeader: Record "Sales Header"; var IsHandled: Boolean)
+    var
+        Location: record location;
     begin
-
-        // IF (SalesQuoteLine.Type = SalesQuoteLine.Type::Item) AND (SalesQuoteLine."No." <> '') THEN
-        //     SalesQuoteLine.TESTFIELD("Purchasing Code");
-        // CLEAR(Location);
-        // IF (SalesQuoteLine."Location Code" <> '') THEN BEGIN
-        //     Location.GET(SalesQuoteLine."Location Code");
-        //     Location.TESTFIELD(Blocked, FALSE);
-        //     IF Location."Bin Mandatory" THEN
-        //         SalesQuoteLine.TESTFIELD("Bin Code");
-        // END; //TODO Blocked & location are globales variables
+        Location.get(Location.code);
+        if not IsHandled then begin
+            IF (SalesQuoteLine.Type = SalesQuoteLine.Type::Item) AND (SalesQuoteLine."No." <> '') THEN
+                SalesQuoteLine.TESTFIELD("Purchasing Code");
+            CLEAR(Location);
+            IF (SalesQuoteLine."Location Code" <> '') THEN BEGIN
+                Location.GET(SalesQuoteLine."Location Code");
+                //TODO Location.TESTFIELD(Blocked, FALSE); //blocked is a global var ! 
+                IF Location."Bin Mandatory" THEN
+                    SalesQuoteLine.TESTFIELD("Bin Code");
+            END;
+        end;
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Quote to Order", 'OnBeforeTransferQuoteLineToOrderLineLoop', '', false, false)]
     local procedure COD86_OnAfterInsertSalesOrderHeader(var SalesOrderHeader: Record "Sales Header"; SalesQuoteHeader: Record "Sales Header")
     begin
-        SalesOrderHeader."BC6_Bin Code" := SalesOrderHeader."BC6_Bin Code";
+        if SalesOrderHeader."Posting Date" <> 0D then
+            SalesOrderHeader."BC6_Bin Code" := SalesOrderHeader."BC6_Bin Code";
+        SalesOrderHeader.Modify();
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Quote to Order", 'OnBeforeDeleteSalesQuote', '', false, false)]
@@ -2483,17 +2485,28 @@ ItemJnlLine."Document No.",
     local procedure COD86_OnBeforeDeleteSalesQuote(var QuoteSalesHeader: Record "Sales Header"; var OrderSalesHeader: Record "Sales Header"; var IsHandled: Boolean; var SalesQuoteLine: Record "Sales Line")
     var
         RecGParmNavi: Record "BC6_Navi+ Setup";
+        SalesCommentLine: Record "Sales Comment Line";
+
         ApprovalsMgmt: Codeunit "Approvals Mgmt.";
         RecGArchiveManagement: Codeunit ArchiveManagement;
 
     begin
-        //TODO if not IsHandled then begin
-        //     ApprovalsMgmt.DeleteApprovalEntries(RecordId);
-        //     SalesCommentLine.DeleteComments(QuoteSalesHeader."Document Type".AsInteger(), QuoteSalesHeader."No.");
-        //     QuoteSalesHeader.DeleteLinks;
-        //     QuoteSalesHeader.Delete;
-        //     SalesQuoteLine.DeleteAll();
-        // end;
+
+        if not IsHandled then begin
+            ApprovalsMgmt.DeleteApprovalEntries(QuoteSalesHeader.RecordId);
+            SalesCommentLine.DeleteComments(QuoteSalesHeader."Document Type".AsInteger(), QuoteSalesHeader."No.");
+            //>>MIGRATION NAV 2013
+            IF RecGParmNavi.GET THEN
+                IF RecGParmNavi."Filing Sales Quotes" THEN BEGIN
+                    QuoteSalesHeader."BC6_Cause filing" := QuoteSalesHeader."BC6_Cause filing"::"Change in Order";
+                    QuoteSalesHeader.MODIFY;
+                    RecGArchiveManagement.StoreSalesDocument(QuoteSalesHeader, FALSE);
+                END;
+            //<<MIGRATION NAV 2013
+            QuoteSalesHeader.DeleteLinks;
+            QuoteSalesHeader.Delete;
+            SalesQuoteLine.DeleteAll();
+        end;
     end;
 
 
@@ -2766,7 +2779,7 @@ ItemJnlLine."Document No.",
     begin
         Rec.verifyquotestatus;
     end;
-    
+
     [EventSubscriber(ObjectType::Page, Page::"Item Card", 'OnAfterInitControls', '', true, false)]
     procedure OnAfterInitControls()
     var
@@ -2795,5 +2808,6 @@ ItemJnlLine."Document No.",
             BooGBlocked := false;
         end;
     end;
+
 
 }

@@ -50,5 +50,17 @@ tableextension 50020 "BC6_GenJournalLine" extends "Gen. Journal Line" //81
             TableRelation = Vendor;
             DataClassification = CustomerContent;
         }
+        //TODO: c'est dans champs de type decimal seront utiliser dans le COD90
+        field(80808; BC6_GDecMntTTCDEEE; Decimal)
+        {
+            Caption = 'GDecMntTTCDEEE', comment = 'FRA=""';
+            DataClassification = CustomerContent;
+        }
+        field(80809; BC6_GDecMntHTDEEE; Decimal)
+        {
+            Caption = 'GDecMntHTDEEE', comment = 'FRA=""';
+            DataClassification = CustomerContent;
+        }
+
     }
 }

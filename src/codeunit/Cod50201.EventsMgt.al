@@ -3518,8 +3518,8 @@ then begin
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Transfer Extended Text", 'OnSalesCheckIfAnyExtTextOnBeforeSetFilters', '', false, false)]
     local procedure OnSalesCheckIfAnyExtTextOnBeforeSetFilters(var SalesLine: Record "Sales Line"; var AutoText: Boolean; Unconditionally: Boolean)
     var
-        RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line"; // TODO: check variable global
-        BooGAutoTextSpe: Boolean; // TODO: check variable global pour test 
+        RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line";
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
     begin
         if Unconditionally then
             AutoText := true
@@ -3527,14 +3527,14 @@ then begin
             case SalesLine.Type of
                 SalesLine.Type::Item:
                     begin
-                        BooGAutoTextSpe := FALSE;
+                        GlobalFunctionMgt.SetAutoTextSpe(false);
                         RecGTmpExtTexLineSpe.RESET;
                         RecGTmpExtTexLineSpe.SETRANGE("Table Name", RecGTmpExtTexLineSpe."Table Name"::Customer);
                         RecGTmpExtTexLineSpe.SETRANGE(Code, SalesLine."Sell-to Customer No.");
                         RecGTmpExtTexLineSpe.SETRANGE("No.", SalesLine."No.");
                         IF RecGTmpExtTexLineSpe.FIND('-') THEN BEGIN
                             AutoText := TRUE;
-                            BooGAutoTextSpe := TRUE;
+                            GlobalFunctionMgt.SetAutoTextSpe(true);
                             Unconditionally := TRUE;
                         END;
                     end;
@@ -3544,16 +3544,16 @@ then begin
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Transfer Extended Text", 'OnSalesCheckIfAnyExtTextAutoText', '', false, false)]
     local procedure OnSalesCheckIfAnyExtTextAutoText(var ExtendedTextHeader: Record "Extended Text Header"; var SalesHeader: Record "Sales Header"; var SalesLine: Record "Sales Line"; Unconditionally: Boolean; var MakeUpdateRequired: Boolean)
     var
-        RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line"; // TODO: check variable global
-        BooGAutoTextSpe: Boolean; // TODO: check variable global pour test 
+        RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line";
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
     begin
-        BooGAutoTextSpe := FALSE;
+        GlobalFunctionMgt.SetAutoTextSpe(false);
         RecGTmpExtTexLineSpe.RESET;
         RecGTmpExtTexLineSpe.SETRANGE("Table Name", RecGTmpExtTexLineSpe."Table Name"::Customer);
         RecGTmpExtTexLineSpe.SETRANGE(Code, SalesLine."Sell-to Customer No.");
         RecGTmpExtTexLineSpe.SETRANGE("No.", SalesLine."No.");
         IF RecGTmpExtTexLineSpe.FIND('-') THEN BEGIN
-            BooGAutoTextSpe := TRUE;
+            GlobalFunctionMgt.SetAutoTextSpe(true);
             Unconditionally := TRUE;
         END;
     end;
@@ -3561,8 +3561,8 @@ then begin
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Transfer Extended Text", 'OnPurchCheckIfAnyExtTextOnBeforeSetFilters', '', false, false)]
     local procedure OnPurchCheckIfAnyExtTextOnBeforeSetFilters(var PurchaseLine: Record "Purchase Line"; var AutoText: Boolean; Unconditionally: Boolean)
     var
-        RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line"; // TODO: check variable global
-        BooGAutoTextSpe: Boolean; // TODO: check variable global pour test 
+        RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line";
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt"; 
     begin
 
         if Unconditionally then
@@ -3571,14 +3571,14 @@ then begin
             case PurchaseLine.Type of
                 PurchaseLine.Type::Item:
                     begin
-                        BooGAutoTextSpe := FALSE;
+                        GlobalFunctionMgt.SetAutoTextSpe(false);
                         RecGTmpExtTexLineSpe.RESET;
                         RecGTmpExtTexLineSpe.SETRANGE("Table Name", RecGTmpExtTexLineSpe."Table Name"::Vendor);
                         RecGTmpExtTexLineSpe.SETRANGE(Code, PurchaseLine."Buy-from Vendor No.");
                         RecGTmpExtTexLineSpe.SETRANGE("No.", PurchaseLine."No.");
                         IF RecGTmpExtTexLineSpe.FIND('-') THEN BEGIN
                             AutoText := TRUE;
-                            BooGAutoTextSpe := TRUE;
+                            GlobalFunctionMgt.SetAutoTextSpe(true);
                             Unconditionally := TRUE;
                         END;
                     end;
@@ -3588,16 +3588,16 @@ then begin
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Transfer Extended Text", 'OnPurchCheckIfAnyExtTextAutoText', '', false, false)]
     local procedure OnPurchCheckIfAnyExtTextAutoText(var ExtendedTextHeader: Record "Extended Text Header"; var PurchaseHeader: Record "Purchase Header"; var PurchaseLine: Record "Purchase Line"; Unconditionally: Boolean; var MakeUpdateRequired: Boolean)
     var
-        RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line"; // TODO: check variable global
-        BooGAutoTextSpe: Boolean; // TODO: check variable global pour test 
+        RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line";
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt"; 
     begin
-        BooGAutoTextSpe := FALSE;
+        GlobalFunctionMgt.SetAutoTextSpe(false);
         RecGTmpExtTexLineSpe.RESET;
         RecGTmpExtTexLineSpe.SETRANGE("Table Name", RecGTmpExtTexLineSpe."Table Name"::Vendor);
         RecGTmpExtTexLineSpe.SETRANGE(Code, PurchaseLine."Buy-from Vendor No.");
         RecGTmpExtTexLineSpe.SETRANGE("No.", PurchaseLine."No.");
         IF RecGTmpExtTexLineSpe.FIND('-') THEN BEGIN
-            BooGAutoTextSpe := TRUE;
+            GlobalFunctionMgt.SetAutoTextSpe(true);
             Unconditionally := TRUE;
         END;
     end;
@@ -3605,11 +3605,11 @@ then begin
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Transfer Extended Text", 'OnBeforeReadLines', '', false, false)]
     local procedure OnBeforeReadLines(var ExtendedTextHeader: Record "Extended Text Header"; DocDate: Date; LanguageCode: Code[10]; var IsHandled: Boolean; var Result: Boolean; var TempExtTextLine: Record "Extended Text Line" temporary)
     var
-        ExtTextLine: Record "Extended Text Line"; // TODO: check variable global
-        BooGAutoTextSpe: Boolean; // TODO: check variable global pour test 
+        ExtTextLine: Record "Extended Text Line";
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
     begin
         IsHandled := true;
-        if BooGAutoTextSpe = TRUE then begin
+        if GlobalFunctionMgt.GetAutoTextSpe() then begin
             Result := true;
             exit;
         end else begin

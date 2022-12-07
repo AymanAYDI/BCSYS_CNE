@@ -7,8 +7,8 @@ report 50001 "BC6_MAJ Order Line"
         dataitem(DataItem1100267001; "Sales Header")
         {
             DataItemTableView = WHERE("Document Type" = CONST(Order),
-                                      "Completely Shipped" = CONST("No"));
-            dataitem(DataItem1100267000; "Sales Line")
+                                      "Completely Shipped" = CONST(false));
+            dataitem("Sales Line"; "Sales Line")
             {
                 DataItemLink = "Document Type" = FIELD("Document Type"),
                                "Document No." = FIELD("No.");

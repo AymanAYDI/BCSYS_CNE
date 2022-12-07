@@ -1,4 +1,4 @@
-report 50035 "Traite/Facture NAVIDIIGEST"
+report 50035 "BC6_Traite/Facture NAVIDIIGEST"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './TraiteFactureNAVIDIIGEST.rdlc';
@@ -6,7 +6,7 @@ report 50035 "Traite/Facture NAVIDIIGEST"
 
     dataset
     {
-        dataitem(DataItem5581; Table112)
+        dataitem(SalesInvHeader; "Sales Invoice Header")
         {
             RequestFilterFields = "No.", "Bill-to Customer No.", "Payment Method Code", "Due Date";
             RequestFilterHeading = 'Factures';
@@ -175,12 +175,12 @@ report 50035 "Traite/Facture NAVIDIIGEST"
 
             trigger OnAfterGetRecord()
             var
-                FormatAddress: Codeunit "365";
+                FormatAddress: Codeunit "Format Address";
             begin
-                CustBankAcc_Grc.INIT;
-                IF Cust.GET("Sales Invoice Header"."Bill-to Customer No.") THEN
+                CustBankAcc_Grc.INIT();
+                IF Cust.GET(SalesInvHeader."Bill-to Customer No.") THEN
                     IF Cust."Preferred Bank Account Code" <> '' THEN
-                        CustBankAcc_Grc.GET("Sales Invoice Header"."Bill-to Customer No.", Cust."Preferred Bank Account Code");
+                        CustBankAcc_Grc.GET(SalesInvHeader."Bill-to Customer No.", Cust."Preferred Bank Account Code");
 
                 PostingDate := "Posting Date";
 
@@ -189,7 +189,7 @@ report 50035 "Traite/Facture NAVIDIIGEST"
                 ELSE
                     AmountText := Text001 + ' ' + "Currency Code";
 
-                FormatAddress.SalesInvBillTo(CustAdr, "Sales Invoice Header");
+                FormatAddress.SalesInvBillTo(CustAdr, SalesInvHeader);
 
                 IF "Currency Code" = '' THEN
                     CurrText_Gtxt := GenLedgSetup_Grc."LCY Code"
@@ -202,7 +202,7 @@ report 50035 "Traite/Facture NAVIDIIGEST"
             trigger OnPreDataItem()
             begin
                 GenLedgSetup_Grc.GET();
-                CompanyInfo.CALCFIELDS(Picture);
+                CompanyInfo.CALCFIELDS("Picture");
             end;
         }
     }
@@ -236,9 +236,9 @@ report 50035 "Traite/Facture NAVIDIIGEST"
         trigger OnOpenPage()
         begin
 
-            CompanyInfo.GET;
+            CompanyInfo.GET();
             IssueCity := CompanyInfo.City;
-            IssueDate := WORKDATE;
+            IssueDate := WORKDATE();
         end;
     }
 
@@ -247,48 +247,42 @@ report 50035 "Traite/Facture NAVIDIIGEST"
     }
 
     var
-        GenLedgSetup_Grc: Record "98";
-        CustBankAcc_Grc: Record "287";
-        CompanyInfo: Record "79";
-        Cust: Record "18";
-        GLSetup: Record "98";
-        CustAdr: array[8] of Text[50];
-        IssueCity: Text[30];
+        CompanyInfo: Record "Company Information";
+        Cust: Record Customer;
+        CustBankAcc_Grc: Record "Customer Bank Account";
+        GenLedgSetup_Grc: Record "General Ledger Setup";
+        PaymtLine: Record "Payment Line";
         IssueDate: Date;
-        PrintAmount: Decimal;
-        AccountNo: Code[20];
-        GroupGLDate: Date;
-        PaymtLine: Record "10866";
-        PaymtHeader: Record "10865";
         PostingDate: Date;
-        PaymtManagt: Codeunit "10860";
-        Text001: Label 'Amount';
+        ACCEPTANCE_or_ENDORSMENTCaptionLbl: Label 'ACCEPTANCE or ENDORSMENT', comment = 'FRA="ACCEPTATION ou AVAL"';
+        ADDRESSCaptionLbl: Label 'ADDRESS', comment = 'FRA="ADRESSE"';
+        Against_this_BILLCaptionLbl: Label 'Against this BILL', comment = 'FRA="Contre cette LETTRE DE CHANGE"';
+        AMOUNT_FOR_CONTROLCaptionLbl: Label 'AMOUNT FOR CONTROL', comment = 'FRA="MONTANT POUR CONTROLE"';
+        below_for_order_of__CaptionLbl: Label 'below for order of :', comment = 'FRA="ci-dessous à l''ordre de :"';
+        BILLCaptionLbl: Label 'BILL', comment = 'FRA="L.C.R."';
+        CREATION_DATECaptionLbl: Label 'CREATION DATE', comment = 'FRA="DATE DE CREATION"';
+        DOMICILIATIONCaptionLbl: Label 'DOMICILIATION', comment = 'FRA="DOMICILIATION"';
+        DRAWEE_R_I_B_CaptionLbl: Label 'DRAWEE R.I.B.', comment = 'FRA="R.I.B. DU TIRE"';
+        DRAWEE_REF_CaptionLbl: Label 'DRAWEE REF.', comment = 'FRA="REF. TIRE"';
+        DUE_DATECaptionLbl: Label 'DUE DATE', comment = 'FRA="ECHEANCE"';
+        etab_CaptionLbl: Label 'etab.', comment = 'FRA="etab."';
+        guichetCaptionLbl: Label 'guichet';
+        L_C_R__onlyCaptionLbl: Label 'L.C.R. only', comment = 'FRA="L.C.R. seulement"';
+        n__compteCaptionLbl: Label 'n° compte';
+        NAME_andCaptionLbl: Label 'NAME and', comment = 'FRA=""';
+        noted_as_NO_CHARGESCaptionLbl: Label 'noted as NO CHARGES', comment = 'FRA="stipulée SANS FRAIS"';
+        of_DRAWEECaptionLbl: Label 'of DRAWEE', comment = 'FRA="du TIRE"';
+        ONCaptionLbl: Label 'ON', comment = 'FRA="LE"';
+        please_pay_the_indicated_sumCaptionLbl: Label 'please pay the indicated sum', comment = 'FRA="veuillez payer la somme indiquée"';
+        RIBCaptionLbl: Label 'RIB';
+        Stamp_Allow_and_SignatureCaptionLbl: Label 'Stamp Allow and Signature', comment = 'FRA="Droit de timbre et signature"';
+        Text001: Label 'Amount', comment = 'FRA="Montant"';
+        TOCaptionLbl: Label 'TO', comment = 'FRA="A"';
+        Value_in__CaptionLbl: Label 'Value in :', comment = 'FRA="Valeur en :"';
+        Write_nothings_under_this_lineCaptionLbl: Label 'Write nothings under this line', comment = 'FRA="ne rien inscrire au dessous de cette ligne"';
         AmountText: Text[30];
         CurrText_Gtxt: Text[30];
-        ACCEPTANCE_or_ENDORSMENTCaptionLbl: Label 'ACCEPTANCE or ENDORSMENT';
-        of_DRAWEECaptionLbl: Label 'of DRAWEE';
-        Stamp_Allow_and_SignatureCaptionLbl: Label 'Stamp Allow and Signature';
-        ADDRESSCaptionLbl: Label 'ADDRESS';
-        NAME_andCaptionLbl: Label 'NAME and';
-        Value_in__CaptionLbl: Label 'Value in :';
-        DRAWEE_R_I_B_CaptionLbl: Label 'DRAWEE R.I.B.';
-        DOMICILIATIONCaptionLbl: Label 'DOMICILIATION';
-        TOCaptionLbl: Label 'TO';
-        ONCaptionLbl: Label 'ON';
-        AMOUNT_FOR_CONTROLCaptionLbl: Label 'AMOUNT FOR CONTROL';
-        CREATION_DATECaptionLbl: Label 'CREATION DATE';
-        DUE_DATECaptionLbl: Label 'DUE DATE';
-        DRAWEE_REF_CaptionLbl: Label 'DRAWEE REF.';
-        below_for_order_of__CaptionLbl: Label 'below for order of :';
-        please_pay_the_indicated_sumCaptionLbl: Label 'please pay the indicated sum';
-        noted_as_NO_CHARGESCaptionLbl: Label 'noted as NO CHARGES';
-        Against_this_BILLCaptionLbl: Label 'Against this BILL';
-        BILLCaptionLbl: Label 'BILL';
-        L_C_R__onlyCaptionLbl: Label 'L.C.R. only';
-        Write_nothings_under_this_lineCaptionLbl: Label 'Write nothings under this line';
-        etab_CaptionLbl: Label 'etab.';
-        guichetCaptionLbl: Label 'guichet';
-        n__compteCaptionLbl: Label 'n° compte';
-        RIBCaptionLbl: Label 'RIB';
+        IssueCity: Text[30];
+        CustAdr: array[8] of Text[50];
 }
 

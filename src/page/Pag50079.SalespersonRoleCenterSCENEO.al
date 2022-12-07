@@ -365,7 +365,7 @@ page 50079 "Salesperson Role Center SCENEO"
                 Caption = 'Creation Auto Cde Achat', Comment = 'FRA="Creation Auto Cde Achat"';
                 Image = Import;
                 ApplicationArea = All;
-                // RunObject = Report 50022; TODO:
+                RunObject = Report "BC6_Creation Auto Cde Achat";
             }
             action(ICPostingRecept)
             {

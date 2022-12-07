@@ -1,14 +1,5 @@
-report 50017 "Sales Statistic/Vendor"
+report 50017 "BC6_Sales Statistic/Vendor"
 {
-    // --------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // --------------------------------------------------------------------------
-    // 
-    // //>>CNE2.05
-    // FEP-ADVE-200706_18_E.001:LY 15/02/2008 : Move code to standard indentation
-    // FEP-ADVE-200706_18_E.002:LY 19/02/2008 : Calc. CA from Sales Credit Memo
-    // 
-    // --------------------------------------------------------------------------
     DefaultLayout = RDLC;
     RDLCLayout = './SalesStatisticVendor.rdlc';
 
@@ -16,9 +7,9 @@ report 50017 "Sales Statistic/Vendor"
 
     dataset
     {
-        dataitem(DataItem3182; Table23)
+        dataitem(Vendor; Vendor)
         {
-            DataItemTableView = SORTING (No.);
+            DataItemTableView = SORTING("No.");
             RequestFilterFields = "No.";
             column(FORMAT_TODAY_0_4_; FORMAT(TODAY, 0, 4))
             {
@@ -26,7 +17,7 @@ report 50017 "Sales Statistic/Vendor"
             column(COMPANYNAME; COMPANYNAME)
             {
             }
-            column(CurrReport_PAGENO; CurrReport.PAGENO)
+            column(CurrReport_PAGENO; CurrReport.PAGENO())
             {
             }
             column(USERID; USERID)
@@ -122,15 +113,15 @@ report 50017 "Sales Statistic/Vendor"
 
             trigger OnAfterGetRecord()
             var
-                RecLSalesInvLine: Record "113";
-                RecLSalesCrMemoLine: Record "115";
-                RecLPurchInvLine: Record "123";
-                RecLPurchCrMemoLine: Record "125";
-                RecLPurchLine: Record "39";
-                RecLSalesInvHeader: Record "112";
-                RecLPurchInvHeader: Record "122";
-                RecLSalesCrMemoHeader: Record "114";
-                RecLPurchCrMemoHeader: Record "124";
+                RecLSalesInvLine: Record "Sales Invoice Line";
+                RecLSalesCrMemoLine: Record "Sales Cr.Memo Line";
+                RecLPurchInvLine: Record "Purch. Inv. Line";
+                RecLPurchCrMemoLine: Record "Purch. Cr. Memo Line";
+                RecLPurchLine: Record "Purchase Line";
+                RecLSalesInvHeader: Record "Sales Invoice Header";
+                RecLPurchInvHeader: Record "Purch. Inv. Header";
+                RecLSalesCrMemoHeader: Record "Sales Cr.Memo Header";
+                RecLPurchCrMemoHeader: Record "Purch. Cr. Memo Hdr.";
             begin
                 // Init Var
                 DecGCAVente := 0;
@@ -141,37 +132,30 @@ report 50017 "Sales Statistic/Vendor"
                 DecGCAAchatEnCmd := 0;
 
                 // Sales Invoice Line
-                RecLSalesInvLine.SETCURRENTKEY("Buy-from Vendor No.");
-                RecLSalesInvLine.SETRANGE("Buy-from Vendor No.", "No.");
+                RecLSalesInvLine.SETCURRENTKEY("BC6_Buy-from Vendor No.");
+                RecLSalesInvLine.SETRANGE("BC6_Buy-from Vendor No.", "No.");
                 RecLSalesInvHeader.SETFILTER("Posting Date", '%1..%2', DatGDateDebut, DatDateFin);
-                IF RecLSalesInvLine.FIND('-') THEN BEGIN
+                IF RecLSalesInvLine.FindFirst() THEN
                     REPEAT
                         RecLSalesInvHeader.SETFILTER("No.", RecLSalesInvLine."Document No.");
-                        IF RecLSalesInvHeader.FIND('-') THEN BEGIN
-                            DecGMontant += RecLSalesInvLine.Quantity * RecLSalesInvLine."Purchase Cost";
+                        IF RecLSalesInvHeader.Find() THEN BEGIN
+                            DecGMontant += RecLSalesInvLine.Quantity * RecLSalesInvLine."BC6_Purchase Cost";
                             DecGCAVente += RecLSalesInvLine.Amount;
                         END;
-                    UNTIL RecLSalesInvLine.NEXT = 0;
-                END;
+                    UNTIL RecLSalesInvLine.NEXT() = 0;
 
                 // Sales Credit Memo Line
-                RecLSalesCrMemoLine.SETCURRENTKEY("Buy-from Vendor No.");
-                RecLSalesCrMemoLine.SETRANGE("Buy-from Vendor No.", "No.");
+                RecLSalesCrMemoLine.SETCURRENTKEY("BC6_Buy-from Vendor No.");
+                RecLSalesCrMemoLine.SETRANGE("BC6_Buy-from Vendor No.", "No.");
                 RecLSalesCrMemoHeader.SETFILTER("Posting Date", '%1..%2', DatGDateDebut, DatDateFin);
-                IF RecLSalesCrMemoLine.FIND('-') THEN BEGIN
+                IF RecLSalesCrMemoLine.FindFirst() THEN
                     REPEAT
                         RecLSalesCrMemoHeader.SETFILTER("No.", RecLSalesCrMemoLine."Document No.");
-                        //>>FEP-ADVE-200706_18_E.002
-                        //IF RecLSalesCrMemoHeader.FIND('-') THEN
-                        IF RecLSalesCrMemoHeader.FIND('-') THEN BEGIN
-                            DecGMontant -= (RecLSalesCrMemoLine.Quantity * RecLSalesCrMemoLine."Purchase cost");
-                            //<<FEP-ADVE-200706_18_E.002
+                        IF RecLSalesCrMemoHeader.Find() THEN BEGIN
+                            DecGMontant -= (RecLSalesCrMemoLine.Quantity * RecLSalesCrMemoLine."BC6_Purchase cost");
                             DecGCAVente -= RecLSalesCrMemoLine.Amount;
-                            //>>FEP-ADVE-200706_18_E.002
                         END;
-                        //<<FEP-ADVE-200706_18_E.002
-                    UNTIL RecLSalesCrMemoLine.NEXT = 0;
-                END;
+                    UNTIL RecLSalesCrMemoLine.NEXT() = 0;
 
 
                 // Purchase Line
@@ -180,42 +164,36 @@ report 50017 "Sales Statistic/Vendor"
                 RecLPurchLine.SETRANGE(Type, RecLPurchLine.Type::Item);
                 RecLPurchLine.SETRANGE("Document Type", RecLPurchLine."Document Type"::Order);
                 RecLPurchLine.SETFILTER("Planned Receipt Date", '%1..%2', DatGDateDebut, DatDateFin);
-                IF RecLPurchLine.FIND('-') THEN BEGIN
+                IF RecLPurchLine.Find() THEN
                     REPEAT
                         DecGCAAchatEnCmd := DecGCAAchatEnCmd + (RecLPurchLine.Quantity - RecLPurchLine."Quantity Invoiced")
                                             * RecLPurchLine."Direct Unit Cost"
                                             * (1 - RecLPurchLine."Line Discount %" / 100);
-                    UNTIL RecLPurchLine.NEXT = 0;
-                END;
+                    UNTIL RecLPurchLine.NEXT() = 0;
 
                 // Purchase Invoice Line
                 RecLPurchInvLine.SETCURRENTKEY("Buy-from Vendor No.", RecLPurchInvLine.Type);
                 RecLPurchInvLine.SETRANGE("Buy-from Vendor No.", "No.");
                 RecLPurchInvLine.SETRANGE(Type, RecLPurchInvLine.Type::Item);
                 RecLPurchInvHeader.SETFILTER("Posting Date", '%1..%2', DatGDateDebut, DatDateFin);
-                IF RecLPurchInvLine.FIND('-') THEN BEGIN
+                IF RecLPurchInvLine.Find() THEN
                     REPEAT
-                        //BCSYS - MM - 05/11/18 >>
-                        //RecLPurchInvHeader.SETFILTER("No.",RecLPurchInvLine."Document No.");
                         RecLPurchInvHeader.SETRANGE("No.", RecLPurchInvLine."Document No.");
-                        //BCSYS - MM <<
-                        IF RecLPurchInvHeader.FIND('-') THEN
+                        IF RecLPurchInvHeader.FindFirst() THEN
                             DecGCAAchat += RecLPurchInvLine.Amount;
-                    UNTIL RecLPurchInvLine.NEXT = 0;
-                END;
+                    UNTIL RecLPurchInvLine.NEXT() = 0;
 
                 // Purchase Credit Memo Line
                 RecLPurchCrMemoLine.SETCURRENTKEY("Buy-from Vendor No.", Type);
                 RecLPurchCrMemoLine.SETRANGE("Buy-from Vendor No.", "No.");
                 RecLPurchCrMemoLine.SETRANGE(Type, RecLPurchCrMemoLine.Type::Item);
                 RecLPurchCrMemoHeader.SETFILTER("Posting Date", '%1..%2', DatGDateDebut, DatDateFin);
-                IF RecLPurchCrMemoLine.FIND('-') THEN BEGIN
+                IF RecLPurchCrMemoLine.Find() THEN
                     REPEAT
                         RecLPurchCrMemoHeader.SETFILTER("No.", RecLPurchCrMemoLine."Document No.");
-                        IF RecLPurchCrMemoHeader.FIND('-') THEN
+                        IF RecLPurchCrMemoHeader.Find() THEN
                             DecGCAAchat -= RecLPurchCrMemoLine.Amount;
-                    UNTIL RecLPurchCrMemoLine.NEXT = 0;
-                END;
+                    UNTIL RecLPurchCrMemoLine.NEXT() = 0;
 
                 DecGMontantMarge := DecGCAVente - DecGMontant;
                 IF DecGCAVente <> 0 THEN
@@ -262,8 +240,6 @@ report 50017 "Sales Statistic/Vendor"
 
     trigger OnInitReport()
     begin
-        //EVALUATE(DatGDateDebut,'01/'+FORMAT(DATE2DMY(TODAY,2))+'/'+FORMAT(DATE2DMY(TODAY,3)));
-        //DatDateFin := CALCDATE('1M-1J',DatGDateDebut);
         DatGDateDebut := CALCDATE('<-CM>', TODAY);
         DatDateFin := CALCDATE('<CM>', TODAY);
     end;
@@ -277,16 +253,16 @@ report 50017 "Sales Statistic/Vendor"
         DecGPourcentMarge: Decimal;
         DecGCAAchat: Decimal;
         DecGCAAchatEnCmd: Decimal;
-        Statistics_Sales_by_VendorCaptionLbl: Label 'Statistics Sales by Vendor';
+        Statistics_Sales_by_VendorCaptionLbl: Label 'Statistics Sales by Vendor', comment = 'FRA="Statistiques ventes par fournisseur"';
         CurrReport_PAGENOCaptionLbl: Label 'Page';
-        Periode__FromCaptionLbl: Label 'Periode :From';
+        Periode__FromCaptionLbl: Label 'Periode :From', comment = 'FRA="Période : Du"';
         AuCaptionLbl: Label 'Au';
-        Invoiced_Purchase_Turnover_CaptionLbl: Label 'Invoiced Purchase Turnover ';
-        margeCaptionLbl: Label '% Profit';
-        Sale_TurnoverCaptionLbl: Label 'Sale Turnover';
-        Profit_AmountCaptionLbl: Label 'Profit Amount';
-        Purchase_Amount_per_Costumer_OrderCaptionLbl: Label 'Purchase Amount per Costumer Order';
-        Puchase_Turnover_in_Vendor_OrderCaptionLbl: Label 'Puchase Turnover in Vendor Order';
-        TotalCaptionLbl: Label 'Total';
+        Invoiced_Purchase_Turnover_CaptionLbl: Label 'Invoiced Purchase Turnover ', comment = 'FRA="CA Achat Facturé"';
+        margeCaptionLbl: Label '% Profit', comment = 'FRA=""';
+        Sale_TurnoverCaptionLbl: Label 'Sale Turnover', comment = 'FRA="CA Vente"';
+        Profit_AmountCaptionLbl: Label 'Profit Amount', comment = 'FRA="Montant Marge"';
+        Purchase_Amount_per_Costumer_OrderCaptionLbl: Label 'Purchase Amount per Costumer Order', comment = 'FRA="Montant Achat sur cde client"';
+        Puchase_Turnover_in_Vendor_OrderCaptionLbl: Label 'Puchase Turnover in Vendor Order', comment = 'FRA="CA achat en cde fournisseur"';
+        TotalCaptionLbl: Label 'Total', comment = 'FRA="Total"';
 }
 

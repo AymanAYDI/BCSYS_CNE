@@ -1,19 +1,5 @@
-report 50037 "Relance  CNE"
+report 50037 "BC6_Relance  CNE"
 {
-    // //MODIFICATION SM 30/06/06 NSC1.02 [M0344] modification des reports en fonction du Client Worms
-    // //TEXTE_DEBUT  SL 14/09/06 NSC1.05         Ajout du Header Issued Reminder Line pour imprimer le texte début avant les colonnes
-    // //TEXTE_DEBUT  SL 18/09/06 NSC1.06         Ajout du dataitem IssuedReminderLineTexte pour imprimer le texte début avant les colonnes
-    // //DESIGN       SD 27/09/06 NSC1.08        Modification emplacement des champs
-    // //DESIGN       SD 12/10/06 NSC1.12         Maquettage
-    // 
-    // //>> 03/01/2012 SU-DADE cf appel TI078267
-    // //   IssuedReminderLineTexte - OnPreDataItem()
-    // //<< 03/01/2012 SU-DADE cf appel TI078267
-    // 
-    // //>>CNE5.00
-    // TDL.85/CSC 02/12/2013 : NAV 2013 designing
-    //                         Add C/AL in IssuedReminderLineTexte - OnAfterGetRecord()
-    //                                     IssuedReminderLine2 - OnAfterGetRecord()
     DefaultLayout = RDLC;
     RDLCLayout = './RelanceCNE.rdlc';
 
@@ -21,9 +7,9 @@ report 50037 "Relance  CNE"
 
     dataset
     {
-        dataitem(DataItem5612; Table297)
+        dataitem(IssuedReminderHeader; "Issued Reminder Header")
         {
-            DataItemTableView = SORTING (No.);
+            DataItemTableView = SORTING("No.");
             RequestFilterFields = "No.";
             RequestFilterHeading = 'Reminder';
             column(Issued_Reminder_Header_No_; "No.")
@@ -59,7 +45,7 @@ report 50037 "Relance  CNE"
             column(STRSUBSTNO___1_le__2___Issued_Reminder_Header__FIELDCAPTION__Due_Date____Issued_Reminder_Header___Due_Date__; STRSUBSTNO('%1 le %2', "Issued Reminder Header".FIELDCAPTION("Due Date"), "Issued Reminder Header"."Due Date"))
             {
             }
-            column(Issued_Reminder_Header___Reminder_Level_; "Issued Reminder Header"."Reminder Level")
+            column(Issued_Reminder_Header___Reminder_Level_; IssuedReminderHeader."Reminder Level")
             {
             }
             column(CompanyInfo_Picture; CompanyInfo.Picture)
@@ -104,16 +90,16 @@ report 50037 "Relance  CNE"
             column(Document_DateCaption; Document_DateCaptionLbl)
             {
             }
-            column(Issued_Reminder_Line__Document_No__Caption; "Issued Reminder Line".FIELDCAPTION("Document No."))
+            column(Issued_Reminder_Line__Document_No__Caption; IssuedReminderHeader.FIELDCAPTION("Document No."))
             {
             }
             column(Issued_Reminder_Line__Due_Date_Caption; Issued_Reminder_Line__Due_Date_CaptionLbl)
             {
             }
-            column(Issued_Reminder_Line__Remaining_Amount__Control40Caption; "Issued Reminder Line".FIELDCAPTION("Remaining Amount"))
+            column(Issued_Reminder_Line__Remaining_Amount__Control40Caption; IssuedReminderHeader.FIELDCAPTION("Remaining Amount"))
             {
             }
-            column(Issued_Reminder_Line__Original_Amount_Caption; "Issued Reminder Line".FIELDCAPTION("Original Amount"))
+            column(Issued_Reminder_Line__Original_Amount_Caption; IssuedReminderHeader.FIELDCAPTION("Original Amount"))
             {
             }
             column(Type_documentCaption; Type_documentCaptionLbl)
@@ -128,7 +114,7 @@ report 50037 "Relance  CNE"
             column(ReminderInterestAmountCaption; ReminderInterestAmountCaptionLbl)
             {
             }
-            column(Issued_Reminder_Line__VAT_Amount_Caption; "Issued Reminder Line".FIELDCAPTION("VAT Amount"))
+            column(Issued_Reminder_Line__VAT_Amount_Caption; IssuedReminderHeader.FIELDCAPTION("VAT Amount"))
             {
             }
             column(VATAmountLine__VAT_Amount__Control71Caption; VATAmountLine__VAT_Amount__Control71CaptionLbl)
@@ -170,11 +156,11 @@ report 50037 "Relance  CNE"
             column(TotalCaption; TotalCaptionLbl)
             {
             }
-            dataitem(DimensionLoop1; Table2000000026)
+            dataitem(DimensionLoop1; Integer)
             {
-                DataItemLinkReference = "Issued Reminder Header";
-                DataItemTableView = SORTING (Number)
-                                    WHERE (Number = FILTER (1 ..));
+                DataItemLinkReference = IssuedReminderHeader;
+                DataItemTableView = SORTING(Number)
+                                    WHERE(Number = FILTER(1 ..));
                 column(Integer_Number; Number)
                 {
                 }
@@ -216,11 +202,11 @@ report 50037 "Relance  CNE"
                         CurrReport.BREAK;
                 end;
             }
-            dataitem(IssuedReminderLineTexte; Table298)
+            dataitem(IssuedReminderLine; "Issued Reminder Line")
             {
-                DataItemLink = Reminder No.=FIELD(No.);
-                DataItemLinkReference = "Issued Reminder Header";
-                DataItemTableView = SORTING (Reminder No., Line No.);
+                DataItemLink = "Reminder No." = FIELD("No.");
+                DataItemLinkReference = IssuedReminderHeader;
+                DataItemTableView = SORTING("Reminder No.", "Line No.");
                 column(IssuedReminderLineTexte_Description; Description)
                 {
                 }
@@ -234,7 +220,6 @@ report 50037 "Relance  CNE"
                 trigger OnAfterGetRecord()
                 begin
 
-                    //>>MIGRATION NAV 2013
                     BooGIRTxtBody3 := (Type = Type::" ");
                     BooGIRLineBody1 := ("Line No." > StartLineNo) AND (Type = Type::"Customer Ledger Entry");
 
@@ -243,12 +228,9 @@ report 50037 "Relance  CNE"
 
                     BooGIRLineBody2 := ("Line No." > StartLineNo) AND
                       ((Type <> Type::"Customer Ledger Entry") AND (NOT ShowInternalInfo));
-                    //<<MIGRATION NAV 2013
 
-                    //>>TDL.84
                     IF Description = '' THEN
                         Description := ' ';
-                    //<<TDL.84
                 end;
 
                 trigger OnPreDataItem()
@@ -270,22 +252,17 @@ report 50037 "Relance  CNE"
                                 EndLineNo := "Line No.";
                         UNTIL (NEXT(-1) = 0) OR NOT Continue;
                     END;
-                    //>> 03/01/2012 SU-DADE cf appel TI078267
-                    //   OLD CODE
-                    //SETFILTER("Line No.",'<%1',StartLineNo);
-                    //   NEW CODE
                     SETFILTER("Line No.", '<=%1', StartLineNo);
-                    //<< 03/01/2012 SU-DADE cf appel TI078267
                 end;
             }
-            dataitem(DataItem8784; Table298)
+            dataitem(DataItem8784; "Issued Reminder Line")
             {
-                DataItemLink = Reminder No.=FIELD(No.);
-                DataItemLinkReference = "Issued Reminder Header";
-                DataItemTableView = SORTING (Reminder No., Line No.);
+                DataItemLink = "Reminder No." = FIELD("No.");
+                DataItemLinkReference = IssuedReminderHeader;
+                DataItemTableView = SORTING("Reminder No.", "Line No.");
                 column(Issued_Reminder_Line__Remaining_Amount_; "Remaining Amount")
                 {
-                    AutoFormatExpression = "Issued Reminder Line".GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
                 column(STRSUBSTNO__du__1__FORMAT__Document_Date___; STRSUBSTNO('du %1', FORMAT("Document Date")))
@@ -299,12 +276,12 @@ report 50037 "Relance  CNE"
                 }
                 column(Issued_Reminder_Line__Remaining_Amount__Control40; "Remaining Amount")
                 {
-                    AutoFormatExpression = "Issued Reminder Line".GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
                 column(Issued_Reminder_Line__Original_Amount_; "Original Amount")
                 {
-                    AutoFormatExpression = "Issued Reminder Line".GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
                 column(STRSUBSTNO___1_n____Document_Type__; STRSUBSTNO('%1 n°', "Document Type"))
@@ -315,7 +292,7 @@ report 50037 "Relance  CNE"
                 }
                 column(Issued_Reminder_Line__Remaining_Amount__Control38; "Remaining Amount")
                 {
-                    AutoFormatExpression = "Issued Reminder Line".GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
                 column(Issued_Reminder_Line__No__; "No.")
@@ -323,7 +300,7 @@ report 50037 "Relance  CNE"
                 }
                 column(Issued_Reminder_Line__Remaining_Amount__Control95; "Remaining Amount")
                 {
-                    AutoFormatExpression = "Issued Reminder Line".GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
                 column(Issued_Reminder_Line_Description_Control96; Description)
@@ -331,27 +308,27 @@ report 50037 "Relance  CNE"
                 }
                 column(Issued_Reminder_Line__Remaining_Amount__Control42; "Remaining Amount")
                 {
-                    AutoFormatExpression = "Issued Reminder Line".GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
                 column(ReminderInterestAmount; ReminderInterestAmount)
                 {
-                    AutoFormatExpression = "Issued Reminder Line".GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
                 column(Remaining_Amount____ReminderInterestAmount; "Remaining Amount" + ReminderInterestAmount)
                 {
-                    AutoFormatExpression = "Issued Reminder Line".GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
                 column(Remaining_Amount____ReminderInterestAmount____VAT_Amount_; "Remaining Amount" + ReminderInterestAmount + "VAT Amount")
                 {
-                    AutoFormatExpression = "Issued Reminder Line".GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
                 column(Issued_Reminder_Line__VAT_Amount_; "VAT Amount")
                 {
-                    AutoFormatExpression = "Issued Reminder Line".GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
                 column(Issued_Reminder_Line_Reminder_No_; "Reminder No.")
@@ -415,7 +392,7 @@ report 50037 "Relance  CNE"
             {
                 DataItemLink = Reminder No.=FIELD(No.);
                 DataItemLinkReference = "Issued Reminder Header";
-                DataItemTableView = SORTING (Reminder No., Line No.);
+                DataItemTableView = SORTING(Reminder No., Line No.);
                 column(IssuedReminderLine2_Description; Description)
                 {
                 }
@@ -444,25 +421,25 @@ report 50037 "Relance  CNE"
             }
             dataitem(VATCounter; Table2000000026)
             {
-                DataItemTableView = SORTING (Number);
+                DataItemTableView = SORTING(Number);
                 column(VATAmtLineAmtIncludVAT; VATAmountLine."Amount Including VAT")
                 {
-                    AutoFormatExpression = "Issued Reminder Line".GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
                 column(VALVATAmount; VALVATAmount)
                 {
-                    AutoFormatExpression = "Issued Reminder Line".GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
                 column(VALVATBase; VALVATBase)
                 {
-                    AutoFormatExpression = "Issued Reminder Line".GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
                 column(VALVATBaseVALVATAmt; VALVATBase + VALVATAmount)
                 {
-                    AutoFormatExpression = "Issued Reminder Line".GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
                 column(VATAmtLineVAT; VATAmountLine."VAT %")

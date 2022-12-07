@@ -1,6 +1,5 @@
-report 50022 "Creation Auto Cde Achat"
+report 50022 "BC6_Creation Auto Cde Achat"
 {
-    // //>>CNEIC : 06/2015 : Report Exécute CU 50022: Création des commandes d'achats suivant Commandes ventes
 
     Caption = 'Creation Auto Cde Achat';
     ProcessingOnly = true;
@@ -28,10 +27,9 @@ report 50022 "Creation Auto Cde Achat"
     trigger OnInitReport()
     begin
         // CTRL que la sté est une filiale
-        RecGInfoSoc.FINDFIRST;
-        IF RecGInfoSoc."Branch Company" = FALSE THEN BEGIN
+        RecGInfoSoc.FINDFIRST();
+        IF RecGInfoSoc."BC6_Branch Company" = FALSE THEN
             ERROR(Text001);
-        END;
     end;
 
     trigger OnPreReport()
@@ -40,7 +38,7 @@ report 50022 "Creation Auto Cde Achat"
     end;
 
     var
-        RecGInfoSoc: Record "79";
-        Text001: Label 'You are not in a branch company';
+        RecGInfoSoc: Record "Company Information";
+        Text001: Label 'You are not in a branch company', comment = 'FRA="Vous n''êtes pas dans une société filiale"';
 }
 

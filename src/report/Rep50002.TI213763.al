@@ -1,34 +1,35 @@
-report 50002 TI213763
+report 50002 "BC6_TI213763"
 {
     ProcessingOnly = true;
     UseRequestPage = false;
 
     dataset
     {
-        dataitem(DataItem1100267000; Table27)
+        dataitem(Item; Item)
         {
-            DataItemTableView = SORTING(No.)
+
+            DataItemTableView = SORTING("No.")
                                 ORDER(Ascending)
-                                WHERE(VAT Prod. Posting Group=CONST(TVA19,6),
-                                      No.=FILTER(P*));
+                                WHERE("VAT Prod. Posting Group" = CONST('TVA19,6'),
+                                      "No." = FILTER('P*'));
 
             trigger OnAfterGetRecord()
             begin
-                IF Item."VAT Prod. Posting Group"='TVA19,6' THEN BEGIN
-                  i:=i+1;
-                  Item."VAT Prod. Posting Group":='TVA20';
-                  Item.MODIFY;
+                IF Item."VAT Prod. Posting Group" = 'TVA19,6' THEN BEGIN
+                    i := i + 1;
+                    Item."VAT Prod. Posting Group" := 'TVA20';
+                    Item.MODIFY;
                 END
             end;
 
             trigger OnPostDataItem()
             begin
-                MESSAGE('%1 enregistrements modifiés',i);
+                MESSAGE('%1 enregistrements modifiés', i);
             end;
 
             trigger OnPreDataItem()
             begin
-                i:=0
+                i := 0
             end;
         }
     }

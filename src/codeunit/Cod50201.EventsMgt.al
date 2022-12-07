@@ -2977,10 +2977,13 @@ then begin
         SalesLine: Record "Sales Line";
         SalesOrder: Record "Sales Header";
         QtyBaseToAssign: Decimal;
+        SalesReservationFound: Boolean;
     begin
-        ReservationFound := FALSE;
-        TempSalesLine.RESET();
-        TempSalesLine.DELETEALL();
+
+        SalesReservationFound := FALSE;
+        TempSalesLine.RESET;
+        TempSalesLine.DELETEALL;
+
         IF PurchLine."Document Type" = PurchLine."Document Type"::Order THEN BEGIN
             SalesLine.RESET();
             SalesLine.SETCURRENTKEY("BC6_Purch. Document Type", "BC6_Purch. Order No.", "BC6_Purch. Line No.");
@@ -3006,28 +3009,24 @@ then begin
                 UNTIL SalesLine.NEXT() = 0;
         END;
         IF TempSalesLine.FIND('-') THEN
-            ReservationFound := TRUE;
+            SalesReservationFound := TRUE;
     end;
 
     // TODO: function InsertWhseActivLine in codeunit "Create Inventory Put-away"
     // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Create Inventory Put-away", 'OnInsertWhseActivLineOnBeforeAutoCreation', '', false, false)] TODO:
     // local procedure OnInsertWhseActivLineOnBeforeAutoCreation(var WarehouseActivityLine: Record "Warehouse Activity Line"; var TempTrackingSpecification: Record "Tracking Specification" temporary; ReservationFound: Boolean; SNRequired: Boolean; LNRequired: Boolean)
     // var
-    //     TmpSalesLine: Record "Sales Line"
-    //     RecRef: RecordRef;
-    //     RecID: RecordID;
+    //     TmpSalesLine: Record "Sales Line";
+    //     WhseActivLine: Record "Warehouse Activity Line";
+    //     SalesReservationFound: Boolean;
     // begin
-    //     RecRef.Open(Database::"Warehouse Activity Line");
-    //     RecRef.FindLast;
-    //     RecID := RecRef.RecordId;
-    //     RecRef := RecID.GetRecord;
 
     //     IF SalesReservationFound THEN BEGIN
     //         TmpSalesLine.RESET;
-    //         TmpSalesLine.SETCURRENTKEY("Purch. Document Type","Purch. Order No.","Purch. Line No.");
-    //         TmpSalesLine.SETRANGE("Purch. Document Type","Document Type");
-    //         TmpSalesLine.SETRANGE("Purch. Order No.","Document No.");
-    //         TmpSalesLine.SETRANGE("Purch. Line No.","Line No.");
+    //         TmpSalesLine.SETCURRENTKEY("BC6_Purch. Document Type", "BC6_Purch. Order No.", "BC6_Purch. Line No.");
+    //         TmpSalesLine.SETRANGE("BC6_Purch. Document Type", "Document Type");
+    //         TmpSalesLine.SETRANGE("BC6_Purch. Order No.", "Document No.");
+    //         TmpSalesLine.SETRANGE("BC6_Purch. Line No.", "Line No.");
 
     //         WarehouseActivityLine."BC6_Source Document 2" := WarehouseActivityLine."BC6_Source Document 2"::"Sales Order";
     //         WarehouseActivityLine."BC6_Source No. 2" := TmpSalesLine."Document No.";
@@ -3035,7 +3034,8 @@ then begin
     //         IF (TmpSalesLine."Location Code" = WarehouseActivityLine."Location Code") AND
     //            (TmpSalesLine."Bin Code" <> '') THEN
     //             WarehouseActivityLine."BC6_Source Bin Code" := TmpSalesLine."Bin Code";
-    //         WarehouseActivityLine."Bin Code" := RecRef."Bin Code";
+    //         if WhseActivLine.FindLast() then
+    //             WarehouseActivityLine."Bin Code" := WhseActivLine."Bin Code";
     //         WarehouseActivityLine."BC6_Warehouse Comment" := TmpSalesLine."Description 2";
 
     //         IF PutAwayQty > TmpSalesLine."Outstanding Qty. (Base)" THEN
@@ -3052,8 +3052,8 @@ then begin
     //             IF (TmpSalesLine."Location Code" = WarehouseActivityLine."Location Code") AND
     //               (TmpSalesLine."Bin Code" <> '') THEN
     //                 WarehouseActivityLine."Source Bin Code" := TmpSalesLine."Bin Code";
-
-    //             WarehouseActivityLine."Bin Code" := RecRef."Bin Code";
+    //             if WhseActivLine.FindLast() then
+    //                 WarehouseActivityLine."Bin Code" := WhseActivLine."Bin Code";
     //             WarehouseActivityLine."Warehouse Comment" := TmpSalesLine."Description 2";
     //             IF PutAwayQty > TmpSalesLine."Outstanding Qty. (Base)" THEN
     //                 PutAwayQty := TmpSalesLine."Outstanding Qty. (Base)"
@@ -3068,6 +3068,7 @@ then begin
     local procedure CU7323_OnBeforeConfirmPost(var WhseActivLine: Record "Warehouse Activity Line"; var HideDialog: Boolean; var Selection: Integer; var DefaultOption: Integer; var IsHandled: Boolean; var PrintDoc: Boolean)
     var
         WhseActivityPost: Codeunit "Whse.-Activity-Post";
+        FunMgt: Codeunit "BC6_Functions Mgt";
         WorkDateOk: Boolean;
         Text000: Label '&Receive,Receive &and Invoice', Comment = 'FRA="&Réceptionner,Réceptionner &et facturer"';
         Text001: Label '&Ship,Ship &and Invoice', Comment = 'FRA="&Livrer,Livrer et fact&urer"';
@@ -3103,7 +3104,7 @@ then begin
                 END;
             END;
             IF WorkDateOk THEN
-                // WhseActivityPost.SetPostingDate(WORKDATE); TODO: missing specific function in codeunit 
+                FunMgt.SetPostingDate(WORKDATE);
 
             WhseActivityPost.SetInvoiceSourceDoc(Selection = 2);
             WhseActivityPost.PrintDocument(PrintDoc);
@@ -3482,8 +3483,8 @@ then begin
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Transfer Extended Text", 'OnSalesCheckIfAnyExtTextOnBeforeSetFilters', '', false, false)]
     local procedure OnSalesCheckIfAnyExtTextOnBeforeSetFilters(var SalesLine: Record "Sales Line"; var AutoText: Boolean; Unconditionally: Boolean)
     var
-        RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line"; // TODO: check variable global
-        BooGAutoTextSpe: Boolean; // TODO: check variable global pour test 
+        RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line";
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
     begin
         if Unconditionally then
             AutoText := true
@@ -3491,14 +3492,14 @@ then begin
             case SalesLine.Type of
                 SalesLine.Type::Item:
                     begin
-                        BooGAutoTextSpe := FALSE;
-                        RecGTmpExtTexLineSpe.RESET();
+                        GlobalFunctionMgt.SetAutoTextSpe(false);
+                        RecGTmpExtTexLineSpe.RESET;
                         RecGTmpExtTexLineSpe.SETRANGE("Table Name", RecGTmpExtTexLineSpe."Table Name"::Customer);
                         RecGTmpExtTexLineSpe.SETRANGE(Code, SalesLine."Sell-to Customer No.");
                         RecGTmpExtTexLineSpe.SETRANGE("No.", SalesLine."No.");
                         IF RecGTmpExtTexLineSpe.FIND('-') THEN BEGIN
                             AutoText := TRUE;
-                            BooGAutoTextSpe := TRUE;
+                            GlobalFunctionMgt.SetAutoTextSpe(true);
                             Unconditionally := TRUE;
                         END;
                     end;
@@ -3508,16 +3509,16 @@ then begin
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Transfer Extended Text", 'OnSalesCheckIfAnyExtTextAutoText', '', false, false)]
     local procedure OnSalesCheckIfAnyExtTextAutoText(var ExtendedTextHeader: Record "Extended Text Header"; var SalesHeader: Record "Sales Header"; var SalesLine: Record "Sales Line"; Unconditionally: Boolean; var MakeUpdateRequired: Boolean)
     var
-        RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line"; // TODO: check variable global
-        BooGAutoTextSpe: Boolean; // TODO: check variable global pour test 
+        RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line";
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
     begin
-        BooGAutoTextSpe := FALSE;
-        RecGTmpExtTexLineSpe.RESET();
+        GlobalFunctionMgt.SetAutoTextSpe(false);
+        RecGTmpExtTexLineSpe.RESET;
         RecGTmpExtTexLineSpe.SETRANGE("Table Name", RecGTmpExtTexLineSpe."Table Name"::Customer);
         RecGTmpExtTexLineSpe.SETRANGE(Code, SalesLine."Sell-to Customer No.");
         RecGTmpExtTexLineSpe.SETRANGE("No.", SalesLine."No.");
         IF RecGTmpExtTexLineSpe.FIND('-') THEN BEGIN
-            BooGAutoTextSpe := TRUE;
+            GlobalFunctionMgt.SetAutoTextSpe(true);
             Unconditionally := TRUE;
         END;
     end;
@@ -3525,8 +3526,8 @@ then begin
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Transfer Extended Text", 'OnPurchCheckIfAnyExtTextOnBeforeSetFilters', '', false, false)]
     local procedure OnPurchCheckIfAnyExtTextOnBeforeSetFilters(var PurchaseLine: Record "Purchase Line"; var AutoText: Boolean; Unconditionally: Boolean)
     var
-        RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line"; // TODO: check variable global
-        BooGAutoTextSpe: Boolean; // TODO: check variable global pour test 
+        RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line";
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
     begin
 
         if Unconditionally then
@@ -3535,14 +3536,14 @@ then begin
             case PurchaseLine.Type of
                 PurchaseLine.Type::Item:
                     begin
-                        BooGAutoTextSpe := FALSE;
-                        RecGTmpExtTexLineSpe.RESET();
+                        GlobalFunctionMgt.SetAutoTextSpe(false);
+                        RecGTmpExtTexLineSpe.RESET;
                         RecGTmpExtTexLineSpe.SETRANGE("Table Name", RecGTmpExtTexLineSpe."Table Name"::Vendor);
                         RecGTmpExtTexLineSpe.SETRANGE(Code, PurchaseLine."Buy-from Vendor No.");
                         RecGTmpExtTexLineSpe.SETRANGE("No.", PurchaseLine."No.");
                         IF RecGTmpExtTexLineSpe.FIND('-') THEN BEGIN
                             AutoText := TRUE;
-                            BooGAutoTextSpe := TRUE;
+                            GlobalFunctionMgt.SetAutoTextSpe(true);
                             Unconditionally := TRUE;
                         END;
                     end;
@@ -3552,16 +3553,17 @@ then begin
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Transfer Extended Text", 'OnPurchCheckIfAnyExtTextAutoText', '', false, false)]
     local procedure OnPurchCheckIfAnyExtTextAutoText(var ExtendedTextHeader: Record "Extended Text Header"; var PurchaseHeader: Record "Purchase Header"; var PurchaseLine: Record "Purchase Line"; Unconditionally: Boolean; var MakeUpdateRequired: Boolean)
     var
-        RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line"; // TODO: check variable global
-        BooGAutoTextSpe: Boolean; // TODO: check variable global pour test 
+        RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line";
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
     begin
-        BooGAutoTextSpe := FALSE;
-        RecGTmpExtTexLineSpe.RESET();
+
+        GlobalFunctionMgt.SetAutoTextSpe(false);
+        RecGTmpExtTexLineSpe.RESET;
         RecGTmpExtTexLineSpe.SETRANGE("Table Name", RecGTmpExtTexLineSpe."Table Name"::Vendor);
         RecGTmpExtTexLineSpe.SETRANGE(Code, PurchaseLine."Buy-from Vendor No.");
         RecGTmpExtTexLineSpe.SETRANGE("No.", PurchaseLine."No.");
         IF RecGTmpExtTexLineSpe.FIND('-') THEN BEGIN
-            BooGAutoTextSpe := TRUE;
+            GlobalFunctionMgt.SetAutoTextSpe(true);
             Unconditionally := TRUE;
         END;
     end;
@@ -3569,11 +3571,11 @@ then begin
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Transfer Extended Text", 'OnBeforeReadLines', '', false, false)]
     local procedure OnBeforeReadLines(var ExtendedTextHeader: Record "Extended Text Header"; DocDate: Date; LanguageCode: Code[10]; var IsHandled: Boolean; var Result: Boolean; var TempExtTextLine: Record "Extended Text Line" temporary)
     var
-        ExtTextLine: Record "Extended Text Line"; // TODO: check variable global
-        BooGAutoTextSpe: Boolean; // TODO: check variable global pour test 
+        ExtTextLine: Record "Extended Text Line";
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
     begin
         IsHandled := true;
-        if BooGAutoTextSpe = TRUE then begin
+        if GlobalFunctionMgt.GetAutoTextSpe() then begin
             Result := true;
             exit;
         end else begin

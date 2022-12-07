@@ -326,7 +326,7 @@ page 50062 "BC6_Order Processor RC Admin"
                     Caption = 'Update IC Partner Purch. Price', Comment = 'FRA="Màj tarif fournisseur partnaire"';
                     Image = UpdateUnitCost;
                     ApplicationArea = All;
-                    //TODO:Report    // RunObject = Report 50023;
+                    RunObject = Report "BC6_Update IC Par Purch. Price";
                 }
                 action(ExportTarif)
                 {
@@ -340,7 +340,7 @@ page 50062 "BC6_Order Processor RC Admin"
                     Caption = 'Batch Traitement Article', Comment = 'FRA="Traitement blocage article"';
                     Image = Reject;
                     ApplicationArea = All;
-                    //TODO:Report //  RunObject = Report 50020;
+                    RunObject = Report "BC6_Batch Traitement Article";
                 }
             }
             group(Tasks)

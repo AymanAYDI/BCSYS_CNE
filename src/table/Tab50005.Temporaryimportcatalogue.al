@@ -1,7 +1,7 @@
 table 50005 "BC6_Temporary import catalogue"
 {
     DataClassification = CustomerContent;
-    LookupPageID = 50023;
+    LookupPageID = "BC6_Intégration article";
 
     fields
     {

@@ -193,7 +193,7 @@ page 50062 "BC6_Order Processor RC Admin"
                     ApplicationArea = Basic, Suite;
                     Caption = 'Posted Sales Shipments', Comment = 'FRA="Expéditions vente enregistrées"';
                     Image = PostedShipment;
-                    RunObject = Page 142;
+                    RunObject = Page "Posted Sales Shipments";
                     ToolTip = 'View the posted sales shipments.', Comment = 'FRA="Affichez les expéditions vente validées."';
                 }
                 action("Posted Sales Invoices")
@@ -201,14 +201,14 @@ page 50062 "BC6_Order Processor RC Admin"
                     ApplicationArea = Basic, Suite;
                     Caption = 'Posted Sales Invoices', Comment = 'FRA="Factures vente enregistrées"';
                     Image = PostedOrder;
-                    RunObject = Page 143;
+                    RunObject = Page "Posted Sales Invoices";
                     ToolTip = 'View the posted sales invoices.', Comment = 'FRA="Affichez les factures vente validées."';
                 }
                 action("Posted Return Receipts")
                 {
                     Caption = 'Posted Return Receipts', Comment = 'FRA="Réceptions retour enregistrées"';
                     Image = PostedReturnReceipt;
-                    RunObject = Page 6662;
+                    RunObject = Page "Posted Return Receipts";
                     ApplicationArea = All;
                 }
                 action("Posted Sales Credit Memos")
@@ -216,20 +216,20 @@ page 50062 "BC6_Order Processor RC Admin"
                     ApplicationArea = Basic, Suite;
                     Caption = 'Posted Sales Credit Memos', Comment = 'FRA="Avoirs vente enregistrés"';
                     Image = PostedOrder;
-                    RunObject = Page 144;
+                    RunObject = Page "Posted Sales Credit Memos";
                     ToolTip = 'View the posted sales credit memos.', Comment = 'FRA="Affichez les avoirs vente validés."';
                 }
                 action("Posted Purchase Receipts")
                 {
                     Caption = 'Posted Purchase Receipts', Comment = 'FRA="Réceptions achat enregistrées"';
-                    RunObject = Page 145;
+                    RunObject = Page "Posted Purchase Receipts";
                     ApplicationArea = All;
                 }
                 action("Posted Purchase Invoices")
                 {
                     ApplicationArea = Basic, Suite;
                     Caption = 'Posted Purchase Invoices', Comment = 'FRA="Factures achat enregistrées"';
-                    RunObject = Page 146;
+                    RunObject = Page "Posted Purchase Invoices";
                     ToolTip = 'View the posted purchase invoices.', Comment = 'FRA="Affichez les factures achat enregistrées."';
                 }
             }

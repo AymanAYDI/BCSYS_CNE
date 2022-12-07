@@ -44,8 +44,8 @@ report 50015 "Prices Request"
     {
         dataitem(DataItem4458; Table38)
         {
-            DataItemTableView = SORTING (Document Type, No.)
-                                WHERE (Document Type=CONST(Quote));
+            DataItemTableView = SORTING(Document Type, No.)
+                                WHERE(Document Type=CONST(Quote));
             RequestFilterFields = "No.", "Buy-from Vendor No.", "No. Printed";
             RequestFilterHeading = 'Purchase Order';
             column(Purchase_Header_Document_Type; "Document Type")
@@ -56,11 +56,11 @@ report 50015 "Prices Request"
             }
             dataitem(CopyLoop; Table2000000026)
             {
-                DataItemTableView = SORTING (Number);
+                DataItemTableView = SORTING(Number);
                 dataitem(PageLoop; Table2000000026)
                 {
-                    DataItemTableView = SORTING (Number)
-                                        WHERE (Number = CONST (1));
+                    DataItemTableView = SORTING(Number)
+                                        WHERE(Number = CONST(1));
                     column(CurrReport_PAGENO__; STRSUBSTNO(Text005, FORMAT(CurrReport.PAGENO)))
                     {
                     }

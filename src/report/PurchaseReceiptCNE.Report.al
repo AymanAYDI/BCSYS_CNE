@@ -17,7 +17,7 @@ report 50078 "Purchase - Receipt CNE"
     {
         dataitem(DataItem2822; Table120)
         {
-            DataItemTableView = SORTING (No.);
+            DataItemTableView = SORTING(No.);
             RequestFilterFields = "No.", "Buy-from Vendor No.", "No. Printed";
             RequestFilterHeading = 'Posted Purchase Receipt';
             column(No_PurchRcptHeader; "No.")
@@ -46,11 +46,11 @@ report 50078 "Purchase - Receipt CNE"
             }
             dataitem(CopyLoop; Table2000000026)
             {
-                DataItemTableView = SORTING (Number);
+                DataItemTableView = SORTING(Number);
                 dataitem(PageLoop; Table2000000026)
                 {
-                    DataItemTableView = SORTING (Number)
-                                        WHERE (Number = CONST (1));
+                    DataItemTableView = SORTING(Number)
+                                        WHERE(Number = CONST(1));
                     column(PurchRcptCopyText; STRSUBSTNO(Text002, CopyText))
                     {
                     }
@@ -198,8 +198,8 @@ report 50078 "Purchase - Receipt CNE"
                     dataitem(DimensionLoop1; Table2000000026)
                     {
                         DataItemLinkReference = "Purch. Rcpt. Header";
-                        DataItemTableView = SORTING (Number)
-                                            WHERE (Number = FILTER (1 ..));
+                        DataItemTableView = SORTING(Number)
+                                            WHERE(Number = FILTER(1 ..));
                         column(DimText; DimText)
                         {
                         }
@@ -245,7 +245,7 @@ report 50078 "Purchase - Receipt CNE"
                     {
                         DataItemLink = Document No.=FIELD(No.);
                         DataItemLinkReference = "Purch. Rcpt. Header";
-                        DataItemTableView = SORTING (Document No., Line No.);
+                        DataItemTableView = SORTING(Document No., Line No.);
                         column(ShowInternalInfo; ShowInternalInfo)
                         {
                         }
@@ -306,7 +306,7 @@ report 50078 "Purchase - Receipt CNE"
                         }
                         dataitem("PostedInvtPut-awayLine"; Table7341)
                         {
-                            DataItemTableView = SORTING (Source Type, Source Subtype, Source No., Source Line No., Source Subline No.);
+                            DataItemTableView = SORTING(Source Type, Source Subtype, Source No., Source Line No., Source Subline No.);
                             column(PostedInvtPut_awayLine__Source_No__2_; "Source No. 2")
                             {
                             }
@@ -363,8 +363,8 @@ report 50078 "Purchase - Receipt CNE"
                         }
                         dataitem(DimensionLoop2; Table2000000026)
                         {
-                            DataItemTableView = SORTING (Number)
-                                                WHERE (Number = FILTER (1 ..));
+                            DataItemTableView = SORTING(Number)
+                                                WHERE(Number = FILTER(1 ..));
                             column(DimText1; DimText)
                             {
                             }
@@ -461,8 +461,8 @@ report 50078 "Purchase - Receipt CNE"
                     }
                     dataitem(Total; Table2000000026)
                     {
-                        DataItemTableView = SORTING (Number)
-                                            WHERE (Number = CONST (1));
+                        DataItemTableView = SORTING(Number)
+                                            WHERE(Number = CONST(1));
                         column(BuyfromVenNo_PurchRcptHeader; "Purch. Rcpt. Header"."Buy-from Vendor No.")
                         {
                         }
@@ -478,8 +478,8 @@ report 50078 "Purchase - Receipt CNE"
                     }
                     dataitem(Total2; Table2000000026)
                     {
-                        DataItemTableView = SORTING (Number)
-                                            WHERE (Number = CONST (1));
+                        DataItemTableView = SORTING(Number)
+                                            WHERE(Number = CONST(1));
                         column(PaytoVenNo_PurchRcptHeader; "Purch. Rcpt. Header"."Pay-to Vendor No.")
                         {
                         }

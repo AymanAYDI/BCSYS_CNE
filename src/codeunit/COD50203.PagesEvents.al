@@ -59,7 +59,7 @@ codeunit 50203 "BC6_PagesEvents"
                         SalesHeader.RESET();
                         SalesHeader.SETRANGE("Document Type", SalesHeader."Document Type");
                         SalesHeader.SETRANGE("No.", SalesHeader."No.");
-                        REPORT.RUNMODAL(50060, TRUE, FALSE, SalesHeader);
+                        REPORT.RUNMODAL(Report::"Return Order SAV Confirmation", TRUE, FALSE, SalesHeader);
                     END;
                 2:
                     BEGIN
@@ -495,9 +495,9 @@ codeunit 50203 "BC6_PagesEvents"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Cust-Check Cr. Limit", 'OnNewCheckRemoveCustomerNotifications', '', false, false)]
     procedure COD312_OnNewCheckRemoveCustomerNotifications(RecId: RecordID; RecallCreditOverdueNotif: Boolean)
     var
-        SalesHeader: Record 36;
+        SalesHeader: Record "Sales Header";
         InstructionMgt: Codeunit "Instruction Mgt.";
-        CustCheckCrLimit: codeunit 312;
+        CustCheckCrLimit: codeunit "Cust-Check Cr. Limit";
         AdditionalContextId: Guid;
         CustCheckCreditLimit: Page "Check Credit Limit";
         LastNotification: Notification;

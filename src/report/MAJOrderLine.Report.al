@@ -6,7 +6,7 @@ report 50001 "MAJ Order Line"
     {
         dataitem(DataItem1100267001; Table36)
         {
-            DataItemTableView = WHERE (Document Type=CONST(Order),
+            DataItemTableView = WHERE(Document Type=CONST(Order),
                                       Completely Shipped=CONST(No));
             dataitem(DataItem1100267000; Table37)
             {

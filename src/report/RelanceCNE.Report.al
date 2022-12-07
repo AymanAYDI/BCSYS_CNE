@@ -23,7 +23,7 @@ report 50037 "Relance  CNE"
     {
         dataitem(DataItem5612; Table297)
         {
-            DataItemTableView = SORTING (No.);
+            DataItemTableView = SORTING(No.);
             RequestFilterFields = "No.";
             RequestFilterHeading = 'Reminder';
             column(Issued_Reminder_Header_No_; "No.")
@@ -173,8 +173,8 @@ report 50037 "Relance  CNE"
             dataitem(DimensionLoop1; Table2000000026)
             {
                 DataItemLinkReference = "Issued Reminder Header";
-                DataItemTableView = SORTING (Number)
-                                    WHERE (Number = FILTER (1 ..));
+                DataItemTableView = SORTING(Number)
+                                    WHERE(Number = FILTER(1 ..));
                 column(Integer_Number; Number)
                 {
                 }
@@ -220,7 +220,7 @@ report 50037 "Relance  CNE"
             {
                 DataItemLink = Reminder No.=FIELD(No.);
                 DataItemLinkReference = "Issued Reminder Header";
-                DataItemTableView = SORTING (Reminder No., Line No.);
+                DataItemTableView = SORTING(Reminder No., Line No.);
                 column(IssuedReminderLineTexte_Description; Description)
                 {
                 }
@@ -282,7 +282,7 @@ report 50037 "Relance  CNE"
             {
                 DataItemLink = Reminder No.=FIELD(No.);
                 DataItemLinkReference = "Issued Reminder Header";
-                DataItemTableView = SORTING (Reminder No., Line No.);
+                DataItemTableView = SORTING(Reminder No., Line No.);
                 column(Issued_Reminder_Line__Remaining_Amount_; "Remaining Amount")
                 {
                     AutoFormatExpression = "Issued Reminder Line".GetCurrencyCodeFromHeader;
@@ -415,7 +415,7 @@ report 50037 "Relance  CNE"
             {
                 DataItemLink = Reminder No.=FIELD(No.);
                 DataItemLinkReference = "Issued Reminder Header";
-                DataItemTableView = SORTING (Reminder No., Line No.);
+                DataItemTableView = SORTING(Reminder No., Line No.);
                 column(IssuedReminderLine2_Description; Description)
                 {
                 }
@@ -444,7 +444,7 @@ report 50037 "Relance  CNE"
             }
             dataitem(VATCounter; Table2000000026)
             {
-                DataItemTableView = SORTING (Number);
+                DataItemTableView = SORTING(Number);
                 column(VATAmtLineAmtIncludVAT; VATAmountLine."Amount Including VAT")
                 {
                     AutoFormatExpression = "Issued Reminder Line".GetCurrencyCodeFromHeader;

@@ -6,7 +6,7 @@ report 50000 "Item rere"
     {
         dataitem(DataItem1100267000; Table27)
         {
-            DataItemTableView = WHERE (Description = CONST (COLLIER EN INOX DE LIAISON));
+            DataItemTableView = WHERE(Description = CONST(COLLIER EN INOX DE LIAISON));
 
             trigger OnAfterGetRecord()
             begin

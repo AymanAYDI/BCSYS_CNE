@@ -28,7 +28,7 @@ pageextension 50134 "BC6_PaymentSlipSubform" extends "Payment Slip Subform" //10
 
     procedure ApplicationTiersPayeur()
     var
-        PaymentApplyTo: Codeunit 10861;
+        PaymentApplyTo: Codeunit "Payment-Apply";
     begin
         //TODO : missing a fct
         //     PaymentApplyTo.OnRunTiersPayeur(Rec);

@@ -74,8 +74,8 @@ report 50009 "Sales Quote"
     {
         dataitem(DataItem6640; Table36)
         {
-            DataItemTableView = SORTING (Document Type, No.)
-                                WHERE (Document Type=CONST(Quote));
+            DataItemTableView = SORTING(Document Type, No.)
+                                WHERE(Document Type=CONST(Quote));
             RequestFilterFields = "No.", "Sell-to Customer No.", "No. Printed";
             RequestFilterHeading = 'Sales Quote';
             column(CompanyInfo_Picture; CompanyInfo.Picture)
@@ -254,14 +254,14 @@ report 50009 "Sales Quote"
             }
             dataitem(CopyLoop; Table2000000026)
             {
-                DataItemTableView = SORTING (Number);
+                DataItemTableView = SORTING(Number);
                 column(VATAmount_Value; VATAmount)
                 {
                 }
                 dataitem(PageLoop; Table2000000026)
                 {
-                    DataItemTableView = SORTING (Number)
-                                        WHERE (Number = CONST (1));
+                    DataItemTableView = SORTING(Number)
+                                        WHERE(Number = CONST(1));
                     column(TxtGLblProjet; TxtGLblProjet)
                     {
                     }

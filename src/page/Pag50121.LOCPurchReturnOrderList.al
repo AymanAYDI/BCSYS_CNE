@@ -365,7 +365,7 @@ page 50121 "LOC Purch. Return Order List"
                         L_PurchaseHeader.RESET();
                         L_PurchaseHeader.SETRANGE("Document Type", "Document Type");
                         L_PurchaseHeader.SETRANGE("No.", "No.");
-                        REPORT.RUNMODAL(50061, TRUE, FALSE, L_PurchaseHeader);
+                        REPORT.RUNMODAL(Report::"Purchase Return Order - SAV", TRUE, FALSE, L_PurchaseHeader);
                     END;
                     //<<BCSYS
                 end;

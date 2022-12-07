@@ -36,7 +36,7 @@ report 50022 "Creation Auto Cde Achat"
 
     trigger OnPreReport()
     begin
-        CODEUNIT.RUN(50022);
+        CODEUNIT.RUN(Codeunit::"BC6_Creat Auto Cde Achat");
     end;
 
     var

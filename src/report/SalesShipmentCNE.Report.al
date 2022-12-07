@@ -70,7 +70,7 @@ report 50011 "Sales - Shipment CNE"
     {
         dataitem(DataItem3595; Table110)
         {
-            DataItemTableView = SORTING (No.);
+            DataItemTableView = SORTING(No.);
             RequestFilterFields = "No.", "Sell-to Customer No.", "No. Printed";
             RequestFilterHeading = 'Posted Sales Shipment';
             column(CompanyInfo_Picture; CompanyInfo.Picture)
@@ -87,11 +87,11 @@ report 50011 "Sales - Shipment CNE"
             }
             dataitem(CopyLoop; Table2000000026)
             {
-                DataItemTableView = SORTING (Number);
+                DataItemTableView = SORTING(Number);
                 dataitem(PageLoop; Table2000000026)
                 {
-                    DataItemTableView = SORTING (Number)
-                                        WHERE (Number = CONST (1));
+                    DataItemTableView = SORTING(Number)
+                                        WHERE(Number = CONST(1));
                     column(CustAddr_1_; CustAddr[1])
                     {
                     }
@@ -225,7 +225,7 @@ report 50011 "Sales - Shipment CNE"
                     {
                         DataItemLink = Document No.=FIELD(No.);
                         DataItemLinkReference = "Sales Shipment Header";
-                        DataItemTableView = SORTING (Document No., Line No.);
+                        DataItemTableView = SORTING(Document No., Line No.);
                         column(ShowInternalInfo; ShowInternalInfo)
                         {
                         }
@@ -528,7 +528,7 @@ report 50011 "Sales - Shipment CNE"
                     }
                     dataitem("DEEE Tariffs"; Table50007)
                     {
-                        DataItemTableView = SORTING (Eco Partner, DEEE Code, Date beginning);
+                        DataItemTableView = SORTING(Eco Partner, DEEE Code, Date beginning);
                         column(DEEE_Tariffs__DEEE_Tariffs___DEEE_Code_; "DEEE Tariffs"."DEEE Code")
                         {
                         }
@@ -570,8 +570,8 @@ report 50011 "Sales - Shipment CNE"
                     }
                     dataitem(Total; Table2000000026)
                     {
-                        DataItemTableView = SORTING (Number)
-                                            WHERE (Number = CONST (1));
+                        DataItemTableView = SORTING(Number)
+                                            WHERE(Number = CONST(1));
                         column(ShipmentMethod_Description; ShipmentMethod.Description)
                         {
                         }
@@ -619,8 +619,8 @@ report 50011 "Sales - Shipment CNE"
                     }
                     dataitem(Total2; Table2000000026)
                     {
-                        DataItemTableView = SORTING (Number)
-                                            WHERE (Number = CONST (1));
+                        DataItemTableView = SORTING(Number)
+                                            WHERE(Number = CONST(1));
 
                         trigger OnPreDataItem()
                         begin

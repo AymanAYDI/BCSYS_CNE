@@ -89,8 +89,8 @@ report 50032 "Order Confirmation CNE"
     {
         dataitem(DataItem6640; Table36)
         {
-            DataItemTableView = SORTING (Document Type, No.)
-                                WHERE (Document Type=CONST(Order));
+            DataItemTableView = SORTING(Document Type, No.)
+                                WHERE(Document Type=CONST(Order));
             PrintOnlyIfDetail = true;
             RequestFilterFields = "No.", "Sell-to Customer No.";
             RequestFilterHeading = 'Sales Order';
@@ -123,11 +123,11 @@ report 50032 "Order Confirmation CNE"
             }
             dataitem(CopyLoop; Table2000000026)
             {
-                DataItemTableView = SORTING (Number);
+                DataItemTableView = SORTING(Number);
                 dataitem(PageLoop; Table2000000026)
                 {
-                    DataItemTableView = SORTING (Number)
-                                        WHERE (Number = CONST (1));
+                    DataItemTableView = SORTING(Number)
+                                        WHERE(Number = CONST(1));
                     column(PricesInclVAT_SalesHeader; "Sales Header"."Prices Including VAT")
                     {
                     }
@@ -274,13 +274,13 @@ report 50032 "Order Confirmation CNE"
                     }
                     dataitem(TraitementTexteClient; Table2000000026)
                     {
-                        DataItemTableView = SORTING (Number);
+                        DataItemTableView = SORTING(Number);
                         column(TraitementTexteClient_Number; Number)
                         {
                         }
                         dataitem(TexteClient; Table2000000026)
                         {
-                            DataItemTableView = SORTING (Number);
+                            DataItemTableView = SORTING(Number);
                             column(StandardSalesLine_Description; StandardSalesLine.Description)
                             {
                             }

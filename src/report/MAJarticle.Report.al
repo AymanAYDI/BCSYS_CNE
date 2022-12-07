@@ -6,8 +6,8 @@ report 50024 "MAJ article"
     {
         dataitem(DataItem1000000000; Table27)
         {
-            DataItemTableView = SORTING (No.)
-                                WHERE (No.=CONST(AWG114110090122));
+            DataItemTableView = SORTING(No.)
+                                WHERE(No.=CONST(AWG114110090122));
 
             trigger OnAfterGetRecord()
             begin

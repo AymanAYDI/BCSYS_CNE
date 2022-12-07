@@ -126,7 +126,7 @@ pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
                 ApplicationArea = All;
                 trigger OnAction()
                 begin
-                    CODEUNIT.RUN(50013, Rec);
+                    CODEUNIT.RUN(Codeunit::"BC6_Create SalesDoc Directory", Rec);
                     CurrPage.UPDATE();
                 end;
             }

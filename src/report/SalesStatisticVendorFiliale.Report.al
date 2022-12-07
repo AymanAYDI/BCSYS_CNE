@@ -18,7 +18,7 @@ report 50025 "Sales Statistic/Vendor Filiale"
     {
         dataitem(DataItem3182; Table23)
         {
-            DataItemTableView = SORTING (No.);
+            DataItemTableView = SORTING(No.);
             RequestFilterFields = "No.";
             column(FORMAT_TODAY_0_4_; FORMAT(TODAY, 0, 4))
             {
@@ -169,7 +169,7 @@ report 50025 "Sales Statistic/Vendor Filiale"
                             DecGCAVente -= RecGSalesCrMemoLineTEMP.Amount;
                             //>>FEP-ADVE-200706_18_E.002
                         END;
-                        //<<FEP-ADVE-200706_18_E.002
+                    //<<FEP-ADVE-200706_18_E.002
                     UNTIL RecGSalesCrMemoLineTEMP.NEXT = 0;
                 END;
 

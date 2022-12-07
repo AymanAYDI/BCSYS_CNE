@@ -7,9 +7,9 @@ report 50002 TI213763
     {
         dataitem(DataItem1100267000; Table27)
         {
-            DataItemTableView = SORTING (No.)
+            DataItemTableView = SORTING(No.)
                                 ORDER(Ascending)
-                                WHERE (VAT Prod. Posting Group=CONST(TVA19,6),
+                                WHERE(VAT Prod. Posting Group=CONST(TVA19,6),
                                       No.=FILTER(P*));
 
             trigger OnAfterGetRecord()

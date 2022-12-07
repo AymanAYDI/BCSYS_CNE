@@ -35,8 +35,8 @@ report 50018 "Sales Stat/Customer"
     {
         dataitem(DataItem8503; Table21)
         {
-            DataItemTableView = SORTING (Salesperson Code, Customer No., Posting Date, Document Type)
-                                WHERE (Document Type=FILTER(Invoice|Credit Memo));
+            DataItemTableView = SORTING(Salesperson Code, Customer No., Posting Date, Document Type)
+                                WHERE(Document Type=FILTER(Invoice|Credit Memo));
             RequestFilterFields = "Customer No.","Posting Date","Salesperson Code";
             column(FORMAT_TODAY_0_4_;FORMAT(TODAY,0,4))
             {

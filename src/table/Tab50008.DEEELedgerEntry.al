@@ -3,8 +3,8 @@ table 50008 "BC6_DEEE Ledger Entry"
     Caption = 'DEEE Entry', comment = 'FRA="Ecritures DEEE"';
     DataClassification = CustomerContent;
 
-    DrillDownPageID = 50026;
-    LookupPageID = 50026;
+    DrillDownPageID = "BC6_DEEE Ledger Entries";
+    LookupPageID = "BC6_DEEE Ledger Entries";
 
     fields
     {

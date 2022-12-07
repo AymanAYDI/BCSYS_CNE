@@ -12,8 +12,8 @@ report 50079 "Receptions non facturées"
     {
         dataitem(DataItem3042; Table121)
         {
-            DataItemTableView = SORTING (Document No., Line No.)
-                                WHERE (Qty. Rcd. Not Invoiced=FILTER(<>0));
+            DataItemTableView = SORTING(Document No., Line No.)
+                                WHERE(Qty. Rcd. Not Invoiced=FILTER(<>0));
             RequestFilterFields = "Document No.";
             column(FORMAT_TODAY_0_4_;FORMAT(TODAY,0,4))
             {

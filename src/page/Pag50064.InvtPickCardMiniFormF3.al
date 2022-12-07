@@ -384,8 +384,6 @@ page 50064 "Invt. Pick Card MiniForm F3"
     trigger OnInit()
     begin
 
-        //VisibleTestBool := TRUE;
-
         QtyCtrlEditable := TRUE;
         ToBinCodeCtrlEditable := TRUE;
         QtyCtrlVisible := TRUE;
@@ -429,7 +427,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
         BinForm: Page "BC6_Bin List MiniForm";
         ItemForm: Page "BC6_Item List MiniForm";
         LocationForm: Page "BC6_Location List MiniForm";
-        InvtPickForm: Page "Invt Pick List MiniForm";
+        InvtPickForm: Page "BC6_Invt Pick List MiniForm";
         // WshShell: Automation; TODO:
         EditableCtrl: Boolean;
         [InDataSet]
@@ -635,7 +633,6 @@ page 50064 "Invt. Pick Card MiniForm F3"
     var
         ItemError: Boolean;
     begin
-        // TESTFIELD("Whse. Document No.");
         ItemError := FALSE;
         ErrorTxt := '';
 
@@ -715,7 +712,6 @@ page 50064 "Invt. Pick Card MiniForm F3"
 
     procedure PostBatch()
     begin
-        //CLEAR(JnlPostBatch);
         JnlPostBatch.RUN(Rec);
     end;
 
@@ -727,9 +723,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
     begin
         PickNoCtrlVisible := ShowCtrl;
         PickNoLibCtrlVisible := ShowCtrl;
-        // CurrForm.FromBinCodeCtrl.EDITABLE(EditableCtrl);
         FromBinCodeCtrlVisible := ShowCtrl;
-        //CurrForm.ToBinCodeCtrl.EDITABLE(EditableCtrl);
         ToBinCodeCtrlEditable := FALSE;
         ToBinCodeCtrlVisible := ShowCtrl;
         ToBinCodeCtrlVisible := VisibleTestBool;
@@ -765,8 +759,8 @@ page 50064 "Invt. Pick Card MiniForm F3"
             IF InvtPick.GET(InvtPick.Type::"Invt. Pick", "BC6_Whse. Document No.") AND InvtPick."BC6_Sales Counter" THEN
                 IF Location.GET("Location Code") THEN
                     ShipBinCode := Location."Shipment Bin Code";
-            EXIT(TR UE);
-           
+            EXIT(true);
+
 
             InvtPickLine.RESET;
             InvtPickLine.SETRANGE("Activity Type", InvtPickLine."Activity Type"::"Invt. Pick");

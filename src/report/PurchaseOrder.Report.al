@@ -63,8 +63,8 @@ report 50008 "Purchase Order"
     {
         dataitem(DataItem4458; Table38)
         {
-            DataItemTableView = SORTING (Document Type, No.)
-                                WHERE (Document Type=CONST(Order));
+            DataItemTableView = SORTING(Document Type, No.)
+                                WHERE(Document Type=CONST(Order));
             RequestFilterFields = "No.", "Buy-from Vendor No.", "No. Printed";
             RequestFilterHeading = 'Purchase Order';
             column(Purchase_Header_Document_Type; "Document Type")
@@ -105,7 +105,7 @@ report 50008 "Purchase Order"
             }
             dataitem(CopyLoop; Table2000000026)
             {
-                DataItemTableView = SORTING (Number);
+                DataItemTableView = SORTING(Number);
                 column(Text010_________CompanyInfo__Fax_No__; Text010 + CompanyInfo."Purchaser E-Mail")
                 {
                 }
@@ -240,8 +240,8 @@ report 50008 "Purchase Order"
                 }
                 dataitem("PageLoop"""; Table2000000026)
                 {
-                    DataItemTableView = SORTING (Number)
-                                        WHERE (Number = CONST (1));
+                    DataItemTableView = SORTING(Number)
+                                        WHERE(Number = CONST(1));
                     column(STRSUBSTNO_Text005_FORMAT_CurrReport_PAGENO__; STRSUBSTNO(Text005, FORMAT(CurrReport.PAGENO)))
                     {
                     }

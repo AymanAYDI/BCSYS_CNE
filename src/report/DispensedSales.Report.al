@@ -16,7 +16,7 @@ report 50021 "Dispensed Sales"
     {
         dataitem(DataItem3182; Table23)
         {
-            DataItemTableView = SORTING (No.);
+            DataItemTableView = SORTING(No.);
             PrintOnlyIfDetail = true;
             RequestFilterFields = "No.";
             column(COMPANYNAME; COMPANYNAME)
@@ -103,8 +103,8 @@ report 50021 "Dispensed Sales"
             dataitem(DataItem1570; Table113)
             {
                 DataItemLink = Buy-from Vendor No.=FIELD(No.);
-                DataItemTableView = SORTING (Buy-from Vendor No.)
-                                    WHERE (Type = FILTER (Item),
+                DataItemTableView = SORTING(Buy-from Vendor No.)
+                                    WHERE(Type = FILTER(Item),
                                           Dispensation No.=FILTER(<>''));
                 column(CstG001__Document_No__;CstG001+"Document No.")
                 {

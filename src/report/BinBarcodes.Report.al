@@ -24,8 +24,8 @@ report 50048 "Bin Barcodes"
             }
             dataitem(CopyLoop; Table2000000026)
             {
-                DataItemTableView = SORTING (Number)
-                                    WHERE (Number = CONST (1));
+                DataItemTableView = SORTING(Number)
+                                    WHERE(Number = CONST(1));
                 column(GetBarCode_gBin1_Code_; GetBarCode(gBin1.Code))
                 {
                 }

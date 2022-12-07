@@ -16,7 +16,7 @@ report 50020 "Batch Traitement Article"
     {
         dataitem(DataItem1100267000; Table27)
         {
-            DataItemTableView = SORTING (No.);
+            DataItemTableView = SORTING(No.);
             RequestFilterFields = "No.";
 
             trigger OnAfterGetRecord()

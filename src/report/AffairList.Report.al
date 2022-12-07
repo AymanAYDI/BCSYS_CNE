@@ -20,13 +20,13 @@ report 50019 "Affair List"
     RDLCLayout = './AffairList.rdlc';
 
     Caption = 'Affair List';
-    Permissions = TableData 50010 = rimd;
+    Permissions = TableData "BC6_Affair Steps" = rimd;
 
     dataset
     {
         dataitem(DataItem8019; Table167)
         {
-            DataItemTableView = SORTING (No.)
+            DataItemTableView = SORTING(No.)
                                 ORDER(Ascending);
             RequestFilterFields = "No.", "Affair Responsible";
             column(FORMAT_TODAY_0_4_; FORMAT(TODAY, 0, 4))
@@ -146,7 +146,7 @@ report 50019 "Affair List"
             dataitem(DataItem7420; Table50009)
             {
                 DataItemLink = Affair No.=FIELD(No.);
-                DataItemTableView = SORTING (Contact No., Affair No.)
+                DataItemTableView = SORTING(Contact No., Affair No.)
                                     ORDER(Ascending);
                 RequestFilterFields = "Contact No.";
                 column(TxtGContact_Control1000000039; TxtGContact)
@@ -223,9 +223,9 @@ report 50019 "Affair List"
             dataitem(DataItem6640; Table36)
             {
                 DataItemLink = Affair No.=FIELD(No.);
-                DataItemTableView = SORTING (Affair No.)
+                DataItemTableView = SORTING(Affair No.)
                                     ORDER(Ascending)
-                                    WHERE (Document Type=CONST(Quote),
+                                    WHERE(Document Type=CONST(Quote),
                                           Affair No.=FILTER(<>''));
                 column(Sales_Header__Amount_Including_VAT_;"Amount Including VAT")
                 {

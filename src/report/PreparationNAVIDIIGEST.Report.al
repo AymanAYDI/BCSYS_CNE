@@ -31,7 +31,7 @@ report 50012 "Preparation NAVIDIIGEST"
     {
         dataitem(DataItem6640; Table36)
         {
-            DataItemTableView = WHERE (Document Type=CONST(Order));
+            DataItemTableView = WHERE(Document Type=CONST(Order));
             PrintOnlyIfDetail = true;
             RequestFilterFields = "No.", "Sell-to Customer No.";
             RequestFilterHeading = 'Sales Order';
@@ -43,12 +43,12 @@ report 50012 "Preparation NAVIDIIGEST"
             }
             dataitem(CopyLoop; Table2000000026)
             {
-                DataItemTableView = SORTING (Number);
+                DataItemTableView = SORTING(Number);
                 PrintOnlyIfDetail = true;
                 dataitem(PageLoop; Table2000000026)
                 {
-                    DataItemTableView = SORTING (Number)
-                                        WHERE (Number = CONST (1));
+                    DataItemTableView = SORTING(Number)
+                                        WHERE(Number = CONST(1));
                     PrintOnlyIfDetail = true;
                     column(CompanyInfo_Picture; CompanyInfo1.Picture)
                     {
@@ -214,13 +214,13 @@ report 50012 "Preparation NAVIDIIGEST"
                     }
                     dataitem(TraitementTexteClient; Table2000000026)
                     {
-                        DataItemTableView = SORTING (Number);
+                        DataItemTableView = SORTING(Number);
                         column(TraitementTexteClient_Number; Number)
                         {
                         }
                         dataitem(TexteClient; Table2000000026)
                         {
-                            DataItemTableView = SORTING (Number);
+                            DataItemTableView = SORTING(Number);
                             column(StandardSalesLine_Description; StandardSalesLine.Description)
                             {
                             }
@@ -280,8 +280,8 @@ report 50012 "Preparation NAVIDIIGEST"
                     }
                     dataitem(Instruction; Table2000000026)
                     {
-                        DataItemTableView = SORTING (Number)
-                                            WHERE (Number = CONST (1));
+                        DataItemTableView = SORTING(Number)
+                                            WHERE(Number = CONST(1));
                         column(Preparation_and_shipping_instructions__Caption; Preparation_and_shipping_instructions__CaptionLbl)
                         {
                         }

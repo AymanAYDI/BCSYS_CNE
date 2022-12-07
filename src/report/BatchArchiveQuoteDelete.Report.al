@@ -7,7 +7,7 @@ report 50098 "Batch Archive Quote Delete"
     {
         dataitem(DataItem1100267000; Table36)
         {
-            DataItemTableView = WHERE (Document Type=CONST(Quote),
+            DataItemTableView = WHERE(Document Type=CONST(Quote),
                                       Affair No.=FILTER(''));
             RequestFilterFields = "Document Date","No.";
 

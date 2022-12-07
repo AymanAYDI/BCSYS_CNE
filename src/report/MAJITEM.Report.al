@@ -7,7 +7,7 @@ report 50089 "MAJ ITEM"
     {
         dataitem(DataItem1100267000; Table27)
         {
-            DataItemTableView = WHERE (No.=FILTER(CLI*));
+            DataItemTableView = WHERE(No.=FILTER(CLI*));
 
             trigger OnAfterGetRecord()
             begin

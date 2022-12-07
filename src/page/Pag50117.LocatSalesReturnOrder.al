@@ -678,7 +678,7 @@ page 50117 "BC6_Locat. Sales Return Order"
                                     L_SalesHeader.RESET;
                                     L_SalesHeader.SETRANGE("Document Type", Rec."Document Type");
                                     L_SalesHeader.SETRANGE("No.", Rec."No.");
-                                    REPORT.RUNMODAL(50060, TRUE, FALSE, L_SalesHeader);
+                                    REPORT.RUNMODAL(Report::"Return Order SAV Confirmation", TRUE, FALSE, L_SalesHeader);
                                 END;
                             2:
                                 BEGIN
@@ -1174,7 +1174,7 @@ page 50117 "BC6_Locat. Sales Return Order"
 
     local procedure SetDocNoVisible()
     var
-        DocumentNoVisibility: Codeunit 1400;
+        DocumentNoVisibility: Codeunit DocumentNoVisibility;
         DocType: Option Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order",Reminder,FinChMemo;
     begin
         DocNoVisible := DocumentNoVisibility.SalesDocumentNoIsVisible(DocType::"Return Order", Rec."No.");

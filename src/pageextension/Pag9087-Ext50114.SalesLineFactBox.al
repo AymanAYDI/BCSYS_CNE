@@ -114,8 +114,8 @@ pageextension 50114 "BC6_SalesLineFactBox" extends "Sales Line FactBox"  //9087
     }
 
     var
-        GR_ItemCNE: Record 27;
-        GR_ItemMETZ: Record 27;
+        GR_ItemCNE: Record Item;
+        GR_ItemMETZ: Record Item;
         ShowAvaibility: Boolean;
         ShowCNEInfo: Boolean;
         FunctionMgt: Codeunit "BC6_Functions Mgt";

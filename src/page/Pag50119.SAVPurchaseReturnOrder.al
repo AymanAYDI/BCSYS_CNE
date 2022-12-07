@@ -725,7 +725,7 @@ page 50119 "BC6_SAV Purchase Return Order"
                         L_PurchaseHeader.RESET;
                         L_PurchaseHeader.SETRANGE("Document Type", Rec."Document Type");
                         L_PurchaseHeader.SETRANGE("No.", Rec."No.");
-                        REPORT.RUNMODAL(50061, TRUE, FALSE, L_PurchaseHeader);
+                        REPORT.RUNMODAL(Report::"Purchase Return Order - SAV", TRUE, FALSE, L_PurchaseHeader);
                     END;
                     //<<BCSYS
                 end;
@@ -742,7 +742,7 @@ page 50119 "BC6_SAV Purchase Return Order"
                     PromotedCategory = Process;
                     ShortCutKey = 'Ctrl+F9';
                     ApplicationArea = All;
-                
+
                     trigger OnAction()
                     var
                         ReleasePurchDoc: Codeunit "Release Purchase Document";
@@ -762,7 +762,7 @@ page 50119 "BC6_SAV Purchase Return Order"
 
                     trigger OnAction()
                     var
-                                        ReleasePurchDoc: Codeunit "Release Purchase Document";
+                        ReleasePurchDoc: Codeunit "Release Purchase Document";
                     begin
                         ReleasePurchDoc.PerformManualReopen(Rec);
                     end;
@@ -788,7 +788,7 @@ page 50119 "BC6_SAV Purchase Return Order"
                     trigger OnAction()
                     begin
                         Rec.GetPstdDocLinesToReverse;
-                                    end;
+                    end;
                 }
                 action("Apply Entries")
                 {
@@ -799,7 +799,7 @@ page 50119 "BC6_SAV Purchase Return Order"
                     ShortCutKey = 'Shift+F11';
                     ApplicationArea = All;
 
-                                    trigger OnAction()
+                    trigger OnAction()
                     begin
                         CODEUNIT.RUN(CODEUNIT::"Purchase Header Apply", Rec);
                     end;
@@ -1218,4 +1218,4 @@ page 50119 "BC6_SAV Purchase Return Order"
     end;
 }
 
-                                                                                                                              
+

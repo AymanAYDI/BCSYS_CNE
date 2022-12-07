@@ -2,7 +2,7 @@ table 50002 "BC6_Special Extended Text Line"
 {
     Caption = 'Special Extended Text Line';
     DataClassification = CustomerContent;
-    LookupPageID = 50005;
+    LookupPageID = "BC6_Special Extended Text list";
 
     fields
     {

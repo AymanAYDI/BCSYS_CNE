@@ -15,7 +15,7 @@ report 50050 "Refresh Phys. Qty"
     {
         dataitem(DataItem8129; Table27)
         {
-            DataItemTableView = SORTING (No.);
+            DataItemTableView = SORTING(No.);
             RequestFilterFields = "No.", Blocked, Inventory, "Location Filter", "Bin Filter";
             dataitem(ItemJournalLine; Table83)
             {

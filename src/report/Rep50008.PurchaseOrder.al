@@ -53,11 +53,7 @@ report 50008 "BC6_Purchase Order"
             dataitem(CopyLoop; Integer)
             {
                 DataItemTableView = SORTING(Number);
-<<<<<<< HEAD:src/report/PurchaseOrder.Report.al
-                column(Text010_________CompanyInfo__Fax_No__; Text010 + CompanyInfo."Purchaser E-Mail")
-=======
                 column(Text010_________CompanyInfo__Fax_No__; Text010 + CompanyInfo."BC6_Purchaser E-Mail")
->>>>>>> 5be8a54ca69e7c3c91ffc8c8a492e5279a88a889:src/report/Rep50008.PurchaseOrder.al
                 {
                 }
                 column(TxtGNoProjet; TxtGNoProjet)

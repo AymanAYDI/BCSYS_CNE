@@ -25,7 +25,7 @@ report 50042 "Statement sans traite V2"
     {
         dataitem(DataItem6836; Table18)
         {
-            DataItemTableView = SORTING (No.);
+            DataItemTableView = SORTING(No.);
             PrintOnlyIfDetail = true;
             RequestFilterFields = "No.", "Search Name", "Print Statements", "Date Filter", "Currency Filter";
             column(Customer_No_; "No.")
@@ -33,8 +33,8 @@ report 50042 "Statement sans traite V2"
             }
             dataitem(DataItem5444; Table2000000026)
             {
-                DataItemTableView = SORTING (Number)
-                                    WHERE (Number = CONST (1));
+                DataItemTableView = SORTING(Number)
+                                    WHERE(Number = CONST(1));
                 PrintOnlyIfDetail = true;
                 column(CompanyInfo_Picture; CompanyInfo1.Picture)
                 {
@@ -128,13 +128,13 @@ report 50042 "Statement sans traite V2"
                 }
                 dataitem(CurrencyLoop; Table2000000026)
                 {
-                    DataItemTableView = SORTING (Number)
-                                        WHERE (Number = FILTER (1 ..));
+                    DataItemTableView = SORTING(Number)
+                                        WHERE(Number = FILTER(1 ..));
                     PrintOnlyIfDetail = true;
                     dataitem(CustLedgEntryHdr; Table2000000026)
                     {
-                        DataItemTableView = SORTING (Number)
-                                            WHERE (Number = CONST (1));
+                        DataItemTableView = SORTING(Number)
+                                            WHERE(Number = CONST(1));
                         column(Currency2Code_CustLedgEntryHdr; STRSUBSTNO(Text001, Currency2.Code))
                         {
                         }
@@ -148,7 +148,7 @@ report 50042 "Statement sans traite V2"
                         }
                         dataitem(DtldCustLedgEntries; Table379)
                         {
-                            DataItemTableView = SORTING (Customer No., Posting Date, Entry Type, Currency Code);
+                            DataItemTableView = SORTING(Customer No., Posting Date, Entry Type, Currency Code);
                             column(CustBalance___Amount; CustBalance - Amount)
                             {
                                 AutoFormatExpression = "Currency Code";
@@ -316,8 +316,8 @@ report 50042 "Statement sans traite V2"
                     }
                     dataitem(CustLedgEntryFooter; Table2000000026)
                     {
-                        DataItemTableView = SORTING (Number)
-                                            WHERE (Number = CONST (1));
+                        DataItemTableView = SORTING(Number)
+                                            WHERE(Number = CONST(1));
                         column(CurrencyCode3; CurrencyCode3)
                         {
                         }
@@ -343,7 +343,7 @@ report 50042 "Statement sans traite V2"
                     {
                         DataItemLink = Customer No.=FIELD(No.);
                         DataItemLinkReference = Customer;
-                        DataItemTableView = SORTING (Customer No., Open, Positive, Due Date);
+                        DataItemTableView = SORTING(Customer No., Open, Positive, Due Date);
                         column(STRSUBSTNO_Text002_Currency2_Code_; STRSUBSTNO(Text002, Currency2.Code))
                         {
                         }
@@ -482,8 +482,8 @@ report 50042 "Statement sans traite V2"
                 }
                 dataitem(AgingBandLoop; Table2000000026)
                 {
-                    DataItemTableView = SORTING (Number)
-                                        WHERE (Number = FILTER (1 ..));
+                    DataItemTableView = SORTING(Number)
+                                        WHERE(Number = FILTER(1 ..));
                     column(AgingDate_1_1; AgingDate[1] + 1)
                     {
                     }

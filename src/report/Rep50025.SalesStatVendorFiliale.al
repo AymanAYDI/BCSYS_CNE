@@ -9,6 +9,7 @@ report 50025 "BC6_Sales Stat/Vendor Filiale"
     {
         dataitem(Vendor; Vendor)
         {
+
             DataItemTableView = SORTING("No.");
             RequestFilterFields = "No.";
             column(FORMAT_TODAY_0_4_; FORMAT(TODAY, 0, 4))

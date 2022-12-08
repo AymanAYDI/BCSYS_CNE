@@ -16,8 +16,8 @@ report 50076 "Traite fournisseur  sur bord"
     {
         dataitem(DataItem3474; Table10866)
         {
-            DataItemTableView = SORTING (Due Date, Document No.)
-                                WHERE (Account Type=FILTER(Vendor));
+            DataItemTableView = SORTING(Due Date, Document No.)
+                                WHERE(Account Type=FILTER(Vendor));
             PrintOnlyIfDetail = true;
             RequestFilterFields = "No.";
             RequestFilterHeading = 'Payment lines';

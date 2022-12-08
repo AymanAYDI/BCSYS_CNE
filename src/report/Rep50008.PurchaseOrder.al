@@ -9,6 +9,7 @@ report 50008 "BC6_Purchase Order"
     {
         dataitem("Purchase Header"; "Purchase Header")
         {
+
             DataItemTableView = SORTING("Document Type", "No.")
                                 WHERE("Document Type" = CONST(Order));
             RequestFilterFields = "No.", "Buy-from Vendor No.", "No. Printed";

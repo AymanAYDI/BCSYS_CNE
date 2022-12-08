@@ -3,8 +3,8 @@ table 50003 "BC6_Navi+ Documents"
     Caption = 'Document';
     DataCaptionFields = Description;
     DataClassification = CustomerContent;
-    //TODO // DrillDownPageID = 50063;
-    // LookupPageID = 50063;
+    DrillDownPageID = "Invt. Pick Card MiniForm F2";
+    LookupPageID = "Invt. Pick Card MiniForm F2";
 
     fields
     {

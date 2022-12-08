@@ -692,7 +692,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                         L_PurchaseHeader.RESET;
                         L_PurchaseHeader.SETRANGE("Document Type", Rec."Document Type");
                         L_PurchaseHeader.SETRANGE("No.", Rec."No.");
-                        REPORT.RUNMODAL(50061, TRUE, FALSE, L_PurchaseHeader);
+                        REPORT.RUNMODAL(Report::"Purchase Return Order - SAV", TRUE, FALSE, L_PurchaseHeader);
                     END;
                 end;
             }

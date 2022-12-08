@@ -366,7 +366,7 @@ page 50114 "BC6_SAV Sales Ret. Order List"
                         L_SalesHeader.RESET;
                         L_SalesHeader.SETRANGE("Document Type", "Document Type");
                         L_SalesHeader.SETRANGE("No.", "No.");
-                        REPORT.RUNMODAL(50060, TRUE, FALSE, L_SalesHeader);
+                        REPORT.RUNMODAL(Report::"Return Order SAV Confirmation", TRUE, FALSE, L_SalesHeader);
                     END;
                 end;
             }

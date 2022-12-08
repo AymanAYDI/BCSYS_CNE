@@ -138,7 +138,7 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
 
                 trigger OnAction()
                 begin
-                    CODEUNIT.RUN(50013, Rec);
+                    CODEUNIT.RUN(Codeunit::"BC6_Create SalesDoc Directory", Rec);
                     CurrPage.UPDATE();
                 end;
             }

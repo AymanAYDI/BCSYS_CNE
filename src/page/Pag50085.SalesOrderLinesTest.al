@@ -274,7 +274,7 @@ page 50085 "BC6_Sales Order Lines Test"
                         // Apply Filters
 
                         IF BooGNotGroupByItem THEN
-                            CODEUNIT.RUN(50006, Rec)
+                            CODEUNIT.RUN(Codeunit::"BC6_Create Pur. Ord From Sales", Rec)
                         ELSE BEGIN
 
                             //>>FEP-ACHAT-200706_18_A.002:GR

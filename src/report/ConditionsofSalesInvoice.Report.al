@@ -14,7 +14,7 @@ report 50044 "Conditions of Sales - Invoice"
     {
         dataitem(DataItem1000000000; Table112)
         {
-            DataItemTableView = SORTING (No.);
+            DataItemTableView = SORTING(No.);
             RequestFilterFields = "No.";
             RequestFilterHeading = 'Payment Terms';
             column(No; "No.")

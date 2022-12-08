@@ -10,8 +10,8 @@ report 50096 "Order - Vendor NAVIDIIGEST"
     {
         dataitem(DataItem4458; Table38)
         {
-            DataItemTableView = SORTING (Document Type, No.)
-                                WHERE (Document Type=CONST(Order));
+            DataItemTableView = SORTING(Document Type, No.)
+                                WHERE(Document Type=CONST(Order));
             RequestFilterFields = "No.", "Buy-from Vendor No.", "No. Printed";
             RequestFilterHeading = 'Purchase Order';
             column(Purchase_Header_Document_Type; "Document Type")
@@ -28,7 +28,7 @@ report 50096 "Order - Vendor NAVIDIIGEST"
             }
             dataitem(CopyLoop; Table2000000026)
             {
-                DataItemTableView = SORTING (Number);
+                DataItemTableView = SORTING(Number);
                 column(Text30; Text30)
                 {
                 }
@@ -133,8 +133,8 @@ report 50096 "Order - Vendor NAVIDIIGEST"
                 }
                 dataitem(PageLoop; Table2000000026)
                 {
-                    DataItemTableView = SORTING (Number)
-                                        WHERE (Number = CONST (1));
+                    DataItemTableView = SORTING(Number)
+                                        WHERE(Number = CONST(1));
                     column(CompanyInfo1Picture; CompanyInfo1.Picture)
                     {
                     }
@@ -243,8 +243,8 @@ report 50096 "Order - Vendor NAVIDIIGEST"
                     dataitem(DimensionLoop1; Table2000000026)
                     {
                         DataItemLinkReference = "Purchase Header";
-                        DataItemTableView = SORTING (Number)
-                                            WHERE (Number = FILTER (1 ..));
+                        DataItemTableView = SORTING(Number)
+                                            WHERE(Number = FILTER(1 ..));
 
                         trigger OnAfterGetRecord()
                         begin
@@ -283,15 +283,15 @@ report 50096 "Order - Vendor NAVIDIIGEST"
                     }
                     dataitem(TraitementTexteFournisseur; Table2000000026)
                     {
-                        DataItemTableView = SORTING (Number)
-                                            WHERE (Number = CONST (1));
+                        DataItemTableView = SORTING(Number)
+                                            WHERE(Number = CONST(1));
                         column(TraitementTexteFournisseur_Number; Number)
                         {
                         }
                         dataitem(TexteFournisseur; Table2000000026)
                         {
-                            DataItemTableView = SORTING (Number)
-                                                WHERE (Number = CONST (1));
+                            DataItemTableView = SORTING(Number)
+                                                WHERE(Number = CONST(1));
                             column(TexteFournisseur_Number; Number)
                             {
                             }

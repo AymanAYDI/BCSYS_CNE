@@ -701,7 +701,7 @@ page 50116 "BC6_SAV Sales Return Order"
                                     L_SalesHeader.RESET;
                                     L_SalesHeader.SETRANGE("Document Type", Rec."Document Type");
                                     L_SalesHeader.SETRANGE("No.", Rec."No.");
-                                    REPORT.RUNMODAL(50060, TRUE, FALSE, L_SalesHeader);
+                                    REPORT.RUNMODAL(Report::"Return Order SAV Confirmation", TRUE, FALSE, L_SalesHeader);
                                 END;
                             2:
                                 BEGIN
@@ -820,7 +820,7 @@ page 50116 "BC6_SAV Sales Return Order"
                         CopySalesDoc.SetSalesHeader(Rec);
                         CopySalesDoc.RUNMODAL;
                         CLEAR(CopySalesDoc);
-                        //TODO IF Rec.GET(Rec."Document Type", Rec."No.") THEN // THEN WHAT?
+                        IF Rec.GET(Rec."Document Type", Rec."No.") THEN;
                     end;
                 }
                 action(MoveNegativeLines)

@@ -74,6 +74,7 @@ report 50009 "BC6_Sales Quote"
     {
         dataitem("Sales Header"; "Sales Header")
         {
+
             DataItemTableView = SORTING("Document Type", "No.")
                                 WHERE("Document Type" = CONST(Quote));
             RequestFilterFields = "No.", "Sell-to Customer No.", "No. Printed";

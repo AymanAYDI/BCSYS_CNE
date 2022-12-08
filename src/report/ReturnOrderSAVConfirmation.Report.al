@@ -9,8 +9,8 @@ report 50060 "Return Order SAV Confirmation"
     {
         dataitem(DataItem6640; Table36)
         {
-            DataItemTableView = SORTING (Document Type, No.)
-                                WHERE (Document Type=CONST(Return Order));
+            DataItemTableView = SORTING(Document Type, No.)
+                                WHERE(Document Type=CONST(Return Order));
             RequestFilterFields = "No.", "Sell-to Customer No.", "No. Printed";
             RequestFilterHeading = 'Sales Return Order';
             column(DocType_SalesHdr; "Document Type")
@@ -57,11 +57,11 @@ report 50060 "Return Order SAV Confirmation"
             }
             dataitem(CopyLoop; Table2000000026)
             {
-                DataItemTableView = SORTING (Number);
+                DataItemTableView = SORTING(Number);
                 dataitem(PageLoop; Table2000000026)
                 {
-                    DataItemTableView = SORTING (Number)
-                                        WHERE (Number = CONST (1));
+                    DataItemTableView = SORTING(Number)
+                                        WHERE(Number = CONST(1));
                     column(ShipToAddr8; ShipToAddr[8])
                     {
                     }
@@ -343,8 +343,8 @@ report 50060 "Return Order SAV Confirmation"
                     dataitem(DimensionLoop1; Table2000000026)
                     {
                         DataItemLinkReference = "Sales Header";
-                        DataItemTableView = SORTING (Number)
-                                            WHERE (Number = FILTER (1 ..));
+                        DataItemTableView = SORTING(Number)
+                                            WHERE(Number = FILTER(1 ..));
                         column(DimText; DimText)
                         {
                         }

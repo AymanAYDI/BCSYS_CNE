@@ -9,6 +9,7 @@ report 50037 "BC6_Relance  CNE"
     {
         dataitem(IssuedReminderHeader; "Issued Reminder Header")
         {
+
             DataItemTableView = SORTING("No.");
             RequestFilterFields = "No.";
             RequestFilterHeading = 'Reminder';
@@ -158,6 +159,7 @@ report 50037 "BC6_Relance  CNE"
             }
             dataitem(DimensionLoop1; Integer)
             {
+
                 DataItemLinkReference = IssuedReminderHeader;
                 DataItemTableView = SORTING(Number)
                                     WHERE(Number = FILTER(1 ..));
@@ -204,6 +206,7 @@ report 50037 "BC6_Relance  CNE"
             }
             dataitem(IssuedReminderLine; "Issued Reminder Line")
             {
+
                 DataItemLink = "Reminder No." = FIELD("No.");
                 DataItemLinkReference = IssuedReminderHeader;
                 DataItemTableView = SORTING("Reminder No.", "Line No.");
@@ -257,6 +260,7 @@ report 50037 "BC6_Relance  CNE"
             }
             dataitem(DataItem8784; "Issued Reminder Line")
             {
+
                 DataItemLink = "Reminder No." = FIELD("No.");
                 DataItemLinkReference = IssuedReminderHeader;
                 DataItemTableView = SORTING("Reminder No.", "Line No.");

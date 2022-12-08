@@ -91,14 +91,14 @@ report 50040 "Sales - Invoice CNE V2"
     RDLCLayout = './SalesInvoiceCNEV2.rdlc';
 
     Caption = 'Sales - Invoice';
-    Permissions = TableData 7190 = rimd;
+    Permissions = TableData "Sales Shipment Buffer" = rimd;
     PreviewMode = PrintLayout;
 
     dataset
     {
         dataitem(DataItem5581; Table112)
         {
-            DataItemTableView = SORTING (No.);
+            DataItemTableView = SORTING(No.);
             PrintOnlyIfDetail = false;
             RequestFilterFields = "No.", "Sell-to Customer No.", "No. Printed";
             RequestFilterHeading = 'Posted Sales Invoice';
@@ -131,11 +131,11 @@ report 50040 "Sales - Invoice CNE V2"
             }
             dataitem(CopyLoop; Table2000000026)
             {
-                DataItemTableView = SORTING (Number);
+                DataItemTableView = SORTING(Number);
                 dataitem(PageLoop; Table2000000026)
                 {
-                    DataItemTableView = SORTING (Number)
-                                        WHERE (Number = CONST (1));
+                    DataItemTableView = SORTING(Number)
+                                        WHERE(Number = CONST(1));
                     column(CustAddr_1_; CustAddr[1])
                     {
                     }
@@ -245,7 +245,7 @@ report 50040 "Sales - Invoice CNE V2"
                     {
                         DataItemLink = Document No.=FIELD(No.);
                         DataItemLinkReference = "Sales Invoice Header";
-                        DataItemTableView = SORTING (Document No., Line No.);
+                        DataItemTableView = SORTING(Document No., Line No.);
                         column(Sales_Invoice_Line__Line_Amount_; "Line Amount")
                         {
                             AutoFormatExpression = "Sales Invoice Line".GetCurrencyCode;
@@ -544,7 +544,7 @@ report 50040 "Sales - Invoice CNE V2"
                     }
                     dataitem(VATCounter; Table2000000026)
                     {
-                        DataItemTableView = SORTING (Number);
+                        DataItemTableView = SORTING(Number);
                         column(VATAmtLineVATBase; VATAmountLine."VAT Base")
                         {
                             AutoFormatExpression = "Sales Invoice Line".GetCurrencyCode;
@@ -626,7 +626,7 @@ report 50040 "Sales - Invoice CNE V2"
                     }
                     dataitem(VatCounterLCY; Table2000000026)
                     {
-                        DataItemTableView = SORTING (Number);
+                        DataItemTableView = SORTING(Number);
                         column(VALSpecLCYHeader; VALSpecLCYHeader)
                         {
                         }
@@ -679,7 +679,7 @@ report 50040 "Sales - Invoice CNE V2"
                     }
                     dataitem(DataItem6784; Table50007)
                     {
-                        DataItemTableView = SORTING (Eco Partner, DEEE Code, Date beginning);
+                        DataItemTableView = SORTING(Eco Partner, DEEE Code, Date beginning);
                         column(DEEE_Tariffs__DEEE_Tariffs___DEEE_Code_; "DEEE Tariffs"."DEEE Code")
                         {
                         }
@@ -758,8 +758,8 @@ report 50040 "Sales - Invoice CNE V2"
                     }
                     dataitem(Total; Table2000000026)
                     {
-                        DataItemTableView = SORTING (Number)
-                                            WHERE (Number = CONST (1));
+                        DataItemTableView = SORTING(Number)
+                                            WHERE(Number = CONST(1));
                         column(TotalAmount; FORMAT(TotalAmount, 0, '<precision,2:2><standard format,1>'))
                         {
                             DecimalPlaces = 0 : 2;
@@ -806,8 +806,8 @@ report 50040 "Sales - Invoice CNE V2"
                     }
                     dataitem(Total2; Table2000000026)
                     {
-                        DataItemTableView = SORTING (Number)
-                                            WHERE (Number = CONST (1));
+                        DataItemTableView = SORTING(Number)
+                                            WHERE(Number = CONST(1));
 
                         trigger OnPreDataItem()
                         begin

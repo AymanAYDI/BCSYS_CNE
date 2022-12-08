@@ -10,6 +10,7 @@ report 50019 "BC6_Affair List"
     {
         dataitem(Job; Job)
         {
+
             DataItemTableView = SORTING("No.")
                                 ORDER(Ascending);
             RequestFilterFields = "No.", "BC6_Affair Responsible";

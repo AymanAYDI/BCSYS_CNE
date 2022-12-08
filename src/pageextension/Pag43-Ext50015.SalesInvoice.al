@@ -90,7 +90,7 @@ pageextension 50015 "BC6_SalesInvoice" extends "Sales Invoice" //43
         "--NSC1.01--": Integer;
         cust: Record Customer;
         nameF: Text[250];
-        Mail: Codeunit 397;
+        Mail: Codeunit Mail;
         "Sales & Receivables Setup": Record "Sales & Receivables Setup";
         Excel: Boolean;
         HistMail: Record "BC6_Historique Mails Envoyés";

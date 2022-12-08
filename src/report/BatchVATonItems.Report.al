@@ -11,8 +11,8 @@ report 60000 "Batch VAT on Items"
             dataitem(DataItem1100267001; Table37)
             {
                 DataItemLink = No.=FIELD(No.);
-                DataItemTableView = SORTING (Document Type, No.)
-                                    WHERE (Document Type=CONST(Order));
+                DataItemTableView = SORTING(Document Type, No.)
+                                    WHERE(Document Type=CONST(Order));
 
                 trigger OnAfterGetRecord()
                 begin
@@ -27,8 +27,8 @@ report 60000 "Batch VAT on Items"
             dataitem(DataItem1100267002; Table39)
             {
                 DataItemLink = No.=FIELD(No.);
-                DataItemTableView = SORTING (Document Type, No.)
-                                    WHERE (Document Type=CONST(Order));
+                DataItemTableView = SORTING(Document Type, No.)
+                                    WHERE(Document Type=CONST(Order));
 
                 trigger OnAfterGetRecord()
                 begin

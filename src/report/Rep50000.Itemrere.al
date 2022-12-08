@@ -6,6 +6,7 @@ report 50000 "BC6_Item rere"
     {
         dataitem(Item; Item)
         {
+
             DataItemTableView = WHERE(Description = CONST('COLLIER EN INOX DE LIAISON'));
 
             trigger OnAfterGetRecord()

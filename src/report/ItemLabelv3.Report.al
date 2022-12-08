@@ -20,7 +20,7 @@ report 50059 "Item Label v3"
             RequestFilterFields = "No.", Description, "Print Unit Price Includes VAT";
             dataitem(CopyLoop; Table2000000026)
             {
-                DataItemTableView = SORTING (Number)
+                DataItemTableView = SORTING(Number)
                                     ORDER(Ascending);
                 column(Item__No__; Item."No.")
                 {

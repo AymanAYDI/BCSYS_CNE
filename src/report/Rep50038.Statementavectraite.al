@@ -1,21 +1,5 @@
-report 50038 "Statement avec traite"
+report 50038 "BC6_Statement avec traite"
 {
-    // //MODIFICATION SM 30/06/06 NSC1.02 [M0344] modification des reports en fonction du Client Worms
-    // //SOLDE        SL 14/09/06 NSC1.05         Visible=No sur le champ StartBalance dans CustLedgEntryHdr, Header(1)
-    // //SOLDE        SL 18/09/06 NSC1.06         visible = No sur le champ CustBalance
-    //                                            Ajout de la totalisation sur le montant ouvert
-    //                                            Ajout de l'option 'Uniquement Facture ou Avoir'
-    // //DESIGN       SD 27/09/06 NSC1.08         Modification emplacement des champs
-    // 
-    // TDL0109:JORE 04/12/2006 - Add management of existing line
-    // 
-    // //TRAITE FG 02/03/07 ajout dataitem Traite
-    // 
-    // //>> 04/01/12 SU-DADE cf APPEL TI078354
-    // //   Design : add Customer.No on  Traite footer(2)
-    // //<< 04/01/12 SU-DADE cf APPEL TI078354
-    // //>>CNEIC
-    // CR_NouvSte_CNE_20150605: TO 26:06/2015: Ne pas imprimer informations 2nde société si vide
     DefaultLayout = RDLC;
     RDLCLayout = './Statementavectraite.rdlc';
 
@@ -23,26 +7,26 @@ report 50038 "Statement avec traite"
 
     dataset
     {
-        dataitem(DataItem6836; Table18)
+        dataitem(Customer; Customer)
         {
-            DataItemTableView = SORTING (No.);
+            DataItemTableView = SORTING("No.");
             PrintOnlyIfDetail = true;
             RequestFilterFields = "No.", "Search Name", "Print Statements", "Date Filter", "Currency Filter";
             column(Customer_No_; "No.")
             {
             }
-            dataitem(DataItem5444; Table2000000026)
+            dataitem(Integer; Integer)
             {
-                DataItemTableView = SORTING (Number)
-                                    WHERE (Number = CONST (1));
+                DataItemTableView = SORTING(Number)
+                                    WHERE(Number = CONST(1));
                 PrintOnlyIfDetail = true;
                 column(CompanyInfo_Picture; CompanyInfo1.Picture)
                 {
                 }
-                column(CompanyInfo__Alt_Picture_; CompanyInfo1."Alt Picture")
+                column(CompanyInfo__Alt_Picture_; CompanyInfo1."BC6_Alt Picture")
                 {
                 }
-                column(STRSUBSTNO_Text000_FORMAT_CurrReport_PAGENO__; STRSUBSTNO(Text000, FORMAT(CurrReport.PAGENO)))
+                column(STRSUBSTNO_Text000_FORMAT_CurrReport_PAGENO__; STRSUBSTNO(Text000, FORMAT(CurrReport.PAGENO())))
                 {
                 }
                 column(STRSUBSTNO_1_2_3_4_Text105_StartDate_Text101_EndDate_; STRSUBSTNO('%1 %2 %3 %4', Text105, StartDate, Text101, EndDate))
@@ -78,13 +62,13 @@ report 50038 "Statement avec traite"
                 column(Customer__Payment_Method_Code_; Customer."Payment Method Code")
                 {
                 }
-                column(STRSUBSTNO_Text066_CompanyInfo__Alt_Phone_No___CompanyInfo__Alt_Fax_No___CompanyInfo__Alt_E_Mail__; STRSUBSTNO(Text066, CompanyInfo."Alt Phone No.", CompanyInfo."Alt Fax No.", CompanyInfo."Alt E-Mail"))
+                column(STRSUBSTNO_Text066_CompanyInfo__Alt_Phone_No___CompanyInfo__Alt_Fax_No___CompanyInfo__Alt_E_Mail__; STRSUBSTNO(Text066, CompanyInfo."BC6_Alt Phone No.", CompanyInfo."BC6_Alt Fax No.", CompanyInfo."BC6_Alt E-Mail"))
                 {
                 }
-                column(DataItem1000000007; CompanyInfo."Alt Address" + ' ' + CompanyInfo."Alt Address 2" + ' ' + STRSUBSTNO('%1 %2', CompanyInfo."Alt Post Code", CompanyInfo."Alt City"))
+                column(DataItem1000000007; CompanyInfo."BC6_Alt Address" + ' ' + CompanyInfo."BC6_Alt Address 2" + ' ' + STRSUBSTNO('%1 %2', CompanyInfo."BC6_Alt Post Code", CompanyInfo."BC6_Alt City"))
                 {
                 }
-                column(CompanyInfo__Alt_Name_; CompanyInfo."Alt Name")
+                column(CompanyInfo__Alt_Name_; CompanyInfo."BC6_Alt Name")
                 {
                 }
                 column(STRSUBSTNO_Text066_CompanyInfo__Phone_No___CompanyInfo__Fax_No___CompanyInfo__E_Mail__; STRSUBSTNO(Text066, CompanyInfo."Phone No.", CompanyInfo."Fax No.", CompanyInfo."E-Mail"))
@@ -126,15 +110,15 @@ report 50038 "Statement avec traite"
                 column(Integer_Number; Number)
                 {
                 }
-                dataitem(CurrencyLoop; Table2000000026)
+                dataitem(CurrencyLoop; Integer)
                 {
-                    DataItemTableView = SORTING (Number)
-                                        WHERE (Number = FILTER (1 ..));
+                    DataItemTableView = SORTING(Number)
+                                        WHERE(Number = FILTER(1 ..));
                     PrintOnlyIfDetail = true;
-                    dataitem(CustLedgEntryHdr; Table2000000026)
+                    dataitem(CustLedgEntryHdr; Integer)
                     {
-                        DataItemTableView = SORTING (Number)
-                                            WHERE (Number = CONST (1));
+                        DataItemTableView = SORTING(Number)
+                                            WHERE(Number = CONST(1));
                         column(Currency2Code_CustLedgEntryHdr; STRSUBSTNO(Text001, Currency2.Code))
                         {
                         }
@@ -146,9 +130,9 @@ report 50038 "Statement avec traite"
                         column(CustLedgEntryHdr_Number; Number)
                         {
                         }
-                        dataitem(DtldCustLedgEntries; Table379)
+                        dataitem(DtldCustLedgEntries; 379)
                         {
-                            DataItemTableView = SORTING (Customer No., Posting Date, Entry Type, Currency Code);
+                            DataItemTableView = SORTING("Customer No.", "Posting Date", "Entry Type", "Currency Code");
                             column(CustBalance___Amount; CustBalance - Amount)
                             {
                                 AutoFormatExpression = "Currency Code";
@@ -220,7 +204,7 @@ report 50038 "Statement avec traite"
                             begin
 
                                 IF SkipReversedUnapplied(DtldCustLedgEntries) THEN
-                                    CurrReport.SKIP;
+                                    CurrReport.SKIP();
                                 "Remaining Amount" := 0;
                                 PrintLine := TRUE;
                                 CASE "Entry Type" OF
@@ -276,18 +260,9 @@ report 50038 "Statement avec traite"
                                 IF PrintLine THEN
                                     CustBalance := CustBalance + Amount;
 
-                                //SOLDE SL 18/09/06 NSC1.06
                                 TotalRemainingAmount := TotalRemainingAmount + "Remaining Amount";
-                                //Fin SOLDE SL 18/09/06 NSC1.06
-
-                                //>>TRAITE FG 02/03/07
                                 TraiteTotalRemainingAmount := TotalRemainingAmount;
-                                //<<TRAITE FG 02/03/07
-
-
-                                //>>MIGRATION NAV 2013
                                 BooGAffiche := (PrintLine OR ("Entry Type" <> "Entry Type"::Application));
-                                //<<MIGRATION NAV 2013
                             end;
 
                             trigger OnPreDataItem()
@@ -297,27 +272,21 @@ report 50038 "Statement avec traite"
                                 SETRANGE("Currency Code", Currency2.Code);
 
 
-                                //SOLDE SL 18/09/06 NSC1.0
                                 IF OnlySales THEN
                                     SETFILTER("Document Type", '%1|%2', "Document Type"::Invoice, "Document Type"::"Credit Memo");
-                                //Fin SOLDE SL 18/09/06 NSC1.0
-
                                 IF Currency2.Code = '' THEN BEGIN
                                     GLSetup.TESTFIELD("LCY Code");
                                     CurrencyCode3 := GLSetup."LCY Code"
                                 END ELSE
                                     CurrencyCode3 := Currency2.Code;
-
-                                //SOLDE SL 18/09/06 NSC1.06
                                 TotalRemainingAmount := 0;
-                                //Fin SOLDE SL 18/09/06 NSC1.06
                             end;
                         }
                     }
-                    dataitem(CustLedgEntryFooter; Table2000000026)
+                    dataitem(CustLedgEntryFooter; Integer)
                     {
-                        DataItemTableView = SORTING (Number)
-                                            WHERE (Number = CONST (1));
+                        DataItemTableView = SORTING(Number)
+                                            WHERE(Number = CONST(1));
                         column(CurrencyCode3; CurrencyCode3)
                         {
                         }
@@ -339,11 +308,11 @@ report 50038 "Statement avec traite"
                         {
                         }
                     }
-                    dataitem(CustLedgEntry2; Table21)
+                    dataitem(CustLedgEntry2; 21)
                     {
-                        DataItemLink = Customer No.=FIELD(No.);
+                        DataItemLink = "Customer No." = FIELD("No.");
                         DataItemLinkReference = Customer;
-                        DataItemTableView = SORTING (Customer No., Open, Positive, Due Date);
+                        DataItemTableView = SORTING("Customer No.", Open, Positive, "Due Date");
                         column(STRSUBSTNO_Text002_Currency2_Code_; STRSUBSTNO(Text002, Currency2.Code))
                         {
                         }
@@ -413,22 +382,22 @@ report 50038 "Statement avec traite"
 
                         trigger OnAfterGetRecord()
                         var
-                            CustLedgEntry: Record "21";
+                            CustLedgEntry: Record "Cust. Ledger Entry";
                         begin
                             IF IncludeAgingBand THEN
                                 IF ("Posting Date" > EndDate) AND ("Due Date" >= EndDate) THEN
-                                    CurrReport.SKIP;
+                                    CurrReport.SKIP();
                             CustLedgEntry := CustLedgEntry2;
                             CustLedgEntry.SETRANGE("Date Filter", 0D, EndDate);
                             CustLedgEntry.CALCFIELDS("Remaining Amount");
                             "Remaining Amount" := CustLedgEntry."Remaining Amount";
                             IF CustLedgEntry."Remaining Amount" = 0 THEN
-                                CurrReport.SKIP;
+                                CurrReport.SKIP();
 
                             IF IncludeAgingBand AND ("Posting Date" <= EndDate) THEN
                                 UpdateBuffer(Currency2.Code, GetDate("Posting Date", "Due Date"), "Remaining Amount");
                             IF ("Due Date" >= EndDate) OR ("Remaining Amount" < 0) THEN
-                                CurrReport.SKIP;
+                                CurrReport.SKIP();
                         end;
 
                         trigger OnPreDataItem()
@@ -439,14 +408,10 @@ report 50038 "Statement avec traite"
                                 SETRANGE(Positive, TRUE);
                             END;
                             SETRANGE("Currency Code", Currency2.Code);
-
-                            //SOLDE SL 18/09/06 NSC1.0
                             IF OnlySales THEN
                                 SETFILTER("Document Type", '%1|%2', "Document Type"::Invoice, "Document Type"::"Credit Memo");
-                            //Fin SOLDE SL 18/09/06 NSC1.0
-
                             IF (NOT PrintEntriesDue) AND (NOT IncludeAgingBand) THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                         end;
                     }
 
@@ -455,8 +420,8 @@ report 50038 "Statement avec traite"
                         IF Number = 1 THEN
                             Currency2.FIND('-')
                         ELSE
-                            IF Currency2.NEXT = 0 THEN
-                                CurrReport.BREAK;
+                            IF Currency2.NEXT() = 0 THEN
+                                CurrReport.BREAK();
 
                         Cust2 := Customer;
                         Cust2.SETRANGE("Date Filter", 0D, StartDate - 1);
@@ -469,10 +434,8 @@ report 50038 "Statement avec traite"
                         "Cust. Ledger Entry".SETRANGE("Posting Date", StartDate, EndDate);
                         "Cust. Ledger Entry".SETRANGE("Currency Code", Currency2.Code);
                         EntriesExists := "Cust. Ledger Entry".FIND('-');
-                        //>>MIGRATION NAV 2013
                         IF NOT EntriesExists THEN
-                            CurrReport.SKIP;
-                        //<<MIGRATION NAV 2013
+                            CurrReport.SKIP();
                     end;
 
                     trigger OnPreDataItem()
@@ -480,10 +443,10 @@ report 50038 "Statement avec traite"
                         Customer.COPYFILTER("Currency Filter", Currency2.Code);
                     end;
                 }
-                dataitem(AgingBandLoop; Table2000000026)
+                dataitem(AgingBandLoop; Integer)
                 {
-                    DataItemTableView = SORTING (Number)
-                                        WHERE (Number = FILTER (1 ..));
+                    DataItemTableView = SORTING(Number)
+                                        WHERE(Number = FILTER(1 ..));
                     column(AgingDate_1_1; AgingDate[1] + 1)
                     {
                     }
@@ -550,10 +513,10 @@ report 50038 "Statement avec traite"
                     begin
                         IF Number = 1 THEN BEGIN
                             IF NOT AgingBandBuf.FIND('-') THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                         END ELSE
-                            IF AgingBandBuf.NEXT = 0 THEN
-                                CurrReport.BREAK;
+                            IF AgingBandBuf.NEXT() = 0 THEN
+                                CurrReport.BREAK();
                         AgingBandCurrencyCode := AgingBandBuf."Currency Code";
                         IF AgingBandCurrencyCode = '' THEN
                             AgingBandCurrencyCode := GLSetup."LCY Code";
@@ -562,29 +525,26 @@ report 50038 "Statement avec traite"
                     trigger OnPreDataItem()
                     begin
                         IF NOT IncludeAgingBand THEN
-                            CurrReport.BREAK;
+                            CurrReport.BREAK();
                     end;
                 }
 
                 trigger OnAfterGetRecord()
                 begin
-
-                    //>>TDL0109:JORE 04/12/2006
                     IF OnlySales THEN BEGIN
                         "Cust. Ledger Entry1".SETRANGE("Customer No.", Customer."No.");
                         "Cust. Ledger Entry1".SETRANGE("Posting Date", StartDate, EndDate);
                         "Cust. Ledger Entry1".SETFILTER("Document Type", '%1|%2',
                         "Cust. Ledger Entry1"."Document Type"::Invoice, "Cust. Ledger Entry1"."Document Type"::"Credit Memo");
                         IF NOT "Cust. Ledger Entry1".FIND('-') THEN
-                            CurrReport.SKIP;
+                            CurrReport.SKIP();
                     END;
-                    //<<TDL0109:JORE 04/12/2006
                 end;
             }
-            dataitem(Traite; Table2000000026)
+            dataitem(Traite; Integer)
             {
-                DataItemTableView = SORTING (Number)
-                                    WHERE (Number = CONST (1));
+                DataItemTableView = SORTING(Number)
+                                    WHERE(Number = CONST(1));
                 column(CustAdr_6_; CustAdr[6])
                 {
                 }
@@ -756,20 +716,20 @@ report 50038 "Statement avec traite"
 
                 trigger OnAfterGetRecord()
                 begin
-                    GLSetup.GET;
+                    GLSetup.GET();
                     IF Customer."Preferred Bank Account Code" <> '' THEN BEGIN
-                        RecGCustomerBankAccount.RESET;
+                        RecGCustomerBankAccount.RESET();
                         IF Customer."Bill-to Customer No." <> '' THEN
                             RecGCustomerBankAccount.GET(Customer."Bill-to Customer No.", Customer."Preferred Bank Account Code")
                         ELSE
                             RecGCustomerBankAccount.GET(Customer."No.", Customer."Preferred Bank Account Code")
                     END;
 
-                    PostingDate := WORKDATE;
+                    PostingDate := WORKDATE();
 
-                    RecGPaymentTerms.RESET;
+                    RecGPaymentTerms.RESET();
                     IF RecGPaymentTerms.GET(Customer."Payment Terms Code") THEN
-                        DueDate := CALCDATE(RecGPaymentTerms."Due Date Calculation", WORKDATE)
+                        DueDate := CALCDATE(RecGPaymentTerms."Due Date Calculation", WORKDATE())
                     ELSE
                         DueDate := 0D;
 
@@ -789,18 +749,14 @@ report 50038 "Statement avec traite"
                 trigger OnPreDataItem()
                 begin
                     IF TraiteTotalRemainingAmount = 0 THEN
-                        CurrReport.BREAK;
+                        CurrReport.BREAK();
                 end;
             }
 
             trigger OnAfterGetRecord()
             begin
-                //>>TRAITE FG 02/03/07
                 TraiteTotalRemainingAmount := 0;
-                //<<TRAITE FG 02/03/07
-
-                AgingBandBuf.DELETEALL;
-                //  CurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
+                AgingBandBuf.DELETEALL();
                 PrintLine := FALSE;
                 Cust2 := Customer;
                 COPYFILTER("Currency Filter", Currency2.Code);
@@ -811,10 +767,10 @@ report 50038 "Statement avec traite"
                             Cust2.SETRANGE("Currency Filter", Currency2.Code);
                             Cust2.CALCFIELDS("Net Change");
                             PrintLine := Cust2."Net Change" <> 0;
-                        UNTIL (Currency2.NEXT = 0) OR PrintLine;
+                        UNTIL (Currency2.NEXT() = 0) OR PrintLine;
                 END;
                 IF (NOT PrintLine) AND PrintAllHavingEntry THEN BEGIN
-                    "Cust. Ledger Entry".RESET;
+                    "Cust. Ledger Entry".RESET();
                     "Cust. Ledger Entry".SETCURRENTKEY("Customer No.", "Posting Date");
                     "Cust. Ledger Entry".SETRANGE("Customer No.", Customer."No.");
                     "Cust. Ledger Entry".SETRANGE("Posting Date", StartDate, EndDate);
@@ -822,18 +778,18 @@ report 50038 "Statement avec traite"
                     PrintLine := "Cust. Ledger Entry".FIND('-');
                 END;
                 IF NOT PrintLine THEN
-                    CurrReport.SKIP;
+                    CurrReport.SKIP();
 
 
                 FormatAddr.Customer(CustAddr, Customer);
                 CurrReport.PAGENO := 1;
 
                 IF NOT CurrReport.PREVIEW THEN BEGIN
-                    Customer.LOCKTABLE;
-                    Customer.FIND;
+                    Customer.LOCKTABLE();
+                    Customer.FIND();
                     Customer."Last Statement No." := Customer."Last Statement No." + 1;
-                    Customer.MODIFY;
-                    COMMIT;
+                    Customer.MODIFY();
+                    COMMIT();
                 END ELSE
                     Customer."Last Statement No." := Customer."Last Statement No." + 1;
 
@@ -849,19 +805,15 @@ report 50038 "Statement avec traite"
                 StartDate := GETRANGEMIN("Date Filter");
                 EndDate := GETRANGEMAX("Date Filter");
                 AgingBandEndingDate := EndDate;
-                CalcAgingBandDates;
-
-                //CompanyInfo.GET;
-                //FormatAddr.Company(CompanyAddr,CompanyInfo);
-
+                CalcAgingBandDates();
                 Currency2.Code := '';
-                Currency2.INSERT;
+                Currency2.INSERT();
                 COPYFILTER("Currency Filter", Currency.Code);
                 IF Currency.FIND('-') THEN
                     REPEAT
                         Currency2 := Currency;
-                        Currency2.INSERT;
-                    UNTIL Currency.NEXT = 0;
+                        Currency2.INSERT();
+                    UNTIL Currency.NEXT() = 0;
             end;
         }
     }
@@ -948,7 +900,6 @@ report 50038 "Statement avec traite"
                 PrintAllHavingBal := TRUE;
 
             LogInteraction := SegManagement.FindInteractTmplCode(7) <> '';
-            //RequestOptionsPage.LogInteraction.ENABLED(LogInteraction);
 
             IF FORMAT(PeriodLength) = '' THEN
                 EVALUATE(PeriodLength, '<1M+CM>');
@@ -961,144 +912,136 @@ report 50038 "Statement avec traite"
 
     trigger OnInitReport()
     begin
-        GLSetup.GET;
-        //>>MIGRATION NAV 2013
+        GLSetup.GET();
         LogInteractionEnable := TRUE;
-        //MODIFICATION SM 30/06/06 NSC1.02 [M0344] modification des reports en fonction du Client Worms
 
-        CompanyInfo.GET;
+        CompanyInfo.GET();
 
-        CompanyInfo1.GET;
+        CompanyInfo1.GET();
         CompanyInfo1.CALCFIELDS(Picture);
-        CompanyInfo1.CALCFIELDS("Alt Picture");
-        //<<MIGRATION NAV 2013
-    end;
-
-    trigger OnPreReport()
-    begin
-        //InitRequestPageDataInternal;
+        CompanyInfo1.CALCFIELDS("BC6_Alt Picture");
     end;
 
     var
-        Text000: Label 'Page %1';
-        Text001: Label 'Entries %1';
-        Text002: Label 'Overdue Entries %1';
-        Text003: Label 'Statement ';
-        GLSetup: Record "98";
-        CompanyInfo: Record "79";
-        Cust2: Record "18";
-        Currency: Record "4";
-        Currency2: Record "4" temporary;
-        Language: Record "8";
-        "Cust. Ledger Entry": Record "21";
-        DtldCustLedgEntries2: Record "379";
-        AgingBandBuf: Record "47" temporary;
-        PrintAllHavingEntry: Boolean;
-        PrintAllHavingBal: Boolean;
-        PrintEntriesDue: Boolean;
-        PrintUnappliedEntries: Boolean;
-        PrintReversedEntries: Boolean;
-        PrintLine: Boolean;
-        LogInteraction: Boolean;
-        EntriesExists: Boolean;
-        StartDate: Date;
-        EndDate: Date;
-        "Due Date": Date;
-        CustAddr: array[8] of Text[50];
-        CompanyAddr: array[8] of Text[50];
-        Description: Text[50];
-        StartBalance: Decimal;
-        CustBalance: Decimal;
-        "Remaining Amount": Decimal;
-        FormatAddr: Codeunit "365";
-        SegManagement: Codeunit "5051";
-        CurrencyCode3: Code[10];
-        Text005: Label 'Multicurrency Application';
-        Text006: Label 'Payment Discount';
-        Text007: Label 'Rounding';
+        AgingBandBuf: Record "Aging Band Buffer" temporary;
+        CompanyInfo: Record "Company Information";
+        CompanyInfo1: Record "Company Information";
+        Currency: Record Currency;
+        Currency2: Record Currency temporary;
+        "Cust. Ledger Entry": Record "Cust. Ledger Entry";
+        "Cust. Ledger Entry1": Record "Cust. Ledger Entry";
+        Cust2: Record Customer;
+        RecGCustomerBankAccount: Record "Customer Bank Account";
+        DtldCustLedgEntries2: Record "Detailed Cust. Ledg. Entry";
+        GLSetup: Record "General Ledger Setup";
+        Language: Record Language;
+        RecGPaymentTerms: Record "Payment Terms";
+        FormatAddr: Codeunit "Format Address";
+        SegManagement: Codeunit SegManagement;
         PeriodLength: DateFormula;
         PeriodLength2: DateFormula;
-        DateChoice: Option "Due Date","Posting Date";
-        AgingDate: array[5] of Date;
-        Text008: Label 'You must specify the Aging Band Period Length.';
-        AgingBandEndingDate: Date;
-        Text010: Label 'You must specify Aging Band Ending Date.';
-        Text011: Label 'Aged Summary by %1 (%2 by %3)';
-        IncludeAgingBand: Boolean;
-        Text012: Label 'Period Length is out of range.';
-        AgingBandCurrencyCode: Code[10];
-        Text013: Label 'Due Date,Posting Date';
-        Text014: Label 'Application Writeoffs';
-        Text100: Label 'From';
-        Text101: Label 'to';
-        Text102: Label 'Customer No.';
-        Text103: Label 'Statement No.';
-        Text104: Label 'of';
-        Text105: Label 'Statement from';
-        Text106: Label 'Print Date';
-        "--NSC1.06--": Integer;
-        TotalRemainingAmount: Decimal;
-        OnlySales: Boolean;
-        "Cust. Ledger Entry1": Record "21";
-        Text066: Label 'TEL : %1 FAX : %2 / email : %3';
-        Text067: Label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5';
-        "--Traite--": Integer;
-        CstG1000000031: Label 'Amount';
-        RecGCustomerBankAccount: Record "287";
-        PostingDate: Date;
-        AmountText: Text[30];
-        CustAdr: array[8] of Text[50];
-        CurrText_Gtxt: Text[30];
-        IssueCity: Text[30];
-        IssueDate: Date;
-        DueDate: Date;
-        RecGPaymentTerms: Record "3";
-        TraiteTotalRemainingAmount: Decimal;
-        Compta_DateCaptionLbl: Label 'Compta Date';
-        Doc_TypeCaptionLbl: Label 'Doc Type';
-        CustBalanceCaptionLbl: Label 'Balance';
-        Payment_methodCaptionLbl: Label 'Payment method';
-        CustBalance___AmountCaptionLbl: Label 'Continued';
-        CustBalance___Amount_Control75CaptionLbl: Label 'Continued';
-        Remaining_TotalCaptionLbl: Label 'Remaining Total';
-        CustBalance_Control71CaptionLbl: Label 'Total';
-        CustLedgEntry2__Remaining_Amount_CaptionLbl: Label 'Continued';
-        CustLedgEntry2__Remaining_Amount__Control64CaptionLbl: Label 'Continued';
-        CustLedgEntry2__Remaining_Amount__Control66CaptionLbl: Label 'Total';
-        beforeCaptionLbl: Label '..before';
-        ACCEPTANCE_or_ENDORSMENTCaptionLbl: Label 'ACCEPTANCE or ENDORSMENT';
-        of_DRAWEECaptionLbl: Label 'of DRAWEE';
-        Stamp_Allow_and_SignatureCaptionLbl: Label 'Stamp Allow and Signature';
-        ADDRESSCaptionLbl: Label 'ADDRESS';
-        NAME_andCaptionLbl: Label 'NAME and';
-        Value_in__CaptionLbl: Label 'Value in :';
-        DRAWEE_R_I_B_CaptionLbl: Label 'DRAWEE R.I.B.';
-        DOMICILIATIONCaptionLbl: Label 'DOMICILIATION';
-        TOCaptionLbl: Label 'TO';
-        ONCaptionLbl: Label 'ON';
-        AMOUNT_FOR_CONTROLCaptionLbl: Label 'AMOUNT FOR CONTROL';
-        CREATION_DATECaptionLbl: Label 'CREATION DATE';
-        DUE_DATECaptionLbl: Label 'DUE DATE';
-        DRAWEE_REF_CaptionLbl: Label 'DRAWEE REF.';
-        below_for_order_of__CaptionLbl: Label 'below for order of :';
-        please_pay_the_indicated_sumCaptionLbl: Label 'please pay the indicated sum';
-        noted_as_NO_CHARGESCaptionLbl: Label 'noted as NO CHARGES';
-        Against_this_BILLCaptionLbl: Label 'Against this BILL';
-        BILLCaptionLbl: Label 'BILL';
-        L_C_R__onlyCaptionLbl: Label 'L.C.R. only';
-        Write_nothings_under_this_lineCaptionLbl: Label 'Write nothings under this line';
-        etab_CaptionLbl: Label 'etab.';
-        guichetCaptionLbl: Label 'guichet';
-        n__compteCaptionLbl: Label 'n° compte';
-        RIBCaptionLbl: Label 'RIB';
-        TraiteTotalRemainingAmountCaptionLbl: Label 'Label1000000145';
-        [InDataSet]
-        LogInteractionEnable: Boolean;
-        Total_CaptionLbl: Label 'Total';
-        isInitialized: Boolean;
         [InDataSet]
         BooGAffiche: Boolean;
-        CompanyInfo1: Record "79";
+        EntriesExists: Boolean;
+        IncludeAgingBand: Boolean;
+        isInitialized: Boolean;
+        LogInteraction: Boolean;
+        [InDataSet]
+        LogInteractionEnable: Boolean;
+        OnlySales: Boolean;
+        PrintAllHavingBal: Boolean;
+        PrintAllHavingEntry: Boolean;
+        PrintEntriesDue: Boolean;
+        PrintLine: Boolean;
+        PrintReversedEntries: Boolean;
+        PrintUnappliedEntries: Boolean;
+        AgingBandCurrencyCode: Code[10];
+        CurrencyCode3: Code[10];
+        AgingBandEndingDate: Date;
+        AgingDate: array[5] of Date;
+        DueDate: Date;
+        "Due Date": Date;
+        EndDate: Date;
+        IssueDate: Date;
+        PostingDate: Date;
+        StartDate: Date;
+        CustBalance: Decimal;
+        "Remaining Amount": Decimal;
+        StartBalance: Decimal;
+        TotalRemainingAmount: Decimal;
+        TraiteTotalRemainingAmount: Decimal;
+        "--NSC1.06--": Integer;
+        "--Traite--": Integer;
+        ACCEPTANCE_or_ENDORSMENTCaptionLbl: Label 'ACCEPTANCE or ENDORSMENT', comment = 'FRA="ACCEPTATION ou AVAL"';
+        ADDRESSCaptionLbl: Label 'ADDRESS', comment = 'FRA="ADRESSE"';
+        Against_this_BILLCaptionLbl: Label 'Against this BILL', comment = 'FRA="Contre cette LETTRE DE CHANGE"';
+        AMOUNT_FOR_CONTROLCaptionLbl: Label 'AMOUNT FOR CONTROL', comment = 'FRA="MONTANT POUR CONTROLE"';
+        beforeCaptionLbl: Label '..before', comment = 'FRA="..avant"';
+        below_for_order_of__CaptionLbl: Label 'below for order of :', comment = 'FRA="ci-dessous à l''ordre de :"';
+        BILLCaptionLbl: Label 'BILL', comment = 'FRA="L.C.R."';
+        Compta_DateCaptionLbl: Label 'Compta Date', comment = 'FRA="Date comptable"';
+        CREATION_DATECaptionLbl: Label 'CREATION DATE', comment = 'FRA="DATE DE CREATION"';
+        CstG1000000031: Label 'Amount', comment = 'FRA=""';
+        CustBalance___Amount_Control75CaptionLbl: Label 'Continued', comment = 'FRA="Montant"';
+        CustBalance___AmountCaptionLbl: Label 'Continued', comment = 'FRA=""';
+        CustBalance_Control71CaptionLbl: Label 'Total', comment = 'FRA="Total"';
+        CustBalanceCaptionLbl: Label 'Balance', comment = 'FRA="Solde"';
+        CustLedgEntry2__Remaining_Amount__Control64CaptionLbl: Label 'Continued', comment = 'FRA="Report"';
+        CustLedgEntry2__Remaining_Amount__Control66CaptionLbl: Label 'Total', comment = 'FRA="Total"';
+        CustLedgEntry2__Remaining_Amount_CaptionLbl: Label 'Continued', comment = 'FRA="Report"';
+        Doc_TypeCaptionLbl: Label 'Doc Type', comment = 'FRA="Type doc"';
+        DOMICILIATIONCaptionLbl: Label 'DOMICILIATION', comment = 'FRA="DOMICILIATION"';
+        DRAWEE_R_I_B_CaptionLbl: Label 'DRAWEE R.I.B.', comment = 'FRA="R.I.B. DU TIRE"';
+        DRAWEE_REF_CaptionLbl: Label 'DRAWEE REF.', comment = 'FRA="REF. TIRE"';
+        DUE_DATECaptionLbl: Label 'DUE DATE', comment = 'FRA="ECHEANCE"';
+        etab_CaptionLbl: Label 'etab.', comment = 'FRA="etab."';
+        guichetCaptionLbl: Label 'guichet', comment = 'FRA="guichet"';
+        L_C_R__onlyCaptionLbl: Label 'L.C.R. only', comment = 'FRA="L.C.R. seulement"';
+        n__compteCaptionLbl: Label 'n° compte', comment = 'FRA="n° compte"';
+        NAME_andCaptionLbl: Label 'NAME and', comment = 'FRA="NOM et"';
+        noted_as_NO_CHARGESCaptionLbl: Label 'noted as NO CHARGES', comment = 'FRA="stipulée SANS FRAIS"';
+        of_DRAWEECaptionLbl: Label 'of DRAWEE', comment = 'FRA="du TIRE"';
+        ONCaptionLbl: Label 'ON', comment = 'FRA=""';
+        Payment_methodCaptionLbl: Label 'Payment method', comment = 'FRA=""';
+        please_pay_the_indicated_sumCaptionLbl: Label 'please pay the indicated sum', comment = 'FRA=""';
+        Remaining_TotalCaptionLbl: Label 'Remaining Total', comment = 'FRA=""';
+        RIBCaptionLbl: Label 'RIB', comment = 'FRA=""';
+        Stamp_Allow_and_SignatureCaptionLbl: Label 'Stamp Allow and Signature', comment = 'FRA=""';
+        Text000: Label 'Page %1', comment = 'FRA=""';
+        Text001: Label 'Entries %1', comment = 'FRA=""';
+        Text002: Label 'Overdue Entries %1', comment = 'FRA=""';
+        Text003: Label 'Statement ', comment = 'FRA=""';
+        Text005: Label 'Multicurrency Application', comment = 'FRA=""';
+        Text006: Label 'Payment Discount', comment = 'FRA=""';
+        Text007: Label 'Rounding', comment = 'FRA=""';
+        Text008: Label 'You must specify the Aging Band Period Length.', comment = 'FRA=""';
+        Text010: Label 'You must specify Aging Band Ending Date.', comment = 'FRA=""';
+        Text011: Label 'Aged Summary by %1 (%2 by %3)', comment = 'FRA=""';
+        Text012: Label 'Period Length is out of range.', comment = 'FRA=""';
+        Text013: Label 'Due Date,Posting Date', comment = 'FRA=""';
+        Text014: Label 'Application Writeoffs', comment = 'FRA=""';
+        Text066: Label 'TEL : %1 FAX : %2 / email : %3', comment = 'FRA=""';
+        Text067: Label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5', comment = 'FRA=""';
+        Text100: Label 'From', comment = 'FRA=""';
+        Text101: Label 'to', comment = 'FRA=""';
+        Text102: Label 'Customer No.', comment = 'FRA=""';
+        Text103: Label 'Statement No.', comment = 'FRA=""';
+        Text104: Label 'of', comment = 'FRA=""';
+        Text105: Label 'Statement from', comment = 'FRA=""';
+        Text106: Label 'Print Date', comment = 'FRA=""';
+        TOCaptionLbl: Label 'TO', comment = 'FRA=""';
+        Total_CaptionLbl: Label 'Total', comment = 'FRA=""';
+        TraiteTotalRemainingAmountCaptionLbl: Label 'Label1000000145', comment = 'FRA=""';
+        Value_in__CaptionLbl: Label 'Value in :', comment = 'FRA=""';
+        Write_nothings_under_this_lineCaptionLbl: Label 'Write nothings under this line', comment = 'FRA=""';
+        DateChoice: Option "Due Date","Posting Date";
+        AmountText: Text[30];
+        CurrText_Gtxt: Text[30];
+        IssueCity: Text[30];
+        CompanyAddr: array[8] of Text[50];
+        CustAddr: array[8] of Text[50];
+        CustAdr: array[8] of Text[50];
+        Description: Text[50];
 
     local procedure GetDate(PostingDate: Date; DueDate: Date): Date
     begin
@@ -1128,13 +1071,13 @@ report 50038 "Statement avec traite"
 
     local procedure UpdateBuffer(CurrencyCode: Code[10]; Date: Date; Amount: Decimal)
     var
-        I: Integer;
         GoOn: Boolean;
+        I: Integer;
     begin
-        AgingBandBuf.INIT;
+        AgingBandBuf.INIT();
         AgingBandBuf."Currency Code" := CurrencyCode;
-        IF NOT AgingBandBuf.FIND THEN
-            AgingBandBuf.INSERT;
+        IF NOT AgingBandBuf.FIND() THEN
+            AgingBandBuf.INSERT();
         I := 1;
         GoOn := TRUE;
         WHILE (I <= 5) AND GoOn DO BEGIN
@@ -1165,13 +1108,13 @@ report 50038 "Statement avec traite"
                 END;
             I := I + 1;
         END;
-        AgingBandBuf.MODIFY;
+        AgingBandBuf.MODIFY();
     end;
 
-    [Scope('Internal')]
-    procedure SkipReversedUnapplied(var DtldCustLedgEntries: Record "379"): Boolean
+
+    procedure SkipReversedUnapplied(var DtldCustLedgEntries: Record "Detailed Cust. Ledg. Entry"): Boolean
     var
-        CustLedgEntry: Record "21";
+        CustLedgEntry: Record "Cust. Ledger Entry";
     begin
         IF PrintReversedEntries AND PrintUnappliedEntries THEN
             EXIT(FALSE);
@@ -1186,10 +1129,10 @@ report 50038 "Statement avec traite"
         EXIT(FALSE);
     end;
 
-    [Scope('Internal')]
+
     procedure InitializeRequest(NewPrintEntriesDue: Boolean; NewPrintAllHavingEntry: Boolean; NewPrintAllHavingBal: Boolean; NewPrintReversedEntries: Boolean; NewPrintUnappliedEntries: Boolean; NewIncludeAgingBand: Boolean; NewPeriodLength: Text[30]; NewDateChoice: Option; NewLogInteraction: Boolean)
     begin
-        InitRequestPageDataInternal;
+        InitRequestPageDataInternal();
 
         PrintEntriesDue := NewPrintEntriesDue;
         PrintAllHavingEntry := NewPrintAllHavingEntry;
@@ -1202,7 +1145,7 @@ report 50038 "Statement avec traite"
         LogInteraction := NewLogInteraction;
     end;
 
-    [Scope('Internal')]
+
     procedure InitRequestPageDataInternal()
     begin
         IF isInitialized THEN

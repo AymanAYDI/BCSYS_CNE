@@ -2,6 +2,7 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
 {
     SingleInstance = true;
 
+    
 
     procedure SetAutoTextSpe(pAutoTextSpe: Boolean)
     begin
@@ -88,6 +89,37 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
     end;
     /****************************************/
 
+    procedure SetIntLSignFactor(pIntLSignFactor: Integer)
+    begin
+        IntLSignFactor := pIntLSignFactor;
+    end;
+
+    procedure GetIntLSignFactor(): Integer
+    begin
+        exit(IntLSignFactor);
+    end;
+//***************************
+    procedure Set_EcoPartnerDEEE(p_EcoPartnerDEEE: code[20])
+    begin
+        _EcoPartnerDEEE := p_EcoPartnerDEEE;
+    end;
+
+    procedure Get_EcoPartnerDEEE(): code[20]
+    begin
+        exit(_EcoPartnerDEEE);
+    end;
+
+//*********
+    procedure Set_DEEECategoryCode(p_DEEECategoryCode: code[20])
+    begin
+        _DEEECategoryCode := p_DEEECategoryCode;
+    end;
+
+    procedure Get_DEEECategoryCode(): code[20]
+    begin
+        exit(_DEEECategoryCode);
+    end;
+
     var
         BooGAutoTextSpe: Boolean;
         PostingDate: Date;
@@ -98,8 +130,9 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
 
         SGDecMntTTCDEEE: Decimal;
         SGDecMntHTDEEE: Decimal;
+        IntLSignFactor: Integer;
 
-
-
+_EcoPartnerDEEE : code[20];
+_DEEECategoryCode: code[20];
 
 }

@@ -2392,6 +2392,15 @@ then begin
     end;
 
     //COD80
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnRunOnBeforeCheckAndUpdate', '', false, false)]
+    local procedure OnRunOnBeforeCheckAndUpdate(var SalesHeader: Record "Sales Header")
+    var
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
+    begin
+        GlobalFunctionMgt.SetSGDecMntTTCDEEE(0);
+        GlobalFunctionMgt.SetSGDecMntHTDEEE(0);
+    end;
+
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnAfterPostSalesLines', '', false, false)]
     local procedure COD80_OnAfterPostSalesLines(var SalesHeader: Record "Sales Header"; var SalesShipmentHeader: Record "Sales Shipment Header"; var SalesInvoiceHeader: Record "Sales Invoice Header"; var SalesCrMemoHeader: Record "Sales Cr.Memo Header"; var ReturnReceiptHeader: Record "Return Receipt Header"; WhseShip: Boolean; WhseReceive: Boolean; var SalesLinesProcessed: Boolean; CommitIsSuppressed: Boolean; EverythingInvoiced: Boolean; var TempSalesLineGlobal: Record "Sales Line" temporary)
     var
@@ -2406,8 +2415,204 @@ then begin
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnAfterReverseAmount', '', false, false)]
     local procedure COD80_OnAfterReverseAmount(var SalesLine: Record "Sales Line")
+    var
+        FctMngt: Codeunit "BC6_Functions Mgt";
     begin
+        FctMngt.MntInverseDEEESales(SalesLine);
         SalesLine."BC6_Purchase cost" := -SalesLine."BC6_Purchase cost";
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnFillInvoicePostingBufferOnAfterUpdateInvoicePostBuffer', '', false, false)]
+    local procedure COD80_OnFillInvoicePostingBufferOnAfterUpdateInvoicePostBuffer(SalesHeader: Record "Sales Header"; SalesLine: Record "Sales Line"; var InvoicePostBuffer: Record "Invoice Post. Buffer"; var TempInvoicePostBuffer: Record "Invoice Post. Buffer" temporary)
+    var
+        RecLBillCustomer: Record Customer;
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
+        FctMngt: Codeunit "BC6_Functions Mgt";
+        SalesSetup: Record "Sales & Receivables Setup";
+        BooLSubmittedToDEEE: Boolean;
+        RecGItem: Record Item;
+        GenPostingSetup: Record "General Posting Setup";
+        RestoreFAType: Boolean;
+        ForceGLAccountType: Boolean;
+        FALineNo: Integer;
+    begin
+        SalesSetup.get();
+        RecLBillCustomer.RESET;
+        IF RecLBillCustomer.GET(SalesLine."Bill-to Customer No.") THEN
+            BooLSubmittedToDEEE := RecLBillCustomer."BC6_Submitted to DEEE"
+        ELSE
+            BooLSubmittedToDEEE := FALSE;
+
+        IF ((SalesLine.Type = SalesLine.Type::Item) AND (SalesLine."Qty. to Invoice" <> 0) AND
+        (SalesLine."BC6_DEEE Category Code" <> '') AND SalesSetup."BC6_DEEE Management")
+          AND (SalesLine."BC6_DEEE HT Amount" <> 0) AND (BooLSubmittedToDEEE) THEN BEGIN
+            GenPostingSetup.GET(SalesLine."Gen. Bus. Posting Group", SalesLine."Gen. Prod. Posting Group");
+
+            CLEAR(InvoicePostBuffer);
+            InvoicePostBuffer.Type := SalesLine.Type;
+
+            GenPostingSetup.GET('DEEE', SalesLine."Gen. Prod. Posting Group");
+
+            IF SalesHeader."Document Type" = SalesHeader."Document Type"::"Credit Memo" THEN BEGIN
+                GenPostingSetup.TESTFIELD("Sales Credit Memo Account");
+                InvoicePostBuffer."G/L Account" := GenPostingSetup."Sales Credit Memo Account";
+            END ELSE BEGIN
+                GenPostingSetup.TESTFIELD("Sales Account");
+                InvoicePostBuffer."G/L Account" := GenPostingSetup."Sales Account";
+            END;
+
+            InvoicePostBuffer."System-Created Entry" := TRUE;
+            InvoicePostBuffer."Gen. Bus. Posting Group" := 'DEEE';//SalesLine."Gen. Bus. Posting Group";
+            InvoicePostBuffer."Gen. Prod. Posting Group" := SalesLine."Gen. Prod. Posting Group";
+            InvoicePostBuffer."VAT Bus. Posting Group" := SalesLine."VAT Bus. Posting Group";
+            InvoicePostBuffer."VAT Prod. Posting Group" := SalesLine."VAT Prod. Posting Group";
+            InvoicePostBuffer."VAT Calculation Type" := SalesLine."VAT Calculation Type";
+            InvoicePostBuffer."Global Dimension 1 Code" := SalesLine."Shortcut Dimension 1 Code";
+            InvoicePostBuffer."Global Dimension 2 Code" := SalesLine."Shortcut Dimension 2 Code";
+
+            //** INVERSION SIGNE SI FACTURE MAIS PAS SI AVOIR !? **
+            IF SalesHeader."Document Type" = SalesHeader."Document Type"::"Credit Memo" THEN
+                GlobalFunctionMgt.SetIntLSignFactor(1)
+            ELSE
+                GlobalFunctionMgt.SetIntLSignFactor(1);
+
+            InvoicePostBuffer."Job No." := SalesLine."Job No.";
+            InvoicePostBuffer.Amount := GlobalFunctionMgt.GetIntLSignFactor() * SalesLine."BC6_DEEE HT Amount";
+            InvoicePostBuffer."VAT Base Amount" := GlobalFunctionMgt.GetIntLSignFactor() * SalesLine."BC6_DEEE HT Amount";
+            InvoicePostBuffer."VAT Amount" := GlobalFunctionMgt.GetIntLSignFactor() * (SalesLine."BC6_DEEE TTC Amount" - SalesLine."BC6_DEEE HT Amount");
+            InvoicePostBuffer."Amount (ACY)" := GlobalFunctionMgt.GetIntLSignFactor() * SalesLine."BC6_DEEE HT Amount";//SalesLineACY.Montant;
+            InvoicePostBuffer."VAT Base Amount (ACY)" := GlobalFunctionMgt.GetIntLSignFactor() * SalesLine."BC6_DEEE HT Amount"; //SalesLineACY.Montant;
+            InvoicePostBuffer."VAT Amount (ACY)" := GlobalFunctionMgt.GetIntLSignFactor() * (SalesLine."BC6_DEEE TTC Amount" - SalesLine."BC6_DEEE HT Amount");
+            InvoicePostBuffer."BC6_Eco partner DEEE" := SalesLine."BC6_Eco partner DEEE";
+            InvoicePostBuffer."BC6_DEEE Category Code" := SalesLine."BC6_DEEE Category Code";
+
+            FctMngt.SalesMntIncrDEEE(SalesLine);
+
+            if InvoicePostBuffer.Type = InvoicePostBuffer.Type::"Fixed Asset" then begin
+                FALineNo := FALineNo + 1;
+                InvoicePostBuffer."Fixed Asset Line No." := FALineNo;
+                ForceGLAccountType := false;
+                if ForceGLAccountType then begin
+                    RestoreFAType := true;
+                    InvoicePostBuffer.Type := InvoicePostBuffer.Type::"G/L Account";
+                end;
+            end;
+
+            TempInvoicePostBuffer.Update(InvoicePostBuffer);
+
+            if RestoreFAType then
+                TempInvoicePostBuffer.Type := TempInvoicePostBuffer.Type::"Fixed Asset";
+        END;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnBeforePostGLAndCustomer', '', false, false)]
+    local procedure COD80_OnBeforePostGLAndCustomer(var SalesHeader: Record "Sales Header"; var TempInvoicePostBuffer: Record "Invoice Post. Buffer" temporary; var CustLedgerEntry: Record "Cust. Ledger Entry"; CommitIsSuppressed: Boolean; PreviewMode: Boolean; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line"; var IsHandled: Boolean)
+    var
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
+    begin
+        GlobalFunctionMgt.Set_DEEECategoryCode(TempInvoicePostBuffer."BC6_DEEE Category Code");
+        GlobalFunctionMgt.Set_EcoPartnerDEEE(TempInvoicePostBuffer."BC6_Eco partner DEEE");
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnBeforeRunPostCustomerEntry', '', false, false)]
+    local procedure COD80_OnBeforeRunPostCustomerEntry(var SalesHeader: Record "Sales Header"; var TotalSalesLine2: Record "Sales Line"; var TotalSalesLineLCY2: Record "Sales Line"; CommitIsSuppressed: Boolean; PreviewMode: Boolean; DocType: Enum "Gen. Journal Document Type"; DocNo: Code[20]; ExtDocNo: Code[35]; SourceCode: Code[10]; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line"; var IsHandled: Boolean)
+    var
+        GenJnlLine: Record "Gen. Journal Line";
+        CurrExchRate: Record "Currency Exchange Rate";
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
+    begin
+        Ishandled := true;
+
+        with GenJnlLine do begin
+            InitNewLine(SalesHeader."Posting Date", SalesHeader."Document Date", SalesHeader."Bill-to Name", SalesHeader."Shortcut Dimension 1 Code", SalesHeader."Shortcut Dimension 2 Code",
+            SalesHeader."Dimension Set ID", SalesHeader."Reason Code");
+            CopyDocumentFields(DocType, DocNo, ExtDocNo, SourceCode, '');
+            "Account Type" := "Account Type"::Customer;
+            "Account No." := SalesHeader."Bill-to Customer No.";
+            CopyFromSalesHeader(SalesHeader);
+            SetCurrencyFactor(SalesHeader."Currency Code", SalesHeader."Currency Factor");
+
+            "System-Created Entry" := true;
+
+            CopyFromSalesHeaderApplyTo(SalesHeader);
+            CopyFromSalesHeaderPayment(SalesHeader);
+
+            Amount := -TotalSalesLine2."Amount Including VAT";
+            "Source Currency Amount" := -TotalSalesLine2."Amount Including VAT";
+            "Amount (LCY)" := -TotalSalesLineLCY2."Amount Including VAT";
+            "Sales/Purch. (LCY)" := -TotalSalesLineLCY2.Amount;
+            "Profit (LCY)" := -(TotalSalesLineLCY2.Amount - TotalSalesLineLCY2."BC6_Purchase cost");
+            "Inv. Discount (LCY)" := -TotalSalesLineLCY2."Inv. Discount Amount";
+            "Orig. Pmt. Disc. Possible" := -TotalSalesLine2."Pmt. Discount Amount";
+            "Orig. Pmt. Disc. Possible(LCY)" :=
+              CurrExchRate.ExchangeAmtFCYToLCY(
+                SalesHeader.GetUseDate(), SalesHeader."Currency Code", -TotalSalesLine2."Pmt. Discount Amount", SalesHeader."Currency Factor");
+
+
+            GenJnlLine."BC6_DEEE HT Amount" := TotalSalesLine2."BC6_DEEE HT Amount";
+            GenJnlLine."BC6_DEEE VAT Amount" := TotalSalesLine2."BC6_DEEE VAT Amount";
+            GenJnlLine."BC6_DEEE TTC Amount" := TotalSalesLine2."BC6_DEEE TTC Amount";
+            GenJnlLine."BC6_DEEE HT Amount (LCY)" := TotalSalesLine2."BC6_DEEE HT Amount (LCY)";
+            GenJnlLine."BC6_Eco partner DEEE" := GlobalFunctionMgt.Get_EcoPartnerDEEE();
+
+            GenJnlLine."BC6_DEEE Category Code" := GlobalFunctionMgt.Get_DEEECategoryCode();
+
+
+            GenJnlLine.Amount := GenJnlLine.Amount - (GlobalFunctionMgt.GetIntLSignFactor() * GlobalFunctionMgt.GetSGDecMntTTCDEEE()); //bof
+            GenJnlLine."Source Currency Amount" := GenJnlLine."Source Currency Amount" - (GlobalFunctionMgt.GetIntLSignFactor() * GlobalFunctionMgt.GetSGDecMntTTCDEEE());
+            GenJnlLine."Amount (LCY)" := GenJnlLine."Amount (LCY)" - (GlobalFunctionMgt.GetIntLSignFactor() * GlobalFunctionMgt.GetSGDecMntTTCDEEE());
+
+            GenJnlPostLine.RunWithCheck(GenJnlLine);
+
+
+        end;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnInsertShipmentHeaderOnAfterTransferfieldsToSalesShptHeader', '', false, false)]
+
+    local procedure OnInsertShipmentHeaderOnAfterTransferfieldsToSalesShptHeader(SalesHeader: Record "Sales Header"; var SalesShptHeader: Record "Sales Shipment Header")
+    var
+        SalesSetup: record "Sales & Receivables Setup";
+    begin
+        SalesSetup.get();
+        if SalesHeader."Document Type" = SalesHeader."Document Type"::Order then begin
+            IF SalesSetup."BC6_Promised Delivery Date" THEN
+                SalesHeader.TESTFIELD("Promised Delivery Date");
+            IF SalesSetup."BC6_Requested Delivery Date" THEN
+                SalesHeader.TESTFIELD("Requested Delivery Date");
+
+        END;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnAfterSalesShptHeaderInsert', '', false, false)]
+    local procedure OnAfterSalesShptHeaderInsert(var SalesShipmentHeader: Record "Sales Shipment Header"; SalesHeader: Record "Sales Header"; SuppressCommit: Boolean; WhseShip: Boolean; WhseReceive: Boolean; var TempWhseShptHeader: Record "Warehouse Shipment Header"; var TempWhseRcptHeader: Record "Warehouse Receipt Header"; PreviewMode: Boolean)
+    var
+        RecGICValidate: Record "BC6_IC Table Validate";
+        RecGPartnerIC: Record "IC Partner";
+        RecGCompanyInfo: Record "Company information";
+
+    begin
+        IF (SalesHeader."Sell-to IC Partner Code" <> '') AND (RecGCompanyInfo."BC6_Branch Company" = FALSE) THEN BEGIN
+            // Recherche de la fiche Partenaire IC
+            IF RecGPartnerIC.GET(SalesHeader."Sell-to IC Partner Code") THEN BEGIN
+                RecGICValidate.INIT;
+                RecGICValidate."Partner Code" := SalesHeader."Sell-to IC Partner Code";
+                RecGICValidate."Shipment No." := SalesShipmentHeader."No.";
+                RecGICValidate."Navision Company" := RecGPartnerIC."Inbox Details";
+                RecGICValidate."Customer Code" := SalesShipmentHeader."Sell-to Customer No.";
+                RecGICValidate."Purch Order IC No." := SalesHeader."External Document No.";
+                RecGICValidate.INSERT;
+            END;
+        END;
+
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnAfterDivideAmount', '', false, false)]
+    local procedure COD80_OnAfterDivideAmount(var SalesHeader: Record "Sales Header"; var SalesLine: Record "Sales Line"; QtyType: Option General,Invoicing,Shipping; SalesLineQty: Decimal; var TempVATAmountLine: Record "VAT Amount Line" temporary; var TempVATAmountLineRemainder: Record "VAT Amount Line" temporary)
+    var
+        FctMngt: Codeunit "BC6_Functions Mgt";
+    begin
+        FctMngt.SMntDivisionDEEE(SalesLine."Qty. to Invoice", SalesLine, SalesHeader); //F8    
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnBeforePostDropOrderShipment', '', false, false)]
@@ -2439,6 +2644,29 @@ then begin
               SalesLine."BC6_DEEE TTC Amount" *
               (QtyToBeShipped / SalesLine."Qty. to Ship"));
     end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnAfterCheckMandatoryFields', '', false, false)]
+    local procedure OnAfterCheckMandatoryFields(var SalesHeader: Record "Sales Header"; CommitIsSuppressed: Boolean)
+    var
+        SalesSetup: record "Sales & Receivables Setup";
+    begin
+        SalesSetup.GET;
+        IF SalesHeader."Document Type" = SalesHeader."Document Type"::Order THEN BEGIN
+            IF SalesSetup."BC6_Promised Delivery Date" THEN
+                SalesHeader.TESTFIELD("Promised Delivery Date");
+            IF SalesSetup."BC6_Requested Delivery Date" THEN
+                SalesHeader.TESTFIELD("Requested Delivery Date");
+        END;
+
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnPostUpdateOrderLineBeforeInitQtyToInvoice', '', false, false)]
+    local procedure OnPostUpdateOrderLineBeforeInitQtyToInvoice(var TempSalesLine: Record "Sales Line" temporary; WhseShip: Boolean; WhseReceive: Boolean)
+    begin
+        if TempSalesLine."Document Type" <> TempSalesLine."Document Type"::"Return Order" then
+            TempSalesLine.InitQtyToShip()
+    end;
+
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnAfterUpdateWhseDocuments', '', false, false)]
     local procedure COD80_OnAfterUpdateWhseDocuments(SalesHeader: Record "Sales Header"; WhseShip: Boolean; WhseReceive: Boolean; WhseShptHeader: Record "Warehouse Shipment Header"; WhseRcptHeader: Record "Warehouse Receipt Header"; EverythingInvoiced: Boolean)
@@ -3929,7 +4157,7 @@ then begin
                 InvoicePostBuffer."Fixed Asset Line No." := FALineNo;
             end;
 
-            // TempInvoicePostBuffer.Update(InvoicePostBuffer, InvDefLineNo, DeferralLineNo); TODO:
+            TempInvoicePostBuffer.Update(InvoicePostBuffer);
 
         END;
     end;

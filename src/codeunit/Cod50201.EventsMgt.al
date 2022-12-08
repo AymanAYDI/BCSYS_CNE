@@ -3156,14 +3156,14 @@ then begin
     var
         WhseActivLine: Record "Warehouse Activity Line";
         DeleteWhseActivityHeaderOk: Boolean;
-        DeleteWhseActivity: Boolean; // TODO: variablr global 
+        DeleteWhseActivity: Boolean;
         QtytoHandle: Decimal;
         SalesOrder: Record "Sales Header";
-        PostingDate: Date; // TODO: variablr global 
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
         Text005: Label 'The source document %1 %2 is not released.', Comment = 'FRA="Le document origine %1 %2 n''a pas été lancé."';
     begin
-        IF NOT (PostingDate = 0D) THEN
-            WhseActivityHeader."Posting Date" := PostingDate;
+        IF NOT (GlobalFunctionMgt.GetPostingDate() = 0D) THEN
+            WhseActivityHeader."Posting Date" := GlobalFunctionMgt.GetPostingDate();
 
         WhseActivLine.SetRange("Activity Type", WhseActivLine."Activity Type");
         WhseActivLine.SetRange("No.", WhseActivLine."No.");
@@ -3177,7 +3177,7 @@ then begin
         END;
 
         DeleteWhseActivity := NOT (WhseActivityHeader."Source Document" IN [WhseActivityHeader."Source Document"::"Prod. Consumption", WhseActivityHeader."Source Document"::"Prod. Output"]);
-
+        GlobalFunctionMgt.SetDeleteWhseActivity(DeleteWhseActivity);
     end;
 
 
@@ -3562,7 +3562,7 @@ then begin
     local procedure OnPurchCheckIfAnyExtTextOnBeforeSetFilters(var PurchaseLine: Record "Purchase Line"; var AutoText: Boolean; Unconditionally: Boolean)
     var
         RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line";
-        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt"; 
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
     begin
 
         if Unconditionally then
@@ -3589,7 +3589,7 @@ then begin
     local procedure OnPurchCheckIfAnyExtTextAutoText(var ExtendedTextHeader: Record "Extended Text Header"; var PurchaseHeader: Record "Purchase Header"; var PurchaseLine: Record "Purchase Line"; Unconditionally: Boolean; var MakeUpdateRequired: Boolean)
     var
         RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line";
-        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt"; 
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
     begin
         GlobalFunctionMgt.SetAutoTextSpe(false);
         RecGTmpExtTexLineSpe.RESET;
@@ -3845,25 +3845,15 @@ then begin
     local procedure OnAfterUpdateWhseActivHeader(var WarehouseActivityHeader: Record "Warehouse Activity Header"; var WarehouseRequest: Record "Warehouse Request")
     var
         SalesHeader: Record "Sales header";
-        BinCode: Code[20];
-        YourRef: Text[35];
-        DestName: Text[50];
-        DestName2: Text[50];
-        WhseComments: Text[50];
     begin
         if WarehouseRequest."Source Document" = WarehouseRequest."Source Document"::"Sales Order" then begin
             SalesHeader.Get(SalesHeader."Document Type"::Order, WarehouseRequest."Source No.");
-            BinCode := SalesHeader."BC6_Bin Code";
-            YourRef := SalesHeader."Your Reference";
-            DestName := SalesHeader."Sell-to Customer Name";
-            DestName2 := SalesHeader."Sell-to Customer Name 2";
-            WhseComments := SalesHeader."BC6_Warehouse Comments";
+            WarehouseActivityHeader."BC6_Bin Code" := SalesHeader."BC6_Bin Code";
+            WarehouseActivityHeader."BC6_Your Reference" := SalesHeader."Your Reference";
+            WarehouseActivityHeader."BC6_Destination Name" := SalesHeader."Sell-to Customer Name";
+            WarehouseActivityHeader."BC6_Destination Name 2" := SalesHeader."Sell-to Customer Name 2";
+            WarehouseActivityHeader.BC6_Comments := SalesHeader."BC6_Warehouse Comments";
         end;
-        WarehouseActivityHeader."BC6_Your Reference" := YourRef;
-        WarehouseActivityHeader."BC6_Destination Name" := DestName;
-        WarehouseActivityHeader."BC6_Destination Name 2" := DestName2;
-        WarehouseActivityHeader.BC6_Comments := WhseComments;
-        WarehouseActivityHeader."BC6_Bin Code" := BinCode;
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Create Inventory Pick/Movement", 'OnBeforeNewWhseActivLineInsertFromSales', '', false, false)]
@@ -3875,5 +3865,106 @@ then begin
             WarehouseActivityLine."Bin Code" := '';
     end;
 
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Req. Wksh.-Make Order", 'OnAfterInsertPurchOrderHeader', '', false, false)]
+    local procedure OnAfterInsertPurchOrderHeader(var RequisitionLine: Record "Requisition Line"; var PurchaseOrderHeader: Record "Purchase Header"; CommitIsSuppressed: Boolean; SpecialOrder: Boolean)
+    begin
+        PurchaseOrderHeader."Requested Receipt Date" := PurchaseOrderHeader."Expected Receipt Date";
+        PurchaseOrderHeader."Expected Receipt Date" := 0D;
+    end;
 
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Req. Wksh.-Make Order", 'OnAfterSetPurchOrderHeader', '', false, false)]
+    local procedure OnAfterSetPurchOrderHeader(var PurchOrderHeader: Record "Purchase Header")
+    begin
+        PurchOrderHeader."Requested Receipt Date" := PurchOrderHeader."Expected Receipt Date";
+        PurchOrderHeader."Expected Receipt Date" := 0D;
+    end;
+
+
+    // [EventSubscriber(ObjectType::Table, Database::, 'OnBeforeOnDelete', '', false, false)]
+    // local procedure OnBeforeOnDelete(var Item: Record Item; var IsHandled: Boolean)
+    // begin
+    // end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnAfterReverseAmount', '', false, false)]
+    local procedure OnAfterReverseAmount(var PurchLine: Record "Purchase Line")
+    begin
+        PurchLine."BC6_DEEE HT Amount" := -PurchLine."BC6_DEEE HT Amount";
+        PurchLine."BC6_DEEE VAT Amount" := -PurchLine."BC6_DEEE VAT Amount";
+        PurchLine."BC6_DEEE TTC Amount" := -PurchLine."BC6_DEEE TTC Amount";
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnFillInvoicePostingBufferOnAfterUpdateInvoicePostBuffer', '', false, false)]
+    local procedure OnFillInvoicePostingBufferOnAfterUpdateInvoicePostBuffer(PurchaseHeader: Record "Purchase Header"; PurchaseLine: Record "Purchase Line"; var InvoicePostBuffer: Record "Invoice Post. Buffer"; var TempInvoicePostBuffer: Record "Invoice Post. Buffer" temporary)
+    var
+        RecLPayVendor: Record Vendor;
+        BooLPostingDEEE: Boolean;
+        GenPostingSetup: Record "General Posting Setup";
+        FunctionsMgt: Codeunit "BC6_Functions Mgt";
+        FALineNo: Integer;
+    begin
+        //>>COMPTA_DEEE FG 01/03/07
+        RecLPayVendor.RESET;
+        IF RecLPayVendor.GET(PurchaseLine."Pay-to Vendor No.") THEN
+            BooLPostingDEEE := RecLPayVendor."BC6_Posting DEEE"
+        ELSE
+            BooLPostingDEEE := FALSE;
+        //<<COMPTA_DEEE FG 01/03/07
+
+        IF (PurchaseLine."BC6_DEEE Category Code" <> '') AND (PurchaseLine."Qty. to Invoice" <> 0)
+              //>>COMPTA_DEEE FG 01/03/07
+              //AND (PurchaseLine."DEEE HT Amount"<>0) THEN BEGIN
+              AND (PurchaseLine."BC6_DEEE HT Amount" <> 0) AND (BooLPostingDEEE) THEN BEGIN
+            //<<COMPTA_DEEE FG 01/03/07
+            //IF PurchaseLine."Is Line Submitted"=PurchaseLine."Is Line Submitted"::"2" THEN BEGIN
+            // Copy DEEE  to buffer
+
+            // MIG 2017 >>
+            GenPostingSetup.GET(PurchaseLine."Gen. Bus. Posting Group", PurchaseLine."Gen. Prod. Posting Group");
+
+            IF (PurchaseLine."Gen. Bus. Posting Group" <> GenPostingSetup."Gen. Bus. Posting Group") OR
+                (PurchaseLine."Gen. Prod. Posting Group" <> GenPostingSetup."Gen. Prod. Posting Group")
+            THEN; //  GenPostingSetup.GET(PurchaseLine."Gen. Bus. Posting Group",PurchaseLine."Gen. Prod. Posting Group");
+            CLEAR(InvoicePostBuffer);
+            InvoicePostBuffer.Type := PurchaseLine.Type;
+
+            GenPostingSetup.GET('DEEE', PurchaseLine."Gen. Prod. Posting Group");
+
+            IF PurchaseHeader."Document Type" = PurchaseHeader."Document Type"::"Credit Memo" THEN BEGIN
+                GenPostingSetup.TESTFIELD("Purch. Credit Memo Account");
+                InvoicePostBuffer."G/L Account" := GenPostingSetup."Purch. Credit Memo Account";
+            END ELSE BEGIN
+                GenPostingSetup.TESTFIELD("Purch. Account");
+                InvoicePostBuffer."G/L Account" := GenPostingSetup."Purch. Account";
+            END;
+
+            InvoicePostBuffer."System-Created Entry" := TRUE;
+            InvoicePostBuffer."Gen. Bus. Posting Group" := 'DEEE';//PurchaseLine."Gen. Bus. Posting Group";
+            InvoicePostBuffer."Gen. Prod. Posting Group" := PurchaseLine."Gen. Prod. Posting Group";
+            InvoicePostBuffer."VAT Bus. Posting Group" := PurchaseLine."VAT Bus. Posting Group";
+            InvoicePostBuffer."VAT Prod. Posting Group" := PurchaseLine."VAT Prod. Posting Group";
+            InvoicePostBuffer."VAT Calculation Type" := PurchaseLine."VAT Calculation Type";
+            InvoicePostBuffer."Global Dimension 1 Code" := PurchaseLine."Shortcut Dimension 1 Code";
+            InvoicePostBuffer."Global Dimension 2 Code" := PurchaseLine."Shortcut Dimension 2 Code";
+
+            InvoicePostBuffer."Job No." := PurchaseLine."Job No.";
+            InvoicePostBuffer.Amount := PurchaseLine."BC6_DEEE HT Amount";
+            InvoicePostBuffer."VAT Base Amount" := PurchaseLine."BC6_DEEE HT Amount";
+
+            InvoicePostBuffer."VAT Amount" := (PurchaseLine."BC6_DEEE TTC Amount" - PurchaseLine."BC6_DEEE HT Amount");
+            InvoicePostBuffer."Amount (ACY)" := PurchaseLine."BC6_DEEE HT Amount";//purchLineACY.Montant;
+            InvoicePostBuffer."VAT Base Amount (ACY)" := PurchaseLine."BC6_DEEE HT Amount"; //purchLineACY.Montant;
+            InvoicePostBuffer."VAT Amount (ACY)" := (PurchaseLine."BC6_DEEE TTC Amount" - PurchaseLine."BC6_DEEE HT Amount");
+            InvoicePostBuffer."BC6_Eco partner DEEE" := PurchaseLine."BC6_Eco partner DEEE";
+            InvoicePostBuffer."BC6_DEEE Category Code" := PurchaseLine."BC6_DEEE Category Code";
+
+            FunctionsMgt.MntIncrDEEE(PurchaseLine);
+            if InvoicePostBuffer.Type = InvoicePostBuffer.Type::"Fixed Asset" then begin
+                FALineNo := FALineNo + 1;
+                InvoicePostBuffer."Fixed Asset Line No." := FALineNo;
+            end;
+
+            // TempInvoicePostBuffer.Update(InvoicePostBuffer, InvDefLineNo, DeferralLineNo); TODO:
+
+        END;
+    end;
 }

@@ -223,16 +223,14 @@ codeunit 50203 "BC6_PagesEvents"
 
     end;
     //COD 90
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnPostPurchLineOnAfterSetEverythingInvoiced', '', false, false)]
-    local procedure COD90_OnPostPurchLineOnAfterSetEverythingInvoiced(PurchaseLine: Record "Purchase Line"; var EverythingInvoiced: Boolean; PurchaseHeader: Record "Purchase Header")
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnPostPurchLineOnBeforeRoundAmount', '', false, false)]
+    local procedure OnPostPurchLineOnBeforeRoundAmount(var PurchaseHeader: Record "Purchase Header"; var PurchaseLine: Record "Purchase Line"; var PurchInvHeader: Record "Purch. Inv. Header"; var PurchCrMemoHeader: Record "Purch. Cr. Memo Hdr."; SrcCode: Code[10])
     var
         FctMngt: Codeunit "BC6_Functions Mgt";
 
     begin
         if PurchaseLine.Quantity <> 0 then
-            FctMngt.MntDivisionDEEE(PurchaseLine."Qty. to Invoice", PurchaseLine) //F8
-        else
-            PurchaseLine.TestField(PurchaseLine.Amount, 0);
+            FctMngt.MntDivisionDEEE(PurchaseLine."Qty. to Invoice", PurchaseLine);
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnPostPurchLineOnBeforeRoundAmount', '', false, false)]

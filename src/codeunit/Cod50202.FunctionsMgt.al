@@ -406,8 +406,10 @@ codeunit 50202 "BC6_Functions Mgt"
 
     // TODO: function specific related to codeunit 7324 "Whse.-Activity-Post"
     procedure SetPostingDate(NewPostingDate: Date);
+    var
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
     begin
-        PostingDate := NewPostingDate;
+        GlobalFunctionMgt.SetPostingDate(NewPostingDate);
     end;
 
     // TODO:  specific function related to codeunit 10860 "Payment Management"
@@ -676,7 +678,6 @@ codeunit 50202 "BC6_Functions Mgt"
     var
         HideValidationDialog: Boolean;
         BinCode: Code[20]; // TODO: related to codeunit 7302
-        PostingDate: Date; // TODO: related to codeunit 7324 "Whse.-Activity-Post"
         myInt: Integer;
     //COD12
     procedure TotalVATAmountOnJnlLines(GenJnlLine: Record "Gen. Journal Line") TotalVATAmount: Decimal
@@ -1306,13 +1307,24 @@ codeunit 50202 "BC6_Functions Mgt"
         end;
     end;
 
-    procedure MntIncrDEEE(var RecLPurchLine: Record "Purchase Line");
+    PROCEDURE MntIncrDEEE(VAR RecLPurchLine: Record "Purchase Line");
     var
-        GenJnlLine: Record "Gen. Journal Line";
-    begin
-        IncrementDEEE(GenJnlLine."BC6_GDecMntHTDEEE", RecLPurchLine."BC6_DEEE HT Amount");
-        IncrementDEEE(GenJnlLine."BC6_GDecMntTTCDEEE", RecLPurchLine."BC6_DEEE TTC Amount");
-    end;
+        GloablFunction: codeunit "BC6_GlobalFunctionMgt";
+    BEGIN
+
+        GloablFunction.SetGDecMntTTCDEEE(GloablFunction.GetGDecMntTTCDEEE() + RecLPurchLine."BC6_DEEE TTC Amount");
+        GloablFunction.SetGDecMntHTDEEE(GloablFunction.GetGDecMntHTDEEE() + RecLPurchLine."BC6_DEEE HT Amount");
+    END;
+
+    PROCEDURE SalesMntIncrDEEE(VAR RecLPurchLine: Record "Purchase Line");
+    var
+        GloablFunction: codeunit "BC6_GlobalFunctionMgt";
+    BEGIN
+
+        GloablFunction.SetSGDecMntTTCDEEE(GloablFunction.GetSGDecMntTTCDEEE() + RecLPurchLine."BC6_DEEE TTC Amount");
+        GloablFunction.SetSGDecMntHTDEEE(GloablFunction.GetSGDecMntHTDEEE() + RecLPurchLine."BC6_DEEE HT Amount");
+    END;
+
 
     procedure UpdateInvoicePostBuffer(var InvoicePostBuffer: Record "Invoice Post. Buffer"; TempInvoicePostBuffer: Record "Invoice Post. Buffer" temporary)
     var

@@ -1306,13 +1306,17 @@ codeunit 50202 "BC6_Functions Mgt"
         end;
     end;
 
-    procedure MntIncrDEEE(var RecLPurchLine: Record "Purchase Line");
+    PROCEDURE MntIncrDEEE(VAR RecLPurchLine: Record "Purchase Line");
     var
-        GenJnlLine: Record "Gen. Journal Line";
-    begin
-        IncrementDEEE(GenJnlLine."BC6_GDecMntHTDEEE", RecLPurchLine."BC6_DEEE HT Amount");
-        IncrementDEEE(GenJnlLine."BC6_GDecMntTTCDEEE", RecLPurchLine."BC6_DEEE TTC Amount");
-    end;
+        GloablFunction: codeunit "BC6_GlobalFunctionMgt";
+        DecMntTTCDEEE: decimal;
+        GDecMntHTDEEE: Decimal;
+
+    BEGIN
+        GloablFunction.SetGDecMntTTCDEEE(DecMntTTCDEEE + RecLPurchLine."BC6_DEEE TTC Amount");
+      GloablFunction.SetGDecMntHTDEEE(GDecMntHTDEEE+RecLPurchLine."BC6_DEEE HT Amount");
+
+    END;
 
     procedure UpdateInvoicePostBuffer(var InvoicePostBuffer: Record "Invoice Post. Buffer"; TempInvoicePostBuffer: Record "Invoice Post. Buffer" temporary)
     var

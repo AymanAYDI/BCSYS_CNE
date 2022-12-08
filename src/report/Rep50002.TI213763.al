@@ -7,6 +7,7 @@ report 50002 "BC6_TI213763"
     {
         dataitem(Item; Item)
         {
+
             DataItemTableView = SORTING("No.")
                                 ORDER(Ascending)
                                 WHERE("VAT Prod. Posting Group" = CONST('TVA19,6'),

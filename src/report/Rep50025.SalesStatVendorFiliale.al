@@ -1,24 +1,16 @@
-report 50025 "Sales Statistic/Vendor Filiale"
+report 50025 "BC6_Sales Stat/Vendor Filiale"
 {
-    // --------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // --------------------------------------------------------------------------
-    // 
-    // //>>CNE2.05
-    // FEP-ADVE-200706_18_E.001:LY 15/02/2008 : Move code to standard indentation
-    // FEP-ADVE-200706_18_E.002:LY 19/02/2008 : Calc. CA from Sales Credit Memo
-    // 
-    // --------------------------------------------------------------------------
     DefaultLayout = RDLC;
     RDLCLayout = './SalesStatisticVendorFiliale.rdlc';
 
-    Caption = 'Sales Statistic/Vendor';
+    Caption = 'Sales Statistic/Vendor', comment = 'FRA="Statistique vente/fournisseur"';
 
     dataset
     {
-        dataitem(DataItem3182; Table23)
+        dataitem(Vendor; Vendor)
         {
-            DataItemTableView = SORTING (No.);
+
+            DataItemTableView = SORTING("No.");
             RequestFilterFields = "No.";
             column(FORMAT_TODAY_0_4_; FORMAT(TODAY, 0, 4))
             {
@@ -29,7 +21,7 @@ report 50025 "Sales Statistic/Vendor Filiale"
             column(CurrReport_PAGENO; CurrReport.PAGENO)
             {
             }
-            column(USERID; USERID)
+            column("USERID"; USERID)
             {
             }
             column(DatGDateDebut; DatGDateDebut)
@@ -122,15 +114,15 @@ report 50025 "Sales Statistic/Vendor Filiale"
 
             trigger OnAfterGetRecord()
             var
-                RecLSalesInvLine: Record "113";
-                RecLSalesCrMemoLine: Record "115";
-                RecLPurchInvLine: Record "123";
-                RecLPurchCrMemoLine: Record "125";
-                RecLPurchLine: Record "39";
-                RecLSalesInvHeader: Record "112";
-                RecLPurchInvHeader: Record "122";
-                RecLSalesCrMemoHeader: Record "114";
-                RecLPurchCrMemoHeader: Record "124";
+                RecLPurchCrMemoHeader: Record "Purch. Cr. Memo Hdr.";
+                RecLPurchCrMemoLine: Record "Purch. Cr. Memo Line";
+                RecLPurchInvHeader: Record "Purch. Inv. Header";
+                RecLPurchInvLine: Record "Purch. Inv. Line";
+                RecLPurchLine: Record "Purchase Line";
+                RecLSalesCrMemoHeader: Record "Sales Cr.Memo Header";
+                RecLSalesCrMemoLine: Record "Sales Cr.Memo Line";
+                RecLSalesInvHeader: Record "Sales Invoice Header";
+                RecLSalesInvLine: Record "Sales Invoice Line";
             begin
                 // Init Var
                 DecGCAVente := 0;
@@ -141,35 +133,30 @@ report 50025 "Sales Statistic/Vendor Filiale"
                 DecGCAAchatEnCmd := 0;
 
                 // Sales Invoice Line
-                RecGSalesInvLineTEMP.SETCURRENTKEY("Buy-from Vendor No.");
-                RecGSalesInvLineTEMP.SETRANGE("Buy-from Vendor No.", "No.");
+                RecGSalesInvLineTEMP.SETCURRENTKEY("BC6_Buy-from Vendor No.");
+                RecGSalesInvLineTEMP.SETRANGE("BC6_Buy-from Vendor No.", "No.");
                 RecLSalesInvHeader.SETFILTER("Posting Date", '%1..%2', DatGDateDebut, DatDateFin);
-                IF RecGSalesInvLineTEMP.FIND('-') THEN BEGIN
+                IF RecGSalesInvLineTEMP.FindSet() THEN BEGIN
                     REPEAT
                         RecLSalesInvHeader.SETFILTER("No.", RecGSalesInvLineTEMP."Document No.");
-                        IF RecLSalesInvHeader.FIND('-') THEN BEGIN
-                            DecGMontant += RecGSalesInvLineTEMP.Quantity * RecGSalesInvLineTEMP."Purchase Cost";
+                        IF RecLSalesInvHeader.FindSet() THEN BEGIN
+                            DecGMontant += RecGSalesInvLineTEMP.Quantity * RecGSalesInvLineTEMP."BC6_Purchase Cost";
                             DecGCAVente += RecGSalesInvLineTEMP.Amount;
                         END;
                     UNTIL RecGSalesInvLineTEMP.NEXT = 0;
                 END;
 
                 // Sales Credit Memo Line
-                RecGSalesCrMemoLineTEMP.SETCURRENTKEY("Buy-from Vendor No.");
-                RecGSalesCrMemoLineTEMP.SETRANGE("Buy-from Vendor No.", "No.");
+                RecGSalesCrMemoLineTEMP.SETCURRENTKEY("BC6_Buy-from Vendor No.");
+                RecGSalesCrMemoLineTEMP.SETRANGE("BC6_Buy-from Vendor No.", "No.");
                 RecLSalesCrMemoHeader.SETFILTER("Posting Date", '%1..%2', DatGDateDebut, DatDateFin);
-                IF RecGSalesCrMemoLineTEMP.FIND('-') THEN BEGIN
+                IF RecGSalesCrMemoLineTEMP.FindSet() THEN BEGIN
                     REPEAT
                         RecLSalesCrMemoHeader.SETFILTER("No.", RecGSalesCrMemoLineTEMP."Document No.");
-                        //>>FEP-ADVE-200706_18_E.002
-                        //IF RecLSalesCrMemoHeader.FIND('-') THEN
                         IF RecLSalesCrMemoHeader.FIND('-') THEN BEGIN
-                            DecGMontant -= (RecGSalesCrMemoLineTEMP.Quantity * RecGSalesCrMemoLineTEMP."Purchase cost");
-                            //<<FEP-ADVE-200706_18_E.002
+                            DecGMontant -= (RecGSalesCrMemoLineTEMP.Quantity * RecGSalesCrMemoLineTEMP."BC6_Purchase cost");
                             DecGCAVente -= RecGSalesCrMemoLineTEMP.Amount;
-                            //>>FEP-ADVE-200706_18_E.002
                         END;
-                        //<<FEP-ADVE-200706_18_E.002
                     UNTIL RecGSalesCrMemoLineTEMP.NEXT = 0;
                 END;
 
@@ -180,7 +167,7 @@ report 50025 "Sales Statistic/Vendor Filiale"
                 RecGPurchLineTEMP.SETRANGE(Type, RecGPurchLineTEMP.Type::Item);
                 RecGPurchLineTEMP.SETRANGE("Document Type", RecGPurchLineTEMP."Document Type"::Order);
                 RecGPurchLineTEMP.SETFILTER("Planned Receipt Date", '%1..%2', DatGDateDebut, DatDateFin);
-                IF RecGPurchLineTEMP.FIND('-') THEN BEGIN
+                IF RecGPurchLineTEMP.FindSet() THEN BEGIN
                     REPEAT
                         DecGCAAchatEnCmd := DecGCAAchatEnCmd + (RecGPurchLineTEMP.Quantity - RecGPurchLineTEMP."Quantity Invoiced")
                                             * RecGPurchLineTEMP."Direct Unit Cost"
@@ -193,10 +180,10 @@ report 50025 "Sales Statistic/Vendor Filiale"
                 RecGPurchInvLineTEMP.SETRANGE("Buy-from Vendor No.", "No.");
                 RecGPurchInvLineTEMP.SETRANGE(Type, RecGPurchInvLineTEMP.Type::Item);
                 RecLPurchInvHeader.SETFILTER("Posting Date", '%1..%2', DatGDateDebut, DatDateFin);
-                IF RecGPurchInvLineTEMP.FIND('-') THEN BEGIN
+                IF RecGPurchInvLineTEMP.FindSet() THEN BEGIN
                     REPEAT
                         RecLPurchInvHeader.SETFILTER("No.", RecGPurchInvLineTEMP."Document No.");
-                        IF RecLPurchInvHeader.FIND('-') THEN
+                        IF RecLPurchInvHeader.FindSet() THEN
                             DecGCAAchat += RecGPurchInvLineTEMP.Amount;
                     UNTIL RecGPurchInvLineTEMP.NEXT = 0;
                 END;
@@ -206,10 +193,10 @@ report 50025 "Sales Statistic/Vendor Filiale"
                 RecGPurchCrMemoLineTEMP.SETRANGE("Buy-from Vendor No.", "No.");
                 RecGPurchCrMemoLineTEMP.SETRANGE(Type, RecGPurchCrMemoLineTEMP.Type::Item);
                 RecLPurchCrMemoHeader.SETFILTER("Posting Date", '%1..%2', DatGDateDebut, DatDateFin);
-                IF RecGPurchCrMemoLineTEMP.FIND('-') THEN BEGIN
+                IF RecGPurchCrMemoLineTEMP.FindSet() THEN BEGIN
                     REPEAT
                         RecLPurchCrMemoHeader.SETFILTER("No.", RecGPurchCrMemoLineTEMP."Document No.");
-                        IF RecLPurchCrMemoHeader.FIND('-') THEN
+                        IF RecLPurchCrMemoHeader.FindSet() THEN
                             DecGCAAchat -= RecGPurchCrMemoLineTEMP.Amount;
                     UNTIL RecGPurchCrMemoLineTEMP.NEXT = 0;
                 END;
@@ -259,43 +246,37 @@ report 50025 "Sales Statistic/Vendor Filiale"
 
     trigger OnInitReport()
     begin
-        //EVALUATE(DatGDateDebut,'01/'+FORMAT(DATE2DMY(TODAY,2))+'/'+FORMAT(DATE2DMY(TODAY,3)));
-        //DatDateFin := CALCDATE('1M-1J',DatGDateDebut);
         DatGDateDebut := CALCDATE('<-CM>', TODAY);
         DatDateFin := CALCDATE('<CM>', TODAY);
 
-        //>>CNEIC : le 07/2015
         Vendor.CHANGECOMPANY('CNE 2007');
-        //<<CNEIC : le 07/2015
     end;
 
     trigger OnPreReport()
     begin
-        //>>CNEIC : le 07/2015
-        // Passage des lignes dans les fichier TEMP
         RecGSalesInvLine.SETFILTER("Posting Date", '%1..%2', DatGDateDebut, DatDateFin);
         IF RecGSalesInvLine.FIND('-') THEN
             REPEAT
                 RecGSalesInvLineTEMP := RecGSalesInvLine;
                 IF RecGitem.GET(RecGSalesInvLineTEMP."No.") THEN BEGIN
-                    RecGSalesInvLineTEMP."Buy-from Vendor No." := RecGitem."Vendor No.";
+                    RecGSalesInvLineTEMP."BC6_Buy-from Vendor No." := RecGitem."Vendor No.";
                     RecGSalesInvLineTEMP.INSERT;
                 END;
             UNTIL RecGSalesInvLine.NEXT <= 0;
 
         RecGSalesCrMemoLine.SETFILTER("Posting Date", '%1..%2', DatGDateDebut, DatDateFin);
-        IF RecGSalesCrMemoLine.FIND('-') THEN
+        IF RecGSalesCrMemoLine.FindSet() THEN
             REPEAT
                 RecGSalesCrMemoLineTEMP := RecGSalesCrMemoLine;
                 IF RecGitem.GET(RecGSalesCrMemoLineTEMP."No.") THEN BEGIN
-                    RecGSalesCrMemoLineTEMP."Buy-from Vendor No." := RecGitem."Vendor No.";
+                    RecGSalesCrMemoLineTEMP."BC6_Buy-from Vendor No." := RecGitem."Vendor No.";
                     RecGSalesCrMemoLineTEMP.INSERT;
                 END;
             UNTIL RecGSalesCrMemoLine.NEXT <= 0;
 
 
         RecGPurchLine.SETFILTER("Planned Receipt Date", '%1..%2', DatGDateDebut, DatDateFin);
-        IF RecGPurchLine.FIND('-') THEN
+        IF RecGPurchLine.FindSet() THEN
             REPEAT
                 RecGPurchLineTEMP := RecGPurchLine;
                 IF RecGitem.GET(RecGPurchLineTEMP."No.") THEN BEGIN
@@ -305,7 +286,7 @@ report 50025 "Sales Statistic/Vendor Filiale"
             UNTIL RecGPurchLine.NEXT <= 0;
 
         RecGPurchInvLine.SETFILTER("Posting Date", '%1..%2', DatGDateDebut, DatDateFin);
-        IF RecGPurchInvLine.FIND('-') THEN
+        IF RecGPurchInvLine.FindSet() THEN
             REPEAT
                 RecGPurchInvLineTEMP := RecGPurchInvLine;
                 IF RecGitem.GET(RecGPurchInvLineTEMP."No.") THEN BEGIN
@@ -315,7 +296,7 @@ report 50025 "Sales Statistic/Vendor Filiale"
             UNTIL RecGPurchInvLine.NEXT <= 0;
 
         RecGPurchCrMemoLine.SETFILTER("Posting Date", '%1..%2', DatGDateDebut, DatDateFin);
-        IF RecGPurchCrMemoLine.FIND('-') THEN
+        IF RecGPurchCrMemoLine.FindSet() THEN
             REPEAT
                 RecGPurchCrMemoLineTEMP := RecGPurchCrMemoLine;
                 IF RecGitem.GET(RecGPurchCrMemoLineTEMP."No.") THEN BEGIN
@@ -323,39 +304,38 @@ report 50025 "Sales Statistic/Vendor Filiale"
                     RecGPurchCrMemoLineTEMP.INSERT;
                 END;
             UNTIL RecGPurchCrMemoLine.NEXT <= 0;
-        //<<CNEIC : le 07/2015
     end;
 
     var
-        DatGDateDebut: Date;
+        RecGitem: Record Item;
+        RecGPurchCrMemoLine: Record "Purch. Cr. Memo Line";
+        RecGPurchCrMemoLineTEMP: Record "Purch. Cr. Memo Line" temporary;
+        RecGPurchInvLine: Record "Purch. Inv. Line";
+        RecGPurchInvLineTEMP: Record "Purch. Inv. Line" temporary;
+        RecGPurchLine: Record "Purchase Line";
+        RecGPurchLineTEMP: Record "Purchase Line" temporary;
+        RecGSalesCrMemoLine: Record "Sales Cr.Memo Line";
+        RecGSalesCrMemoLineTEMP: Record "Sales Cr.Memo Line" temporary;
+        RecGSalesInvLine: Record "Sales Invoice Line";
+        RecGSalesInvLineTEMP: Record "Sales Invoice Line" temporary;
         DatDateFin: Date;
+        DatGDateDebut: Date;
+        DecGCAAchat: Decimal;
+        DecGCAAchatEnCmd: Decimal;
         DecGCAVente: Decimal;
         DecGMontant: Decimal;
         DecGMontantMarge: Decimal;
         DecGPourcentMarge: Decimal;
-        DecGCAAchat: Decimal;
-        DecGCAAchatEnCmd: Decimal;
-        Statistics_Sales_by_VendorCaptionLbl: Label 'Statistics Sales by Vendor';
-        CurrReport_PAGENOCaptionLbl: Label 'Page';
-        Periode__FromCaptionLbl: Label 'Periode :From';
         AuCaptionLbl: Label 'Au';
-        Invoiced_Purchase_Turnover_CaptionLbl: Label 'Invoiced Purchase Turnover ';
-        margeCaptionLbl: Label '% Profit';
-        Sale_TurnoverCaptionLbl: Label 'Sale Turnover';
-        Profit_AmountCaptionLbl: Label 'Profit Amount';
-        Purchase_Amount_per_Costumer_OrderCaptionLbl: Label 'Purchase Amount per Costumer Order';
-        Puchase_Turnover_in_Vendor_OrderCaptionLbl: Label 'Puchase Turnover in Vendor Order';
+        CurrReport_PAGENOCaptionLbl: Label 'Page';
+        Invoiced_Purchase_Turnover_CaptionLbl: Label 'Invoiced Purchase Turnover ', comment = 'FRA="CA Achat Facturé"';
+        margeCaptionLbl: Label '% Profit', comment = 'FRA=""';
+        Periode__FromCaptionLbl: Label 'Periode :From', comment = 'FRA="Période : Du"';
+        Profit_AmountCaptionLbl: Label 'Profit Amount', comment = 'FRA="Montant Marge"';
+        Puchase_Turnover_in_Vendor_OrderCaptionLbl: Label 'Puchase Turnover in Vendor Order', comment = 'FRA="CA achat en cde fournisseur"';
+        Purchase_Amount_per_Costumer_OrderCaptionLbl: Label 'Purchase Amount per Costumer Order', comment = 'FRA="Montant Achat sur cde client"';
+        Sale_TurnoverCaptionLbl: Label 'Sale Turnover', comment = 'FRA="CA Vente"';
+        Statistics_Sales_by_VendorCaptionLbl: Label 'Statistics Sales by Vendor', comment = 'FRA="Statistiques ventes par fournisseur"';
         TotalCaptionLbl: Label 'Total';
-        RecGSalesInvLine: Record "113";
-        RecGSalesCrMemoLine: Record "115";
-        RecGPurchInvLine: Record "123";
-        RecGPurchCrMemoLine: Record "125";
-        RecGPurchLine: Record "39";
-        RecGSalesInvLineTEMP: Record "113" temporary;
-        RecGSalesCrMemoLineTEMP: Record "115" temporary;
-        RecGPurchInvLineTEMP: Record "123" temporary;
-        RecGPurchCrMemoLineTEMP: Record "125" temporary;
-        RecGPurchLineTEMP: Record "39" temporary;
-        RecGitem: Record "27";
 }
 

@@ -18,7 +18,7 @@ report 50090 "Facture Proforma CNE"
     {
         dataitem(DataItem6640; Table36)
         {
-            DataItemTableView = SORTING (Document Type, No.);
+            DataItemTableView = SORTING(Document Type, No.);
             PrintOnlyIfDetail = true;
             RequestFilterFields = "No.", "Sell-to Customer No.", "No. Printed";
             RequestFilterHeading = 'Sales Order';
@@ -216,12 +216,12 @@ report 50090 "Facture Proforma CNE"
             }
             dataitem(CopyLoop; Table2000000026)
             {
-                DataItemTableView = SORTING (Number);
+                DataItemTableView = SORTING(Number);
                 PrintOnlyIfDetail = false;
                 dataitem(PageLoop; Table2000000026)
                 {
-                    DataItemTableView = SORTING (Number)
-                                        WHERE (Number = CONST (1));
+                    DataItemTableView = SORTING(Number)
+                                        WHERE(Number = CONST(1));
                     PrintOnlyIfDetail = false;
                     column(CompanyInfo2Picture; CompanyInfo2.Picture)
                     {
@@ -434,8 +434,8 @@ report 50090 "Facture Proforma CNE"
                     dataitem(DimensionLoop1; Table2000000026)
                     {
                         DataItemLinkReference = "Sales Header";
-                        DataItemTableView = SORTING (Number)
-                                            WHERE (Number = FILTER (1 ..));
+                        DataItemTableView = SORTING(Number)
+                                            WHERE(Number = FILTER(1 ..));
                         column(DimText; DimText)
                         {
                         }

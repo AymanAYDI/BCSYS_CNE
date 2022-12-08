@@ -15,9 +15,9 @@ report 50747 "Invt. Pick2"
     {
         dataitem(WhseActivityHeader; Table5766)
         {
-            DataItemTableView = SORTING (Type, No.)
+            DataItemTableView = SORTING(Type, No.)
                                 ORDER(Ascending)
-                                WHERE (Type = CONST (Invt. Pick));
+                                WHERE(Type = CONST(Invt. Pick));
             PrintOnlyIfDetail = true;
             RequestFilterFields = "No.", "Location Code", "No. Printed";
             column(WhseActivityHeader_Type; Type)
@@ -28,13 +28,13 @@ report 50747 "Invt. Pick2"
             }
             dataitem(Copy; Table2000000026)
             {
-                DataItemTableView = SORTING (Number);
+                DataItemTableView = SORTING(Number);
                 PrintOnlyIfDetail = true;
                 dataitem(PageLoop; Table2000000026)
                 {
-                    DataItemTableView = SORTING (Number)
+                    DataItemTableView = SORTING(Number)
                                         ORDER(Ascending)
-                                        WHERE (Number = CONST (1));
+                                        WHERE(Number = CONST(1));
                     column(CompanyInfo__Alt_Picture_; CompanyInfo."Alt Picture")
                     {
                     }

@@ -1259,7 +1259,7 @@ then begin
                     SalesHeaderFrom.TESTFIELD("Prices Including VAT", SalesHeaderTo."Prices Including VAT");
                     SalesHeaderFrom."Your Reference" := SalesHeaderTo."Your Reference";
                     SalesHeaderFrom."BC6_Affair No." := SalesHeaderTo."BC6_Affair No.";
-                    // IF NOT SalesHeaderFrom.MODIFY THEN;      //TODO:then what ?
+                    IF NOT SalesHeaderFrom.MODIFY() THEN;
                 end;
             else begin
                 SalesHeaderFrom.TESTFIELD("Sell-to Customer No.", SalesHeaderTo."Sell-to Customer No.");
@@ -1288,13 +1288,12 @@ then begin
             SalesHeaderFrom.TESTFIELD("Prices Including VAT", SalesHeaderTo."Prices Including VAT");
             SalesHeaderFrom."Your Reference" := SalesHeaderTo."Your Reference";
             SalesHeaderFrom."BC6_Affair No." := SalesHeaderTo."BC6_Affair No.";
-
-            //   IF NOT MODIFY THEN;     //TODO:then what ?
+            IF NOT SalesHeaderFrom.MODIFY() THEN;
         end;
     end;
     //TODO  : a voir et a verifier 
     [EventSubscriber(ObjectType::Codeunit, codeunit::"Sales Price Calc. Mgt.", 'OnBeforeFindServLineDisc', '', false, false)]
-    procedure OnBeforeFindServLineDisc(var ServiceHeader: Record "Service Header"; var ServiceLine: Record "Service Line"; var IsHandled: Boolean)
+    procedure COD7000_OnBeforeFindServLineDisc(var ServiceHeader: Record "Service Header"; var ServiceLine: Record "Service Line"; var IsHandled: Boolean)
     var
         SalesPriceCalMgt: codeunit "Sales Price Calc. Mgt.";
         TempSalesLineDisc: Record "Sales Line Discount" temporary;
@@ -1322,7 +1321,7 @@ then begin
                 "Line Discount %" := 0;
                 "Line Discount Amount" :=
                   Round(
-                    Round(CalcChargeableQty * "Unit Price", Currency."Amount Rounding Precision") *
+                    Round(CalcChargeableQty() * "Unit Price", Currency."Amount Rounding Precision") *
                     "Line Discount %" / 100, Currency."Amount Rounding Precision");
                 "Inv. Discount Amount" := 0;
                 "Inv. Disc. Amount to Invoice" := 0;
@@ -1330,42 +1329,6 @@ then begin
         end;
 
     end;
-
-    [EventSubscriber(ObjectType::Codeunit, codeunit::"Sales Price Calc. Mgt.", 'OnAfterFindSalesLineDisc', '', false, false)]
-
-    procedure OnAfterFindSalesLineDisc(var ToSalesLineDisc: Record "Sales Line Discount"; CustNo: Code[20]; ContNo: Code[20]; CustDiscGrCode: Code[20]; CampaignNo: Code[20]; ItemNo: Code[20]; ItemDiscGrCode: Code[20]; VariantCode: Code[10]; UOM: Code[10]; CurrencyCode: Code[10]; StartingDate: Date; ShowAll: Boolean)
-
-    var
-        FromSalesLineDisc: Record "Sales Line Discount";
-        SalesPriceCalMgt: codeunit "Sales Price Calc. Mgt.";
-        TempCampaignTargetGr: Record "Campaign Target Group" temporary;
-        InclCampaigns: Boolean;
-    begin
-        with FromSalesLineDisc do begin
-            for "Sales Type" := "Sales Type"::Customer to "Sales Type"::Campaign do begin
-                if ("Sales Type" = "Sales Type"::"All Customers") or
-                   (("Sales Type" = "Sales Type"::Customer) and (CustNo <> '')) or
-                   (("Sales Type" = "Sales Type"::"Customer Disc. Group") and (CustDiscGrCode <> '')) or
-                   (("Sales Type" = "Sales Type"::Campaign) and
-                    not ((CustNo = '') and (ContNo = '') and (CampaignNo = '')))
-                then begin
-                    case "Sales Type" of
-                        "Sales Type"::Campaign:
-                            InclCampaigns := SalesPriceCalMgt.ActivatedCampaignExists(TempCampaignTargetGr, CustNo, ContNo, CampaignNo);
-                    end;
-                    repeat
-                        IF VendorNo <> '' THEN BEGIN
-                            SETRANGE(Type, Type::Vendor);
-                            SETRANGE(Code, VendorNo);
-                            CopySalesDiscToSalesDisc(FromSalesLineDisc, ToSalesLineDisc);
-                        END;
-
-                    until not InclCampaigns;
-                end;
-            end;
-        end;
-    end;
-
 
 
     /////////////////////
@@ -2685,15 +2648,15 @@ then begin
             ApprovalsMgmt.DeleteApprovalEntries(QuoteSalesHeader.RecordId);
             SalesCommentLine.DeleteComments(QuoteSalesHeader."Document Type".AsInteger(), QuoteSalesHeader."No.");
             //>>MIGRATION NAV 2013
-            IF RecGParmNavi.GET THEN
+            IF RecGParmNavi.GET() THEN
                 IF RecGParmNavi."Filing Sales Quotes" THEN BEGIN
                     QuoteSalesHeader."BC6_Cause filing" := QuoteSalesHeader."BC6_Cause filing"::"Change in Order";
-                    QuoteSalesHeader.MODIFY;
+                    QuoteSalesHeader.MODIFY();
                     RecGArchiveManagement.StoreSalesDocument(QuoteSalesHeader, FALSE);
                 END;
             //<<MIGRATION NAV 2013
-            QuoteSalesHeader.DeleteLinks;
-            QuoteSalesHeader.Delete;
+            QuoteSalesHeader.DeleteLinks();
+            QuoteSalesHeader.Delete();
             SalesQuoteLine.DeleteAll();
         end;
     end;
@@ -2706,7 +2669,7 @@ then begin
         Navigate: Page Navigate;
     begin
         if GRecEntry.READPERMISSION then begin
-            GRecEntry.RESET;
+            GRecEntry.RESET();
             GRecEntry.SETCURRENTKEY("Document No.", "Posting Date");
             GRecEntry.SETFILTER("Document No.", DocNoFilter);
             GRecEntry.SETFILTER("Posting Date", PostingDateFilter);
@@ -2719,7 +2682,7 @@ then begin
     var
         GRecEntry: Record "BC6_DEEE Ledger Entry";
     begin
-        GRecEntry.RESET;
+        GRecEntry.RESET();
         GRecEntry.SETCURRENTKEY("Document No.", "Posting Date");
         GRecEntry.SETFILTER("Document No.", DocNoFilter);
         GRecEntry.SETFILTER("Posting Date", PostingDateFilter);
@@ -2766,7 +2729,7 @@ then begin
         if Rec."BC6_Return Order Type" = Rec."BC6_Return Order Type"::Location then
             DocPrint.PrintSalesHeader(Rec)
         else begin
-            SalesHeader.RESET;
+            SalesHeader.RESET();
             SalesHeader.SETRANGE("Document Type", Rec."Document Type");
             SalesHeader.SETRANGE("No.", Rec."No.");
             // REPORT.RUNMODAL(50060, TRUE, FALSE, SalesHeader); TODO: missing report
@@ -2917,8 +2880,8 @@ then begin
     begin
         if SalesLineDiscount.Type = SalesLineDiscount.Type::Vendor then begin
             VendorList.LOOKUPMODE := true;
-            if VendorList.RUNMODAL = ACTION::LookupOK then
-                Text := VendorList.GetSelectionFilter
+            if VendorList.RUNMODAL() = ACTION::LookupOK then
+                Text := VendorList.GetSelectionFilter()
             else
                 Result := false;
         end;
@@ -2966,7 +2929,7 @@ then begin
     [EventSubscriber(ObjectType::Page, Page::"Sales Quote", 'OnAfterValidateEvent', 'Sell-to Customer Name', false, false)]
     procedure P41_OnAfterValidateEvent(var Rec: Record "Sales Header")
     begin
-        Rec.verifyquotestatus;
+        Rec.verifyquotestatus();
     end;
 
     [EventSubscriber(ObjectType::Page, Page::"Item Card", 'OnAfterInitControls', '', true, false)]
@@ -2987,10 +2950,10 @@ then begin
         RecGAccessControl: Record "Access Control";
         BooGBlocked: Boolean;
     begin
-        RecGAccessControl.RESET;
-        RecGAccessControl.SETRANGE("User Security ID", USERSECURITYID);
+        RecGAccessControl.RESET();
+        RecGAccessControl.SETRANGE("User Security ID", USERSECURITYID());
         RecGAccessControl.SETRANGE("Role ID", 'MODIFART');
-        if RecGAccessControl.FINDFIRST then begin
+        if RecGAccessControl.FINDFIRST() then begin
             BooGBlocked := true;
         end
         else begin
@@ -3016,11 +2979,13 @@ then begin
         QtyBaseToAssign: Decimal;
         SalesReservationFound: Boolean;
     begin
+
         SalesReservationFound := FALSE;
         TempSalesLine.RESET;
         TempSalesLine.DELETEALL;
+
         IF PurchLine."Document Type" = PurchLine."Document Type"::Order THEN BEGIN
-            SalesLine.RESET;
+            SalesLine.RESET();
             SalesLine.SETCURRENTKEY("BC6_Purch. Document Type", "BC6_Purch. Order No.", "BC6_Purch. Line No.");
             SalesLine.SETRANGE("BC6_Purch. Document Type", PurchLine."Document Type");
             SalesLine.SETRANGE("BC6_Purch. Order No.", PurchLine."Document No.");
@@ -3030,7 +2995,7 @@ then begin
                     SalesLine.CALCFIELDS("BC6_Pick Qty.");
                     QtyBaseToAssign := SalesLine."Outstanding Qty. (Base)" - SalesLine."BC6_Pick Qty.";
                     IF QtyBaseToAssign > 0 THEN BEGIN
-                        TempSalesLine.INIT;
+                        TempSalesLine.INIT();
                         TempSalesLine := SalesLine;
                         TempSalesLine."Outstanding Qty. (Base)" := QtyBaseToAssign;
 
@@ -3039,9 +3004,9 @@ then begin
                         IF SalesOrder.GET(SalesLine."Document Type", SalesLine."Document No.") THEN
                             TempSalesLine."Description 2" := SalesOrder."BC6_Warehouse Comments";
 
-                        TempSalesLine.INSERT;
+                        TempSalesLine.INSERT();
                     END;
-                UNTIL SalesLine.NEXT = 0;
+                UNTIL SalesLine.NEXT() = 0;
         END;
         IF TempSalesLine.FIND('-') THEN
             SalesReservationFound := TRUE;
@@ -3591,6 +3556,7 @@ then begin
         RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line";
         GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
     begin
+
         GlobalFunctionMgt.SetAutoTextSpe(false);
         RecGTmpExtTexLineSpe.RESET;
         RecGTmpExtTexLineSpe.SETRANGE("Table Name", RecGTmpExtTexLineSpe."Table Name"::Vendor);
@@ -3693,12 +3659,12 @@ then begin
                 END ELSE BEGIN
                     BooLGo := TRUE;
                     IF NOT RecLJobContact.GET("Sell-to Contact No.", "BC6_Affair No.") THEN BEGIN
-                        RecLJob.RESET;
-                        RecLJobContact.INIT;
+                        RecLJob.RESET();
+                        RecLJobContact.INIT();
                         RecLJobContact."Contact No." := "Sell-to Contact No.";
                         RecLJobContact."Affair No." := "BC6_Affair No.";
                         RecLJobContact.VALIDATE(RecLJobContact."Contact No.");
-                        RecLJobContact.INSERT;
+                        RecLJobContact.INSERT();
                     END;
                     IF CONFIRM(CstG002, FALSE) THEN BEGIN
                         IF RecLJob.GET("BC6_Affair No.") THEN
@@ -3710,7 +3676,7 @@ then begin
             //<<FEP-ADVE-200706_18_A.001
             //>>P24233_001 SOBI APA 02/02/17
             IF NOT RecGUserSetup.GET(USERID) THEN
-                RecGUserSetup.INIT;
+                RecGUserSetup.INIT();
             IF RecGUserSetup."BC6_Limited User" THEN BEGIN
                 IF NOT CONFIRM(CstG003, FALSE) THEN
                     EXIT;
@@ -3728,7 +3694,7 @@ then begin
                 if IsHandled then
                     exit;
                 if not (PreviewMode or SkipCheckReleaseRestrictions) then
-                    CheckSalesReleaseRestrictions;
+                    CheckSalesReleaseRestrictions();
 
                 if not IsHandled then
                     if "Document Type" = "Document Type"::Quote then
@@ -3741,7 +3707,7 @@ then begin
 
                 //>>MIGRATION NAV 2013 - 2017
                 //LIVRAISON FRGO NSC1.01 [016] Date Livraison obligatoire
-                SalesSetup.GET;
+                SalesSetup.GET();
                 IF SalesSetup."BC6_Promised Delivery Date" THEN
                     IF "Document Type" = "Document Type"::Order THEN
                         TESTFIELD("Promised Delivery Date");
@@ -3752,15 +3718,15 @@ then begin
 
                 //>>FEP-ACHAT-200706_18_A.001
                 IF ("Document Type" = "Document Type"::Order) THEN BEGIN
-                    RecGSalesLine.RESET;
+                    RecGSalesLine.RESET();
                     RecGSalesLine.SETCURRENTKEY("Document Type", "Document No.", "Line No.");
                     RecGSalesLine.SETRANGE(RecGSalesLine."Document Type", "Document Type");
                     RecGSalesLine.SETRANGE(RecGSalesLine.Type, RecGSalesLine.Type::Item);
                     RecGSalesLine.SETRANGE(RecGSalesLine."Document No.", "No.");
-                    IF RecGSalesLine.FINDFIRST THEN
+                    IF RecGSalesLine.FINDFIRST() THEN
                         REPEAT
                             RecGSalesLine.TESTFIELD("Purchasing Code");
-                        UNTIL RecGSalesLine.NEXT = 0;
+                        UNTIL RecGSalesLine.NEXT() = 0;
                 END;
                 //<<FEP-ACHAT-200706_18_A.001
                 //<<MIGRATION NAV 2013
@@ -3782,7 +3748,7 @@ then begin
                     SalesLine.SetRange(Type, SalesLine.Type::Item);
                     if SalesLine.FindSet() then
                         repeat
-                            if SalesLine.IsInventoriableItem then
+                            if SalesLine.IsInventoriableItem() then
                                 SalesLine.TestField("Location Code");
                         until SalesLine.Next() = 0;
                     SalesLine.SetFilter(Type, '>0');

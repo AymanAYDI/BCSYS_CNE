@@ -1,9 +1,5 @@
 codeunit 50202 "BC6_Functions Mgt"
 {
-    trigger OnRun()
-    begin
-    end;
-
     procedure FindVeryBestCost(var RecLPurchaseLine: Record "Purchase Line"; RecLPurchaseHeader: Record "Purchase Header")
     var
         Item: Record Item;
@@ -1227,7 +1223,7 @@ codeunit 50202 "BC6_Functions Mgt"
         BoolGCopyLinesExactly := NewCopyLinesExactly;
     end;
 
-    procedure InsertOldOrders(FromSalesInvoiceLine: Record 113; ToSalesHeader: Record 36; var NextLineNo: Integer);
+    procedure InsertOldOrders(FromSalesInvoiceLine: Record "Sales Invoice Line"; ToSalesHeader: Record "Sales Header"; var NextLineNo: Integer);
     begin
         if (ToSalesHeader."Document Type" = ToSalesHeader."Document Type"::"Return Order") and (ToSalesHeader."BC6_Return Order Type" = ToSalesHeader."BC6_Return Order Type"::SAV) then begin
             NextLineNoNewInsert := NextLineNo;
@@ -1236,14 +1232,14 @@ codeunit 50202 "BC6_Functions Mgt"
         end;
     end;
 
-    procedure InsertSalesAndPurOrderShptLine(FromSalesInvoiceLine: Record 113; ToSalesHeader: Record 36; var NextLineNo: Integer);
+    procedure InsertSalesAndPurOrderShptLine(FromSalesInvoiceLine: Record "Sales Invoice Line"; ToSalesHeader: Record "Sales Header"; var NextLineNo: Integer);
     var
-        L_ShipmentInvoiced: Record 10825;
-        L_SalesShptHeader: Record 110;
-        L_SalesHeader: Record 36;
-        L_PurchaseHeader: Record 38;
-        ToSalesLine2: Record 37;
-        LanguageManagement: Codeunit 43;
+        L_ShipmentInvoiced: Record "Shipment Invoiced";
+        L_SalesShptHeader: Record "Sales Shipment Header";
+        L_SalesHeader: Record "Sales Header";
+        L_PurchaseHeader: Record "Purchase Header";
+        ToSalesLine2: Record "Sales Line";
+        LanguageManagement: Codeunit Language;
         Text018: label '%1 - %2:';
     begin
         L_ShipmentInvoiced.RESET;
@@ -1734,7 +1730,7 @@ codeunit 50202 "BC6_Functions Mgt"
         ScheduledReceipt: Decimal;
         PeriodType: enum "Analysis Period Type";
         LookaheadDateformula: DateFormula;
-        CopyOfItem: Record 27;
+        CopyOfItem: Record Item;
     begin
         CopyOfItem.COPY(Item);
         if SalesLine.Type <> SalesLine.Type::Item then exit(0);
@@ -1937,11 +1933,11 @@ codeunit 50202 "BC6_Functions Mgt"
             end;
         end;
     end;
-
-    procedure ActivatedCampaignExists(var ToCampaignTargetGr: Record 7030; CustNo: Code[20]; ContNo: Code[20]; CampaignNo: Code[20]): Boolean;
+    // COD 7000
+    procedure ActivatedCampaignExists(var ToCampaignTargetGr: Record "Campaign Target Group"; CustNo: Code[20]; ContNo: Code[20]; CampaignNo: Code[20]): Boolean;
     var
-        FromCampaignTargetGr: Record 7030;
-        Cont: Record 5050;
+        FromCampaignTargetGr: Record "Campaign Target Group";
+        Cont: Record Contact;
     begin
         with FromCampaignTargetGr do begin
             ToCampaignTargetGr.RESET;
@@ -1973,8 +1969,8 @@ codeunit 50202 "BC6_Functions Mgt"
             exit(ToCampaignTargetGr.FINDFIRST);
         end;
     end;
-    // COD 7000
-    procedure CopySalesDiscToSalesDisc(var FromSalesLineDisc: Record 7004; var ToSalesLineDisc: Record 7004);
+
+    procedure CopySalesDiscToSalesDisc(var FromSalesLineDisc: Record "Sales Line Discount"; var ToSalesLineDisc: Record "Sales Line Discount");
     begin
         with ToSalesLineDisc do begin
             if FromSalesLineDisc.FINDSET then
@@ -1985,7 +1981,7 @@ codeunit 50202 "BC6_Functions Mgt"
         end;
     end;
 
-    procedure FindSalesLineDisc(var ToSalesLineDisc: Record 7004; CustNo: Code[20]; ContNo: Code[20]; CustDiscGrCode: Code[10]; CampaignNo: Code[20]; ItemNo: Code[20]; ItemDiscGrCode: Code[10]; VariantCode: Code[10]; UOM: Code[10]; CurrencyCode: Code[10]; StartingDate: Date; ShowAll: Boolean; VendorNo: Code[20]);
+    procedure FindSalesLineDisc(var ToSalesLineDisc: Record "Sales Line Discount"; CustNo: Code[20]; ContNo: Code[20]; CustDiscGrCode: Code[10]; CampaignNo: Code[20]; ItemNo: Code[20]; ItemDiscGrCode: Code[10]; VariantCode: Code[10]; UOM: Code[10]; CurrencyCode: Code[10]; StartingDate: Date; ShowAll: Boolean; VendorNo: Code[20]);
 
     var
         FromSalesLineDisc: Record "Sales Line Discount";
@@ -2054,6 +2050,149 @@ codeunit 50202 "BC6_Functions Mgt"
                 end;
         end;
     end;
+
+    PROCEDURE GetItemEAN13Code(ItemNo: Code[20]) EAN13Code: Code[20];
+    VAR
+        ItemReference: Record "Item Reference";
+        Item: record Item;
+        CrossRefTypeNo: Code[20];
+        InvSetup: Record "Inventory Setup";
+
+    BEGIN
+        EAN13Code := '';
+        InvSetup.GET;
+        IF InvSetup."BC6_Cross.Ref.Type No.BarCode" = '' THEN
+            EXIT('');
+        CrossRefTypeNo := InvSetup."BC6_Cross.Ref.Type No.BarCode";
+        IF NOT Item.GET(ItemNo) THEN
+            EXIT('');
+
+        ItemReference.RESET;
+        ItemReference.SETRANGE("Item No.", Item."No.");
+        ItemReference.SETRANGE("Variant Code", '');
+        ItemReference.SETRANGE("Unit of Measure", Item."Base Unit of Measure");
+        ItemReference.SETRANGE("Reference Type", ItemReference."Reference Type"::"Bar Code");
+        ItemReference.SETRANGE("Reference Type No.", CrossRefTypeNo);
+        ItemReference.SETRANGE("Discontinue Bar Code", FALSE);
+        IF ItemReference.FINDFIRST THEN
+            EAN13Code := ItemReference."Reference No.";
+
+        EXIT(EAN13Code);
+    END;
+
+    PROCEDURE GetItem(EAN13Code: Code[20]) ItemNo: Code[20];
+    var
+        ItemReference: Record "Item Reference";
+        Item: record Item;
+        CrossRefTypeNo: Code[20];
+        InvSetup: Record "Inventory Setup";
+
+    BEGIN
+        ItemNo := '';
+        InvSetup.GET;
+        IF InvSetup."BC6_Cross.Ref.Type No.BarCode" = '' THEN
+            EXIT('');
+        CrossRefTypeNo := InvSetup."BC6_Cross.Ref.Type No.BarCode";
+
+        ItemReference.RESET;
+        ItemReference.SETCURRENTKEY("Reference No.", "Reference Type", "Reference Type No.", "Discontinue Bar Code");
+        ItemReference.SETRANGE("Reference No.", EAN13Code);
+        ItemReference.SETRANGE("Reference Type", ItemReference."Reference Type"::"Bar Code");
+        ItemReference.SETRANGE("Reference Type No.", CrossRefTypeNo);
+        ItemReference.SETRANGE("Variant Code", '');
+        ItemReference.SETRANGE("Discontinue Bar Code", FALSE);
+        IF ItemReference.FINDFIRST THEN
+            REPEAT
+                IF Item.GET(ItemReference."Item No.") THEN
+                    IF Item.Blocked = FALSE THEN
+                        ItemNo := ItemReference."Item No.";
+            UNTIL ItemReference.NEXT = 0;
+
+        Item.RESET;
+
+        IF NOT Item.GET(ItemNo) THEN
+            EXIT('');
+
+        EXIT(ItemNo);
+    END;
+
+    PROCEDURE CreateItemEAN13Code(ItemNo: Code[20]; ShowMessage: Boolean) EAN13Code: Code[20];
+    VAR
+        ItemReference2: Record "Item Reference";
+        SeriesNo: Code[20];
+        Checksum: Integer;
+        Item: record Item;
+        CrossRefTypeNo: Code[20];
+        InvSetup: Record "Inventory Setup";
+        NoSeriesMgt: Codeunit NoSeriesManagement;
+        CstG001: Label 'N° code-barres %1 erroné.';
+        CstG002: Label 'Code-barres interne %1 ajouté comme référence externe.';
+
+    BEGIN
+        InvSetup.GET;
+        InvSetup.TESTFIELD("BC6_Cross.Ref.Type No.BarCode");
+        CrossRefTypeNo := InvSetup."BC6_Cross.Ref.Type No.BarCode";
+        EAN13Code := '';
+        IF NOT Item.GET(ItemNo) THEN
+            EXIT('');
+
+        IF GetItemEAN13Code(ItemNo) = '' THEN BEGIN
+
+            InvSetup.TESTFIELD("BC6_Int. BarCode Nos");
+            CLEAR(NoSeriesMgt);
+            SeriesNo := '';
+            NoSeriesMgt.InitSeries(InvSetup."BC6_Cross.Ref.Type No.BarCode", '', WORKDATE, EAN13Code, SeriesNo);
+            IF STRLEN(EAN13Code) <> 12 THEN
+                ERROR(CstG001, EAN13Code);
+            Checksum := STRCHECKSUM(EAN13Code, '131313131313', 10);
+            EAN13Code := EAN13Code + FORMAT(Checksum);
+
+            ItemReference2.INIT;
+            ItemReference2.VALIDATE("Item No.", Item."No.");
+            ItemReference2.VALIDATE("Variant Code", '');
+            ItemReference2.VALIDATE("Reference Type", ItemReference2."Reference Type"::"Bar Code");
+            ItemReference2.VALIDATE("Reference Type No.", CrossRefTypeNo);
+            ItemReference2."Reference No." := EAN13Code;
+            ItemReference2.Description := Item.Description;
+            ItemReference2.VALIDATE("Unit of Measure", Item."Base Unit of Measure");
+            ItemReference2."BC6_Internal Bar Code" := TRUE;
+            ItemReference2.INSERT;
+            IF ShowMessage THEN
+                MESSAGE(CstG002, EAN13Code);
+        END;
+
+        EXIT(EAN13Code);
+    END;
+
+    PROCEDURE LookupItemEAN13Code(ItemNo: Code[20]; EAN13Code: Code[20]);
+    var
+        ItemReference: Record "Item Reference";
+        Item: record Item;
+        CrossRefTypeNo: Code[20];
+        InvSetup: Record "Inventory Setup";
+
+    BEGIN
+
+        EAN13Code := '';
+        InvSetup.GET;
+        IF InvSetup."BC6_Cross.Ref.Type No.BarCode" = '' THEN
+            EXIT;
+
+        CrossRefTypeNo := InvSetup."BC6_Cross.Ref.Type No.BarCode";
+        IF NOT Item.GET(ItemNo) THEN
+            EXIT;
+
+        WITH ItemReference DO BEGIN
+            RESET;
+            SETRANGE("Item No.", Item."No.");
+            SETRANGE("Reference Type", ItemReference."Reference Type"::"Bar Code");
+            SETRANGE("Reference Type No.", CrossRefTypeNo);
+            IF NOT FINDFIRST THEN
+                SETRANGE("Reference Type No.");
+            IF PAGE.RUNMODAL(PAGE::"Item Reference List", ItemReference) = ACTION::LookupOK THEN;
+        END;
+    END;
+
 
 
     var

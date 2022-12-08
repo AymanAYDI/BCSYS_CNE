@@ -23,9 +23,8 @@ report 50015 "BC6_Prices Request"
             {
                 DataItemTableView = SORTING(Number);
 
-                dataitem(PageLoop; Integer)
+                dataitem(PageLoop; Integer)                {
 
-                {
                     DataItemTableView = SORTING(Number)
                                         WHERE(Number = CONST(1));
                     column(CurrReport_PAGENO__; STRSUBSTNO(Text005, FORMAT(CurrReport.PAGENO)))

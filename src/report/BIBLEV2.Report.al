@@ -28,8 +28,8 @@ report 50014 "BIBLE V2"
     {
         dataitem(DataItem5444; Table2000000026)
         {
-            DataItemTableView = SORTING (Number)
-                                WHERE (Number = FILTER (1));
+            DataItemTableView = SORTING(Number)
+                                WHERE(Number = FILTER(1));
             column(FORMAT_TODAY_0_4_; FORMAT(TODAY, 0, 4))
             {
             }
@@ -167,7 +167,7 @@ report 50014 "BIBLE V2"
             }
             dataitem(DataItem3595; Table110)
             {
-                DataItemTableView = SORTING (Sell-to Customer No., External Document No.);
+                DataItemTableView = SORTING(Sell-to Customer No., External Document No.);
                 PrintOnlyIfDetail = true;
                 column(Sales_Shipment_Header__No__; "No.")
                 {
@@ -217,9 +217,9 @@ report 50014 "BIBLE V2"
                 dataitem(DataItem2502; Table111)
                 {
                     DataItemLink = Document No.=FIELD(No.);
-                    DataItemTableView = SORTING (Document No., Sell-to Customer No., No.)
-                                        WHERE (Type = FILTER (Item),
-                                              Quantity = FILTER (<> 0),
+                    DataItemTableView = SORTING(Document No., Sell-to Customer No., No.)
+                                        WHERE(Type = FILTER(Item),
+                                              Quantity = FILTER(<> 0),
                                               Qty. Shipped Not Invoiced=FILTER(<>0));
                     column(Sales_Shipment_Line__No__;"No.")
                     {

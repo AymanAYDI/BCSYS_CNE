@@ -17,7 +17,7 @@ report 50039 "Statement sans traite"
     {
         dataitem(DataItem6836; Table18)
         {
-            DataItemTableView = SORTING (No.);
+            DataItemTableView = SORTING(No.);
             PrintOnlyIfDetail = true;
             RequestFilterFields = "No.", "Search Name", "Print Statements", "Date Filter", "Currency Filter";
             column(CompanyInfo_Picture_; CompanyInfo.Picture)
@@ -28,8 +28,8 @@ report 50039 "Statement sans traite"
             }
             dataitem(DataItem5444; Table2000000026)
             {
-                DataItemTableView = SORTING (Number)
-                                    WHERE (Number = CONST (1));
+                DataItemTableView = SORTING(Number)
+                                    WHERE(Number = CONST(1));
                 PrintOnlyIfDetail = true;
                 column(No_Cust; Customer."No.")
                 {
@@ -220,13 +220,13 @@ report 50039 "Statement sans traite"
                 }
                 dataitem(CurrencyLoop; Table2000000026)
                 {
-                    DataItemTableView = SORTING (Number)
-                                        WHERE (Number = FILTER (1 ..));
+                    DataItemTableView = SORTING(Number)
+                                        WHERE(Number = FILTER(1 ..));
                     PrintOnlyIfDetail = true;
                     dataitem(CustLedgEntryHdr; Table2000000026)
                     {
-                        DataItemTableView = SORTING (Number)
-                                            WHERE (Number = CONST (1));
+                        DataItemTableView = SORTING(Number)
+                                            WHERE(Number = CONST(1));
                         column(Currency2Code_CustLedgEntryHdr; STRSUBSTNO(Text001, Currency2.Code))
                         {
                         }
@@ -252,7 +252,7 @@ report 50039 "Statement sans traite"
                         }
                         dataitem(DtldCustLedgEntries; Table379)
                         {
-                            DataItemTableView = SORTING (Customer No., Posting Date, Entry Type, Currency Code);
+                            DataItemTableView = SORTING(Customer No., Posting Date, Entry Type, Currency Code);
                             column(PostDate_DtldCustLedgEntries; FORMAT("Posting Date"))
                             {
                             }
@@ -384,8 +384,8 @@ report 50039 "Statement sans traite"
                     }
                     dataitem(CustLedgEntryFooter; Table2000000026)
                     {
-                        DataItemTableView = SORTING (Number)
-                                            WHERE (Number = CONST (1));
+                        DataItemTableView = SORTING(Number)
+                                            WHERE(Number = CONST(1));
                         column(CurrencyCode3_CustLedgEntryFooter; CurrencyCode3)
                         {
                         }
@@ -408,7 +408,7 @@ report 50039 "Statement sans traite"
                     {
                         DataItemLink = Customer No.=FIELD(No.);
                         DataItemLinkReference = Customer;
-                        DataItemTableView = SORTING (Customer No., Open, Positive, Due Date);
+                        DataItemTableView = SORTING(Customer No., Open, Positive, Due Date);
                         column(OverDueEntries; STRSUBSTNO(Text002, Currency2.Code))
                         {
                         }
@@ -530,8 +530,8 @@ report 50039 "Statement sans traite"
                 }
                 dataitem(AgingBandLoop; Table2000000026)
                 {
-                    DataItemTableView = SORTING (Number)
-                                        WHERE (Number = FILTER (1 ..));
+                    DataItemTableView = SORTING(Number)
+                                        WHERE(Number = FILTER(1 ..));
                     column(AgingDate1; FORMAT(AgingDate[1] + 1))
                     {
                     }

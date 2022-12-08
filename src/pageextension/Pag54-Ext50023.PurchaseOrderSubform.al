@@ -148,7 +148,6 @@ pageextension 50023 "BC6_PurchaseOrderSubform" extends "Purchase Order Subform" 
         ApplicationAreaSetup: Record "Application Area Setup";
         CstG001: Label 'This Purchase Order is already linked with a sales document \ You can''t affect a new one', comment = 'FRA="Cette commande d''achat est déja lié a un document \ Vous ne pouvez pas l''affecter à un autre"';
 
-    [Scope('Internal')]
     procedure ChooseSalesLineOrderToAffect()
     begin
         ChooseSalesLineOrderToAffect();

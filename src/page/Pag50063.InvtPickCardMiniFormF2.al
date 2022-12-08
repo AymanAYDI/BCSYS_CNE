@@ -428,7 +428,7 @@ page 50063 "Invt. Pick Card MiniForm F2"
         BinForm: Page "BC6_Bin List MiniForm";
         ItemForm: Page "BC6_Item List MiniForm";
         LocationForm: Page "BC6_Location List MiniForm";
-        InvtPickForm: Page "Invt Pick List MiniForm";
+        InvtPickForm: Page "BC6_Invt Pick List MiniForm";
         // WshShell: Automation; TODO:
         BoolWait: Boolean;
         EditableCtrl: Boolean;

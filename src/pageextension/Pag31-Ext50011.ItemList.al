@@ -89,7 +89,7 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
             {
                 Caption = 'Marge Vente';
                 Image = GainLossEntries;
-                RunObject = page 50021;
+                RunObject = page "BC6_Item Sales Profit Group";
                 RunPageLink = Code = field("BC6_Item Sales Profit Group");
                 RunPageView = sorting(Code);
             }
@@ -102,7 +102,7 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
             {
                 Caption = 'Line Discounts';
                 Image = LineDiscount;
-                RunObject = page 7014;
+                RunObject = page "Purchase Line Discounts";
                 RunPageLink = BC6_Type = const(Item),
                                   "Item No." = field("No.");
                 RunPageView = sorting(BC6_Type, "Item No.", "Vendor No.", "Starting Date", "Currency Code", "Variant Code", "Unit of Measure Code", "Minimum Quantity");
@@ -141,7 +141,7 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
 
                 trigger OnAction()
                 var
-                    FromItem: Record 27;
+                    FromItem: Record Item;
                 // PrintLabel: Report 50049;
                 // PrintLabel2: Report 50059;
                 begin
@@ -162,7 +162,7 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
 
                 trigger OnAction()
                 var
-                    ItemToUpdate: Record 27;
+                    ItemToUpdate: Record Item;
                 //TODO   // UpdateUnitPriceIncVAT: Report 50053;
                 begin
                     CLEAR(ItemToUpdate);
@@ -179,7 +179,7 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
                 {
                     Caption = '&Bin Contents';
                     Image = BinContent;
-                    RunObject = Page 7379;
+                    RunObject = Page "Item Bin Contents";
                     RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
                 }
@@ -201,7 +201,7 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
 
     trigger OnAfterGetRecord()
     var
-        DistInt: Codeunit 5702;
+        DistInt: Codeunit "Dist. Integration";
         "-MIGNAV2013-": Integer;
     begin
         //TODO // EAN13Code := DistInt.GetItemEAN13Code("No.");
@@ -210,10 +210,10 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
     var
         UpdateICPartnerItemsEnabled: Boolean;
         EAN13Code: Code[20];
-        DistInt: Codeunit 5702;
-        MemberOf: Record 2000000053;
-        ItemCrossRef: Record 5717;
-        RecGAccessControl: Record 2000000053;
+        DistInt: Codeunit "Dist. Integration";
+        MemberOf: Record "Access Control";
+        ItemCrossRef: Record "Item Cross Reference";
+        RecGAccessControl: Record "Access Control";
 
 
 

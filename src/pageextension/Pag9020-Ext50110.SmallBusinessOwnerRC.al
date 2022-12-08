@@ -19,7 +19,7 @@ pageextension 50110 "BC6_SmallBusinessOwnerRC" extends "Small Business Owner RC"
             action("BC6_Vente Stat/Fournisseur")
             {
                 Image = Report;
-                //TODO    RunObject = Report 50017;
+                RunObject = Report "BC6_Sales Statistic/Vendor";
             }
             action("BC6_Statistiques vente")
             {

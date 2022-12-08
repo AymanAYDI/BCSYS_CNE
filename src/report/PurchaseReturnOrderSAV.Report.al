@@ -9,8 +9,8 @@ report 50061 "Purchase Return Order - SAV"
     {
         dataitem(DataItem4458; Table38)
         {
-            DataItemTableView = SORTING (Document Type, No.)
-                                WHERE (Document Type=CONST(Return Order));
+            DataItemTableView = SORTING(Document Type, No.)
+                                WHERE(Document Type=CONST(Return Order));
             RequestFilterFields = "No.", "Buy-from Vendor No.", "No. Printed";
             RequestFilterHeading = 'Purchase Return Order';
             column(No_PurchHdr; "No.")
@@ -48,11 +48,11 @@ report 50061 "Purchase Return Order - SAV"
             }
             dataitem(CopyLoop; Table2000000026)
             {
-                DataItemTableView = SORTING (Number);
+                DataItemTableView = SORTING(Number);
                 dataitem(PageLoop; Table2000000026)
                 {
-                    DataItemTableView = SORTING (Number)
-                                        WHERE (Number = CONST (1));
+                    DataItemTableView = SORTING(Number)
+                                        WHERE(Number = CONST(1));
                     column(DirectUnitCostCaption; DirectUnitCostCaptionLbl)
                     {
                     }
@@ -314,8 +314,8 @@ report 50061 "Purchase Return Order - SAV"
                     dataitem(DimensionLoop1; Table2000000026)
                     {
                         DataItemLinkReference = "Purchase Header";
-                        DataItemTableView = SORTING (Number)
-                                            WHERE (Number = FILTER (1 ..));
+                        DataItemTableView = SORTING(Number)
+                                            WHERE(Number = FILTER(1 ..));
                         column(DimText; DimText)
                         {
                         }

@@ -14,7 +14,7 @@ report 50043 "Conditions of Sales - C.Memo"
     {
         dataitem(DataItem1000000000; Table114)
         {
-            DataItemTableView = SORTING (No.);
+            DataItemTableView = SORTING(No.);
             RequestFilterFields = "No.";
             RequestFilterHeading = 'Payment Terms';
             column(No; "No.")

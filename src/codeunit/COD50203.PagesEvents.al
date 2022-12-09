@@ -223,16 +223,14 @@ codeunit 50203 "BC6_PagesEvents"
 
     end;
     //COD 90
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnPostPurchLineOnAfterSetEverythingInvoiced', '', false, false)]
-    local procedure COD90_OnPostPurchLineOnAfterSetEverythingInvoiced(PurchaseLine: Record "Purchase Line"; var EverythingInvoiced: Boolean; PurchaseHeader: Record "Purchase Header")
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnPostPurchLineOnBeforeRoundAmount', '', false, false)]
+    local procedure OnPostPurchLineOnBeforeRoundAmount(var PurchaseHeader: Record "Purchase Header"; var PurchaseLine: Record "Purchase Line"; var PurchInvHeader: Record "Purch. Inv. Header"; var PurchCrMemoHeader: Record "Purch. Cr. Memo Hdr."; SrcCode: Code[10])
     var
         FctMngt: Codeunit "BC6_Functions Mgt";
 
     begin
         if PurchaseLine.Quantity <> 0 then
-            FctMngt.MntDivisionDEEE(PurchaseLine."Qty. to Invoice", PurchaseLine) //F8
-        else
-            PurchaseLine.TestField(PurchaseLine.Amount, 0);
+            FctMngt.MntDivisionDEEE(PurchaseLine."Qty. to Invoice", PurchaseLine);
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnPostPurchLineOnBeforeRoundAmount', '', false, false)]
@@ -248,9 +246,8 @@ codeunit 50203 "BC6_PagesEvents"
     local procedure COD90_OnPostPurchLineOnBeforeInsertReceiptLine(PurchaseHeader: Record "Purchase Header"; PurchaseLine: Record "Purchase Line"; var IsHandled: Boolean)
     var
         GenPostingSetup: Record "General Posting Setup";
-        InvoicePostBuffer: Record "Invoice Post. Buffer";
-        TempInvoicePostBuffer: Record "Invoice Post. Buffer" temporary; //TODO: check the temp record
         RecLPayVendor: Record Vendor;
+        InvoicePostBuffer: Record "Invoice Posting Buffer";
         FctMngt: Codeunit "BC6_Functions Mgt";
         BooLPostingDEEE: Boolean;
     begin
@@ -295,20 +292,34 @@ codeunit 50203 "BC6_PagesEvents"
             InvoicePostBuffer."Amount (ACY)" := PurchaseLine."BC6_DEEE HT Amount";//purchLineACY.Montant;
             InvoicePostBuffer."VAT Base Amount (ACY)" := PurchaseLine."BC6_DEEE HT Amount"; //purchLineACY.Montant;
             InvoicePostBuffer."VAT Amount (ACY)" := (PurchaseLine."BC6_DEEE TTC Amount" - PurchaseLine."BC6_DEEE HT Amount");
-            InvoicePostBuffer."BC6_Eco partner DEEE" := PurchaseLine."BC6_Eco partner DEEE";
-            InvoicePostBuffer."BC6_DEEE Category Code" := PurchaseLine."BC6_DEEE Category Code";
-            FctMngt.MntIncrDEEE(PurchaseLine);
-            FctMngt.UpdateInvoicePostBuffer(TempInvoicePostBuffer, InvoicePostBuffer);
+            //TODO InvoicePostBuffer."BC6_Eco partner DEEE" := PurchaseLine."BC6_Eco partner DEEE";
+            // InvoicePostBuffer."BC6_DEEE Category Code" := PurchaseLine."BC6_DEEE Category Code";
+            // FctMngt.MntIncrDEEE(PurchaseLine);
+
+            // FctMngt.UpdateInvoicePostBuffer(TempInvoicePostBuffer, InvoicePostBuffer);
 
         END;
     end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnRunOnAfterFillTempLines', '', false, false)]
+
+    local procedure OnRunOnAfterFillTempLines(var PurchHeader: Record "Purchase Header")
+    var
+        GlobalFunction: Codeunit "BC6_GlobalFunctionMgt";
+    begin
+        GlobalFunction.SetGDecMntTTCDEEE(0);
+        GlobalFunction.SetGDecMntHTDEEE(0);
+    end;
+
     //ligne718
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnAfterPostVendorEntry', '', false, false)]
     local procedure COD90_OnAfterPostVendorEntry(var GenJnlLine: Record "Gen. Journal Line"; var PurchHeader: Record "Purchase Header"; var TotalPurchLine: Record "Purchase Line"; var TotalPurchLineLCY: Record "Purchase Line"; CommitIsSupressed: Boolean; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line")
     var
         _EcoPartnerDEEE: Code[10];
         _DEEECategoryCode: code[10];
+        GlobalFunction: Codeunit "BC6_GlobalFunctionMgt";
     begin
+
         GenJnlLine."BC6_DEEE HT Amount" := TotalPurchLine."BC6_DEEE HT Amount";
         GenJnlLine."BC6_DEEE VAT Amount" := TotalPurchLine."BC6_DEEE VAT Amount";
         GenJnlLine."BC6_DEEE TTC Amount" := TotalPurchLine."BC6_DEEE TTC Amount";
@@ -316,9 +327,9 @@ codeunit 50203 "BC6_PagesEvents"
         GenJnlLine."BC6_Eco partner DEEE" := _EcoPartnerDEEE;
         GenJnlLine."BC6_DEEE Category Code" := _DEEECategoryCode;
 
-        GenJnlLine.Amount := GenJnlLine.Amount - GenJnlLine."BC6_GDecMntTTCDEEE";
-        GenJnlLine."Source Currency Amount" := GenJnlLine."Source Currency Amount" - GenJnlLine."BC6_GDecMntTTCDEEE";
-        GenJnlLine."Amount (LCY)" := GenJnlLine."Amount (LCY)" - GenJnlLine."BC6_GDecMntTTCDEEE";
+        GenJnlLine.Amount := GenJnlLine.Amount - GlobalFunction.GetGDecMntTTCDEEE();
+        GenJnlLine."Source Currency Amount" := GenJnlLine."Source Currency Amount" - GlobalFunction.GetGDecMntTTCDEEE();
+        GenJnlLine."Amount (LCY)" := GenJnlLine."Amount (LCY)" - GlobalFunction.GetGDecMntTTCDEEE();
         GenJnlLine."Payment Method Code" := GenJnlLine."Payment Method Code";
 
     end;
@@ -364,30 +375,6 @@ codeunit 50203 "BC6_PagesEvents"
         FctMngt.Increment(TotalPurchLine."BC6_DEEE HT Amount (LCY)", PurchLine."BC6_DEEE HT Amount (LCY)");
     end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnBeforeSumPurchLines2', '', false, false)]
-    local procedure COD90_OnBeforeSumPurchLines2(QtyType: Option; var PurchHeader: Record "Purchase Header"; var PurchLine: Record "Purchase Line"; var VATAmountLine: Record "VAT Amount Line"; InsertPurchLine: Boolean; var IsHandled: Boolean)
-    var
-        //j'ai déclaré ces variables locales car ils sont prises comme des paramétres
-        VATAmount: Decimal;
-        DecLHTAmount: Decimal;
-        DecLVATAmount: Decimal;
-        DecLTTCAmount: Decimal;
-        DecLHTAmountLCY: Decimal;
-        VATAmountText: Text[30];
-        VATAmountTxt: Label 'VAT Amount';
-        VATRateTxt: Label '%1% VAT', Comment = '%1 = VAT Rate';
-
-    begin
-        VATAmount := VATAmount + PurchLine."BC6_DEEE VAT Amount";
-        if PurchLine."VAT %" = 0 then
-            VATAmountText := VATAmountText
-        else
-            VATAmountText := StrSubstNo(VATRateTxt, PurchLine."VAT %");
-        DecLHTAmount := PurchLine."BC6_DEEE HT Amount";
-        DecLVATAmount := PurchLine."BC6_DEEE VAT Amount";
-        DecLTTCAmount := PurchLine."BC6_DEEE TTC Amount";
-        DecLHTAmountLCY := PurchLine."BC6_DEEE HT Amount (LCY)";
-    end;
     //COD91 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post (Yes/No)", 'OnBeforeConfirmPostProcedure', '', false, false)]
     local procedure COD91_OnBeforeConfirmPostProcedure(var PurchaseHeader: Record "Purchase Header"; var DefaultOption: Integer; var Result: Boolean; var IsHandled: Boolean)
@@ -461,7 +448,9 @@ codeunit 50203 "BC6_PagesEvents"
     local procedure COD311_OnBeforeCreateAndSendNotification(ItemNo: Code[20]; UnitOfMeasureCode: Code[20]; InventoryQty: Decimal; GrossReq: Decimal; ReservedReq: Decimal; SchedRcpt: Decimal; ReservedRcpt: Decimal; CurrentQuantity: Decimal; CurrentReservedQty: Decimal; TotalQuantity: Decimal; EarliestAvailDate: Date; RecordId: RecordID; LocationCode: Code[10]; ContextInfo: Dictionary of [Text, Text]; var Rollback: Boolean; var IsHandled: Boolean)
     var
         ItemAvailabilityCheck: Page "Item Availability Check";
+        
         LastNotification: Notification;
+
         AvailabilityCheckNotification: Notification;
         VariantCode: code[20];
         DetailsTxt: Label 'Show details';
@@ -545,28 +534,30 @@ codeunit 50203 "BC6_PagesEvents"
     local procedure COD415_OnCodeOnBeforeModifyHeader(var PurchaseHeader: Record "Purchase Header"; var PurchaseLine: Record "Purchase Line"; PreviewMode: Boolean; var LinesWereModified: Boolean)
     var
         RecLSalesLine: Record "Sales Line";
+        RecLPurchLine2: Record "Purchase Line";
     begin
-        PurchaseLine.RESET;
-        PurchaseLine.SETRANGE(PurchaseLine."Document Type", PurchaseHeader."Document Type");
-        PurchaseLine.SETRANGE(PurchaseLine."Document No.", PurchaseHeader."No.");
-        IF PurchaseLine.FindFirst() THEN BEGIN
+        RecLPurchLine2.RESET;
+        RecLPurchLine2.SETRANGE(RecLPurchLine2."Document Type", PurchaseHeader."Document Type");
+        RecLPurchLine2.SETRANGE(RecLPurchLine2."Document No.", PurchaseHeader."No.");
+        IF RecLPurchLine2.FindFirst() THEN BEGIN
             REPEAT
-                IF (PurchaseLine."BC6_Sales No." <> '') AND (PurchaseLine."BC6_Sales Line No." <> 0) THEN BEGIN
+                IF (RecLPurchLine2."BC6_Sales No." <> '') AND (RecLPurchLine2."BC6_Sales Line No." <> 0) THEN BEGIN
                     RecLSalesLine.RESET;
-                    RecLSalesLine.SETRANGE(RecLSalesLine."Document Type", PurchaseLine."BC6_Sales Document Type");
-                    RecLSalesLine.SETRANGE(RecLSalesLine."Document No.", PurchaseLine."BC6_Sales No.");
-                    RecLSalesLine.SETRANGE(RecLSalesLine."Line No.", PurchaseLine."BC6_Sales Line No.");
+                    RecLSalesLine.SETRANGE(RecLSalesLine."Document Type", RecLPurchLine2."BC6_Sales Document Type");
+                    RecLSalesLine.SETRANGE(RecLSalesLine."Document No.", RecLPurchLine2."BC6_Sales No.");
+                    RecLSalesLine.SETRANGE(RecLSalesLine."Line No.", RecLPurchLine2."BC6_Sales Line No.");
                     IF RecLSalesLine.FindFirst() THEN BEGIN
                         //>>PDW : le 04/08/15
                         RecLSalesLine.SuspendStatusCheck(TRUE);
                         //<<PDW : le 04/08/15
-                        RecLSalesLine.VALIDATE("BC6_Purchase cost", PurchaseLine."BC6_Discount Direct Unit Cost");
+                        RecLSalesLine.VALIDATE("BC6_Purchase cost", RecLPurchLine2."BC6_Discount Direct Unit Cost");
                         RecLSalesLine.MODIFY;
                     END;
                 END;
-            UNTIL PurchaseLine.NEXT = 0;
+            UNTIL RecLPurchLine2.NEXT = 0;
         END;
         PurchaseLine.Modify(true);
+        //////
         Commit();
     end;
 
@@ -593,8 +584,6 @@ codeunit 50203 "BC6_PagesEvents"
 
     begin
         IsHandled := true;
-        if IsHandled then
-            exit;
 
         if ApprovalsMgmt.IsPurchaseHeaderPendingApproval(PurchaseHeader) then
             Error(Text002);

@@ -402,8 +402,10 @@ codeunit 50202 "BC6_Functions Mgt"
 
     // TODO: function specific related to codeunit 7324 "Whse.-Activity-Post"
     procedure SetPostingDate(NewPostingDate: Date);
+    var
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
     begin
-        PostingDate := NewPostingDate;
+        GlobalFunctionMgt.SetPostingDate(NewPostingDate);
     end;
 
     // TODO:  specific function related to codeunit 10860 "Payment Management"
@@ -672,7 +674,6 @@ codeunit 50202 "BC6_Functions Mgt"
     var
         HideValidationDialog: Boolean;
         BinCode: Code[20]; // TODO: related to codeunit 7302
-        PostingDate: Date; // TODO: related to codeunit 7324 "Whse.-Activity-Post"
         myInt: Integer;
     //COD12
     procedure TotalVATAmountOnJnlLines(GenJnlLine: Record "Gen. Journal Line") TotalVATAmount: Decimal
@@ -1176,6 +1177,33 @@ codeunit 50202 "BC6_Functions Mgt"
         end;
     end;
 
+    //COD80
+    PROCEDURE SMntDivisionDEEE(DecLQtySalesLine: Decimal; VAR SalesLine: Record "Sales Line"; SalesHeader: Record "Sales Header");
+    var
+        GLSetup: Record "General Ledger Setup";
+        CalculateSalesTax: Codeunit "Sales Tax Calculate";
+    BEGIN
+        GLSetup.get();
+        WITH SalesLine DO BEGIN
+            "BC6_DEEE HT Amount" := ROUND("BC6_DEEE HT Amount" * DecLQtySalesLine / Quantity, 0.01);
+            IF ("VAT Calculation Type" = "VAT Calculation Type"::"Sales Tax") AND
+               (Quantity <> "Qty. to Invoice") AND
+               GLSetup."BC6_Sales Tax Recalcul"
+            THEN
+                "BC6_DEEE TTC Amount" :=
+                  "BC6_DEEE HT Amount" +
+                        CalculateSalesTax.CalculateTax(
+                          "Tax Area Code", "Tax Group Code", "Tax Liable",
+                         SalesHeader."Posting Date", SalesLine."BC6_DEEE HT Amount", DecLQtySalesLine, SalesHeader."Currency Factor")
+
+            ELSE
+                "BC6_DEEE TTC Amount" := ROUND("BC6_DEEE TTC Amount" * DecLQtySalesLine / Quantity);
+
+            "BC6_DEEE VAT Amount" := "BC6_DEEE TTC Amount" - "BC6_DEEE HT Amount";
+
+        END;
+    END;
+
     //COD6620
     procedure RecalculateSalesLineAmounts2(FromSalesLine: Record "Sales Line"; var ToSalesLine: Record "Sales Line"; Currency: Record Currency)
     var
@@ -1291,7 +1319,7 @@ codeunit 50202 "BC6_Functions Mgt"
 
 
 
-
+    //COD80
     procedure MntInverseDEEE(var RecLPurchLine: Record "Purchase Line");
     begin
 
@@ -1302,13 +1330,37 @@ codeunit 50202 "BC6_Functions Mgt"
         end;
     end;
 
-    procedure MntIncrDEEE(var RecLPurchLine: Record "Purchase Line");
+    PROCEDURE MntIncrDEEE(VAR RecLPurchLine: Record "Purchase Line");
     var
-        GenJnlLine: Record "Gen. Journal Line";
-    begin
-        IncrementDEEE(GenJnlLine."BC6_GDecMntHTDEEE", RecLPurchLine."BC6_DEEE HT Amount");
-        IncrementDEEE(GenJnlLine."BC6_GDecMntTTCDEEE", RecLPurchLine."BC6_DEEE TTC Amount");
-    end;
+        GloablFunction: codeunit "BC6_GlobalFunctionMgt";
+    BEGIN
+
+        GloablFunction.SetGDecMntTTCDEEE(GloablFunction.GetGDecMntTTCDEEE() + RecLPurchLine."BC6_DEEE TTC Amount");
+        GloablFunction.SetGDecMntHTDEEE(GloablFunction.GetGDecMntHTDEEE() + RecLPurchLine."BC6_DEEE HT Amount");
+    END;
+
+    PROCEDURE SalesMntIncrDEEE(VAR RecPSalesLine: Record "Sales Line");
+    var
+        GloablFunction: codeunit "BC6_GlobalFunctionMgt";
+    BEGIN
+
+        GloablFunction.SetSGDecMntTTCDEEE(GloablFunction.GetSGDecMntTTCDEEE() + RecPSalesLine."BC6_DEEE TTC Amount");
+        GloablFunction.SetSGDecMntHTDEEE(GloablFunction.GetSGDecMntHTDEEE() + RecPSalesLine."BC6_DEEE HT Amount");
+    END;
+
+    PROCEDURE MntInverseDEEESales(VAR RecPSalesLine: Record 37);
+    BEGIN
+
+        //>>DEEE1.00 :
+        WITH RecPSalesLine DO BEGIN
+            "BC6_DEEE HT Amount" := -"BC6_DEEE HT Amount";
+            "BC6_DEEE VAT Amount" := -"BC6_DEEE VAT Amount";
+            "BC6_DEEE TTC Amount" := -"BC6_DEEE TTC Amount";
+            RecPSalesLine."BC6_DEEE HT Amount (LCY)" := -RecPSalesLine."BC6_DEEE HT Amount (LCY)";
+
+        END;
+        //<<DEEE1.00 :
+    END;
 
     procedure UpdateInvoicePostBuffer(var InvoicePostBuffer: Record "Invoice Post. Buffer"; TempInvoicePostBuffer: Record "Invoice Post. Buffer" temporary)
     var

@@ -1,5 +1,6 @@
 pageextension 50049 "BC6_SalesStatistics" extends "Sales Statistics" //160
 {
+    //à refaire !! 
     layout
     {
         modify(AdjProfitLCY)
@@ -68,7 +69,7 @@ pageextension 50049 "BC6_SalesStatistics" extends "Sales Statistics" //160
         DecGTTCAmount: Decimal;
         DecGVATAmount: Decimal;
 
-    //TODO UpdateHeaderInfo // Araxis ligne 467
+    //TODO UpdateHeaderInfo // Araxis ligne 467 //
     //TODO CalculateTotals // Araxis ligne  74 
 
     LOCAL PROCEDURE UpdateHeaderInfo();
@@ -176,6 +177,7 @@ pageextension 50049 "BC6_SalesStatistics" extends "Sales Statistics" //160
     var
         SalesLine: Record "Sales Line";
         TempSalesLine: Record "Sales Line" temporary;
+        //var dec global 
         DecGHTAmount: Decimal;
         DecGHTAmountLCY: Decimal;
 

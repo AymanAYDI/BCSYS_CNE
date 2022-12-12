@@ -2393,7 +2393,7 @@ then begin
 
     //COD80
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnRunOnBeforeCheckAndUpdate', '', false, false)]
-    local procedure OnRunOnBeforeCheckAndUpdate(var SalesHeader: Record "Sales Header")
+    local procedure COD80_OnRunOnBeforeCheckAndUpdate(var SalesHeader: Record "Sales Header")
     var
         GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
     begin
@@ -2569,8 +2569,7 @@ then begin
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnInsertShipmentHeaderOnAfterTransferfieldsToSalesShptHeader', '', false, false)]
-
-    local procedure OnInsertShipmentHeaderOnAfterTransferfieldsToSalesShptHeader(SalesHeader: Record "Sales Header"; var SalesShptHeader: Record "Sales Shipment Header")
+    local procedure COD80_OnInsertShipmentHeaderOnAfterTransferfieldsToSalesShptHeader(SalesHeader: Record "Sales Header"; var SalesShptHeader: Record "Sales Shipment Header")
     var
         SalesSetup: record "Sales & Receivables Setup";
     begin
@@ -2585,7 +2584,7 @@ then begin
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnAfterSalesShptHeaderInsert', '', false, false)]
-    local procedure OnAfterSalesShptHeaderInsert(var SalesShipmentHeader: Record "Sales Shipment Header"; SalesHeader: Record "Sales Header"; SuppressCommit: Boolean; WhseShip: Boolean; WhseReceive: Boolean; var TempWhseShptHeader: Record "Warehouse Shipment Header"; var TempWhseRcptHeader: Record "Warehouse Receipt Header"; PreviewMode: Boolean)
+    local procedure COD80_OnAfterSalesShptHeaderInsert(var SalesShipmentHeader: Record "Sales Shipment Header"; SalesHeader: Record "Sales Header"; SuppressCommit: Boolean; WhseShip: Boolean; WhseReceive: Boolean; var TempWhseShptHeader: Record "Warehouse Shipment Header"; var TempWhseRcptHeader: Record "Warehouse Receipt Header"; PreviewMode: Boolean)
     var
         RecGICValidate: Record "BC6_IC Table Validate";
         RecGPartnerIC: Record "IC Partner";
@@ -2646,7 +2645,7 @@ then begin
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnAfterCheckMandatoryFields', '', false, false)]
-    local procedure OnAfterCheckMandatoryFields(var SalesHeader: Record "Sales Header"; CommitIsSuppressed: Boolean)
+    local procedure COD80_OnAfterCheckMandatoryFields(var SalesHeader: Record "Sales Header"; CommitIsSuppressed: Boolean)
     var
         SalesSetup: record "Sales & Receivables Setup";
     begin
@@ -2661,7 +2660,7 @@ then begin
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnPostUpdateOrderLineBeforeInitQtyToInvoice', '', false, false)]
-    local procedure OnPostUpdateOrderLineBeforeInitQtyToInvoice(var TempSalesLine: Record "Sales Line" temporary; WhseShip: Boolean; WhseReceive: Boolean)
+    local procedure COD80_OnPostUpdateOrderLineBeforeInitQtyToInvoice(var TempSalesLine: Record "Sales Line" temporary; WhseShip: Boolean; WhseReceive: Boolean)
     begin
         if TempSalesLine."Document Type" <> TempSalesLine."Document Type"::"Return Order" then
             TempSalesLine.InitQtyToShip()

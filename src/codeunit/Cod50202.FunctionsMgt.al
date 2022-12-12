@@ -734,9 +734,6 @@ codeunit 50202 "BC6_Functions Mgt"
         EnableIncrPurchCost := Value;
     end;
 
-    procedure "**NSC1.01**"();
-    begin
-    end;
 
     procedure CalcProfit(var SalesHeader: Record "Sales Header");
     var
@@ -2020,7 +2017,6 @@ codeunit 50202 "BC6_Functions Mgt"
                 until FromSalesLineDisc.NEXT = 0;
         end;
     end;
-
     PROCEDURE GetItemEAN13Code(ItemNo: Code[20]) EAN13Code: Code[20];
     VAR
         ItemReference: Record "Item Reference";

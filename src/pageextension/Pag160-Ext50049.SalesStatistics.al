@@ -180,7 +180,7 @@ pageextension 50049 "BC6_SalesStatistics" extends "Sales Statistics" //160
         //var dec global 
         DecGHTAmount: Decimal;
         DecGHTAmountLCY: Decimal;
-
+        FunctionMgt: Codeunit "BC6_Functions Mgt";
     begin
         Clear(SalesLine);
         Clear(TotalSalesLine);
@@ -189,7 +189,7 @@ pageextension 50049 "BC6_SalesStatistics" extends "Sales Statistics" //160
         SalesPost.GetSalesLines(Rec, TempSalesLine, 0);
         Clear(SalesPost);
 
-        //TODO:FCT IN COD80//  SalesPost.SetIncrPurchCost(TRUE);
+        FunctionMgt.SetIncrPurchCost(TRUE);
         //TODO:FCT IN COD378// SalesPost.SumSalesLinesTemp(
         //   Rec, TempSalesLine, 0, TotalSalesLine, TotalSalesLineLCY,
         //   VATAmount, VATAmountText, ProfitLCY, ProfitPct, TotalAdjCostLCY,

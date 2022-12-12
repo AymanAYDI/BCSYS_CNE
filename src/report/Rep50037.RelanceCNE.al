@@ -55,16 +55,16 @@ report 50037 "BC6_Relance  CNE"
             column(SalesPersonText; SalesPersonText)
             {
             }
-            column(CompanyInfo__Alt_Picture_; CompanyInfo."Alt Picture")
+            column(CompanyInfo__Alt_Picture_; CompanyInfo."BC6_Alt Picture")
             {
             }
-            column(STRSUBSTNO_Text066_CompanyInfo__Alt_Phone_No___CompanyInfo__Alt_Fax_No___CompanyInfo__Alt_E_Mail__; STRSUBSTNO(Text066, CompanyInfo."Alt Phone No.", CompanyInfo."Alt Fax No.", CompanyInfo."Alt E-Mail"))
+            column(STRSUBSTNO_Text066_CompanyInfo__Alt_Phone_No___CompanyInfo__Alt_Fax_No___CompanyInfo__Alt_E_Mail__; STRSUBSTNO(Text066, CompanyInfo."BC6_Alt Phone No.", CompanyInfo."BC6_Alt Fax No.", CompanyInfo."BC6_Alt E-Mail"))
             {
             }
-            column(DataItem1100267026; CompanyInfo."Alt Address" + ' ' + CompanyInfo."Alt Address 2" + ' ' + STRSUBSTNO('%1 %2', CompanyInfo."Alt Post Code", CompanyInfo."Alt City"))
+            column(DataItem1100267026; CompanyInfo."BC6_Alt Address" + ' ' + CompanyInfo."BC6_Alt Address 2" + ' ' + STRSUBSTNO('%1 %2', CompanyInfo."BC6_Alt Post Code", CompanyInfo."BC6_Alt City"))
             {
             }
-            column(CompanyInfo__Alt_Name_; CompanyInfo."Alt Name")
+            column(CompanyInfo__Alt_Name_; CompanyInfo."BC6_Alt Name")
             {
             }
             column(STRSUBSTNO_Text066_CompanyInfo__Phone_No___CompanyInfo__Fax_No___CompanyInfo__E_Mail__; STRSUBSTNO(Text066, CompanyInfo."Phone No.", CompanyInfo."Fax No.", CompanyInfo."E-Mail"))
@@ -266,6 +266,7 @@ report 50037 "BC6_Relance  CNE"
                 DataItemTableView = SORTING("Reminder No.", "Line No.");
                 column(Issued_Reminder_Line__Remaining_Amount_; "Remaining Amount")
                 {
+                    //TODO : missing function 
                     AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
@@ -385,18 +386,16 @@ report 50037 "BC6_Relance  CNE"
                     VATAmountLine.DELETEALL;
                     SETFILTER("Line No.", '<%1', EndLineNo);
                     CurrReport.CREATETOTALS("Remaining Amount", "VAT Amount", ReminderInterestAmount);
-                    //>>MIGRATION NAV 2013
                     BooGIRLineFouter1 := ReminderInterestAmount <> 0;
                     BooGIRLineFouter2 := TRUE;
                     BooGIRLineFouter3 := "VAT Amount" <> 0;
-                    //<<MIGRATION NAV 2013
                 end;
             }
-            dataitem(IssuedReminderLine2; Table298)
+            dataitem(IssuedReminderLine2; 298)
             {
-                DataItemLink = Reminder No.=FIELD(No.);
+                DataItemLink = "Reminder No." = FIELD("No.");
                 DataItemLinkReference = "Issued Reminder Header";
-                DataItemTableView = SORTING(Reminder No., Line No.);
+                DataItemTableView = SORTING("Reminder No.", "Line No.");
                 column(IssuedReminderLine2_Description; Description)
                 {
                 }
@@ -412,10 +411,8 @@ report 50037 "BC6_Relance  CNE"
 
                 trigger OnAfterGetRecord()
                 begin
-                    //>>TDL.84
                     IF Description = '' THEN
                         Description := ' ';
-                    //<<TDL.84
                 end;
 
                 trigger OnPreDataItem()
@@ -423,7 +420,7 @@ report 50037 "BC6_Relance  CNE"
                     SETFILTER("Line No.", '>=%1', EndLineNo);
                 end;
             }
-            dataitem(VATCounter; Table2000000026)
+            dataitem(VATCounter; 2000000026)
             {
                 DataItemTableView = SORTING(Number);
                 column(VATAmtLineAmtIncludVAT; VATAmountLine."Amount Including VAT")
@@ -524,7 +521,6 @@ report 50037 "BC6_Relance  CNE"
                         IF SalesPurchPerson."E-Mail" <> '' THEN
                             SalesPersonText := SalesPersonText + ' ' + '   ' + ' ' + SalesPurchPerson.FIELDCAPTION("E-Mail") + ' ' + SalesPurchPerson."E-Mail";
                     END;
-                // PRM ajout des coordonnees du commercial
             end;
 
             trigger OnPreDataItem()
@@ -535,11 +531,7 @@ report 50037 "BC6_Relance  CNE"
                 IF Country.GET(CompanyInfo."Country/Region Code") THEN
                     Pays := Country.Name;
 
-                //>>MIGRATION NAV 2013
-                //MODIFICATION SM 30/06/06 NSC1.02 [M0344] modification des reports en fonction du Client Worms
-                CompanyInfo.CALCFIELDS(Picture, "Alt Picture");
-                //FIN MODIFICATION SM 30/06/06 NSC1.02 [M0344] modification des reports en fonction du Client Worms
-                //<<MIGRATION NAV 2013
+                CompanyInfo.CALCFIELDS(Picture, "BC6_Alt Picture");
             end;
         }
     }
@@ -588,78 +580,78 @@ report 50037 "BC6_Relance  CNE"
     end;
 
     var
+        Language: Record Language;
+        Country: Record "Country/Region";
+        SalesPurchPerson: Record "Salesperson/Purchaser";
+        Cust: Record Customer;
+        CompanyInfo: Record "Company Information";
+        GLSetup: Record "General Ledger Setup";
+        VATAmountLine: Record "VAT Amount Line" temporary;
+        DimSetEntry: Record "Dimension Set Entry";
+        FormatAddrCodeunit: Codeunit "Format Address";
+        SegManagement: Codeunit SegManagement;
+        BooGIRLineBody1: Boolean;
+        BooGIRLineBody2: Boolean;
+        BooGIRLineBody3: Boolean;
+        BooGIRLineFouter1: Boolean;
+        BooGIRLineFouter2: Boolean;
+        BooGIRLineFouter3: Boolean;
+        BooGIRTxtBody3: Boolean;
+        Continue: Boolean;
+        LogInteraction: Boolean;
+        [InDataSet]
+        LogInteractionEnable: Boolean;
+        ShowInternalInfo: Boolean;
+        ReminderInterestAmount: Decimal;
+        VALVATAmount: Decimal;
+        VALVATBase: Decimal;
+        EndLineNo: Integer;
+        StartLineNo: Integer;
+        AmountIncVATCaptionLbl: Label 'Amount Including VAT';
+        ContinuedCaption1Lbl: Label 'Continued';
+        ContinuedCaptionLbl: Label 'Continued';
+        Document_DateCaptionLbl: Label 'Document Date';
+        Issued_Reminder_Line__Due_Date_CaptionLbl: Label 'Due Date';
+        Issued_Reminder_Line__Remaining_Amount__Control42CaptionLbl: Label 'Continued';
+        Issued_Reminder_Line__Remaining_Amount_CaptionLbl: Label 'Continued';
+        Lettre_de_RappelCaptionLbl: Label 'Lettre de Rappel';
+        Reminder_levelCaptionLbl: Label 'Reminder level';
+        ReminderInterestAmountCaptionLbl: Label 'Interest Amount';
         Text000: Label 'Total %1';
         Text001: Label 'Total %1 Incl. VAT';
         Text002: Label 'Page %1';
-        GLSetup: Record "98";
-        CompanyInfo: Record "79";
-        VATAmountLine: Record "290" temporary;
-        Language: Record "8";
-        FormatAddrCodeunit: Codeunit "365";
-        SegManagement: Codeunit "5051";
-        CustAddr: array[8] of Text[50];
-        CompanyAddr: array[8] of Text[50];
-        VATNoText: Text[30];
-        ReferenceText: Text[30];
-        TotalText: Text[50];
-        TotalInclVATText: Text[50];
-        ReminderInterestAmount: Decimal;
-        StartLineNo: Integer;
-        EndLineNo: Integer;
-        Continue: Boolean;
-        DimText: Text[120];
-        OldDimText: Text[75];
-        ShowInternalInfo: Boolean;
-        LogInteraction: Boolean;
         Text030: Label '%1 - %2 %3';
         Text031: Label 'Tel. :  %1 - Fax :  %2';
         Text032: Label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5';
         Text033: Label 'Fax :  %1';
-        Pays: Text[30];
-        Country: Record "9";
-        SalesPersonText: Text[200];
-        SalesPurchPerson: Record "13";
-        Cust: Record "18";
-        Text100: Label 'Salesperson : ';
-        Text101: Label 'Phone :';
         Text066: Label 'TEL : %1 FAX : %2 / email : %3';
         Text067: Label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5';
-        Lettre_de_RappelCaptionLbl: Label 'Lettre de Rappel';
-        Reminder_levelCaptionLbl: Label 'Reminder level';
-        Document_DateCaptionLbl: Label 'Document Date';
-        Issued_Reminder_Line__Due_Date_CaptionLbl: Label 'Due Date';
+        Text100: Label 'Salesperson : ';
+        Text101: Label 'Phone :';
+        TotalCaptionLbl: Label 'Total';
+        TxtGHdrDimsCaption: Label 'Header Dimensions';
         Type_documentCaptionLbl: Label 'Type document';
-        Issued_Reminder_Line__Remaining_Amount_CaptionLbl: Label 'Continued';
-        Issued_Reminder_Line__Remaining_Amount__Control42CaptionLbl: Label 'Continued';
-        ReminderInterestAmountCaptionLbl: Label 'Interest Amount';
+        VAT_Amount_SpecificationCaptionLbl: Label 'VAT Amount Specification';
+        VATAmountCaptionLbl: Label 'VAT Amount';
         VATAmountLine__Amount_Including_VAT__Control70CaptionLbl: Label 'Amount Including VAT';
+        VATAmountLine__VAT___CaptionLbl: Label 'VAT %';
         VATAmountLine__VAT_Amount__Control71CaptionLbl: Label 'VAT Amount';
         VATAmountLine__VAT_Base__Control72CaptionLbl: Label 'VAT Base';
-        VATAmountLine__VAT___CaptionLbl: Label 'VAT %';
-        VAT_Amount_SpecificationCaptionLbl: Label 'VAT Amount Specification';
-        VATAmountLine__VAT_Base_CaptionLbl: Label 'Continued';
         VATAmountLine__VAT_Base__Control80CaptionLbl: Label 'Continued';
         VATAmountLine__VAT_Base__Control83CaptionLbl: Label 'Total';
-        [InDataSet]
-        LogInteractionEnable: Boolean;
-        TxtGHdrDimsCaption: Label 'Header Dimensions';
-        BooGIRTxtBody3: Boolean;
-        BooGIRLineFouter1: Boolean;
-        BooGIRLineFouter2: Boolean;
-        BooGIRLineFouter3: Boolean;
-        BooGIRLineBody1: Boolean;
-        BooGIRLineBody2: Boolean;
-        BooGIRLineBody3: Boolean;
-        DimSetEntry: Record "480";
-        VALVATBase: Decimal;
-        VALVATAmount: Decimal;
-        VATAmountCaptionLbl: Label 'VAT Amount';
+        VATAmountLine__VAT_Base_CaptionLbl: Label 'Continued';
+        VATAmtSpecCaptionLbl: Label 'VAT Amount Specification';
         VATBaseCaptionLbl: Label 'VAT Base';
         VATPercentCaptionLbl: Label 'VAT %';
-        AmountIncVATCaptionLbl: Label 'Amount Including VAT';
-        VATAmtSpecCaptionLbl: Label 'VAT Amount Specification';
-        ContinuedCaptionLbl: Label 'Continued';
-        ContinuedCaption1Lbl: Label 'Continued';
-        TotalCaptionLbl: Label 'Total';
+        Pays: Text[30];
+        ReferenceText: Text[30];
+        VATNoText: Text[30];
+        CompanyAddr: array[8] of Text[50];
+        CustAddr: array[8] of Text[50];
+        TotalInclVATText: Text[50];
+        TotalText: Text[50];
+        OldDimText: Text[75];
+        DimText: Text[120];
+        SalesPersonText: Text[200];
 }
 

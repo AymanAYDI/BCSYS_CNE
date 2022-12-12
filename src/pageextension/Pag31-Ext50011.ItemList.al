@@ -212,7 +212,7 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
         EAN13Code: Code[20];
         DistInt: Codeunit "Dist. Integration";
         MemberOf: Record "Access Control";
-        ItemCrossRef: Record "Item Cross Reference";
+        ItemCrossRef: Record "Item Reference";
         RecGAccessControl: Record "Access Control";
 
 

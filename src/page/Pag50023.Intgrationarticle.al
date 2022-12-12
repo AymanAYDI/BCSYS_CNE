@@ -156,7 +156,7 @@ page 50023 "BC6_Intégration article"
 
                 trigger OnAction()
                 begin
-                    REPORT.RUNMODAL(Report::"Maj cout standard article");
+                    REPORT.RUNMODAL(Report::"BC6_Maj cout standard article");
                     MESSAGE(textG005);
                 end;
             }

@@ -2,7 +2,7 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
 {
     SingleInstance = true;
 
-    
+
 
     procedure SetAutoTextSpe(pAutoTextSpe: Boolean)
     begin
@@ -87,7 +87,7 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
     begin
         exit(SGDecMntHTDEEE);
     end;
-    /****************************************/
+    //****************************************/
 
     procedure SetIntLSignFactor(pIntLSignFactor: Integer)
     begin
@@ -98,7 +98,7 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
     begin
         exit(IntLSignFactor);
     end;
-//***************************
+    //***************************
     procedure Set_EcoPartnerDEEE(p_EcoPartnerDEEE: code[20])
     begin
         _EcoPartnerDEEE := p_EcoPartnerDEEE;
@@ -109,7 +109,7 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
         exit(_EcoPartnerDEEE);
     end;
 
-//*********
+    //*********
     procedure Set_DEEECategoryCode(p_DEEECategoryCode: code[20])
     begin
         _DEEECategoryCode := p_DEEECategoryCode;
@@ -119,6 +119,19 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
     begin
         exit(_DEEECategoryCode);
     end;
+    //*****
+    procedure Set_IsSAVReturnOrder(p_IsSAVReturnOrder: Boolean)
+    begin
+        _IsSAVReturnOrder := p_IsSAVReturnOrder;
+    end;
+
+    procedure Get_IsSAVReturnOrder(): Boolean
+    begin
+        exit(_IsSAVReturnOrder);
+    end;
+
+
+
 
     var
         BooGAutoTextSpe: Boolean;
@@ -132,7 +145,8 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
         SGDecMntHTDEEE: Decimal;
         IntLSignFactor: Integer;
 
-_EcoPartnerDEEE : code[20];
-_DEEECategoryCode: code[20];
+        _EcoPartnerDEEE: code[20];
+        _DEEECategoryCode: code[20];
+        _IsSAVReturnOrder: Boolean;
 
 }

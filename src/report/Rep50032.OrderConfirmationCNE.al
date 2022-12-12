@@ -1265,7 +1265,7 @@ report 50032 "BC6_Order Confirmation CNE"
         RecGParamVente: Record "Sales & Receivables Setup";
         CurrExchRate: Record "Currency Exchange Rate";
         RespCenter: Record "Responsibility Center";
-        ItemCrossReference: Record "Item Cross Reference";
+        ItemCrossReference: Record "Item Reference";
         TablesDiverses: Record "BC6_Various Tables";
         RecGItemCtg: Record "BC6_Categories of item";
         RecGDEEE: Record "BC6_DEEE Tariffs";

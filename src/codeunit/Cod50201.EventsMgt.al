@@ -1094,38 +1094,35 @@ ItemJnlLine."Document No.",
     procedure COD5817_OnBeforeTestPostedInvtPutAwayLine(UndoLineNo: Integer; SourceType: Integer; SourceSubtype: Integer; SourceID: Code[20]; SourceRefNo: Integer; var IsHandled: Boolean; UndoType: Integer; UndoID: Code[20])
     var
         RegisteredWhseActivityLine: Record "Registered Whse. Activity Line";
-        WhseWorksheetLine: Record "Whse. Worksheet Line";
+        PostedInvtPickLine: Record "Posted Invt. Pick Line";
         Text002: label 'You cannot undo line %1 because warehouse put-away lines have already been created.', Comment = 'FRA="Vous ne pouvez pas annuler la ligne %1 car des lignes rangement entrepôt ont déjà été créées."';
-        Text008: label 'You cannot undo line %1 because warehouse receipt lines have already been posted.', Comment = 'FRA="Vous ne pouvez pas annuler la ligne %1 car des lignes réception entrepôt ont déjà été enregistrées."';
     begin
         IsHandled := true;
         if not ((SourceType = 39) and (SourceSubtype = 1)) and
            not ((SourceType = 37) and (SourceSubtype = 5)) then
-            //la partie du TestPostedInvtPutAwayLine
             with RegisteredWhseActivityLine do begin
                 SetSourceFilter(SourceType, SourceSubtype, SourceID, SourceRefNo, -1, true);
                 SetRange("Activity Type", "Activity Type"::"Put-away");
                 if not IsEmpty() then
                     Error(Text002, UndoLineNo);
             end;
-        //la partie du TestPostedInvtPutAwayLine
 
-        if not ((SourceType = 39) and (SourceSubtype = 5)) and not ((SourceType = 37) and (SourceSubtype = 1)) then
-            //la partie du TestWhseWorksheetLine
-            with WhseWorksheetLine do begin
-                SetSourceFilter(SourceType, SourceSubtype, SourceID, SourceRefNo, true);
-                if not IsEmpty() then
-                    Error(Text008, UndoLineNo);
-            end;
-        //la partie du TestWhseWorksheetLine
     end;
 
-    [EventSubscriber(ObjectType::Codeunit, codeunit::"Undo Posting Management", 'OnBeforeTestWhseWorksheetLine', '', false, false)]
+    [EventSubscriber(ObjectType::Codeunit, codeunit::"Undo Posting Management", 'OnBeforeTestPostedInvtPickLine', '', false, false)]
 
-    procedure COD5817_OnBeforeTestWhseWorksheetLine(UndoLineNo: Integer; SourceType: Integer; SourceSubtype: Integer; SourceID: Code[20]; SourceRefNo: Integer; var IsHandled: Boolean)
+    procedure OnBeforeTestPostedInvtPickLine(UndoLineNo: Integer; SourceType: Integer; SourceSubtype: Integer; SourceID: Code[20]; SourceRefNo: Integer; var IsHandled: Boolean; UndoType: Integer; UndoID: Code[20])
+    var
+        PostedInvtPickLine: Record "Posted Invt. Pick Line";
+        Text010: Label 'You cannot undo line %1 because inventory pick lines have already been posted.';
     begin
-        //la partie du TestWhseWorksheetLine
         IsHandled := true;
+        if not ((SourceType = 39) and (SourceSubtype = 5)) and not ((SourceType = 37) and (SourceSubtype = 1)) then
+            with PostedInvtPickLine do begin
+                SetSourceFilter(SourceType, SourceSubtype, SourceID, SourceRefNo, true);
+                if not IsEmpty() then
+                    Error(Text010, UndoLineNo);
+            end;
     end;
 
     //COD6620
@@ -4065,6 +4062,71 @@ then begin
         PurchaseOrderHeader."Expected Receipt Date" := 0D;
     end;
 
+
+    //COD7000
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales Price Calc. Mgt.", 'OnAfterFindSalesLineDisc', '', false, false)]
+
+    procedure OnAfterFindSalesLineDisc(var ToSalesLineDisc: Record "Sales Line Discount"; CustNo: Code[20]; ContNo: Code[20]; CustDiscGrCode: Code[20]; CampaignNo: Code[20]; ItemNo: Code[20]; ItemDiscGrCode: Code[20]; VariantCode: Code[10]; UOM: Code[10]; CurrencyCode: Code[10]; StartingDate: Date; ShowAll: Boolean)
+    var
+        FromSalesLineDisc: Record "Sales Line Discount";
+        SalesPriceCalMgt: codeunit "Sales Price Calc. Mgt.";
+        TempCampaignTargetGr: Record "Campaign Target Group" temporary;
+        InclCampaigns: Boolean;
+        functionMgt: Codeunit "BC6_Functions Mgt";
+        Item: record Item;
+        VendorNo: Code[20];
+    begin
+        IF Item.Get(ItemNo) then
+            if Item."Vendor No." <> '' then begin
+                VendorNo := Item."Vendor No.";
+                with FromSalesLineDisc do begin
+                    SETFILTER("Ending Date", '%1|>=%2', 0D, StartingDate);
+                    SETFILTER("Variant Code", '%1|%2', VariantCode, '');
+                    if not ShowAll then begin
+                        SETRANGE("Starting Date", 0D, StartingDate);
+                        SETFILTER("Currency Code", '%1|%2', CurrencyCode, '');
+                        if UOM <> '' then
+                            SETFILTER("Unit of Measure Code", '%1|%2', UOM, '');
+                    end;
+
+                    ToSalesLineDisc.RESET;
+                    ToSalesLineDisc.DELETEALL;
+                    for "Sales Type" := "Sales Type"::Customer to "Sales Type"::Campaign do
+                        if ("Sales Type" = "Sales Type"::"All Customers") or
+                           (("Sales Type" = "Sales Type"::Customer) and (CustNo <> '')) or
+                           (("Sales Type" = "Sales Type"::"Customer Disc. Group") and (CustDiscGrCode <> '')) or
+                           (("Sales Type" = "Sales Type"::Campaign) and
+                            not ((CustNo = '') and (ContNo = '') and (CampaignNo = '')))
+                        then begin
+                            InclCampaigns := false;
+
+                            SETRANGE("Sales Type", "Sales Type");
+                            case "Sales Type" of
+                                "Sales Type"::"All Customers":
+                                    SETRANGE("Sales Code");
+                                "Sales Type"::Customer:
+                                    SETRANGE("Sales Code", CustNo);
+                                "Sales Type"::"Customer Disc. Group":
+                                    SETRANGE("Sales Code", CustDiscGrCode);
+                                "Sales Type"::Campaign:
+                                    begin
+                                        InclCampaigns := functionMgt.ActivatedCampaignExists(TempCampaignTargetGr, CustNo, ContNo, CampaignNo);
+                                        SETRANGE("Sales Code", TempCampaignTargetGr."Campaign No.");
+                                    end;
+                            end;
+
+                            repeat
+                                SETRANGE(Type, Type::Vendor);
+                                SETRANGE(Code, VendorNo);
+                                functionMgt.CopySalesDiscToSalesDisc(FromSalesLineDisc, ToSalesLineDisc);
+                            until not InclCampaigns;
+                        end;
+                end;
+            End;
+    end;
+
+
+
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Req. Wksh.-Make Order", 'OnAfterSetPurchOrderHeader', '', false, false)]
     local procedure OnAfterSetPurchOrderHeader(var PurchOrderHeader: Record "Purchase Header")
     begin
@@ -4160,4 +4222,5 @@ then begin
 
         END;
     end;
+
 }

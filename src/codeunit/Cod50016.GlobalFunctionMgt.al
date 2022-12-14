@@ -87,7 +87,7 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
     begin
         exit(SGDecMntHTDEEE);
     end;
-    /****************************************/
+    //****************************************/
 
     procedure SetIntLSignFactor(pIntLSignFactor: Integer)
     begin
@@ -119,6 +119,19 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
     begin
         exit(_DEEECategoryCode);
     end;
+    //*****
+    procedure Set_IsSAVReturnOrder(p_IsSAVReturnOrder: Boolean)
+    begin
+        _IsSAVReturnOrder := p_IsSAVReturnOrder;
+    end;
+
+    procedure Get_IsSAVReturnOrder(): Boolean
+    begin
+        exit(_IsSAVReturnOrder);
+    end;
+
+
+
 
     procedure SetSalesReservationFound(pSalesReservationFound: Boolean)
     begin
@@ -182,4 +195,6 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
         CD7321_TempSalesLine: Record "Sales Line" temporary;
         DeleteWhseActivityHeaderOk: Boolean;
         T77_SalesHeader: Record "Sales Header";
+        _IsSAVReturnOrder: Boolean;
+
 }

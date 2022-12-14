@@ -734,9 +734,6 @@ codeunit 50202 "BC6_Functions Mgt"
         EnableIncrPurchCost := Value;
     end;
 
-    procedure "**NSC1.01**"();
-    begin
-    end;
 
     procedure CalcProfit(var SalesHeader: Record "Sales Header");
     var
@@ -1163,6 +1160,7 @@ codeunit 50202 "BC6_Functions Mgt"
     var
         GLSetup: Record "General Ledger Setup";
     begin
+        GLSetup.get();
         with PurchLine do begin
             "BC6_DEEE HT Amount" := ROUND("BC6_DEEE HT Amount" * DecPQtyPurchLine / Quantity, 0.01);
             if ("VAT Calculation Type" = "VAT Calculation Type"::"Sales Tax") and
@@ -1329,6 +1327,17 @@ codeunit 50202 "BC6_Functions Mgt"
             "BC6_DEEE TTC Amount" := -"BC6_DEEE TTC Amount";
         end;
     end;
+
+    PROCEDURE MntIncrDEEEPurchPost(VAR RecLPurchLine: Record "Purchase Line");
+    var
+        GloablFunction: codeunit "BC6_GlobalFunctionMgt";
+    BEGIN
+        //>>DEEE1.00 :
+        GloablFunction.Set90GDecMntTTCDEEE(GloablFunction.Get90GDecMntHTDEEE() + RecLPurchLine."BC6_DEEE HT Amount");
+        GloablFunction.Set90GDecMntHTDEEE(GloablFunction.Get90GDecMntTTCDEEE() + RecLPurchLine."BC6_DEEE TTC Amount");
+        //<<DEEE1.00 :
+    END;
+
 
     PROCEDURE MntIncrDEEE(VAR RecLPurchLine: Record "Purchase Line");
     var
@@ -2020,77 +2029,6 @@ codeunit 50202 "BC6_Functions Mgt"
                 until FromSalesLineDisc.NEXT = 0;
         end;
     end;
-
-    procedure FindSalesLineDisc(var ToSalesLineDisc: Record "Sales Line Discount"; CustNo: Code[20]; ContNo: Code[20]; CustDiscGrCode: Code[10]; CampaignNo: Code[20]; ItemNo: Code[20]; ItemDiscGrCode: Code[10]; VariantCode: Code[10]; UOM: Code[10]; CurrencyCode: Code[10]; StartingDate: Date; ShowAll: Boolean; VendorNo: Code[20]);
-
-    var
-        FromSalesLineDisc: Record "Sales Line Discount";
-        SalesPriceCalMgt: codeunit "Sales Price Calc. Mgt.";
-        TempCampaignTargetGr: Record "Campaign Target Group" temporary;
-        InclCampaigns: Boolean;
-    begin
-        with FromSalesLineDisc do begin
-            SETFILTER("Ending Date", '%1|>=%2', 0D, StartingDate);
-            SETFILTER("Variant Code", '%1|%2', VariantCode, '');
-            if not ShowAll then begin
-                SETRANGE("Starting Date", 0D, StartingDate);
-                SETFILTER("Currency Code", '%1|%2', CurrencyCode, '');
-                if UOM <> '' then
-                    SETFILTER("Unit of Measure Code", '%1|%2', UOM, '');
-            end;
-
-            ToSalesLineDisc.RESET;
-            ToSalesLineDisc.DELETEALL;
-            for "Sales Type" := "Sales Type"::Customer to "Sales Type"::Campaign do
-                if ("Sales Type" = "Sales Type"::"All Customers") or
-                   (("Sales Type" = "Sales Type"::Customer) and (CustNo <> '')) or
-                   (("Sales Type" = "Sales Type"::"Customer Disc. Group") and (CustDiscGrCode <> '')) or
-                   (("Sales Type" = "Sales Type"::Campaign) and
-                    not ((CustNo = '') and (ContNo = '') and (CampaignNo = '')))
-                then begin
-                    InclCampaigns := false;
-
-                    SETRANGE("Sales Type", "Sales Type");
-                    case "Sales Type" of
-                        "Sales Type"::"All Customers":
-                            SETRANGE("Sales Code");
-                        "Sales Type"::Customer:
-                            SETRANGE("Sales Code", CustNo);
-                        "Sales Type"::"Customer Disc. Group":
-                            SETRANGE("Sales Code", CustDiscGrCode);
-                        "Sales Type"::Campaign:
-                            begin
-                                InclCampaigns := ActivatedCampaignExists(TempCampaignTargetGr, CustNo, ContNo, CampaignNo);
-                                SETRANGE("Sales Code", TempCampaignTargetGr."Campaign No.");
-                            end;
-                    end;
-
-                    repeat
-                        SETRANGE(Type, Type::Item);
-                        SETRANGE(Code, ItemNo);
-                        CopySalesDiscToSalesDisc(FromSalesLineDisc, ToSalesLineDisc);
-
-                        if ItemDiscGrCode <> '' then begin
-                            SETRANGE(Type, Type::"Item Disc. Group");
-                            SETRANGE(Code, ItemDiscGrCode);
-                            CopySalesDiscToSalesDisc(FromSalesLineDisc, ToSalesLineDisc);
-                        end;
-
-                        if VendorNo <> '' then begin
-                            SETRANGE(Type, Type::Vendor);
-                            SETRANGE(Code, VendorNo);
-                            CopySalesDiscToSalesDisc(FromSalesLineDisc, ToSalesLineDisc);
-                        end;
-
-                        if InclCampaigns then begin
-                            InclCampaigns := TempCampaignTargetGr.NEXT <> 0;
-                            SETRANGE("Sales Code", TempCampaignTargetGr."Campaign No.");
-                        end;
-                    until not InclCampaigns;
-                end;
-        end;
-    end;
-
     PROCEDURE GetItemEAN13Code(ItemNo: Code[20]) EAN13Code: Code[20];
     VAR
         ItemReference: Record "Item Reference";

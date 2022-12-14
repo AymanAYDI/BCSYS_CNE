@@ -1,107 +1,20 @@
-report 50040 "Sales - Invoice CNE V2"
+report 50040 "BC6_Sales - Invoice CNE V2"
 {
-    // //ETATS_COMMERCIAUX DARI 14.12.2006 NSC1.00 [Doc_commerciaux] Création de l'état à partir de l'état 206 - Facture
-    // 
-    //                                                              Papier à en-tête : suppresssion de l'entête et du pied de page.
-    //                                                              Taux de TVA :
-    //                                                              Si 1 taux de TVA   = 1 ligne de TVA ( .COUNT = 1)  ET
-    //                                                                 TTC=HT = TVA non payée
-    //                                                              OU TTC <> HT = TVA dûe
-    //                                                              ------------------------
-    //                                                              Idem pour N taux de TVA
-    // 
-    //                                                               ---------------------------
-    //                                                               Ajout des sections Rounloop, body 5 et Roudloop body 6
-    //                                                               pour imprimer le trait de bas de tableau et forcer le saut de page
-    // 
-    //                                                               Lecture des mode de règlement (Payment Method)
-    //                                                               Ajout du N° de Document externe dans le libellé de "Votre reference"
-    //                                                               Ajout de concaténation du N° de document externe
-    //                                                               avec le "Your reference"
-    // 
-    //                                                               Récupération du Nbre de copie dans la table diverses TYPECDE
-    // 
-    //                                                               Raz du Nbre de Copies forcé
-    //                                                               Dans le OnAcivate de la zone du RequestForm
-    // 
-    //                                                               Calcul du Prix Net car dans la ligne, il n'y a que le prix brut
-    //                                                               (avant remise)
-    // 
-    //                                                               Adresse à imprimer = adresse de commande et
-    //                                                               non pas adresse de Facturation
-    //                                                               Modification des reports en fonction du Client Worms
-    // //DESIGN DARI 19/01/2007 NSC1.03
-    // 
-    // //DEEE
-    // 
-    // //FE005 MICO 14/02/2207 :
-    //   Ajout des triggers :
-    //   - DefineTagFax(TxtLTag : Text[50])
-    //   - DefineTagMail(TxtLTag : Text[50])
-    // 
-    //   Ajout du champ : TxtGTag en en-tête du report
-    //       + bouton : Envoyer/Imprimer
-    //       pour permettre au user le choix d'envoi du document :
-    //                    - ImprimanteVATAmountLine."VAT Identifier"
-    //                    - Mail
-    //                    - Fax
-    // 
-    // //TDL86:MICO LE 28/03/07
-    //   - Suppression de la colonne "TVA"
-    //   - Agrandissment de la colonne "Désignation"
-    //   - Décalage des autres colonnes
-    //   - Augmenattion de la section "Sales Invoice Line,Transfooter(6)" afin que les lignes de vente
-    //     de certaines pages ne descendent pas trop bas.
-    // 
-    // //FE005 DARI 22/02/2007 NSC1.03 -DEEE1.00
-    // //VERSIONNING FG 28/02/07 suite au Merge
-    // //COMPTA_DEEE FG 01/03/07
-    // 
-    // //TDL DESIGN:DARI LE 12/04/07
-    // 
-    // //TDL DESIGN point 100 :DARI LE 23/04/07
-    // 
-    // //TDL98:MICO 09/05/2007
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>CNE1.00
-    // FEP-ADVE-200706_18_A.001:MA 15/11/2007 : Gestin des apples d'offres clients
-    //         - Add field "Affaire No"
-    // ------------------------------------------------------------------------
-    // 
-    // // SUPPORT PRODWARE 30/05/2008
-    // 
-    // //>>Modif HL
-    // // 30/05/08 SU-ISDU cf Appel I006546:-dans la section Sales Invoice Line Body (5)
-    // //                                   -modification de propriété sur la colone PU net HT
-    // //                                   -SourceExpression = FORMAT( "Discount Unit Price"  ,0,'<precision,0:2><standard format,1>' )
-    // 
-    // //<< 10/10/2012 SU-DADE cf Appal TI125440
-    // //   Sales Invoice Header - OnAfterGetRecord()
-    // //<< 10/10/2012 SU-DADE cf Appal TI125440
-    // 
-    // 
-    // +-------------------------------------------+
-    // |  BCSYS - www.bcsys.fr                     |
-    // +-------------------------------------------+
-    // //BCSYS 29032021 add Picture, Footer, CGV > Update 25022022 comment CGV
-    // +-------------------------------------------+
     DefaultLayout = RDLC;
     RDLCLayout = './SalesInvoiceCNEV2.rdlc';
 
-    Caption = 'Sales - Invoice';
+    Caption = 'Sales - Invoice', Comment = 'FRA=""';
     Permissions = TableData "Sales Shipment Buffer" = rimd;
     PreviewMode = PrintLayout;
 
     dataset
     {
-        dataitem(DataItem5581; Table112)
+        dataitem("Sales Invoice Header"; "Sales Invoice Header")
         {
-            DataItemTableView = SORTING(No.);
+            DataItemTableView = SORTING("No.");
             PrintOnlyIfDetail = false;
             RequestFilterFields = "No.", "Sell-to Customer No.", "No. Printed";
-            RequestFilterHeading = 'Posted Sales Invoice';
+            RequestFilterHeading = 'Posted Sales Invoice', Comment = 'FRA=""';
             column(No_SalesInvHdr; "No.")
             {
             }
@@ -111,7 +24,7 @@ report 50040 "Sales - Invoice CNE V2"
             column(CompanyInfo_Picture; CompanyInfo.Picture)
             {
             }
-            column(CompanyInfo__Alt_Picture_; CompanyInfo."Alt Picture")
+            column(CompanyInfo__Alt_Picture_; CompanyInfo."BC6_Alt Picture")
             {
             }
             column(FooterCompAddr1; FooterCompAddr[1])
@@ -129,10 +42,10 @@ report 50040 "Sales - Invoice CNE V2"
             column(FooterCompAddr5; FooterCompAddr[5])
             {
             }
-            dataitem(CopyLoop; Table2000000026)
+            dataitem(CopyLoop; Integer)
             {
                 DataItemTableView = SORTING(Number);
-                dataitem(PageLoop; Table2000000026)
+                dataitem(PageLoop; Integer)
                 {
                     DataItemTableView = SORTING(Number)
                                         WHERE(Number = CONST(1));
@@ -178,13 +91,13 @@ report 50040 "Sales - Invoice CNE V2"
                     column(Sales_Invoice_Header___Your_Reference_; "Sales Invoice Header"."Your Reference")
                     {
                     }
-                    column(COPYSTR__Sales_Invoice_Header___Shipment_Invoiced__1_80_; COPYSTR("Sales Invoice Header"."Shipment Invoiced", 1, 80))
+                    column(COPYSTR__Sales_Invoice_Header___Shipment_Invoiced__1_80_; COPYSTR("Sales Invoice Header"."BC6_Shipment Invoiced", 1, 80))
                     {
                     }
-                    column(COPYSTR__Sales_Invoice_Header___Shipment_Invoiced__81_80_; COPYSTR("Sales Invoice Header"."Shipment Invoiced", 81, 80))
+                    column(COPYSTR__Sales_Invoice_Header___Shipment_Invoiced__81_80_; COPYSTR("Sales Invoice Header"."BC6_Shipment Invoiced", 81, 80))
                     {
                     }
-                    column(COPYSTR__Sales_Invoice_Header___Shipment_Invoiced__161_87_; COPYSTR("Sales Invoice Header"."Shipment Invoiced", 161, 87))
+                    column(COPYSTR__Sales_Invoice_Header___Shipment_Invoiced__161_87_; COPYSTR("Sales Invoice Header"."BC6_Shipment Invoiced", 161, 87))
                     {
                     }
                     column(TxtGLblProjet; TxtGLblProjet)
@@ -241,11 +154,11 @@ report 50040 "Sales - Invoice CNE V2"
                     column(OutputNo; OutputNo)
                     {
                     }
-                    dataitem(DataItem1570; Table113)
+                    dataitem("Sales Invoice Line"; "Sales Invoice Line")
                     {
-                        DataItemLink = Document No.=FIELD(No.);
+                        DataItemLink = "Document No." = FIELD("No.");
                         DataItemLinkReference = "Sales Invoice Header";
-                        DataItemTableView = SORTING(Document No., Line No.);
+                        DataItemTableView = SORTING("Document No.", "Line No.");
                         column(Sales_Invoice_Line__Line_Amount_; "Line Amount")
                         {
                             AutoFormatExpression = "Sales Invoice Line".GetCurrencyCode;
@@ -259,7 +172,7 @@ report 50040 "Sales - Invoice CNE V2"
                         }
                         column(FORMAT_Quantity_0___precision_0_2__standard_format_1____; FORMAT(Quantity, 0, '<precision,0:2><standard format,1>'))
                         {
-                            DecimalPlaces = 0 : 2;
+
                         }
                         column(Sales_Invoice_Line__Sales_Invoice_Line___Qty__per_Unit_of_Measure_; "Sales Invoice Line"."Qty. per Unit of Measure")
                         {
@@ -268,12 +181,12 @@ report 50040 "Sales - Invoice CNE V2"
                         column(FORMAT__Line_Amount__0___precision_2_2__standard_format_1____; FORMAT("Line Amount", 0, '<precision,2:2><standard format,1>'))
                         {
                             AutoFormatExpression = "Sales Invoice Line".GetCurrencyCode;
-                            DecimalPlaces = 0 : 2;
+
                         }
-                        column(FORMAT___Discount_Unit_Price____0___precision_0_2__standard_format_1____; FORMAT("Discount Unit Price", 0, '<precision,0:2><standard format,1>'))
+                        column(FORMAT___Discount_Unit_Price____0___precision_0_2__standard_format_1____; FORMAT("BC6_Discount Unit Price", 0, '<precision,0:2><standard format,1>'))
                         {
                             AutoFormatExpression = "Sales Invoice Line".GetCurrencyCode;
-                            DecimalPlaces = 0 : 2;
+
                         }
                         column(Sales_Invoice_Line_Quantity; Quantity)
                         {
@@ -286,7 +199,7 @@ report 50040 "Sales - Invoice CNE V2"
                         column(DecGHTUnitTaxLCY; DecGHTUnitTaxLCY)
                         {
                         }
-                        column(Sales_Invoice_Line__DEEE_Category_Code_; "DEEE Category Code")
+                        column(Sales_Invoice_Line__DEEE_Category_Code_; "BC6_DEEE Category Code")
                         {
                         }
                         column(DecGNumbeofUnitsDEEE; DecGNumbeofUnitsDEEE)
@@ -389,7 +302,7 @@ report 50040 "Sales - Invoice CNE V2"
                             AutoFormatExpression = GetCurrencyCode;
                             AutoFormatType = 1;
                         }
-                        column(Loi_N_92_1442_du_31_12_1992; Loi_N_92_1442_du_31_12_1992__Escompte_applicale_en_cas_de_paiement_anticipé___0_3___par_mois__Retard_de_paiement___pénalités_Lbl)
+                        column(Loi_N_92_1442_du_31_12_1992; "Loi_N_92_1442_du_31_12_1992__Escompte_applicale_paiement_anticipé____Lbl")
                         {
                         }
                         column(TotalInclVATText; TotalInclVATText)
@@ -432,15 +345,11 @@ report 50040 "Sales - Invoice CNE V2"
                                 VATAmountLine."Inv. Disc. Base Amount" := "Line Amount";
                             VATAmountLine."Invoice Discount Amount" := "Inv. Discount Amount";
                             VATAmountLine.InsertLine;
-                            // FR0001.begin
                             IF IncludeShptNo THEN BEGIN
                                 ShipmentInvoiced.RESET;
                                 ShipmentInvoiced.SETRANGE("Invoice No.", "Sales Invoice Line"."Document No.");
                                 ShipmentInvoiced.SETRANGE("Invoice Line No.", "Sales Invoice Line"."Line No.");
                             END;
-                            // FR0001.end
-
-                            //FG
                             IntGCpt := IntGCpt + 1;
 
                             IF IntGCpt = IntGNbLigFac THEN
@@ -448,15 +357,14 @@ report 50040 "Sales - Invoice CNE V2"
                             ELSE
                                 BooGAfficheTrait := FALSE;
 
-                            //<<FE005:DARI 22/02/2007
-                            IF (("DEEE Category Code" <> '') AND (Quantity <> 0) AND ("Eco partner DEEE" <> '')) THEN BEGIN
+                            IF (("BC6_DEEE Category Code" <> '') AND (Quantity <> 0) AND ("BC6_Eco partner DEEE" <> '')) THEN BEGIN
                                 IF RecGItem.GET("No.") THEN
-                                    DecGNumbeofUnitsDEEE := RecGItem."Number of Units DEEE"
+                                    DecGNumbeofUnitsDEEE := RecGItem."BC6_Number of Units DEEE"
                                 ELSE
                                     DecGNumbeofUnitsDEEE := 0;
 
                                 RecGDEEE.RESET;
-                                RecGDEEE.SETFILTER(RecGDEEE."DEEE Code", "DEEE Category Code");
+                                RecGDEEE.SETFILTER(RecGDEEE."DEEE Code", "BC6_DEEE Category Code");
                                 RecGDEEE.SETFILTER(RecGDEEE."Date beginning", '<=%1', "Sales Invoice Header"."Posting Date");
                                 IF RecGDEEE.FIND('+') THEN
                                     DecGHTUnitTaxLCY := RecGDEEE."HT Unit Tax (LCY)"
@@ -464,54 +372,34 @@ report 50040 "Sales - Invoice CNE V2"
                                     DecGHTUnitTaxLCY := 0;
                             END;
 
-                            //FG
-                            //pamo
                             VATAmountLine."VAT %" := 0;
                             VATAmountLine."VAT Base" := 0;
                             VATAmountLine."Amount Including VAT" := 0;
                             VATAmountLine."Line Amount" := 0;
                             VATAmountLine."Inv. Disc. Base Amount" := 0;
                             VATAmountLine."Invoice Discount Amount" := 0;
-                            //pamo
-                            VATAmountLine."DEEE HT Amount" := "DEEE HT Amount";
-                            VATAmountLine."DEEE VAT Amount" := "DEEE VAT Amount";
+                            VATAmountLine."BC6_DEEE HT Amount" := "BC6_DEEE HT Amount";
+                            VATAmountLine."BC6_DEEE VAT Amount" := "BC6_DEEE VAT Amount";
                             VATAmountLine.InsertLine;
-
-                            //MICO DEEE1.00
-                            //DecGVATTotalAmount += VATAmountLine."VAT Amount" + VATAmountLine."DEEE VAT Amount";
-                            DecGTTCTotalAmount += "Amount Including VAT" + "DEEE TTC Amount";
-                            //>>FE005:DARI 22/02/2007
-
-                            //>>MIGRATION NAV 2013
+                            DecGTTCTotalAmount += "Amount Including VAT" + "BC6_DEEE TTC Amount";
                             TotalAmount += Amount;
                             TotalAmountInclVAT += "Amount Including VAT";
-                            TotalDEEEHTAmount += "DEEE HT Amount";
-                            TotalAmtHTDEEE += Amount + "DEEE HT Amount";
-                            TotalAmountVATDEE += "Amount Including VAT" - Amount + "DEEE VAT Amount";
-                            TotalAmountInclVATDEE += "Amount Including VAT" + "DEEE HT Amount" + "DEEE VAT Amount";
+                            TotalDEEEHTAmount += "BC6_DEEE HT Amount";
+                            TotalAmtHTDEEE += Amount + "BC6_DEEE HT Amount";
+                            TotalAmountVATDEE += "Amount Including VAT" - Amount + "BC6_DEEE VAT Amount";
+                            TotalAmountInclVATDEE += "Amount Including VAT" + "BC6_DEEE HT Amount" + "BC6_DEEE VAT Amount";
 
-                            //>>TDL DARI 23/04/07
                             TexGTest := ' ';
                             IF STRLEN(Description) > 2 THEN
                                 TexGTest := COPYSTR(Description, 3, 1);
 
                             BooGVisibleDesc := (Type = 0) AND (1 = STRPOS(Description, 'BL')) AND (TexGTest IN ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
-                            //<<TDL DARI 23/04/07
-
-                            //>>TDL DARI 23/04/07
                             BooGVisibleDesc2 := (Type = 0) AND ((1 <> STRPOS(Description, 'BL')) OR NOT (TexGTest IN ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']));
-                            //>>TDL DARI 23/04/07
-
-
-                            //>>COMPTA_DEEE FG 01/03/07
-                            IF RecGBillCustomer."Submitted to DEEE" THEN BEGIN
-                                BooGVisibleDesc3 := ("DEEE Category Code" <> '') AND (Quantity <> 0) AND ("Eco partner DEEE" <> '');
+                            IF RecGBillCustomer."BC6_Submitted to DEEE" THEN BEGIN
+                                BooGVisibleDesc3 := ("BC6_DEEE Category Code" <> '') AND (Quantity <> 0) AND ("BC6_Eco partner DEEE" <> '');
                             END ELSE BEGIN
                                 BooGVisibleDesc3 := FALSE;
                             END;
-                            //<<COMPTA_DEEE FG 01/03/07
-
-                            //<<MIGRATION NAV 2013
                         end;
 
                         trigger OnPreDataItem()
@@ -526,23 +414,15 @@ report 50040 "Sales - Invoice CNE V2"
                             IF NOT MoreLines THEN
                                 CurrReport.BREAK;
                             SETRANGE("Line No.", 0, "Line No.");
-
-                            //>>FE005:DARI 22/02/2007
-                            //CurrReport.CREATETOTALS("Line Amount",Amount,"Amount Including VAT","Inv. Discount Amount");
-                            CurrReport.CREATETOTALS("Line Amount", Amount, "Amount Including VAT", "Inv. Discount Amount", "DEEE HT Amount", "DEEE VAT Amount");
-                            //MICO DEEE1.00
-
+                            CurrReport.CREATETOTALS("Line Amount", Amount, "Amount Including VAT", "Inv. Discount Amount", "BC6_DEEE HT Amount", "BC6_DEEE VAT Amount");
                             DecGVATTotalAmount := 0;
                             DecGTTCTotalAmount := 0;
-                            //<<FE005:DARI 20/02/2007
 
-
-                            //FG
                             IntGNbLigFac := "Sales Invoice Line".COUNT;
                             IntGCpt := 0;
                         end;
                     }
-                    dataitem(VATCounter; Table2000000026)
+                    dataitem(VATCounter; Integer)
                     {
                         DataItemTableView = SORTING(Number);
                         column(VATAmtLineVATBase; VATAmountLine."VAT Base")
@@ -624,7 +504,7 @@ report 50040 "Sales - Invoice CNE V2"
                               VATAmountLine."Invoice Discount Amount", VATAmountLine."VAT Base", VATAmountLine."VAT Amount");
                         end;
                     }
-                    dataitem(VatCounterLCY; Table2000000026)
+                    dataitem(VatCounterLCY; Integer)
                     {
                         DataItemTableView = SORTING(Number);
                         column(VALSpecLCYHeader; VALSpecLCYHeader)
@@ -677,16 +557,16 @@ report 50040 "Sales - Invoice CNE V2"
                             VALExchRate := STRSUBSTNO(Text009, CalculatedExchRate, CurrExchRate."Exchange Rate Amount");
                         end;
                     }
-                    dataitem(DataItem6784; Table50007)
+                    dataitem("BC6_DEEE Tariffs"; "BC6_DEEE Tariffs")
                     {
-                        DataItemTableView = SORTING(Eco Partner, DEEE Code, Date beginning);
-                        column(DEEE_Tariffs__DEEE_Tariffs___DEEE_Code_; "DEEE Tariffs"."DEEE Code")
+                        DataItemTableView = SORTING("Eco Partner", "DEEE Code", "Date beginning");
+                        column(DEEE_Tariffs__DEEE_Tariffs___DEEE_Code_; "BC6_DEEE Tariffs"."DEEE Code")
                         {
                         }
                         column(RecGItemCtg__Weight_Min_; RecGItemCtg."Weight Min")
                         {
                         }
-                        column(DEEE_Tariffs__DEEE_Tariffs___HT_Unit_Tax__LCY__; "DEEE Tariffs"."HT Unit Tax (LCY)")
+                        column(DEEE_Tariffs__DEEE_Tariffs___HT_Unit_Tax__LCY__; "BC6_DEEE Tariffs"."HT Unit Tax (LCY)")
                         {
                         }
                         column("Coût_Unitaire_HT__DS_Caption"; Coût_Unitaire_HT__DS_CaptionLbl)
@@ -715,19 +595,19 @@ report 50040 "Sales - Invoice CNE V2"
                             RecGSalesInvLine.SETRANGE("Document No.", "Sales Invoice Header"."No.");
                             IF RecGSalesInvLine.FIND('-') THEN
                                 REPEAT
-                                    BooGDEEEFind := ((RecGSalesInvLine."DEEE Category Code" = "DEEE Tariffs"."DEEE Code") AND (RecGSalesInvLine.Quantity <> 0));
+                                    BooGDEEEFind := ((RecGSalesInvLine."BC6_DEEE Category Code" = "BC6_DEEE Tariffs"."BC6_DEEE Code") AND (RecGSalesInvLine.Quantity <> 0));
                                 UNTIL ((BooGDEEEFind = TRUE) OR (RecGSalesInvLine.NEXT = 0));
 
                             RecGDEEE.RESET;
-                            RecGDEEE.SETFILTER(RecGDEEE."DEEE Code", "DEEE Tariffs"."DEEE Code");
+                            RecGDEEE.SETFILTER(RecGDEEE."DEEE Code", "BC6_DEEE Tariffs"."DEEE Code");
                             RecGDEEE.SETFILTER(RecGDEEE."Date beginning", '<=%1', "Sales Invoice Header"."Posting Date");
                             IF RecGDEEE.FIND('+') THEN BEGIN
-                                IF RecGDEEE."Date beginning" <> "DEEE Tariffs"."Date beginning" THEN
+                                IF RecGDEEE."Date beginning" <> "BC6_DEEE Tariffs"."Date beginning" THEN
                                     BooGDEEEFind := FALSE;
                             END;
 
                             RecGItemCtg.RESET;
-                            IF NOT RecGItemCtg.GET("DEEE Tariffs"."DEEE Code", "DEEE Tariffs"."Eco Partner") THEN
+                            IF NOT RecGItemCtg.GET("BC6_DEEE Tariffs"."DEEE Code", "BC6_DEEE Tariffs"."Eco Partner") THEN
                                 RecGItemCtg.INIT;
 
                             IF BooGDEEEFind = FALSE THEN
@@ -741,33 +621,27 @@ report 50040 "Sales - Invoice CNE V2"
                             RecGSalesInvLine.SETRANGE("Document No.", "Sales Invoice Header"."No.");
                             IF RecGSalesInvLine.FIND('-') THEN
                                 REPEAT
-                                    BooGDEEEFind := ((RecGSalesInvLine."DEEE Category Code" <> '') AND (RecGSalesInvLine.Quantity <> 0));
+                                    BooGDEEEFind := ((RecGSalesInvLine."BC6_DEEE Category Code" <> '') AND (RecGSalesInvLine.Quantity <> 0));
                                 UNTIL ((BooGDEEEFind = TRUE) OR (RecGSalesInvLine.NEXT = 0));
 
                             IF BooGDEEEFind = FALSE THEN
                                 CurrReport.BREAK;
 
-                            //>>COMPTA_DEEE FG 01/03/07
-                            IF NOT RecGBillCustomer."Submitted to DEEE" THEN
+                            IF NOT RecGBillCustomer."BC6_Submitted to DEEE" THEN
                                 CurrReport.BREAK;
-                            //<<COMPTA_DEEE FG 01/03/07
-
-                            //Ne pas afficher tableau récap DEEE SEDU 02/03/2007
                             CurrReport.BREAK;
                         end;
                     }
-                    dataitem(Total; Table2000000026)
+                    dataitem(Total; Integer)
                     {
                         DataItemTableView = SORTING(Number)
                                             WHERE(Number = CONST(1));
                         column(TotalAmount; FORMAT(TotalAmount, 0, '<precision,2:2><standard format,1>'))
                         {
-                            DecimalPlaces = 0 : 2;
                         }
                         column(TotalDEEEHTAmount; FORMAT(TotalDEEEHTAmount, 0, '<precision,2:2><standard format,1>'))
                         {
                             AutoFormatExpression = "Sales Invoice Header"."Currency Code";
-                            DecimalPlaces = 0 : 2;
                         }
                         column(TotalAmtHTDEEE; FORMAT(TotalAmtHTDEEE, 0, '<precision,2:2><standard format,1>'))
                         {
@@ -804,7 +678,7 @@ report 50040 "Sales - Invoice CNE V2"
                         {
                         }
                     }
-                    dataitem(Total2; Table2000000026)
+                    dataitem(Total2; Integer)
                     {
                         DataItemTableView = SORTING(Number)
                                             WHERE(Number = CONST(1));
@@ -818,7 +692,7 @@ report 50040 "Sales - Invoice CNE V2"
 
                     trigger OnPreDataItem()
                     var
-                        RecGJob: Record "167";
+                        RecGJob: Record Job;
                     begin
                         IF "Sales Invoice Header"."Affair No." <> '' THEN BEGIN
                             TxtGLblProjet := Text070;
@@ -841,14 +715,12 @@ report 50040 "Sales - Invoice CNE V2"
                     END;
                     CurrReport.PAGENO := 1;
 
-                    //>>MIGRATION NAV 2013
                     TotalAmount := 0;
                     TotalAmountInclVAT := 0;
                     TotalDEEEHTAmount := 0;
                     TotalAmtHTDEEE := 0;
                     TotalAmountVATDEE := 0;
                     TotalAmountInclVATDEE := 0;
-                    //<<MIGRATION NAV 2013
                 end;
 
                 trigger OnPostDataItem()
@@ -871,8 +743,6 @@ report 50040 "Sales - Invoice CNE V2"
             trigger OnAfterGetRecord()
             begin
                 rrrrrrrrrrrr := FORMAT("Sales Invoice Header"."Shipment Invoiced");
-                //message ( 'longueur : ' + format(strlen ("Sales Invoice Header"."Shipment Invoiced")));
-
                 CurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
 
                 FormatAddr.SalesInvBillTo(CustAddr, "Sales Invoice Header");
@@ -886,20 +756,16 @@ report 50040 "Sales - Invoice CNE V2"
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
                 END;
 
-                //BCSYS 25022022
                 FormatReportFooterAddress.FormatAddrFooter(FooterCompAddr, CompanyInfo);
 
-                //>> 10/10/2012 SU-DADE cf Appal TI125440
                 GtextAcompte := '';
                 GAcompte := 0;
-                //<< 10/10/2012 SU-DADE cf Appal TI125440
 
                 IF "Order No." = '' THEN
                     OrderNoText := ''
                 ELSE
                     OrderNoText := FIELDCAPTION("Order No.");
 
-                //>> 10/10/2012 SU-DADE cf Appal TI125440
                 GCde.SETRANGE("No.", "Order No.");
                 IF GCde.FIND('-') THEN BEGIN
                     GtextAcompte := 'Acompte :';
@@ -911,7 +777,6 @@ report 50040 "Sales - Invoice CNE V2"
                         GAcompte := GCdeArch."Advance Payment";
                     END;
                 END;
-                //<< 10/10/2012 SU-DADE cf Appal TI125440
 
                 IF "Salesperson Code" = '' THEN BEGIN
                     SalesPurchPerson.INIT;
@@ -941,14 +806,12 @@ report 50040 "Sales - Invoice CNE V2"
                 FormatAddr.SalesInvBillTo(CustAddr, "Sales Invoice Header");
                 Cust.GET("Bill-to Customer No.");
 
-                //>>MIGRATION NAV 2013
                 RecG_User.RESET;
                 RecG_User.SETRANGE("User Name", "User ID");
                 IF RecG_User.FINDFIRST THEN
                     TexG_User_Name := RecG_User."Full Name"
                 ELSE
                     TexG_User_Name := '';
-                //<<MIGRATION NAV 2013
 
                 IF "Payment Terms Code" = '' THEN
                     PaymentTerms.INIT
@@ -977,21 +840,14 @@ report 50040 "Sales - Invoice CNE V2"
                               "Campaign No.", "Posting Description", '');
                     END;
 
-                //>>COMPTA_DEEE FG 01/03/07
                 RecGBillCustomer.RESET;
                 RecGBillCustomer.GET("Sales Invoice Header"."Bill-to Customer No.");
-                //<<COMPTA_DEEE FG 01/03/07
-
-                //>>MIGRATION NAV 2013
                 BooGTotalVisible := "Prices Including VAT";
-                //<<MIGRATION NAV 2013
             end;
 
             trigger OnPreDataItem()
             begin
-                //DEEE
                 BooGDEEEFind := FALSE;
-                //FIN DEEE
             end;
         }
     }
@@ -1039,35 +895,10 @@ report 50040 "Sales - Invoice CNE V2"
         SalesSetup.GET;
         LogInteractionEnable := TRUE;
 
-        /*CASE SalesSetup."Logo Position on Documents" OF
-          SalesSetup."Logo Position on Documents"::"No Logo":;
-          SalesSetup."Logo Position on Documents"::Left:
-            BEGIN
-              CompanyInfo.CALCFIELDS(Picture);
-            END;
-          SalesSetup."Logo Position on Documents"::Center:
-            BEGIN
-              CompanyInfo1.GET;
-              CompanyInfo1.CALCFIELDS(Picture);
-            END;
-          SalesSetup."Logo Position on Documents"::Right:
-            BEGIN
-              CompanyInfo2.GET;
-              CompanyInfo2.CALCFIELDS(Picture);
-            END;
-        END;*/
-
-        //BCSYS 290321
         CompanyInfo.CALCFIELDS(Picture, "Alt Picture");
 
     end;
 
-    trigger OnPostReport()
-    begin
-        //BCSYS 290321 - 25022022
-        //IF NOT CurrReport.PREVIEW THEN
-        //  REPORT.RUN(50044,FALSE,FALSE,"Sales Invoice Header");
-    end;
 
     trigger OnPreReport()
     begin
@@ -1078,6 +909,112 @@ report 50040 "Sales - Invoice CNE V2"
     end;
 
     var
+        RecGItemCtg: Record "BC6_Categories of item";
+        RecGDEEE: Record "BC6_DEEE Tariffs";
+        CompanyInfo: Record "Company Information";
+        CompanyInfo1: Record "Company Information";
+        CompanyInfo2: Record "Company Information";
+        CurrExchRate: Record "Currency Exchange Rate";
+        Cust: Record Customer;
+        RecGBillCustomer: Record Customer;
+        GLSetup: Record "General Ledger Setup";
+        RecGItem: Record Item;
+        Language: Record Language;
+        PaymentTerms: Record "Payment Terms";
+        RespCenter: Record "Responsibility Center";
+        RecGParamVente: Record "Sales & Receivables Setup";
+        SalesSetup: Record "Sales & Receivables Setup";
+        GCde: Record "Sales Header";
+        GCdeArch: Record "Sales Header Archive";
+        RecGSalesInvLine: Record "Sales Invoice Line";
+        SalesPurchPerson: Record "Salesperson/Purchaser";
+        SalesShipmentBuffer: Record "Sales Shipment Buffer" temporary;
+        ShipmentInvoiced: Record "Shipment Invoiced";
+        ShipmentMethod: Record "Shipment Method";
+        RecG_User: Record User;
+        VATAmountLine: Record "VAT Amount Line" temporary;
+        FormatReportFooterAddress: Codeunit "BC6_Format Report Footer Add";
+        FormatAddr: Codeunit "Format Address";
+        SalesInvCountPrinted: Codeunit "Sales Inv.-Printed";
+        SegManagement: Codeunit SegManagement;
+        BooGAfficheTrait: Boolean;
+        BooGDEEEFind: Boolean;
+        BooGTotalVisible: Boolean;
+        BooGVisibleDesc: Boolean;
+        BooGVisibleDesc2: Boolean;
+        BooGVisibleDesc3: Boolean;
+        Continue: Boolean;
+        IncludeShptNo: Boolean;
+        LogInteraction: Boolean;
+        [InDataSet]
+        LogInteractionEnable: Boolean;
+        MoreLines: Boolean;
+        ShowInternalInfo: Boolean;
+        ShowShippingAddr: Boolean;
+        PostedShipmentDate: Date;
+        CalculatedExchRate: Decimal;
+        DecGHTUnitTaxLCY: Decimal;
+        DecGNumbeofUnitsDEEE: Decimal;
+        DecGTTCTotalAmount: Decimal;
+        DecGVATTotalAmount: Decimal;
+        GAcompte: Decimal;
+        TotalAmount: Decimal;
+        TotalAmountInclVAT: Decimal;
+        TotalAmountInclVATDEE: Decimal;
+        TotalAmountVAT: Decimal;
+        TotalAmountVATDEE: Decimal;
+        TotalAmtHTDEEE: Decimal;
+        TotalDEEEHTAmount: Decimal;
+        VALVATAmountLCY: Decimal;
+        VALVATBaseLCY: Decimal;
+        "--FEP-ADVE-200706_18_A--": Integer;
+        "-- TDL 100--": Integer;
+        "-DEEE1.00-": Integer;
+        "- MIGNAV2013 -": Integer;
+        FirstValueEntryNo: Integer;
+        i: Integer;
+        IntGCpt: Integer;
+        IntGNbLigFac: Integer;
+        NextEntryNo: Integer;
+        NoOfCopies: Integer;
+        NoOfLoops: Integer;
+        NoShipmentNumLoop: Integer;
+        OutputNo: Integer;
+        AmountCaptionLbl: Label 'Amount';
+        AmountEco_ConributionCaption_Control1000000214Lbl: Label 'AmountEco-Conribution';
+        AmountEco_ConributionCaptionLbl: Label 'AmountEco-Conribution';
+        Base__CaptionLbl: Label 'Base :';
+        "CatégorieCaption_Control1000000127Lbl": Label 'Catégorie';
+        "CatégorieCaptionLbl": Label 'Catégorie';
+        ContinuedCaption_Control85Lbl: Label 'Continued';
+        ContinuedCaptionLbl: Label 'Continued';
+        "Coût_Unitaire_HT__DS_Caption_Control1000000121Lbl": Label 'Coût Unitaire HT (DS)';
+        "Coût_Unitaire_HT__DS_CaptionLbl": Label 'Coût Unitaire HT (DS)';
+        DEEE_Contribution___Caption_Control1000000117Lbl: Label 'DEEE Contribution : ';
+        DEEE_Contribution___CaptionLbl: Label 'DEEE Contribution : ';
+        Excl__VAT_Total_Incl_DEEECaption_Control1000000216Lbl: Label 'Excl. VAT Total Incl.DEEE';
+        Excl__VAT_Total_Incl_DEEECaptionLbl: Label 'Excl. VAT Total Incl.DEEE';
+        InterlocutorCaptionLbl: Label 'Interlocutor';
+        Inv__Discount_Amount_CaptionLbl: Label 'Inv. Discount Amount';
+        InvDiscAmtCaption1Lbl: Label 'Invoice Discount Amount';
+        InvDiscBaseAmtCaptionLbl: Label 'Invoice Discount Base Amount';
+        Invoice_No_CaptionLbl: Label 'Invoice No.';
+        Line_Amount_____Inv__Discount_Amount_____Amount_Including_VAT__CaptionLbl: Label 'Payment Discount on VAT';
+        LineAmtCaptionLbl: Label 'Line Amount';
+        "Loi_N_92_1442_du_31_12_1992__Escompte_applicale_paiement_anticipé____Lbl": Label 'Loi N°92-1442 du 31/12/1992. Aucun escompte ne sera accordé pour paiement anticipé. Retard de paiement : pénalités de 1 % par mois. Indemnité forfaitaire pour frais de recouvrement en cas de paiement à une date ultérieure à celle figurant  sur la facture : 40€. Si les frais de recouvrement sont supérieurs à ce montant forfaitaire, une indemnisation complémentaire sera due, sur présentation des justificatifs. L''acheteur déclare avoir pris connaissance des conditions de ventes stipulées au verso du présent feuillet, et notamment de la clause de réserve de propriété et les accepter.';
+        No_Shipment_InvoicedCaptionLbl: Label ' No Shipment Invoiced';
+        PaymentTerms_Description_Control1000000210CaptionLbl: Label 'Payment Terms';
+        PaymentTerms_DescriptionCaptionLbl: Label 'Payment Terms';
+        Poids_MaxiCaption_Control1000000123Lbl: Label 'Poids Maxi';
+        Poids_MaxiCaptionLbl: Label 'Poids Maxi';
+        Poids_MiniCaption_Control1000000125Lbl: Label 'Poids Mini';
+        Poids_MiniCaptionLbl: Label 'Poids Mini';
+        QuantityCaptionLbl: Label 'Quantity';
+        "RéférenceCaptionLbl": Label 'Référence';
+        S_UCaptionLbl: Label 'S U';
+        Sales_Invoice_Line__DEEE_Category_Code_CaptionLbl: Label ' -   Category :';
+        Sales_Invoice_Line__No___Control1000000148CaptionLbl: Label 'Item : ';
+        SubtotalCaptionLbl: Label 'Subtotal';
         Text000: Label 'Salesperson';
         Text001: Label 'Total %1';
         Text002: Label 'Total %1 Incl. VAT';
@@ -1085,176 +1022,67 @@ report 50040 "Sales - Invoice CNE V2"
         Text004: Label 'Sales - Invoice %1';
         Text005: Label 'Page %1';
         Text006: Label 'Total %1 Excl. VAT';
-        GLSetup: Record "98";
-        ShipmentMethod: Record "10";
-        PaymentTerms: Record "3";
-        SalesPurchPerson: Record "13";
-        CompanyInfo: Record "79";
-        CompanyInfo1: Record "79";
-        CompanyInfo2: Record "79";
-        SalesSetup: Record "311";
-        Cust: Record "18";
-        VATAmountLine: Record "290" temporary;
-        RespCenter: Record "5714";
-        Language: Record "8";
-        CurrExchRate: Record "330";
-        SalesInvCountPrinted: Codeunit "315";
-        FormatAddr: Codeunit "365";
-        SegManagement: Codeunit "5051";
-        SalesShipmentBuffer: Record "7190" temporary;
-        PostedShipmentDate: Date;
-        CustAddr: array[8] of Text[50];
-        ShipToAddr: array[8] of Text[50];
-        CompanyAddr: array[8] of Text[50];
-        OrderNoText: Text[30];
-        SalesPersonText: Text[30];
-        VATNoText: Text[30];
-        ReferenceText: Text[30];
-        TotalText: Text[50];
-        TotalExclVATText: Text[50];
-        TotalInclVATText: Text[50];
-        MoreLines: Boolean;
-        NoOfCopies: Integer;
-        NoOfLoops: Integer;
-        CopyText: Text[30];
-        ShowShippingAddr: Boolean;
-        i: Integer;
-        NextEntryNo: Integer;
-        FirstValueEntryNo: Integer;
-        DimText: Text[120];
-        OldDimText: Text[75];
-        ShowInternalInfo: Boolean;
-        Continue: Boolean;
-        LogInteraction: Boolean;
-        VALVATBaseLCY: Decimal;
-        VALVATAmountLCY: Decimal;
-        VALSpecLCYHeader: Text[80];
         Text007: Label 'VAT Amount Specification in ';
         Text008: Label 'Local Currency';
-        VALExchRate: Text[50];
         Text009: Label 'Exchange rate: %1/%2';
-        CalculatedExchRate: Decimal;
-        Text10800: Label 'ShipmentNo';
-        ShipmentInvoiced: Record "10825";
-        NoShipmentNumLoop: Integer;
-        NoShipmentDatas: array[3] of Text[20];
-        NoShipmentText: Text[30];
-        IncludeShptNo: Boolean;
-        IntGNbLigFac: Integer;
-        IntGCpt: Integer;
-        BooGAfficheTrait: Boolean;
-        TexG_User_Name: Text[30];
-        "-DEEE1.00-": Integer;
-        RecGSalesInvLine: Record "113";
-        BooGDEEEFind: Boolean;
-        RecGDEEE: Record "50007";
-        RecGItemCtg: Record "50006";
-        TxtGTag: Text[50];
-        RecGParamVente: Record "311";
-        RecGItem: Record "27";
-        DecGNumbeofUnitsDEEE: Decimal;
-        DecGVATTotalAmount: Decimal;
-        DecGTTCTotalAmount: Decimal;
-        DecGHTUnitTaxLCY: Decimal;
-        "--FG--": Integer;
-        RecGBillCustomer: Record "18";
-        rrrrrrrrrrrr: Text[250];
-        "-- TDL 100--": Integer;
-        TexGTest: Text[1];
-        "--FEP-ADVE-200706_18_A--": Integer;
-        TxtGLblProjet: Text[30];
-        TxtGNoProjet: Text[30];
-        TxtGDesignation: Text[50];
         Text070: Label 'Affair No. : ';
-        GtextAcompte: Text[30];
-        GAcompte: Decimal;
-        GCde: Record "36";
-        GCdeArch: Record "5107";
-        Invoice_No_CaptionLbl: Label 'Invoice No.';
-        InterlocutorCaptionLbl: Label 'Interlocutor';
-        No_Shipment_InvoicedCaptionLbl: Label ' No Shipment Invoiced';
-        Your_referenceCaptionLbl: Label 'Your reference';
-        PaymentTerms_DescriptionCaptionLbl: Label 'Payment Terms';
-        "RéférenceCaptionLbl": Label 'Référence';
-        QuantityCaptionLbl: Label 'Quantity';
-        S_UCaptionLbl: Label 'S U';
-        AmountCaptionLbl: Label 'Amount';
-        w__Tax_Net__U___P___CaptionLbl: Label 'w. Tax Net  U . P.  ';
-        ContinuedCaptionLbl: Label 'Continued';
-        DEEE_Contribution___CaptionLbl: Label 'DEEE Contribution : ';
-        Sales_Invoice_Line__No___Control1000000148CaptionLbl: Label 'Item : ';
-        Sales_Invoice_Line__DEEE_Category_Code_CaptionLbl: Label ' -   Category :';
-        ContinuedCaption_Control85Lbl: Label 'Continued';
-        SubtotalCaptionLbl: Label 'Subtotal';
-        Inv__Discount_Amount_CaptionLbl: Label 'Inv. Discount Amount';
-        Line_Amount_____Inv__Discount_Amount_____Amount_Including_VAT__CaptionLbl: Label 'Payment Discount on VAT';
-        VATAmountLine__VAT_Base_CaptionLbl: Label 'Continued';
-        VATAmountLine__VAT_Base__Control112CaptionLbl: Label 'Continued';
-        VALVATBaseLCYCaptionLbl: Label 'Continued';
-        VALVATBaseLCY_Control175CaptionLbl: Label 'Continued';
-        "Coût_Unitaire_HT__DS_CaptionLbl": Label 'Coût Unitaire HT (DS)';
-        Poids_MaxiCaptionLbl: Label 'Poids Maxi';
-        Poids_MiniCaptionLbl: Label 'Poids Mini';
-        "CatégorieCaptionLbl": Label 'Catégorie';
-        DEEE_Contribution___Caption_Control1000000117Lbl: Label 'DEEE Contribution : ';
-        "Coût_Unitaire_HT__DS_Caption_Control1000000121Lbl": Label 'Coût Unitaire HT (DS)';
-        Poids_MaxiCaption_Control1000000123Lbl: Label 'Poids Maxi';
-        Poids_MiniCaption_Control1000000125Lbl: Label 'Poids Mini';
-        "CatégorieCaption_Control1000000127Lbl": Label 'Catégorie';
-        AmountEco_ConributionCaptionLbl: Label 'AmountEco-Conribution';
-        Excl__VAT_Total_Incl_DEEECaptionLbl: Label 'Excl. VAT Total Incl.DEEE';
+        Text10800: Label 'ShipmentNo';
+        TotalCaptionLbl: Label 'Total';
         TVA_AmountCaptionLbl: Label 'TVA Amount';
-        Base__CaptionLbl: Label 'Base :';
-        PaymentTerms_Description_Control1000000210CaptionLbl: Label 'Payment Terms';
-        "Loi_N_92_1442_du_31_12_1992__Escompte_applicale_en_cas_de_paiement_anticipé___0_3___par_mois__Retard_de_paiement___pénalités_Lbl": Label 'Loi N°92-1442 du 31/12/1992. Aucun escompte ne sera accordé pour paiement anticipé. Retard de paiement : pénalités de 1 % par mois. Indemnité forfaitaire pour frais de recouvrement en cas de paiement à une date ultérieure à celle figurant  sur la facture : 40€. Si les frais de recouvrement sont supérieurs à ce montant forfaitaire, une indemnisation complémentaire sera due, sur présentation des justificatifs. L''acheteur déclare avoir pris connaissance des conditions de ventes stipulées au verso du présent feuillet, et notamment de la clause de réserve de propriété et les accepter.';
-        AmountEco_ConributionCaption_Control1000000214Lbl: Label 'AmountEco-Conribution';
-        Excl__VAT_Total_Incl_DEEECaption_Control1000000216Lbl: Label 'Excl. VAT Total Incl.DEEE';
-        OutputNo: Integer;
-        [InDataSet]
-        LogInteractionEnable: Boolean;
-        "- MIGNAV2013 -": Integer;
-        BooGVisibleDesc: Boolean;
-        BooGVisibleDesc2: Boolean;
-        RecG_User: Record "2000000120";
-        VATPercentCaptionLbl: Label 'VAT %';
-        VATBaseCaptionLbl: Label 'VAT Base';
+        VALVATBaseLCY_Control175CaptionLbl: Label 'Continued';
+        VALVATBaseLCYCaptionLbl: Label 'Continued';
+        VATAmountLine__VAT_Base__Control112CaptionLbl: Label 'Continued';
+        VATAmountLine__VAT_Base_CaptionLbl: Label 'Continued';
         VATAmtCaptionLbl: Label 'VAT Amount';
         VATAmtSpecCaptionLbl: Label 'VAT Amount Specification';
+        VATBaseCaptionLbl: Label 'VAT Base';
         VATIdentCaptionLbl: Label 'VAT Identifier';
-        InvDiscBaseAmtCaptionLbl: Label 'Invoice Discount Base Amount';
-        LineAmtCaptionLbl: Label 'Line Amount';
-        InvDiscAmtCaption1Lbl: Label 'Invoice Discount Amount';
-        TotalCaptionLbl: Label 'Total';
-        TotalAmtHTDEEE: Decimal;
-        TotalDEEEHTAmount: Decimal;
-        TotalAmountVATDEE: Decimal;
-        TotalAmountInclVATDEE: Decimal;
-        BooGTotalVisible: Boolean;
-        TotalAmount: Decimal;
-        TotalAmountInclVAT: Decimal;
-        TotalAmountVAT: Decimal;
-        BooGVisibleDesc3: Boolean;
-        FormatReportFooterAddress: Codeunit "50014";
+        VATPercentCaptionLbl: Label 'VAT %';
+        w__Tax_Net__U___P___CaptionLbl: Label 'w. Tax Net  U . P.  ';
+        Your_referenceCaptionLbl: Label 'Your reference';
+        TexGTest: Text[1];
+        NoShipmentDatas: array[3] of Text[20];
+        CopyText: Text[30];
+        GtextAcompte: Text[30];
+        NoShipmentText: Text[30];
+        OrderNoText: Text[30];
+        ReferenceText: Text[30];
+        SalesPersonText: Text[30];
+        TexG_User_Name: Text[30];
+        TxtGLblProjet: Text[30];
+        TxtGNoProjet: Text[30];
+        VATNoText: Text[30];
+        CompanyAddr: array[8] of Text[50];
+        CustAddr: array[8] of Text[50];
+        ShipToAddr: array[8] of Text[50];
+        TotalExclVATText: Text[50];
+        TotalInclVATText: Text[50];
+        TotalText: Text[50];
+        TxtGDesignation: Text[50];
+        TxtGTag: Text[50];
+        VALExchRate: Text[50];
+        OldDimText: Text[75];
+        VALSpecLCYHeader: Text[80];
+        DimText: Text[120];
+        rrrrrrrrrrrr: Text[250];
         FooterCompAddr: array[5] of Text[400];
 
-    [Scope('Internal')]
+
     procedure InitLogInteraction()
     begin
         LogInteraction := SegManagement.FindInteractTmplCode(4) <> '';
     end;
 
-    [Scope('Internal')]
+
     procedure DefineTagFax(TxtLTag: Text[50])
     begin
-        //>>FE005 MICO LE 15.02.2007
         RecGParamVente.GET;
         TxtGTag := RecGParamVente."RTE Fax Tag" + TxtLTag + '@cne.fax';
     end;
 
-    [Scope('Internal')]
+
     procedure DefineTagMail(TxtLTag: Text[50])
     begin
-        //>>FE005 MICO LE 15,02,2007
         RecGParamVente.GET;
         TxtGTag := RecGParamVente."PDF Mail Tag" + TxtLTag;
     end;

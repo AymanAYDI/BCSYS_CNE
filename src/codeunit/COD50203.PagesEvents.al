@@ -222,9 +222,11 @@ codeunit 50203 "BC6_PagesEvents"
         end;
 
     end;
+
     //COD 90
+
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnPostPurchLineOnBeforeRoundAmount', '', false, false)]
-    local procedure OnPostPurchLineOnBeforeRoundAmount(var PurchaseHeader: Record "Purchase Header"; var PurchaseLine: Record "Purchase Line"; var PurchInvHeader: Record "Purch. Inv. Header"; var PurchCrMemoHeader: Record "Purch. Cr. Memo Hdr."; SrcCode: Code[10])
+    local procedure COD90_OnPostPurchLineOnBeforeRoundAmount(var PurchaseHeader: Record "Purchase Header"; var PurchaseLine: Record "Purchase Line"; var PurchInvHeader: Record "Purch. Inv. Header"; var PurchCrMemoHeader: Record "Purch. Cr. Memo Hdr."; SrcCode: Code[10])
     var
         FctMngt: Codeunit "BC6_Functions Mgt";
 
@@ -233,13 +235,12 @@ codeunit 50203 "BC6_PagesEvents"
             FctMngt.MntDivisionDEEE(PurchaseLine."Qty. to Invoice", PurchaseLine);
     end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnPostPurchLineOnBeforeRoundAmount', '', false, false)]
-    local procedure COD90_OnPostPurchLineOnBeforeRoundAmount(var PurchaseHeader: Record "Purchase Header"; var PurchaseLine: Record "Purchase Line"; var PurchInvHeader: Record "Purch. Inv. Header"; var PurchCrMemoHeader: Record "Purch. Cr. Memo Hdr."; SrcCode: Code[10])
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnAfterReverseAmount', '', false, false)]
+    local procedure OnAfterReverseAmount(var PurchLine: Record "Purchase Line")
     var
         FctMngt: Codeunit "BC6_Functions Mgt";
     begin
         FctMngt.MntInverseDEEE(PurchaseLine);
-        FctMngt.MntInverseDEEE(PurchaseLine); //TODO
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnPostPurchLineOnBeforeInsertReceiptLine', '', false, false)]
@@ -292,28 +293,37 @@ codeunit 50203 "BC6_PagesEvents"
             InvoicePostBuffer."Amount (ACY)" := PurchaseLine."BC6_DEEE HT Amount";//purchLineACY.Montant;
             InvoicePostBuffer."VAT Base Amount (ACY)" := PurchaseLine."BC6_DEEE HT Amount"; //purchLineACY.Montant;
             InvoicePostBuffer."VAT Amount (ACY)" := (PurchaseLine."BC6_DEEE TTC Amount" - PurchaseLine."BC6_DEEE HT Amount");
-            //TODO InvoicePostBuffer."BC6_Eco partner DEEE" := PurchaseLine."BC6_Eco partner DEEE";
-            // InvoicePostBuffer."BC6_DEEE Category Code" := PurchaseLine."BC6_DEEE Category Code";
-            // FctMngt.MntIncrDEEE(PurchaseLine);
+            InvoicePostBuffer."BC6_Eco partner DEEE" := PurchaseLine."BC6_Eco partner DEEE";
+            InvoicePostBuffer."BC6_DEEE Category Code" := PurchaseLine."BC6_DEEE Category Code";
+            FctMngt.MntIncrDEEE(PurchaseLine);
 
-            // FctMngt.UpdateInvoicePostBuffer(TempInvoicePostBuffer, InvoicePostBuffer);
+            FctMngt.UpdateInvoicePostBuffer(TempInvoicePostBuffer, InvoicePostBuffer);
 
         END;
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnRunOnAfterFillTempLines', '', false, false)]
 
-    local procedure OnRunOnAfterFillTempLines(var PurchHeader: Record "Purchase Header")
+    local procedure COD90_OnRunOnAfterFillTempLines(var PurchHeader: Record "Purchase Header")
     var
         GlobalFunction: Codeunit "BC6_GlobalFunctionMgt";
     begin
-        GlobalFunction.SetGDecMntTTCDEEE(0);
-        GlobalFunction.SetGDecMntHTDEEE(0);
+        GlobalFunction.Set90GDecMntTTCDEEE(0);
+        GlobalFunction.Set90GDecMntHTDEEE(0);
     end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnAfterPostPurchLines', '', false, false)]
+    local procedure OnAfterPostPurchLines(var PurchHeader: Record "Purchase Header"; var PurchRcptHeader: Record "Purch. Rcpt. Header"; var PurchInvHeader: Record "Purch. Inv. Header"; var PurchCrMemoHdr: Record "Purch. Cr. Memo Hdr."; var ReturnShipmentHeader: Record "Return Shipment Header"; WhseShip: Boolean; WhseReceive: Boolean; var PurchLinesProcessed: Boolean; CommitIsSuppressed: Boolean; EverythingInvoiced: Boolean; var TempInvoicePostBuffer: Record "Invoice Post. Buffer" temporary; var TempPurchLineGlobal: Record "Purchase Line" temporary)
+    var
+        FctMngt: Codeunit "BC6_Functions Mgt";
+    begin
+
+    end;
+
 
     //ligne718
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnAfterPostVendorEntry', '', false, false)]
-    local procedure COD90_OnAfterPostVendorEntry(var GenJnlLine: Record "Gen. Journal Line"; var PurchHeader: Record "Purchase Header"; var TotalPurchLine: Record "Purchase Line"; var TotalPurchLineLCY: Record "Purchase Line"; CommitIsSupressed: Boolean; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line")
+l procedure COD90_OnAfterPostVendorEntry(var GenJnlLine: Record "Gen. Journal Line"; var PurchHeader: Record "Purchase Header"; var TotalPurchLine: Record "Purchase Line"; var TotalPurchLineLCY: Record "Purchase Line"; CommitIsSupressed: Boolean; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line")
     var
         _EcoPartnerDEEE: Code[10];
         _DEEECategoryCode: code[10];
@@ -445,24 +455,24 @@ codeunit 50203 "BC6_PagesEvents"
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item-Check Avail.", 'OnBeforeCreateAndSendNotification', '', false, false)]
-    local procedure COD311_OnBeforeCreateAndSendNotification(ItemNo: Code[20]; UnitOfMeasureCode: Code[20]; InventoryQty: Decimal; GrossReq: Decimal; ReservedReq: Decimal; SchedRcpt: Decimal; ReservedRcpt: Decimal; CurrentQuantity: Decimal; CurrentReservedQty: Decimal; TotalQuantity: Decimal; EarliestAvailDate: Date; RecordId: RecordID; LocationCode: Code[10]; ContextInfo: Dictionary of [Text, Text]; var Rollback: Boolean; var IsHandled: Boolean)
-    var
+
+                               var
         ItemAvailabilityCheck: Page "Item Availability Check";
-        
-        LastNotification: Notification;
-
+                                   
+                                   LastNotification: Notification;
+                           
         AvailabilityCheckNotification: Notification;
-        VariantCode: code[20];
-        DetailsTxt: Label 'Show details';
+                                   VariantCode: code[20];
+ails';
         NotificationMsg: Label 'The available inventory for item %1 is lower than the entered quantity at this location.', Comment = '%1=Item No.';
-        DontShowAgainTxt: Label 'Don''t show again';
-        NotificationLifecycleMgt: Codeunit "Notification Lifecycle Mgt.";
-        ItemCheckAvail: Codeunit "Item-Check Avail.";
 
-    begin
-        IsHandled := true; //TODO: CHECKME !
-
-        AvailabilityCheckNotification.Id(CreateGuid);
+                                   NotificationLifecycleMgt: Codeunit "Notification Lifecycle Mgt.";
+                                   ItemCheckAvail: Codeunit "Item-Check Avail.";
+                           
+    begi                           n
+                                   IsHandled := true; //TODO: CHECKME !
+                           
+                                   AvailabilityCheckNotification.Id(CreateGuid);
         AvailabilityCheckNotification.Message(StrSubstNo(NotificationMsg, ItemNo));
         AvailabilityCheckNotification.Scope(NOTIFICATIONSCOPE::LocalScope);
         AvailabilityCheckNotification.AddAction(DetailsTxt, CODEUNIT::"Item-Check Avail.", 'ShowNotificationDetails');
@@ -486,7 +496,7 @@ codeunit 50203 "BC6_PagesEvents"
     var
         SalesHeader: Record "Sales Header";
         InstructionMgt: Codeunit "Instruction Mgt.";
-        CustCheckCrLimit: codeunit "Cust-Check Cr. Limit";
+                                  CustCheckCrLimit: codeunit "Cust-Check Cr. Limit";
         AdditionalContextId: Guid;
         CustCheckCreditLimit: Page "Check Credit Limit";
         LastNotification: Notification;
@@ -494,7 +504,7 @@ codeunit 50203 "BC6_PagesEvents"
     begin
 
         if not CustCheckCreditLimit.SalesHeaderShowWarningAndGetCause(SalesHeader, AdditionalContextId) then
-            SalesHeader.CustomerCreditLimitNotExceeded()
+                                      SalesHeader.CustomerCreditLimitNotExceeded()
         else begin
 
             //TODO: à voir l'inside de else begin

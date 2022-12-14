@@ -1844,7 +1844,7 @@ page 50082 "BC6_Item Replanishment List"
         EAN13Code: Code[20];
         DistInt: Codeunit "Dist. Integration";
         FormItemCrossRef: Page "Item References";
-        ItemCrossRef: Record "Item Cross Reference";
+        ItemCrossRef: Record "Item Reference";
         RecGAccessControl: Record "Access Control";
         "-CNEIC-": Integer;
         UpdateICPartnerItemsEnabled: Boolean;

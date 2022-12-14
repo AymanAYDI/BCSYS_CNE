@@ -1,24 +1,16 @@
-report 50059 "Item Label v3"
+report 50059 "BC6_Item Label v3"
 {
-    // -----------------------------------------------
-    // Prodware -www.prodware.fr
-    // -----------------------------------------------
-    // 
-    // //>> CNE4.01
-    // A:FE03 01.09.2011 : Item Label Print
-    // 
-    // //>> CNE4.03 Show Price Include VAT
     DefaultLayout = RDLC;
     RDLCLayout = './ItemLabelv3.rdlc';
 
-    Caption = 'Item Label 108x35';
+    Caption = 'Item Label 108x35', comment = 'FRA="Etiquette article 108x35"';
 
     dataset
     {
-        dataitem(Item; Table27)
+        dataitem(Item; Item)
         {
-            RequestFilterFields = "No.", Description, "Print Unit Price Includes VAT";
-            dataitem(CopyLoop; Table2000000026)
+            RequestFilterFields = "No.", Description, "BC6_Print Unit Price Incl. VAT";
+            dataitem(CopyLoop; Integer)
             {
                 DataItemTableView = SORTING(Number)
                                     ORDER(Ascending);
@@ -55,11 +47,8 @@ report 50059 "Item Label v3"
             begin
                 CLEAR(ItemDescription);
                 CLEAR(ExtendedTextItem);
-                //BCSYS 290719 - Description 2 non utilisé?
-                //ItemDescription := Description + ' ' + "Description 2";
                 ItemDescription := Description; // + ' ' + "Description 2";
 
-                //BCSYS 290719 - prob nb total caractere . ne prend que la première ligne limitée à 20
                 ExtendedTextHeader.SETRANGE("No.", "No.");
 
                 ExtendedTextHeader.SETRANGE("Starting Date", 0D, WORKDATE);
@@ -73,31 +62,22 @@ report 50059 "Item Label v3"
                 END;
 
                 ItemDescription := ItemDescription + ' ' + ExtendedTextItem;
-                //fin BCSYS 290719
 
 
-                // VAT Unit Prices
                 CLEAR(UnitPriceIncVATTxt);
-                IF "Print Unit Price Includes VAT" THEN
-                    UnitPriceIncVATTxt := STRSUBSTNO(Text1100267001, FORMAT("Unit Price Includes VAT", 12, '<Precision,2:2><Standard Format,0>'));
+                IF "BC6_Print Unit Price Incl. VAT" THEN
+                    UnitPriceIncVATTxt := STRSUBSTNO(Text1100267001, FORMAT("BC6_Unit Price Includes VAT", 12, '<Precision,2:2><Standard Format,0>'));
 
                 CLEAR(UnitPriceTxt);
-                IF "Print Unit Price Includes VAT" THEN
+                IF "BC6_Print Unit Price Incl. VAT" THEN
                     UnitPriceTxt := STRSUBSTNO(Text1100267003, FORMAT("Unit Price", 12, '<Precision,2:2><Standard Format,0>'));
 
-                // EAN13 GS1
                 EAN13Bar := '';
                 EAN13Txt := '';
                 EAN13BarTxt := '';
                 CLEAR(DistInt);
-                EAN13Bar := COPYSTR(DistInt.GetItemEAN13Code("No."), 1, MAXSTRLEN(EAN13Bar));
+                EAN13Bar := COPYSTR(FctMangt.GetItemEAN13Code("No."), 1, MAXSTRLEN(EAN13Bar));
                 IF EAN13Bar <> '' THEN BEGIN
-                    // i := MAXSTRLEN(EAN13Bar) - STRLEN(EAN13Bar);
-                    // IF (i > 0) THEN
-                    //  REPEAT
-                    //    EAN13Bar := '0' + EAN13Bar;
-                    //    i := i - 1;
-                    // UNTIL i <= 0;
                     CLEAR(ConvertAutoIDEAN13);
                     EAN13BarTxt := ConvertAutoIDEAN13.EncodeBarcodeEAN13(EAN13Bar, EAN13Txt);
                 END ELSE
@@ -126,17 +106,17 @@ report 50059 "Item Label v3"
         EAN13Txt: Text[13];
         EAN13Bar: Text[13];
         EAN13BarTxt: Text[120];
-        i: Integer;
         NumOfLabel: Integer;
-        ConvertAutoIDEAN13: Codeunit "50099";
-        DistInt: Codeunit "5702";
+        ConvertAutoIDEAN13: Codeunit "BC6_Barcode Mngt AutoID";
+        DistInt: Codeunit "Dist. Integration";
+        FctMangt: Codeunit "BC6_Functions Mgt";
         ItemDescription: Text[120];
         UnitPriceIncVATTxt: Text[120];
         Text1100267001: Label '%1 € TTC';
         UnitPriceTxt: Text[120];
         Text1100267003: Label '%1 € HT  ';
-        ExtendedTextLine: Record "280";
-        ExtendedTextHeader: Record "279";
+        ExtendedTextLine: Record "Extended Text Line";
+        ExtendedTextHeader: Record "Extended Text Header";
         ExtendedTextItem: Text[50];
 }
 

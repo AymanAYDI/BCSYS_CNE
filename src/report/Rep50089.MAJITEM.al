@@ -1,18 +1,18 @@
-report 50089 "MAJ ITEM"
+report 50089 "BC6_MAJ ITEM"
 {
     ProcessingOnly = true;
     UseRequestPage = false;
 
     dataset
     {
-        dataitem(DataItem1100267000; Table27)
+        dataitem(Item; Item)
         {
-            DataItemTableView = WHERE(No.=FILTER(CLI*));
+            DataItemTableView = WHERE("No." = FILTER('CLI*'));
 
             trigger OnAfterGetRecord()
             begin
-                Item.Blocked:=FALSE;
-                MODIFY;
+                Item.Blocked := FALSE;
+                MODIFY();
             end;
         }
     }

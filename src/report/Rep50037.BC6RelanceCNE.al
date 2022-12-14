@@ -1,4 +1,4 @@
-report 50037 "BC6_Relance  CNE"
+report 50037 "BC6_BC6_Relance  CNE"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './RelanceCNE.rdlc';
@@ -16,13 +16,13 @@ report 50037 "BC6_Relance  CNE"
             column(Issued_Reminder_Header_No_; "No.")
             {
             }
-            column(STRSUBSTNO___1__le__2__CompanyInfo_City_FORMAT__Issued_Reminder_Header___Document_Date___; STRSUBSTNO('%1, le %2', CompanyInfo.City, FORMAT("Issued Reminder Header"."Document Date")))
+            column(STRSUBSTNO___1__le__2__CompanyInfo_City_FORMAT__Issued_Reminder_Header___Document_Date___; STRSUBSTNO('%1, le %2', CompanyInfo.City, FORMAT(IssuedReminderHeader."Document Date")))
             {
             }
-            column(STRSUBSTNO__Relance_n_____1___Issued_Reminder_Header___No___; STRSUBSTNO('Relance n° : %1', "Issued Reminder Header"."No."))
+            column(STRSUBSTNO__Relance_n_____1___Issued_Reminder_Header___No___; STRSUBSTNO('Relance n° : %1', IssuedReminderHeader."No."))
             {
             }
-            column(STRSUBSTNO__N__client____1___Issued_Reminder_Header___Customer_No___; STRSUBSTNO('N° client : %1', "Issued Reminder Header"."Customer No."))
+            column(STRSUBSTNO__N__client____1___Issued_Reminder_Header___Customer_No___; STRSUBSTNO('N° client : %1', IssuedReminderHeader."Customer No."))
             {
             }
             column(CustAddr_6_; CustAddr[6])
@@ -43,7 +43,7 @@ report 50037 "BC6_Relance  CNE"
             column(CustAddr_1_; CustAddr[1])
             {
             }
-            column(STRSUBSTNO___1_le__2___Issued_Reminder_Header__FIELDCAPTION__Due_Date____Issued_Reminder_Header___Due_Date__; STRSUBSTNO('%1 le %2', "Issued Reminder Header".FIELDCAPTION("Due Date"), "Issued Reminder Header"."Due Date"))
+            column(STRSUBSTNO___1_le__2___Issued_Reminder_Header__FIELDCAPTION__Due_Date____Issued_Reminder_Header___Due_Date__; STRSUBSTNO('%1 le %2', IssuedReminderHeader.FIELDCAPTION("Due Date"), IssuedReminderHeader."Due Date"))
             {
             }
             column(Issued_Reminder_Header___Reminder_Level_; IssuedReminderHeader."Reminder Level")
@@ -258,7 +258,7 @@ report 50037 "BC6_Relance  CNE"
                     SETFILTER("Line No.", '<=%1', StartLineNo);
                 end;
             }
-            dataitem(DataItem8784; "Issued Reminder Line")
+            dataitem(IssuedReminderLine; "Issued Reminder Line")
             {
 
                 DataItemLink = "Reminder No." = FIELD("No.");
@@ -391,10 +391,10 @@ report 50037 "BC6_Relance  CNE"
                     BooGIRLineFouter3 := "VAT Amount" <> 0;
                 end;
             }
-            dataitem(IssuedReminderLine2; 298)
+            dataitem(IssuedReminderLine2; "Issued Reminder Line")
             {
                 DataItemLink = "Reminder No." = FIELD("No.");
-                DataItemLinkReference = "Issued Reminder Header";
+                DataItemLinkReference = IssuedReminderHeader;
                 DataItemTableView = SORTING("Reminder No.", "Line No.");
                 column(IssuedReminderLine2_Description; Description)
                 {
@@ -420,7 +420,7 @@ report 50037 "BC6_Relance  CNE"
                     SETFILTER("Line No.", '>=%1', EndLineNo);
                 end;
             }
-            dataitem(VATCounter; 2000000026)
+            dataitem(VATCounter; Integer)
             {
                 DataItemTableView = SORTING(Number);
                 column(VATAmtLineAmtIncludVAT; VATAmountLine."Amount Including VAT")
@@ -477,11 +477,12 @@ report 50037 "BC6_Relance  CNE"
 
             trigger OnAfterGetRecord()
             begin
-                CurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
+                //TODOCurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
+                CurrReport.Language := Language2.GetLanguageIdOrDefault("Language Code");
 
                 DimSetEntry.SETRANGE("Dimension Set ID", "Dimension Set ID");
 
-                FormatAddrCodeunit.IssuedReminder(CustAddr, "Issued Reminder Header");
+                FormatAddrCodeunit.IssuedReminder(CustAddr, IssuedReminderHeader);
                 IF "Your Reference" = '' THEN
                     ReferenceText := ''
                 ELSE
@@ -581,6 +582,7 @@ report 50037 "BC6_Relance  CNE"
 
     var
         Language: Record Language;
+        Language2: Codeunit Language;
         Country: Record "Country/Region";
         SalesPurchPerson: Record "Salesperson/Purchaser";
         Cust: Record Customer;

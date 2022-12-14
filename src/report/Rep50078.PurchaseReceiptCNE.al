@@ -1,25 +1,17 @@
-report 50078 "Purchase - Receipt CNE"
+report 50078 "BC6_Purchase - Receipt CNE"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // ------------------------------------------------------------------------
-    // 
-    // //>>MODIF HL
-    // TI255335 DO.GEPO 15/12/2014 : modify Purch Rcpt Line - OnAfterGetRecord
     DefaultLayout = RDLC;
     RDLCLayout = './PurchaseReceiptCNE.rdlc';
 
-    Caption = 'Purchase - Receipt';
+    Caption = 'Purchase - Receipt', comment = 'FRA="Achats : Bon de réception"';
 
     dataset
     {
-        dataitem(DataItem2822; Table120)
+        dataitem(PurchRcptHeader; "Purch. Rcpt. Header")
         {
-            DataItemTableView = SORTING(No.);
+            DataItemTableView = SORTING("No.");
             RequestFilterFields = "No.", "Buy-from Vendor No.", "No. Printed";
-            RequestFilterHeading = 'Posted Purchase Receipt';
+            RequestFilterHeading = 'Posted Purchase Receipt', comment = 'FRA="Posted Purchase Receipt"';
             column(No_PurchRcptHeader; "No.")
             {
             }
@@ -44,10 +36,10 @@ report 50078 "Purchase - Receipt CNE"
             column(EmailCaption; EmailCaptionLbl)
             {
             }
-            dataitem(CopyLoop; Table2000000026)
+            dataitem(CopyLoop; Integer)
             {
                 DataItemTableView = SORTING(Number);
-                dataitem(PageLoop; Table2000000026)
+                dataitem(PageLoop; Integer)
                 {
                     DataItemTableView = SORTING(Number)
                                         WHERE(Number = CONST(1));
@@ -108,7 +100,7 @@ report 50078 "Purchase - Receipt CNE"
                     column(CompanyInfoBankAccNo; CompanyInfo."Bank Account No.")
                     {
                     }
-                    column(DocDate_PurchRcptHeader; FORMAT("Purch. Rcpt. Header"."Document Date", 0, 4))
+                    column(DocDate_PurchRcptHeader; FORMAT(PurchRcptHeader."Document Date", 0, 4))
                     {
                     }
                     column(PurchaserText; PurchaserText)
@@ -117,13 +109,13 @@ report 50078 "Purchase - Receipt CNE"
                     column(SalesPurchPersonName; SalesPurchPerson.Name)
                     {
                     }
-                    column(No1_PurchRcptHeader; "Purch. Rcpt. Header"."No.")
+                    column(No1_PurchRcptHeader; PurchRcptHeader."No.")
                     {
                     }
                     column(ReferenceText; ReferenceText)
                     {
                     }
-                    column(YourRef_PurchRcptHeader; "Purch. Rcpt. Header"."Your Reference")
+                    column(YourRef_PurchRcptHeader; PurchRcptHeader."Your Reference")
                     {
                     }
                     column(ShipToAddr7; ShipToAddr[7])
@@ -180,24 +172,24 @@ report 50078 "Purchase - Receipt CNE"
                     column(Purch__Rcpt__Header___No__Caption; Purch__Rcpt__Header___No__CaptionLbl)
                     {
                     }
-                    column(Purch__Rcpt__Header___Order_No__Caption; "Purch. Rcpt. Header".FIELDCAPTION("Order No."))
+                    column(Purch__Rcpt__Header___Order_No__Caption; PurchRcptHeader.FIELDCAPTION("Order No."))
                     {
                     }
                     column(PostedInvtPutawayHeader__No__Caption; PostedInvtPutawayHeader__No__CaptionLbl)
                     {
                     }
-                    column(Purch__Rcpt__Header___Order_No__; "Purch. Rcpt. Header"."Order No.")
+                    column(Purch__Rcpt__Header___Order_No__; PurchRcptHeader."Order No.")
                     {
                     }
-                    column(FORMAT__Purch__Rcpt__Header___Posting_Date__0_4_; FORMAT("Purch. Rcpt. Header"."Posting Date", 0, 4))
+                    column(FORMAT__Purch__Rcpt__Header___Posting_Date__0_4_; FORMAT(PurchRcptHeader."Posting Date", 0, 4))
                     {
                     }
                     column(PostedInvtPutawayHeaderOk; PostedInvtPutawayHeaderOk)
                     {
                     }
-                    dataitem(DimensionLoop1; Table2000000026)
+                    dataitem(DimensionLoop1; Integer)
                     {
-                        DataItemLinkReference = "Purch. Rcpt. Header";
+                        DataItemLinkReference = PurchRcptHeader;
                         DataItemTableView = SORTING(Number)
                                             WHERE(Number = FILTER(1 ..));
                         column(DimText; DimText)
@@ -241,11 +233,11 @@ report 50078 "Purchase - Receipt CNE"
                                 CurrReport.BREAK;
                         end;
                     }
-                    dataitem(DataItem3042; Table121)
+                    dataitem(PurchRcptLine; "Purch. Rcpt. Line")
                     {
-                        DataItemLink = Document No.=FIELD(No.);
-                        DataItemLinkReference = "Purch. Rcpt. Header";
-                        DataItemTableView = SORTING(Document No., Line No.);
+                        DataItemLink = "Document No." = FIELD("No.");
+                        DataItemLinkReference = PurchRcptHeader;
+                        DataItemTableView = SORTING("Document No.", "Line No.");
                         column(ShowInternalInfo; ShowInternalInfo)
                         {
                         }
@@ -304,10 +296,10 @@ report 50078 "Purchase - Receipt CNE"
                         column(CommentaireCaption; CommentaireCaptionLbl)
                         {
                         }
-                        dataitem("PostedInvtPut-awayLine"; Table7341)
+                        dataitem("PostedInvtPut-awayLine"; "Posted Invt. Put-away Line")
                         {
-                            DataItemTableView = SORTING(Source Type, Source Subtype, Source No., Source Line No., Source Subline No.);
-                            column(PostedInvtPut_awayLine__Source_No__2_; "Source No. 2")
+                            DataItemTableView = SORTING("Source Type", "Source Subtype", "Source No.", "Source Line No.", "Source Subline No.");
+                            column(PostedInvtPut_awayLine__Source_No__2_; "BC6_Source No. 2")
                             {
                             }
                             column(PostedInvtPut_awayLine__Bin_Code_; "Bin Code")
@@ -316,16 +308,16 @@ report 50078 "Purchase - Receipt CNE"
                             column(PostedInvtPut_awayLine__Qty___Base__; "Qty. (Base)")
                             {
                             }
-                            column(PostedInvtPut_awayLine__Source_Line_No__2_; "Source Line No. 2")
+                            column(PostedInvtPut_awayLine__Source_Line_No__2_; "BC6_Source Line No. 2")
                             {
                             }
-                            column(PostedInvtPut_awayLine__Source_Bin_Code_; "Source Bin Code")
+                            column(PostedInvtPut_awayLine__Source_Bin_Code_; "BC6_Source Bin Code")
                             {
                             }
                             column(DefaultBinCode; DefaultBinCode)
                             {
                             }
-                            column(PostedInvtPut_awayLine__Warehouse_Comment_; "Warehouse Comment")
+                            column(PostedInvtPut_awayLine__Warehouse_Comment_; "BC6_Warehouse Comment")
                             {
                             }
                             column(PostedInvtPut_awayLine_No_; "No.")
@@ -353,15 +345,14 @@ report 50078 "Purchase - Receipt CNE"
 
                                 SETRANGE("Source Type", 39);
                                 SETRANGE("Source Subtype", 1);
-                                SETRANGE("Source No.", "Purch. Rcpt. Line"."Order No.");
-                                SETRANGE("Source Line No.", "Purch. Rcpt. Line"."Order Line No.");
+                                SETRANGE("Source No.", PurchRcptLine."Order No.");
+                                SETRANGE("Source Line No.", PurchRcptLine."Order Line No.");
                                 SETRANGE("Source Subline No.", 0);
                                 SETRANGE("Source Document", "Source Document"::"Purchase Order");
                                 SETRANGE("No.", PostedInvtPutawayHeader."No.");
-                                // MESSAGE('%1',GETFILTERS);
                             end;
                         }
-                        dataitem(DimensionLoop2; Table2000000026)
+                        dataitem(DimensionLoop2; Integer)
                         {
                             DataItemTableView = SORTING(Number)
                                                 WHERE(Number = FILTER(1 ..));
@@ -412,14 +403,11 @@ report 50078 "Purchase - Receipt CNE"
                             IF (NOT ShowCorrectionLines) AND Correction THEN
                                 CurrReport.SKIP;
 
-                            //>>TI255335
-                            IF "Purch. Rcpt. Line".Type = "Purch. Rcpt. Line".Type::" " THEN
+                            IF PurchRcptLine.Type = PurchRcptLine.Type::" " THEN
                                 CurrReport.SKIP;
-                            //<<TI255335
 
                             DimSetEntry2.SETRANGE("Dimension Set ID", "Dimension Set ID");
 
-                            //>>MIGRATION NAV 2013
                             EAN13Bar := '';
                             EAN13Txt := '';
                             EAN13BarTxt := '';
@@ -429,10 +417,10 @@ report 50078 "Purchase - Receipt CNE"
                                         IF (Quantity <> 0) THEN BEGIN
                                             IF NOT CurrReport.PREVIEW THEN BEGIN
                                                 CLEAR(DistInt);
-                                                DistInt.CreateItemEAN13Code("No.", FALSE);
+                                                FctMngt.CreateItemEAN13Code("No.", FALSE);
                                             END;
                                             CLEAR(DistInt);
-                                            EAN13Bar := COPYSTR(DistInt.GetItemEAN13Code("No."), 1, MAXSTRLEN(EAN13Bar));
+                                            EAN13Bar := COPYSTR(FctMngt.GetItemEAN13Code("No."), 1, MAXSTRLEN(EAN13Bar));
                                             IF EAN13Bar <> '' THEN BEGIN
                                                 CLEAR(ConvertAutoIDEAN13);
                                                 EAN13BarTxt := ConvertAutoIDEAN13.EncodeBarcodeEAN13(EAN13Bar, EAN13Txt);
@@ -443,7 +431,6 @@ report 50078 "Purchase - Receipt CNE"
                                             CurrReport.SKIP;
                                     END;
                             END;
-                            //<<MIGRATION NAV 2013
                         end;
 
                         trigger OnPreDataItem()
@@ -454,33 +441,31 @@ report 50078 "Purchase - Receipt CNE"
                             IF NOT MoreLines THEN
                                 CurrReport.BREAK;
                             SETRANGE("Line No.", 0, "Line No.");
-                            //>>MIGRATION NAV 2013
                             AttachedLineNo := 0;
-                            //<<MIGRATION NAV 2013
                         end;
                     }
-                    dataitem(Total; Table2000000026)
+                    dataitem(Total; Integer)
                     {
                         DataItemTableView = SORTING(Number)
                                             WHERE(Number = CONST(1));
-                        column(BuyfromVenNo_PurchRcptHeader; "Purch. Rcpt. Header"."Buy-from Vendor No.")
+                        column(BuyfromVenNo_PurchRcptHeader; PurchRcptHeader."Buy-from Vendor No.")
                         {
                         }
-                        column(BuyfromVenNo_PurchRcptHeaderCaption; "Purch. Rcpt. Header".FIELDCAPTION("Buy-from Vendor No."))
+                        column(BuyfromVenNo_PurchRcptHeaderCaption; PurchRcptHeader.FIELDCAPTION("Buy-from Vendor No."))
                         {
                         }
 
                         trigger OnPreDataItem()
                         begin
-                            IF "Purch. Rcpt. Header"."Buy-from Vendor No." = "Purch. Rcpt. Header"."Pay-to Vendor No." THEN
+                            IF PurchRcptHeader."Buy-from Vendor No." = PurchRcptHeader."Pay-to Vendor No." THEN
                                 CurrReport.BREAK;
                         end;
                     }
-                    dataitem(Total2; Table2000000026)
+                    dataitem(Total2; Integer)
                     {
                         DataItemTableView = SORTING(Number)
                                             WHERE(Number = CONST(1));
-                        column(PaytoVenNo_PurchRcptHeader; "Purch. Rcpt. Header"."Pay-to Vendor No.")
+                        column(PaytoVenNo_PurchRcptHeader; PurchRcptHeader."Pay-to Vendor No.")
                         {
                         }
                         column(VendAddr1; VendAddr[1])
@@ -510,7 +495,7 @@ report 50078 "Purchase - Receipt CNE"
                         column(PaytoAddrCaption; PaytoAddrCaptionLbl)
                         {
                         }
-                        column(PaytoVenNo_PurchRcptHeaderCaption; "Purch. Rcpt. Header".FIELDCAPTION("Pay-to Vendor No."))
+                        column(PaytoVenNo_PurchRcptHeaderCaption; PurchRcptHeader.FIELDCAPTION("Pay-to Vendor No."))
                         {
                         }
                     }
@@ -528,7 +513,7 @@ report 50078 "Purchase - Receipt CNE"
                 trigger OnPostDataItem()
                 begin
                     IF NOT CurrReport.PREVIEW THEN
-                        RcptCountPrinted.RUN("Purch. Rcpt. Header");
+                        RcptCountPrinted.RUN(PurchRcptHeader);
                 end;
 
                 trigger OnPreDataItem()
@@ -543,7 +528,8 @@ report 50078 "Purchase - Receipt CNE"
 
             trigger OnAfterGetRecord()
             begin
-                CurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
+                //TODO CurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
+                CurrReport.Language := Language2.GetLanguageIdOrDefault("Language Code");
 
                 CompanyInfo.GET;
 
@@ -567,22 +553,20 @@ report 50078 "Purchase - Receipt CNE"
                     ReferenceText := ''
                 ELSE
                     ReferenceText := FIELDCAPTION("Your Reference");
-                FormatAddr.PurchRcptShipTo(ShipToAddr, "Purch. Rcpt. Header");
+                FormatAddr.PurchRcptShipTo(ShipToAddr, PurchRcptHeader);
 
-                FormatAddr.PurchRcptPayTo(VendAddr, "Purch. Rcpt. Header");
+                FormatAddr.PurchRcptPayTo(VendAddr, PurchRcptHeader);
 
                 IF LogInteraction THEN
                     IF NOT CurrReport.PREVIEW THEN
                         SegManagement.LogDocument(
                           15, "No.", 0, 0, DATABASE::Vendor, "Buy-from Vendor No.", "Purchaser Code", '', "Posting Description", '');
 
-                //>>MIGRATION NAV 2013
 
                 PostedInvtPutawayHeader.RESET;
-                PostedInvtPutawayHeader.SETRANGE("Source No.", "Purch. Rcpt. Header"."No.");
+                PostedInvtPutawayHeader.SETRANGE("Source No.", PurchRcptHeader."No.");
                 PostedInvtPutawayHeaderOk := PostedInvtPutawayHeader.FINDFIRST;
 
-                //>> 19/03/2012 PROD PT16
                 CLEAR(DefaultReceiptBinCode);
                 CLEAR(DefaultReceiptBinBarTxt);
                 CLEAR(Location);
@@ -593,7 +577,6 @@ report 50078 "Purchase - Receipt CNE"
                 END;
                 IF DefaultReceiptBinCode <> '' THEN
                     DefaultReceiptBinBarTxt := GetBarCode(DefaultReceiptBinCode);
-                //<<MIGRATION NAV 2013
             end;
         }
     }
@@ -651,82 +634,83 @@ report 50078 "Purchase - Receipt CNE"
     }
 
     var
-        Text000: Label 'Purchaser';
-        Text001: Label 'COPY';
-        Text002: Label 'Purchase - Receipt %1';
-        Text003: Label 'Page %1';
-        CompanyInfo: Record "79";
-        SalesPurchPerson: Record "13";
-        DimSetEntry1: Record "480";
-        DimSetEntry2: Record "480";
-        Language: Record "8";
-        RespCenter: Record "5714";
-        RcptCountPrinted: Codeunit "318";
-        SegManagement: Codeunit "5051";
-        VendAddr: array[8] of Text[50];
-        ShipToAddr: array[8] of Text[50];
-        CompanyAddr: array[8] of Text[50];
-        PurchaserText: Text[30];
-        ReferenceText: Text[80];
-        MoreLines: Boolean;
-        NoOfCopies: Integer;
-        NoOfLoops: Integer;
-        CopyText: Text[30];
-        FormatAddr: Codeunit "365";
-        DimText: Text[120];
-        OldDimText: Text[75];
-        ShowInternalInfo: Boolean;
+        CompanyInfo: Record "Company Information";
+        DimSetEntry1: Record "Dimension Set Entry";
+        DimSetEntry2: Record "Dimension Set Entry";
+        Language: Record Language;
+        Location: Record Location;
+        PostedInvtPutawayHeader: Record "Posted Invt. Put-away Header";
+        RespCenter: Record "Responsibility Center";
+        SalesPurchPerson: Record "Salesperson/Purchaser";
+        ConvertAutoIDEAN13: Codeunit "BC6_Barcode Mngt AutoID";
+        ConvertBarCode: Codeunit "BC6_Barcode Mngt AutoID";
+        FctMngt: Codeunit "BC6_Functions Mgt";
+        DistInt: Codeunit "Dist. Integration";
+        FormatAddr: Codeunit "Format Address";
+        Language2: Codeunit Language;
+        RcptCountPrinted: Codeunit "Purch.Rcpt.-Printed";
+        SegManagement: Codeunit SegManagement;
+        WMSManagement: Codeunit "WMS Management";
         Continue: Boolean;
         LogInteraction: Boolean;
-        ShowCorrectionLines: Boolean;
-        OutputNo: Integer;
         [InDataSet]
         LogInteractionEnable: Boolean;
-        PhoneNoCaptionLbl: Label 'Phone No.';
-        HomePageCaptionLbl: Label 'Home Page';
-        VATRegNoCaptionLbl: Label 'VAT Registration No.';
-        GiroNoCaptionLbl: Label 'Giro No.';
-        BankNameCaptionLbl: Label 'Bank';
-        AccNoCaptionLbl: Label 'Account No.';
-        ShipmentNoCaptionLbl: Label 'Shipment No.';
-        HeaderDimCaptionLbl: Label 'Header Dimensions';
-        LineDimCaptionLbl: Label 'Line Dimensions';
-        PaytoAddrCaptionLbl: Label 'Pay-to Address';
-        DocDateCaptionLbl: Label 'Document Date';
-        PageCaptionLbl: Label 'Page';
-        DescCaptionLbl: Label 'Description';
-        QtyCaptionLbl: Label 'Quantity';
-        UOMCaptionLbl: Label 'Unit Of Measure';
-        PaytoVenNoCaptionLbl: Label 'Pay-to Vendor No.';
-        EmailCaptionLbl: Label 'E-Mail';
-        "- MIGNAV2013 -": Integer;
-        PostedInvtPutawayHeader: Record "7340";
+        MoreLines: Boolean;
         PostedInvtPutawayHeaderOk: Boolean;
-        Location: Record "14";
+        ShowCorrectionLines: Boolean;
+        ShowInternalInfo: Boolean;
         DefaultBinCode: Code[20];
-        WMSManagement: Codeunit "7302";
-        DistInt: Codeunit "5702";
-        ConvertAutoIDEAN13: Codeunit "50099";
-        EAN13Txt: Text[13];
-        EAN13Bar: Text[13];
-        EAN13BarTxt: Text[120];
-        AttachedLineNo: Integer;
         DefaultReceiptBinCode: Code[20];
-        ConvertBarCode: Codeunit "50099";
-        DefaultReceiptBinBarTxt: Text[120];
-        CompanyInfo__Fax_No__CaptionLbl: Label 'Fax No.';
-        Purch__Rcpt__Header___No__CaptionLbl: Label 'Shipment No.';
-        PostedInvtPutawayHeader__No__CaptionLbl: Label 'Invt. Put-Away No.';
-        EAN13_CodeCaptionLbl: Label 'EAN13 Code';
+        AttachedLineNo: Integer;
+        NoOfCopies: Integer;
+        NoOfLoops: Integer;
+        OutputNo: Integer;
+        AccNoCaptionLbl: Label 'Account No.', comment = 'FRA="No compte"';
+        BankNameCaptionLbl: Label 'Bank', comment = 'FRA="Banque"';
+        Code_empl__exp_CaptionLbl: Label 'Code empl. exp.';
         "Code_empl__par_défautCaptionLbl": Label 'Code empl. par défaut';
         "Code_empl__récept_CaptionLbl": Label 'Code empl. récept.';
-        Code_empl__exp_CaptionLbl: Label 'Code empl. exp.';
-        N__ligneCaptionLbl: Label 'N° ligne';
-        N__commande_venteCaptionLbl: Label 'N° commande vente';
         CommentaireCaptionLbl: Label 'Commentaire';
-        Pay_to_AddressCaptionLbl: Label 'Pay-to Address';
+        CompanyInfo__Fax_No__CaptionLbl: Label 'Fax No.', comment = 'FRA="télécopie"';
+        DescCaptionLbl: Label 'Description', comment = 'FRA="Désignation"';
+        DocDateCaptionLbl: Label 'Document Date', comment = 'FRA="Date document"';
+        EAN13_CodeCaptionLbl: Label 'EAN13 Code', comment = 'FRA="Code EAN13"';
+        EmailCaptionLbl: Label 'E-Mail';
+        GiroNoCaptionLbl: Label 'Giro No.', comment = 'FRA="No CCP"';
+        HeaderDimCaptionLbl: Label 'Header Dimensions', comment = 'FRA="Analytique en-téte"';
+        HomePageCaptionLbl: Label 'Home Page', comment = 'FRA="Page d''accueil"';
+        LineDimCaptionLbl: Label 'Line Dimensions', comment = 'FRA="Analytique ligne"';
+        N__commande_venteCaptionLbl: Label 'N° commande vente';
+        N__ligneCaptionLbl: Label 'N° ligne';
+        PageCaptionLbl: Label 'Page';
+        Pay_to_AddressCaptionLbl: Label 'Pay-to Address', comment = 'FRA="Addresse"';
+        PaytoAddrCaptionLbl: Label 'Pay-to Address', comment = 'FRA="Adresse"';
+        PaytoVenNoCaptionLbl: Label 'Pay-to Vendor No.', comment = 'FRA="No fournisseur … payer"';
+        PhoneNoCaptionLbl: Label 'Phone No.', comment = 'FRA="Nø téléphone"';
+        PostedInvtPutawayHeader__No__CaptionLbl: Label 'Invt. Put-Away No.', comment = 'FRA="No rangement stock"';
+        Purch__Rcpt__Header___No__CaptionLbl: Label 'Shipment No.', comment = 'FRA="No livraison"';
+        QtyCaptionLbl: Label 'Quantity', comment = 'FRA="Quantité"';
+        ShipmentNoCaptionLbl: Label 'Shipment No.', comment = 'FRA="No expédition"';
+        Text000: Label 'Purchaser', comment = 'FRA="Acheteur"';
+        Text001: Label 'COPY', comment = 'FRA="COPIE"';
+        Text002: Label 'Purchase - Receipt %1', comment = 'FRA="Achats : Réception %1"';
+        Text003: Label 'Page %1', comment = 'FRA="Page %1"';
+        UOMCaptionLbl: Label 'Unit Of Measure', comment = 'FRA="Unité"';
+        VATRegNoCaptionLbl: Label 'VAT Registration No.', comment = 'FRA="No identif. intracomm."';
+        EAN13Bar: Text[13];
+        EAN13Txt: Text[13];
+        CopyText: Text[30];
+        PurchaserText: Text[30];
+        CompanyAddr: array[8] of Text[50];
+        ShipToAddr: array[8] of Text[50];
+        VendAddr: array[8] of Text[50];
+        OldDimText: Text[75];
+        ReferenceText: Text[80];
+        DefaultReceiptBinBarTxt: Text[120];
+        DimText: Text[120];
+        EAN13BarTxt: Text[120];
 
-    [Scope('Internal')]
+
     procedure InitializeRequest(NewNoOfCopies: Integer; NewShowInternalInfo: Boolean; NewLogInteraction: Boolean; NewShowCorrectionLines: Boolean)
     begin
         NoOfCopies := NewNoOfCopies;
@@ -735,12 +719,7 @@ report 50078 "Purchase - Receipt CNE"
         ShowCorrectionLines := NewShowCorrectionLines;
     end;
 
-    [Scope('Internal')]
-    procedure "--- MIGNAV2013 ---"()
-    begin
-    end;
 
-    [Scope('Internal')]
     procedure GetBarCode(piBinCode: Code[20]): Text[120]
     begin
         CLEAR(ConvertBarCode);

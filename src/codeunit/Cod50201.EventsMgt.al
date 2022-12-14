@@ -1710,6 +1710,7 @@ then begin
     local procedure T77_OnBeforeSendEmailDirectly_ReportSelections(var ReportSelections: Record "Report Selections"; ReportUsage: Enum "Report Selection Usage"; RecordVariant: Variant; var DocNo: Code[20]; var DocName: Text[150]; FoundBody: Boolean; FoundAttachment: Boolean; ServerEmailBodyFilePath: Text[250]; var DefaultEmailAddress: Text[250]; ShowDialog: Boolean; var TempAttachReportSelections: Record "Report Selections" temporary; var CustomReportSelection: Record "Custom Report Selection"; var AllEmailsWereSuccessful: Boolean; var IsHandled: Boolean)
     var
         SalesHeader: Record "Sales Header";
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
         FctMangt: Codeunit "BC6_Functions Mgt";
     begin
         case ReportUsage of
@@ -1717,20 +1718,35 @@ then begin
                 begin
                     SalesHeader := RecordVariant;
                     FctMangt.SetYourReference(SalesHeader."Your Reference");
+                    GlobalFunctionMgt.SetT77_SalesHeader(SalesHeader);
                 end;
         end;
     end;
 
-    [EventSubscriber(ObjectType::Table, Database::"Report Selections", 'OnSendEmailDirectlyOnBeforeSaveReportAsPDFInTempBlob', '', false, false)]
+    [EventSubscriber(ObjectType::Table, Database::"Report Selections", 'OnSendEmailDirectlyOnBeforeSaveReportAsPDFInTempBlob', '', false, false)] // TODO:
     local procedure T77_OnSendEmailDirectlyOnBeforeSaveReportAsPDFInTempBlob_ReportSelection(ReportSelection: Record "Report Selections"; RecordVariant: Variant; ReportUsage: Enum "Report Selection Usage"; var TempBlob: Codeunit "Temp Blob"; var IsHandled: Boolean)
     var
         SalesHeader: Record "Sales Header";
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
     begin
-        // IF ReportUsage IN [ReportUsage::"S.Order", ReportUsage::"S.Quote"] THEN BEGIN   TODO:
-        //       SalesHeader := RecordVariant;
-        //       IF SalesHeader."BC6_Sell-to E-Mail Address" <> '' THEN
-        //         EmailAddress := SalesHeader."BC6_Sell-to E-Mail Address";
-        //     END;
+        IF ReportUsage IN [ReportUsage::"S.Order", ReportUsage::"S.Quote"] THEN BEGIN
+            SalesHeader := RecordVariant;
+            GlobalFunctionMgt.SetT77_SalesHeader(SalesHeader);
+        END;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Document-Mailing", 'OnBeforeEmailFileInternal', '', false, false)]
+    local procedure OnBeforeEmailFileInternal(var TempEmailItem: Record "Email Item" temporary; var HtmlBodyFilePath: Text[250]; var EmailSubject: Text[250]; var ToEmailAddress: Text[250]; var PostedDocNo: Code[20]; var EmailDocName: Text[250]; var HideDialog: Boolean; var ReportUsage: Integer; var IsFromPostedDoc: Boolean; var SenderUserID: Code[50]; var EmailScenario: Enum "Email Scenario")
+    var
+        SalesHeader: Record "Sales Header";
+        EnumReportUsage: Enum "Report Selection Usage";
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
+    begin
+        IF ReportUsage IN [EnumReportUsage::"S.Order".AsInteger(), EnumReportUsage::"S.Quote".AsInteger()] THEN BEGIN
+            GlobalFunctionMgt.GetT77_SalesHeader(SalesHeader);
+            IF SalesHeader."BC6_Sell-to E-Mail Address" <> '' THEN
+                ToEmailAddress := SalesHeader."BC6_Sell-to E-Mail Address";
+        END;
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Gen. Journal Line", 'OnAfterCopyGenJnlLineFromPurchHeader', '', false, false)]
@@ -2910,6 +2926,10 @@ then begin
         PurchInvStat.IncrementDecGMntHTDEEE(PurchInvLine."BC6_DEEE HT Amount");
         PurchInvStat.IncrementDecGMntTTCDEEE(PurchInvLine."BC6_DEEE TTC Amount");
         AmountInclVAT := AmountInclVAT + PurchInvLine."BC6_DEEE TTC Amount";
+
+        PurchInvStat.SetNewVendAmount(VendAmount);
+        PurchInvStat.SetNewAmountInclVAT(AmountInclVAT);
+        PurchInvStat.SetNewVATPercentage(VATPercentage);
     end;
 
     [EventSubscriber(ObjectType::Page, Page::"Purch. Credit Memo Statistics", 'OnCalculateTotalsOnAfterAddLineTotals', '', false, false)]
@@ -2919,6 +2939,9 @@ then begin
     begin
         PurchCreditMemoStat.Increment_MntHTDEEE(PurchCrMemoLine."BC6_DEEE HT Amount");
         AmountInclVAT := AmountInclVAT + PurchCrMemoLine."BC6_DEEE TTC Amount";
+        PurchCreditMemoStat.SetNewVATPercentage(VATPercentage);
+        PurchCreditMemoStat.SetNewVendAmount(VendAmount);
+        PurchCreditMemoStat.SetNewAmountInclVAT(AmountInclVAT);
     end;
 
     [EventSubscriber(ObjectType::Page, Page::"Purchase Return Order Subform", 'OnBeforeUpdateTypeText', '', false, false)]
@@ -2944,7 +2967,7 @@ then begin
             SalesHeader.RESET();
             SalesHeader.SETRANGE("Document Type", Rec."Document Type");
             SalesHeader.SETRANGE("No.", Rec."No.");
-            // REPORT.RUNMODAL(50060, TRUE, FALSE, SalesHeader); TODO: missing report
+            // REPORT.RUNMODAL(50060, TRUE, FALSE, SalesHeader); // TODO: missing report
         end;
     end;
 
@@ -3189,10 +3212,9 @@ then begin
         SalesLine: Record "Sales Line";
         SalesOrder: Record "Sales Header";
         QtyBaseToAssign: Decimal;
-        SalesReservationFound: Boolean;
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
     begin
-
-        SalesReservationFound := false;
+        GlobalFunctionMgt.SetSalesReservationFound(false);
         TempSalesLine.RESET;
         TempSalesLine.DELETEALL;
 
@@ -3217,29 +3239,29 @@ then begin
                             TempSalesLine."Description 2" := SalesOrder."BC6_Warehouse Comments";
 
                         TempSalesLine.INSERT();
-                    end;
-                until SalesLine.NEXT() = 0;
+
+                    END;
+                UNTIL SalesLine.NEXT() = 0;
+        END;
+        IF TempSalesLine.FIND('-') THEN begin
+            GlobalFunctionMgt.SetSalesReservationFound(true);
+            GlobalFunctionMgt.SetCD7321_TempSalesLine(TempSalesLine);
         end;
-        if TempSalesLine.FIND('-') then
-            SalesReservationFound := true;
+
     end;
 
     // TODO: function InsertWhseActivLine in codeunit "Create Inventory Put-away"
     // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Create Inventory Put-away", 'OnInsertWhseActivLineOnBeforeAutoCreation', '', false, false)] TODO:
     // local procedure OnInsertWhseActivLineOnBeforeAutoCreation(var WarehouseActivityLine: Record "Warehouse Activity Line"; var TempTrackingSpecification: Record "Tracking Specification" temporary; ReservationFound: Boolean; SNRequired: Boolean; LNRequired: Boolean)
     // var
-    //     TmpSalesLine: Record "Sales Line";
+    //     TmpSalesLine: Record "Sales Line" temporary;
     //     WhseActivLine: Record "Warehouse Activity Line";
     //     SalesReservationFound: Boolean;
+    //     GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
     // begin
 
-    //     IF SalesReservationFound THEN BEGIN
-    //         TmpSalesLine.RESET;
-    //         TmpSalesLine.SETCURRENTKEY("BC6_Purch. Document Type", "BC6_Purch. Order No.", "BC6_Purch. Line No.");
-    //         TmpSalesLine.SETRANGE("BC6_Purch. Document Type", "Document Type");
-    //         TmpSalesLine.SETRANGE("BC6_Purch. Order No.", "Document No.");
-    //         TmpSalesLine.SETRANGE("BC6_Purch. Line No.", "Line No.");
-
+    //     IF GlobalFunctionMgt.GetSalesReservationFound() THEN BEGIN
+    //     GlobalFunctionMgt.GetCD7321_TempSalesLine(TmpSalesLine);
     //         WarehouseActivityLine."BC6_Source Document 2" := WarehouseActivityLine."BC6_Source Document 2"::"Sales Order";
     //         WarehouseActivityLine."BC6_Source No. 2" := TmpSalesLine."Document No.";
     //         WarehouseActivityLine."BC6_Source Line No. 2" := TmpSalesLine."Line No.";
@@ -3255,7 +3277,7 @@ then begin
     //         //MIG 2017 <<
     //         ELSE
     //             PutAwayQty := PutAwayQty;
-    //         SalesReservationFound := FALSE;
+    //         GlobalFunctionMgt.SetSalesReservationFound(false);
     //     END ELSE
     //         IF (TmpSalesLine.NEXT <> 0) THEN BEGIN
     //             WarehouseActivityLine."BC6_Source Document 2" := WarehouseActivityLine."BC6_Source Document 2"::"Sales Order";
@@ -3263,10 +3285,10 @@ then begin
     //             WarehouseActivityLine."BC6_Source Line No. 2" := TmpSalesLine."Line No.";
     //             IF (TmpSalesLine."Location Code" = WarehouseActivityLine."Location Code") AND
     //               (TmpSalesLine."Bin Code" <> '') THEN
-    //                 WarehouseActivityLine."Source Bin Code" := TmpSalesLine."Bin Code";
+    //                 WarehouseActivityLine."BC6_Source Bin Code" := TmpSalesLine."Bin Code";
     //             if WhseActivLine.FindLast() then
     //                 WarehouseActivityLine."Bin Code" := WhseActivLine."Bin Code";
-    //             WarehouseActivityLine."Warehouse Comment" := TmpSalesLine."Description 2";
+    //             WarehouseActivityLine."BC6_Warehouse Comment" := TmpSalesLine."Description 2";
     //             IF PutAwayQty > TmpSalesLine."Outstanding Qty. (Base)" THEN
     //                 PutAwayQty := TmpSalesLine."Outstanding Qty. (Base)"
     //             ELSE
@@ -3357,7 +3379,21 @@ then begin
         GlobalFunctionMgt.SetDeleteWhseActivity(DeleteWhseActivity);
     end;
 
-
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Whse.-Activity-Post", 'OnAfterCode', '', false, false)]
+    local procedure OnAfterCode(var WarehouseActivityLine: Record "Warehouse Activity Line"; var SuppressCommit: Boolean; PrintDoc: Boolean)
+    var
+        WhseActivHeader: Record "Warehouse Activity Header";
+        FunctionsMgt: Codeunit "BC6_Functions Mgt";
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
+    begin
+        WhseActivHeader.Get(WarehouseActivityLine."Activity Type", WarehouseActivityLine."No.");
+        IF NOT GlobalFunctionMgt.GetDeleteWhseActivityHeaderOk() THEN
+            IF PrintDoc THEN
+                CASE WhseActivHeader."Source Document" OF
+                    WhseActivHeader."Source Document"::"Sales Order":
+                        FunctionsMgt.PrintInvtPickHeaderCheck(WhseActivHeader, TRUE);
+                END;
+    end;
 
     // Codeunit 7324 "Whse.-Activity-Post" procedure CreateWhseJnlLine"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Whse.-Activity-Post", 'OnAfterCreateWhseJnlLine', '', false, false)]
@@ -4211,4 +4247,47 @@ then begin
         end;
     end;
 
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Whse.-Activity-Post", 'OnCodeOnAfterWhseActivLineSetFilters', '', false, false)]
+    local procedure OnCodeOnAfterWhseActivLineSetFilters(var WhseActivHeader: Record "Warehouse Activity Header"; var WhseActivLine: Record "Warehouse Activity Line")
+    var
+        WhseActivLine2: Record "Warehouse Activity Line";
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
+        DeleteWhseActivityHeaderOk: Boolean;
+        QtytoHandle: Decimal;
+    begin
+        GlobalFunctionMgt.SetDeleteWhseActivityHeaderOk(true);
+        IF GlobalFunctionMgt.GetDeleteWhseActivity() THEN BEGIN
+            IF WhseActivLine.FIND('-') THEN
+                REPEAT
+                    //>> CNE6.01
+                    QtytoHandle := 0;
+                    IF (WhseActivLine."Activity Type" = WhseActivLine."Activity Type"::"Invt. Put-away") THEN BEGIN
+                        WhseActivLine.DELETE;
+                    END ELSE BEGIN
+                        IF (WhseActivLine."Qty. Outstanding" <= 0) THEN
+                            WhseActivLine.DELETE
+                        ELSE BEGIN
+                            GlobalFunctionMgt.SetDeleteWhseActivityHeaderOk(false);
+                            WhseActivLine2.get(WhseActivLine."Activity Type", WhseActivLine."No.", WhseActivLine."Line No.");
+                            WhseActivLine2.BC6_DeleteWhseActivityHeader := false;
+                            WhseActivLine2.modify();
+                            //>> COR A
+                            IF (WhseActivLine."BC6_Qty. Picked" > 0) THEN
+                                QtytoHandle := WhseActivLine."BC6_Qty. Picked" - WhseActivLine."Qty. Handled";
+                            IF (QtytoHandle > WhseActivLine."Qty. Outstanding") THEN
+                                QtytoHandle := WhseActivLine."Qty. Outstanding";
+                            IF QtytoHandle < 0 THEN
+                                QtytoHandle := 0;
+                            WhseActivLine.VALIDATE("Qty. to Handle", QtytoHandle);
+                        END;
+                    END;
+                UNTIL WhseActivLine.NEXT = 0;
+            //>> CNE6.01
+            IF GlobalFunctionMgt.GetDeleteWhseActivityHeaderOk() THEN
+                WhseActivLine.SetRange(BC6_DeleteWhseActivityHeader, true);
+        end;
+    end;
+
+
 }
+

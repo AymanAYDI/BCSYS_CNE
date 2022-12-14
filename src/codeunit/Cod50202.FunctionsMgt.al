@@ -1160,6 +1160,7 @@ codeunit 50202 "BC6_Functions Mgt"
     var
         GLSetup: Record "General Ledger Setup";
     begin
+        GLSetup.get();
         with PurchLine do begin
             "BC6_DEEE HT Amount" := ROUND("BC6_DEEE HT Amount" * DecPQtyPurchLine / Quantity, 0.01);
             if ("VAT Calculation Type" = "VAT Calculation Type"::"Sales Tax") and
@@ -1326,6 +1327,17 @@ codeunit 50202 "BC6_Functions Mgt"
             "BC6_DEEE TTC Amount" := -"BC6_DEEE TTC Amount";
         end;
     end;
+
+    PROCEDURE MntIncrDEEEPurchPost(VAR RecLPurchLine: Record "Purchase Line");
+    var
+        GloablFunction: codeunit "BC6_GlobalFunctionMgt";
+    BEGIN
+        //>>DEEE1.00 :
+        GloablFunction.Set90GDecMntTTCDEEE(GloablFunction.Get90GDecMntHTDEEE() + RecLPurchLine."BC6_DEEE HT Amount");
+        GloablFunction.Set90GDecMntHTDEEE(GloablFunction.Get90GDecMntTTCDEEE() + RecLPurchLine."BC6_DEEE TTC Amount");
+        //<<DEEE1.00 :
+    END;
+
 
     PROCEDURE MntIncrDEEE(VAR RecLPurchLine: Record "Purchase Line");
     var

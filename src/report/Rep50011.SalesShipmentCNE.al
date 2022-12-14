@@ -1,82 +1,21 @@
-report 50011 "Sales - Shipment CNE"
+report 50011 "BC6_Sales - Shipment CNE"
 {
-    // //Creation commercials States CASC 15/12/06 NCS1.01 [FE001V1] : Creation Report
-    // //DESIGN DARI 19/01/2007 NSC1.03
-    // //DESIGN DARI 29/01/2007 NSC1.04   - Add option : showing Amounts or not showing Amounts
-    // //DEfault Value  FLGR 07/02/2007 set default value : change Request form option "Save Values" from yes to NO
-    //                                                change ShowAmounts default value to False
-    // //TODOLIST POINT 58 FLGR 08/02/2007 : print line with 0 as qty
-    // 
-    // //FE005 MICO 14/02/2007 :
-    //   Ajout des triggers :
-    //   - DefineTagFax(TxtLTag : Text[50])
-    //   - DefineTagMail(TxtLTag : Text[50])
-    // 
-    //   Ajout du champ : TxtGTag en en-tête du report
-    //       + bouton : Envoyer/Imprimer
-    //       pour permettre au user le choix d'envoi du document :
-    //                    - Imprimante
-    //                    - Mail
-    //                    - Fax
-    // //VERSIONNING FG 28/02/07 suite au Merge
-    // //COMPTA_DEEE FG 01/03/07
-    // //TDL:MICO 13/04/07
-    //   - Ajout de code pour ajouter à la TVA, la TVA DEEE.
-    // 
-    // //TDL: TVA_DEEE DARI 17/04/07 : TVA on DEEE = 0 when the Billed Customer is not submitted to DEEE.
-    // 
-    // //TDL point 97  - NSC 2.0  DARI 09/05/07 : Add External Document
-    // //TDL point 101 - NSC 2.0  DARI 10/05/07 : Design : Modify Rounding of Vat Incl. Total
-    // 
-    // //>>NSC2.02
-    // TDL97.001:ARHA 24/05/2007 : Add External Reference in Sales Shipment Lines
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>CNE1.00
-    // FEP-ADVE-200706_18_A.001:MA 15/11/2007 : Gestin des apples d'offres clients
-    //         - Add field "Affaire No"
-    // 
-    // //>>CNE1.01
-    // FE-OLD:MA 03/12/2007 :
-    //         -  add GTxtShowAmounts:='' in PageLoop-OnPreDataItem
-    // 
-    // FEP-ADVE-200706_18_A.002:GR 07/03/2008 : Gestin des apples d'offres clients
-    //         - Delete te space caused by printing "Affaire No"
-    //         - Add new section : PageLoop, Header (2)
-    // 
-    // 
-    // //>>MODIF HL
-    // I007227.001 DO 09/07/2008 : - Modif control Bon de livraison <Control1000000004>
-    //                             //>> PageLoop header(1)
-    // 
-    // //>> MODIF HL 10/10/2012 SU-DADE cf appel TI125406
-    // //   Sales Shipment Header - OnAfterGetRecord()
-    // //<< MODIF HL 10/10/2012 SU-DADE cf appel TI125406
-    // 
-    // //TDL.EC04  CNE6.01 Shipment Printed Only shipped Qty
-    //                     Skip Line not shipped
-    // 
-    // //>>CNEIC
-    // CR_NouvSte_CNE_20150605: TO 26:06/2015: Ne pas imprimer informations 2nde société si vide
-    // 
-    // ------------------------------------------------------------------------
     DefaultLayout = RDLC;
     RDLCLayout = './SalesShipmentCNE.rdlc';
 
-    Caption = 'Sales - Shipment';
+    Caption = 'Sales - Shipment', Comment = 'FRA="Ventes : Expédition"';
 
     dataset
     {
-        dataitem(DataItem3595; Table110)
+        dataitem("Sales Shipment Header"; "Sales Shipment Header")
         {
-            DataItemTableView = SORTING(No.);
+            DataItemTableView = SORTING("No.");
             RequestFilterFields = "No.", "Sell-to Customer No.", "No. Printed";
-            RequestFilterHeading = 'Posted Sales Shipment';
+            RequestFilterHeading = 'Posted Sales Shipment', Comment = 'FRA="Expédition vente enregistrée"';
             column(CompanyInfo_Picture; CompanyInfo.Picture)
             {
             }
-            column(CompanyInfo__Alt_Picture_; CompanyInfo."Alt Picture")
+            column(CompanyInfo__Alt_Picture_; CompanyInfo."BC6_Alt Picture")
             {
             }
             column(No_SalesShptHeader; "No.")
@@ -85,10 +24,10 @@ report 50011 "Sales - Shipment CNE"
             column(Prices_Including_VAT; "Prices Including VAT")
             {
             }
-            dataitem(CopyLoop; Table2000000026)
+            dataitem(CopyLoop; Integer)
             {
                 DataItemTableView = SORTING(Number);
-                dataitem(PageLoop; Table2000000026)
+                dataitem(PageLoop; Integer)
                 {
                     DataItemTableView = SORTING(Number)
                                         WHERE(Number = CONST(1));
@@ -173,13 +112,13 @@ report 50011 "Sales - Shipment CNE"
                     column(STRSUBSTNO_Text004__Sales_Shipment_Header___Order_No____Sales_Shipment_Header___Order_Date__; STRSUBSTNO(Text004, "Sales Shipment Header"."Order No.", "Sales Shipment Header"."Order Date"))
                     {
                     }
-                    column(STRSUBSTNO_Text066_CompanyInfo__Alt_Phone_No___CompanyInfo__Alt_Fax_No___CompanyInfo__Alt_E_Mail__; STRSUBSTNO(Text066, CompanyInfo."Alt Phone No.", CompanyInfo."Alt Fax No.", CompanyInfo."Alt E-Mail"))
+                    column(STRSUBSTNO_Text066_CompanyInfo__Alt_Phone_No___CompanyInfo__Alt_Fax_No___CompanyInfo__Alt_E_Mail__; STRSUBSTNO(Text066, CompanyInfo."BC6_Alt Phone No.", CompanyInfo."BC6_Alt Fax No.", CompanyInfo."BC6_Alt E-Mail"))
                     {
                     }
-                    column(DataItem1000000021; CompanyInfo."Alt Address" + ' ' + CompanyInfo."Alt Address 2" + ' ' + STRSUBSTNO('%1 %2', CompanyInfo."Alt Post Code", CompanyInfo."Alt City"))
+                    column(DataItem1000000021; CompanyInfo."BC6_Alt Address" + ' ' + CompanyInfo."BC6_Alt Address 2" + ' ' + STRSUBSTNO('%1 %2', CompanyInfo."BC6_Alt Post Code", CompanyInfo."BC6_Alt City"))
                     {
                     }
-                    column(CompanyInfo__Alt_Name_; CompanyInfo."Alt Name")
+                    column(CompanyInfo__Alt_Name_; CompanyInfo."BC6_Alt Name")
                     {
                     }
                     column(STRSUBSTNO_Text066_CompanyInfo__Phone_No___CompanyInfo__Fax_No___CompanyInfo__E_Mail__; STRSUBSTNO(Text066, CompanyInfo."Phone No.", CompanyInfo."Fax No.", CompanyInfo."E-Mail"))
@@ -197,7 +136,7 @@ report 50011 "Sales - Shipment CNE"
                     column(CompanyInfo__Home_Page_; CompanyInfo."Home Page")
                     {
                     }
-                    column(CompanyInfo__Alt_Home_Page_; CompanyInfo."Alt Home Page")
+                    column(CompanyInfo__Alt_Home_Page_; CompanyInfo."BC6_Alt Home Page")
                     {
                     }
                     column(Sales_Shipment_Header___Sell_to_Customer_No__Caption; Sales_Shipment_Header___Sell_to_Customer_No__CaptionLbl)
@@ -221,11 +160,11 @@ report 50011 "Sales - Shipment CNE"
                     column(PageLoop_Number; Number)
                     {
                     }
-                    dataitem(DataItem2502; Table111)
+                    dataitem("Sales Shipment Line"; "Sales Shipment Line")
                     {
-                        DataItemLink = Document No.=FIELD(No.);
+                        DataItemLink = "Document No." = FIELD("No.");
                         DataItemLinkReference = "Sales Shipment Header";
-                        DataItemTableView = SORTING(Document No., Line No.);
+                        DataItemTableView = SORTING("Document No.", "Line No.");
                         column(ShowInternalInfo; ShowInternalInfo)
                         {
                         }
@@ -251,11 +190,11 @@ report 50011 "Sales - Shipment CNE"
                         column(DecGLineAmount; DecGLineAmount)
                         {
                         }
-                        column(Sales_Shipment_Line__Sales_Shipment_Line___Ordered_Quantity_; "Sales Shipment Line"."Ordered Quantity")
+                        column(Sales_Shipment_Line__Sales_Shipment_Line___Ordered_Quantity_; "Sales Shipment Line"."BC6_Ordered Quantity")
                         {
                             DecimalPlaces = 0 : 2;
                         }
-                        column(Sales_Shipment_Line__Sales_Shipment_Line___Outstanding_Quantity_; "Sales Shipment Line"."Outstanding Quantity")
+                        column(Sales_Shipment_Line__Sales_Shipment_Line___Outstanding_Quantity_; "Sales Shipment Line"."BC6_Outstanding Quantity")
                         {
                             DecimalPlaces = 0 : 2;
                         }
@@ -271,7 +210,6 @@ report 50011 "Sales - Shipment CNE"
                         }
                         column(CodGDEEECategoryCode; CodGDEEECategoryCode)
                         {
-                            DecimalPlaces = 0 : 2;
                         }
                         column(DecGNetPrice_Control1000000182; DecGNetPrice)
                         {
@@ -342,7 +280,7 @@ report 50011 "Sales - Shipment CNE"
                                 CurrReport.SKIP;
 
                             // CNE6.01
-                            IF NOT (Cust."Shipt Print All Order Line") THEN BEGIN
+                            IF NOT (Cust."BC6_Shipt Print All Order Line") THEN BEGIN
                                 CASE Type OF
                                     Type::Item:
                                         BEGIN
@@ -362,7 +300,7 @@ report 50011 "Sales - Shipment CNE"
 
                             SaleLine.RESET;
                             IF SaleLine.GET
-                                ("Sales Shipment Line"."Purch. Document Type", "Sales Shipment Line"."Order No.", "Sales Shipment Line"."Order Line No.") THEN
+                                ("Sales Shipment Line"."BC6_Purch. Document Type", "Sales Shipment Line"."Order No.", "Sales Shipment Line"."Order Line No.") THEN
                                 ;
 
                             //>>NSC1.04:DARI 29/01/2007
@@ -389,17 +327,17 @@ report 50011 "Sales - Shipment CNE"
                             //<<FE005:DARI 22/02/2007
                             RecGItem.INIT;
                             IF RecGItem.GET("No.") THEN
-                                IF ((RecGItem."DEEE Category Code" <> '') AND (Quantity <> 0)
-                                AND (RecGItem."Eco partner DEEE" <> '')) THEN BEGIN
-                                    CodGDEEECategoryCode := RecGItem."DEEE Category Code";
+                                IF ((RecGItem."BC6_DEEE Category Code" <> '') AND (Quantity <> 0)
+                                AND (RecGItem."BC6_Eco partner DEEE" <> '')) THEN BEGIN
+                                    CodGDEEECategoryCode := RecGItem."BC6_DEEE Category Code";
                                     DecGNumbeofUnitsDEEE := 0;
                                     //FG
                                     //DecGTotTVADEEE:=0;
-                                    DecGNumbeofUnitsDEEE := RecGItem."Number of Units DEEE";
+                                    DecGNumbeofUnitsDEEE := RecGItem."BC6_Number of Units DEEE";
                                     RecGDEEE.RESET;
-                                    RecGDEEE.SETFILTER(RecGDEEE."DEEE Code", RecGItem."DEEE Category Code");
+                                    RecGDEEE.SETFILTER(RecGDEEE."DEEE Code", RecGItem."BC6_DEEE Category Code");
                                     //>>TDL:MICO 13/04/07
-                                    RecGDEEE.SETFILTER(RecGDEEE."Eco Partner", RecGItem."Eco partner DEEE");
+                                    RecGDEEE.SETFILTER(RecGDEEE."Eco Partner", RecGItem."BC6_Eco partner DEEE");
                                     //<<TDL:MICO 13/04/07
                                     RecGDEEE.SETFILTER(RecGDEEE."Date beginning", '<=%1', "Sales Shipment Header"."Posting Date");
                                     DecGHTUnitTaxLCY := 0;
@@ -440,8 +378,8 @@ report 50011 "Sales - Shipment CNE"
                             //>>FE005:DARI 22/02/2007
 
                             //>>COMPTA_DEEE FG 01/03/07
-                            IF RecGBillCustomer."Submitted to DEEE" THEN BEGIN
-                                BooGVisible := (RecGItem."DEEE Category Code" <> '') AND (Quantity <> 0) AND (RecGItem."Eco partner DEEE" <> '')
+                            IF RecGBillCustomer."BC6_Submitted to DEEE" THEN BEGIN
+                                BooGVisible := (RecGItem."BC6_DEEE Category Code" <> '') AND (Quantity <> 0) AND (RecGItem."BC6_Eco partner DEEE" <> '')
                             END ELSE BEGIN
                                 BooGVisible := FALSE;
                             END;
@@ -451,8 +389,8 @@ report 50011 "Sales - Shipment CNE"
 
                         trigger OnPostDataItem()
                         var
-                            RecLSaleShipmentHeader: Record "110";
-                            RecLSaleShipmentLine: Record "111";
+                            RecLSaleShipmentHeader: Record "Sales Shipment Header";
+                            RecLSaleShipmentLine: Record "Sales Shipment Line";
                             DecLUnitPriceNet: Decimal;
                         begin
                             //>>MIGRATION NAV 2013
@@ -526,9 +464,9 @@ report 50011 "Sales - Shipment CNE"
                             //<<MIGRATION NAV 2013
                         end;
                     }
-                    dataitem("DEEE Tariffs"; Table50007)
+                    dataitem("DEEE Tariffs"; "BC6_DEEE Tariffs")
                     {
-                        DataItemTableView = SORTING(Eco Partner, DEEE Code, Date beginning);
+                        DataItemTableView = SORTING("Eco Partner", "DEEE Code", "Date beginning");
                         column(DEEE_Tariffs__DEEE_Tariffs___DEEE_Code_; "DEEE Tariffs"."DEEE Code")
                         {
                         }
@@ -560,7 +498,7 @@ report 50011 "Sales - Shipment CNE"
                         trigger OnPreDataItem()
                         begin
                             //>>COMPTA_DEEE FG 01/03/07
-                            IF NOT RecGBillCustomer."Submitted to DEEE" THEN
+                            IF NOT RecGBillCustomer."BC6_Submitted to DEEE" THEN
                                 CurrReport.BREAK;
                             //<<COMPTA_DEEE FG 01/03/07
 
@@ -568,7 +506,7 @@ report 50011 "Sales - Shipment CNE"
                             CurrReport.BREAK;
                         end;
                     }
-                    dataitem(Total; Table2000000026)
+                    dataitem(Total; Integer)
                     {
                         DataItemTableView = SORTING(Number)
                                             WHERE(Number = CONST(1));
@@ -617,7 +555,7 @@ report 50011 "Sales - Shipment CNE"
                         {
                         }
                     }
-                    dataitem(Total2; Table2000000026)
+                    dataitem(Total2; Integer)
                     {
                         DataItemTableView = SORTING(Number)
                                             WHERE(Number = CONST(1));
@@ -638,17 +576,17 @@ report 50011 "Sales - Shipment CNE"
 
                     trigger OnPreDataItem()
                     var
-                        RecGJob: Record "167";
+                        RecGJob: Record Job;
                     begin
                         //<<CNE1.01
                         GTxtShowAmounts := '';
                         //>>CNE1.01
 
                         //<<CNE1.00
-                        IF "Sales Shipment Header"."Affair No." <> '' THEN BEGIN
+                        IF "Sales Shipment Header"."BC6_Affair No." <> '' THEN BEGIN
                             TxtGLblProjet := Text071;
-                            TxtGNoProjet := "Sales Shipment Header"."Affair No.";
-                            RecGJob.GET("Sales Shipment Header"."Affair No.");
+                            TxtGNoProjet := "Sales Shipment Header"."BC6_Affair No.";
+                            RecGJob.GET("Sales Shipment Header"."BC6_Affair No.");
                             TxtGDesignation := RecGJob.Description;
                         END ELSE BEGIN
                             TxtGLblProjet := '';
@@ -661,8 +599,8 @@ report 50011 "Sales - Shipment CNE"
 
                 trigger OnAfterGetRecord()
                 var
-                    SalesPost: Codeunit "80";
-                    SaleShipmentLine: Record "111";
+                    SalesPost: Codeunit "Sales-Post";
+                    SaleShipmentLine: Record "Sales Shipment Line";
                 begin
                     IF Number > 1 THEN BEGIN
                         CopyText := Text001;
@@ -714,7 +652,7 @@ report 50011 "Sales - Shipment CNE"
 
                 //>>MIGRATION NAV 2013
                 RecG_User.RESET;
-                RecG_User.SETRANGE("User Name", ID);
+                RecG_User.SETRANGE("User Name", BC6_ID);
                 IF RecG_User.FINDFIRST THEN
                     TexG_User_Name := RecG_User."Full Name"
                 ELSE
@@ -783,7 +721,7 @@ report 50011 "Sales - Shipment CNE"
                         BEGIN
                             CLEAR(Cust);
                             IF Cust.GET("Sell-to Customer No.") THEN
-                                ShowAmounts := NOT (Cust."Not Valued Shipment");
+                                ShowAmounts := NOT (Cust."BC6_Not Valued Shipment");
                         END
                     ELSE
                         ShowAmounts := TRUE;
@@ -802,28 +740,28 @@ report 50011 "Sales - Shipment CNE"
             {
                 group(Options)
                 {
-                    Caption = 'Options';
+                    Caption = 'Options', Comment = 'FRA="Options"';
                     field(NoOfCopies; NoOfCopies)
                     {
-                        Caption = 'No. of Copies';
+                        Caption = 'No. of Copies', Comment = 'FRA="Nombre de copies"';
                     }
                     field(ShowInternalInfo; ShowInternalInfo)
                     {
-                        Caption = 'Show Internal Information';
+                        Caption = 'Show Internal Information', Comment = 'FRA="Afficher info. internes"';
                     }
                     field(LogInteraction; LogInteraction)
                     {
-                        Caption = 'Log Interaction';
+                        Caption = 'Log Interaction', Comment = 'FRA="Journal interaction"';
                         Enabled = LogInteractionEnable;
                     }
                     field("Show Correction Lines"; ShowCorrectionLines)
                     {
-                        Caption = 'Show Correction Lines';
+                        Caption = 'Show Correction Lines', Comment = 'FRA="Afficher lignes correction"';
                     }
                     field(ShowAmountType; ShowAmountType)
                     {
-                        Caption = 'Valoriser le BL';
-                        OptionCaption = 'Oui,Non,Paramètre client';
+                        Caption = 'Valoriser le BL', Comment = 'FRA="Valoriser le BL"';
+                        OptionCaption = 'Yes,No,Customer setting', Comment = 'FRA="Oui,Non,Paramètre client"';
                     }
                 }
             }
@@ -860,19 +798,19 @@ report 50011 "Sales - Shipment CNE"
             SalesSetup."Logo Position on Documents"::Left:
                 BEGIN
                     CompanyInfo.CALCFIELDS(Picture);
-                    CompanyInfo.CALCFIELDS("Alt Picture");
+                    CompanyInfo.CALCFIELDS("BC6_Alt Picture");
                 END;
             SalesSetup."Logo Position on Documents"::Center:
                 BEGIN
                     CompanyInfo1.GET;
                     CompanyInfo1.CALCFIELDS(Picture);
-                    CompanyInfo1.CALCFIELDS("Alt Picture");
+                    CompanyInfo1.CALCFIELDS("BC6_Alt Picture");
                 END;
             SalesSetup."Logo Position on Documents"::Right:
                 BEGIN
                     CompanyInfo2.GET;
                     CompanyInfo2.CALCFIELDS(Picture);
-                    CompanyInfo2.CALCFIELDS("Alt Picture");
+                    CompanyInfo2.CALCFIELDS("BC6_Alt Picture");
                 END;
         END;
 
@@ -901,24 +839,24 @@ report 50011 "Sales - Shipment CNE"
     end;
 
     var
-        Text000: Label 'Salesperson';
-        Text001: Label 'COPY';
-        Text002: Label 'Sales - Shipment %1';
-        Text003: Label 'Page %1';
-        GLSetup: Record "98";
-        SalesPurchPerson: Record "13";
-        CompanyInfo: Record "79";
-        CompanyInfo1: Record "79";
-        CompanyInfo2: Record "79";
-        SalesSetup: Record "311";
-        Language: Record "8";
-        SaleLine: Record "37";
-        ShipmentMethod: Record "10";
-        PaymentMethod: Record "289";
-        PaymentTerms: Record "3";
-        ShptCountPrinted: Codeunit "314";
-        SegManagement: Codeunit "5051";
-        RespCenter: Record "5714";
+        Text000: Label 'Salesperson', Comment = 'FRA="Vendeur"';
+        Text001: Label 'COPY', Comment = 'FRA="COPIE"';
+        Text002: Label 'Sales - Shipment %1', Comment = 'FRA="Ventes : Expédition %1"';
+        Text003: Label 'Page %1', Comment = 'FRA="Page %1"';
+        GLSetup: Record "General Ledger Setup";
+        SalesPurchPerson: Record "Salesperson/Purchaser";
+        CompanyInfo: Record "Company Information";
+        CompanyInfo1: Record "Company Information";
+        CompanyInfo2: Record "Company Information";
+        SalesSetup: Record "Sales & Receivables Setup";
+        Language: Codeunit Language;
+        SaleLine: Record "Sales Line";
+        ShipmentMethod: Record "Shipment Method";
+        PaymentMethod: Record "Payment Method";
+        PaymentTerms: Record "Payment Terms";
+        ShptCountPrinted: Codeunit "Sales Shpt.-Printed";
+        SegManagement: Codeunit SegManagement;
+        RespCenter: Record "Responsibility Center";
         CustAddr: array[8] of Text[50];
         ShipToAddr: array[8] of Text[50];
         CompanyAddr: array[8] of Text[50];
@@ -930,48 +868,48 @@ report 50011 "Sales - Shipment CNE"
         CopyText: Text[30];
         ShowCustAddr: Boolean;
         i: Integer;
-        FormatAddr: Codeunit "365";
+        FormatAddr: Codeunit "Format Address";
         DimText: Text[120];
         OldDimText: Text[75];
         ShowInternalInfo: Boolean;
         Continue: Boolean;
         LogInteraction: Boolean;
         ShowCorrectionLines: Boolean;
-        Text004: Label 'Order %1 of %2';
+        Text004: Label 'Order %1 of %2', Comment = 'FRA="Commande %1 du %2"';
         DecGNetPriceHT: Decimal;
         DecGLineAmount: Decimal;
         DecGUnitPriceNet: Decimal;
         DecGTotAmountHT: Decimal;
         DecGTotAmountTTC: Decimal;
         DecGTotTVA: Decimal;
-        Text066: Label 'TEL : %1 FAX : %2 / email : %3';
-        Text067: Label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5';
+        Text066: Label 'TEL : %1 FAX : %2 / email : %3', Comment = 'FRA="TEL : %1 FAX : %2 / email : %3"';
+        Text067: Label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5', Comment = 'FRA="%1 au capital de  %2   - %3  -  APE %4 - N°TVA : %5"';
         VALExchRate: Text[50];
-        CurrExchRate: Record "330";
+        CurrExchRate: Record "Currency Exchange Rate";
         TexG_User_Name2: Text[30];
         TexG_User_Name: Text[30];
         "-- NSC 1.04 : ShowAmounts": Integer;
         ShowAmounts: Boolean;
         DecGNetPrice: Decimal;
-        Text069: Label 'BL non chiffré';
+        Text069: Label 'BL non chiffré', Comment = 'FRA="BL non chiffré"';
         GTxtShowAmounts: Text[30];
         TxtGTag: Text[50];
-        RecGParamVente: Record "311";
+        RecGParamVente: Record "Sales & Receivables Setup";
         "-DEEE1.00-": Integer;
-        RecGSalesInvLine: Record "113";
+        RecGSalesInvLine: Record "Sales Invoice Line";
         BooGDEEEFind: Boolean;
-        RecGDEEE: Record "50007";
-        RecGItemCtg: Record "50006";
-        RecGTempCalcul: Record "50007" temporary;
+        RecGDEEE: Record "BC6_DEEE Tariffs";
+        RecGItemCtg: Record "BC6_Categories of item";
+        RecGTempCalcul: Record "BC6_DEEE Tariffs" temporary;
         DecGVATTotalAmount: Decimal;
         DecGTTCTotalAmount: Decimal;
-        RecGItem: Record "27";
+        RecGItem: Record Item;
         DecGNumbeofUnitsDEEE: Decimal;
         CodGDEEECategoryCode: Code[10];
         DecGHTUnitTaxLCY: Decimal;
         DecGTotDEEE: Decimal;
         "--FG--": Integer;
-        RecGBillCustomer: Record "18";
+        RecGBillCustomer: Record Customer;
         "-MICO-": Integer;
         DecGTotTVADEEE: Decimal;
         DecGTVADEEE: Decimal;
@@ -981,53 +919,51 @@ report 50011 "Sales - Shipment CNE"
         TxtGLblProjet: Text[30];
         TxtGNoProjet: Text[30];
         TxtGDesignation: Text[50];
-        Text070: ;
-        Text071: Label 'Affair No. : ';
+        Text070: Label '';
+        Text071: Label 'Affair No. : ', Comment = 'FRA="Affaire n° :"';
         ShowAmountType: Option Yes,No,Customer;
-        Cust: Record "18";
-        Sales_Shipment_Header___Sell_to_Customer_No__CaptionLbl: Label 'Customer No.';
-        N_______Sales_Shipment_Header___No__CaptionLbl: Label 'Delivery Order';
-        InterlocutorCaptionLbl: Label 'Interlocutor';
-        InterlocutorCaption_Control1100267000Lbl: Label 'Interlocutor';
-        Address_Delivery_CaptionLbl: Label 'Address Delivery:';
-        STRSUBSTNO_Text004__Sales_Shipment_Header___Order_No____Sales_Shipment_Header___Order_Date__CaptionLbl: Label 'Ours Reference:';
-        Incl__VAT_Line_AmountCaptionLbl: Label 'Incl. VAT Line Amount';
-        Ord__QtyCaptionLbl: Label 'Ord. Qty';
-        Net_Price_Incl__VATCaptionLbl: Label 'Net Price Incl. VAT';
-        QtyCaptionLbl: Label 'Qty';
-        ReferenceCaptionLbl: Label 'Reference';
-        DescriptionCaptionLbl: Label 'Description';
-        Incl__VAT_Line_AmountCaption_Control1000000088Lbl: Label 'Incl. VAT Line Amount';
-        Qty_To_shipCaptionLbl: Label 'Qty To ship';
-        Net_Price_Excl__VATCaptionLbl: Label 'Net Price Excl. VAT';
-        DEEE_Contribution___CaptionLbl: Label 'DEEE Contribution : ';
-        Sales_Shipment_Line__No___Control1000000086CaptionLbl: Label 'Item : ';
-        CodGDEEECategoryCodeCaptionLbl: Label ' -   Category :';
-        DEEE_Contribution___Caption_Control1000000121Lbl: Label 'DEEE Contribution : ';
-        DEEE_Tariffs__DEEE_Tariffs___DEEE_Code_CaptionLbl: Label 'Category';
-        RecGItemCtg__Weight_Min_CaptionLbl: Label 'Weight Min';
-        DEEE_Tariffs__DEEE_Tariffs___HT_Unit_Tax__LCY__CaptionLbl: Label 'HT Unit Tax (LCY)';
-        RecGItemCtg__Weight_Min__Control1000000172CaptionLbl: Label 'Weight Max';
-        PaymentMethod_Description___________PaymentTerms_DescriptionCaptionLbl: Label 'Payment Method:';
-        Total_Net_HTCaptionLbl: Label 'Total Net HT';
-        DecGTotTVA_DecGTotTVADEEECaptionLbl: Label 'VAT';
-        ROUND_DecGTotAmountTTC_DecGTotDEEE_DecGTotTVADEEE_0_01_____CaptionLbl: Label 'Incl. VAT Net Total';
-        AmountEco_ConributionCaptionLbl: Label 'AmountEco-Conribution';
-        Excl__VAT_Total_Incl_DEEECaptionLbl: Label 'Excl. VAT Total Incl.DEEE';
+        Cust: Record Customer;
+        Sales_Shipment_Header___Sell_to_Customer_No__CaptionLbl: Label 'Customer No.', Comment = 'FRA="N° client"';
+        N_______Sales_Shipment_Header___No__CaptionLbl: Label 'Delivery Order', Comment = 'FRA="Bon de livraison"';
+        InterlocutorCaptionLbl: Label 'Interlocutor', Comment = 'FRA="Interlocuteur"';
+        InterlocutorCaption_Control1100267000Lbl: Label 'Interlocutor', Comment = 'FRA="Préparateur"';
+        Address_Delivery_CaptionLbl: Label 'Address Delivery:', Comment = 'FRA="Adresse de livraison :"';
+        STRSUBSTNO_Text004__Sales_Shipment_Header___Order_No____Sales_Shipment_Header___Order_Date__CaptionLbl: Label 'Ours Reference:', Comment = 'FRA="Notre référence : "';
+        Incl__VAT_Line_AmountCaptionLbl: Label 'Incl. VAT Line Amount', Comment = 'FRA="Montant ligne TTC"';
+        Ord__QtyCaptionLbl: Label 'Ord. Qty', Comment = 'FRA="Qté cdée"';
+        Net_Price_Incl__VATCaptionLbl: Label 'Net Price Incl. VAT', Comment = 'FRA="Prix Net TTC"';
+        QtyCaptionLbl: Label 'Qty', Comment = 'FRA="Qté livrée"';
+        ReferenceCaptionLbl: Label 'Reference', Comment = 'FRA="Référence"';
+        DescriptionCaptionLbl: Label 'Description', Comment = 'FRA="Désignation"';
+        Incl__VAT_Line_AmountCaption_Control1000000088Lbl: Label 'Incl. VAT Line Amount', Comment = 'FRA="Montant ligne HT"';
+        Qty_To_shipCaptionLbl: Label 'Qty To ship', Comment = 'FRA="Qté restante"';
+        Net_Price_Excl__VATCaptionLbl: Label 'Net Price Excl. VAT', Comment = 'FRA="Prix Net HT"';
+        DEEE_Contribution___CaptionLbl: Label 'DEEE Contribution : ', Comment = 'FRA="Contribution DEEE : "';
+        Sales_Shipment_Line__No___Control1000000086CaptionLbl: Label 'Item : ', Comment = 'FRA="Art. : "';
+        CodGDEEECategoryCodeCaptionLbl: Label ' -   Category :', Comment = 'FRA=" -   Catégorie :"';
+        DEEE_Contribution___Caption_Control1000000121Lbl: Label 'DEEE Contribution : ', Comment = 'FRA="Contribution DEEE : "';
+        DEEE_Tariffs__DEEE_Tariffs___DEEE_Code_CaptionLbl: Label 'Category', Comment = 'FRA="Catégorie"';
+        RecGItemCtg__Weight_Min_CaptionLbl: Label 'Weight Min', Comment = 'FRA="Poids Min"';
+        DEEE_Tariffs__DEEE_Tariffs___HT_Unit_Tax__LCY__CaptionLbl: Label 'HT Unit Tax (LCY)', Comment = 'FRA="Coût Unitaire HT (DS)"';
+        RecGItemCtg__Weight_Min__Control1000000172CaptionLbl: Label 'Weight Max', Comment = 'FRA="Poids Max"';
+        PaymentMethod_Description___________PaymentTerms_DescriptionCaptionLbl: Label 'Payment Method:', Comment = 'FRA="Mode de réglement :"';
+        Total_Net_HTCaptionLbl: Label 'Total Net HT', Comment = 'FRA="Total Net HT"';
+        DecGTotTVA_DecGTotTVADEEECaptionLbl: Label 'VAT', Comment = 'FRA="TVA"';
+        ROUND_DecGTotAmountTTC_DecGTotDEEE_DecGTotTVADEEE_0_01_____CaptionLbl: Label 'Incl. VAT Net Total', Comment = 'FRA="Total Net TTC"';
+        AmountEco_ConributionCaptionLbl: Label 'AmountEco-Conribution', Comment = 'FRA="Total Eco-Contribution HT"';
+        Excl__VAT_Total_Incl_DEEECaptionLbl: Label 'Excl. VAT Total Incl.DEEE', Comment = 'FRA="Total HT DEEE comprise"';
         [InDataSet]
         LogInteractionEnable: Boolean;
         OutputNo: Integer;
         BooGVisible: Boolean;
-        RecG_User: Record "2000000120";
+        RecG_User: Record User;
         ItemLineNo: Integer;
 
-    [Scope('Internal')]
     procedure InitLogInteraction()
     begin
         LogInteraction := SegManagement.FindInteractTmplCode(5) <> '';
     end;
 
-    [Scope('Internal')]
     procedure DefineTagFax(TxtLTag: Text[50])
     begin
         //>>FE005 DARI 23/02/07  - Output Error corrected
@@ -1035,15 +971,14 @@ report 50011 "Sales - Shipment CNE"
         //<<FE005 DARI 23/02/07
         //>>FE005 MICO LE 15.02.2007
         RecGParamVente.GET;
-        TxtGTag := RecGParamVente."RTE Fax Tag" + TxtLTag + '@cne.fax';
+        TxtGTag := RecGParamVente."BC6_RTE Fax Tag" + TxtLTag + '@cne.fax';
     end;
 
-    [Scope('Internal')]
     procedure DefineTagMail(TxtLTag: Text[50])
     begin
         //>>FE005 MICO LE 15,02,2007
         RecGParamVente.GET;
-        TxtGTag := RecGParamVente."PDF Mail Tag" + TxtLTag;
+        TxtGTag := RecGParamVente."BC6_PDF Mail Tag" + TxtLTag;
     end;
 }
 

@@ -41,8 +41,6 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
         GDecMntTTCDEEE := pDecMntTTCDEEE;
     end;
 
-
-
     procedure GetGDecMntTTCDEEE(): Decimal
     begin
         exit(GDecMntTTCDEEE);
@@ -183,6 +181,52 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
         exit(BooGVendorNoStyle);
     end;
 
+
+    procedure SetSalesReservationFound(pSalesReservationFound: Boolean)
+    begin
+        SalesReservationFound := pSalesReservationFound;
+    end;
+
+    procedure GetSalesReservationFound(): Boolean
+    begin
+        exit(SalesReservationFound);
+    end;
+
+    procedure GetCD7321_TempSalesLine(var TempSalesLineLocal: Record "Sales Line" temporary)
+    begin
+
+        TempSalesLineLocal.Copy(CD7321_TempSalesLine, true);
+
+    end;
+
+    procedure SetCD7321_TempSalesLine(var TempSalesLineLocal: Record "Sales Line" temporary)
+    begin
+
+        CD7321_TempSalesLine.Copy(TempSalesLineLocal, true);
+
+    end;
+
+    procedure SetDeleteWhseActivityHeaderOk(pDeleteWhseActivityHeaderOk: Boolean)
+    begin
+        DeleteWhseActivityHeaderOk := pDeleteWhseActivityHeaderOk;
+    end;
+
+    procedure GetDeleteWhseActivityHeaderOk(): Boolean
+    begin
+        exit(DeleteWhseActivityHeaderOk);
+    end;
+
+    procedure SetT77_SalesHeader(var SalesHeader: Record "Sales Header")
+    begin
+        T77_SalesHeader.Copy(SalesHeader, true);
+    end;
+
+    procedure GetT77_SalesHeader(var SalesHeader: Record "Sales Header")
+    begin
+        SalesHeader.Copy(T77_SalesHeader, true);
+    end;
+
+
     var
         BooGVendorNoStyle: Boolean;
         BooGAutoTextSpe: Boolean;
@@ -198,6 +242,10 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
 
         _EcoPartnerDEEE: code[20];
         _DEEECategoryCode: code[20];
+        SalesReservationFound: Boolean;
+        CD7321_TempSalesLine: Record "Sales Line" temporary;
+        DeleteWhseActivityHeaderOk: Boolean;
+        T77_SalesHeader: Record "Sales Header";
         _IsSAVReturnOrder: Boolean;
         PurchGDecMntTTCDEEE: Decimal;
         PurchGDecMntHTDEEE: Decimal;

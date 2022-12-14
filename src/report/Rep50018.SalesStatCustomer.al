@@ -1,9 +1,9 @@
 report 50018 "BC6_Sales Stat/Customer"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './SalesStatCustomer.rdlc';
+    RDLCLayout = './src/report/RDL/SalesStatCustomer.rdl';
 
-    Caption = 'Sales Stat/Customer';
+    Caption = 'Sales Stat/Customer', Comment = 'FRA="Stat vente/Client"';
 
     dataset
     {

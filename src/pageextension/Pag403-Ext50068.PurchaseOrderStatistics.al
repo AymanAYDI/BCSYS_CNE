@@ -2,9 +2,37 @@ pageextension 50068 "BC6_PurchaseOrderStatistics" extends "Purchase Order Statis
 {
     layout
     {
-        //Unsupported feature: Property Modification (SourceExpr) on "Control 41". TODO:
+        modify("TotalPurchLineLCY[2].Amount")
+        {
+            Visible = false;
+        }
+        addafter("TotalPurchLineLCY[2].Amount")
+        {
+            field("TotalPurchLineLCY[2].Amount2"; TotalPurchLineLCY[2].Amount + TotalPurchLineLCY[2]."BC6_DEEE HT Amount (LCY)")
+            {
+                ApplicationArea = Basic, Suite;
+                AutoFormatType = 1;
+                Caption = 'Purchase (LCY)';
+                Editable = false;
+                ToolTip = 'Specifies the amount in the Total field, converted to LCY.';
+            }
+        }
 
-        //Unsupported feature: Property Modification (SourceExpr) on "Control 65". TODO:
+        modify("TotalPurchLineLCY[3].Amount") // TODO: Check
+        {
+            Visible = false;
+        }
+        addafter("TotalPurchLineLCY[3].Amount")
+        {
+            field("TotalPurchLineLCY[3].Amount2"; TotalPurchLineLCY[3].Amount + TotalPurchLineLCY[2]."BC6_DEEE HT Amount (LCY)")
+            {
+                ApplicationArea = Basic, Suite;
+                AutoFormatType = 1;
+                Caption = 'Purchase (LCY)';
+                Editable = false;
+                ToolTip = 'Specifies the amount in the Total field, converted to LCY.';
+            }
+        }
 
         addafter("Total_General")
         {

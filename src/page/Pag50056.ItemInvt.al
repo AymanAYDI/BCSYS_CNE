@@ -13,83 +13,83 @@ page 50056 "BC6_Item Invt."
     {
         area(content)
         {
-            // usercontrol(ScanZone; "ControlAddinScanCapture") TODO: Dotnet
-            // {
-            //     Visible = true;
-            //     ApplicationArea = All;
+            usercontrol(ScanZone; "BC6_ControlAddinScanCapture")
+            {
+                Visible = true;
+                ApplicationArea = All;
 
-            //     trigger ControlAddInReady()
-            //     begin
-            //         CurrPage.ScanZone.AddControl(1, ItemNoCaption, '');
-            //         CurrPage.ScanZone.SetFocus(1);
-            //     end;
+                trigger ControlAddInReady()
+                begin
+                    CurrPage.ScanZone.AddControl(1, ItemNoCaption, '');
+                    CurrPage.ScanZone.SetFocus(1);
+                end;
 
-            //     trigger KeyPressed(index: Integer; data: Text)
-            //     begin
-            //         CASE data OF
-            //             '113':
-            //                 CurrPage.ScanZone.SubmitAllData(2); //F2
-            //             '114':
-            //                 CurrPage.ScanZone.SubmitAllData(3); //F3
-            //             '121':
-            //                 CurrPage.ScanZone.SubmitAllData(1); //F10
-            //         END;
-            //     end;
+                trigger KeyPressed(index: Integer; data: Text)
+                begin
+                    CASE data OF
+                        '113':
+                            CurrPage.ScanZone.SubmitAllData(2); //F2
+                        '114':
+                            CurrPage.ScanZone.SubmitAllData(3); //F3
+                        '121':
+                            CurrPage.ScanZone.SubmitAllData(1); //F10
+                    END;
+                end;
 
-            //     trigger TextCaptured(index: Integer; data: Text)
-            //     begin
-            //         CASE index OF
-            //             1:
-            //                 BEGIN
-            //                     data := ScanDeviceHelper.ConvertScanData(data);
-            //                     ItemNo := COPYSTR(data, 1, MAXSTRLEN(ItemNo));
-            //                     AssignItemNo(ItemNo);
-            //                     CurrPage.ScanZone.reset(1);
-            //                     CurrPage.ScanZone.SetText(1, ItemNo);
-            //                     CurrPage.ScanZone.SetFocus(1);
-            //                 END;
-            //         END;
-            //     end;
+                trigger TextCaptured(index: Integer; data: Text)
+                begin
+                    CASE index OF
+                        1:
+                            BEGIN
+                                data := ScanDeviceHelper.ConvertScanData(data);
+                                ItemNo := COPYSTR(data, 1, MAXSTRLEN(ItemNo));
+                                AssignItemNo(ItemNo);
+                                CurrPage.ScanZone.reset(1);
+                                CurrPage.ScanZone.SetText(1, ItemNo);
+                                CurrPage.ScanZone.SetFocus(1);
+                            END;
+                    END;
+                end;
 
-            //     trigger AddInDrillDown(index: Integer; data: Text)
-            //     begin
-            //         CASE index OF
-            //             1:
-            //                 BEGIN
-            //                     CLEAR(ItemForm);
-            //                     Item.RESET;
-            //                     //>>TI318739
-            //                     Item.SETRANGE(Blocked, FALSE);
-            //                     //<<TI318739
-            //                     ItemForm.SETTABLEVIEW(Item);
-            //                     ItemForm.LOOKUPMODE(TRUE);
-            //                     IF ItemNo <> '' THEN
-            //                         IF Item.GET(ItemNo) THEN
-            //                             ItemForm.SETRECORD(Item);
-            //                     IF ItemForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
-            //                         ItemForm.GETRECORD(Item);
-            //                         ItemNo := Item."No.";
-            //                         CurrPage.ScanZone.SetText(1, ItemNo);
-            //                         LocationCode := '';
-            //                         CurrPage.SAVERECORD;
-            //                         AssignItemNo(ItemNo);
-            //                     END;
-            //                 END;
-            //         END;
-            //     end;
+                trigger AddInDrillDown(index: Integer; data: Text)
+                begin
+                    CASE index OF
+                        1:
+                            BEGIN
+                                CLEAR(ItemForm);
+                                Item.RESET;
+                                //>>TI318739
+                                Item.SETRANGE(Blocked, FALSE);
+                                //<<TI318739
+                                ItemForm.SETTABLEVIEW(Item);
+                                ItemForm.LOOKUPMODE(TRUE);
+                                IF ItemNo <> '' THEN
+                                    IF Item.GET(ItemNo) THEN
+                                        ItemForm.SETRECORD(Item);
+                                IF ItemForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                                    ItemForm.GETRECORD(Item);
+                                    ItemNo := Item."No.";
+                                    CurrPage.ScanZone.SetText(1, ItemNo);
+                                    LocationCode := '';
+                                    CurrPage.SAVERECORD;
+                                    AssignItemNo(ItemNo);
+                                END;
+                            END;
+                    END;
+                end;
 
-            //     trigger Focused(index: Integer; data: Text)
-            //     begin
-            //     end;
+                trigger Focused(index: Integer; data: Text)
+                begin
+                end;
 
-            //     trigger FocusLost(index: Integer; data: Text)
-            //     begin
-            //     end;
+                trigger FocusLost(index: Integer; data: Text)
+                begin
+                end;
 
-            //     trigger DataSubmited(index: Integer; data: Text)
-            //     begin
-            //     end;
-            // }
+                trigger DataSubmited(index: Integer; data: Text)
+                begin
+                end;
+            }
             field(ItemNo; ItemNo)
             {
                 Caption = 'Item Filter', Comment = 'FRA="N° article"';
@@ -297,11 +297,12 @@ page 50056 "BC6_Item Invt."
         ItemDescription: Text[250];
         LocationCode: Code[20];
         DistInt: Codeunit "Dist. Integration";
+        FunctionsMgt: Codeunit "BC6_Functions Mgt";
         ItemForm: Page "BC6_Item List MiniForm";
         LocationForm: Page "BC6_Location List MiniForm";
         BinForm: Page "BC6_Bin List MiniForm";
         BoolWait: Boolean;
-        // ScanDeviceHelper: Codeunit 50090; TODO:
+        ScanDeviceHelper: Codeunit BC6_ScanDeviceHelper;
         [InDataSet]
         IsVisibleSearch: Boolean;
         ItemNoCaption: Label 'Item No.', Comment = 'FRA="N° Article"';
@@ -335,13 +336,13 @@ page 50056 "BC6_Item Invt."
 
     procedure AssignItemNo(FromItemNo: Code[20])
     begin
-        CLEAR(DistInt);
+        // CLEAR(DistInt); TODO:  Check
         CLEAR(Item);
         CLEAR(ItemNo2);
         IF (FromItemNo <> '') THEN BEGIN
             IF (STRLEN(FromItemNo) = 13) OR
                (STRLEN(FromItemNo) = 14) THEN BEGIN
-                // ItemNo2 := DistInt.GetItem(FromItemNo); TODO:
+                ItemNo2 := FunctionsMgt.GetItem(FromItemNo);
                 IF Item.GET(ItemNo2) THEN;
             END ELSE BEGIN
                 //>>TI318739

@@ -108,11 +108,8 @@ pageextension 50037 "BC6_PostedSalesInvoice" extends "Posted Sales Invoice" //13
         Objet: Text[250];
         Body: Text[1024];
         recGCompanyInfo: Record "Company Information";
-    // ReportHelper: Codeunit 50010; TODO:
+        ReportHelper: Codeunit BC6_ReportHelper;
 
-    procedure "---MIGNAV2013---"()
-    begin
-    end;
 
     procedure EnvoiMail()
     begin

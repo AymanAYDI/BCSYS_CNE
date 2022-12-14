@@ -1,15 +1,24 @@
-report 50205 "Facture Proforma CNE 2"
+report 50090 "Facture Proforma CNE"
 {
+    // ------------------------------------------------------------------------
+    // Prodware - www.prodware.fr
+    // ------------------------------------------------------------------------
+    // 
+    // //>>CNEIC
+    // CR_NouvSte_CNE_20150605: TO 26:06/2015: Ne pas imprimer informations 2nde société si vide
+    // 
+    // ------------------------------------------------------------------------
+    // //BC6 Duplicate function in report >> : to avoid pb on item without price and only D3E
     DefaultLayout = RDLC;
-    RDLCLayout = './FactureProformaCNE2.rdlc';
+    RDLCLayout = './FactureProformaCNE.rdlc';
+
     Caption = 'Order Confirmation';
 
     dataset
     {
         dataitem(DataItem6640; Table36)
         {
-            DataItemTableView = SORTING(Document Type, No.)
-                                WHERE(Document Type=CONST(Order));
+            DataItemTableView = SORTING(Document Type, No.);
             PrintOnlyIfDetail = true;
             RequestFilterFields = "No.", "Sell-to Customer No.", "No. Printed";
             RequestFilterHeading = 'Sales Order';
@@ -693,6 +702,9 @@ report 50205 "Facture Proforma CNE 2"
                         column(TempPourcent_;TempPourcent)
                         {
                         }
+                        column(Sales_Line_Disc_Unit_Price;"Sales Line"."Discount unit price")
+                        {
+                        }
                         dataitem(DimensionLoop2;Table2000000026)
                         {
                             DataItemTableView = SORTING(Number)
@@ -1113,7 +1125,6 @@ report 50205 "Facture Proforma CNE 2"
                             //                           PRM debut stockage de 3 lignes de TVA maxi
                             //>>TDL:MICO 19/04/2007
                             //TmpVATBase[Number] :=VATAmountLine."VAT Base"
-
                             TmpVATBase[Number] :=VATAmountLine."VAT Base" + VATAmountLine."DEEE HT Amount";
                             //<<TDL:MICO 19/04/2007
                             TmpVATRate[Number] :=VATAmountLine."VAT %";
@@ -1514,7 +1525,10 @@ report 50205 "Facture Proforma CNE 2"
                     //<<MIGRATION NAV 2013
                     TempSalesLineDisc.DELETEALL;
                     SalesPost.GetSalesLines("Sales Header",SalesLine,0);
-                    SalesLine.CalcVATAmountLines(0,"Sales Header",SalesLine,VATAmountLine);
+                    //BC6 Duplicate function in report >>
+                    //SalesLine.CalcVATAmountLines(0,"Sales Header",SalesLine,VATAmountLine);
+                    CalcVATAmountLines(0,"Sales Header",SalesLine,VATAmountLine);
+                    //BC6 Duplicate function in report <<
                     SalesLine.UpdateVATOnLines(0,"Sales Header",SalesLine,VATAmountLine);
                     
                     //SalesPost.GetSalesLines("Sales Header",TempSalesLineDisc,1);
@@ -1946,7 +1960,7 @@ report 50205 "Facture Proforma CNE 2"
         Text003: Label 'COPY';
         Text004: Label 'Order Confirmation %1';
         Text005: Label 'Page %1';
-        Text006: Label 'Total %1 Excl. VAT';
+        Text006: Label 'Total %1 Excl. VAT', Comment = 'FRA="Total %1 Excl. VAT"';
         GLSetup: Record "98";
         ShipmentMethod: Record "10";
         PaymentTerms: Record "3";
@@ -2196,6 +2210,155 @@ report 50205 "Facture Proforma CNE 2"
     procedure BlanksForIndent(): Text[10]
     begin
         EXIT(PADSTR('',2,' '));
+    end;
+
+    [Scope('Internal')]
+    procedure CalcVATAmountLines(QtyType: Option General,Invoicing,Shipping;var SalesHeader: Record "36";var _SalesLine: Record "37";var VATAmountLine: Record "290")
+    var
+        TotalVATAmount: Decimal;
+        QtyToHandle: Decimal;
+        AmtToHandle: Decimal;
+        RoundingLineInserted: Boolean;
+        Currency: Record "4";
+    begin
+        Currency.Initialize(SalesHeader."Currency Code");
+
+        VATAmountLine.DELETEALL;
+
+        WITH _SalesLine DO BEGIN
+          SETRANGE("Document Type",SalesHeader."Document Type");
+          SETRANGE("Document No.",SalesHeader."No.");
+          IF FINDSET THEN
+            REPEAT
+              IF NOT EmptyAmountLine(_SalesLine,QtyType) THEN BEGIN
+                IF (Type = Type::"G/L Account") AND NOT "Prepayment Line" THEN
+                  RoundingLineInserted := ("No." = GetCPGInvRoundAcc(SalesHeader)) OR RoundingLineInserted;
+                IF "VAT Calculation Type" IN
+                   ["VAT Calculation Type"::"Reverse Charge VAT","VAT Calculation Type"::"Sales Tax"]
+                THEN
+                  "VAT %" := 0;
+                IF NOT VATAmountLine.GET(
+                     "VAT Identifier","VAT Calculation Type","Tax Group Code",FALSE,"Line Amount" >= 0)
+                THEN
+                  VATAmountLine.InsertNewLine(
+                    "VAT Identifier","VAT Calculation Type","Tax Group Code",FALSE,"VAT %","Line Amount" >= 0,FALSE);
+
+                CASE QtyType OF
+                  QtyType::General:
+                    BEGIN
+                      VATAmountLine.Quantity += "Quantity (Base)";
+
+                    //>>MIGRATION NAV 2013
+                    //<<DEEE1.00 : Update VAT details (F9 without clic)
+                    VATAmountLine."DEEE HT Amount":=VATAmountLine."DEEE HT Amount"+"DEEE HT Amount" ;
+                    VATAmountLine."DEEE VAT Amount":=VATAmountLine."DEEE VAT Amount"+ROUND("DEEE VAT Amount"
+                          ,Currency."Amount Rounding Precision");
+                    VATAmountLine."DEEE TTC Amount":=VATAmountLine."DEEE TTC Amount"+ROUND("DEEE TTC Amount"
+                          ,Currency."Amount Rounding Precision");
+                      VATAmountLine."DEEE Amount (LCY) for Stat":=VATAmountLine."DEEE Amount (LCY) for Stat"+
+                      "DEEE Amount (LCY) for Stat" ; //ooo
+
+                    //>>DEEE1.00 : Update VAT details (F9 without clic)
+                    //<<MIGRATION NAV 2013
+
+                      VATAmountLine.SumLine(
+                        "Line Amount","Inv. Discount Amount","VAT Difference","Allow Invoice Disc.","Prepayment Line");
+                    END;
+                  QtyType::Invoicing:
+                    BEGIN
+                      CASE TRUE OF
+                        ("Document Type" IN ["Document Type"::Order,"Document Type"::Invoice]) AND
+                        (NOT SalesHeader.Ship) AND SalesHeader.Invoice AND (NOT "Prepayment Line"):
+                          IF "Shipment No." = '' THEN BEGIN
+                            QtyToHandle := GetAbsMin("Qty. to Invoice","Qty. Shipped Not Invoiced");
+                            VATAmountLine.Quantity += GetAbsMin("Qty. to Invoice (Base)","Qty. Shipped Not Invd. (Base)");
+                          END ELSE BEGIN
+                            QtyToHandle := "Qty. to Invoice";
+                            VATAmountLine.Quantity += "Qty. to Invoice (Base)";
+                          END;
+                        ("Document Type" IN ["Document Type"::"Return Order","Document Type"::"Credit Memo"]) AND
+                        (NOT SalesHeader.Receive) AND SalesHeader.Invoice:
+                          IF "Return Receipt No." = '' THEN BEGIN
+                            QtyToHandle := GetAbsMin("Qty. to Invoice","Return Qty. Rcd. Not Invd.");
+                            VATAmountLine.Quantity += GetAbsMin("Qty. to Invoice (Base)","Ret. Qty. Rcd. Not Invd.(Base)");
+                          END ELSE BEGIN
+                            QtyToHandle := "Qty. to Invoice";
+                            VATAmountLine.Quantity += "Qty. to Invoice (Base)";
+                          END;
+                        ELSE
+                          BEGIN
+                          QtyToHandle := "Qty. to Invoice";
+                          VATAmountLine.Quantity += "Qty. to Invoice (Base)";
+                        END;
+                      END;
+                      AmtToHandle := GetLineAmountToHandle(QtyToHandle);
+                      IF SalesHeader."Invoice Discount Calculation" <> SalesHeader."Invoice Discount Calculation"::Amount THEN
+                        VATAmountLine.SumLine(
+                          AmtToHandle,ROUND("Inv. Discount Amount" * QtyToHandle / Quantity,Currency."Amount Rounding Precision"),
+                          "VAT Difference","Allow Invoice Disc.","Prepayment Line")
+                      ELSE
+                        VATAmountLine.SumLine(
+                          AmtToHandle,"Inv. Disc. Amount to Invoice","VAT Difference","Allow Invoice Disc.","Prepayment Line");
+                    END;
+                  QtyType::Shipping:
+                    BEGIN
+                      IF "Document Type" IN
+                         ["Document Type"::"Return Order","Document Type"::"Credit Memo"]
+                      THEN BEGIN
+                        QtyToHandle := "Return Qty. to Receive";
+                        VATAmountLine.Quantity += "Return Qty. to Receive (Base)";
+                      END ELSE BEGIN
+                        QtyToHandle := "Qty. to Ship";
+                        VATAmountLine.Quantity += "Qty. to Ship (Base)";
+                      END;
+                      AmtToHandle := GetLineAmountToHandle(QtyToHandle);
+                      VATAmountLine.SumLine(
+                        AmtToHandle,ROUND("Inv. Discount Amount" * QtyToHandle / Quantity,Currency."Amount Rounding Precision"),
+                        "VAT Difference","Allow Invoice Disc.","Prepayment Line");
+                    END;
+                END;
+                TotalVATAmount += "Amount Including VAT" - Amount;
+              END;
+            UNTIL NEXT = 0;
+        END;
+
+        VATAmountLine.UpdateLines(
+          TotalVATAmount,Currency,SalesHeader."Currency Factor",SalesHeader."Prices Including VAT",
+          SalesHeader."VAT Base Discount %",SalesHeader."Tax Area Code",SalesHeader."Tax Liable",SalesHeader."Posting Date");
+
+        IF RoundingLineInserted AND (TotalVATAmount <> 0) THEN
+          IF VATAmountLine.GET(SalesLine."VAT Identifier",SalesLine."VAT Calculation Type",
+               SalesLine."Tax Group Code",FALSE,SalesLine."Line Amount" >= 0)
+          THEN BEGIN
+            VATAmountLine."VAT Amount" += TotalVATAmount;
+            VATAmountLine."Amount Including VAT" += TotalVATAmount;
+            VATAmountLine."Calculated VAT Amount" += TotalVATAmount;
+            VATAmountLine.MODIFY;
+          END;
+    end;
+
+    local procedure EmptyAmountLine(_SalesLine: Record "37";QtyType: Option General,Invoicing,Shipping): Boolean
+    begin
+        WITH _SalesLine DO BEGIN
+          IF Type = Type::" " THEN
+            EXIT(TRUE);
+          IF Quantity = 0 THEN
+            EXIT(TRUE);
+        //  IF "Unit Price" = 0 THEN
+        //    EXIT(TRUE);
+          IF QtyType = QtyType::Invoicing THEN
+            IF "Qty. to Invoice" = 0 THEN
+              EXIT(TRUE);
+          EXIT(FALSE);
+        END;
+    end;
+
+    local procedure GetAbsMin(QtyToHandle: Decimal;QtyHandled: Decimal): Decimal
+    begin
+        IF ABS(QtyHandled) < ABS(QtyToHandle) THEN
+          EXIT(QtyHandled);
+
+        EXIT(QtyToHandle);
     end;
 }
 

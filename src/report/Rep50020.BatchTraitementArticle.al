@@ -1,6 +1,5 @@
 report 50020 "BC6_Batch Traitement Article"
 {
-
     ProcessingOnly = true;
 
     dataset
@@ -12,21 +11,17 @@ report 50020 "BC6_Batch Traitement Article"
 
             trigger OnAfterGetRecord()
             begin
-                //>>TDL.76
                 IntGCounter += 1;
                 DlgGWin.UPDATE(1, ROUND(IntGCounter / IntGTotal * 10000, 1));
-                //<<TDL.76
 
                 Item.CALCFIELDS(Inventory);
 
                 IF Item.Inventory > 0 THEN
                     EcritureArticle.RESET();
                 EcritureArticle.SETCURRENTKEY("Item No.", "Posting Date");
-                //<<TDL.76
                 EcritureArticle.SETRANGE(EcritureArticle."Item No.", Item."No.");
                 EcritureArticle.SETRANGE(EcritureArticle."Posting Date", Date_Debut, Date_Fin);
                 IF EcritureArticle.ISEMPTY THEN BEGIN
-                    //<<TDL.76
                     Item.Blocked := TRUE;
                     Item.MODIFY();
                 END;
@@ -34,18 +29,14 @@ report 50020 "BC6_Batch Traitement Article"
 
             trigger OnPostDataItem()
             begin
-                //>>TDL.76
                 DlgGWin.CLOSE();
-                //<<TDL.76
             end;
 
             trigger OnPreDataItem()
             begin
-                //>>TDL.76
                 IntGTotal := COUNT;
                 IntGCounter := 0;
                 DlgGWin.OPEN(CstG001);
-                //<<TDL.76
             end;
         }
     }

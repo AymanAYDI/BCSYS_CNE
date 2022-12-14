@@ -1,7 +1,7 @@
 report 50037 "BC6_BC6_Relance  CNE"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './RelanceCNE.rdlc';
+    RDLCLayout = './src/report/RDL/RelanceCNE.rdl';
 
     Caption = 'Reminder CNE';
 

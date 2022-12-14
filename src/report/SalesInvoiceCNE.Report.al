@@ -1042,7 +1042,7 @@ report 50010 "Sales - Invoice CNE"
         Text003: Label 'COPY';
         Text004: Label 'Sales - Invoice %1';
         Text005: Label 'Page %1';
-        Text006: Label 'Total %1 Excl. VAT';
+        Text006: Label 'Total %1 Excl. VAT', Comment = 'FRA="Total %1 Excl. VAT"';
         GLSetup: Record "98";
         ShipmentMethod: Record "10";
         PaymentTerms: Record "3";

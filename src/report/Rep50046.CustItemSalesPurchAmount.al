@@ -1,12 +1,12 @@
 report 50046 "Cust/Item Sales (Purch.Amount)"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './CustItemSalesPurchAmount.rdlc';
-    Caption = 'Cust/Item Sales (Purch.Amount)';
+    RDLCLayout = './src/report/RDL/CustItemSalesPurchAmount.rdl';
+    Caption = 'Cust/Item Sales (Purch.Amount)', Comment = 'FRA="Ventes d''articles par client (Montant Achat)"';
 
     dataset
     {
-        dataitem(DataItem6836; Table18)
+        dataitem(Customer; Customer)
         {
             PrintOnlyIfDetail = true;
             RequestFilterFields = "No.", "Search Name", "Customer Posting Group";
@@ -99,28 +99,28 @@ report 50046 "Cust/Item Sales (Purch.Amount)"
             column(ValueEntryBuffer_PurchAmount; ValueEntryBuffer_PurchAmountCaption)
             {
             }
-            dataitem(DataItem2; Table5802)
+            dataitem("Value Entry"; "Value Entry")
             {
-                DataItemLink = Source No.=FIELD(No.),
-                               Posting Date=FIELD(Date Filter),
-                               Global Dimension 1 Code=FIELD(Global Dimension 1 Filter),
-                               Global Dimension 2 Code=FIELD(Global Dimension 2 Filter);
-                DataItemTableView = SORTING(Source Type,Source No.,Item No.,Variant Code,Posting Date)
-                                    WHERE(Source Type=CONST(Customer),
-                                          Item Charge No.=CONST(),
-                                          Expected Cost=CONST(No));
-                RequestFilterFields = "Item No.","Posting Date";
+                DataItemLink = "Source No." = FIELD("No."),
+                               "Posting Date" = FIELD("Date Filter"),
+                               "Global Dimension 1 Code" = FIELD("Global Dimension 1 Filter"),
+                               "Global Dimension 2 Code" = FIELD("Global Dimension 2 Filter");
+                DataItemTableView = SORTING("Source Type", "Source No.", "Item No.", "Variant Code", "Posting Date")
+                                    WHERE("Source Type" = CONST(Customer),
+                                          "Item Charge No." = CONST(),
+                                          "Expected Cost" = CONST(False));
+                RequestFilterFields = "Item No.", "Posting Date";
 
                 trigger OnAfterGetRecord()
                 var
                     EntryInBufferExists: Boolean;
                 begin
                     ValueEntryBuffer.INIT;
-                    ValueEntryBuffer.SETRANGE("Item No.","Item No.");
+                    ValueEntryBuffer.SETRANGE("Item No.", "Item No.");
                     EntryInBufferExists := ValueEntryBuffer.FINDFIRST;
 
                     IF NOT EntryInBufferExists THEN
-                      ValueEntryBuffer."Entry No." := "Item Ledger Entry No.";
+                        ValueEntryBuffer."Entry No." := "Item Ledger Entry No.";
                     ValueEntryBuffer."Item No." := "Item No.";
                     ValueEntryBuffer."Invoiced Quantity" += "Invoiced Quantity";
                     ValueEntryBuffer."Sales Amount (Actual)" += "Sales Amount (Actual)";
@@ -128,9 +128,9 @@ report 50046 "Cust/Item Sales (Purch.Amount)"
                     ValueEntryBuffer."Cost Amount (Non-Invtbl.)" += "Cost Amount (Non-Invtbl.)";
                     ValueEntryBuffer."Discount Amount" += "Discount Amount";
                     IF EntryInBufferExists THEN
-                      ValueEntryBuffer.MODIFY
+                        ValueEntryBuffer.MODIFY
                     ELSE
-                      ValueEntryBuffer.INSERT;
+                        ValueEntryBuffer.INSERT;
                 end;
 
                 trigger OnPreDataItem()
@@ -139,55 +139,55 @@ report 50046 "Cust/Item Sales (Purch.Amount)"
                     ValueEntryBuffer.DELETEALL;
                 end;
             }
-            dataitem(DataItem5444;Table2000000026)
+            dataitem(Integer; Integer)
             {
                 DataItemTableView = SORTING(Number);
-                column(ValueEntryBuffer__Item_No__;ValueEntryBuffer."Item No.")
+                column(ValueEntryBuffer__Item_No__; ValueEntryBuffer."Item No.")
                 {
                 }
-                column(Item_Description;Item.Description)
+                column(Item_Description; Item.Description)
                 {
                 }
-                column(ValueEntryBuffer__Invoiced_Quantity_;-ValueEntryBuffer."Invoiced Quantity")
+                column(ValueEntryBuffer__Invoiced_Quantity_; -ValueEntryBuffer."Invoiced Quantity")
                 {
-                    DecimalPlaces = 0:5;
+                    DecimalPlaces = 0 : 5;
                 }
-                column(ValueEntryBuffer__Sales_Amount__Actual___Control44;ValueEntryBuffer."Sales Amount (Actual)")
-                {
-                    AutoFormatType = 1;
-                }
-                column(ValueEntryBuffer__Discount_Amount__Control45;-ValueEntryBuffer."Discount Amount")
+                column(ValueEntryBuffer__Sales_Amount__Actual___Control44; ValueEntryBuffer."Sales Amount (Actual)")
                 {
                     AutoFormatType = 1;
                 }
-                column(ValueEntryBuffer__Cost_Amount__Actual;ValueEntryBuffer."Cost Amount (Actual)")
-                {
-                }
-                column(Profit_Control46;Profit)
+                column(ValueEntryBuffer__Discount_Amount__Control45; -ValueEntryBuffer."Discount Amount")
                 {
                     AutoFormatType = 1;
                 }
-                column(ProfitPct_Control47;ProfitPct)
+                column(ValueEntryBuffer__Cost_Amount__Actual; ValueEntryBuffer."Cost Amount (Actual)")
                 {
-                    DecimalPlaces = 1:1;
                 }
-                column(Item__Base_Unit_of_Measure_;Item."Base Unit of Measure")
+                column(Profit_Control46; Profit)
+                {
+                    AutoFormatType = 1;
+                }
+                column(ProfitPct_Control47; ProfitPct)
+                {
+                    DecimalPlaces = 1 : 1;
+                }
+                column(Item__Base_Unit_of_Measure_; Item."Base Unit of Measure")
                 {
                 }
 
                 trigger OnAfterGetRecord()
                 var
-                    ValueEntry: Record "5802";
+                    ValueEntry: Record "Value Entry";
                 begin
                     IF Number = 1 THEN
-                      ValueEntryBuffer.FIND('-')
+                        ValueEntryBuffer.FIND('-')
                     ELSE
-                      ValueEntryBuffer.NEXT;
+                        ValueEntryBuffer.NEXT;
 
-                    "Value Entry".COPYFILTER("Posting Date",ValueEntry."Posting Date");
-                    ValueEntry.SETRANGE("Item No.",ValueEntryBuffer."Item No.");
-                    ValueEntry.SETFILTER("Item Charge No.",'<>%1','');
-                    ValueEntry.CALCSUMS("Sales Amount (Actual)","Cost Amount (Actual)","Cost Amount (Non-Invtbl.)","Discount Amount");
+                    "Value Entry".COPYFILTER("Posting Date", ValueEntry."Posting Date");
+                    ValueEntry.SETRANGE("Item No.", ValueEntryBuffer."Item No.");
+                    ValueEntry.SETFILTER("Item Charge No.", '<>%1', '');
+                    ValueEntry.CALCSUMS("Sales Amount (Actual)", "Cost Amount (Actual)", "Cost Amount (Non-Invtbl.)", "Discount Amount");
 
                     ValueEntryBuffer."Sales Amount (Actual)" += ValueEntry."Sales Amount (Actual)";
                     ValueEntryBuffer."Cost Amount (Actual)" += ValueEntry."Cost Amount (Actual)";
@@ -199,7 +199,7 @@ report 50046 "Cust/Item Sales (Purch.Amount)"
                       ValueEntryBuffer."Cost Amount (Actual)" +
                       ValueEntryBuffer."Cost Amount (Non-Invtbl.)";
 
-                    IF Item.GET(ValueEntryBuffer."Item No.") THEN ;
+                    IF Item.GET(ValueEntryBuffer."Item No.") THEN;
                 end;
 
                 trigger OnPreDataItem()
@@ -211,7 +211,7 @@ report 50046 "Cust/Item Sales (Purch.Amount)"
                       Profit);
 
                     ValueEntryBuffer.RESET;
-                    SETRANGE(Number,1,ValueEntryBuffer.COUNT);
+                    SETRANGE(Number, 1, ValueEntryBuffer.COUNT);
                 end;
             }
 
@@ -239,11 +239,11 @@ report 50046 "Cust/Item Sales (Purch.Amount)"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(PrintOnlyOnePerPage;PrintOnlyOnePerPage)
+                    field(PrintOnlyOnePerPage; PrintOnlyOnePerPage)
                     {
-                        ApplicationArea = Basic,Suite;
-                        Caption = 'New Page per Customer';
-                        ToolTip = 'Specifies if each customer''s information is printed on a new page if you have chosen two or more customers to be included in the report.';
+                        ApplicationArea = Basic, Suite;
+                        Caption = 'New Page per Customer', Comment = 'FRA="Nouvelle page par client"';
+                        ToolTip = 'Specifies if each customer''s information is printed on a new page if you have chosen two or more customers to be included in the report.', Comment = 'FRA="Indique si les informations client sont imprimées sur une nouvelle page si vous avez choisi plusieurs clients à inclure dans l''état, activez ce champ pour imprimer le solde de chaque client sur une page distincte."';
                     }
                 }
             }
@@ -260,38 +260,38 @@ report 50046 "Cust/Item Sales (Purch.Amount)"
 
     trigger OnPreReport()
     var
-        CaptionManagement: Codeunit "42";
+        CaptionManagement: Codeunit "Caption Class";
     begin
-        CustFilter := CaptionManagement.GetRecordFiltersWithCaptions(Customer);
+        //TODO  // CustFilter := CaptionManagement.GetRecordFiltersWithCaptions(Customer);
         ValueEntryFilter := "Value Entry".GETFILTERS;
         PeriodText := "Value Entry".GETFILTER("Posting Date");
     end;
 
     var
-        Text000: Label 'Period: %1';
-        Item: Record "27";
-        ValueEntryBuffer: Record "5802" temporary;
-        CustFilter: Text;
-        ValueEntryFilter: Text;
-        PeriodText: Text;
+        Item: Record Item;
+        ValueEntryBuffer: Record "Value Entry" temporary;
         PrintOnlyOnePerPage: Boolean;
         Profit: Decimal;
         ProfitPct: Decimal;
-        Customer_Item_SalesCaptionLbl: Label 'Customer/Item Sales';
+        All_amounts_are_in_LCYCaptionLbl: Label 'All amounts are in LCY', Comment = 'FRA="Tous les montants sont en DS"';
         CurrReport_PAGENOCaptionLbl: Label 'Page';
-        All_amounts_are_in_LCYCaptionLbl: Label 'All amounts are in LCY';
-        ValueEntryBuffer__Item_No__CaptionLbl: Label 'Item No.';
+        Customer_Item_SalesCaptionLbl: Label 'Customer/Item Sales', Comment = 'FRA="Ventes d''articles par client"';
+        Item__Base_Unit_of_Measure_CaptionLbl: Label 'Unit of Measure', Comment = 'FRA="Unité"';
         Item_DescriptionCaptionLbl: Label 'Description';
-        ValueEntryBuffer__Invoiced_Quantity_CaptionLbl: Label 'Invoiced Quantity';
-        Item__Base_Unit_of_Measure_CaptionLbl: Label 'Unit of Measure';
-        ValueEntryBuffer__Sales_Amount__Actual___Control44CaptionLbl: Label 'Amount';
-        ValueEntryBuffer__Discount_Amount__Control45CaptionLbl: Label 'Discount Amount';
-        Profit_Control46CaptionLbl: Label 'Profit';
-        ProfitPct_Control47CaptionLbl: Label 'Profit %';
-        TotalCaptionLbl: Label 'Total';
-        ValueEntryBuffer_PurchAmountCaption: Label 'Purchase Amount';
+        Profit_Control46CaptionLbl: Label 'Profit', Comment = 'FRA="Marge"';
+        ProfitPct_Control47CaptionLbl: Label 'Profit %', Comment = 'FRA="% marge sur vente"';
+        Text000: Label 'Period: %1', Comment = 'FRA="Période : %1"';
+        TotalCaptionLbl: Label 'Total', Comment = 'FRA="Total"';
+        ValueEntryBuffer__Discount_Amount__Control45CaptionLbl: Label 'Discount Amount', Comment = 'FRA="Montant remise"';
+        ValueEntryBuffer__Invoiced_Quantity_CaptionLbl: Label 'Invoiced Quantity', Comment = 'FRA="Quantité facturée"';
+        ValueEntryBuffer__Item_No__CaptionLbl: Label 'Item No.', Comment = 'FRA="Quantité facturée"';
+        ValueEntryBuffer__Sales_Amount__Actual___Control44CaptionLbl: Label 'Amount', Comment = 'FRA="Montant"';
+        ValueEntryBuffer_PurchAmountCaption: Label 'Purchase Amount', Comment = 'FRA="Montant remise"';
+        CustFilter: Text;
+        PeriodText: Text;
+        ValueEntryFilter: Text;
 
-    [Scope('Internal')]
+
     procedure InitializeRequest(NewPagePerCustomer: Boolean)
     begin
         PrintOnlyOnePerPage := NewPagePerCustomer;

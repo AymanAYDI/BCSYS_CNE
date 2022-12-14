@@ -1,9 +1,9 @@
 report 50017 "BC6_Sales Statistic/Vendor"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './SalesStatisticVendor.rdlc';
+    RDLCLayout = './src/report/RDL/SalesStatisticVendor.rdl';
 
-    Caption = 'Sales Statistic/Vendor';
+    Caption = 'Sales Statistic/Vendor', Comment = 'FRA="Statistique vente/fournisseur"';
 
     dataset
     {
@@ -114,15 +114,15 @@ report 50017 "BC6_Sales Statistic/Vendor"
 
             trigger OnAfterGetRecord()
             var
-                RecLSalesInvLine: Record "Sales Invoice Line";
-                RecLSalesCrMemoLine: Record "Sales Cr.Memo Line";
-                RecLPurchInvLine: Record "Purch. Inv. Line";
-                RecLPurchCrMemoLine: Record "Purch. Cr. Memo Line";
-                RecLPurchLine: Record "Purchase Line";
-                RecLSalesInvHeader: Record "Sales Invoice Header";
-                RecLPurchInvHeader: Record "Purch. Inv. Header";
-                RecLSalesCrMemoHeader: Record "Sales Cr.Memo Header";
                 RecLPurchCrMemoHeader: Record "Purch. Cr. Memo Hdr.";
+                RecLPurchCrMemoLine: Record "Purch. Cr. Memo Line";
+                RecLPurchInvHeader: Record "Purch. Inv. Header";
+                RecLPurchInvLine: Record "Purch. Inv. Line";
+                RecLPurchLine: Record "Purchase Line";
+                RecLSalesCrMemoHeader: Record "Sales Cr.Memo Header";
+                RecLSalesCrMemoLine: Record "Sales Cr.Memo Line";
+                RecLSalesInvHeader: Record "Sales Invoice Header";
+                RecLSalesInvLine: Record "Sales Invoice Line";
             begin
                 // Init Var
                 DecGCAVente := 0;
@@ -136,7 +136,7 @@ report 50017 "BC6_Sales Statistic/Vendor"
                 RecLSalesInvLine.SETCURRENTKEY("BC6_Buy-from Vendor No.");
                 RecLSalesInvLine.SETRANGE("BC6_Buy-from Vendor No.", "No.");
                 RecLSalesInvHeader.SETFILTER("Posting Date", '%1..%2', DatGDateDebut, DatDateFin);
-                IF RecLSalesInvLine.FindFirst() THEN
+                IF RecLSalesInvLine.FindSet() THEN
                     REPEAT
                         RecLSalesInvHeader.SETFILTER("No.", RecLSalesInvLine."Document No.");
                         IF RecLSalesInvHeader.Find() THEN BEGIN
@@ -149,7 +149,7 @@ report 50017 "BC6_Sales Statistic/Vendor"
                 RecLSalesCrMemoLine.SETCURRENTKEY("BC6_Buy-from Vendor No.");
                 RecLSalesCrMemoLine.SETRANGE("BC6_Buy-from Vendor No.", "No.");
                 RecLSalesCrMemoHeader.SETFILTER("Posting Date", '%1..%2', DatGDateDebut, DatDateFin);
-                IF RecLSalesCrMemoLine.FindFirst() THEN
+                IF RecLSalesCrMemoLine.FindSet() THEN
                     REPEAT
                         RecLSalesCrMemoHeader.SETFILTER("No.", RecLSalesCrMemoLine."Document No.");
                         IF RecLSalesCrMemoHeader.Find() THEN BEGIN
@@ -247,24 +247,24 @@ report 50017 "BC6_Sales Statistic/Vendor"
     end;
 
     var
-        DatGDateDebut: Date;
         DatDateFin: Date;
+        DatGDateDebut: Date;
+        DecGCAAchat: Decimal;
+        DecGCAAchatEnCmd: Decimal;
         DecGCAVente: Decimal;
         DecGMontant: Decimal;
         DecGMontantMarge: Decimal;
         DecGPourcentMarge: Decimal;
-        DecGCAAchat: Decimal;
-        DecGCAAchatEnCmd: Decimal;
-        Statistics_Sales_by_VendorCaptionLbl: Label 'Statistics Sales by Vendor', comment = 'FRA="Statistiques ventes par fournisseur"';
-        CurrReport_PAGENOCaptionLbl: Label 'Page';
-        Periode__FromCaptionLbl: Label 'Periode :From', comment = 'FRA="Période : Du"';
         AuCaptionLbl: Label 'Au';
+        CurrReport_PAGENOCaptionLbl: Label 'Page';
         Invoiced_Purchase_Turnover_CaptionLbl: Label 'Invoiced Purchase Turnover ', comment = 'FRA="CA Achat Facturé"';
-        margeCaptionLbl: Label '% Profit', comment = 'FRA=""';
-        Sale_TurnoverCaptionLbl: Label 'Sale Turnover', comment = 'FRA="CA Vente"';
+        margeCaptionLbl: Label '% Profit', comment = 'FRA="% de marge sur vente"';
+        Periode__FromCaptionLbl: Label 'Periode :From', comment = 'FRA="Période : Du"';
         Profit_AmountCaptionLbl: Label 'Profit Amount', comment = 'FRA="Montant Marge"';
-        Purchase_Amount_per_Costumer_OrderCaptionLbl: Label 'Purchase Amount per Costumer Order', comment = 'FRA="Montant Achat sur cde client"';
         Puchase_Turnover_in_Vendor_OrderCaptionLbl: Label 'Puchase Turnover in Vendor Order', comment = 'FRA="CA achat en cde fournisseur"';
+        Purchase_Amount_per_Costumer_OrderCaptionLbl: Label 'Purchase Amount per Costumer Order', comment = 'FRA="Montant Achat sur cde client"';
+        Sale_TurnoverCaptionLbl: Label 'Sale Turnover', comment = 'FRA="CA Vente"';
+        Statistics_Sales_by_VendorCaptionLbl: Label 'Statistics Sales by Vendor', comment = 'FRA="Statistiques ventes par fournisseur"';
         TotalCaptionLbl: Label 'Total', comment = 'FRA="Total"';
 }
 

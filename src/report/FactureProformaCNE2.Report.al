@@ -1946,7 +1946,7 @@ report 50205 "Facture Proforma CNE 2"
         Text003: Label 'COPY';
         Text004: Label 'Order Confirmation %1';
         Text005: Label 'Page %1';
-        Text006: Label 'Total %1 Excl. VAT';
+        Text006: Label 'Total %1 Excl. VAT', Comment = 'FRA="Total %1 Excl. VAT"';
         GLSetup: Record "98";
         ShipmentMethod: Record "10";
         PaymentTerms: Record "3";

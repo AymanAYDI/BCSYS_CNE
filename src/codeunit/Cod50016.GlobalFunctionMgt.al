@@ -39,8 +39,6 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
         GDecMntTTCDEEE := pDecMntTTCDEEE;
     end;
 
-
-
     procedure GetGDecMntTTCDEEE(): Decimal
     begin
         exit(GDecMntTTCDEEE);
@@ -129,9 +127,6 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
     begin
         exit(_IsSAVReturnOrder);
     end;
-
-
-
 
     var
         BooGAutoTextSpe: Boolean;

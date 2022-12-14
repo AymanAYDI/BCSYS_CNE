@@ -774,7 +774,7 @@ report 50747 "Invt. Pick2"
         SalesPersonName: Text[50];
         ShipmentMethodTxt: Text[50];
         Text032: Label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5';
-        Text006: Label 'Total %1 Excl. VAT';
+        Text006: Label 'Total %1 Excl. VAT', Comment = 'FRA="Total %1 Excl. VAT"';
         GrossWeight: Decimal;
         NetWeight: Decimal;
         SortingMethod: Option Item,Bin;

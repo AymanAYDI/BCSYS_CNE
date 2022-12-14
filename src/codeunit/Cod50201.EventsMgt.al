@@ -2,7 +2,7 @@ codeunit 50201 "BC6_Events Mgt"
 {
     //TAB111
     [EventSubscriber(ObjectType::Table, Database::"Sales Shipment Line", 'OnBeforeInsertInvLineFromShptLineBeforeInsertTextLine', '', false, false)]
-    procedure T111_OnBeforeInsertInvLineFromShptLineBeforeInsertTextLine_SalesShipmentLine(var SalesShptLine: Record "Sales Shipment Line"; var SalesLine: Record "Sales Line"; var NextLineNo: Integer; var Handled: Boolean; TempSalesLine: Record "Sales Line" temporary; SalesInvHeader: Record "Sales Header")
+    local procedure T111_OnBeforeInsertInvLineFromShptLineBeforeInsertTextLine_SalesShipmentLine(var SalesShptLine: Record "Sales Shipment Line"; var SalesLine: Record "Sales Line"; var NextLineNo: Integer; var Handled: Boolean; TempSalesLine: Record "Sales Line" temporary; SalesInvHeader: Record "Sales Header")
     var
         RecLSalesShipmentHeader: Record "Sales Shipment Header";
         CstG1000000000: label '%1 of %2 - %3', Comment = 'FRA="%1 du %2 - %3"';
@@ -30,7 +30,6 @@ codeunit 50201 "BC6_Events Mgt"
                                      RecLSalesShipmentHeader."Your Reference"), 1, 100);
         SalesLine.Insert();
         NextLineNo := NextLineNo + 10000;
-
         Handled := true;
     end;
 
@@ -304,13 +303,13 @@ codeunit 50201 "BC6_Events Mgt"
     var
         Cust: Record Customer;
     begin
-        Cust.Get();
+        Cust.Get(Cust."No.");
         SalesHeader."BC6_Salesperson Filter" := Cust."BC6_Salesperson Filter";
         SalesHeader."BC6_Cust. Sales Profit Group" := Cust."BC6_Custom. Sales Profit Group";
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterValidateEvent', 'Bill-to Name', false, false)]
-    procedure T36_OnAfterValidateEvent_BillToName(var Rec: Record "Sales Header"; var xRec: Record "Sales Header"; CurrFieldNo: Integer)
+    Local procedure T36_OnAfterValidateEvent_BillToName(var Rec: Record "Sales Header"; var xRec: Record "Sales Header"; CurrFieldNo: Integer)
     var
         Customer: Record Customer;
     begin
@@ -320,7 +319,7 @@ codeunit 50201 "BC6_Events Mgt"
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterValidateEvent', 'Your Reference', false, false)]
-    procedure T36_OnAfterValidateEvent_YourRef(var Rec: Record "Sales Header"; var xRec: Record "Sales Header"; CurrFieldNo: Integer)
+    Local procedure T36_OnAfterValidateEvent_YourRef(var Rec: Record "Sales Header"; var xRec: Record "Sales Header"; CurrFieldNo: Integer)
     var
         UpdateSalesShipment: Codeunit BC6_UpdateSalesShipment;
     begin
@@ -634,7 +633,7 @@ codeunit 50201 "BC6_Events Mgt"
         end else
             SalesHeader."BC6_Bin Code" := '';
     end;
-    // COD
+    // COD1330
     [EventSubscriber(ObjectType::Codeunit, codeunit::"Instruction Mgt.", 'OnBeforeIsUnpostedEnabledForRecord', '', false, false)]
     procedure OnBeforeIsUnpostedEnabledForRecord(RecVariant: Variant; var Enabled: Boolean; var IsHandled: Boolean)
     begin
@@ -977,7 +976,7 @@ codeunit 50201 "BC6_Events Mgt"
 
     procedure COD5776_OnBeforePrintInvtPickHeader(var WarehouseActivityHeader: Record "Warehouse Activity Header"; var IsHandled: Boolean; var HideDialog: Boolean)
     var
-        WhsePick: Report 50047;
+        WhsePick: Report "BC6_Invt. Pick";
     begin
         IsHandled := true;
         WarehouseActivityHeader.SETRANGE("No.", WarehouseActivityHeader."No.");
@@ -1210,19 +1209,21 @@ then begin
         ToPurchLine."Attached to Line No." :=
           TransferOldExtLines.TransferExtendedText(DocLineNo, NextLineNo, FromPurchLine."Attached to Line No.");
     end;
-    //TODO: A verifier 
-    [EventSubscriber(ObjectType::Codeunit, codeunit::"Copy Document Mgt.", 'OnCopySalesInvLinesToDocOnAfterCheckFirstLineShipped', '', false, false)]
 
-    procedure COD6620_OnCopySalesInvLinesToDocOnAfterCheckFirstLineShipped(ToSalesHeader: Record "Sales Header"; OldDocType: Integer; ShptDocNo: Code[20]; var OldShptDocNo: Code[20])
-    var
-        FunctionMgt: codeunit "BC6_Functions Mgt";
-        FromSalesInvLine: record "Sales Invoice Line";
-        NextLineNo: Integer;
-    begin
-        FromSalesInvLine.get();
-        NextLineNo := FunctionMgt.GetLastToSalesLineNo(ToSalesHeader);
-        FunctionMgt.InsertOldOrders(FromSalesInvLine, ToSalesHeader, NextLineNo);
-    end;
+
+
+    // [EventSubscriber(ObjectType::Codeunit, codeunit::"Copy Document Mgt.", 'OnCopySalesInvLinesToDocOnAfterCopySalesDocLine', '', false, false)]
+    // local procedure COD6620_OnCopySalesInvLinesToDocOnAfterCopySalesDocLine(ToSalesLine: Record "Sales Line"; FromSalesInvLine: Record "Sales Invoice Line")
+    // var
+    //     FunctionMgt: codeunit "BC6_Functions Mgt";
+    //     NextLineNo: Integer;
+    //     ToSalesHeader: record "Sales Header";
+    // begin
+    //     ToSalesHeader.GET(ToSalesLine.)
+    //             NextLineNo := FunctionMgt.GetLastToSalesLineNo(ToSalesHeader);
+    //     FunctionMgt.InsertOldOrders(FromSalesInvLine, ToSalesHeader, NextLineNo);
+
+    // end;
 
     [EventSubscriber(ObjectType::Codeunit, codeunit::"Copy Document Mgt.", 'OnBeforeCheckFromSalesHeader', '', false, false)]
 
@@ -1606,24 +1607,15 @@ then begin
             WMSManagement.GetDefaultBin(Rec."No.", Rec."Variant Code", Rec."Location Code", Rec."Bin Code");
     end;
 
-    [EventSubscriber(ObjectType::Table, Database::"Requisition Line", 'OnAfterGetDirectCost', '', false, false)]
-    procedure OnAfterGetDirectCost(var RequisitionLine: Record "Requisition Line"; CalledByFieldNo: Integer)
-    var
-        PurchPriceCalcMgt: Codeunit "Purch. Price Calc. Mgt.";
-    begin
-        //TODO : COD7010 is for removal nd the fct FindVeryBestCostreq doesn't exist
-        // PurchPriceCalcMgt.FindVeryBestCostreq(RequisitionLine);
-    end;
-    //Tab341
-    [EventSubscriber(ObjectType::Table, Database::"Item Discount Group", 'OnAfterDeleteEvent', '', false, false)]
-    local procedure T341_OnAfterDeleteEvent(var Rec: Record "Item Discount Group"; RunTrigger: Boolean)
-    var
-        PurchaseLineDiscount: Record "Purchase Line Discount";  //TODO marked for removal
-    begin
-        PurchaseLineDiscount.SETRANGE(BC6_Type, PurchaseLineDiscount.BC6_Type::"Item Disc. Group");
-        PurchaseLineDiscount.SETRANGE("Item No.", Rec.Code);
-        PurchaseLineDiscount.DELETEALL(true);
-    end;
+    // [EventSubscriber(ObjectType::Table, Database::"Requisition Line", 'OnAfterGetDirectCost', '', false, false)]
+    // procedure OnAfterGetDirectCost(var RequisitionLine: Record "Requisition Line"; CalledByFieldNo: Integer)
+    // var
+    //     PurchPriceCalcMgt: Codeunit "Purch. Price Calc. Mgt.";
+    //     FunctionMgt: Codeunit "BC6_Functions Mgt";
+    // begin
+    //     FunctionMgt.FindVeryBestCostreq(RequisitionLine);
+    // end;
+
     //TAB 10866
     [EventSubscriber(ObjectType::Table, Database::"Payment Line", 'OnAfterSetUpNewLine', '', false, false)]
 
@@ -2174,14 +2166,14 @@ then begin
         Rec.Modify();
     end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Reference Management", 'OnPurchaseReferenceNoLookupOnBeforeValidateDirectUnitCost', '', false, false)]
-    local procedure OnPurchaseReferenceNoLookupOnBeforeValidateDirectUnitCost(var PurchaseLine: Record "Purchase Line"; PurchHeader: Record "Purchase Header")
-    var
-        FctMngt: Codeunit "BC6_Functions Mgt";
-        PurchPriceCalcMgt: Codeunit "Purch. Price Calc. Mgt.";
-    begin
-        FctMngt.FindVeryBestCost(PurchaseLine, PurchHeader);
-    end;
+    // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Reference Management", 'OnPurchaseReferenceNoLookupOnBeforeValidateDirectUnitCost', '', false, false)]
+    // local procedure OnPurchaseReferenceNoLookupOnBeforeValidateDirectUnitCost(var PurchaseLine: Record "Purchase Line"; PurchHeader: Record "Purchase Header")
+    // var
+    //     FctMngt: Codeunit "BC6_Functions Mgt";
+    //     PurchPriceCalcMgt: Codeunit "Purch. Price Calc. Mgt.";
+    // begin
+    //     FctMngt.FindVeryBestCost(PurchaseLine, PurchHeader);
+    // end;
     //COD12
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Gen. Jnl.-Post Line", 'OnBeforeCalcPmtDiscPossible', '', false, false)]
 

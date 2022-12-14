@@ -1,7 +1,7 @@
 report 50037 "BC6_Relance  CNE"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './RelanceCNE.rdlc';
+    RDLCLayout = './src/report/RDL/RelanceCNE.rdl';
 
     Caption = 'Reminder CNE';
 
@@ -391,7 +391,7 @@ report 50037 "BC6_Relance  CNE"
                     BooGIRLineFouter3 := "VAT Amount" <> 0;
                 end;
             }
-            dataitem(IssuedReminderLine2; 298)
+            dataitem(IssuedReminderLine2; "Issued Reminder Line")
             {
                 DataItemLink = "Reminder No." = FIELD("No.");
                 DataItemLinkReference = "Issued Reminder Header";

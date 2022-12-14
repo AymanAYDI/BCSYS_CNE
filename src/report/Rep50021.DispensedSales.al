@@ -1,10 +1,9 @@
 report 50021 "BC6_Dispensed Sales"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './DispensedSales.rdlc';
+    RDLCLayout = './src/report/RDL/DispensedSales.rdl';
 
-    Caption = 'Dispensed Sales';
-
+    Caption = 'Dispensed Sales', Comment = 'FRA="Ventes dérogatoires"';
     dataset
     {
         dataitem(Vendor; Vendor)
@@ -343,7 +342,7 @@ report 50021 "BC6_Dispensed Sales"
     begin
         DatGDateFin2 := DatGDateFin;
         IF DatGDateFin = 0D THEN
-            //TODODatGDateFin := 12319999D;
+            DatGDateFin := 19991231D;
 
 
         RowNo := 1;

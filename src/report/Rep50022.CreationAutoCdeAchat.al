@@ -1,7 +1,7 @@
 report 50022 "BC6_Creation Auto Cde Achat"
 {
 
-    Caption = 'Creation Auto Cde Achat';
+    Caption = 'Creation Auto Cde Achat', Comment = 'FRA="Creation Auto Cde Achat"';
     ProcessingOnly = true;
 
     dataset
@@ -26,7 +26,6 @@ report 50022 "BC6_Creation Auto Cde Achat"
 
     trigger OnInitReport()
     begin
-        // CTRL que la sté est une filiale
         RecGInfoSoc.FINDFIRST();
         IF RecGInfoSoc."BC6_Branch Company" = FALSE THEN
             ERROR(Text001);

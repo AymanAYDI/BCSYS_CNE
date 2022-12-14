@@ -1,19 +1,13 @@
-report 50048 "Bin Barcodes"
+report 50048 "BC6_Bin Barcodes"
 {
-    // -----------------------------------------------
-    // Prodware -www.prodware.fr
-    // -----------------------------------------------
-    // 
-    // //>> CNE4.01
-    // A:FE01 01.09.2011 : Bin Label Print
     DefaultLayout = RDLC;
-    RDLCLayout = './BinBarcodes.rdlc';
+    RDLCLayout = './src/report/RDL/BinBarcodes.rdl';
 
-    Caption = 'Bin Barcodes';
+    Caption = 'Bin Barcodes', Comment = 'FRA="Code barre emplacement"';
 
     dataset
     {
-        dataitem(DataItem7020; Table7354)
+        dataitem(Bin; Bin)
         {
             RequestFilterFields = "Location Code", "Code";
             column(Bin_Location_Code; "Location Code")
@@ -22,7 +16,7 @@ report 50048 "Bin Barcodes"
             column(Bin_Code; Code)
             {
             }
-            dataitem(CopyLoop; Table2000000026)
+            dataitem(CopyLoop; Integer)
             {
                 DataItemTableView = SORTING(Number)
                                     WHERE(Number = CONST(1));
@@ -51,28 +45,17 @@ report 50048 "Bin Barcodes"
         }
     }
 
-    requestpage
-    {
-
-        layout
-        {
-        }
-
-        actions
-        {
-        }
-    }
 
     labels
     {
     }
 
     var
-        gBin1: Record "7354";
-        gBin2: Record "7354";
-        BarcodeMngt: Codeunit "50099";
+        gBin1: Record Bin;
+        gBin2: Record Bin;
+        BarcodeMngt: Codeunit "BC6_Barcode Mngt AutoID";
 
-    [Scope('Internal')]
+
     procedure GetBarCode(piBinCode: Code[20]): Text[250]
     begin
         EXIT(BarcodeMngt.EncodeBarcode39(piBinCode));

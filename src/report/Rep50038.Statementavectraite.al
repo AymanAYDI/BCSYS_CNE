@@ -1,7 +1,7 @@
 report 50038 "BC6_Statement avec traite"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Statementavectraite.rdlc';
+    RDLCLayout = './src/report/RDL/Statementavectraite.rdl';
 
     Caption = 'Statement', Comment = 'FRA="Relevé client CNE"';
 
@@ -831,11 +831,11 @@ report 50038 "BC6_Statement avec traite"
                     Caption = 'Options';
                     field(ShowOverdueEntries; PrintEntriesDue)
                     {
-                        Caption = 'Show Overdue Entries';
+                        Caption = 'Show Overdue Entries', Comment = 'FRA="Afficher écritures échues"';
                     }
                     field(IncludeAllCustomerswithLE; PrintAllHavingEntry)
                     {
-                        Caption = 'Include All Customers with Ledger Entries';
+                        Caption = 'Include All Customers with Ledger Entries', Comment = 'FRA="Inclure tous les clients mouvementés."';
                         MultiLine = true;
 
                         trigger OnValidate()
@@ -846,7 +846,7 @@ report 50038 "BC6_Statement avec traite"
                     }
                     field(IncludeAllCustomerswithBalance; PrintAllHavingBal)
                     {
-                        Caption = 'Include All Customers with a Balance';
+                        Caption = 'Include All Customers with a Balance', Comment = 'FRA="Inclure tous les clients ayant un solde."';
                         MultiLine = true;
 
                         trigger OnValidate()
@@ -857,33 +857,33 @@ report 50038 "BC6_Statement avec traite"
                     }
                     field(IncludeReversedEntries; PrintReversedEntries)
                     {
-                        Caption = 'Include Reversed Entries';
+                        Caption = 'Include Reversed Entries', Comment = 'FRA="Inclure écritures contrepassées"';
                     }
                     field(IncludeUnappliedEntries; PrintUnappliedEntries)
                     {
-                        Caption = 'Include Unapplied Entries';
+                        Caption = 'Include Unapplied Entries', Comment = 'FRA="Inclure écritures non lettrées"';
                     }
                     field(IncludeAgingBand; IncludeAgingBand)
                     {
-                        Caption = 'Include Aging Band';
+                        Caption = 'Include Aging Band', Comment = 'FRA="Inclure cumul date"';
                     }
                     field(AgingBandPeriodLengt; PeriodLength)
                     {
-                        Caption = 'Aging Band Period Length';
+                        Caption = 'Aging Band Period Length', Comment = 'FRA="Base période cumul date"';
                     }
                     field(AgingBandby; DateChoice)
                     {
-                        Caption = 'Aging Band by';
+                        Caption = 'Aging Band by', Comment = 'FRA="Cumul par"';
                         OptionCaption = 'Due Date,Posting Date';
                     }
                     field(LogInteraction; LogInteraction)
                     {
-                        Caption = 'Log Interaction';
+                        Caption = 'Log Interaction', Comment = 'FRA="Journal interaction"';
                         Enabled = LogInteractionEnable;
                     }
                     field(OnlySales; OnlySales)
                     {
-                        Caption = 'Only Sales';
+                        Caption = 'Only Sales', Comment = 'FRA="Uniquement Facture et Avoir"';
                     }
                 }
             }
@@ -981,9 +981,9 @@ report 50038 "BC6_Statement avec traite"
         BILLCaptionLbl: Label 'BILL', comment = 'FRA="L.C.R."';
         Compta_DateCaptionLbl: Label 'Compta Date', comment = 'FRA="Date comptable"';
         CREATION_DATECaptionLbl: Label 'CREATION DATE', comment = 'FRA="DATE DE CREATION"';
-        CstG1000000031: Label 'Amount', comment = 'FRA=""';
+        CstG1000000031: Label 'Amount', comment = 'FRA="MT Net HT"';
         CustBalance___Amount_Control75CaptionLbl: Label 'Continued', comment = 'FRA="Montant"';
-        CustBalance___AmountCaptionLbl: Label 'Continued', comment = 'FRA=""';
+        CustBalance___AmountCaptionLbl: Label 'Continued', comment = 'FRA="Report"';
         CustBalance_Control71CaptionLbl: Label 'Total', comment = 'FRA="Total"';
         CustBalanceCaptionLbl: Label 'Balance', comment = 'FRA="Solde"';
         CustLedgEntry2__Remaining_Amount__Control64CaptionLbl: Label 'Continued', comment = 'FRA="Report"';

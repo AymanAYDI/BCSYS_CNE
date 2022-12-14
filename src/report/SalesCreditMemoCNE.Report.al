@@ -1018,7 +1018,7 @@ report 50013 "Sales - Credit Memo CNE"
         Text004: Label 'COPY';
         Text005: Label 'Sales - Credit Memo %1';
         Text006: Label 'Page %1';
-        Text007: Label 'Total %1 Excl. VAT';
+        Text007: Label 'Total %1 Excl. VAT', Comment = 'FRA="Total %1 Excl. VAT"';
         Text008: Label 'VAT Amount Specification in ';
         Text009: Label 'Local Currency';
         Text010: Label 'Exchange rate: %1/%2';

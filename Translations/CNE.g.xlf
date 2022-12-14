@@ -1648,6 +1648,136 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit BC6_Return Order Mgt. - NamedType NoyExistingRelatedDocuments</note>
         </trans-unit>
+        <trans-unit id="Page 2121096678 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Marge Client</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Customer Profit - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3631851994 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>DEEE Ledger Entries</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_DEEE Ledger Entries - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3908865242 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>DEEE Tariffs List</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_DEEE Tariffs List - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3858444570 - NamedType 3108942807" size-unit="char" translate="yes" xml:space="preserve">
+          <source>You can not insert line</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Intégration article - NamedType TestG004</note>
+        </trans-unit>
+        <trans-unit id="Page 3858444570 - NamedType 4225513885" size-unit="char" translate="yes" xml:space="preserve">
+          <source>do you want integrate this data ?</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Intégration article - NamedType textg001</note>
+        </trans-unit>
+        <trans-unit id="Page 3858444570 - NamedType 3587817268" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Empty Integration form ?</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Intégration article - NamedType textg002</note>
+        </trans-unit>
+        <trans-unit id="Page 3858444570 - NamedType 2950120651" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Integration finished</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Intégration article - NamedType textg003</note>
+        </trans-unit>
+        <trans-unit id="Page 3858444570 - NamedType 2951568473" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Mise à jour terminée.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Intégration article - NamedType textG005</note>
+        </trans-unit>
+        <trans-unit id="Page 3858444570 - Action 3201496503 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Import</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Intégration article - Action Import - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3858444570 - Action 642782499 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Update</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Intégration article - Action Update - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3858444570 - Action 731411888 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Update Item Std Cost</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Intégration article - Action Update Item Std Cost - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 77176889 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Liste des catégories d'articles</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Item Category List - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 77176889 - Action 3082453845 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>&amp;Tariffs</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Item Category List - Action &amp;Tariffs - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3971299488 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Groupe Marge Vente Article</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Item Sales Profit Group - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1080709956 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Return Solutions</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Return Solutions - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 352916470 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Salespersons authorizeds</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Salesperson authorized - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2346303421 - NamedType 2951775720" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%TYpe Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Special Extended Text - NamedType text001</note>
+        </trans-unit>
+        <trans-unit id="Page 2346303421 - Control 4200184881 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Item Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Special Extended Text - Control No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2346303421 - Control 3004954119 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Special Extended Text - Control Code - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2346303421 - Action 1606682606 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>List</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Special Extended Text - Action List - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3601846579 - Control 2961552353 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Name</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Special Extended Text list - Control Name - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 463347265 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Tables Diverses (Non Modif)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Tab. Diverses (Non Modif) - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 463347265 - NamedType 3114637384" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ce champ ne doit pas être vide</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Tab. Diverses (Non Modif) - NamedType Text001</note>
+        </trans-unit>
+        <trans-unit id="Page 3658319532 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Various Tables</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Various Tables - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3658319532 - NamedType 3114637384" size-unit="char" translate="yes" xml:space="preserve">
+          <source>This field cannot be empty.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Various Tables - NamedType Text001</note>
+        </trans-unit>
+        <trans-unit id="Page 4223555262 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Various Tables List</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Various Tables List - Property Caption</note>
+        </trans-unit>
         <trans-unit id="TableExtension 2057529167 - Field 3982408007 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 400793991">
           <source>Exclude Inventory Pick</source>
           <note from="Developer" annotates="general" priority="2">FRA="Exclure prélèvement stock"</note>
@@ -1950,7 +2080,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 3959794109 - Field 2374339882 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1013257135">
           <source>DEEE HT Amount (LCY)</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="DEEE HT Amount (DS)"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_DetailedCVLedgEntryBuffer - Field BC6_DEEE HT Amount (LCY) - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 3959794109 - Field 3989778610 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1013257135">
@@ -2085,13 +2215,13 @@
         </trans-unit>
         <trans-unit id="TableExtension 2018384098 - Field 988110640 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 672901922">
           <source>Ship-to Contact</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Contact destinataire"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_ICOutboxSalesHeader - Field BC6_Ship-to Contact - Property Caption</note>
         </trans-unit>
-        <trans-unit id="TableExtension 1447570383 - Field 3529764240 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1180040559">
+        <trans-unit id="TableExtension 1447570383 - Field 522807712 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1180040559">
           <source>Cross. Ref. Type No. BarCode</source>
           <note from="Developer" annotates="general" priority="2">FRA="Type N° externe Code barres"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_InventorySetup - Field BC6_Cross. Ref. Type No. BarCode - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_InventorySetup - Field BC6_Cross.Ref.Type No.BarCode - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 1447570383 - Field 4222318069 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1180040559">
           <source>Int. BarCode Nos</source>
@@ -2223,10 +2353,10 @@
           <note from="Developer" annotates="general" priority="2">FRA="Code utilisateur affecté"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_ItemJournalBatch - Field BC6_Assigned User ID - Property Caption</note>
         </trans-unit>
-        <trans-unit id="TableExtension 773578508 - Field 3435461298 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2545485356">
+        <trans-unit id="TableExtension 773578508 - Field 1650780101 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2545485356">
           <source>Nom feuille contrôle inventaire</source>
           <note from="Developer" annotates="general" priority="2">FRA="Nom feuille contrôle inventaire"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_ItemJournalBatch - Field BC6_Phys. Inv. Check Batch Name - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_ItemJournalBatch - Field BC6_Phys. Inv. Check Bat. Name - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 773578508 - Field 817180375 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2545485356">
           <source>Relevé inventaire</source>
@@ -2283,10 +2413,10 @@
           <note from="Developer" annotates="general" priority="2">FRA="Eco partenaire DEEE"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_ItemJournalLine - Field BC6_Eco partner DEEE - Property Caption</note>
         </trans-unit>
-        <trans-unit id="TableExtension 2147839526 - Field 2737587016 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 346005766">
+        <trans-unit id="TableExtension 2147839526 - Field 1658470484 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 346005766">
           <source>Qty. (Phys. Inventory)</source>
           <note from="Developer" annotates="general" priority="2">FRA="Qté (constatée) actualisée"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_ItemJournalLine - Field BC6_Qty. Refreshed (Phys. Inv.) - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_ItemJournalLine - Field BC6_Qty.(Phys. Inv.) - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 2147839526 - Field 2327415307 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 346005766">
           <source>Whse. Document Line No.</source>
@@ -2610,7 +2740,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 2722527063 - Field 2850913277 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1519909599">
           <source>Document Date</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Date Document"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_PurchaseLine - Field BC6_Document Date - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 2722527063 - Field 695253523 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1519909599">
@@ -2628,20 +2758,20 @@
           <note from="Developer" annotates="general" priority="2">FRA="Tarif Public"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_PurchaseLine - Field BC6_Public Price - Property Caption</note>
         </trans-unit>
+        <trans-unit id="TableExtension 2722527063 - Field 3686664884 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1519909599">
+          <source>Return-Sales Order</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Retour-Commande vente"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_PurchaseLine - Field BC6_Retrn. Sales OrderShpt - Property Caption</note>
+        </trans-unit>
         <trans-unit id="TableExtension 2722527063 - Field 4283950939 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1519909599">
           <source>Return Comment</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Code solution"</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Commentaire retour"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_PurchaseLine - Field BC6_Return Comment - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 2722527063 - Field 3138417024 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1519909599">
           <source>Return Order Type</source>
           <note from="Developer" annotates="general" priority="2">FRA="Type retour achat"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_PurchaseLine - Field BC6_Return Order Type - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="TableExtension 2722527063 - Field 1026829916 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1519909599">
-          <source>Return-Sales Order</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Retour-Commande vente"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_PurchaseLine - Field BC6_Return Order-Shpt Sales Order - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 2722527063 - Field 2054624377 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1519909599">
           <source>Document Type</source>
@@ -2675,12 +2805,12 @@
         </trans-unit>
         <trans-unit id="TableExtension 2722527063 - Field 65697616 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1519909599">
           <source>N° de série</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="N° de série"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_PurchaseLine - Field BC6_Series No. - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 2722527063 - Field 4010940256 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1519909599">
           <source>Solution Code</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Code Solution"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_PurchaseLine - Field BC6_Solution Code - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 2760575305 - Field 3483020015 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2809873457">
@@ -3093,10 +3223,10 @@
           <note from="Developer" annotates="general" priority="2">FRA="Regrouper BL par commande"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_ReturnReceiptHeader - Field BC6_Combine Shipments by Order - Property Caption</note>
         </trans-unit>
-        <trans-unit id="TableExtension 3515322067 - Field 3331688415 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2925931323">
+        <trans-unit id="TableExtension 3515322067 - Field 2273043226 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2925931323">
           <source>Goupe Marge Vente Client</source>
           <note from="Developer" annotates="general" priority="2">FRA="Goupe Marge Vente Client"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_ReturnReceiptHeader - Field BC6_Customer Sales Profit Group - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_ReturnReceiptHeader - Field BC6_Cust. Sales Profit Group - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 3515322067 - Field 924934267 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2925931323">
           <source>Document description</source>
@@ -3168,10 +3298,10 @@
           <note from="Developer" annotates="general" priority="2">FRA="N° preneur d'ordre"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_ReturnReceiptLine - Field BC6_Buy-from Vendor No. - Property Caption</note>
         </trans-unit>
-        <trans-unit id="TableExtension 1639120652 - Field 3331688415 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1173465396">
+        <trans-unit id="TableExtension 1639120652 - Field 2273043226 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1173465396">
           <source>Goupe Marge Vente Client</source>
           <note from="Developer" annotates="general" priority="2">FRA="Goupe Marge Vente Client"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_ReturnReceiptLine - Field BC6_Customer Sales Profit Group - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_ReturnReceiptLine - Field BC6_Cust. Sales Profit Group - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 1639120652 - Field 3277020594 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1173465396">
           <source>Discount unit price excluding VAT</source>
@@ -3518,25 +3648,30 @@
           <note from="Developer" annotates="general" priority="2">FRA="En retard"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesCue - Field BC6_Delayed Salesperson - Property Caption</note>
         </trans-unit>
-        <trans-unit id="TableExtension 1528323157 - Field 2713190892 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 388441093">
+        <trans-unit id="TableExtension 1528323157 - Field 45859326 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 388441093">
           <source>Partially Shipped</source>
           <note from="Developer" annotates="general" priority="2">FRA="Partiellement livré"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesCue - Field BC6_Partially Shipped Salesperson - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesCue - Field BC6_Partially Ship. Sales/per - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 1528323157 - Field 3453653129 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 388441093">
           <source>Ready to Ship</source>
           <note from="Developer" annotates="general" priority="2">FRA="Prêt pour expédition"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesCue - Field BC6_Ready to Ship Salesperson - Property Caption</note>
         </trans-unit>
-        <trans-unit id="TableExtension 1528323157 - Field 2125896907 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 388441093">
+        <trans-unit id="TableExtension 1528323157 - Field 1654565092 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 388441093">
           <source>Sales Orders - Open</source>
           <note from="Developer" annotates="general" priority="2">FRA="Commandes vente - Ouvertes"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesCue - Field BC6_Sales Orders Salesperson- Open - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesCue - Field BC6_Sales Ord Sales/per- Open - Property Caption</note>
         </trans-unit>
-        <trans-unit id="TableExtension 1528323157 - Field 3329624759 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 388441093">
+        <trans-unit id="TableExtension 1528323157 - Field 1579152556 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 388441093">
           <source>Sales Quotes - Open</source>
           <note from="Developer" annotates="general" priority="2">FRA="Devis - Ouverts"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesCue - Field BC6_Sales Quotes Salesperson-Open - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesCue - Field BC6_Sales Quot.Sales/per-Open - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 1528323157 - Field 1179101062 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 388441093">
+          <source>Sales Return Orders - All</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Retours vente - Tous"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesCue - Field BC6_Sales Ret. Ord. Sales/per - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 1528323157 - Field 2007868846 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 388441093">
           <source>Retours vente - Magasin</source>
@@ -3548,20 +3683,10 @@
           <note from="Developer" annotates="general" priority="2">FRA="Retours vente - SAV"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesCue - Field BC6_Sales Return - SAV - Property Caption</note>
         </trans-unit>
-        <trans-unit id="TableExtension 1528323157 - Field 3581077200 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 388441093">
-          <source>Sales Return Orders - All</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Retours vente - Tous"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesCue - Field BC6_Sales Return Orders Salesperso - Property Caption</note>
-        </trans-unit>
         <trans-unit id="TableExtension 1528323157 - Field 4224765087 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 388441093">
           <source>Responsibility Center Filter</source>
           <note from="Developer" annotates="general" priority="2">FRA="Responsibility Center Filter"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesCue - Field BC6_Salesperson Filter - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="TableExtension 3264870169 - NamedType 2644057231" size-unit="char" translate="yes" xml:space="preserve" al-object-target="TableExtension 3264870169">
-          <source></source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesHeader - NamedType ---NSC1.01</note>
         </trans-unit>
         <trans-unit id="TableExtension 3264870169 - NamedType 2474767216" size-unit="char" translate="yes" xml:space="preserve" al-object-target="TableExtension 3264870169">
           <source>Bill-to Customer</source>
@@ -3582,11 +3707,6 @@
           <source>The document has not been posted.\Are you sure you want to exit?</source>
           <note from="Developer" annotates="general" priority="2">FRA="Le document n'a pas été validé.\Voulez-vous vraiment quitter ?"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesHeader - NamedType DocumentNotPostedClosePageQst</note>
-        </trans-unit>
-        <trans-unit id="TableExtension 3264870169 - NamedType 3211338091" size-unit="char" translate="yes" xml:space="preserve" al-object-target="TableExtension 3264870169">
-          <source>One or more related posted documents have been generated during deletion to fill gaps in the posting number series. You can view or print the documents from the respective document archive.</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesHeader - NamedType PostedDocsToPrintCreatedMsg</note>
         </trans-unit>
         <trans-unit id="TableExtension 3264870169 - NamedType 2060351382" size-unit="char" translate="yes" xml:space="preserve" al-object-target="TableExtension 3264870169">
           <source>Do you want to select the customer template?</source>
@@ -3653,10 +3773,10 @@
           <note from="Developer" annotates="general" priority="2">FRA="Copie adresse donneur d'ordre"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesHeader - Field BC6_Copy Sell-to Address - Property Caption</note>
         </trans-unit>
-        <trans-unit id="TableExtension 3264870169 - Field 3331688415 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1192395785">
+        <trans-unit id="TableExtension 3264870169 - Field 2273043226 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1192395785">
           <source>Customer Sales Profit Group</source>
           <note from="Developer" annotates="general" priority="2">FRA="Goupe Marge Vente Client"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesHeader - Field BC6_Customer Sales Profit Group - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesHeader - Field BC6_Cust. Sales Profit Group - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 3264870169 - Field 924934267 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1192395785">
           <source>Document description</source>
@@ -3783,10 +3903,10 @@
           <note from="Developer" annotates="general" priority="2">FRA="Copie adresse donneur d'ordre"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesHeaderArchive - Field BC6_Copy Sell-to Address - Property Caption</note>
         </trans-unit>
-        <trans-unit id="TableExtension 2914171223 - Field 3331688415 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1948788855">
+        <trans-unit id="TableExtension 2914171223 - Field 2273043226 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1948788855">
           <source>Goupe Marge Vente Client</source>
           <note from="Developer" annotates="general" priority="2">FRA="Goupe Marge Vente Client"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesHeaderArchive - Field BC6_Customer Sales Profit Group - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesHeaderArchive - Field BC6_Cust. Sales Profit Group - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 2914171223 - Field 924934267 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1948788855">
           <source>Document description</source>
@@ -4178,10 +4298,10 @@
           <note from="Developer" annotates="general" priority="2">FRA="N° preneur d'ordre"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesLine - Field BC6_Buy-from Vendor No. - Property Caption</note>
         </trans-unit>
-        <trans-unit id="TableExtension 3884000178 - Field 3331688415 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2574427010">
+        <trans-unit id="TableExtension 3884000178 - Field 2273043226 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2574427010">
           <source>Goupe Marge Vente Client</source>
           <note from="Developer" annotates="general" priority="2">FRA="Goupe Marge Vente Client"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesLine - Field BC6_Customer Sales Profit Group - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesLine - Field BC6_Cust. Sales Profit Group - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 3884000178 - Field 739248765 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2574427010">
           <source>DEEE Amount (LCY) for Stat</source>
@@ -4298,10 +4418,10 @@
           <note from="Developer" annotates="general" priority="2">FRA="Prélever qté"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesLine - Field BC6_Pick Qty. - Property Caption</note>
         </trans-unit>
-        <trans-unit id="TableExtension 3884000178 - Field 2000137788 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2574427010">
+        <trans-unit id="TableExtension 3884000178 - Field 1697030552 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2574427010">
           <source>Purchase Receipt Date</source>
           <note from="Developer" annotates="general" priority="2">FRA="Date réception achat confirmée"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesLine - Field BC6_Promised Purchase Receipt Date - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesLine - Field BC6_Prom. Purch. Receipt Date - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 3884000178 - Field 1385173424 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2574427010">
           <source>Tarif Public</source>
@@ -4363,10 +4483,10 @@
           <note from="Developer" annotates="general" priority="2">FRA="Type  retour vente"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesLine - Field BC6_Return Order Type - Property Caption</note>
         </trans-unit>
-        <trans-unit id="TableExtension 3884000178 - Field 1026829916 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2574427010">
+        <trans-unit id="TableExtension 3884000178 - Field 4269162423 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2574427010">
           <source>Return-Sales Order</source>
           <note from="Developer" annotates="general" priority="2">FRA="Retour-Commande vente"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesLine - Field BC6_Return Order-Shpt Sales Order - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesLine - Field BC6_ReturnOrderShpt SalesOrder - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 3884000178 - Field 65697616 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2574427010">
           <source>N° de série</source>
@@ -4418,10 +4538,10 @@
           <note from="Developer" annotates="general" priority="2">FRA="N° preneur d'ordre"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesLineArchive - Field BC6_Buy-from Vendor No. - Property Caption</note>
         </trans-unit>
-        <trans-unit id="TableExtension 3710013848 - Field 3331688415 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2903552224">
+        <trans-unit id="TableExtension 3710013848 - Field 2273043226 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2903552224">
           <source>Goupe Marge Vente Client</source>
           <note from="Developer" annotates="general" priority="2">FRA="Goupe Marge Vente Client"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesLineArchive - Field BC6_Customer Sales Profit Group - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesLineArchive - Field BC6_Cust. Sales Profit Group - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 3710013848 - Field 739248765 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2903552224">
           <source>DEEE Amount (LCY) for Stat</source>
@@ -4533,10 +4653,10 @@
           <note from="Developer" annotates="general" priority="2">FRA="Prélever qté"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesLineArchive - Field BC6_Pick Qty. - Property Caption</note>
         </trans-unit>
-        <trans-unit id="TableExtension 3710013848 - Field 2000137788 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2903552224">
+        <trans-unit id="TableExtension 3710013848 - Field 2579853670 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2903552224">
           <source>Purchase Receipt Date</source>
           <note from="Developer" annotates="general" priority="2">FRA="Date réception achat confirmée"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesLineArchive - Field BC6_Promised Purchase Receipt Date - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesLineArchive - Field BC6_Promised Pur. Receipt Date - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 3710013848 - Field 1385173424 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2903552224">
           <source>Tarif Public</source>
@@ -4618,16 +4738,6 @@
           <note from="Developer" annotates="general" priority="2">FRA="% Profit"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesLineDiscount - Field BC6_Profit % - Property Caption</note>
         </trans-unit>
-        <trans-unit id="TableExtension 428897493 - Change 1406664548 - Property 62802879" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1671969677">
-          <source>Customer,Customer Disc. Group,All Customers,Campaign,Customer Sales Profit Group</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesLineDiscount - Change Sales Type - Property OptionCaption</note>
-        </trans-unit>
-        <trans-unit id="TableExtension 428897493 - Change 1878130204 - Property 62802879" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1671969677">
-          <source>Item,Item Disc. Group,,,,,Vendor</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesLineDiscount - Change Type - Property OptionCaption</note>
-        </trans-unit>
         <trans-unit id="TableExtension 3314343336 - Field 1806115862 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3399585325">
           <source>Grouping Code</source>
           <note from="Developer" annotates="general" priority="2">FRA="Regroupement codes"</note>
@@ -4660,7 +4770,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 3587710892 - Field 3256449319 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 4145206282">
           <source>E-Mail Administrateur</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Date Livraison Confirmée"</note>
+          <note from="Developer" annotates="general" priority="2">FRA="-Mail Administrateur"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesReceivablesSetup - Field BC6_E-Mail Administrateur - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 3587710892 - Field 2077383344 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 4145206282">
@@ -4675,7 +4785,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 3587710892 - Field 1357759917 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 4145206282">
           <source>Promised Delivery Date</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Date Livraison Demandée"</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Date Livraison Confirmée"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesReceivablesSetup - Field BC6_Promised Delivery Date - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 3587710892 - Field 1181215721 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 4145206282">
@@ -4690,7 +4800,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 3587710892 - Field 3427775452 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 4145206282">
           <source>Requested Delivery Date</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Date Livraison Demandée"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesReceivablesSetup - Field BC6_Requested Delivery Date - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 3587710892 - Field 1616132282 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 4145206282">
@@ -4958,20 +5068,20 @@
           <note from="Developer" annotates="general" priority="2">FRA="Activer contrôle marge mini / Prix bloqués"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_UserSetup - Field BC6_Activ. Mini Margin Control - Property Caption</note>
         </trans-unit>
-        <trans-unit id="TableExtension 3473588906 - Field 1255967975 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 337631938">
-          <source>Aut. Qty. to Hand. withPickQty</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Autoriser. modif qté à traiter vérif. qté prélevée"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_UserSetup - Field BC6_Aut. Qty. to Han. Test PickQty - Property Caption</note>
-        </trans-unit>
         <trans-unit id="TableExtension 3473588906 - Field 2384686137 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 337631938">
           <source>Aut. Real Sales Profit %</source>
           <note from="Developer" annotates="general" priority="2">FRA="Afficher marge sur vente sans coeff."</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_UserSetup - Field BC6_Aut. Real Sales Profit % - Property Caption</note>
         </trans-unit>
-        <trans-unit id="TableExtension 3473588906 - Field 641107698 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 337631938">
+        <trans-unit id="TableExtension 3473588906 - Field 451813495 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 337631938">
+          <source>Aut. Qty. to Hand. withPickQty</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Autoriser. modif qté à traiter vérif. qté prélevée"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_UserSetup - Field BC6_Aut.Qty.toHan.TestPickQty - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 3473588906 - Field 3483945629 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 337631938">
           <source>Autorize Qty. to Handle Change</source>
           <note from="Developer" annotates="general" priority="2">FRA="Autoriser. modif qté à traiter"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_UserSetup - Field BC6_Autorize Qty. to Handle Change - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_UserSetup - Field BC6_Auth.Qty.to Handle Change - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 3473588906 - Field 3786087811 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 337631938">
           <source>E-mail Business Reminder</source>
@@ -5150,7 +5260,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 4279255994 - NamedType 3752334001" size-unit="char" translate="yes" xml:space="preserve" al-object-target="TableExtension 4279255994">
           <source>You cannot handle more than the outstanding %1 units.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA="Vous ne pouvez pas traiter plus que les %1 unités restantes."</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_WarehouseActivityLine - NamedType Text002</note>
         </trans-unit>
         <trans-unit id="TableExtension 4279255994 - Field 528178230 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 2624270058">
@@ -5188,35 +5298,35 @@
           <note from="Developer" annotates="general" priority="2">FRA="Commentaire magasin"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_WarehouseActivityLine - Field BC6_Warehouse Comment - Property Caption</note>
         </trans-unit>
-        <trans-unit id="TableExtension 2193836576 - Field 4214181821 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3637180376">
-          <source>Journal Batch Name Filter Inv</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Nom feuille prélèvement"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_WarehouseBasicCue - Field BC6_Journal Batch Name Filter Inv - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="TableExtension 2193836576 - Field 1695566202 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3637180376">
-          <source>Journal Batch Name Filter Rec</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Nom feuille Reclassement"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_WarehouseBasicCue - Field BC6_Journal Batch Name Filter Rec - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="TableExtension 2193836576 - Field 2020606993 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3637180376">
+        <trans-unit id="TableExtension 2193836576 - Field 2014670617 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3637180376">
           <source>Journal Template Name Filter I</source>
           <note from="Developer" annotates="general" priority="2">FRA="Nom modèle feuille Prélèvement"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_WarehouseBasicCue - Field BC6_Journal Template Name Filter I - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_WarehouseBasicCue - Field BC6_Jour. Template Name Fil. I - Property Caption</note>
         </trans-unit>
-        <trans-unit id="TableExtension 2193836576 - Field 3802727296 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3637180376">
+        <trans-unit id="TableExtension 2193836576 - Field 2183579640 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3637180376">
           <source>Journal Template Name Filter R</source>
           <note from="Developer" annotates="general" priority="2">FRA="Nom modèle feuille Reclassment"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_WarehouseBasicCue - Field BC6_Journal Template Name Filter R - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_WarehouseBasicCue - Field BC6_Jour. Template Name Fil. R - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 2193836576 - Field 3668954039 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3637180376">
+          <source>Journal Batch Name Filter Inv</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Nom feuille prélèvement"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_WarehouseBasicCue - Field BC6_Journ. Batch Name Fil. Inv - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="TableExtension 2193836576 - Field 1482776924 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3637180376">
+          <source>Journal Batch Name Filter Rec</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Nom feuille Reclassement"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_WarehouseBasicCue - Field BC6_Journ. Batch Name Fil. Rec - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 2193836576 - Field 3631087881 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3637180376">
           <source>My Invt. Lines Until Today</source>
           <note from="Developer" annotates="general" priority="2">FRA="Mes lignes prélèvements stock à ce jour"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_WarehouseBasicCue - Field BC6_My Invt. Lines Until Today - Property Caption</note>
         </trans-unit>
-        <trans-unit id="TableExtension 2193836576 - Field 2845647077 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3637180376">
+        <trans-unit id="TableExtension 2193836576 - Field 1112528842 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3637180376">
           <source>My Reclass. Lines Until Today</source>
           <note from="Developer" annotates="general" priority="2">FRA="Mes lignes reclassement  stock à ce jour"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_WarehouseBasicCue - Field BC6_My Reclass. Lines Until Today - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_WarehouseBasicCue - Field BC6_My Rec.Lines Until Today - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 2193836576 - Field 3271823395 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3637180376">
           <source>Upcoming Orders</source>
@@ -5393,31 +5503,6 @@
           <note from="Developer" annotates="general" priority="2">FRA="Gestion"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum BC6_IncomeBalance - EnumValue Income Statement - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Enum 1964161050 - EnumValue 1682139193 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Bank Account</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Enum BC6_OptLAccountType - EnumValue Bank Account - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Enum 1964161050 - EnumValue 1994964448 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Customer</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Enum BC6_OptLAccountType - EnumValue Customer - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Enum 1964161050 - EnumValue 372951706 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Fixed Asset</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Enum BC6_OptLAccountType - EnumValue Fixed Asset - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Enum 1964161050 - EnumValue 4274826855 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>G/L Account</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Enum BC6_OptLAccountType - EnumValue G/L Account - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Enum 1964161050 - EnumValue 1936001480 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Vendor</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Enum BC6_OptLAccountType - EnumValue Vendor - Property Caption</note>
-        </trans-unit>
         <trans-unit id="Enum 136592978 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Type</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -5440,17 +5525,17 @@
         </trans-unit>
         <trans-unit id="Enum 4034179808 - EnumValue 2445482498 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>General</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Général"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum BC6_QtyType - EnumValue General - Property Caption</note>
         </trans-unit>
         <trans-unit id="Enum 4034179808 - EnumValue 1450094168 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Invoicing</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Facturation"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum BC6_QtyType - EnumValue Invoicing - Property Caption</note>
         </trans-unit>
         <trans-unit id="Enum 4034179808 - EnumValue 3097346278 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Shipping</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Expédition"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum BC6_QtyType - EnumValue Shipping - Property Caption</note>
         </trans-unit>
         <trans-unit id="Enum 4180687845 - EnumValue 3116416530 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">

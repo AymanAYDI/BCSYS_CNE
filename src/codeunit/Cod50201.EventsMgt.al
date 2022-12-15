@@ -4259,7 +4259,6 @@ then begin
         IF GlobalFunctionMgt.GetDeleteWhseActivity() THEN BEGIN
             IF WhseActivLine.FIND('-') THEN
                 REPEAT
-                    //>> CNE6.01
                     QtytoHandle := 0;
                     IF (WhseActivLine."Activity Type" = WhseActivLine."Activity Type"::"Invt. Put-away") THEN BEGIN
                         WhseActivLine.DELETE;
@@ -4271,7 +4270,6 @@ then begin
                             WhseActivLine2.get(WhseActivLine."Activity Type", WhseActivLine."No.", WhseActivLine."Line No.");
                             WhseActivLine2.BC6_DeleteWhseActivityHeader := false;
                             WhseActivLine2.modify();
-                            //>> COR A
                             IF (WhseActivLine."BC6_Qty. Picked" > 0) THEN
                                 QtytoHandle := WhseActivLine."BC6_Qty. Picked" - WhseActivLine."Qty. Handled";
                             IF (QtytoHandle > WhseActivLine."Qty. Outstanding") THEN
@@ -4282,7 +4280,6 @@ then begin
                         END;
                     END;
                 UNTIL WhseActivLine.NEXT = 0;
-            //>> CNE6.01
             IF GlobalFunctionMgt.GetDeleteWhseActivityHeaderOk() THEN
                 WhseActivLine.SetRange(BC6_DeleteWhseActivityHeader, true);
         end;

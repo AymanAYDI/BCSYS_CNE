@@ -1,15 +1,5 @@
-xmlport 53000 "Import Client"
+xmlport 53000 "BC6_Import Client"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // 
-    // //>>CNE1.00
-    // FE0021.001:FAFU 28/12/2006 : Reprise de données
-    //                              - Creation
-    // ------------------------------------------------------------------------
-
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = '<TAB>';
@@ -19,7 +9,7 @@ xmlport 53000 "Import Client"
     {
         textelement(Root)
         {
-            tableelement(Table18; Table18)
+            tableelement(Table18; Customer)
             {
                 AutoSave = false;
                 XmlName = 'Customer';
@@ -232,7 +222,7 @@ xmlport 53000 "Import Client"
                     IF Intracom <> '' THEN
                         RecGCust.VALIDATE("VAT Registration No.", Intracom);
                     IF Siren <> '' THEN
-                        RecGCust.VALIDATE("Code SIREN", Siren);
+                        RecGCust.VALIDATE("BC6_Code SIREN", Siren);
 
                     //Mode règlement
                     IF Rglt <> '' THEN BEGIN
@@ -340,7 +330,7 @@ xmlport 53000 "Import Client"
                         Commentaires.INSERT(TRUE);
                     END;
 
-                    EVALUATE(RecGCust."Creation Date", DateCreat);
+                    EVALUATE(RecGCust."BC6_Creation Date", DateCreat);
 
                     IF NbFacture <> '' THEN BEGIN
                         EVALUATE(RecGCust."Invoice Copies", NbFacture);
@@ -350,7 +340,7 @@ xmlport 53000 "Import Client"
                     EVALUATE(RecGCust."Print Statements", EditionRel);
                     RecGCust.VALIDATE("Print Statements");
 
-                    EVALUATE(RecGCust."Valued Shipment", EditionRel);
+                    EVALUATE(RecGCust."BC6_Valued Shipment", EditionRel);
                     RecGCust.VALIDATE("Print Statements");
                     RecGCust.VALIDATE("Location Code", 'CNE');
 
@@ -374,19 +364,19 @@ xmlport 53000 "Import Client"
     }
 
     var
-        RecGCust: Record "18";
-        PostCode: Record "225";
-        Territory: Record "286";
-        ShipMethode: Record "10";
-        Contact: Record "5050";
-        Language: Record "8";
-        Currency: Record "4";
-        GpCptaMarche: Record "250";
-        PaymentTerms: Record "3";
-        PaymentMethod: Record "289";
-        Vendeur: Record "13";
-        Commentaires: Record "97";
-        Defaut: Record "50004";
-        GpRemise: Record "340";
+        RecGCust: Record Customer;
+        PostCode: Record "Post Code";
+        Territory: Record Territory;
+        ShipMethode: Record "Shipment Method";
+        Contact: Record Contact;
+        Language: Record Language;
+        Currency: Record Currency;
+        GpCptaMarche: Record "Gen. Business Posting Group";
+        PaymentTerms: Record "Payment Terms";
+        PaymentMethod: Record "Payment Method";
+        Vendeur: Record "Salesperson/Purchaser";
+        Commentaires: Record "Comment Line";
+        Defaut: Record "BC6_Navi+ Setup";
+        GpRemise: Record "Customer Discount Group";
 }
 

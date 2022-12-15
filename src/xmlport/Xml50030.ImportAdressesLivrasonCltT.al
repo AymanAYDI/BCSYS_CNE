@@ -1,11 +1,5 @@
 xmlport 50030 "Import AdressesLivrasonClt T"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // ------------------------------------------------------------------------
-
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = ';';
@@ -15,7 +9,7 @@ xmlport 50030 "Import AdressesLivrasonClt T"
     {
         textelement(Root)
         {
-            tableelement(Table99005; Table99005)
+            tableelement("Ship-to Address Test"; "BC6_Ship-to Address Test")
             {
                 XmlName = 'ShiptoAddressTest';
                 fieldelement(Code; "Ship-to Address Test".Code)

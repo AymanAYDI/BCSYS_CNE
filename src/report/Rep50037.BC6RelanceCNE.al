@@ -91,7 +91,7 @@ report 50037 "BC6_BC6_Relance  CNE"
             column(Document_DateCaption; Document_DateCaptionLbl)
             {
             }
-            column(Issued_Reminder_Line__Document_No__Caption; IssuedReminderHeader.FIELDCAPTION("Document No."))
+            column(Issued_Reminder_Line__Document_No__Caption; IssuedReminderLine.FIELDCAPTION("Document No."))
             {
             }
             column(Issued_Reminder_Line__Due_Date_Caption; Issued_Reminder_Line__Due_Date_CaptionLbl)
@@ -100,7 +100,7 @@ report 50037 "BC6_BC6_Relance  CNE"
             column(Issued_Reminder_Line__Remaining_Amount__Control40Caption; IssuedReminderHeader.FIELDCAPTION("Remaining Amount"))
             {
             }
-            column(Issued_Reminder_Line__Original_Amount_Caption; IssuedReminderHeader.FIELDCAPTION("Original Amount"))
+            column(Issued_Reminder_Line__Original_Amount_Caption; IssuedReminderLine.FIELDCAPTION("Original Amount"))
             {
             }
             column(Type_documentCaption; Type_documentCaptionLbl)
@@ -173,11 +173,11 @@ report 50037 "BC6_BC6_Relance  CNE"
                 trigger OnAfterGetRecord()
                 begin
                     IF Number = 1 THEN BEGIN
-                        IF NOT DimSetEntry.FINDSET THEN
-                            CurrReport.BREAK;
+                        IF NOT DimSetEntry.FINDSET() THEN
+                            CurrReport.BREAK();
                     END ELSE
                         IF NOT Continue THEN
-                            CurrReport.BREAK;
+                            CurrReport.BREAK();
 
                     CLEAR(DimText);
                     Continue := FALSE;
@@ -195,16 +195,16 @@ report 50037 "BC6_BC6_Relance  CNE"
                             Continue := TRUE;
                             EXIT;
                         END;
-                    UNTIL DimSetEntry.NEXT = 0;
+                    UNTIL DimSetEntry.NEXT() = 0;
                 end;
 
                 trigger OnPreDataItem()
                 begin
                     IF NOT ShowInternalInfo THEN
-                        CurrReport.BREAK;
+                        CurrReport.BREAK();
                 end;
             }
-            dataitem(IssuedReminderLine; "Issued Reminder Line")
+            dataitem(IssuedReminderLineTexte; "Issued Reminder Line")
             {
 
                 DataItemLink = "Reminder No." = FIELD("No.");
@@ -245,7 +245,7 @@ report 50037 "BC6_BC6_Relance  CNE"
                             Continue := Type = Type::" ";
                             IF Continue AND (Description <> '') THEN
                                 StartLineNo := "Line No.";
-                        UNTIL (NEXT = 0) OR NOT Continue;
+                        UNTIL (NEXT() = 0) OR NOT Continue;
                     END;
                     IF FIND('+') THEN BEGIN
                         EndLineNo := "Line No." + 1;
@@ -267,7 +267,7 @@ report 50037 "BC6_BC6_Relance  CNE"
                 column(Issued_Reminder_Line__Remaining_Amount_; "Remaining Amount")
                 {
                     //TODO : missing function 
-                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
                     AutoFormatType = 1;
                 }
                 column(STRSUBSTNO__du__1__FORMAT__Document_Date___; STRSUBSTNO('du %1', FORMAT("Document Date")))
@@ -281,12 +281,12 @@ report 50037 "BC6_BC6_Relance  CNE"
                 }
                 column(Issued_Reminder_Line__Remaining_Amount__Control40; "Remaining Amount")
                 {
-                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
                     AutoFormatType = 1;
                 }
                 column(Issued_Reminder_Line__Original_Amount_; "Original Amount")
                 {
-                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
                     AutoFormatType = 1;
                 }
                 column(STRSUBSTNO___1_n____Document_Type__; STRSUBSTNO('%1 n°', "Document Type"))
@@ -297,7 +297,7 @@ report 50037 "BC6_BC6_Relance  CNE"
                 }
                 column(Issued_Reminder_Line__Remaining_Amount__Control38; "Remaining Amount")
                 {
-                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
                     AutoFormatType = 1;
                 }
                 column(Issued_Reminder_Line__No__; "No.")
@@ -305,7 +305,7 @@ report 50037 "BC6_BC6_Relance  CNE"
                 }
                 column(Issued_Reminder_Line__Remaining_Amount__Control95; "Remaining Amount")
                 {
-                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
                     AutoFormatType = 1;
                 }
                 column(Issued_Reminder_Line_Description_Control96; Description)
@@ -313,27 +313,27 @@ report 50037 "BC6_BC6_Relance  CNE"
                 }
                 column(Issued_Reminder_Line__Remaining_Amount__Control42; "Remaining Amount")
                 {
-                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
                     AutoFormatType = 1;
                 }
                 column(ReminderInterestAmount; ReminderInterestAmount)
                 {
-                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
                     AutoFormatType = 1;
                 }
                 column(Remaining_Amount____ReminderInterestAmount; "Remaining Amount" + ReminderInterestAmount)
                 {
-                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
                     AutoFormatType = 1;
                 }
                 column(Remaining_Amount____ReminderInterestAmount____VAT_Amount_; "Remaining Amount" + ReminderInterestAmount + "VAT Amount")
                 {
-                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
                     AutoFormatType = 1;
                 }
                 column(Issued_Reminder_Line__VAT_Amount_; "VAT Amount")
                 {
-                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
                     AutoFormatType = 1;
                 }
                 column(Issued_Reminder_Line_Reminder_No_; "Reminder No.")
@@ -363,7 +363,7 @@ report 50037 "BC6_BC6_Relance  CNE"
 
                 trigger OnAfterGetRecord()
                 begin
-                    VATAmountLine.INIT;
+                    VATAmountLine.INIT();
                     VATAmountLine."VAT Identifier" := "VAT Identifier";
                     VATAmountLine."VAT Calculation Type" := "VAT Calculation Type";
                     VATAmountLine."Tax Group Code" := "Tax Group Code";
@@ -371,7 +371,7 @@ report 50037 "BC6_BC6_Relance  CNE"
                     VATAmountLine."VAT Base" := Amount;
                     VATAmountLine."VAT Amount" := "VAT Amount";
                     VATAmountLine."Amount Including VAT" := Amount + "VAT Amount";
-                    VATAmountLine.InsertLine;
+                    VATAmountLine.InsertLine();
 
                     CASE Type OF
                         Type::"G/L Account":
@@ -383,7 +383,7 @@ report 50037 "BC6_BC6_Relance  CNE"
 
                 trigger OnPreDataItem()
                 begin
-                    VATAmountLine.DELETEALL;
+                    VATAmountLine.DELETEALL();
                     SETFILTER("Line No.", '<%1', EndLineNo);
                     CurrReport.CREATETOTALS("Remaining Amount", "VAT Amount", ReminderInterestAmount);
                     BooGIRLineFouter1 := ReminderInterestAmount <> 0;
@@ -425,22 +425,22 @@ report 50037 "BC6_BC6_Relance  CNE"
                 DataItemTableView = SORTING(Number);
                 column(VATAmtLineAmtIncludVAT; VATAmountLine."Amount Including VAT")
                 {
-                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
                     AutoFormatType = 1;
                 }
                 column(VALVATAmount; VALVATAmount)
                 {
-                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
                     AutoFormatType = 1;
                 }
                 column(VALVATBase; VALVATBase)
                 {
-                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
                     AutoFormatType = 1;
                 }
                 column(VALVATBaseVALVATAmt; VALVATBase + VALVATAmount)
                 {
-                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
                     AutoFormatType = 1;
                 }
                 column(VATAmtLineVAT; VATAmountLine."VAT %")
@@ -465,8 +465,8 @@ report 50037 "BC6_BC6_Relance  CNE"
 
                 trigger OnPreDataItem()
                 begin
-                    IF VATAmountLine.GetTotalVATAmount = 0 THEN
-                        CurrReport.BREAK;
+                    IF VATAmountLine.GetTotalVATAmount() = 0 THEN
+                        CurrReport.BREAK();
 
                     SETRANGE(Number, 1, VATAmountLine.COUNT);
 
@@ -505,7 +505,7 @@ report 50037 "BC6_BC6_Relance  CNE"
                     IF LogInteraction THEN
                         SegManagement.LogDocument(
                           8, "No.", 0, 0, DATABASE::Customer, "Customer No.", '', '', "Posting Description", '');
-                    IncrNoPrinted;
+                    IncrNoPrinted();
                 END;
                 // PRM ajout des coordonnees du commercial
                 IF Cust.GET("Customer No.") THEN
@@ -526,7 +526,7 @@ report 50037 "BC6_BC6_Relance  CNE"
 
             trigger OnPreDataItem()
             begin
-                CompanyInfo.GET;
+                CompanyInfo.GET();
                 FormatAddrCodeunit.Company(CompanyAddr, CompanyInfo);
                 // PRM
                 IF Country.GET(CompanyInfo."Country/Region Code") THEN
@@ -577,7 +577,7 @@ report 50037 "BC6_BC6_Relance  CNE"
 
     trigger OnInitReport()
     begin
-        GLSetup.GET;
+        GLSetup.GET();
     end;
 
     var

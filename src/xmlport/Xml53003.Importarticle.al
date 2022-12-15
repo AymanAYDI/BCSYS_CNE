@@ -1,17 +1,5 @@
-xmlport 53003 "Import article"
+xmlport 53003 "BC6_Import article"
 {
-    // 
-    // Documentation()
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // 
-    // //>>CNE1.00
-    // FE0021.001:FAFU 28/12/2006 : Reprise de données
-    //                              - Creation
-    // ------------------------------------------------------------------------
-
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = '<TAB>';
@@ -21,7 +9,7 @@ xmlport 53003 "Import article"
     {
         textelement(Root)
         {
-            tableelement(Table27; Table27)
+            tableelement(Table27; Item)
             {
                 AutoSave = false;
                 XmlName = 'Items';
@@ -223,10 +211,10 @@ xmlport 53003 "Import article"
                     IF NOT EVALUATE(Dat2, pxdt2) THEN
                         Dat2 := 0D;
 
-                    IF Dat1 = 12319999D THEN
+                    IF Dat1 = 19991231D THEN
                         Dat1 := 0D;
 
-                    IF Dat2 = 12319999D THEN
+                    IF Dat2 = 19991231D THEN
                         Dat2 := 0D;
 
                     IF (Dat1 > Dat2) THEN BEGIN
@@ -408,8 +396,8 @@ xmlport 53003 "Import article"
 
 
                     IF dtcrea <> '' THEN BEGIN
-                        EVALUATE(recArticle."Creation Date", dtcrea);
-                        recArticle.VALIDATE("Creation Date");
+                        EVALUATE(recArticle."BC6_Creation Date", dtcrea);
+                        recArticle.VALIDATE("BC6_Creation Date");
                     END;
                     // date modif voir plus bas
 
@@ -446,15 +434,15 @@ xmlport 53003 "Import article"
     }
 
     var
-        recArticle: Record "27";
-        recCross: Record "5717";
-        recPPx: Record "7012";
-        recIDicGroup: Record "341";
-        recUv: Record "5404";
-        recText: Record "280";
-        recCountry: Record "9";
-        recTextHeader: Record "279";
-        recItemCatCode: Record "5722";
+        recArticle: Record Item;
+        recCross: Record "Item Cross Reference";
+        recPPx: Record "Purchase Price";
+        recIDicGroup: Record "Item Discount Group";
+        recUv: Record "Item Unit of Measure";
+        recText: Record "Extended Text Line";
+        recCountry: Record "Country/Region";
+        recTextHeader: Record "Extended Text Header";
+        recItemCatCode: Record "Item Category";
         DecGpxachat1: Decimal;
         DecGpxpub1: Decimal;
         DecGpxachat2: Decimal;

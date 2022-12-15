@@ -1,16 +1,5 @@
-xmlport 53001 "import vendor"
+xmlport 53001 "BC6_import vendor"
 {
-    // 
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // 
-    // //>>CNE1.00
-    // FE0021.001:FAFU 28/12/2006 : Reprise de données
-    //                              - Creation
-    // ------------------------------------------------------------------------
-
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = '<TAB>';
@@ -20,7 +9,7 @@ xmlport 53001 "import vendor"
     {
         textelement(Root)
         {
-            tableelement(Table23; Table23)
+            tableelement(Table23; Vendor)
             {
                 XmlName = 'Vendor';
                 textelement(no)
@@ -136,7 +125,7 @@ xmlport 53001 "import vendor"
                     regVendor.INSERT(TRUE);
                     IF EVALUATE(DatGdtcrea, dtcrea) THEN;
                     IF DatGdtcrea <> 0D THEN BEGIN
-                        regVendor.VALIDATE("Creation Date", DatGdtcrea);
+                        regVendor.VALIDATE("BC6_Creation Date", DatGdtcrea);
                     END;
 
                     IF collectif <> '' THEN BEGIN
@@ -240,12 +229,12 @@ xmlport 53001 "import vendor"
 
                     IF EVALUATE(IntGcmdmin, cmdmin) THEN;
                     IF IntGcmdmin <> 0 THEN BEGIN
-                        regVendor.VALIDATE("Order Minimum", IntGcmdmin);
+                        regVendor.VALIDATE("BC6_Order Minimum", IntGcmdmin);
                     END;
 
                     IF EVALUATE(IntGfrancomin, francomin) THEN;
                     IF IntGfrancomin <> 0 THEN
-                        regVendor.VALIDATE("Mini Amount", IntGfrancomin);
+                        regVendor.VALIDATE("BC6_Mini Amount", IntGfrancomin);
 
 
                     // Commentaires
@@ -260,7 +249,7 @@ xmlport 53001 "import vendor"
                     END;
                     IF EVALUATE(IntGportsifranco, portsifranco) THEN;
                     IF IntGportsifranco <> 0 THEN BEGIN
-                        regVendor.VALIDATE("Freight Amount", IntGportsifranco)
+                        regVendor.VALIDATE("BC6_Freight Amount", IntGportsifranco)
                     END;
 
                     regVendor.VALIDATE("Language Code", 'FRA');
@@ -285,10 +274,10 @@ xmlport 53001 "import vendor"
     }
 
     var
-        regVendor: Record "23";
-        PostCode: Record "225";
-        Country: Record "9";
-        Com: Record "97";
+        regVendor: Record Vendor;
+        PostCode: Record "Post Code";
+        Country: Record "Country/Region";
+        Com: Record "Comment Line";
         DatGdtcrea: Date;
         IntGcmdmin: Integer;
         IntGfrancomin: Integer;

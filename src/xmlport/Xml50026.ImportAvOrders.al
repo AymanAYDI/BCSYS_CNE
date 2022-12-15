@@ -1,10 +1,5 @@
-xmlport 50026 "Import Av. Orders"
+xmlport 50026 "BC6_Import Av. Orders"
 {
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // ------------------------------------------------------------------------
-
     FieldDelimiter = '<None>';
     FieldSeparator = ';';
     Format = VariableText;
@@ -13,10 +8,10 @@ xmlport 50026 "Import Av. Orders"
     {
         textelement(Root)
         {
-            tableelement(Table2000000026; Table2000000026)
+            tableelement(Table2000000026; Integer)
             {
                 XmlName = 'Integers';
-                SourceTableView = SORTING (Field1)
+                SourceTableView = SORTING(Number)
                                   ORDER(Ascending);
                 textelement(OrderNo)
                 {
@@ -59,7 +54,7 @@ xmlport 50026 "Import Av. Orders"
                         SalesOrder.VALIDATE("External Document No.", ExtNo);
                         SalesOrder.VALIDATE("Location Code", LocationCode);
                         SalesOrder.VALIDATE("Shipment Method Code", 'ADI');
-                        SalesOrder.VALIDATE("Bin Code", BinCode);
+                        SalesOrder.VALIDATE("BC6_Bin Code", BinCode);
                         IF SalesOrder."Requested Delivery Date" = 0D THEN
                             SalesOrder.VALIDATE("Requested Delivery Date", WORKDATE);
                         SalesOrder.MODIFY;
@@ -76,7 +71,7 @@ xmlport 50026 "Import Av. Orders"
                                    (SalesLine."Outstanding Quantity" > 0) AND
                                    (SalesLine."Qty. Shipped Not Invoiced" = 0) THEN BEGIN
                                     SalesLine.VALIDATE("Location Code", Location.Code);
-                                    SalesLine.VALIDATE("Bin Code", SalesOrder."Bin Code");
+                                    SalesLine.VALIDATE("Bin Code", SalesOrder."BC6_Bin Code");
                                     SalesLine.MODIFY;
                                 END;
                             UNTIL SalesLine.NEXT = 0;
@@ -110,16 +105,16 @@ xmlport 50026 "Import Av. Orders"
     end;
 
     var
-        SalesOrder: Record "36";
-        Location: Record "14";
-        OLDLocation: Record "14";
+        SalesOrder: Record "Sales Header";
+        Location: Record Location;
+        OLDLocation: Record Location;
         LocationCode: Code[20];
         Counter: Integer;
         TotalCounter: Integer;
-        ReleaseSalesDoc: Codeunit "414";
+        ReleaseSalesDoc: Codeunit "Release Sales Document";
         SalesDocReleaseOk: Boolean;
-        SalesLine: Record "37";
-        Text001: Label '%1 commandes à jour %2.';
-        Text002: Label 'Commandes %1';
+        SalesLine: Record "Sales Line";
+        Text001: Label '%1 commandes à jour %2.', Comment = 'FRA="%1 commandes à jour %2."';
+        Text002: Label 'Commandes %1', Comment = 'FRA="Commandes %1"';
 }
 

@@ -1,13 +1,5 @@
-xmlport 53005 "Import Compta"
+xmlport 53005 "BC6_Import Compta"
 {
-    // 
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // 
-    // //>>CNE1.00
-    // FE0021.001:FAFU 28/12/2006 : Reprise de données
-    //                              - Creation
 
     Caption = '<Import Compta>';
     Direction = Import;
@@ -19,7 +11,7 @@ xmlport 53005 "Import Compta"
     {
         textelement(Root)
         {
-            tableelement(Table81; Table81)
+            tableelement(GenJournalLine; "Gen. Journal Line")
             {
                 AutoSave = false;
                 XmlName = 'GenJournalLine';
@@ -63,12 +55,12 @@ xmlport 53005 "Import Compta"
 
                 trigger OnAfterInitRecord()
                 begin
-                    RecGGenJnlLine.INIT;
+                    RecGGenJnlLine.INIT();
                     RecGGenJnlLine.VALIDATE("Journal Template Name", CodGJnlTemplName);
                     RecGGenJnlLine.VALIDATE("Journal Batch Name", CodGJnlBatchName);
 
 
-                    RecGGenJnlLineTmp.INIT;
+                    RecGGenJnlLineTmp.INIT();
                     RecGGenJnlLineTmp.VALIDATE("Journal Template Name", CodGJnlTemplName);
                     RecGGenJnlLineTmp.VALIDATE("Journal Batch Name", CodGJnlBatchName);
 
@@ -88,65 +80,63 @@ xmlport 53005 "Import Compta"
 
                 trigger OnBeforeInsertRecord()
                 var
-                    DecLDebit: Decimal;
                     DecLCred: Decimal;
+                    DecLDebit: Decimal;
                 begin
 
                     IntGLineNo += 10000;
-                    RecGGenJnlLine.VALIDATE("Journal Template Name", CodGJnlTemplName);
-                    RecGGenJnlLine.VALIDATE("Journal Batch Name", CodGJnlBatchName);
-                    RecGGenJnlLine.VALIDATE("Line No.", IntGLineNo);
-                    RecGGenJnlLine.VALIDATE("Source Code", CodJournal);
+                    RecGGenJnlLine.VALIDATE(RecGGenJnlLine."Journal Template Name", CodGJnlTemplName);
+                    RecGGenJnlLine.VALIDATE(RecGGenJnlLine."Journal Batch Name", CodGJnlBatchName);
+                    RecGGenJnlLine.VALIDATE(RecGGenJnlLine."Line No.", IntGLineNo);
+                    RecGGenJnlLine.VALIDATE(RecGGenJnlLine."Source Code", CodJournal);
 
                     EVALUATE(RecGGenJnlLine."Posting Date", DatDateCOmpta);
-                    RecGGenJnlLine.VALIDATE("Posting Date");
-                    RecGGenJnlLine.VALIDATE("Document No.", TxtDocNo);
+                    RecGGenJnlLine.VALIDATE(RecGGenJnlLine."Posting Date");
+                    RecGGenJnlLine.VALIDATE(RecGGenJnlLine."Document No.", TxtDocNo);
 
                     CASE COPYSTR(TxtCmpt, 1, 3) OF
                         '411', '401':
                             BEGIN
-                                RecGGenJnlLine.VALIDATE("Account Type", RecGGenJnlLine."Account Type"::"G/L Account");
-                                RecGGenJnlLine.VALIDATE("Account No.", '471000');
+                                RecGGenJnlLine.VALIDATE(RecGGenJnlLine."Account Type", RecGGenJnlLine."Account Type"::"G/L Account");
+                                RecGGenJnlLine.VALIDATE(RecGGenJnlLine."Account No.", '471000');
                             END;
                         '512':
-                            BEGIN
 
-                                CASE TxtCmpt OF
-                                    '512108':
-                                        BEGIN
-                                            RecGGenJnlLine.VALIDATE("Account Type", RecGGenJnlLine."Account Type"::"Bank Account");
-                                            RecGGenJnlLine.VALIDATE("Account No.", 'SNVB');
-                                        END;
 
-                                    '512109':
-                                        BEGIN
-                                            RecGGenJnlLine.VALIDATE("Account Type", RecGGenJnlLine."Account Type"::"Bank Account");
-                                            RecGGenJnlLine.VALIDATE("Account No.", 'BPC');
-                                        END;
+                            CASE TxtCmpt OF
+                                '512108':
+                                    BEGIN
+                                        RecGGenJnlLine.VALIDATE(RecGGenJnlLine."Account Type", RecGGenJnlLine."Account Type"::"Bank Account");
+                                        RecGGenJnlLine.VALIDATE(RecGGenJnlLine."Account No.", 'SNVB');
+                                    END;
 
-                                    ELSE BEGIN
-                                            RecGGenJnlLine.VALIDATE("Account Type", RecGGenJnlLine."Account Type"::"G/L Account");
-                                            RecGGenJnlLine.VALIDATE("Account No.", TxtCmpt);
-                                        END;
+                                '512109':
+                                    BEGIN
+                                        RecGGenJnlLine.VALIDATE(RecGGenJnlLine."Account Type", RecGGenJnlLine."Account Type"::"Bank Account");
+                                        RecGGenJnlLine.VALIDATE(RecGGenJnlLine."Account No.", 'BPC');
+                                    END;
+
+                                ELSE BEGIN
+                                    RecGGenJnlLine.VALIDATE(RecGGenJnlLine."Account Type", RecGGenJnlLine."Account Type"::"G/L Account");
+                                    RecGGenJnlLine.VALIDATE(RecGGenJnlLine."Account No.", TxtCmpt);
                                 END;
-
                             END;
                         ELSE BEGIN
-                                RecGGenJnlLine.VALIDATE("Account Type", RecGGenJnlLine."Account Type"::"G/L Account");
-                                RecGGenJnlLine.VALIDATE("Account No.", TxtCmpt);
-                            END;
+                            RecGGenJnlLine.VALIDATE(RecGGenJnlLine."Account Type", RecGGenJnlLine."Account Type"::"G/L Account");
+                            RecGGenJnlLine.VALIDATE(RecGGenJnlLine."Account No.", TxtCmpt);
+                        END;
                     END;
 
-                    RecGGenJnlLine.VALIDATE(Description, TxtDescr);
+                    RecGGenJnlLine.VALIDATE(RecGGenJnlLine.Description, TxtDescr);
 
                     EVALUATE(DecLDebit, TxtDeb);
                     EVALUATE(DecLCred, TxtCred);
 
                     IF DecLDebit <> 0 THEN
-                        RecGGenJnlLine.VALIDATE("Debit Amount", DecLDebit);
+                        RecGGenJnlLine.VALIDATE(RecGGenJnlLine."Debit Amount", DecLDebit);
 
                     IF DecLCred <> 0 THEN
-                        RecGGenJnlLine.VALIDATE("Credit Amount", DecLCred);
+                        RecGGenJnlLine.VALIDATE(RecGGenJnlLine."Credit Amount", DecLCred);
 
                     IF NOT (RecGGenJnlLine.Amount = 0) THEN
                         RecGGenJnlLine.INSERT(TRUE);
@@ -193,13 +183,13 @@ xmlport 53005 "Import Compta"
     end;
 
     var
-        TxtExercice: Text[30];
-        TxtJournal: Text[30];
+        RecGGenJnlLine: Record "Gen. Journal Line";
+        RecGGenJnlLineTmp: Record "Gen. Journal Line";
         CodGJnlBatchName: Code[10];
         CodGJnlTemplName: Code[10];
-        RecGGenJnlLine: Record "81";
-        RecGGenJnlLineTmp: Record "81";
         IntGLineNo: Integer;
+        TxtExercice: Text[30];
+        TxtJournal: Text[30];
         TxtGFileName: Text[250];
 }
 

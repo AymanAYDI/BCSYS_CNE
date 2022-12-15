@@ -1,4 +1,4 @@
-xmlport 53008 "Maj Noms Clients"
+xmlport 53008 "BC6_Maj Noms Clients"
 {
     FieldSeparator = ';';
     Format = VariableText;
@@ -7,7 +7,7 @@ xmlport 53008 "Maj Noms Clients"
     {
         textelement(Root)
         {
-            tableelement(customer; Table18)
+            tableelement(customer; customer)
             {
                 XmlName = 'Customer';
                 textelement(num)
@@ -27,7 +27,7 @@ xmlport 53008 "Maj Noms Clients"
                 begin
                     IF Customer.GET(num) THEN BEGIN
                         Customer.Name := nom2;
-                        Customer.MODIFY;
+                        Customer.MODIFY();
                     END;
                 end;
             }

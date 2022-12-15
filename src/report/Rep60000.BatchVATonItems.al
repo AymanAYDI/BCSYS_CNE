@@ -1,34 +1,34 @@
-report 60000 "Batch VAT on Items"
+report 60000 "BC6_Batch VAT on Items"
 {
     Caption = 'TPL TVA sur articles';
     ProcessingOnly = true;
 
     dataset
     {
-        dataitem(DataItem1100267000; Table27)
+        dataitem(DataItem1100267000; Item)
         {
             RequestFilterFields = "No.";
-            dataitem(DataItem1100267001; Table37)
+            dataitem(DataItem1100267001; "Sales Line")
             {
-                DataItemLink = No.=FIELD(No.);
-                DataItemTableView = SORTING(Document Type, No.)
-                                    WHERE(Document Type=CONST(Order));
+                DataItemLink = "No." = FIELD("No.");
+                DataItemTableView = SORTING("Document Type", "No.")
+                                    WHERE("Document Type" = CONST(Order));
 
                 trigger OnAfterGetRecord()
                 begin
                     IF ("VAT Prod. Posting Group" = 'TVA19,6') AND ("Quantity Shipped" = 0) THEN BEGIN
                         SuspendStatusCheck(TRUE);
                         VALIDATE("VAT Prod. Posting Group", 'TVA20');
-                        MODIFY;
+                        MODIFY();
                         SuspendStatusCheck(FALSE);
                     END;
                 end;
             }
-            dataitem(DataItem1100267002; Table39)
+            dataitem(DataItem1100267002; "Purchase Line")
             {
-                DataItemLink = No.=FIELD(No.);
-                DataItemTableView = SORTING(Document Type, No.)
-                                    WHERE(Document Type=CONST(Order));
+                DataItemLink = "No." = FIELD("No.");
+                DataItemTableView = SORTING("Document Type", "No.")
+                                    WHERE("Document Type" = CONST(Order));
 
                 trigger OnAfterGetRecord()
                 begin
@@ -52,7 +52,7 @@ report 60000 "Batch VAT on Items"
 
             trigger OnPostDataItem()
             begin
-                DlgGWin.CLOSE;
+                DlgGWin.CLOSE();
             end;
 
             trigger OnPreDataItem()
@@ -63,23 +63,6 @@ report 60000 "Batch VAT on Items"
             end;
         }
     }
-
-    requestpage
-    {
-
-        layout
-        {
-        }
-
-        actions
-        {
-        }
-    }
-
-    labels
-    {
-    }
-
     var
         DlgGWin: Dialog;
         CstG001: Label 'Traitement de l''article : #1##############';

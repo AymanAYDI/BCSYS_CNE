@@ -560,7 +560,7 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
         GenJnlLine: Record "Gen. Journal Line";
         ShipmentMethodRec: Record "Shipment Method";
         ShipToAddr: Record "Ship-to Address";
-        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
+        ApprovalsMgmt: Codeunit 1535;
         UpdateSalesShipment: Codeunit BC6_UpdateSalesShipment;
         CustEntrySetApplID: Codeunit "Cust. Entry-SetAppl.ID";
         GenJnlApply: Codeunit "Gen. Jnl.-Apply";

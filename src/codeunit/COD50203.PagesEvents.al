@@ -17,7 +17,7 @@ codeunit 50203 "BC6_PagesEvents"
     var
         Cust: record customer;
         CalcType: Enum "Customer Apply Calculation Type"; //CHECK ME!
-        TextGestTierPayeur: Label 'There is no ledger entries.; FRA=Il n''y a pas d''écitures.';
+        TextGestTierPayeur001: Label 'There is no ledger entries.; FRA=Il n''y a pas d''écitures.';
 
     begin
         Cust.get(Cust."No.");
@@ -211,92 +211,16 @@ codeunit 50203 "BC6_PagesEvents"
         FctMngt.MntInverseDEEE(PurchLine);
     end;
 
+
+
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnRunOnAfterFillTempLines', '', false, false)]
+
     local procedure COD90_OnRunOnAfterFillTempLines(var PurchHeader: Record "Purchase Header")
     var
         GlobalFunction: Codeunit "BC6_GlobalFunctionMgt";
     begin
-        GlobalFunction.Set_PurchGDecMntTTCDEEE(0);
-        GlobalFunction.Set_PurchGDecMntHTDEEE(0);
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnFillInvoicePostingBufferOnAfterUpdateInvoicePostBuffer', '', false, false)]
-    local procedure OnFillInvoicePostingBufferOnAfterUpdateInvoicePostBuffer(PurchaseHeader: Record "Purchase Header"; PurchaseLine: Record "Purchase Line"; var InvoicePostBuffer: Record "Invoice Post. Buffer"; var TempInvoicePostBuffer: Record "Invoice Post. Buffer" temporary)
-    var
-        RecLPayVendor: Record Vendor;
-        BooLPostingDEEE: Boolean;
-        GenPostingSetup: Record "General Posting Setup";
-        FctMngt: Codeunit "BC6_Functions Mgt";
-        FALineNo: Integer;
-
-    begin
-        RecLPayVendor.RESET;
-        IF RecLPayVendor.GET(PurchaseLine."Pay-to Vendor No.") THEN
-            BooLPostingDEEE := RecLPayVendor."BC6_Posting DEEE"
-        ELSE
-            BooLPostingDEEE := FALSE;
-
-        IF (PurchaseLine."BC6_DEEE Category Code" <> '') AND (PurchaseLine."Qty. to Invoice" <> 0)
-              AND (PurchaseLine."BC6_DEEE HT Amount" <> 0) AND (BooLPostingDEEE) THEN BEGIN
-
-            // MIG 2017 >>
-            GenPostingSetup.GET(PurchaseLine."Gen. Bus. Posting Group", PurchaseLine."Gen. Prod. Posting Group");
-
-            IF (PurchaseLine."Gen. Bus. Posting Group" <> GenPostingSetup."Gen. Bus. Posting Group") OR
-                (PurchaseLine."Gen. Prod. Posting Group" <> GenPostingSetup."Gen. Prod. Posting Group")
-            THEN;
-            CLEAR(InvoicePostBuffer);
-            InvoicePostBuffer.Type := PurchaseLine.Type;
-
-            GenPostingSetup.GET('DEEE', PurchaseLine."Gen. Prod. Posting Group");
-
-            IF PurchaseHeader."Document Type" = PurchaseHeader."Document Type"::"Credit Memo" THEN BEGIN
-                GenPostingSetup.TESTFIELD("Purch. Credit Memo Account");
-                InvoicePostBuffer."G/L Account" := GenPostingSetup."Purch. Credit Memo Account";
-            END ELSE BEGIN
-                GenPostingSetup.TESTFIELD("Purch. Account");
-                InvoicePostBuffer."G/L Account" := GenPostingSetup."Purch. Account";
-            END;
-
-            InvoicePostBuffer."System-Created Entry" := TRUE;
-            InvoicePostBuffer."Gen. Bus. Posting Group" := 'DEEE';//purchLine."Gen. Bus. Posting Group";
-            InvoicePostBuffer."Gen. Prod. Posting Group" := PurchaseLine."Gen. Prod. Posting Group";
-            InvoicePostBuffer."VAT Bus. Posting Group" := PurchaseLine."VAT Bus. Posting Group";
-            InvoicePostBuffer."VAT Prod. Posting Group" := PurchaseLine."VAT Prod. Posting Group";
-            InvoicePostBuffer."VAT Calculation Type" := PurchaseLine."VAT Calculation Type";
-            InvoicePostBuffer."Global Dimension 1 Code" := PurchaseLine."Shortcut Dimension 1 Code";
-            InvoicePostBuffer."Global Dimension 2 Code" := PurchaseLine."Shortcut Dimension 2 Code";
-
-            InvoicePostBuffer."Job No." := PurchaseLine."Job No.";
-            InvoicePostBuffer.Amount := PurchaseLine."BC6_DEEE HT Amount";
-            InvoicePostBuffer."VAT Base Amount" := PurchaseLine."BC6_DEEE HT Amount";
-
-            InvoicePostBuffer."VAT Amount" := (PurchaseLine."BC6_DEEE TTC Amount" - PurchaseLine."BC6_DEEE HT Amount");
-            InvoicePostBuffer."Amount (ACY)" := PurchaseLine."BC6_DEEE HT Amount";//purchLineACY.Montant;
-            InvoicePostBuffer."VAT Base Amount (ACY)" := PurchaseLine."BC6_DEEE HT Amount"; //purchLineACY.Montant;
-            InvoicePostBuffer."VAT Amount (ACY)" := (PurchaseLine."BC6_DEEE TTC Amount" - PurchaseLine."BC6_DEEE HT Amount");
-            InvoicePostBuffer."BC6_Eco partner DEEE" := PurchaseLine."BC6_Eco partner DEEE";
-            InvoicePostBuffer."BC6_DEEE Category Code" := PurchaseLine."BC6_DEEE Category Code";
-
-            FctMngt.MntIncrDEEEPurchPost(PurchaseLine);
-
-            // UpdateInvoicePostBuffer(TempInvoicePostBuffer, InvoicePostBuffer);
-            if InvoicePostBuffer.Type = InvoicePostBuffer.Type::"Fixed Asset" then begin
-                FALineNo := FALineNo + 1;
-                InvoicePostBuffer."Fixed Asset Line No." := FALineNo;
-            end;
-
-            TempInvoicePostBuffer.Update(InvoicePostBuffer);
-
-        end;
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnAfterPostPurchLines', '', false, false)]
-    local procedure OnAfterPostPurchLines(var PurchHeader: Record "Purchase Header"; var PurchRcptHeader: Record "Purch. Rcpt. Header"; var PurchInvHeader: Record "Purch. Inv. Header"; var PurchCrMemoHdr: Record "Purch. Cr. Memo Hdr."; var ReturnShipmentHeader: Record "Return Shipment Header"; WhseShip: Boolean; WhseReceive: Boolean; var PurchLinesProcessed: Boolean; CommitIsSuppressed: Boolean; EverythingInvoiced: Boolean; var TempInvoicePostBuffer: Record "Invoice Post. Buffer" temporary; var TempPurchLineGlobal: Record "Purchase Line" temporary)
-    var
-        ngt: Codeunit "BC6_Functions Mgt";
-    begin
-
+        GlobalFunction.SetGDecMntTTCDEEE(0);
+        GlobalFunction.SetGDecMntHTDEEE(0);
     end;
 
     //ligne718
@@ -334,7 +258,7 @@ codeunit 50203 "BC6_PagesEvents"
     var
         RecLNavisetup: Record "BC6_Navi+ Setup";
         FctMngt: Codeunit "BC6_Functions Mgt";
-        AssemPost: Codeunit 900;
+        AssemPost: Codeunit "Assembly-Post";
     begin
         IF RecLNavisetup.GET AND RecLNavisetup."Date jour ds date facture Acha" then
             AssemPost.SetPostingDate(TRUE, WORKDATE);
@@ -486,7 +410,62 @@ codeunit 50203 "BC6_PagesEvents"
 
     END;
 
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item-Check Avail.", 'OnBeforeCreateAndSendNotification', '', false, false)]
+    local procedure COD311_OnBeforeCreateAndSendNotification(ItemNo: Code[20]; UnitOfMeasureCode: Code[20]; InventoryQty: Decimal; GrossReq: Decimal; ReservedReq: Decimal; SchedRcpt: Decimal; ReservedRcpt: Decimal; CurrentQuantity: Decimal; CurrentReservedQty: Decimal; TotalQuantity: Decimal; EarliestAvailDate: Date; RecordId: RecordID; LocationCode: Code[10]; ContextInfo: Dictionary of [Text, Text]; var Rollback: Boolean; var IsHandled: Boolean)
+    var
+        ItemAvailabilityCheck: Page "Item Availability Check";
 
+        LastNotification: Notification;
+
+        AvailabilityCheckNotification: Notification;
+        VariantCode: code[20];
+        DetailsTxt: Label 'Show details';
+        NotificationMsg: Label 'The available inventory for item %1 is lower than the entered quantity at this location.', Comment = '%1=Item No.';
+        DontShowAgainTxt: Label 'Don''t show again';
+        NotificationLifecycleMgt: Codeunit "Notification Lifecycle Mgt.";
+        ItemCheckAvail: Codeunit "Item-Check Avail.";
+
+    begin
+        IsHandled := true; //TODO: CHECKME !
+
+        AvailabilityCheckNotification.Id(CreateGuid);
+        AvailabilityCheckNotification.Message(StrSubstNo(NotificationMsg, ItemNo));
+        AvailabilityCheckNotification.Scope(NOTIFICATIONSCOPE::LocalScope);
+        AvailabilityCheckNotification.AddAction(DetailsTxt, CODEUNIT::"Item-Check Avail.", 'ShowNotificationDetails');
+        AvailabilityCheckNotification.AddAction(DontShowAgainTxt, CODEUNIT::"Item-Check Avail.", 'DeactivateNotification');
+        ItemAvailabilityCheck.PopulateDataOnNotification(AvailabilityCheckNotification, ItemNo, UnitOfMeasureCode,
+          InventoryQty, GrossReq, ReservedReq, SchedRcpt, ReservedRcpt, CurrentQuantity, CurrentReservedQty,
+          TotalQuantity, EarliestAvailDate, LocationCode);
+
+        LastNotification := AvailabilityCheckNotification;
+
+        ItemAvailabilityCheck.PopulateDataOnNotification(AvailabilityCheckNotification, 'VariantCode', VariantCode);
+        NotificationLifecycleMgt.SendNotificationWithAdditionalContext(
+          AvailabilityCheckNotification, RecordId, ItemCheckAvail.GetItemAvailabilityNotificationId);
+        exit;
+
+    end;
+    //COD 312 
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Cust-Check Cr. Limit", 'OnNewCheckRemoveCustomerNotifications', '', false, false)]
+    procedure COD312_OnNewCheckRemoveCustomerNotifications(RecId: RecordID; RecallCreditOverdueNotif: Boolean)
+    var
+        SalesHeader: Record "Sales Header";
+        InstructionMgt: Codeunit "Instruction Mgt.";
+        CustCheckCrLimit: codeunit "Cust-Check Cr. Limit";
+        AdditionalContextId: Guid;
+        CustCheckCreditLimit: Page "Check Credit Limit";
+        LastNotification: Notification;
+
+    begin
+
+        if not CustCheckCreditLimit.SalesHeaderShowWarningAndGetCause(SalesHeader, AdditionalContextId) then
+            SalesHeader.CustomerCreditLimitNotExceeded()
+        else begin
+
+            //TODO: à voir l'inside de else begin
+            CustCheckCrLimit.ShowNotificationDetails(LastNotification);
+        end;
+    end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Cust-Check Cr. Limit", 'OnBeforeCreateAndSendNotification', '', false, false)]
     local procedure COD312_OnBeforeCreateAndSendNotification(RecordId: RecordID; AdditionalContextId: Guid; Heading: Text[250]; NotificationToSend: Notification; var IsHandled: Boolean; var CustCheckCreditLimit: Page "Check Credit Limit");

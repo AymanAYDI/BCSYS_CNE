@@ -2869,20 +2869,17 @@ then begin
 
         ApprovalsMgmt: Codeunit "Approvals Mgmt.";
         RecGArchiveManagement: Codeunit ArchiveManagement;
-
     begin
 
         if not IsHandled then begin
             ApprovalsMgmt.DeleteApprovalEntries(QuoteSalesHeader.RecordId);
             SalesCommentLine.DeleteComments(QuoteSalesHeader."Document Type".AsInteger(), QuoteSalesHeader."No.");
-            //>>MIGRATION NAV 2013
             if RecGParmNavi.GET() then
                 if RecGParmNavi."Filing Sales Quotes" then begin
                     QuoteSalesHeader."BC6_Cause filing" := QuoteSalesHeader."BC6_Cause filing"::"Change in Order";
                     QuoteSalesHeader.MODIFY();
                     RecGArchiveManagement.StoreSalesDocument(QuoteSalesHeader, false);
                 end;
-            //<<MIGRATION NAV 2013
             QuoteSalesHeader.DeleteLinks();
             QuoteSalesHeader.Delete();
             SalesQuoteLine.DeleteAll();
@@ -4247,6 +4244,28 @@ then begin
         end;
     end;
 
+    //---CUD2000000005---
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Reporting Triggers", 'SubstituteReport', '', false, false)]
+    local procedure SubstituteReport_CopySalesDocument(ReportId: Integer; RunMode: Option Normal,ParametersOnly,Execute,Print,SaveAs,RunModal; RequestPageXml: Text; RecordRef: RecordRef; var NewReportId: Integer)
+    begin
+        if ReportId = Report::"Copy Sales Document" then
+            NewReportId := Report::"BC6_Copy Sales Document";
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Reporting Triggers", 'SubstituteReport', '', false, false)]
+    local procedure SubstituteReport_CombineShipments(ReportId: Integer; RunMode: Option Normal,ParametersOnly,Execute,Print,SaveAs,RunModal; RequestPageXml: Text; RecordRef: RecordRef; var NewReportId: Integer)
+    begin
+        if ReportId = Report::"Combine Shipments" then
+            NewReportId := Report::"BC6_Combine Shipments";
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Reporting Triggers", 'SubstituteReport', '', false, false)]
+    local procedure SubstituteReport_BatchPostSalesOrders(ReportId: Integer; RunMode: Option Normal,ParametersOnly,Execute,Print,SaveAs,RunModal; RequestPageXml: Text; RecordRef: RecordRef; var NewReportId: Integer)
+    begin
+        if ReportId = Report::"Batch Post Sales Orders" then
+            NewReportId := Report::"BC6_Batch Post Sales Orders";
+    end;
+
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Whse.-Activity-Post", 'OnCodeOnAfterWhseActivLineSetFilters', '', false, false)]
     local procedure OnCodeOnAfterWhseActivLineSetFilters(var WhseActivHeader: Record "Warehouse Activity Header"; var WhseActivLine: Record "Warehouse Activity Line")
     var
@@ -4259,7 +4278,6 @@ then begin
         IF GlobalFunctionMgt.GetDeleteWhseActivity() THEN BEGIN
             IF WhseActivLine.FIND('-') THEN
                 REPEAT
-                    //>> CNE6.01
                     QtytoHandle := 0;
                     IF (WhseActivLine."Activity Type" = WhseActivLine."Activity Type"::"Invt. Put-away") THEN BEGIN
                         WhseActivLine.DELETE;
@@ -4271,7 +4289,6 @@ then begin
                             WhseActivLine2.get(WhseActivLine."Activity Type", WhseActivLine."No.", WhseActivLine."Line No.");
                             WhseActivLine2.BC6_DeleteWhseActivityHeader := false;
                             WhseActivLine2.modify();
-                            //>> COR A
                             IF (WhseActivLine."BC6_Qty. Picked" > 0) THEN
                                 QtytoHandle := WhseActivLine."BC6_Qty. Picked" - WhseActivLine."Qty. Handled";
                             IF (QtytoHandle > WhseActivLine."Qty. Outstanding") THEN
@@ -4282,12 +4299,11 @@ then begin
                         END;
                     END;
                 UNTIL WhseActivLine.NEXT = 0;
-            //>> CNE6.01
             IF GlobalFunctionMgt.GetDeleteWhseActivityHeaderOk() THEN
                 WhseActivLine.SetRange(BC6_DeleteWhseActivityHeader, true);
         end;
     end;
 
-
+    
 }
 

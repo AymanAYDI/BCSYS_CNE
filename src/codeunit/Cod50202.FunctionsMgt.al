@@ -1240,10 +1240,8 @@ codeunit 50202 "BC6_Functions Mgt"
     var
         GloablFunction: codeunit "BC6_GlobalFunctionMgt";
     BEGIN
-        //>>DEEE1.00 :
-        GloablFunction.Set_PurchGDecMntTTCDEEE(GloablFunction.Get_PurchGDecMntTTCDEEE() + RecLPurchLine."BC6_DEEE HT Amount");
-        GloablFunction.Set_PurchGDecMntHTDEEE(GloablFunction.Get_PurchGDecMntHTDEEE() + RecLPurchLine."BC6_DEEE TTC Amount");
-        //<<DEEE1.00 :
+        GloablFunction.SetGDecMntTTCDEEE(GloablFunction.GetGDecMntHTDEEE() + RecLPurchLine."BC6_DEEE HT Amount");
+        GloablFunction.SetGDecMntHTDEEE(GloablFunction.GetGDecMntTTCDEEE() + RecLPurchLine."BC6_DEEE TTC Amount");
     END;
 
 
@@ -1960,7 +1958,8 @@ codeunit 50202 "BC6_Functions Mgt"
         ItemReference.SETRANGE("Unit of Measure", Item."Base Unit of Measure");
         ItemReference.SETRANGE("Reference Type", ItemReference."Reference Type"::"Bar Code");
         ItemReference.SETRANGE("Reference Type No.", CrossRefTypeNo);
-        ItemReference.SETRANGE("Discontinue Bar Code", FALSE);
+        //TODO: Field 'Discontinue Bar Code' is removed.
+        //ItemReference.SETRANGE("Discontinue Bar Code", FALSE);
         IF ItemReference.FINDFIRST THEN
             EAN13Code := ItemReference."Reference No.";
 
@@ -1982,12 +1981,15 @@ codeunit 50202 "BC6_Functions Mgt"
         CrossRefTypeNo := InvSetup."BC6_Cross.Ref.Type No.BarCode";
 
         ItemReference.RESET;
-        ItemReference.SETCURRENTKEY("Reference No.", "Reference Type", "Reference Type No.", "Discontinue Bar Code");
+        //TODO:Field 'Discontinue Bar Code' is removed.
+        //ItemReference.SETCURRENTKEY("Reference No.", "Reference Type", "Reference Type No.", "Discontinue Bar Code");
+        ItemReference.SETCURRENTKEY("Reference No.", "Reference Type", "Reference Type No.");
         ItemReference.SETRANGE("Reference No.", EAN13Code);
         ItemReference.SETRANGE("Reference Type", ItemReference."Reference Type"::"Bar Code");
         ItemReference.SETRANGE("Reference Type No.", CrossRefTypeNo);
         ItemReference.SETRANGE("Variant Code", '');
-        ItemReference.SETRANGE("Discontinue Bar Code", FALSE);
+        //TODO:Field 'Discontinue Bar Code' is removed.
+        //ItemReference.SETRANGE("Discontinue Bar Code", FALSE);
         IF ItemReference.FINDFIRST THEN
             REPEAT
                 IF Item.GET(ItemReference."Item No.") THEN

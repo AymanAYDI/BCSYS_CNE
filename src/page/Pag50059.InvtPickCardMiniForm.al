@@ -1261,12 +1261,12 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
     begin
         CASE OptionMode OF
             OptionMode::KeepPick:
-                EXIT(STRSUBSTNO('%1 - %2 %3', FIELDCAPTION("Whse. Document No."), "Whse. Document No.", "Line No."));
+                EXIT(STRSUBSTNO('%1 - %2 %3', FIELDCAPTION("BC6_Whse. Document No."), "BC6_Whse. Document No.", "Line No."));
             OptionMode::KeepPickAndBin:
                 EXIT(STRSUBSTNO('%1 - %2 %3', FIELDCAPTION("Bin Code"), "Bin Code", "Line No."));
 
             ELSE
-                EXIT(STRSUBSTNO('%1 - %2 %3', TABLECAPTION, "Whse. Document No.", "Line No."));
+                EXIT(STRSUBSTNO('%1 - %2 %3', TABLECAPTION, "BC6_Whse. Document No.", "Line No."));
         END;
     end;
 

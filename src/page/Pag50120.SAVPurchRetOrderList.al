@@ -365,7 +365,7 @@ page 50120 "BC6_SAV Purch. Ret. Order List"
                         L_PurchaseHeader.RESET;
                         L_PurchaseHeader.SETRANGE("Document Type", Rec."Document Type");
                         L_PurchaseHeader.SETRANGE("No.", Rec."No.");
-                        REPORT.RUNMODAL(Report::"Purchase Return Order - SAV", TRUE, FALSE, L_PurchaseHeader);
+                        REPORT.RUNMODAL(Report::"BC6_Purchase Ret. Order - SAV", TRUE, FALSE, L_PurchaseHeader);
                     END;
                     //<<BCSYS
                 end;

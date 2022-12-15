@@ -1,6 +1,6 @@
 pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //130
 {
-    //DeleteAllowed = false; TODO:
+
 
     layout
     {
@@ -61,8 +61,8 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
                     RecLPostSalesShpt.SETRECFILTER();
                     ToFile := 'BON DE LIVRAISON CNE N° ' + DELCHR((RecLPostSalesShpt."No."), '=', '/\:.,') + '.pdf';
                     FileName := TEMPORARYPATH + ToFile;
-                    // REPORT.SAVEASPDF(REPORT::"Sales - Shipment CNE", FileName, RecLPostSalesShpt); TODO:
-                    // ToFile := ReportHelper.DownloadToClientFileName(FileName, ToFile); TODO:
+                    REPORT.SAVEASPDF(REPORT::"BC6_Sales - Shipment CNE", FileName, RecLPostSalesShpt);
+                    ToFile := ReportHelper.DownloadToClientFileName(FileName, ToFile);
 
                     IF RecLPostSalesShpt."Your Reference" <> '' THEN
                         Objet := 'BON DE LIVRAISON CNE N° ' + DELCHR((RecLPostSalesShpt."No."), '=', '/\:.,') + ' - ' + DELCHR((RecLPostSalesShpt."Your Reference"), '=', '/\:.,')
@@ -93,6 +93,11 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
             }
         }
     }
+
+    trigger OnDeleteRecord(): Boolean
+    begin
+        Error('');
+    end;
 
     var
         STR1: Label 'Archiver Devis';
@@ -165,4 +170,7 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
         */
         //<<MIGRATION NAv 2013
     end;
+
+
+
 }

@@ -1,7 +1,7 @@
 report 50061 "BC6_Purchase Ret. Order - SAV"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './PurchaseReturnOrderSAV.rdlc';
+    RDLCLayout = './src/Report/RDL/PurchaseReturnOrderSAV.rdl';
     Caption = 'Return Order', comment = 'FRA="Retour"';
     PreviewMode = PrintLayout;
 

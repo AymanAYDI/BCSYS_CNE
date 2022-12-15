@@ -1,7 +1,7 @@
 report 50078 "BC6_Purchase - Receipt CNE"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './PurchaseReceiptCNE.rdlc';
+    RDLCLayout = './src/Report/RDL/PurchaseReceiptCNE.rdl';
 
     Caption = 'Purchase - Receipt', comment = 'FRA="Achats : Bon de réception"';
 

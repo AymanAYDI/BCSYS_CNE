@@ -2869,20 +2869,17 @@ then begin
 
         ApprovalsMgmt: Codeunit "Approvals Mgmt.";
         RecGArchiveManagement: Codeunit ArchiveManagement;
-
     begin
 
         if not IsHandled then begin
             ApprovalsMgmt.DeleteApprovalEntries(QuoteSalesHeader.RecordId);
             SalesCommentLine.DeleteComments(QuoteSalesHeader."Document Type".AsInteger(), QuoteSalesHeader."No.");
-            //>>MIGRATION NAV 2013
             if RecGParmNavi.GET() then
                 if RecGParmNavi."Filing Sales Quotes" then begin
                     QuoteSalesHeader."BC6_Cause filing" := QuoteSalesHeader."BC6_Cause filing"::"Change in Order";
                     QuoteSalesHeader.MODIFY();
                     RecGArchiveManagement.StoreSalesDocument(QuoteSalesHeader, false);
                 end;
-            //<<MIGRATION NAV 2013
             QuoteSalesHeader.DeleteLinks();
             QuoteSalesHeader.Delete();
             SalesQuoteLine.DeleteAll();

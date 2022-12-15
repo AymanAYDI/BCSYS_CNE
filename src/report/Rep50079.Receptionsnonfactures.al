@@ -1,7 +1,7 @@
 report 50079 "BC6_Receptions non facturées"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Receptionsnonfacturées.rdlc';
+    RDLCLayout = './src/Report/RDL/Receptionsnonfacturées.rdl';
 
 
     dataset

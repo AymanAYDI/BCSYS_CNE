@@ -1,8 +1,5 @@
 pageextension 50041 "BC6_PostedPurchaseReceipt" extends "Posted Purchase Receipt" //136
 {
-
-    //Unsupported feature: Property Insertion (DeleteAllowed) on ""Posted Purchase Receipt"(Page 136)". TODO:
-
     layout
     {
         addafter("Vendor Order No.")
@@ -36,6 +33,11 @@ pageextension 50041 "BC6_PostedPurchaseReceipt" extends "Posted Purchase Receipt
             }
         }
     }
+
+    trigger OnDeleteRecord(): Boolean
+    begin
+        Error('');
+    end;
 
     var
 

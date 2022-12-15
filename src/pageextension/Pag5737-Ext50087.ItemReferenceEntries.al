@@ -20,7 +20,7 @@ pageextension 50087 "BC6_ItemReferenceEntries" extends "Item Reference Entries" 
                 ApplicationArea = Basic, Suite;
             }
         }
-        addafter("Discontinue Bar Code")
+        addlast(Control1)
         {
             field(BC6_InternalBarCode; "BC6_Internal Bar Code")
             {

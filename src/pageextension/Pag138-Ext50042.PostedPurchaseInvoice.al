@@ -1,8 +1,6 @@
 pageextension 50042 "BC6_PostedPurchaseInvoice" extends "Posted Purchase Invoice" //138
 {
 
-    //Unsupported feature: Property Insertion (DeleteAllowed) on ""Posted Purchase Invoice"(Page 138)". TODO:
-
     layout
     {
         addafter(Corrective)
@@ -42,6 +40,11 @@ pageextension 50042 "BC6_PostedPurchaseInvoice" extends "Posted Purchase Invoice
             }
         }
     }
+
+    trigger OnDeleteRecord(): Boolean
+    begin
+        Error('');
+    end;
 
     var
         PurchInvHeader: Record "Purch. Inv. Header";

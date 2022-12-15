@@ -1,8 +1,7 @@
 report 50011 "BC6_Sales - Shipment CNE"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './SalesShipmentCNE.rdlc';
-
+    RDLCLayout = './src/Report/RDL/SalesShipmentCNE.rdl';
     Caption = 'Sales - Shipment', Comment = 'FRA="Ventes : Expédition"';
 
     dataset

@@ -1,7 +1,7 @@
 report 50060 "BC6_Return Order SAV Conf."
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './ReturnOrderSAVConfirmation.rdlc';
+    RDLCLayout = './src/Report/RDL/ReturnOrderSAVConfirmation.rdl';
     Caption = 'Return Order Confirmation', comment = 'FRA="Confirmation de retour"';
     PreviewMode = PrintLayout;
 

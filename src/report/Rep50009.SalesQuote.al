@@ -1,7 +1,7 @@
 report 50009 "BC6_Sales Quote"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './src/report/RDL/SalesQuote.rdl';
+    RDLCLayout = './src/Report/RDL/SalesQuote.rdl';
 
     Caption = 'Sales Quote', Comment = 'FRA="Devis vente"';
     PreviewMode = Normal;
@@ -922,7 +922,7 @@ report 50009 "BC6_Sales Quote"
                     BooGSubmittedToDEEE := RecGBillCustomer."BC6_Submitted to DEEE";
                 END ELSE BEGIN
                     RecGCustomerTemplate.RESET;
-                    IF RecGCustomerTemplate.GET("Sales Header"."Sell-to Customer Template Code") THEN BEGIN
+                    IF RecGCustomerTemplate.GET("Sales Header"."Sell-to Customer Templ. Code") THEN BEGIN
                         BooGSubmittedToDEEE := RecGCustomerTemplate."BC6_Submitted to DEEE";
                     END ELSE BEGIN
                         BooGSubmittedToDEEE := FALSE;

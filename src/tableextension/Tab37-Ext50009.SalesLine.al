@@ -594,7 +594,7 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
             BooGsubmittedtodeee := RecLCustomer."BC6_Submitted to DEEE";
         END
         ELSE BEGIN
-            IF RecGCustTemplate.GET(SalesHeader."Sell-to Customer Template Code") THEN BEGIN
+            IF RecGCustTemplate.GET(SalesHeader."Sell-to Customer Templ. Code") THEN BEGIN
                 BooGsubmittedtodeee := RecGCustTemplate."BC6_Submitted to DEEE";
             END;
         END;

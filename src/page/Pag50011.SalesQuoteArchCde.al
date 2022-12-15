@@ -22,7 +22,7 @@ page 50011 "BC6_Sales Quote Arch. Cde"
                 field("Sell-to Contact No."; "Sell-to Contact No.")
                 {
                 }
-                field("Sell-to Customer Template Code"; "Sell-to Customer Template Code")
+                field("Sell-to Customer Template Code"; "Sell-to Customer Templ. Code")
                 {
                 }
                 field("Sell-to Customer Name"; "Sell-to Customer Name")

@@ -3,7 +3,27 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
     SingleInstance = true;
 
 
+    //********* Page 161***********//
+    procedure SetDecGVATAmount(pDecGVATAmount: Decimal)
+    begin
+        DecGVATAmount := pDecGVATAmount;
+    end;
 
+    procedure GetDecGVATAmount(): Decimal
+    begin
+        exit(DecGVATAmount);
+    end;
+    //------end
+    procedure SetDecGTTCAmount(pDecGTTCAmount: Decimal)
+    begin
+        DecGTTCAmount := pDecGTTCAmount;
+    end;
+
+    procedure GetDecGTTCAmount(): Decimal
+    begin
+        exit(DecGTTCAmount);
+    end;
+    //-------end
     procedure SetAutoTextSpe(pAutoTextSpe: Boolean)
     begin
         BooGAutoTextSpe := pAutoTextSpe;
@@ -251,4 +271,7 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
         PurchGDecMntHTDEEE: Decimal;
         _PurchEcoPartnerDEEE: Code[20];
         _PurchDEEECategoryCode: Code[20];
+        DecGVATAmount: Decimal;
+        DecGTTCAmount: Decimal;
+
 }

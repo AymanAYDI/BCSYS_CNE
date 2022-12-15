@@ -1,7 +1,7 @@
 report 50090 "BC6_Facture Proforma CNE"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './FactureProformaCNE.rdlc';
+    RDLCLayout = './src/Report/RDL/FactureProformaCNE.rdl';
 
     Caption = 'Order Confirmation', comment = 'FRA=""';
 
@@ -1671,7 +1671,7 @@ report 50090 "BC6_Facture Proforma CNE"
                     BooGSubmittedToDEEE := RecGBillCustomer."BC6_Submitted to DEEE";
                 END ELSE BEGIN
                     RecGCustomerTemplate.RESET;
-                    IF RecGCustomerTemplate.GET(SalesHeader."Sell-to Customer Template Code") THEN BEGIN
+                    IF RecGCustomerTemplate.GET(SalesHeader."Sell-to Customer Templ. Code") THEN BEGIN
                         BooGSubmittedToDEEE := RecGCustomerTemplate."BC6_Submitted to DEEE";
                     END ELSE BEGIN
                         BooGSubmittedToDEEE := FALSE;

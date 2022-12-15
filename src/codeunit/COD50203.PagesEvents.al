@@ -86,7 +86,6 @@ codeunit 50203 "BC6_PagesEvents"
         //  PurchHeader , TempPurchLine, 0, TempPurchLine, TotalPurchLineLCY, VATAmount, VATAmountText,DecGHTAmount,DecGVATAmount,DecGTTCAmount,DecGHTAmountLCY);
         IF not PurchHeader."Prices Including VAT" THEN begin
             TotalAmt2 := TotalAmt2 + DecGTTCAmount;
-
         END;
     end;
 
@@ -94,7 +93,6 @@ codeunit 50203 "BC6_PagesEvents"
     local procedure P161_OnAfterUpdateHeaderInfo()
     var
         TempVATAmountLine: Record "VAT Amount Line" temporary;
-    //faut savoir comment récupérer des var glob de type decimal
     begin
         //TODO DecGVATAmount := TempVATAmountLine.GetTotalVATDEEEAmount;
         // DecGTTCAmount := TempVATAmountLine.GetTotalAmountDEEEInclVAT;

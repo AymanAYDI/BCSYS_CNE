@@ -1,15 +1,5 @@
 xmlport 50012 "Import Adresses Livraison Clts"
 {
-    // 
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // 
-    // //>>CNE1.00
-    // FE0021.001:FAFU 28/12/2006 : Reprise de données
-    //                              - Creation
-    // ------------------------------------------------------------------------
 
     Direction = Import;
     FieldDelimiter = '<None>';
@@ -20,7 +10,7 @@ xmlport 50012 "Import Adresses Livraison Clts"
     {
         textelement(Root)
         {
-            tableelement(shiptoaddress; Table222)
+            tableelement(shiptoaddress; "Ship-to Address")
             {
                 AutoReplace = false;
                 AutoSave = false;
@@ -73,7 +63,7 @@ xmlport 50012 "Import Adresses Livraison Clts"
 
                 trigger OnAfterInitRecord()
                 begin
-                    recShipTo.INIT;
+                    recShipTo.INIT();
 
                     vcode := '';
                     vcustomer := '';
@@ -92,13 +82,6 @@ xmlport 50012 "Import Adresses Livraison Clts"
                     CPLength: Integer;
                     i: Integer;
                 begin
-
-
-                    // code d'origine
-                    //IF (("Country Code" ='') OR ("Country Code" = 'FRA')) THEN "Ship-to Address"."Country Code" := 'FR'
-                    //ELSE "Ship-to Address"."Country Code" := "Country Code"
-
-                    //Customer No.,Code
                     recShipTo.VALIDATE(Code, vcode);
                     recShipTo.VALIDATE("Customer No.", vcode);
 
@@ -121,7 +104,6 @@ xmlport 50012 "Import Adresses Livraison Clts"
 
                     IF (vpostcode <> '') OR (vcity <> '') THEN BEGIN
 
-                        //Code postal et Ville
                         IF STRLEN(vpostcode) < 5 THEN BEGIN
                             CPLength := STRLEN(vpostcode);
                             FOR i := 1 TO 5 - CPLength DO BEGIN
@@ -174,10 +156,10 @@ xmlport 50012 "Import Adresses Livraison Clts"
     }
 
     var
+        recPostCode: Record "Post Code";
+        recShipTo: Record "Ship-to Address";
+        "--records--": Integer;
         "--variables--": Integer;
         vname2: Text[30];
-        "--records--": Integer;
-        recShipTo: Record "222";
-        recPostCode: Record "225";
 }
 

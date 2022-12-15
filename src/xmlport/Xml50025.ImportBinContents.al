@@ -1,12 +1,6 @@
-xmlport 50025 "Import Bin Contents"
+xmlport 50025 "BC6_Import Bin Contents"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // ------------------------------------------------------------------------
-
-    Caption = 'Import Bin Contents';
+    Caption = 'Import Bin Contents', Comment = 'FRA="Import contenus emplacements"';
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = ';';
@@ -16,10 +10,10 @@ xmlport 50025 "Import Bin Contents"
     {
         textelement(Root)
         {
-            tableelement(Table2000000026; Table2000000026)
+            tableelement(Integer; Integer)
             {
                 XmlName = 'Integers';
-                SourceTableView = SORTING (Field1)
+                SourceTableView = SORTING(Number)
                                   ORDER(Ascending);
                 textelement(BinCode)
                 {
@@ -62,15 +56,6 @@ xmlport 50025 "Import Bin Contents"
                     DefBinContent.SETRANGE(Default, TRUE);
                     DefBinContentOk := DefBinContent.FINDFIRST;
 
-                    // IF NOT Bin.GET(LocationCode,BinCode) THEN
-                    //  BEGIN
-                    //    Bin.INIT;
-                    //    Bin."Location Code" := Location.Code;
-                    //    Bin.Code := BinCode;
-                    //    Bin.Description := 'ERROR';
-                    //    Bin.INSERT(TRUE);
-                    // END;
-
                     CLEAR(BinContent);
                     IF NOT BinContent.GET(LocationCode, BinCode, ItemNo, '', Item."Base Unit of Measure") THEN BEGIN
                         BinContent.INIT;
@@ -106,12 +91,12 @@ xmlport 50025 "Import Bin Contents"
     end;
 
     var
-        Item: Record "27";
-        Bin: Record "7354";
-        BinContent: Record "7302";
-        DefBinContent: Record "7302";
-        Location: Record "14";
-        OLDLocation: Record "14";
+        Item: Record 27;
+        Bin: Record 7354;
+        BinContent: Record 7302;
+        DefBinContent: Record 7302;
+        Location: Record 14;
+        OLDLocation: Record 14;
         LocationCode: Code[20];
         Counter: Integer;
         TotalCounter: Integer;

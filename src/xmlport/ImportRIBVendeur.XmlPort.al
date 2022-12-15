@@ -1,15 +1,5 @@
 xmlport 50016 "Import RIB Vendeur"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // 
-    // //>>CNE1.00
-    // FE0021.001:FAFU 28/12/2006 : Reprise de données
-    //                              - Creation
-    // ------------------------------------------------------------------------
-
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = ';';
@@ -19,7 +9,7 @@ xmlport 50016 "Import RIB Vendeur"
     {
         textelement(Root)
         {
-            tableelement(Table288; Table288)
+            tableelement("Vendor Bank Account"; "Vendor Bank Account")
             {
                 XmlName = 'VendorBankAccount';
                 textelement(NumVend)
@@ -87,6 +77,6 @@ xmlport 50016 "Import RIB Vendeur"
     end;
 
     var
-        RibVend: Record "288";
+        RibVend: Record "Vendor Bank Account";
 }
 

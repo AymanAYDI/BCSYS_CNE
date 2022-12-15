@@ -1,14 +1,5 @@
 xmlport 50014 "Import Fiches Fourisseurs"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // 
-    // //>>CNE1.00
-    // FE0021.001:FAFU 28/12/2006 : Reprise de données
-    //                              - Creation
-    // ------------------------------------------------------------------------
 
     FieldDelimiter = '<None>';
     FieldSeparator = ';';
@@ -18,7 +9,7 @@ xmlport 50014 "Import Fiches Fourisseurs"
     {
         textelement(Root)
         {
-            tableelement(Table23; Table23)
+            tableelement(Vendor; Vendor)
             {
                 AutoReplace = false;
                 AutoSave = false;
@@ -112,7 +103,7 @@ xmlport 50014 "Import Fiches Fourisseurs"
                 {
                     Width = 0;
                 }
-                fieldelement(MiniAmount; Vendor."Mini Amount")
+                fieldelement(MiniAmount; Vendor."BC6_Mini Amount")
                 {
                     Width = 0;
                 }

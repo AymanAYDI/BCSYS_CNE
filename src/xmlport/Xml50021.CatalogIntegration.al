@@ -1,13 +1,6 @@
-xmlport 50021 "Catalog Integration"
+xmlport 50021 "BC6_Catalog Integration"
 {
-    // 
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // ------------------------------------------------------------------------
-
-    Caption = 'Catalog Integration';
+    Caption = 'Catalog Integration', Comment = 'FRA="Intégration catalogue"';
     Direction = Import;
     FieldDelimiter = 'NONE';
     FieldSeparator = '<TAB>';
@@ -17,11 +10,11 @@ xmlport 50021 "Catalog Integration"
     {
         textelement(Root)
         {
-            tableelement(Table27; Table27)
+            tableelement(Item; Item)
             {
                 AutoSave = false;
                 XmlName = 'Items';
-                SourceTableView = SORTING (Field1);
+                SourceTableView = SORTING("No.");
                 textelement(REF_EXT)
                 {
                 }
@@ -47,9 +40,6 @@ xmlport 50021 "Catalog Integration"
                 trigger OnBeforeInsertRecord()
                 begin
 
-                    //TARIFS SBH [006]Integration Articles et Tarifs
-                    //Item.RESET;
-
                     IF REF_INT = '' THEN
                         REF_INT := TextGabbreviation + REF_EXT;
 
@@ -61,7 +51,6 @@ xmlport 50021 "Catalog Integration"
                         RecGItem.VALIDATE("Vendor No.", Num);
                         RecGItem.VALIDATE("Vendor Item No.", REF_EXT);
                         RecGItem.VALIDATE("Item Category Code", Cat);
-                        RecGItem.VALIDATE("Product Group Code", GRPProduit);
                         RecGItem.VALIDATE(Description, COPYSTR(Designation, 1, 30));
                         RecGItem.VALIDATE("Item Disc. Group", FAMILLE);
                         EVALUATE(RecGItem."Unit Price", PX_PUBLIC);
@@ -90,20 +79,21 @@ xmlport 50021 "Catalog Integration"
         {
             area(content)
             {
-                field(FileName; FileName)
-                {
-                    Caption = 'Open File';
+                //TODO:OCX 
+                // field(FileName; FileName)
+                // {
+                //     Caption = 'Open File';
 
-                    trigger OnAssistEdit()
-                    begin
+                //     trigger OnAssistEdit()
+                //     begin
 
-                        Common_Dlg.DialogTitle(textG001);
-                        Common_Dlg.Filter := '.xls';
-                        Common_Dlg.InitDir(ENVIRON('userprofile'));
-                        Common_Dlg.ShowOpen;
-                        FileName := Common_Dlg.FileName;
-                    end;
-                }
+                //         Common_Dlg.DialogTitle(textG001);
+                //         Common_Dlg.Filter := '.xls';
+                //         Common_Dlg.InitDir(ENVIRON('userprofile'));
+                //         Common_Dlg.ShowOpen;
+                //         FileName := Common_Dlg.FileName;
+                //     end;
+                // }
                 field(DateDeb; DateDeb)
                 {
                     Caption = 'Date début';
@@ -147,7 +137,7 @@ xmlport 50021 "Catalog Integration"
                 }
                 field(GRPProduit; GRPProduit)
                 {
-                    Caption = 'Product Group';
+                    Caption = 'Product Group', Comment = 'FRA="Groupe Produit Article"';
                 }
             }
         }
@@ -171,22 +161,22 @@ xmlport 50021 "Catalog Integration"
     end;
 
     var
-        RecLItemdiscGrp: Record "341";
-        DateDeb: Date;
-        FileName: Text[250];
-        Vendor: Record "23";
-        Num: Code[10];
-        TextG002: Label 'Please fill up start date and Vendor No';
-        TextGabbreviation: Code[10];
-        RecGItem: Record "27";
+        RecGItem: Record Item;
+        RecLItemdiscGrp: Record "Item Discount Group";
+        Vendor: Record Vendor;
         Cat: Code[10];
         GRPProduit: Code[10];
+        Num: Code[10];
+        TextGabbreviation: Code[10];
+        DateDeb: Date;
         DateFin: Date;
-        Common_Dlg: OCX;
-        Text008: Label 'Starting Date %1 must be less than end date %2';
-        textG001: Label 'Import File';
+        // Common_Dlg: OCX;
+        Text008: Label 'Starting Date %1 must be less than end date %2', Comment = 'FRA="Date début %1 doit être inférieur à date fin %2"';
+        textG001: Label 'Import File', Comment = 'FRA="Importer le fichier"';
+        TextG002: Label 'Please fill up start date and Vendor No', Comment = 'FRA="Veuillez valoriser les champs date de début et N° de fournisseur"';
+        FileName: Text[250];
 
-    [Scope('Internal')]
+
     procedure create_disc_familly()
     begin
         IF NOT RecLItemdiscGrp.GET(FAMILLE) THEN BEGIN

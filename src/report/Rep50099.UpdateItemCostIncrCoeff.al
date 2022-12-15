@@ -1,6 +1,6 @@
 report 50099 "Update Item Cost Incr. Coeff."
 {
-    Caption = 'Update Item Cost Incr. Coeff.';
+    Caption = 'Update Item Cost Incr. Coeff.', Comment = 'FRA="Mise à jour coeff de majoration du côut"';
     ProcessingOnly = true;
 
     dataset
@@ -34,7 +34,7 @@ report 50099 "Update Item Cost Incr. Coeff."
                     Caption = 'Options';
                     field(NewCoeff; NewCoeff)
                     {
-                        Caption = 'New Coefficient (%)';
+                        Caption = 'New Coefficient (%)', Comment = 'FRA="Nouveau coefficient (%)"';
                         MaxValue = 100;
                         MinValue = 0;
                     }
@@ -73,8 +73,8 @@ report 50099 "Update Item Cost Incr. Coeff."
         NewCoeff: Decimal;
         i: Integer;
         Window: Dialog;
-        DlgMsg: Label 'Processing items :\@@1@@@@@@@@@@@@@@@@@@@@@@\##2######################';
-        MsgCompleted: Label 'Process completed.';
-        ErrFilters: Label 'Filters on Items cannot be empty.';
+        DlgMsg: Label 'Processing items :\@@1@@@@@@@@@@@@@@@@@@@@@@\##2######################', Comment = 'FRA="Traitement des articles en cours :\@@1@@@@@@@@@@@@@@@@@@@@@@\##2######################"';
+        MsgCompleted: Label 'Process completed.', Comment = 'FRA="Traitement terminé."';
+        ErrFilters: Label 'Filters on Items cannot be empty.', Comment = 'FRA="Au moins un filtre est requis sur la liste des articles."';
 }
 

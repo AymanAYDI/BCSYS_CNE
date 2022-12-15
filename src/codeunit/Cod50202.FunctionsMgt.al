@@ -1240,7 +1240,7 @@ codeunit 50202 "BC6_Functions Mgt"
     var
         GloablFunction: codeunit "BC6_GlobalFunctionMgt";
     BEGIN
-        GloablFunction.SetGDecMntHTDEEE(GloablFunction.GetGDecMntHTDEEE() + RecLPurchLine."BC6_DEEE HT Amount");
+        GloablFunction.SetGDecMntTTCDEEE(GloablFunction.GetGDecMntHTDEEE() + RecLPurchLine."BC6_DEEE HT Amount");
         GloablFunction.SetGDecMntHTDEEE(GloablFunction.GetGDecMntTTCDEEE() + RecLPurchLine."BC6_DEEE TTC Amount");
     END;
 

@@ -1,13 +1,5 @@
-xmlport 53007 "Import Tiers"
+xmlport 53007 "BC6_Import Tiers"
 {
-    // 
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // 
-    // //>>CNE1.00
-    // FE0021.001:BRRI 02/01/2007 : Reprise de données
-    //                              - Creation
 
     Direction = Import;
     FieldDelimiter = '<None>';
@@ -18,11 +10,11 @@ xmlport 53007 "Import Tiers"
     {
         textelement(Root)
         {
-            tableelement(Table81; Table81)
+            tableelement("Gen. Journal Line"; "Gen. Journal Line")
             {
                 AutoSave = false;
                 XmlName = 'GenJournalLine';
-                SourceTableView = SORTING (Field1, Field51, Field2);
+                SourceTableView = SORTING("Journal Template Name", "Journal Batch Name", "Line No.");
                 textelement(codjournal)
                 {
                     XmlName = 'CodJournal';
@@ -70,17 +62,17 @@ xmlport 53007 "Import Tiers"
                     TypeBalAccountNo := TypeBalAccountNo::"G/L Account";
                     BalAccountNo := '471000';
 
-                    IntGLineNo := DeleteGenJnlLine;
+                    IntGLineNo := DeleteGenJnlLine();
                 end;
 
                 trigger OnAfterInitRecord()
                 begin
-                    RecGGenJnlLine.INIT;
+                    RecGGenJnlLine.INIT();
                     RecGGenJnlLine.VALIDATE("Journal Template Name", CodGJnlTemplName);
                     RecGGenJnlLine.VALIDATE("Journal Batch Name", CodGJnlBatchName);
 
 
-                    RecGGenJnlLineTmp.INIT;
+                    RecGGenJnlLineTmp.INIT();
                     RecGGenJnlLineTmp.VALIDATE("Journal Template Name", CodGJnlTemplName);
                     RecGGenJnlLineTmp.VALIDATE("Journal Batch Name", CodGJnlBatchName);
 
@@ -174,12 +166,12 @@ xmlport 53007 "Import Tiers"
                     trigger OnLookup(var Text: Text): Boolean
                     begin
 
-                        RecGJnlBatchName.RESET;
+                        RecGJnlBatchName.RESET();
                         RecGJnlBatchName.SETRANGE(RecGJnlBatchName."Journal Template Name", CodGJnlTemplName);
                         RecGJnlBatchName.FILTERGROUP(2);
                         FormJnlBatchName.SETTABLEVIEW(RecGJnlBatchName);
 
-                        IF PAGE.RUNMODAL(251, RecGJnlBatchName, RecGJnlBatchName.Name) = ACTION::LookupOK THEN
+                        IF PAGE.RUNMODAL(Page::"General Journal Batches", RecGJnlBatchName, RecGJnlBatchName.Name) = ACTION::LookupOK THEN
                             CodGJnlBatchName := RecGJnlBatchName.Name;
                     end;
                 }
@@ -209,60 +201,60 @@ xmlport 53007 "Import Tiers"
     var
         CodGJnlBatchName: Code[10];
         CodGJnlTemplName: Code[10];
-        RecGGenJnlLine: Record "81";
-        RecGGenJnlLineTmp: Record "81";
+        RecGGenJnlLine: Record "Gen. Journal Line";
+        RecGGenJnlLineTmp: Record "Gen. Journal Line";
         IntGLineNo: Integer;
         TxtGFileName: Text[250];
         "--": Integer;
-        FormJnlBatchName: Page "251";
-        RecGJnlBatchName: Record "232";
+        FormJnlBatchName: Page "General Journal Batches";
+        RecGJnlBatchName: Record "Gen. Journal Batch";
         TypeBalAccountNo: Option "G/L Account",Customer,Vendor,"Bank Account","Fixed Asset","IC Partner";
         BalAccountNo: Code[20];
-        TextError001: Label 'Account %1 do not exist !!';
+        TextError001: Label 'Account %1 do not exist !!', Comment = 'FRA="Compte %1 n''existe pas !!"';
 
-    [Scope('Internal')]
+
     procedure DeleteGenJnlLine(): Integer
     var
-        RecLGenJnlLine: Record "81";
-        TextConfirm001: Label 'There are alreday Entries in Gen. Jnl Line %1 - %2. Do you want to delete them before the new import ?';
+        RecLGenJnlLine: Record "Gen. Journal Line";
+        TextConfirm001: Label 'There are alreday Entries in Gen. Jnl Line %1 - %2. Do you want to delete them before the new import ?', Comment = 'FRA="Il existe déjà des écritures dans la Feuille de saisie %1 - %2. Voulez-vous les supprimer avant le nouvel import ?"';
     begin
-        RecLGenJnlLine.RESET;
+        RecLGenJnlLine.RESET();
         RecLGenJnlLine.SETRANGE("Journal Template Name", CodGJnlTemplName);
         RecLGenJnlLine.SETRANGE("Journal Batch Name", CodGJnlBatchName);
-        IF RecLGenJnlLine.FINDFIRST THEN
+        IF RecLGenJnlLine.FINDFIRST() THEN
             IF CONFIRM(STRSUBSTNO(TextConfirm001, CodGJnlTemplName, CodGJnlBatchName)) THEN
-                RecLGenJnlLine.DELETEALL;
+                RecLGenJnlLine.DELETEALL();
 
-        RecLGenJnlLine.RESET;
+        RecLGenJnlLine.RESET();
         RecLGenJnlLine.SETRANGE("Journal Template Name", CodGJnlTemplName);
         RecLGenJnlLine.SETRANGE("Journal Batch Name", CodGJnlBatchName);
-        IF RecLGenJnlLine.FINDLAST THEN
+        IF RecLGenJnlLine.FINDLAST() THEN
             EXIT(RecLGenJnlLine."Line No.")
         ELSE
             EXIT(0);
     end;
 
-    [Scope('Internal')]
+
     procedure TestTier(TypeTier: Text[30]; CodLAccountNo: Code[20])
     var
-        RecLCustomer: Record "18";
-        RecLVendor: Record "23";
+        RecLCustomer: Record Customer;
+        RecLVendor: Record Vendor;
     begin
         IF TypeTier = 'Customer' THEN
             IF NOT RecLCustomer.GET(CodLAccountNo) THEN BEGIN
-                RecLCustomer.INIT;
+                RecLCustomer.INIT();
                 RecLCustomer."No." := CodLAccountNo;
                 RecLCustomer.Name := 'Créé par Dataport Import Tiers';
                 RecLCustomer.INSERT(TRUE);
             END;
         IF TypeTier = 'Vendor' THEN
             IF NOT RecLVendor.GET(CodLAccountNo) THEN BEGIN
-                RecLVendor.INIT;
+                RecLVendor.INIT();
                 RecLVendor."No." := CodLAccountNo;
                 RecLVendor.Name := 'Créé par Dataport Import Tiers';
                 RecLVendor.INSERT(TRUE);
             END;
-        COMMIT;
+        COMMIT();
     end;
 }
 

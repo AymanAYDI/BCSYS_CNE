@@ -1,12 +1,7 @@
-xmlport 50024 "Import Bins"
+xmlport 50024 "BC6_Import Bins"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // ------------------------------------------------------------------------
 
-    Caption = 'Import Bins';
+    Caption = 'Import Bins', Comment = 'FRA="Import emplacements"';
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = ';';
@@ -16,10 +11,10 @@ xmlport 50024 "Import Bins"
     {
         textelement(Root)
         {
-            tableelement(Table2000000026; Table2000000026)
+            tableelement(Integer; Integer)
             {
                 XmlName = 'Integers';
-                SourceTableView = SORTING (Field1)
+                SourceTableView = SORTING(Number)
                                   ORDER(Ascending);
                 textelement(BinCode)
                 {
@@ -50,7 +45,7 @@ xmlport 50024 "Import Bins"
                 begin
 
                     IF NOT Bin.GET(LocationCode, BinCode) THEN BEGIN
-                        Bin.INIT;
+                        Bin.INIT();
                         Bin."Location Code" := Location.Code;
                         Bin.Code := BinCode;
                         IF BinDes <> '' THEN
@@ -83,9 +78,9 @@ xmlport 50024 "Import Bins"
     end;
 
     var
-        Bin: Record "7354";
-        Location: Record "14";
-        OLDLocation: Record "14";
+        Bin: Record Bin;
+        Location: Record Location;
+        OLDLocation: Record Location;
         LocationCode: Code[20];
         Counter: Integer;
         TotalCounter: Integer;

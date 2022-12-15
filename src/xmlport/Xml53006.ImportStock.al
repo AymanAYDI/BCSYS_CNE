@@ -1,4 +1,4 @@
-xmlport 53006 "Import Stock"
+xmlport 53006 "BC6_Import Stock"
 {
     Caption = '<Import Stock>';
     Direction = Import;
@@ -9,7 +9,7 @@ xmlport 53006 "Import Stock"
     {
         textelement(Root)
         {
-            tableelement(Table83; Table83)
+            tableelement("Item Journal Line"; "Item Journal Line")
             {
                 XmlName = 'ItemJournalLine';
                 textelement(ref)
@@ -75,7 +75,7 @@ xmlport 53006 "Import Stock"
 
     var
         IntGLineNo: Integer;
-        TabArt: Record "27";
+        TabArt: Record Item;
         DecGQte: Decimal;
 }
 

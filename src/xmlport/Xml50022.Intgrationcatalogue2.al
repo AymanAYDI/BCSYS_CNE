@@ -1,12 +1,5 @@
-xmlport 50022 "Intégration catalogue2"
+xmlport 50022 "BC6_Intégration catalogue2"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // //Bug Compilation CASC 18/01/2007
-    // ------------------------------------------------------------------------
-
     Direction = Import;
     FieldDelimiter = 'NONE';
     FieldSeparator = '<TAB>';
@@ -16,7 +9,7 @@ xmlport 50022 "Intégration catalogue2"
     {
         textelement(Root)
         {
-            tableelement(Table50005; Table50005)
+            tableelement("BC6_Temporary import catalogue"; "BC6_Temporary import catalogue")
             {
                 XmlName = 'Temporaryimportcatalogue';
                 textelement(Ref_externe)
@@ -44,14 +37,14 @@ xmlport 50022 "Intégration catalogue2"
                 trigger OnPreXmlItem()
                 begin
 
-                    "Temporary import catalogue".DELETEALL;
+                    "BC6_Temporary import catalogue".DELETEALL;
                     clef := 0;
                 end;
 
                 trigger OnAfterInitRecord()
                 begin
 
-                    "Temporary import catalogue".INIT;
+                    "BC6_Temporary import catalogue".INIT;
                     clef += 1;
                 end;
             }
@@ -68,16 +61,16 @@ xmlport 50022 "Intégration catalogue2"
                 field(FileName; FileName)
                 {
                     Caption = 'Open File';
+                    //TODO:OCX
+                    // trigger OnAssistEdit()
+                    // begin
 
-                    trigger OnAssistEdit()
-                    begin
-
-                        Common_Dlg.DialogTitle(textG001);
-                        Common_Dlg.Filter := '.xls';
-                        Common_Dlg.InitDir(ENVIRON('userprofile'));
-                        Common_Dlg.ShowOpen;
-                        FileName := Common_Dlg.FileName;
-                    end;
+                    //     Common_Dlg.DialogTitle(textG001);
+                    //     Common_Dlg.Filter := '.xls';
+                    //     Common_Dlg.InitDir(ENVIRON('userprofile'));
+                    //     Common_Dlg.ShowOpen;
+                    //     FileName := Common_Dlg.FileName;
+                    // end;
                 }
                 field(DateDeb; DateDeb)
                 {
@@ -122,7 +115,7 @@ xmlport 50022 "Intégration catalogue2"
                 }
                 field(GRPProduit; GRPProduit)
                 {
-                    Caption = 'Product Group';
+                    Caption = 'Product Group', Comment = 'FRA="Groupe Produit Article"';
                 }
             }
         }
@@ -146,22 +139,22 @@ xmlport 50022 "Intégration catalogue2"
     end;
 
     var
-        RecLItemdiscGrp: Record "341";
-        clef: Integer;
-        DateDeb: Date;
-        FileName: Text[250];
-        Vendor: Record "23";
-        Num: Code[10];
-        Text008: Label 'Starting Date %1 must be less than end date %2';
-        textG001: Label 'Import File';
-        TextG002: Label 'Please fill up start date and Vendor No';
-        Common_Dlg: OCX;
-        DateFin: Date;
-        TextGabbreviation: Code[10];
+        Vendor: Record 23;
+        RecLItemdiscGrp: Record 341;
         Cat: Code[10];
         GRPProduit: Code[10];
+        Num: Code[10];
+        TextGabbreviation: Code[10];
+        DateDeb: Date;
+        // Common_Dlg: OCX;
+        DateFin: Date;
+        clef: Integer;
+        Text008: Label 'Starting Date %1 must be less than end date %2', Comment = 'FRA="Date début %1 doit être inférieur à date fin %2"';
+        textG001: Label 'Import File', Comment = 'FRA="Importer le fichier"';
+        TextG002: Label 'Please fill up start date and Vendor No', Comment = 'FRA="Veuillez valoriser les champs date de début et N° de fournisseur"';
+        FileName: Text[250];
 
-    [Scope('Internal')]
+
     procedure create_disc_familly()
     begin
         IF NOT RecLItemdiscGrp.GET(famille) THEN BEGIN

@@ -1,13 +1,5 @@
-xmlport 50015 "Import R.I.B Fournisseurs"
+xmlport 50015 "BC6_Import R.I.B Fournisseurs"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // 
-    // //>>CNE1.00
-    // FE0021.001:FAFU 28/12/2006 : Reprise de données
-    //                              - Creation
 
     Direction = Import;
     FieldDelimiter = '<None>';
@@ -18,7 +10,7 @@ xmlport 50015 "Import R.I.B Fournisseurs"
     {
         textelement(Root)
         {
-            tableelement(Table288; Table288)
+            tableelement("Vendor Bank Account"; "Vendor Bank Account")
             {
                 AutoSave = false;
                 XmlName = 'VendorBankAccount';
@@ -115,7 +107,7 @@ xmlport 50015 "Import R.I.B Fournisseurs"
     }
 
     var
-        recVendBank: Record "288";
+        recVendBank: Record 288;
         IntGrib: Integer;
 }
 

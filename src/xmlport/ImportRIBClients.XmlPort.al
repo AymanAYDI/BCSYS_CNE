@@ -1,15 +1,5 @@
 xmlport 50013 "Import R.I.B Clients"
 {
-    // 
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // 
-    // //>>CNE1.00
-    // FE0021.001:FAFU 28/12/2006 : Reprise de données
-    //                              - Creation
-    // ------------------------------------------------------------------------
 
     Direction = Import;
     FieldDelimiter = '<None>';
@@ -20,7 +10,7 @@ xmlport 50013 "Import R.I.B Clients"
     {
         textelement(Root)
         {
-            tableelement(customerbankaccount; Table287)
+            tableelement(customerbankaccount; "Customer Bank Account")
             {
                 AutoReplace = false;
                 AutoSave = false;
@@ -70,9 +60,7 @@ xmlport 50013 "Import R.I.B Clients"
                     agency := '';
                     bankaccount := '';
                     rib := '';
-                    //>>MIGRATION NAV 2013
                     IntGRIB := 0;
-                    //<<MIGRATION NAV 2013
                     Name := '';
                     name2 := '';
                 end;
@@ -81,7 +69,6 @@ xmlport 50013 "Import R.I.B Clients"
                 begin
 
 
-                    //Customer No.,Code
                     recCustBank.VALIDATE("Customer No.", customer);
                     recCustBank.VALIDATE(Code, Code);
                     recCustBank.INSERT(TRUE);
@@ -96,15 +83,9 @@ xmlport 50013 "Import R.I.B Clients"
 
                     IF bankaccount <> '' THEN
                         recCustBank.VALIDATE("Bank Account No.", bankaccount);
-
-                    //>>MIGRATION NAV 2013
-                    //IF rib <> 0 THEN
-                    //  recCustBank.VALIDATE("RIB Key", rib);
-
                     IF rib <> '' THEN
                         IF EVALUATE(IntGRIB, rib) THEN
                             recCustBank.VALIDATE("RIB Key", IntGRIB);
-                    //<<MIGRATION NAV 2013
 
                     IF Name <> '' THEN
                         recCustBank.VALIDATE(Name, Name);
@@ -132,8 +113,8 @@ xmlport 50013 "Import R.I.B Clients"
     }
 
     var
+        recCustBank: Record 287;
         "--record--": Integer;
-        recCustBank: Record "287";
         "- MIGNAV2013 -": Integer;
         IntGRIB: Integer;
 }

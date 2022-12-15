@@ -91,16 +91,16 @@ report 50037 "BC6_BC6_Relance  CNE"
             column(Document_DateCaption; Document_DateCaptionLbl)
             {
             }
-            column(Issued_Reminder_Line__Document_No__Caption; IssuedReminderHeader.FIELDCAPTION("Document No."))
+            column(Issued_Reminder_Line__Document_No__Caption; IssuedReminderLineV.FIELDCAPTION("Document No."))
             {
             }
             column(Issued_Reminder_Line__Due_Date_Caption; Issued_Reminder_Line__Due_Date_CaptionLbl)
             {
             }
-            column(Issued_Reminder_Line__Remaining_Amount__Control40Caption; IssuedReminderHeader.FIELDCAPTION("Remaining Amount"))
+            column(Issued_Reminder_Line__Remaining_Amount__Control40Caption; IssuedReminderLineV.FIELDCAPTION("Remaining Amount"))
             {
             }
-            column(Issued_Reminder_Line__Original_Amount_Caption; IssuedReminderHeader.FIELDCAPTION("Original Amount"))
+            column(Issued_Reminder_Line__Original_Amount_Caption; IssuedReminderLineV.FIELDCAPTION("Original Amount"))
             {
             }
             column(Type_documentCaption; Type_documentCaptionLbl)
@@ -115,7 +115,7 @@ report 50037 "BC6_BC6_Relance  CNE"
             column(ReminderInterestAmountCaption; ReminderInterestAmountCaptionLbl)
             {
             }
-            column(Issued_Reminder_Line__VAT_Amount_Caption; IssuedReminderHeader.FIELDCAPTION("VAT Amount"))
+            column(Issued_Reminder_Line__VAT_Amount_Caption; IssuedReminderLineV.FIELDCAPTION("VAT Amount"))
             {
             }
             column(VATAmountLine__VAT_Amount__Control71Caption; VATAmountLine__VAT_Amount__Control71CaptionLbl)
@@ -204,7 +204,7 @@ report 50037 "BC6_BC6_Relance  CNE"
                         CurrReport.BREAK;
                 end;
             }
-            dataitem(IssuedReminderLine; "Issued Reminder Line")
+            dataitem(IssuedReminderLineV; "Issued Reminder Line")
             {
 
                 DataItemLink = "Reminder No." = FIELD("No.");
@@ -267,7 +267,7 @@ report 50037 "BC6_BC6_Relance  CNE"
                 column(Issued_Reminder_Line__Remaining_Amount_; "Remaining Amount")
                 {
                     //TODO : missing function 
-                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    //AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
                 column(STRSUBSTNO__du__1__FORMAT__Document_Date___; STRSUBSTNO('du %1', FORMAT("Document Date")))
@@ -281,12 +281,12 @@ report 50037 "BC6_BC6_Relance  CNE"
                 }
                 column(Issued_Reminder_Line__Remaining_Amount__Control40; "Remaining Amount")
                 {
-                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    //TODO:AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
                 column(Issued_Reminder_Line__Original_Amount_; "Original Amount")
                 {
-                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    //TODO:AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
                 column(STRSUBSTNO___1_n____Document_Type__; STRSUBSTNO('%1 n°', "Document Type"))
@@ -297,7 +297,7 @@ report 50037 "BC6_BC6_Relance  CNE"
                 }
                 column(Issued_Reminder_Line__Remaining_Amount__Control38; "Remaining Amount")
                 {
-                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    //TODO:AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
                 column(Issued_Reminder_Line__No__; "No.")
@@ -305,7 +305,7 @@ report 50037 "BC6_BC6_Relance  CNE"
                 }
                 column(Issued_Reminder_Line__Remaining_Amount__Control95; "Remaining Amount")
                 {
-                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    //TODO:AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
                 column(Issued_Reminder_Line_Description_Control96; Description)
@@ -313,27 +313,27 @@ report 50037 "BC6_BC6_Relance  CNE"
                 }
                 column(Issued_Reminder_Line__Remaining_Amount__Control42; "Remaining Amount")
                 {
-                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    //TODO:AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
                 column(ReminderInterestAmount; ReminderInterestAmount)
                 {
-                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    //TODO:AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
                 column(Remaining_Amount____ReminderInterestAmount; "Remaining Amount" + ReminderInterestAmount)
                 {
-                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    //TODO:AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
                 column(Remaining_Amount____ReminderInterestAmount____VAT_Amount_; "Remaining Amount" + ReminderInterestAmount + "VAT Amount")
                 {
-                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    //TODO:AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
                 column(Issued_Reminder_Line__VAT_Amount_; "VAT Amount")
                 {
-                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    //TODO:AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
                 column(Issued_Reminder_Line_Reminder_No_; "Reminder No.")
@@ -425,22 +425,22 @@ report 50037 "BC6_BC6_Relance  CNE"
                 DataItemTableView = SORTING(Number);
                 column(VATAmtLineAmtIncludVAT; VATAmountLine."Amount Including VAT")
                 {
-                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    //TODO:AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
                 column(VALVATAmount; VALVATAmount)
                 {
-                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    //TODO:AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
                 column(VALVATBase; VALVATBase)
                 {
-                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    //TODO:AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
                 column(VALVATBaseVALVATAmt; VALVATBase + VALVATAmount)
                 {
-                    AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    //TODO:AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
                     AutoFormatType = 1;
                 }
                 column(VATAmtLineVAT; VATAmountLine."VAT %")

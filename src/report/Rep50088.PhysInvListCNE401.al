@@ -1,7 +1,7 @@
 report 50088 "BC6_Phys. Inv. List CNE401"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './PhysInventoryListCNE401.rdlc';
+    RDLCLayout = './src/Report/RDL/PhysInventoryListCNE401.rdl';
 
     Caption = 'Phys. Inventory List', comment = 'FRA="Liste d''inventaire"';
 

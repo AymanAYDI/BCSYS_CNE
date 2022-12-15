@@ -14,7 +14,7 @@ pageextension 50082 "BC6_SalesQuoteArchive" extends "Sales Quote Archive" //5162
         {
             Visible = false;
         }
-        modify("Sell-to Customer Template Code")
+        modify("Sell-to Customer Templ. Code")
         {
             Visible = false;
         }
@@ -221,7 +221,7 @@ pageextension 50082 "BC6_SalesQuoteArchive" extends "Sales Quote Archive" //5162
             {
                 QuickEntry = false;
             }
-            field("BC6_Sell-to Customer Template Code"; "Sell-to Customer Template Code")
+            field("BC6_Sell-to Customer Template Code"; "Sell-to Customer Templ. Code")
             {
                 Enabled = true; //SelltoCustomerTemplateCodeEnab
                 Importance = Additional;

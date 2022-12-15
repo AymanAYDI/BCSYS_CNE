@@ -1,7 +1,7 @@
 report 50076 "BC6_Traite fourn. sur bord"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Traitefournisseursurbord.rdlc';
+    RDLCLayout = './src/Report/RDL/Traitefournisseursurbord.rdl';
 
     Caption = 'Bill WORMS', comment = 'FRA=""';
 

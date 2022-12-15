@@ -1,7 +1,7 @@
 report 50013 "BC6_Sales - Credit Memo CNE"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './SalesCreditMemoCNE.rdlc';
+    RDLCLayout = './src/Report/RDL/SalesCreditMemoCNE.rdl';
 
     Caption = 'Sales - Credit Memo', Comment = 'FRA=""';
     Permissions = TableData "Sales Shipment Buffer" = rimd;

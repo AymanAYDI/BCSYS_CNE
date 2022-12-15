@@ -1,7 +1,7 @@
 report 50205 "BC6_Facture Proforma CNE 2"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './FactureProformaCNE2.rdlc';
+    RDLCLayout = './src/Report/RDL/FactureProformaCNE2.rdl';
     Caption = 'Order Confirmation', Comment = 'FRA="Facture Proforma (idem conf. de cde)"';
 
     dataset
@@ -1813,7 +1813,7 @@ report 50205 "BC6_Facture Proforma CNE 2"
                     BooGSubmittedToDEEE := RecGBillCustomer."BC6_Submitted to DEEE";
                 END ELSE BEGIN
                     RecGCustomerTemplate.RESET;
-                    IF RecGCustomerTemplate.GET("Sales Header"."Sell-to Customer Template Code") THEN BEGIN
+                    IF RecGCustomerTemplate.GET("Sales Header"."Sell-to Customer Templ. Code") THEN BEGIN
                         BooGSubmittedToDEEE := RecGCustomerTemplate."BC6_Submitted to DEEE";
                     END ELSE BEGIN
                         BooGSubmittedToDEEE := FALSE;

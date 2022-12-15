@@ -25,7 +25,7 @@ page 50092 "BC6_Sales Quote Archive STD"
                 {
                     ApplicationArea = All;
                 }
-                field("Sell-to Customer Template Code"; Rec."Sell-to Customer Template Code")
+                field("Sell-to Customer Template Code"; Rec."Sell-to Customer Templ. Code")
                 {
                     ApplicationArea = All;
                 }

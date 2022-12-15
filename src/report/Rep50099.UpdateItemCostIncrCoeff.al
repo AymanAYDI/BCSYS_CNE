@@ -5,17 +5,17 @@ report 50099 "Update Item Cost Incr. Coeff."
 
     dataset
     {
-        dataitem(DataItem1000000000; Table27)
+        dataitem(Item; Item)
         {
-            RequestFilterFields = "No.", "Item Category Code", "Product Group Code";
+            RequestFilterFields = "No.", "Item Category Code";
 
             trigger OnAfterGetRecord()
             begin
                 Window.UPDATE(1, ROUND((i / Item.COUNT) * 10000, 1));
                 Window.UPDATE(2, STRSUBSTNO('%1 / %2', i, Item.COUNT));
 
-                Item."Cost Increase Coeff %" := NewCoeff;
-                Item.MODIFY;
+                Item."BC6_Cost Increase Coeff %" := NewCoeff;
+                Item.MODIFY();
 
                 i += 1;
             end;

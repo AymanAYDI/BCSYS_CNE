@@ -17,7 +17,7 @@ codeunit 50203 "BC6_PagesEvents"
     var
         Cust: record customer;
         CalcType: Enum "Customer Apply Calculation Type"; //CHECK ME!
-        TextGestTierPayeur: Label 'There is no ledger entries.; FRA=Il n''y a pas d''écitures.';
+        TextGestTierPayeur001: Label 'There is no ledger entries.; FRA=Il n''y a pas d''écitures.';
 
     begin
         Cust.get(Cust."No.");
@@ -258,7 +258,7 @@ codeunit 50203 "BC6_PagesEvents"
     var
         RecLNavisetup: Record "BC6_Navi+ Setup";
         FctMngt: Codeunit "BC6_Functions Mgt";
-        AssemPost: Codeunit 900;
+        AssemPost: Codeunit "Assembly-Post";
     begin
         IF RecLNavisetup.GET AND RecLNavisetup."Date jour ds date facture Acha" then
             AssemPost.SetPostingDate(TRUE, WORKDATE);
@@ -408,7 +408,9 @@ codeunit 50203 "BC6_PagesEvents"
         IF YourReference <> '' THEN
             Subject := COPYSTR(STRSUBSTNO('%1 - %2', Subject, YourReference), 1, MAXSTRLEN(Subject));
 
-<<<<<<< HEAD[EventSubscriber(ObjectType::Codeunit, Codeunit::"Item-Check Avail.", 'OnBeforeCreateAndSendNotification', '', false, false)]
+    END;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item-Check Avail.", 'OnBeforeCreateAndSendNotification', '', false, false)]
     local procedure COD311_OnBeforeCreateAndSendNotification(ItemNo: Code[20]; UnitOfMeasureCode: Code[20]; InventoryQty: Decimal; GrossReq: Decimal; ReservedReq: Decimal; SchedRcpt: Decimal; ReservedRcpt: Decimal; CurrentQuantity: Decimal; CurrentReservedQty: Decimal; TotalQuantity: Decimal; EarliestAvailDate: Date; RecordId: RecordID; LocationCode: Code[10]; ContextInfo: Dictionary of [Text, Text]; var Rollback: Boolean; var IsHandled: Boolean)
     var
         ItemAvailabilityCheck: Page "Item Availability Check";
@@ -464,11 +466,6 @@ codeunit 50203 "BC6_PagesEvents"
             CustCheckCrLimit.ShowNotificationDetails(LastNotification);
         end;
     end;
-=======
-    END;
-
-
->>>>>>> e1885bb592edbdb37e47c25ebafce49bdab2733d
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Cust-Check Cr. Limit", 'OnBeforeCreateAndSendNotification', '', false, false)]
     local procedure COD312_OnBeforeCreateAndSendNotification(RecordId: RecordID; AdditionalContextId: Guid; Heading: Text[250]; NotificationToSend: Notification; var IsHandled: Boolean; var CustCheckCreditLimit: Page "Check Credit Limit");

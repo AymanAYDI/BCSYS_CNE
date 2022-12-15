@@ -221,23 +221,6 @@ codeunit 50202 "BC6_Functions Mgt"
     //           VATAmount, VATAmountText);
     //     end;
 
-    //     procedure SumPurchLinesTemp(var PurchHeader: Record "Purchase Header"; var OldPurchLine: Record "Purchase Line"; QtyType: enum BC6_QtyType; var NewTotalPurchLine: Record "Purchase Line"; var NewTotalPurchLineLCY: Record "Purchase Line"; var VATAmount: Decimal; var VATAmountText: Text[30])
-    //     var
-    //         PurchLine: Record "Purchase Line";
-    //            TotalPurchLine: Record "Purchase Line";
-    //     begin
-    //         TotalPurchLine.get;
-    //         with PurchHeader do begin
-    //             SumPurchLines2(PurchHeader, PurchLine, OldPurchLine, QtyType, false);
-    //             VATAmount := TotalPurchLine."Amount Including VAT" - TotalPurchLine.Amount;
-    //             if TotalPurchLine."VAT %" = 0 then
-    //                 VATAmountText := VATAmountTxt
-    //             else
-    //                 VATAmountText := StrSubstNo(VATRateTxt, TotalPurchLine."VAT %");
-    //             NewTotalPurchLine := TotalPurchLine;
-    //             NewTotalPurchLineLCY := TotalPurchLineLCY;
-    //         end;
-    //     end;
 
     //     PROCEDURE GetTaxAmountFromPurchaseOrder(PurchaseHeader: Record 38): Decimal;
     //     VAR
@@ -1080,81 +1063,6 @@ codeunit 50202 "BC6_Functions Mgt"
         end;
         exit(true);
     end;
-    //PAGE232
-    procedure FindApplyingEntry()
-    var
-        CustLedgEntry: Record "Cust. Ledger Entry";
-        CalcType: Enum "Customer Apply Calculation Type";
-        CustEntryApplID: Code[50];
-        AppliesToID: Code[50];
-        TempApplyingCustLedgEntry: Record "Cust. Ledger Entry" temporary;
-        ApplyingAmount: Decimal; //TODO: need a check
-        ApplnDate: Date;
-        ApplnCurrencyCode: Code[10];
-        ApplyCust: page "Apply Customer Entries";
-    begin
-        if CalcType = CalcType::Direct then begin
-            CustEntryApplID := UserId;
-            if CustEntryApplID = '' then
-                CustEntryApplID := '***';
-            CustLedgEntry.SetCurrentKey("Customer No.", "Applies-to ID", Open);
-            CustLedgEntry.SetRange("Customer No.", CustLedgEntry."Customer No.");
-            if AppliesToID = '' then
-                CustLedgEntry.SetRange("Applies-to ID", CustEntryApplID)
-            else
-                CustLedgEntry.SetRange("Applies-to ID", AppliesToID);
-            CustLedgEntry.SetRange(Open, true);
-            CustLedgEntry.SetRange("Applying Entry", true);
-            if CustLedgEntry.FindFirst() then begin
-                CustLedgEntry.CalcFields(Amount, "Remaining Amount");
-                TempApplyingCustLedgEntry := CustLedgEntry;
-                CustLedgEntry.SetFilter("Entry No.", '<>%1', CustLedgEntry."Entry No.");
-                ApplyingAmount := CustLedgEntry."Remaining Amount";
-                ApplnDate := CustLedgEntry."Posting Date";
-                ApplnCurrencyCode := CustLedgEntry."Currency Code";
-            end;
-            ApplyCust.CalcApplnAmount();
-        end;
-    end;
-
-    procedure BC6_FindApplyingEntry()
-    var
-        VendLedgEntry: Record "Vendor Ledger Entry";
-        TempApplyingVendLedgEntry: Record "Vendor Ledger Entry" temporary;
-        AppVendEnt: page "Apply Vendor Entries";
-        CalcType: Enum "Vendor Apply Calculation Type";
-        VendEntryApplID: Code[50];
-        AppliesToID: Code[50];
-        ApplyingAmount: Decimal; //VAR glob 
-        ApplnDate: Date;
-        ApplnCurrencyCode: Code[10];
-
-    begin
-        VendLedgEntry.get(VendLedgEntry."Entry No.");
-        if CalcType = CalcType::Direct then begin
-            VendEntryApplID := UserId;
-            if VendEntryApplID = '' then
-                VendEntryApplID := '***';
-
-            VendLedgEntry.SetCurrentKey("Vendor No.", "Applies-to ID", Open);
-            VendLedgEntry.SetRange("Vendor No.", VendLedgEntry."Vendor No.");
-            if AppliesToID = '' then
-                VendLedgEntry.SetRange("Applies-to ID", VendEntryApplID)
-            else
-                VendLedgEntry.SetRange("Applies-to ID", AppliesToID);
-            VendLedgEntry.SetRange(Open, true);
-            VendLedgEntry.SetRange("Applying Entry", true);
-            if VendLedgEntry.FindFirst() then begin
-                VendLedgEntry.CalcFields(Amount, "Remaining Amount");
-                TempApplyingVendLedgEntry := VendLedgEntry;
-                VendLedgEntry.SetFilter("Entry No.", '<>%1', VendLedgEntry."Entry No.");
-                ApplyingAmount := VendLedgEntry."Remaining Amount";
-                ApplnDate := VendLedgEntry."Posting Date";
-                ApplnCurrencyCode := VendLedgEntry."Currency Code";
-            end;
-            AppVendEnt.CalcApplnAmount();
-        end;
-    end;
     //COD90
     procedure MntDivisionDEEE(DecPQtyPurchLine: Decimal; var PurchLine: Record "Purchase Line"); //COD90
     var
@@ -1328,7 +1236,7 @@ codeunit 50202 "BC6_Functions Mgt"
         end;
     end;
 
-    PROCEDURE MntIncrDEEEPurchPost(VAR RecLPurchLine: Record "Purchase Line");
+    PROCEDURE MntIncrDEEEPurchPost(VAR RecLPurchLine: Record "Purchase Line"); //COD 90 
     var
         GloablFunction: codeunit "BC6_GlobalFunctionMgt";
     BEGIN
@@ -2027,6 +1935,7 @@ codeunit 50202 "BC6_Functions Mgt"
                 until FromSalesLineDisc.NEXT = 0;
         end;
     end;
+
     PROCEDURE GetItemEAN13Code(ItemNo: Code[20]) EAN13Code: Code[20];
     VAR
         ItemReference: Record "Item Reference";

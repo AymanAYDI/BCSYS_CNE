@@ -1,11 +1,11 @@
-report 50057 "Re Blocked Items"
+report 50056 "BC6_Blocked Items"
 {
-    Caption = 'Item Blocked, Negative Inv. ?';
+    Caption = 'Item Blocked, Negative Inv. ?', comment = 'FRA="Articles débloquer, stock négatif ?"';
     ProcessingOnly = true;
 
     dataset
     {
-        dataitem(DataItem8129; Table27)
+        dataitem(Item; Item)
         {
             RequestFilterFields = "No.", "Location Filter";
 
@@ -17,19 +17,18 @@ report 50057 "Re Blocked Items"
                 Window.UPDATE(2, Counter);
                 Window.UPDATE(3, TotalCounter);
 
-                /*CALCFIELDS(Inventory);
+                CALCFIELDS(Inventory);
                 QtyToEmpty := Inventory;
-                IF (QtyToEmpty < 0) THEN
-                  BEGIN
+                IF (QtyToEmpty < 0) THEN BEGIN
                     Item."No. 2" := 'NEGATIF';
-                    Item.MODIFY(FALSE);
-                END; */
-
-                IF Item."No. 2" = 'BLOQUE' THEN BEGIN
-                    Item.Blocked := TRUE;
                     Item.MODIFY(FALSE);
                 END;
 
+                IF Blocked THEN BEGIN
+                    Item.Blocked := FALSE;
+                    Item."No. 2" := 'BLOQUE';
+                    Item.MODIFY(FALSE);
+                END;
             end;
 
             trigger OnPreDataItem()
@@ -61,14 +60,12 @@ report 50057 "Re Blocked Items"
     }
 
     var
-        Text001: Label 'Report must be initialized';
-        Text002: Label 'Extract Inventory Location %1...';
-        Text003: Label 'Item No. #1#############';
+        Text002: Label 'Extract Inventory Location %1...', comment = 'FRA="Débloquer articles, stock négatif ..."';
+        Text003: Label 'Item No. #1#############', comment = 'FRA="article n° #1#############"';
         Window: Dialog;
         QtyToEmpty: Decimal;
         Text004: Label '           #2#####|#3#####';
         Counter: Integer;
         TotalCounter: Integer;
-        TotalCounterTxt: Text[30];
 }
 

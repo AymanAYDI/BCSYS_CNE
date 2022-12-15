@@ -1,16 +1,14 @@
-report 50053 "Update Items Prices"
+report 50053 "BC6_Update Items Prices"
 {
-    // 
-    // //>> CNE4.03 Calc. Price Include VAT
 
     Caption = 'Mise à jour prix public TTC';
     ProcessingOnly = true;
 
     dataset
     {
-        dataitem(DataItem1100267000; Table27)
+        dataitem(Item; Item)
         {
-            RequestFilterFields = "No.", Description, "Description 2", "Print Unit Price Includes VAT";
+            RequestFilterFields = "No.", Description, "Description 2", "BC6_Print Unit Price Incl. VAT";
 
             trigger OnAfterGetRecord()
             begin

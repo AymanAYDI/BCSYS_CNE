@@ -17,6 +17,7 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
     procedure SetPostingDate(pPostingDate: Date)
     begin
         PostingDate := pPostingDate;
+
     end;
 
     procedure GetPostingDate(): Date
@@ -32,6 +33,7 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
     procedure GetDeleteWhseActivity(): Boolean
     begin
         exit(DeleteWhseActivity);
+
     end;
     /****************** purch line *******************/
     procedure SetGDecMntTTCDEEE(pDecMntTTCDEEE: Decimal)
@@ -128,8 +130,56 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
         exit(_IsSAVReturnOrder);
     end;
 
+    procedure Set_PurchGDecMntTTCDEEE(pPurchDecMntTTCDEEE: Decimal)
+    begin
+        PurchGDecMntTTCDEEE := pPurchDecMntTTCDEEE;
+    end;
 
+    procedure Get_PurchGDecMntTTCDEEE(): Decimal
+    begin
+        exit(PurchGDecMntTTCDEEE);
+    end;
 
+    procedure Set_PurchGDecMntHTDEEE(pPurchGDecMntHTDEEE: Decimal)
+    begin
+        PurchGDecMntHTDEEE := pPurchGDecMntHTDEEE;
+    END;
+
+    procedure Get_PurchGDecMntHTDEEE(): Decimal
+    begin
+        exit(PurchGDecMntHTDEEE);
+    end;
+
+    procedure Set_PurchEcoPartnerDEEE(p_EcoPartnerDEEE: code[20])
+    begin
+        _PurchEcoPartnerDEEE := p_EcoPartnerDEEE;
+    end;
+
+    procedure Get_PurchEcoPartnerDEEE(): code[20]
+    begin
+        exit(_PurchEcoPartnerDEEE);
+    end;
+
+    procedure Set_PurchDEEECategoryCode(p_DEEECategoryCode: code[20])
+    begin
+        _PurchDEEECategoryCode := p_DEEECategoryCode;
+    end;
+
+    procedure Get_PurchDEEECategoryCode(): code[20]
+    begin
+        exit(_PurchDEEECategoryCode);
+    end;
+
+    //******** Page 233 ******//
+    procedure SetBooGVendorNoStyle(pBooGVendorNoStyle: Boolean)
+    begin
+        BooGVendorNoStyle := pBooGVendorNoStyle;
+    end;
+
+    procedure GetBooGVendorNoStyle(): Boolean
+    begin
+        exit(BooGVendorNoStyle);
+    end;
 
 
     procedure SetSalesReservationFound(pSalesReservationFound: Boolean)
@@ -178,6 +228,7 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
 
 
     var
+        BooGVendorNoStyle: Boolean;
         BooGAutoTextSpe: Boolean;
         PostingDate: Date;
         DeleteWhseActivity: Boolean;
@@ -196,5 +247,8 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
         DeleteWhseActivityHeaderOk: Boolean;
         T77_SalesHeader: Record "Sales Header";
         _IsSAVReturnOrder: Boolean;
-
+        PurchGDecMntTTCDEEE: Decimal;
+        PurchGDecMntHTDEEE: Decimal;
+        _PurchEcoPartnerDEEE: Code[20];
+        _PurchDEEECategoryCode: Code[20];
 }

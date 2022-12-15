@@ -1,11 +1,11 @@
-report 50055 "Whse. Get Inventory"
+report 50055 "BC6_Whse. Get Inventory"
 {
-    Caption = 'Whse. Get Loc. Content';
+    Caption = 'Whse. Get Loc. Content', comment = 'FRA="Afficher contenu mag."';
     ProcessingOnly = true;
 
     dataset
     {
-        dataitem(DataItem8129; Table27)
+        dataitem(Item; Item)
         {
             RequestFilterFields = "No.", "Location Filter";
 
@@ -19,9 +19,9 @@ report 50055 "Whse. Get Inventory"
                 CALCFIELDS(Inventory);
                 QtyToEmpty := Inventory;
                 IF (QtyToEmpty <= 0) THEN
-                    CurrReport.SKIP;
+                    CurrReport.SKIP();
 
-                InsertItemJournalLine;
+                InsertItemJournalLine();
             end;
 
             trigger OnPreDataItem()
@@ -48,19 +48,19 @@ report 50055 "Whse. Get Inventory"
                     Caption = 'Options';
                     field(PostingDate; PostingDate)
                     {
-                        Caption = 'Posting Date';
+                        Caption = 'Posting Date', comment = 'FRA="Date comptabilisation"';
                     }
                     field(DocNo; DocNo)
                     {
-                        Caption = 'Document No.';
+                        Caption = 'Document No.', comment = 'FRA="N° document"';
                     }
                     field(NewLocationCode; NewLocationCode)
                     {
-                        Caption = 'New Location Code';
+                        Caption = 'New Location Code', comment = 'FRA="Nouveau code magasin"';
                     }
                     field(NewBinCode; NewBinCode)
                     {
-                        Caption = 'New Bin Code';
+                        Caption = 'New Bin Code', comment = 'FRA="Nouveau code emplacement"';
                     }
                 }
             }
@@ -93,27 +93,26 @@ report 50055 "Whse. Get Inventory"
     end;
 
     var
-        ItemJournalLine: Record "83";
-        QtyToEmpty: Decimal;
+        NewBin: Record Bin;
+        ItemJournalLine: Record "Item Journal Line";
+        Location: Record Location;
+        NewLocation: Record Location;
         ReportInitialized: Boolean;
-        Text001: Label 'Report must be initialized';
-        PostingDate: Date;
         DocNo: Code[20];
-        Location: Record "14";
-        NewLocation: Record "14";
         LocationCode: Code[20];
-        NewLocationCode: Code[20];
         NewBinCode: Code[20];
-        NewBin: Record "7354";
+        NewLocationCode: Code[20];
+        PostingDate: Date;
+        QtyToEmpty: Decimal;
         Window: Dialog;
-        Text002: Label 'Extract Inventory Location %1...';
-        Text003: Label 'Item No. #1#############';
-        Text004: Label '           #2#####|#3#####';
         Counter: Integer;
         TotalCounter: Integer;
+        Text001: Label 'Report must be initialized', comment = 'FRA="L''état doit être initialisé."';
+        Text002: Label 'Extract Inventory Location %1...', comment = 'FRA="Extraire stock magasin %1..."';
+        Text003: Label 'Item No. #1#############', comment = 'FRA="article n° #1#############"';
+        Text004: Label '           #2#####|#3#####';
 
-    [Scope('Internal')]
-    procedure InitializeItemJournalLine(ItemJournalLine2: Record "83")
+    procedure InitializeItemJournalLine(ItemJournalLine2: Record "Item Journal Line")
     begin
         ItemJournalLine := ItemJournalLine2;
         ItemJournalLine.SETRANGE("Journal Template Name", ItemJournalLine2."Journal Template Name");
@@ -128,13 +127,12 @@ report 50055 "Whse. Get Inventory"
         ReportInitialized := TRUE;
     end;
 
-    [Scope('Internal')]
     procedure InsertItemJournalLine()
     var
-        ItemJournalTempl: Record "82";
+        ItemJournalTempl: Record "Item Journal Template";
     begin
         WITH ItemJournalLine DO BEGIN
-            INIT;
+            INIT();
             "Line No." := "Line No." + 10000;
             VALIDATE("Entry Type", "Entry Type"::Transfer);
             VALIDATE("Item No.", Item."No.");
@@ -149,7 +147,7 @@ report 50055 "Whse. Get Inventory"
             VALIDATE(Quantity, QtyToEmpty);
             ItemJournalTempl.GET("Journal Template Name");
             "Source Code" := ItemJournalTempl."Source Code";
-            INSERT;
+            INSERT();
         END;
     end;
 }

@@ -117,11 +117,9 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
         Objet: Text[250];
         Body: Text[1024];
         recGCompanyInfo: Record "Company Information";
-    // ReportHelper: Codeunit 50010; TODO:
+        ReportHelper: Codeunit BC6_ReportHelper;
 
-    procedure "---MIGNAV2013---"()
-    begin
-    end;
+
 
     procedure EnvoiMail()
     begin

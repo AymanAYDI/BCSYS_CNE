@@ -49,7 +49,6 @@ pageextension 50050 "BC6_PurchaseStatistics" extends "Purchase Statistics" //161
     }
 
     var
-        "-DEEE1.00-": Integer;
         DecGHTAmount: Decimal;
         DecGVATAmount: Decimal;
         DecGTTCAmount: Decimal;

@@ -3,32 +3,7 @@ pageextension 50028 "BC6_SalesQuoteSubform" extends "Sales Quote Subform" //95
     layout
     {
 
-        //Unsupported feature: Code Modification on "Control 4.OnValidate".
 
-        //trigger OnValidate()
-        //Parameters and return type have not been exported.
-        //>>>> ORIGINAL CODE:
-        //begin
-        /*
-        ShowShortcutDimCode(ShortcutDimCode);
-        NoOnAfterValidate;
-
-        IF xRec."No." <> '' THEN
-          RedistributeTotalsOnAfterValidate;
-
-        UpdateEditableOnRow;
-        */
-        //end;
-        //>>>> MODIFIED CODE:
-        //begin
-        /*
-        #1..7
-
-        //BC6 - MM 060319 >>
-        UpdateIncreasedFields;
-        //BC6 - MM 060319 <<
-        */
-        //end;
         addafter("Location Code")
         {
             field("BC6_Bin Code"; "Bin Code")
@@ -67,7 +42,7 @@ pageextension 50028 "BC6_SalesQuoteSubform" extends "Sales Quote Subform" //95
 
                 trigger OnValidate()
                 begin
-                    UpdateIncreasedFields;
+                    UpdateIncreasedFields();
                 end;
             }
             field("BC6_Increase Purchase cost"; IncrPurchCost)
@@ -77,7 +52,7 @@ pageextension 50028 "BC6_SalesQuoteSubform" extends "Sales Quote Subform" //95
                 trigger OnValidate()
                 begin
                     ValidateIncreasePurchCost(IncrPurchCost);
-                    UpdateIncreasedFields;
+                    UpdateIncreasedFields();
                 end;
             }
         }
@@ -102,7 +77,7 @@ pageextension 50028 "BC6_SalesQuoteSubform" extends "Sales Quote Subform" //95
 
                 trigger OnValidate()
                 begin
-                    UpdateIncreasedFields;
+                    UpdateIncreasedFields();
                 end;
             }
             field("BC6_Increase Profit %"; IncrProfit)
@@ -112,7 +87,7 @@ pageextension 50028 "BC6_SalesQuoteSubform" extends "Sales Quote Subform" //95
                 trigger OnValidate()
                 begin
                     ValidateIncreaseProfit(IncrProfit, IncrPurchCost);
-                    UpdateIncreasedFields;
+                    UpdateIncreasedFields();
                 end;
             }
         }
@@ -122,7 +97,7 @@ pageextension 50028 "BC6_SalesQuoteSubform" extends "Sales Quote Subform" //95
             {
             }
         }
-        addafter("Shortcut Dimension 2 Code")
+        addafter("ShortcutDimCode8")
         {
             field("BC6_DEEE Unit Price"; "BC6_DEEE Unit Price")
             {
@@ -163,7 +138,20 @@ pageextension 50028 "BC6_SalesQuoteSubform" extends "Sales Quote Subform" //95
                 ShowRealProfit := TRUE;
     end;
 
-    local procedure UpdateIncreasedFields()
+    trigger OnNewRecord(BelowxRec: Boolean)
+    begin
+        IncrProfit := 0;
+        IncrPurchCost := 0;
+
+    end;
+
+    trigger OnAfterGetRecord()
+    var
+    begin
+        UpdateIncreasedFields();
+    end;
+
+    procedure UpdateIncreasedFields()
     begin
         IF Type = Type::Item THEN BEGIN
             CalcIncreasePurchCost(IncrPurchCost);

@@ -136,11 +136,8 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
     }
 
     var
-        "- MIGNAV2013 -": Integer;
         ItemDiscGrList: Page "Item Disc. Groups";
         VendorList: Page "Vendor List";
-
-    var
         "-NSC1.01-": Integer;
         ItemTypeFilter: Enum "BC6_Item Type Filter";
         CodeFilter: Text[250];

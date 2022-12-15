@@ -130,7 +130,6 @@ pageextension 50044 "BC6_PostedSalesShipments" extends "Posted Sales Shipments" 
 
         DecGPurchCost: Decimal;
 
-    [Scope('Internal')]
     procedure hideuser()
     var
         RecLAccessControl: Record "Access Control";
@@ -155,7 +154,6 @@ pageextension 50044 "BC6_PostedSalesShipments" extends "Posted Sales Shipments" 
         END;
     end;
 
-    [Scope('Internal')]
     procedure calcprofit()
     begin
         DecGPurchCost := 0;

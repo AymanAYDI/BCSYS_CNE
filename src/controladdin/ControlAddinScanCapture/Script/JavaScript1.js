@@ -102,8 +102,12 @@ function SetFocus(Id) {
     $("#"+ControlPrefix + Id).focus();
 }
 function GetText(Id) {
+    var Result = new String("");
     var element = $("#" + ControlPrefix + Id);    
-    return (element.val());
+    Result = element.val();
+    // return (Result);
+    Microsoft.Dynamics.NAV.InvokeExtensibilityMethod('EventGetText', 
+    [Result]); 
 }
 
 function SetText(Id, text) {

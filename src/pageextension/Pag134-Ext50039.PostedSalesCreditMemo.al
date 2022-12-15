@@ -1,6 +1,5 @@
 pageextension 50039 "BC6_PostedSalesCreditMemo" extends "Posted Sales Credit Memo" //134
 {
-    //Unsupported feature: Property Insertion (DeleteAllowed) on ""Posted Sales Credit Memo"(Page 134)". TODO:
 
     layout
     {
@@ -79,6 +78,11 @@ pageextension 50039 "BC6_PostedSalesCreditMemo" extends "Posted Sales Credit Mem
             }
         }
     }
+
+    trigger OnDeleteRecord(): Boolean
+    begin
+        Error('');
+    end;
 
     var
         "-MIGNAV2013-": Integer;

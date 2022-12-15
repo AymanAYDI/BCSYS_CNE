@@ -1,6 +1,5 @@
 pageextension 50076 "BC6_SalesLines" extends "Sales Lines" //516
 {
-    // SourceTableView=SORTING("Shipment Date","Document Type","Sell-to Customer No.","Document No.","Line No."); TODO:
     layout
     {
         modify(Reserve)
@@ -10,6 +9,18 @@ pageextension 50076 "BC6_SalesLines" extends "Sales Lines" //516
         modify("Reserved Qty. (Base)")
         {
             Visible = false;
+        }
+    }
+
+    views
+    {
+        addfirst
+        {
+            view(AddFromVSC)
+            {
+                Caption = 'AddFrom Visual Studio Code';
+                OrderBy = descending("Shipment Date", "Document Type", "Sell-to Customer No.", "Document No.", "Line No.");
+            }
         }
     }
 

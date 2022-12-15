@@ -243,64 +243,7 @@ codeunit 50203 "BC6_PagesEvents"
         FctMngt.MntInverseDEEE(PurchaseLine);
     end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnPostPurchLineOnBeforeInsertReceiptLine', '', false, false)]
-    local procedure COD90_OnPostPurchLineOnBeforeInsertReceiptLine(PurchaseHeader: Record "Purchase Header"; PurchaseLine: Record "Purchase Line"; var IsHandled: Boolean)
-    var
-        GenPostingSetup: Record "General Posting Setup";
-        RecLPayVendor: Record Vendor;
-        InvoicePostBuffer: Record "Invoice Posting Buffer";
-        FctMngt: Codeunit "BC6_Functions Mgt";
-        BooLPostingDEEE: Boolean;
-    begin
-        InvoicePostBuffer.get(InvoicePostBuffer.Type, InvoicePostBuffer."G/L Account", InvoicePostBuffer."Gen. Bus. Posting Group", InvoicePostBuffer."Gen. Prod. Posting Group", InvoicePostBuffer."VAT Bus. Posting Group", InvoicePostBuffer."VAT Prod. Posting Group", InvoicePostBuffer."Tax Area Code", InvoicePostBuffer."Tax Group Code", InvoicePostBuffer."Tax Liable", InvoicePostBuffer."Use Tax", InvoicePostBuffer."Dimension Set ID", InvoicePostBuffer."Job No.", InvoicePostBuffer."Fixed Asset Line No.", InvoicePostBuffer."Deferral Code");
-        RecLPayVendor.RESET;
-        IF RecLPayVendor.GET(PurchaseLine."Pay-to Vendor No.") THEN
-            BooLPostingDEEE := RecLPayVendor."BC6_Posting DEEE"
-        ELSE
-            BooLPostingDEEE := FALSE;
-
-        IF (PurchaseLine."BC6_DEEE Category Code" <> '') AND (PurchaseLine."Qty. to Invoice" <> 0)
-              AND (PurchaseLine."BC6_DEEE HT Amount" <> 0) AND (BooLPostingDEEE) THEN BEGIN
-            GenPostingSetup.GET(PurchaseLine."Gen. Bus. Posting Group", PurchaseLine."Gen. Prod. Posting Group");
-
-            IF (PurchaseLine."Gen. Bus. Posting Group" <> GenPostingSetup."Gen. Bus. Posting Group") OR
-                (PurchaseLine."Gen. Prod. Posting Group" <> GenPostingSetup."Gen. Prod. Posting Group")
-            THEN;
-            CLEAR(InvoicePostBuffer);
-            InvoicePostBuffer.Type := PurchaseLine.Type;
-            GenPostingSetup.GET('DEEE', PurchaseLine."Gen. Prod. Posting Group");
-
-            IF PurchaseLine."Document Type" = PurchaseLine."Document Type"::"Credit Memo" THEN BEGIN
-                GenPostingSetup.TESTFIELD("Purch. Credit Memo Account");
-                InvoicePostBuffer."G/L Account" := GenPostingSetup."Purch. Credit Memo Account";
-            END ELSE BEGIN
-                GenPostingSetup.TESTFIELD("Purch. Account");
-                InvoicePostBuffer."G/L Account" := GenPostingSetup."Purch. Account";
-            END;
-
-            InvoicePostBuffer."System-Created Entry" := TRUE;
-            InvoicePostBuffer."Gen. Bus. Posting Group" := 'DEEE';//purchLine."Gen. Bus. Posting Group";
-            InvoicePostBuffer."Gen. Prod. Posting Group" := PurchaseLine."Gen. Prod. Posting Group";
-            InvoicePostBuffer."VAT Bus. Posting Group" := PurchaseLine."VAT Bus. Posting Group";
-            InvoicePostBuffer."VAT Prod. Posting Group" := PurchaseLine."VAT Prod. Posting Group";
-            InvoicePostBuffer."VAT Calculation Type" := PurchaseLine."VAT Calculation Type";
-            InvoicePostBuffer."Global Dimension 1 Code" := PurchaseLine."Shortcut Dimension 1 Code";
-            InvoicePostBuffer."Global Dimension 2 Code" := PurchaseLine."Shortcut Dimension 2 Code";
-            InvoicePostBuffer."Job No." := PurchaseLine."Job No.";
-            InvoicePostBuffer.Amount := PurchaseLine."BC6_DEEE HT Amount";
-            InvoicePostBuffer."VAT Base Amount" := PurchaseLine."BC6_DEEE HT Amount";
-            InvoicePostBuffer."VAT Amount" := (PurchaseLine."BC6_DEEE TTC Amount" - PurchaseLine."BC6_DEEE HT Amount");
-            InvoicePostBuffer."Amount (ACY)" := PurchaseLine."BC6_DEEE HT Amount";//purchLineACY.Montant;
-            InvoicePostBuffer."VAT Base Amount (ACY)" := PurchaseLine."BC6_DEEE HT Amount"; //purchLineACY.Montant;
-            InvoicePostBuffer."VAT Amount (ACY)" := (PurchaseLine."BC6_DEEE TTC Amount" - PurchaseLine."BC6_DEEE HT Amount");
-            InvoicePostBuffer."BC6_Eco partner DEEE" := PurchaseLine."BC6_Eco partner DEEE";
-            InvoicePostBuffer."BC6_DEEE Category Code" := PurchaseLine."BC6_DEEE Category Code";
-            FctMngt.MntIncrDEEE(PurchaseLine);
-
-            FctMngt.UpdateInvoicePostBuffer(TempInvoicePostBuffer, InvoicePostBuffer);
-
-        END;
-    end;
+   
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnRunOnAfterFillTempLines', '', false, false)]
 
@@ -323,7 +266,7 @@ codeunit 50203 "BC6_PagesEvents"
 
     //ligne718
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnAfterPostVendorEntry', '', false, false)]
-l procedure COD90_OnAfterPostVendorEntry(var GenJnlLine: Record "Gen. Journal Line"; var PurchHeader: Record "Purchase Header"; var TotalPurchLine: Record "Purchase Line"; var TotalPurchLineLCY: Record "Purchase Line"; CommitIsSupressed: Boolean; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line")
+    procedure COD90_OnAfterPostVendorEntry(var GenJnlLine: Record "Gen. Journal Line"; var PurchHeader: Record "Purchase Header"; var TotalPurchLine: Record "Purchase Line"; var TotalPurchLineLCY: Record "Purchase Line"; CommitIsSupressed: Boolean; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line")
     var
         _EcoPartnerDEEE: Code[10];
         _DEEECategoryCode: code[10];

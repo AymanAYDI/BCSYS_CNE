@@ -1,7 +1,8 @@
 report 50008 "BC6_Purchase Order"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './PurchaseOrder.rdlc';
+    RDLCLayout = './src/report/RDL/PurchaseOrder.rdl';
+
 
     Caption = 'Purchase Order', Comment = 'FRA="Commande achat"';
 

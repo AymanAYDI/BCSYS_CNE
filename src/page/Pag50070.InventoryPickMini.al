@@ -383,14 +383,14 @@ page 50070 "BC6_Inventory Pick Mini"
 
     trigger OnOpenPage()
     var
-    // PermissionForm: Codeunit 50091; TODO:
+        PermissionForm: Codeunit "BC6_Permission Form";
     begin
         ErrorIfUserIsNotWhseEmployee();
         CurrFormEditableOk := TRUE;
-        // IF NOT PermissionForm.HasEditablePermission(USERID, 8, 7377) THEN TODO:
-        //     CurrPage.EDITABLE(FALSE);
-        // IF NOT PermissionForm.HasEditablePermission(USERID, 8, 7378) THEN
-        //     CurrFormEditableOk := FALSE;
+        IF NOT PermissionForm.HasEditablePermission(USERID, 8, 7377) THEN
+            CurrPage.EDITABLE(FALSE);
+        IF NOT PermissionForm.HasEditablePermission(USERID, 8, 7378) THEN
+            CurrFormEditableOk := FALSE;
         BooGWhseActivityLines := CurrFormEditableOk;
     end;
 

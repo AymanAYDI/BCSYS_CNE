@@ -1332,10 +1332,8 @@ codeunit 50202 "BC6_Functions Mgt"
     var
         GloablFunction: codeunit "BC6_GlobalFunctionMgt";
     BEGIN
-        //>>DEEE1.00 :
-        GloablFunction.Set90GDecMntTTCDEEE(GloablFunction.Get90GDecMntHTDEEE() + RecLPurchLine."BC6_DEEE HT Amount");
-        GloablFunction.Set90GDecMntHTDEEE(GloablFunction.Get90GDecMntTTCDEEE() + RecLPurchLine."BC6_DEEE TTC Amount");
-        //<<DEEE1.00 :
+        GloablFunction.SetGDecMntTTCDEEE(GloablFunction.GetGDecMntHTDEEE() + RecLPurchLine."BC6_DEEE HT Amount");
+        GloablFunction.SetGDecMntHTDEEE(GloablFunction.GetGDecMntTTCDEEE() + RecLPurchLine."BC6_DEEE TTC Amount");
     END;
 
 
@@ -2029,6 +2027,7 @@ codeunit 50202 "BC6_Functions Mgt"
                 until FromSalesLineDisc.NEXT = 0;
         end;
     end;
+
     PROCEDURE GetItemEAN13Code(ItemNo: Code[20]) EAN13Code: Code[20];
     VAR
         ItemReference: Record "Item Reference";

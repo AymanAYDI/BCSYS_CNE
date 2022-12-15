@@ -1,7 +1,7 @@
 report 50205 "BC6_Facture Proforma CNE 2"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './FactureProformaCNE2.rdlc';
+    RDLCLayout = './src/report/RDL/FactureProformaCNE2.rdl';
     Caption = 'Order Confirmation', Comment = 'FRA="Facture Proforma (idem conf. de cde)"';
 
     dataset

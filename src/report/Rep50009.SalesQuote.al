@@ -1,7 +1,7 @@
 report 50009 "BC6_Sales Quote"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './SalesQuote.rdlc';
+    RDLCLayout = './src/report/RDL/SalesQuote.rdl';
 
     Caption = 'Sales Quote', Comment = 'FRA="Devis vente"';
     PreviewMode = Normal;

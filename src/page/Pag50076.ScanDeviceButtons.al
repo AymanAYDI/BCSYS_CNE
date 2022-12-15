@@ -2,14 +2,14 @@ page 50076 "BC6_ScanDeviceButtons"
 {
     Caption = 'Actions Shortcut', Comment = 'FRA="Actions raccourci"';
     PageType = ListPart;
-    SourceTable = "Tenant Media"; // TODO: check replace record tempBlob by "Tenant Media"
+    SourceTable = "Tenant Media Set"; // TODO: check replace record tempBlob by "Tenant Media Set"
     SourceTableTemporary = true;
 
     layout
     {
         area(content)
         {
-            field(Button1; Rec.Content)
+            field(Button1; Rec."Media ID")
             {
                 ShowCaption = false;
                 ApplicationArea = All;

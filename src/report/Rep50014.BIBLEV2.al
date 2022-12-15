@@ -2,7 +2,7 @@ report 50014 "BC6_BIBLE V2"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './src/Report/RDL/BIBLEV2.rdl';
-
+    Caption = 'BIBLE V2';
 
     dataset
     {

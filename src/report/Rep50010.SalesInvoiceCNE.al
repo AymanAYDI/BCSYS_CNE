@@ -2,7 +2,6 @@ report 50010 "BC6_Sales - Invoice CNE"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './src/Report/RDL/SalesInvoiceCNE.rdl';
-
     Caption = 'Sales - Invoice', Comment = 'FRA="Ventes : Facture"';
     Permissions = TableData "Sales Shipment Buffer" = rimd;
 

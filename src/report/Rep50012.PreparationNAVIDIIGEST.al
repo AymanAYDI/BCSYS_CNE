@@ -2,7 +2,6 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './src/Report/RDL/PreparationNAVIDIIGEST.rdl';
-
     Caption = 'Check of preparation', Comment = 'FRA="Bon de préparation"';
 
     dataset

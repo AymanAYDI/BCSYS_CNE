@@ -213,6 +213,8 @@ codeunit 50203 "BC6_PagesEvents"
         FctMngt.MntInverseDEEE(PurchLine);
     end;
 
+
+
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnRunOnAfterFillTempLines', '', false, false)]
 
     local procedure COD90_OnRunOnAfterFillTempLines(var PurchHeader: Record "Purchase Header")

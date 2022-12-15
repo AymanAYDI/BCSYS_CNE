@@ -1,9 +1,9 @@
 report 50019 "BC6_Affair List"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './AffairList.rdlc';
+    RDLCLayout = './src/report/RDL/AffairList.rdl';
 
-    Caption = 'Affair List';
+    Caption = 'Affair List', Comment = 'FRA="Liste affaire"';
     Permissions = TableData "BC6_Affair Steps" = rimd;
 
     dataset

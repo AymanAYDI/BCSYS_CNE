@@ -1,8 +1,8 @@
 report 50035 "BC6_Traite/Facture NAVIDIIGEST"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './TraiteFactureNAVIDIIGEST.rdlc';
-    Caption = 'Bill';
+    RDLCLayout = './src/report/RDL/TraiteFactureNAVIDIIGEST.rdl';
+    Caption = 'Bill', Comment = 'FRA="Lettre de change"';
 
     dataset
     {
@@ -219,11 +219,11 @@ report 50035 "BC6_Traite/Facture NAVIDIIGEST"
                     Caption = 'Options';
                     field(IssueDate; IssueDate)
                     {
-                        Caption = 'Issue date';
+                        Caption = 'Issue date', Comment = 'FRA="Date d''émission"';
                     }
                     field(IssueCity; IssueCity)
                     {
-                        Caption = 'Issue city';
+                        Caption = 'Issue city', Comment = 'FRA="Ville d''émission"';
                     }
                 }
             }

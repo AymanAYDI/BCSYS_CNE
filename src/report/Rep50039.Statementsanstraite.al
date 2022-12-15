@@ -1,7 +1,7 @@
 report 50039 "BC6_Statement sans traite"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Statementsanstraite.rdlc';
+    RDLCLayout = './src/report/RDL/Statementsanstraite.rdl';
 
     Caption = 'Statement', Comment = 'FRA="Relevé client"';
 

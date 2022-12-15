@@ -1,7 +1,7 @@
 report 50015 "BC6_Prices Request"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './PricesRequest.rdlc';
+    RDLCLayout = './src/report/RDL/PricesRequest.rdl';
     Caption = 'Prices Request';
 
     dataset
@@ -23,7 +23,8 @@ report 50015 "BC6_Prices Request"
             {
                 DataItemTableView = SORTING(Number);
 
-                dataitem(PageLoop; Integer)                {
+                dataitem(PageLoop; Integer)
+                {
 
                     DataItemTableView = SORTING(Number)
                                         WHERE(Number = CONST(1));
@@ -417,7 +418,7 @@ report 50015 "BC6_Prices Request"
 
             trigger OnAfterGetRecord()
             begin
-                //TODO CurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
+                CurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
 
                 CompanyInfo.GET;
                 IF BoolGRespCenter THEN
@@ -568,7 +569,7 @@ report 50015 "BC6_Prices Request"
         CompanyInfo: Record "Company Information";
         CurrExchRate: Record "Currency Exchange Rate";
         GLSetup: Record "General Ledger Setup";
-        Language: Record Language;
+        Language: Codeunit Language;
         PaymentMethod: Record "Payment Method";
         PaymentTerms: Record "Payment Terms";
         PurchLine: Record "Purchase Line" temporary;
@@ -629,15 +630,15 @@ report 50015 "BC6_Prices Request"
         Text009: Label 'Exchange rate: %1/%2', comment = 'FRA="Taux de change : %1/%2"';
         Text010: Label 'IMPERTIVE : US TO CONFIRM THIS ORDER BY RETURN OF FAX TO ', comment = 'FRA="IMPERATIF : NOUS CONFIRMER CETTE COMMANDE PAR RETOUR D''EMAIL A ""';
         Text011: Label 'DELIVERY ADDRESS', comment = 'FRA="ADRESSE DE LIVRAISON"';
-        Text012: Label 'No.', comment = 'FRA="No."';
+        Text012: Label 'No.', comment = 'FRA="N°"';
         Text013: Label ' with capital of ', comment = 'FRA="au capital de"';
         Text014: Label ' -Registration ', comment = 'FRA="-SIRET"';
         Text015: Label ' -EP ';
-        Text016: Label ' -VAT Registration ', comment = 'FRA="-Nø TVA "';
+        Text016: Label ' -VAT Registration ', comment = 'FRA="-N° TVA "';
         Text066: Label 'TEL : %1 FAX : %2 / email : %3', comment = 'FRA="%1 FAX : %2 / email : %3"';
         Text067: Label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5', comment = 'FRA="%1 au capital de  %2   - %3  -  APE %4 - NøTVA : %5"';
         Text068: Label '%1';
-        Text070: Label 'Affair No. : ', comment = 'FRA="Affaire nø :"';
+        Text070: Label 'Affair No. : ', comment = 'FRA="Affaire n° :"';
         TimeCaptionLbl: Label 'Time', comment = 'FRA="Délai "';
         TxtGAltFax: Text[20];
         TxtGAltPhone: Text[20];

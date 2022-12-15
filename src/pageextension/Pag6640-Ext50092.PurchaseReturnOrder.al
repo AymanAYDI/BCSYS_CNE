@@ -64,7 +64,7 @@ pageextension 50092 "BC6_PurchaseReturnOrder" extends "Purchase Return Order" //
                         L_PurchaseHeader.RESET();
                         L_PurchaseHeader.SETRANGE("Document Type", "Document Type");
                         L_PurchaseHeader.SETRANGE("No.", "No.");
-                        REPORT.RUNMODAL(Report::"Purchase Return Order - SAV", TRUE, FALSE, L_PurchaseHeader);
+                        REPORT.RUNMODAL(Report::"BC6_Purchase Ret. Order - SAV", TRUE, FALSE, L_PurchaseHeader);
                     END;
                 END;
             }

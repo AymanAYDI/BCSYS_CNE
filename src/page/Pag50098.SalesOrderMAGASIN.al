@@ -958,7 +958,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
         Mail: Codeunit Mail;
         "Sales & Receivables Setup": Record "Sales & Receivables Setup";
         Excel: Boolean;
-        // PreparationNAVIDIIGEST: Report 50097; TODO:
+        PreparationNAVIDIIGEST: Report 50097;
         STR3: Label 'Impimer le document', Comment = 'FRA="Impimer le document"';
         STR4: Label 'Envoyer le document par E-Mail', Comment = 'FRA="Envoyer le document par E-Mail"';
         STR5: Label 'Envoyer le document par Fax', Comment = 'FRA="Envoyer le document par Fax"';

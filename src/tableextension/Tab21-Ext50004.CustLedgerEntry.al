@@ -57,16 +57,6 @@ tableextension 50004 "BC6_CustLedgerEntry" extends "Cust. Ledger Entry" //21
     }
     keys
     {
-        //TODO : not from the same record
-        //   key(Key2;"BC6_Pay-to Customer No.",Open,Positive,"Due Date")
-        // {
-        // }
-        // key(Key1;"BC6_Pay-to Customer No.","Applies-to ID","Customer No.")
-        // {
-        // }
-        // key(Key4;"BC6_Pay-to Customer No.",Open,Positive,"Customer Posting Group","Due Date")
-        // {
-        // }
         key(Key36; "Customer No.", Open, Positive, "Customer Posting Group", "Due Date")
         {
         }

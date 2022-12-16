@@ -738,8 +738,10 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                     ApplicationArea = All;
 
                     trigger OnAction()
+                    var
+                        FunctionMgt: Codeunit "BC6_Functions Mgt";
                     begin
-                        CreateInvtPutAwayPick;
+                        FunctionMgt.CreateInvtPutAwayPick();
                     end;
                 }
                 separator(Action178)

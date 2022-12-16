@@ -673,7 +673,6 @@ codeunit 50201 "BC6_Events Mgt"
         FrmGLignesCommentaires: Page "Comment Sheet";
     //TODO:To check
     begin
-
         if CurrFieldNo <> 0 then
             if RecGParamNavi.FIND() then begin
                 if RecGParamNavi."Used Post-it" <> '' then begin
@@ -921,23 +920,20 @@ codeunit 50201 "BC6_Events Mgt"
     end;
 
     //COD841
-    [EventSubscriber(ObjectType::Codeunit, codeunit::"Cash Flow Management", 'OnBeforeGetTaxAmountFromSalesOrder', '', false, false)]
-
-    procedure COD841_OnBeforeGetTaxAmountFromSalesOrder(SalesHeader: Record "Sales Header"; var VATAmount: Decimal; var IsHandled: Boolean)
-    var
-        fctMgt: Codeunit "BC6_Functions Mgt";
-    begin
-        IsHandled := true;
-        fctMgt.GetTaxAmountFromSalesOrder_CNE(SalesHeader);
-    end;
-
     [EventSubscriber(ObjectType::Codeunit, codeunit::"Cash Flow Management", 'OnBeforeGetTaxAmountFromPurchaseOrder', '', false, false)]
-
     procedure COD841_OnBeforeGetTaxAmountFromPurchaseOrder(PurchaseHeader: Record "Purchase Header"; var VATAmount: Decimal; var IsHandled: Boolean)
     var
         fctMgt: Codeunit "BC6_Functions Mgt";
     begin
         IsHandled := true;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, codeunit::"Cash Flow Management", 'OnBeforeGetTaxAmountFromSalesOrder', '', false, false)]
+
+    procedure COD841_OnBeforeGetTaxAmountFromSalesOrder(SalesHeader: Record "Sales Header"; var VATAmount: Decimal; var IsHandled: Boolean)
+    begin
+        IsHandled := true;
+        //   exit(-1 * VATAmount);
     end;
 
     //COD1302
@@ -957,7 +953,6 @@ codeunit 50201 "BC6_Events Mgt"
             Result := false;
     end;
     //COD5063
-
     [EventSubscriber(ObjectType::Codeunit, codeunit::ArchiveManagement, 'OnAfterStoreSalesDocument', '', false, false)]
 
     procedure COD5063_OnAfterStoreSalesDocument(var SalesHeader: Record "Sales Header"; var SalesHeaderArchive: Record "Sales Header Archive")
@@ -973,7 +968,6 @@ codeunit 50201 "BC6_Events Mgt"
     end;
     //COD5776
     [EventSubscriber(ObjectType::Codeunit, codeunit::"Warehouse Document-Print", 'OnBeforePrintInvtPickHeader', '', false, false)]
-
     procedure COD5776_OnBeforePrintInvtPickHeader(var WarehouseActivityHeader: Record "Warehouse Activity Header"; var IsHandled: Boolean; var HideDialog: Boolean)
     var
         WhsePick: Report "BC6_Invt. Pick";
@@ -988,13 +982,11 @@ codeunit 50201 "BC6_Events Mgt"
 
     //COD5813
     [EventSubscriber(ObjectType::Codeunit, codeunit::"Undo Purchase Receipt Line", 'OnPostItemJnlLineOnAfterInsertTempWhseJnlLine', '', false, false)]
-
     procedure COD5813_OnPostItemJnlLineOnAfterInsertTempWhseJnlLine(PurchRcptLine: Record "Purch. Rcpt. Line"; var ItemJnlLine: Record "Item Journal Line"; var TempWhseJnlLine: Record "Warehouse Journal Line" temporary; var NextLineNo: Integer)
     var
         PurchLine: Record "Purchase Line";
         fctMgt: Codeunit "BC6_Functions Mgt";
         WhseUndoQty: Codeunit "Whse. Undo Quantity";
-
     begin
         fctMgt.InsertTempWhseJnlLine2(ItemJnlLine,
   DATABASE::"Purch. Rcpt. Header",
@@ -1009,7 +1001,6 @@ codeunit 50201 "BC6_Events Mgt"
   TempWhseJnlLine,
   NextLineNo);
     end;
-
     //COD5814
     [EventSubscriber(ObjectType::Codeunit, codeunit::"Undo Return Shipment Line", 'OnAfterCopyItemJnlLineFromReturnShpt', '', false, false)]
     procedure COD5814_OnAfterCopyItemJnlLineFromReturnShpt(var ItemJournalLine: Record "Item Journal Line"; ReturnShipmentHeader: Record "Return Shipment Header"; ReturnShipmentLine: Record "Return Shipment Line"; var WhseUndoQty: Codeunit "Whse. Undo Quantity")
@@ -1017,9 +1008,7 @@ codeunit 50201 "BC6_Events Mgt"
     var
         PurchLine: Record "Purchase Line";
         TempWhseJnlLine: Record "Warehouse Journal Line" temporary;
-
         //TODO: à verifier srtt les declarations
-
         fctMgt: Codeunit "BC6_Functions Mgt";
         NextLineNo: Integer;
     begin
@@ -4304,6 +4293,6 @@ then begin
         end;
     end;
 
-    
+
 }
 

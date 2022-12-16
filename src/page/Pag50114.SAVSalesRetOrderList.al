@@ -490,8 +490,10 @@ page 50114 "BC6_SAV Sales Ret. Order List"
                     Image = CreatePutawayPick;
 
                     trigger OnAction()
+                    var
+                        FunctionMgt: Codeunit "BC6_Functions Mgt";
                     begin
-                        CreateInvtPutAwayPick;
+                        FunctionMgt.CreateInvtPutAwayPick;
                     end;
                 }
                 action("Create &Whse. Receipt")

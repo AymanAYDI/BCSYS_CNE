@@ -246,6 +246,26 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
         SalesHeader.Copy(T77_SalesHeader, true);
     end;
 
+    //******** Page 5703************//
+    procedure SetNewReceiptBinCodeEnable(pNewReceiptBinCodeEnable: Boolean)
+    begin
+        NewReceiptBinCodeEnable := pNewReceiptBinCodeEnable;
+    end;
+    //------ end set
+    procedure SetNewShipmentBinCodeEnable(pNewShipmentBinCodeEnable: Boolean)
+    begin
+        NewShipmentBinCodeEnable := pNewShipmentBinCodeEnable;
+    end;
+    procedure GetNewShipmentBinCodeEnable(): Boolean
+    begin
+        exit(NewShipmentBinCodeEnable);
+    end;
+    //------ end  
+    procedure SetNewAssemblyShipmentBinCodeEnable(pNewAssemblyShipmentBinCodeEnable: Boolean)
+    begin
+        NewAssemblyShipmentBinCodeEnable := pNewAssemblyShipmentBinCodeEnable;
+    end;
+    //------ end set
 
     var
         BooGVendorNoStyle: Boolean;
@@ -273,5 +293,7 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
         _PurchDEEECategoryCode: Code[20];
         DecGVATAmount: Decimal;
         DecGTTCAmount: Decimal;
-
+        NewReceiptBinCodeEnable: Boolean;
+        NewShipmentBinCodeEnable: Boolean;
+        NewAssemblyShipmentBinCodeEnable: Boolean;
 }

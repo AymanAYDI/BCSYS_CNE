@@ -58,7 +58,7 @@ pageextension 50118 "BC6_SalesQuotes" extends "Sales Quotes" //9300
     trigger OnOpenPage()
     var
     begin
-        //TODO: CHECKME when testing
+        //TODO: CHECKME when testing-----------
         rec.SetCurrentKey("No.");
         rec.SetAscending("Document Type", false);
         rec.SetAscending("Order Date", false);
@@ -66,7 +66,7 @@ pageextension 50118 "BC6_SalesQuotes" extends "Sales Quotes" //9300
         rec.SetFilter("Document Type", '< 50000');
         rec.SetFilter("Order Date", '< 50000');
         rec.SetFilter("No.", '< 50000');
-
+        //--------------
         IsProfitVisible();
         IF NOT FINDFIRST() THEN
             INIT();

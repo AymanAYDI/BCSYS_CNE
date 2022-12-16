@@ -1,28 +1,6 @@
-xmlport 50000 "Export Purchase Price"
+xmlport 50000 "BC6_Export Purchase Price"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // 
-    // //NAVIDIIGEST BRRI 01.08.2006 NSC1.00 [Export_Tarifs_Fns] Creation du Dataport
-    //                                                           => permet de générer un fichier txt pour l'ouvrir par excel
-    //                                                                        choisir ; pour séparateur et dans le 3e ecran
-    //                                                           pour format des données en colonnes : choisir Texte pour garder les 0
-    //                                                           devant les codes articles par exemple
-    //                                                           Et Enregistrer le fichier en Texte (DOS) (*.txt) tout
-    //                                                           le temps qu'il y a des modifs
-    //                                                           Ensuite pour l'importer il faut :
-    //                                                             1) Supprimer les 2 lignes d'entête
-    //                                                             2)l'enregistrer en CSV (DOS) (*.csv)
-    // //CORRECTIF   STLA 01.08.2006 NSC1.00 [Export_Tarifs_Fns] Modification du dataport pour que cela fonctionne !!
-    //                                                           On peut générer directement un .csv
-    //                                                           l'ouvrir avec excel
-    //                                                           sauvegarder les modifs
-    //                                                           et reimporter
-    // ------------------------------------------------------------------------
-
-    Caption = 'Export Purchase Price';
+    Caption = 'Export Purchase Price', Comment = 'FRA="Export Tarifs fournisseurs"';
     Direction = Export;
     FieldDelimiter = '<None>';
     FieldSeparator = ';';
@@ -33,11 +11,11 @@ xmlport 50000 "Export Purchase Price"
         textelement("<root>")
         {
             XmlName = 'Root';
-            tableelement(Table2000000026; Table2000000026)
+            tableelement(Table2000000026; Integer)
             {
                 XmlName = 'Integer';
-                SourceTableView = SORTING (Field1)
-                                  WHERE (Field1 = CONST (1));
+                SourceTableView = SORTING(Number)
+                                  WHERE(Number = CONST(1));
                 textelement(text1)
                 {
                     XmlName = 'Text1';
@@ -60,11 +38,11 @@ xmlport 50000 "Export Purchase Price"
                     //CurrFile.WRITE(Text1);
                 end;
             }
-            tableelement(Table7012; Table7012)
+            tableelement("Purchase Price"; "Purchase Price")
             {
                 AutoSave = true;
                 AutoUpdate = true;
-                RequestFilterFields = Field1, Field2;
+                RequestFilterFields = "Item No.", "Vendor No.";
                 XmlName = 'PurchasePrice';
                 fieldelement(ItemNo; "Purchase Price"."Item No.")
                 {
@@ -136,12 +114,12 @@ xmlport 50000 "Export Purchase Price"
         Trovato: Boolean;
         TrovatoError: Boolean;
         NumError: Integer;
-        GItem1: Record "27";
-        GVATBusinessPostingGroup2: Record "323";
-        PurchasePrice: Record "7012";
+        GItem1: Record Item;
+        GVATBusinessPostingGroup2: Record "VAT Business Posting Group";
+        PurchasePrice: Record "Purchase Price";
         Text11: Text[1000];
         Text2: Text[1000];
-        Vendor: Record "23";
-        Text001: Label '%1 %2 wrong';
+        Vendor: Record Vendor;
+        Text001: Label '%1 %2 wrong', Comment = 'FRA="%1 %2 invalide"';
 }
 

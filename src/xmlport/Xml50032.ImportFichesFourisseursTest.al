@@ -1,12 +1,5 @@
 xmlport 50032 "Import Fiches Fourisseurs Test"
 {
-    // 
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // ------------------------------------------------------------------------
-
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = ';';
@@ -16,7 +9,7 @@ xmlport 50032 "Import Fiches Fourisseurs Test"
     {
         textelement(Root)
         {
-            tableelement(Table99008; Table99008)
+            tableelement("Vendor Test"; "BC6_Vendor Test")
             {
                 XmlName = 'VendorTest';
                 fieldelement(No; "Vendor Test"."No.")

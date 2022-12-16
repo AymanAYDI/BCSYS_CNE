@@ -5,7 +5,7 @@ xmlport 59999 "Import/Export Source Code"
     {
         textelement(Root)
         {
-            tableelement(Table230; Table230)
+            tableelement("Source Code"; "Source Code")
             {
                 AutoReplace = true;
                 AutoSave = true;
@@ -14,9 +14,6 @@ xmlport 59999 "Import/Export Source Code"
                 {
                 }
                 fieldelement(Desc; "Source Code".Description)
-                {
-                }
-                fieldelement(Sim; "Source Code".Simulation)
                 {
                 }
             }

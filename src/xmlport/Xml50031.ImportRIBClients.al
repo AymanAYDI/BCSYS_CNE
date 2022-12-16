@@ -1,11 +1,5 @@
-xmlport 50031 "Import R.I.BClients"
+xmlport 50031 "BC6_Import R.I.BClients"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // ------------------------------------------------------------------------
-
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = ';';
@@ -15,7 +9,7 @@ xmlport 50031 "Import R.I.BClients"
     {
         textelement(Root)
         {
-            tableelement(Table99007; Table99007)
+            tableelement("Customer Bank Account Test"; "BC6_Customer Bank Account Test")
             {
                 XmlName = 'CustomerBankAccountTest';
                 fieldelement(CustomerNo; "Customer Bank Account Test"."Customer No.")

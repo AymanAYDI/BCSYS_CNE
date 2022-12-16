@@ -1,28 +1,6 @@
-xmlport 50001 "Import Purchase Price"
+xmlport 50001 "BC6_Import Purchase Price"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // 
-    // //NAVIDIIGEST BRRI 01.08.2006 NSC1.00 [Import_Tarifs_Fns] Creation du Dataport
-    //                                                           => permet de générer un fichier txt pour l'ouvrir par excel
-    //                                                                        choisir ; pour séparateur et dans le 3e ecran
-    //                                                           pour format des données en colonnes : choisir Texte pour garder les 0
-    //                                                           devant les codes articles par exemple
-    //                                                           Et Enregistrer le fichier en Texte (DOS) (*.txt) tout le temps
-    //                                                           qu'il y a des modifs
-    //                                                           Ensuite pour l'importer il faut :
-    //                                                               1) Supprimer les 2 lignes d'entête
-    //                                                               2)l'enregistrer en CSV (DOS) (*.csv)
-    // //CORRECTIF   STLA 01.08.2006 NSC1.00 [Import_Tarifs_Fns] Modification du dataport pour que cela fonctionne !!
-    //                                                           On peut générer directement un .csv
-    //                                                           l'ouvrir avec excel
-    //                                                           sauvegarder les modifs
-    //                                                           et reimporter
-    // ------------------------------------------------------------------------
-
-    Caption = 'Import Purchase Price';
+    Caption = 'Import Purchase Price', Comment = 'FRA="Import Tarifs fournisseurs"';
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = ';';
@@ -33,12 +11,12 @@ xmlport 50001 "Import Purchase Price"
     {
         textelement(Root)
         {
-            tableelement(Table7012; Table7012)
+            tableelement("Purchase Price"; "Purchase Price")
             {
                 AutoSave = true;
                 AutoUpdate = true;
                 XmlName = 'PurchasePrice';
-                SourceTableView = SORTING (Field1, Field2, Field4, Field3, Field5700, Field5400, Field14);
+                SourceTableView = SORTING("Item No.", "Vendor No.", "Starting Date", "Currency Code", "Variant Code", "Unit of Measure Code", "Minimum Quantity");
                 fieldelement(ItemNo; "Purchase Price"."Item No.")
                 {
                 }
@@ -115,13 +93,13 @@ xmlport 50001 "Import Purchase Price"
         Trovato: Boolean;
         TrovatoError: Boolean;
         NumError: Integer;
-        GItem1: Record "27";
-        GVATBusinessPostingGroup2: Record "323";
-        PurchasePrice: Record "7012";
+        GItem1: Record Item;
+        GVATBusinessPostingGroup2: Record "VAT Business Posting Group";
+        PurchasePrice: Record "Purchase Price";
         Text1: Text[1000];
         Text2: Text[1000];
-        Vendor: Record "23";
-        RecGPurchasePrice: Record "7012";
-        Text001: Label '%1 %2 wrong';
+        Vendor: Record Vendor;
+        RecGPurchasePrice: Record "Purchase Price";
+        Text001: Label '%1 %2 wrong', Comment = 'FRA="%1 %2 invalide"';
 }
 

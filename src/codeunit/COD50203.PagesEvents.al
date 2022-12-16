@@ -26,17 +26,16 @@ codeunit 50203 "BC6_PagesEvents"
         end;
     End;
 
-
-
     //Page 5703
     [EventSubscriber(ObjectType::Page, Page::"Location Card", 'OnAfterUpdateEnabled', '', false, false)]
     local procedure P5703_OnAfterUpdateEnabled(Location: Record Location)
     var
-        ReceiptBinCodeEnable: boolean;
-        ShipmentBinCodeEnable: Boolean;
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
     begin
-        ReceiptBinCodeEnable := (Location."Bin Mandatory" AND Location."Require Receive") OR Location."Directed Put-away and Pick";
-        ShipmentBinCodeEnable := (Location."Bin Mandatory" AND Location."Require Shipment") OR Location."Directed Put-away and Pick";
+
+        GlobalFunctionMgt.SetNewReceiptBinCodeEnable((Location."Bin Mandatory" AND Location."Require Receive") OR Location."Directed Put-away and Pick");  //NewReceiptBinCodeEnable
+        GlobalFunctionMgt.SetNewShipmentBinCodeEnable((Location."Bin Mandatory" AND Location."Require Shipment") OR Location."Directed Put-away and Pick"); //NewShipmentBinCodeEnable
+        GlobalFunctionMgt.SetNewAssemblyShipmentBinCodeEnable(Location."Bin Mandatory" and not GlobalFunctionMgt.GetNewShipmentBinCodeEnable());
     end;
     //Page 6630
     [EventSubscriber(ObjectType::Page, Page::"Sales Return Order", 'OnBeforeStatisticsAction', '', false, false)]
@@ -72,7 +71,7 @@ codeunit 50203 "BC6_PagesEvents"
                     END;
             end;
     end;
-    //PAGE 161
+    //PAGE 161 //TODO
     [EventSubscriber(ObjectType::Page, Page::"Purchase Statistics", 'OnAfterCalculateTotals', '', false, false)]
     local procedure P161_OnAfterCalculateTotals(var PurchHeader: Record "Purchase Header"; var TotalPurchLine: Record "Purchase Line"; var TotalPurchLineLCY: Record "Purchase Line"; var TempVATAmountLine: Record "VAT Amount Line" temporary; var TotalAmt1: Decimal; var TotalAmt2: Decimal)
     var
@@ -136,11 +135,12 @@ codeunit 50203 "BC6_PagesEvents"
         TransferExtendedText: Codeunit "Transfer Extended Text";
         PurchOrd: page "Purchase Order Subform";
         Unconditionally: Boolean;
+        FctMngt: Codeunit "BC6_Functions Mgt";
     begin
         if TransferExtendedText.PurchCheckIfAnyExtText(PurchaseLine, Unconditionally) then begin
             PurchOrd.SaveRecord;
             TransferExtendedText.InsertPurchExtText(PurchaseLine);
-            //TODO:Fct to add in cod378  TransferExtendedText.InsertPurchExtTextSpe(PurchaseLine);
+            FctMngt.InsertPurchExtTextSpe(PurchaseLine);   //TODO:Fct to add in cod378 
         end;
     end;
     //PAGE 233
@@ -166,7 +166,7 @@ codeunit 50203 "BC6_PagesEvents"
     end;
 
     [EventSubscriber(ObjectType::Page, Page::"Apply Vendor Entries", 'OnAfterValidateEvent', 'Vendor No.', false, false)]
-    local procedure OnAfterValidateEvent(var Rec: Record "Vendor Ledger Entry"; var xRec: Record "Vendor Ledger Entry")
+    local procedure P233_OnAfterValidateEvent(var Rec: Record "Vendor Ledger Entry"; var xRec: Record "Vendor Ledger Entry")
     var
         GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
     begin

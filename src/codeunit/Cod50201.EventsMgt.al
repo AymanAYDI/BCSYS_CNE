@@ -2201,6 +2201,7 @@ then begin
 
     begin
         IsHandled := true;
+        GLSetup.get();
         with GenJnlLine do
             if "Amount (LCY)" <> 0 then begin
                 PaymentDiscountDateWithGracePeriod := CVLedgEntryBuf."Pmt. Discount Date";

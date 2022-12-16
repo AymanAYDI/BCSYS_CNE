@@ -2304,47 +2304,22 @@ then begin
         ItemJnlTemplate: Record "Item Journal Template";
         Text001: label 'Journal Batch Name    #1##########\\';
         Text002: label 'Checking lines        #2######\';
-        Text003: label 'Posting lines         #3###### @4@@@@@@@@@@@@@\';
-        Text004: label 'Updating lines        #5###### @6@@@@@@@@@@@@@';
         Text005: label 'Posting lines         #3###### @4@@@@@@@@@@@@@';
         Text101: label 'ENU=Jnl. Batch #1###\\';
         Text102: label 'ENU=Chec. lines #2###\';
-        Text105: label 'ENU=Post. #3### @4@;FRA=Valid.#3### @4@@@';
+        Text105: label 'ENU=Post. #3### @4@';
     begin
         IsHandled := true;
         ItemJnlTemplate.Get(ItemJnlLine."Journal Template Name");
 
-        if ItemJnlTemplate.Recurring then
-            Window.Open(
-              Text001 +
-              Text002 +
-              Text003 +
-              Text004)
-        else
+        if not ItemJnlTemplate.Recurring then
             if (ItemJnlTemplate.Name = InvtSetup."BC6_Item Jnl Template Name 1") or
                (ItemJnlTemplate.Name = InvtSetup."BC6_Item Jnl Template Name 2") then
-                Window.OPEN(
-                  Text101 +
-                  Text102 +
-                  Text105)
+                Window.OPEN(Text101 + Text102 + Text105)
             else
-                Window.Open(
-                  Text001 +
-                  Text002 +
-                  Text005);
+                Window.Open(Text001 + Text002 + Text005);
         Window.Update(1, ItemJnlLine."Journal Batch Name");
         WindowIsOpen := true;
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Jnl.-Post Batch", 'OnItemJnlPostSumLineOnAfterGetItem', '', false, false)]
-    //TODO: not sure of it(ItemJournalLine was ItemJournalLine4 in the old code)
-    local procedure COD23_OnItemJnlPostSumLineOnAfterGetItem(var Item: Record Item; ItemJournalLine: Record "Item Journal Line")
-    var
-        IncludeExpectedCost: Boolean;
-    begin
-        IncludeExpectedCost :=
-    (Item."Costing Method" = Item."Costing Method"::Average) and
-    (ItemJournalLine."Inventory Value Per" <> ItemJournalLine."Inventory Value Per"::" ");
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Jnl.-Post Batch", 'OnBeforeWhseJnlPostLineRun', '', false, false)]
@@ -2678,14 +2653,12 @@ then begin
     begin
 
         if SalesHeader."Currency Code" <> '' then begin
-            //>>MIGRATION NAV 2013 - 2017
             SalesLine."BC6_DEEE Unit Price" :=
               ROUND(
                 CurrExchRate.ExchangeAmtFCYToLCY(
                    SalesHeader.GetUseDate(), SalesHeader."Currency Code",
                   SalesLine."BC6_DEEE Unit Price", SalesHeader."Currency Factor")) -
                     SalesLine."BC6_DEEE Unit Price";
-            //<<MIGRATION NAV 2013 - 2017
         end;
     end;
 
@@ -2697,12 +2670,12 @@ then begin
         EnableIncrPurchCost: Boolean; //(variable globale que je la déclaré locale, car elle est utilisée slmnt dans cette partie)
     begin
 
-        // FctMngt.Increment(TotalSalesLine."BC6_Purchase cost",ROUND(SalesLineQty * TotalSalesLine."BC6_Purchase cost"));
-        // IF EnableIncrPurchCost THEN
-        //   IF L_Item.Type = L_Item.Type::Item THEN BEGIN
-        //     L_Item.GET("No.");
-        //     FctMngt.Increment(SalesLine."BC6_Purchase cost", ROUND(TotalSalesLine."BC6_Purchase cost" * L_Item."BC6_Cost Increase Coeff %" / 100) * SalesLineQty);
-        //   END; //TODO: Item n'existe plus dans la liste des options de l'enum Type
+        FctMngt.Increment(TotalSalesLine."BC6_Purchase cost", ROUND(SalesLineQty * TotalSalesLine."BC6_Purchase cost"));
+        IF EnableIncrPurchCost THEN
+            IF SalesLine.Type = SalesLine.Type::Item THEN BEGIN
+                L_Item.GET(SalesLine."No.");
+                FctMngt.Increment(SalesLine."BC6_Purchase cost", ROUND(TotalSalesLine."BC6_Purchase cost" * L_Item."BC6_Cost Increase Coeff %" / 100) * SalesLineQty);
+            END;
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnAfterIncrAmount', '', false, false)]
@@ -2721,15 +2694,11 @@ then begin
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post (Yes/No)", 'OnConfirmPostOnBeforeSetSelection', '', false, false)]
     local procedure COD81_OnConfirmPostOnBeforeSetSelection(var SalesHeader: Record "Sales Header")
     begin
-        //>>MIGRATION NAV 2013
-        //FG
         if SalesHeader."Document Type" <> SalesHeader."Document Type"::Invoice then
             SalesHeader.TESTFIELD(SalesHeader.Status, SalesHeader.Status::Released);
-        //<<MIGRATION NAV 2013
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post (Yes/No)", 'OnBeforeConfirmPost', '', false, false)]
-
     local procedure COD81_OnBeforeConfirmPost(var SalesHeader: Record "Sales Header"; var DefaultOption: Integer; var Result: Boolean; var IsHandled: Boolean)
     var
         RecLNaviSetup: Record "BC6_Navi+ Setup";
@@ -2753,6 +2722,7 @@ then begin
         ShipInvoiceQst: label '&Ship,&Invoice,Ship &and Invoice';
     begin
         IsHandled := true;
+
         if DefaultOption > 3 then
             DefaultOption := 3;
         if DefaultOption <= 0 then
@@ -2773,8 +2743,10 @@ then begin
                         if Selection = 0 then
                             exit;
                         Receive := Selection in [1, 3];
+                                    //>>MIGRATION NAV 2013
                         if Ship then FctMngt.CalcProfit2(SalesHeader);
                         Invoice := Selection in [2, 3];
+
                     end
                 else
                     if not ConfirmManagement.GetResponseOrDefault(

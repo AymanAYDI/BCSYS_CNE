@@ -922,8 +922,10 @@ page 50116 "BC6_SAV Sales Return Order"
                     Image = CreateInventoryPickup;
 
                     trigger OnAction()
+                    var
+                        FunctionMgt: Codeunit "BC6_Functions Mgt";
                     begin
-                        Rec.CreateInvtPutAwayPick;
+                        FunctionMgt.CreateInvtPutAwayPick;
                     end;
                 }
                 separator(Sep6)

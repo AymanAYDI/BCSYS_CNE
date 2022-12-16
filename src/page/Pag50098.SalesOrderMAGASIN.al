@@ -29,7 +29,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
 
                     trigger OnValidate()
                     begin
-                        // SelltoCustomerNoOnAfterValidate; TODO:
+                        _SelltoCustomerNoOnAfterValidate();
                     end;
                 }
                 field("Sell-to Contact No."; "Sell-to Contact No.")
@@ -340,12 +340,12 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 Visible = false;
                 ApplicationArea = All;
             }
-            part("Customer Details FactBox 2"; "Customer Details FactBox")
+            part("Sales Line FactBox"; "Sales Line FactBox")
             {
                 Provider = SalesLines;
-                // SubPageLink = "Document Type" = FIELD("Document Type"), TODO:
-                //               "Document No." = FIELD("Document No."),
-                //               "Line No." = FIELD("Line No.");
+                SubPageLink = "Document Type" = FIELD("Document Type"),
+                              "Document No." = FIELD("Document No."),
+                              "Line No." = FIELD("Line No.");
                 Visible = true;
                 ApplicationArea = All;
             }
@@ -840,14 +840,14 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 {
                     Caption = '&Valider Livraison', Comment = 'FRA="&Valider Livraison"';
                     Image = PostedReceipt;
-                    // RunObject = Codeunit 50001; TODO:
+                    RunObject = Codeunit "BC6_FotoWin Management";
                     ApplicationArea = All;
                 }
                 action("&Valider Facture")
                 {
                     Caption = '&Valider Facture', Comment = 'FRA="&Valider Facture"';
                     Image = PostedVendorBill;
-                    // RunObject = Codeunit 50002; TODO:
+                    RunObject = Codeunit "BC6_Reconstitue lettrage CLI";
                     ApplicationArea = All;
                 }
             }
@@ -862,16 +862,12 @@ page 50098 "BC6_Sales Order (MAGASIN)"
 
                     trigger OnAction()
                     begin
-
-                        //EMAIL SOBH NSC1.01 [005] Envoi document
-                        //DocPrint.PrintSalesOrder(Rec,Usage::"Order Confirmation");
                         CASE STRMENU(STR3 + ',' + STR4 + ',' + STR5) OF
                             1:
                                 DocPrint.PrintSalesOrder(Rec, Usage::"Order Confirmation");
                             2:
                                 EnvoiMail;
                         END;
-                        //Fin EMAIL SOBH NSC1.01 [005] Envoi document
                     end;
                 }
                 action("Work Order")
@@ -889,7 +885,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                         RecGSalesHeader.SETRANGE(RecGSalesHeader."No.", "No.");
                         RecGSalesHeader.FIND('-');
 
-                        // REPORT.RUNMODAL(REPORT::"Preparation NAVIDIIGEST1", TRUE, TRUE, RecGSalesHeader); TODO:
+                        REPORT.RUNMODAL(REPORT::"BC6_Preparation NAVIDIIGEST1", TRUE, TRUE, RecGSalesHeader);
                     end;
                 }
             }
@@ -991,15 +987,10 @@ page 50098 "BC6_Sales Order (MAGASIN)"
         SalesHistoryBtnVisible := DifferSellToBillTo;
         BillToCommentPictVisible := DifferSellToBillTo;
         BillToCommentBtnVisible := DifferSellToBillTo;
-        //SalesHistoryStnVisible := SalesInfoPaneMgt.DocExist(Rec,"Sell-to Customer No.");
-        // IF DifferSellToBillTo THEN //TODO: check
-        //SalesHistoryBtnVisible := SalesInfoPaneMgt.DocExist(Rec,"Bill-to Customer No.")
     end;
 
 
-    procedure "**NSC1.01**"()
-    begin
-    end;
+
 
 
     procedure test()
@@ -1009,22 +1000,17 @@ page 50098 "BC6_Sales Order (MAGASIN)"
 
     procedure EnvoiMail()
     begin
-        //EMAIL NSC00.01 SBH [005] Envoi document
         cust.SETRANGE(cust."No.", "Sell-to Customer No.");
         IF cust.FIND('-') THEN
             cust.TESTFIELD("E-Mail");
         OpenFile;
         IF nameF <> '' THEN BEGIN
-            //MIG2017
-            //Mail.NewMessage(cust."E-Mail",'',CurrPage.CAPTION+' '+"No.",'',nameF,FALSE);
             Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + "No.", '', nameF, FALSE);
-            //MIG2017
             ERASE(nameF);
         END ELSE BEGIN
             ERASE(SalesSetup.BC6_Repertoire + 'Envoi' + '\' + CurrPage.CAPTION);
             ERROR(Text001);
         END;
-        //Fin EMAIL NSC00.01 SBH [005] Envoi document
     end;
 
 
@@ -1049,7 +1035,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
 
     end;
 
-    local procedure SelltoCustomerNoOnAfterValidate()
+    local procedure _SelltoCustomerNoOnAfterValidate()
     begin
         CurrPage.UPDATE;
     end;

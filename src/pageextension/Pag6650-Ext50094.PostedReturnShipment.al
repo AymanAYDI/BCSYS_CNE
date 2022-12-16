@@ -6,6 +6,8 @@ pageextension 50094 "BC6_PostedReturnShipment" extends "Posted Return Shipment" 
         {
             field("BC6_User ID"; "User ID")
             {
+                Editable = false;
+                ApplicationArea = All;
             }
         }
     }

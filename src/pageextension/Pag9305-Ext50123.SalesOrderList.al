@@ -1,7 +1,6 @@
 pageextension 50123 "BC6_SalesOrderList" extends "Sales Order List" //9305
 {
-
-    //Unsupported feature: Property Modification (SourceTableView) on ""Sales Order List"(Page 9305)". TODO:
+    Caption = 'Sales Orders', Comment = 'FRA="Commandes vente"';
 
     layout
     {
@@ -54,6 +53,8 @@ pageextension 50123 "BC6_SalesOrderList" extends "Sales Order List" //9305
             }
         }
     }
+
+
     actions
     {
 
@@ -74,6 +75,18 @@ pageextension 50123 "BC6_SalesOrderList" extends "Sales Order List" //9305
                 begin
                     PostDocument(CODEUNIT::"Sales-Post + Print");
                 end;
+            }
+        }
+    }
+
+    views
+    {
+        addfirst
+        {
+            view(AddFromVSC)
+            {
+                OrderBy = descending("Document Type", "Order Date", "No.");
+                Filters = WHERE("Document Type" = CONST(Order));
             }
         }
     }

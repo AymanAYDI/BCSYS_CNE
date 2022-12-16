@@ -19,6 +19,7 @@ page 50076 "BC6_ScanDeviceButtons"
                     MESSAGE('Button 1');
                 end;
 
+
                 trigger OnDrillDown()
                 begin
                     MESSAGE('Button 1');

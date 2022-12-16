@@ -1,12 +1,5 @@
-xmlport 50011 "Import Fiches Clients"
+xmlport 50011 "BC6_Import Fiches Clients"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // 
-    // ------------------------------------------------------------------------
-
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = ';';
@@ -16,7 +9,7 @@ xmlport 50011 "Import Fiches Clients"
     {
         textelement(Root)
         {
-            tableelement(customer; Table18)
+            tableelement(customer; Customer)
             {
                 XmlName = 'Customer';
                 fieldelement(No; Customer."No.")
@@ -94,7 +87,7 @@ xmlport 50011 "Import Fiches Clients"
                 {
                     Width = 30;
                 }
-                fieldelement(CodeSIREN; Customer."Code SIREN")
+                fieldelement(CodeSIREN; Customer."BC6_Code SIREN")
                 {
                     Width = 14;
                 }

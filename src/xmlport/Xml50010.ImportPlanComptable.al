@@ -1,14 +1,5 @@
-xmlport 50010 "Import Plan Comptable"
+xmlport 50010 "BC6_Import Plan Comptable"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // 
-    // //ImportFichiersBase RD 14/11/06 NCS1.01 [FE021] Reprise des données
-    // 
-    // ------------------------------------------------------------------------
-
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = ';';
@@ -18,7 +9,7 @@ xmlport 50010 "Import Plan Comptable"
     {
         textelement(Root)
         {
-            tableelement(glaccount; Table15)
+            tableelement(glaccount; "G/L Account")
             {
                 AutoReplace = true;
                 XmlName = 'GLAccount';

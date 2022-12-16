@@ -58,7 +58,7 @@ pageextension 50089 "BC6_SalesReturnOrder" extends "Sales Return Order" //6630
             action("BC6_Rel&ease")
             {
                 ApplicationArea = SalesReturnOrder;
-                Caption = 'Re&lease';
+                Caption = 'Re&lease', Comment = 'FRA="&Lancer"';
                 Image = ReleaseDoc;
                 Promoted = true;
                 PromotedCategory = Category5;

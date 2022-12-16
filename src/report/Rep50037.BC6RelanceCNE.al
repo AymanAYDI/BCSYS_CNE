@@ -3,7 +3,7 @@ report 50037 "BC6_BC6_Relance  CNE"
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/RelanceCNE.rdl';
 
-    Caption = 'Reminder CNE';
+    Caption = 'Reminder CNE', Comment = 'FRA="Relance CNE"';
 
     dataset
     {
@@ -12,7 +12,7 @@ report 50037 "BC6_BC6_Relance  CNE"
 
             DataItemTableView = SORTING("No.");
             RequestFilterFields = "No.";
-            RequestFilterHeading = 'Reminder';
+            RequestFilterHeading = 'Reminder', Comment = 'FRA="Relance"';
             column(Issued_Reminder_Header_No_; "No.")
             {
             }
@@ -91,16 +91,16 @@ report 50037 "BC6_BC6_Relance  CNE"
             column(Document_DateCaption; Document_DateCaptionLbl)
             {
             }
-            column(Issued_Reminder_Line__Document_No__Caption; IssuedReminderLineV.FIELDCAPTION("Document No."))
+            column(Issued_Reminder_Line__Document_No__Caption; IssuedReminderLine.FIELDCAPTION("Document No."))
             {
             }
             column(Issued_Reminder_Line__Due_Date_Caption; Issued_Reminder_Line__Due_Date_CaptionLbl)
             {
             }
-            column(Issued_Reminder_Line__Remaining_Amount__Control40Caption; IssuedReminderLineV.FIELDCAPTION("Remaining Amount"))
+            column(Issued_Reminder_Line__Remaining_Amount__Control40Caption; IssuedReminderLine.FIELDCAPTION("Remaining Amount"))
             {
             }
-            column(Issued_Reminder_Line__Original_Amount_Caption; IssuedReminderLineV.FIELDCAPTION("Original Amount"))
+            column(Issued_Reminder_Line__Original_Amount_Caption; IssuedReminderLine.FIELDCAPTION("Original Amount"))
             {
             }
             column(Type_documentCaption; Type_documentCaptionLbl)
@@ -115,7 +115,7 @@ report 50037 "BC6_BC6_Relance  CNE"
             column(ReminderInterestAmountCaption; ReminderInterestAmountCaptionLbl)
             {
             }
-            column(Issued_Reminder_Line__VAT_Amount_Caption; IssuedReminderLineV.FIELDCAPTION("VAT Amount"))
+            column(Issued_Reminder_Line__VAT_Amount_Caption; IssuedReminderLine.FIELDCAPTION("VAT Amount"))
             {
             }
             column(VATAmountLine__VAT_Amount__Control71Caption; VATAmountLine__VAT_Amount__Control71CaptionLbl)
@@ -173,11 +173,11 @@ report 50037 "BC6_BC6_Relance  CNE"
                 trigger OnAfterGetRecord()
                 begin
                     IF Number = 1 THEN BEGIN
-                        IF NOT DimSetEntry.FINDSET THEN
-                            CurrReport.BREAK;
+                        IF NOT DimSetEntry.FINDSET() THEN
+                            CurrReport.BREAK();
                     END ELSE
                         IF NOT Continue THEN
-                            CurrReport.BREAK;
+                            CurrReport.BREAK();
 
                     CLEAR(DimText);
                     Continue := FALSE;
@@ -195,18 +195,17 @@ report 50037 "BC6_BC6_Relance  CNE"
                             Continue := TRUE;
                             EXIT;
                         END;
-                    UNTIL DimSetEntry.NEXT = 0;
+                    UNTIL DimSetEntry.NEXT() = 0;
                 end;
 
                 trigger OnPreDataItem()
                 begin
                     IF NOT ShowInternalInfo THEN
-                        CurrReport.BREAK;
+                        CurrReport.BREAK();
                 end;
             }
-            dataitem(IssuedReminderLineV; "Issued Reminder Line")
+            dataitem(IssuedReminderLineTexte; "Issued Reminder Line")
             {
-
                 DataItemLink = "Reminder No." = FIELD("No.");
                 DataItemLinkReference = IssuedReminderHeader;
                 DataItemTableView = SORTING("Reminder No.", "Line No.");
@@ -245,7 +244,7 @@ report 50037 "BC6_BC6_Relance  CNE"
                             Continue := Type = Type::" ";
                             IF Continue AND (Description <> '') THEN
                                 StartLineNo := "Line No.";
-                        UNTIL (NEXT = 0) OR NOT Continue;
+                        UNTIL (NEXT() = 0) OR NOT Continue;
                     END;
                     IF FIND('+') THEN BEGIN
                         EndLineNo := "Line No." + 1;
@@ -266,8 +265,8 @@ report 50037 "BC6_BC6_Relance  CNE"
                 DataItemTableView = SORTING("Reminder No.", "Line No.");
                 column(Issued_Reminder_Line__Remaining_Amount_; "Remaining Amount")
                 {
-                    //TODO : missing function 
-                    //AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
+
                     AutoFormatType = 1;
                 }
                 column(STRSUBSTNO__du__1__FORMAT__Document_Date___; STRSUBSTNO('du %1', FORMAT("Document Date")))
@@ -281,12 +280,12 @@ report 50037 "BC6_BC6_Relance  CNE"
                 }
                 column(Issued_Reminder_Line__Remaining_Amount__Control40; "Remaining Amount")
                 {
-                    //TODO:AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
                     AutoFormatType = 1;
                 }
                 column(Issued_Reminder_Line__Original_Amount_; "Original Amount")
                 {
-                    //TODO:AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
                     AutoFormatType = 1;
                 }
                 column(STRSUBSTNO___1_n____Document_Type__; STRSUBSTNO('%1 n°', "Document Type"))
@@ -297,7 +296,7 @@ report 50037 "BC6_BC6_Relance  CNE"
                 }
                 column(Issued_Reminder_Line__Remaining_Amount__Control38; "Remaining Amount")
                 {
-                    //TODO:AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
                     AutoFormatType = 1;
                 }
                 column(Issued_Reminder_Line__No__; "No.")
@@ -305,7 +304,7 @@ report 50037 "BC6_BC6_Relance  CNE"
                 }
                 column(Issued_Reminder_Line__Remaining_Amount__Control95; "Remaining Amount")
                 {
-                    //TODO:AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
                     AutoFormatType = 1;
                 }
                 column(Issued_Reminder_Line_Description_Control96; Description)
@@ -313,27 +312,27 @@ report 50037 "BC6_BC6_Relance  CNE"
                 }
                 column(Issued_Reminder_Line__Remaining_Amount__Control42; "Remaining Amount")
                 {
-                    //TODO:AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
                     AutoFormatType = 1;
                 }
                 column(ReminderInterestAmount; ReminderInterestAmount)
                 {
-                    //TODO:AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
                     AutoFormatType = 1;
                 }
                 column(Remaining_Amount____ReminderInterestAmount; "Remaining Amount" + ReminderInterestAmount)
                 {
-                    //TODO:AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
                     AutoFormatType = 1;
                 }
                 column(Remaining_Amount____ReminderInterestAmount____VAT_Amount_; "Remaining Amount" + ReminderInterestAmount + "VAT Amount")
                 {
-                    //TODO:AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
                     AutoFormatType = 1;
                 }
                 column(Issued_Reminder_Line__VAT_Amount_; "VAT Amount")
                 {
-                    //TODO:AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
                     AutoFormatType = 1;
                 }
                 column(Issued_Reminder_Line_Reminder_No_; "Reminder No.")
@@ -363,7 +362,7 @@ report 50037 "BC6_BC6_Relance  CNE"
 
                 trigger OnAfterGetRecord()
                 begin
-                    VATAmountLine.INIT;
+                    VATAmountLine.INIT();
                     VATAmountLine."VAT Identifier" := "VAT Identifier";
                     VATAmountLine."VAT Calculation Type" := "VAT Calculation Type";
                     VATAmountLine."Tax Group Code" := "Tax Group Code";
@@ -371,7 +370,7 @@ report 50037 "BC6_BC6_Relance  CNE"
                     VATAmountLine."VAT Base" := Amount;
                     VATAmountLine."VAT Amount" := "VAT Amount";
                     VATAmountLine."Amount Including VAT" := Amount + "VAT Amount";
-                    VATAmountLine.InsertLine;
+                    VATAmountLine.InsertLine();
 
                     CASE Type OF
                         Type::"G/L Account":
@@ -383,7 +382,7 @@ report 50037 "BC6_BC6_Relance  CNE"
 
                 trigger OnPreDataItem()
                 begin
-                    VATAmountLine.DELETEALL;
+                    VATAmountLine.DELETEALL();
                     SETFILTER("Line No.", '<%1', EndLineNo);
                     CurrReport.CREATETOTALS("Remaining Amount", "VAT Amount", ReminderInterestAmount);
                     BooGIRLineFouter1 := ReminderInterestAmount <> 0;
@@ -425,22 +424,22 @@ report 50037 "BC6_BC6_Relance  CNE"
                 DataItemTableView = SORTING(Number);
                 column(VATAmtLineAmtIncludVAT; VATAmountLine."Amount Including VAT")
                 {
-                    //TODO:AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
                     AutoFormatType = 1;
                 }
                 column(VALVATAmount; VALVATAmount)
                 {
-                    //TODO:AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
                     AutoFormatType = 1;
                 }
                 column(VALVATBase; VALVATBase)
                 {
-                    //TODO:AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
                     AutoFormatType = 1;
                 }
                 column(VALVATBaseVALVATAmt; VALVATBase + VALVATAmount)
                 {
-                    //TODO:AutoFormatExpression = IssuedReminderHeader.GetCurrencyCodeFromHeader;
+                    AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
                     AutoFormatType = 1;
                 }
                 column(VATAmtLineVAT; VATAmountLine."VAT %")
@@ -465,8 +464,8 @@ report 50037 "BC6_BC6_Relance  CNE"
 
                 trigger OnPreDataItem()
                 begin
-                    IF VATAmountLine.GetTotalVATAmount = 0 THEN
-                        CurrReport.BREAK;
+                    IF VATAmountLine.GetTotalVATAmount() = 0 THEN
+                        CurrReport.BREAK();
 
                     SETRANGE(Number, 1, VATAmountLine.COUNT);
 
@@ -477,7 +476,7 @@ report 50037 "BC6_BC6_Relance  CNE"
 
             trigger OnAfterGetRecord()
             begin
-                //TODOCurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
+                CurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
                 CurrReport.Language := Language2.GetLanguageIdOrDefault("Language Code");
 
                 DimSetEntry.SETRANGE("Dimension Set ID", "Dimension Set ID");
@@ -505,7 +504,7 @@ report 50037 "BC6_BC6_Relance  CNE"
                     IF LogInteraction THEN
                         SegManagement.LogDocument(
                           8, "No.", 0, 0, DATABASE::Customer, "Customer No.", '', '', "Posting Description", '');
-                    IncrNoPrinted;
+                    IncrNoPrinted();
                 END;
                 // PRM ajout des coordonnees du commercial
                 IF Cust.GET("Customer No.") THEN
@@ -526,7 +525,7 @@ report 50037 "BC6_BC6_Relance  CNE"
 
             trigger OnPreDataItem()
             begin
-                CompanyInfo.GET;
+                CompanyInfo.GET();
                 FormatAddrCodeunit.Company(CompanyAddr, CompanyInfo);
                 // PRM
                 IF Country.GET(CompanyInfo."Country/Region Code") THEN
@@ -549,11 +548,11 @@ report 50037 "BC6_BC6_Relance  CNE"
                     Caption = 'Options';
                     field(ShowInternalInformation; ShowInternalInfo)
                     {
-                        Caption = 'Show Internal Information';
+                        Caption = 'Show Internal Information', Comment = 'FRA="Afficher info. internes"';
                     }
                     field(LogInteraction; LogInteraction)
                     {
-                        Caption = 'Log Interaction';
+                        Caption = 'Log Interaction', Comment = 'FRA="Journal interaction"';
                         Enabled = LogInteractionEnable;
                     }
                 }
@@ -577,11 +576,11 @@ report 50037 "BC6_BC6_Relance  CNE"
 
     trigger OnInitReport()
     begin
-        GLSetup.GET;
+        GLSetup.GET();
     end;
 
     var
-        Language: Record Language;
+        Language: Codeunit Language;
         Language2: Codeunit Language;
         Country: Record "Country/Region";
         SalesPurchPerson: Record "Salesperson/Purchaser";
@@ -609,42 +608,42 @@ report 50037 "BC6_BC6_Relance  CNE"
         VALVATBase: Decimal;
         EndLineNo: Integer;
         StartLineNo: Integer;
-        AmountIncVATCaptionLbl: Label 'Amount Including VAT';
-        ContinuedCaption1Lbl: Label 'Continued';
-        ContinuedCaptionLbl: Label 'Continued';
-        Document_DateCaptionLbl: Label 'Document Date';
-        Issued_Reminder_Line__Due_Date_CaptionLbl: Label 'Due Date';
-        Issued_Reminder_Line__Remaining_Amount__Control42CaptionLbl: Label 'Continued';
-        Issued_Reminder_Line__Remaining_Amount_CaptionLbl: Label 'Continued';
-        Lettre_de_RappelCaptionLbl: Label 'Lettre de Rappel';
-        Reminder_levelCaptionLbl: Label 'Reminder level';
-        ReminderInterestAmountCaptionLbl: Label 'Interest Amount';
-        Text000: Label 'Total %1';
-        Text001: Label 'Total %1 Incl. VAT';
-        Text002: Label 'Page %1';
-        Text030: Label '%1 - %2 %3';
-        Text031: Label 'Tel. :  %1 - Fax :  %2';
-        Text032: Label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5';
-        Text033: Label 'Fax :  %1';
-        Text066: Label 'TEL : %1 FAX : %2 / email : %3';
-        Text067: Label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5';
-        Text100: Label 'Salesperson : ';
-        Text101: Label 'Phone :';
-        TotalCaptionLbl: Label 'Total';
-        TxtGHdrDimsCaption: Label 'Header Dimensions';
-        Type_documentCaptionLbl: Label 'Type document';
-        VAT_Amount_SpecificationCaptionLbl: Label 'VAT Amount Specification';
-        VATAmountCaptionLbl: Label 'VAT Amount';
-        VATAmountLine__Amount_Including_VAT__Control70CaptionLbl: Label 'Amount Including VAT';
-        VATAmountLine__VAT___CaptionLbl: Label 'VAT %';
-        VATAmountLine__VAT_Amount__Control71CaptionLbl: Label 'VAT Amount';
-        VATAmountLine__VAT_Base__Control72CaptionLbl: Label 'VAT Base';
-        VATAmountLine__VAT_Base__Control80CaptionLbl: Label 'Continued';
-        VATAmountLine__VAT_Base__Control83CaptionLbl: Label 'Total';
-        VATAmountLine__VAT_Base_CaptionLbl: Label 'Continued';
-        VATAmtSpecCaptionLbl: Label 'VAT Amount Specification';
-        VATBaseCaptionLbl: Label 'VAT Base';
-        VATPercentCaptionLbl: Label 'VAT %';
+        AmountIncVATCaptionLbl: Label 'Amount Including VAT', Comment = 'FRA="Montant TTC"';
+        ContinuedCaption1Lbl: Label 'Continued', Comment = 'FRA="Suite"';
+        ContinuedCaptionLbl: Label 'Continued', Comment = 'FRA="Suite"';
+        Document_DateCaptionLbl: Label 'Document Date', Comment = 'FRA="Date document"';
+        Issued_Reminder_Line__Due_Date_CaptionLbl: Label 'Due Date', Comment = 'FRA="Date d''échéance"';
+        Issued_Reminder_Line__Remaining_Amount__Control42CaptionLbl: Label 'Continued', Comment = 'FRA="Report"';
+        Issued_Reminder_Line__Remaining_Amount_CaptionLbl: Label 'Continued', Comment = 'FRA="Report"';
+        Lettre_de_RappelCaptionLbl: Label 'Lettre de Rappel', Comment = 'FRA="Lettre de Rappel"';
+        Reminder_levelCaptionLbl: Label 'Reminder level', Comment = 'FRA="Niveau de relance "';
+        ReminderInterestAmountCaptionLbl: Label 'Interest Amount', Comment = 'FRA="Montant intérêts"';
+        Text000: Label 'Total %1', Comment = 'FRA="Total %1"';
+        Text001: Label 'Total %1 Incl. VAT', Comment = 'FRA="Total %1 TTC"';
+        Text002: Label 'Page %1', Comment = 'FRA="Page %1"';
+        Text030: Label '%1 - %2 %3', Comment = 'FRA="%1 - %2 %3"';
+        Text031: Label 'Tel. :  %1 - Fax :  %2', Comment = 'FRA="Tel. :  %1 - Fax :  %2"';
+        Text032: Label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5', Comment = 'FRA="%1 AU CAPITAL DE %2  · %3  · SIRET %4 ·  APE %5 · TVA %6"';
+        Text033: Label 'Fax :  %1', Comment = 'FRA="Fax :  %1"';
+        Text066: Label 'TEL : %1 FAX : %2 / email : %3', Comment = 'FRA="TEL : %1 FAX : %2 / email : %3"';
+        Text067: Label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5', Comment = 'FRA="%1 au capital de  %2   - %3  -  APE %4 - N°TVA : %5"';
+        Text100: Label 'Salesperson : ', Comment = 'FRA="Notre interlocuteur commercial :"';
+        Text101: Label 'Phone :', Comment = 'FRA="Tel :"';
+        TotalCaptionLbl: Label 'Total', Comment = 'FRA="Total"';
+        TxtGHdrDimsCaption: Label 'Header Dimensions', Comment = 'FRA="Analytique en-tête"';
+        Type_documentCaptionLbl: Label 'Type document', Comment = 'FRA="Type document"';
+        VAT_Amount_SpecificationCaptionLbl: Label 'VAT Amount Specification', Comment = 'FRA="Détail TVA"';
+        VATAmountCaptionLbl: Label 'VAT Amount', Comment = 'FRA="Montant TVA"';
+        VATAmountLine__Amount_Including_VAT__Control70CaptionLbl: Label 'Amount Including VAT', Comment = 'FRA="Montant TTC"';
+        VATAmountLine__VAT___CaptionLbl: Label 'VAT %', Comment = 'FRA="% TVA"';
+        VATAmountLine__VAT_Amount__Control71CaptionLbl: Label 'VAT Amount', Comment = 'FRA="Montant TVA"';
+        VATAmountLine__VAT_Base__Control72CaptionLbl: Label 'VAT Base', Comment = 'FRA="Base TVA"';
+        VATAmountLine__VAT_Base__Control80CaptionLbl: Label 'Continued', Comment = 'FRA="Report"';
+        VATAmountLine__VAT_Base__Control83CaptionLbl: Label 'Total', Comment = 'FRA="Total"';
+        VATAmountLine__VAT_Base_CaptionLbl: Label 'Continued', Comment = 'FRA="Report"';
+        VATAmtSpecCaptionLbl: Label 'VAT Amount Specification', Comment = 'FRA="Détail montant TVA"';
+        VATBaseCaptionLbl: Label 'VAT Base', Comment = 'FRA="Base TVA"';
+        VATPercentCaptionLbl: Label 'VAT %', Comment = 'FRA="% TVA"';
         Pays: Text[30];
         ReferenceText: Text[30];
         VATNoText: Text[30];

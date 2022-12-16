@@ -1,15 +1,5 @@
-xmlport 50002 "Import/Export Qty to order"
+xmlport 50002 "BC6_Import/Export Qty to order"
 {
-    // ------------------------------------------------------------------------
-    // Prodware - www.prodware.fr
-    // ------------------------------------------------------------------------
-    // //>>MIGRATION NAV 2013
-    // 
-    // //>>CNE1.03
-    //    SOBI:correction des anomalies 24/04/08 : - export qty to order for change from integer to decimal
-    // 
-    // ------------------------------------------------------------------------
-
     FieldSeparator = ';';
     Format = VariableText;
 
@@ -17,7 +7,7 @@ xmlport 50002 "Import/Export Qty to order"
     {
         textelement(Root)
         {
-            tableelement(salesline; Table37)
+            tableelement(salesline; "Sales Line")
             {
                 XmlName = 'SalesLine';
                 fieldelement(DocumentType; SalesLine."Document Type")
@@ -29,13 +19,13 @@ xmlport 50002 "Import/Export Qty to order"
                 fieldelement(LineNo; SalesLine."Line No.")
                 {
                 }
-                fieldelement(QtyToOrder; SalesLine."Qty. To Order")
+                fieldelement(QtyToOrder; SalesLine."BC6_Qty. To Order")
                 {
                 }
 
                 trigger OnAfterGetRecord()
                 begin
-                    SalesLine."Qty. To Order" := 0;
+                    SalesLine."BC6_Qty. To Order" := 0;
                     SalesLine.MODIFY;
                 end;
             }

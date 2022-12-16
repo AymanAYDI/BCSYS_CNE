@@ -57,9 +57,6 @@ tableextension 50070 "BC6_WarehouseActivityHeader" extends "Warehouse Activity H
             var
                 FctMangt: Codeunit "BC6_Functions Mgt";
             begin
-                // IF xRec."BC6_Bin Code" <> "BC6_Bin Code" THEN BEGIN //TODO: Check empty Conditional Statements
-                // END;
-
                 IF "BC6_Bin Code" <> '' THEN begin
                     TESTFIELD(Type, Type::"Invt. Pick");
                     FctMangt.GetLocation("Location Code");

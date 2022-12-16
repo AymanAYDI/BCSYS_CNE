@@ -48,9 +48,9 @@ page 50051 "BC6_Item List MiniForm"
 
     trigger OnAfterGetRecord()
     var
-        DistInt: Codeunit "Dist. Integration";
+        FunctionsMgt: Codeunit "BC6_Functions Mgt";
     begin
-        // EAN13Code := DistInt.GetItemEAN13Code("No.") // TODO: function GetItemEAN13Code missing in codeunit "Dist. Integration"
+        EAN13Code := FunctionsMgt.GetItemEAN13Code(Rec."No.");
     end;
 
     var

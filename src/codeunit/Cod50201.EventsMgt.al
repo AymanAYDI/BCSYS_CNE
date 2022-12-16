@@ -1810,10 +1810,11 @@ then begin
     local procedure T37_OnUpdateUnitPriceOnBeforeFindPrice_SalesLine(SalesHeader: Record "Sales Header"; var SalesLine: Record "Sales Line"; CalledByFieldNo: Integer; CallingFieldNo: Integer; var IsHandled: Boolean)
     var
         PriceCalcMgt: Codeunit "Sales Price Calc. Mgt.";
+        FunctionMgt: Codeunit "BC6_Functions Mgt";
     begin
         PriceCalcMgt.FindSalesLineLineDisc(SalesHeader, SalesLine);
         PriceCalcMgt.FindSalesLinePrice(SalesHeader, SalesLine, CalledByFieldNo);
-        // PriceCalcMgt.FindVeryBestPrice(SalesLine, SalesHeader);  TODO:
+        FunctionMgt.FindVeryBestPrice(SalesLine, SalesHeader);
         SalesLine.FctGCalcLineDiscount();
     end;
 
@@ -1912,8 +1913,8 @@ then begin
             SalesLine.SetSkipPurchCostVerif(false);
     end;
 
-    [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnValidateQuantityOnBeforeCheckAssocPurchOrder', '', false, false)]
-    local procedure OnValidateQuantityOnBeforeCheckAssocPurchOrder(var SalesLine: Record "Sales Line")
+    [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnBeforeValidateUnitOfMeasureCodeFromNo', '', false, false)]
+    local procedure T37_OnBeforeValidateUnitOfMeasureCodeFromNo(var SalesLine: Record "Sales Line")
     begin
         SalesLine.SetSkipPurchCostVerif(false);
     end;
@@ -1952,6 +1953,85 @@ then begin
 
         Rec.SetSkipPurchCostVerif(false);
         Rec.Modify();
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnCopyFromItemOnAfterCheck', '', false, false)]
+    local procedure OnCopyFromItemOnAfterCheck(var SalesLine: Record "Sales Line"; Item: Record Item)
+    var
+        SalesSetup: Record "Sales & Receivables Setup";
+    begin
+        SalesLine."BC6_Public Price" := Item."Unit Price";
+        SalesLine."BC6_Buy-from Vendor No." := Item."Vendor No.";
+
+        IF COMPANYNAME = 'SCENEO_Bourgogne' THEN
+            SalesLine."BC6_Buy-from Vendor No." := 'CNE';
+
+        IF SalesLine."Document Type" IN [SalesLine."Document Type"::Quote, SalesLine."Document Type"::Order] THEN BEGIN
+            SalesSetup.GET;
+            SalesLine.VALIDATE(SalesLine."Purchasing Code", SalesSetup."BC6_Purcha. Code Grouping Line");
+        END;
+
+        SalesLine."BC6_Item Disc. Group" := Item."Item Disc. Group";
+
+        SalesLine.SetSkipPurchCostVerif(true);
+
+        SalesLine.VALIDATE("BC6_Purchase cost", Item."Standard Cost");
+
+        SalesLine."Allow Item Charge Assignment" := TRUE;
+
+        SalesLine."BC6_Forecast Inventory" := Item.Inventory - Item."Qty. on Sales Order" + Item."Qty. on Purch. Order";
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnAfterAssignItemValues', '', false, false)]
+    local procedure T37_OnAfterAssignItemValues(var SalesLine: Record "Sales Line"; Item: Record Item)
+    begin
+        SalesLine.VALIDATE(SalesLine."BC6_DEEE Category Code", Item."BC6_DEEE Category Code");
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnBeforeGetDefaultBin', '', false, false)]
+    local procedure T37_OnBeforeGetDefaultBin(var SalesLine: Record "Sales Line"; var IsHandled: Boolean)
+    var
+        Location: Record Location;
+        SalesHeader: Record "Sales Header";
+        WMSManagement: Codeunit "WMS Management";
+        FunctionMgt: Codeunit "BC6_Functions Mgt";
+        WhseIntegrationMgt: Codeunit "Whse. Integration Management";
+    begin
+
+        IsHandled := true;
+        if (SalesLine.Type <> SalesLine.Type::Item) or SalesLine.IsNonInventoriableItem() then
+            exit;
+
+        SalesLine."Bin Code" := '';
+        if SalesLine."Drop Shipment" then
+            exit;
+
+        if (SalesLine."Location Code" <> '') and (SalesLine."No." <> '') then begin
+            if SalesLine."Location Code" = '' then
+                Clear(Location)
+            else
+                if Location.Code <> SalesLine."Location Code" then
+                    Location.Get(SalesLine."Location Code");
+            if Location."Bin Mandatory" and not Location."Directed Put-away and Pick" then begin
+                if (SalesLine."Qty. to Assemble to Order" > 0) or SalesLine.IsAsmToOrderRequired then
+                    if SalesLine.GetATOBin(Location, SalesLine."Bin Code") then
+                        exit;
+
+                if not FunctionMgt.IsShipmentBinOverridesDefaultBin(Location) then begin
+                    IF Location."Require Pick" AND NOT (Location."Require Shipment") THEN BEGIN
+                        SalesHeader := SalesLine.GetSalesHeader;
+                        SalesLine."Bin Code" := SalesHeader."BC6_Bin Code";
+                        IF SalesLine."Bin Code" = '' THEN
+                            SalesLine."Bin Code" := Location."Shipment Bin Code";
+                    END ELSE
+                        WMSManagement.GetDefaultBin(SalesLine."No.", SalesLine."Variant Code", SalesLine."Location Code", SalesLine."Bin Code");
+                    if SalesLine.IsInbound() or (SalesLine."Quantity (Base)" = 0) or (SalesLine."Document Type" = SalesLine."Document Type"::"Blanket Order") then
+                        exit;
+
+                    WhseIntegrationMgt.CheckIfBinDedicatedOnSrcDoc(SalesLine."Location Code", SalesLine."Bin Code", false);
+                end;
+            end;
+        end;
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnValidateNoOnAfterUpdateUnitPrice', '', false, false)]
@@ -2926,7 +3006,7 @@ then begin
             SalesHeader.RESET();
             SalesHeader.SETRANGE("Document Type", Rec."Document Type");
             SalesHeader.SETRANGE("No.", Rec."No.");
-            // REPORT.RUNMODAL(50060, TRUE, FALSE, SalesHeader); // TODO: missing report
+            REPORT.RUNMODAL(50060, TRUE, FALSE, SalesHeader);
         end;
     end;
 

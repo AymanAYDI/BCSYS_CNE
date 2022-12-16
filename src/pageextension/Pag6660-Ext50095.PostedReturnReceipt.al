@@ -6,6 +6,7 @@ pageextension 50095 "BC6_PostedReturnReceipt" extends "Posted Return Receipt" //
         {
             field("BC6_User ID"; "User ID")
             {
+                Editable = false;
                 ApplicationArea = All;
             }
         }

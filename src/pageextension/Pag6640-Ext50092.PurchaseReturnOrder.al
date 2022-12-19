@@ -41,6 +41,10 @@ pageextension 50092 "BC6_PurchaseReturnOrder" extends "Purchase Return Order" //
         {
             Visible = false;
         }
+        modify("Create Inventor&y Put-away/Pick")
+        {
+            Visible = false;
+        }
         addafter("&Print")
         {
             action("BC6_&Print2")
@@ -67,6 +71,26 @@ pageextension 50092 "BC6_PurchaseReturnOrder" extends "Purchase Return Order" //
                         REPORT.RUNMODAL(Report::"Purchase Return Order - SAV", TRUE, FALSE, L_PurchaseHeader);
                     END;
                 END;
+            }
+
+        }
+        addafter("Create &Warehouse Shipment")
+        {
+            action("BC6_Create Inventor&y Put-away/Pick")
+            {
+                AccessByPermission = TableData "Posted Invt. Pick Header" = R;
+                ApplicationArea = Warehouse;
+                Caption = 'Create Inventor&y Put-away/Pick', Comment = 'FRA="Créer prélèv./rangement stock"';
+                Ellipsis = true;
+                Image = CreateInventoryPickup;
+                trigger OnAction()
+                var
+                    FunctionsMgt: codeunit "BC6_Functions Mgt";
+
+                begin
+                    FunctionsMgt.BC6_CreateInvtPutAwayPick();
+                end;
+
             }
         }
     }

@@ -21,14 +21,14 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
             DataClassification = CustomerContent;
             Caption = 'ID';
             //TODO
-            // trigger OnLookup()
-            // var
-            //     RecLUserMgt: Codeunit 418;
-            //     CodLUserID: Code[50];
-            // begin
-            //     CodLUserID := ID;
-            //     RecLUserMgt.LookupUserID(CodLUserID);
-            // end;
+            trigger OnLookup()
+            var
+                RecLUserMgt: Codeunit 418;
+                CodLUserID: Code[50];
+            begin
+                // CodLUserID := ID;
+                // RecLUserMgt.LookupUserID(CodLUserID);
+            end;
         }
         field(50020; "BC6_From Sales Module"; Boolean)
         {
@@ -205,11 +205,8 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
 
         PurchPost.GetPurchLines(Rec, TempPurchLine, 0);
         CLEAR(PurchPost);
-        //TODO
-        // PurchPost.SumPurchLinesTemp(
-        //   Rec, TempPurchLine, 0, TotalPurchLine, TotalPurchLineLCY, VATAmount, VATAmountText,
-        //   TotalPurchLine."BC6_DEEE HT Amount", TotalPurchLine."BC6_DEEE VAT Amount", TotalPurchLine."BC6_DEEE TTC Amount",
-        //   TotalPurchLine."BC6_DEEE HT Amount (LCY)");
+        PurchPost.SumPurchLinesTemp(
+          Rec, TempPurchLine, 0, TotalPurchLine, TotalPurchLineLCY, VATAmount, VATAmountText);
 
         IF "Prices Including VAT" THEN BEGIN
             TotalAmount2 := TotalPurchLine.Amount;

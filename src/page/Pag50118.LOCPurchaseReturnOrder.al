@@ -925,8 +925,11 @@ page 50118 "BC6_LOC Purchase Return Order"
                     ApplicationArea = All;
 
                     trigger OnAction()
+                    var
+                        FunctionsMgt: codeunit "BC6_Functions Mgt";
+
                     begin
-                        Rec.CreateInvtPutAwayPick;
+                        FunctionsMgt.BC6_CreateInvtPutAwayPick();
                     end;
                 }
                 separator(sep5)

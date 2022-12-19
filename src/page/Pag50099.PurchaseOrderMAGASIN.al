@@ -547,8 +547,10 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                     Image = CreateInventoryPickup;
 
                     trigger OnAction()
+                    var
+                        FunctionsMgt: codeunit "BC6_Functions Mgt";
                     begin
-                        CreateInvtPutAwayPick;
+                        FunctionsMgt.BC6_CreateInvtPutAwayPick();
                     end;
                 }
                 separator(Action74)

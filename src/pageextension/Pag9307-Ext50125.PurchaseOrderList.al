@@ -42,6 +42,10 @@ pageextension 50125 "BC6_PurchaseOrderList" extends "Purchase Order List" //9307
     }
     actions
     {
+        modify("Create Inventor&y Put-away/Pick")
+        {
+            Visible = false;
+        }
         addafter("Co&mments")
         {
             action(BC6_LogCommentsList)
@@ -69,6 +73,27 @@ pageextension 50125 "BC6_PurchaseOrderList" extends "Purchase Order List" //9307
                     AddLogPurchCommentPage.SETRECORD(Rec);
                     AddLogPurchCommentPage.LOOKUPMODE(TRUE);
                     AddLogPurchCommentPage.RUNMODAL();
+                end;
+            }
+        }
+        addafter("Create &Whse. Receipt")
+        {
+            action("BC6_Create Inventor&y Put-away/Pick")
+            {
+                AccessByPermission = TableData "Posted Invt. Put-away Header" = R;
+                ApplicationArea = Warehouse;
+                Caption = 'Create Inventor&y Put-away/Pick';
+                Ellipsis = true;
+                Image = CreatePutawayPick;
+                trigger OnAction()
+                var
+                    FunctionsMgt: codeunit "BC6_Functions Mgt";
+
+                begin
+                    FunctionsMgt.BC6_CreateInvtPutAwayPick();
+
+                    if not Rec.find('=><') then
+                        Rec.init();
                 end;
             }
         }

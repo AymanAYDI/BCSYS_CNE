@@ -43,7 +43,6 @@ codeunit 50201 "BC6_Events Mgt"
     end;
 
     //TAB290
-    //TODO:check code //temp  modification of Rec 123
     [EventSubscriber(ObjectType::Table, Database::"VAT Amount Line", 'OnAfterCopyFromPurchInvLine', '', false, false)]
     procedure T290_OnAfterCopyFromPurchInvLine_VATAmountLine(var VATAmountLine: Record "VAT Amount Line"; PurchInvLine: Record "Purch. Inv. Line")
     begin
@@ -1397,24 +1396,24 @@ then begin
         end;
     end;
 
-    [EventSubscriber(ObjectType::Table, Database::"Purchase Line", 'OnAfterUpdateDirectUnitCost', '', false, false)]
-    local procedure T39_OnAfterUpdateDirectUnitCost(var PurchLine: Record "Purchase Line"; xPurchLine: Record "Purchase Line"; CalledByFieldNo: Integer; CurrFieldNo: Integer)
+    [EventSubscriber(ObjectType::Table, Database::"Purchase Line", 'OnAfterValidateEvent', 'Quantity', false, false)]
+    local procedure T39_OnAfterValidateEvent_PurchaseLine(var Rec: Record "Purchase Line"; var xRec: Record "Purchase Line"; CurrFieldNo: Integer)
     var
         Currency: Record Currency;
         RecGVendor: Record Vendor;
 
     begin
-        PurchLine.VALIDATE(PurchLine."BC6_DEEE HT Amount", 0);
-        PurchLine."BC6_DEEE VAT Amount" := 0;
-        PurchLine."BC6_DEEE TTC Amount" := 0;
-        PurchLine."BC6_DEEE Amount (LCY) for Stat" := 0;
-        RecGVendor.GET(PurchLine."Buy-from Vendor No.");
+        Rec.VALIDATE(Rec."BC6_DEEE HT Amount", 0);
+        Rec."BC6_DEEE VAT Amount" := 0;
+        Rec."BC6_DEEE TTC Amount" := 0;
+        Rec."BC6_DEEE Amount (LCY) for Stat" := 0;
+        RecGVendor.GET(Rec."Buy-from Vendor No.");
         if RecGVendor."BC6_Posting DEEE" then begin
-            PurchLine.VALIDATE(PurchLine."BC6_DEEE HT Amount", PurchLine."BC6_DEEE Unit Price" * PurchLine."Quantity (Base)");
+            Rec.VALIDATE(Rec."BC6_DEEE HT Amount", Rec."BC6_DEEE Unit Price" * Rec."Quantity (Base)");
             Currency.get(Currency.Code);
-            PurchLine."BC6_DEEE VAT Amount" := ROUND(PurchLine."BC6_DEEE HT Amount" * PurchLine."VAT %" / 100, Currency."Amount Rounding Precision");
-            PurchLine."BC6_DEEE TTC Amount" := PurchLine."BC6_DEEE HT Amount" + PurchLine."BC6_DEEE VAT Amount";
-            PurchLine."BC6_DEEE Amount (LCY) for Stat" := PurchLine."Quantity (Base)" * PurchLine."BC6_DEEE Unit Price (LCY)";
+            Rec."BC6_DEEE VAT Amount" := ROUND(Rec."BC6_DEEE HT Amount" * Rec."VAT %" / 100, Currency."Amount Rounding Precision");
+            Rec."BC6_DEEE TTC Amount" := Rec."BC6_DEEE HT Amount" + Rec."BC6_DEEE VAT Amount";
+            Rec."BC6_DEEE Amount (LCY) for Stat" := Rec."Quantity (Base)" * Rec."BC6_DEEE Unit Price (LCY)";
         end;
     end;
 
@@ -1571,9 +1570,8 @@ then begin
         NaviSetup: Record "BC6_Navi+ Setup";
 
     begin
-        //TODO  je pense que cette section est replacer par ces deux fcts  "UpdateReferencedIds; et SetLastModifiedDateTime"
-        //    "Creation Date" := WORKDATE;
-        //    User := USERID;
+        Vendor."BC6_Creation Date" := WORKDATE;
+        Vendor.BC6_User := USERID;
         Vendor."BC6_Pay-to Vend. No." := Vendor."No.";
         NaviSetup.TESTFIELD(NaviSetup."Gen. Bus. Posting Group Vendor");
         NaviSetup.TESTFIELD(NaviSetup."VAT Bus. Posting Group Vendor");
@@ -1596,38 +1594,21 @@ then begin
         Vendor.VALIDATE("BC6_Posting DEEE", NaviSetup."Posting DEEE");
     end;
     //246
-    [EventSubscriber(ObjectType::Table, Database::"Requisition Line", 'OnAfterValidateEvent', 'Location Code', false, false)]
-    procedure T246_OnAfterValidateEvent_LocationCode(var Rec: Record "Requisition Line"; var xRec: Record "Requisition Line"; CurrFieldNo: Integer)
+    [EventSubscriber(ObjectType::Table, Database::"Requisition Line", 'OnValidateLocationCodeOnBeforeGetDefaultBin', '', false, false)]
+    local procedure OnValidateLocationCodeOnBeforeGetDefaultBin(RequisitionLine: Record "Requisition Line"; var ShouldGetDefaultBin: Boolean; Location: Record Location)
     var
-        Location: Record Location;
         WMSManagement: Codeunit "WMS Management";
 
     begin
-        Location.Get();
+        if ShouldGetDefaultBin then
+            WMSManagement.GetDefaultBin(RequisitionLine."No.", RequisitionLine."Variant Code", RequisitionLine."Location Code", RequisitionLine."Bin Code");
+
         if Location."Require Put-away" and not (Location."Require Receive") then
-            Rec."Bin Code" := Location."Receipt Bin Code"
+            RequisitionLine."Bin Code" := Location."Receipt Bin Code"
         else
-            WMSManagement.GetDefaultBin(Rec."No.", Rec."Variant Code", Rec."Location Code", Rec."Bin Code");
+            ShouldGetDefaultBin := true;
     end;
 
-    [EventSubscriber(ObjectType::Table, Database::"Requisition Line", 'OnAfterGetDirectCost', '', false, false)]
-    procedure OnAfterGetDirectCost(var RequisitionLine: Record "Requisition Line"; CalledByFieldNo: Integer)
-    var
-        PurchPriceCalcMgt: Codeunit "Purch. Price Calc. Mgt.";
-    begin
-        //TODO : COD7010 is for removal nd the fct FindVeryBestCostreq doesn't exist
-        // PurchPriceCalcMgt.FindVeryBestCostreq(RequisitionLine);
-    end;
-    //Tab341
-    [EventSubscriber(ObjectType::Table, Database::"Item Discount Group", 'OnAfterDeleteEvent', '', false, false)]
-    local procedure T341_OnAfterDeleteEvent(var Rec: Record "Item Discount Group"; RunTrigger: Boolean)
-    var
-        PurchaseLineDiscount: Record "Purchase Line Discount";  //TODO marked for removal
-    begin
-        PurchaseLineDiscount.SETRANGE(BC6_Type, PurchaseLineDiscount.BC6_Type::"Item Disc. Group");
-        PurchaseLineDiscount.SETRANGE("Item No.", Rec.Code);
-        PurchaseLineDiscount.DELETEALL(true);
-    end;
     //TAB 10866
     [EventSubscriber(ObjectType::Table, Database::"Payment Line", 'OnAfterSetUpNewLine', '', false, false)]
 
@@ -2048,7 +2029,6 @@ then begin
         if Rec.IsTemporary then
             exit;
         Rec.CalcDiscountDirectUnitCost();
-        ;
         Rec.Modify();
     end;
 
@@ -2087,8 +2067,14 @@ then begin
         PurchLine.CalcDiscountDirectUnitCost();
     end;
 
+    [EventSubscriber(ObjectType::Table, Database::"Purchase Line", 'OnAfterValidateEvent', 'No.', false, false)]
+    local procedure T39_OnAfterValidateEvent_PurchLine(var Rec: Record "Purchase Line"; var xRec: Record "Purchase Line"; CurrFieldNo: Integer)
+    begin
+        Rec.CalcDiscountDirectUnitCost();
+    end;
+
     [EventSubscriber(ObjectType::Table, Database::"Purchase Line", 'OnCalcVATAmountLinesOnBeforeVATAmountLineSumLine', '', false, false)]
-    local procedure OnCalcVATAmountLinesOnBeforeVATAmountLineSumLine(PurchaseLine: Record "Purchase Line"; var VATAmountLine: Record "VAT Amount Line"; QtyType: Option General,Invoicing,Shipping; var PurchaseLine2: Record "Purchase Line")
+    local procedure T39_OnCalcVATAmountLinesOnBeforeVATAmountLineSumLine(PurchaseLine: Record "Purchase Line"; var VATAmountLine: Record "VAT Amount Line"; QtyType: Option General,Invoicing,Shipping; var PurchaseLine2: Record "Purchase Line")
     var
         Currency: Record Currency;
     begin
@@ -2178,14 +2164,14 @@ then begin
         Rec.Modify();
     end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Reference Management", 'OnPurchaseReferenceNoLookupOnBeforeValidateDirectUnitCost', '', false, false)]
-    local procedure OnPurchaseReferenceNoLookupOnBeforeValidateDirectUnitCost(var PurchaseLine: Record "Purchase Line"; PurchHeader: Record "Purchase Header")
-    var
-        FctMngt: Codeunit "BC6_Functions Mgt";
-        PurchPriceCalcMgt: Codeunit "Purch. Price Calc. Mgt.";
-    begin
-        FctMngt.FindVeryBestCost(PurchaseLine, PurchHeader);
-    end;
+    // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Reference Management", 'OnPurchaseReferenceNoLookupOnBeforeValidateDirectUnitCost', '', false, false)]
+    // local procedure OnPurchaseReferenceNoLookupOnBeforeValidateDirectUnitCost(var PurchaseLine: Record "Purchase Line"; PurchHeader: Record "Purchase Header")
+    // var
+    //     FctMngt: Codeunit "BC6_Functions Mgt";
+    //     PurchPriceCalcMgt: Codeunit "Purch. Price Calc. Mgt.";
+    // begin
+    //     FctMngt.FindVeryBestCost(PurchaseLine, PurchHeader);
+    // end;
     //COD12
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Gen. Jnl.-Post Line", 'OnBeforeCalcPmtDiscPossible', '', false, false)]
 
@@ -4223,5 +4209,17 @@ then begin
 
         END;
     end;
+    //TAB341
+    [EventSubscriber(ObjectType::Table, Database::"Item Discount Group", 'OnBeforeDeleteEvent', '', false, false)]
+    local procedure OnBeforeOnDelete(var Rec: Record "Item Discount Group")
+    var
+        PriceListLine: Record "Price List Line";
+    begin
+        PriceListLine.SETRANGE("Asset Type", PriceListLine."Asset Type"::"Item Discount Group");
+        PriceListLine.SETRANGE("Asset No.", Rec.Code);
+        PriceListLine.DELETEALL(TRUE);
+    end;
+
+
 
 }

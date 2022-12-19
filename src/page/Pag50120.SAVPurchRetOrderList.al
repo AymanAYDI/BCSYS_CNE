@@ -501,8 +501,10 @@ page 50120 "BC6_SAV Purch. Ret. Order List"
                     ApplicationArea = All;
 
                     trigger OnAction()
+                    var
+                        FunctionsMgt: codeunit "BC6_Functions Mgt";
                     begin
-                        Rec.CreateInvtPutAwayPick;
+                        FunctionsMgt.BC6_CreateInvtPutAwayPick();
                     end;
                 }
                 action("Create &Whse. Shipment")

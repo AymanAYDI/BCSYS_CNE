@@ -256,6 +256,7 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
     begin
         NewShipmentBinCodeEnable := pNewShipmentBinCodeEnable;
     end;
+
     procedure GetNewShipmentBinCodeEnable(): Boolean
     begin
         exit(NewShipmentBinCodeEnable);
@@ -274,12 +275,9 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
         DeleteWhseActivity: Boolean;
         GDecMntTTCDEEE: Decimal;
         GDecMntHTDEEE: Decimal;
-
-
         SGDecMntTTCDEEE: Decimal;
         SGDecMntHTDEEE: Decimal;
         IntLSignFactor: Integer;
-
         _EcoPartnerDEEE: code[20];
         _DEEECategoryCode: code[20];
         SalesReservationFound: Boolean;

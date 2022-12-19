@@ -101,7 +101,7 @@ page 50047 "BC6_Salesperson Role Center"
             {
                 Caption = 'Pro Forma', Comment = 'FRA="Pro Forma"';
                 ApplicationArea = All;
-                //TODO:Report   // RunObject = Report 50090;
+                RunObject = Report "BC6_Facture Proforma CNE";
             }
         }
         area(embedding)
@@ -255,9 +255,8 @@ page 50047 "BC6_Salesperson Role Center"
             {
                 Caption = 'Sales &Quote', Comment = 'FRA="&Devis"';
                 Image = Quote;
-                Promoted = false;
-                //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true' TODO:
-                //PromotedCategory = Process;
+                Promoted = true;
+                PromotedCategory = Process;
                 RunObject = Page "Sales Quote";
                 RunPageMode = Create;
                 ApplicationArea = All;
@@ -266,9 +265,8 @@ page 50047 "BC6_Salesperson Role Center"
             {
                 Caption = 'Sales &Invoice', Comment = 'FRA="Fac&ture vente"';
                 Image = Invoice;
-                Promoted = false;
-                //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true' TODO:
-                //PromotedCategory = Process;
+                Promoted = true;
+                PromotedCategory = Process;
                 RunObject = Page "Sales Invoice";
                 RunPageMode = Create;
                 ApplicationArea = All;
@@ -277,9 +275,8 @@ page 50047 "BC6_Salesperson Role Center"
             {
                 Caption = 'Sales &Order', Comment = 'FRA="&Commande vente"';
                 Image = Document;
-                Promoted = false;
-                //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true' TODO:
-                //PromotedCategory = Process;
+                Promoted = true;
+                PromotedCategory = Process;
                 RunObject = Page "Sales Order";
                 RunPageMode = Create;
                 ApplicationArea = All;
@@ -288,9 +285,8 @@ page 50047 "BC6_Salesperson Role Center"
             {
                 Caption = 'Sales &Return Order', Comment = 'FRA="&Retour vente"';
                 Image = ReturnOrder;
-                Promoted = false;
-                //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true' TODO:
-                //PromotedCategory = Process;
+                Promoted = true;
+                PromotedCategory = Process;
                 RunObject = Page "Sales Return Order";
                 RunPageMode = Create;
                 ApplicationArea = All;
@@ -299,9 +295,8 @@ page 50047 "BC6_Salesperson Role Center"
             {
                 Caption = 'Sales &Credit Memo', Comment = 'FRA="&Avoir vente"';
                 Image = CreditMemo;
-                Promoted = false;
-                //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true' TODO:
-                //PromotedCategory = Process;
+                Promoted = true;
+                PromotedCategory = Process;
                 RunObject = Page "Sales Credit Memo";
                 RunPageMode = Create;
                 ApplicationArea = All;
@@ -360,4 +355,3 @@ page 50047 "BC6_Salesperson Role Center"
         }
     }
 }
-

@@ -101,7 +101,7 @@ page 50079 "Salesperson Role Center SCENEO"
             {
                 Caption = 'Pro Forma', Comment = 'FRA="Pro Forma"';
                 ApplicationArea = All;
-                // RunObject = Report 50090; TODO:
+                RunObject = Report "BC6_Facture Proforma CNE";
             }
         }
         area(embedding)
@@ -255,9 +255,8 @@ page 50079 "Salesperson Role Center SCENEO"
             {
                 Caption = 'Sales &Quote', Comment = 'FRA="&Devis"';
                 Image = Quote;
-                Promoted = false;
-                //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
-                //PromotedCategory = Process;
+                Promoted = true;
+                PromotedCategory = Process;
                 RunObject = Page "Sales Quote";
                 RunPageMode = Create;
                 ApplicationArea = All;
@@ -266,9 +265,8 @@ page 50079 "Salesperson Role Center SCENEO"
             {
                 Caption = 'Sales &Invoice', Comment = 'FRA="Fac&ture vente"';
                 Image = Invoice;
-                Promoted = false;
-                //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
-                //PromotedCategory = Process;
+                Promoted = true;
+                PromotedCategory = Process;
                 RunObject = Page "Sales Invoice";
                 RunPageMode = Create;
                 ApplicationArea = All;
@@ -277,9 +275,8 @@ page 50079 "Salesperson Role Center SCENEO"
             {
                 Caption = 'Sales &Order', Comment = 'FRA="&Commande vente"';
                 Image = Document;
-                Promoted = false;
-                //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
-                //PromotedCategory = Process;
+                Promoted = true;
+                PromotedCategory = Process;
                 RunObject = Page "Sales Order";
                 RunPageMode = Create;
                 ApplicationArea = All;
@@ -288,9 +285,8 @@ page 50079 "Salesperson Role Center SCENEO"
             {
                 Caption = 'Sales &Return Order', Comment = 'FRA="&Retour vente"';
                 Image = ReturnOrder;
-                Promoted = false;
-                //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
-                //PromotedCategory = Process;
+                Promoted = true;
+                PromotedCategory = Process;
                 RunObject = Page "Sales Return Order";
                 RunPageMode = Create;
                 ApplicationArea = All;
@@ -299,9 +295,8 @@ page 50079 "Salesperson Role Center SCENEO"
             {
                 Caption = 'Sales &Credit Memo', Comment = 'FRA="&Avoir vente"';
                 Image = CreditMemo;
-                Promoted = false;
-                //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
-                //PromotedCategory = Process;
+                Promoted = true;
+                PromotedCategory = Process;
                 RunObject = Page "Sales Credit Memo";
                 RunPageMode = Create;
                 ApplicationArea = All;
@@ -372,7 +367,7 @@ page 50079 "Salesperson Role Center SCENEO"
                 Caption = 'Validation Réception IC', Comment = 'FRA="Validation Réception IC"';
                 Image = PostBatch;
                 ApplicationArea = All;
-                // RunObject = Codeunit 50024; TODO: 
+                RunObject = Codeunit "BC6_IC Validation IC Doc lien";
             }
             action(ICOutboxTransac)
             {
@@ -384,4 +379,3 @@ page 50079 "Salesperson Role Center SCENEO"
         }
     }
 }
-

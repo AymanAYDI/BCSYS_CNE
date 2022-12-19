@@ -868,8 +868,7 @@ codeunit 50202 "BC6_Functions Mgt"
             until RecLPurchLine.NEXT() = 0;
     end;
 
-    //TODO : procedure CreateInvtPutAwayPick STD j'ai pas trouver des event pour inserer mon code donc j la dupliquer en+ la fct est utilisée juste dans des pages
-    procedure CreateInvtPutAwayPick();
+    procedure BC6_CreateInvtPutAwayPick();
     var
         PurchHeader: Record "Purchase Header";
         WhseRequest: Record "Warehouse Request";
@@ -940,7 +939,7 @@ codeunit 50202 "BC6_Functions Mgt"
                 PriceCalcMgt.SetUoM(ABS(Quantity), "Qty. per Unit of Measure");
                 PriceCalcMgt.SetLineDisc("Line Discount %", "Allow Line Disc.", "Allow Invoice Disc.");
 
-                //Prix unitaire
+
                 Item.RESET();
                 Item.GET(RecLSalesLine."No.");
                 ItemUnitPrice := Item."Unit Price";
@@ -1762,12 +1761,12 @@ codeunit 50202 "BC6_Functions Mgt"
         ToSalesLine: Record "Sales Line";
         SalesHeader: Record "Sales Header";
         Item: Record Item;
-        RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line"; // TODO: check variable global utilisee dans une event codeunit 50201 BC6_EventsMgt
-        BooGAutoTextSpe: Boolean; // TODO: check variable global pour test utilisee dans une event codeunit 50201 BC6_EventsMgt
+        RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line";
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
         MakeUpdateRequired: Boolean; // TODO: check variable global dans la codeunit 378 "Transfer Extended Text"
         OKA: Boolean;
-        NextLineNo: Integer; // TODO: check variable global dans la codeunit 378 "Transfer Extended Text"
-        LineSpacing: Integer; // TODO: check variable global dans la codeunit 378 "Transfer Extended Text"
+        NextLineNo: Integer;
+        LineSpacing: Integer;
         Text000: label 'There is not enough space to insert extended text lines.', Comment = 'FRA="Il n''y a pas suffisamment de place pour ins‚rer des lignes texte ‚tendu."';
     begin
         OKA := false;
@@ -1778,7 +1777,7 @@ codeunit 50202 "BC6_Functions Mgt"
             exit;
         Item.GET(SalesLine."No.");
         OKA := Item."Automatic Ext. Texts";
-        if BooGAutoTextSpe = true then begin
+        if GlobalFunctionMgt.GetAutoTextSpe() then begin
 
             SalesHeader.GET(SalesLine."Document Type", SalesLine."Document No.");
             RecGTmpExtTexLineSpe.RESET;
@@ -1825,18 +1824,18 @@ codeunit 50202 "BC6_Functions Mgt"
     end;
 
 
-    // function specifique codeunit 378 "Transfer Extended Text"
+    // function specifique codeunit 378 "Transfer Extended Text" 
     procedure InsertPurchExtTextSpe(var PurchLine: Record "Purchase Line");
     var
         ToPurchLine: Record "Purchase Line";
         PurchHeader: Record "Purchase Header";
         Item: Record Item;
-        RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line"; // TODO: check variable global utilisee dans une event codeunit 50201 BC6_EventsMgt
-        BooGAutoTextSpe: Boolean; // TODO: check variable global pour test utilisee dans une event codeunit 50201 BC6_EventsMgt
+        RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line";
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
         MakeUpdateRequired: Boolean; // TODO: check variable global dans la codeunit 378 "Transfer Extended Text"
         OKA: Boolean;
-        NextLineNo: Integer; // TODO: check variable global dans la codeunit 378 "Transfer Extended Text"
-        LineSpacing: Integer; // TODO: check variable global dans la codeunit 378 "Transfer Extended Text"
+        NextLineNo: Integer;
+        LineSpacing: Integer;
     begin
         OKA := false;
         if PurchLine.Type = PurchLine.Type::Item then
@@ -1848,7 +1847,7 @@ codeunit 50202 "BC6_Functions Mgt"
         OKA := Item."Automatic Ext. Texts";
 
 
-        if BooGAutoTextSpe = true then begin
+        if GlobalFunctionMgt.GetAutoTextSpe() then begin
             PurchHeader.GET(PurchLine."Document Type", PurchLine."Document No.");
 
             RecGTmpExtTexLineSpe.RESET;
@@ -2082,6 +2081,14 @@ codeunit 50202 "BC6_Functions Mgt"
         END;
     END;
 
+    procedure IsShipmentBinOverridesDefaultBin(Location: Record Location): Boolean
+    var
+        Bin: Record Bin;
+        ShipmentBinAvailable: Boolean;
+    begin
+        ShipmentBinAvailable := Bin.Get(Location.Code, Location."Shipment Bin Code");
+        exit(Location."Require Shipment" and ShipmentBinAvailable);
+    end;
 
 
     var

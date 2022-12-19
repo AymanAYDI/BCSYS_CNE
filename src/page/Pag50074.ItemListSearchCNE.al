@@ -5,7 +5,7 @@ page 50074 "BC6_Item List Search CNE"
     Editable = true;
     InsertAllowed = false;
     PageType = List;
-    PromotedActionCategories = 'New,Process,Report,Item,History,Special Prices & Discounts,Request Approval,Periodic Activities,Inventory,Attributes';
+    PromotedActionCategories = 'New,Process,Report,Item,History,Special Prices & Discounts,Request Approval,Periodic Activities,Inventory,Attributes', Comment = 'FRA="Nouveau,Traiter,Déclarer,Historique,Prix et remises spéciaux,Demander une approbation,Traitements,Inventaire,Attributs"';
     RefreshOnActivate = true;
     SourceTable = Item;
     SourceTableTemporary = true;
@@ -35,8 +35,8 @@ page 50074 "BC6_Item List Search CNE"
                     begin
                         data := CONVERTSTR(data, ConvertFrom, ConvertTo);
                         SearchField := COPYSTR(data, 1, MAXSTRLEN(SearchField));
-                        // CurrPage.ScanZone.SetText(''); TODO:
-                        // CurrPage.ScanZone.reset(); TODO:
+                        CurrPage.ScanZone.SetText(index, SearchField); //TODO: Check param
+                        CurrPage.ScanZone.reset(index); //TODO: Check param
                         OnAfterValidate;
                         CurrPage.ScanZone.focus();
                     end;
@@ -77,7 +77,7 @@ page 50074 "BC6_Item List Search CNE"
                         END;
                         LastSearchField := SearchField;
                         SearchField := '';
-                        // CurrPage.ScanZone.SetBgColor('red'); TODO:
+                        CurrPage.ScanZone.SetBgColor(1, 'red'); //TODO: Check param
                     end;
                 }
             }
@@ -302,21 +302,6 @@ page 50074 "BC6_Item List Search CNE"
         }
         area(factboxes)
         {
-            // part("Social Listening FactBox"; 875) TODO:
-            // {
-            //     ApplicationArea = All;
-            //     SubPageLink = "Source Type" = CONST(Item),
-            //                   "Source No." = FIELD("No.");
-            //     Visible = SocialListeningVisible;
-            // }
-            // part("Social Listening Setup FactBox"; 876) TODO:
-            // {
-            //     ApplicationArea = All;
-            //     SubPageLink = "Source Type" = CONST(Item),
-            //                   "Source No." = FIELD("No.");
-            //     UpdatePropagation = Both;
-            //     Visible = SocialListeningSetupVisible;
-            // }
             part("Item Invoicing FactBox"; "Item Invoicing FactBox")
             {
                 SubPageLink = "No." = FIELD("No."),
@@ -393,7 +378,6 @@ page 50074 "BC6_Item List Search CNE"
     var
         CRMCouplingManagement: Codeunit "CRM Coupling Management";
     begin
-        SetSocialListeningFactboxVisibility;
 
         CRMIsCoupledToRecord :=
           CRMCouplingManagement.IsRecordCoupledToCRM(RECORDID) AND CRMIntegrationEnabled;
@@ -407,7 +391,6 @@ page 50074 "BC6_Item List Search CNE"
 
     trigger OnAfterGetRecord()
     begin
-        SetSocialListeningFactboxVisibility;
         EnableControls;
         CurrPage.ScanZone.focus();
     end;
@@ -471,12 +454,7 @@ page 50074 "BC6_Item List Search CNE"
         CurrPage.SETSELECTIONFILTER(Item);
     end;
 
-    local procedure SetSocialListeningFactboxVisibility()
-    var
-    // SocialListeningMgt: Codeunit 871; TODO:
-    begin
-        // SocialListeningMgt.GetItemFactboxVisibility(Rec, SocialListeningSetupVisible, SocialListeningVisible); TODO:
-    end;
+
 
     local procedure EnableControls()
     begin
@@ -528,12 +506,12 @@ page 50074 "BC6_Item List Search CNE"
         END;
         LastSearchField := SearchField;
         SearchField := '';
-        // CurrPage.ScanZone.SetText(LastSearchField);  TODO: begin
-        // IF ISEMPTY THEN
-        //     CurrPage.ScanZone.SetBgColor('red')
-        // ELSE
-        //     CurrPage.ScanZone.SetBgColor('green');
-        // CurrPage.ScanZone.focus();  TODO: end
+        CurrPage.ScanZone.SetText(1, LastSearchField);  //TODO: Check param
+        IF ISEMPTY THEN
+            CurrPage.ScanZone.SetBgColor(1, 'red') //TODO: Check param
+        ELSE
+            CurrPage.ScanZone.SetBgColor(1, 'green'); //TODO: Check param
+        CurrPage.ScanZone.focus();
         CurrPage.UPDATE(FALSE);
     end;
 }

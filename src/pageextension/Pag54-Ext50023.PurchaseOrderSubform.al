@@ -124,13 +124,11 @@ pageextension 50023 "BC6_PurchaseOrderSubform" extends "Purchase Order Subform" 
                 var
                     RecLPurchaseHeader: Record "Purchase Header";
                 begin
-                    //>>MIGRATION NAV 2013
                     RecLPurchaseHeader.GET("Document Type", "Document No.");
                     IF NOT RecLPurchaseHeader."BC6_From Sales Module" THEN
                         ChooseSalesLineOrderToAffect()
                     ELSE
                         MESSAGE(CstG001);
-                    //<<MIGRATION NAV 2013
                 end;
             }
         }

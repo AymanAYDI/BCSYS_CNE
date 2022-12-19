@@ -497,7 +497,7 @@ page 50115 "BC6_LOC Sales Ret. Order List"
                         FunctionMgt: Codeunit "BC6_Functions Mgt";
 
                     begin
-                        FunctionMgt.CreateInvtPutAwayPick;
+                        FunctionMgt.BC6_CreateInvtPutAwayPick;
                     end;
                 }
                 action("Create &Whse. Receipt")

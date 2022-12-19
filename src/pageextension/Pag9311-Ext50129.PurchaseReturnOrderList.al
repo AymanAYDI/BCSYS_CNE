@@ -19,5 +19,31 @@ pageextension 50129 "BC6_PurchaseReturnOrderList" extends "Purchase Return Order
             }
         }
     }
+    actions
+    {
+        modify("Create Inventor&y Put-away/Pick")
+        {
+            Visible = false;
+        }
+        addfirst(Warehouse)
+        {
+            action("BC6_Create Inventor&y Put-away/Pick")
+            {
+                AccessByPermission = TableData "Posted Invt. Pick Header" = R;
+                ApplicationArea = Warehouse;
+                Caption = 'Create Inventor&y Put-away/Pick';
+                Ellipsis = true;
+                Image = CreatePutawayPick;
+                trigger OnAction()
+                var
+                    FunctionsMgt: codeunit "BC6_Functions Mgt";
+                begin
+                    FunctionsMgt.BC6_CreateInvtPutAwayPick();
+                end;
+
+            }
+        }
+
+    }
 }
 

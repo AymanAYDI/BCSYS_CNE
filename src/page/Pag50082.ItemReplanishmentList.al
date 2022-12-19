@@ -60,21 +60,6 @@ page 50082 "BC6_Item Replanishment List"
         }
         area(factboxes)
         {
-            // part("Social Listening FactBox"; 875) // TODO: page missing
-            // {
-            //     ApplicationArea = All;
-            //     SubPageLink = "Source Type" = CONST(Item),
-            //                   "Source No." = FIELD("No.");
-            //     Visible = SocialListeningVisible;
-            // }
-            // part("Social Listening Setup FactBox"; 876)
-            // {
-            //     ApplicationArea = All;
-            //     SubPageLink = "Source Type" = CONST(Item),
-            //                   "Source No." = FIELD("No.");
-            //     UpdatePropagation = Both;
-            //     Visible = SocialListeningSetupVisible;
-            // }
             part("Item Invoicing FactBox"; "Item Invoicing FactBox")
             {
                 SubPageLink = "No." = FIELD("No."),
@@ -160,8 +145,8 @@ page 50082 "BC6_Item Replanishment List"
                 {
                     Caption = '&Units of Measure', Comment = 'FRA="&Unités"';
                     Image = UnitOfMeasure;
-                    //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
-                    //PromotedCategory = Category4;
+                    Promoted = true;
+                    PromotedCategory = Category4;
                     RunObject = Page "Item Units of Measure";
                     RunPageLink = "Item No." = FIELD("No.");
                     Scope = Repeater;
@@ -173,8 +158,8 @@ page 50082 "BC6_Item Replanishment List"
                     AccessByPermission = TableData "Item Attribute" = R;
                     Caption = 'Attributes', Comment = 'FRA="Attributs"';
                     Image = Category;
-                    //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
-                    //PromotedCategory = Category4;
+                    Promoted = true;
+                    PromotedCategory = Category4;
                     Scope = Repeater;
                     ToolTip = 'View or edit the item''s attributes, such as color, size, or other characteristics that help to describe the item.', Comment = 'FRA="Affichez ou modifiez les attributs de l''article, tels que la couleur, la taille ou d''autres caractéristiques permettant de le décrire."';
                     ApplicationArea = All;
@@ -286,7 +271,7 @@ page 50082 "BC6_Item Replanishment List"
                     Promoted = true;
                     PromotedCategory = Category4;
                     PromotedOnly = true;
-                    RunObject = Page "Item References"; //TODO: check
+                    RunObject = Page "Item References"; //TODO: replace "Cross-Item References" with "Item References"
                     RunPageLink = "Item No." = FIELD("No.");
                     Scope = Repeater;
                     ToolTip = 'Set up a customer''s or vendor''s own identification of the selected item. Cross-references to the customer''s item number means that the item number is automatically shown on sales documents instead of the number that you use.', Comment = 'FRA="Configurez la manière dont un client ou un fournisseur identifie l''article sélectionné. Les références externes au numéro d''article du client impliquent que le numéro d''article est automatiquement affiché sur les documents vente au lieu du numéro que vous utilisez."';
@@ -307,8 +292,8 @@ page 50082 "BC6_Item Replanishment List"
                 {
                     Caption = 'Translations', Comment = 'FRA="Traductions"';
                     Image = Translations;
-                    //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
-                    //PromotedCategory = Category4;
+                    Promoted = true;
+                    PromotedCategory = Category4;
                     RunObject = Page "Item Translations";
                     RunPageLink = "Item No." = FIELD("No."),
                                   "Variant Code" = CONST();
@@ -367,7 +352,7 @@ page 50082 "BC6_Item Replanishment List"
                             DefaultDimMultiple: Page "Default Dimensions-Multiple";
                         begin
                             CurrPage.SETSELECTIONFILTER(Item);
-                            // DefaultDimMultiple.SetMultiItem(Item); TODO:
+                            DefaultDimMultiple.SetMultiRecord(Item, Rec.FieldNo("No."));
                             DefaultDimMultiple.RUNMODAL;
                         end;
                     }
@@ -385,7 +370,7 @@ page 50082 "BC6_Item Replanishment List"
                     {
                         Caption = 'Ledger E&ntries', Comment = 'FRA="É&critures comptables"';
                         Image = ItemLedger;
-                        //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
+                        Promoted = true;
                         //PromotedCategory = Category5;
                         RunObject = Page "Item Ledger Entries";
                         RunPageLink = "Item No." = FIELD("No.");
@@ -400,7 +385,7 @@ page 50082 "BC6_Item Replanishment List"
                     {
                         Caption = '&Phys. Inventory Ledger Entries', Comment = 'FRA="Écritures comptables &inventaire"';
                         Image = PhysicalInventoryLedger;
-                        //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
+                        Promoted = true;
                         //PromotedCategory = Category5;
                         RunObject = Page "Phys. Inventory Ledger Entries";
                         RunPageLink = "Item No." = FIELD("No.");
@@ -417,7 +402,7 @@ page 50082 "BC6_Item Replanishment List"
                 {
                     Caption = 'Special Prices', Comment = 'FRA="Prix spéciaux"';
                     Image = Price;
-                    //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
+                    Promoted = true;
                     //PromotedCategory = Category6;
                     RunObject = Page "Sales Prices";
                     RunPageLink = "Item No." = FIELD("No.");
@@ -430,7 +415,7 @@ page 50082 "BC6_Item Replanishment List"
                 {
                     Caption = 'Special Discounts', Comment = 'FRA="Remises spéciales"';
                     Image = LineDiscount;
-                    //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
+                    Promoted = true;
                     //PromotedCategory = Category6;
                     RunObject = Page "Sales Line Discounts";
                     RunPageLink = Type = CONST(Item),
@@ -445,7 +430,7 @@ page 50082 "BC6_Item Replanishment List"
                     Caption = 'Special Prices & Discounts Overview', Comment = 'FRA="Aperçu des prix et remises spéciaux"';
                     Image = PriceWorksheet;
                     ApplicationArea = All;
-                    //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
+                    Promoted = true;
                     //PromotedCategory = Category6;
 
                     trigger OnAction()
@@ -461,7 +446,7 @@ page 50082 "BC6_Item Replanishment List"
                 {
                     Caption = 'Sales Price Worksheet', Comment = 'FRA="Feuille prix vente"';
                     Image = PriceWorksheet;
-                    //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
+                    Promoted = true;
                     //PromotedCategory = Category6;
                     RunObject = Page "Sales Price Worksheet";
                     ApplicationArea = All;
@@ -475,7 +460,7 @@ page 50082 "BC6_Item Replanishment List"
                     ApplicationArea = Basic, Suite;
                     Caption = 'Adjust Cost - Item Entries', Comment = 'FRA="Ajuster coûts : Écr. article"';
                     Image = AdjustEntries;
-                    //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
+                    Promoted = true;
                     //PromotedCategory = Category8;
                     RunObject = Report "Adjust Cost - Item Entries";
                     ToolTip = 'Adjust inventory values in value entries so that you use the correct adjusted cost for updating the general ledger and so that sales and profit statistics are up to date.', Comment = 'FRA="Ajustez les valeurs de stocks des écritures valeur afin que vous utilisiez le coût ajusté correct pour la mise à jour de la comptabilité et que les statistiques vente et profit soient à jour."';
@@ -485,7 +470,7 @@ page 50082 "BC6_Item Replanishment List"
                     ApplicationArea = Basic, Suite;
                     Caption = 'Post Inventory Cost to G/L', Comment = 'FRA="Valider coûts ajustés"';
                     Image = PostInventoryToGL;
-                    //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
+                    Promoted = true;
                     //PromotedCategory = Category8;
                     RunObject = Report "Post Inventory Cost to G/L";
                     ToolTip = 'Post the quantity and value changes to the inventory in the item ledger entries and the value entries when you post inventory transactions, such as sales shipments or purchase receipts.', Comment = 'FRA="Validez les changements de quantité et de valeur en stock dans les écritures comptables article et les écritures valeur lorsque vous validez des mouvements de stocks, tels que des expéditions vente ou des réceptions achat."';
@@ -495,7 +480,7 @@ page 50082 "BC6_Item Replanishment List"
                     ApplicationArea = Basic, Suite;
                     Caption = 'Physical Inventory Journal', Comment = 'FRA="Feuille inventaire phys."';
                     Image = PhysicalInventory;
-                    //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
+                    Promoted = true;
                     //PromotedCategory = Category8;
                     RunObject = Page "Phys. Inventory Journal";
                     ToolTip = 'Select how you want to maintain an up-to-date record of your inventory at different locations.', Comment = 'FRA="Sélectionnez comment vous souhaitez conserver un enregistrement mis à jour du stock dans différents magasins."';
@@ -505,7 +490,7 @@ page 50082 "BC6_Item Replanishment List"
                     ApplicationArea = Basic, Suite;
                     Caption = 'Revaluation Journal', Comment = 'FRA="Feuille réévaluation"';
                     Image = Journal;
-                    //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
+                    Promoted = true;
                     //PromotedCategory = Category8;
                     RunObject = Page "Revaluation Journal";
                     ToolTip = 'View or edit the inventory value of items, which you can change, such as after doing a physical inventory.', Comment = 'FRA="Affichez ou modifiez la valeur stock des articles, que vous pouvez modifier, par exemple, après avoir effectué un inventaire."';
@@ -622,7 +607,7 @@ page 50082 "BC6_Item Replanishment List"
                 {
                     Caption = 'Update Cost Incr. Coeff.', Comment = 'FRA="Modifier coeff majoration du coût"';
                     Image = CalculateCost;
-                    // RunObject = Report 50099; TODO:
+                    RunObject = Report "Update Item Cost Incr. Coeff.";
                     ApplicationArea = All;
                 }
             }
@@ -1332,7 +1317,7 @@ page 50082 "BC6_Item Replanishment List"
                         var
                             ItemTrackingDocMgt: Codeunit "Item Tracking Doc. Management";
                         begin
-                            // ItemTrackingDocMgt.ShowItemTrackingForMasterData(3, '', "No.", '', '', '', ''); TODO:
+                            ItemTrackingDocMgt.ShowItemTrackingForEntity(3, '', "No.", '', '');
                         end;
                     }
                     action("&Warehouse Entries")
@@ -1631,7 +1616,7 @@ page 50082 "BC6_Item Replanishment List"
                     Caption = 'Update IC Partner Items', Comment = 'FRA="Màj articles partenaires"';
                     Enabled = UpdateICPartnerItemsEnabled;
                     Image = UpdateDescription;
-                    // RunObject = Codeunit "BC6_Update IC Partner Items"; TODO:
+                    RunObject = Codeunit "BC6_Update IC Partner Items";
                     ApplicationArea = All;
                 }
             }
@@ -1644,7 +1629,7 @@ page 50082 "BC6_Item Replanishment List"
                 trigger OnAction()
                 begin
                     CLEAR(DistInt);
-                    // DistInt.CreateItemEAN13Code("No.", TRUE); TODO:
+                    FunctionMgt.CreateItemEAN13Code("No.", TRUE);
                 end;
             }
             action(PrintLabel)
@@ -1657,13 +1642,13 @@ page 50082 "BC6_Item Replanishment List"
                 trigger OnAction()
                 var
                     FromItem: Record Item;
-                // PrintLabel: Report 50049; TODO:
+                    PrintLabel: Report "BC6_Item Label v2";
                 begin
-                    // CLEAR(PrintLabel); TODO:
-                    // CLEAR(FromItem);
-                    // CurrPage.SETSELECTIONFILTER(FromItem);
-                    // PrintLabel.SETTABLEVIEW(FromItem);
-                    // PrintLabel.RUN;
+                    CLEAR(PrintLabel);
+                    CLEAR(FromItem);
+                    CurrPage.SETSELECTIONFILTER(FromItem);
+                    PrintLabel.SETTABLEVIEW(FromItem);
+                    PrintLabel.RUN;
                 end;
             }
             action(UpdateUnitPriceIncVAT)
@@ -1676,13 +1661,13 @@ page 50082 "BC6_Item Replanishment List"
                 trigger OnAction()
                 var
                     ItemToUpdate: Record Item;
-                // UpdateUnitPriceIncVAT: Report 50053; TODO:
+                    UpdateUnitPriceIncVAT: Report "BC6_Update Items Prices";
                 begin
-                    // CLEAR(ItemToUpdate); TODO:
-                    // CLEAR(UpdateUnitPriceIncVAT);
-                    // CurrPage.SETSELECTIONFILTER(ItemToUpdate);
-                    // UpdateUnitPriceIncVAT.SETTABLEVIEW(ItemToUpdate);
-                    // UpdateUnitPriceIncVAT.RUN;
+                    CLEAR(ItemToUpdate);
+                    CLEAR(UpdateUnitPriceIncVAT);
+                    CurrPage.SETSELECTIONFILTER(ItemToUpdate);
+                    UpdateUnitPriceIncVAT.SETTABLEVIEW(ItemToUpdate);
+                    UpdateUnitPriceIncVAT.RUN;
                 end;
             }
             group("&Bin Contents_group")
@@ -1705,7 +1690,6 @@ page 50082 "BC6_Item Replanishment List"
     var
         CRMCouplingManagement: Codeunit "CRM Coupling Management";
     begin
-        SetSocialListeningFactboxVisibility;
 
         CRMIsCoupledToRecord :=
           CRMCouplingManagement.IsRecordCoupledToCRM(RECORDID) AND CRMIntegrationEnabled;
@@ -1721,11 +1705,10 @@ page 50082 "BC6_Item Replanishment List"
     trigger OnAfterGetRecord()
     var
         "-MIGNAV2013-": Integer;
-        DistInt: Codeunit "Dist. Integration";
+        FunctionsMgt: Codeunit "BC6_Functions Mgt";
     begin
-        SetSocialListeningFactboxVisibility;
         EnableControls;
-        // EAN13Code := DistInt.GetItemEAN13Code("No."); TODO:
+        EAN13Code := FunctionsMgt.GetItemEAN13Code("No.");
     end;
 
     trigger OnFindRecord(Which: Text): Boolean
@@ -1744,12 +1727,10 @@ page 50082 "BC6_Item Replanishment List"
 
     trigger OnInit()
     begin
-        //>>CR_NouvSte_CNE_20150605: TO 01/07/2015:
         IF STRPOS(COMPANYNAME, 'CNE') = 0 THEN
             UpdateICPartnerItemsEnabled := FALSE
         ELSE
             UpdateICPartnerItemsEnabled := TRUE;
-        //<<CR_NouvSte_CNE_20150605: TO 01/07/2015:
     end;
 
     trigger OnNextRecord(Steps: Integer): Integer
@@ -1771,52 +1752,15 @@ page 50082 "BC6_Item Replanishment List"
         CRMIntegrationManagement: Codeunit "CRM Integration Management";
     begin
         CRMIntegrationEnabled := CRMIntegrationManagement.IsCRMIntegrationEnabled;
-        IsFoundationEnabled := ApplicationAreaSetup.IsFoundationEnabled;
+        IsFoundationEnabled := ApplicationAreaMgmtFacade.IsFoundationEnabled();
         SetWorkflowManagementEnabledState;
-        /*
-        //>MIGRATION NAV 2013
-        //OLD
-        {
-        //FILTRE_ARTICLE_NONBLOQUE FG 05/12/2006 NSC1.01
-        MemberOf.RESET;
-        MemberOf.SETRANGE("User ID",USERID);
-        MemberOf.SETRANGE("Role ID",'SUPER');
-        IF MemberOf.FIND('-') THEN BEGIN
-          SETRANGE(Blocked,FALSE);
-        END ELSE BEGIN
-          FILTERGROUP(2);
-          SETRANGE(Blocked,FALSE);
-          FILTERGROUP(0);
-        END ;
-        //FILTRE_ARTICLE_NONBLOQUE FG 05/12/2006 NSC1.01
-        }
-        //OLD
-        //NEW
-        RecGAccessControl.RESET ;
-        RecGAccessControl.SETRANGE("User Security ID",USERSECURITYID) ;
-        //RecGAccessControl.SETRANGE("Role ID",'SUPER') ;
-        RecGAccessControl.SETRANGE("Role ID",'MODIFART') ;
-        IF RecGAccessControl.FINDFIRST THEN BEGIN
-          SETRANGE(Blocked,FALSE);
-        END ELSE BEGIN
-          FILTERGROUP(2);
-          SETRANGE(Blocked,FALSE);
-          FILTERGROUP(0);
-        END
-        //NEW
-        //<<MIGRATION NAV 2013
-         */
-
-        //BC6 - MM 080119
         SETRANGE("Reordering Policy", "Reordering Policy"::"Fixed Reorder Qty.");
-        //BC6 - MM 080119
-
     end;
 
     var
         TempFilterItemAttributesBuffer: Record "Filter Item Attributes Buffer" temporary;
         TempFilteredItem: Record Item temporary;
-        ApplicationAreaSetup: Record "Application Area Setup";
+        ApplicationAreaMgmtFacade: Codeunit "Application Area Mgmt. Facade";
         CalculateStdCost: Codeunit "Calculate Standard Cost";
         ItemAvailFormsMgt: Codeunit "Item Availability Forms Mgt";
         ApprovalsMgmt: Codeunit "Approvals Mgmt.";
@@ -1843,6 +1787,7 @@ page 50082 "BC6_Item Replanishment List"
         MemberOf: Record "Access Control";
         EAN13Code: Code[20];
         DistInt: Codeunit "Dist. Integration";
+        FunctionMgt: Codeunit "BC6_Functions Mgt";
         FormItemCrossRef: Page "Item References";
         ItemCrossRef: Record "Item Reference";
         RecGAccessControl: Record "Access Control";
@@ -1861,13 +1806,6 @@ page 50082 "BC6_Item Replanishment List"
     procedure SetSelection(var Item: Record Item)
     begin
         CurrPage.SETSELECTIONFILTER(Item);
-    end;
-
-    local procedure SetSocialListeningFactboxVisibility()
-    var
-    // SocialListeningMgt: Codeunit 871; TODO:
-    begin
-        // SocialListeningMgt.GetItemFactboxVisibility(Rec, SocialListeningSetupVisible, SocialListeningVisible); TODO:
     end;
 
     local procedure EnableControls()

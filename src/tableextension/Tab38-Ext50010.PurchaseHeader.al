@@ -205,8 +205,11 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
 
         PurchPost.GetPurchLines(Rec, TempPurchLine, 0);
         CLEAR(PurchPost);
-        PurchPost.SumPurchLinesTemp(
-          Rec, TempPurchLine, 0, TotalPurchLine, TotalPurchLineLCY, VATAmount, VATAmountText);
+        //TODO
+        // PurchPost.SumPurchLinesTemp(
+        // Rec, TempPurchLine, 0, TotalPurchLine, TotalPurchLineLCY, VATAmount, VATAmountText,
+        // TotalPurchLine."BC6_DEEE HT Amount", TotalPurchLine."BC6_DEEE VAT Amount", TotalPurchLine."BC6_DEEE TTC Amount",
+        // TotalPurchLine."BC6_DEEE HT Amount (LCY)");
 
         if "Prices Including VAT" then begin
             TotalAmount2 := TotalPurchLine.Amount;

@@ -104,6 +104,37 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
     }
     actions
     {
+        modify("Create Inventor&y Put-away/Pick")
+        {
+            Visible = false;
+
+        }
+        addfirst(Action3)
+        {
+            action("BC6_Create Inventor&y Put-away/Pick2")
+            {
+                AccessByPermission = TableData "Posted Invt. Pick Header" = R;
+                ApplicationArea = Warehouse;
+                Caption = 'Create Inventor&y Put-away/Pick', Comment = 'FRA="Créer prélèv./rangement stoc&k"';
+                Ellipsis = true;
+                Image = CreateInventoryPickup;
+                Promoted = true;
+                PromotedCategory = Process;
+                ToolTip = 'Create an inventory put-away or inventory pick to handle items on the document according to a basic warehouse configuration that does not require warehouse receipt or shipment documents.';
+
+                trigger OnAction()
+                var
+                    FunctionMgt: Codeunit "BC6_Functions Mgt";
+
+                begin
+                    FunctionMgt.CreateInvtPutAwayPick();
+
+                    if not Find('=><') then
+                        Init();
+                end;
+            }
+        }
+
         addfirst(processing)
         {
             action("BC6_Create Inventory Put-away")

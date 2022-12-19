@@ -7,14 +7,14 @@ pageextension 50108 "BC6_Account. Manag. RoleCenter" extends "Accounting Manager
         {
             action("BC6_Statement avec traite")
             {
-                //TODO : reports  // RunObject = Report 50038;
+                RunObject = Report "BC6_Statement avec traite";
                 Image = Report;
                 Caption = 'Statement avec traite';
                 ApplicationArea = All;
             }
             action("BC6_Statement sans traite")
             {
-                //TODO : reports //  RunObject = Report 50039;
+                RunObject = Report "BC6_Statement sans traite";
                 Visible = FALSE;
                 Image = Report;
                 Caption = 'Statement sans traite';
@@ -22,7 +22,7 @@ pageextension 50108 "BC6_Account. Manag. RoleCenter" extends "Accounting Manager
             }
             action("BC6_Statement sans traite V2")
             {
-                //TODO : reports  // RunObject = Report 50042;
+                RunObject = Report "BC6_Statement sans traite V2";
                 Image = Report;
                 Caption = 'Statement sans traite V2';
                 ApplicationArea = All;

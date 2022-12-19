@@ -1,92 +1,65 @@
 pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts" //7014
 {
-
+    DataCaptionExpression = NewGetCaption;
     //Unsupported feature: Property Insertion (SaveValues) on ""Purchase Line Discounts"(Page 7014)". TODO:
 
     layout
     {
+
         modify(ItemNoFilterCtrl)
         {
-
-            //Unsupported feature: Property Modification (Name) on "ItemNoFilterCtrl(Control 32)". TODO:
-
-            Caption = 'Code Filter';
-
-            //Unsupported feature: Property Modification (SourceExpr) on "ItemNoFilterCtrl(Control 32)". TODO:
-
-            Enabled = BooGCodeFilterCtrl;
-
-            trigger OnBeforeValidate()
-            begin
-                BooGCodeFilterCtrl := TRUE;
-
-                IF ItemTypeFilter <> ItemTypeFilter::None THEN
-                    SETRANGE(BC6_Type, ItemTypeFilter.AsInteger())
-                ELSE
-                    SETRANGE(BC6_Type);
-
-                IF (ItemTypeFilter = ItemTypeFilter::None) OR (ItemTypeFilter = ItemTypeFilter::"All Items") THEN BEGIN
-                    BooGCodeFilterCtrl := FALSE;
-                    CodeFilter := '';
-                END;
-
-                IF CodeFilter <> '' THEN
-                    SETFILTER("Item No.", CodeFilter)
-                ELSE
-                    SETRANGE("Item No.");
-            end;
-
-            trigger OnLookup(var Text: Text): Boolean
-            var
-                ItemList: Page "Item List";
-                "- MIGNAV2013 -": Integer;
-                ItemDiscGrList: Page "Item Disc. Groups";
-                VendorList: Page "Vendor List";
-            begin
-                CASE BC6_Type OF
-                    BC6_Type::Item:
-                        begin
-                            ItemList.LookupMode := true;
-                            if ItemList.RunModal = ACTION::LookupOK then
-                                Text := ItemList.GetSelectionFilter
-                            else
-                                exit(false);
-                            EXIT(FALSE);
-                        END;
-                    BC6_Type::"Item Disc. Group":
-                        BEGIN
-                            ItemDiscGrList.LOOKUPMODE := TRUE;
-                            IF ItemDiscGrList.RUNMODAL = ACTION::LookupOK THEN
-                                Text := ItemDiscGrList.GetSelectionFilter
-                            ELSE
-                                EXIT(FALSE);
-                        END;
-                END;
-
-                exit(true);
-            end;
+            Visible = false;
         }
+        addafter(ItemNoFilterCtrl)
+        {
+            field(BC6_CodeFilterCtrl; CodeFilter)
+            {
+                Caption = 'Code Filter', Comment = 'FRA="Filtre code"';
+                Enabled = BooGCodeFilterCtrl;
+
+                trigger OnValidate()
+                begin
+                    CurrPage.SaveRecord();
+                    NewSetRecFilters();
+                end;
+
+                trigger OnLookup(var Text: Text): Boolean
+                var
+                    ItemList: Page "Item List";
+                    ItemDiscGrList: Page "Item Disc. Groups";
+                    VendorList: Page "Vendor List";
+                begin
+                    CASE BC6_Type OF
+                        BC6_Type::Item:
+                            begin
+                                ItemList.LookupMode := true;
+                                if ItemList.RunModal() = ACTION::LookupOK then
+                                    Text := ItemList.GetSelectionFilter()
+                                else
+                                    exit(false);
+                                EXIT(FALSE);
+                            END;
+                        BC6_Type::"Item Disc. Group":
+                            BEGIN
+                                ItemDiscGrList.LOOKUPMODE := TRUE;
+                                IF ItemDiscGrList.RUNMODAL() = ACTION::LookupOK THEN
+                                    Text := ItemDiscGrList.GetSelectionFilter()
+                                ELSE
+                                    EXIT(FALSE);
+                            END;
+                    END;
+
+                    exit(true);
+                end;
+            }
+        }
+
 
         modify(VendNoFilterCtrl)
         {
             trigger OnBeforeValidate()
             begin
-                BooGCodeFilterCtrl := TRUE;
-
-                IF ItemTypeFilter <> ItemTypeFilter::None THEN
-                    SETRANGE(BC6_Type, ItemTypeFilter.AsInteger())
-                ELSE
-                    SETRANGE(BC6_Type);
-
-                IF (ItemTypeFilter = ItemTypeFilter::None) OR (ItemTypeFilter = ItemTypeFilter::"All Items") THEN BEGIN
-                    BooGCodeFilterCtrl := FALSE;
-                    CodeFilter := '';
-                END;
-
-                IF CodeFilter <> '' THEN
-                    SETFILTER("Item No.", CodeFilter)
-                ELSE
-                    SETRANGE("Item No.");
+                NewSetRecFilters();
             end;
         }
 
@@ -94,22 +67,7 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
         {
             trigger OnBeforeValidate()
             begin
-                BooGCodeFilterCtrl := TRUE;
-
-                IF ItemTypeFilter <> ItemTypeFilter::None THEN
-                    SETRANGE(BC6_Type, ItemTypeFilter.AsInteger())
-                ELSE
-                    SETRANGE(BC6_Type);
-
-                IF (ItemTypeFilter = ItemTypeFilter::None) OR (ItemTypeFilter = ItemTypeFilter::"All Items") THEN BEGIN
-                    BooGCodeFilterCtrl := FALSE;
-                    CodeFilter := '';
-                END;
-
-                IF CodeFilter <> '' THEN
-                    SETFILTER("Item No.", CodeFilter)
-                ELSE
-                    SETRANGE("Item No.");
+                NewSetRecFilters();
             end;
         }
 
@@ -136,11 +94,8 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
     }
 
     var
-        "- MIGNAV2013 -": Integer;
         ItemDiscGrList: Page "Item Disc. Groups";
         VendorList: Page "Vendor List";
-
-    var
         "-NSC1.01-": Integer;
         ItemTypeFilter: Enum "BC6_Item Type Filter";
         CodeFilter: Text[250];
@@ -158,7 +113,7 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
     trigger OnOpenPage()
     begin
         GetRecFilters();
-        SetRecFilters();
+        NewSetRecFilters();
     end;
 
     procedure GetRecFilters() //TODO: Check
@@ -174,7 +129,78 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
     begin
         CurrPage.SAVERECORD();
         CodeFilter := '';
-        SetRecFilters();
+        NewSetRecFilters();
+    end;
+
+    local procedure NewSetRecFilters()
+    begin
+        BooGCodeFilterCtrl := TRUE;
+
+        IF ItemTypeFilter <> ItemTypeFilter::None THEN
+            SetRange(BC6_Type, ItemTypeFilter.AsInteger())
+        ELSE
+            SetRange(BC6_Type);
+
+        IF (ItemTypeFilter = ItemTypeFilter::None) OR (ItemTypeFilter = ItemTypeFilter::"All Items") THEN BEGIN
+            BooGCodeFilterCtrl := FALSE;
+            CodeFilter := '';
+        END;
+
+        IF CodeFilter <> '' THEN
+            SetFilter("Item No.", CodeFilter)
+        ELSE
+            SetRange("Item No.");
+
+        if VendNoFilter <> '' then
+            SetFilter("Vendor No.", VendNoFilter)
+        else
+            SetRange("Vendor No.");
+
+        if StartingDateFilter <> '' then
+            SetFilter("Starting Date", StartingDateFilter)
+        else
+            SetRange("Starting Date");
+
+        CurrPage.Update(false);
+    end;
+
+    local procedure NewGetCaption(): Text[250]
+    var
+        Vendor: Record Vendor;
+        ObjTransl: Record "Object Translation";
+        SourceTableName: Text[250];
+        Description: Text[250];
+    begin
+        GetRecFilters();
+
+        if ItemNoFilter <> '' then
+            SourceTableName := ObjTransl.TranslateObject(ObjTransl."Object Type"::Table, DATABASE::Item)
+        else
+            SourceTableName := '';
+
+        SourceTableName := '';
+        CASE ItemTypeFilter OF
+            ItemTypeFilter::Item:
+                BEGIN
+                    SourceTableName := ObjTransl.TranslateObject(ObjTransl."Object Type"::Table, 27);
+                    Item."No." := CodeFilter;
+                END;
+            ItemTypeFilter::"Item Discount Group":
+                BEGIN
+                    SourceTableName := ObjTransl.TranslateObject(ObjTransl."Object Type"::Table, 341);
+                    ItemDiscGr.Code := CodeFilter;
+                END;
+        END;
+
+        if VendNoFilter = '' then
+            Description := ''
+        else begin
+            Vendor.SetFilter("No.", VendNoFilter);
+            if Vendor.FindFirst() then
+                Description := Vendor.Name;
+        end;
+
+
     end;
 }
 

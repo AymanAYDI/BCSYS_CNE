@@ -2,7 +2,7 @@ codeunit 50201 "BC6_Events Mgt"
 {
     //TAB111
     [EventSubscriber(ObjectType::Table, Database::"Sales Shipment Line", 'OnBeforeInsertInvLineFromShptLineBeforeInsertTextLine', '', false, false)]
-    procedure T111_OnBeforeInsertInvLineFromShptLineBeforeInsertTextLine_SalesShipmentLine(var SalesShptLine: Record "Sales Shipment Line"; var SalesLine: Record "Sales Line"; var NextLineNo: Integer; var Handled: Boolean; TempSalesLine: Record "Sales Line" temporary; SalesInvHeader: Record "Sales Header")
+    local procedure T111_OnBeforeInsertInvLineFromShptLineBeforeInsertTextLine_SalesShipmentLine(var SalesShptLine: Record "Sales Shipment Line"; var SalesLine: Record "Sales Line"; var NextLineNo: Integer; var Handled: Boolean; TempSalesLine: Record "Sales Line" temporary; SalesInvHeader: Record "Sales Header")
     var
         RecLSalesShipmentHeader: Record "Sales Shipment Header";
         CstG1000000000: label '%1 of %2 - %3', Comment = 'FRA="%1 du %2 - %3"';
@@ -30,7 +30,6 @@ codeunit 50201 "BC6_Events Mgt"
                                      RecLSalesShipmentHeader."Your Reference"), 1, 100);
         SalesLine.Insert();
         NextLineNo := NextLineNo + 10000;
-
         Handled := true;
     end;
 
@@ -303,13 +302,13 @@ codeunit 50201 "BC6_Events Mgt"
     var
         Cust: Record Customer;
     begin
-        Cust.Get();
+        Cust.Get(Cust."No.");
         SalesHeader."BC6_Salesperson Filter" := Cust."BC6_Salesperson Filter";
         SalesHeader."BC6_Cust. Sales Profit Group" := Cust."BC6_Custom. Sales Profit Group";
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterValidateEvent', 'Bill-to Name', false, false)]
-    procedure T36_OnAfterValidateEvent_BillToName(var Rec: Record "Sales Header"; var xRec: Record "Sales Header"; CurrFieldNo: Integer)
+    Local procedure T36_OnAfterValidateEvent_BillToName(var Rec: Record "Sales Header"; var xRec: Record "Sales Header"; CurrFieldNo: Integer)
     var
         Customer: Record Customer;
     begin
@@ -319,7 +318,7 @@ codeunit 50201 "BC6_Events Mgt"
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterValidateEvent', 'Your Reference', false, false)]
-    procedure T36_OnAfterValidateEvent_YourRef(var Rec: Record "Sales Header"; var xRec: Record "Sales Header"; CurrFieldNo: Integer)
+    Local procedure T36_OnAfterValidateEvent_YourRef(var Rec: Record "Sales Header"; var xRec: Record "Sales Header"; CurrFieldNo: Integer)
     var
         UpdateSalesShipment: Codeunit BC6_UpdateSalesShipment;
     begin
@@ -633,7 +632,7 @@ codeunit 50201 "BC6_Events Mgt"
         end else
             SalesHeader."BC6_Bin Code" := '';
     end;
-    // COD
+    // COD1330
     [EventSubscriber(ObjectType::Codeunit, codeunit::"Instruction Mgt.", 'OnBeforeIsUnpostedEnabledForRecord', '', false, false)]
     procedure OnBeforeIsUnpostedEnabledForRecord(RecVariant: Variant; var Enabled: Boolean; var IsHandled: Boolean)
     begin
@@ -673,7 +672,6 @@ codeunit 50201 "BC6_Events Mgt"
         FrmGLignesCommentaires: Page "Comment Sheet";
     //TODO:To check
     begin
-
         if CurrFieldNo <> 0 then
             if RecGParamNavi.FIND() then begin
                 if RecGParamNavi."Used Post-it" <> '' then begin
@@ -921,23 +919,20 @@ codeunit 50201 "BC6_Events Mgt"
     end;
 
     //COD841
-    [EventSubscriber(ObjectType::Codeunit, codeunit::"Cash Flow Management", 'OnBeforeGetTaxAmountFromSalesOrder', '', false, false)]
-
-    procedure COD841_OnBeforeGetTaxAmountFromSalesOrder(SalesHeader: Record "Sales Header"; var VATAmount: Decimal; var IsHandled: Boolean)
-    var
-        fctMgt: Codeunit "BC6_Functions Mgt";
-    begin
-        IsHandled := true;
-        fctMgt.GetTaxAmountFromSalesOrder_CNE(SalesHeader);
-    end;
-
     [EventSubscriber(ObjectType::Codeunit, codeunit::"Cash Flow Management", 'OnBeforeGetTaxAmountFromPurchaseOrder', '', false, false)]
-
     procedure COD841_OnBeforeGetTaxAmountFromPurchaseOrder(PurchaseHeader: Record "Purchase Header"; var VATAmount: Decimal; var IsHandled: Boolean)
     var
         fctMgt: Codeunit "BC6_Functions Mgt";
     begin
         IsHandled := true;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, codeunit::"Cash Flow Management", 'OnBeforeGetTaxAmountFromSalesOrder', '', false, false)]
+
+    procedure COD841_OnBeforeGetTaxAmountFromSalesOrder(SalesHeader: Record "Sales Header"; var VATAmount: Decimal; var IsHandled: Boolean)
+    begin
+        IsHandled := true;
+        //   exit(-1 * VATAmount);
     end;
 
     //COD1302
@@ -951,13 +946,12 @@ codeunit 50201 "BC6_Events Mgt"
     [EventSubscriber(ObjectType::Codeunit, codeunit::"Instruction Mgt.", 'OnAfterIsEnabled', '', false, false)]
     procedure COD1330_OnAfterIsEnabled(InstructionType: Code[50]; var Result: Boolean)
     var
-        fctMgt: Codeunit "BC6_Functions Mgt";
+        FunctionMgt: Codeunit "BC6_Functions Mgt";
     begin
-        if InstructionType = fctMgt.ShowPostedConfirmationMessageCode() then
+        if InstructionType = FunctionMgt.ShowPostedConfirmationMessageCode() then
             Result := false;
     end;
     //COD5063
-
     [EventSubscriber(ObjectType::Codeunit, codeunit::ArchiveManagement, 'OnAfterStoreSalesDocument', '', false, false)]
 
     procedure COD5063_OnAfterStoreSalesDocument(var SalesHeader: Record "Sales Header"; var SalesHeaderArchive: Record "Sales Header Archive")
@@ -971,33 +965,27 @@ codeunit 50201 "BC6_Events Mgt"
     begin
         SalesHeader."BC6_Prod. Version No." := SalesHeaderArchive."Version No.";
     end;
-
-
     //COD5776
     [EventSubscriber(ObjectType::Codeunit, codeunit::"Warehouse Document-Print", 'OnBeforePrintInvtPickHeader', '', false, false)]
-
     procedure COD5776_OnBeforePrintInvtPickHeader(var WarehouseActivityHeader: Record "Warehouse Activity Header"; var IsHandled: Boolean; var HideDialog: Boolean)
     var
-    //TODO:report   //  WhsePick : Report 50047;
+        WhsePick: Report "BC6_Invt. Pick";
     begin
         IsHandled := true;
         WarehouseActivityHeader.SETRANGE("No.", WarehouseActivityHeader."No.");
-        //TODO:report
-        //   WhsePick.SETTABLEVIEW(WarehouseActivityHeader);
-        //   WhsePick.InitRequest(1,FALSE,TRUE);
-        //   WhsePick.USEREQUESTPAGE(NOT HideDialog);
-        //   WhsePick.RUNMODAL;
+        WhsePick.SETTABLEVIEW(WarehouseActivityHeader);
+        WhsePick.InitRequest(1, false, true);
+        WhsePick.USEREQUESTPAGE(not HideDialog);
+        WhsePick.RUNMODAL;
     end;
 
     //COD5813
     [EventSubscriber(ObjectType::Codeunit, codeunit::"Undo Purchase Receipt Line", 'OnPostItemJnlLineOnAfterInsertTempWhseJnlLine', '', false, false)]
-
     procedure COD5813_OnPostItemJnlLineOnAfterInsertTempWhseJnlLine(PurchRcptLine: Record "Purch. Rcpt. Line"; var ItemJnlLine: Record "Item Journal Line"; var TempWhseJnlLine: Record "Warehouse Journal Line" temporary; var NextLineNo: Integer)
     var
         PurchLine: Record "Purchase Line";
         fctMgt: Codeunit "BC6_Functions Mgt";
         WhseUndoQty: Codeunit "Whse. Undo Quantity";
-
     begin
         fctMgt.InsertTempWhseJnlLine2(ItemJnlLine,
   DATABASE::"Purch. Rcpt. Header",
@@ -1012,7 +1000,6 @@ codeunit 50201 "BC6_Events Mgt"
   TempWhseJnlLine,
   NextLineNo);
     end;
-
     //COD5814
     [EventSubscriber(ObjectType::Codeunit, codeunit::"Undo Return Shipment Line", 'OnAfterCopyItemJnlLineFromReturnShpt', '', false, false)]
     procedure COD5814_OnAfterCopyItemJnlLineFromReturnShpt(var ItemJournalLine: Record "Item Journal Line"; ReturnShipmentHeader: Record "Return Shipment Header"; ReturnShipmentLine: Record "Return Shipment Line"; var WhseUndoQty: Codeunit "Whse. Undo Quantity")
@@ -1020,9 +1007,7 @@ codeunit 50201 "BC6_Events Mgt"
     var
         PurchLine: Record "Purchase Line";
         TempWhseJnlLine: Record "Warehouse Journal Line" temporary;
-
         //TODO: à verifier srtt les declarations
-
         fctMgt: Codeunit "BC6_Functions Mgt";
         NextLineNo: Integer;
     begin
@@ -1067,7 +1052,7 @@ ItemJnlLine."Document No.",
   TempWhseJnlLine,
   NextLineNo);
     end;
-    //TODO: besoin du var TempWhseJnlLine et le NextLineNo /////
+    //COD5816//TODO: besoin du var TempWhseJnlLine et le NextLineNo /////
     // [EventSubscriber(ObjectType::Codeunit, codeunit::"Undo Return Receipt Line", 'OnAfterCopyItemJnlLineFromReturnRcpt', '', false, false)]
     // procedure OnAfterCopyItemJnlLineFromReturnRcpt(var ItemJournalLine: Record "Item Journal Line"; ReturnReceiptHeader: Record "Return Receipt Header"; ReturnReceiptLine: Record "Return Receipt Line"; var WhseUndoQty: Codeunit "Whse. Undo Quantity")
     //    var
@@ -1113,7 +1098,7 @@ ItemJnlLine."Document No.",
     procedure OnBeforeTestPostedInvtPickLine(UndoLineNo: Integer; SourceType: Integer; SourceSubtype: Integer; SourceID: Code[20]; SourceRefNo: Integer; var IsHandled: Boolean; UndoType: Integer; UndoID: Code[20])
     var
         PostedInvtPickLine: Record "Posted Invt. Pick Line";
-        Text010: Label 'You cannot undo line %1 because inventory pick lines have already been posted.';
+        Text010: label 'You cannot undo line %1 because inventory pick lines have already been posted.';
     begin
         IsHandled := true;
         if not ((SourceType = 39) and (SourceSubtype = 5)) and not ((SourceType = 37) and (SourceSubtype = 1)) then
@@ -1128,21 +1113,20 @@ ItemJnlLine."Document No.",
     [EventSubscriber(ObjectType::Codeunit, codeunit::"Copy Document Mgt.", 'OnCopyFromSalesToPurchDocOnBeforePurchaseHeaderInsert', '', false, false)]
     procedure COD6620_OnCopyFromSalesToPurchDocOnBeforePurchaseHeaderInsert(var ToPurchaseHeader: Record "Purchase Header"; FromSalesHeader: Record "Sales Header")
     var
-        IsSAVReturnOrder: Boolean;
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
     begin
         if (FromSalesHeader."Document Type" = FromSalesHeader."Document Type"::"Return Order") then
-            IsSAVReturnOrder := true;
+            GlobalFunctionMgt.Set_IsSAVReturnOrder(true);
         ToPurchaseHeader."BC6_Return Order Type" := FromSalesHeader."BC6_Return Order Type";
     end;
 
     [EventSubscriber(ObjectType::Codeunit, codeunit::"Copy Document Mgt.", 'OnTransfldsFromSalesToPurchLineOnBeforeValidateQuantity', '', false, false)]
     procedure COD6620_OnTransfldsFromSalesToPurchLineOnBeforeValidateQuantity(FromSalesLine: Record "Sales Line"; var ToPurchaseLine: Record "Purchase Line")
     var
-        IsSAVReturnOrder: Boolean;
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
     begin
         ToPurchaseLine."BC6_Return Order Type" := FromSalesLine."BC6_Return Order Type";
-        //TODO: je dois recuperer la valeur du IsSAVReturnOrder pour faire le test
-        if IsSAVReturnOrder then begin
+        if GlobalFunctionMgt.Get_IsSAVReturnOrder then begin
             ToPurchaseLine."BC6_Solution Code" := FromSalesLine."BC6_Solution Code";
             ToPurchaseLine."BC6_Return Comment" := FromSalesLine."BC6_Return Comment";
             ToPurchaseLine."BC6_Retrn. Sales OrderShpt" := FromSalesLine."BC6_ReturnOrderShpt SalesOrder";
@@ -1213,19 +1197,21 @@ then begin
         ToPurchLine."Attached to Line No." :=
           TransferOldExtLines.TransferExtendedText(DocLineNo, NextLineNo, FromPurchLine."Attached to Line No.");
     end;
-    //TODO: A verifier 
-    [EventSubscriber(ObjectType::Codeunit, codeunit::"Copy Document Mgt.", 'OnCopySalesInvLinesToDocOnAfterCheckFirstLineShipped', '', false, false)]
 
-    procedure COD6620_OnCopySalesInvLinesToDocOnAfterCheckFirstLineShipped(ToSalesHeader: Record "Sales Header"; OldDocType: Integer; ShptDocNo: Code[20]; var OldShptDocNo: Code[20])
-    var
-        FunctionMgt: codeunit "BC6_Functions Mgt";
-        FromSalesInvLine: record "Sales Invoice Line";
-        NextLineNo: Integer;
-    begin
-        FromSalesInvLine.get();
-        NextLineNo := FunctionMgt.GetLastToSalesLineNo(ToSalesHeader);
-        FunctionMgt.InsertOldOrders(FromSalesInvLine, ToSalesHeader, NextLineNo);
-    end;
+
+
+    // [EventSubscriber(ObjectType::Codeunit, codeunit::"Copy Document Mgt.", 'OnCopySalesInvLinesToDocOnAfterCopySalesDocLine', '', false, false)]
+    // local procedure COD6620_OnCopySalesInvLinesToDocOnAfterCopySalesDocLine(ToSalesLine: Record "Sales Line"; FromSalesInvLine: Record "Sales Invoice Line")
+    // var
+    //     FunctionMgt: codeunit "BC6_Functions Mgt";
+    //     NextLineNo: Integer;
+    //     ToSalesHeader: record "Sales Header";
+    // begin
+    //     ToSalesHeader.GET(ToSalesLine.)
+    //             NextLineNo := FunctionMgt.GetLastToSalesLineNo(ToSalesHeader);
+    //     FunctionMgt.InsertOldOrders(FromSalesInvLine, ToSalesHeader, NextLineNo);
+
+    // end;
 
     [EventSubscriber(ObjectType::Codeunit, codeunit::"Copy Document Mgt.", 'OnBeforeCheckFromSalesHeader', '', false, false)]
 
@@ -1255,7 +1241,7 @@ then begin
                     SalesHeaderFrom.TESTFIELD("Prices Including VAT", SalesHeaderTo."Prices Including VAT");
                     SalesHeaderFrom."Your Reference" := SalesHeaderTo."Your Reference";
                     SalesHeaderFrom."BC6_Affair No." := SalesHeaderTo."BC6_Affair No.";
-                    IF NOT SalesHeaderFrom.MODIFY() THEN;
+                    if not SalesHeaderFrom.MODIFY() then;
                 end;
             else begin
                 SalesHeaderFrom.TESTFIELD("Sell-to Customer No.", SalesHeaderTo."Sell-to Customer No.");
@@ -1284,7 +1270,7 @@ then begin
             SalesHeaderFrom.TESTFIELD("Prices Including VAT", SalesHeaderTo."Prices Including VAT");
             SalesHeaderFrom."Your Reference" := SalesHeaderTo."Your Reference";
             SalesHeaderFrom."BC6_Affair No." := SalesHeaderTo."BC6_Affair No.";
-            IF NOT SalesHeaderFrom.MODIFY() THEN;
+            if not SalesHeaderFrom.MODIFY() then;
         end;
     end;
     //TODO  : a voir et a verifier 
@@ -1609,6 +1595,15 @@ then begin
             ShouldGetDefaultBin := true;
     end;
 
+    // [EventSubscriber(ObjectType::Table, Database::"Requisition Line", 'OnAfterGetDirectCost', '', false, false)]
+    // procedure OnAfterGetDirectCost(var RequisitionLine: Record "Requisition Line"; CalledByFieldNo: Integer)
+    // var
+    //     PurchPriceCalcMgt: Codeunit "Purch. Price Calc. Mgt.";
+    //     FunctionMgt: Codeunit "BC6_Functions Mgt";
+    // begin
+    //     FunctionMgt.FindVeryBestCostreq(RequisitionLine);
+    // end;
+
     //TAB 10866
     [EventSubscriber(ObjectType::Table, Database::"Payment Line", 'OnAfterSetUpNewLine', '', false, false)]
 
@@ -1703,6 +1698,7 @@ then begin
     local procedure T77_OnBeforeSendEmailDirectly_ReportSelections(var ReportSelections: Record "Report Selections"; ReportUsage: Enum "Report Selection Usage"; RecordVariant: Variant; var DocNo: Code[20]; var DocName: Text[150]; FoundBody: Boolean; FoundAttachment: Boolean; ServerEmailBodyFilePath: Text[250]; var DefaultEmailAddress: Text[250]; ShowDialog: Boolean; var TempAttachReportSelections: Record "Report Selections" temporary; var CustomReportSelection: Record "Custom Report Selection"; var AllEmailsWereSuccessful: Boolean; var IsHandled: Boolean)
     var
         SalesHeader: Record "Sales Header";
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
         FctMangt: Codeunit "BC6_Functions Mgt";
     begin
         case ReportUsage of
@@ -1710,20 +1706,35 @@ then begin
                 begin
                     SalesHeader := RecordVariant;
                     FctMangt.SetYourReference(SalesHeader."Your Reference");
+                    GlobalFunctionMgt.SetT77_SalesHeader(SalesHeader);
                 end;
         end;
     end;
 
-    [EventSubscriber(ObjectType::Table, Database::"Report Selections", 'OnSendEmailDirectlyOnBeforeSaveReportAsPDFInTempBlob', '', false, false)]
+    [EventSubscriber(ObjectType::Table, Database::"Report Selections", 'OnSendEmailDirectlyOnBeforeSaveReportAsPDFInTempBlob', '', false, false)] // TODO:
     local procedure T77_OnSendEmailDirectlyOnBeforeSaveReportAsPDFInTempBlob_ReportSelection(ReportSelection: Record "Report Selections"; RecordVariant: Variant; ReportUsage: Enum "Report Selection Usage"; var TempBlob: Codeunit "Temp Blob"; var IsHandled: Boolean)
     var
         SalesHeader: Record "Sales Header";
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
     begin
-        // IF ReportUsage IN [ReportUsage::"S.Order", ReportUsage::"S.Quote"] THEN BEGIN   TODO:
-        //       SalesHeader := RecordVariant;
-        //       IF SalesHeader."BC6_Sell-to E-Mail Address" <> '' THEN
-        //         EmailAddress := SalesHeader."BC6_Sell-to E-Mail Address";
-        //     END;
+        IF ReportUsage IN [ReportUsage::"S.Order", ReportUsage::"S.Quote"] THEN BEGIN
+            SalesHeader := RecordVariant;
+            GlobalFunctionMgt.SetT77_SalesHeader(SalesHeader);
+        END;
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Document-Mailing", 'OnBeforeEmailFileInternal', '', false, false)]
+    local procedure OnBeforeEmailFileInternal(var TempEmailItem: Record "Email Item" temporary; var HtmlBodyFilePath: Text[250]; var EmailSubject: Text[250]; var ToEmailAddress: Text[250]; var PostedDocNo: Code[20]; var EmailDocName: Text[250]; var HideDialog: Boolean; var ReportUsage: Integer; var IsFromPostedDoc: Boolean; var SenderUserID: Code[50]; var EmailScenario: Enum "Email Scenario")
+    var
+        SalesHeader: Record "Sales Header";
+        EnumReportUsage: Enum "Report Selection Usage";
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
+    begin
+        IF ReportUsage IN [EnumReportUsage::"S.Order".AsInteger(), EnumReportUsage::"S.Quote".AsInteger()] THEN BEGIN
+            GlobalFunctionMgt.GetT77_SalesHeader(SalesHeader);
+            IF SalesHeader."BC6_Sell-to E-Mail Address" <> '' THEN
+                ToEmailAddress := SalesHeader."BC6_Sell-to E-Mail Address";
+        END;
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Gen. Journal Line", 'OnAfterCopyGenJnlLineFromPurchHeader', '', false, false)]
@@ -1798,10 +1809,11 @@ then begin
     local procedure T37_OnUpdateUnitPriceOnBeforeFindPrice_SalesLine(SalesHeader: Record "Sales Header"; var SalesLine: Record "Sales Line"; CalledByFieldNo: Integer; CallingFieldNo: Integer; var IsHandled: Boolean)
     var
         PriceCalcMgt: Codeunit "Sales Price Calc. Mgt.";
+        FunctionMgt: Codeunit "BC6_Functions Mgt";
     begin
         PriceCalcMgt.FindSalesLineLineDisc(SalesHeader, SalesLine);
         PriceCalcMgt.FindSalesLinePrice(SalesHeader, SalesLine, CalledByFieldNo);
-        // PriceCalcMgt.FindVeryBestPrice(SalesLine, SalesHeader);  TODO:
+        FunctionMgt.FindVeryBestPrice(SalesLine, SalesHeader);
         SalesLine.FctGCalcLineDiscount();
     end;
 
@@ -1900,8 +1912,8 @@ then begin
             SalesLine.SetSkipPurchCostVerif(false);
     end;
 
-    [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnValidateQuantityOnBeforeCheckAssocPurchOrder', '', false, false)]
-    local procedure OnValidateQuantityOnBeforeCheckAssocPurchOrder(var SalesLine: Record "Sales Line")
+    [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnBeforeValidateUnitOfMeasureCodeFromNo', '', false, false)]
+    local procedure T37_OnBeforeValidateUnitOfMeasureCodeFromNo(var SalesLine: Record "Sales Line")
     begin
         SalesLine.SetSkipPurchCostVerif(false);
     end;
@@ -1940,6 +1952,85 @@ then begin
 
         Rec.SetSkipPurchCostVerif(false);
         Rec.Modify();
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnCopyFromItemOnAfterCheck', '', false, false)]
+    local procedure OnCopyFromItemOnAfterCheck(var SalesLine: Record "Sales Line"; Item: Record Item)
+    var
+        SalesSetup: Record "Sales & Receivables Setup";
+    begin
+        SalesLine."BC6_Public Price" := Item."Unit Price";
+        SalesLine."BC6_Buy-from Vendor No." := Item."Vendor No.";
+
+        IF COMPANYNAME = 'SCENEO_Bourgogne' THEN
+            SalesLine."BC6_Buy-from Vendor No." := 'CNE';
+
+        IF SalesLine."Document Type" IN [SalesLine."Document Type"::Quote, SalesLine."Document Type"::Order] THEN BEGIN
+            SalesSetup.GET;
+            SalesLine.VALIDATE(SalesLine."Purchasing Code", SalesSetup."BC6_Purcha. Code Grouping Line");
+        END;
+
+        SalesLine."BC6_Item Disc. Group" := Item."Item Disc. Group";
+
+        SalesLine.SetSkipPurchCostVerif(true);
+
+        SalesLine.VALIDATE("BC6_Purchase cost", Item."Standard Cost");
+
+        SalesLine."Allow Item Charge Assignment" := TRUE;
+
+        SalesLine."BC6_Forecast Inventory" := Item.Inventory - Item."Qty. on Sales Order" + Item."Qty. on Purch. Order";
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnAfterAssignItemValues', '', false, false)]
+    local procedure T37_OnAfterAssignItemValues(var SalesLine: Record "Sales Line"; Item: Record Item)
+    begin
+        SalesLine.VALIDATE(SalesLine."BC6_DEEE Category Code", Item."BC6_DEEE Category Code");
+    end;
+
+    [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnBeforeGetDefaultBin', '', false, false)]
+    local procedure T37_OnBeforeGetDefaultBin(var SalesLine: Record "Sales Line"; var IsHandled: Boolean)
+    var
+        Location: Record Location;
+        SalesHeader: Record "Sales Header";
+        WMSManagement: Codeunit "WMS Management";
+        FunctionMgt: Codeunit "BC6_Functions Mgt";
+        WhseIntegrationMgt: Codeunit "Whse. Integration Management";
+    begin
+
+        IsHandled := true;
+        if (SalesLine.Type <> SalesLine.Type::Item) or SalesLine.IsNonInventoriableItem() then
+            exit;
+
+        SalesLine."Bin Code" := '';
+        if SalesLine."Drop Shipment" then
+            exit;
+
+        if (SalesLine."Location Code" <> '') and (SalesLine."No." <> '') then begin
+            if SalesLine."Location Code" = '' then
+                Clear(Location)
+            else
+                if Location.Code <> SalesLine."Location Code" then
+                    Location.Get(SalesLine."Location Code");
+            if Location."Bin Mandatory" and not Location."Directed Put-away and Pick" then begin
+                if (SalesLine."Qty. to Assemble to Order" > 0) or SalesLine.IsAsmToOrderRequired then
+                    if SalesLine.GetATOBin(Location, SalesLine."Bin Code") then
+                        exit;
+
+                if not FunctionMgt.IsShipmentBinOverridesDefaultBin(Location) then begin
+                    IF Location."Require Pick" AND NOT (Location."Require Shipment") THEN BEGIN
+                        SalesHeader := SalesLine.GetSalesHeader;
+                        SalesLine."Bin Code" := SalesHeader."BC6_Bin Code";
+                        IF SalesLine."Bin Code" = '' THEN
+                            SalesLine."Bin Code" := Location."Shipment Bin Code";
+                    END ELSE
+                        WMSManagement.GetDefaultBin(SalesLine."No.", SalesLine."Variant Code", SalesLine."Location Code", SalesLine."Bin Code");
+                    if SalesLine.IsInbound() or (SalesLine."Quantity (Base)" = 0) or (SalesLine."Document Type" = SalesLine."Document Type"::"Blanket Order") then
+                        exit;
+
+                    WhseIntegrationMgt.CheckIfBinDedicatedOnSrcDoc(SalesLine."Location Code", SalesLine."Bin Code", false);
+                end;
+            end;
+        end;
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnValidateNoOnAfterUpdateUnitPrice', '', false, false)]
@@ -2183,6 +2274,7 @@ then begin
 
     begin
         IsHandled := true;
+        GLSetup.get();
         with GenJnlLine do
             if "Amount (LCY)" <> 0 then begin
                 PaymentDiscountDateWithGracePeriod := CVLedgEntryBuf."Pmt. Discount Date";
@@ -2296,47 +2388,22 @@ then begin
         ItemJnlTemplate: Record "Item Journal Template";
         Text001: label 'Journal Batch Name    #1##########\\';
         Text002: label 'Checking lines        #2######\';
-        Text003: label 'Posting lines         #3###### @4@@@@@@@@@@@@@\';
-        Text004: label 'Updating lines        #5###### @6@@@@@@@@@@@@@';
         Text005: label 'Posting lines         #3###### @4@@@@@@@@@@@@@';
         Text101: label 'ENU=Jnl. Batch #1###\\';
         Text102: label 'ENU=Chec. lines #2###\';
-        Text105: label 'ENU=Post. #3### @4@;FRA=Valid.#3### @4@@@';
+        Text105: label 'ENU=Post. #3### @4@';
     begin
         IsHandled := true;
         ItemJnlTemplate.Get(ItemJnlLine."Journal Template Name");
 
-        if ItemJnlTemplate.Recurring then
-            Window.Open(
-              Text001 +
-              Text002 +
-              Text003 +
-              Text004)
-        else
+        if not ItemJnlTemplate.Recurring then
             if (ItemJnlTemplate.Name = InvtSetup."BC6_Item Jnl Template Name 1") or
                (ItemJnlTemplate.Name = InvtSetup."BC6_Item Jnl Template Name 2") then
-                Window.OPEN(
-                  Text101 +
-                  Text102 +
-                  Text105)
+                Window.OPEN(Text101 + Text102 + Text105)
             else
-                Window.Open(
-                  Text001 +
-                  Text002 +
-                  Text005);
+                Window.Open(Text001 + Text002 + Text005);
         Window.Update(1, ItemJnlLine."Journal Batch Name");
         WindowIsOpen := true;
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Jnl.-Post Batch", 'OnItemJnlPostSumLineOnAfterGetItem', '', false, false)]
-    //TODO: not sure of it(ItemJournalLine was ItemJournalLine4 in the old code)
-    local procedure COD23_OnItemJnlPostSumLineOnAfterGetItem(var Item: Record Item; ItemJournalLine: Record "Item Journal Line")
-    var
-        IncludeExpectedCost: Boolean;
-    begin
-        IncludeExpectedCost :=
-    (Item."Costing Method" = Item."Costing Method"::Average) and
-    (ItemJournalLine."Inventory Value Per" <> ItemJournalLine."Inventory Value Per"::" ");
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Jnl.-Post Batch", 'OnBeforeWhseJnlPostLineRun', '', false, false)]
@@ -2376,7 +2443,7 @@ then begin
 
     //COD80
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnRunOnBeforeCheckAndUpdate', '', false, false)]
-    local procedure OnRunOnBeforeCheckAndUpdate(var SalesHeader: Record "Sales Header")
+    local procedure COD80_OnRunOnBeforeCheckAndUpdate(var SalesHeader: Record "Sales Header")
     var
         GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
     begin
@@ -2421,14 +2488,14 @@ then begin
     begin
         SalesSetup.get();
         RecLBillCustomer.RESET;
-        IF RecLBillCustomer.GET(SalesLine."Bill-to Customer No.") THEN
+        if RecLBillCustomer.GET(SalesLine."Bill-to Customer No.") then
             BooLSubmittedToDEEE := RecLBillCustomer."BC6_Submitted to DEEE"
-        ELSE
-            BooLSubmittedToDEEE := FALSE;
+        else
+            BooLSubmittedToDEEE := false;
 
-        IF ((SalesLine.Type = SalesLine.Type::Item) AND (SalesLine."Qty. to Invoice" <> 0) AND
-        (SalesLine."BC6_DEEE Category Code" <> '') AND SalesSetup."BC6_DEEE Management")
-          AND (SalesLine."BC6_DEEE HT Amount" <> 0) AND (BooLSubmittedToDEEE) THEN BEGIN
+        if ((SalesLine.Type = SalesLine.Type::Item) and (SalesLine."Qty. to Invoice" <> 0) and
+        (SalesLine."BC6_DEEE Category Code" <> '') and SalesSetup."BC6_DEEE Management")
+          and (SalesLine."BC6_DEEE HT Amount" <> 0) and (BooLSubmittedToDEEE) then begin
             GenPostingSetup.GET(SalesLine."Gen. Bus. Posting Group", SalesLine."Gen. Prod. Posting Group");
 
             CLEAR(InvoicePostBuffer);
@@ -2436,15 +2503,15 @@ then begin
 
             GenPostingSetup.GET('DEEE', SalesLine."Gen. Prod. Posting Group");
 
-            IF SalesHeader."Document Type" = SalesHeader."Document Type"::"Credit Memo" THEN BEGIN
+            if SalesHeader."Document Type" = SalesHeader."Document Type"::"Credit Memo" then begin
                 GenPostingSetup.TESTFIELD("Sales Credit Memo Account");
                 InvoicePostBuffer."G/L Account" := GenPostingSetup."Sales Credit Memo Account";
-            END ELSE BEGIN
+            end else begin
                 GenPostingSetup.TESTFIELD("Sales Account");
                 InvoicePostBuffer."G/L Account" := GenPostingSetup."Sales Account";
-            END;
+            end;
 
-            InvoicePostBuffer."System-Created Entry" := TRUE;
+            InvoicePostBuffer."System-Created Entry" := true;
             InvoicePostBuffer."Gen. Bus. Posting Group" := 'DEEE';//SalesLine."Gen. Bus. Posting Group";
             InvoicePostBuffer."Gen. Prod. Posting Group" := SalesLine."Gen. Prod. Posting Group";
             InvoicePostBuffer."VAT Bus. Posting Group" := SalesLine."VAT Bus. Posting Group";
@@ -2454,9 +2521,9 @@ then begin
             InvoicePostBuffer."Global Dimension 2 Code" := SalesLine."Shortcut Dimension 2 Code";
 
             //** INVERSION SIGNE SI FACTURE MAIS PAS SI AVOIR !? **
-            IF SalesHeader."Document Type" = SalesHeader."Document Type"::"Credit Memo" THEN
+            if SalesHeader."Document Type" = SalesHeader."Document Type"::"Credit Memo" then
                 GlobalFunctionMgt.SetIntLSignFactor(1)
-            ELSE
+            else
                 GlobalFunctionMgt.SetIntLSignFactor(1);
 
             InvoicePostBuffer."Job No." := SalesLine."Job No.";
@@ -2485,7 +2552,7 @@ then begin
 
             if RestoreFAType then
                 TempInvoicePostBuffer.Type := TempInvoicePostBuffer.Type::"Fixed Asset";
-        END;
+        end;
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnBeforePostGLAndCustomer', '', false, false)]
@@ -2552,32 +2619,31 @@ then begin
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnInsertShipmentHeaderOnAfterTransferfieldsToSalesShptHeader', '', false, false)]
-
-    local procedure OnInsertShipmentHeaderOnAfterTransferfieldsToSalesShptHeader(SalesHeader: Record "Sales Header"; var SalesShptHeader: Record "Sales Shipment Header")
+    local procedure COD80_OnInsertShipmentHeaderOnAfterTransferfieldsToSalesShptHeader(SalesHeader: Record "Sales Header"; var SalesShptHeader: Record "Sales Shipment Header")
     var
         SalesSetup: record "Sales & Receivables Setup";
     begin
         SalesSetup.get();
         if SalesHeader."Document Type" = SalesHeader."Document Type"::Order then begin
-            IF SalesSetup."BC6_Promised Delivery Date" THEN
+            if SalesSetup."BC6_Promised Delivery Date" then
                 SalesHeader.TESTFIELD("Promised Delivery Date");
-            IF SalesSetup."BC6_Requested Delivery Date" THEN
+            if SalesSetup."BC6_Requested Delivery Date" then
                 SalesHeader.TESTFIELD("Requested Delivery Date");
 
-        END;
+        end;
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnAfterSalesShptHeaderInsert', '', false, false)]
-    local procedure OnAfterSalesShptHeaderInsert(var SalesShipmentHeader: Record "Sales Shipment Header"; SalesHeader: Record "Sales Header"; SuppressCommit: Boolean; WhseShip: Boolean; WhseReceive: Boolean; var TempWhseShptHeader: Record "Warehouse Shipment Header"; var TempWhseRcptHeader: Record "Warehouse Receipt Header"; PreviewMode: Boolean)
+    local procedure COD80_OnAfterSalesShptHeaderInsert(var SalesShipmentHeader: Record "Sales Shipment Header"; SalesHeader: Record "Sales Header"; SuppressCommit: Boolean; WhseShip: Boolean; WhseReceive: Boolean; var TempWhseShptHeader: Record "Warehouse Shipment Header"; var TempWhseRcptHeader: Record "Warehouse Receipt Header"; PreviewMode: Boolean)
     var
         RecGICValidate: Record "BC6_IC Table Validate";
         RecGPartnerIC: Record "IC Partner";
         RecGCompanyInfo: Record "Company information";
 
     begin
-        IF (SalesHeader."Sell-to IC Partner Code" <> '') AND (RecGCompanyInfo."BC6_Branch Company" = FALSE) THEN BEGIN
+        if (SalesHeader."Sell-to IC Partner Code" <> '') and (RecGCompanyInfo."BC6_Branch Company" = false) then begin
             // Recherche de la fiche Partenaire IC
-            IF RecGPartnerIC.GET(SalesHeader."Sell-to IC Partner Code") THEN BEGIN
+            if RecGPartnerIC.GET(SalesHeader."Sell-to IC Partner Code") then begin
                 RecGICValidate.INIT;
                 RecGICValidate."Partner Code" := SalesHeader."Sell-to IC Partner Code";
                 RecGICValidate."Shipment No." := SalesShipmentHeader."No.";
@@ -2585,8 +2651,8 @@ then begin
                 RecGICValidate."Customer Code" := SalesShipmentHeader."Sell-to Customer No.";
                 RecGICValidate."Purch Order IC No." := SalesHeader."External Document No.";
                 RecGICValidate.INSERT;
-            END;
-        END;
+            end;
+        end;
 
     end;
 
@@ -2629,22 +2695,22 @@ then begin
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnAfterCheckMandatoryFields', '', false, false)]
-    local procedure OnAfterCheckMandatoryFields(var SalesHeader: Record "Sales Header"; CommitIsSuppressed: Boolean)
+    local procedure COD80_OnAfterCheckMandatoryFields(var SalesHeader: Record "Sales Header"; CommitIsSuppressed: Boolean)
     var
         SalesSetup: record "Sales & Receivables Setup";
     begin
         SalesSetup.GET;
-        IF SalesHeader."Document Type" = SalesHeader."Document Type"::Order THEN BEGIN
-            IF SalesSetup."BC6_Promised Delivery Date" THEN
+        if SalesHeader."Document Type" = SalesHeader."Document Type"::Order then begin
+            if SalesSetup."BC6_Promised Delivery Date" then
                 SalesHeader.TESTFIELD("Promised Delivery Date");
-            IF SalesSetup."BC6_Requested Delivery Date" THEN
+            if SalesSetup."BC6_Requested Delivery Date" then
                 SalesHeader.TESTFIELD("Requested Delivery Date");
-        END;
+        end;
 
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnPostUpdateOrderLineBeforeInitQtyToInvoice', '', false, false)]
-    local procedure OnPostUpdateOrderLineBeforeInitQtyToInvoice(var TempSalesLine: Record "Sales Line" temporary; WhseShip: Boolean; WhseReceive: Boolean)
+    local procedure COD80_OnPostUpdateOrderLineBeforeInitQtyToInvoice(var TempSalesLine: Record "Sales Line" temporary; WhseShip: Boolean; WhseReceive: Boolean)
     begin
         if TempSalesLine."Document Type" <> TempSalesLine."Document Type"::"Return Order" then
             TempSalesLine.InitQtyToShip()
@@ -2671,14 +2737,12 @@ then begin
     begin
 
         if SalesHeader."Currency Code" <> '' then begin
-            //>>MIGRATION NAV 2013 - 2017
             SalesLine."BC6_DEEE Unit Price" :=
               ROUND(
                 CurrExchRate.ExchangeAmtFCYToLCY(
                    SalesHeader.GetUseDate(), SalesHeader."Currency Code",
                   SalesLine."BC6_DEEE Unit Price", SalesHeader."Currency Factor")) -
                     SalesLine."BC6_DEEE Unit Price";
-            //<<MIGRATION NAV 2013 - 2017
         end;
     end;
 
@@ -2690,12 +2754,12 @@ then begin
         EnableIncrPurchCost: Boolean; //(variable globale que je la déclaré locale, car elle est utilisée slmnt dans cette partie)
     begin
 
-        // FctMngt.Increment(TotalSalesLine."BC6_Purchase cost",ROUND(SalesLineQty * TotalSalesLine."BC6_Purchase cost"));
-        // IF EnableIncrPurchCost THEN
-        //   IF L_Item.Type = L_Item.Type::Item THEN BEGIN
-        //     L_Item.GET("No.");
-        //     FctMngt.Increment(SalesLine."BC6_Purchase cost", ROUND(TotalSalesLine."BC6_Purchase cost" * L_Item."BC6_Cost Increase Coeff %" / 100) * SalesLineQty);
-        //   END; //TODO: Item n'existe plus dans la liste des options de l'enum Type
+        FctMngt.Increment(TotalSalesLine."BC6_Purchase cost", ROUND(SalesLineQty * TotalSalesLine."BC6_Purchase cost"));
+        IF EnableIncrPurchCost THEN
+            IF SalesLine.Type = SalesLine.Type::Item THEN BEGIN
+                L_Item.GET(SalesLine."No.");
+                FctMngt.Increment(SalesLine."BC6_Purchase cost", ROUND(TotalSalesLine."BC6_Purchase cost" * L_Item."BC6_Cost Increase Coeff %" / 100) * SalesLineQty);
+            END;
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnAfterIncrAmount', '', false, false)]
@@ -2714,15 +2778,11 @@ then begin
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post (Yes/No)", 'OnConfirmPostOnBeforeSetSelection', '', false, false)]
     local procedure COD81_OnConfirmPostOnBeforeSetSelection(var SalesHeader: Record "Sales Header")
     begin
-        //>>MIGRATION NAV 2013
-        //FG
         if SalesHeader."Document Type" <> SalesHeader."Document Type"::Invoice then
             SalesHeader.TESTFIELD(SalesHeader.Status, SalesHeader.Status::Released);
-        //<<MIGRATION NAV 2013
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post (Yes/No)", 'OnBeforeConfirmPost', '', false, false)]
-
     local procedure COD81_OnBeforeConfirmPost(var SalesHeader: Record "Sales Header"; var DefaultOption: Integer; var Result: Boolean; var IsHandled: Boolean)
     var
         RecLNaviSetup: Record "BC6_Navi+ Setup";
@@ -2746,6 +2806,7 @@ then begin
         ShipInvoiceQst: label '&Ship,&Invoice,Ship &and Invoice';
     begin
         IsHandled := true;
+
         if DefaultOption > 3 then
             DefaultOption := 3;
         if DefaultOption <= 0 then
@@ -2766,8 +2827,10 @@ then begin
                         if Selection = 0 then
                             exit;
                         Receive := Selection in [1, 3];
+                        //>>MIGRATION NAV 2013
                         if Ship then FctMngt.CalcProfit2(SalesHeader);
                         Invoice := Selection in [2, 3];
+
                     end
                 else
                     if not ConfirmManagement.GetResponseOrDefault(
@@ -2823,15 +2886,15 @@ then begin
     begin
         Location.get(Location.code);
         if not IsHandled then begin
-            IF (SalesQuoteLine.Type = SalesQuoteLine.Type::Item) AND (SalesQuoteLine."No." <> '') THEN
+            if (SalesQuoteLine.Type = SalesQuoteLine.Type::Item) and (SalesQuoteLine."No." <> '') then
                 SalesQuoteLine.TESTFIELD("Purchasing Code");
             CLEAR(Location);
-            IF (SalesQuoteLine."Location Code" <> '') THEN BEGIN
+            if (SalesQuoteLine."Location Code" <> '') then begin
                 Location.GET(SalesQuoteLine."Location Code");
                 //TODO Location.TESTFIELD(Blocked, FALSE); //blocked is a global var ! 
-                IF Location."Bin Mandatory" THEN
+                if Location."Bin Mandatory" then
                     SalesQuoteLine.TESTFIELD("Bin Code");
-            END;
+            end;
         end;
     end;
 
@@ -2852,20 +2915,17 @@ then begin
 
         ApprovalsMgmt: Codeunit "Approvals Mgmt.";
         RecGArchiveManagement: Codeunit ArchiveManagement;
-
     begin
 
         if not IsHandled then begin
             ApprovalsMgmt.DeleteApprovalEntries(QuoteSalesHeader.RecordId);
             SalesCommentLine.DeleteComments(QuoteSalesHeader."Document Type".AsInteger(), QuoteSalesHeader."No.");
-            //>>MIGRATION NAV 2013
-            IF RecGParmNavi.GET() THEN
-                IF RecGParmNavi."Filing Sales Quotes" THEN BEGIN
+            if RecGParmNavi.GET() then
+                if RecGParmNavi."Filing Sales Quotes" then begin
                     QuoteSalesHeader."BC6_Cause filing" := QuoteSalesHeader."BC6_Cause filing"::"Change in Order";
                     QuoteSalesHeader.MODIFY();
-                    RecGArchiveManagement.StoreSalesDocument(QuoteSalesHeader, FALSE);
-                END;
-            //<<MIGRATION NAV 2013
+                    RecGArchiveManagement.StoreSalesDocument(QuoteSalesHeader, false);
+                end;
             QuoteSalesHeader.DeleteLinks();
             QuoteSalesHeader.Delete();
             SalesQuoteLine.DeleteAll();
@@ -2909,6 +2969,10 @@ then begin
         PurchInvStat.IncrementDecGMntHTDEEE(PurchInvLine."BC6_DEEE HT Amount");
         PurchInvStat.IncrementDecGMntTTCDEEE(PurchInvLine."BC6_DEEE TTC Amount");
         AmountInclVAT := AmountInclVAT + PurchInvLine."BC6_DEEE TTC Amount";
+
+        PurchInvStat.SetNewVendAmount(VendAmount);
+        PurchInvStat.SetNewAmountInclVAT(AmountInclVAT);
+        PurchInvStat.SetNewVATPercentage(VATPercentage);
     end;
 
     [EventSubscriber(ObjectType::Page, Page::"Purch. Credit Memo Statistics", 'OnCalculateTotalsOnAfterAddLineTotals', '', false, false)]
@@ -2918,6 +2982,9 @@ then begin
     begin
         PurchCreditMemoStat.Increment_MntHTDEEE(PurchCrMemoLine."BC6_DEEE HT Amount");
         AmountInclVAT := AmountInclVAT + PurchCrMemoLine."BC6_DEEE TTC Amount";
+        PurchCreditMemoStat.SetNewVATPercentage(VATPercentage);
+        PurchCreditMemoStat.SetNewVendAmount(VendAmount);
+        PurchCreditMemoStat.SetNewAmountInclVAT(AmountInclVAT);
     end;
 
     [EventSubscriber(ObjectType::Page, Page::"Purchase Return Order Subform", 'OnBeforeUpdateTypeText', '', false, false)]
@@ -2943,7 +3010,7 @@ then begin
             SalesHeader.RESET();
             SalesHeader.SETRANGE("Document Type", Rec."Document Type");
             SalesHeader.SETRANGE("No.", Rec."No.");
-            // REPORT.RUNMODAL(50060, TRUE, FALSE, SalesHeader); TODO: missing report
+            REPORT.RUNMODAL(50060, TRUE, FALSE, SalesHeader);
         end;
     end;
 
@@ -3188,57 +3255,56 @@ then begin
         SalesLine: Record "Sales Line";
         SalesOrder: Record "Sales Header";
         QtyBaseToAssign: Decimal;
-        SalesReservationFound: Boolean;
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
     begin
-
-        SalesReservationFound := FALSE;
+        GlobalFunctionMgt.SetSalesReservationFound(false);
         TempSalesLine.RESET;
         TempSalesLine.DELETEALL;
 
-        IF PurchLine."Document Type" = PurchLine."Document Type"::Order THEN BEGIN
+        if PurchLine."Document Type" = PurchLine."Document Type"::Order then begin
             SalesLine.RESET();
             SalesLine.SETCURRENTKEY("BC6_Purch. Document Type", "BC6_Purch. Order No.", "BC6_Purch. Line No.");
             SalesLine.SETRANGE("BC6_Purch. Document Type", PurchLine."Document Type");
             SalesLine.SETRANGE("BC6_Purch. Order No.", PurchLine."Document No.");
             SalesLine.SETRANGE("BC6_Purch. Line No.", PurchLine."Line No.");
-            IF SalesLine.FIND('-') THEN
-                REPEAT
+            if SalesLine.FIND('-') then
+                repeat
                     SalesLine.CALCFIELDS("BC6_Pick Qty.");
                     QtyBaseToAssign := SalesLine."Outstanding Qty. (Base)" - SalesLine."BC6_Pick Qty.";
-                    IF QtyBaseToAssign > 0 THEN BEGIN
+                    if QtyBaseToAssign > 0 then begin
                         TempSalesLine.INIT();
                         TempSalesLine := SalesLine;
                         TempSalesLine."Outstanding Qty. (Base)" := QtyBaseToAssign;
 
                         //>> 19.03.2012 TL05 Warehouse Comment
                         CLEAR(SalesOrder);
-                        IF SalesOrder.GET(SalesLine."Document Type", SalesLine."Document No.") THEN
+                        if SalesOrder.GET(SalesLine."Document Type", SalesLine."Document No.") then
                             TempSalesLine."Description 2" := SalesOrder."BC6_Warehouse Comments";
 
                         TempSalesLine.INSERT();
+
                     END;
                 UNTIL SalesLine.NEXT() = 0;
         END;
-        IF TempSalesLine.FIND('-') THEN
-            SalesReservationFound := TRUE;
+        IF TempSalesLine.FIND('-') THEN begin
+            GlobalFunctionMgt.SetSalesReservationFound(true);
+            GlobalFunctionMgt.SetCD7321_TempSalesLine(TempSalesLine);
+        end;
+
     end;
 
     // TODO: function InsertWhseActivLine in codeunit "Create Inventory Put-away"
     // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Create Inventory Put-away", 'OnInsertWhseActivLineOnBeforeAutoCreation', '', false, false)] TODO:
     // local procedure OnInsertWhseActivLineOnBeforeAutoCreation(var WarehouseActivityLine: Record "Warehouse Activity Line"; var TempTrackingSpecification: Record "Tracking Specification" temporary; ReservationFound: Boolean; SNRequired: Boolean; LNRequired: Boolean)
     // var
-    //     TmpSalesLine: Record "Sales Line";
+    //     TmpSalesLine: Record "Sales Line" temporary;
     //     WhseActivLine: Record "Warehouse Activity Line";
     //     SalesReservationFound: Boolean;
+    //     GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
     // begin
 
-    //     IF SalesReservationFound THEN BEGIN
-    //         TmpSalesLine.RESET;
-    //         TmpSalesLine.SETCURRENTKEY("BC6_Purch. Document Type", "BC6_Purch. Order No.", "BC6_Purch. Line No.");
-    //         TmpSalesLine.SETRANGE("BC6_Purch. Document Type", "Document Type");
-    //         TmpSalesLine.SETRANGE("BC6_Purch. Order No.", "Document No.");
-    //         TmpSalesLine.SETRANGE("BC6_Purch. Line No.", "Line No.");
-
+    //     IF GlobalFunctionMgt.GetSalesReservationFound() THEN BEGIN
+    //     GlobalFunctionMgt.GetCD7321_TempSalesLine(TmpSalesLine);
     //         WarehouseActivityLine."BC6_Source Document 2" := WarehouseActivityLine."BC6_Source Document 2"::"Sales Order";
     //         WarehouseActivityLine."BC6_Source No. 2" := TmpSalesLine."Document No.";
     //         WarehouseActivityLine."BC6_Source Line No. 2" := TmpSalesLine."Line No.";
@@ -3254,7 +3320,7 @@ then begin
     //         //MIG 2017 <<
     //         ELSE
     //             PutAwayQty := PutAwayQty;
-    //         SalesReservationFound := FALSE;
+    //         GlobalFunctionMgt.SetSalesReservationFound(false);
     //     END ELSE
     //         IF (TmpSalesLine.NEXT <> 0) THEN BEGIN
     //             WarehouseActivityLine."BC6_Source Document 2" := WarehouseActivityLine."BC6_Source Document 2"::"Sales Order";
@@ -3262,10 +3328,10 @@ then begin
     //             WarehouseActivityLine."BC6_Source Line No. 2" := TmpSalesLine."Line No.";
     //             IF (TmpSalesLine."Location Code" = WarehouseActivityLine."Location Code") AND
     //               (TmpSalesLine."Bin Code" <> '') THEN
-    //                 WarehouseActivityLine."Source Bin Code" := TmpSalesLine."Bin Code";
+    //                 WarehouseActivityLine."BC6_Source Bin Code" := TmpSalesLine."Bin Code";
     //             if WhseActivLine.FindLast() then
     //                 WarehouseActivityLine."Bin Code" := WhseActivLine."Bin Code";
-    //             WarehouseActivityLine."Warehouse Comment" := TmpSalesLine."Description 2";
+    //             WarehouseActivityLine."BC6_Warehouse Comment" := TmpSalesLine."Description 2";
     //             IF PutAwayQty > TmpSalesLine."Outstanding Qty. (Base)" THEN
     //                 PutAwayQty := TmpSalesLine."Outstanding Qty. (Base)"
     //             ELSE
@@ -3281,40 +3347,40 @@ then begin
         WhseActivityPost: Codeunit "Whse.-Activity-Post";
         FunMgt: Codeunit "BC6_Functions Mgt";
         WorkDateOk: Boolean;
-        Text000: Label '&Receive,Receive &and Invoice', Comment = 'FRA="&Réceptionner,Réceptionner &et facturer"';
-        Text001: Label '&Ship,Ship &and Invoice', Comment = 'FRA="&Livrer,Livrer et fact&urer"';
-        Text002: Label 'Do you want to post the %1 and %2?', Comment = 'FRA="Souhaitez-vous valider les enregistrements %1 et %2 ?"';
+        Text000: label '&Receive,Receive &and Invoice', Comment = 'FRA="&Réceptionner,Réceptionner &et facturer"';
+        Text001: label '&Ship,Ship &and Invoice', Comment = 'FRA="&Livrer,Livrer et fact&urer"';
+        Text002: label 'Do you want to post the %1 and %2?', Comment = 'FRA="Souhaitez-vous valider les enregistrements %1 et %2 ?"';
     begin
         IsHandled := true;
-        WorkDateOk := FALSE;
-        WITH WhseActivLine DO BEGIN
-            IF "Activity Type" = "Activity Type"::"Invt. Put-away" THEN BEGIN
-                IF ("Source Document" = "Source Document"::"Prod. Output") OR
-                   ("Source Document" = "Source Document"::"Inbound Transfer") OR
+        WorkDateOk := false;
+        with WhseActivLine do begin
+            if "Activity Type" = "Activity Type"::"Invt. Put-away" then begin
+                if ("Source Document" = "Source Document"::"Prod. Output") or
+                   ("Source Document" = "Source Document"::"Inbound Transfer") or
                    ("Source Document" = "Source Document"::"Prod. Consumption")
-                THEN BEGIN
-                    IF NOT CONFIRM(Text002, FALSE, "Activity Type", "Source Document") THEN
-                        EXIT;
-                END ELSE BEGIN
+                then begin
+                    if not CONFIRM(Text002, false, "Activity Type", "Source Document") then
+                        exit;
+                end else begin
                     Selection := STRMENU(Text000, 1);
-                    IF Selection = 0 THEN
-                        EXIT;
+                    if Selection = 0 then
+                        exit;
                     WorkDateOk := ("Source Document" = "Source Document"::"Purchase Order");
-                END;
-            END ELSE BEGIN
-                IF ("Source Document" = "Source Document"::"Prod. Consumption") OR
+                end;
+            end else begin
+                if ("Source Document" = "Source Document"::"Prod. Consumption") or
                    ("Source Document" = "Source Document"::"Outbound Transfer")
-                THEN BEGIN
-                    IF NOT CONFIRM(Text002, FALSE, "Activity Type", "Source Document") THEN
-                        EXIT;
-                END ELSE BEGIN
+                then begin
+                    if not CONFIRM(Text002, false, "Activity Type", "Source Document") then
+                        exit;
+                end else begin
                     Selection := STRMENU(Text001, 1);
-                    IF Selection = 0 THEN
-                        EXIT;
+                    if Selection = 0 then
+                        exit;
                     WorkDateOk := ("Source Document" = "Source Document"::"Sales Order");
-                END;
-            END;
-            IF WorkDateOk THEN
+                end;
+            end;
+            if WorkDateOk then
                 FunMgt.SetPostingDate(WORKDATE);
 
             WhseActivityPost.SetInvoiceSourceDoc(Selection = 2);
@@ -3336,27 +3402,41 @@ then begin
         QtytoHandle: Decimal;
         SalesOrder: Record "Sales Header";
         GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
-        Text005: Label 'The source document %1 %2 is not released.', Comment = 'FRA="Le document origine %1 %2 n''a pas été lancé."';
+        Text005: label 'The source document %1 %2 is not released.', Comment = 'FRA="Le document origine %1 %2 n''a pas été lancé."';
     begin
-        IF NOT (GlobalFunctionMgt.GetPostingDate() = 0D) THEN
+        if not (GlobalFunctionMgt.GetPostingDate() = 0D) then
             WhseActivityHeader."Posting Date" := GlobalFunctionMgt.GetPostingDate();
 
         WhseActivLine.SetRange("Activity Type", WhseActivLine."Activity Type");
         WhseActivLine.SetRange("No.", WhseActivLine."No.");
         WhseActivLine.SetFilter("Qty. to Handle", '<>0');
         WhseActivLine.Find('-');
-        CASE WhseActivLine."Source Document" OF
+        case WhseActivLine."Source Document" of
             WhseActivLine."Source Document"::"Sales Order":
-                IF SalesOrder.GET(SalesOrder."Document Type"::Order, WhseActivLine."Source No.") THEN
-                    IF SalesOrder.Status <> SalesOrder.Status::Released THEN
+                if SalesOrder.GET(SalesOrder."Document Type"::Order, WhseActivLine."Source No.") then
+                    if SalesOrder.Status <> SalesOrder.Status::Released then
                         ERROR(Text005, WhseActivityHeader."Source Document", WhseActivityHeader."Source No.");
-        END;
+        end;
 
-        DeleteWhseActivity := NOT (WhseActivityHeader."Source Document" IN [WhseActivityHeader."Source Document"::"Prod. Consumption", WhseActivityHeader."Source Document"::"Prod. Output"]);
+        DeleteWhseActivity := not (WhseActivityHeader."Source Document" in [WhseActivityHeader."Source Document"::"Prod. Consumption", WhseActivityHeader."Source Document"::"Prod. Output"]);
         GlobalFunctionMgt.SetDeleteWhseActivity(DeleteWhseActivity);
     end;
 
-
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Whse.-Activity-Post", 'OnAfterCode', '', false, false)]
+    local procedure OnAfterCode(var WarehouseActivityLine: Record "Warehouse Activity Line"; var SuppressCommit: Boolean; PrintDoc: Boolean)
+    var
+        WhseActivHeader: Record "Warehouse Activity Header";
+        FunctionsMgt: Codeunit "BC6_Functions Mgt";
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
+    begin
+        WhseActivHeader.Get(WarehouseActivityLine."Activity Type", WarehouseActivityLine."No.");
+        IF NOT GlobalFunctionMgt.GetDeleteWhseActivityHeaderOk() THEN
+            IF PrintDoc THEN
+                CASE WhseActivHeader."Source Document" OF
+                    WhseActivHeader."Source Document"::"Sales Order":
+                        FunctionsMgt.PrintInvtPickHeaderCheck(WhseActivHeader, TRUE);
+                END;
+    end;
 
     // Codeunit 7324 "Whse.-Activity-Post" procedure CreateWhseJnlLine"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Whse.-Activity-Post", 'OnAfterCreateWhseJnlLine', '', false, false)]
@@ -3374,14 +3454,14 @@ then begin
     var
         FctMangt: Codeunit "BC6_Functions Mgt";
     begin
-        IF InvPostingBuffer[1]."Account Type" IN [InvPostingBuffer[1]."Account Type"::Customer] THEN
-            IF FctMangt.VerifTierPayeur(InvPostingBuffer[1]."Account Type", InvPostingBuffer[1]."Account No.",
-                               InvPostingBuffer[1]."Applies-to ID") THEN
+        if InvPostingBuffer[1]."Account Type" in [InvPostingBuffer[1]."Account Type"::Customer] then
+            if FctMangt.VerifTierPayeur(InvPostingBuffer[1]."Account Type", InvPostingBuffer[1]."Account No.",
+                               InvPostingBuffer[1]."Applies-to ID") then
                 FctMangt.CreateEntryTierPayeurCustomer(InvPostingBuffer[1], StepLedger.Description);
 
-        IF InvPostingBuffer[1]."Account Type" IN [InvPostingBuffer[1]."Account Type"::Vendor] THEN
-            IF FctMangt.VerifTierPayeur(InvPostingBuffer[1]."Account Type", InvPostingBuffer[1]."Account No.",
-                               InvPostingBuffer[1]."Applies-to ID") THEN
+        if InvPostingBuffer[1]."Account Type" in [InvPostingBuffer[1]."Account Type"::Vendor] then
+            if FctMangt.VerifTierPayeur(InvPostingBuffer[1]."Account Type", InvPostingBuffer[1]."Account No.",
+                               InvPostingBuffer[1]."Applies-to ID") then
                 FctMangt.CreateEntryTierPayeurVendor(InvPostingBuffer[1], StepLedger.Description);
     end;
 
@@ -3389,8 +3469,8 @@ then begin
     local procedure CU10860_OnPostInvPostingBufferOnBeforeGenJnlPostLineRunWithCheck(var GenJnlLine: Record "Gen. Journal Line"; var PaymentHeader: Record "Payment Header"; var PaymentClass: Record "Payment Class")
     begin
         // GenJnlLine."BC6_Pay-to No." := InvPostingBuffer[1]."Pay-to No.";  TODO: 
-        IF (GenJnlLine."Document Type" = GenJnlLine."Document Type"::Payment) AND
-            (GenJnlLine."BC6_Pay-to No." = '') THEN
+        if (GenJnlLine."Document Type" = GenJnlLine."Document Type"::Payment) and
+            (GenJnlLine."BC6_Pay-to No." = '') then
             GenJnlLine."BC6_Pay-to No." := GenJnlLine."Account No.";
     end;
 
@@ -3410,7 +3490,7 @@ then begin
     local procedure OnBeforeDeleteFromBinContent(var WarehouseEntry: Record "Warehouse Entry"; var IsHandled: Boolean)
     var
         FromBinContent: Record "Bin Content";
-        text002: Label '<Article %1, content %2 empty.>', Comment = 'FRA="<Article %1, contenu %2 vide.>"';
+        text002: label '<Article %1, content %2 empty.>', Comment = 'FRA="<Article %1, contenu %2 vide.>"';
     begin
         FromBinContent.Get(
             WarehouseEntry."Location Code", WarehouseEntry."Bin Code", WarehouseEntry."Item No.", WarehouseEntry."Variant Code",
@@ -3421,7 +3501,7 @@ then begin
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Whse. Jnl.-Register Line", 'OnDeleteFromBinContentOnBeforeFieldError', '', false, false)]
     local procedure OnDeleteFromBinContentOnBeforeFieldError(BinContent: Record "Bin Content"; WarehouseEntry: Record "Warehouse Entry"; var IsHandled: Boolean)
     var
-        Text003: Label '<Article %1, content %2 of %3 insufficient.>', Comment = 'FRA="<Article %1, contenu %2 de %3 insuffisant.>"';
+        Text003: label '<Article %1, content %2 of %3 insufficient.>', Comment = 'FRA="<Article %1, contenu %2 de %3 insuffisant.>"';
     begin
         if BinContent."Quantity (Base)" + WarehouseEntry."Qty. (Base)" < 0 then
             ERROR(Text003, WarehouseEntry."Item No.", WarehouseEntry."Bin Code", BinContent.Quantity);
@@ -3437,7 +3517,7 @@ then begin
     begin
         IsHandled := true;
         Item.GET(ReqLine."No.");
-        WITH ReqLine DO BEGIN
+        with ReqLine do begin
             FunctMgt.FindPurchLineDisc(
                           TempPurchaseLineDiscount, "Vendor No.", "No.", "Variant Code",
                           "Unit of Measure Code", "Currency Code", "Order Date", false,
@@ -3452,7 +3532,7 @@ then begin
         FunctMgt: codeunit "BC6_Functions Mgt";
     begin
         Item.GET(PurchaseLine."No.");
-        WITH PurchaseLine DO BEGIN
+        with PurchaseLine do begin
             FunctMgt.FindPurchLineDisc(
                           TempPurchLineDisc, "Pay-to Vendor No.", "No.", "Variant Code", "Unit of Measure Code",
                           PurchaseHeader."Currency Code", FunctMgt.PurchHeaderStartDate(PurchaseHeader, DateCaption), ShowAll,
@@ -3468,21 +3548,21 @@ then begin
         TxtGSellToCustomerName2: Text[30];
         CodGSelltoCountryCode: Code[10];
     begin
-        WITH SalesHeader DO BEGIN
-            IF ("Sell-to Customer Name" = "Sell-to Customer Name 2") THEN
+        with SalesHeader do begin
+            if ("Sell-to Customer Name" = "Sell-to Customer Name 2") then
                 TxtGSellToCustomerName2 := ''
-            ELSE
+            else
                 TxtGSellToCustomerName2 := "Sell-to Customer Name 2";
 
-            IF "Sell-to Country/Region Code" = 'FR' THEN
+            if "Sell-to Country/Region Code" = 'FR' then
                 CodGSelltoCountryCode := ''
-            ELSE
+            else
                 CodGSelltoCountryCode := "Sell-to Country/Region Code";
 
             FormAddr.FormatAddr(
                 AddrArray, "Sell-to Customer Name", TxtGSellToCustomerName2, "Sell-to Contact", "Sell-to Address", "Sell-to Address 2",
                 "Sell-to City", "Sell-to Post Code", "Sell-to County", CodGSelltoCountryCode);
-        END;
+        end;
         Handled := true;
     end;
 
@@ -3493,22 +3573,22 @@ then begin
         TxtGBillToName2: Text[30];
         CodGBillToCountryCode: Code[10];
     begin
-        WITH SalesHeader DO BEGIN
-            IF ("Bill-to Name" = "Bill-to Name 2") THEN
+        with SalesHeader do begin
+            if ("Bill-to Name" = "Bill-to Name 2") then
                 TxtGBillToName2 := ''
-            ELSE
+            else
                 TxtGBillToName2 := "Bill-to Name 2";
 
-            IF "Bill-to Country/Region Code" = 'FR' THEN
+            if "Bill-to Country/Region Code" = 'FR' then
                 CodGBillToCountryCode := ''
-            ELSE
+            else
                 CodGBillToCountryCode := "Bill-to Country/Region Code";
 
-            WITH SalesHeader DO
+            with SalesHeader do
                 FormAddr.FormatAddr(
                 AddrArray, "Bill-to Name", TxtGBillToName2, "Bill-to Contact", "Bill-to Address", "Bill-to Address 2",
                 "Bill-to City", "Bill-to Post Code", "Bill-to County", CodGBillToCountryCode);
-        END;
+        end;
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Format Address", 'OnBeforeSalesHeaderShipTo', '', false, false)]
@@ -3523,15 +3603,15 @@ then begin
     begin
         Result := false;
         Handled := true;
-        WITH SalesHeader DO BEGIN
-            IF ("Ship-to Name" = "Ship-to Name 2") THEN
+        with SalesHeader do begin
+            if ("Ship-to Name" = "Ship-to Name 2") then
                 TxtGSShiptoName2 := ''
-            ELSE
+            else
                 TxtGSShiptoName2 := "Ship-to Name 2";
 
-            IF "Ship-to Country/Region Code" = 'FR' THEN
+            if "Ship-to Country/Region Code" = 'FR' then
                 CodGShiptoCountryCode := ''
-            ELSE
+            else
                 CodGShiptoCountryCode := "Ship-to Country/Region Code";
 
             FormAddr.FormatAddr(
@@ -3558,22 +3638,22 @@ then begin
         TxtGBuyfromVendorName2: Text[30];
         CodGBuyfromCountryCode: Code[10];
     begin
-        WITH PurchaseHeader DO BEGIN
-            IF ("Buy-from Vendor Name" = "Buy-from Vendor Name 2") THEN
+        with PurchaseHeader do begin
+            if ("Buy-from Vendor Name" = "Buy-from Vendor Name 2") then
                 TxtGBuyfromVendorName2 := ''
-            ELSE
+            else
                 TxtGBuyfromVendorName2 := "Buy-from Vendor Name 2";
 
-            IF "Buy-from Country/Region Code" = 'FR' THEN
+            if "Buy-from Country/Region Code" = 'FR' then
                 CodGBuyfromCountryCode := ''
-            ELSE
+            else
                 CodGBuyfromCountryCode := "Buy-from Country/Region Code";
 
 
             FormAddr.FormatAddr(
               AddrArray, "Buy-from Vendor Name", TxtGBuyfromVendorName2, "Buy-from Contact", "Buy-from Address", "Buy-from Address 2",
               "Buy-from City", "Buy-from Post Code", "Buy-from County", CodGBuyfromCountryCode);
-        END;
+        end;
         Handled := true;
     end;
 
@@ -3587,18 +3667,18 @@ then begin
     begin
         Result := false;
         Handled := true;
-        WITH SalesShipmentHeader DO BEGIN
-            IF ("Bill-to Name" = "Bill-to Name 2") THEN
+        with SalesShipmentHeader do begin
+            if ("Bill-to Name" = "Bill-to Name 2") then
                 TxtGBillToName2 := ''
-            ELSE
+            else
                 TxtGBillToName2 := "Bill-to Name 2";
 
-            IF "Bill-to Country/Region Code" = 'FR' THEN
+            if "Bill-to Country/Region Code" = 'FR' then
                 CodGBillToCountryCode := ''
-            ELSE
+            else
                 CodGBillToCountryCode := "Bill-to Country/Region Code";
 
-            WITH SalesShipmentHeader DO
+            with SalesShipmentHeader do
                 FormAddr.FormatAddr(
                   AddrArray, "Bill-to Name", TxtGBillToName2, "Bill-to Contact", "Bill-to Address", "Bill-to Address 2",
                   "Bill-to City", "Bill-to Post Code", "Bill-to County", CodGBillToCountryCode);
@@ -3622,21 +3702,21 @@ then begin
         CodGShiptoCountryCode: Code[10];
     begin
         Handled := true;
-        WITH SalesShipmentHeader DO BEGIN
-            IF ("Ship-to Name" = "Ship-to Name 2") THEN
+        with SalesShipmentHeader do begin
+            if ("Ship-to Name" = "Ship-to Name 2") then
                 TxtGSShiptoName2 := ''
-            ELSE
+            else
                 TxtGSShiptoName2 := "Ship-to Name 2";
 
-            IF "Ship-to Country/Region Code" = 'FR' THEN
+            if "Ship-to Country/Region Code" = 'FR' then
                 CodGShiptoCountryCode := ''
-            ELSE
+            else
                 CodGShiptoCountryCode := "Ship-to Country/Region Code";
 
             FormAddr.FormatAddr(
               AddrArray, "Ship-to Name", TxtGSShiptoName2, "Ship-to Contact", "Ship-to Address", "Ship-to Address 2",
               "Ship-to City", "Ship-to Post Code", "Ship-to County", CodGShiptoCountryCode);
-        END;
+        end;
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Format Address", 'OnBeforeSalesInvBillTo', '', false, false)]
@@ -3647,22 +3727,22 @@ then begin
         CodGBillToCountryCode: Code[10];
     begin
         handled := true;
-        WITH SalesInvHeader DO BEGIN
-            IF ("Bill-to Name" = "Bill-to Name 2") THEN
+        with SalesInvHeader do begin
+            if ("Bill-to Name" = "Bill-to Name 2") then
                 TxtGBillToName2 := ''
-            ELSE
+            else
                 TxtGBillToName2 := "Bill-to Name 2";
 
-            IF "Bill-to Country/Region Code" = 'FR' THEN
+            if "Bill-to Country/Region Code" = 'FR' then
                 CodGBillToCountryCode := ''
-            ELSE
+            else
                 CodGBillToCountryCode := "Bill-to Country/Region Code";
 
-            WITH SalesInvHeader DO
+            with SalesInvHeader do
                 FormAddr.FormatAddr(
                   AddrArray, "Bill-to Name", TxtGBillToName2, "Bill-to Contact", "Bill-to Address", "Bill-to Address 2",
                   "Bill-to City", "Bill-to Post Code", "Bill-to County", CodGBillToCountryCode);
-        END;
+        end;
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Format Address", 'OnBeforeSalesCrMemoBillTo', '', false, false)]
@@ -3673,22 +3753,22 @@ then begin
         CodGBillToCountryCode: Code[10];
     begin
         Handled := true;
-        WITH SalesCrMemoHeader DO BEGIN
-            IF ("Bill-to Name" = "Bill-to Name 2") THEN
+        with SalesCrMemoHeader do begin
+            if ("Bill-to Name" = "Bill-to Name 2") then
                 TxtGBillToName2 := ''
-            ELSE
+            else
                 TxtGBillToName2 := "Bill-to Name 2";
 
-            IF "Bill-to Country/Region Code" = 'FR' THEN
+            if "Bill-to Country/Region Code" = 'FR' then
                 CodGBillToCountryCode := ''
-            ELSE
+            else
                 CodGBillToCountryCode := "Bill-to Country/Region Code";
 
-            WITH SalesCrMemoHeader DO
+            with SalesCrMemoHeader do
                 FormAddr.FormatAddr(
                   AddrArray, "Bill-to Name", TxtGBillToName2, "Bill-to Contact", "Bill-to Address", "Bill-to Address 2",
                   "Bill-to City", "Bill-to Post Code", "Bill-to County", CodGBillToCountryCode);
-        END;
+        end;
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Transfer Extended Text", 'OnSalesCheckIfAnyExtTextOnBeforeSetFilters', '', false, false)]
@@ -3708,11 +3788,11 @@ then begin
                         RecGTmpExtTexLineSpe.SETRANGE("Table Name", RecGTmpExtTexLineSpe."Table Name"::Customer);
                         RecGTmpExtTexLineSpe.SETRANGE(Code, SalesLine."Sell-to Customer No.");
                         RecGTmpExtTexLineSpe.SETRANGE("No.", SalesLine."No.");
-                        IF RecGTmpExtTexLineSpe.FIND('-') THEN BEGIN
-                            AutoText := TRUE;
+                        if RecGTmpExtTexLineSpe.FIND('-') then begin
+                            AutoText := true;
                             GlobalFunctionMgt.SetAutoTextSpe(true);
-                            Unconditionally := TRUE;
-                        END;
+                            Unconditionally := true;
+                        end;
                     end;
             end;
     end;
@@ -3728,10 +3808,10 @@ then begin
         RecGTmpExtTexLineSpe.SETRANGE("Table Name", RecGTmpExtTexLineSpe."Table Name"::Customer);
         RecGTmpExtTexLineSpe.SETRANGE(Code, SalesLine."Sell-to Customer No.");
         RecGTmpExtTexLineSpe.SETRANGE("No.", SalesLine."No.");
-        IF RecGTmpExtTexLineSpe.FIND('-') THEN BEGIN
+        if RecGTmpExtTexLineSpe.FIND('-') then begin
             GlobalFunctionMgt.SetAutoTextSpe(true);
-            Unconditionally := TRUE;
-        END;
+            Unconditionally := true;
+        end;
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Transfer Extended Text", 'OnPurchCheckIfAnyExtTextOnBeforeSetFilters', '', false, false)]
@@ -3752,11 +3832,11 @@ then begin
                         RecGTmpExtTexLineSpe.SETRANGE("Table Name", RecGTmpExtTexLineSpe."Table Name"::Vendor);
                         RecGTmpExtTexLineSpe.SETRANGE(Code, PurchaseLine."Buy-from Vendor No.");
                         RecGTmpExtTexLineSpe.SETRANGE("No.", PurchaseLine."No.");
-                        IF RecGTmpExtTexLineSpe.FIND('-') THEN BEGIN
-                            AutoText := TRUE;
+                        if RecGTmpExtTexLineSpe.FIND('-') then begin
+                            AutoText := true;
                             GlobalFunctionMgt.SetAutoTextSpe(true);
-                            Unconditionally := TRUE;
-                        END;
+                            Unconditionally := true;
+                        end;
                     end;
             end;
     end;
@@ -3773,10 +3853,10 @@ then begin
         RecGTmpExtTexLineSpe.SETRANGE("Table Name", RecGTmpExtTexLineSpe."Table Name"::Vendor);
         RecGTmpExtTexLineSpe.SETRANGE(Code, PurchaseLine."Buy-from Vendor No.");
         RecGTmpExtTexLineSpe.SETRANGE("No.", PurchaseLine."No.");
-        IF RecGTmpExtTexLineSpe.FIND('-') THEN BEGIN
+        if RecGTmpExtTexLineSpe.FIND('-') then begin
             GlobalFunctionMgt.SetAutoTextSpe(true);
-            Unconditionally := TRUE;
-        END;
+            Unconditionally := true;
+        end;
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Transfer Extended Text", 'OnBeforeReadLines', '', false, false)]
@@ -3845,57 +3925,57 @@ then begin
         ShouldSetStatusPrepayment: Boolean;
         LinesWereModified: Boolean;
         BooLGo: Boolean;
-        Text001: Label 'There is nothing to release for the document of type %1 with the number %2.';
+        Text001: label 'There is nothing to release for the document of type %1 with the number %2.';
 
-        Text100000: Label 'Purchasing Code Is Mandatory', Comment = 'FRA="La proc‚dure d''achat est obligatoire"';
-        CstG001: Label 'Is this quote associated to an affair ?', Comment = 'FRA="Ce devis est-il associ‚ … une affaire ?"';
-        CstG002: Label 'Do You want to create a new step ?', Comment = 'FRA="Voulez-vous cr‚er une ‚tape de suivi ?"';
-        CstG003: Label 'Is the salesperson code correctly entered?', Comment = 'FRA="Le code vendeur est-il correctement renseign‚ ?"';
+        Text100000: label 'Purchasing Code Is Mandatory', Comment = 'FRA="La proc‚dure d''achat est obligatoire"';
+        CstG001: label 'Is this quote associated to an affair ?', Comment = 'FRA="Ce devis est-il associ‚ … une affaire ?"';
+        CstG002: label 'Do You want to create a new step ?', Comment = 'FRA="Voulez-vous cr‚er une ‚tape de suivi ?"';
+        CstG003: label 'Is the salesperson code correctly entered?', Comment = 'FRA="Le code vendeur est-il correctement renseign‚ ?"';
         "-FEP-ACHAT-200706_18_A-": Integer;
         RecGSalesLine: Record "Sales Line";
         RecGUserSetup: Record "User Setup";
     begin
         IsHandled := true;
         with SalesHeader do begin
-            BooLGo := TRUE;
+            BooLGo := true;
 
-            IF "Document Type" = "Document Type"::Quote THEN BEGIN
-                IF "BC6_Affair No." = '' THEN BEGIN
-                    IF CONFIRM(CstG001, FALSE) THEN BEGIN
-                        BooLGo := FALSE;
-                        EXIT;
-                    END ELSE BEGIN
-                        BooLGo := TRUE;
-                    END;
-                END ELSE BEGIN
-                    BooLGo := TRUE;
-                    IF NOT RecLJobContact.GET("Sell-to Contact No.", "BC6_Affair No.") THEN BEGIN
+            if "Document Type" = "Document Type"::Quote then begin
+                if "BC6_Affair No." = '' then begin
+                    if CONFIRM(CstG001, false) then begin
+                        BooLGo := false;
+                        exit;
+                    end else begin
+                        BooLGo := true;
+                    end;
+                end else begin
+                    BooLGo := true;
+                    if not RecLJobContact.GET("Sell-to Contact No.", "BC6_Affair No.") then begin
                         RecLJob.RESET();
                         RecLJobContact.INIT();
                         RecLJobContact."Contact No." := "Sell-to Contact No.";
                         RecLJobContact."Affair No." := "BC6_Affair No.";
                         RecLJobContact.VALIDATE(RecLJobContact."Contact No.");
                         RecLJobContact.INSERT();
-                    END;
-                    IF CONFIRM(CstG002, FALSE) THEN BEGIN
-                        IF RecLJob.GET("BC6_Affair No.") THEN
+                    end;
+                    if CONFIRM(CstG002, false) then begin
+                        if RecLJob.GET("BC6_Affair No.") then
                             PAGE.RUN(PAGE::"Job Card", RecLJob);
-                        BooLGo := TRUE;
-                    END;
-                END;
-            END;
+                        BooLGo := true;
+                    end;
+                end;
+            end;
             //<<FEP-ADVE-200706_18_A.001
             //>>P24233_001 SOBI APA 02/02/17
-            IF NOT RecGUserSetup.GET(USERID) THEN
+            if not RecGUserSetup.GET(USERID) then
                 RecGUserSetup.INIT();
-            IF RecGUserSetup."BC6_Limited User" THEN BEGIN
-                IF NOT CONFIRM(CstG003, FALSE) THEN
-                    EXIT;
-            END;
+            if RecGUserSetup."BC6_Limited User" then begin
+                if not CONFIRM(CstG003, false) then
+                    exit;
+            end;
             //<<P24233_001 SOBI APA 02/02/17
 
             //>>FEP-ADVE-200706_18_A.001
-            IF BooLGo THEN BEGIN
+            if BooLGo then begin
                 //<<FEP-ADVE-200706_18_A.001
                 //<<MIGRATION NAV 2013
 
@@ -3919,26 +3999,26 @@ then begin
                 //>>MIGRATION NAV 2013 - 2017
                 //LIVRAISON FRGO NSC1.01 [016] Date Livraison obligatoire
                 SalesSetup.GET();
-                IF SalesSetup."BC6_Promised Delivery Date" THEN
-                    IF "Document Type" = "Document Type"::Order THEN
+                if SalesSetup."BC6_Promised Delivery Date" then
+                    if "Document Type" = "Document Type"::Order then
                         TESTFIELD("Promised Delivery Date");
-                IF SalesSetup."BC6_Requested Delivery Date" THEN
-                    IF "Document Type" = "Document Type"::Order THEN
+                if SalesSetup."BC6_Requested Delivery Date" then
+                    if "Document Type" = "Document Type"::Order then
                         TESTFIELD("Requested Delivery Date");
                 //Fin LIVRAISON FRGO NSC1.01 [016] Date Livraison obligatoire
 
                 //>>FEP-ACHAT-200706_18_A.001
-                IF ("Document Type" = "Document Type"::Order) THEN BEGIN
+                if ("Document Type" = "Document Type"::Order) then begin
                     RecGSalesLine.RESET();
                     RecGSalesLine.SETCURRENTKEY("Document Type", "Document No.", "Line No.");
                     RecGSalesLine.SETRANGE(RecGSalesLine."Document Type", "Document Type");
                     RecGSalesLine.SETRANGE(RecGSalesLine.Type, RecGSalesLine.Type::Item);
                     RecGSalesLine.SETRANGE(RecGSalesLine."Document No.", "No.");
-                    IF RecGSalesLine.FINDFIRST() THEN
-                        REPEAT
+                    if RecGSalesLine.FINDFIRST() then
+                        repeat
                             RecGSalesLine.TESTFIELD("Purchasing Code");
-                        UNTIL RecGSalesLine.NEXT() = 0;
-                END;
+                        until RecGSalesLine.NEXT() = 0;
+                end;
                 //<<FEP-ACHAT-200706_18_A.001
                 //<<MIGRATION NAV 2013
 
@@ -3952,7 +4032,7 @@ then begin
                 SalesLine.SetFilter(Type, '>0');
                 SalesLine.SetFilter(Quantity, '<>0');
                 if not SalesLine.Find('-') then
-                    IF NOT "BC6_Sales Counter" THEN
+                    if not "BC6_Sales Counter" then
                         Error(Text001, "Document Type", "No.");
                 InvtSetup.Get();
                 if InvtSetup."Location Mandatory" then begin
@@ -3977,7 +4057,7 @@ then begin
                 if SalesSetup."Calc. Inv. Discount" then begin
                     PostingDate := "Posting Date";
                     PrintPostedDocuments := "Print Posted Documents";
-                    IF NOT "BC6_Sales Counter" THEN
+                    if not "BC6_Sales Counter" then
                         CODEUNIT.Run(CODEUNIT::"Sales-Calc. Discount", SalesLine);
                     LinesWereModified := true;
                     Get("Document Type", "No.");
@@ -4038,7 +4118,7 @@ then begin
     var
         Location: Record Location;
     begin
-        IF (SalesLine."Bin Code" = Location."Shipment Bin Code") THEN
+        if (SalesLine."Bin Code" = Location."Shipment Bin Code") then
             WarehouseActivityLine."Bin Code" := '';
     end;
 
@@ -4063,7 +4143,7 @@ then begin
         Item: record Item;
         VendorNo: Code[20];
     begin
-        IF Item.Get(ItemNo) then
+        if Item.Get(ItemNo) then
             if Item."Vendor No." <> '' then begin
                 VendorNo := Item."Vendor No.";
                 with FromSalesLineDisc do begin
@@ -4109,7 +4189,7 @@ then begin
                             until not InclCampaigns;
                         end;
                 end;
-            End;
+            end;
     end;
 
 
@@ -4146,16 +4226,16 @@ then begin
     begin
         //>>COMPTA_DEEE FG 01/03/07
         RecLPayVendor.RESET;
-        IF RecLPayVendor.GET(PurchaseLine."Pay-to Vendor No.") THEN
+        if RecLPayVendor.GET(PurchaseLine."Pay-to Vendor No.") then
             BooLPostingDEEE := RecLPayVendor."BC6_Posting DEEE"
-        ELSE
-            BooLPostingDEEE := FALSE;
+        else
+            BooLPostingDEEE := false;
         //<<COMPTA_DEEE FG 01/03/07
 
-        IF (PurchaseLine."BC6_DEEE Category Code" <> '') AND (PurchaseLine."Qty. to Invoice" <> 0)
+        if (PurchaseLine."BC6_DEEE Category Code" <> '') and (PurchaseLine."Qty. to Invoice" <> 0)
               //>>COMPTA_DEEE FG 01/03/07
               //AND (PurchaseLine."DEEE HT Amount"<>0) THEN BEGIN
-              AND (PurchaseLine."BC6_DEEE HT Amount" <> 0) AND (BooLPostingDEEE) THEN BEGIN
+              and (PurchaseLine."BC6_DEEE HT Amount" <> 0) and (BooLPostingDEEE) then begin
             //<<COMPTA_DEEE FG 01/03/07
             //IF PurchaseLine."Is Line Submitted"=PurchaseLine."Is Line Submitted"::"2" THEN BEGIN
             // Copy DEEE  to buffer
@@ -4163,23 +4243,23 @@ then begin
             // MIG 2017 >>
             GenPostingSetup.GET(PurchaseLine."Gen. Bus. Posting Group", PurchaseLine."Gen. Prod. Posting Group");
 
-            IF (PurchaseLine."Gen. Bus. Posting Group" <> GenPostingSetup."Gen. Bus. Posting Group") OR
+            if (PurchaseLine."Gen. Bus. Posting Group" <> GenPostingSetup."Gen. Bus. Posting Group") or
                 (PurchaseLine."Gen. Prod. Posting Group" <> GenPostingSetup."Gen. Prod. Posting Group")
-            THEN; //  GenPostingSetup.GET(PurchaseLine."Gen. Bus. Posting Group",PurchaseLine."Gen. Prod. Posting Group");
+            then; //  GenPostingSetup.GET(PurchaseLine."Gen. Bus. Posting Group",PurchaseLine."Gen. Prod. Posting Group");
             CLEAR(InvoicePostBuffer);
             InvoicePostBuffer.Type := PurchaseLine.Type;
 
             GenPostingSetup.GET('DEEE', PurchaseLine."Gen. Prod. Posting Group");
 
-            IF PurchaseHeader."Document Type" = PurchaseHeader."Document Type"::"Credit Memo" THEN BEGIN
+            if PurchaseHeader."Document Type" = PurchaseHeader."Document Type"::"Credit Memo" then begin
                 GenPostingSetup.TESTFIELD("Purch. Credit Memo Account");
                 InvoicePostBuffer."G/L Account" := GenPostingSetup."Purch. Credit Memo Account";
-            END ELSE BEGIN
+            end else begin
                 GenPostingSetup.TESTFIELD("Purch. Account");
                 InvoicePostBuffer."G/L Account" := GenPostingSetup."Purch. Account";
-            END;
+            end;
 
-            InvoicePostBuffer."System-Created Entry" := TRUE;
+            InvoicePostBuffer."System-Created Entry" := true;
             InvoicePostBuffer."Gen. Bus. Posting Group" := 'DEEE';//PurchaseLine."Gen. Bus. Posting Group";
             InvoicePostBuffer."Gen. Prod. Posting Group" := PurchaseLine."Gen. Prod. Posting Group";
             InvoicePostBuffer."VAT Bus. Posting Group" := PurchaseLine."VAT Bus. Posting Group";
@@ -4207,7 +4287,7 @@ then begin
 
             TempInvoicePostBuffer.Update(InvoicePostBuffer);
 
-        END;
+        end;
     end;
     //TAB341
     [EventSubscriber(ObjectType::Table, Database::"Item Discount Group", 'OnBeforeDeleteEvent', '', false, false)]
@@ -4222,4 +4302,66 @@ then begin
 
 
 
+    //---CUD2000000005---
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Reporting Triggers", 'SubstituteReport', '', false, false)]
+    local procedure SubstituteReport_CopySalesDocument(ReportId: Integer; RunMode: Option Normal,ParametersOnly,Execute,Print,SaveAs,RunModal; RequestPageXml: Text; RecordRef: RecordRef; var NewReportId: Integer)
+    begin
+        if ReportId = Report::"Copy Sales Document" then
+            NewReportId := Report::"BC6_Copy Sales Document";
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Reporting Triggers", 'SubstituteReport', '', false, false)]
+    local procedure SubstituteReport_CombineShipments(ReportId: Integer; RunMode: Option Normal,ParametersOnly,Execute,Print,SaveAs,RunModal; RequestPageXml: Text; RecordRef: RecordRef; var NewReportId: Integer)
+    begin
+        if ReportId = Report::"Combine Shipments" then
+            NewReportId := Report::"BC6_Combine Shipments";
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Reporting Triggers", 'SubstituteReport', '', false, false)]
+    local procedure SubstituteReport_BatchPostSalesOrders(ReportId: Integer; RunMode: Option Normal,ParametersOnly,Execute,Print,SaveAs,RunModal; RequestPageXml: Text; RecordRef: RecordRef; var NewReportId: Integer)
+    begin
+        if ReportId = Report::"Batch Post Sales Orders" then
+            NewReportId := Report::"BC6_Batch Post Sales Orders";
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Whse.-Activity-Post", 'OnCodeOnAfterWhseActivLineSetFilters', '', false, false)]
+    local procedure OnCodeOnAfterWhseActivLineSetFilters(var WhseActivHeader: Record "Warehouse Activity Header"; var WhseActivLine: Record "Warehouse Activity Line")
+    var
+        WhseActivLine2: Record "Warehouse Activity Line";
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
+        DeleteWhseActivityHeaderOk: Boolean;
+        QtytoHandle: Decimal;
+    begin
+        GlobalFunctionMgt.SetDeleteWhseActivityHeaderOk(true);
+        IF GlobalFunctionMgt.GetDeleteWhseActivity() THEN BEGIN
+            IF WhseActivLine.FIND('-') THEN
+                REPEAT
+                    QtytoHandle := 0;
+                    IF (WhseActivLine."Activity Type" = WhseActivLine."Activity Type"::"Invt. Put-away") THEN BEGIN
+                        WhseActivLine.DELETE;
+                    END ELSE BEGIN
+                        IF (WhseActivLine."Qty. Outstanding" <= 0) THEN
+                            WhseActivLine.DELETE
+                        ELSE BEGIN
+                            GlobalFunctionMgt.SetDeleteWhseActivityHeaderOk(false);
+                            WhseActivLine2.get(WhseActivLine."Activity Type", WhseActivLine."No.", WhseActivLine."Line No.");
+                            WhseActivLine2.BC6_DeleteWhseActivityHeader := false;
+                            WhseActivLine2.modify();
+                            IF (WhseActivLine."BC6_Qty. Picked" > 0) THEN
+                                QtytoHandle := WhseActivLine."BC6_Qty. Picked" - WhseActivLine."Qty. Handled";
+                            IF (QtytoHandle > WhseActivLine."Qty. Outstanding") THEN
+                                QtytoHandle := WhseActivLine."Qty. Outstanding";
+                            IF QtytoHandle < 0 THEN
+                                QtytoHandle := 0;
+                            WhseActivLine.VALIDATE("Qty. to Handle", QtytoHandle);
+                        END;
+                    END;
+                UNTIL WhseActivLine.NEXT = 0;
+            IF GlobalFunctionMgt.GetDeleteWhseActivityHeaderOk() THEN
+                WhseActivLine.SetRange(BC6_DeleteWhseActivityHeader, true);
+        end;
+    end;
+
+
 }
+

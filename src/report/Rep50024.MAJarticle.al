@@ -6,8 +6,8 @@ report 50024 "BC6_MAJ article"
     {
         dataitem(Item; 27)
         {
-            //TODO DataItemTableView = SORTING ("No.")
-            //                     WHERE ("No."=CONST(AWG114110090122));
+            DataItemTableView = SORTING("No.")
+                                WHERE("No." = CONST('AWG114110090122'));
 
             trigger OnAfterGetRecord()
             begin

@@ -52,8 +52,8 @@ pageextension 50037 "BC6_PostedSalesInvoice" extends "Posted Sales Invoice" //13
                     RecLPostSalesInv.SETRECFILTER;
                     ToFile := 'BON DE LIVRAISON CNE N° ' + DELCHR((RecLPostSalesInv."No."), '=', '/\:.,') + '.pdf';
                     FileName := TEMPORARYPATH + ToFile;
-                    // REPORT.SAVEASPDF(REPORT::"Sales - Invoice CNE", FileName, RecLPostSalesInv); TODO:
-                    // ToFile := ReportHelper.DownloadToClientFileName(FileName, ToFile); TODO:
+                    REPORT.SAVEASPDF(REPORT::"BC6_Sales - Invoice CNE", FileName, RecLPostSalesInv);
+                    ToFile := ReportHelper.DownloadToClientFileName(FileName, ToFile);
 
                     IF RecLPostSalesInv."Your Reference" <> '' THEN
                         Objet := 'FACTURE CNE N° ' + DELCHR((RecLPostSalesInv."No."), '=', '/\:.,') + ' - ' + DELCHR((RecLPostSalesInv."Your Reference"), '=', '/\:.,')
@@ -108,11 +108,8 @@ pageextension 50037 "BC6_PostedSalesInvoice" extends "Posted Sales Invoice" //13
         Objet: Text[250];
         Body: Text[1024];
         recGCompanyInfo: Record "Company Information";
-    // ReportHelper: Codeunit 50010; TODO:
+        ReportHelper: Codeunit BC6_ReportHelper;
 
-    procedure "---MIGNAV2013---"()
-    begin
-    end;
 
     procedure EnvoiMail()
     begin

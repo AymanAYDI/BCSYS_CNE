@@ -1,7 +1,7 @@
 report 50032 "BC6_Order Confirmation CNE"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './OrderConfirmationCNE.rdlc';
+    RDLCLayout = './src/report/RDL/OrderConfirmationCNE.rdl';
 
     Caption = 'Order Confirmation CNE', comment = 'FRA="Confirmation de Cde CNE"';
     ShowPrintStatus = false;
@@ -14,7 +14,7 @@ report 50032 "BC6_Order Confirmation CNE"
                                 WHERE("Document Type" = CONST(Order));
             PrintOnlyIfDetail = true;
             RequestFilterFields = "No.", "Sell-to Customer No.";
-            RequestFilterHeading = 'Sales Order';
+            RequestFilterHeading = 'Sales Order', Comment = 'FRA="Commande vente"';
             column(DocType_SalesHeader; "Document Type")
             {
             }
@@ -468,33 +468,30 @@ report 50032 "BC6_Order Confirmation CNE"
                                 "Sales Line"."No." := '';
 
                             //Debut affichage des references externes
-                            ItemCrossReference.RESET;
-                            ItemCrossReference.SETRANGE("Item No.", SalesLine."No.");
-                            ItemCrossReference.SETRANGE("Cross-Reference Type", ItemCrossReference."Cross-Reference Type"::Customer);
-                            ItemCrossReference.SETRANGE("Cross-Reference Type No.", SalesHeader."Sell-to Customer No.");
+                            ItemReference.RESET;
+                            ItemReference.SETRANGE("Item No.", SalesLine."No.");
+                            ItemReference.SETRANGE("Reference Type", ItemReference."Reference Type"::Customer);
+                            ItemReference.SETRANGE("Reference Type No.", SalesHeader."Sell-to Customer No.");
                             CrossrefNo := '';
-                            IF ItemCrossReference.FIND('-') THEN
-                                CrossrefNo := ItemCrossReference."Cross-Reference No.";
+                            IF ItemReference.FIND('-') THEN
+                                CrossrefNo := ItemReference."Reference No.";
                             //Fin affichage des references externes
 
                             //Début recuperation du code barre (gencod)
-                            ItemCrossReference.RESET;
-                            ItemCrossReference.SETRANGE("Item No.", SalesLine."No.");
-                            ItemCrossReference.SETRANGE("Cross-Reference Type", ItemCrossReference."Cross-Reference Type"::"Bar Code");
-                            ItemCrossReference.SETRANGE("Discontinue Bar Code", FALSE);
+                            ItemReference.RESET;
+                            ItemReference.SETRANGE("Item No.", SalesLine."No.");
+                            ItemReference.SETRANGE("Reference Type", ItemReference."Reference Type"::"Bar Code");
+                            //TODO:Field 'Discontinue Bar Code' is removed.
+                            //ItemReference.SETRANGE("Discontinue Bar Code", FALSE);
                             TempGencod := '';
-                            IF ItemCrossReference.FIND('-') THEN
-                                TempGencod := ItemCrossReference."Cross-Reference No.";
-                            //Fin recuperation du code barre (gencod)
-
-                            //Debut recuperation du code nomenclature douanière
+                            IF ItemReference.FIND('-') THEN
+                                TempGencod := ItemReference."Reference No.";
                             item."Tariff No." := '';
                             IF SalesHeader."Sell-to Country/Region Code" <> CompanyInfo."Country/Region Code" THEN BEGIN
                                 IF SalesLine.Type = SalesLine.Type::Item THEN
                                     IF item.GET(SalesLine."No.") THEN;
                                 ;
                             END;
-                            //Fin recuperation du code nomenclature douanière
 
                             IF ((SalesLine."BC6_DEEE Category Code" <> '') AND (SalesLine.Quantity <> 0)
                             AND (SalesLine."BC6_Eco partner DEEE" <> '')) THEN BEGIN
@@ -1265,7 +1262,7 @@ report 50032 "BC6_Order Confirmation CNE"
         RecGParamVente: Record "Sales & Receivables Setup";
         CurrExchRate: Record "Currency Exchange Rate";
         RespCenter: Record "Responsibility Center";
-        ItemCrossReference: Record "Item Cross Reference";
+        ItemReference: Record "Item Reference";
         TablesDiverses: Record "BC6_Various Tables";
         RecGItemCtg: Record "BC6_Categories of item";
         RecGDEEE: Record "BC6_DEEE Tariffs";

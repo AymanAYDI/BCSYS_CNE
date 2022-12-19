@@ -8,18 +8,18 @@ page 50075 "BC6_Item ScanDevice Factbox"
     {
         area(content)
         {
-            // field(ChangeDefaultBinCode; ScanDeviceInfoPaneMgt.GetDefaultBinContent("No.", '')) TODO: related to global variable ScanDeviceInfoPaneMgt
-            // {
-            //     Caption = 'Default Bin Code', Comment = 'FRA="Code empl. par déf."';
+            field(ChangeDefaultBinCode; ScanDeviceInfoPaneMgt.GetDefaultBinContent("No.", ''))
+            {
+                Caption = 'Default Bin Code', Comment = 'FRA="Code empl. par déf."';
 
-            //     trigger OnDrillDown()
-            //     begin
-            //         ScanDeviceInfoPaneMgt.ChangeDefaultBinContent("No.", '');
-            //     end;
-            // }
-            // field("Qty. on Purch. Order"; "Qty. on Purch. Order")
-            // {
-            // }
+                trigger OnDrillDown()
+                begin
+                    ScanDeviceInfoPaneMgt.ChangeDefaultBinContent("No.", '');
+                end;
+            }
+            field("Qty. on Purch. Order"; "Qty. on Purch. Order")
+            {
+            }
         }
     }
 
@@ -28,12 +28,12 @@ page 50075 "BC6_Item ScanDevice Factbox"
     }
 
     var
-    // ScanDeviceInfoPaneMgt: Codeunit 50090; TODO:
+        ScanDeviceInfoPaneMgt: Codeunit BC6_ScanDeviceHelper;
 
 
     procedure ChangeDefaultBinContent()
     begin
-        // ScanDeviceInfoPaneMgt.ChangeDefaultBinContent("No.", ''); TODO:
+        ScanDeviceInfoPaneMgt.ChangeDefaultBinContent("No.", '');
     end;
 }
 

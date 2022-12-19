@@ -1,7 +1,7 @@
 report 50039 "BC6_Statement sans traite"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './Statementsanstraite.rdlc';
+    RDLCLayout = './src/report/RDL/Statementsanstraite.rdl';
 
     Caption = 'Statement', Comment = 'FRA="Relevé client"';
 
@@ -600,9 +600,11 @@ report 50039 "BC6_Statement sans traite"
             }
 
             trigger OnAfterGetRecord()
+            var
+                Language: Codeunit Language;
             begin
                 AgingBandBuf.DELETEALL;
-                //TODO // CurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
+                CurrReport.LANGUAGE := Language.GetLanguageIdOrDefault("Language Code");
                 PrintLine := FALSE;
                 Cust2 := Customer;
                 COPYFILTER("Currency Filter", Currency2.Code);
@@ -824,26 +826,26 @@ report 50039 "BC6_Statement sans traite"
         Text005: Label 'Multicurrency Application', Comment = 'FRA="Application multidevise"';
         Text006: Label 'Payment Discount', Comment = 'FRA="Escompte"';
         Text007: Label 'Rounding', Comment = 'FRA="Arrondi"';
-        Text008: Label 'You must specify the Aging Band Period Length.', Comment = 'FRA=""';
-        Text010: Label 'You must specify Aging Band Ending Date.', Comment = 'FRA=""';
-        Text011: Label 'Aged Summary by %1 (%2 by %3)', Comment = 'FRA=""';
-        Text012: Label 'Period Length is out of range.', Comment = 'FRA=""';
-        Text013: Label 'Due Date,Posting Date', Comment = 'FRA=""';
-        Text014: Label 'Application Writeoffs', Comment = 'FRA=""';
-        Text036: Label '-%1', Comment = 'Negating the period length: %1 is the period length';
-        Text066: Label 'TEL : %1 FAX : %2 / email : %3', Comment = 'FRA=""';
-        Text067: Label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5', Comment = 'FRA=""';
-        Text068: Label 'Remaining Total', Comment = 'FRA=""';
-        Text069: Label 'Doc Tyoe', Comment = 'FRA=""';
-        Text100: Label 'From', Comment = 'FRA=""';
-        Text101: Label 'to', Comment = 'FRA=""';
-        Text102: Label 'Customer No.', Comment = 'FRA=""';
-        Text103: Label 'Statement No.', Comment = 'FRA=""';
-        Text104: Label 'of', Comment = 'FRA=""';
-        Text105: Label 'Statement from', Comment = 'FRA=""';
-        Text106: Label 'Print Date', Comment = 'FRA=""';
-        Total_CaptionLbl: Label 'Total', Comment = 'FRA=""';
-        VATRegNo_CompanyInfoCaptionLbl: Label 'VAT Registration No.', Comment = 'FRA=""';
+        Text008: Label 'You must specify the Aging Band Period Length.', Comment = 'FRA="Vous devez spécifier une base période pour le(s) cumul(s) date."';
+        Text010: Label 'You must specify Aging Band Ending Date.', Comment = 'FRA="Vous devez spécifier une date de fin pour le cumul date."';
+        Text011: Label 'Aged Summary by %1 (%2 by %3)', Comment = 'FRA="Cumul en date du %1 (%2 par %3)"';
+        Text012: Label 'Period Length is out of range.', Comment = 'FRA="La période ne correspond pas à l''intervalle défini."';
+        Text013: Label 'Due Date,Posting Date', Comment = 'FRA="Date d''échéance,Date comptabilisation"';
+        Text014: Label 'Application Writeoffs', Comment = 'FRA="Ecarts de lettrage"';
+        Text036: Label '-%1', Comment = '-%1';
+        Text066: Label 'TEL : %1 FAX : %2 / email : %3', Comment = 'FRA="TEL : %1 FAX : %2 / email : %3"';
+        Text067: Label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5', Comment = 'FRA="%1 au capital de  %2   - %3  -  APE %4 - N°TVA : %5"';
+        Text068: Label 'Remaining Total', Comment = 'FRA="Total à payer"';
+        Text069: Label 'Doc Type', Comment = 'FRA="Type doc"';
+        Text100: Label 'From', Comment = 'FRA="Du "';
+        Text101: Label 'to', Comment = 'FRA="au"';
+        Text102: Label 'Customer No.', Comment = 'FRA="N° Client"';
+        Text103: Label 'Statement No.', Comment = 'FRA="N° relevé"';
+        Text104: Label 'of', Comment = 'FRA="du"';
+        Text105: Label 'Statement from', Comment = 'FRA="Relevé Client du"';
+        Text106: Label 'Print Date', Comment = 'FRA="Date d''édition "';
+        Total_CaptionLbl: Label 'Total', Comment = 'FRA="Total"';
+        VATRegNo_CompanyInfoCaptionLbl: Label 'VAT Registration No.', Comment = 'FRA="N° identif. intracomm."';
         DateChoice: Option "Due Date","Posting Date";
         CompanyAddr: array[8] of Text[50];
         CustAddr: array[8] of Text[50];

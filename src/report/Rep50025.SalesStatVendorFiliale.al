@@ -1,7 +1,7 @@
 report 50025 "BC6_Sales Stat/Vendor Filiale"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './SalesStatisticVendorFiliale.rdlc';
+    RDLCLayout = './src/report/RDL/SalesStatisticVendorFiliale.rdl';
 
     Caption = 'Sales Statistic/Vendor', comment = 'FRA="Statistique vente/fournisseur"';
 
@@ -329,7 +329,7 @@ report 50025 "BC6_Sales Stat/Vendor Filiale"
         AuCaptionLbl: Label 'Au';
         CurrReport_PAGENOCaptionLbl: Label 'Page';
         Invoiced_Purchase_Turnover_CaptionLbl: Label 'Invoiced Purchase Turnover ', comment = 'FRA="CA Achat Facturé"';
-        margeCaptionLbl: Label '% Profit', comment = 'FRA=""';
+        margeCaptionLbl: Label '% Profit', comment = 'FRA="% de marge sur vente"';
         Periode__FromCaptionLbl: Label 'Periode :From', comment = 'FRA="Période : Du"';
         Profit_AmountCaptionLbl: Label 'Profit Amount', comment = 'FRA="Montant Marge"';
         Puchase_Turnover_in_Vendor_OrderCaptionLbl: Label 'Puchase Turnover in Vendor Order', comment = 'FRA="CA achat en cde fournisseur"';

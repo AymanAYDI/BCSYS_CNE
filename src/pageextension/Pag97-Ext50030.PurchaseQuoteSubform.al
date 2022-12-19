@@ -36,7 +36,5 @@ pageextension 50030 "BC6_PurchaseQuoteSubform" extends "Purchase Quote Subform" 
     }
 
     var
-        "-MIGNAV2013-": Integer;
-        "--FE-B--": Integer;
-    // CuGItemHistoryMgt: Codeunit 50009; TODO:
+        CuGItemHistoryMgt: Codeunit "BC6_Item History Management";
 }

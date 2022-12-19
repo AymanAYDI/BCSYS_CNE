@@ -5,7 +5,7 @@ page 50074 "BC6_Item List Search CNE"
     Editable = true;
     InsertAllowed = false;
     PageType = List;
-    PromotedActionCategories = 'New,Process,Report,Item,History,Special Prices & Discounts,Request Approval,Periodic Activities,Inventory,Attributes';
+    PromotedActionCategories = 'New,Process,Report,Item,History,Special Prices & Discounts,Request Approval,Periodic Activities,Inventory,Attributes', Comment = 'FRA="Nouveau,Traiter,Déclarer,Historique,Prix et remises spéciaux,Demander une approbation,Traitements,Inventaire,Attributs"';
     RefreshOnActivate = true;
     SourceTable = Item;
     SourceTableTemporary = true;
@@ -17,69 +17,69 @@ page 50074 "BC6_Item List Search CNE"
             group(GroupSearch)
             {
                 Caption = 'Search', Comment = 'FRA="Chercher"';
-                // usercontrol(ScanZone; "ControlAddinScanCapture") TODO:
-                // {
-                //     Visible = IsVisibleSearch;
-                //     ApplicationArea = All;
+                usercontrol(ScanZone; "BC6_ControlAddinScanCapture")
+                {
+                    Visible = IsVisibleSearch;
+                    ApplicationArea = All;
 
-                //     trigger ControlAddInReady()
-                //     begin
-                //         CurrPage.ScanZone.focus();
-                //     end;
+                    trigger ControlAddInReady()
+                    begin
+                        CurrPage.ScanZone.focus();
+                    end;
 
-                //     trigger KeyPressed(index: Integer; data: Text)
-                //     begin
-                //     end;
+                    trigger KeyPressed(index: Integer; data: Text)
+                    begin
+                    end;
 
-                //     trigger TextCaptured(index: Integer; data: Text)
-                //     begin
-                //         data := CONVERTSTR(data, ConvertFrom, ConvertTo);
-                //         SearchField := COPYSTR(data, 1, MAXSTRLEN(SearchField));
-                //         CurrPage.ScanZone.SetText('');
-                //         CurrPage.ScanZone.reset();
-                //         OnAfterValidate;
-                //         CurrPage.ScanZone.focus();
-                //     end;
-                // }
-                // field(SearchField; SearchField) TODO:
-                // {
-                //     Caption = 'Search', Comment = 'FRA="Rechercher"';
-                //     Visible = NOT (IsVisibleSearch);
-                //     ApplicationArea = All;
+                    trigger TextCaptured(index: Integer; data: Text)
+                    begin
+                        data := CONVERTSTR(data, ConvertFrom, ConvertTo);
+                        SearchField := COPYSTR(data, 1, MAXSTRLEN(SearchField));
+                        CurrPage.ScanZone.SetText(index, SearchField); //TODO: Check param
+                        CurrPage.ScanZone.reset(index); //TODO: Check param
+                        OnAfterValidate;
+                        CurrPage.ScanZone.focus();
+                    end;
+                }
+                field(SearchField; SearchField)
+                {
+                    Caption = 'Search', Comment = 'FRA="Rechercher"';
+                    Visible = NOT (IsVisibleSearch);
+                    ApplicationArea = All;
 
-                //     trigger OnValidate()
-                //     begin
-                //         OnAfterValidate;
-                //     end;
-                // }
-                // field(LastSearchField; LastSearchField) TODO:
-                // {
-                //     Caption = 'Last Search', Comment = 'FRA="Dernière recherche"';
-                //     Editable = false;
-                //     QuickEntry = false;
-                //     ApplicationArea = All;
+                    trigger OnValidate()
+                    begin
+                        OnAfterValidate;
+                    end;
+                }
+                field(LastSearchField; LastSearchField)
+                {
+                    Caption = 'Last Search', Comment = 'FRA="Dernière recherche"';
+                    Editable = false;
+                    QuickEntry = false;
+                    ApplicationArea = All;
 
-                //     trigger OnValidate()
-                //     var
-                //         ItemCrossReference: Record "Item Reference";
-                //     begin
-                //         RESET;
-                //         DELETEALL;
-                //         IF SearchField <> '' THEN BEGIN
-                //             ItemCrossReference.SETRANGE("Cross-Reference Type", ItemCrossReference."Cross-Reference Type"::"Bar Code");
-                //             ItemCrossReference.SETRANGE("Cross-Reference No.", SearchField);
-                //             IF ItemCrossReference.FINDSET THEN
-                //                 REPEAT
-                //                     Item.GET(ItemCrossReference."Item No.");
-                //                     Rec := Item;
-                //                     IF INSERT THEN;
-                //                 UNTIL ItemCrossReference.NEXT = 0;
-                //         END;
-                //         LastSearchField := SearchField;
-                //         SearchField := '';
-                //         CurrPage.ScanZone.SetBgColor('red');
-                //     end;
-                // }
+                    trigger OnValidate()
+                    var
+                        ItemCrossReference: Record "Item Reference";
+                    begin
+                        RESET;
+                        DELETEALL;
+                        IF SearchField <> '' THEN BEGIN
+                            ItemCrossReference.SETRANGE("Reference Type", ItemCrossReference."Reference Type"::"Bar Code");
+                            ItemCrossReference.SETRANGE("Reference No.", SearchField);
+                            IF ItemCrossReference.FINDSET THEN
+                                REPEAT
+                                    Item.GET(ItemCrossReference."Item No.");
+                                    Rec := Item;
+                                    IF INSERT THEN;
+                                UNTIL ItemCrossReference.NEXT = 0;
+                        END;
+                        LastSearchField := SearchField;
+                        SearchField := '';
+                        CurrPage.ScanZone.SetBgColor(1, 'red'); //TODO: Check param
+                    end;
+                }
             }
             repeater(Item)
             {
@@ -300,89 +300,74 @@ page 50074 "BC6_Item List Search CNE"
                 }
             }
         }
-        // area(factboxes) TODO:
-        // {
-        //     part("Social Listening FactBox"; 875)
-        //     {
-        //         ApplicationArea = All;
-        //         SubPageLink = "Source Type" = CONST(Item),
-        //                       "Source No." = FIELD("No.");
-        //         Visible = SocialListeningVisible;
-        //     }
-        //     part("Social Listening Setup FactBox"; 876)
-        //     {
-        //         ApplicationArea = All;
-        //         SubPageLink = "Source Type" = CONST(Item),
-        //                       "Source No." = FIELD("No.");
-        //         UpdatePropagation = Both;
-        //         Visible = SocialListeningSetupVisible;
-        //     }
-        //     part("Item Invoicing FactBox"; "Item Invoicing FactBox")
-        //     {
-        //         SubPageLink = "No." = FIELD("No."),
-        //                       "Date Filter" = FIELD("Date Filter"),
-        //                       "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"),
-        //                       "Global Dimension 2 Filter" = FIELD("Global Dimension 2 Filter"),
-        //                       "Location Filter" = FIELD("Location Filter"),
-        //                       "Drop Shipment Filter" = FIELD("Drop Shipment Filter"),
-        //                       "Bin Filter" = FIELD("Bin Filter"),
-        //                       "Variant Filter" = FIELD("Variant Filter"),
-        //                       "Lot No. Filter" = FIELD("Lot No. Filter"),
-        //                       "Serial No. Filter" = FIELD("Serial No. Filter");
-        //         ApplicationArea = All;
-        //     }
-        //     part("Item Replenishment FactBox"; "Item Replenishment FactBox")
-        //     {
-        //         SubPageLink = "No." = FIELD("No."),
-        //                       "Date Filter" = FIELD("Date Filter"),
-        //                       "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"),
-        //                       "Global Dimension 2 Filter" = FIELD("Global Dimension 2 Filter"),
-        //                       "Location Filter" = FIELD("Location Filter"),
-        //                       "Drop Shipment Filter" = FIELD("Drop Shipment Filter"),
-        //                       "Bin Filter" = FIELD("Bin Filter"),
-        //                       "Variant Filter" = FIELD("Variant Filter"),
-        //                       "Lot No. Filter" = FIELD(" "),
-        //                       "Serial No.Filter" = FIELD("Serial No. Filter");
-        //         Visible = false;
-        //     }
-        //     part("Item Planning FactBox"; "Item Planning FactBox")
-        //     {
-        //         SubPageLink = "No." = FIELD("No."),
-        //                       "Date Filter" = FIELD("Date Filter"),
-        //                       "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"),
-        //                       "Global Dimension 2 Filter" = FIELD("Global Dimension 2 Filter"),
-        //                       "Location Filter" = FIELD("Location Filter"),
-        //                       "Drop Shipment Filter" = FIELD("Drop Shipment Filter"),
-        //                       "Bin Filter" = FIELD("Bin Filter"),
-        //                       "Variant Filter" = FIELD("Variant Filter"),
-        //                       "Lot No. Filter" = FIELD("Lot No. Filter"),
-        //                       "Serial No. Filter" = FIELD("Serial No. Filter");
-        //     }
-        //     part("Item Warehouse FactBox"; "Item Warehouse FactBox")
-        //     {
-        //         SubPageLink = "No." = FIELD("No."),
-        //                       "Date Filter" = FIELD("Date Filter"),
-        //                       "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"),
-        //                       "Global Dimension 2 Filter" = FIELD("Global Dimension 2 Filter"),
-        //                       "Location Filter" = FIELD("Location Filter"),
-        //                       "Drop Shipment Filter" = FIELD("Drop Shipment Filter"),
-        //                       "Bin Filter" = FIELD("Bin Filter"),
-        //                       "Variant Filter" = FIELD("Variant Filter"),
-        //                       "Lot No. Filter" = FIELD("Lot No. Filter"),
-        //                       "Serial No. Filter" = FIELD("Serial No. Filter");
-        //         Visible = false;
-        //     }
-        //     part("Item Attributes Factbox"; "Item Attributes Factbox")
-        //     {
-        //         ApplicationArea = Basic, Suite;
-        //     }
-        //     systempart(Links; Links)
-        //     {
-        //     }
-        //     systempart(Notes; Notes)
-        //     {
-        //     }
-        // }
+        area(factboxes)
+        {
+            part("Item Invoicing FactBox"; "Item Invoicing FactBox")
+            {
+                SubPageLink = "No." = FIELD("No."),
+                              "Date Filter" = FIELD("Date Filter"),
+                              "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"),
+                              "Global Dimension 2 Filter" = FIELD("Global Dimension 2 Filter"),
+                              "Location Filter" = FIELD("Location Filter"),
+                              "Drop Shipment Filter" = FIELD("Drop Shipment Filter"),
+                              "Bin Filter" = FIELD("Bin Filter"),
+                              "Variant Filter" = FIELD("Variant Filter"),
+                              "Lot No. Filter" = FIELD("Lot No. Filter"),
+                              "Serial No. Filter" = FIELD("Serial No. Filter");
+                ApplicationArea = All;
+            }
+            part("Item Replenishment FactBox"; "Item Replenishment FactBox")
+            {
+                SubPageLink = "No." = FIELD("No."),
+                              "Date Filter" = FIELD("Date Filter"),
+                              "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"),
+                              "Global Dimension 2 Filter" = FIELD("Global Dimension 2 Filter"),
+                              "Location Filter" = FIELD("Location Filter"),
+                              "Drop Shipment Filter" = FIELD("Drop Shipment Filter"),
+                              "Bin Filter" = FIELD("Bin Filter"),
+                              "Variant Filter" = FIELD("Variant Filter"),
+                              "Lot No. Filter" = FIELD("Lot No. Filter"),
+                              "Serial No. Filter" = FIELD("Serial No. Filter");
+                Visible = false;
+            }
+            part("Item Planning FactBox"; "Item Planning FactBox")
+            {
+                SubPageLink = "No." = FIELD("No."),
+                              "Date Filter" = FIELD("Date Filter"),
+                              "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"),
+                              "Global Dimension 2 Filter" = FIELD("Global Dimension 2 Filter"),
+                              "Location Filter" = FIELD("Location Filter"),
+                              "Drop Shipment Filter" = FIELD("Drop Shipment Filter"),
+                              "Bin Filter" = FIELD("Bin Filter"),
+                              "Variant Filter" = FIELD("Variant Filter"),
+                              "Lot No. Filter" = FIELD("Lot No. Filter"),
+                              "Serial No. Filter" = FIELD("Serial No. Filter");
+            }
+            part("Item Warehouse FactBox"; "Item Warehouse FactBox")
+            {
+                SubPageLink = "No." = FIELD("No."),
+                              "Date Filter" = FIELD("Date Filter"),
+                              "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"),
+                              "Global Dimension 2 Filter" = FIELD("Global Dimension 2 Filter"),
+                              "Location Filter" = FIELD("Location Filter"),
+                              "Drop Shipment Filter" = FIELD("Drop Shipment Filter"),
+                              "Bin Filter" = FIELD("Bin Filter"),
+                              "Variant Filter" = FIELD("Variant Filter"),
+                              "Lot No. Filter" = FIELD("Lot No. Filter"),
+                              "Serial No. Filter" = FIELD("Serial No. Filter");
+                Visible = false;
+            }
+            part(ItemAttributesFactbox; "Item Attributes Factbox")
+            {
+                ApplicationArea = Basic, Suite;
+            }
+            systempart(Links; Links)
+            {
+            }
+            systempart(Notes; Notes)
+            {
+            }
+        }
     }
 
     actions
@@ -393,7 +378,6 @@ page 50074 "BC6_Item List Search CNE"
     var
         CRMCouplingManagement: Codeunit "CRM Coupling Management";
     begin
-        SetSocialListeningFactboxVisibility;
 
         CRMIsCoupledToRecord :=
           CRMCouplingManagement.IsRecordCoupledToCRM(RECORDID) AND CRMIntegrationEnabled;
@@ -401,15 +385,14 @@ page 50074 "BC6_Item List Search CNE"
         OpenApprovalEntriesExist := ApprovalsMgmt.HasOpenApprovalEntries(RECORDID);
 
         CanCancelApprovalForRecord := ApprovalsMgmt.CanCancelApprovalForRecord(RECORDID);
-        // CurrPage.ItemAttributesFactBox.PAGE.LoadItemAttributesData("No."); TODO:
+        CurrPage.ItemAttributesFactBox.PAGE.LoadItemAttributesData("No.");
         IsVisibleSearch := TRUE;
     end;
 
     trigger OnAfterGetRecord()
     begin
-        SetSocialListeningFactboxVisibility;
         EnableControls;
-        // CurrPage.ScanZone.focus(); TODO:
+        CurrPage.ScanZone.focus();
     end;
 
     trigger OnOpenPage()
@@ -471,12 +454,7 @@ page 50074 "BC6_Item List Search CNE"
         CurrPage.SETSELECTIONFILTER(Item);
     end;
 
-    local procedure SetSocialListeningFactboxVisibility()
-    var
-    // SocialListeningMgt: Codeunit 871; TODO:
-    begin
-        // SocialListeningMgt.GetItemFactboxVisibility(Rec, SocialListeningSetupVisible, SocialListeningVisible); TODO:
-    end;
+
 
     local procedure EnableControls()
     begin
@@ -528,12 +506,12 @@ page 50074 "BC6_Item List Search CNE"
         END;
         LastSearchField := SearchField;
         SearchField := '';
-        // CurrPage.ScanZone.SetText(LastSearchField);  TODO: begin
-        // IF ISEMPTY THEN
-        //     CurrPage.ScanZone.SetBgColor('red')
-        // ELSE
-        //     CurrPage.ScanZone.SetBgColor('green');
-        // CurrPage.ScanZone.focus();  TODO: end
+        CurrPage.ScanZone.SetText(1, LastSearchField);  //TODO: Check param
+        IF ISEMPTY THEN
+            CurrPage.ScanZone.SetBgColor(1, 'red') //TODO: Check param
+        ELSE
+            CurrPage.ScanZone.SetBgColor(1, 'green'); //TODO: Check param
+        CurrPage.ScanZone.focus();
         CurrPage.UPDATE(FALSE);
     end;
 }

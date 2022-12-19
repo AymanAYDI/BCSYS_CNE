@@ -221,23 +221,6 @@ codeunit 50202 "BC6_Functions Mgt"
     //           VATAmount, VATAmountText);
     //     end;
 
-    //     procedure SumPurchLinesTemp(var PurchHeader: Record "Purchase Header"; var OldPurchLine: Record "Purchase Line"; QtyType: enum BC6_QtyType; var NewTotalPurchLine: Record "Purchase Line"; var NewTotalPurchLineLCY: Record "Purchase Line"; var VATAmount: Decimal; var VATAmountText: Text[30])
-    //     var
-    //         PurchLine: Record "Purchase Line";
-    //            TotalPurchLine: Record "Purchase Line";
-    //     begin
-    //         TotalPurchLine.get;
-    //         with PurchHeader do begin
-    //             SumPurchLines2(PurchHeader, PurchLine, OldPurchLine, QtyType, false);
-    //             VATAmount := TotalPurchLine."Amount Including VAT" - TotalPurchLine.Amount;
-    //             if TotalPurchLine."VAT %" = 0 then
-    //                 VATAmountText := VATAmountTxt
-    //             else
-    //                 VATAmountText := StrSubstNo(VATRateTxt, TotalPurchLine."VAT %");
-    //             NewTotalPurchLine := TotalPurchLine;
-    //             NewTotalPurchLineLCY := TotalPurchLineLCY;
-    //         end;
-    //     end;
 
     //     PROCEDURE GetTaxAmountFromPurchaseOrder(PurchaseHeader: Record 38): Decimal;
     //     VAR
@@ -734,9 +717,6 @@ codeunit 50202 "BC6_Functions Mgt"
         EnableIncrPurchCost := Value;
     end;
 
-    procedure "**NSC1.01**"();
-    begin
-    end;
 
     procedure CalcProfit(var SalesHeader: Record "Sales Header");
     var
@@ -959,7 +939,7 @@ codeunit 50202 "BC6_Functions Mgt"
                 PriceCalcMgt.SetUoM(ABS(Quantity), "Qty. per Unit of Measure");
                 PriceCalcMgt.SetLineDisc("Line Discount %", "Allow Line Disc.", "Allow Invoice Disc.");
 
-                //Prix unitaire
+
                 Item.RESET();
                 Item.GET(RecLSalesLine."No.");
                 ItemUnitPrice := Item."Unit Price";
@@ -1082,86 +1062,12 @@ codeunit 50202 "BC6_Functions Mgt"
         end;
         exit(true);
     end;
-    //PAGE232
-    procedure FindApplyingEntry()
-    var
-        CustLedgEntry: Record "Cust. Ledger Entry";
-        CalcType: Enum "Customer Apply Calculation Type";
-        CustEntryApplID: Code[50];
-        AppliesToID: Code[50];
-        TempApplyingCustLedgEntry: Record "Cust. Ledger Entry" temporary;
-        ApplyingAmount: Decimal; //TODO: need a check
-        ApplnDate: Date;
-        ApplnCurrencyCode: Code[10];
-        ApplyCust: page "Apply Customer Entries";
-    begin
-        if CalcType = CalcType::Direct then begin
-            CustEntryApplID := UserId;
-            if CustEntryApplID = '' then
-                CustEntryApplID := '***';
-            CustLedgEntry.SetCurrentKey("Customer No.", "Applies-to ID", Open);
-            CustLedgEntry.SetRange("Customer No.", CustLedgEntry."Customer No.");
-            if AppliesToID = '' then
-                CustLedgEntry.SetRange("Applies-to ID", CustEntryApplID)
-            else
-                CustLedgEntry.SetRange("Applies-to ID", AppliesToID);
-            CustLedgEntry.SetRange(Open, true);
-            CustLedgEntry.SetRange("Applying Entry", true);
-            if CustLedgEntry.FindFirst() then begin
-                CustLedgEntry.CalcFields(Amount, "Remaining Amount");
-                TempApplyingCustLedgEntry := CustLedgEntry;
-                CustLedgEntry.SetFilter("Entry No.", '<>%1', CustLedgEntry."Entry No.");
-                ApplyingAmount := CustLedgEntry."Remaining Amount";
-                ApplnDate := CustLedgEntry."Posting Date";
-                ApplnCurrencyCode := CustLedgEntry."Currency Code";
-            end;
-            ApplyCust.CalcApplnAmount();
-        end;
-    end;
-
-    procedure BC6_FindApplyingEntry()
-    var
-        VendLedgEntry: Record "Vendor Ledger Entry";
-        TempApplyingVendLedgEntry: Record "Vendor Ledger Entry" temporary;
-        AppVendEnt: page "Apply Vendor Entries";
-        CalcType: Enum "Vendor Apply Calculation Type";
-        VendEntryApplID: Code[50];
-        AppliesToID: Code[50];
-        ApplyingAmount: Decimal; //VAR glob 
-        ApplnDate: Date;
-        ApplnCurrencyCode: Code[10];
-
-    begin
-        VendLedgEntry.get(VendLedgEntry."Entry No.");
-        if CalcType = CalcType::Direct then begin
-            VendEntryApplID := UserId;
-            if VendEntryApplID = '' then
-                VendEntryApplID := '***';
-
-            VendLedgEntry.SetCurrentKey("Vendor No.", "Applies-to ID", Open);
-            VendLedgEntry.SetRange("Vendor No.", VendLedgEntry."Vendor No.");
-            if AppliesToID = '' then
-                VendLedgEntry.SetRange("Applies-to ID", VendEntryApplID)
-            else
-                VendLedgEntry.SetRange("Applies-to ID", AppliesToID);
-            VendLedgEntry.SetRange(Open, true);
-            VendLedgEntry.SetRange("Applying Entry", true);
-            if VendLedgEntry.FindFirst() then begin
-                VendLedgEntry.CalcFields(Amount, "Remaining Amount");
-                TempApplyingVendLedgEntry := VendLedgEntry;
-                VendLedgEntry.SetFilter("Entry No.", '<>%1', VendLedgEntry."Entry No.");
-                ApplyingAmount := VendLedgEntry."Remaining Amount";
-                ApplnDate := VendLedgEntry."Posting Date";
-                ApplnCurrencyCode := VendLedgEntry."Currency Code";
-            end;
-            AppVendEnt.CalcApplnAmount();
-        end;
-    end;
     //COD90
     procedure MntDivisionDEEE(DecPQtyPurchLine: Decimal; var PurchLine: Record "Purchase Line"); //COD90
     var
         GLSetup: Record "General Ledger Setup";
     begin
+        GLSetup.get();
         with PurchLine do begin
             "BC6_DEEE HT Amount" := ROUND("BC6_DEEE HT Amount" * DecPQtyPurchLine / Quantity, 0.01);
             if ("VAT Calculation Type" = "VAT Calculation Type"::"Sales Tax") and
@@ -1328,6 +1234,15 @@ codeunit 50202 "BC6_Functions Mgt"
             "BC6_DEEE TTC Amount" := -"BC6_DEEE TTC Amount";
         end;
     end;
+
+    PROCEDURE MntIncrDEEEPurchPost(VAR RecLPurchLine: Record "Purchase Line"); //COD 90 
+    var
+        GloablFunction: codeunit "BC6_GlobalFunctionMgt";
+    BEGIN
+        GloablFunction.SetGDecMntTTCDEEE(GloablFunction.GetGDecMntHTDEEE() + RecLPurchLine."BC6_DEEE HT Amount");
+        GloablFunction.SetGDecMntHTDEEE(GloablFunction.GetGDecMntTTCDEEE() + RecLPurchLine."BC6_DEEE TTC Amount");
+    END;
+
 
     PROCEDURE MntIncrDEEE(VAR RecLPurchLine: Record "Purchase Line");
     var
@@ -1846,12 +1761,12 @@ codeunit 50202 "BC6_Functions Mgt"
         ToSalesLine: Record "Sales Line";
         SalesHeader: Record "Sales Header";
         Item: Record Item;
-        RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line"; // TODO: check variable global utilisee dans une event codeunit 50201 BC6_EventsMgt
-        BooGAutoTextSpe: Boolean; // TODO: check variable global pour test utilisee dans une event codeunit 50201 BC6_EventsMgt
+        RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line";
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
         MakeUpdateRequired: Boolean; // TODO: check variable global dans la codeunit 378 "Transfer Extended Text"
         OKA: Boolean;
-        NextLineNo: Integer; // TODO: check variable global dans la codeunit 378 "Transfer Extended Text"
-        LineSpacing: Integer; // TODO: check variable global dans la codeunit 378 "Transfer Extended Text"
+        NextLineNo: Integer;
+        LineSpacing: Integer;
         Text000: label 'There is not enough space to insert extended text lines.', Comment = 'FRA="Il n''y a pas suffisamment de place pour ins‚rer des lignes texte ‚tendu."';
     begin
         OKA := false;
@@ -1862,7 +1777,7 @@ codeunit 50202 "BC6_Functions Mgt"
             exit;
         Item.GET(SalesLine."No.");
         OKA := Item."Automatic Ext. Texts";
-        if BooGAutoTextSpe = true then begin
+        if GlobalFunctionMgt.GetAutoTextSpe() then begin
 
             SalesHeader.GET(SalesLine."Document Type", SalesLine."Document No.");
             RecGTmpExtTexLineSpe.RESET;
@@ -1909,18 +1824,18 @@ codeunit 50202 "BC6_Functions Mgt"
     end;
 
 
-    // function specifique codeunit 378 "Transfer Extended Text"
+    // function specifique codeunit 378 "Transfer Extended Text" 
     procedure InsertPurchExtTextSpe(var PurchLine: Record "Purchase Line");
     var
         ToPurchLine: Record "Purchase Line";
         PurchHeader: Record "Purchase Header";
         Item: Record Item;
-        RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line"; // TODO: check variable global utilisee dans une event codeunit 50201 BC6_EventsMgt
-        BooGAutoTextSpe: Boolean; // TODO: check variable global pour test utilisee dans une event codeunit 50201 BC6_EventsMgt
+        RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line";
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
         MakeUpdateRequired: Boolean; // TODO: check variable global dans la codeunit 378 "Transfer Extended Text"
         OKA: Boolean;
-        NextLineNo: Integer; // TODO: check variable global dans la codeunit 378 "Transfer Extended Text"
-        LineSpacing: Integer; // TODO: check variable global dans la codeunit 378 "Transfer Extended Text"
+        NextLineNo: Integer;
+        LineSpacing: Integer;
     begin
         OKA := false;
         if PurchLine.Type = PurchLine.Type::Item then
@@ -1932,7 +1847,7 @@ codeunit 50202 "BC6_Functions Mgt"
         OKA := Item."Automatic Ext. Texts";
 
 
-        if BooGAutoTextSpe = true then begin
+        if GlobalFunctionMgt.GetAutoTextSpe() then begin
             PurchHeader.GET(PurchLine."Document Type", PurchLine."Document No.");
 
             RecGTmpExtTexLineSpe.RESET;
@@ -2042,7 +1957,8 @@ codeunit 50202 "BC6_Functions Mgt"
         ItemReference.SETRANGE("Unit of Measure", Item."Base Unit of Measure");
         ItemReference.SETRANGE("Reference Type", ItemReference."Reference Type"::"Bar Code");
         ItemReference.SETRANGE("Reference Type No.", CrossRefTypeNo);
-        ItemReference.SETRANGE("Discontinue Bar Code", FALSE);
+        //TODO: Field 'Discontinue Bar Code' is removed.
+        //ItemReference.SETRANGE("Discontinue Bar Code", FALSE);
         IF ItemReference.FINDFIRST THEN
             EAN13Code := ItemReference."Reference No.";
 
@@ -2064,12 +1980,15 @@ codeunit 50202 "BC6_Functions Mgt"
         CrossRefTypeNo := InvSetup."BC6_Cross.Ref.Type No.BarCode";
 
         ItemReference.RESET;
-        ItemReference.SETCURRENTKEY("Reference No.", "Reference Type", "Reference Type No.", "Discontinue Bar Code");
+        //TODO:Field 'Discontinue Bar Code' is removed.
+        //ItemReference.SETCURRENTKEY("Reference No.", "Reference Type", "Reference Type No.", "Discontinue Bar Code");
+        ItemReference.SETCURRENTKEY("Reference No.", "Reference Type", "Reference Type No.");
         ItemReference.SETRANGE("Reference No.", EAN13Code);
         ItemReference.SETRANGE("Reference Type", ItemReference."Reference Type"::"Bar Code");
         ItemReference.SETRANGE("Reference Type No.", CrossRefTypeNo);
         ItemReference.SETRANGE("Variant Code", '');
-        ItemReference.SETRANGE("Discontinue Bar Code", FALSE);
+        //TODO:Field 'Discontinue Bar Code' is removed.
+        //ItemReference.SETRANGE("Discontinue Bar Code", FALSE);
         IF ItemReference.FINDFIRST THEN
             REPEAT
                 IF Item.GET(ItemReference."Item No.") THEN
@@ -2162,6 +2081,14 @@ codeunit 50202 "BC6_Functions Mgt"
         END;
     END;
 
+    procedure IsShipmentBinOverridesDefaultBin(Location: Record Location): Boolean
+    var
+        Bin: Record Bin;
+        ShipmentBinAvailable: Boolean;
+    begin
+        ShipmentBinAvailable := Bin.Get(Location.Code, Location."Shipment Bin Code");
+        exit(Location."Require Shipment" and ShipmentBinAvailable);
+    end;
 
 
     var

@@ -19,243 +19,243 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         {
             group(Control1)
             {
-                // usercontrol(ScanZone; "ControlAddinScanCapture") TODO:
-                // {
-                //     Visible = true;
-                //     ApplicationArea = All;
+                usercontrol(ScanZone; "BC6_ControlAddinScanCapture")
+                {
+                    Visible = true;
+                    ApplicationArea = All;
 
-                //     trigger ControlAddInReady()
-                //     var
-                //         i: Integer;
-                //     begin
-                //         IsReady := TRUE;
-                //         CurrPage.ScanZone.AddControl(1, PickLabel, PickNo);
-                //         CurrPage.ScanZone.AddControl(2, BinLabel, FromBinCode);
-                //         CurrPage.ScanZone.AddControl(3, FIELDCAPTION("Item No."), ItemNo);
-                //         CurrPage.ScanZone.AddControl(4, FIELDCAPTION(Quantity), Qty);
-                //         UpdateCurrForm;
-                //     end;
+                    trigger ControlAddInReady()
+                    var
+                        i: Integer;
+                    begin
+                        IsReady := TRUE;
+                        CurrPage.ScanZone.AddControl(1, PickLabel, PickNo);
+                        CurrPage.ScanZone.AddControl(2, BinLabel, FromBinCode);
+                        CurrPage.ScanZone.AddControl(3, FIELDCAPTION("Item No."), ItemNo);
+                        CurrPage.ScanZone.AddControl(4, FIELDCAPTION(Quantity), Qty);
+                        UpdateCurrForm;
+                    end;
 
-                //     trigger KeyPressed(index: Integer; data: Text)
-                //     begin
-                //         CASE data OF
-                //             '113':
-                //                 CurrPage.ScanZone.SubmitAllData(2); //F2
-                //             '114':
-                //                 CurrPage.ScanZone.SubmitAllData(3); //F3
-                //             '121':
-                //                 CurrPage.ScanZone.SubmitAllData(1); //F10
-                //         END;
-                //     end;
+                    trigger KeyPressed(index: Integer; data: Text)
+                    begin
+                        CASE data OF
+                            '113':
+                                CurrPage.ScanZone.SubmitAllData(2); //F2
+                            '114':
+                                CurrPage.ScanZone.SubmitAllData(3); //F3
+                            '121':
+                                CurrPage.ScanZone.SubmitAllData(1); //F10
+                        END;
+                    end;
 
-                //     trigger TextCaptured(index: Integer; data: Text)
-                //     begin
-                //         CASE index OF
-                //             1:
-                //                 BEGIN
-                //                     PickNo := COPYSTR(data, 1, MAXSTRLEN(PickNo));
-                //                     PickNoOnAfterValidate;
-                //                     CurrPage.ScanZone.reset(index);
-                //                     CurrPage.ScanZone.SetText(index, PickNo);
-                //                 END;
-                //             2:
-                //                 BEGIN
-                //                     FromBinCode := COPYSTR(data, 1, MAXSTRLEN(FromBinCode));
-                //                     FromBinCodeOnAfterValidate;
-                //                     CurrPage.ScanZone.reset(index);
-                //                     CurrPage.ScanZone.SetText(index, FromBinCode);
-                //                 END;
-                //             3:
-                //                 BEGIN
-                //                     ItemNo := COPYSTR(data, 1, MAXSTRLEN(ItemNo));
-                //                     ItemNoOnAfterValidate;
-                //                     CurrPage.ScanZone.reset(index);
-                //                     CurrPage.ScanZone.SetText(index, ItemNo);
-                //                     CurrPage.ScanZone.SetText(index + 1, Qty);
-                //                 END;
-                //             4:
-                //                 BEGIN
-                //                     Qty := COPYSTR(data, 1, MAXSTRLEN(Qty));
-                //                     QtyOnAfterValidate;
-                //                     CurrPage.ScanZone.reset(index);
-                //                     CurrPage.ScanZone.SetText(index, Qty);
-                //                 END;
-                //         END;
-                //         CurrPage.ScanZone.SetHide(index + 1, FALSE);
-                //         CurrPage.ScanZone.SetFocus(index + 1);
-                //     end;
+                    trigger TextCaptured(index: Integer; data: Text)
+                    begin
+                        CASE index OF
+                            1:
+                                BEGIN
+                                    PickNo := COPYSTR(data, 1, MAXSTRLEN(PickNo));
+                                    PickNoOnAfterValidate;
+                                    CurrPage.ScanZone.reset(index);
+                                    CurrPage.ScanZone.SetText(index, PickNo);
+                                END;
+                            2:
+                                BEGIN
+                                    FromBinCode := COPYSTR(data, 1, MAXSTRLEN(FromBinCode));
+                                    FromBinCodeOnAfterValidate;
+                                    CurrPage.ScanZone.reset(index);
+                                    CurrPage.ScanZone.SetText(index, FromBinCode);
+                                END;
+                            3:
+                                BEGIN
+                                    ItemNo := COPYSTR(data, 1, MAXSTRLEN(ItemNo));
+                                    ItemNoOnAfterValidate;
+                                    CurrPage.ScanZone.reset(index);
+                                    CurrPage.ScanZone.SetText(index, ItemNo);
+                                    CurrPage.ScanZone.SetText(index + 1, Qty);
+                                END;
+                            4:
+                                BEGIN
+                                    Qty := COPYSTR(data, 1, MAXSTRLEN(Qty));
+                                    QtyOnAfterValidate;
+                                    CurrPage.ScanZone.reset(index);
+                                    CurrPage.ScanZone.SetText(index, Qty);
+                                END;
+                        END;
+                        CurrPage.ScanZone.SetHide(index + 1, FALSE);
+                        CurrPage.ScanZone.SetFocus(index + 1);
+                    end;
 
-                //     trigger AddInDrillDown(index: Integer; data: Text)
-                //     begin
-                //         CASE index OF
-                //             1:
-                //                 BEGIN
-                //                     CLEAR(InvtPickForm);
-                //                     InvtPick.RESET;
-                //                     InvtPick.ASCENDING(FALSE);
-                //                     InvtPickForm.LOOKUPMODE(TRUE);
-                //                     IF (PickNo <> '') THEN
-                //                         IF InvtPick.GET(InvtPick.Type::"Invt. Pick", PickNo) THEN
-                //                             InvtPickForm.SETRECORD(InvtPick);
-                //                     InvtPickForm.SETTABLEVIEW(InvtPick);
-                //                     IF InvtPickForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
-                //                         InvtPickForm.GETRECORD(InvtPick);
-                //                         PickNo := InvtPick."No.";
-                //                         CurrPage.ScanZone.SetText(1, PickNo);
-                //                         CurrPage.ScanZone.SetHide(2, FALSE);
-                //                         AssignPickNo(PickNo);
-                //                     END;
-                //                 END;
+                    trigger AddInDrillDown(index: Integer; data: Text)
+                    begin
+                        CASE index OF
+                            1:
+                                BEGIN
+                                    CLEAR(InvtPickForm);
+                                    InvtPick.RESET;
+                                    InvtPick.ASCENDING(FALSE);
+                                    InvtPickForm.LOOKUPMODE(TRUE);
+                                    IF (PickNo <> '') THEN
+                                        IF InvtPick.GET(InvtPick.Type::"Invt. Pick", PickNo) THEN
+                                            InvtPickForm.SETRECORD(InvtPick);
+                                    InvtPickForm.SETTABLEVIEW(InvtPick);
+                                    IF InvtPickForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                                        InvtPickForm.GETRECORD(InvtPick);
+                                        PickNo := InvtPick."No.";
+                                        CurrPage.ScanZone.SetText(1, PickNo);
+                                        CurrPage.ScanZone.SetHide(2, FALSE);
+                                        AssignPickNo(PickNo);
+                                    END;
+                                END;
 
-                //             2:
-                //                 BEGIN
-                //                     IF ItemNo <> '' THEN BEGIN
-                //                         CLEAR(BinContentForm);
-                //                         BinContent.RESET;
-                //                         IF LocationCode <> '' THEN
-                //                             BinContent.SETRANGE("Location Code", LocationCode);
-                //                         IF ItemNo <> '' THEN
-                //                             BinContent.SETRANGE("Item No.", ItemNo);
-                //                         BinContent.SETFILTER(Quantity, '>%1', 0);
-                //                         IF BinContent.FIND('-') THEN
-                //                             BinContentForm.SETRECORD(BinContent);
-                //                         BinContentForm.SETTABLEVIEW(BinContent);
-                //                         BinContentForm.LOOKUPMODE(TRUE);
-                //                         IF BinContent.FIND('-') THEN
-                //                             BinContentForm.SETRECORD(BinContent);
-                //                         IF BinContentForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
-                //                             BinContentForm.GETRECORD(BinContent);
-                //                             FromBinCode := BinContent."Bin Code";
-                //                             CurrPage.ScanZone.SetText(2, FromBinCode);
-                //                             CurrPage.ScanZone.SetHide(3, FALSE);
-                //                             AssignFromBinCode(FromBinCode);
-                //                         END;
-                //                     END ELSE BEGIN
-                //                         CLEAR(BinForm);
-                //                         Bin.RESET;
-                //                         IF LocationCode <> '' THEN
-                //                             Bin.SETRANGE("Location Code", LocationCode);
-                //                         BinForm.SETTABLEVIEW(Bin);
-                //                         BinForm.LOOKUPMODE(TRUE);
-                //                         IF Bin.FIND('-') THEN
-                //                             BinForm.SETRECORD(Bin);
-                //                         IF BinForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
-                //                             BinForm.GETRECORD(Bin);
-                //                             FromBinCode := Bin.Code;
-                //                             CurrPage.ScanZone.SetText(2, FromBinCode);
-                //                             CurrPage.ScanZone.SetHide(3, FALSE);
-                //                             AssignFromBinCode(FromBinCode);
-                //                         END;
-                //                     END;
-                //                 END;
+                            2:
+                                BEGIN
+                                    IF ItemNo <> '' THEN BEGIN
+                                        CLEAR(BinContentForm);
+                                        BinContent.RESET;
+                                        IF LocationCode <> '' THEN
+                                            BinContent.SETRANGE("Location Code", LocationCode);
+                                        IF ItemNo <> '' THEN
+                                            BinContent.SETRANGE("Item No.", ItemNo);
+                                        BinContent.SETFILTER(Quantity, '>%1', 0);
+                                        IF BinContent.FIND('-') THEN
+                                            BinContentForm.SETRECORD(BinContent);
+                                        BinContentForm.SETTABLEVIEW(BinContent);
+                                        BinContentForm.LOOKUPMODE(TRUE);
+                                        IF BinContent.FIND('-') THEN
+                                            BinContentForm.SETRECORD(BinContent);
+                                        IF BinContentForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                                            BinContentForm.GETRECORD(BinContent);
+                                            FromBinCode := BinContent."Bin Code";
+                                            CurrPage.ScanZone.SetText(2, FromBinCode);
+                                            CurrPage.ScanZone.SetHide(3, FALSE);
+                                            AssignFromBinCode(FromBinCode);
+                                        END;
+                                    END ELSE BEGIN
+                                        CLEAR(BinForm);
+                                        Bin.RESET;
+                                        IF LocationCode <> '' THEN
+                                            Bin.SETRANGE("Location Code", LocationCode);
+                                        BinForm.SETTABLEVIEW(Bin);
+                                        BinForm.LOOKUPMODE(TRUE);
+                                        IF Bin.FIND('-') THEN
+                                            BinForm.SETRECORD(Bin);
+                                        IF BinForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                                            BinForm.GETRECORD(Bin);
+                                            FromBinCode := Bin.Code;
+                                            CurrPage.ScanZone.SetText(2, FromBinCode);
+                                            CurrPage.ScanZone.SetHide(3, FALSE);
+                                            AssignFromBinCode(FromBinCode);
+                                        END;
+                                    END;
+                                END;
 
-                //             3:
-                //                 BEGIN
-                //                     CLEAR(ItemForm);
-                //                     Item.RESET;
-                //                     //>>TI318739
-                //                     Item.SETRANGE(Blocked, FALSE);
-                //                     //<<TI318739
-                //                     ItemForm.SETTABLEVIEW(Item);
-                //                     ItemForm.LOOKUPMODE(TRUE);
-                //                     IF ItemNo <> '' THEN
-                //                         IF Item.GET(ItemNo) THEN
-                //                             ItemForm.SETRECORD(Item);
-                //                     IF ItemForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
-                //                         ItemForm.GETRECORD(Item);
-                //                         ItemNo := Item."No.";
-                //                         CurrPage.ScanZone.SetText(3, ItemNo);
-                //                         CurrPage.ScanZone.SetHide(4, FALSE);
-                //                         AssignItemNo(ItemNo);
-                //                     END;
-                //                 END;
+                            3:
+                                BEGIN
+                                    CLEAR(ItemForm);
+                                    Item.RESET;
+                                    //>>TI318739
+                                    Item.SETRANGE(Blocked, FALSE);
+                                    //<<TI318739
+                                    ItemForm.SETTABLEVIEW(Item);
+                                    ItemForm.LOOKUPMODE(TRUE);
+                                    IF ItemNo <> '' THEN
+                                        IF Item.GET(ItemNo) THEN
+                                            ItemForm.SETRECORD(Item);
+                                    IF ItemForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                                        ItemForm.GETRECORD(Item);
+                                        ItemNo := Item."No.";
+                                        CurrPage.ScanZone.SetText(3, ItemNo);
+                                        CurrPage.ScanZone.SetHide(4, FALSE);
+                                        AssignItemNo(ItemNo);
+                                    END;
+                                END;
 
-                //             4:
-                //                 BEGIN
+                            4:
+                                BEGIN
 
-                //                 END;
-                //         END;
-                //     end;
+                                END;
+                        END;
+                    end;
 
-                //     trigger Focused(index: Integer; data: Text)
-                //     begin
-                //     end;
+                    trigger Focused(index: Integer; data: Text)
+                    begin
+                    end;
 
-                //     trigger FocusLost(index: Integer; data: Text)
-                //     begin
-                //     end;
+                    trigger FocusLost(index: Integer; data: Text)
+                    begin
+                    end;
 
-                //     trigger DataSubmited(index: Integer; data: Text)
-                //     var
-                //         LastJnlLine: Record "Item Journal Line";
-                //     begin
-                //         //index values :
-                //         //0 = Close Page
-                //         //1 = Post
-                //         // Close and Open with same Item
+                    trigger DataSubmited(index: Integer; data: Text)
+                    var
+                        LastJnlLine: Record "Item Journal Line";
+                    begin
+                        //index values :
+                        //0 = Close Page
+                        //1 = Post
+                        // Close and Open with same Item
 
-                //         IF NOT SkipAssignValue THEN BEGIN
-                //             IF ScanDeviceHelper.GetValueOfSubmition(1, data) <> "BC6_Whse. Document No." THEN BEGIN
-                //                 PickNo := ScanDeviceHelper.GetValueOfSubmition(1, data);
-                //                 AssignPickNo(PickNo);
-                //             END;
-                //             IF ScanDeviceHelper.GetValueOfSubmition(2, data) <> "Bin Code" THEN BEGIN
-                //                 FromBinCode := ScanDeviceHelper.GetValueOfSubmition(2, data);
-                //                 AssignFromBinCode(FromBinCode);
-                //             END;
-                //             IF ScanDeviceHelper.GetValueOfSubmition(3, data) <> "Item No." THEN BEGIN
-                //                 ItemNo := ScanDeviceHelper.GetValueOfSubmition(1, data);
-                //                 AssignItemNo(ItemNo);
-                //             END;
-                //             IF ScanDeviceHelper.GetValueOfSubmition(4, data) <> FORMAT(Quantity) THEN BEGIN
-                //                 Qty := ScanDeviceHelper.GetValueOfSubmition(4, data);
-                //                 AssignQty(Qty);
-                //             END;
-                //         END;
+                        IF NOT SkipAssignValue THEN BEGIN
+                            IF ScanDeviceHelper.GetValueOfSubmition(1, data) <> "BC6_Whse. Document No." THEN BEGIN
+                                PickNo := ScanDeviceHelper.GetValueOfSubmition(1, data);
+                                AssignPickNo(PickNo);
+                            END;
+                            IF ScanDeviceHelper.GetValueOfSubmition(2, data) <> "Bin Code" THEN BEGIN
+                                FromBinCode := ScanDeviceHelper.GetValueOfSubmition(2, data);
+                                AssignFromBinCode(FromBinCode);
+                            END;
+                            IF ScanDeviceHelper.GetValueOfSubmition(3, data) <> "Item No." THEN BEGIN
+                                ItemNo := ScanDeviceHelper.GetValueOfSubmition(1, data);
+                                AssignItemNo(ItemNo);
+                            END;
+                            IF ScanDeviceHelper.GetValueOfSubmition(4, data) <> FORMAT(Quantity) THEN BEGIN
+                                Qty := ScanDeviceHelper.GetValueOfSubmition(4, data);
+                                AssignQty(Qty);
+                            END;
+                        END;
 
-                //         CASE index OF
-                //             0:
-                //                 BEGIN
-                //                     SkipUpdateData := TRUE;
-                //                     CurrPage.CLOSE;
-                //                 END;
+                        CASE index OF
+                            0:
+                                BEGIN
+                                    SkipUpdateData := TRUE;
+                                    CurrPage.CLOSE;
+                                END;
 
-                //             1:
-                //                 BEGIN
-                //                     IF NOT MODIFY(TRUE) THEN
-                //                         INSERT(TRUE);
+                            1:
+                                BEGIN
+                                    IF NOT MODIFY(TRUE) THEN
+                                        INSERT(TRUE);
 
 
-                //                     CurrPage.ScanZone.SetFocus(1);
-                //                     RefreshDataControlAddin;
-                //                     PostBatch;
-                //                     LastJnlLine.RESET;
-                //                     LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
-                //                     LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
-                //                     IF LastJnlLine.FIND('+') THEN BEGIN
-                //                         Rec := LastJnlLine
-                //                     END ELSE BEGIN
-                //                         Rec := xRec;
-                //                         CurrPage.UPDATE(FALSE);
-                //                     END;
+                                    CurrPage.ScanZone.SetFocus(1);
+                                    RefreshDataControlAddin;
+                                    PostBatch;
+                                    LastJnlLine.RESET;
+                                    LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
+                                    LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
+                                    IF LastJnlLine.FIND('+') THEN BEGIN
+                                        Rec := LastJnlLine
+                                    END ELSE BEGIN
+                                        Rec := xRec;
+                                        CurrPage.UPDATE(FALSE);
+                                    END;
 
-                //                     SkipUpdateData := FALSE;
-                //                     SkipClosePage := FALSE;
-                //                     SkipAssignValue := TRUE;
-                //                     CurrPage.CLOSE;
-                //                     EXIT;
-                //                 END;
+                                    SkipUpdateData := FALSE;
+                                    SkipClosePage := FALSE;
+                                    SkipAssignValue := TRUE;
+                                    CurrPage.CLOSE;
+                                    EXIT;
+                                END;
 
-                //             2:
-                //                 CloseAndOpenCurrentPickAndBin;
+                            2:
+                                CloseAndOpenCurrentPickAndBin;
 
-                //             3:
-                //                 CloseAndOpenCurrentPick;
+                            3:
+                                CloseAndOpenCurrentPick;
 
-                //         END;
-                //         RefreshDataControlAddin
-                //     end;
-                // }
+                        END;
+                        RefreshDataControlAddin
+                    end;
+                }
                 field(PickNoCtrl; PickNo)
                 {
                     Caption = 'Pick No.', Comment = 'FRA="N° prélèvement"';
@@ -506,7 +506,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                 var
                     page50063: Page "Invt. Pick Card MiniForm F2";
                 begin
-                    // CurrPage.ScanZone.SubmitAllData(2); TODO:
+                    CurrPage.ScanZone.SubmitAllData(2);
                 end;
             }
             action(BinButton)
@@ -523,7 +523,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                 var
                     page50064: Page "Invt. Pick Card MiniForm F3";
                 begin
-                    // CurrPage.ScanZone.SubmitAllData(3); TODO:
+                    CurrPage.ScanZone.SubmitAllData(3);
                 end;
             }
             action(PostButton)
@@ -548,8 +548,8 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                     */
                     //QtyOnAfterValidate;
 
-                    // IF IsReady THEN TODO:
-                    // CurrPage.ScanZone.SubmitAllData(1); TODO:
+                    IF IsReady THEN
+                        CurrPage.ScanZone.SubmitAllData(1);
 
                 end;
             }
@@ -658,7 +658,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
             EXIT(FALSE);
         END;
         IF IsReady AND NOT SkipUpdateData THEN BEGIN
-            // CurrPage.ScanZone.SubmitAllData(0); TODO:
+            CurrPage.ScanZone.SubmitAllData(0);
             EXIT(FALSE);
         END;
         EXIT(TRUE);
@@ -700,6 +700,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         EditableFromBinCtrl: Boolean;
         ItemNo2: Code[20];
         DistInt: Codeunit "Dist. Integration";
+        FunctionsMgt: Codeunit "BC6_Functions Mgt";
         Text016: Label 'Item %1 not exit on Invt. Pick', Comment = 'FRA="Article (%1)  n''est pas sur le prélevement."';
         ErrorTxt: Text[250];
         Text013: Label 'Item No. %1 Incorrect', Comment = 'FRA="%1 n° article erroné"';
@@ -735,7 +736,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         BoolWait: Boolean;
         [InDataSet]
         IsVisibleSearch: Boolean;
-        // ScanDeviceHelper: Codeunit 50090; TODO:
+        ScanDeviceHelper: Codeunit BC6_ScanDeviceHelper;
         [InDataSet]
         IsReady: Boolean;
         PickNoCaption: Label 'Pick No.', Comment = 'FRA="N° prélèvement"';
@@ -926,7 +927,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         IF (ItemNo <> '') THEN BEGIN
             TESTFIELD("BC6_Whse. Document No.");
             IF CodeEANOk(ItemNo) THEN BEGIN
-                // ItemNo2 := DistInt.GetItem(ItemNo); TODO:
+                ItemNo2 := FunctionsMgt.GetItem(ItemNo);
                 IF Item.GET(ItemNo2) THEN
                     ItemNo := Item."No."
                 ELSE BEGIN
@@ -1050,46 +1051,46 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         Qty := FORMAT(Quantity);
         EditableCtrl := ("Item No." <> '');
         CtrlEnabled;
-        // IF IsReady THEN BEGIN TODO:
-        //     CASE OptionMode OF
-        //         OptionMode::Edit:
-        //             BEGIN
-        //                 FOR i := 1 TO 4 DO BEGIN
-        //                     CurrPage.ScanZone.SetHide(i, FALSE);
-        //                 END;
-        //             END;
+        IF IsReady THEN BEGIN
+            CASE OptionMode OF
+                OptionMode::Edit:
+                    BEGIN
+                        FOR i := 1 TO 4 DO BEGIN
+                            CurrPage.ScanZone.SetHide(i, FALSE);
+                        END;
+                    END;
 
-        //         OptionMode::KeepPick:
-        //             BEGIN
-        //                 CurrPage.ScanZone.SetHide(2, FALSE);
-        //                 CurrPage.ScanZone.SetHide(3, FALSE);
-        //                 CurrPage.ScanZone.SetFocus(2);
-        //             END;
+                OptionMode::KeepPick:
+                    BEGIN
+                        CurrPage.ScanZone.SetHide(2, FALSE);
+                        CurrPage.ScanZone.SetHide(3, FALSE);
+                        CurrPage.ScanZone.SetFocus(2);
+                    END;
 
-        //         OptionMode::KeepPickAndBin:
-        //             BEGIN
-        //                 CurrPage.ScanZone.SetHide(3, FALSE);
-        //                 CurrPage.ScanZone.SetHide(2, FALSE);
-        //                 CurrPage.ScanZone.SetFocus(3);
-        //             END;
+                OptionMode::KeepPickAndBin:
+                    BEGIN
+                        CurrPage.ScanZone.SetHide(3, FALSE);
+                        CurrPage.ScanZone.SetHide(2, FALSE);
+                        CurrPage.ScanZone.SetFocus(3);
+                    END;
 
-        //         ELSE BEGIN
-        //             IF PickNo = '' THEN
-        //                 CurrPage.ScanZone.SetHide(2, FALSE)
-        //             ELSE
-        //                 CurrPage.ScanZone.SetHide(2, FALSE);
-        //             IF FromBinCode = '' THEN
-        //                 CurrPage.ScanZone.SetHide(3, FALSE)
-        //             ELSE
-        //                 CurrPage.ScanZone.SetHide(3, FALSE);
-        //             IF ItemNo = '' THEN
-        //                 CurrPage.ScanZone.SetHide(4, FALSE)
-        //             ELSE
-        //                 CurrPage.ScanZone.SetHide(4, FALSE);
-        //         END;
-        //     END;
+                ELSE BEGIN
+                    IF PickNo = '' THEN
+                        CurrPage.ScanZone.SetHide(2, FALSE)
+                    ELSE
+                        CurrPage.ScanZone.SetHide(2, FALSE);
+                    IF FromBinCode = '' THEN
+                        CurrPage.ScanZone.SetHide(3, FALSE)
+                    ELSE
+                        CurrPage.ScanZone.SetHide(3, FALSE);
+                    IF ItemNo = '' THEN
+                        CurrPage.ScanZone.SetHide(4, FALSE)
+                    ELSE
+                        CurrPage.ScanZone.SetHide(4, FALSE);
+                END;
+            END;
 
-        // END;
+        END;
     end;
 
 
@@ -1097,31 +1098,31 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
     var
         SalesLine: Record "Sales Line";
     begin
-        // IF ("Whse. Document No." <> '') THEN BEGIN TODO:
-        //     IF InvtPick.GET(InvtPick.Type::"Invt. Pick", "Whse. Document No.") AND
-        //        InvtPick."Sales Counter" THEN BEGIN
-        //         IF Location.GET("Location Code") THEN
-        //             ShipBinCode := Location."Shipment Bin Code";
-        //         EXIT(TRUE);
-        //     END;
+        IF ("BC6_Whse. Document No." <> '') THEN BEGIN
+            IF InvtPick.GET(InvtPick.Type::"Invt. Pick", "BC6_Whse. Document No.") AND
+               InvtPick."BC6_Sales Counter" THEN BEGIN
+                IF Location.GET("Location Code") THEN
+                    ShipBinCode := Location."Shipment Bin Code";
+                EXIT(TRUE);
+            END;
 
-        //     InvtPickLine.RESET;
-        //     InvtPickLine.SETRANGE("Activity Type", InvtPickLine."Activity Type"::"Invt. Pick");
-        //     InvtPickLine.SETRANGE("No.", "Whse. Document No.");
-        //     InvtPickLine.SETRANGE("Item No.", ItemNo);
-        //     IF BinCode <> '' THEN
-        //         InvtPickLine.SETRANGE("Bin Code", BinCode);
-        //     InvtPickLine.SETFILTER(Quantity, '<>%1', 0);
-        //     IF InvtPickLine.FIND('-') THEN BEGIN
-        //         CASE InvtPickLine."Source Type" OF
-        //             37:
-        //                 IF SalesLine.GET(SalesLine."Document Type"::Order, InvtPickLine."Source No.", InvtPickLine."Source Line No.") AND
-        //                   (SalesLine."Location Code" = InvtPickLine."Location Code") THEN
-        //                     ShipBinCode := SalesLine."Bin Code";
-        //         END;
-        //         EXIT(TRUE);
-        //     END;
-        // END;
+            InvtPickLine.RESET;
+            InvtPickLine.SETRANGE("Activity Type", InvtPickLine."Activity Type"::"Invt. Pick");
+            InvtPickLine.SETRANGE("No.", "BC6_Whse. Document No.");
+            InvtPickLine.SETRANGE("Item No.", ItemNo);
+            IF BinCode <> '' THEN
+                InvtPickLine.SETRANGE("Bin Code", BinCode);
+            InvtPickLine.SETFILTER(Quantity, '<>%1', 0);
+            IF InvtPickLine.FIND('-') THEN BEGIN
+                CASE InvtPickLine."Source Type" OF
+                    37:
+                        IF SalesLine.GET(SalesLine."Document Type"::Order, InvtPickLine."Source No.", InvtPickLine."Source Line No.") AND
+                          (SalesLine."Location Code" = InvtPickLine."Location Code") THEN
+                            ShipBinCode := SalesLine."Bin Code";
+                END;
+                EXIT(TRUE);
+            END;
+        END;
     end;
 
 
@@ -1258,24 +1259,25 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
 
     local procedure GetCaptionClass(): Text
     begin
-        // CASE OptionMode OF TODO:
-        //     OptionMode::KeepPick:
-        //         EXIT(STRSUBSTNO('%1 - %2 %3', FIELDCAPTION("Whse. Document No."), "Whse. Document No.", "Line No."));
-        //     OptionMode::KeepPickAndBin:
-        //         EXIT(STRSUBSTNO('%1 - %2 %3', FIELDCAPTION("Bin Code"), "Bin Code", "Line No."));
+        CASE OptionMode OF
+            OptionMode::KeepPick:
+                EXIT(STRSUBSTNO('%1 - %2 %3', FIELDCAPTION("BC6_Whse. Document No."), "BC6_Whse. Document No.", "Line No."));
+            OptionMode::KeepPickAndBin:
+                EXIT(STRSUBSTNO('%1 - %2 %3', FIELDCAPTION("Bin Code"), "Bin Code", "Line No."));
 
-        //     ELSE
-        //         EXIT(STRSUBSTNO('%1 - %2 %3', TABLECAPTION, "Whse. Document No.", "Line No."));
-        // END;
+            ELSE
+                EXIT(STRSUBSTNO('%1 - %2 %3', TABLECAPTION, "BC6_Whse. Document No.", "Line No."));
+        END;
     end;
 
     local procedure RefreshDataControlAddin()
     begin
-        // IF NOT IsReady THEN EXIT; TODO:
-        // CurrPage.ScanZone.SetText(1, PickNo);
-        // CurrPage.ScanZone.SetText(2, FromBinCode);
-        // CurrPage.ScanZone.SetText(3, ItemNo);
-        // CurrPage.ScanZone.SetText(4, Qty);
+        IF NOT IsReady THEN
+            EXIT;
+        CurrPage.ScanZone.SetText(1, PickNo);
+        CurrPage.ScanZone.SetText(2, FromBinCode);
+        CurrPage.ScanZone.SetText(3, ItemNo);
+        CurrPage.ScanZone.SetText(4, Qty);
     end;
 }
 

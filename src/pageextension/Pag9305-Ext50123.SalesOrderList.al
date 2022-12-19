@@ -1,7 +1,6 @@
 pageextension 50123 "BC6_SalesOrderList" extends "Sales Order List" //9305
 {
-
-    //Unsupported feature: Property Modification (SourceTableView) on ""Sales Order List"(Page 9305)". TODO:
+    Caption = 'Sales Orders', Comment = 'FRA="Commandes vente"';
 
     layout
     {
@@ -54,8 +53,40 @@ pageextension 50123 "BC6_SalesOrderList" extends "Sales Order List" //9305
             }
         }
     }
+
+
     actions
     {
+        modify("Create Inventor&y Put-away/Pick")
+        {
+            Visible = false;
+
+        }
+        addfirst(Action3)
+        {
+            action("BC6_Create Inventor&y Put-away/Pick2")
+            {
+                AccessByPermission = TableData "Posted Invt. Pick Header" = R;
+                ApplicationArea = Warehouse;
+                Caption = 'Create Inventor&y Put-away/Pick', Comment = 'FRA="Créer prélèv./rangement stoc&k"';
+                Ellipsis = true;
+                Image = CreateInventoryPickup;
+                Promoted = true;
+                PromotedCategory = Process;
+                ToolTip = 'Create an inventory put-away or inventory pick to handle items on the document according to a basic warehouse configuration that does not require warehouse receipt or shipment documents.';
+
+                trigger OnAction()
+                var
+                    FunctionMgt: Codeunit "BC6_Functions Mgt";
+
+                begin
+                    FunctionMgt.CreateInvtPutAwayPick();
+
+                    if not Find('=><') then
+                        Init();
+                end;
+            }
+        }
 
         addafter(Post)
         {
@@ -74,6 +105,18 @@ pageextension 50123 "BC6_SalesOrderList" extends "Sales Order List" //9305
                 begin
                     PostDocument(CODEUNIT::"Sales-Post + Print");
                 end;
+            }
+        }
+    }
+
+    views
+    {
+        addfirst
+        {
+            view(AddFromVSC)
+            {
+                OrderBy = descending("Document Type", "Order Date", "No.");
+                Filters = WHERE("Document Type" = CONST(Order));
             }
         }
     }

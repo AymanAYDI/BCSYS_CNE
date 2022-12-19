@@ -7,9 +7,11 @@ pageextension 50042 "BC6_PostedPurchaseInvoice" extends "Posted Purchase Invoice
         {
             field("BC6_User ID"; "User ID")
             {
+                ApplicationArea = All;
             }
             field("BC6_Affaire No."; "BC6_Affaire No.")
             {
+                ApplicationArea = All;
             }
         }
     }
@@ -23,6 +25,7 @@ pageextension 50042 "BC6_PostedPurchaseInvoice" extends "Posted Purchase Invoice
                 {
                     Caption = '&Print';
                     Image = print;
+                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin

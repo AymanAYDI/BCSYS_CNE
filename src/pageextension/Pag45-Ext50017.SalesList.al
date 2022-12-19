@@ -6,36 +6,44 @@ pageextension 50017 "BC6_SalesList" extends "Sales List" //45
         {
             field("BC6_Order Date"; "Order Date")
             {
+                ApplicationArea = All;
             }
         }
         addafter("External Document No.")
         {
             field("BC6_Your Reference"; "Your Reference")
             {
+                ApplicationArea = All;
             }
             field("BC6_Requested Delivery Date"; "Requested Delivery Date")
             {
+                ApplicationArea = All;
             }
             field("BC6_Promised Delivery Date"; "Promised Delivery Date")
             {
+                ApplicationArea = All;
             }
             field(BC6_Ship; Ship)
             {
                 Caption = 'Ship', Comment = 'FRA="EntiŠrement livr‚e"';
+                ApplicationArea = All;
             }
             field(BC6_Invoice; Invoice)
             {
                 Caption = 'Invoice', Comment = 'FRA="EntiŠrement factur‚e"';
+                ApplicationArea = All;
             }
             field(BC6_ID; ID)
             {
                 Visible = BooGID;
+                ApplicationArea = All;
             }
         }
         addafter("Location Code")
         {
             field("BC6_Bin Code"; "BC6_Bin Code")
             {
+                ApplicationArea = All;
             }
         }
         addafter("Salesperson Code")
@@ -44,22 +52,26 @@ pageextension 50017 "BC6_SalesList" extends "Sales List" //45
             {
                 Caption = 'Purchase Cost', Comment = 'FRA="Co–t d''achat"';
                 Visible = BooGPurchcost;
+                ApplicationArea = All;
             }
             field(BC6_profitamount; DecGProfitAmount)
             {
                 Caption = 'Profit Amount', Comment = 'FRA="Montant Marge"';
                 Visible = BooGProfitamount;
+                ApplicationArea = All;
             }
             field(BC6_profitpct; "DecGProfit%")
             {
                 Caption = 'Profit %', Comment = 'FRA="% Marge"';
                 Visible = BooGProfitpct;
+                ApplicationArea = All;
             }
         }
         addafter("Document Date")
         {
             field("BC6_Amount Including VAT"; "Amount Including VAT")
             {
+                ApplicationArea = All;
             }
         }
     }

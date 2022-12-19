@@ -2145,6 +2145,36 @@ then begin
         IsHandled := true;
     end;
 
+    [EventSubscriber(ObjectType::Table, Database::"Purchase Line", 'OnBeforeGetDefaultBin', '', false, false)]
+    local procedure T39_OnBeforeGetDefaultBin(var PurchaseLine: Record "Purchase Line"; var IsHandled: Boolean; xPurchaseLine: record "Purchase Line")
+    var
+        Location: Record Location;
+        PurchaseHeader: Record "Purchase Header";
+        WMSManagement: Codeunit "WMS Management";
+        FunctionMgt: Codeunit "BC6_Functions Mgt";
+        WhseIntegrationMgt: Codeunit "Whse. Integration Management";
+    begin
+         if (PurchaseLine.Type <> PurchaseLine.Type::Item) or PurchaseLine.IsNonInventoriableItem() then
+            exit;
+
+        PurchaseLine."Bin Code" := '';
+        if PurchaseLine."Drop Shipment" then
+            exit;
+
+        if (PurchaseLine."Location Code" <> '') and (PurchaseLine."No." <> '') then begin
+            if PurchaseLine."Location Code" = '' then
+                Clear(Location);
+            if Location."Bin Mandatory" and not Location."Directed Put-away and Pick" then begin
+                IF Location."Require Put-away" AND NOT (Location."Require Receive") THEN
+                    PurchaseLine."Bin Code" := Location."Receipt Bin Code"
+                ELSE
+                    WMSManagement.GetDefaultBin(PurchaseLine."No.", PurchaseLine."Variant Code", PurchaseLine."Location Code", PurchaseLine."Bin Code");
+                if not PurchaseLine.IsInbound and (PurchaseLine."Quantity (Base)" <> 0) then
+                    WhseIntegrationMgt.CheckIfBinDedicatedOnSrcDoc(PurchaseLine."Location Code", PurchaseLine."Bin Code", false);
+            end;
+        end;
+    end;
+
     [EventSubscriber(ObjectType::Table, Database::"Purchase Line", 'OnAfterAssignItemValues', '', false, false)]
     local procedure OnAfterAssignItemValues(var PurchLine: Record "Purchase Line"; Item: Record Item; CurrentFieldNo: Integer; PurchHeader: Record "Purchase Header")
     begin

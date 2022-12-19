@@ -8,18 +8,21 @@ pageextension 50015 "BC6_SalesInvoice" extends "Sales Invoice" //43
             field(BC6_ID; ID)
             {
                 Editable = false;
+                ApplicationArea = All;
             }
         }
         addafter("Sell-to Contact No.")
         {
             field("BC6_Sell-to Fax No."; "BC6_Sell-to Fax No.")
             {
+                ApplicationArea = All;
             }
         }
         addafter("Assigned User ID")
         {
             field("BC6_Reason Code"; "Reason Code")
             {
+                ApplicationArea = All;
 
                 trigger OnValidate()
                 begin
@@ -28,12 +31,14 @@ pageextension 50015 "BC6_SalesInvoice" extends "Sales Invoice" //43
             }
             field("BC6_Affair No."; "BC6_Affair No.")
             {
+                ApplicationArea = All;
             }
         }
         addfirst(Control205)
         {
             field("BC6_Bill-to Customer No."; "Bill-to Customer No.")
             {
+                ApplicationArea = All;
             }
         }
         addafter(WorkflowStatus)
@@ -45,6 +50,7 @@ pageextension 50015 "BC6_SalesInvoice" extends "Sales Invoice" //43
                               "Document No." = FIELD("Document No."),
                               "Line No." = FIELD("Line No.");
                 Visible = false;
+                ApplicationArea = All;
             }
         }
     }

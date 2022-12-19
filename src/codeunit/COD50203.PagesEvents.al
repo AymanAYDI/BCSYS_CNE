@@ -58,7 +58,7 @@ codeunit 50203 "BC6_PagesEvents"
             CASE STRMENU(STR3 + ',' + STR4) OF
                 1:
                     BEGIN
-                        SalesHeader.TESTFIELD(Status, Status::Released);
+                        SalesHeader.TESTFIELD(Status, "Sales Document Status"::Released);
                         SalesHeader.RESET();
                         SalesHeader.SETRANGE("Document Type", SalesHeader."Document Type");
                         SalesHeader.SETRANGE("No.", SalesHeader."No.");
@@ -66,7 +66,7 @@ codeunit 50203 "BC6_PagesEvents"
                     END;
                 2:
                     BEGIN
-                        SalesHeader.TESTFIELD(Status, Status::Released);
+                        SalesHeader.TESTFIELD(Status, "Sales Document Status"::Released);
                         "Sales Return Order".EnvoiMail;
                     END;
             end;
@@ -361,7 +361,7 @@ codeunit 50203 "BC6_PagesEvents"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Quote to Order (Yes/No)", 'OnBeforePurchQuoteToOrder', '', false, false)]
     local procedure COD93_OnBeforePurchQuoteToOrder(var PurchaseHeader: Record "Purchase Header"; var IsHandled: Boolean)
     begin
-        PurchaseHeader.TESTFIELD(Status, Status::Released);
+        PurchaseHeader.TESTFIELD(Status, "Sales Document Status"::Released);
     end;
     //COD 96 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Quote to Order", 'OnBeforeInsertPurchOrderLine', '', false, false)]

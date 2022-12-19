@@ -6,6 +6,7 @@ pageextension 50041 "BC6_PostedPurchaseReceipt" extends "Posted Purchase Receipt
         {
             field("BC6_User ID"; "User ID")
             {
+                ApplicationArea = All;
             }
         }
     }
@@ -17,6 +18,7 @@ pageextension 50041 "BC6_PostedPurchaseReceipt" extends "Posted Purchase Receipt
             {
                 Caption = '&Print';
                 Image = SendMail;
+                ApplicationArea = All;
 
                 trigger OnAction()
                 begin

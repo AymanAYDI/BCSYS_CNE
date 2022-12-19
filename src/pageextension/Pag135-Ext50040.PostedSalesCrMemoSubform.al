@@ -6,6 +6,7 @@ pageextension 50040 "BC6_PostedSalesCrMemoSubform" extends "Posted Sales Cr. Mem
         {
             field("BC6_Purchase cost"; "BC6_Purchase cost")
             {
+                ApplicationArea = All;
             }
         }
     }

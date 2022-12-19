@@ -29068,6 +29068,11 @@
           <note from="Developer" annotates="general" priority="2">FRA="Prélèvement stock"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum BC6_Whse. Document Type 2 - EnumValue Invt. Pick - Property Caption</note>
         </trans-unit>
+        <trans-unit id="EnumExtension 3462097957 - EnumValue 1159958008 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Enum 1519117069">
+          <source>Nowhere</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">EnumExtension BC6_NavigateAfterPosting - EnumValue Nowhere - Property Caption</note>
+        </trans-unit>
         <trans-unit id="EnumExtension 2420483485 - EnumValue 3371220206 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Enum 160616565">
           <source>None</source>
           <note from="Developer" annotates="general" priority="2"></note>

@@ -189,7 +189,7 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
 
                 trigger OnAction()
                 begin
-                    PostSalesOrder(CODEUNIT::"Sales-Post + Print", NavigateAfterPost::Nowhere);
+                    PostSalesOrder(CODEUNIT::"Sales-Post + Print", "Navigate After Posting"::Nowhere);
                 end;
             }
         }

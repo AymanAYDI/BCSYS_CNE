@@ -48,7 +48,7 @@ pageextension 50122 "BC6_SalesReturnOrderList" extends "Sales Return Order List"
                     FunctionMgt: Codeunit "BC6_Functions Mgt";
 
                 begin
-                    FunctionMgt.CreateInvtPutAwayPick();
+                    FunctionMgt.BC6_CreateInvtPutAwayPick();
                 end;
             }
         }

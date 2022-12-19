@@ -80,7 +80,7 @@ pageextension 50123 "BC6_SalesOrderList" extends "Sales Order List" //9305
                     FunctionMgt: Codeunit "BC6_Functions Mgt";
 
                 begin
-                    FunctionMgt.CreateInvtPutAwayPick();
+                    FunctionMgt.BC6_CreateInvtPutAwayPick();
 
                     if not Find('=><') then
                         Init();

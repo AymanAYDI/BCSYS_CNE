@@ -868,8 +868,7 @@ codeunit 50202 "BC6_Functions Mgt"
             until RecLPurchLine.NEXT() = 0;
     end;
 
-    //TODO : procedure CreateInvtPutAwayPick STD j'ai pas trouver des event pour inserer mon code donc j la dupliquer en+ la fct est utilisée juste dans des pages
-    procedure CreateInvtPutAwayPick();
+    procedure BC6_CreateInvtPutAwayPick();
     var
         PurchHeader: Record "Purchase Header";
         WhseRequest: Record "Warehouse Request";

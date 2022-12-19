@@ -901,7 +901,7 @@ page 50117 "BC6_Locat. Sales Return Order"
                     var
                         FunctionMgt: Codeunit "BC6_Functions Mgt";
                     begin
-                        FunctionMgt.CreateInvtPutAwayPick();
+                        FunctionMgt.BC6_CreateInvtPutAwayPick();
                     end;
                 }
                 separator(Sep6)

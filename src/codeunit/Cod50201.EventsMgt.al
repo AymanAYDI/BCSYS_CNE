@@ -42,7 +42,6 @@ codeunit 50201 "BC6_Events Mgt"
     end;
 
     //TAB290
-    //TODO:check code //temp  modification of Rec 123
     [EventSubscriber(ObjectType::Table, Database::"VAT Amount Line", 'OnAfterCopyFromPurchInvLine', '', false, false)]
     procedure T290_OnAfterCopyFromPurchInvLine_VATAmountLine(var VATAmountLine: Record "VAT Amount Line"; PurchInvLine: Record "Purch. Inv. Line")
     begin
@@ -933,7 +932,7 @@ codeunit 50201 "BC6_Events Mgt"
     procedure COD841_OnBeforeGetTaxAmountFromSalesOrder(SalesHeader: Record "Sales Header"; var VATAmount: Decimal; var IsHandled: Boolean)
     begin
         IsHandled := true;
-        //   exit(-1 * VATAmount);
+        VATAmount := (-1 * VATAmount);
     end;
 
     //COD1302
@@ -995,7 +994,7 @@ codeunit 50201 "BC6_Events Mgt"
   0,
   TempWhseJnlLine."Reference Document"::"Posted Rcpt.",
   DATABASE::"Purchase Line",
- PurchLine."Document Type"::Order.AsInteger(),
+  PurchLine."Document Type"::Order.AsInteger(),
   PurchRcptLine."Order No.",
   PurchRcptLine."Order Line No.",
   TempWhseJnlLine,
@@ -1008,14 +1007,13 @@ codeunit 50201 "BC6_Events Mgt"
     var
         PurchLine: Record "Purchase Line";
         TempWhseJnlLine: Record "Warehouse Journal Line" temporary;
-        //TODO: à verifier srtt les declarations
         fctMgt: Codeunit "BC6_Functions Mgt";
         NextLineNo: Integer;
     begin
         fctMgt.InsertTempWhseJnlLine2(ItemJournalLine,
           DATABASE::"Return Shipment Header",
           0,
-          PurchLine."Document No.",
+          ReturnShipmentLine."Document No.",
           0,
           TempWhseJnlLine."Reference Document"::"Posted Rtrn. Shipment",
           DATABASE::"Purchase Line",
@@ -1043,36 +1041,36 @@ codeunit 50201 "BC6_Events Mgt"
         fctMgt.InsertTempWhseJnlLine2(ItemJnlLine,
   DATABASE::"Sales Shipment Header",
   0,
-ItemJnlLine."Document No.",
+SalesShptLine."Document No.",
   0,
   TempWhseJnlLine."Reference Document"::"Posted Shipment",
   DATABASE::"Sales Line",
   SalesLine."Document Type"::Order.AsInteger(),
-  ItemJnlLine."Order No.",
-  ItemJnlLine."Order Line No.",
+  SalesShptLine."Order No.",
+  SalesShptLine."Order Line No.",
   TempWhseJnlLine,
   NextLineNo);
     end;
-    //COD5816//TODO: besoin du var TempWhseJnlLine et le NextLineNo /////
-    // [EventSubscriber(ObjectType::Codeunit, codeunit::"Undo Return Receipt Line", 'OnAfterCopyItemJnlLineFromReturnRcpt', '', false, false)]
-    // procedure OnAfterCopyItemJnlLineFromReturnRcpt(var ItemJournalLine: Record "Item Journal Line"; ReturnReceiptHeader: Record "Return Receipt Header"; ReturnReceiptLine: Record "Return Receipt Line"; var WhseUndoQty: Codeunit "Whse. Undo Quantity")
-    //    var
+    //COD5816
+    //TODO: besoin du var TempWhseJnlLine et le NextLineNo /////
+    //     [EventSubscriber(ObjectType::Codeunit, codeunit::"Undo Return Receipt Line", 'OnAfterCopyItemJnlLineFromReturnRcpt', '', false, false)]
+    //     procedure OnAfterCopyItemJnlLineFromReturnRcpt(var ItemJournalLine: Record "Item Journal Line"; ReturnReceiptHeader: Record "Return Receipt Header"; ReturnReceiptLine: Record "Return Receipt Line"; var WhseUndoQty: Codeunit "Whse. Undo Quantity")
+    //     var
     //         fctMgt: Codeunit "BC6_Functions Mgt";
     //     begin
-    //                 fctMgt.InsertTempWhseJnlLine2(ItemJournalLine,
-    //           DATABASE::"Return Receipt Header",
-    //           0,
-    //           "Document No.",
-    //           0,
-    //           TempWhseJnlLine."Reference Document"::"Posted Rtrn. Rcpt.",
-    //           DATABASE::"Sales Line",
-    //           SalesLine."Document Type"::"Return Order",
-    //           ItemJournalLine."Return Order No.",
-    //           ItemJournalLine."Return Order Line No.",
-    //           TempWhseJnlLine,
-    //           NextLineNo);
-
-    //     end;
+    //         fctMgt.InsertTempWhseJnlLine2(ItemJournalLine,
+    //   DATABASE::"Return Receipt Header",
+    //   0,
+    //   ReturnReceiptLine."Document No.",
+    //   0,
+    //   TempWhseJnlLine."Reference Document"::"Posted Rtrn. Rcpt.",
+    //   DATABASE::"Sales Line",
+    //   SalesLine."Document Type"::"Return Order",
+    //   ReturnReceiptLine."Return Order No.",
+    //   ReturnReceiptLine."Return Order Line No.",
+    //   TempWhseJnlLine,
+    //   NextLineNo);
+    //  end;
 
     //COD5817
     [EventSubscriber(ObjectType::Codeunit, codeunit::"Undo Posting Management", 'OnBeforeTestPostedInvtPutAwayLine', '', false, false)]
@@ -1383,24 +1381,24 @@ then begin
         end;
     end;
 
-    [EventSubscriber(ObjectType::Table, Database::"Purchase Line", 'OnAfterUpdateDirectUnitCost', '', false, false)]
-    local procedure T39_OnAfterUpdateDirectUnitCost(var PurchLine: Record "Purchase Line"; xPurchLine: Record "Purchase Line"; CalledByFieldNo: Integer; CurrFieldNo: Integer)
+    [EventSubscriber(ObjectType::Table, Database::"Purchase Line", 'OnAfterValidateEvent', 'Quantity', false, false)]
+    local procedure T39_OnAfterValidateEvent_PurchaseLine(var Rec: Record "Purchase Line"; var xRec: Record "Purchase Line"; CurrFieldNo: Integer)
     var
         Currency: Record Currency;
         RecGVendor: Record Vendor;
 
     begin
-        PurchLine.VALIDATE(PurchLine."BC6_DEEE HT Amount", 0);
-        PurchLine."BC6_DEEE VAT Amount" := 0;
-        PurchLine."BC6_DEEE TTC Amount" := 0;
-        PurchLine."BC6_DEEE Amount (LCY) for Stat" := 0;
-        RecGVendor.GET(PurchLine."Buy-from Vendor No.");
+        Rec.VALIDATE(Rec."BC6_DEEE HT Amount", 0);
+        Rec."BC6_DEEE VAT Amount" := 0;
+        Rec."BC6_DEEE TTC Amount" := 0;
+        Rec."BC6_DEEE Amount (LCY) for Stat" := 0;
+        RecGVendor.GET(Rec."Buy-from Vendor No.");
         if RecGVendor."BC6_Posting DEEE" then begin
-            PurchLine.VALIDATE(PurchLine."BC6_DEEE HT Amount", PurchLine."BC6_DEEE Unit Price" * PurchLine."Quantity (Base)");
+            Rec.VALIDATE(Rec."BC6_DEEE HT Amount", Rec."BC6_DEEE Unit Price" * Rec."Quantity (Base)");
             Currency.get(Currency.Code);
-            PurchLine."BC6_DEEE VAT Amount" := ROUND(PurchLine."BC6_DEEE HT Amount" * PurchLine."VAT %" / 100, Currency."Amount Rounding Precision");
-            PurchLine."BC6_DEEE TTC Amount" := PurchLine."BC6_DEEE HT Amount" + PurchLine."BC6_DEEE VAT Amount";
-            PurchLine."BC6_DEEE Amount (LCY) for Stat" := PurchLine."Quantity (Base)" * PurchLine."BC6_DEEE Unit Price (LCY)";
+            Rec."BC6_DEEE VAT Amount" := ROUND(Rec."BC6_DEEE HT Amount" * Rec."VAT %" / 100, Currency."Amount Rounding Precision");
+            Rec."BC6_DEEE TTC Amount" := Rec."BC6_DEEE HT Amount" + Rec."BC6_DEEE VAT Amount";
+            Rec."BC6_DEEE Amount (LCY) for Stat" := Rec."Quantity (Base)" * Rec."BC6_DEEE Unit Price (LCY)";
         end;
     end;
 
@@ -1557,9 +1555,8 @@ then begin
         NaviSetup: Record "BC6_Navi+ Setup";
 
     begin
-        //TODO  je pense que cette section est replacer par ces deux fcts  "UpdateReferencedIds; et SetLastModifiedDateTime"
-        //    "Creation Date" := WORKDATE;
-        //    User := USERID;
+        Vendor."BC6_Creation Date" := WORKDATE;
+        Vendor.BC6_User := USERID;
         Vendor."BC6_Pay-to Vend. No." := Vendor."No.";
         NaviSetup.TESTFIELD(NaviSetup."Gen. Bus. Posting Group Vendor");
         NaviSetup.TESTFIELD(NaviSetup."VAT Bus. Posting Group Vendor");
@@ -1582,18 +1579,19 @@ then begin
         Vendor.VALIDATE("BC6_Posting DEEE", NaviSetup."Posting DEEE");
     end;
     //246
-    [EventSubscriber(ObjectType::Table, Database::"Requisition Line", 'OnAfterValidateEvent', 'Location Code', false, false)]
-    procedure T246_OnAfterValidateEvent_LocationCode(var Rec: Record "Requisition Line"; var xRec: Record "Requisition Line"; CurrFieldNo: Integer)
+    [EventSubscriber(ObjectType::Table, Database::"Requisition Line", 'OnValidateLocationCodeOnBeforeGetDefaultBin', '', false, false)]
+    local procedure OnValidateLocationCodeOnBeforeGetDefaultBin(RequisitionLine: Record "Requisition Line"; var ShouldGetDefaultBin: Boolean; Location: Record Location)
     var
-        Location: Record Location;
         WMSManagement: Codeunit "WMS Management";
 
     begin
-        Location.Get();
+        if ShouldGetDefaultBin then
+            WMSManagement.GetDefaultBin(RequisitionLine."No.", RequisitionLine."Variant Code", RequisitionLine."Location Code", RequisitionLine."Bin Code");
+
         if Location."Require Put-away" and not (Location."Require Receive") then
-            Rec."Bin Code" := Location."Receipt Bin Code"
+            RequisitionLine."Bin Code" := Location."Receipt Bin Code"
         else
-            WMSManagement.GetDefaultBin(Rec."No.", Rec."Variant Code", Rec."Location Code", Rec."Bin Code");
+            ShouldGetDefaultBin := true;
     end;
 
     // [EventSubscriber(ObjectType::Table, Database::"Requisition Line", 'OnAfterGetDirectCost', '', false, false)]
@@ -2121,7 +2119,6 @@ then begin
         if Rec.IsTemporary then
             exit;
         Rec.CalcDiscountDirectUnitCost();
-        ;
         Rec.Modify();
     end;
 
@@ -2160,8 +2157,14 @@ then begin
         PurchLine.CalcDiscountDirectUnitCost();
     end;
 
+    [EventSubscriber(ObjectType::Table, Database::"Purchase Line", 'OnAfterValidateEvent', 'No.', false, false)]
+    local procedure T39_OnAfterValidateEvent_PurchLine(var Rec: Record "Purchase Line"; var xRec: Record "Purchase Line"; CurrFieldNo: Integer)
+    begin
+        Rec.CalcDiscountDirectUnitCost();
+    end;
+
     [EventSubscriber(ObjectType::Table, Database::"Purchase Line", 'OnCalcVATAmountLinesOnBeforeVATAmountLineSumLine', '', false, false)]
-    local procedure OnCalcVATAmountLinesOnBeforeVATAmountLineSumLine(PurchaseLine: Record "Purchase Line"; var VATAmountLine: Record "VAT Amount Line"; QtyType: Option General,Invoicing,Shipping; var PurchaseLine2: Record "Purchase Line")
+    local procedure T39_OnCalcVATAmountLinesOnBeforeVATAmountLineSumLine(PurchaseLine: Record "Purchase Line"; var VATAmountLine: Record "VAT Amount Line"; QtyType: Option General,Invoicing,Shipping; var PurchaseLine2: Record "Purchase Line")
     var
         Currency: Record Currency;
     begin
@@ -2384,47 +2387,22 @@ then begin
         ItemJnlTemplate: Record "Item Journal Template";
         Text001: label 'Journal Batch Name    #1##########\\';
         Text002: label 'Checking lines        #2######\';
-        Text003: label 'Posting lines         #3###### @4@@@@@@@@@@@@@\';
-        Text004: label 'Updating lines        #5###### @6@@@@@@@@@@@@@';
         Text005: label 'Posting lines         #3###### @4@@@@@@@@@@@@@';
         Text101: label 'ENU=Jnl. Batch #1###\\';
         Text102: label 'ENU=Chec. lines #2###\';
-        Text105: label 'ENU=Post. #3### @4@;FRA=Valid.#3### @4@@@';
+        Text105: label 'ENU=Post. #3### @4@';
     begin
         IsHandled := true;
         ItemJnlTemplate.Get(ItemJnlLine."Journal Template Name");
 
-        if ItemJnlTemplate.Recurring then
-            Window.Open(
-              Text001 +
-              Text002 +
-              Text003 +
-              Text004)
-        else
+        if not ItemJnlTemplate.Recurring then
             if (ItemJnlTemplate.Name = InvtSetup."BC6_Item Jnl Template Name 1") or
                (ItemJnlTemplate.Name = InvtSetup."BC6_Item Jnl Template Name 2") then
-                Window.OPEN(
-                  Text101 +
-                  Text102 +
-                  Text105)
+                Window.OPEN(Text101 + Text102 + Text105)
             else
-                Window.Open(
-                  Text001 +
-                  Text002 +
-                  Text005);
+                Window.Open(Text001 + Text002 + Text005);
         Window.Update(1, ItemJnlLine."Journal Batch Name");
         WindowIsOpen := true;
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Jnl.-Post Batch", 'OnItemJnlPostSumLineOnAfterGetItem', '', false, false)]
-    //TODO: not sure of it(ItemJournalLine was ItemJournalLine4 in the old code)
-    local procedure COD23_OnItemJnlPostSumLineOnAfterGetItem(var Item: Record Item; ItemJournalLine: Record "Item Journal Line")
-    var
-        IncludeExpectedCost: Boolean;
-    begin
-        IncludeExpectedCost :=
-    (Item."Costing Method" = Item."Costing Method"::Average) and
-    (ItemJournalLine."Inventory Value Per" <> ItemJournalLine."Inventory Value Per"::" ");
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Jnl.-Post Batch", 'OnBeforeWhseJnlPostLineRun', '', false, false)]
@@ -2758,14 +2736,12 @@ then begin
     begin
 
         if SalesHeader."Currency Code" <> '' then begin
-            //>>MIGRATION NAV 2013 - 2017
             SalesLine."BC6_DEEE Unit Price" :=
               ROUND(
                 CurrExchRate.ExchangeAmtFCYToLCY(
                    SalesHeader.GetUseDate(), SalesHeader."Currency Code",
                   SalesLine."BC6_DEEE Unit Price", SalesHeader."Currency Factor")) -
                     SalesLine."BC6_DEEE Unit Price";
-            //<<MIGRATION NAV 2013 - 2017
         end;
     end;
 
@@ -2777,12 +2753,12 @@ then begin
         EnableIncrPurchCost: Boolean; //(variable globale que je la déclaré locale, car elle est utilisée slmnt dans cette partie)
     begin
 
-        // FctMngt.Increment(TotalSalesLine."BC6_Purchase cost",ROUND(SalesLineQty * TotalSalesLine."BC6_Purchase cost"));
-        // IF EnableIncrPurchCost THEN
-        //   IF L_Item.Type = L_Item.Type::Item THEN BEGIN
-        //     L_Item.GET("No.");
-        //     FctMngt.Increment(SalesLine."BC6_Purchase cost", ROUND(TotalSalesLine."BC6_Purchase cost" * L_Item."BC6_Cost Increase Coeff %" / 100) * SalesLineQty);
-        //   END; //TODO: Item n'existe plus dans la liste des options de l'enum Type
+        FctMngt.Increment(TotalSalesLine."BC6_Purchase cost", ROUND(SalesLineQty * TotalSalesLine."BC6_Purchase cost"));
+        IF EnableIncrPurchCost THEN
+            IF SalesLine.Type = SalesLine.Type::Item THEN BEGIN
+                L_Item.GET(SalesLine."No.");
+                FctMngt.Increment(SalesLine."BC6_Purchase cost", ROUND(TotalSalesLine."BC6_Purchase cost" * L_Item."BC6_Cost Increase Coeff %" / 100) * SalesLineQty);
+            END;
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnAfterIncrAmount', '', false, false)]
@@ -2801,15 +2777,11 @@ then begin
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post (Yes/No)", 'OnConfirmPostOnBeforeSetSelection', '', false, false)]
     local procedure COD81_OnConfirmPostOnBeforeSetSelection(var SalesHeader: Record "Sales Header")
     begin
-        //>>MIGRATION NAV 2013
-        //FG
         if SalesHeader."Document Type" <> SalesHeader."Document Type"::Invoice then
             SalesHeader.TESTFIELD(SalesHeader.Status, SalesHeader.Status::Released);
-        //<<MIGRATION NAV 2013
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post (Yes/No)", 'OnBeforeConfirmPost', '', false, false)]
-
     local procedure COD81_OnBeforeConfirmPost(var SalesHeader: Record "Sales Header"; var DefaultOption: Integer; var Result: Boolean; var IsHandled: Boolean)
     var
         RecLNaviSetup: Record "BC6_Navi+ Setup";
@@ -2833,6 +2805,7 @@ then begin
         ShipInvoiceQst: label '&Ship,&Invoice,Ship &and Invoice';
     begin
         IsHandled := true;
+
         if DefaultOption > 3 then
             DefaultOption := 3;
         if DefaultOption <= 0 then
@@ -2853,8 +2826,10 @@ then begin
                         if Selection = 0 then
                             exit;
                         Receive := Selection in [1, 3];
+                        //>>MIGRATION NAV 2013
                         if Ship then FctMngt.CalcProfit2(SalesHeader);
                         Invoice := Selection in [2, 3];
+
                     end
                 else
                     if not ConfirmManagement.GetResponseOrDefault(
@@ -4313,6 +4288,18 @@ then begin
 
         end;
     end;
+    //TAB341
+    [EventSubscriber(ObjectType::Table, Database::"Item Discount Group", 'OnBeforeDeleteEvent', '', false, false)]
+    local procedure OnBeforeOnDelete(var Rec: Record "Item Discount Group")
+    var
+        PriceListLine: Record "Price List Line";
+    begin
+        PriceListLine.SETRANGE("Asset Type", PriceListLine."Asset Type"::"Item Discount Group");
+        PriceListLine.SETRANGE("Asset No.", Rec.Code);
+        PriceListLine.DELETEALL(TRUE);
+    end;
+
+
 
     //---CUD2000000005---
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Reporting Triggers", 'SubstituteReport', '', false, false)]

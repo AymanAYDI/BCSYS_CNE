@@ -2598,16 +2598,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit BC6_Events Mgt - Method COD23_OnBeforeOpenProgressDialog - NamedType Text002</note>
         </trans-unit>
-        <trans-unit id="Codeunit 1421518555 - Method 1667516121 - NamedType 95063322" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Posting lines         #3###### @4@@@@@@@@@@@@@\</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit BC6_Events Mgt - Method COD23_OnBeforeOpenProgressDialog - NamedType Text003</note>
-        </trans-unit>
-        <trans-unit id="Codeunit 1421518555 - Method 1667516121 - NamedType 732759939" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Updating lines        #5###### @6@@@@@@@@@@@@@</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit BC6_Events Mgt - Method COD23_OnBeforeOpenProgressDialog - NamedType Text004</note>
-        </trans-unit>
         <trans-unit id="Codeunit 1421518555 - Method 1667516121 - NamedType 1370456556" size-unit="char" translate="yes" xml:space="preserve">
           <source>Posting lines         #3###### @4@@@@@@@@@@@@@</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -2624,7 +2614,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit BC6_Events Mgt - Method COD23_OnBeforeOpenProgressDialog - NamedType Text102</note>
         </trans-unit>
         <trans-unit id="Codeunit 1421518555 - Method 1667516121 - NamedType 1287715891" size-unit="char" translate="yes" xml:space="preserve">
-          <source>ENU=Post. #3### @4@;FRA=Valid.#3### @4@@@</source>
+          <source>ENU=Post. #3### @4@</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit BC6_Events Mgt - Method COD23_OnBeforeOpenProgressDialog - NamedType Text105</note>
         </trans-unit>
@@ -24093,6 +24083,11 @@
           <note from="Developer" annotates="general" priority="2">FRA="Sp‚cifie le nombre d'unit‚s de la ligne vente qui n'ont pas encore ‚t‚ re‡ues."</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_PurchaseLines - Control BC6_Outstanding Quantity - Property ToolTip</note>
         </trans-unit>
+        <trans-unit id="PageExtension 2697417919 - Action 909783736 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 387971303">
+          <source>Create Inventor&amp;y Put-away/Pick</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Créer prélèv./rangement stock"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_PurchaseOrder - Action BC6_Create Inventor&amp;y Put-away/Pick - Property Caption</note>
+        </trans-unit>
         <trans-unit id="PageExtension 4235982185 - Action 3503419834 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3195034673">
           <source>Add receipt related information</source>
           <note from="Developer" annotates="general" priority="2">FRA="Ajouter information connexe de r‚ception"</note>
@@ -24102,6 +24097,11 @@
           <source>Receipt related information</source>
           <note from="Developer" annotates="general" priority="2">FRA="Informations connexes de r‚ception"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_PurchaseOrderList - Action BC6_LogCommentsList - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 4235982185 - Action 909783736 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3195034673">
+          <source>Create Inventor&amp;y Put-away/Pick</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_PurchaseOrderList - Action BC6_Create Inventor&amp;y Put-away/Pick - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 4235982185 - Control 1518723953 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3195034673">
           <source>Sales No. Order Lien</source>
@@ -24167,6 +24167,16 @@
           <source>&amp;Print</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_PurchaseReturnOrder - Action BC6_&amp;Print2 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3147282345 - Action 909783736 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1555938241">
+          <source>Create Inventor&amp;y Put-away/Pick</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Créer prélèv./rangement stock"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_PurchaseReturnOrder - Action BC6_Create Inventor&amp;y Put-away/Pick - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 456631983 - Action 909783736 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3113493751">
+          <source>Create Inventor&amp;y Put-away/Pick</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_PurchaseReturnOrderList - Action BC6_Create Inventor&amp;y Put-away/Pick - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 456631983 - Control 1518723953 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3113493751">
           <source>Sales No. Order Link</source>

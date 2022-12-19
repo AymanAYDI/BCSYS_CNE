@@ -501,8 +501,10 @@ page 50121 "LOC Purch. Return Order List"
                     ApplicationArea = All;
 
                     trigger OnAction()
+                    var
+                        FunctionsMgt: codeunit "BC6_Functions Mgt";
                     begin
-                        CreateInvtPutAwayPick();
+                        FunctionsMgt.BC6_CreateInvtPutAwayPick();
                     end;
                 }
                 action("Create &Whse. Shipment")

@@ -23,7 +23,7 @@ codeunit 60000 "BC6_UpdateVersionListForMig"
         Object.SETRANGE(Modified, true);
         Object.SETFILTER("Version List", '*%1*', MyTag);
         ERROR('%1', Object.COUNT);
-        if Object.FINDFIRST then   //TODO: Unreachable code detected.
+        if Object.FindSet() then
             repeat
                 Pos := STRPOS(Object."Version List", ',MyTag');
                 if Pos <> 0 then begin

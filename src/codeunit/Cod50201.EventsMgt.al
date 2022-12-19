@@ -933,7 +933,7 @@ codeunit 50201 "BC6_Events Mgt"
     procedure COD841_OnBeforeGetTaxAmountFromSalesOrder(SalesHeader: Record "Sales Header"; var VATAmount: Decimal; var IsHandled: Boolean)
     begin
         IsHandled := true;
-        //   exit(-1 * VATAmount);
+        VATAmount := (-1 * VATAmount);
     end;
 
     //COD1302
@@ -995,7 +995,7 @@ codeunit 50201 "BC6_Events Mgt"
   0,
   TempWhseJnlLine."Reference Document"::"Posted Rcpt.",
   DATABASE::"Purchase Line",
- PurchLine."Document Type"::Order.AsInteger(),
+  PurchLine."Document Type"::Order.AsInteger(),
   PurchRcptLine."Order No.",
   PurchRcptLine."Order Line No.",
   TempWhseJnlLine,
@@ -1008,14 +1008,13 @@ codeunit 50201 "BC6_Events Mgt"
     var
         PurchLine: Record "Purchase Line";
         TempWhseJnlLine: Record "Warehouse Journal Line" temporary;
-        //TODO: à verifier srtt les declarations
         fctMgt: Codeunit "BC6_Functions Mgt";
         NextLineNo: Integer;
     begin
         fctMgt.InsertTempWhseJnlLine2(ItemJournalLine,
           DATABASE::"Return Shipment Header",
           0,
-          PurchLine."Document No.",
+          ReturnShipmentLine."Document No.",
           0,
           TempWhseJnlLine."Reference Document"::"Posted Rtrn. Shipment",
           DATABASE::"Purchase Line",
@@ -1043,36 +1042,36 @@ codeunit 50201 "BC6_Events Mgt"
         fctMgt.InsertTempWhseJnlLine2(ItemJnlLine,
   DATABASE::"Sales Shipment Header",
   0,
-ItemJnlLine."Document No.",
+SalesShptLine."Document No.",
   0,
   TempWhseJnlLine."Reference Document"::"Posted Shipment",
   DATABASE::"Sales Line",
   SalesLine."Document Type"::Order.AsInteger(),
-  ItemJnlLine."Order No.",
-  ItemJnlLine."Order Line No.",
+  SalesShptLine."Order No.",
+  SalesShptLine."Order Line No.",
   TempWhseJnlLine,
   NextLineNo);
     end;
-    //COD5816//TODO: besoin du var TempWhseJnlLine et le NextLineNo /////
-    // [EventSubscriber(ObjectType::Codeunit, codeunit::"Undo Return Receipt Line", 'OnAfterCopyItemJnlLineFromReturnRcpt', '', false, false)]
-    // procedure OnAfterCopyItemJnlLineFromReturnRcpt(var ItemJournalLine: Record "Item Journal Line"; ReturnReceiptHeader: Record "Return Receipt Header"; ReturnReceiptLine: Record "Return Receipt Line"; var WhseUndoQty: Codeunit "Whse. Undo Quantity")
-    //    var
+    //COD5816
+    //TODO: besoin du var TempWhseJnlLine et le NextLineNo /////
+    //     [EventSubscriber(ObjectType::Codeunit, codeunit::"Undo Return Receipt Line", 'OnAfterCopyItemJnlLineFromReturnRcpt', '', false, false)]
+    //     procedure OnAfterCopyItemJnlLineFromReturnRcpt(var ItemJournalLine: Record "Item Journal Line"; ReturnReceiptHeader: Record "Return Receipt Header"; ReturnReceiptLine: Record "Return Receipt Line"; var WhseUndoQty: Codeunit "Whse. Undo Quantity")
+    //     var
     //         fctMgt: Codeunit "BC6_Functions Mgt";
     //     begin
-    //                 fctMgt.InsertTempWhseJnlLine2(ItemJournalLine,
-    //           DATABASE::"Return Receipt Header",
-    //           0,
-    //           "Document No.",
-    //           0,
-    //           TempWhseJnlLine."Reference Document"::"Posted Rtrn. Rcpt.",
-    //           DATABASE::"Sales Line",
-    //           SalesLine."Document Type"::"Return Order",
-    //           ItemJournalLine."Return Order No.",
-    //           ItemJournalLine."Return Order Line No.",
-    //           TempWhseJnlLine,
-    //           NextLineNo);
-
-    //     end;
+    //         fctMgt.InsertTempWhseJnlLine2(ItemJournalLine,
+    //   DATABASE::"Return Receipt Header",
+    //   0,
+    //   ReturnReceiptLine."Document No.",
+    //   0,
+    //   TempWhseJnlLine."Reference Document"::"Posted Rtrn. Rcpt.",
+    //   DATABASE::"Sales Line",
+    //   SalesLine."Document Type"::"Return Order",
+    //   ReturnReceiptLine."Return Order No.",
+    //   ReturnReceiptLine."Return Order Line No.",
+    //   TempWhseJnlLine,
+    //   NextLineNo);
+    //  end;
 
     //COD5817
     [EventSubscriber(ObjectType::Codeunit, codeunit::"Undo Posting Management", 'OnBeforeTestPostedInvtPutAwayLine', '', false, false)]

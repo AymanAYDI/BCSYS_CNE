@@ -9,24 +9,29 @@ pageextension 50038 "BC6_PostedSalesInvoiceSubform" extends "Posted Sales Invoic
                 Style = Strong;
                 StyleExpr = TRUE;
                 Visible = false;
+                ApplicationArea = All;
             }
             field("BC6_Eco partner DEEE"; "BC6_Eco partner DEEE")
             {
+                ApplicationArea = All;
             }
             field("BC6_DEEE TTC Amount"; "BC6_DEEE TTC Amount")
             {
                 Style = Strong;
                 StyleExpr = TRUE;
                 Visible = false;
+                ApplicationArea = All;
             }
             field("BC6_DEEE HT Amount (LCY)"; "BC6_DEEE HT Amount (LCY)")
             {
+                ApplicationArea = All;
             }
         }
         addafter("Unit of Measure")
         {
             field("BC6_Purchase Cost"; "BC6_Purchase Cost")
             {
+                ApplicationArea = All;
             }
         }
         addafter("Appl.-to Item Entry")
@@ -35,11 +40,13 @@ pageextension 50038 "BC6_PostedSalesInvoiceSubform" extends "Posted Sales Invoic
             {
                 Style = Strong;
                 StyleExpr = TRUE;
+                ApplicationArea = All;
             }
             field("BC6_DEEE HT Amount"; "BC6_DEEE HT Amount")
             {
                 Style = Strong;
                 StyleExpr = TRUE;
+                ApplicationArea = All;
             }
         }
     }

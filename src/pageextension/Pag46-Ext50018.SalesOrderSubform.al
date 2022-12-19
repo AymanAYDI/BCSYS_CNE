@@ -18,27 +18,33 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
             field("BC6_Dispensation No."; "BC6_Dispensation No.")
             {
                 Editable = false;
+                ApplicationArea = All;
             }
             field("BC6_Additional Discount %"; "BC6_Additional Discount %")
             {
                 Editable = false;
+                ApplicationArea = All;
             }
             field("BC6_Dispensed Purchase Cost"; "BC6_Dispensed Purchase Cost")
             {
                 Editable = false;
+                ApplicationArea = All;
             }
             field("BC6_Standard Net Price"; "BC6_Standard Net Price")
             {
                 Editable = false;
+                ApplicationArea = All;
             }
             field("BC6_Item Disc. Group"; "BC6_Item Disc. Group")
             {
                 Editable = false;
+                ApplicationArea = All;
             }
             field("BC6_Purchasing Code"; "Purchasing Code")
             {
                 ToolTip = 'Specifies the purchasing code for the item.', Comment = 'FRA="Sp‚cifie le code achat pour l''article."';
                 Visible = false;
+                ApplicationArea = All;
             }
         }
 
@@ -53,6 +59,7 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
             {
                 Caption = 'Real purchase cost', Comment = 'FRA="Co–t d''achat r‚el"';
                 Visible = ShowRealProfit;
+                ApplicationArea = All;
 
                 trigger OnValidate()
                 begin
@@ -62,6 +69,7 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
             field("BC6_Increase Purchase cost"; IncrPurchCost)
             {
                 Caption = 'Purchase cost', Comment = 'FRA="Co–t d''achat"';
+                ApplicationArea = All;
 
                 trigger OnValidate()
                 begin
@@ -71,32 +79,40 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
             }
             field("BC6_Public Price"; "BC6_Public Price")
             {
+                ApplicationArea = All;
             }
             field("BC6_DEEE Category Code"; "BC6_DEEE Category Code")
             {
                 Visible = false;
+                ApplicationArea = All;
             }
             field("BC6_Eco partner DEEE"; "BC6_Eco partner DEEE")
             {
                 Visible = false;
+                ApplicationArea = All;
             }
             field("BC6_DEEE Unit Price"; "BC6_DEEE Unit Price")
             {
+                ApplicationArea = All;
             }
             field("BC6_DEEE HT Amount"; "BC6_DEEE HT Amount")
             {
+                ApplicationArea = All;
             }
             field("BC6_DEEE VAT Amount"; "BC6_DEEE VAT Amount")
             {
                 Visible = false;
+                ApplicationArea = All;
             }
             field("BC6_DEEE TTC Amount"; "BC6_DEEE TTC Amount")
             {
                 Visible = false;
+                ApplicationArea = All;
             }
             field("BC6_DEEE HT Amount (LCY)"; "BC6_DEEE HT Amount (LCY)")
             {
                 Visible = false;
+                ApplicationArea = All;
             }
         }
 
@@ -107,6 +123,7 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
             {
                 Caption = 'Real profit %', Comment = 'FRA="% marge sur vente r‚el"';
                 Visible = ShowRealProfit;
+                ApplicationArea = All;
 
                 trigger OnValidate()
                 begin
@@ -116,6 +133,7 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
             field("BC6_Increase Profit %"; IncrProfit)
             {
                 Caption = 'Profit %', Comment = 'FRA="% marge sur vente"';
+                ApplicationArea = All;
 
                 trigger OnValidate()
                 begin
@@ -135,6 +153,7 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
         {
             field("BC6_Discount unit price"; "BC6_Discount unit price")
             {
+                ApplicationArea = All;
             }
         }
 
@@ -146,6 +165,7 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
         {
             field("BC6_Pick Qty."; "BC6_Pick Qty.")
             {
+                ApplicationArea = All;
             }
         }
 
@@ -156,10 +176,12 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
             field("BC6_Purchase Receipt Date"; "BC6_Purchase Receipt Date")
             {
                 Editable = false;
+                ApplicationArea = All;
             }
             field("BC6_Promised Purchase Receipt Date"; "BC6_Prom. Purch. Receipt Date")
             {
                 Editable = false;
+                ApplicationArea = All;
             }
 
         }
@@ -172,6 +194,7 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
         {
             field("BC6_Invoiced Date (Expected)"; "BC6_Invoiced Date (Expected)")
             {
+                ApplicationArea = All;
             }
         }
 
@@ -182,6 +205,7 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
             field("BC6_To Prepare"; "BC6_To Prepare")
             {
                 ShowCaption = false;
+                ApplicationArea = All;
             }
         }
 
@@ -193,12 +217,15 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
         {
             field("BC6_Purch. Document Type"; "BC6_Purch. Document Type")
             {
+                ApplicationArea = All;
             }
             field("BC6_Purch. Order No."; "BC6_Purch. Order No.")
             {
+                ApplicationArea = All;
             }
             field("BC6_Purch. Line No."; "BC6_Purch. Line No.")
             {
+                ApplicationArea = All;
             }
         }
 

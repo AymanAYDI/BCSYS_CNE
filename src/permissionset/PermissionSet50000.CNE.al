@@ -189,5 +189,5 @@ permissionset 50000 "BC6_CNE"
         page "Salesperson Role Center SCENEO" = X,
         page "Scan Ship & Receive Activities" = X,
         page "Stockkeeping Unit List ACTI" = X,
-        page "Stockkeeping Unit List METZ" = X;
+        page "BC6_Stock. Unit List METZ" = X;
 }

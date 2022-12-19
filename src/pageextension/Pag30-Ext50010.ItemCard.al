@@ -150,7 +150,7 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
                 trigger OnAction()
                 var
                     FromItem: Record Item;
-                //TODO: Report    // PrintLabel: Report 50049;
+                    PrintLabel: Report 50049;
                 begin
                     // CLEAR(PrintLabel);
                     CLEAR(FromItem);

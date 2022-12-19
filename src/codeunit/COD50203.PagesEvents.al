@@ -140,7 +140,7 @@ codeunit 50203 "BC6_PagesEvents"
         if TransferExtendedText.PurchCheckIfAnyExtText(PurchaseLine, Unconditionally) then begin
             PurchOrd.SaveRecord;
             TransferExtendedText.InsertPurchExtText(PurchaseLine);
-            FctMngt.InsertPurchExtTextSpe(PurchaseLine);   //TODO:Fct to add in cod378 
+            FctMngt.InsertPurchExtTextSpe(PurchaseLine);
         end;
     end;
     //PAGE 233
@@ -210,8 +210,6 @@ codeunit 50203 "BC6_PagesEvents"
     begin
         FctMngt.MntInverseDEEE(PurchLine);
     end;
-
-
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnRunOnAfterFillTempLines', '', false, false)]
 

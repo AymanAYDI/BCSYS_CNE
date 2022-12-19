@@ -1492,7 +1492,7 @@ report 50090 "BC6_Facture Proforma CNE"
                         UNTIL PrepmtVATAmountLine.NEXT = 0;
 
                     SalesPostPrepmt.UpdateVATOnLines(SalesHeader, PrepmtSalesLine, PrepmtVATAmountLine, 0);
-                    //TODO SalesPostPrepmt.BuildInvLineBuffer2(SalesHeader, PrepmtSalesLine, 0, PrepmtInvBuf);
+                    SalesPostPrepmt.BuildInvLineBuffer(SalesHeader, PrepmtSalesLine, 0, PrepmtInvBuf);
                     PrepmtVATAmount := PrepmtVATAmountLine.GetTotalVATAmount;
                     PrepmtVATBaseAmount := PrepmtVATAmountLine.GetTotalVATBase;
                     PrepmtTotalAmountInclVAT := PrepmtVATAmountLine.GetTotalAmountInclVAT;
@@ -1543,7 +1543,7 @@ report 50090 "BC6_Facture Proforma CNE"
             trigger OnAfterGetRecord()
             begin
                 CompanyInfo.GET;
-                //TODO: check me! CurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
+                CurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
                 CurrReport.Language := Language2.GetLanguageIdOrDefault("Language Code");
 
 
@@ -1748,7 +1748,7 @@ report 50090 "BC6_Facture Proforma CNE"
 
         trigger OnOpenPage()
         begin
-            //TODO  ArchiveDocument := SalesSetup."Archive Quotes and Orders";
+            ArchiveDocument := SalesSetup."Archive Orders";
             LogInteraction := SegManagement.FindInteractTmplCode(3) <> '';
 
             LogInteractionEnable := LogInteraction;
@@ -1795,7 +1795,7 @@ report 50090 "BC6_Facture Proforma CNE"
         TempPrepmtDimSetEntry: Record "Dimension Set Entry" temporary;
         PrepmtInvBuf: Record "Prepayment Inv. Line Buffer" temporary;
         RespCenter: Record "Responsibility Center";
-        Language: Record "Language";
+        Language: Codeunit "Language";
         CurrExchRate: Record "Currency Exchange Rate";
         AsmHeader: Record "Assembly Header";
         AsmLine: Record "Assembly Line";

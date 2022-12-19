@@ -271,7 +271,7 @@ page 50082 "BC6_Item Replanishment List"
                     Promoted = true;
                     PromotedCategory = Category4;
                     PromotedOnly = true;
-                    RunObject = Page "Item References"; //TODO: replace "Cross-Item References" with "Item References"
+                    RunObject = Page "Item References";
                     RunPageLink = "Item No." = FIELD("No.");
                     Scope = Repeater;
                     ToolTip = 'Set up a customer''s or vendor''s own identification of the selected item. Cross-references to the customer''s item number means that the item number is automatically shown on sales documents instead of the number that you use.', Comment = 'FRA="Configurez la manière dont un client ou un fournisseur identifie l''article sélectionné. Les références externes au numéro d''article du client impliquent que le numéro d''article est automatiquement affiché sur les documents vente au lieu du numéro que vous utilisez."';

@@ -21,11 +21,13 @@ table 50005 "BC6_Temporary import catalogue"
             DataClassification = CustomerContent;
 
             trigger OnValidate()
+            var
+                FunctionMgt: Codeunit "BC6_Functions Mgt";
             begin
 
                 IF (Ref_Interne <> '') THEN BEGIN
                     CLEAR(DistInt);
-                    //TODO   // "Item BarCode" := DistInt.GetItemEAN13Code(Ref_Interne);
+                    "Item BarCode" := FunctionMgt.GetItemEAN13Code(Ref_Interne);
                 END ELSE
                     "Item BarCode" := '';
 
@@ -222,7 +224,6 @@ table 50005 "BC6_Temporary import catalogue"
                     recgItem.VALIDATE("Vendor No.", Vendor);
                     recgItem.VALIDATE("Vendor Item No.", Ref_externe);
                     recgItem.VALIDATE("Item Category Code", "Item Category Code");
-                    //TODO:Product Group Removed // recgItem.VALIDATE("Product Group Code", "Product Group Code");
                     recgItem.VALIDATE(Description, COPYSTR(designation, 1, MAXSTRLEN(recgItem.Description)));
                     recgItem.VALIDATE("Item Disc. Group", famille);
                     recgItem.VALIDATE(recgItem."Unit Price", Prix_public);

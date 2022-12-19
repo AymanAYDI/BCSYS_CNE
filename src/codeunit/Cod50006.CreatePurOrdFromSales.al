@@ -142,8 +142,9 @@ codeunit 50006 "BC6_Create Pur. Ord From Sales"
 
     procedure FinalizePurchHeader(FromPurchHeader: Record "Purchase Header")
     var
-        //TODO  TransferExtendedText: Codeunit "Transfer Extended Text";
+        TransferExtendedText: Codeunit "Transfer Extended Text";
         Unconditionally: Boolean;
+        FunctionMgt: Codeunit "BC6_Functions Mgt";
     begin
         IF NOT InsertPurchHeaderOk THEN
             EXIT;
@@ -156,11 +157,11 @@ codeunit 50006 "BC6_Create Pur. Ord From Sales"
         PurchLine.SETRANGE("Document No.", FromPurchHeader."No.");
         IF PurchLine.FINDSET() THEN
             REPEAT
-            //TODO IF TransferExtendedText.PurchCheckIfAnyExtText(PurchLine, Unconditionally) THEN BEGIN
-            //     COMMIT();
-            //     TransferExtendedText.InsertPurchExtText(PurchLine);
-            //     TransferExtendedText.InsertPurchExtTextSpe(PurchLine);
-            // END;
+                IF TransferExtendedText.PurchCheckIfAnyExtText(PurchLine, Unconditionally) THEN BEGIN
+                    COMMIT();
+                    TransferExtendedText.InsertPurchExtText(PurchLine);
+                    FunctionMgt.InsertPurchExtTextSpe(PurchLine);
+                END;
             UNTIL PurchLine.NEXT() = 0;
         InsertPurchHeaderOk := FALSE;
     end;

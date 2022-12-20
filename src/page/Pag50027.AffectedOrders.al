@@ -77,7 +77,7 @@ page 50027 "BC6_Affected Orders"
                     RecGSalesHeader.SETRANGE(RecGSalesHeader."No.", "Document No.");
                     IF RecGSalesHeader.FIND('-') THEN;
 
-                    // REPORT.RUNMODAL(REPORT::"Preparation NAVIDIIGEST", TRUE, FALSE, RecGSalesHeader); TODO:
+                    REPORT.RUNMODAL(REPORT::"BC6_Preparation NAVIDIIGEST", TRUE, FALSE, RecGSalesHeader);
                 end;
             }
         }

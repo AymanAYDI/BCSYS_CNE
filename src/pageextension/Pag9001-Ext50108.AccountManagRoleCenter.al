@@ -35,7 +35,7 @@ pageextension 50108 "BC6_Account. Manag. RoleCenter" extends "Accounting Manager
             {
                 Caption = 'BC6_Liste des sessions';
                 ApplicationArea = All;
-                //TODO : reports  // RunObject = Page 9506;
+                RunObject = Page "Concurrent Session List";
             }
         }
     }

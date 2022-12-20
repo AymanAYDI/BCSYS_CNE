@@ -140,7 +140,7 @@ codeunit 50203 "BC6_PagesEvents"
         if TransferExtendedText.PurchCheckIfAnyExtText(PurchaseLine, Unconditionally) then begin
             PurchOrd.SaveRecord;
             TransferExtendedText.InsertPurchExtText(PurchaseLine);
-            FctMngt.InsertPurchExtTextSpe(PurchaseLine);   //TODO:Fct to add in cod378 
+            FctMngt.InsertPurchExtTextSpe(PurchaseLine);
         end;
     end;
     //PAGE 233
@@ -211,8 +211,6 @@ codeunit 50203 "BC6_PagesEvents"
         FctMngt.MntInverseDEEE(PurchLine);
     end;
 
-
-
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnRunOnAfterFillTempLines', '', false, false)]
 
     local procedure COD90_OnRunOnAfterFillTempLines(var PurchHeader: Record "Purchase Header")
@@ -223,9 +221,13 @@ codeunit 50203 "BC6_PagesEvents"
         GlobalFunction.SetGDecMntHTDEEE(0);
     end;
 
-    //ligne718
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnAfterPostVendorEntry', '', false, false)]
-    procedure COD90_OnAfterPostVendorEntry(var GenJnlLine: Record "Gen. Journal Line"; var PurchHeader: Record "Purchase Header"; var TotalPurchLine: Record "Purchase Line"; var TotalPurchLineLCY: Record "Purchase Line"; CommitIsSupressed: Boolean; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line")
+    //ligne718 
+    // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnAfterPostVendorEntry', '', false, false)]
+    // procedure COD90_OnAfterPostVendorEntry(var GenJnlLine: Record "Gen. Journal Line"; var PurchHeader: Record "Purchase Header"; var TotalPurchLine: Record "Purchase Line"; var TotalPurchLineLCY: Record "Purchase Line"; CommitIsSupressed: Boolean; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line")
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch. Post Invoice Events", 'OnPostLedgerEntryOnAfterGenJnlPostLine', '', false, false)]
+
+    local procedure COD90_OnPostLedgerEntryOnAfterGenJnlPostLine(var GenJnlLine: Record "Gen. Journal Line"; var PurchHeader: Record "Purchase Header"; var TotalPurchLine: Record "Purchase Line"; var TotalPurchLineLCY: Record "Purchase Line"; PreviewMode: Boolean; SuppressCommit: Boolean; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line")
     var
         _EcoPartnerDEEE: Code[10];
         _DEEECategoryCode: code[10];
@@ -297,7 +299,7 @@ codeunit 50203 "BC6_PagesEvents"
         GlobalFunction: Codeunit "BC6_GlobalFunctionMgt";
         DocType: Enum "Gen. Journal Document Type";
     begin
-        CurrExchRate.get(CurrExchRate."Currency Code", CurrExchRate."Starting Date");
+        //CurrExchRate.get(CurrExchRate."Currency Code", CurrExchRate."Starting Date");
         IsHandled := true;
         with GenJnlLine do begin
             InitNewLine(
@@ -344,11 +346,10 @@ codeunit 50203 "BC6_PagesEvents"
     local procedure OnBeforeInitNewGenJnlLineFromPostInvoicePostBufferLine(var GenJnlLine: Record "Gen. Journal Line"; var PurchHeader: Record "Purchase Header"; InvoicePostBuffer: Record "Invoice Post. Buffer"; var IsHandled: Boolean)
     begin
         IsHandled := true;
-
-        //   GenJnlLine.InitNewLine(
-        //     PurchHeader."Posting D ate",PurchHeader."Document D ate",PurchHeader."Pay-to Name",
-        //     PurchHeader."Posting D ate",PurchHeader."Document D ate",PurchHeader."Pay-to Name",
-        //  In    d9E;
+        GenJnlLine.InitNewLine(
+         PurchHeader."Posting Date", PurchHeader."Document Date", PurchHeader."Pay-to Name",
+         InvoicePostBuffer."Global Dimension 1 Code", InvoicePostBuffer."Global Dimension 2 Code",
+         InvoicePostBuffer."Dimension Set ID", PurchHeader."Reason Code");
 
     end;
 
@@ -371,7 +372,7 @@ codeunit 50203 "BC6_PagesEvents"
     var
         RecGSalesLine: Record "Sales Line";
     begin
-        RecGSalesLine.get(RecGSalesLine."Document Type", RecGSalesLine."Document No.", RecGSalesLine."Line No.");
+        //RecGSalesLine.get(RecGSalesLine."Document Type", RecGSalesLine."Document No.", RecGSalesLine."Line No.");
         RecGSalesLine.SETFILTER("Document Type", '%1', PurchQuoteLine."BC6_Sales Document Type");
         RecGSalesLine.SETFILTER("Document No.", PurchQuoteLine."BC6_Sales No.");
         RecGSalesLine.SETFILTER("Line No.", '=%1', PurchQuoteLine."BC6_Sales Line No.");

@@ -558,12 +558,13 @@ page 50015 "BC6_Sales Order Lines"
 
     procedure InsertExtendedText(Unconditionally: Boolean; var RecLPurch: Record "Purchase Line")
     var
+        FunctionMgt: Codeunit "BC6_Functions Mgt";
         TransferExtendedText: Codeunit "Transfer Extended Text";
     begin
         IF TransferExtendedText.PurchCheckIfAnyExtText(RecLPurch, Unconditionally) THEN BEGIN
             COMMIT;
             TransferExtendedText.InsertPurchExtText(RecLPurch);
-            //TODO TransferExtendedText.InsertPurchExtTextSpe(RecLPurch);
+            FunctionMgt.InsertPurchExtTextSpe(RecLPurch);
         END;
     end;
 

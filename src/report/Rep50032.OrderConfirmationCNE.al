@@ -981,9 +981,7 @@ report 50032 "BC6_Order Confirmation CNE"
 
             trigger OnAfterGetRecord()
             begin
-                //TODO CurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
-
-
+                CurrReport.LANGUAGE := Language2.GetLanguageID("Language Code");
                 IF BoolGRespCenter THEN BEGIN
                     TxtGPhone := RespCenter."Phone No.";
                     TxtGFax := RespCenter."Fax No.";
@@ -1243,6 +1241,7 @@ report 50032 "BC6_Order Confirmation CNE"
     var
         PaymentTerms: Record "Payment Terms";
         Language: Record Language;
+        Language2: Codeunit Language;
         Country: Record "Country/Region";
         ShipmentMethod: Record "Shipment Method";
         SalesPurchPerson: Record "Salesperson/Purchaser";

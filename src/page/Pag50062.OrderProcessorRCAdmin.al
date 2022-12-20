@@ -329,7 +329,7 @@ page 50062 "BC6_Order Processor RC Admin"
                     Caption = 'Export Purchase Price', Comment = 'FRA="Export tarif fournisseur"';
                     Image = Export;
                     ApplicationArea = All;
-                    //TODO:Xmlport //      RunObject = XMLport 50000;
+                    RunObject = XMLport 50000;
                 }
                 action(BlockItem)
                 {

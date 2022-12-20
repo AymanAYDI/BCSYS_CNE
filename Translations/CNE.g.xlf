@@ -11848,6 +11848,206 @@
           <note from="Developer" annotates="general" priority="2">FRA="Nom"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Special Extended Text list - Control Name - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 1729999088 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Stockkeeping Unit List METZ</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Liste des points de stock METZ"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Control 3461834954 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the description from the Item Card.</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Spécifie la description de la fiche article."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Control Description - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Control 568743302 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the item number to which the SKU applies.</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Spécifie le numéro de l'article auquel s'applique le point de stock."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Control Item No. - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Control 1141850366 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies for the SKU, the same as the field does on the item card.</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Spécifie le point de stock, le même que celui indiqué par le champ sur la feuille article."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Control Reorder Quantity - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 4247615141 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>&amp;Item</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Arti&amp;cle"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action &amp;Item - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 1235454278 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>&amp;Picture</source>
+          <note from="Developer" annotates="general" priority="2">FRA="&amp;Image"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action &amp;Picture - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 1934293742 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>&amp;Units of Measure</source>
+          <note from="Developer" annotates="general" priority="2">FRA="&amp;Unités"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action &amp;Units of Measure - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 3164140977 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Co&amp;mments</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Co&amp;mmentaires"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action Co&amp;mments1 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 2173385693 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>View or edit dimensions, such as area, project, or department, that you can assign to sales and purchase documents to distribute costs and analyze transaction history.</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Affichez ou modifiez les axes analytiques, tels que la zone, le projet ou le département que vous pouvez affecter aux documents vente et achat afin de distribuer les coûts et analyser l'historique des transactions."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action Dimensions - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 2173385693 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Dimensions</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Axes analytiques"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action Dimensions - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 1173575993 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>E&amp;xtended Texts</source>
+          <note from="Developer" annotates="general" priority="2">FRA="&amp;Textes étendus"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action E&amp;xtended Texts - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 2653012956 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Translations</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Traductions"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action Translations - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 560452558 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Va&amp;riants</source>
+          <note from="Developer" annotates="general" priority="2">FRA="&amp;Variantes"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action Va&amp;riants - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 1943725405 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>&amp;SKU</source>
+          <note from="Developer" annotates="general" priority="2">FRA="&amp;Pt de stock"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action &amp;SKU - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 3392681363 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>&amp;Item Availability By</source>
+          <note from="Developer" annotates="general" priority="2">FRA="&amp;Disponibilité article par"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action &amp;Item Availability By - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 1893945779 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Event</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Événement"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action &lt;Action5&gt; - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 3625865795 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Bill of Material</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Nomenclature"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action Bill of Material - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 912261439 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Period</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Période"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action Period - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 38117613 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Timeline</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Chronologie"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action Timeline - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 2526444360 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Co&amp;mments</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Co&amp;mmentaires"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action Co&amp;mments2 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 84074407 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Statistics</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Statistiques"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action Statistics - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 162786187 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Entry Statistics</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Statistiques écritures"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action Entry Statistics - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 3764889183 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>T&amp;urnover</source>
+          <note from="Developer" annotates="general" priority="2">FRA="&amp;Rotation"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action T&amp;urnover - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 4201773078 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>History</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Historique"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action History - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 956727360 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>E&amp;ntries</source>
+          <note from="Developer" annotates="general" priority="2">FRA="É&amp;critures"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action E&amp;ntries - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 3827382521 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>&amp;Phys. Inventory Ledger Entries</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Écritures comptables &amp;inventaire"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action &amp;Phys. Inventory Ledger Entries - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 3647306376 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>&amp;Reservation Entries</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Écritures &amp;réservation"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action &amp;Reservation Entries - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 2270291913 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>&amp;Value Entries</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Écritures &amp;valeur"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action &amp;Value Entries - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 162725634 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Item &amp;Tracking Entries</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Écritures &amp;traçabilité"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action Item &amp;Tracking Entries - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 1111476699 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Ledger E&amp;ntries</source>
+          <note from="Developer" annotates="general" priority="2">FRA="É&amp;critures comptables"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action Ledger E&amp;ntries - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 1484878399 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Warehouse</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Entrepôt"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action Warehouse - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 4285823019 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>&amp;Bin Contents</source>
+          <note from="Developer" annotates="general" priority="2">FRA="C&amp;ontenu emplacement"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action &amp;Bin Contents - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 3106002577 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>F&amp;unctions</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Fonction&amp;s"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action F&amp;unctions - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 2396359224 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>C&amp;alculate Counting Period</source>
+          <note from="Developer" annotates="general" priority="2">FRA="C&amp;alculer période d'inventaire"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action C&amp;alculate Counting Period - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 4137051400 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>New</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Nouveau"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action New - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 3755398875 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>New Item</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Nouvel article"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action New Item - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 4251833623 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Inventory - Availability Plan</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Stocks : Échéancier des dispo."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action Inventory - Availability Plan - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 359861775 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Inventory - List</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Stocks : Liste des articles"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action Inventory - List - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 4077995341 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Inventory Availability</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Disponibilité articles"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action Inventory Availability - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1729999088 - Action 1880227855 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Item/Vendor Catalog</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Articles : Catalogue fourn."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Stock. Unit List METZ - Action Item/Vendor Catalog - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 463347265 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Tables Diverses (Non Modif)</source>
           <note from="Developer" annotates="general" priority="2"></note>
@@ -13567,206 +13767,6 @@
           <source>Item/Vendor Catalog</source>
           <note from="Developer" annotates="general" priority="2">FRA="Articles : Catalogue fourn."</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List ACTI - Action Item/Vendor Catalog - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Stockkeeping Unit List METZ</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Liste des points de stock METZ"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Control 3461834954 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies the description from the Item Card.</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Spécifie la description de la fiche article."</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Control Description - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Control 568743302 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies the item number to which the SKU applies.</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Spécifie le numéro de l'article auquel s'applique le point de stock."</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Control Item No. - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Control 1141850366 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Specifies for the SKU, the same as the field does on the item card.</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Spécifie le point de stock, le même que celui indiqué par le champ sur la feuille article."</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Control Reorder Quantity - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 4247615141 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>&amp;Item</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Arti&amp;cle"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action &amp;Item - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 1235454278 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>&amp;Picture</source>
-          <note from="Developer" annotates="general" priority="2">FRA="&amp;Image"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action &amp;Picture - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 1934293742 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>&amp;Units of Measure</source>
-          <note from="Developer" annotates="general" priority="2">FRA="&amp;Unités"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action &amp;Units of Measure - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 3164140977 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Co&amp;mments</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Co&amp;mmentaires"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action Co&amp;mments1 - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 2173385693 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
-          <source>View or edit dimensions, such as area, project, or department, that you can assign to sales and purchase documents to distribute costs and analyze transaction history.</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Affichez ou modifiez les axes analytiques, tels que la zone, le projet ou le département que vous pouvez affecter aux documents vente et achat afin de distribuer les coûts et analyser l'historique des transactions."</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action Dimensions - Property ToolTip</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 2173385693 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Dimensions</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Axes analytiques"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action Dimensions - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 1173575993 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>E&amp;xtended Texts</source>
-          <note from="Developer" annotates="general" priority="2">FRA="&amp;Textes étendus"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action E&amp;xtended Texts - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 2653012956 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Translations</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Traductions"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action Translations - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 560452558 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Va&amp;riants</source>
-          <note from="Developer" annotates="general" priority="2">FRA="&amp;Variantes"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action Va&amp;riants - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 1943725405 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>&amp;SKU</source>
-          <note from="Developer" annotates="general" priority="2">FRA="&amp;Pt de stock"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action &amp;SKU - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 3392681363 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>&amp;Item Availability By</source>
-          <note from="Developer" annotates="general" priority="2">FRA="&amp;Disponibilité article par"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action &amp;Item Availability By - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 1893945779 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Event</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Événement"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action &lt;Action5&gt; - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 3625865795 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Bill of Material</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Nomenclature"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action Bill of Material - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 912261439 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Period</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Période"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action Period - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 38117613 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Timeline</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Chronologie"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action Timeline - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 2526444360 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Co&amp;mments</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Co&amp;mmentaires"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action Co&amp;mments2 - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 84074407 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Statistics</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Statistiques"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action Statistics - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 162786187 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Entry Statistics</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Statistiques écritures"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action Entry Statistics - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 3764889183 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>T&amp;urnover</source>
-          <note from="Developer" annotates="general" priority="2">FRA="&amp;Rotation"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action T&amp;urnover - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 4201773078 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>History</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Historique"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action History - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 956727360 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>E&amp;ntries</source>
-          <note from="Developer" annotates="general" priority="2">FRA="É&amp;critures"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action E&amp;ntries - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 3827382521 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>&amp;Phys. Inventory Ledger Entries</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Écritures comptables &amp;inventaire"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action &amp;Phys. Inventory Ledger Entries - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 3647306376 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>&amp;Reservation Entries</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Écritures &amp;réservation"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action &amp;Reservation Entries - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 2270291913 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>&amp;Value Entries</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Écritures &amp;valeur"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action &amp;Value Entries - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 162725634 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Item &amp;Tracking Entries</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Écritures &amp;traçabilité"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action Item &amp;Tracking Entries - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 1111476699 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Ledger E&amp;ntries</source>
-          <note from="Developer" annotates="general" priority="2">FRA="É&amp;critures comptables"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action Ledger E&amp;ntries - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 1484878399 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Warehouse</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Entrepôt"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action Warehouse - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 4285823019 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>&amp;Bin Contents</source>
-          <note from="Developer" annotates="general" priority="2">FRA="C&amp;ontenu emplacement"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action &amp;Bin Contents - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 3106002577 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>F&amp;unctions</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Fonction&amp;s"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action F&amp;unctions - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 2396359224 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>C&amp;alculate Counting Period</source>
-          <note from="Developer" annotates="general" priority="2">FRA="C&amp;alculer période d'inventaire"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action C&amp;alculate Counting Period - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 4137051400 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>New</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Nouveau"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action New - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 3755398875 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>New Item</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Nouvel article"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action New Item - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 4251833623 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Inventory - Availability Plan</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Stocks : Échéancier des dispo."</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action Inventory - Availability Plan - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 359861775 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Inventory - List</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Stocks : Liste des articles"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action Inventory - List - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 4077995341 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Inventory Availability</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Disponibilité articles"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action Inventory Availability - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 906579891 - Action 1880227855 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Item/Vendor Catalog</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Articles : Catalogue fourn."</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page Stockkeeping Unit List METZ - Action Item/Vendor Catalog - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 1284547011 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Affair List</source>
@@ -23200,7 +23200,7 @@
         </trans-unit>
         <trans-unit id="PageExtension 3241176786 - Control 2356638631 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2901867346">
           <source>Specifies the customer's VAT registration number for customers in EU countries/regions.</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Sp‚cifie le num‚ro d'identification intra-communautaire du client dans des pays/r‚gions de l'Union europ‚enne"</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Spécifie le numéro d'identification intra-communautaire du client dans des pays/régions de l'Union européenne"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_CustomerList - Control BC6_VAT Registration No. - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="PageExtension 3241176786 - Change 4200184881 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2901867346">

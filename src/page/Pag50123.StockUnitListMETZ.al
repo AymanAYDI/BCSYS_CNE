@@ -1,4 +1,4 @@
-page 50123 "Stockkeeping Unit List METZ"
+page 50123 "BC6_Stock. Unit List METZ"
 {
     Caption = 'Stockkeeping Unit List METZ', Comment = 'FRA="Liste des points de stock METZ"';
     DeleteAllowed = false;
@@ -7,7 +7,7 @@ page 50123 "Stockkeeping Unit List METZ"
     PageType = List;
     RefreshOnActivate = true;
     SourceTable = "Stockkeeping Unit";
-    SourceTableView = WHERE("Location Code" = CONST('METZ')); //TODO: Check
+    SourceTableView = WHERE("Location Code" = CONST('METZ'));
     UsageCategory = Lists;
     ApplicationArea = All;
 
@@ -342,8 +342,8 @@ page 50123 "Stockkeeping Unit List METZ"
                         trigger OnAction()
                         var
                             ItemTrackingDocMgt: Codeunit "Item Tracking Doc. Management";
-                        begin
-                            //TODO: missing a fct in a codeunit // ItemTrackingDocMgt.ShowItemTrackingForMasterData(0, '', "Item No.", "Variant Code", '', '', "Location Code"); 
+                        begin //TODO : Tocheck 
+                            ItemTrackingDocMgt.ShowItemTrackingForEntity(0, '', "Item No.", "Variant Code", "Location Code");
                         end;
                     }
                 }

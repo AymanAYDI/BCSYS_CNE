@@ -3,6 +3,8 @@ page 50007 "BC6_Navi+ Setup"
     Caption = 'Navi+ Setup', comment = 'FRA="Paramètres Navi+"';
     PageType = Card;
     SourceTable = "BC6_Navi+ Setup";
+    ApplicationArea = all;
+    UsageCategory = Tasks;
 
     layout
     {

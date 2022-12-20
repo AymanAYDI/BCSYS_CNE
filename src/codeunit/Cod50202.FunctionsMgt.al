@@ -255,16 +255,15 @@ codeunit 50202 "BC6_Functions Mgt"
 
     procedure PrintInvtPickHeaderCheck(WhseActivHeader: Record "Warehouse Activity Header"; HideDialog: Boolean);
     var
-        //TODO:report
-        // WhsePick: Report 50047;
+
+        WhsePick: Report 50047;
         WhsePick2: Report "Picking List";
     begin
         WhseActivHeader.SETRANGE("No.", WhseActivHeader."No.");
-        //TODO:report
-        // WhsePick.SETTABLEVIEW(WhseActivHeader);
-        // WhsePick.InitRequest(0, FALSE, TRUE);
-        // WhsePick.USEREQUESTPAGE(NOT HideDialog);
-        // WhsePick.RUNMODAL;
+        WhsePick.SETTABLEVIEW(WhseActivHeader);
+        WhsePick.InitRequest(0, FALSE, TRUE);
+        WhsePick.USEREQUESTPAGE(NOT HideDialog);
+        WhsePick.RUNMODAL;
     end;
 
     procedure GetShipmentBin(LocationCode: Code[10]; var BinCod: Code[20]); // TODO: related to codeunit 7302

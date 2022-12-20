@@ -931,22 +931,7 @@ report 50009 "BC6_Sales Quote"
                 //<<COMPTA_DEEE FG 01/03/07
             end;
 
-            trigger OnPostDataItem()
-            var
-                ToDo: Record "To-do";
-            begin
-                "Sales Header".MARKEDONLY := TRUE;
-                COMMIT;
-                //>>TI370352
-                /*
-                IF "Sales Header".FIND('-') AND ToDo.WRITEPERMISSION THEN
-                  IF NOT CurrReport.PREVIEW AND (NoOfRecords = 1) THEN
-                   IF CONFIRM(Text007) THEN
-                    "Sales Header".CreateTodo;
-                */
-                //<<TI370352
 
-            end;
 
             trigger OnPreDataItem()
             begin

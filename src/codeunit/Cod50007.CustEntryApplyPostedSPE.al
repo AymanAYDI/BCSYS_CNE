@@ -80,19 +80,19 @@ codeunit 50007 "BC6_CustEntry-Apply Posted SPE"
         EntryNoBeforeApplication: Integer;
         EntryNoAfterApplication: Integer;
         Text005: Label 'Before you can unapply this entry, you must first unapply all application entries that were posted after this entry.', Comment = 'FRA="Avant de délettrer cette écriture, vous devez délettrer toutes les écritures comptabilisées postérieurement."';
-        Text006: Label '%1 No. %2 does not have an application entry.', Comment = 'FRA="Le (la) %1 nø %2 n''a pas d''écriture de lettrage."';
+        Text006: Label '%1 No. %2 does not have an application entry.', Comment = 'FRA="Le (la) %1 n° %2 n''a pas d''écriture de lettrage."';
         Text007: Label 'Do you want to unapply the entries?', Comment = 'FRA="Souhaitez-vous délettrer les écritures ?"';
         Text008: Label 'Unapplying and posting...', Comment = 'FRA="Délettrage et comptabilisation..."';
         Text009: Label 'The entries were successfully unapplied.', Comment = 'FRA="Délettrage des écritures réussi."';
         Text010: Label 'There is nothing to unapply. ', Comment = 'FRA="Aucun délettrage … effectuer. "';
         Text011: Label 'To unapply these entries, the program will post correcting entries.\', Comment = 'FRA="Pour délettrer ces écritures, le programme va valider les écritures correctrices.\"';
-        Text012: Label 'Before you can unapply this entry, you must first unapply all application entries in %1 No. %2 that were posted after this entry.', Comment = 'FRA="Avant de délettrer cette écriture, vous devez délettrer toutes les écritures de %1 nø %2 comptabilisées postérieurement."';
-        Text013: Label '%1 is not within your range of allowed posting dates in %2 No. %3.', Comment = 'FRA="%1 n''appartient pas … la plage de dates de comptabilisation autorisée dans %2 nø %3."';
+        Text012: Label 'Before you can unapply this entry, you must first unapply all application entries in %1 No. %2 that were posted after this entry.', Comment = 'FRA="Avant de délettrer cette écriture, vous devez délettrer toutes les écritures de %1 n° %2 comptabilisées postérieurement."';
+        Text013: Label '%1 is not within your range of allowed posting dates in %2 No. %3.', Comment = 'FRA="%1 n''appartient pas … la plage de dates de comptabilisation autorisée dans %2 n° %3."';
         Text014: Label '%1 is not within your range of allowed posting dates.', Comment = 'FRA="%1 n''appartient pas … la plage de dates de comptabilisation autorisée."';
-        Text015: Label 'The latest %3 must be an application in %1 No. %2.', Comment = 'FRA="Le (la) dernier (derniŠre) %3 doit correspondre … un lettrage dans %1 nø %2."';
+        Text015: Label 'The latest %3 must be an application in %1 No. %2.', Comment = 'FRA="Le (la) dernier (dernière) %3 doit correspondre … un lettrage dans %1 n° %2."';
         Text016: Label 'You cannot unapply the entry with the posting date %1, because the exchange rate for the additional reporting currency has been changed. ', Comment = 'FRA="Vous ne pouvez pas délettrer l''écriture dont la date de comptabilisation est %1, car le taux de change de la devise report supplémentaire a changé."';
         MaxPostingDate: Date;
-        Text017: Label 'You cannot unapply %1 No. %2 because the entry has been involved in a reversal.', Comment = 'FRA="Vous ne pouvez pas délettrer %1 nø %2, car l''écriture a été impliquée dans une contrepassation."';
+        Text017: Label 'You cannot unapply %1 No. %2 because the entry has been involved in a reversal.', Comment = 'FRA="Vous ne pouvez pas délettrer %1 n° %2, car l''écriture a été impliquée dans une contrepassation."';
 
     local procedure FindLastApplDtldCustLedgEntry(): Integer
     var

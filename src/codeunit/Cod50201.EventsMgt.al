@@ -282,16 +282,15 @@ codeunit 50201 "BC6_Events Mgt"
                                        , 1, MAXSTRLEN(SalesHeader."Posting Description"));
     end;
 
-    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterTestStatusOpen', '', false, false)]
-
-    procedure T36_OnAfterTestStatusOpen_SalesHeader(var SalesHeader: Record "Sales Header")
+    [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnBeforeValidateEvent', 'Bill-to Customer No.', false, false)]
+    procedure T36_OnBeforeValidateEvent_SalesHeader(var Rec: Record "Sales Header"; var xRec: Record "Sales Header"; CurrFieldNo: Integer)
     var
         Cust: Record Customer;
     begin
-        SalesHeader.GetCust(Cust."Bill-to Customer No.");
-        Cust.CheckBlockedCustOnDocs(Cust, SalesHeader."Document Type", false, false);
+        cust.Get(Rec."Bill-to Customer No.");
+        Cust.CheckBlockedCustOnDocs(Cust, Rec."Document Type", false, false);
         Cust.TESTFIELD("Customer Posting Group");
-        SalesHeader.CheckCrLimit();  //procedure spec dans tabExt (dupliquée)
+        Rec.CheckCrLimit();  //procedure spec dans tabExt (dupliquée)
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnBeforeSetSalespersonCode', '', false, false)]
@@ -300,7 +299,7 @@ codeunit 50201 "BC6_Events Mgt"
     var
         Cust: Record Customer;
     begin
-        Cust.Get(Cust."No.");
+        Cust.Get(SalesHeader."Bill-to Customer No.");
         SalesHeader."BC6_Salesperson Filter" := Cust."BC6_Salesperson Filter";
         SalesHeader."BC6_Cust. Sales Profit Group" := Cust."BC6_Custom. Sales Profit Group";
     end;
@@ -2215,7 +2214,6 @@ then begin
     local procedure T37_OnAfterValidateEvent(var Rec: Record "Sales Line"; var xRec: Record "Sales Line")
     begin
         Rec."BC6_Invoiced Date (Expected)" := Rec."Shipment Date";
-        Rec.Modify();
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Warehouse Activity Header", 'OnAfterValidateEvent', 'Destination No.', false, false)]
@@ -3952,12 +3950,12 @@ then begin
         ShouldSetStatusPrepayment: Boolean;
         LinesWereModified: Boolean;
         BooLGo: Boolean;
-        Text001: label 'There is nothing to release for the document of type %1 with the number %2.';
+        Text001: label 'There is nothing to release for the document of type %1 with the number %2.', Comment = 'FRA="Il n''y a rien à lancer pour le document de type %1 avec le numéro %2."';
 
-        Text100000: label 'Purchasing Code Is Mandatory', Comment = 'FRA="La proc‚dure d''achat est obligatoire"';
-        CstG001: label 'Is this quote associated to an affair ?', Comment = 'FRA="Ce devis est-il associ‚ … une affaire ?"';
-        CstG002: label 'Do You want to create a new step ?', Comment = 'FRA="Voulez-vous cr‚er une ‚tape de suivi ?"';
-        CstG003: label 'Is the salesperson code correctly entered?', Comment = 'FRA="Le code vendeur est-il correctement renseign‚ ?"';
+        Text100000: label 'Purchasing Code Is Mandatory', Comment = 'FRA="La procédure d''achat est obligatoire"';
+        CstG001: label 'Is this quote associated to an affair ?', Comment = 'FRA="Ce devis est-il associé … une affaire ?"';
+        CstG002: label 'Do You want to create a new step ?', Comment = 'FRA="Voulez-vous créer une étape de suivi ?"';
+        CstG003: label 'Is the salesperson code correctly entered?', Comment = 'FRA="Le code vendeur est-il correctement renseigné ?"';
         "-FEP-ACHAT-200706_18_A-": Integer;
         RecGSalesLine: Record "Sales Line";
         RecGUserSetup: Record "User Setup";

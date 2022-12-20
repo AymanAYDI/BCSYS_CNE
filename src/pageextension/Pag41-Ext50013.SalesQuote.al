@@ -185,7 +185,6 @@ pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
         BooGEditSalesperson: Boolean;
 
     begin
-        RecGUserSeup.Get();
         RecLAccessControl.RESET();
         RecLAccessControl.SETRANGE("User Security ID", USERSECURITYID());
         RecLAccessControl.SETRANGE("Role ID", 'SUPER');
@@ -208,9 +207,8 @@ pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
         recGCompanyInfo: Record "Company Information";
         "Sales & Receivables Setup": Record "Sales & Receivables Setup";
         RecGParmNavi: Record "BC6_Navi+ Setup";
-        //TODO
-        //   HistMail : Record 99003;
-        //   ReportHelper : Codeunit 50010;
+        HistMail: Record 99003;
+        ReportHelper: Codeunit 50010;
         SalesQuotetoOrder: Codeunit "Sales-Quote to Order (Yes/No)";
         cduMail: Codeunit Mail;
         Mail: Codeunit Mail;
@@ -222,9 +220,6 @@ pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
         Nbr_Periode: Code[10];
         Date_Debut: Date;
         Date_Fin: Date;
-        "--NSC1.01--": Integer;
-        "-CNE-": Integer;
-        "-NSC1.00-": Integer;
         Nbr_Devis: Integer;
         Periode: Integer;
         Unite: Integer;

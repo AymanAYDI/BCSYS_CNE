@@ -964,7 +964,7 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
         Text008: Label 'Local Currency', comment = 'FRA="Devise société"';
         Text009: Label 'Exchange rate: %1/%2', comment = 'FRA="Taux de change : %1/%2"';
         TotalCaption1Lbl: Label 'Total', comment = 'FRA="Total"';
-        TVANoCaptionLbl: Label 'TVA No :', comment = 'FRA="Nø TVA:"';
+        TVANoCaptionLbl: Label 'TVA No :', comment = 'FRA="n° TVA:"';
         VATAmountCaptionLbl: Label 'VAT Amount', comment = 'FRA="Montant TVA"';
         VATAmtCaptionLbl: Label 'VAT Amount', comment = 'FRA="Montant TVA"';
         VATAmtSpecCaptionLbl: Label 'VAT Amount Specification', comment = 'FRA="Détail montant TVA"';

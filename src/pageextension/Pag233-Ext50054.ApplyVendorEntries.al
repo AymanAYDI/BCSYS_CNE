@@ -18,7 +18,7 @@ pageextension 50054 "BC6_ApplyVendorEntries" extends "Apply Vendor Entries" //23
             StyleExpr = TRUE;
             trigger OnAfterValidate()
             begin
-                //Mise en couleur dynamique lorsque le Nø Tiers payeur =  Nø fournisseur
+                //Mise en couleur dynamique lorsque le n° Tiers payeur =  n° fournisseur
                 IF "Vendor No." = "BC6_Pay-to Vend. No." THEN
                     BooGVendorNoStyle := TRUE
                 ELSE
@@ -31,7 +31,7 @@ pageextension 50054 "BC6_ApplyVendorEntries" extends "Apply Vendor Entries" //23
             {
                 trigger OnValidate()
                 begin
-                    //Mise en couleur dynamique lorsque le Nø Tiers payeur =  Nø fournisseur
+                    //Mise en couleur dynamique lorsque le n° Tiers payeur =  n° fournisseur
                     IF "Vendor No." = "BC6_Pay-to Vend. No." THEN
                         BooGVendorNoStyle := TRUE
                     ELSE

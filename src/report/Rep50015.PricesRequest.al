@@ -636,7 +636,7 @@ report 50015 "BC6_Prices Request"
         Text015: Label ' -EP ';
         Text016: Label ' -VAT Registration ', comment = 'FRA="-N° TVA "';
         Text066: Label 'TEL : %1 FAX : %2 / email : %3', comment = 'FRA="%1 FAX : %2 / email : %3"';
-        Text067: Label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5', comment = 'FRA="%1 au capital de  %2   - %3  -  APE %4 - NøTVA : %5"';
+        Text067: Label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5', comment = 'FRA="%1 au capital de  %2   - %3  -  APE %4 - n°TVA : %5"';
         Text068: Label '%1';
         Text070: Label 'Affair No. : ', comment = 'FRA="Affaire n° :"';
         TimeCaptionLbl: Label 'Time', comment = 'FRA="Délai "';

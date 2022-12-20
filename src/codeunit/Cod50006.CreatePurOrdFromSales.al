@@ -23,9 +23,9 @@ codeunit 50006 "BC6_Create Pur. Ord From Sales"
         SalesLineNo: Integer;
 
         Text001: Label 'Processing...  #1##########\', Comment = 'FRA="Traitement... #1###########\"';
-        Text002: Label 'Line No.       #3###########\', Comment = 'FRA="Nø ligne       #2###########\"';
+        Text002: Label 'Line No.       #3###########\', Comment = 'FRA="N° ligne       #2###########\"';
         Text003: Label 'Purchase Header          #3##########\', Comment = 'FRA="Commande achat         #3###########\"';
-        Text004: Label 'Nothing to Post';
+        Text004: Label 'Nothing to Post', Comment = 'FRA="Il n''y a rien à valider"';
 
     procedure "Code"()
     begin

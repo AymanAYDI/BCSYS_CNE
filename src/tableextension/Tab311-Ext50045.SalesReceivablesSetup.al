@@ -74,8 +74,7 @@ tableextension 50045 "BC6_SalesReceivablesSetup" extends "Sales & Receivables Se
         field(60008; "BC6_allow Profit% to"; Code[20])
         {
             Caption = 'Allow Profit % visualisation to ', comment = 'FRA="Autoriser la visualisation des marges à"';
-            // TableRelation = "Permission Set"."Role ID";
-            //TODO: Table 'Permission Set' is marked for removal.
+            TableRelation = "Permission Set"."Role ID";
             DataClassification = CustomerContent;
         }
         field(60009; "Contact's Address on sales doc"; Boolean)

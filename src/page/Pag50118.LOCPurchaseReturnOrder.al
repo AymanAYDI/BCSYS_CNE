@@ -20,7 +20,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                 {
                     Importance = Promoted;
                     ToolTip = 'Specifies the number of the purchase document. The field is only visible if you have not set up a number series for the type of purchase document, or if the Manual Nos. field is selected for the number series.'
-                    , comment = 'FRA="Spécifie le numéro du document achat. Le champ n''est visible que si vous n''avez défini aucune souche de numéros pour ce type de document achat, ou si le champ Nø manuels est sélectionné pour la souche de numéros."';
+                    , comment = 'FRA="Spécifie le numéro du document achat. Le champ n''est visible que si vous n''avez défini aucune souche de numéros pour ce type de document achat, ou si le champ n° manuels est sélectionné pour la souche de numéros."';
                     Visible = DocNoVisible;
                     ApplicationArea = All;
 

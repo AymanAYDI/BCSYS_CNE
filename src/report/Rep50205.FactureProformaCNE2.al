@@ -1697,7 +1697,7 @@ report 50205 "BC6_Facture Proforma CNE 2"
                 ELSE
                   ReferenceText := FIELDCAPTION("Your Reference");
                 */
-                //TECSO 09/12/03 CST : Ajout du Nø de Document externe dans le libellé de "Votre reference"
+                //TECSO 09/12/03 CST : Ajout du n° de Document externe dans le libellé de "Votre reference"
                 IF ("Your Reference" = '') AND ("External Document No." = '') THEN BEGIN
                     //ReferenceText := '';
                     VotreRef := '';

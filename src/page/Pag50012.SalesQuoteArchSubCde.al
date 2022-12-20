@@ -116,10 +116,10 @@ page 50012 "BC6_Sales Quote Arch. Sub. Cde"
         {
             group("&Line")
             {
-                Caption = '&Line', comment = 'FRA=""';
+                Caption = '&Line', comment = 'FRA="&Ligne"';
                 action(Dimensions)
                 {
-                    Caption = 'Dimensions', comment = 'FRA=""';
+                    Caption = 'Dimensions', comment = 'FRA="A&xes analytiques"';
                     Image = Dimensions;
                     ShortCutKey = 'Shift+Ctrl+D';
 

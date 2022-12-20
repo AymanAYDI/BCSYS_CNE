@@ -391,7 +391,7 @@ report 50021 "BC6_Dispensed Sales"
         To__CaptionLbl: Label 'To :', comment = 'FRA="Au:"';
         TotalCaptionLbl: Label 'Total', comment = 'FRA="Total"';
         Vendor_NameCaptionLbl: Label 'Vendor Name', comment = 'FRA="Nom fournisseur"';
-        Vendor_No_CaptionLbl: Label 'Vendor No.', comment = 'FRA="Nø fournisseur"';
+        Vendor_No_CaptionLbl: Label 'Vendor No.', comment = 'FRA="n° fournisseur"';
         TxtGCustomerName: Text[50];
 
     local procedure EnterCell(RowNo: Integer; ColumnNo: Integer; CellValue: Text[250]; Bold: Boolean; UnderLine: Boolean; NumberFormat: Text[30])

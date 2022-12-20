@@ -22,7 +22,7 @@ pageextension 50125 "BC6_PurchaseOrderList" extends "Purchase Order List" //9307
             }
             field("BC6_Sales No. Order Lien"; "BC6_Sales No. Order Lien")
             {
-                Caption = 'Sales No. Order Lien', Comment = 'FRA="Nø Commande Vente Lien"';
+                Caption = 'Sales No. Order Lien', Comment = 'FRA="n° Commande Vente Lien"';
                 ApplicationArea = All;
             }
         }

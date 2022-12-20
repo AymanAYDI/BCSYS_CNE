@@ -686,7 +686,7 @@ report 50078 "BC6_Purchase - Receipt CNE"
         Pay_to_AddressCaptionLbl: Label 'Pay-to Address', comment = 'FRA="Addresse"';
         PaytoAddrCaptionLbl: Label 'Pay-to Address', comment = 'FRA="Adresse"';
         PaytoVenNoCaptionLbl: Label 'Pay-to Vendor No.', comment = 'FRA="No fournisseur … payer"';
-        PhoneNoCaptionLbl: Label 'Phone No.', comment = 'FRA="Nø téléphone"';
+        PhoneNoCaptionLbl: Label 'Phone No.', comment = 'FRA="n° téléphone"';
         PostedInvtPutawayHeader__No__CaptionLbl: Label 'Invt. Put-Away No.', comment = 'FRA="No rangement stock"';
         Purch__Rcpt__Header___No__CaptionLbl: Label 'Shipment No.', comment = 'FRA="No livraison"';
         QtyCaptionLbl: Label 'Quantity', comment = 'FRA="Quantité"';

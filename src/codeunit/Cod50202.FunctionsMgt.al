@@ -1766,7 +1766,7 @@ codeunit 50202 "BC6_Functions Mgt"
         OKA: Boolean;
         NextLineNo: Integer;
         LineSpacing: Integer;
-        Text000: label 'There is not enough space to insert extended text lines.', Comment = 'FRA="Il n''y a pas suffisamment de place pour ins‚rer des lignes texte ‚tendu."';
+        Text000: label 'There is not enough space to insert extended text lines.', Comment = 'FRA="Il n''y a pas suffisamment de place pour insérer des lignes texte étendu."';
     begin
         OKA := false;
 
@@ -1956,8 +1956,7 @@ codeunit 50202 "BC6_Functions Mgt"
         ItemReference.SETRANGE("Unit of Measure", Item."Base Unit of Measure");
         ItemReference.SETRANGE("Reference Type", ItemReference."Reference Type"::"Bar Code");
         ItemReference.SETRANGE("Reference Type No.", CrossRefTypeNo);
-        //TODO: Field 'Discontinue Bar Code' is removed.
-        //ItemReference.SETRANGE("Discontinue Bar Code", FALSE);
+        ItemReference.SETRANGE("Discontinue Bar Code", FALSE);
         IF ItemReference.FINDFIRST THEN
             EAN13Code := ItemReference."Reference No.";
 
@@ -1979,15 +1978,13 @@ codeunit 50202 "BC6_Functions Mgt"
         CrossRefTypeNo := InvSetup."BC6_Cross.Ref.Type No.BarCode";
 
         ItemReference.RESET;
-        //TODO:Field 'Discontinue Bar Code' is removed.
-        //ItemReference.SETCURRENTKEY("Reference No.", "Reference Type", "Reference Type No.", "Discontinue Bar Code");
+        ItemReference.SETCURRENTKEY("Reference No.", "Reference Type", "Reference Type No.", "Discontinue Bar Code");
         ItemReference.SETCURRENTKEY("Reference No.", "Reference Type", "Reference Type No.");
         ItemReference.SETRANGE("Reference No.", EAN13Code);
         ItemReference.SETRANGE("Reference Type", ItemReference."Reference Type"::"Bar Code");
         ItemReference.SETRANGE("Reference Type No.", CrossRefTypeNo);
         ItemReference.SETRANGE("Variant Code", '');
-        //TODO:Field 'Discontinue Bar Code' is removed.
-        //ItemReference.SETRANGE("Discontinue Bar Code", FALSE);
+        ItemReference.SETRANGE("Discontinue Bar Code", FALSE);
         IF ItemReference.FINDFIRST THEN
             REPEAT
                 IF Item.GET(ItemReference."Item No.") THEN
@@ -2028,7 +2025,7 @@ codeunit 50202 "BC6_Functions Mgt"
             InvSetup.TESTFIELD("BC6_Int. BarCode Nos");
             CLEAR(NoSeriesMgt);
             SeriesNo := '';
-            NoSeriesMgt.InitSeries(InvSetup."BC6_Cross.Ref.Type No.BarCode", '', WORKDATE, EAN13Code, SeriesNo);
+            NoSeriesMgt.InitSeries(InvSetup."BC6_Int. BarCode Nos", '', WORKDATE, EAN13Code, SeriesNo);
             IF STRLEN(EAN13Code) <> 12 THEN
                 ERROR(CstG001, EAN13Code);
             Checksum := STRCHECKSUM(EAN13Code, '131313131313', 10);

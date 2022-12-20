@@ -13,7 +13,7 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
             field("BC6_No. 2"; "No. 2")
             {
                 ApplicationArea = All;
-                Caption = 'No. 2';
+                Caption = 'No. 2', Comment = 'FRA="N° 2"';
             }
         }
         addafter("Automatic Ext. Texts")
@@ -22,11 +22,12 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
             {
                 Caption = 'EAN13 Code';
                 ApplicationArea = All;
-                //TODO
-                // trigger OnLookup(var Text: Text): Boolean
-                // begin
-                //     DistInt.LookupItemEAN13Code("No.", EAN13Code);
-                // end;
+                trigger OnLookup(var Text: Text): Boolean
+                var
+                    FunctionMgt: Codeunit "BC6_Functions Mgt";
+                begin
+                    FunctionMgt.LookupItemEAN13Code("No.", EAN13Code);
+                end;
             }
         }
         modify(Inventory)
@@ -47,7 +48,7 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
             field(BC6_Inventory2; Inventory)
             {
                 ApplicationArea = All;
-                Caption = 'Inventory';
+                Caption = 'Inventory', Comment = 'FRA=""';
             }
         }
         addafter("Qty. on Prod. Order")
@@ -84,7 +85,7 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
         {
             field("BC6_DEEE Category Code"; "BC6_DEEE Category Code")
             {
-                Caption = 'DEEE Category Code ';
+                Caption = 'DEEE Category Code ', Comment = 'FRA=""';
                 LookupPageID = "BC6_Item Category List";
                 ApplicationArea = All;
             }
@@ -119,8 +120,8 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
             {
                 ApplicationArea = Basic, Suite;
                 Editable = BooGBlocked;
-                ToolTip = 'Specifies that transactions with the item cannot be posted, for example, because the item is in quarantine.';
-                Caption = 'Blocked';
+                ToolTip = 'Specifies that transactions with the item cannot be posted, for example, because the item is in quarantine.', Comment = 'FRA=""';
+                Caption = 'Blocked', Comment = 'FRA=""';
             }
         }
         addafter(ItemPicture)
@@ -129,7 +130,7 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
             {
                 SubPageLink = "No." = FIELD("No.");
                 ApplicationArea = All;
-                Caption = 'Sales/Purch. History FactBox';
+                Caption = 'Sales/Purch. History FactBox', Comment = 'FRA=""';
             }
         }
 
@@ -142,7 +143,7 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
         {
             action(BC6_PrintLabel)
             {
-                Caption = 'Print Label';
+                Caption = 'Print Label', Comment = 'FRA="Imprimer étiquette"';
                 Ellipsis = true;
                 Image = BarCode;
                 ApplicationArea = All;
@@ -150,25 +151,27 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
                 trigger OnAction()
                 var
                     FromItem: Record Item;
-                    PrintLabel: Report 50049;
+                    PrintLabel: Report "BC6_Item Label v2";
                 begin
-                    // CLEAR(PrintLabel);
+                    CLEAR(PrintLabel);
                     CLEAR(FromItem);
                     CurrPage.SETSELECTIONFILTER(FromItem);
-                    // PrintLabel.SETTABLEVIEW(FromItem);
-                    // PrintLabel.RUN;
+                    PrintLabel.SETTABLEVIEW(FromItem);
+                    PrintLabel.RUN;
                 end;
             }
             action("Créer code-barres interne")
             {
-                Caption = 'Create Internal BarCodes';
+                Caption = 'Create Internal BarCodes', Comment = 'FRA="Créer code-barres interne"';
                 Image = BarCode;
                 ApplicationArea = All;
 
                 trigger OnAction()
+                var
+                    FunctionMgt: Codeunit "BC6_Functions Mgt";
                 begin
                     CLEAR(DistInt);
-                    //TODO  // DistInt.CreateItemEAN13Code("No.", TRUE);
+                    FunctionMgt.CreateItemEAN13Code("No.", TRUE);
                 end;
             }
         }
@@ -177,36 +180,37 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
             action(BC6_BarCodes)
             {
                 ApplicationArea = Basic, Suite;
-                Caption = 'Cross Re&ferences';
+                Caption = 'Cross Re&ferences', Comment = 'FRA=""';
                 Image = BarCode;
                 Promoted = true;
                 PromotedCategory = Category4;
                 PromotedOnly = true;
-                //TODO
-                // RunObject = Page 5721;
-                // RunPageLink = "Item No." = FIELD("No."),
-                //     "Cross-Reference Type" = CONST("Bar Code");
+                RunObject = Page "Item Reference Entries";
+                RunPageLink = "Item No." = FIELD("No."),
+                    "Reference Type" = CONST("Bar Code");
                 Scope = Repeater;
-                ToolTip = 'Set up a customer''s or vendor''s own identification of the selected item. Cross-references to the customer''s item number means that the item number is automatically shown on sales documents instead of the number that you use.';
+                ToolTip = 'Set up a customer''s or vendor''s own identification of the selected item. Cross-references to the customer''s item number means that the item number is automatically shown on sales documents instead of the number that you use.', Comment = 'FRA=""';
             }
         }
         addafter("Return Orders")
         {
             action(BC6_UpdateICPartnerItems)
             {
-                Caption = 'Update IC Partner Items';
+                Caption = 'Update IC Partner Items', Comment = 'FRA=""';
                 Enabled = UpdateICPartnerItemsEnabled;
                 Image = UpdateDescription;
                 ApplicationArea = All;
-                //TODO : Codeunit // RunObject = Codeunit 50021;
+                RunObject = Codeunit "BC6_Update IC Partner Items";
             }
         }
 
     }
 
     trigger OnAfterGetRecord()
+    var
+        FunctionMgt: Codeunit "BC6_Functions Mgt";
     begin
-        //TODO      EAN13Code := DistInt.GetItemEAN13Code("No.");
+        EAN13Code := FunctionMgt.GetItemEAN13Code("No.");
     end;
 
 

@@ -10,8 +10,7 @@ codeunit 50098 "Batch Upd. Cross Ref. Bar Code"
 
         Counter := 0;
         ItemReference.RESET();
-        //TODO: Field 'Discontinue Bar Code' is removed.
-        //ItemReference.SETCURRENTKEY("Reference No.", "Reference Type", "Reference Type No.", "Discontinue Bar Code");
+        ItemReference.SETCURRENTKEY("Reference No.", "Reference Type", "Reference Type No.", "Discontinue Bar Code");
         ItemReference.SETCURRENTKEY("Reference No.", "Reference Type", "Reference Type No.");
         ItemReference.SETRANGE("Reference Type", ItemReference."Reference Type"::"Bar Code");
         TotalCounter := ItemReference.COUNT;

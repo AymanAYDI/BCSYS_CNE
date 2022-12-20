@@ -948,13 +948,13 @@ report 50060 "BC6_Return Order SAV Conf."
         InvDiscBaseAmtCaptionLbl: Label 'Inv. Disc. Base Amount', comment = 'FRA="Montant base remise facture"';
         LineAmtCaptionLbl: Label 'Line Amount', comment = 'FRA="Montant ligne"';
         LineDimensionsCaptionLbl: Label 'Line Dimensions', comment = 'FRA="Analytique ligne"';
-        OrderNoCaptionLbl: Label 'Order No.', comment = 'FRA="Nø commande"';
+        OrderNoCaptionLbl: Label 'Order No.', comment = 'FRA="n° commande"';
         PhNoCaptionLbl: Label 'Phone No.', comment = 'FRA="Tel."';
         ReturnCommentCaptionLbl: Label 'BreakdownDescription', comment = 'FRA="Description panne"';
         ReturnOrderNoCaptionLbl: Label 'Return Order No. :', comment = 'FRA="N° retour vente :"';
         SalesLineInvDiscAmtCaptnLbl: Label 'Invoice Discount Amount', comment = 'FRA="Montant remise facture"';
         SalesLineLineDiscCaptionLbl: Label 'Discount %', comment = 'FRA="% remise"';
-        SerialNoCaptionLbl: Label 'Serial No.', comment = 'FRA="Nø de série"';
+        SerialNoCaptionLbl: Label 'Serial No.', comment = 'FRA="n° de série"';
         ShareCapitalLbl: Label 'With the Share Capital of', comment = 'FRA="au capital social de"';
         ShiptoAddrCaptionLbl: Label 'Ship-to Address', comment = 'FRA="Adresse destinataire"';
         SubtotalCaptionLbl: Label 'Subtotal', comment = 'FRA="Sous-total"';
@@ -964,7 +964,7 @@ report 50060 "BC6_Return Order SAV Conf."
         Text008: Label 'Local Currency', comment = 'FRA="Devise société"';
         Text009: Label 'Exchange rate: %1/%2', comment = 'FRA="Taux de change : %1/%2"';
         TotalCaptionLbl: Label 'Total', comment = 'FRA="Total"';
-        TVANoCaptionLbl: Label 'TVA No :', comment = 'FRA="Nø TVA:"';
+        TVANoCaptionLbl: Label 'TVA No :', comment = 'FRA="n° TVA:"';
         UnitPriceCaptionLbl: Label 'Unit Price', comment = 'FRA="Prix unitaire"';
         VATAmountCaptionLbl: Label 'VAT Amount', comment = 'FRA="Montant TVA"';
         VATAmtLineVATIdentifrCptnLbl: Label 'VAT Identifier', comment = 'FRA="Identifiant TVA"';

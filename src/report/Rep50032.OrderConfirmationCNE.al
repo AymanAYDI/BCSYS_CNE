@@ -481,8 +481,7 @@ report 50032 "BC6_Order Confirmation CNE"
                             ItemReference.RESET;
                             ItemReference.SETRANGE("Item No.", SalesLine."No.");
                             ItemReference.SETRANGE("Reference Type", ItemReference."Reference Type"::"Bar Code");
-                            //TODO:Field 'Discontinue Bar Code' is removed.
-                            //ItemReference.SETRANGE("Discontinue Bar Code", FALSE);
+                            ItemReference.SETRANGE("Discontinue Bar Code", FALSE);
                             TempGencod := '';
                             IF ItemReference.FIND('-') THEN
                                 TempGencod := ItemReference."Reference No.";

@@ -16,7 +16,7 @@ codeunit 50011 "BC6_Business Reminder Mail"
         RecGUser: Record User;
         RecGUserSetup: Record "User Setup";
         Char1: Char;
-        CstG0001: Label 'Affair No.', Comment = 'FRA="Nø affaire"';
+        CstG0001: Label 'Affair No.', Comment = 'FRA="n° affaire"';
         CstG0002: Label 'Affair description', Comment = 'FRA="Nom affaire"';
         CstG0003: Label 'Reminder date', Comment = 'FRA="Date de relance"';
         CstG0004: Label 'Description', Comment = 'FRA="Désignation"';

@@ -41,6 +41,7 @@ pageextension 50070 "BC6_SalesReceivablesSetup" extends "Sales & Receivables Set
             }
             field("BC6_allow Profit% to"; "BC6_allow Profit% to")
             {
+
                 ApplicationArea = All;
             }
             field("Contact's Address on sales doc"; "Contact's Address on sales doc")

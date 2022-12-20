@@ -111,7 +111,7 @@ tableextension 50027 "BC6_SalesInvoiceHeader" extends "Sales Invoice Header" //1
     }
     keys
     {
-        key(Key14; "Prepayment Invoice", "Document Exchange Status")
+        key(Key50000; "Prepayment Invoice", "Document Exchange Status")
         {
         }
     }

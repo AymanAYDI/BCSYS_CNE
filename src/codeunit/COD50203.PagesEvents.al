@@ -299,7 +299,7 @@ codeunit 50203 "BC6_PagesEvents"
         GlobalFunction: Codeunit "BC6_GlobalFunctionMgt";
         DocType: Enum "Gen. Journal Document Type";
     begin
-        CurrExchRate.get(CurrExchRate."Currency Code", CurrExchRate."Starting Date");
+        //CurrExchRate.get(CurrExchRate."Currency Code", CurrExchRate."Starting Date");
         IsHandled := true;
         with GenJnlLine do begin
             InitNewLine(
@@ -346,11 +346,10 @@ codeunit 50203 "BC6_PagesEvents"
     local procedure OnBeforeInitNewGenJnlLineFromPostInvoicePostBufferLine(var GenJnlLine: Record "Gen. Journal Line"; var PurchHeader: Record "Purchase Header"; InvoicePostBuffer: Record "Invoice Post. Buffer"; var IsHandled: Boolean)
     begin
         IsHandled := true;
-
-        //   GenJnlLine.InitNewLine(
-        //     PurchHeader."Posting D ate",PurchHeader."Document D ate",PurchHeader."Pay-to Name",
-        //     PurchHeader."Posting D ate",PurchHeader."Document D ate",PurchHeader."Pay-to Name",
-        //  In    d9E;
+        GenJnlLine.InitNewLine(
+         PurchHeader."Posting Date", PurchHeader."Document Date", PurchHeader."Pay-to Name",
+         InvoicePostBuffer."Global Dimension 1 Code", InvoicePostBuffer."Global Dimension 2 Code",
+         InvoicePostBuffer."Dimension Set ID", PurchHeader."Reason Code");
 
     end;
 
@@ -373,7 +372,7 @@ codeunit 50203 "BC6_PagesEvents"
     var
         RecGSalesLine: Record "Sales Line";
     begin
-        RecGSalesLine.get(RecGSalesLine."Document Type", RecGSalesLine."Document No.", RecGSalesLine."Line No.");
+        //RecGSalesLine.get(RecGSalesLine."Document Type", RecGSalesLine."Document No.", RecGSalesLine."Line No.");
         RecGSalesLine.SETFILTER("Document Type", '%1', PurchQuoteLine."BC6_Sales Document Type");
         RecGSalesLine.SETFILTER("Document No.", PurchQuoteLine."BC6_Sales No.");
         RecGSalesLine.SETFILTER("Line No.", '=%1', PurchQuoteLine."BC6_Sales Line No.");

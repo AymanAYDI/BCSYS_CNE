@@ -117,11 +117,11 @@ tableextension 50021 "BC6_ItemJournalLine" extends "Item Journal Line" //83
     }
     keys
     {
-        key(Key6; "Item No.", "Variant Code", "Location Code", "Bin Code", "Posting Date")
+        key(Key50000; "Item No.", "Variant Code", "Location Code", "Bin Code", "Posting Date")
         {
             SumIndexFields = "Quantity (Base)";
         }
-        key(Key7; "Phys. Inventory", "Item No.", "Journal Template Name", "Journal Batch Name", "Line No.")
+        key(Key50001; "Phys. Inventory", "Item No.", "Journal Template Name", "Journal Batch Name", "Line No.")
         {
         }
     }

@@ -59,13 +59,8 @@ pageextension 50118 "BC6_SalesQuotes" extends "Sales Quotes" //9300
     var
     begin
         //TODO: CHECKME when testing-----------
-        rec.SetCurrentKey("No.");
-        rec.SetAscending("Document Type", false);
-        rec.SetAscending("Order Date", false);
-        rec.SetAscending("No.", false);
-        rec.SetFilter("Document Type", '< 50000');
-        rec.SetFilter("Order Date", '< 50000');
-        rec.SetFilter("No.", '< 50000');
+        rec.SetCurrentKey("Document Type", "Order Date", "No.");
+        rec.Ascending(false);
         //--------------
         IsProfitVisible();
         IF NOT FINDFIRST() THEN

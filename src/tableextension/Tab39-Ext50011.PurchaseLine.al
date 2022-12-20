@@ -137,7 +137,7 @@ tableextension 50011 "BC6_PurchaseLine" extends "Purchase Line" //39
             var
                 RecLCurrency: Record Currency;
             begin
-                GetPurchHeader();
+                GetPurchHeader(PurchHeader, RecLCurrency);
                 RecLCurrency.InitRoundingPrecision();
                 IF PurchHeader."Currency Code" <> '' THEN
                     "BC6_DEEE Unit Price (LCY)" :=
@@ -262,7 +262,7 @@ tableextension 50011 "BC6_PurchaseLine" extends "Purchase Line" //39
         IntLGenerate: Integer;
     begin
         RecLPurchSetup.GET();
-        GetPurchHeader();
+        GetPurchHeader(PurchHeader, Currency);
         RecLVendor.GET(PurchHeader."Buy-from Vendor No.");
 
         IF CodPNewReasonCode <> ''

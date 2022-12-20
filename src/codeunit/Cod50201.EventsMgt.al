@@ -118,6 +118,8 @@ codeunit 50201 "BC6_Events Mgt"
     [EventSubscriber(ObjectType::Table, Database::Item, 'OnBeforeModifyEvent', '', false, false)]
     procedure T27_OnBeforeModifyEvent_Item(var Rec: Record Item; var xRec: Record Item; RunTrigger: Boolean)
     begin
+        if not RunTrigger then //if (Runtrigger = false) then exit
+            exit;
         if not (UPPERCASE(USERID) in ['CNE\BCSYS']) then
             Rec.TESTFIELD(Rec."Vendor No.");
     end;

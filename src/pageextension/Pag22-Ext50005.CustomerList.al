@@ -179,7 +179,18 @@ pageextension 50005 "BC6_CustomerList" extends "Customer List" //22
         {
             Visible = false;
         }
-
+        modify("Balance Due (LCY)")
+        {
+            Visible = false;
+        }
+        modify("Sales (LCY)")
+        {
+            Visible = false;
+        }
+        modify("Payments (LCY)")
+        {
+            Visible = false;
+        }
         addafter("Balance (LCY)")
         {
             field("BC6_Outstanding Orders (LCY)"; "Outstanding Orders (LCY)")
@@ -196,7 +207,7 @@ pageextension 50005 "BC6_CustomerList" extends "Customer List" //22
             {
                 ApplicationArea = Basic, Suite;
                 Editable = false;
-                ToolTip = 'Specifies the customer''s VAT registration number for customers in EU countries/regions.', Comment = 'FRA="Sp‚cifie le num‚ro d''identification intra-communautaire du client dans des pays/r‚gions de l''Union europ‚enne"';
+                ToolTip = 'Specifies the customer''s VAT registration number for customers in EU countries/regions.', Comment = 'FRA="Spécifie le numéro d''identification intra-communautaire du client dans des pays/régions de l''Union européenne"';
 
                 trigger OnDrillDown()
                 var
@@ -206,131 +217,132 @@ pageextension 50005 "BC6_CustomerList" extends "Customer List" //22
                 end;
             }
         }
-        addafter(Control1)
-        {
-            repeater(invisibleList)
-            {
-                Editable = true;
-                Visible = false;
-                field("BC6_No.2"; "No.")
-                {
-                    ApplicationArea = All;
-                }
-                field(BC6_Name2; Name)
-                {
-                    ApplicationArea = All;
-                }
-                field(BC6_Adress2; Address)
-                {
-                    ApplicationArea = All;
-                }
-                field(BC6_Address22; "Address 2")
-                {
-                    ApplicationArea = All;
-                }
-                field(BC6_City2; City)
-                {
-                    ApplicationArea = All;
-                }
-                field("BC6_Responsibility Center 2"; "Responsibility Center")
-                {
-                    ApplicationArea = All;
-                }
-                field("BC6_Location Code 2"; "Location Code")
-                {
-                    ApplicationArea = All;
-                }
-                field("BC6_Post Code 2"; "Post Code")
-                {
-                    ApplicationArea = All;
-                }
-                field("BC6_Country/Region Code2"; "Country/Region Code")
-                {
-                    ApplicationArea = All;
-                }
-                field("BC6_Phone No.2"; "Phone No.")
-                {
-                    ApplicationArea = All;
-                }
-                field("BC6_Fax No.2"; "Fax No.")
-                {
-                    Visible = false;
-                    ApplicationArea = All;
-                }
-                field("BC6_IC Partner Code2"; "IC Partner Code")
-                {
-                    Visible = false;
-                    ApplicationArea = All;
-                }
-                field(BC6_Contact2; Contact)
-                {
-                    ApplicationArea = All;
-                }
-                field("BC6_Salesperson Code2"; "Salesperson Code")
-                {
-                    Visible = false;
-                    ApplicationArea = All;
-                }
-                field("BC6_Customer Posting Group2"; "Customer Posting Group")
-                {
-                    Visible = false;
-                    ApplicationArea = All;
-                }
-                field("BC6_Gen. Bus. Posting Group2"; "Gen. Bus. Posting Group")
-                {
-                    Visible = false;
-                    ApplicationArea = All;
-                }
-                field("BC6_VAT Bus. Posting Group2"; "VAT Bus. Posting Group")
-                {
-                    Visible = false;
-                    ApplicationArea = All;
-                }
-                field("BC6_Customer Price Group2"; "Customer Price Group")
-                {
-                    Visible = false;
-                    ApplicationArea = All;
-                }
-                field("BC6_Customer Disc. Group2"; "Customer Disc. Group")
-                {
-                    Visible = false;
-                    ApplicationArea = All;
-                }
-                field("BC6_Payment Terms Code2"; "Payment Terms Code")
-                {
-                    Visible = false;
-                    ApplicationArea = All;
-                }
-                field("BC6_Reminder Terms Code2"; "Reminder Terms Code")
-                {
-                    Visible = false;
-                    ApplicationArea = All;
-                }
-                field("BC6_Fin. Charge Terms Code2"; "Fin. Charge Terms Code")
-                {
-                    Visible = false;
-                    ApplicationArea = All;
-                }
-                field("BC6_Currency Code2"; "Currency Code")
-                {
-                    Visible = false;
-                    ApplicationArea = All;
-                }
-                field("BC6_Language Code2"; "Language Code")
-                {
-                    Visible = false;
-                    ApplicationArea = All;
-                }
-                field("BC6_Search Name2"; "Search Name")
-                {
-                    ApplicationArea = All;
-                }
-                field("BC6_E-Mail2"; "E-Mail")
-                {
-                    ApplicationArea = All;
-                }
-            }
-        }
+        //TODO //Invisible 
+        // addafter(Control1)
+        // {
+        //     repeater(invisibleList)
+        //     {
+        //         Editable = true;
+        //         Visible = false;
+        //         field("BC6_No.2"; "No.")
+        //         {
+        //             ApplicationArea = All;
+        //         }
+        //         field(BC6_Name2; Name)
+        //         {
+        //             ApplicationArea = All;
+        //         }
+        //         field(BC6_Adress2; Address)
+        //         {
+        //             ApplicationArea = All;
+        //         }
+        //         field(BC6_Address22; "Address 2")
+        //         {
+        //             ApplicationArea = All;
+        //         }
+        //         field(BC6_City2; City)
+        //         {
+        //             ApplicationArea = All;
+        //         }
+        //         field("BC6_Responsibility Center 2"; "Responsibility Center")
+        //         {
+        //             ApplicationArea = All;
+        //         }
+        //         field("BC6_Location Code 2"; "Location Code")
+        //         {
+        //             ApplicationArea = All;
+        //         }
+        //         field("BC6_Post Code 2"; "Post Code")
+        //         {
+        //             ApplicationArea = All;
+        //         }
+        //         field("BC6_Country/Region Code2"; "Country/Region Code")
+        //         {
+        //             ApplicationArea = All;
+        //         }
+        //         field("BC6_Phone No.2"; "Phone No.")
+        //         {
+        //             ApplicationArea = All;
+        //         }
+        //         field("BC6_Fax No.2"; "Fax No.")
+        //         {
+        //             Visible = false;
+        //             ApplicationArea = All;
+        //         }
+        //         field("BC6_IC Partner Code2"; "IC Partner Code")
+        //         {
+        //             Visible = false;
+        //             ApplicationArea = All;
+        //         }
+        //         field(BC6_Contact2; Contact)
+        //         {
+        //             ApplicationArea = All;
+        //         }
+        //         field("BC6_Salesperson Code2"; "Salesperson Code")
+        //         {
+        //             Visible = false;
+        //             ApplicationArea = All;
+        //         }
+        //         field("BC6_Customer Posting Group2"; "Customer Posting Group")
+        //         {
+        //             Visible = false;
+        //             ApplicationArea = All;
+        //         }
+        //         field("BC6_Gen. Bus. Posting Group2"; "Gen. Bus. Posting Group")
+        //         {
+        //             Visible = false;
+        //             ApplicationArea = All;
+        //         }
+        //         field("BC6_VAT Bus. Posting Group2"; "VAT Bus. Posting Group")
+        //         {
+        //             Visible = false;
+        //             ApplicationArea = All;
+        //         }
+        //         field("BC6_Customer Price Group2"; "Customer Price Group")
+        //         {
+        //             Visible = false;
+        //             ApplicationArea = All;
+        //         }
+        //         field("BC6_Customer Disc. Group2"; "Customer Disc. Group")
+        //         {
+        //             Visible = false;
+        //             ApplicationArea = All;
+        //         }
+        //         field("BC6_Payment Terms Code2"; "Payment Terms Code")
+        //         {
+        //             Visible = false;
+        //             ApplicationArea = All;
+        //         }
+        //         field("BC6_Reminder Terms Code2"; "Reminder Terms Code")
+        //         {
+        //             Visible = false;
+        //             ApplicationArea = All;
+        //         }
+        //         field("BC6_Fin. Charge Terms Code2"; "Fin. Charge Terms Code")
+        //         {
+        //             Visible = false;
+        //             ApplicationArea = All;
+        //         }
+        //         field("BC6_Currency Code2"; "Currency Code")
+        //         {
+        //             Visible = false;
+        //             ApplicationArea = All;
+        //         }
+        //         field("BC6_Language Code2"; "Language Code")
+        //         {
+        //             Visible = false;
+        //             ApplicationArea = All;
+        //         }
+        //         field("BC6_Search Name2"; "Search Name")
+        //         {
+        //             ApplicationArea = All;
+        //         }
+        //         field("BC6_E-Mail2"; "E-Mail")
+        //         {
+        //             ApplicationArea = All;
+        //         }
+        //     }
+        // }
     }
 
     actions

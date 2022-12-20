@@ -23200,7 +23200,7 @@
         </trans-unit>
         <trans-unit id="PageExtension 3241176786 - Control 2356638631 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2901867346">
           <source>Specifies the customer's VAT registration number for customers in EU countries/regions.</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Sp‚cifie le num‚ro d'identification intra-communautaire du client dans des pays/r‚gions de l'Union europ‚enne"</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Spécifie le numéro d'identification intra-communautaire du client dans des pays/régions de l'Union européenne"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_CustomerList - Control BC6_VAT Registration No. - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="PageExtension 3241176786 - Change 4200184881 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2901867346">

@@ -123,14 +123,12 @@ codeunit 50201 "BC6_Events Mgt"
     end;
 
     [EventSubscriber(ObjectType::Table, Database::Item, 'OnAfterValidateEvent', 'Vendor No.', false, false)]
-    procedure t27_OnAfterValidateEvent_Item(var Rec: Record Item; var xRec: Record Item; CurrFieldNo: Integer)
+    procedure T27_OnAfterValidateEvent_Item(var Rec: Record Item; var xRec: Record Item; CurrFieldNo: Integer)
     var
         Vend: Record Vendor;
     begin
-        Vend.get(Vend."No.");
-        if (xRec."Vendor No." <> Rec."Vendor No.") and
-           (Rec."Vendor No." <> '')
-                then
+
+        if (xRec."Vendor No." <> Rec."Vendor No.") and (Rec."Vendor No." <> '') then
             if Vend.Get(Rec."Vendor No.") then begin
                 Rec."Lead Time Calculation" := Vend."Lead Time Calculation";
                 Vend.TESTFIELD(Blocked, 0);
@@ -2154,7 +2152,7 @@ then begin
         FunctionMgt: Codeunit "BC6_Functions Mgt";
         WhseIntegrationMgt: Codeunit "Whse. Integration Management";
     begin
-         if (PurchaseLine.Type <> PurchaseLine.Type::Item) or PurchaseLine.IsNonInventoriableItem() then
+        if (PurchaseLine.Type <> PurchaseLine.Type::Item) or PurchaseLine.IsNonInventoriableItem() then
             exit;
 
         PurchaseLine."Bin Code" := '';

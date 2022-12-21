@@ -1950,7 +1950,6 @@ then begin
         Rec."BC6_Qty. To Order" := Rec.Quantity;
 
         Rec.SetSkipPurchCostVerif(false);
-        Rec.Modify();
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Line", 'OnCopyFromItemOnAfterCheck', '', false, false)]
@@ -3959,11 +3958,9 @@ then begin
         CstG001: label 'Is this quote associated to an affair ?', Comment = 'FRA="Ce devis est-il associé … une affaire ?"';
         CstG002: label 'Do You want to create a new step ?', Comment = 'FRA="Voulez-vous créer une étape de suivi ?"';
         CstG003: label 'Is the salesperson code correctly entered?', Comment = 'FRA="Le code vendeur est-il correctement renseigné ?"';
-        "-FEP-ACHAT-200706_18_A-": Integer;
         RecGSalesLine: Record "Sales Line";
         RecGUserSetup: Record "User Setup";
     begin
-        IsHandled := true;
         with SalesHeader do begin
             BooLGo := true;
 
@@ -4051,7 +4048,7 @@ then begin
                 //<<MIGRATION NAV 2013
 
                 //>>BCSYS
-                FactMgt.CheckReturnOrderMandatoryFields(SalesHeader);
+                FactMgt.COD414_CheckReturnOrderMandatoryFields(SalesHeader);
                 //<<BCSYS
 
                 //CheckSalesLines///
@@ -4124,6 +4121,8 @@ then begin
 
             end;
         end;
+
+        IsHandled := true;
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Create Inventory Pick/Movement", 'OnAfterUpdateWhseActivHeader', '', false, false)]

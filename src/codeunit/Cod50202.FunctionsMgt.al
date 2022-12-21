@@ -631,7 +631,7 @@ codeunit 50202 "BC6_Functions Mgt"
         end;
     end;
 
-    procedure CheckReturnOrderMandatoryFields(P_SalesHeader: Record "Sales Header");
+    procedure COD414_CheckReturnOrderMandatoryFields(P_SalesHeader: Record "Sales Header");
     var
         L_SalesLine: Record "Sales Line";
     begin

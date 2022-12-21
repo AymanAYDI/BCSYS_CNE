@@ -211,7 +211,7 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
                     RecGSalesHeader.SETRANGE(RecGSalesHeader."Document Type", "Document Type");
                     RecGSalesHeader.SETRANGE(RecGSalesHeader."No.", "No.");
                     RecGSalesHeader.FIND('-');
-                    //TODO // REPORT.RUNMODAL(REPORT::"Preparation NAVIDIIGEST", TRUE, FALSE, RecGSalesHeader);
+                    REPORT.RUNMODAL(REPORT::"BC6_Preparation NAVIDIIGEST", TRUE, FALSE, RecGSalesHeader);
                 end;
             }
         }

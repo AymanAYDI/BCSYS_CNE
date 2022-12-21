@@ -71,7 +71,7 @@ page 50116 "BC6_SAV Sales Return Order"
                         Caption = 'City', comment = 'FRA="Ville"';
                         Importance = Additional;
                         QuickEntry = false;
-                        ToolTip = 'Specifies the city where the customer is located.', comment = 'FRA="Spécifie la ville o— se trouve le client."';
+                        ToolTip = 'Specifies the city where the customer is located.', comment = 'FRA="Spécifie la ville où se trouve le client."';
                     }
                     field("Sell-to Contact No."; Rec."Sell-to Contact No.")
                     {
@@ -99,28 +99,28 @@ page 50116 "BC6_SAV Sales Return Order"
                 field("Sell-to Contact"; Rec."Sell-to Contact")
                 {
                     Caption = 'Contact', comment = 'FRA="Contact"';
-                    ToolTip = 'Specifies the name of the person to contact at the customer.', comment = 'FRA="Spécifie le nom de la personne … contacter chez le client."';
+                    ToolTip = 'Specifies the name of the person to contact at the customer.', comment = 'FRA="Spécifie le nom de la personn à contacter chez le client."';
                 }
                 field("Document Date"; Rec."Document Date")
                 {
                     QuickEntry = false;
-                    ToolTip = 'Specifies the date on which you created the sales document.', comment = 'FRA="Spécifie la date … laquelle vous avez crée le document vente."';
+                    ToolTip = 'Specifies the date on which you created the sales document.', comment = 'FRA="Spécifie la date à laquelle  vous avez crée le document vente."';
                 }
                 field("Posting Date"; Rec."Posting Date")
                 {
                     QuickEntry = false;
-                    ToolTip = 'Specifies the date when the posting of the sales document will be recorded.', comment = 'FRA="Spécifie la date … laquelle la validation du document vente sera validé."';
+                    ToolTip = 'Specifies the date when the posting of the sales document will be recorded.', comment = 'FRA="Spécifie la date à laquelle  la validation du document vente sera validé."';
                 }
                 field("Order Date"; Rec."Order Date")
                 {
                     Importance = Promoted;
                     QuickEntry = false;
-                    ToolTip = 'Specifies the date on which the exchange rate applies to prices listed in a foreign currency on the sales order.', comment = 'FRA="Spécifie la date … laquelle le taux de change s''applique aux prix r‚pertori‚s dans une devise ‚trangŠre de la commande vente."';
+                    ToolTip = 'Specifies the date on which the exchange rate applies to prices listed in a foreign currency on the sales order.', comment = 'FRA="Spécifie la date à laquelle  le taux de change s''applique aux prix répertoriés dans une devise étrangère de la commande vente."';
                 }
                 field("External Document No."; Rec."External Document No.")
                 {
                     Importance = Promoted;
-                    ToolTip = 'Specifies the number that the customer uses in their own system to refer to this sales document.', comment = 'FRA="Spécifie le numéro que le client doit utiliser dans son propre systéme pour faire référence … ce document vente."';
+                    ToolTip = 'Specifies the number that the customer uses in their own system to refer to this sales document.', comment = 'FRA="Spécifie le numéro que le client doit utiliser dans son propre systéme pour faire référence à ce document vente."';
                 }
                 field("No. of Archived Versions"; Rec."No. of Archived Versions")
                 {
@@ -142,7 +142,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 field("Responsibility Center"; Rec."Responsibility Center")
                 {
-                    ToolTip = 'Specifies the code of the responsibility center that is associated with the user, company, or vendor.', comment = 'FRA="Spécifie le code du centre de gestion qui est associé … l''utilisateur, … la société ou au fournisseur."';
+                    ToolTip = 'Specifies the code of the responsibility center that is associated with the user, company, or vendor.', comment = 'FRA="Spécifie le code du centre de gestion qui est associé à l''utilisateur, à la société ou au fournisseur."';
                 }
                 field("Assigned User ID"; Rec."Assigned User ID")
                 {
@@ -216,11 +216,11 @@ page 50116 "BC6_SAV Sales Return Order"
                 field("Transaction Type"; Rec."Transaction Type")
                 {
                     ToolTip = 'Specifies the type of transaction that the sales document represents, for the purpose of reporting to INTRASTAT.'
-                    , comment = 'FRA="Spécifie le type de transaction que représente le document vente, … des fins de compte rendu intracommunautaire"';
+                    , comment = 'FRA="Spécifie le type de transaction que représente le document vente, à des fins de compte rendu intracommunautaire"';
                 }
                 field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
-                    ToolTip = 'Specifies the dimension value code associated with the sales header.', comment = 'FRA="Spécifie le code section analytique associée … l''en-téte vente."';
+                    ToolTip = 'Specifies the dimension value code associated with the sales header.', comment = 'FRA="Spécifie le code section analytique associée à l''en-tête vente."';
 
                     trigger OnValidate()
                     begin
@@ -229,7 +229,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
-                    ToolTip = 'Specifies the dimension value code associated with the sales header.', comment = 'FRA="Spécifie le code section analytique associée … l''en-téte vente."';
+                    ToolTip = 'Specifies the dimension value code associated with the sales header.', comment = 'FRA="Spécifie le code section analytique associée à l''en-tête vente."';
 
                     trigger OnValidate()
                     begin
@@ -239,7 +239,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 field("Shipment Date"; Rec."Shipment Date")
                 {
                     Importance = Promoted;
-                    ToolTip = 'Specifies the date you expect to ship items on the sales document.', comment = 'FRA="Spécifie la date … laquelle vous pensez expédier les articles indiqués sur le document vente."';
+                    ToolTip = 'Specifies the date you expect to ship items on the sales document.', comment = 'FRA="Spécifie la date à laquelle  vous pensez expédier les articles indiqués sur le document vente."';
                 }
                 field("Applies-to Doc. Type"; Rec."Applies-to Doc. Type")
                 {
@@ -281,7 +281,7 @@ page 50116 "BC6_SAV Sales Return Order"
                     field("Package Tracking No."; Rec."Package Tracking No.")
                     {
                         Importance = Additional;
-                        ToolTip = 'Specifies the shipping agent''s package number.', comment = 'FRA="Spécifie le numéro r‚c‚piss‚ du transporteur."';
+                        ToolTip = 'Specifies the shipping agent''s package number.', comment = 'FRA="Spécifie le numéro récépissé du transporteur."';
                     }
                 }
                 group("Ship-to")
@@ -304,7 +304,7 @@ page 50116 "BC6_SAV Sales Return Order"
                     {
                         Caption = 'Address', comment = 'FRA="Adresse"';
                         ToolTip = 'Specifies the address that products on the sales document will be shipped to.'
-                        , comment = 'FRA="Spécifie l''adresse … laquelle les produits mentionnés sur le document vente seront expédiés."';
+                        , comment = 'FRA="Spécifie l''adresse à laquelle  les produits mentionnés sur le document vente seront expédiés."';
                     }
                     field("Ship-to Address 2"; Rec."Ship-to Address 2")
                     {
@@ -334,13 +334,13 @@ page 50116 "BC6_SAV Sales Return Order"
                     {
                         Caption = 'Name', comment = 'FRA="Nom"';
                         Importance = Promoted;
-                        ToolTip = 'Specifies the customer to whom you will send the sales invoice, when different from the customer that you are selling to.', comment = 'FRA="Spécifie le client … qui vous envoyez la facture vente, s''il différe du client … qui vous vendez."';
+                        ToolTip = 'Specifies the customer to whom you will send the sales invoice, when different from the customer that you are selling to.', comment = 'FRA="Spécifie le client à qui vous envoyez la facture vente, s''il différe du client à qui vous vendez."';
                     }
                     field("Bill-to Address"; Rec."Bill-to Address")
                     {
                         Caption = 'Address', comment = 'FRA="Adresse"';
                         Importance = Additional;
-                        ToolTip = 'Specifies the address of the customer that you will send the invoice to.', comment = 'FRA="Spécifie l''adresse du client … qui vous envoyez la facture."';
+                        ToolTip = 'Specifies the address of the customer that you will send the invoice to.', comment = 'FRA="Spécifie l''adresse du client à qui vous envoyez la facture."';
                     }
                     field("Bill-to Address 2"; Rec."Bill-to Address 2")
                     {
@@ -383,22 +383,22 @@ page 50116 "BC6_SAV Sales Return Order"
                 field("Transaction Specification"; Rec."Transaction Specification")
                 {
                     ToolTip = 'Specifies a code for the sales document''s transaction specification, for the purpose of reporting to INTRASTAT.'
-                    , comment = 'FRA="Spécifie un code pour le régime du document vente, … des fins de compte-rendu intracommunautaire."';
+                    , comment = 'FRA="Spécifie un code pour le régime du document vente, à des fins de compte-rendu intracommunautaire."';
                 }
                 field("Transport Method"; Rec."Transport Method")
                 {
                     ToolTip = 'Specifies the transport method, for the purpose of reporting to INTRASTAT.'
-                    , comment = 'FRA="Spécifie le mode de transport, … des fins de compte-rendu intracommunautaire."';
+                    , comment = 'FRA="Spécifie le mode de transport, à des fins de compte-rendu intracommunautaire."';
                 }
                 field("Exit Point"; Rec."Exit Point")
                 {
                     ToolTip = 'Specifies the point of exit through which you ship the items out of your country/region, for reporting to Intrastat.'
-                    , comment = 'FRA="Spécifie le point de sortie par lequel les articles sortent de votre pays/région, … des fins de compte-rendu … Intrastat."';
+                    , comment = 'FRA="Spécifie le point de sortie par lequel les articles sortent de votre pays/région, à des fins de compte-rendu à Intrastat."';
                 }
                 field(BC6_Area; Rec.Area)
                 {
                     ToolTip = 'Specifies the area of the customer''s address, for the purpose of reporting to INTRASTAT.'
-                    , comment = 'FRA="Spécifie le point de sortie par lequel les articles sortent de votre pays/région, … des fins de compte-rendu … Intrastat."';
+                    , comment = 'FRA="Spécifie le point de sortie par lequel les articles sortent de votre pays/région, à des fins de compte-rendu à Intrastat."';
                 }
             }
         }
@@ -512,7 +512,7 @@ page 50116 "BC6_SAV Sales Return Order"
                     Promoted = false;
                     ShortCutKey = 'Shift+Ctrl+D';
                     ToolTip = 'View or edit dimensions, such as area, project, or department, that you can assign to sales and purchase documents to distribute costs and analyze transaction history.',
-                     comment = 'FRA="Affichez ou modifiez les axes analytiques, tels que la zone, le projet ou le département que vous pouvez affecter aux documents vente et achat afin de distribuer les co–ts et analyser l''historique des transactions."';
+                     comment = 'FRA="Affichez ou modifiez les axes analytiques, tels que la zone, le projet ou le département que vous pouvez affecter aux documents vente et achat afin de distribuer les coûts et analyser l''historique des transactions."';
 
                     trigger OnAction()
                     begin
@@ -646,7 +646,7 @@ page 50116 "BC6_SAV Sales Return Order"
                     Image = Delegate;
                     Promoted = true;
                     PromotedCategory = Category4;
-                    ToolTip = 'Delegate the approval to a substitute approver.', comment = 'FRA="Déléguez l''approbation … un approbateur rempla‡ant."';
+                    ToolTip = 'Delegate the approval to a substitute approver.', comment = 'FRA="Déléguez l''approbation à un approbateur remplaçant."';
                     Visible = OpenApprovalEntriesExistForCurrUser;
 
                     trigger OnAction()
@@ -759,7 +759,7 @@ page 50116 "BC6_SAV Sales Return Order"
                     AccessByPermission = TableData "Cust. Invoice Disc." = R;
                     Caption = 'Calculate &Invoice Discount', comment = 'FRA="C&alculer remise facture"';
                     Image = CalculateInvoiceDiscount;
-                    ToolTip = 'Calculate the invoice discount that applies to the sales order.', comment = 'FRA="Calculez la remise facture qui s''applique … la commande vente."';
+                    ToolTip = 'Calculate the invoice discount that applies to the sales order.', comment = 'FRA="Calculez la remise facture qui s''applique à la commande vente."';
 
                     trigger OnAction()
                     begin
@@ -813,7 +813,7 @@ page 50116 "BC6_SAV Sales Return Order"
                     Promoted = true;
                     PromotedCategory = Process;
                     ToolTip = 'Copy document lines and header information from another sales document to this document. You can copy a posted sales invoice into a new sales invoice to quickly create a similar document.'
-                    , comment = 'FRA="Copiez les lignes document et les informations d''en-téte d''un autre document vente vers celui-ci. Vous pouvez copier une facture vente validée dans une nouvelle facture vente pour créer rapidement un document similaire."';
+                    , comment = 'FRA="Copiez les lignes document et les informations d''en-tête d''un autre document vente vers celui-ci. Vous pouvez copier une facture vente validée dans une nouvelle facture vente pour créer rapidement un document similaire."';
 
                     trigger OnAction()
                     begin
@@ -955,7 +955,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 action("Preview Posting")
                 {
-                    Caption = 'Preview Posting', comment = 'FRA="Aper‡u compta."';
+                    Caption = 'Preview Posting', comment = 'FRA="Aperçu compta."';
                     Image = ViewPostedOrder;
                     ToolTip = 'Review the different types of entries that will be created when you post the document or journal.',
                      comment = 'FRA="Examinez les différents types d''écritures qui seront crées lorsque vous validez le document ou la feuille."';
@@ -971,7 +971,7 @@ page 50116 "BC6_SAV Sales Return Order"
                     Ellipsis = true;
                     Image = TestReport;
                     ToolTip = 'View a test report so that you can find and correct any errors before you perform the actual posting of the journal or document.'
-                    , comment = 'FRA="Affichez une impression test afin que vous puissiez trouver et corriger toutes les erreurs avant de procéder … la validation effective de la feuille ou du document."';
+                    , comment = 'FRA="Affichez une impression test afin que vous puissiez trouver et corriger toutes les erreurs avant de procéder à la validation effective de la feuille ou du document."';
 
                     trigger OnAction()
                     begin
@@ -988,7 +988,7 @@ page 50116 "BC6_SAV Sales Return Order"
                     PromotedIsBig = true;
                     ShortCutKey = 'Shift+F9';
                     ToolTip = 'Finalize and prepare to print the document or journal. The values and quantities are posted to the related accounts. A report request window where you can specify what to include on the print-out.'
-                    , comment = 'FRA="Finalisez et préparez-vous … imprimer le document ou la feuille. Les valeurs et les quantités sont validées en fonction des comptes associés. Une fenétre de demande d''état o— vous pouvez spécifier ce qu''il faut inclure sur l''élément … imprimer."';
+                    , comment = 'FRA="Finalisez et préparez-vous … imprimer le document ou la feuille. Les valeurs et les quantités sont validées en fonction des comptes associés. Une fenétre de demande d''état où vous pouvez spécifier ce qu''il faut inclure sur l''élément … imprimer."';
 
                     trigger OnAction()
                     begin

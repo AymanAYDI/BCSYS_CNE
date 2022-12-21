@@ -75,7 +75,7 @@ codeunit 50008 "BC6_VendEntry-Apply Posted SPE"
 
         Text001: Label 'Posting application...', Comment = 'FRA="Validation du lettrage..."';
         Text002: Label 'The application was successfully posted.', Comment = 'FRA="Le lettrage a été validé avec succés."';
-        Text003: Label 'The %1 entered must not be before the %2 on the %3.', Comment = 'FRA="La %1 saisie ne doit pas étre antérieure … la %2 sur %3."';
+        Text003: Label 'The %1 entered must not be before the %2 on the %3.', Comment = 'FRA="La %1 saisie ne doit pas étre antérieure à la %2 sur %3."';
         Text004: Label 'The application was successfully posted though no entries have been applied.', Comment = 'FRA="Le lettrage a été validé avec succés bien qu''aucune écriture n''ait été lettré."';
         Window: Dialog;
         EntryNoBeforeApplication: Integer;
@@ -85,12 +85,12 @@ codeunit 50008 "BC6_VendEntry-Apply Posted SPE"
         Text007: Label 'Do you want to unapply the entries?', Comment = 'FRA="Souhaitez-vous délettrer les écritures ?"';
         Text008: Label 'Unapplying and posting...', Comment = 'FRA="Délettrage et comptabilisation..."';
         Text009: Label 'The entries were successfully unapplied.', Comment = 'FRA="Délettrage des écritures réussi."';
-        Text010: Label 'There is nothing to unapply. ', Comment = 'FRA="Aucun délettrage … effectuer. "';
+        Text010: Label 'There is nothing to unapply. ', Comment = 'FRA="Aucun délettrage à effectuer. "';
         Text011: Label 'To unapply these entries, the program will post correcting entries.\', Comment = 'FRA="Pour délettrer ces écritures, le programme va valider les écritures correctrices.\"';
         Text012: Label 'Before you can unapply this entry, you must first unapply all application entries in %1 No. %2 that were posted after this entry.', Comment = 'FRA="Avant de délettrer cette écriture, vous devez délettrer toutes les écritures de %1 n° %2 comptabilisées postérieurement."';
-        Text013: Label '%1 is not within your range of allowed posting dates in %2 No. %3.', Comment = 'FRA="%1 n''appartient pas … la plage de dates de comptabilisation autorisée dans %2 n° %3."';
-        Text014: Label '%1 is not within your range of allowed posting dates.', Comment = 'FRA="%1 n''appartient pas … la plage de dates de comptabilisation autorisée."';
-        Text015: Label 'The latest %3 must be an application in %1 No. %2.', Comment = 'FRA="Le (la) dernier (derniŠre) %3 doit correspondre … un lettrage dans %1 n° %2."';
+        Text013: Label '%1 is not within your range of allowed posting dates in %2 No. %3.', Comment = 'FRA="%1 n''appartient pas à la plage de dates de comptabilisation autorisée dans %2 n° %3."';
+        Text014: Label '%1 is not within your range of allowed posting dates.', Comment = 'FRA="%1 n''appartient pas à la plage de dates de comptabilisation autorisée."';
+        Text015: Label 'The latest %3 must be an application in %1 No. %2.', Comment = 'FRA="Le (la) dernier (dernière) %3 doit correspondre à  un lettrage dans %1 n° %2."';
         Text016: Label 'You cannot unapply the entry with the posting date %1, because the exchange rate for the additional reporting currency has been changed. ', Comment = 'FRA="Vous ne pouvez pas délettrer l''écriture dont la date de comptabilisation est %1, car le taux de change de la devise report supplémentaire a changé."';
         MaxPostingDate: Date;
         Text017: Label 'You cannot unapply %1 No. %2 because the entry has been involved in a reversal.', Comment = 'FRA="Vous ne pouvez pas délettrer %1 n° %2, car l''écriture a été impliquée dans une contrepassation."';

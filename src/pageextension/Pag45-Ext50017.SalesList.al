@@ -25,12 +25,12 @@ pageextension 50017 "BC6_SalesList" extends "Sales List" //45
             }
             field(BC6_Ship; Ship)
             {
-                Caption = 'Ship', Comment = 'FRA="EntiŠrement livr‚e"';
+                Caption = 'Ship', Comment = 'FRA="Entièrement livrée"';
                 ApplicationArea = All;
             }
             field(BC6_Invoice; Invoice)
             {
-                Caption = 'Invoice', Comment = 'FRA="EntiŠrement factur‚e"';
+                Caption = 'Invoice', Comment = 'FRA="Entièrement facturée"';
                 ApplicationArea = All;
             }
             field(BC6_ID; ID)
@@ -50,7 +50,7 @@ pageextension 50017 "BC6_SalesList" extends "Sales List" //45
         {
             field(BC6_purchcost; DecGPurchCost)
             {
-                Caption = 'Purchase Cost', Comment = 'FRA="Co–t d''achat"';
+                Caption = 'Purchase Cost', Comment = 'FRA="Coût d''achat"';
                 Visible = BooGPurchcost;
                 ApplicationArea = All;
             }

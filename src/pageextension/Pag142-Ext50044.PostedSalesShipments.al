@@ -77,7 +77,7 @@ pageextension 50044 "BC6_PostedSalesShipments" extends "Posted Sales Shipments" 
             }
             field(BC6_purchcost; DecGPurchCost)
             {
-                Caption = 'Purchase Cost', comment = 'FRA="Coùt d''achat"';
+                Caption = 'Purchase Cost', comment = 'FRA="Coût d''achat"';
                 Editable = BooGPurchcost;
             }
             field("BC6_DecGProfit%"; "DecGProfit%")

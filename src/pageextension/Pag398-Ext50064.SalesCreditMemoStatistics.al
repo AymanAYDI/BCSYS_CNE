@@ -10,7 +10,7 @@ pageextension 50064 "BC6_SalesCreditMemoStatistics" extends "Sales Credit Memo S
         }
         modify(CostLCY)
         {
-            Caption = 'Purchase Cost (LCY)', Comment = 'FRA="Co–t d''achat DS"';
+            Caption = 'Purchase Cost (LCY)', Comment = 'FRA="Coût d''achat DS"';
         }
 
         addafter(CustAmount)

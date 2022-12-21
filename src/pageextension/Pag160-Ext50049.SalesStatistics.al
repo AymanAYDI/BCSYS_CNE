@@ -17,7 +17,7 @@ pageextension 50049 "BC6_SalesStatistics" extends "Sales Statistics" //160
         modify(TotalAdjCostLCY)
         {
             Visible = ShowRealProfit;
-            Caption = 'Adjusted Cost (LCY)', comment = 'FRA="Coùt réel DS"';
+            Caption = 'Adjusted Cost (LCY)', comment = 'FRA="Coût réel DS"';
         }
 
         modify("TotalSalesLineLCY.""Unit Cost (LCY)""")
@@ -28,7 +28,7 @@ pageextension 50049 "BC6_SalesStatistics" extends "Sales Statistics" //160
         {
             field(BC6_Purchase_Cost; TotalSalesLineLCY."BC6_Purchase cost")
             {
-                Caption = 'Purchase Cost (LCY)', comment = 'FRA="Coùt d''achat DS"';
+                Caption = 'Purchase Cost (LCY)', comment = 'FRA="Coût d''achat DS"';
             }
 
         }

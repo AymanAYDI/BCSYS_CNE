@@ -35,7 +35,7 @@ page 50115 "BC6_LOC Sales Ret. Order List"
                 field("External Document No."; "External Document No.")
                 {
                     ToolTip = 'Specifies the number that the customer uses in their own system to refer to this sales document.'
-                     , comment = 'FRA="Spécifie le numéro que le client doit utiliser dans son propre systŠme pour faire référence … ce document vente."';
+                     , comment = 'FRA="Spécifie le numéro que le client doit utiliser dans son propre système pour faire référence à ce document vente."';
                 }
                 field("Sell-to Post Code"; "Sell-to Post Code")
                 {
@@ -52,13 +52,13 @@ page 50115 "BC6_LOC Sales Ret. Order List"
                 field("Sell-to Contact"; "Sell-to Contact")
                 {
                     ToolTip = 'Specifies the name of the person to contact at the customer that the items were sold to.'
-                    , comment = 'FRA="Spécifie le nom de la personne … contacter chez le client … qui les articles ont ‚t‚ vendus."';
+                    , comment = 'FRA="Spécifie le nom de la personne à contacter chez le client à qui les articles ont été vendus."';
                     Visible = false;
                 }
                 field("Bill-to Customer No."; "Bill-to Customer No.")
                 {
                     ToolTip = 'Specifies the number of the customer you sent the invoice for the shipment to.'
-                     , comment = 'FRA="Spécifie le numéro du client auquel la facture liée … l''expédition a été envoyé."';
+                     , comment = 'FRA="Spécifie le numéro du client auquel la facture liée à l''expédition a été envoyé."';
                     Visible = false;
                 }
                 field("Bill-to Name"; "Bill-to Name")
@@ -82,7 +82,7 @@ page 50115 "BC6_LOC Sales Ret. Order List"
                 field("Bill-to Contact"; "Bill-to Contact")
                 {
                     ToolTip = 'Specifies the name of the person you regularly contact when you communicate with the customer to whom you sent the invoice.'
-                     , comment = 'FRA="Sp‚cifie le nom de la personne que vous contactez réguliŠrement lorsque vous communiquez avec le client auquel vous avez envoyé la facture."';
+                     , comment = 'FRA="Spécifie le nom de la personne que vous contactez régulièrement lorsque vous communiquez avec le client auquel vous avez envoyé la facture."';
                     Visible = false;
                 }
                 field("Ship-to Code"; "Ship-to Code")
@@ -112,7 +112,7 @@ page 50115 "BC6_LOC Sales Ret. Order List"
                 field("Ship-to Contact"; "Ship-to Contact")
                 {
                     ToolTip = 'Specifies the name of the person you regularly contact at the address that the items were shipped to.'
-                     , comment = 'FRA="Spécifie le nom de la personne que vous contactez réguliŠrement … l''adresse … laquelle les articles ont été livrés."';
+                     , comment = 'FRA="Spécifie le nom de la personne que vous contactez régulièrement à l''adresse à laquelle les articles ont été livrés."';
                     Visible = false;
                 }
                 field("Posting Date"; "Posting Date")
@@ -124,24 +124,24 @@ page 50115 "BC6_LOC Sales Ret. Order List"
                 field("Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
                 {
                     ToolTip = 'Specifies the code for Shortcut Dimension 1.',
-                    comment = 'FRA="Spécifie le code pour Raccourci axeÿ1."';
+                    comment = 'FRA="Spécifie le code pour Raccourci axe 1."';
                     Visible = false;
                 }
                 field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
                 {
                     ToolTip = 'Specifies the code for Shortcut Dimension 2.',
-                    comment = 'FRA="Spécifie le code pour Raccourci axeÿ2"';
+                    comment = 'FRA="Spécifie le code pour Raccourci axe 2"';
                     Visible = false;
                 }
                 field("Location Code"; "Location Code")
                 {
                     ToolTip = 'Specifies the location from which the items were shipped.',
-                     comment = 'FRA="Spécifie le lieu … partir duquel les articles ont été expédis."';
+                     comment = 'FRA="Spécifie le lieu à partir duquel les articles ont été expédis."';
                 }
                 field("Salesperson Code"; "Salesperson Code")
                 {
                     ToolTip = 'Specifies which salesperson is associated with the shipment.',
-                     comment = 'FRA="Spécifie le nom du vendeur associé … l''expédition."';
+                     comment = 'FRA="Spécifie le nom du vendeur associé à l''expédition."';
                     Visible = false;
                 }
                 field("Assigned User ID"; "Assigned User ID")
@@ -158,7 +158,7 @@ page 50115 "BC6_LOC Sales Ret. Order List"
                 field("Document Date"; "Document Date")
                 {
                     ToolTip = 'Specifies the date on which you created the sales document.',
-                     comment = 'FRA="Spécifie la date … laquelle vous avez crée le document vente."';
+                     comment = 'FRA="Spécifie la date à laquelle vous avez crée le document vente."';
                     Visible = false;
                 }
                 field("Campaign No."; "Campaign No.")
@@ -176,13 +176,13 @@ page 50115 "BC6_LOC Sales Ret. Order List"
                 field("Shipment Date"; "Shipment Date")
                 {
                     ToolTip = 'Specifies the date you expect to ship items on the sales document.',
-                     comment = 'FRA="Spécifie la date … laquelle vous pensez expédier les articles indiqués sur le document vente."';
+                     comment = 'FRA="Spécifie la date à laquelle vous pensez expédier les articles indiqués sur le document vente."';
                     Visible = false;
                 }
                 field("Job Queue Status"; "Job Queue Status")
                 {
                     ToolTip = 'Specifies the status of a job queue entry or task that handles the posting of sales orders.',
-                     comment = 'FRA="Spécifie le statut d''une écriture file d''attente des travaux ou d''une tƒche qui gére la validation des commandes vente."';
+                     comment = 'FRA="Spécifie le statut d''une écriture file d''attente des travaux ou d''une tâche qui gére la validation des commandes vente."';
                     Visible = JobQueueActive;
                 }
                 field(ID; Rec.ID)
@@ -200,7 +200,7 @@ page 50115 "BC6_LOC Sales Ret. Order List"
                 field("Purchase No. Order Lien"; "BC6_Purchase No. Order Lien")
                 {
                     Caption = 'Purchase No. Order Link',
-                    comment = 'FRA="No. Commande Achat Lien"';
+                    comment = 'FRA="N° Commande Achat Lien"';
                 }
                 field(Amount; Amount)
                 {
@@ -263,7 +263,7 @@ page 50115 "BC6_LOC Sales Ret. Order List"
                     //PromotedIsBig = false;
                     ShortCutKey = 'Shift+Ctrl+D';
                     ToolTip = 'View or edit dimensions, such as area, project, or department, that you can assign to sales and purchase documents to distribute costs and analyze transaction history.',
-                     comment = 'FRA="Affichez ou modifiez les axes analytiques, tels que la zone, le projet ou le département que vous pouvez affecter aux documents vente et achat afin de distribuer les co–ts et analyser l''historique des transactions."';
+                     comment = 'FRA="Affichez ou modifiez les axes analytiques, tels que la zone, le projet ou le département que vous pouvez affecter aux documents vente et achat afin de distribuer les coûts et analyser l''historique des transactions."';
 
                     trigger OnAction()
                     begin
@@ -411,7 +411,7 @@ page 50115 "BC6_LOC Sales Ret. Order List"
                 Image = "Action";
                 action("Get Posted Doc&ument Lines to Reverse")
                 {
-                    Caption = 'Get Posted Doc&ument Lines to Reverse', comment = 'FRA="Extraire lignes doc&ument enreg. … contrepasser"';
+                    Caption = 'Get Posted Doc&ument Lines to Reverse', comment = 'FRA="Extraire lignes doc&ument enreg. à contrepasser"';
                     Ellipsis = true;
                     Image = ReverseLines;
                     ToolTip = 'Copy one or more posted sales document lines in order to reverse the original order.', comment = 'FRA="Copiez une ou plusieurs lignes de document vente validé afin de contrepasser la commande d''origine."';
@@ -524,7 +524,7 @@ page 50115 "BC6_LOC Sales Ret. Order List"
                     Ellipsis = true;
                     Image = TestReport;
                     ToolTip = 'View a test report so that you can find and correct any errors before you perform the actual posting of the journal or document.',
-                     comment = 'FRA="Affichez une impression test afin que vous puissiez trouver et corriger toutes les erreurs avant de procéder … la validation effective de la feuille ou du document."';
+                     comment = 'FRA="Affichez une impression test afin que vous puissiez trouver et corriger toutes les erreurs avant de procéder à la validation effective de la feuille ou du document."';
 
                     trigger OnAction()
                     begin
@@ -548,7 +548,7 @@ page 50115 "BC6_LOC Sales Ret. Order List"
                 }
                 action("Preview Posting")
                 {
-                    Caption = 'Preview Posting', comment = 'FRA="Aper‡u compta."';
+                    Caption = 'Preview Posting', comment = 'FRA="Aperçu compta."';
                     Image = ViewPostedOrder;
                     ToolTip = 'Review the different types of entries that will be created when you post the document or journal.',
                      comment = 'FRA="Examinez les différents types d''écritures qui seront crées lorsque vous validez le document ou la feuille."';

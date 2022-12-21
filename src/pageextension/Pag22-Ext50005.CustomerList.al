@@ -11,7 +11,7 @@ pageextension 50005 "BC6_CustomerList" extends "Customer List" //22
         modify("No.")
         {
             Editable = false;
-            ToolTip = 'Specifies the number of the customer. The field is either filled automatically from a defined number series, or you enter the number manually because you have enabled manual number entry in the number-series setup.', comment = 'FRA="Sp‚cifie le num‚ro du client. Le champ est renseign‚ automatiquement … partir d''une souche de num‚ros d‚finie, ou vous saisissez manuellement le num‚ro, car vous avez activ‚ la saisie manuelle de num‚ro dans le param‚trage de la souche de num‚ros."';
+            ToolTip = 'Specifies the number of the customer. The field is either filled automatically from a defined number series, or you enter the number manually because you have enabled manual number entry in the number-series setup.', comment = 'FRA="Spécifie le numéro du client. Le champ est renseigné automatiquement … partir d''une souche de numéros définie, ou vous saisissez manuellement le numéro, car vous avez activé la saisie manuelle de numéro dans le paramétrage de la souche de numéros."';
         }
 
         addafter("No.")
@@ -351,7 +351,7 @@ pageextension 50005 "BC6_CustomerList" extends "Customer List" //22
         {
             action("BC6_Salesperson authorized")
             {
-                Caption = 'Salesperson authorized', Comment = 'FRA="Vendeurs Autoris‚s"';
+                Caption = 'Salesperson authorized', Comment = 'FRA="Vendeurs Autorisés"';
                 Image = SalesPerson;
                 RunObject = Page "BC6_Salesperson authorized";
                 RunPageLink = "Customer No." = FIELD("No.");

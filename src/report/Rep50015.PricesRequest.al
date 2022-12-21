@@ -628,7 +628,7 @@ report 50015 "BC6_Prices Request"
         Text007: Label 'VAT Amount Specification in ', comment = 'FRA="Détail TVA dans"';
         Text008: Label 'Local Currency', comment = 'FRA="Devise locale"';
         Text009: Label 'Exchange rate: %1/%2', comment = 'FRA="Taux de change : %1/%2"';
-        Text010: Label 'IMPERTIVE : US TO CONFIRM THIS ORDER BY RETURN OF FAX TO ', comment = 'FRA="IMPERATIF : NOUS CONFIRMER CETTE COMMANDE PAR RETOUR D''EMAIL A ""';
+        Text010: Label 'IMPERTIVE : US TO CONFIRM THIS ORDER BY RETURN OF FAX TO ', comment = 'FRA="IMPERATIF : NOUS CONFIRMER CETTE COMMANDE PAR RETOUR D''EMAIL A "';
         Text011: Label 'DELIVERY ADDRESS', comment = 'FRA="ADRESSE DE LIVRAISON"';
         Text012: Label 'No.', comment = 'FRA="N°"';
         Text013: Label ' with capital of ', comment = 'FRA="au capital de"';

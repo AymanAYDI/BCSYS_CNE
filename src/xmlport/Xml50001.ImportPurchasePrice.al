@@ -56,13 +56,6 @@ xmlport 50001 "BC6_Import Purchase Price"
                 trigger OnBeforeInsertRecord()
                 begin
 
-                    /*
-                    IF "Starting Date"= 0D THEN BEGIN
-                      ERROR(Text001,FIELDCAPTION("Starting Date"),"Starting Date",FIELDCAPTION("Item No."),"Item No.");
-                      CurrDataport.QUIT;
-                    END;
-                    */
-
                     IF "Purchase Price"."Item No." <> '' THEN BEGIN
                         Trovato := GItem1.GET("Purchase Price"."Item No.");
                         IF (NOT Trovato) THEN BEGIN

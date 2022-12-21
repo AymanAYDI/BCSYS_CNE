@@ -476,7 +476,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                 }
                 action("Order &Tracking")
                 {
-                    Caption = 'Order &Tracking', comment = 'FRA="ChaŒnage"';
+                    Caption = 'Order &Tracking', comment = 'FRA="Chaînage"';
                     Image = OrderTracking;
 
                     trigger OnAction()
@@ -724,7 +724,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
         STR5: Label 'Envoyer le document par fax ?';
         Text001: Label '';
         Text004: Label 'Fichiers Pdf (*.pdf)|*.pdf|Tous les fichiers (*.*)|*.*';
-        txtg001: Label 'This Purchase Order is already linked with a sales document \ You can''t affect a new one', comment = 'FRA="Cette commande d''achat est déjà lié a un document \ Vous ne pouvez pas l''affecter … un autre"';
+        txtg001: Label 'This Purchase Order is already linked with a sales document \ You can''t affect a new one', comment = 'FRA="Cette commande d''achat est déjà lié a un document \ Vous ne pouvez pas l''affecter à un autre"';
         nameF: Text[250];
 
 

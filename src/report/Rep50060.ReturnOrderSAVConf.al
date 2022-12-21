@@ -942,7 +942,7 @@ report 50060 "BC6_Return Order SAV Conf."
         EmailCaptionLbl: Label 'Email', comment = 'FRA="E-mail"';
         FaxNoCaptionLbl: Label 'Fax No.', comment = 'FRA="Fax."';
         GiroNoCaptionLbl: Label 'Giro No.', comment = 'FRA="N° CCP"';
-        HdrDimCaptionLbl: Label 'Header Dimensions', comment = 'FRA="Analytique en-téte"';
+        HdrDimCaptionLbl: Label 'Header Dimensions', comment = 'FRA="Analytique en-tête"';
         HomePageCaptionLbl: Label 'Home Page', comment = 'FRA="Page d''accueil"';
         InvDiscAmtCaptionLbl: Label 'Invoice Discount Amount', comment = 'FRA="Montant remise facture"';
         InvDiscBaseAmtCaptionLbl: Label 'Inv. Disc. Base Amount', comment = 'FRA="Montant base remise facture"';

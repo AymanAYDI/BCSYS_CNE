@@ -701,7 +701,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         ItemNo2: Code[20];
         DistInt: Codeunit "Dist. Integration";
         FunctionsMgt: Codeunit "BC6_Functions Mgt";
-        Text016: Label 'Item %1 not exit on Invt. Pick', Comment = 'FRA="Article (%1)  n''est pas sur le prélevement."';
+        Text016: Label 'Item %1 not exit on Invt. Pick', Comment = 'FRA="Article (%1)  n''est pas sur le prélèvement."';
         ErrorTxt: Text[250];
         Text013: Label 'Item No. %1 Incorrect', Comment = 'FRA="%1 n° article erroné"';
         Text014: Label 'Item %1 blocked', Comment = 'FRA="%1 article bloqué"';

@@ -18,7 +18,7 @@ pageextension 50045 "BC6_PostedSalesInvoices" extends "Posted Sales Invoices" //
             }
             field(BC6_DecGPurchCost; DecGPurchCost)
             {
-                Caption = 'Purchase Cost', comment = 'FRA="Coùt d''achat"';
+                Caption = 'Purchase Cost', comment = 'FRA="Coût d''achat"';
                 Visible = BooGpurchasecostVisible;
             }
             field(BC6_DecGProfitAmount; DecGProfitAmount)

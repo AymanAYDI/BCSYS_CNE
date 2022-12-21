@@ -27,12 +27,12 @@ pageextension 50077 "BC6_PurchaseLines" extends "Purchase Lines" //518
             field("BC6_Outstanding Quantity"; "Outstanding Quantity")
             {
                 ApplicationArea = Basic, Suite;
-                ToolTip = 'Specifies how many units on the order line have not yet been received.', Comment = 'FRA="Sp‚cifie le nombre d''unit‚s de la ligne vente qui n''ont pas encore ‚t‚ re‡ues."';
+                ToolTip = 'Specifies how many units on the order line have not yet been received.', Comment = 'FRA="Spécifie le nombre d''unit‚s de la ligne vente qui n''ont pas encore ‚t‚ reçues."';
             }
             field("BC6_Expected Receipt Date"; "Expected Receipt Date")
             {
                 ApplicationArea = Basic, Suite;
-                ToolTip = 'Specifies the date that you expect the items to be available in your warehouse.', Comment = 'FRA="Sp‚cifie la date … laquelle les articles doivent ˆtre disponibles dans votre entrep“t."';
+                ToolTip = 'Specifies the date that you expect the items to be available in your warehouse.', Comment = 'FRA="Spécifie la date à laquelle  les articles doivent ˆtre disponibles dans votre entrep“t."';
             }
         }
     }

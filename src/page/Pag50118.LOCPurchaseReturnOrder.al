@@ -107,12 +107,12 @@ page 50118 "BC6_LOC Purchase Return Order"
                 field("Document Date"; Rec."Document Date")
                 {
                     QuickEntry = false;
-                    ToolTip = 'Specifies the date on which the vendor created the purchase document.', comment = 'FRA="Spécifie la date … laquelle le vendeur a crée le document achat."';
+                    ToolTip = 'Specifies the date on which the vendor created the purchase document.', comment = 'FRA="Spécifie la date à laquelle  le vendeur a crée le document achat."';
                 }
                 field("Posting Date"; Rec."Posting Date")
                 {
                     QuickEntry = false;
-                    ToolTip = 'Specifies the date when the posting of the purchase document will be recorded.', comment = 'FRA="Spécifie la date … laquelle la validation du document achat sera validée."';
+                    ToolTip = 'Specifies the date when the posting of the purchase document will be recorded.', comment = 'FRA="Spécifie la date à laquelle  la validation du document achat sera validée."';
                 }
                 field("No. of Archived Versions"; Rec."No. of Archived Versions")
                 {
@@ -138,7 +138,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                 field("Order Address Code"; Rec."Order Address Code")
                 {
                     QuickEntry = false;
-                    ToolTip = 'Specifies the order address code linked to the relevant vendor''s order address.', comment = 'FRA="Spécifie le code adresse commande lié … l''adresse de commande du fournisseur concerné."';
+                    ToolTip = 'Specifies the order address code linked to the relevant vendor''s order address.', comment = 'FRA="Spécifie le code adresse commande lié à l''adresse de commande du fournisseur concerné."';
                 }
                 field("Purchaser Code"; Rec."Purchaser Code")
                 {
@@ -158,7 +158,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                 field("Responsibility Center"; Rec."Responsibility Center")
                 {
                     QuickEntry = false;
-                    ToolTip = 'Specifies the code of the responsibility center that is associated with the user, company, or vendor.', comment = 'FRA="Spécifie le code du centre de gestion qui est associé … l''utilisateur, … la société ou au fournisseur."';
+                    ToolTip = 'Specifies the code of the responsibility center that is associated with the user, company, or vendor.', comment = 'FRA="Spécifie le code du centre de gestion qui est associé à l''utilisateur, à la société ou au fournisseur."';
                 }
                 field("Assigned User ID"; Rec."Assigned User ID")
                 {
@@ -232,7 +232,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                 field("Expected Receipt Date"; Rec."Expected Receipt Date")
                 {
                     Importance = Promoted;
-                    ToolTip = 'Specifies the date you expect to receive the items on the purchase document.', comment = 'FRA="Spécifie la date … laquelle vous pensez recevoir les articles indiqués sur le document achat."';
+                    ToolTip = 'Specifies the date you expect to receive the items on the purchase document.', comment = 'FRA="Spécifie la date à laquelle  vous pensez recevoir les articles indiqués sur le document achat."';
                 }
                 field("Prices Including VAT"; Rec."Prices Including VAT")
                 {
@@ -245,15 +245,15 @@ page 50118 "BC6_LOC Purchase Return Order"
                 }
                 field("VAT Bus. Posting Group"; Rec."VAT Bus. Posting Group")
                 {
-                    ToolTip = 'Specifies the vendor''s VAT specification to link transactions made for this vendor with the appropriate general ledger account according to the VAT posting setup.', comment = 'FRA="Spécifie le détail TVA du fournisseur pour lier les transactions effectuées pour ce fournisseur au compte général approprié en fonction des paramŠtres de comptabilisation TVA."';
+                    ToolTip = 'Specifies the vendor''s VAT specification to link transactions made for this vendor with the appropriate general ledger account according to the VAT posting setup.', comment = 'FRA="Spécifie le détail TVA du fournisseur pour lier les transactions effectuées pour ce fournisseur au compte général approprié en fonction des paramètres de comptabilisation TVA."';
                 }
                 field("Transaction Type"; Rec."Transaction Type")
                 {
-                    ToolTip = 'Specifies the number for the transaction type, for the purpose of reporting to INTRASTAT.', comment = 'FRA="Spécifie le numéro du type de transaction, … des fins de compte rendu … INTRASTAT."';
+                    ToolTip = 'Specifies the number for the transaction type, for the purpose of reporting to INTRASTAT.', comment = 'FRA="Spécifie le numéro du type de transaction, à des fins de compte rendu à INTRASTAT."';
                 }
                 field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
-                    ToolTip = 'Specifies the dimension value code associated with the purchase header.', comment = 'FRA="Spécifie le code section analytique associée … l''en-téte achat."';
+                    ToolTip = 'Specifies the dimension value code associated with the purchase header.', comment = 'FRA="Spécifie le code section analytique associée à l''en-tête achat."';
 
                     trigger OnValidate()
                     begin
@@ -262,7 +262,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                 }
                 field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
-                    ToolTip = 'Specifies the dimension value code associated with the purchase header.', comment = 'FRA="Spécifie le code section analytique associée … l''en-téte achat."';
+                    ToolTip = 'Specifies the dimension value code associated with the purchase header.', comment = 'FRA="Spécifie le code section analytique associée à l''en-tête achat."';
 
                     trigger OnValidate()
                     begin
@@ -299,14 +299,14 @@ page 50118 "BC6_LOC Purchase Return Order"
                     {
                         Caption = 'Name', comment = 'FRA="Nom"';
                         Importance = Additional;
-                        ToolTip = 'Specifies the name of the company at the address to which you want the items in the purchase order to be shipped.', comment = 'FRA="Spécifie le nom de la société située … l''adresse … laquelle vous voulez que les articles de la commande achat soient livrés."';
+                        ToolTip = 'Specifies the name of the company at the address to which you want the items in the purchase order to be shipped.', comment = 'FRA="Spécifie le nom de la société située à l''adresse à laquelle  vous voulez que les articles de la commande achat soient livrés."';
                     }
                     field("Ship-to Address"; Rec."Ship-to Address")
                     {
                         Caption = 'Address', comment = 'FRA="Adresse"';
                         Importance = Additional;
                         ToolTip = 'Specifies the address that you want the items in the purchase order will be shipped to.'
-                        , comment = 'FRA="Spécifie l''adresse … laquelle vous voulez que les articles de la commande achat soient  expédiés."';
+                        , comment = 'FRA="Spécifie l''adresse à laquelle  vous voulez que les articles de la commande achat soient  expédiés."';
                     }
                     field("Ship-to Address 2"; Rec."Ship-to Address 2")
                     {
@@ -330,7 +330,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     {
                         Caption = 'Contact', comment = 'FRA="Contact"';
                         Importance = Additional;
-                        ToolTip = 'Specifies the name of the contact person for the address where the items in the purchase order should be shipped', comment = 'FRA="Spécifie le nom d''un contact pour l''adresse … laquelle les articles de la commande achat devraient étre expédiés."';
+                        ToolTip = 'Specifies the name of the contact person for the address where the items in the purchase order should be shipped', comment = 'FRA="Spécifie le nom d''un contact pour l''adresse à laquelle  les articles de la commande achat devraient étre expédiés."';
                     }
                 }
                 group("Pay-to")
@@ -385,11 +385,11 @@ page 50118 "BC6_LOC Purchase Return Order"
                 Caption = 'Foreign Trade', comment = 'FRA="International"';
                 field("Transaction Specification"; Rec."Transaction Specification")
                 {
-                    ToolTip = 'Specifies a code for the purchase header''s transaction specification here.', comment = 'FRA="Spécifie un code pour le régime de l''en-téte achat ici."';
+                    ToolTip = 'Specifies a code for the purchase header''s transaction specification here.', comment = 'FRA="Spécifie un code pour le régime de l''en-tête achat ici."';
                 }
                 field("Transport Method"; Rec."Transport Method")
                 {
-                    ToolTip = 'Specifies the code for the transport method to be used with this purchase header.', comment = 'FRA="Spécifie le code mode de transport … utiliser avec cet en-téte achat."';
+                    ToolTip = 'Specifies the code for the transport method to be used with this purchase header.', comment = 'FRA="Spécifie le code mode de transport à utiliser avec cet en-tête achat."';
                 }
                 field("Entry Point"; Rec."Entry Point")
                 {
@@ -643,7 +643,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Image = Delegate;
                     Promoted = true;
                     PromotedCategory = Category4;
-                    ToolTip = 'Delegate the approval to a substitute approver.', comment = 'FRA="Déléguez l''approbation … un approbateur rempla‡ant."';
+                    ToolTip = 'Delegate the approval to a substitute approver.', comment = 'FRA="Déléguez l''approbation … un approbateur remplaçant."';
                     Visible = OpenApprovalEntriesExistForCurrUser;
                     ApplicationArea = All;
 
@@ -958,7 +958,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                 }
                 action("Preview")
                 {
-                    Caption = 'Preview Posting', comment = 'FRA="Aper‡u compta."';
+                    Caption = 'Preview Posting', comment = 'FRA="Aperçu compta."';
                     Image = ViewPostedOrder;
                     ToolTip = 'Review the different types of entries that will be created when you post the document or journal.',
                      comment = 'FRA="Examinez les différents types d''écritures qui seront crées lorsque vous validez le document ou la feuille."';
@@ -976,7 +976,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Ellipsis = true;
                     Image = TestReport;
                     ToolTip = 'View a test report so that you can find and correct any errors before you perform the actual posting of the journal or document.'
-                    , comment = 'FRA="Affichez une impression test afin que vous puissiez trouver et corriger toutes les erreurs avant de procéder … la validation effective de la feuille ou du document."';
+                    , comment = 'FRA="Affichez une impression test afin que vous puissiez trouver et corriger toutes les erreurs avant de procéder à la validation effective de la feuille ou du document."';
 
                     trigger OnAction()
                     begin

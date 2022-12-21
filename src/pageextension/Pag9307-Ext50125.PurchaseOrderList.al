@@ -50,7 +50,7 @@ pageextension 50125 "BC6_PurchaseOrderList" extends "Purchase Order List" //9307
         {
             action(BC6_LogCommentsList)
             {
-                Caption = 'Receipt related information', Comment = 'FRA="Informations connexes de r‚ception"';
+                Caption = 'Receipt related information', Comment = 'FRA="Informations connexes de réception"';
                 Image = ReceiptReminder;
                 RunObject = Page "BC6_Log Purch. Comment Lines";
                 RunPageLink = "Document Type" = FIELD("Document Type"),
@@ -61,7 +61,7 @@ pageextension 50125 "BC6_PurchaseOrderList" extends "Purchase Order List" //9307
             }
             action(BC6_AddLogComment)
             {
-                Caption = 'Add receipt related information', Comment = 'FRA="Ajouter information connexe de r‚ception"';
+                Caption = 'Add receipt related information', Comment = 'FRA="Ajouter information connexe de réception"';
                 Image = NewWarehouseReceipt;
                 ApplicationArea = All;
 

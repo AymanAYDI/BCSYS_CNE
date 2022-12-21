@@ -44,7 +44,7 @@ tableextension 50029 "BC6_SalesCrMemoHeader" extends "Sales Cr.Memo Header" //11
         }
         field(50026; "BC6_Purchase cost"; Decimal)
         {
-            Caption = 'Purchase Cost', comment = 'FRA="Coùt d''achat"';
+            Caption = 'Purchase Cost', comment = 'FRA="Coût d''achat"';
             Editable = false;
             FieldClass = Normal;
             DataClassification = CustomerContent;

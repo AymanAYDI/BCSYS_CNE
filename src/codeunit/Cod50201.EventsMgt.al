@@ -3955,7 +3955,7 @@ then begin
         Text001: label 'There is nothing to release for the document of type %1 with the number %2.', Comment = 'FRA="Il n''y a rien à lancer pour le document de type %1 avec le numéro %2."';
 
         Text100000: label 'Purchasing Code Is Mandatory', Comment = 'FRA="La procédure d''achat est obligatoire"';
-        CstG001: label 'Is this quote associated to an affair ?', Comment = 'FRA="Ce devis est-il associé … une affaire ?"';
+        CstG001: label 'Is this quote associated to an affair ?', Comment = 'FRA="Ce devis est-il associé à une affaire ?"';
         CstG002: label 'Do You want to create a new step ?', Comment = 'FRA="Voulez-vous créer une étape de suivi ?"';
         CstG003: label 'Is the salesperson code correctly entered?', Comment = 'FRA="Le code vendeur est-il correctement renseigné ?"';
         "-FEP-ACHAT-200706_18_A-": Integer;

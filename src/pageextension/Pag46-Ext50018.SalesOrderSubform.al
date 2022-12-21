@@ -42,7 +42,7 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
             }
             field("BC6_Purchasing Code"; "Purchasing Code")
             {
-                ToolTip = 'Specifies the purchasing code for the item.', Comment = 'FRA="Sp‚cifie le code achat pour l''article."';
+                ToolTip = 'Specifies the purchasing code for the item.', Comment = 'FRA="Spécifie le code achat pour l''article."';
                 Visible = false;
                 ApplicationArea = All;
             }
@@ -57,7 +57,7 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
         {
             field("BC6_Purchase cost"; "BC6_Purchase cost")
             {
-                Caption = 'Real purchase cost', Comment = 'FRA="Co–t d''achat r‚el"';
+                Caption = 'Real purchase cost', Comment = 'FRA="Coût d''achat réel"';
                 Visible = ShowRealProfit;
                 ApplicationArea = All;
 
@@ -68,7 +68,7 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
             }
             field("BC6_Increase Purchase cost"; IncrPurchCost)
             {
-                Caption = 'Purchase cost', Comment = 'FRA="Co–t d''achat"';
+                Caption = 'Purchase cost', Comment = 'FRA="Coût d''achat"';
                 ApplicationArea = All;
 
                 trigger OnValidate()
@@ -121,7 +121,7 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
         {
             field("BC6_Profit %"; "Profit %")
             {
-                Caption = 'Real profit %', Comment = 'FRA="% marge sur vente r‚el"';
+                Caption = 'Real profit %', Comment = 'FRA="% marge sur vente réel"';
                 Visible = ShowRealProfit;
                 ApplicationArea = All;
 

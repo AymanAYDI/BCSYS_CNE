@@ -1557,6 +1557,7 @@ then begin
         Vendor."BC6_Creation Date" := WORKDATE;
         Vendor.BC6_User := USERID;
         Vendor."BC6_Pay-to Vend. No." := Vendor."No.";
+        NaviSetup.Get();
         NaviSetup.TESTFIELD(NaviSetup."Gen. Bus. Posting Group Vendor");
         NaviSetup.TESTFIELD(NaviSetup."VAT Bus. Posting Group Vendor");
         NaviSetup.TESTFIELD(NaviSetup."Vendor Posting Group");

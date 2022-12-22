@@ -24524,18 +24524,18 @@
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesOrder - Action BC6_Create Technicals Directory - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1199972306 - Action 2885356853 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
-          <source>BC6_Creer demande de prix</source>
+          <source>Créer demande de prix</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesOrder - Action BC6_Creer demande de prix - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1199972306 - Action 3010257646 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
           <source>Post and &amp;Print</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA="Valider et i&amp;mprimer"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesOrder - Action BC6_PostAndPrint - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1199972306 - Action 1911550057 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
           <source>Work Order</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA="Edition Bon Prépa"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesOrder - Action BC6_Work Order - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1199972306 - Action 3463508404 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
@@ -24545,12 +24545,12 @@
         </trans-unit>
         <trans-unit id="PageExtension 1199972306 - Action 715036439 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
           <source>Print</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA="Imprimer"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesOrder - Action BC6_Imprimer - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1199972306 - Control 1608765037 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
           <source>Sell-to Customer No.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA="N° donneur d'ordre"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesOrder - Control BC6_Sell-to Customer No. - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1199972306 - Control 3660881088 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
@@ -24595,7 +24595,7 @@
         </trans-unit>
         <trans-unit id="PageExtension 1199972306 - Control 3006372614 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
           <source>Your Reference</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA="Votre référence"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesOrder - Control BC6_Your Reference - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1199972306 - Control 2849022084 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
@@ -24605,12 +24605,12 @@
         </trans-unit>
         <trans-unit id="PageExtension 1199972306 - Control 3237278987 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
           <source>Reason Code</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA="Code motif"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesOrder - Control BC6_Reason Code - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1199972306 - Control 2360144258 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
           <source>Bill-to Customer No.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA="N° client facturé"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesOrder - Control BC6_Bill-to Customer No. - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 4166755224 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3332899200">

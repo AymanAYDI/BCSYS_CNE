@@ -1,11 +1,6 @@
 report 50747 "BC6_Invt. Pick2"
 {
-    // -----------------------------------------------
-    // Prodware -www.prodware.fr
-    // -----------------------------------------------
-    // 
-    // //>> CNE4.01
-    // B:FE05 01.09.2011 : Inventory Pick List
+
     DefaultLayout = RDLC;
     RDLCLayout = './src/Report/RDL/InvtPick2.rdl';
     Caption = 'Picking List', Comment = 'FRA="Prélèvement stock"';

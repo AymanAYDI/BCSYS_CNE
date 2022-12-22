@@ -958,7 +958,7 @@ report 50060 "BC6_Return Order SAV Conf."
         ShareCapitalLbl: Label 'With the Share Capital of', comment = 'FRA="au capital social de"';
         ShiptoAddrCaptionLbl: Label 'Ship-to Address', comment = 'FRA="Adresse destinataire"';
         SubtotalCaptionLbl: Label 'Subtotal', comment = 'FRA="Sous-total"';
-        Text004: Label 'Return Order Confirmation %1', Comment = '%1 = Document No.';
+        Text004: Label 'Return Order Confirmation %1';
         Text005: Label 'Page %1';
         Text007: Label 'VAT Amount Specification in ', comment = 'FRA="Détail TVA dans"';
         Text008: Label 'Local Currency', comment = 'FRA="Devise société"';

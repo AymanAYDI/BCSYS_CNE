@@ -236,8 +236,8 @@ table 99008 "BC6_Vendor Test"
         {
             AutoFormatType = 1;
             CalcFormula = - Sum("Vendor Ledger Entry"."Purchase (LCY)" WHERE("Vendor No." = FIELD("No."),
-                                                                           //TODO     // "Initial Entry Global Dim. 1" = FIELD("Global Dimension 1 Filter"),
-                                                                           //"Initial Entry Global Dim. 2" = FIELD("Global Dimension 2 Filter"),
+                                                                            "Global Dimension 1 Code" = FIELD("Global Dimension 1 Filter"),
+                                                                             "Global Dimension 2 Code" = FIELD("Global Dimension 2 Filter"),
                                                                            "Posting Date" = FIELD("Date Filter"),
                                                                            "Currency Code" = FIELD("Currency Filter")));
             Caption = 'Purchases (LCY)', comment = 'FRA="Achats DS"';
@@ -248,8 +248,8 @@ table 99008 "BC6_Vendor Test"
         {
             AutoFormatType = 1;
             CalcFormula = - Sum("Vendor Ledger Entry"."Inv. Discount (LCY)" WHERE("Vendor No." = FIELD("No."),
-                                                                           //TODO      //    "Initial Entry Global Dim. 1" = FIELD("Global Dimension 1 Filter"),
-                                                                           //    "Initial Entry Global Dim. 2" = FIELD("Global Dimension 2 Filter"),
+                                                                            "Global Dimension 1 Code" = FIELD("Global Dimension 1 Filter"),
+                                                                            "Global Dimension 2 Code" = FIELD("Global Dimension 2 Filter"),
                                                                            "Posting Date" = FIELD("Date Filter"),
                                                                            "Currency Code" = FIELD("Currency Filter")));
             Caption = 'Inv. Discounts (LCY)', comment = 'FRA="Remises facture DS"';
@@ -735,7 +735,6 @@ table 99008 "BC6_Vendor Test"
         field(6207; "Notification Process Code"; Code[10])
         {
             Caption = 'Notification Process Code', comment = 'FRA="Code processus de notification"';
-            // TableRelation = Table6221; TODO: 
         }
         field(6209; "Queue Priority"; Enum "BC6_Queue Priority")
         {

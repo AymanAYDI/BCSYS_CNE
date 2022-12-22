@@ -547,7 +547,7 @@ report 50015 "BC6_Prices Request"
 
         trigger OnOpenPage()
         begin
-            //TODO ArchiveDocument := PurchSetup."Archive Quotes and Orders";
+            ArchiveDocument := PurchSetup."Archive Quotes" = PurchSetup."Archive Quotes"::Always;
             LogInteraction := SegManagement.FindInteractTmplCode(13) <> '';
 
             LogInteractionEnable := LogInteraction;

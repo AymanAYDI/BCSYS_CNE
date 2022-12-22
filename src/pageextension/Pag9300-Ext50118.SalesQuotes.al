@@ -1,9 +1,5 @@
 pageextension 50118 "BC6_SalesQuotes" extends "Sales Quotes" //9300
 {
-    //TODO: Unsupported feature: Property Modification (SourceTableView) on ""Sales Quotes"(Page 9300)".
-    //    SourceTableView=SORTING(Document Type,Order Date,No.)
-    // ORDER(Descending)
-    // WHERE(Document Type=CONST(Quote));
 
     layout
     {

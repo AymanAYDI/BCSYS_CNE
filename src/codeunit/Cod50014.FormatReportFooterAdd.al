@@ -10,7 +10,7 @@ codeunit 50014 "BC6_Format Report Footer Add"
         VatRegistrationNoCaption: Label 'VAT No. : %1', Comment = 'FRA="No. TVA : %1"';
         EmailCaption: Label 'email : %1', Comment = 'FRA="email : %1"';
         TextAPECode: Label ' APE%1', Comment = 'FRA="APE%1"';
-        TextBankInfo: Label 'Bank Details : ', Comment = 'FRA="Coordonnées bancaires : ""';
+        TextBankInfo: Label 'Bank Details : ', Comment = 'FRA="Coordonnées bancaires : "';
         TextSwiftCode: Label ' BIC : %1', Comment = 'FRA="BIC : %1"';
         RegistrationNoCaption: Label 'Registration No. %1 :', Comment = 'FRA="SIRET : %1"';
     begin

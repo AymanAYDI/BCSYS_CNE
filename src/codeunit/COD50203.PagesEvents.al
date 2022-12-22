@@ -370,8 +370,8 @@ codeunit 50203 "BC6_PagesEvents"
         YourReference: Text;
         Subject: Text[250];
         CompanyInformation: Record "Company Information";
-        EmailSubjectPluralCapTxt: Label '%1 - %2', Comment = '%1 = Customer Name. %2 = Document Type in plural form';
-        EmailSubjectCapTxt: Label '%1 - %2 %3', Comment = '%1 = Customer Name. %2 = Document Type %3 = Invoice No.';
+        EmailSubjectPluralCapTxt: Label '%1 - %2';
+        EmailSubjectCapTxt: Label '%1 - %2 %3';
 
     begin
         if PostedDocNo = '' then
@@ -395,7 +395,7 @@ codeunit 50203 "BC6_PagesEvents"
         AvailabilityCheckNotification: Notification;
         VariantCode: code[20];
         DetailsTxt: Label 'Show details';
-        NotificationMsg: Label 'The available inventory for item %1 is lower than the entered quantity at this location.', Comment = '%1=Item No.';
+        NotificationMsg: Label 'The available inventory for item %1 is lower than the entered quantity at this location.';
         DontShowAgainTxt: Label 'Don''t show again';
         NotificationLifecycleMgt: Codeunit "Notification Lifecycle Mgt.";
         ItemCheckAvail: Codeunit "Item-Check Avail.";

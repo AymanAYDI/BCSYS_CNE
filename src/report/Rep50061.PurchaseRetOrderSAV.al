@@ -940,7 +940,7 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
         EmailCaptionLbl: Label 'Email', comment = 'FRA="E-mail"';
         FaxNoCaptionLbl: Label 'Fax No.', comment = 'FRA="Fax."';
         GiroNoCaptionLbl: Label 'Giro No.', comment = 'FRA="N° CCP"';
-        HdrDimsCaptionLbl: Label 'Header Dimensions', comment = 'FRA="Analytique en-téte"';
+        HdrDimsCaptionLbl: Label 'Header Dimensions', comment = 'FRA="Analytique en-tête"';
         HomePageCaptionLbl: Label 'Home Page', comment = 'FRA="Page d''accueil"';
         InvDisAmtCaptionLbl: Label 'Invoice Discount Amount', comment = 'FRA="Montant remise facture"';
         InvDiscBaseAmtCaptionLbl: Label 'Invoice Discount Base Amount';
@@ -957,7 +957,7 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
         ShareCapitalLbl: Label 'With the Share Capital of', comment = 'FRA="au capital social de"';
         ShiptoAddressCaptionLbl: Label 'Ship-to Address', comment = 'FRA="Adresse destinataire"';
         SubtotalCaptionLbl: Label 'Subtotal', comment = 'FRA="Sous-total"';
-        Text004: Label 'Return Order %1', Comment = '%1 = Document No.';
+        Text004: Label 'Return Order %1';
         Text005: Label 'Page %1';
         Text007: Label 'VAT Amount Specification in ', comment = 'FRA="Détail TVA dans"';
         Text008: Label 'Local Currency', comment = 'FRA="Devise société"';

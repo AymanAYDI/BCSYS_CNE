@@ -1,5 +1,7 @@
 codeunit 50202 "BC6_Functions Mgt"
 {
+    Permissions = TableData "Sales Invoice Header" = imd;
+
     procedure FindVeryBestCost(var RecLPurchaseLine: Record "Purchase Line"; RecLPurchaseHeader: Record "Purchase Header")
     var
         Item: Record Item;
@@ -631,7 +633,7 @@ codeunit 50202 "BC6_Functions Mgt"
         end;
     end;
 
-    procedure CheckReturnOrderMandatoryFields(P_SalesHeader: Record "Sales Header");
+    procedure COD414_CheckReturnOrderMandatoryFields(P_SalesHeader: Record "Sales Header");
     var
         L_SalesLine: Record "Sales Line";
     begin
@@ -2084,6 +2086,20 @@ codeunit 50202 "BC6_Functions Mgt"
     begin
         ShipmentBinAvailable := Bin.Get(Location.Code, Location."Shipment Bin Code");
         exit(Location."Require Shipment" and ShipmentBinAvailable);
+    end;
+
+    procedure ReleaseATOs(SalesHeader: Record "Sales Header")
+    var
+        SalesLine: Record "Sales Line";
+        AsmHeader: Record "Assembly Header";
+    begin
+        SalesLine.SetRange("Document Type", SalesHeader."Document Type");
+        SalesLine.SetRange("Document No.", SalesHeader."No.");
+        if SalesLine.FindSet() then
+            repeat
+                if SalesLine.AsmToOrderExists(AsmHeader) then
+                    CODEUNIT.Run(CODEUNIT::"Release Assembly Document", AsmHeader);
+            until SalesLine.Next() = 0;
     end;
 
 

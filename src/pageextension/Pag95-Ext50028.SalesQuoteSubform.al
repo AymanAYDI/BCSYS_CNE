@@ -47,7 +47,7 @@ pageextension 50028 "BC6_SalesQuoteSubform" extends "Sales Quote Subform" //95
             }
             field("BC6_Increase Purchase cost"; IncrPurchCost)
             {
-                Caption = 'Purchase cost', comment = 'FRA="Coùt d''achat"';
+                Caption = 'Purchase cost', comment = 'FRA="Coût d''achat"';
 
                 trigger OnValidate()
                 begin

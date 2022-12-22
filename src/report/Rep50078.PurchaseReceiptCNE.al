@@ -676,7 +676,7 @@ report 50078 "BC6_Purchase - Receipt CNE"
         EAN13_CodeCaptionLbl: Label 'EAN13 Code', comment = 'FRA="Code EAN13"';
         EmailCaptionLbl: Label 'E-Mail';
         GiroNoCaptionLbl: Label 'Giro No.', comment = 'FRA="No CCP"';
-        HeaderDimCaptionLbl: Label 'Header Dimensions', comment = 'FRA="Analytique en-téte"';
+        HeaderDimCaptionLbl: Label 'Header Dimensions', comment = 'FRA="Analytique en-tête"';
         HomePageCaptionLbl: Label 'Home Page', comment = 'FRA="Page d''accueil"';
         LineDimCaptionLbl: Label 'Line Dimensions', comment = 'FRA="Analytique ligne"';
         N__commande_venteCaptionLbl: Label 'N° commande vente';
@@ -684,7 +684,7 @@ report 50078 "BC6_Purchase - Receipt CNE"
         PageCaptionLbl: Label 'Page';
         Pay_to_AddressCaptionLbl: Label 'Pay-to Address', comment = 'FRA="Addresse"';
         PaytoAddrCaptionLbl: Label 'Pay-to Address', comment = 'FRA="Adresse"';
-        PaytoVenNoCaptionLbl: Label 'Pay-to Vendor No.', comment = 'FRA="No fournisseur … payer"';
+        PaytoVenNoCaptionLbl: Label 'Pay-to Vendor No.', comment = 'FRA="No fournisseur à payer"';
         PhoneNoCaptionLbl: Label 'Phone No.', comment = 'FRA="n° téléphone"';
         PostedInvtPutawayHeader__No__CaptionLbl: Label 'Invt. Put-Away No.', comment = 'FRA="No rangement stock"';
         Purch__Rcpt__Header___No__CaptionLbl: Label 'Shipment No.', comment = 'FRA="No livraison"';

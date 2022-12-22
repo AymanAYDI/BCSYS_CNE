@@ -3,15 +3,6 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
 
     layout
     {
-        addafter("No.")
-        {
-            field("BC6_Sell-to Customer No."; "Sell-to Customer No.")
-            {
-                ApplicationArea = All;
-                Caption = 'Sell-to Customer No.';
-            }
-
-        }
         addafter(Status)
         {
             field(BC6_ID; BC6_ID)
@@ -24,7 +15,7 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
             {
                 Importance = Promoted;
                 ApplicationArea = All;
-                Caption = 'Your Reference';
+                Caption = 'Your Reference', Comment = 'FRA="Votre référence"';
             }
             field("BC6_Sell-to Fax No."; "BC6_Sell-to Fax No.")
             {
@@ -69,7 +60,7 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
             field("BC6_Reason Code"; "Reason Code")
             {
                 ApplicationArea = All;
-                Caption = 'Reason Code';
+                Caption = 'Reason Code', Comment = 'FRA="Code motif"';
 
                 trigger OnValidate()
                 begin
@@ -86,7 +77,7 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
         {
             field("BC6_Bill-to Customer No."; "Bill-to Customer No.")
             {
-                Caption = 'Bill-to Customer No.';
+                Caption = 'Bill-to Customer No.', Comment = 'FRA="N° client facturé"';
             }
         }
         addafter(Control1903720907)
@@ -150,7 +141,7 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
             action("BC6_Creer demande de prix")
             {
                 ApplicationArea = All;
-                Caption = 'BC6_Creer demande de prix';
+                Caption = 'Créer demande de prix';
                 trigger OnAction()
                 var
                     RecLSalesHeader: Record "Sales Header";
@@ -178,7 +169,7 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
         {
             action(BC6_PostAndPrint)
             {
-                Caption = 'Post and &Print';
+                Caption = 'Post and &Print', Comment = 'FRA="Valider et i&mprimer"';
                 Ellipsis = true;
                 Image = PostPrint;
                 Promoted = true;
@@ -197,7 +188,7 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
         {
             action("BC6_Work Order")
             {
-                Caption = 'Work Order';
+                Caption = 'Work Order', Comment = 'FRA="Edition Bon Prépa"';
                 Image = Print;
                 ApplicationArea = All;
 
@@ -211,7 +202,7 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
                     RecGSalesHeader.SETRANGE(RecGSalesHeader."Document Type", "Document Type");
                     RecGSalesHeader.SETRANGE(RecGSalesHeader."No.", "No.");
                     RecGSalesHeader.FIND('-');
-                    //TODO // REPORT.RUNMODAL(REPORT::"Preparation NAVIDIIGEST", TRUE, FALSE, RecGSalesHeader);
+                    REPORT.RUNMODAL(REPORT::"BC6_Preparation NAVIDIIGEST", TRUE, FALSE, RecGSalesHeader);
                 end;
             }
         }
@@ -219,7 +210,7 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
         {
             action(BC6_Imprimer)
             {
-                Caption = 'Print';
+                Caption = 'Print', Comment = 'FRA="Imprimer"';
                 ApplicationArea = All;
 
                 trigger OnAction()

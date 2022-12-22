@@ -52,7 +52,7 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
             field("BC6_Lead Time Calculation"; "Lead Time Calculation")
             {
                 Importance = Promoted;
-                ToolTip = 'Specifies a date formula for the time that it takes to replenish the item.', Comment = 'FRA="Sp‚cifie une formule date pour le d‚lai n‚cessaire au r‚approvisionnement de l''article."';
+                ToolTip = 'Specifies a date formula for the time that it takes to replenish the item.', Comment = 'FRA="Spécifie une formule date pour le délai nécessaire au réapprovisionnement de l''article."';
                 Visible = false;
                 ApplicationArea = All;
             }
@@ -152,7 +152,7 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
             }
             action("BC6_Associated Document")
             {
-                Caption = 'Associated Document', Comment = 'FRA="Document Associ‚"';
+                Caption = 'Associated Document', Comment = 'FRA="Document Associé"';
                 Image = Document;
                 ApplicationArea = All;
 
@@ -182,7 +182,7 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
             }
             action("Achats Groupés")
             {
-                Caption = 'Achats Groupés', Comment = 'FRA="Achats Group‚s"';
+                Caption = 'Achats Groupés', Comment = 'FRA="Achats Groupés"';
                 RunObject = Page "BC6_Sales Order Lines Test";
                 RunPageLink = "BC6_Buy-from Vendor No." = FIELD("No.");
                 ShortCutKey = 'Ctrl+K';

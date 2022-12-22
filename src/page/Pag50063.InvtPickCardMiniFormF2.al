@@ -475,7 +475,7 @@ page 50063 "Invt. Pick Card MiniForm F2"
         Text013: Label 'Item No. %1 Incorrect', Comment = 'FRA="%1 n° article erroné"';
         Text014: Label 'Item %1 blocked', Comment = 'FRA="%1 article bloqué"';
         Text015: Label 'User %1 model sheet does not exist', Comment = 'FRA="Pas de nom de feuille article utilisateur %1"';
-        Text016: Label 'Item %1 not exit on Invt. Pick', Comment = 'FRA="Article (%1)  n''est pas sur le prélevement."';
+        Text016: Label 'Item %1 not exit on Invt. Pick', Comment = 'FRA="Article (%1)  n''est pas sur le prélèvement."';
         txt003: Label 'You cannot delete the entry', Comment = 'FRA="Vous ne pouvez pas supprimer la saisie."';
         ErrorTxt: Text[250];
 

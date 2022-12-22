@@ -1868,7 +1868,7 @@ report 50090 "BC6_Facture Proforma CNE"
         OrderNoCaptionLbl: Label 'Order No.', comment = 'FRA="n° commande"';
         HomePageCaptionLbl: Label 'Home Page', comment = 'FRA="Page d''accueil"';
         EmailCaptionLbl: Label 'E-Mail', comment = 'FRA=""';
-        HeaderDimCaptionLbl: Label 'Header Dimensions', comment = 'FRA="Analytique en-téte"';
+        HeaderDimCaptionLbl: Label 'Header Dimensions', comment = 'FRA="Analytique en-tête"';
         DiscountPercentCaptionLbl: Label 'Discount %', comment = 'FRA="% remise"';
         SubtotalCaptionLbl: Label 'Subtotal', comment = 'FRA="Sous-total"';
         PaymentDiscountVATCaptionLbl: Label 'Payment Discount on VAT', comment = 'FRA="Escompte sur TVA"';
@@ -1994,7 +1994,7 @@ report 50090 "BC6_Facture Proforma CNE"
         CstG002: Label 'Unit Sale', comment = 'FRA="Unité vente"';
         CstG003: Label 'REGLEMENT DATE', comment = 'FRA="DATE DE REGLEMENT"';
         CstG004: Label 'REGLEMENT CONDITION', comment = 'FRA="CONDITIONS DE REGLEMENT"';
-        CstG005: Label 'Is the total amount is not payed at the due date', comment = 'FRA="Dans le cas o— le paiement intégral n''interviendrait pas … la date prévue par les parties,"';
+        CstG005: Label 'Is the total amount is not payed at the due date', comment = 'FRA="Dans le cas où le paiement intégral n''interviendrait pas à la date prévue par les parties,"';
         CstG006: Label 'We will get back the delivered items', comment = 'FRA="le vendeur se réserve le droit de reprendre le matériel livré."';
         CstG007: Label 'Late payment : 1,5 legal rate', comment = 'FRA="Retard de paiement : pénalités de 1% par mois."';
         Language2: Codeunit Language;

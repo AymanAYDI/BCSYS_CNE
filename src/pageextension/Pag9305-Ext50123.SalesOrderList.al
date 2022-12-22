@@ -210,8 +210,8 @@ pageextension 50123 "BC6_SalesOrderList" extends "Sales Order List" //9305
 
     procedure CheckIfReleased()
     var
-        CstL0001: Label 'Your order isn''t released, Do You want release it ?', Comment = 'FRA="Votre commande n''est pas lanc‚e, souhaitez-vous la lancer ?"';
-        CstL0002: Label 'Aborted Operation', Comment = 'FRA="Op‚ration interrompue"';
+        CstL0001: Label 'Your order isn''t released, Do You want release it ?', Comment = 'FRA="Votre commande n''est pas lancée, souhaitez-vous la lancer ?"';
+        CstL0002: Label 'Aborted Operation', Comment = 'FRA="Opération interrompue"';
     begin
         SalesSetup.GET();
         IF SalesSetup."BC6_Acti. Releas. Print. Order" THEN

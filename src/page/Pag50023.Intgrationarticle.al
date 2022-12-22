@@ -147,7 +147,7 @@ page 50023 "BC6_Intégration article"
             }
             action("Update Item Std Cost")
             {
-                Caption = 'Update Item Std Cost', Comment = 'FRA="Maj cout standard article"';
+                Caption = 'Update Item Std Cost', Comment = 'FRA="Maj Coût standard article"';
                 Image = UpdateUnitCost;
                 Promoted = true;
                 PromotedOnly = true;
@@ -156,7 +156,7 @@ page 50023 "BC6_Intégration article"
 
                 trigger OnAction()
                 begin
-                    REPORT.RUNMODAL(Report::"BC6_Maj cout standard article");
+                    REPORT.RUNMODAL(Report::"BC6_Maj Cout standard article");
                     MESSAGE(textG005);
                 end;
             }

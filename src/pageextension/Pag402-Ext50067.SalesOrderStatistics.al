@@ -19,7 +19,7 @@ pageextension 50067 "BC6_SalesOrderStatistics" extends "Sales Order Statistics" 
         }
         modify("TotalAdjCostLCY[1]")
         {
-            Caption = 'Adjusted Cost (LCY)', Comment = 'FRA="Cout réel DS"';
+            Caption = 'Adjusted Cost (LCY)', Comment = 'FRA="Coût réel DS"';
             Visible = ShowRealProfit;
         }
         modify("AdjProfitLCY[2]")
@@ -34,7 +34,7 @@ pageextension 50067 "BC6_SalesOrderStatistics" extends "Sales Order Statistics" 
         }
         modify("TotalAdjCostLCY[2]")
         {
-            Caption = 'Adjusted Cost (LCY)', Comment = 'FRA="Cout réel DS"';
+            Caption = 'Adjusted Cost (LCY)', Comment = 'FRA="Coût réel DS"';
             Visible = ShowRealProfit;
         }
 
@@ -62,7 +62,7 @@ pageextension 50067 "BC6_SalesOrderStatistics" extends "Sales Order Statistics" 
         {
             field("TotalSalesLineLCY[1].""Purchase cost"""; TotalSalesLineLCY[1]."BC6_Purchase cost")
             {
-                Caption = 'Purchase Cost (LCY)', Comment = 'FRA="Cout d''achat DS"';
+                Caption = 'Purchase Cost (LCY)', Comment = 'FRA="Coût d''achat DS"';
                 Editable = false;
             }
         }
@@ -86,7 +86,7 @@ pageextension 50067 "BC6_SalesOrderStatistics" extends "Sales Order Statistics" 
         {
             field("TotalSalesLineLCY[2].""Purchase cost"""; TotalSalesLineLCY[2]."BC6_Purchase cost")
             {
-                Caption = 'Purchase Cost (LCY)', Comment = 'FRA="Cout d''achat DS"';
+                Caption = 'Purchase Cost (LCY)', Comment = 'FRA="Coût d''achat DS"';
             }
         }
 
@@ -105,7 +105,7 @@ pageextension 50067 "BC6_SalesOrderStatistics" extends "Sales Order Statistics" 
         {
             field("TotalSalesLineLCY[3].""Purchase cost"""; TotalSalesLineLCY[3]."BC6_Purchase cost")
             {
-                Caption = 'Purchase Cost (LCY)', Comment = 'FRA="Cout d''achat DS"';
+                Caption = 'Purchase Cost (LCY)', Comment = 'FRA="Coût d''achat DS"';
             }
         }
 

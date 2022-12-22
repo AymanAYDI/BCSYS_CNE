@@ -3,15 +3,6 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
 
     layout
     {
-        addafter("No.")
-        {
-            field("BC6_Sell-to Customer No."; "Sell-to Customer No.")
-            {
-                ApplicationArea = All;
-                Caption = 'Sell-to Customer No.';
-            }
-
-        }
         addafter(Status)
         {
             field(BC6_ID; BC6_ID)

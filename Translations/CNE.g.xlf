@@ -24548,11 +24548,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesOrder - Action BC6_Imprimer - Property Caption</note>
         </trans-unit>
-        <trans-unit id="PageExtension 1199972306 - Control 1608765037 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
-          <source>Sell-to Customer No.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesOrder - Control BC6_Sell-to Customer No. - Property Caption</note>
-        </trans-unit>
         <trans-unit id="PageExtension 1199972306 - Control 3660881088 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
           <source>Affair No.</source>
           <note from="Developer" annotates="general" priority="2">FRA="N° Affaire"</note>
@@ -24778,8 +24773,23 @@
           <note from="Developer" annotates="general" priority="2">FRA="&amp;Créer demande de prix"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesQuote - Action BC6_&amp;Create Sales price request - Property Caption</note>
         </trans-unit>
+        <trans-unit id="PageExtension 2808424006 - Control 1608765037 - Property 1064389655" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 280137910">
+          <source>Who is the quote for?</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesQuote - Control BC6_Sell-to Customer No. - Property AboutTitle</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2808424006 - Control 1608765037 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 280137910">
+          <source>Specifies the number of the customer who will receive the products and be billed by default.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesQuote - Control BC6_Sell-to Customer No. - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2808424006 - Control 1608765037 - Property 247559172" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 280137910">
+          <source>You can choose existing customers, or add new customers when you create quotes. Quotes can automatically choose special prices and discounts that you have set for each customer.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesQuote - Control BC6_Sell-to Customer No. - Property AboutText</note>
+        </trans-unit>
         <trans-unit id="PageExtension 2808424006 - Control 1608765037 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 280137910">
-          <source>Sell-to Customer No.</source>
+          <source>Customer No.</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesQuote - Control BC6_Sell-to Customer No. - Property Caption</note>
         </trans-unit>

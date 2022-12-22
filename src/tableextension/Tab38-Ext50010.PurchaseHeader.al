@@ -334,5 +334,5 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
         TextG001: label 'Warning, using foreign currency will generate wrong profit calculation.';
         TextG002: label 'Thank to inform freight charge amount for line %1, No. %2';
         TextG003: label 'Warning:This purchase order is linked to a sales order.';
-        YouCannotChangeFieldErr: label 'You cannot change %1 because the order is associated with one or more sales orders.', Comment = '%1 - fieldcaption';
+        YouCannotChangeFieldErr: label 'You cannot change %1 because the order is associated with one or more sales orders.';
 }

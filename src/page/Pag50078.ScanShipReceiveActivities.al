@@ -15,7 +15,7 @@ page 50078 "Scan Ship & Receive Activities"
                 field("My Invt. Lines Until Today"; "BC6_My Invt. Lines Until Today")
                 {
                     Caption = 'My Inventory Picks Until Today', Comment = 'FRA="Mes lignes Prélèvements stock à ce jour"';
-                    ToolTip = 'Specifies the number of inventory picks that are displayed in the Warehouse Basic Cue on the Role Center. The documents are filtered by today''s date.', Comment = 'FRA"Spécifie le nombre de prélèvements stock qui sont affichés dans la pile Base entrepôt du tableau de bord. Les documents sont filtrés à la date du jour."';
+                    ToolTip = 'Specifies the number of inventory picks that are displayed in the Warehouse Basic Cue on the Role Center. The documents are filtered by today''s date.', Comment = 'FRA="Spécifie le nombre de prélèvements stock qui sont affichés dans la pile Base entrepôt du tableau de bord. Les documents sont filtrés à la date du jour."';
                     ApplicationArea = All;
 
                     trigger OnDrillDown()

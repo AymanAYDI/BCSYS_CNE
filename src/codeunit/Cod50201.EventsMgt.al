@@ -2427,9 +2427,9 @@ then begin
         Text001: label 'Journal Batch Name    #1##########\\';
         Text002: label 'Checking lines        #2######\';
         Text005: label 'Posting lines         #3###### @4@@@@@@@@@@@@@';
-        Text101: label 'ENU=Jnl. Batch #1###\\';
-        Text102: label 'ENU=Chec. lines #2###\';
-        Text105: label 'ENU=Post. #3### @4@';
+        Text101: label 'Jnl. Batch #1###\\';
+        Text102: label 'Chec. lines #2###\';
+        Text105: label 'Post. #3### @4@';
     begin
         IsHandled := true;
         ItemJnlTemplate.Get(ItemJnlLine."Journal Template Name");

@@ -289,57 +289,27 @@ codeunit 50203 "BC6_PagesEvents"
         FctMngt.Increment(TotalPurchLine."BC6_DEEE HT Amount (LCY)", PurchLine."BC6_DEEE HT Amount (LCY)");
     end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnPostVendorEntryOnBeforeInitNewLine', '', false, false)]
-    local procedure OnPostVendorEntryOnBeforeInitNewLine(var PurchHeader: Record "Purchase Header"; TotalPurchLine: Record "Purchase Line"; TotalPurchLineLCY: Record "Purchase Line"; GenJnlLineDocType: Enum "Gen. Journal Document Type"; DocNo: Code[20];
-                                                                                                                                                                                                              ExtDocNo: Code[35];
-                                                                                                                                                                                                              SourceCode: Code[10]; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line"; var IsHandled: Boolean)
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnBeforePostVendorEntry', '', false, false)]
+    local procedure OnBeforePostVendorEntry(var GenJnlLine: Record "Gen. Journal Line"; var PurchHeader: Record "Purchase Header"; var TotalPurchLine: Record "Purchase Line"; var TotalPurchLineLCY: Record "Purchase Line"; PreviewMode: Boolean; CommitIsSupressed: Boolean; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line")
     var
-        GenJnlLine: Record "Gen. Journal Line";
-        CurrExchRate: Record "Currency Exchange Rate";
         GlobalFunction: Codeunit "BC6_GlobalFunctionMgt";
-        DocType: Enum "Gen. Journal Document Type";
     begin
-        //CurrExchRate.get(CurrExchRate."Currency Code", CurrExchRate."Starting Date");
-        IsHandled := true;
-        with GenJnlLine do begin
-            InitNewLine(
-              PurchHeader."Posting Date", PurchHeader."Document Date", PurchHeader."Pay-to Name",
-              PurchHeader."Shortcut Dimension 1 Code", PurchHeader."Shortcut Dimension 2 Code",
-              PurchHeader."Dimension Set ID", PurchHeader."Reason Code");
-            CopyDocumentFields(DocType, DocNo, ExtDocNo, SourceCode, '');
-            "Account Type" := "Account Type"::Vendor;
-            "Account No." := PurchHeader."Pay-to Vendor No.";
-            CopyFromPurchHeader(PurchHeader);
-            SetCurrencyFactor(PurchHeader."Currency Code", PurchHeader."Currency Factor");
-            "System-Created Entry" := true;
-            CopyFromPurchHeaderApplyTo(PurchHeader);
-            CopyFromPurchHeaderPayment(PurchHeader);
 
-            Amount := -TotalPurchLine."Amount Including VAT";
-            "Source Currency Amount" := -TotalPurchLine."Amount Including VAT";
-            "Amount (LCY)" := -TotalPurchLineLCY."Amount Including VAT";
-            "Sales/Purch. (LCY)" := -TotalPurchLineLCY.Amount;
-            "Inv. Discount (LCY)" := -TotalPurchLineLCY."Inv. Discount Amount";
-            "Orig. Pmt. Disc. Possible" := -TotalPurchLine."Pmt. Discount Amount";
-            "Orig. Pmt. Disc. Possible(LCY)" :=
-              CurrExchRate.ExchangeAmtFCYToLCY(
-                PurchHeader.GetUseDate(), PurchHeader."Currency Code", -TotalPurchLine."Pmt. Discount Amount", PurchHeader."Currency Factor");
+        GenJnlLine."BC6_DEEE HT Amount" := TotalPurchLine."BC6_DEEE HT Amount";
+        GenJnlLine."BC6_DEEE VAT Amount" := TotalPurchLine."BC6_DEEE VAT Amount";
+        GenJnlLine."BC6_DEEE TTC Amount" := TotalPurchLine."BC6_DEEE TTC Amount";
+        GenJnlLine."BC6_DEEE HT Amount (LCY)" := TotalPurchLine."BC6_DEEE HT Amount (LCY)";
+        GenJnlLine."BC6_Eco partner DEEE" := GlobalFunction.Get_PurchEcoPartnerDEEE();
+        GenJnlLine."BC6_DEEE Category Code" := GlobalFunction.Get_PurchDEEECategoryCode();
 
-            //>>MIGRATION NAV 2013 - 2017
-            GenJnlLine."BC6_DEEE HT Amount" := TotalPurchLine."BC6_DEEE HT Amount";
-            GenJnlLine."BC6_DEEE VAT Amount" := TotalPurchLine."BC6_DEEE VAT Amount";
-            GenJnlLine."BC6_DEEE TTC Amount" := TotalPurchLine."BC6_DEEE TTC Amount";
-            GenJnlLine."BC6_DEEE HT Amount (LCY)" := TotalPurchLine."BC6_DEEE HT Amount (LCY)";
-            GenJnlLine."BC6_Eco partner DEEE" := GlobalFunction.Get_PurchEcoPartnerDEEE();
-            GenJnlLine."BC6_DEEE Category Code" := GlobalFunction.Get_PurchDEEECategoryCode();
+        GenJnlLine.Amount := GenJnlLine.Amount - GlobalFunction.Get_PurchGDecMntTTCDEEE();
+        GenJnlLine."Source Currency Amount" := GenJnlLine."Source Currency Amount" - GlobalFunction.Get_PurchGDecMntTTCDEEE();
+        GenJnlLine."Amount (LCY)" := GenJnlLine."Amount (LCY)" - GlobalFunction.Get_PurchGDecMntTTCDEEE();
+        //>>DEEE1.00 : DEEE amount management
 
-            GenJnlLine.Amount := GenJnlLine.Amount - GlobalFunction.Get_PurchGDecMntTTCDEEE();
-            GenJnlLine."Source Currency Amount" := GenJnlLine."Source Currency Amount" - GlobalFunction.Get_PurchGDecMntTTCDEEE();
-            GenJnlLine."Amount (LCY)" := GenJnlLine."Amount (LCY)" - GlobalFunction.Get_PurchGDecMntTTCDEEE();
-            //>>DEEE1.00 : DEEE amount management
-            GenJnlLine."Payment Method Code" := "Payment Method Code";
+        //>>REGLEMENT STLA 01.08.2006 COR001 [13] Mise ´ jour du champ Mode de r²glement de la feuille de saisie
+        GenJnlLine."Payment Method Code" := GenJnlLine."Payment Method Code";
 
-        end;
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnBeforeInitNewGenJnlLineFromPostInvoicePostBufferLine', '', false, false)]

@@ -24548,14 +24548,6 @@
           <note from="Developer" annotates="general" priority="2">FRA="Imprimer"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesOrder - Action BC6_Imprimer - Property Caption</note>
         </trans-unit>
-<<<<<<< HEAD
-=======
-        <trans-unit id="PageExtension 1199972306 - Control 1608765037 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
-          <source>Sell-to Customer No.</source>
-          <note from="Developer" annotates="general" priority="2">FRA="N° donneur d'ordre"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesOrder - Control BC6_Sell-to Customer No. - Property Caption</note>
-        </trans-unit>
->>>>>>> e33cd570864387dc917251c20260a827f76c85df
         <trans-unit id="PageExtension 1199972306 - Control 3660881088 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
           <source>Affair No.</source>
           <note from="Developer" annotates="general" priority="2">FRA="N° Affaire"</note>

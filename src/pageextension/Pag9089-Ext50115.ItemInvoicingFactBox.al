@@ -22,20 +22,23 @@ pageextension 50115 "BC6_ItemInvoicingFactBox" extends "Item Invoicing FactBox" 
         {
             field("BC6_Standard Cost"; "Standard Cost")
             {
-                Caption = 'Real standard Cost';
+                Caption = 'Real standard Cost', Comment = 'FRA="Coût standard réel"';
                 Visible = ShowRealProfit;
                 ApplicationArea = Basic, Suite;
             }
-            field(BC6_IncrStandardCost; IncrStandardCost) { }
+            field(BC6_IncrStandardCost; IncrStandardCost)
+            {
+                Caption = 'Real Unit Cost', Comment = 'FRA="Coût standard"';
+            }
             field("BC6_Unit Cost"; "Unit Cost")
             {
-                Caption = 'Real Unit Cost';
+                Caption = 'Real Unit Cost', Comment = 'FRA="Coût unitaire réel"';
                 visible = ShowRealProfit;
                 applicationArea = Basic, Suite;
             }
             field(BC6_IncrUnitCost; IncrUnitCost)
             {
-                Caption = 'Unit Cost';
+                Caption = 'Unit Cost', Comment = 'FRA="Coût unitaire"';
             }
 
         }
@@ -44,22 +47,22 @@ pageextension 50115 "BC6_ItemInvoicingFactBox" extends "Item Invoicing FactBox" 
             field("BC6_Last Direct Cost"; "Last Direct Cost")
             {
 
-                caption = 'Real Last Direct Cost';
+                caption = 'Real Last Direct Cost', Comment = 'FRA="Dernier coût direct réel"';
                 Visible = ShowRealProfit;
                 ApplicationArea = Basic, Suite;
             }
             field(BC6_IncrLastDirectCost; IncrLastDirectCost)
             {
-                Caption = 'Last Direct Cost';
+                Caption = 'Last Direct Cost', Comment = 'FRA="Dernier coût direct"';
             }
             field("BC6_Profit %"; "Profit %")
             {
-                caption = 'Real Profit %';
+                caption = 'Real Profit %', Comment = 'FRA="% marge sur vente réel"';
                 visible = ShowRealProfit;
             }
             field(BC6_IncrProfit; IncrProfit)
             {
-                caption = 'Profit %';
+                caption = 'Profit %', Comment = 'FRA="% marge sur vente"';
             }
 
         }

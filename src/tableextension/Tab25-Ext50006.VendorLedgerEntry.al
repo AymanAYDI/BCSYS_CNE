@@ -23,13 +23,7 @@ tableextension 50006 "BC6_VendorLedgerEntry" extends "Vendor Ledger Entry" //25
     }
     keys
     {
-        //TODO:keys
-        // key(Key26; "BC6_Pay-to Vend. No.", Open, Positive, "Due Date")
-        // {
-        // }
-        // key(Key27; "BC6_Pay-to Vend. No.", "Applies-to ID", "Vendor No.")
-        // {
-        // }
+
     }
 
     procedure getVendorName(CodLVendNo: Code[20]): Text[100]

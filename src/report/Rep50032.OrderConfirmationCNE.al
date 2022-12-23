@@ -246,7 +246,7 @@ report 50032 "BC6_Order Confirmation CNE"
                         trigger OnPreDataItem()
                         begin
                             StandardCustomerSalesCode.RESET;
-                            //TODO StandardCustomerSalesCode.SETRANGE(StandardCustomerSalesCode.TextautoReport, TRUE);
+                            StandardCustomerSalesCode.SETRANGE(StandardCustomerSalesCode.BC6_TextautoReport, TRUE);
                             StandardCustomerSalesCode.SETRANGE(StandardCustomerSalesCode."Customer No.", SalesHeader."Sell-to Customer No.");
                             Edition := TRUE;
                             IF StandardCustomerSalesCode.COUNT <> 0 THEN

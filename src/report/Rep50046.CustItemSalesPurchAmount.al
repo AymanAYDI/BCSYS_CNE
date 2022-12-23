@@ -260,9 +260,9 @@ report 50046 "Cust/Item Sales (Purch.Amount)"
 
     trigger OnPreReport()
     var
-        CaptionManagement: Codeunit "Caption Class";
+        FormatDocument: Codeunit "Format Document";
     begin
-        //TODO  // CustFilter := CaptionManagement.GetRecordFiltersWithCaptions(Customer);
+        CustFilter := FormatDocument.GetRecordFiltersWithCaptions(Customer);
         ValueEntryFilter := "Value Entry".GETFILTERS;
         PeriodText := "Value Entry".GETFILTER("Posting Date");
     end;

@@ -35,11 +35,12 @@ tableextension 50019 "BC6_CompanyInformation" extends "Company Information" //79
             ELSE
             IF ("BC6_Alt Country Code" = FILTER(<> '')) "Post Code".City WHERE("Country/Region Code" = FIELD("BC6_Alt Country Code"));
             DataClassification = CustomerContent;
-            trigger onvalidate() //TODO CHECK
+            trigger onvalidate()
             var
                 PostCode: Record "Post Code";
+                TxtLAltCounty: Text[30];
             begin
-                PostCode.get(PostCode.code, PostCode."Search City");
+                PostCode.ValidateCity("BC6_Alt City", "BC6_Alt Post Code", TxtLAltCounty, "BC6_Alt Country Code", (CurrFieldNo <> 0) AND GUIALLOWED);
             end;
         }
         field(50006; "BC6_Alt Phone No."; Text[20])
@@ -78,8 +79,7 @@ tableextension 50019 "BC6_CompanyInformation" extends "Company Information" //79
                 PostCode: Record "Post Code";
                 TxtLAltCounty: Text[30];
             begin
-                PostCode.get(PostCode.code, PostCode."Search City");
-                PostCode.ValidateCity("BC6_Alt City", "BC6_Alt Post Code", TxtLAltCounty, "BC6_Alt Country Code", (CurrFieldNo <> 0) AND GUIALLOWED); // TODO: function PostCode Declarer Global
+                PostCode.ValidateCity("BC6_Alt City", "BC6_Alt Post Code", TxtLAltCounty, "BC6_Alt Country Code", (CurrFieldNo <> 0) AND GUIALLOWED);
             end;
         }
         field(50011; "BC6_Alt E-Mail"; Text[80])

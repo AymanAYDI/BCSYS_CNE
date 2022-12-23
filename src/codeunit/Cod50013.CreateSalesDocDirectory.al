@@ -79,7 +79,7 @@ codeunit 50013 "BC6_Create SalesDoc Directory"
                         Window.UPDATE(1, RecLink.Description);
 
                         SourceFilePath := RecLink.URL1;
-                        //TODO TargetFileName := FileMngt.CopyAndRenameClientFile(SourceFilePath, TargetDirectoryPath, TargetNewSubDirectory);
+                        // TargetFileName := FileMngt.CopyAndRenameClientFile(SourceFilePath, TargetDirectoryPath, TargetNewSubDirectory);
                         IF TargetFileName <> '' THEN BEGIN
                             FileCounter += 1;
                             Window.UPDATE(2, FileCounter);
@@ -93,10 +93,10 @@ codeunit 50013 "BC6_Create SalesDoc Directory"
                     UNTIL RecLink.NEXT() = 0;
             UNTIL SalesLine.NEXT() = 0;
             //LORSQU'on Ajoute la proc CopyAndRenameClientFile
-            //TODO IF FileMngt.ClientDirectoryExists(TargetDirectoryName) THEN
-            //     SalesHeader.ADDLINK(TargetDirectoryName, STRSUBSTNO(Text011, FileCounter))
-            // ELSE
-            ERROR(Text012);
+            //    IF FileMngt.ClientDirectoryExists(TargetDirectoryName) THEN //TODO
+            //         SalesHeader.ADDLINK(TargetDirectoryName, STRSUBSTNO(Text011, FileCounter))
+            //     ELSE
+            //         ERROR(Text012);
         END;
         SLEEP(500);
         Window.CLOSE();

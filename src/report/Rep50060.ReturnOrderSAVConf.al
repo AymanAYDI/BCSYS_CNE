@@ -784,7 +784,6 @@ report 50060 "BC6_Return Order SAV Conf."
                 L_SalesHeader: Record "Sales Header";
                 L_SalesLine: Record "Sales Line";
             begin
-                //TODOCurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
                 CurrReport.Language := Language2.GetLanguageIdOrDefault("Language Code");
 
                 FormatAddressFields(SalesHeader);

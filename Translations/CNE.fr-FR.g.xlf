@@ -27419,40 +27419,53 @@
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_ItemCard - Control BC6_Number of Units DEEE - Property Caption</note>
           <target>Nombre d'unités DEEE</target>
         </trans-unit>
+        <trans-unit id="PageExtension 558507464 - Control 3140949626 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 831615072">
+          <source>Real Unit Cost</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Coût standard"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_ItemInvoicingFactBox - Control BC6_IncrStandardCost - Property Caption</note>
+          <target>Coût standard</target>
+        </trans-unit>
         <trans-unit id="PageExtension 558507464 - Control 3942428765 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 831615072">
           <source>Unit Cost</source>
-          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Developer" annotates="general" priority="2">FRA="Coût unitaire"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_ItemInvoicingFactBox - Control BC6_IncrUnitCost - Property Caption</note>
+          <target>Coût unitaire</target>
         </trans-unit>
         <trans-unit id="PageExtension 558507464 - Control 3512305484 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 831615072">
           <source>Real standard Cost</source>
-          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Developer" annotates="general" priority="2">FRA="Coût standard réel"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_ItemInvoicingFactBox - Control BC6_Standard Cost - Property Caption</note>
+          <target>Coût standard réel</target>
         </trans-unit>
         <trans-unit id="PageExtension 558507464 - Control 2182992767 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 831615072">
           <source>Real Unit Cost</source>
-          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Developer" annotates="general" priority="2">FRA="Coût unitaire réel"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_ItemInvoicingFactBox - Control BC6_Unit Cost - Property Caption</note>
+          <target>Coût unitaire réel</target>
         </trans-unit>
         <trans-unit id="PageExtension 558507464 - Control 4116201046 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 831615072">
           <source>Last Direct Cost</source>
-          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Developer" annotates="general" priority="2">FRA="Dernier coût direct"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_ItemInvoicingFactBox - Control BC6_IncrLastDirectCost - Property Caption</note>
+          <target>Dernier coût direct</target>
         </trans-unit>
         <trans-unit id="PageExtension 558507464 - Control 3634474492 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 831615072">
           <source>Profit %</source>
-          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Developer" annotates="general" priority="2">FRA="% marge sur vente"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_ItemInvoicingFactBox - Control BC6_IncrProfit - Property Caption</note>
+          <target>% marge sur vente</target>
         </trans-unit>
         <trans-unit id="PageExtension 558507464 - Control 1550807192 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 831615072">
           <source>Real Last Direct Cost</source>
-          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Developer" annotates="general" priority="2">FRA="Dernier coût direct réel"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_ItemInvoicingFactBox - Control BC6_Last Direct Cost - Property Caption</note>
+          <target>Dernier coût direct réel</target>
         </trans-unit>
         <trans-unit id="PageExtension 558507464 - Control 1666497925 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 831615072">
           <source>Real Profit %</source>
-          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Developer" annotates="general" priority="2">FRA="% marge sur vente réel"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_ItemInvoicingFactBox - Control BC6_Profit % - Property Caption</note>
+          <target>% marge sur vente réel</target>
         </trans-unit>
         <trans-unit id="PageExtension 2936744633 - Action 1203222857 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4178721393">
           <source>Update Cost Incr. Coeff.</source>
@@ -28691,12 +28704,6 @@
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesOrder - Action BC6_Imprimer - Property Caption</note>
           <target>Imprimer</target>
         </trans-unit>
-        <trans-unit id="PageExtension 1199972306 - Control 1608765037 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
-          <source>Sell-to Customer No.</source>
-          <note from="Developer" annotates="general" priority="2">FRA="N° donneur d'ordre"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesOrder - Control BC6_Sell-to Customer No. - Property Caption</note>
-          <target>N° donneur d'ordre</target>
-        </trans-unit>
         <trans-unit id="PageExtension 1199972306 - Control 3660881088 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
           <source>Affair No.</source>
           <note from="Developer" annotates="general" priority="2">FRA="N° Affaire"</note>
@@ -28956,10 +28963,15 @@
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesQuote - Action BC6_&amp;Create Sales price request - Property Caption</note>
           <target>&amp;Créer demande de prix</target>
         </trans-unit>
-        <trans-unit id="PageExtension 2808424006 - Control 1608765037 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 280137910">
-          <source>Sell-to Customer No.</source>
+        <trans-unit id="PageExtension 2808424006 - Control 1608765037 - Property 1064389655" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 280137910">
+          <source>Who is the quote for?</source>
           <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesQuote - Control BC6_Sell-to Customer No. - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesQuote - Control BC6_Sell-to Customer No. - Property AboutTitle</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2808424006 - Control 1608765037 - Property 247559172" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 280137910">
+          <source>You can choose existing customers, or add new customers when you create quotes. Quotes can automatically choose special prices and discounts that you have set for each customer.</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesQuote - Control BC6_Sell-to Customer No. - Property AboutText</note>
         </trans-unit>
         <trans-unit id="PageExtension 2808424006 - Control 2757730921 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 280137910">
           <source>Sell-to E-Mail address</source>
@@ -28972,11 +28984,6 @@
           <note from="Developer" annotates="general" priority="2">FRA="N° télécopie donneur d'ordre"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesQuote - Control BC6_Sell-to Fax No. - Property Caption</note>
           <target>N° télécopie donneur d'ordre</target>
-        </trans-unit>
-        <trans-unit id="PageExtension 2808424006 - Control 3006372614 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 280137910">
-          <source>Your Reference</source>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesQuote - Control BC6_Your Reference - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 2808424006 - Control 368801695 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 280137910">
           <source>User ID</source>
@@ -29004,9 +29011,8 @@
         </trans-unit>
         <trans-unit id="PageExtension 2808424006 - Control 4027647916 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 280137910">
           <source>Bin Code</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesQuote - Control BC6_Bin Code - Property Caption</note>
-          <target/>
         </trans-unit>
         <trans-unit id="PageExtension 3776541523 - Control 3478514330 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 734185571">
           <source>Profit</source>

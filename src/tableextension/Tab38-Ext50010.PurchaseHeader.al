@@ -20,15 +20,7 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
             Editable = false;
             DataClassification = CustomerContent;
             Caption = 'ID';
-            //TODO
-            trigger OnLookup()
-            var
-                RecLUserMgt: Codeunit 418;
-                CodLUserID: Code[50];
-            begin
-                // CodLUserID := ID;
-                // RecLUserMgt.LookupUserID(CodLUserID);
-            end;
+            TableRelation = User."User Name";
         }
         field(50020; "BC6_From Sales Module"; Boolean)
         {
@@ -135,8 +127,8 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
 
         Msg := '\';
 
-        if MntTot < Frs."BC6_Mini Amount" then begin
-            if not Existfreightcharge() then begin
+        if MntTot < Frs."BC6_Mini Amount" then
+            if not Existfreightcharge() then
                 if not ExistFreightChargeSSAmount() then begin
                     Msg := Msg + TextControleMinima01;
                     if HideValidationDialog then
@@ -174,8 +166,7 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
                         MESSAGE(TextG002, PurchSetup.BC6_Type, PurchSetup."BC6_No.");
                     exit(true);
                 end;
-            end;
-        end;
+
 
         exit(false);
     end;
@@ -205,11 +196,20 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
 
         PurchPost.GetPurchLines(Rec, TempPurchLine, 0);
         CLEAR(PurchPost);
-        //TODO
-        // PurchPost.SumPurchLinesTemp(
-        // Rec, TempPurchLine, 0, TotalPurchLine, TotalPurchLineLCY, VATAmount, VATAmountText,
-        // TotalPurchLine."BC6_DEEE HT Amount", TotalPurchLine."BC6_DEEE VAT Amount", TotalPurchLine."BC6_DEEE TTC Amount",
-        // TotalPurchLine."BC6_DEEE HT Amount (LCY)");
+        PurchPost.SumPurchLinesTemp(
+        Rec, TempPurchLine, 0, TotalPurchLine, TotalPurchLineLCY, VATAmount, VATAmountText);//,
+        //TotalPurchLine."BC6_DEEE HT Amount", TotalPurchLine."BC6_DEEE VAT Amount", TotalPurchLine."BC6_DEEE TTC Amount",
+        //TotalPurchLine."BC6_DEEE HT Amount (LCY)");
+        VATAmount += TotalPurchLine."BC6_DEEE VAT Amount";
+        //>>MIGRATION NAV 2013
+        //<<DEEE1.00 : increase amount for DEEE (stat F9)
+        //IF OldPurchLine."Is Line Submitted"=2 THEN BEGIN
+        TotalPurchLine."BC6_DEEE HT Amount" := TotalPurchLine."BC6_DEEE HT Amount";
+        TotalPurchLine."BC6_DEEE VAT Amount" := TotalPurchLine."BC6_DEEE VAT Amount";
+        TotalPurchLine."BC6_DEEE TTC Amount" := TotalPurchLine."BC6_DEEE TTC Amount";
+        TotalPurchLine."BC6_DEEE HT Amount (LCY)" := TotalPurchLine."BC6_DEEE HT Amount (LCY)";
+        //<<DEEE1.00 : increase amount for DEEE (stat F9)
+        //<<MIGRATION NAV 2013
 
         if "Prices Including VAT" then begin
             TotalAmount2 := TotalPurchLine.Amount;

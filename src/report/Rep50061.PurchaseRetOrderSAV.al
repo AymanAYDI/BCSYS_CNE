@@ -793,7 +793,6 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
                 L_PurchaseLine: Record "Purchase Line";
                 L_SalesHeader: Record "Sales Header";
             begin
-                //TODO CurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
                 CurrReport.Language := Language2.GetLanguageIdOrDefault("Language Code");
 
                 FormatAddressFields(PurchaseHeader);
@@ -817,7 +816,7 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
                 L_PurchaseLine.SETRANGE("Document No.", PurchaseHeader."No.");
                 L_PurchaseLine.SETRANGE(Type, L_PurchaseLine.Type::Item);
                 IF L_PurchaseLine.FINDFIRST THEN
-                    IF L_SalesHeader.GET(L_SalesHeader."Document Type"::Order, L_PurchaseLine."BC6_Retrn. Sales OrderShpt") THEN //TODO: à Vérifier
+                    IF L_SalesHeader.GET(L_SalesHeader."Document Type"::Order, L_PurchaseLine."BC6_Retrn. Sales OrderShpt") THEN
                         IF G_PurchaseHeader.GET(G_PurchaseHeader."Document Type"::Order, L_SalesHeader."BC6_Purchase No. Order Lien") THEN;
 
                 G_ReturnOrderRelation.RESET;

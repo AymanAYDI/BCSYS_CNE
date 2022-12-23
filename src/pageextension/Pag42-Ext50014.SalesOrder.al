@@ -111,7 +111,7 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
                 Image = CreateInventoryPickup;
                 Promoted = true;
                 PromotedCategory = Process;
-                ToolTip = 'Create an inventory put-away or inventory pick to handle items on the document according to a basic warehouse configuration that does not require warehouse receipt or shipment documents.';
+                ToolTip = 'Create an inventory put-away or inventory pick to handle items on the document according to a basic warehouse configuration that does not require warehouse receipt or shipment documents.', Comment = 'FRA=""';
 
                 trigger OnAction()
                 var

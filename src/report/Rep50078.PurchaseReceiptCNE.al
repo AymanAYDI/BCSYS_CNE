@@ -528,7 +528,6 @@ report 50078 "BC6_Purchase - Receipt CNE"
 
             trigger OnAfterGetRecord()
             begin
-                //TODO CurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
                 CurrReport.Language := Language2.GetLanguageIdOrDefault("Language Code");
 
                 CompanyInfo.GET;

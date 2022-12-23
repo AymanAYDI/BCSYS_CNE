@@ -488,7 +488,6 @@ report 50047 "BC6_Invt. Pick"
                                             ORDER(Ascending);
                         column(WhseActivityHeaderNo; WhseActivityHeaderNo)
                         {
-                            // TODO // DecimalPlaces = 2:2;
                         }
                         column(TmpSalesLine2_Description; TmpSalesLine2.Description)
                         {

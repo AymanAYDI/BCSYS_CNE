@@ -875,10 +875,10 @@ codeunit 50202 "BC6_Functions Mgt"
         WhseRequest: Record "Warehouse Request";
         RepLCreateInvtPutPickMvmt: Report "Create Invt Put-away/Pick/Mvmt";
     begin
-        PurchHeader.get();
+      //  PurchHeader.get();
         PurchHeader.TESTFIELD(Status, "Purchase Document Status"::Released);
-        WhseRequest.RESET();
-        WhseRequest.SETCURRENTKEY("Source Document", "Source No.");
+                  WhseRequest.RESET();
+                    WhseRequest.SETCURRENTKEY("Source Document", "Source No.");
         case PurchHeader."Document Type" of
             PurchHeader."Document Type"::Order:
                 WhseRequest.SETRANGE("Source Document", WhseRequest."Source Document"::"Purchase Order");

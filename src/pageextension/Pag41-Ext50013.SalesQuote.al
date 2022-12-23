@@ -12,11 +12,9 @@ pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
             field("BC6_Sell-to Customer No."; Rec."Sell-to Customer No.")
             {
                 ApplicationArea = All;
-                Caption = 'Customer No.';
+
                 Importance = Additional;
                 NotBlank = true;
-                ToolTip = 'Specifies the number of the customer who will receive the products and be billed by default.';
-
                 AboutTitle = 'Who is the quote for?';
                 AboutText = 'You can choose existing customers, or add new customers when you create quotes. Quotes can automatically choose special prices and discounts that you have set for each customer.';
                 trigger OnValidate()
@@ -40,15 +38,7 @@ pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
                 Caption = 'Sell-to Fax No.', Comment = 'FRA="N° télécopie donneur d''ordre"';
             }
         }
-        addafter("Opportunity No.")
-        {
-            field("BC6_Your Reference"; Rec."Your Reference")
-            {
-                Importance = Promoted;
-                ApplicationArea = All;
-                Caption = 'Your Reference';
-            }
-        }
+
         addafter("Responsibility Center")
         {
             field(BC6_ID; Rec.BC6_ID)
@@ -81,7 +71,7 @@ pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
             field("BC6_Bin Code"; Rec."BC6_Bin Code")
             {
                 ApplicationArea = All;
-                Caption = 'Bin Code', Comment = 'FRA=""';
+                Caption = 'Bin Code';
             }
         }
         addafter(Control1907234507)
@@ -153,14 +143,13 @@ pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
                 trigger OnAction()
                 var
                     RecLSalesHeader: Record "Sales Header";
-                // RptLSalesQuote: Report 50009;
+                    RptLSalesQuote: Report "BC6_Sales Quote";
                 begin
                     RecLSalesHeader := Rec;
                     RecLSalesHeader.SETRECFILTER();
-                    //TODO
-                    // RptLSalesQuote.SETTABLEVIEW(RecLSalesHeader);
-                    // RptLSalesQuote.DefineTagFax("BC6_Sell-to Fax No.");
-                    // RptLSalesQuote.RUN;
+                    RptLSalesQuote.SETTABLEVIEW(RecLSalesHeader);
+                    RptLSalesQuote.DefineTagFax("BC6_Sell-to Fax No.");
+                    RptLSalesQuote.RUN;
                 end;
             }
         }

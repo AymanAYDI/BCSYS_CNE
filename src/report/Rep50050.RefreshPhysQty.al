@@ -213,7 +213,6 @@ report 50050 "BC6_Refresh Phys. Qty"
         WhseEntry: Record "Warehouse Entry";
         WhseEntry2: Record "Warehouse Entry";
         NoBinExist: Boolean;
-        //  TODO: // CreateReservEntry: Codeunit 99000830;
         EntryType: Option "Negative Adjmt.","Positive Adjmt.";
     begin
         GLSetup.GET();

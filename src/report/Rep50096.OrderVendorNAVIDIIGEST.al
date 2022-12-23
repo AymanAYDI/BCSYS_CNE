@@ -332,7 +332,7 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
                         trigger OnPreDataItem()
                         begin
                             StandardVendorPurchaseCode.RESET;
-                            //TODO // StandardVendorPurchaseCode.SETRANGE(StandardVendorPurchaseCode.TextautoReport, TRUE);
+                            StandardVendorPurchaseCode.SETRANGE(StandardVendorPurchaseCode.BC6_TextautoReport, TRUE);
                             StandardVendorPurchaseCode.SETRANGE(StandardVendorPurchaseCode."Vendor No.", "Purchase Header"."Buy-from Vendor No.");
                             Edition := TRUE;
                             IF StandardVendorPurchaseCode.COUNT <> 0 THEN

@@ -260,7 +260,7 @@ report 50097 "BC6_Preparation NAVIDIIGEST1"
                         begin
 
                             StandardCustomerSalesCode.RESET;
-                            // TODO:  // StandardCustomerSalesCode.SETRANGE(StandardCustomerSalesCode.TextautoReport, TRUE);
+                            StandardCustomerSalesCode.SETRANGE(StandardCustomerSalesCode.BC6_TextautoReport, TRUE);
                             StandardCustomerSalesCode.SETRANGE(StandardCustomerSalesCode."Customer No.", "Sales Header"."Sell-to Customer No.");
                             Edition := TRUE;
                             IF StandardCustomerSalesCode.COUNT <> 0 THEN

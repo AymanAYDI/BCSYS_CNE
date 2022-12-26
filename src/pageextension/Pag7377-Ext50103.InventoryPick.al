@@ -25,21 +25,17 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
                 trigger OnLookup(var Text: Text): Boolean
                 begin
 
-                    //>>MIGRATION NAV 2013
                     CtrlEditable();
-                    //<<MIGRATION NAV 2013
 
                     CODEUNIT.RUN(CODEUNIT::"Create Inventory Pick/Movement", Rec);
                     CurrPage.UPDATE();
                     CurrPage.WhseActivityLines.PAGE.UpdateForm();
-
                 end;
             }
             field("BC6_Destination No."; "Destination No.")
             {
                 CaptionClass = FORMAT(WMSMgt.GetCaption("Destination Type".AsInteger(), "Source Document".AsInteger(), 0));
                 Editable = BooGDestinationNoCtrl;
-
             }
         }
         addafter("WMSMgt.GetDestinationName(""Destination Type"",""Destination No."")")
@@ -48,11 +44,8 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
             {
                 trigger OnValidate()
                 BEGIN
-                    //>>MIGRATION NAV 2013
                     CtrlEditable();
-                    //<<MIGRATION NAV 2013
                 END;
-
             }
             field("BC6_No. Printed"; "No. Printed") { }
             field("BC6_Bin Code"; "BC6_Bin Code") { }
@@ -60,7 +53,6 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
             field("BC6_Destination Name"; "BC6_Destination Name") { }
             field(BC6_Comments; BC6_Comments) { }
         }
-
     }
 
     actions
@@ -81,13 +73,13 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
         {
             action("BC6_&ToCheck")
             {
-                Caption = 'ToCheck';
+                Caption = 'ToCheck', Comment = 'FRA=""';
                 Image = Confirm;
                 trigger OnAction()
+                var
+                    FunctionMgt: Codeunit "BC6_Functions Mgt";
                 begin
-                    //>>MIGRATION NAV 2013
-                    //TODO   WhseActPrint.PrintInvtPickHeaderCheck(Rec, FALSE);
-                    //<<MIGRATION NAV 2013
+                    FunctionMgt.PrintInvtPickHeaderCheck(Rec, FALSE);
                 end;
             }
         }
@@ -101,57 +93,45 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
                                   WHERE("BC6_Whse. Document Type 2" = CONST("Invt. Pick"));
                 RunPageLink = "BC6_Whse. Document No. 2" = FIELD("No.");
                 Image = PostedTaxInvoice;
-
             }
         }
         addafter("F&unctions")
         {
             action("BC6_Get Source Document")
             {
-
                 ShortCutKey = 'Ctrl+F7';
                 Ellipsis = True;
-                Caption = 'Get Source Document';
+                Caption = 'Get Source Document', Comment = 'FRA=""';
                 Promoted = True;
                 Image = GetSourceDoc;
                 PromotedCategory = Process;
                 Trigger OnAction()
                 BEGIN
-                    //>>MIGRATION NAV 2013
                     IF CurrFormEditableOk THEN
-                        //<<MIGRATION NAV 2013
                         CODEUNIT.RUN(CODEUNIT::"Create Inventory Pick/Movement", Rec);
                 END;
             }
             action(BC6_AutofillQtyToHandle)
             {
-                Caption = 'Autofill Qty. to Handle';
+                Caption = 'Autofill Qty. to Handle', Comment = 'FRA=""';
                 Image = AutofillQtyToHandle;
                 trigger OnAction()
                 BEGIN
-                    //>>MIGRATION NAV 2013
                     IF CurrFormEditableOk THEN
-                        //<<MIGRATION NAV 2013
-CurrPage.WhseActivityLines.PAGE.AutofillQtyToHandle();
+                        CurrPage.WhseActivityLines.PAGE.AutofillQtyToHandle();
                 END;
-
             }
             action("BC6_Delete Qty. to Handle")
             {
-                Caption = 'Delete Qty. to Handle';
+                Caption = 'Delete Qty. to Handle', Comment = 'FRA=""';
                 Image = DeleteQtyToHandle;
                 trigger OnAction()
                 BEGIN
-                    //>>MIGRATION NAV 2013
                     IF CurrFormEditableOk THEN
-                        //<<MIGRATION NAV 2013
-                       CurrPage.WhseActivityLines.PAGE.DeleteQtyToHandle();
+                        CurrPage.WhseActivityLines.PAGE.DeleteQtyToHandle();
                 END;
-
             }
-
         }
-
     }
     var
         WhseActPrint: Codeunit "Warehouse Document-Print";
@@ -171,31 +151,18 @@ CurrPage.WhseActivityLines.PAGE.AutofillQtyToHandle();
 
     trigger OnAfterGetRecord()
     begin
-        //>>MIGRATION NAV 2013
         CtrlEditable();
-        //<<MIGRATION NAV 2013
     END;
 
     trigger OnOpenPage()
     var
-    //TODO PermissionForm: Codeunit 50091;
+        PermissionForm: Codeunit "BC6_Permission Form";
     begin
-        //>>AAYDI
-        //>>MIGRATION NAV 2013
         CurrFormEditableOk := TRUE;
-        //MIGRATION 2013 ALMI
-        //IF NOT PermissionForm.HasEditablePermission(USERID,2,7377) THEN
-        //TODO       IF NOT PermissionForm.HasEditablePermission(USERID, 8, 7377) THEN
-        //MIGRATION 2013 ALMI
-        CurrPage.EDITABLE(FALSE);
-        //MIGRATION 2013 ALMI
-        //IF NOT PermissionForm.HasEditablePermission(USERID,2,7378) THEN
-        //TODO      IF NOT PermissionForm.HasEditablePermission(USERID, 8, 7378) THEN
-        //MIGRATION 2013 ALMI
-        CurrFormEditableOk := FALSE;
+        IF NOT PermissionForm.HasEditablePermission(USERID, 8, 7377) THEN
+            CurrPage.EDITABLE(FALSE);
+        IF NOT PermissionForm.HasEditablePermission(USERID, 8, 7378) THEN
+            CurrFormEditableOk := FALSE;
         BooGWhseActivityLines := CurrFormEditableOk;
-        //<<MIGRATION NAV 2013
-        //<<AAYDI
-
     end;
 }

@@ -26,7 +26,7 @@ codeunit 50092 "Extract Item Group Discount"
         ItemDiscGroupForm.LOOKUPMODE := true;
         if ItemDiscGroupForm.RUNMODAL() = ACTION::LookupOK then begin
             CLEAR(ItemDiscGroup);
-            // ItemDiscGroupForm.GetSelectionFilter2(ItemDiscGroup);  //TODO
+            ItemDiscGroupForm.GetSelectionFilter2(ItemDiscGroup);
         end else
             exit;
 

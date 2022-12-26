@@ -12,13 +12,12 @@ pageextension 50068 "BC6_PurchaseOrderStatistics" extends "Purchase Order Statis
             {
                 ApplicationArea = Basic, Suite;
                 AutoFormatType = 1;
-                Caption = 'Purchase (LCY)';
+                Caption = 'Purchase (LCY)', Comment = 'FRA="Achats DS"';
                 Editable = false;
-                ToolTip = 'Specifies the amount in the Total field, converted to LCY.';
             }
         }
 
-        modify("TotalPurchLineLCY[3].Amount") // TODO: Check
+        modify("TotalPurchLineLCY[3].Amount")
         {
             Visible = false;
         }
@@ -28,9 +27,8 @@ pageextension 50068 "BC6_PurchaseOrderStatistics" extends "Purchase Order Statis
             {
                 ApplicationArea = Basic, Suite;
                 AutoFormatType = 1;
-                Caption = 'Purchase (LCY)';
+                Caption = 'Purchase (LCY)', Comment = 'FRA="Achats DS"';
                 Editable = false;
-                ToolTip = 'Specifies the amount in the Total field, converted to LCY.';
             }
         }
 
@@ -60,11 +58,4 @@ pageextension 50068 "BC6_PurchaseOrderStatistics" extends "Purchase Order Statis
         }
     }
 
-    var
-        "-MIGNAV2013-": Integer;
-        "-DEEE1.00-": Integer;
-        DecGHTAmount: array[3] of Decimal;
-        DecGVATAmount: array[3] of Decimal;
-        DecGTTCAmount: array[3] of Decimal;
-        DecGHTAmountLCY: array[3] of Decimal;
 }

@@ -9,12 +9,12 @@ pageextension 50110 "BC6_SmallBusinessOwnerRC" extends "Small Business Owner RC"
             action(BC6_Bible)
             {
                 Image = Report;
-                //TODO       RunObject = Report 50014;
+                RunObject = Report "BC6_BIBLE V2";
             }
             action("BC6_Vente Stat/Client")
             {
                 Image = Report;
-                //TODO    RunObject = Report 50018;
+                RunObject = Report "BC6_Sales Stat/Customer";
             }
             action("BC6_Vente Stat/Fournisseur")
             {

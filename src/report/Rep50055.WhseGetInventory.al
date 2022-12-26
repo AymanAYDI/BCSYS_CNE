@@ -2,7 +2,6 @@ report 50055 "BC6_Whse. Get Inventory"
 {
     Caption = 'Whse. Get Loc. Content', comment = 'FRA="Afficher contenu mag."';
     ProcessingOnly = true;
-
     dataset
     {
         dataitem(Item; Item)

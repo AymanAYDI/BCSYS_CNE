@@ -1,8 +1,6 @@
 pageextension 50043 "BC6_PostedPurchaseCreditMemo" extends "Posted Purchase Credit Memo" //140
 {
 
-    //TODO Unsupported feature: Property Insertion (DeleteAllowed) on ""Posted Purchase Credit Memo"(Page 140)".
-
     layout
     {
         addafter("Responsibility Center")

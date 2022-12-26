@@ -10,7 +10,6 @@ codeunit 50000 "BC6_PDF Mail Management"
     procedure GetSalesTag(RecSalesHeader: Record "Sales Header") TxtTag: Text[250]
     begin
         WITH RecSalesHeader DO BEGIN
-            //Search Contact info to create PDF document and e-mail it
             RecGSalesSetup.GET();
 
             IF RecGContact.GET("Sell-to Contact No.") THEN

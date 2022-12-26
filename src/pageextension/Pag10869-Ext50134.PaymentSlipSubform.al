@@ -15,7 +15,7 @@ pageextension 50134 "BC6_PaymentSlipSubform" extends "Payment Slip Subform" //10
         {
             action("BC6_Application Pay-to")
             {
-                Caption = 'Application Pay-to';
+                Caption = 'Application Pay-to', Comment = 'FRA=""';
                 ShortCutKey = 'Ctrl+F9';
 
                 trigger OnAction()
@@ -28,10 +28,9 @@ pageextension 50134 "BC6_PaymentSlipSubform" extends "Payment Slip Subform" //10
 
     procedure ApplicationTiersPayeur()
     var
-        PaymentApplyTo: Codeunit "Payment-Apply";
+        FunctionMgt: Codeunit "BC6_Functions Mgt";
     begin
-        //TODO : missing a fct
-        //     PaymentApplyTo.OnRunTiersPayeur(Rec);
+        FunctionMgt.OnRunTiersPayeur(Rec);
     end;
 }
 

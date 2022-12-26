@@ -29,16 +29,15 @@ pageextension 50099 "BC6_Bins" extends Bins //7302
 
                 trigger OnAction()
                 var
-                    //TODO  // PrintLabel: Report 50048;
+                    PrintLabel: Report "BC6_Bin Barcodes";
                     BinToPrint: Record Bin;
                 begin
                     CurrPage.SETSELECTIONFILTER(BinToPrint);
-                    //TODO    // CLEAR(PrintLabel);
-                    // PrintLabel.SETTABLEVIEW(BinToPrint);
-                    // PrintLabel.RUN;
+                    CLEAR(PrintLabel);
+                    PrintLabel.SETTABLEVIEW(BinToPrint);
+                    PrintLabel.RUN;
                 end;
             }
         }
     }
 }
-

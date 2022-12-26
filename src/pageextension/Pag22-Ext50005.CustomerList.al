@@ -11,7 +11,7 @@ pageextension 50005 "BC6_CustomerList" extends "Customer List" //22
         modify("No.")
         {
             Editable = false;
-            ToolTip = 'Specifies the number of the customer. The field is either filled automatically from a defined number series, or you enter the number manually because you have enabled manual number entry in the number-series setup.', comment = 'FRA="Spécifie le numéro du client. Le champ est renseigné automatiquement … partir d''une souche de numéros définie, ou vous saisissez manuellement le numéro, car vous avez activé la saisie manuelle de numéro dans le paramétrage de la souche de numéros."';
+            ToolTip = 'Specifies the number of the customer. The field is either filled automatically from a defined number series, or you enter the number manually because you have enabled manual number entry in the number-series setup.', comment = 'FRA="Spécifie le numéro du client. Le champ est renseigné automatiquement à partir d''une souche de numéros définie, ou vous saisissez manuellement le numéro, car vous avez activé la saisie manuelle de numéro dans le paramétrage de la souche de numéros."';
         }
 
         addafter("No.")
@@ -217,7 +217,7 @@ pageextension 50005 "BC6_CustomerList" extends "Customer List" //22
                 end;
             }
         }
-        //TODO //Invisible 
+        //TODO //Invisible : pourquoi l'integrer ?
         // addafter(Control1)
         // {
         //     repeater(invisibleList)

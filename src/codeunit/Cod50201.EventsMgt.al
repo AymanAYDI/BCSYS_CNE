@@ -4245,11 +4245,6 @@ then begin
     end;
 
 
-    // [EventSubscriber(ObjectType::Table, Database::, 'OnBeforeOnDelete', '', false, false)]
-    // local procedure OnBeforeOnDelete(var Item: Record Item; var IsHandled: Boolean)
-    // begin
-    // end;
-
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnAfterReverseAmount', '', false, false)]
     local procedure OnAfterReverseAmount(var PurchLine: Record "Purchase Line")
     begin
@@ -4288,7 +4283,7 @@ then begin
 
             if (PurchaseLine."Gen. Bus. Posting Group" <> GenPostingSetup."Gen. Bus. Posting Group") or
                 (PurchaseLine."Gen. Prod. Posting Group" <> GenPostingSetup."Gen. Prod. Posting Group")
-            then; //  GenPostingSetup.GET(PurchaseLine."Gen. Bus. Posting Group",PurchaseLine."Gen. Prod. Posting Group");
+            then;
             CLEAR(InvoicePostBuffer);
             InvoicePostBuffer.Type := PurchaseLine.Type;
 
@@ -4303,7 +4298,7 @@ then begin
             end;
 
             InvoicePostBuffer."System-Created Entry" := true;
-            InvoicePostBuffer."Gen. Bus. Posting Group" := 'DEEE';//PurchaseLine."Gen. Bus. Posting Group";
+            InvoicePostBuffer."Gen. Bus. Posting Group" := 'DEEE';
             InvoicePostBuffer."Gen. Prod. Posting Group" := PurchaseLine."Gen. Prod. Posting Group";
             InvoicePostBuffer."VAT Bus. Posting Group" := PurchaseLine."VAT Bus. Posting Group";
             InvoicePostBuffer."VAT Prod. Posting Group" := PurchaseLine."VAT Prod. Posting Group";
@@ -4405,7 +4400,20 @@ then begin
                 WhseActivLine.SetRange(BC6_DeleteWhseActivityHeader, true);
         end;
     end;
+    // page30
+    [EventSubscriber(ObjectType::Page, Page::"Item Card", 'OnAfterEnablePlanningControls', '', false, false)]
 
+    local procedure OnAfterEnablePlanningControls(var PlanningParameters: Record "Planning Parameters")
+    var
+        UserSetup: Record "User Setup";
+        GlobalFct: Codeunit BC6_GlobalFunctionMgt;
+    begin
+        IF UserSetup.GET(USERID) AND UserSetup."BC6_Aut. Real Sales Profit %" THEN
+            GlobalFct.SetShowIncreaseCoeff(true)
+        ELSE
+        GlobalFct.SetShowIncreaseCoeff(false);
+
+    end;
 
 }
 

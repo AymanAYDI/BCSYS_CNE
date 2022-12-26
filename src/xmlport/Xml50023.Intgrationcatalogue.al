@@ -263,27 +263,27 @@ xmlport 50023 "BC6_Intégration catalogue"
                             GRPProduit := '';
                     end;
                 }
-                //TODO: missing Record nd page// field(GRPProduit; GRPProduit)
-                // {
-                //     Caption = 'Product Group';
+                field(GRPProduit; GRPProduit)
+                {
+                    Caption = 'Product Group';
+                    //TODO
+                    // trigger OnLookup(var Text: Text): Boolean
+                    // begin
 
-                //     trigger OnLookup(var Text: Text): Boolean
-                //     begin
-
-                //         RecGGroupePrdArt.RESET;
-                //         RecGGroupePrdArt.SETRANGE("Item Category Code", Cat);
-                //         IF RecGGroupePrdArt.FIND('-') THEN BEGIN
-                //             CLEAR(FrmGGroupePrdArt);
-                //             FrmGGroupePrdArt.SETTABLEVIEW(RecGGroupePrdArt);
-                //             FrmGGroupePrdArt.EDITABLE := FALSE;
-                //             FrmGGroupePrdArt.LOOKUPMODE := TRUE;
-                //             IF FrmGGroupePrdArt.RUNMODAL = ACTION::LookupOK THEN BEGIN
-                //                 FrmGGroupePrdArt.GETRECORD(RecGGroupePrdArt);
-                //                 GRPProduit := RecGGroupePrdArt.Code;
-                //             END;
-                //         END;
-                //     end;
-                // }
+                    //     RecGGroupePrdArt.RESET;
+                    //     RecGGroupePrdArt.SETRANGE("Item Category Code", Cat);
+                    //     IF RecGGroupePrdArt.FIND('-') THEN BEGIN
+                    //         CLEAR(FrmGGroupePrdArt);
+                    //         FrmGGroupePrdArt.SETTABLEVIEW(RecGGroupePrdArt);
+                    //         FrmGGroupePrdArt.EDITABLE := FALSE;
+                    //         FrmGGroupePrdArt.LOOKUPMODE := TRUE;
+                    //         IF FrmGGroupePrdArt.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                    //             FrmGGroupePrdArt.GETRECORD(RecGGroupePrdArt);
+                    //             GRPProduit := RecGGroupePrdArt.Code;
+                    //         END;
+                    //     END;
+                    // end;
+                }
             }
         }
 
@@ -311,7 +311,7 @@ xmlport 50023 "BC6_Intégration catalogue"
     var
         CategoriesOfItem: Record "BC6_Categories of item";
         RecGDEEETariffs: Record "BC6_DEEE Tariffs";
-        //TODO  // RecGGroupePrdArt: Record "Product Group";
+        //TODO : REcord & page removed // RecGGroupePrdArt: Record "Product Group";
         // FrmGGroupePrdArt: Page 5731;
         RecGNavisetup: Record "BC6_Navi+ Setup";
         GeneralLedgerSetup: Record "General Ledger Setup";

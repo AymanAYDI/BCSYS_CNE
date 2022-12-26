@@ -66,7 +66,6 @@ pageextension 50133 "BC6_PaymentSlip" extends "Payment Slip" //10868
                     RecLApplyingVendLedgEntry: Record "Vendor Ledger Entry";
                     RecLPayLine: Record "Payment Line";
                     CodLNumDoc: Text;
-                    //TODO
                     CodLCustEntryApply: Codeunit "BC6_Reconstitue lettrage CLI";
                     CodLVendEntryApply: Codeunit "BC6_Reconstitue lettrage FOU";
                     IntLPos: Integer;
@@ -89,13 +88,12 @@ pageextension 50133 "BC6_PaymentSlip" extends "Payment Slip" //10868
                                         RecLApplyingCustLedgEntry.SETRANGE("Customer No.", RecLPayLine."Account No.");
                                         RecLApplyingCustLedgEntry.SETRANGE(Open, TRUE);
                                         RecLApplyingCustLedgEntry.SETRANGE("Document No.", CodLNumDoc);
-                                        //TODO : missing codeunit
-                                        // IF RecLApplyingCustLedgEntry.FINDFIRST THEN
-                                        //     REPEAT
-                                        //         CodLCustEntryApply.InitialisationLettrage(RecLApplyingCustLedgEntry);
-                                        //     UNTIL RecLApplyingCustLedgEntry.NEXT = 0;
+                                        IF RecLApplyingCustLedgEntry.FINDFIRST THEN
+                                            REPEAT
+                                                CodLCustEntryApply.InitialisationLettrage(RecLApplyingCustLedgEntry);
+                                            UNTIL RecLApplyingCustLedgEntry.NEXT = 0;
 
-                                        // CodLCustEntryApply.Lettrage(RecLPayLine."Account No.");
+                                        CodLCustEntryApply.Lettrage(RecLPayLine."Account No.");
                                     END;
                                 RecLPayLine."Account Type"::Vendor:
                                     BEGIN
@@ -105,13 +103,12 @@ pageextension 50133 "BC6_PaymentSlip" extends "Payment Slip" //10868
                                         RecLApplyingVendLedgEntry.SETRANGE(Open, TRUE);
                                         RecLApplyingVendLedgEntry.SETRANGE("Document No.", CodLNumDoc);
 
-                                        //TODO: missing codeunit
-                                        // IF RecLApplyingVendLedgEntry.FINDFIRST THEN
-                                        // REPEAT
-                                        //     CodLVendEntryApply.InitialisationLettrage(RecLApplyingVendLedgEntry);
-                                        // UNTIL RecLApplyingVendLedgEntry.NEXT = 0;
+                                        IF RecLApplyingVendLedgEntry.FINDFIRST THEN
+                                        REPEAT
+                                            CodLVendEntryApply.InitialisationLettrage(RecLApplyingVendLedgEntry);
+                                        UNTIL RecLApplyingVendLedgEntry.NEXT = 0;
 
-                                        // CodLVendEntryApply.Lettrage(RecLPayLine."Account No.");
+                                        CodLVendEntryApply.Lettrage(RecLPayLine."Account No.");
                                     END;
                             END;
                         UNTIL RecLPayLine.NEXT() = 0;

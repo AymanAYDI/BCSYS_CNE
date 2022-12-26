@@ -26,18 +26,18 @@ pageextension 50062 "BC6_ItemReclassJournal" extends "Item Reclass. Journal" //3
                 Ellipsis = true;
                 ApplicationArea = All;
 
-                // trigger OnAction() TODO: missing report
-                // var
-                //     Location: Record Location;
-                //     Item: Record Item;
-                //     GetLocationContent: Report 50055;
-                // begin
-                //     Item.SETFILTER("Location Filter", Location.Code);
-                //     GetLocationContent.SETTABLEVIEW(Item);
-                //     GetLocationContent.InitializeItemJournalLine(Rec);
-                //     GetLocationContent.RUNMODAL;
-                //     CurrPage.UPDATE(FALSE);
-                // end;
+                trigger OnAction()
+                var
+                    Location: Record Location;
+                    Item: Record Item;
+                    GetLocationContent: Report "BC6_Whse. Get Inventory";
+                begin
+                    Item.SETFILTER("Location Filter", Location.Code);
+                    GetLocationContent.SETTABLEVIEW(Item);
+                    GetLocationContent.InitializeItemJournalLine(Rec);
+                    GetLocationContent.RUNMODAL;
+                    CurrPage.UPDATE(FALSE);
+                end;
             }
         }
     }

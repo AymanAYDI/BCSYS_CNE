@@ -48,7 +48,7 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
             field(BC6_Inventory2; Inventory)
             {
                 ApplicationArea = All;
-                Caption = 'Inventory', Comment = 'FRA=""';
+
             }
         }
         addafter("Qty. on Prod. Order")
@@ -85,7 +85,7 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
         {
             field("BC6_DEEE Category Code"; "BC6_DEEE Category Code")
             {
-                Caption = 'DEEE Category Code ', Comment = 'FRA=""';
+                Caption = 'DEEE Category Code ', Comment = 'FRA="DEEE Code catégorie"';
                 LookupPageID = "BC6_Item Category List";
                 ApplicationArea = All;
             }
@@ -110,6 +110,7 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
                 Caption = 'Cost Increase Coeff (%)', Comment = 'FRA="Coeff majoration du coût (%)"';
             }
         }
+
         modify("Vendor No.")
         {
             ShowMandatory = true;
@@ -130,7 +131,7 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
             {
                 SubPageLink = "No." = FIELD("No.");
                 ApplicationArea = All;
-                Caption = 'Sales/Purch. History FactBox', Comment = 'FRA=""';
+                Caption = 'Item Sales/Purchase History', Comment = 'FRA="Historique vente/achat article"';
             }
         }
 
@@ -180,23 +181,23 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
             action(BC6_BarCodes)
             {
                 ApplicationArea = Basic, Suite;
-                Caption = 'Cross Re&ferences', Comment = 'FRA=""';
+                Caption = 'Cross Re&ferences', Comment = 'FRA="&Références externes"';
                 Image = BarCode;
                 Promoted = true;
                 PromotedCategory = Category4;
                 PromotedOnly = true;
                 RunObject = Page "Item Reference Entries";
                 RunPageLink = "Item No." = FIELD("No."),
-                    "Reference Type" = CONST("Bar Code");
+                                    "Reference Type" = CONST("Bar Code");
                 Scope = Repeater;
-                ToolTip = 'Set up a customer''s or vendor''s own identification of the selected item. Cross-references to the customer''s item number means that the item number is automatically shown on sales documents instead of the number that you use.', Comment = 'FRA=""';
+                ToolTip = 'Set up a customer''s or vendor''s own identification of the selected item. Cross-references to the customer''s item number means that the item number is automatically shown on sales documents instead of the number that you use.', Comment = 'FRA="Configurez la manière dont un client ou un fournisseur identifie l''article sélectionné. Les références externes au numéro d''article du client impliquent que le numéro d''article est automatiquement affiché sur les documents vente au lieu du numéro que vous utilisez."';
             }
         }
         addafter("Return Orders")
         {
             action(BC6_UpdateICPartnerItems)
             {
-                Caption = 'Update IC Partner Items', Comment = 'FRA=""';
+                Caption = 'Update IC Partner Items', Comment = 'FRA="Màj articles partenaires"';
                 Enabled = UpdateICPartnerItemsEnabled;
                 Image = UpdateDescription;
                 ApplicationArea = All;
@@ -211,6 +212,7 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
         FunctionMgt: Codeunit "BC6_Functions Mgt";
     begin
         EAN13Code := FunctionMgt.GetItemEAN13Code("No.");
+        ShowIncreaseCoeff := GlobalFct.getShowIncreaseCoeff()
     end;
 
 
@@ -219,9 +221,10 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
         DistInt: Codeunit "Dist. Integration";
         EAN13Code: Code[20];
         UpdateICPartnerItemsEnabled: Boolean;
-        ShowIncreaseCoeff: Boolean;
         BooGBlocked: Boolean;
+        GlobalFct: Codeunit BC6_GlobalFunctionMgt;
+        ShowIncreaseCoeff: Boolean;
 
 
-    //TODO : modification du fct EnableControls 
+
 }

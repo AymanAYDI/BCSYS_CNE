@@ -290,11 +290,11 @@ codeunit 50203 "BC6_PagesEvents"
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnBeforePostVendorEntry', '', false, false)]
-    local procedure CU90_OnBeforePostVendorEntry_Purch_Post(var GenJnlLine: Record "Gen. Journal Line"; var PurchHeader: Record "Purchase Header"; var TotalPurchLine: Record "Purchase Line"; var TotalPurchLineLCY: Record "Purchase Line"; PreviewMode: Boolean; CommitIsSupressed: Boolean; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line")
+    local procedure OnBeforePostVendorEntry(var GenJnlLine: Record "Gen. Journal Line"; var PurchHeader: Record "Purchase Header"; var TotalPurchLine: Record "Purchase Line"; var TotalPurchLineLCY: Record "Purchase Line"; PreviewMode: Boolean; CommitIsSupressed: Boolean; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line")
     var
         GlobalFunction: Codeunit "BC6_GlobalFunctionMgt";
     begin
-        //>>MIGRATION NAV 2013 - 2017
+
         GenJnlLine."BC6_DEEE HT Amount" := TotalPurchLine."BC6_DEEE HT Amount";
         GenJnlLine."BC6_DEEE VAT Amount" := TotalPurchLine."BC6_DEEE VAT Amount";
         GenJnlLine."BC6_DEEE TTC Amount" := TotalPurchLine."BC6_DEEE TTC Amount";
@@ -306,14 +306,10 @@ codeunit 50203 "BC6_PagesEvents"
         GenJnlLine."Source Currency Amount" := GenJnlLine."Source Currency Amount" - GlobalFunction.Get_PurchGDecMntTTCDEEE();
         GenJnlLine."Amount (LCY)" := GenJnlLine."Amount (LCY)" - GlobalFunction.Get_PurchGDecMntTTCDEEE();
         //>>DEEE1.00 : DEEE amount management
+
+        //>>REGLEMENT STLA 01.08.2006 COR001 [13] Mise ´ jour du champ Mode de r²glement de la feuille de saisie
         GenJnlLine."Payment Method Code" := GenJnlLine."Payment Method Code";
 
-    end;
-
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnPostVendorEntryOnAfterInitNewLine', '', false, false)]
-    local procedure CU90_OnPostVendorEntryOnAfterInitNewLine_Purch_Post(var PurchaseHeader: Record "Purchase Header"; var GenJnlLine: Record "Gen. Journal Line")
-    begin
-        GenJnlLine.Description := PurchaseHeader."Pay-to Name";
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnBeforeInitNewGenJnlLineFromPostInvoicePostBufferLine', '', false, false)]

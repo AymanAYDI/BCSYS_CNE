@@ -2290,7 +2290,6 @@ then begin
                         Rec."Ending Date" := Campaign."Ending Date";
                     end;
             end;
-        Rec.Modify();
     end;
 
     // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Reference Management", 'OnPurchaseReferenceNoLookupOnBeforeValidateDirectUnitCost', '', false, false)]
@@ -2930,19 +2929,24 @@ then begin
     var
         Location: record location;
     begin
-        Location.get(Location.code);
         if not IsHandled then begin
             if (SalesQuoteLine.Type = SalesQuoteLine.Type::Item) and (SalesQuoteLine."No." <> '') then
                 SalesQuoteLine.TESTFIELD("Purchasing Code");
             CLEAR(Location);
             if (SalesQuoteLine."Location Code" <> '') then begin
                 Location.GET(SalesQuoteLine."Location Code");
-                //TODO Location.TESTFIELD(Blocked, FALSE); //blocked is a global var ! 
+                Location.TESTFIELD(BC6_Blocked, FALSE);
                 if Location."Bin Mandatory" then
                     SalesQuoteLine.TESTFIELD("Bin Code");
             end;
         end;
     end;
+
+    // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Quote to Order", 'OnBeforeDeleteSalesQuote', '', false, false)]
+    // local procedure OnBeforeDeleteSalesQuote(var QuoteSalesHeader: Record "Sales Header"; var OrderSalesHeader: Record "Sales Header"; var IsHandled: Boolean; var SalesQuoteLine: Record "Sales Line")
+    // begin
+    //     IsHandled := true;
+    // end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Quote to Order", 'OnBeforeTransferQuoteLineToOrderLineLoop', '', false, false)]
     local procedure COD86_OnAfterInsertSalesOrderHeader(var SalesOrderHeader: Record "Sales Header"; SalesQuoteHeader: Record "Sales Header")
@@ -2963,19 +2967,19 @@ then begin
         RecGArchiveManagement: Codeunit ArchiveManagement;
     begin
 
-        if not IsHandled then begin
-            ApprovalsMgmt.DeleteApprovalEntries(QuoteSalesHeader.RecordId);
-            SalesCommentLine.DeleteComments(QuoteSalesHeader."Document Type".AsInteger(), QuoteSalesHeader."No.");
-            if RecGParmNavi.GET() then
-                if RecGParmNavi."Filing Sales Quotes" then begin
-                    QuoteSalesHeader."BC6_Cause filing" := QuoteSalesHeader."BC6_Cause filing"::"Change in Order";
-                    QuoteSalesHeader.MODIFY();
-                    RecGArchiveManagement.StoreSalesDocument(QuoteSalesHeader, false);
-                end;
-            QuoteSalesHeader.DeleteLinks();
-            QuoteSalesHeader.Delete();
-            SalesQuoteLine.DeleteAll();
-        end;
+        IsHandled := true;
+        ApprovalsMgmt.DeleteApprovalEntries(QuoteSalesHeader.RecordId);
+        SalesCommentLine.DeleteComments(QuoteSalesHeader."Document Type".AsInteger(), QuoteSalesHeader."No.");
+        if RecGParmNavi.GET() then
+            if RecGParmNavi."Filing Sales Quotes" then begin
+                QuoteSalesHeader."BC6_Cause filing" := QuoteSalesHeader."BC6_Cause filing"::"Change in Order";
+                QuoteSalesHeader.MODIFY();
+                RecGArchiveManagement.StoreSalesDocument(QuoteSalesHeader, false);
+            end;
+        QuoteSalesHeader.DeleteLinks();
+        QuoteSalesHeader.Delete();
+        SalesQuoteLine.DeleteAll();
+
     end;
 
 
@@ -3532,15 +3536,15 @@ then begin
         WarehouseEntry."BC6_Source Line No. 2" := WarehouseJournalLine."BC6_Source Line No. 2";
     end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Whse. Jnl.-Register Line", 'OnInitWhseEntryCopyFromWhseJnlLine', '', false, false)]
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Whse. Jnl.-Register Line", 'OnBeforeDeleteFromBinContent', '', false, false)]
     local procedure OnBeforeDeleteFromBinContent(var WarehouseEntry: Record "Warehouse Entry"; var IsHandled: Boolean)
     var
         FromBinContent: Record "Bin Content";
         text002: label '<Article %1, content %2 empty.>', Comment = 'FRA="<Article %1, contenu %2 vide.>"';
     begin
-        FromBinContent.Get(
+        if not FromBinContent.Get(
             WarehouseEntry."Location Code", WarehouseEntry."Bin Code", WarehouseEntry."Item No.", WarehouseEntry."Variant Code",
-            WarehouseEntry."Unit of Measure Code");
+            WarehouseEntry."Unit of Measure Code") then
         ERROR(Text002, WarehouseEntry."Item No.", WarehouseEntry."Bin Code");
     end;
 
@@ -4487,6 +4491,7 @@ then begin
 
         end;
     end;
+    
     //TAB341
     [EventSubscriber(ObjectType::Table, Database::"Item Discount Group", 'OnBeforeDeleteEvent', '', false, false)]
     local procedure OnBeforeOnDelete(var Rec: Record "Item Discount Group")

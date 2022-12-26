@@ -67,8 +67,8 @@ pageextension 50133 "BC6_PaymentSlip" extends "Payment Slip" //10868
                     RecLPayLine: Record "Payment Line";
                     CodLNumDoc: Text;
                     //TODO
-                    // CodLCustEntryApply: Codeunit 50002;
-                    // CodLVendEntryApply: Codeunit 50003;
+                    CodLCustEntryApply: Codeunit "BC6_Reconstitue lettrage CLI";
+                    CodLVendEntryApply: Codeunit "BC6_Reconstitue lettrage FOU";
                     IntLPos: Integer;
                 begin
 

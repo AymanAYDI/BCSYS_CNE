@@ -824,7 +824,7 @@ page 50014 "BC6_Item Sales/Purch. History"
         ToSalesHeader: Record "Sales Header";
         RecGPostdSalesInvoices: Record "Sales Invoice Line";
         RecGSalesLine: Record "Sales Line";
-        //TODO: CDU // CuGItemHistoryMgt: Codeunit 50009;
+        CuGItemHistoryMgt: Codeunit "BC6_Item History Management";
         RecGSalesShipementLine: Record "Sales Shipment Line";
         SalesHistCopyLineMgt: Codeunit "Sales Info-Pane Management";
         SalesInfoPaneMgt: Codeunit "Sales Info-Pane Management";

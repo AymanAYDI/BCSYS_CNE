@@ -6,7 +6,7 @@ page 50116 "BC6_SAV Sales Return Order"
     RefreshOnActivate = true;
     SourceTable = "Sales Header";
     SourceTableView = WHERE("Document Type" = FILTER("Return Order"));
-
+    
     layout
     {
         area(content)

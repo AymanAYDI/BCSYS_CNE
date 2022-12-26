@@ -38,7 +38,7 @@ pageextension 50061 "BC6_PhysInventoryJournal" extends "Phys. Inventory Journal"
 
 
     var
-    // RefreshPhysQty: Report 50050; TODO:
+        RefreshPhysQty: Report "BC6_Refresh Phys. Qty";
 
 }
 

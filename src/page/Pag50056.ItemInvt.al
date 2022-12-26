@@ -336,7 +336,7 @@ page 50056 "BC6_Item Invt."
 
     procedure AssignItemNo(FromItemNo: Code[20])
     begin
-        // CLEAR(DistInt); TODO:  Check
+        CLEAR(DistInt);
         CLEAR(Item);
         CLEAR(ItemNo2);
         IF (FromItemNo <> '') THEN BEGIN

@@ -6,6 +6,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
     SourceTable = "Sales Header";
     SourceTableView = WHERE("Document Type" = FILTER(Order));
 
+
     layout
     {
         area(content)

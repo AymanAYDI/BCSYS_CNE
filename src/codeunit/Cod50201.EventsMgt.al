@@ -3060,7 +3060,7 @@ then begin
             SalesHeader.RESET();
             SalesHeader.SETRANGE("Document Type", Rec."Document Type");
             SalesHeader.SETRANGE("No.", Rec."No.");
-            REPORT.RUNMODAL(50060, TRUE, FALSE, SalesHeader);
+            REPORT.RUNMODAL(Report::"BC6_Return Order SAV Conf.", TRUE, FALSE, SalesHeader);
         end;
     end;
 
@@ -3545,7 +3545,7 @@ then begin
         if not FromBinContent.Get(
             WarehouseEntry."Location Code", WarehouseEntry."Bin Code", WarehouseEntry."Item No.", WarehouseEntry."Variant Code",
             WarehouseEntry."Unit of Measure Code") then
-        ERROR(Text002, WarehouseEntry."Item No.", WarehouseEntry."Bin Code");
+            ERROR(Text002, WarehouseEntry."Item No.", WarehouseEntry."Bin Code");
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Whse. Jnl.-Register Line", 'OnDeleteFromBinContentOnBeforeFieldError', '', false, false)]
@@ -3984,166 +3984,7 @@ then begin
         RecGSalesLine: Record "Sales Line";
         RecGUserSetup: Record "User Setup";
     begin
-        // with SalesHeader do begin
-        //     BooLGo := true;
 
-        //     if "Document Type" = "Document Type"::Quote then begin
-        //         if "BC6_Affair No." = '' then begin
-        //             if CONFIRM(CstG001, false) then begin
-        //                 BooLGo := false;
-        //                 exit;
-        //             end else begin
-        //                 BooLGo := true;
-        //             end;
-        //         end else begin
-        //             BooLGo := true;
-        //             if not RecLJobContact.GET("Sell-to Contact No.", "BC6_Affair No.") then begin
-        //                 RecLJob.RESET();
-        //                 RecLJobContact.INIT();
-        //                 RecLJobContact."Contact No." := "Sell-to Contact No.";
-        //                 RecLJobContact."Affair No." := "BC6_Affair No.";
-        //                 RecLJobContact.VALIDATE(RecLJobContact."Contact No.");
-        //                 RecLJobContact.INSERT();
-        //             end;
-        //             if CONFIRM(CstG002, false) then begin
-        //                 if RecLJob.GET("BC6_Affair No.") then
-        //                     PAGE.RUN(PAGE::"Job Card", RecLJob);
-        //                 BooLGo := true;
-        //             end;
-        //         end;
-        //     end;
-        //     //<<FEP-ADVE-200706_18_A.001
-        //     //>>P24233_001 SOBI APA 02/02/17
-        //     if not RecGUserSetup.GET(USERID) then
-        //         RecGUserSetup.INIT();
-        //     if RecGUserSetup."BC6_Limited User" then begin
-        //         if not CONFIRM(CstG003, false) then
-        //             exit;
-        //     end;
-        //     //<<P24233_001 SOBI APA 02/02/17
-
-        //     //>>FEP-ADVE-200706_18_A.001
-        //     if BooLGo then begin
-        //         //<<FEP-ADVE-200706_18_A.001
-        //         //<<MIGRATION NAV 2013
-
-        //         if Status = Status::Released then
-        //             exit;
-
-        //         if IsHandled then
-        //             exit;
-        //         if not (PreviewMode or SkipCheckReleaseRestrictions) then
-        //             CheckSalesReleaseRestrictions();
-
-        //         if not IsHandled then
-        //             if "Document Type" = "Document Type"::Quote then
-        //                 if CheckCustomerCreated(true) then
-        //                     Get("Document Type"::Quote, "No.")
-        //                 else
-        //                     exit;
-
-        //         TestField("Sell-to Customer No.");
-
-        //         //>>MIGRATION NAV 2013 - 2017
-        //         //LIVRAISON FRGO NSC1.01 [016] Date Livraison obligatoire
-        //         SalesSetup.GET();
-        //         if SalesSetup."BC6_Promised Delivery Date" then
-        //             if "Document Type" = "Document Type"::Order then
-        //                 TESTFIELD("Promised Delivery Date");
-        //         if SalesSetup."BC6_Requested Delivery Date" then
-        //             if "Document Type" = "Document Type"::Order then
-        //                 TESTFIELD("Requested Delivery Date");
-        //         //Fin LIVRAISON FRGO NSC1.01 [016] Date Livraison obligatoire
-
-        //         //>>FEP-ACHAT-200706_18_A.001
-        //         if ("Document Type" = "Document Type"::Order) then begin
-        //             RecGSalesLine.RESET();
-        //             RecGSalesLine.SETCURRENTKEY("Document Type", "Document No.", "Line No.");
-        //             RecGSalesLine.SETRANGE(RecGSalesLine."Document Type", "Document Type");
-        //             RecGSalesLine.SETRANGE(RecGSalesLine.Type, RecGSalesLine.Type::Item);
-        //             RecGSalesLine.SETRANGE(RecGSalesLine."Document No.", "No.");
-        //             if RecGSalesLine.FINDFIRST() then
-        //                 repeat
-        //                     RecGSalesLine.TESTFIELD("Purchasing Code");
-        //                 until RecGSalesLine.NEXT() = 0;
-        //         end;
-        //         //<<FEP-ACHAT-200706_18_A.001
-        //         //<<MIGRATION NAV 2013
-
-        //         //>>BCSYS
-        //         FactMgt.COD414_CheckReturnOrderMandatoryFields(SalesHeader);
-        //         //<<BCSYS
-
-        //         //CheckSalesLines///
-        //         SalesLine.SetRange("Document Type", "Document Type");
-        //         SalesLine.SetRange("Document No.", "No.");
-        //         SalesLine.SetFilter(Type, '>0');
-        //         SalesLine.SetFilter(Quantity, '<>0');
-        //         if not SalesLine.Find('-') then
-        //             if not "BC6_Sales Counter" then
-        //                 Error(Text001, "Document Type", "No.");
-        //         InvtSetup.Get();
-        //         if InvtSetup."Location Mandatory" then begin
-        //             SalesLine.SetRange(Type, SalesLine.Type::Item);
-        //             if SalesLine.FindSet() then
-        //                 repeat
-        //                     if SalesLine.IsInventoriableItem() then
-        //                         SalesLine.TestField("Location Code");
-        //                 until SalesLine.Next() = 0;
-        //             SalesLine.SetFilter(Type, '>0');
-        //         end;
-        //         //CheckSalesLines//
-
-        //         SalesLine.SetRange("Drop Shipment", false);
-        //         NotOnlyDropShipment := SalesLine.FindFirst();
-
-
-        //         SalesLine.Reset();
-
-
-        //         SalesSetup.Get();
-        //         if SalesSetup."Calc. Inv. Discount" then begin
-        //             PostingDate := "Posting Date";
-        //             PrintPostedDocuments := "Print Posted Documents";
-        //             if not "BC6_Sales Counter" then
-        //                 CODEUNIT.Run(CODEUNIT::"Sales-Calc. Discount", SalesLine);
-        //             LinesWereModified := true;
-        //             Get("Document Type", "No.");
-        //             "Print Posted Documents" := PrintPostedDocuments;
-        //             if PostingDate <> "Posting Date" then
-        //                 Validate("Posting Date", PostingDate);
-        //         end;
-
-
-
-        //         ShouldSetStatusPrepayment := PrepaymentMgt.TestSalesPrepayment(SalesHeader) and ("Document Type" = "Document Type"::Order);
-        //         if ShouldSetStatusPrepayment then begin
-        //             Status := Status::"Pending Prepayment";
-        //             Modify(true);
-        //             exit;
-        //         end;
-        //         Status := Status::Released;
-
-        //         LinesWereModified := LinesWereModified or ReleaSalesDoc.CalcAndUpdateVATOnLines(SalesHeader, SalesLine);
-
-        //         //ReleaseATOs//
-        //         SalesLine2.SetRange("Document Type", SalesHeader."Document Type");
-        //         SalesLine2.SetRange("Document No.", SalesHeader."No.");
-        //         if SalesLine2.FindSet() then
-        //             repeat
-        //                 if SalesLine2.AsmToOrderExists(AsmHeader) then
-        //                     CODEUNIT.Run(CODEUNIT::"Release Assembly Document", AsmHeader);
-        //             until SalesLine2.Next() = 0;
-        //         //ReleaseATOs//
-
-        //         Modify(true);
-
-        //         if NotOnlyDropShipment then
-        //             if "Document Type" in ["Document Type"::Order, "Document Type"::"Return Order"] then
-        //                 WhseSalesRelease.Release(SalesHeader);
-
-        //     end;
-        // end;
 
         IsHandled := true;
         WITH SalesHeader DO BEGIN
@@ -4491,7 +4332,7 @@ then begin
 
         end;
     end;
-    
+
     //TAB341
     [EventSubscriber(ObjectType::Table, Database::"Item Discount Group", 'OnBeforeDeleteEvent', '', false, false)]
     local procedure OnBeforeOnDelete(var Rec: Record "Item Discount Group")

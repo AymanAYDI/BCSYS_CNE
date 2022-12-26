@@ -80,7 +80,7 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
             {
                 Caption = 'Update Cost Incr. Coeff.';
                 Image = CalculateCost;
-                //TODO:Report // RunObject = Report 50099;
+                RunObject = Report "Update Item Cost Incr. Coeff.";
             }
         }
         addbefore("Prepa&yment Percentages")

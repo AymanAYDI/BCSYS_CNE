@@ -10,7 +10,7 @@ page 50114 "BC6_SAV Sales Ret. Order List"
     SourceTable = "Sales Header";
     SourceTableView = WHERE("Document Type" = CONST("Return Order"),
                             "BC6_Return Order Type" = CONST(SAV));
-
+  
     layout
     {
         area(content)

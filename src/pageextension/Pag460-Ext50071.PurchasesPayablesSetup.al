@@ -2,12 +2,6 @@ pageextension 50071 "BC6_PurchasesPayablesSetup" extends "Purchases & Payables S
 {
     layout
     {
-        // TODO:
-        //Unsupported feature: Property Modification (Level) on "Control 55". 
-        //Unsupported feature: Property Modification (Level) on "Control 57".
-        //Unsupported feature: Property Modification (Level) on "Control 59".
-        //Unsupported feature: Property Modification (Level) on "Control 61".
-
         addafter("Exact Cost Reversing Mandatory")
         {
             field("BC6_Minima de cde"; "BC6_Minima de cde")

@@ -18,7 +18,7 @@ pageextension 50068 "BC6_PurchaseOrderStatistics" extends "Purchase Order Statis
             }
         }
 
-        modify("TotalPurchLineLCY[3].Amount") // TODO: Check
+        modify("TotalPurchLineLCY[3].Amount")
         {
             Visible = false;
         }

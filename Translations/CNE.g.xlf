@@ -11015,7 +11015,7 @@
         </trans-unit>
         <trans-unit id="Page 1978130020 - Property 2019332006" size-unit="char" translate="yes" xml:space="preserve">
           <source>New,Process,Report,Approve,Release,Posting,Prepare,Invoice,Request Approval</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA"Nouveau,Traitement,tat,Approuver,Lancer,Comptabilisation,Préparer,Facture,Demande d'approbation"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_SAV Sales Return Order - Property PromotedActionCategories</note>
         </trans-unit>
         <trans-unit id="Page 1978130020 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
@@ -24210,7 +24210,7 @@
         </trans-unit>
         <trans-unit id="PageExtension 2423495636 - Control 2639977958 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="PageExtension 2423495636">
           <source>Item Sales/Purch. H&amp;istory</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA="H&amp;istorique ventes/achat article"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_PurchaseLineFactBox - Control BC6_CstG001 - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1946640034 - Control 1310797290 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1558565962">
@@ -25007,6 +25007,11 @@
           <source></source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesReturnOrder - NamedType Text001</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3366943464 - Method 3372236453 - NamedType 2248886284" size-unit="char" translate="yes" xml:space="preserve" al-object-target="PageExtension 3366943464">
+          <source>you don't have permission to add records</source>
+          <note from="Developer" annotates="general" priority="2">FRA="vous n'êtes pas autorisé à ajouter des enregistrements"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesReturnOrder - Method OnInsertRecord - NamedType Error</note>
         </trans-unit>
         <trans-unit id="PageExtension 3366943464 - Action 17496322 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1598289728">
           <source>Create an inventory put-away or inventory pick to handle items on the document according to a basic warehouse configuration that does not require warehouse receipt or shipment documents.</source>

@@ -76,7 +76,7 @@ pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
         }
         addafter(Control1907234507)
         {
-            part(Control50028; "BC6_Sales Hist. Sellto FactBox") //TODO : Names Of Parts 
+            part("Sales Hist. Sellto FactBox"; "BC6_Sales Hist. Sellto FactBox")
             {
                 Provider = SalesLines;
                 SubPageLink = "Document Type" = field("Document Type"),
@@ -203,33 +203,8 @@ pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
 
 
     var
-        // cust: Record Customer;
-        // SalesHeader: Record "Sales Header";
-        // recGCompanyInfo: Record "Company Information";
-        // "Sales & Receivables Setup": Record "Sales & Receivables Setup";
-        // RecGParmNavi: Record "BC6_Navi+ Setup";
-        // HistMail: Record 99003;
-        // ReportHelper: Codeunit 50010;
-        // SalesQuotetoOrder: Codeunit "Sales-Quote to Order (Yes/No)";
-        // cduMail: Codeunit Mail;
-        // Mail: Codeunit Mail;
-        // Form_DevisBloque: Page "BC6_Quote Blocked";
         BooGQuoteStatut: Boolean;
-    // Excel: Boolean;
-    // CodeUser: Code[10];
-    // Format_Date: Code[10];
-    // Nbr_Periode: Code[10];
-    // Date_Debut: Date;
-    // Date_Fin: Date;
-    // Nbr_Devis: Integer;
-    // Periode: Integer;
-    // Unite: Integer;
-    // E_Mail: Text[30];
-    // FileName: Text[250];
-    // nameF: Text[250];
-    // Objet: Text[250];
-    // ToFile: Text[250];
-    // Body: Text[1024];
+
 
 
 }

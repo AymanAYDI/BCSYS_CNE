@@ -2,11 +2,11 @@ page 50116 "BC6_SAV Sales Return Order"
 {
     Caption = 'Sales Return Order', comment = 'FRA="Retour vente"';
     PageType = Document;
-    PromotedActionCategories = 'New,Process,Report,Approve,Release,Posting,Prepare,Invoice,Request Approval';
+    PromotedActionCategories = 'New,Process,Report,Approve,Release,Posting,Prepare,Invoice,Request Approval', Comment = 'FRA"Nouveau,Traitement,tat,Approuver,Lancer,Comptabilisation,Préparer,Facture,Demande d''approbation"';
     RefreshOnActivate = true;
     SourceTable = "Sales Header";
     SourceTableView = WHERE("Document Type" = FILTER("Return Order"));
-    
+
     layout
     {
         area(content)
@@ -1270,24 +1270,26 @@ page 50116 "BC6_SAV Sales Return Order"
     begin
     end;
 
-    local procedure FctSendNotification()
+    local procedure FctSendNotification()    //TODO check changement de la function create notification
     var
         NotificationEntry: Record "Notification Entry";
         L_UserSetup: Record "User Setup";
         notification: Notification;
-        FunctionMgt: codeunit "BC6_Functions Mgt";
+        WorkflowStepArgument: Record "Workflow Step Argument";
+        WorkflowStepInstance: Record "Workflow Step Instance";
     begin
-        //         L_UserSetup.RESET;
-        //         L_UserSetup.SETRANGE("BC6_SAV Admin", TRUE);
-        //         //TODO
-        //         IF L_UserSetup.FINDFIRST THEN
-        //             REPEAT
-        //             //CreateNe0w
-        // //InsertRec(NewType: Enum "Notification Entry Type"; NewUserID: Code[50]; NewRecordID: RecordID;
-        // //NewLinkTargetPage: Integer; NewCustomLink: Text[250]; NewSenderUserID: Code[50]): Boolean;
-        //                 FunctionMgt.InsertRec(
-        //                   NotificationEntry.Type::"New Record", L_UserSetup."User ID",
-        //                   Rec, 6630,'');
-        //             UNTIL L_UserSetup.NEXT = 0;
+        L_UserSetup.RESET;
+        L_UserSetup.SETRANGE("BC6_SAV Admin", TRUE);
+
+        IF L_UserSetup.FINDFIRST THEN begin
+            WorkflowStepInstance.Get();
+            if WorkflowStepArgument.Get(WorkflowStepInstance.Argument) then
+                REPEAT
+
+                    NotificationEntry.CreateNotificationEntry(NotificationEntry.Type::"New Record", L_UserSetup."User ID", Rec, WorkflowStepArgument."Link Target Page",
+                                      WorkflowStepArgument."Custom Link", CopyStr(UserId(), 1, 50));
+
+                UNTIL L_UserSetup.NEXT = 0;
+        end;
     end;
 }

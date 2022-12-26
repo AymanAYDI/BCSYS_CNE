@@ -284,7 +284,6 @@ page 50057 "BC6_Inventory Card MiniForm"
             }
             field(QtyCtrl; Qty)
             {
-                // BlankZero = true; TODO:
                 Caption = 'Quantity', Comment = 'FRA="Quantité"';
                 Editable = QtyCtrlEditable;
                 Style = Standard;
@@ -545,7 +544,6 @@ page 50057 "BC6_Inventory Card MiniForm"
         LocationForm: Page "BC6_Location List MiniForm";
         BinForm: Page "BC6_Bin List MiniForm";
         FirstLine: Boolean;
-        // WshShell: Automation; TODO:
         BoolWait: Boolean;
         FromBinCaption: Label 'Bin Code', Comment = 'FRA="De empl."';
         ItemNoCaption: Label 'Item nr', Comment = 'FRA="N° article"';

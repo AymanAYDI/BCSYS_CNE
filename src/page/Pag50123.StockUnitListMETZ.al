@@ -342,7 +342,7 @@ page 50123 "BC6_Stock. Unit List METZ"
                         trigger OnAction()
                         var
                             ItemTrackingDocMgt: Codeunit "Item Tracking Doc. Management";
-                        begin //TODO : Tocheck 
+                        begin
                             ItemTrackingDocMgt.ShowItemTrackingForEntity(0, '', "Item No.", "Variant Code", "Location Code");
                         end;
                     }

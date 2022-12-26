@@ -419,10 +419,10 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
 
                 trigger OnAction()
                 begin
-                    //TODO IF NOT "BC6_From Sales Module" THEN
-                    //     CurrPage.PurchLines.PAGE.ChooseSalesLineOrderToAffect
-                    // ELSE
-                    //     MESSAGE(txtg001);
+                    IF NOT "BC6_From Sales Module" THEN
+                        CurrPage.PurchLines.PAGE.ChooseSalesLineOrderToAffect
+                    ELSE
+                        MESSAGE(txtg001);
                 end;
             }
             group("F&unctions")

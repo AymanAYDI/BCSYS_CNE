@@ -429,7 +429,6 @@ page 50063 "Invt. Pick Card MiniForm F2"
         ItemForm: Page "BC6_Item List MiniForm";
         LocationForm: Page "BC6_Location List MiniForm";
         InvtPickForm: Page "BC6_Invt Pick List MiniForm";
-        // WshShell: Automation; TODO:
         BoolWait: Boolean;
         EditableCtrl: Boolean;
         EditableFromBinCtrl: Boolean;
@@ -639,6 +638,7 @@ page 50063 "Invt. Pick Card MiniForm F2"
     procedure AssignItemNo(var ItemNo: Code[20])
     var
         ItemError: Boolean;
+        FunctionMgt: Codeunit "BC6_Functions Mgt";
     begin
         ItemError := FALSE;
         ErrorTxt := '';
@@ -646,7 +646,7 @@ page 50063 "Invt. Pick Card MiniForm F2"
         IF (ItemNo <> '') THEN BEGIN
             TESTFIELD("BC6_Whse. Document No.");
             IF CodeEANOk(ItemNo) THEN BEGIN
-                // ItemNo2 := DistInt.GetItem(ItemNo); TODO:
+                ItemNo2 := FunctionMgt.GetItem(ItemNo);
                 IF Item.GET(ItemNo2) THEN
                     ItemNo := Item."No."
                 ELSE BEGIN

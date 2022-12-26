@@ -419,7 +419,7 @@ page 50121 "LOC Purch. Return Order List"
 
                     trigger OnAction()
                     begin
-                        // GetPstdDocLinesToRevere;// TODO: missing function in record id 38
+                        Rec.GetPstdDocLinesToReverse();
                     end;
                 }
                 separator(Action1102601020)

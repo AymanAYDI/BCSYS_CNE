@@ -4,6 +4,7 @@ xmlport 50023 "BC6_Intégration catalogue"
     FieldDelimiter = '<None>';
     FieldSeparator = '<TAB>';
     Format = VariableText;
+    Caption = 'Intégration catalogue';
 
     schema
     {

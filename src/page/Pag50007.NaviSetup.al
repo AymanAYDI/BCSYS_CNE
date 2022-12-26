@@ -4,7 +4,7 @@ page 50007 "BC6_Navi+ Setup"
     PageType = Card;
     SourceTable = "BC6_Navi+ Setup";
     ApplicationArea = all;
-    UsageCategory = Administration;
+    UsageCategory = Tasks;
 
     layout
     {

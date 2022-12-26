@@ -1,9 +1,10 @@
-xmlport 50030 "Import AdressesLivrasonClt T"
+xmlport 50030 "BC6_Import AdresLivraisonCltT"
 {
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = ';';
     Format = VariableText;
+    Caption = 'Import AdresLivraisonCltT';
 
     schema
     {

@@ -5,6 +5,8 @@ page 50011 "BC6_Sales Quote Arch. Cde"
     PageType = Document;
     SourceTable = "Sales Header Archive";
     SourceTableView = WHERE("Document Type" = CONST(Quote));
+    ApplicationArea = all;
+    UsageCategory = Tasks;
 
     layout
     {

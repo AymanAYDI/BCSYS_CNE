@@ -4,6 +4,7 @@ xmlport 53000 "BC6_Import Client"
     FieldDelimiter = '<None>';
     FieldSeparator = '<TAB>';
     Format = VariableText;
+    Caption = 'Import Client';
 
     schema
     {

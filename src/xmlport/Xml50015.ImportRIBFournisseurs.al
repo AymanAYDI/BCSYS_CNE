@@ -5,6 +5,7 @@ xmlport 50015 "BC6_Import R.I.B Fournisseurs"
     FieldDelimiter = '<None>';
     FieldSeparator = '<TAB>';
     Format = VariableText;
+    Caption = 'Import R.I.B Fournisseurs';
 
     schema
     {

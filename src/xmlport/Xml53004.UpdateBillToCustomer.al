@@ -4,6 +4,7 @@ xmlport 53004 "BC6_Update Bill-To-Customer"
     FieldDelimiter = '<None>';
     FieldSeparator = '<TAB>';
     Format = VariableText;
+    Caption = 'Update Bill-To-Customer';
 
     schema
     {

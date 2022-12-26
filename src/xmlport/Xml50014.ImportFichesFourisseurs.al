@@ -1,9 +1,10 @@
-xmlport 50014 "Import Fiches Fourisseurs"
+xmlport 50014 "BC6_Import Fiches Fourisseurs"
 {
 
     FieldDelimiter = '<None>';
     FieldSeparator = ';';
     Format = VariableText;
+    Caption = 'Import Fiches Fourisseurs';
 
     schema
     {

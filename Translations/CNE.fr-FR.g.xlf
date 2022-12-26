@@ -8440,6 +8440,36 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Navi+ Setup - Control Vendor - Property Caption</note>
           <target>Fournisseur</target>
         </trans-unit>
+        <trans-unit id="Page 2131622032 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Tools One Shot</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Outils One-Shot"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_OneShot - Property Caption</note>
+          <target>Outils One-Shot</target>
+        </trans-unit>
+        <trans-unit id="Page 2131622032 - Control 3533304086 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Export Purchase Price</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Export Tarifs fournisseurs"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_OneShot - Control Export Purchase Price - Property Caption</note>
+          <target>Export Tarifs fournisseurs</target>
+        </trans-unit>
+        <trans-unit id="Page 2131622032 - Control 2568080718 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Import Bin Contents</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Import contenus emplacements"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_OneShot - Control Import Bin Contents - Property Caption</note>
+          <target>Import contenus emplacements</target>
+        </trans-unit>
+        <trans-unit id="Page 2131622032 - Control 2420901405 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Import Bins</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Import emplacements"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_OneShot - Control Import Bins - Property Caption</note>
+          <target>Import emplacements</target>
+        </trans-unit>
+        <trans-unit id="Page 2131622032 - Control 3315170685 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Import Purchase Price</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Import Tarifs fournisseurs"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_OneShot - Control Import Purchase Price - Property Caption</note>
+          <target>Import Tarifs fournisseurs</target>
+        </trans-unit>
         <trans-unit id="Page 10747570 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Role Center</source>
           <note from="Developer" annotates="general" priority="2">FRA="Tableau de bord"</note>
@@ -13860,9 +13890,9 @@
         </trans-unit>
         <trans-unit id="Page 2743599097 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Setup Various Tables</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Parametrage Tables Diverses"</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Paramètrage Tables Diverses"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Setup Various Tables - Property Caption</note>
-          <target>Parametrage Tables Diverses</target>
+          <target>Paramètrage Tables Diverses</target>
         </trans-unit>
         <trans-unit id="Page 2743599097 - Action 2713276947 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Gestion Tables Diverses</source>
@@ -26796,6 +26826,26 @@
           <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Export Purchase Price - NamedType Text001</note>
           <target>%1 %2 invalide</target>
         </trans-unit>
+        <trans-unit id="XmlPort 219704625 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Import Adr. Livraison Clts</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Import Adr. Livraison Clts - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 3485733052 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Import AdresLivraisonCltT</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Import AdresLivraisonCltT - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 2101430331 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Import article</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Import article - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 3913934035 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Import Av. Orders</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Import Av. Orders - Property Caption</note>
+        </trans-unit>
         <trans-unit id="XmlPort 3913934035 - NamedType 3114637384" size-unit="char" translate="yes" xml:space="preserve">
           <source>%1 commandes à jour %2.</source>
           <note from="Developer" annotates="general" priority="2">FRA="%1 commandes à jour %2."</note>
@@ -26835,8 +26885,13 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Import Bins - NamedType Text002</note>
         </trans-unit>
+        <trans-unit id="XmlPort 526825680 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Import Client</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Import Client - Property Caption</note>
+        </trans-unit>
         <trans-unit id="XmlPort 4194686179 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>&lt;Import Compta&gt;</source>
+          <source>Import Compta</source>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Import Compta - Property Caption</note>
         </trans-unit>
@@ -26855,6 +26910,26 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Import Compta - Control TxtGFileName - Property Caption</note>
         </trans-unit>
+        <trans-unit id="XmlPort 2713240623 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Import Fiches Clients</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Import Fiches Clients - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 285260263 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Import Fiches Fouris Test</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Import Fiches Fouris Test - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 2841592267 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Import Fiches Fourisseurs</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Import Fiches Fourisseurs - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 3969593267 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Import Plan Comptable</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Import Plan Comptable - Property Caption</note>
+        </trans-unit>
         <trans-unit id="XmlPort 3209556053 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Import Purchase Price</source>
           <note from="Developer" annotates="general" priority="2">FRA="Import Tarifs fournisseurs"</note>
@@ -26867,10 +26942,35 @@
           <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Import Purchase Price - NamedType Text001</note>
           <target>%1 %2 invalide</target>
         </trans-unit>
+        <trans-unit id="XmlPort 15483842 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Import R.I.B Clients</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Import R.I.B Clients - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 690191224 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Import R.I.B Fournisseurs</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Import R.I.B Fournisseurs - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 2597581162 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Import R.I.BClients</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Import R.I.BClients - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 1645654153 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Import RIB Vendeur</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Import RIB Vendeur - Property Caption</note>
+        </trans-unit>
         <trans-unit id="XmlPort 4042960871 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>&lt;Import Stock&gt;</source>
+          <source>Import Stock</source>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Import Stock - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 3492305512 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Import Tiers</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Import Tiers - Property Caption</note>
         </trans-unit>
         <trans-unit id="XmlPort 3492305512 - NamedType 1700519688" size-unit="char" translate="yes" xml:space="preserve">
           <source>Account %1 do not exist !!</source>
@@ -26898,6 +26998,26 @@
           <source>File Name</source>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Import Tiers - Control TxtGFileName - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 3493278331 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>import vendor</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_import vendor - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 565413657 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Import/Export Qty to order</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Import/Export Qty to order - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 1645760306 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Import/Export Source Code</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Import/Export Source Code - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 3773228683 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Intégration catalogue</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Intégration catalogue - Property Caption</note>
         </trans-unit>
         <trans-unit id="XmlPort 3773228683 - NamedType 3802638270" size-unit="char" translate="yes" xml:space="preserve">
           <source>Import de la ligne #1#######</source>
@@ -26975,6 +27095,11 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Intégration catalogue - Control TextGabbreviation - Property Caption</note>
         </trans-unit>
+        <trans-unit id="XmlPort 1244082157 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Intégration catalogue2</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Intégration catalogue2 - Property Caption</note>
+        </trans-unit>
         <trans-unit id="XmlPort 1244082157 - NamedType 3283546407" size-unit="char" translate="yes" xml:space="preserve">
           <source>Starting Date %1 must be less than end date %2</source>
           <note from="Developer" annotates="general" priority="2">FRA="Date début %1 doit être inférieur à date fin %2"</note>
@@ -27028,6 +27153,21 @@
           <source>Vendor abbreviation</source>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Intégration catalogue2 - Control TextGabbreviation - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 1086937645 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Maj Noms Clients</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Maj Noms Clients - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 236992025 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Reprise articles et Prix</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Reprise articles et Prix - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="XmlPort 3265433431 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Update Bill-To-Customer</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Update Bill-To-Customer - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1792303710 - Action 4612893 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2521211343">
           <source>Statement avec traite</source>
@@ -28655,8 +28795,9 @@
         </trans-unit>
         <trans-unit id="PageExtension 1199972306 - Action 17496322 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
           <source>Create an inventory put-away or inventory pick to handle items on the document according to a basic warehouse configuration that does not require warehouse receipt or shipment documents.</source>
-          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesOrder - Action BC6_Create Inventor&amp;y Put-away/Pick2 - Property ToolTip</note>
+          <target/>
         </trans-unit>
         <trans-unit id="PageExtension 1199972306 - Action 17496322 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
           <source>Create Inventor&amp;y Put-away/Pick</source>

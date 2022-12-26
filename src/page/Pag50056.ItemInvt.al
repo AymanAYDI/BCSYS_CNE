@@ -8,7 +8,8 @@ page 50056 "BC6_Item Invt."
     RefreshOnActivate = true;
     ShowFilter = false;
     SourceTable = "Bin Content";
-
+    UsageCategory = Administration;
+    ApplicationArea = all;
     layout
     {
         area(content)

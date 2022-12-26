@@ -4,6 +4,7 @@ xmlport 50031 "BC6_Import R.I.BClients"
     FieldDelimiter = '<None>';
     FieldSeparator = ';';
     Format = VariableText;
+    Caption = 'Import R.I.BClients';
 
     schema
     {

@@ -1,9 +1,10 @@
 page 50000 "BC6_Setup Various Tables"
 {
-    Caption = 'Setup Various Tables', comment = 'FRA="Parametrage Tables Diverses"';
+    Caption = 'Setup Various Tables', comment = 'FRA="Paramètrage Tables Diverses"';
     PageType = Card;
     SourceTable = "BC6_Setup Various Tables";
-
+    ApplicationArea = all;
+    UsageCategory = Tasks;
     layout
     {
         area(content)

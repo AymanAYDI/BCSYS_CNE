@@ -1,7 +1,7 @@
 xmlport 53005 "BC6_Import Compta"
 {
 
-    Caption = '<Import Compta>';
+    Caption = 'Import Compta';
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = '<TAB>';

@@ -118,7 +118,7 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
                     FunctionMgt: Codeunit "BC6_Functions Mgt";
 
                 begin
-                    FunctionMgt.BC6_CreateInvtPutAwayPick();
+                    FunctionMgt.BC6_CreateInvtPutAwayPick_Sales(rec);
 
                     if not Find('=><') then
                         Init();

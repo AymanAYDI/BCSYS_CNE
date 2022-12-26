@@ -1,6 +1,6 @@
 xmlport 53006 "BC6_Import Stock"
 {
-    Caption = '<Import Stock>';
+    Caption = 'Import Stock';
     Direction = Import;
     FieldSeparator = '<TAB>';
     Format = VariableText;

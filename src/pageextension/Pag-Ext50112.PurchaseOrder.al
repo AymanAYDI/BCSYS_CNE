@@ -2,8 +2,6 @@ pageextension 50112 "BC6_PurchaseOrder" extends "Purchase Order"
 {
     layout
     {
-
-
     }
     actions
     {
@@ -27,7 +25,7 @@ pageextension 50112 "BC6_PurchaseOrder" extends "Purchase Order"
                     FunctionsMgt: codeunit "BC6_Functions Mgt";
 
                 begin
-                    FunctionsMgt.BC6_CreateInvtPutAwayPick();
+                    FunctionsMgt.BC6_CreateInvtPutAwayPick_Purchase(rec);
                     IF NOT Rec.FIND('=><') then
                         Rec.INIT();
                 END;

@@ -88,7 +88,7 @@ pageextension 50092 "BC6_PurchaseReturnOrder" extends "Purchase Return Order" //
                     FunctionsMgt: codeunit "BC6_Functions Mgt";
 
                 begin
-                    FunctionsMgt.BC6_CreateInvtPutAwayPick();
+                    FunctionsMgt.BC6_CreateInvtPutAwayPick_Purchase(rec);
                 end;
 
             }

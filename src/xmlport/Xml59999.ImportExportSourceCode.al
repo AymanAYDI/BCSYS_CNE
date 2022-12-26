@@ -1,5 +1,6 @@
-xmlport 59999 "Import/Export Source Code"
+xmlport 59999 "BC6_Import/Export Source Code"
 {
+    Caption = 'Import/Export Source Code';
 
     schema
     {

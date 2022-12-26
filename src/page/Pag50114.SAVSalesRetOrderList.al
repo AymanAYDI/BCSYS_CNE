@@ -493,7 +493,7 @@ page 50114 "BC6_SAV Sales Ret. Order List"
                     var
                         FunctionMgt: Codeunit "BC6_Functions Mgt";
                     begin
-                        FunctionMgt.BC6_CreateInvtPutAwayPick;
+                        FunctionMgt.BC6_CreateInvtPutAwayPick_Sales(rec);
                     end;
                 }
                 action("Create &Whse. Receipt")

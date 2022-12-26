@@ -1,10 +1,11 @@
-xmlport 50013 "Import R.I.B Clients"
+xmlport 50013 "BC6_Import R.I.B Clients"
 {
 
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = '<TAB>';
     Format = VariableText;
+    Caption = 'Import R.I.B Clients';
 
     schema
     {

@@ -5,6 +5,7 @@ xmlport 53007 "BC6_Import Tiers"
     FieldDelimiter = '<None>';
     FieldSeparator = '<TAB>';
     Format = VariableText;
+    Caption = 'Import Tiers';
 
     schema
     {

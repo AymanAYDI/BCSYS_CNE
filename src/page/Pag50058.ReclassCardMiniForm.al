@@ -12,7 +12,6 @@ page 50058 "BC6_Reclass. Card MiniForm"
     SourceTable = "Item Journal Line";
     SourceTableView = SORTING("Journal Template Name", "Journal Batch Name", "Line No.")
                       ORDER(Ascending);
-
     layout
     {
         area(content)

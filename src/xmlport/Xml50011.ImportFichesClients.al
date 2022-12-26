@@ -4,6 +4,7 @@ xmlport 50011 "BC6_Import Fiches Clients"
     FieldDelimiter = '<None>';
     FieldSeparator = ';';
     Format = VariableText;
+    Caption = 'Import Fiches Clients';
 
     schema
     {

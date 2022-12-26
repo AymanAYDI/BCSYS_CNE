@@ -2,6 +2,7 @@ xmlport 53008 "BC6_Maj Noms Clients"
 {
     FieldSeparator = ';';
     Format = VariableText;
+    Caption = 'Maj Noms Clients';
 
     schema
     {
@@ -9,6 +10,7 @@ xmlport 53008 "BC6_Maj Noms Clients"
         {
             tableelement(customer; customer)
             {
+
                 XmlName = 'Customer';
                 textelement(num)
                 {

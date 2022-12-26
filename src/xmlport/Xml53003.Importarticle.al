@@ -4,6 +4,7 @@ xmlport 53003 "BC6_Import article"
     FieldDelimiter = '<None>';
     FieldSeparator = '<TAB>';
     Format = VariableText;
+    Caption = 'Import article';
 
     schema
     {

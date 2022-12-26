@@ -397,7 +397,7 @@ page 50063 "Invt. Pick Card MiniForm F2"
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        //NewLine();
+        NewLine();
         AfterGetCurrRecord;
     end;
 
@@ -640,7 +640,6 @@ page 50063 "Invt. Pick Card MiniForm F2"
     var
         ItemError: Boolean;
     begin
-        // TESTFIELD("Whse. Document No.");
         ItemError := FALSE;
         ErrorTxt := '';
 

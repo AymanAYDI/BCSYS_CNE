@@ -4,6 +4,7 @@ xmlport 50010 "BC6_Import Plan Comptable"
     FieldDelimiter = '<None>';
     FieldSeparator = ';';
     Format = VariableText;
+    Caption = 'Import Plan Comptable';
 
     schema
     {

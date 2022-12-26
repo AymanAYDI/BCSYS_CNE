@@ -1,9 +1,10 @@
-xmlport 50017 "Reprise des articles et Prix"
+xmlport 50017 "BC6_Reprise articles et Prix"
 {
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = ';';
     Format = VariableText;
+    Caption = 'Reprise articles et Prix';
 
     schema
     {

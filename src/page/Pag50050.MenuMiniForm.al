@@ -4,6 +4,8 @@ page 50050 "BC6_Menu MiniForm"
     LinksAllowed = false;
     PageType = Card;
     ShowFilter = false;
+ApplicationArea = all;
+    UsageCategory = Tasks;
 
     layout
     {

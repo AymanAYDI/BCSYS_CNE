@@ -929,7 +929,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                         FunctionsMgt: codeunit "BC6_Functions Mgt";
 
                     begin
-                        FunctionsMgt.BC6_CreateInvtPutAwayPick();
+                        FunctionsMgt.BC6_CreateInvtPutAwayPick_Purchase(rec);
                     end;
                 }
                 separator(sep5)

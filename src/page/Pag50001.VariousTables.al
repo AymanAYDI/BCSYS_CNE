@@ -3,7 +3,8 @@ page 50001 "BC6_Various Tables"
     Caption = 'Various Tables', comment = 'FRA="Tables Diverses"';
     PageType = List;
     SourceTable = "BC6_Various Tables";
-
+    UsageCategory = Tasks;
+    ApplicationArea = all;
     layout
     {
         area(content)

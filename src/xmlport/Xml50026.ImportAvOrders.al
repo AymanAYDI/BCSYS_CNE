@@ -3,12 +3,13 @@ xmlport 50026 "BC6_Import Av. Orders"
     FieldDelimiter = '<None>';
     FieldSeparator = ';';
     Format = VariableText;
+    Caption = 'Import Av. Orders';
 
     schema
     {
         textelement(Root)
         {
-            tableelement(Table2000000026; Integer)
+            tableelement(Integer; Integer)
             {
                 XmlName = 'Integers';
                 SourceTableView = SORTING(Number)

@@ -90,7 +90,7 @@ pageextension 50125 "BC6_PurchaseOrderList" extends "Purchase Order List" //9307
                     FunctionsMgt: codeunit "BC6_Functions Mgt";
 
                 begin
-                    FunctionsMgt.BC6_CreateInvtPutAwayPick();
+                    FunctionsMgt.BC6_CreateInvtPutAwayPick_Purchase(rec);
 
                     if not Rec.find('=><') then
                         Rec.init();

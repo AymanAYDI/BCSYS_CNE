@@ -504,7 +504,7 @@ page 50120 "BC6_SAV Purch. Ret. Order List"
                     var
                         FunctionsMgt: codeunit "BC6_Functions Mgt";
                     begin
-                        FunctionsMgt.BC6_CreateInvtPutAwayPick();
+                        FunctionsMgt.BC6_CreateInvtPutAwayPick_Purchase(rec);
                     end;
                 }
                 action("Create &Whse. Shipment")

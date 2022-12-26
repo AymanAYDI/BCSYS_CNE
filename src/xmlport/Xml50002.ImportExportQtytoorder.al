@@ -2,6 +2,7 @@ xmlport 50002 "BC6_Import/Export Qty to order"
 {
     FieldSeparator = ';';
     Format = VariableText;
+    Caption = 'Import/Export Qty to order';
 
     schema
     {
@@ -26,7 +27,7 @@ xmlport 50002 "BC6_Import/Export Qty to order"
                 trigger OnAfterGetRecord()
                 begin
                     SalesLine."BC6_Qty. To Order" := 0;
-                    SalesLine.MODIFY;
+                    SalesLine.MODIFY();
                 end;
             }
         }

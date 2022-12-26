@@ -1,9 +1,10 @@
-xmlport 50032 "Import Fiches Fourisseurs Test"
+xmlport 50032 "BC6_Import Fiches Fouris Test"
 {
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = ';';
     Format = VariableText;
+    Caption = 'Import Fiches Fouris Test';
 
     schema
     {

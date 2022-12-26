@@ -4,6 +4,7 @@ xmlport 53001 "BC6_import vendor"
     FieldDelimiter = '<None>';
     FieldSeparator = '<TAB>';
     Format = VariableText;
+    Caption = 'import vendor';
 
     schema
     {

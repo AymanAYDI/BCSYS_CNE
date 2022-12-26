@@ -742,7 +742,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                     var
                         FunctionMgt: Codeunit "BC6_Functions Mgt";
                     begin
-                        FunctionMgt.BC6_CreateInvtPutAwayPick();
+                        FunctionMgt.BC6_CreateInvtPutAwayPick_Sales(rec);
                     end;
                 }
                 separator(Action178)

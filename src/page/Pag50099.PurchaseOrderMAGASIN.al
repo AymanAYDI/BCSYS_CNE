@@ -550,7 +550,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                     var
                         FunctionsMgt: codeunit "BC6_Functions Mgt";
                     begin
-                        FunctionsMgt.BC6_CreateInvtPutAwayPick();
+                        FunctionsMgt.BC6_CreateInvtPutAwayPick_Purchase(rec);
                     end;
                 }
                 separator(Action74)

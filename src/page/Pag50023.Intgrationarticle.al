@@ -3,7 +3,7 @@ page 50023 "BC6_Intégration article"
     InsertAllowed = false;
     PageType = List;
     SourceTable = "BC6_Temporary import catalogue";
-    UsageCategory = Lists;
+    UsageCategory = Tasks;
     ApplicationArea = All;
     layout
     {

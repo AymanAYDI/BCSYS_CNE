@@ -378,7 +378,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                                 AssignFromBinCode(FromBinCode);
                             END;
                         END;
-                        RefreshDataControlAddin
+                        RefreshDataControlAddin();
                     end;
 
                     trigger OnValidate()
@@ -646,7 +646,6 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         OpenWithWhseEmployee();
         ShowCtrl := TRUE;
         EditableCtrl := TRUE;
-
         ToBinCodeCtrlVisible := TRUE;
         IsVisibleSearch := NOT (CURRENTCLIENTTYPE = CLIENTTYPE::Windows);
     end;

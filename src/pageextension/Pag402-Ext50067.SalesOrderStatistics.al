@@ -126,14 +126,7 @@ pageextension 50067 "BC6_SalesOrderStatistics" extends "Sales Order Statistics" 
 
     var
         "-MIGNAV2013-": Integer;
-        "-DEEE1.00-": Integer;
-        DecGHTAmount: array[3] of Decimal;
-        DecGVATAmount: array[3] of Decimal;
-        DecGTTCAmount: array[3] of Decimal;
-        DecGHTAmountLCY: array[3] of Decimal;
-        "--- TDL94.001 ---": Integer;
         RecGCustomer: Record Customer;
-        "---BCSYS---": Integer;
         ShowRealProfit: Boolean;
         UserSetup: Record "User Setup";
 

@@ -1,4 +1,4 @@
-//TODO: pageextension 50141 pageextension50141 extends "Session List"
+//TODO:Replaced by 670 // pageextension 50141 pageextension50141 extends "Session List"
 // {
 //     actions
 //     {

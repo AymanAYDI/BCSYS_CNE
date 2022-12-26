@@ -92,11 +92,11 @@ codeunit 50203 "BC6_PagesEvents"
     local procedure P161_OnAfterUpdateHeaderInfo()
     var
         TempVATAmountLine: Record "VAT Amount Line" temporary;
+        GlobalFct: Codeunit BC6_GlobalFunctionMgt;
     begin
-        //TODO DecGVATAmount := TempVATAmountLine.GetTotalVATDEEEAmount;
-        // DecGTTCAmount := TempVATAmountLine.GetTotalAmountDEEEInclVAT;
-        // VATAmount := VATAmount + DecGVATAmount;
-
+        GlobalFct.SetDecGVATAmount(TempVATAmountLine.GetTotalVATDEEEAmount);
+        GlobalFct.SetDecGTTCAmount(TempVATAmountLine.GetTotalAmountDEEEInclVAT);
+        GlobalFct.SetVATAmount(TempVATAmountLine.GetTotalVATAmount + GlobalFct.GetDecGVATAmount);
     end;
 
     [EventSubscriber(ObjectType::Page, Page::"Apply Customer Entries", 'OnBeforeSetApplyingCustLedgEntry', '', false, false)]
@@ -171,10 +171,8 @@ codeunit 50203 "BC6_PagesEvents"
         GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
     begin
         IF Rec."Vendor No." = Rec."BC6_Pay-to Vend. No." THEN
-            // BooGVendorNoStyle := TRUE
             GlobalFunctionMgt.SetBooGVendorNoStyle(true)
         ELSE
-            //BooGVendorNoStyle := FALSE; // JE PENSE QUE CE TRAITEMENT EST UNITILE
             GlobalFunctionMgt.SetBooGVendorNoStyle(false);
     end;
 

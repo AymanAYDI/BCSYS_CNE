@@ -2,7 +2,6 @@ pageextension 50050 "BC6_PurchaseStatistics" extends "Purchase Statistics" //161
 {
     layout
     {
-        //TODO: check ligne 5 // Unsupported feature: Property Modification (SourceExpr) on "Control 3".
         modify("TotalPurchLineLCY.Amount")
         {
             Visible = false;
@@ -13,9 +12,9 @@ pageextension 50050 "BC6_PurchaseStatistics" extends "Purchase Statistics" //161
             {
                 ApplicationArea = Basic, Suite;
                 AutoFormatType = 1;
-                Caption = 'Purchase (LCY)';
+                Caption = 'Purchase (LCY)', Comment = 'FRA="Achats DS"';
                 Editable = false;
-                ToolTip = 'Specifies your total purchases. It is calculated from amounts excluding VAT on all completed and open purchase invoices and credit memos.';
+                ToolTip = 'Specifies your total purchases. It is calculated from amounts excluding VAT on all completed and open purchase invoices and credit memos.', Comment = 'FRA="Spécifie le total de vos achats. Il est calculé à partir des montants HT sur toutes les factures et avoirs achats terminés et ouverts."';
             }
         }
         addafter("TotalPurchLineLCY.Amount")
@@ -47,13 +46,6 @@ pageextension 50050 "BC6_PurchaseStatistics" extends "Purchase Statistics" //161
             }
         }
     }
-
-    var
-        DecGHTAmount: Decimal;
-        DecGVATAmount: Decimal;
-        DecGTTCAmount: Decimal;
-        DecGHTAmountLCY: Decimal;
-
 
 
 

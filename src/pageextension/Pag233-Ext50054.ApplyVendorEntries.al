@@ -17,12 +17,13 @@ pageextension 50054 "BC6_ApplyVendorEntries" extends "Apply Vendor Entries" //23
             Style = StandardAccent;
             StyleExpr = TRUE;
             trigger OnAfterValidate()
+            var
+                GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
             begin
-                //Mise en couleur dynamique lorsque le n° Tiers payeur =  n° fournisseur
                 IF "Vendor No." = "BC6_Pay-to Vend. No." THEN
-                    BooGVendorNoStyle := TRUE
+                    GlobalFunctionMgt.setBooGVendorNoStyle(true)
                 ELSE
-                    BooGVendorNoStyle := FALSE;
+                    GlobalFunctionMgt.setBooGVendorNoStyle(false);
             END;
         }
         addafter("Vendor No.")
@@ -30,18 +31,18 @@ pageextension 50054 "BC6_ApplyVendorEntries" extends "Apply Vendor Entries" //23
             field(BC6_VendorNO; getVendorName("Vendor No."))
             {
                 trigger OnValidate()
+                var
+                    GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
+
                 begin
                     //Mise en couleur dynamique lorsque le n° Tiers payeur =  n° fournisseur
                     IF "Vendor No." = "BC6_Pay-to Vend. No." THEN
-                        BooGVendorNoStyle := TRUE
+                        GlobalFunctionMgt.setBooGVendorNoStyle(TRUE)
                     ELSE
-                        BooGVendorNoStyle := FALSE;
+                        GlobalFunctionMgt.setBooGVendorNoStyle(FALSE);
                 END;
             }
         }
     }
-    var
-        [INDATASET]
-        BooGVendorNoStyle: Boolean;
 
 }

@@ -32,18 +32,18 @@ pageextension 50114 "BC6_SalesLineFactBox" extends "Sales Line FactBox"  //9087
                 field("Available Inventory ACTI"; FunctionMgt.CalcAvailableInventoryCNE(Rec, GR_ItemCNE))
                 {
                     ApplicationArea = Basic, Suite;
-                    Caption = 'Available Inventory ACTI';
-                    //TODO // DecimalPlaces = 0 : 5;
-                    ToolTip = 'Specifies the quantity of the item that is currently in inventory and not reserved for other demand.';
+                    Caption = 'Available Inventory ACTI', Comment = 'FRA="Stock disponible ACTI"';
+                    DecimalPlaces = 0 : 5;
+                    ToolTip = 'Specifies the quantity of the item that is currently in inventory and not reserved for other demand.', Comment = 'FRA="Spécifie la quantité de l''article actuellement en stock et non réservée pour une autre demande."';
                     Visible = ShowAvaibility;
                 }
                 field("Item Availability ACTI"; FunctionMgt.CalcAvailabilityCNE(Rec, GR_ItemCNE))
                 {
                     ApplicationArea = Basic, Suite;
-                    Caption = 'Item Availability ACTI';
-                    //TODO // DecimalPlaces = 0 : 5;
+                    Caption = 'Item Availability ACTI', Comment = 'FRA=Disponibilité article ACTI"';
+                    DecimalPlaces = 0 : 5;
                     DrillDown = false;
-                    ToolTip = 'Specifies how may units of the item on the sales line are available, in inventory or incoming before the shipment date.';
+                    ToolTip = 'Specifies how may units of the item on the sales line are available, in inventory or incoming before the shipment date.', Comment = 'FRA="Spécifie combien d''unités de l''article de la ligne vente sont disponibles, en stock ou entrantes avant la date d''expédition."';
                     Visible = ShowAvaibility;
 
                 }
@@ -55,18 +55,18 @@ pageextension 50114 "BC6_SalesLineFactBox" extends "Sales Line FactBox"  //9087
                 field("Available Inventory METZ"; FunctionMgt.CalcAvailableInventoryMETZ(Rec, GR_ItemMETZ))
                 {
                     ApplicationArea = Basic, Suite;
-                    Caption = 'Available Inventory METZ';
-                    //TODO // DecimalPlaces = 0 : 5;
-                    ToolTip = 'Specifies the quantity of the item that is currently in inventory and not reserved for other demand.';
+                    Caption = 'Available Inventory METZ', Comment = 'FRA="Stock disponible METZ"';
+                    DecimalPlaces = 0 : 5;
+                    ToolTip = 'Specifies the quantity of the item that is currently in inventory and not reserved for other demand.', Comment = 'FRA="Spécifie la quantité de l''article actuellement en stock et non réservée pour une autre demande."';
                     Visible = ShowAvaibility;
                 }
                 field("Item Availability METZ"; FunctionMgt.CalcAvailabilityMETZ(Rec, GR_ItemMETZ))
                 {
                     ApplicationArea = Basic, Suite;
-                    Caption = 'Item Availability METZ';
-                    //TODO // DecimalPlaces = 0 : 5;
+                    Caption = 'Item Availability METZ', Comment = 'FRA="Disponibilité article METZ"';
+                    DecimalPlaces = 0 : 5;
                     DrillDown = false;
-                    ToolTip = 'Specifies how may units of the item on the sales line are available, in inventory or incoming before the shipment date.';
+                    ToolTip = 'Specifies how may units of the item on the sales line are available, in inventory or incoming before the shipment date.', Comment = 'FRA="Spécifie combien d''unités de l''article de la ligne vente sont disponibles, en stock ou entrantes avant la date d''expédition."';
                     Visible = ShowAvaibility;
 
                 }
@@ -77,13 +77,13 @@ pageextension 50114 "BC6_SalesLineFactBox" extends "Sales Line FactBox"  //9087
         {
             field("BC6_CNE Inventory"; FunctionMgt.CalcCNEInventory(Rec))
             {
-                Caption = 'CNE Inventory';
+                Caption = 'CNE Inventory', Comment = 'FRA="Stocks CNE"';
                 Visible = ShowCNEInfo;
                 ApplicationArea = All;
             }
             field("BC6_CNE Qty. on Purch. Order"; FunctionMgt.CalcCNEQtyOnPurchOrder(Rec))
             {
-                Caption = 'CNE Qty. on Purch. Order';
+                Caption = 'CNE Qty. on Purch. Order', Comment = 'FRA="Qté sur commande achat CNE"';
                 Visible = ShowCNEInfo;
                 ApplicationArea = All;
             }
@@ -92,7 +92,7 @@ pageextension 50114 "BC6_SalesLineFactBox" extends "Sales Line FactBox"  //9087
         {
             field(AvailabilityToPick; STRSUBSTNO('%1', FunctionMgt.CalcQtyAvailToPick(Rec)))
             {
-                Caption = 'Availa&bility To Pick';
+                Caption = 'Availa&bility To Pick', Comment = 'FRA="Disp&o. prélèv."';
                 ApplicationArea = All;
 
                 trigger OnDrillDown()
@@ -102,7 +102,7 @@ pageextension 50114 "BC6_SalesLineFactBox" extends "Sales Line FactBox"  //9087
             }
             field(QtyOnPurchOrder; STRSUBSTNO('%1', FunctionMgt.CalcQtyOnPurchOrder(Rec)))
             {
-                Caption = 'Qty. on Purch. Order';
+                Caption = 'Qty. on Purch. Order', Comment = 'FRA="Qté sur commande achat"';
                 ApplicationArea = All;
 
                 trigger OnDrillDown()

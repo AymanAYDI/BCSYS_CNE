@@ -7,20 +7,19 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
         {
             field(BC6_CodeEAN13Ctrl; EAN13Code)
             {
-                Caption = 'EAN13 Code';
-                //TODO
-                // trigger OnLookup(var Text: Text): Boolean
-                // begin
-                //     DistInt.LookupItemEAN13Code("No.", EAN13Code);
-                // end;
+
+                trigger OnLookup(var Text: Text): Boolean
+                var
+                    functionMgt: Codeunit "BC6_Functions Mgt";
+                begin
+                    functionMgt.LookupItemEAN13Code("No.", EAN13Code);
+                end;
             }
             field(BC6_Blocked2; Blocked)
             {
-                Caption = 'Blocked';
             }
             field("BC6_No. 2"; "No. 2")
             {
-                Caption = 'No. 2';
             }
             field("BC6_Search Description 2"; "BC6_Search Description 2")
             {
@@ -32,7 +31,6 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
         {
             field(BC6_Inventory; Inventory)
             {
-                Caption = 'Inventory';
             }
         }
         addafter("Unit Price")
@@ -50,15 +48,12 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
         {
             field("BC6_Reorder Quantity"; "Reorder Quantity")
             {
-                Caption = 'Reorder Quantity';
             }
             field("BC6_Safety Stock Quantity"; "Safety Stock Quantity")
             {
-                Caption = 'Safety Stock Quantity';
             }
             field("BC6_Order Multiple"; "Order Multiple")
             {
-                Caption = 'Order Multiple';
             }
         }
         modify("Search Description")
@@ -78,7 +73,7 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
         {
             action(BC6_UpdateCostIncreaseCoeff)
             {
-                Caption = 'Update Cost Incr. Coeff.';
+                Caption = 'Update Cost Incr. Coeff.', Comment = 'FRA="Modifier coeff majoration du coût"';
                 Image = CalculateCost;
                 RunObject = Report "Update Item Cost Incr. Coeff.";
             }
@@ -100,7 +95,7 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
         {
             action("BC6_Line Discounts")
             {
-                Caption = 'Line Discounts';
+                Caption = 'Line Discounts', Comment = 'FRA="Remises ligne"';
                 Image = LineDiscount;
                 RunObject = page "Purchase Line Discounts";
                 RunPageLink = BC6_Type = const(Item),
@@ -108,54 +103,54 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
                 RunPageView = sorting(BC6_Type, "Item No.", "Vendor No.", "Starting Date", "Currency Code", "Variant Code", "Unit of Measure Code", "Minimum Quantity");
             }
         }
-        addlast(Resources)
+        addafter("Skilled R&esources")
         {
             action(BC6_UpdateICPartnerItems)
             {
-                Caption = 'Update IC Partner Items';
+                Caption = 'Update IC Partner Items', Comment = 'FRA="Màj articles partenaires"';
                 Enabled = UpdateICPartnerItemsEnabled;
                 Image = UpdateDescription;
-                // TODO: //RunObject = Codeunit 50021;
+                RunObject = Codeunit "BC6_Update IC Partner Items";
             }
         }
         addlast(navigation)
         {
             action("Créer code-barres interne")
             {
-                Caption = 'Create Internal BarCodes';
+                Caption = 'Create Internal BarCodes', Comment = 'FRA="Créer code-barres interne"';
                 Description = 'MIGNAV2013';
                 Image = BarCode;
 
                 trigger OnAction()
+                var
+                    functionMgt: Codeunit "BC6_Functions Mgt";
                 begin
                     CLEAR(DistInt);
-                    //TODO // DistInt.CreateItemEAN13Code("No.", TRUE);
+                    functionMgt.CreateItemEAN13Code("No.", TRUE);
                 end;
             }
             action(BC6_PrintLabel)
             {
-                Caption = 'Print Label';
-                Description = 'MIGNAV2013';
+                Caption = 'Print Label', Comment = 'FRA="Imprimer étiquette"';
                 Ellipsis = true;
                 Image = BarCode;
 
                 trigger OnAction()
                 var
                     FromItem: Record Item;
-                // PrintLabel: Report 50049;
-                // PrintLabel2: Report 50059;
+                    PrintLabel: Report 50049;
+                    PrintLabel2: Report 50059;
                 begin
-                    //TODO : les 3 lignes 
-                    // CLEAR(PrintLabel);
+                    CLEAR(PrintLabel);
                     CLEAR(FromItem);
                     CurrPage.SETSELECTIONFILTER(FromItem);
-                    // PrintLabel2.SETTABLEVIEW(FromItem);
-                    // PrintLabel2.RUN;
+                    PrintLabel2.SETTABLEVIEW(FromItem);
+                    PrintLabel2.RUN;
                 end;
             }
             action(BC6_UpdateUnitPriceIncVAT)
             {
-                Caption = 'Update Item Prices Inc VAT';
+                Caption = 'Update Item Prices Inc VAT', Comment = 'FRA="Mise à jour prix public TTC"';
                 Description = 'MIGNAV2013';
                 Ellipsis = true;
                 Image = Price;
@@ -163,21 +158,21 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
                 trigger OnAction()
                 var
                     ItemToUpdate: Record Item;
-                //TODO   // UpdateUnitPriceIncVAT: Report 50053;
+                    UpdateUnitPriceIncVAT: Report 50053;
                 begin
                     CLEAR(ItemToUpdate);
-                    // CLEAR(UpdateUnitPriceIncVAT);
-                    // CurrPage.SETSELECTIONFILTER(ItemToUpdate);
-                    // UpdateUnitPriceIncVAT.SETTABLEVIEW(ItemToUpdate);
-                    // UpdateUnitPriceIncVAT.RUN;
+                    CLEAR(UpdateUnitPriceIncVAT);
+                    CurrPage.SETSELECTIONFILTER(ItemToUpdate);
+                    UpdateUnitPriceIncVAT.SETTABLEVIEW(ItemToUpdate);
+                    UpdateUnitPriceIncVAT.RUN;
                 end;
             }
             group("BC6_&Bin Contents")
             {
-                Caption = '&Bin Contents';
+                Caption = '&Bin Contents', Comment = 'FRA="C&ontenu emplacement"';
                 action("BC6_&Bin Content")
                 {
-                    Caption = '&Bin Contents';
+                    Caption = '&Bin Contents', Comment = 'FRA="C&ontenu emplacement"';
                     Image = BinContent;
                     RunObject = Page "Item Bin Contents";
                     RunPageLink = "Item No." = FIELD("No.");
@@ -190,7 +185,7 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
 
 
 
-    trigger OnOpenPage() //TODO : AU LIEU DE OnInit ( à vérifier)
+    trigger OnOpenPage()
 
     begin
         if STRPOS(COMPANYNAME, 'CNE') = 0 then
@@ -201,10 +196,10 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
 
     trigger OnAfterGetRecord()
     var
-        DistInt: Codeunit "Dist. Integration";
         "-MIGNAV2013-": Integer;
+        functionMgt: Codeunit "BC6_Functions Mgt";
     begin
-        //TODO // EAN13Code := DistInt.GetItemEAN13Code("No.");
+        EAN13Code := functionMgt.GetItemEAN13Code("No.");
     end;
 
     var

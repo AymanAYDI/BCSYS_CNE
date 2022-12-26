@@ -23,14 +23,14 @@ pageextension 50061 "BC6_PhysInventoryJournal" extends "Phys. Inventory Journal"
         {
             action("BC6_Refresh Phys. Qty")
             {
-                Caption = 'Refresh Phys. Qty';
+                Caption = 'Refresh Phys. Qty', Comment = 'FRA="Actualiser quantité &constatée"';
 
-                // trigger OnAction() TODO:  missing report
-                // begin
-                //     RefreshPhysQty.SetItemJnlLine(Rec);
-                //     RefreshPhysQty.RUNMODAL;
-                //     CLEAR(RefreshPhysQty);
-                // end;
+                trigger OnAction()
+                begin
+                    RefreshPhysQty.SetItemJnlLine(Rec);
+                    RefreshPhysQty.RUNMODAL;
+                    CLEAR(RefreshPhysQty);
+                end;
             }
         }
     }

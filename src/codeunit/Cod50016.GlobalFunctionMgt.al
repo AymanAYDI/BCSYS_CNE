@@ -4,6 +4,16 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
 
 
     //********* Page 161***********//
+    procedure SetVATAmount(pVATAmount: Decimal)
+    begin
+        VATAmount := pVATAmount;
+    end;
+
+    procedure GetVATAmount(): Decimal
+    begin
+        exit(VATAmount);
+    end;
+
     procedure SetDecGVATAmount(pDecGVATAmount: Decimal)
     begin
         DecGVATAmount := pDecGVATAmount;
@@ -268,6 +278,20 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
     end;
     //------ end set
 
+
+
+
+    //--------- page30 
+    procedure GetShowIncreaseCoeff(): Boolean
+    begin
+        exit(NewShowIncreaseCoeff);
+    end;
+    //------ end  
+    procedure SetShowIncreaseCoeff(pShowIncreaseCoeff: Boolean)
+    begin
+        NewShowIncreaseCoeff := pShowIncreaseCoeff;
+    end;
+
     var
         BooGVendorNoStyle: Boolean;
         BooGAutoTextSpe: Boolean;
@@ -290,8 +314,12 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
         _PurchEcoPartnerDEEE: Code[20];
         _PurchDEEECategoryCode: Code[20];
         DecGVATAmount: Decimal;
+        VATAmount: Decimal;
         DecGTTCAmount: Decimal;
         NewReceiptBinCodeEnable: Boolean;
         NewShipmentBinCodeEnable: Boolean;
         NewAssemblyShipmentBinCodeEnable: Boolean;
+        ShowIncreaseCoeff: Boolean;
+        NewShowIncreaseCoeff: Boolean;
+
 }

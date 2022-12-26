@@ -978,7 +978,7 @@ codeunit 50202 "BC6_Functions Mgt"
                 //Meilleur remise
                 if PriceCalcMgt.SalesLineLineDiscExists(RecLSalesHeader, RecLSalesLine, false) then begin
                     // PriceCalcMgt.CalcBestLineDisc(TempSalesLineDisc); TODO:
-                    // BestDiscount := TempSalesLineDisc."Line Discount %"; TODO:
+                    // BestDiscount := TempSalesLineDisc."Line Discount %";
                 end else begin
                     BestDiscount := 0;
                 end;
@@ -1224,7 +1224,7 @@ codeunit 50202 "BC6_Functions Mgt"
             ToSalesLine2."Document Type" := ToSalesHeader."Document Type";
             ToSalesLine2."Document No." := ToSalesHeader."No.";
 
-            //TODO   // LanguageManagement.SetGlobalLanguageByCode(ToSalesHeader."Language Code");
+          //TODO  // LanguageManagement.SetGlobalLanguageByCode(ToSalesHeader."Language Code");
 
             if PurchaseOrderExists then
                 ToSalesLine2.Description :=
@@ -1238,7 +1238,7 @@ codeunit 50202 "BC6_Functions Mgt"
                   Text50001,
                   COPYSTR(SELECTSTR(1, Text50000) + L_SalesShptHeader."Order No.", 1, 23));
 
-            //TODO     // LanguageManagement.RestoreGlobalLanguage;
+            // LanguageManagement.RestoreGlobalLanguage;
 
             ToSalesLine2.INSERT();
         end;

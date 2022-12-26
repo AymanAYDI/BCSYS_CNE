@@ -71,7 +71,7 @@ pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
             field("BC6_Bin Code"; Rec."BC6_Bin Code")
             {
                 ApplicationArea = All;
-                Caption = 'Bin Code';
+                Caption = 'Bin Code', Comment = 'FRA=""';
             }
         }
         addafter(Control1907234507)

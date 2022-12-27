@@ -197,6 +197,7 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
     trigger OnAfterGetRecord()
     var
         functionMgt: Codeunit "BC6_Functions Mgt";
+        "-MIGNAV2013-": Integer;
     begin
         EAN13Code := functionMgt.GetItemEAN13Code("No.");
     end;

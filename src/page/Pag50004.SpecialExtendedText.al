@@ -71,7 +71,7 @@ page 50004 "BC6_Special Extended Text"
         {
             action(List)
             {
-                Caption = 'List';
+                Caption = 'List', Comment = 'FRA=""';
                 Promoted = true;
                 PromotedCategory = Process;
                 RunPageOnRec = true;

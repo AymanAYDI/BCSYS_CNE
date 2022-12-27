@@ -366,24 +366,26 @@ page 50085 "BC6_Sales Order Lines Test"
                                     RecLSalesLines."BC6_Purchase Receipt Date" := RecLPurchLine."Expected Receipt Date";
                                     RecLSalesLines."BC6_Qty. To Order" := 0;
                                     RecLSalesLines."BC6_To Order" := FALSE;
-                                    RecLSalesLineTmp.TRANSFERFIELDS(RecLSalesLines);
-                                    RecLSalesLineTmp.INSERT(FALSE);
+                                    TempRecLSalesLine.TRANSFERFIELDS(RecLSalesLines);
+                                    TempRecLSalesLine.INSERT(FALSE);
                                     RecLSalesLines.MODIFY(FALSE);
 
                                 UNTIL RecLSalesLines.NEXT() = 0;
-                                RecLSalesLineTmp.RESET();
-                                IF RecLSalesLineTmp.FIND('-') THEN
+
+                                TempRecLSalesLine.RESET();
+                                IF TempRecLSalesLine.FIND('-') THEN
                                     REPEAT
                                         RecLPurchLine2.RESET();
-                                        RecLPurchLine2.SETRANGE("Document Type", RecLSalesLineTmp."BC6_Purch. Document Type"::Order);
-                                        RecLPurchLine2.SETRANGE("Document No.", RecLSalesLineTmp."BC6_Purch. Order No.");
-                                        RecLPurchLine2.SETRANGE("Line No.", RecLSalesLineTmp."BC6_Purch. Line No.");
+                                        RecLPurchLine2.SETRANGE("Document Type", TempRecLSalesLine."BC6_Purch. Document Type"::Order);
+                                        RecLPurchLine2.SETRANGE("Document No.", TempRecLSalesLine."BC6_Purch. Order No.");
+                                        RecLPurchLine2.SETRANGE("Line No.", TempRecLSalesLine."BC6_Purch. Line No.");
                                         IF RecLPurchLine2.FIND('-') THEN
                                             REPEAT
                                                 InsertExtendedText(TRUE, RecLPurchLine2);
                                                 RecLPurchLine2.MODIFY(FALSE);
                                             UNTIL RecLPurchLine2.NEXT() = 0;
-                                    UNTIL RecLSalesLineTmp.NEXT() = 0;
+
+                                    UNTIL TempRecLSalesLine.NEXT() = 0;
                             END;
 
                             DiaGWindow.CLOSE();
@@ -449,7 +451,7 @@ page 50085 "BC6_Sales Order Lines Test"
         RecGItem: Record Item;
         RecGPurchasing: Record Purchasing;
         RecGSalesHeader: Record "Sales Header";
-        RecLSalesLineTmp: Record "Sales Line" temporary;
+        TempRecLSalesLine: Record "Sales Line" temporary;
         BooGExcDropShipFilter: Boolean;
         BooGExcQuoteFilter: Boolean;
         BooGExcShipOrders: Boolean;
@@ -463,7 +465,6 @@ page 50085 "BC6_Sales Order Lines Test"
         OptGSort: Enum BC6_OptGSort;
         "-FEP-ACHAT-200706_18_A-": Integer;
         "-OPTIMISATION": Integer;
-        "<<<PRODWARE>>>": Integer;
         CstGText50001: Label 'Item No.          #2##########\', Comment = 'FRA="#2###########\"';
         CstGText50002: Label 'Purchase Header          #2##########\', Comment = 'FRA=" #3###########\"';
         CstGText50003: Label 'Purchase Lines             #3###########\', Comment = 'FRA="#4###########\"';
@@ -639,7 +640,7 @@ page 50085 "BC6_Sales Order Lines Test"
     local procedure OptGSortOnAfterValidate()
     begin
         IF BooGExcDropShipFilter THEN BEGIN
-            CASE OptGSort OF
+            CASE OptGSort.AsInteger() OF
                 0:
                     SETCURRENTKEY("Document Type", Type, "Outstanding Quantity", "Purchasing Code", "Drop Shipment");
                 1:
@@ -648,7 +649,7 @@ page 50085 "BC6_Sales Order Lines Test"
                     SETCURRENTKEY("Document Type", Type, "Outstanding Quantity", "Purchasing Code", "Drop Shipment", "BC6_Buy-from Vendor No.", "No.", "Shipment Date");
             END;
         END ELSE BEGIN
-            CASE OptGSort OF
+            CASE OptGSort.AsInteger() OF
                 0:
                     SETCURRENTKEY("Document Type", Type, "Outstanding Quantity", "Purchasing Code");
                 1:

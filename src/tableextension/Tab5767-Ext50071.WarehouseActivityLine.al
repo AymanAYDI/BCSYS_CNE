@@ -110,7 +110,7 @@ tableextension 50071 "BC6_WarehouseActivityLine" extends "Warehouse Activity Lin
                 IF ("Activity Type" IN ["Activity Type"::Pick, "Activity Type"::"Invt. Pick", "Activity Type"::"Invt. Movement"]) AND
                    ("Action Type" <> "Action Type"::Place) AND ("Lot No." <> '') AND (CurrFieldNo <> 0)
                 THEN
-                    CheckReservedItemTrkg(1, "Lot No.");
+                    CheckReservedItemTrkg("Item Tracking Type"::"Lot No.", "Lot No.");
 
                 IF "Qty. to Handle" = 0 THEN
                     FctMangt.UpdateReservation(Rec, FALSE)

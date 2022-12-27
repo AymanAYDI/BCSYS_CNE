@@ -55,6 +55,7 @@ pageextension 50039 "BC6_PostedSalesCreditMemo" extends "Posted Sales Credit Mem
                     trigger OnAction()
                     var
                         RecLSalesCrMemoHeader: Record "Sales Cr.Memo Header";
+                        "-MIGNAV2013-": Integer;
                     begin
                         RecLSalesCrMemoHeader := Rec;
                         RecLSalesCrMemoHeader.SETRECFILTER();
@@ -68,6 +69,7 @@ pageextension 50039 "BC6_PostedSalesCreditMemo" extends "Posted Sales Credit Mem
                     trigger OnAction()
                     var
                         RecLSalesCrMemoHeader: Record "Sales Cr.Memo Header";
+                        "-MIGNAV2013-": Integer;
                     begin
                         RecLSalesCrMemoHeader := Rec;
                         RecLSalesCrMemoHeader.SETRECFILTER();

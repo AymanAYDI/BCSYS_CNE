@@ -520,11 +520,11 @@ page 50098 "BC6_Sales Order (MAGASIN)"
 
                     trigger OnAction()
                     var
-                        OrderPromisingLine: Record "Order Promising Line" temporary;
+                        TempOrderPromisingLine: Record "Order Promising Line" temporary;
                     begin
-                        OrderPromisingLine.SETRANGE("Source Type", "Document Type");
-                        OrderPromisingLine.SETRANGE("Source ID", "No.");
-                        PAGE.RUNMODAL(PAGE::"Order Promising Lines", OrderPromisingLine);
+                        TempOrderPromisingLine.SETRANGE("Source Type", "Document Type");
+                        TempOrderPromisingLine.SETRANGE("Source ID", "No.");
+                        PAGE.RUNMODAL(PAGE::"Order Promising Lines", TempOrderPromisingLine);
                     end;
                 }
                 group("Dr&op Shipment")

@@ -449,9 +449,9 @@ page 50074 "BC6_Item List Search CNE"
     end;
 
 
-    procedure SetSelection(var Item: Record Item)
+    procedure SetSelection(var Items: Record Item)
     begin
-        CurrPage.SETSELECTIONFILTER(Item);
+        CurrPage.SETSELECTIONFILTER(Items);
     end;
 
 

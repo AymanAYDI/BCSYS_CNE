@@ -197,6 +197,7 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
     end;
 
     var
+
         RecGArea: Record "Area";
         RecGTransESPoint: Record "Entry/Exit Point";
         RecGTransSpe: Record "Transaction Specification";
@@ -208,7 +209,6 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
         TxtGTransMeth: Text[100];
         TxtGTransSpe: Text[100];
         TxtGTransType: Text[100];
-
 
     procedure SetShowMiniMargin(_ShowMiniMargin: Boolean)
     begin

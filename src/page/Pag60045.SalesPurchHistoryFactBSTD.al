@@ -11,7 +11,7 @@ page 60045 "Sales/Purch. History FactB STD"
             group(Sales)
             {
                 Caption = 'Sales', Comment = 'FRA="Ventes"';
-                field(Quotes; STRSUBSTNO('(%1)', NoOfQuotes))
+                field(Quotes; STRSUBSTNO(txtlbl1, NoOfQuotes))
                 {
                     Caption = '&Quotes', Comment = 'FRA="&Devis"';
                     ApplicationArea = All;
@@ -26,7 +26,7 @@ page 60045 "Sales/Purch. History FactB STD"
                         PagGSalesLinesSubform3.RUN();
                     end;
                 }
-                field("Blanket Orders"; STRSUBSTNO('(%1)', NoOfBlanketOrders))
+                field("Blanket Orders"; STRSUBSTNO(txtlbl1, NoOfBlanketOrders))
                 {
                     Caption = '&Blanket Orders', Comment = 'FRA="&Commandes ouvertes"';
                     ApplicationArea = All;
@@ -41,7 +41,7 @@ page 60045 "Sales/Purch. History FactB STD"
                         PagGSalesLinesSubform3.RUN();
                     end;
                 }
-                field(Orders; STRSUBSTNO('(%1)', NoOfOrders))
+                field(Orders; STRSUBSTNO(txtlbl1, NoOfOrders))
                 {
                     Caption = '&Orders', Comment = 'FRA="C&ommandes"';
                     Editable = false;
@@ -57,7 +57,7 @@ page 60045 "Sales/Purch. History FactB STD"
                         PagGSalesLinesSubform3.RUN();
                     end;
                 }
-                field("Invoices"; STRSUBSTNO('(%1)', NoofInvoices))
+                field("Invoices"; STRSUBSTNO(txtlbl1, NoofInvoices))
                 {
                     Caption = '&Invoices', Comment = 'FRA="&Factures"';
                     Editable = false;
@@ -73,7 +73,7 @@ page 60045 "Sales/Purch. History FactB STD"
                         PagGSalesLinesSubform3.RUN();
                     end;
                 }
-                field("Return Orders"; STRSUBSTNO('(%1)', NoOfReturnOrders))
+                field("Return Orders"; STRSUBSTNO(txtlbl1, NoOfReturnOrders))
                 {
                     Caption = '&Return Orders', Comment = 'FRA="&Retours"';
                     Editable = false;
@@ -89,7 +89,7 @@ page 60045 "Sales/Purch. History FactB STD"
                         PagGSalesLinesSubform3.RUN();
                     end;
                 }
-                field("Credit Memos"; STRSUBSTNO('(%1)', NoOfCreditMemos))
+                field("Credit Memos"; STRSUBSTNO(txtlbl1, NoOfCreditMemos))
                 {
                     Caption = 'Cre&dit Memos', Comment = 'FRA="A&voirs"';
                     Editable = false;
@@ -105,7 +105,7 @@ page 60045 "Sales/Purch. History FactB STD"
                         PagGSalesLinesSubform3.RUN();
                     end;
                 }
-                field("Posted Shipments"; STRSUBSTNO('(%1)', NoOfPstdShipments))
+                field("Posted Shipments"; STRSUBSTNO(txtlbl1, NoOfPstdShipments))
                 {
                     Caption = '&Posted Shipments', Comment = 'FRA="Ex&péditions enregistrées"';
                     Editable = false;
@@ -120,7 +120,7 @@ page 60045 "Sales/Purch. History FactB STD"
                         PagGShipmentLinesSubform3.RUN();
                     end;
                 }
-                field("Posted Invoices"; STRSUBSTNO('(%1)', NoOfPstdInvoices))
+                field("Posted Invoices"; STRSUBSTNO(txtlbl1, NoOfPstdInvoices))
                 {
                     Caption = 'Posted I&nvoices', Comment = 'FRA="Factures e&nregistrées"';
                     Editable = false;
@@ -135,7 +135,7 @@ page 60045 "Sales/Purch. History FactB STD"
                         PagGInvoiceLinesSubform3.RUN();
                     end;
                 }
-                field("Posted Return Receipts"; STRSUBSTNO('(%1)', NoOfPstdReturnReceipts))
+                field("Posted Return Receipts"; STRSUBSTNO(txtlbl1, NoOfPstdReturnReceipts))
                 {
                     Caption = 'Posted Ret&urn Receipts', Comment = 'FRA="Réceptions reto&ur enregistrées"';
                     Editable = false;
@@ -150,7 +150,7 @@ page 60045 "Sales/Purch. History FactB STD"
                         PagGGReturnRcptLinesSubform2.RUN();
                     end;
                 }
-                field("Posted Cr. Memos"; STRSUBSTNO('(%1)', NoOfPstdCreditMemos))
+                field("Posted Cr. Memos"; STRSUBSTNO(txtlbl1, NoOfPstdCreditMemos))
                 {
                     Caption = 'Posted Cr. &Memos', Comment = 'FRA="&Avoirs enregistrés"';
                     Editable = false;
@@ -169,7 +169,7 @@ page 60045 "Sales/Purch. History FactB STD"
             group(Purchases)
             {
                 Caption = 'Purchases', Comment = 'FRA="Achats"';
-                field("Purch Quote"; STRSUBSTNO('(%1)', NbrOfPurchQuote))
+                field("Purch Quote"; STRSUBSTNO(txtlbl1, NbrOfPurchQuote))
                 {
                     Caption = 'Purch Quote', Comment = 'FRA="Demandes de prix"';
                     Editable = false;
@@ -185,7 +185,7 @@ page 60045 "Sales/Purch. History FactB STD"
                         PagGPurchaseLinesSubform2.RUN();
                     end;
                 }
-                field("Blanket Order Purchas"; STRSUBSTNO('(%1)', NbrOfPurchBlanketOrder))
+                field("Blanket Order Purchas"; STRSUBSTNO(txtlbl1, NbrOfPurchBlanketOrder))
                 {
                     Caption = 'Blanket Order Purchas ', Comment = 'FRA="Commandes achat ouvertes"';
                     Editable = false;
@@ -201,7 +201,7 @@ page 60045 "Sales/Purch. History FactB STD"
                         PagGPurchaseLinesSubform2.RUN();
                     end;
                 }
-                field("Purchase Order"; STRSUBSTNO('(%1)', NbrOfPurchOrder))
+                field("Purchase Order"; STRSUBSTNO(txtlbl1, NbrOfPurchOrder))
                 {
                     Caption = 'Purchase Order', Comment = 'FRA="Commandes achat"';
                     Editable = false;
@@ -217,7 +217,7 @@ page 60045 "Sales/Purch. History FactB STD"
                         PagGPurchaseLinesSubform2.RUN();
                     end;
                 }
-                field("Purchase Invoice"; STRSUBSTNO('(%1)', NbrOfPurchInvoice))
+                field("Purchase Invoice"; STRSUBSTNO(txtlbl1, NbrOfPurchInvoice))
                 {
                     Caption = 'Purchase Invoice', Comment = 'FRA="Factures achat"';
                     Editable = false;
@@ -233,7 +233,7 @@ page 60045 "Sales/Purch. History FactB STD"
                         PagGPurchaseLinesSubform2.RUN();
                     end;
                 }
-                field("Purchase Return"; STRSUBSTNO('(%1)', NbrOfPurchReturn))
+                field("Purchase Return"; STRSUBSTNO(txtlbl1, NbrOfPurchReturn))
                 {
                     Caption = 'Purchase Return', Comment = 'FRA="Retours achat"';
                     Editable = false;
@@ -249,7 +249,7 @@ page 60045 "Sales/Purch. History FactB STD"
                         PagGPurchaseLinesSubform2.RUN();
                     end;
                 }
-                field("Purchase Credit Memo"; STRSUBSTNO('(%1)', NbrOfPurchCrdMemo))
+                field("Purchase Credit Memo"; STRSUBSTNO(txtlbl1, NbrOfPurchCrdMemo))
                 {
                     Caption = 'Purchase Credit Memo', Comment = 'FRA="Avoirs achat"';
                     Editable = false;
@@ -265,7 +265,7 @@ page 60045 "Sales/Purch. History FactB STD"
                         PagGPurchaseLinesSubform2.RUN();
                     end;
                 }
-                field("Posted Purchase Receipt"; STRSUBSTNO('(%1)', NbrOfPurchPostedRcpt))
+                field("Posted Purchase Receipt"; STRSUBSTNO(txtlbl1, NbrOfPurchPostedRcpt))
                 {
                     Caption = 'Posted Purchase Receipt', Comment = 'FRA="Réceptions achat enregistrées"';
                     Editable = false;
@@ -280,7 +280,7 @@ page 60045 "Sales/Purch. History FactB STD"
                         PagGPurchRcpLinesSubform.RUN();
                     end;
                 }
-                field("Posted Purchase Invoice"; STRSUBSTNO('(%1)', NbrOfPurchPostedInvoice))
+                field("Posted Purchase Invoice"; STRSUBSTNO(txtlbl1, NbrOfPurchPostedInvoice))
                 {
                     Caption = 'Posted Purchase Invoice', Comment = 'FRA="Factures achat enregistrées"';
                     Editable = false;
@@ -295,7 +295,7 @@ page 60045 "Sales/Purch. History FactB STD"
                         PagGPurchInvLineSubform.RUN();
                     end;
                 }
-                field("Posted Purchase Return Shipement"; STRSUBSTNO('(%1)', NbrOfPurchPostedReturnShipemen))
+                field("Posted Purchase Return Shipement"; STRSUBSTNO(txtlbl1, NbrOfPurchPostedReturnShipemen))
                 {
                     Caption = 'Posted Purchase Return Shipement', Comment = 'FRA="Expéditions retour achat"';
                     Editable = false;
@@ -311,7 +311,7 @@ page 60045 "Sales/Purch. History FactB STD"
                         PagGReturnShipmentLineSubform.RUN();
                     end;
                 }
-                field("Posted Purchase Credit Memo"; STRSUBSTNO('(%1)', NbrOfPurchPostedCrdMemo))
+                field("Posted Purchase Credit Memo"; STRSUBSTNO(txtlbl1, NbrOfPurchPostedCrdMemo))
                 {
                     Caption = 'Posted Purchase Credit Memo', Comment = 'FRA="Avoirs achat enregistrés"';
                     Editable = false;
@@ -711,5 +711,6 @@ page 60045 "Sales/Purch. History FactB STD"
         NoOfPstdShipments: Integer;
         NoOfQuotes: Integer;
         NoOfReturnOrders: Integer;
+        txtlbl1: label '(%1)';
 }
 

@@ -526,7 +526,8 @@ page 50118 "BC6_LOC Purchase Return Order"
                     var
                         ApprovalEntries: Page "Approval Entries";
                     begin
-                        ApprovalEntries.Setfilters(DATABASE::"Purchase Header", Rec."Document Type", Rec."No.");
+
+                        ApprovalEntries.Setfilters(DATABASE::"Purchase Header", Rec."Document Type".AsInteger(), Rec."No.");
                         ApprovalEntries.RUN();
                     end;
                 }

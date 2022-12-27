@@ -134,5 +134,6 @@ page 50060 "BC6_Test capture"
         TextCst: Label 'Field %1', Comment = 'FRA="Champ %1"';
         ArrayCaption: array[4] of Text;
         ArrayValue: array[4] of Text;
+
 }
 

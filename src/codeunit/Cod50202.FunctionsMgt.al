@@ -1361,7 +1361,7 @@ codeunit 50202 "BC6_Functions Mgt"
                             CurrencyCode2 := CustLedgEntry."Currency Code";
                             if Amount = 0 then begin
                                 repeat
-                                    PayApply.CheckAgainstApplnCurrency(CurrencyCode2, CustLedgEntry."Currency Code", AccType::Customer, true);
+                                    PayApply.CheckAgainstApplnCurrency(CurrencyCode2, CustLedgEntry."Currency Code", AccType::Customer.AsInteger(), true);
                                     CustLedgEntry.CALCFIELDS("Remaining Amount");
                                     CustLedgEntry."Remaining Amount" :=
                                       CurrExchRate.ExchangeAmount(
@@ -1394,7 +1394,7 @@ codeunit 50202 "BC6_Functions Mgt"
                                 VALIDATE("Amount (LCY)");
                             end else
                                 repeat
-                                    PayApply.CheckAgainstApplnCurrency(CurrencyCode2, CustLedgEntry."Currency Code", AccType::Customer, true);
+                                    PayApply.CheckAgainstApplnCurrency(CurrencyCode2, CustLedgEntry."Currency Code", AccType::Customer.AsInteger(), true);
                                 until CustLedgEntry.NEXT() = 0;
                             if "Currency Code" <> CurrencyCode2 then
                                 if Amount = 0 then begin
@@ -1408,8 +1408,8 @@ codeunit 50202 "BC6_Functions Mgt"
                                         ERROR(Text003);
                                     "Currency Code" := CustLedgEntry."Currency Code"
                                 end else
-                                    PayApply.CheckAgainstApplnCurrency("Currency Code", CustLedgEntry."Currency Code", AccType::Customer, true);
-                            "Applies-to Doc. Type" := 0;
+                                    PayApply.CheckAgainstApplnCurrency("Currency Code", CustLedgEntry."Currency Code", AccType::Customer.AsInteger(), true);
+                            "Applies-to Doc. Type" := GenJnlLine."Applies-to Doc. Type"::" ";
                             "Applies-to Doc. No." := '';
                         end else
                             "Applies-to ID" := '';
@@ -1438,7 +1438,7 @@ codeunit 50202 "BC6_Functions Mgt"
                             CurrencyCode2 := VendLedgEntry."Currency Code";
                             if Amount = 0 then begin
                                 repeat
-                                    PayApply.CheckAgainstApplnCurrency(CurrencyCode2, VendLedgEntry."Currency Code", AccType::Vendor, true);
+                                    PayApply.CheckAgainstApplnCurrency(CurrencyCode2, VendLedgEntry."Currency Code", AccType::Vendor.AsInteger(), true);
                                     VendLedgEntry.CALCFIELDS("Remaining Amount");
                                     VendLedgEntry."Remaining Amount" :=
                                       CurrExchRate.ExchangeAmount(
@@ -1471,7 +1471,7 @@ codeunit 50202 "BC6_Functions Mgt"
                                 VALIDATE("Amount (LCY)");
                             end else
                                 repeat
-                                    PayApply.CheckAgainstApplnCurrency(CurrencyCode2, VendLedgEntry."Currency Code", AccType::Vendor, true);
+                                    PayApply.CheckAgainstApplnCurrency(CurrencyCode2, VendLedgEntry."Currency Code", AccType::Vendor.AsInteger(), true);
                                 until VendLedgEntry.NEXT() = 0;
                             if "Currency Code" <> CurrencyCode2 then
                                 if Amount = 0 then begin
@@ -1485,8 +1485,8 @@ codeunit 50202 "BC6_Functions Mgt"
                                         ERROR(Text003);
                                     "Currency Code" := VendLedgEntry."Currency Code"
                                 end else
-                                    PayApply.CheckAgainstApplnCurrency("Currency Code", VendLedgEntry."Currency Code", AccType::Vendor, true);
-                            "Applies-to Doc. Type" := 0;
+                                    PayApply.CheckAgainstApplnCurrency("Currency Code", VendLedgEntry."Currency Code", AccType::Vendor.AsInteger(), true);
+                            "Applies-to Doc. Type" := VendLedgEntry."Applies-to Doc. Type"::" ";
                             "Applies-to Doc. No." := '';
                         end else
                             "Applies-to ID" := '';
@@ -1678,7 +1678,7 @@ codeunit 50202 "BC6_Functions Mgt"
             CopyOfItem.SETRANGE("Variant Filter", SalesLine."Variant Code");
             CopyOfItem.SETRANGE("Drop Shipment Filter", false);
 
-            exit(ConvertQty(AvailableToPromise.QtyAvailabletoPromise(CopyOfItem, GrossRequirement, ScheduledReceipt, SIPM.CalcAvailabilityDate(SalesLine), PeriodType, LookaheadDateformula), SalesLine."Qty. per Unit of Measure"));
+            exit(ConvertQty(AvailableToPromise.QtyAvailabletoPromise(CopyOfItem, GrossRequirement, ScheduledReceipt, SIPM.CalcAvailabilityDate(SalesLine), PeriodType.AsInteger(), LookaheadDateformula), SalesLine."Qty. per Unit of Measure"));
         end;
     end;
 
@@ -1701,7 +1701,7 @@ codeunit 50202 "BC6_Functions Mgt"
             CopyOfItem.SETRANGE("Drop Shipment Filter", false);
 
             exit(
-            ConvertQty(AvailableToPromise.QtyAvailabletoPromise(CopyOfItem, GrossRequirement, ScheduledReceipt, SIPM.CalcAvailabilityDate(SalesLine), PeriodType, LookaheadDateformula), SalesLine."Qty. per Unit of Measure"));
+            ConvertQty(AvailableToPromise.QtyAvailabletoPromise(CopyOfItem, GrossRequirement, ScheduledReceipt, SIPM.CalcAvailabilityDate(SalesLine), PeriodType.AsInteger(), LookaheadDateformula), SalesLine."Qty. per Unit of Measure"));
         end;
     end;
 

@@ -19,8 +19,7 @@ pageextension 50133 "BC6_PaymentSlip" extends "Payment Slip" //10868
                         MESSAGE(Text003)
                     ELSE
                         IF PaymentClass.GET("Payment Class") THEN
-                            IF PaymentClass.Suggestions = PaymentClass.Suggestions::Vendor THEN BEGIN
-                            END ELSE
+                            IF not (PaymentClass.Suggestions = PaymentClass.Suggestions::Vendor) THEN
                                 MESSAGE(Text001);
                 end;
             }
@@ -46,8 +45,7 @@ pageextension 50133 "BC6_PaymentSlip" extends "Payment Slip" //10868
                         MESSAGE(Text003)
                     ELSE
                         IF PaymentClass.GET("Payment Class") THEN
-                            IF PaymentClass.Suggestions = PaymentClass.Suggestions::Customer THEN BEGIN
-                            END ELSE
+                            IF not (PaymentClass.Suggestions = PaymentClass.Suggestions::Customer) THEN
                                 MESSAGE(Text002);
                 end;
             }

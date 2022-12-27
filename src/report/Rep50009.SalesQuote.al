@@ -69,7 +69,7 @@ report 50009 "BC6_Sales Quote"
             column(Sales_Header__Sales_Header___Prod__Version_No__; "Sales Header"."BC6_Prod. Version No.")
             {
             }
-            column(TxtGAltAdress______TxtGAltAdress2_____STRSUBSTNO___1__2__TxtGAltPostCode_TxtGAltCity_; TxtGAltAdress + ' ' + TxtGAltAdress2 + ' ' + STRSUBSTNO('%1 %2', TxtGAltPostCode, TxtGAltCity))
+            column(TxtGAltAdress______TxtGAltAdress2_____STRSUBSTNO___1__2__TxtGAltPostCode_TxtGAltCity_; TxtGAltAdress + ' ' + TxtGAltAdress2 + ' ' + STRSUBSTNO(txtlbl12, TxtGAltPostCode, TxtGAltCity))
             {
             }
             column(TxtGAltName; TxtGAltName)
@@ -81,7 +81,7 @@ report 50009 "BC6_Sales Quote"
             column(STRSUBSTNO_Text066_TxtGAltPhone_TxtGAltFax_TxtGAltEmail_; STRSUBSTNO(Text066, TxtGAltPhone, TxtGAltFax, TxtGAltEmail))
             {
             }
-            column(CompanyAddr_2______CompanyAddr_3______STRSUBSTNO___1__2__CompanyAddr_4__CompanyAddr_5__; CompanyAddr[2] + ' ' + CompanyAddr[3] + ' ' + STRSUBSTNO('%1 %2', CompanyAddr[4], CompanyAddr[5]))
+            column(CompanyAddr_2______CompanyAddr_3______STRSUBSTNO___1__2__CompanyAddr_4__CompanyAddr_5__; CompanyAddr[2] + ' ' + CompanyAddr[3] + ' ' + STRSUBSTNO(txtlbl12, CompanyAddr[4], CompanyAddr[5]))
             {
             }
             column(CompanyAddr_1_; CompanyAddr[1])
@@ -150,7 +150,7 @@ report 50009 "BC6_Sales Quote"
             column(TotalExclVATText_Control77; TotalExclVATText)
             {
             }
-            column(VATAmountLine_VATAmountText; VATAmountLine.VATAmountText())
+            column(VATAmountLine_VATAmountText; TempVATAmountLine.VATAmountText())
             {
             }
             column(AmountEco_ConributionCaption_Control1000000162; AmountEco_ConributionCaption_Control1000000162Lbl)
@@ -165,7 +165,7 @@ report 50009 "BC6_Sales Quote"
             column(AmountEco_ConributionCaption; AmountEco_ConributionCaptionLbl)
             {
             }
-            column(VATAmountLine_VATAmountText_Control51; VATAmountLine.VATAmountText())
+            column(VATAmountLine_VATAmountText_Control51; TempVATAmountLine.VATAmountText())
             {
             }
             column(TotalExclVATText; TotalExclVATText)
@@ -276,12 +276,12 @@ report 50009 "BC6_Sales Quote"
                         {
                             AutoFormatType = 1;
                         }
-                        column(SalesLine__Line_Amount__SalesLine__Inv__Discount_Amount____VATAmount; SalesLine."Line Amount" - SalesLine."Inv. Discount Amount" - VATAmount)
+                        column(SalesLine__Line_Amount__SalesLine__Inv__Discount_Amount____VATAmount; TempSalesLine."Line Amount" - TempSalesLine."Inv. Discount Amount" - VATAmount)
                         {
                             AutoFormatExpression = "Sales Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(TotalAmountInclVAT_SalesLine__DEEE_HT_Amount_; TotalAmountInclVAT + SalesLine."BC6_DEEE HT Amount")
+                        column(TotalAmountInclVAT_SalesLine__DEEE_HT_Amount_; TotalAmountInclVAT + TempSalesLine."BC6_DEEE HT Amount")
                         {
                             AutoFormatExpression = "Sales Header"."Currency Code";
                             AutoFormatType = 1;
@@ -291,15 +291,15 @@ report 50009 "BC6_Sales Quote"
                             AutoFormatExpression = "Sales Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(SalesLine_Amount__SalesLine__DEEE_HT_Amount_; SalesLine.Amount + SalesLine."BC6_DEEE HT Amount")
+                        column(SalesLine_Amount__SalesLine__DEEE_HT_Amount_; TempSalesLine.Amount + TempSalesLine."BC6_DEEE HT Amount")
                         {
                             AutoFormatExpression = "Sales Header"."Currency Code";
                         }
-                        column(SalesLine__DEEE_HT_Amount_; SalesLine."BC6_DEEE HT Amount")
+                        column(SalesLine__DEEE_HT_Amount_; TempSalesLine."BC6_DEEE HT Amount")
                         {
                             AutoFormatExpression = "Sales Header"."Currency Code";
                         }
-                        column(SalesLine__Line_Amount__SalesLine__Inv__Discount_Amount_; SalesLine."Line Amount" - SalesLine."Inv. Discount Amount")
+                        column(SalesLine__Line_Amount__SalesLine__Inv__Discount_Amount_; TempSalesLine."Line Amount" - TempSalesLine."Inv. Discount Amount")
                         {
                             AutoFormatExpression = "Sales Header"."Currency Code";
                             AutoFormatType = 1;
@@ -309,16 +309,16 @@ report 50009 "BC6_Sales Quote"
                             AutoFormatExpression = "Sales Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(SalesLine_Amount__SalesLine__DEEE_HT_Amount____VATAmount___DecGDEEEVatAmount; SalesLine.Amount + SalesLine."BC6_DEEE HT Amount" + VATAmount + DecGDEEEVatAmount)
+                        column(SalesLine_Amount__SalesLine__DEEE_HT_Amount____VATAmount___DecGDEEEVatAmount; TempSalesLine.Amount + TempSalesLine."BC6_DEEE HT Amount" + VATAmount + DecGDEEEVatAmount)
                         {
                             AutoFormatExpression = "Sales Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(SalesLine__DEEE_HT_Amount__Control1000000172; SalesLine."BC6_DEEE HT Amount")
+                        column(SalesLine__DEEE_HT_Amount__Control1000000172; TempSalesLine."BC6_DEEE HT Amount")
                         {
                             AutoFormatExpression = "Sales Header"."Currency Code";
                         }
-                        column(SalesLine_Amount__SalesLine__DEEE_HT_Amount__Control1000000174; SalesLine.Amount + SalesLine."BC6_DEEE HT Amount")
+                        column(SalesLine_Amount__SalesLine__DEEE_HT_Amount__Control1000000174; TempSalesLine.Amount + TempSalesLine."BC6_DEEE HT Amount")
                         {
                             AutoFormatExpression = "Sales Header"."Currency Code";
                         }
@@ -355,13 +355,13 @@ report 50009 "BC6_Sales Quote"
                         column(TotalAmountInclVAT_value; TotalAmountInclVAT)
                         {
                         }
-                        column(Sales_Line_DEEEHT_Amount; SalesLine."BC6_DEEE HT Amount")
+                        column(Sales_Line_DEEEHT_Amount; TempSalesLine."BC6_DEEE HT Amount")
                         {
                         }
-                        column(Sales_Line_Inv_Disc_Amount; SalesLine."Inv. Discount Amount")
+                        column(Sales_Line_Inv_Disc_Amount; TempSalesLine."Inv. Discount Amount")
                         {
                         }
-                        column(Sales_Line_Amount; SalesLine.Amount)
+                        column(Sales_Line_Amount; TempSalesLine.Amount)
                         {
                         }
                         column(DecGDEEEVatAmount_Value; DecGDEEEVatAmount)
@@ -371,26 +371,26 @@ report 50009 "BC6_Sales Quote"
                         trigger OnAfterGetRecord()
                         begin
                             IF Number = 1 THEN
-                                SalesLine.FIND('-')
+                                TempSalesLine.FIND('-')
                             ELSE
-                                SalesLine.NEXT();
-                            "Sales Line" := SalesLine;
+                                TempSalesLine.NEXT();
+                            "Sales Line" := TempSalesLine;
 
                             IF NOT "Sales Header"."Prices Including VAT" AND
-                               (SalesLine."VAT Calculation Type" = SalesLine."VAT Calculation Type"::"Full VAT")
+                               (TempSalesLine."VAT Calculation Type" = TempSalesLine."VAT Calculation Type"::"Full VAT")
                             THEN
-                                SalesLine."Line Amount" := 0;
+                                TempSalesLine."Line Amount" := 0;
 
-                            IF (SalesLine.Type = SalesLine.Type::"G/L Account") AND (NOT ShowInternalInfo) THEN
+                            IF (TempSalesLine.Type = TempSalesLine.Type::"G/L Account") AND (NOT ShowInternalInfo) THEN
                                 "Sales Line"."No." := '';
 
                             //<<FE005:DARI 20/02/2007
                             //>>TDL:MICO 13/04/07
                             // DARI 17/04/07 //SalesLine.SETFILTER(SalesLine.Type,'%1',SalesLine.Type::Item);
                             //<<TDL:MICO 13/04/07
-                            IF ((SalesLine."BC6_DEEE Category Code" <> '') AND (SalesLine.Quantity <> 0)
-                            AND (SalesLine."BC6_Eco partner DEEE" <> '')) THEN
-                                IF RecGItem.GET(SalesLine."No.") THEN
+                            IF ((TempSalesLine."BC6_DEEE Category Code" <> '') AND (TempSalesLine.Quantity <> 0)
+                            AND (TempSalesLine."BC6_Eco partner DEEE" <> '')) THEN
+                                IF RecGItem.GET(TempSalesLine."No.") THEN
                                     DecGNumbeofUnitsDEEE := RecGItem."BC6_Number of Units DEEE";
                             //FG
                             //VATAmountLine."DEEE HT Amount"  :=SalesLine."DEEE HT Amount" ;
@@ -402,29 +402,29 @@ report 50009 "BC6_Sales Quote"
 
                             //>>TDL:MICO 16/04/2007
                             IF BooGSubmittedToDEEE THEN
-                                DecGDEEEVatAmount += SalesLine."BC6_DEEE VAT Amount"
+                                DecGDEEEVatAmount += TempSalesLine."BC6_DEEE VAT Amount"
                             ELSE
                                 DecGDEEEVatAmount := 0;
 
                             //<<TDL:MICO 16/04/2007
-                            DecGTTCTotalAmount += SalesLine."Amount Including VAT" + SalesLine."BC6_DEEE TTC Amount";
+                            DecGTTCTotalAmount += TempSalesLine."Amount Including VAT" + TempSalesLine."BC6_DEEE TTC Amount";
 
                             //MICO : Création dynamique du tableau récapitulatif
-                            IF NOT RecGTempCalcul.GET('', SalesLine."BC6_DEEE Category Code", 0D)
+                            IF NOT TempRecGCalcul.GET('', TempSalesLine."BC6_DEEE Category Code", 0D)
                                THEN BEGIN
                                 //création d'une ligne
-                                RecGTempCalcul.INIT();
-                                RecGTempCalcul."Eco Partner" := '';
-                                RecGTempCalcul."DEEE Code" := SalesLine."BC6_DEEE Category Code";
-                                RecGTempCalcul."Date beginning" := 0D;
-                                RecGTempCalcul."HT Unit Tax (LCY)" := SalesLine."BC6_DEEE HT Amount";
-                                RecGTempCalcul.INSERT();
+                                TempRecGCalcul.INIT();
+                                TempRecGCalcul."Eco Partner" := '';
+                                TempRecGCalcul."DEEE Code" := TempSalesLine."BC6_DEEE Category Code";
+                                TempRecGCalcul."Date beginning" := 0D;
+                                TempRecGCalcul."HT Unit Tax (LCY)" := TempSalesLine."BC6_DEEE HT Amount";
+                                TempRecGCalcul.INSERT();
                             END;
                             //>>FE005:DARI 20/02/2007
 
                             //>>MIGRATION NAV 2013
-                            IF (BooGSubmittedToDEEE) AND (SalesLine."BC6_DEEE Category Code" <> '') AND (SalesLine.Quantity <> 0) AND
-                               (SalesLine."BC6_Eco partner DEEE" <> '') THEN
+                            IF (BooGSubmittedToDEEE) AND (TempSalesLine."BC6_DEEE Category Code" <> '') AND (TempSalesLine.Quantity <> 0) AND
+                               (TempSalesLine."BC6_Eco partner DEEE" <> '') THEN
                                 BooGVisible1 := TRUE
                             ELSE
                                 BooGVisible1 := FALSE;
@@ -434,31 +434,31 @@ report 50009 "BC6_Sales Quote"
 
                         trigger OnPostDataItem()
                         begin
-                            SalesLine.DELETEALL();
+                            TempSalesLine.DELETEALL();
                         end;
 
                         trigger OnPreDataItem()
                         begin
-                            MoreLines := SalesLine.FIND('+');
-                            WHILE MoreLines AND (SalesLine.Description = '') AND (SalesLine."Description 2" = '') AND
-                                  (SalesLine."No." = '') AND (SalesLine.Quantity = 0) AND
-                                  (SalesLine.Amount = 0)
+                            MoreLines := TempSalesLine.FIND('+');
+                            WHILE MoreLines AND (TempSalesLine.Description = '') AND (TempSalesLine."Description 2" = '') AND
+                                  (TempSalesLine."No." = '') AND (TempSalesLine.Quantity = 0) AND
+                                  (TempSalesLine.Amount = 0)
                             DO
-                                MoreLines := SalesLine.NEXT(-1) <> 0;
+                                MoreLines := TempSalesLine.NEXT(-1) <> 0;
                             IF NOT MoreLines THEN
                                 CurrReport.BREAK();
-                            SalesLine.SETRANGE("Line No.", 0, SalesLine."Line No.");
+                            TempSalesLine.SETRANGE("Line No.", 0, TempSalesLine."Line No.");
 
                             //>>TDL:MICO 17/04/07
                             // DARI 17:04/07 SalesLine.SETFILTER(SalesLine.Type,'%1',SalesLine.Type::Item);
                             //<<TDL:MICO 17/04/07
 
-                            SETRANGE(Number, 1, SalesLine.COUNT);
-                            CurrReport.CREATETOTALS(SalesLine."Line Amount", SalesLine."Inv. Discount Amount");
+                            SETRANGE(Number, 1, TempSalesLine.COUNT);
+                            CurrReport.CREATETOTALS(TempSalesLine."Line Amount", TempSalesLine."Inv. Discount Amount");
                             //>>FE005:DARI 21/02/2007
                             //CurrReport.CREATETOTALS(SalesLine."Line Amount",SalesLine."Inv. Discount Amount");
-                            CurrReport.CREATETOTALS(SalesLine."Line Amount", SalesLine.Amount, SalesLine."Amount Including VAT",
-                            SalesLine."Inv. Discount Amount", SalesLine."BC6_DEEE HT Amount");
+                            CurrReport.CREATETOTALS(TempSalesLine."Line Amount", TempSalesLine.Amount, TempSalesLine."Amount Including VAT",
+                            TempSalesLine."Inv. Discount Amount", TempSalesLine."BC6_DEEE HT Amount");
                             //MICO DEEE1.00
                             DecGVATTotalAmount := 0;
                             DecGTTCTotalAmount := 0;
@@ -483,98 +483,98 @@ report 50009 "BC6_Sales Quote"
                     dataitem(VATCounter; Integer)
                     {
                         DataItemTableView = SORTING(Number);
-                        column(VATAmountLine__Line_Amount_; VATAmountLine."Line Amount")
+                        column(VATAmountLine__Line_Amount_; TempVATAmountLine."Line Amount")
                         {
                             AutoFormatExpression = "Sales Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmountLine__Inv__Disc__Base_Amount_; VATAmountLine."Inv. Disc. Base Amount")
+                        column(VATAmountLine__Inv__Disc__Base_Amount_; TempVATAmountLine."Inv. Disc. Base Amount")
                         {
                             AutoFormatExpression = "Sales Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmountLine__Invoice_Discount_Amount_; VATAmountLine."Invoice Discount Amount")
+                        column(VATAmountLine__Invoice_Discount_Amount_; TempVATAmountLine."Invoice Discount Amount")
                         {
                             AutoFormatExpression = "Sales Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmountLine__VAT_Base_; VATAmountLine."VAT Base")
+                        column(VATAmountLine__VAT_Base_; TempVATAmountLine."VAT Base")
                         {
                             AutoFormatExpression = "Sales Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmountLine__VAT_Amount_; VATAmountLine."VAT Amount")
+                        column(VATAmountLine__VAT_Amount_; TempVATAmountLine."VAT Amount")
                         {
                             AutoFormatExpression = "Sales Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmountLine__VAT_Identifier_; VATAmountLine."VAT Identifier")
+                        column(VATAmountLine__VAT_Identifier_; TempVATAmountLine."VAT Identifier")
                         {
                         }
-                        column(VATAmountLine__VAT___; VATAmountLine."VAT %")
+                        column(VATAmountLine__VAT___; TempVATAmountLine."VAT %")
                         {
                         }
-                        column(VATAmountLine__Line_Amount__Control1000000079; VATAmountLine."Line Amount")
+                        column(VATAmountLine__Line_Amount__Control1000000079; TempVATAmountLine."Line Amount")
                         {
                         }
-                        column(VATAmountLine__Inv__Disc__Base_Amount__Control1000000081; VATAmountLine."Inv. Disc. Base Amount")
+                        column(VATAmountLine__Inv__Disc__Base_Amount__Control1000000081; TempVATAmountLine."Inv. Disc. Base Amount")
                         {
                         }
-                        column(VATAmountLine__Invoice_Discount_Amount__Control1000000083; VATAmountLine."Invoice Discount Amount")
+                        column(VATAmountLine__Invoice_Discount_Amount__Control1000000083; TempVATAmountLine."Invoice Discount Amount")
                         {
                         }
-                        column(VATAmountLine__VAT_Base__Control1000000085; VATAmountLine."VAT Base")
+                        column(VATAmountLine__VAT_Base__Control1000000085; TempVATAmountLine."VAT Base")
                         {
                         }
-                        column(VATAmountLine__VAT_Amount__Control1000000087; VATAmountLine."VAT Amount")
+                        column(VATAmountLine__VAT_Amount__Control1000000087; TempVATAmountLine."VAT Amount")
                         {
                         }
-                        column(VATAmountLine__Line_Amount__Control1000000059; VATAmountLine."Line Amount")
-                        {
-                            AutoFormatExpression = "Sales Header"."Currency Code";
-                            AutoFormatType = 1;
-                        }
-                        column(VATAmountLine__Inv__Disc__Base_Amount__Control1000000089; VATAmountLine."Inv. Disc. Base Amount")
+                        column(VATAmountLine__Line_Amount__Control1000000059; TempVATAmountLine."Line Amount")
                         {
                             AutoFormatExpression = "Sales Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmountLine__Invoice_Discount_Amount__Control1000000090; VATAmountLine."Invoice Discount Amount")
+                        column(VATAmountLine__Inv__Disc__Base_Amount__Control1000000089; TempVATAmountLine."Inv. Disc. Base Amount")
                         {
                             AutoFormatExpression = "Sales Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmountLine__VAT_Base__Control1000000091; VATAmountLine."VAT Base")
+                        column(VATAmountLine__Invoice_Discount_Amount__Control1000000090; TempVATAmountLine."Invoice Discount Amount")
                         {
                             AutoFormatExpression = "Sales Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmountLine__VAT_Amount__Control1000000092; VATAmountLine."VAT Amount")
+                        column(VATAmountLine__VAT_Base__Control1000000091; TempVATAmountLine."VAT Base")
                         {
                             AutoFormatExpression = "Sales Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmountLine__Line_Amount__Control1000000094; VATAmountLine."Line Amount")
+                        column(VATAmountLine__VAT_Amount__Control1000000092; TempVATAmountLine."VAT Amount")
                         {
                             AutoFormatExpression = "Sales Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmountLine__Inv__Disc__Base_Amount__Control1000000095; VATAmountLine."Inv. Disc. Base Amount")
+                        column(VATAmountLine__Line_Amount__Control1000000094; TempVATAmountLine."Line Amount")
                         {
                             AutoFormatExpression = "Sales Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmountLine__Invoice_Discount_Amount__Control1000000096; VATAmountLine."Invoice Discount Amount")
+                        column(VATAmountLine__Inv__Disc__Base_Amount__Control1000000095; TempVATAmountLine."Inv. Disc. Base Amount")
                         {
                             AutoFormatExpression = "Sales Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmountLine__VAT_Base__Control1000000097; VATAmountLine."VAT Base")
+                        column(VATAmountLine__Invoice_Discount_Amount__Control1000000096; TempVATAmountLine."Invoice Discount Amount")
                         {
                             AutoFormatExpression = "Sales Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmountLine__VAT_Amount__Control1000000098; VATAmountLine."VAT Amount")
+                        column(VATAmountLine__VAT_Base__Control1000000097; TempVATAmountLine."VAT Base")
+                        {
+                            AutoFormatExpression = "Sales Header"."Currency Code";
+                            AutoFormatType = 1;
+                        }
+                        column(VATAmountLine__VAT_Amount__Control1000000098; TempVATAmountLine."VAT Amount")
                         {
                             AutoFormatExpression = "Sales Header"."Currency Code";
                             AutoFormatType = 1;
@@ -618,7 +618,7 @@ report 50009 "BC6_Sales Quote"
 
                         trigger OnAfterGetRecord()
                         begin
-                            VATAmountLine.GetLine(Number);
+                            TempVATAmountLine.GetLine(Number);
                         end;
 
                         trigger OnPreDataItem()
@@ -626,12 +626,12 @@ report 50009 "BC6_Sales Quote"
                             IF VATAmount = 0 THEN
                                 CurrReport.BREAK();
 
-                            IF VATAmountLine.COUNT < 2 THEN
+                            IF TempVATAmountLine.COUNT < 2 THEN
                                 CurrReport.BREAK();
-                            SETRANGE(Number, 1, VATAmountLine.COUNT);
+                            SETRANGE(Number, 1, TempVATAmountLine.COUNT);
                             CurrReport.CREATETOTALS(
-                              VATAmountLine."Line Amount", VATAmountLine."Inv. Disc. Base Amount",
-                              VATAmountLine."Invoice Discount Amount", VATAmountLine."VAT Base", VATAmountLine."VAT Amount");
+                              TempVATAmountLine."Line Amount", TempVATAmountLine."Inv. Disc. Base Amount",
+                              TempVATAmountLine."Invoice Discount Amount", TempVATAmountLine."VAT Base", TempVATAmountLine."VAT Amount");
                         end;
                     }
                     dataitem(VATCounterLCY; Integer)
@@ -651,10 +651,10 @@ report 50009 "BC6_Sales Quote"
                         {
                             AutoFormatType = 1;
                         }
-                        column(VATAmountLine__VAT_Identifier__Control1000000119; VATAmountLine."VAT Identifier")
+                        column(VATAmountLine__VAT_Identifier__Control1000000119; TempVATAmountLine."VAT Identifier")
                         {
                         }
-                        column(VATAmountLine__VAT____Control1000000121; VATAmountLine."VAT %")
+                        column(VATAmountLine__VAT____Control1000000121; TempVATAmountLine."VAT %")
                         {
                         }
                         column(VALVATBaseLCY_Control1000000123; VALVATBaseLCY)
@@ -706,24 +706,24 @@ report 50009 "BC6_Sales Quote"
 
                         trigger OnAfterGetRecord()
                         begin
-                            VATAmountLine.GetLine(Number);
+                            TempVATAmountLine.GetLine(Number);
 
                             VALVATBaseLCY := ROUND(CurrExchRate.ExchangeAmtFCYToLCY(
                                                "Sales Header"."Order Date", "Sales Header"."Currency Code",
-                                               VATAmountLine."VAT Base", "Sales Header"."Currency Factor"));
+                                               TempVATAmountLine."VAT Base", "Sales Header"."Currency Factor"));
                             VALVATAmountLCY := ROUND(CurrExchRate.ExchangeAmtFCYToLCY(
                                                  "Sales Header"."Order Date", "Sales Header"."Currency Code",
-                                                 VATAmountLine."VAT Amount", "Sales Header"."Currency Factor"));
+                                                 TempVATAmountLine."VAT Amount", "Sales Header"."Currency Factor"));
                         end;
 
                         trigger OnPreDataItem()
                         begin
                             IF (NOT GLSetup."Print VAT specification in LCY") OR
                                ("Sales Header"."Currency Code" = '') OR
-                               (VATAmountLine.GetTotalVATAmount() = 0) THEN
+                               (TempVATAmountLine.GetTotalVATAmount() = 0) THEN
                                 CurrReport.BREAK();
 
-                            SETRANGE(Number, 1, VATAmountLine.COUNT);
+                            SETRANGE(Number, 1, TempVATAmountLine.COUNT);
                             CurrReport.CREATETOTALS(VALVATBaseLCY, VALVATAmountLCY);
 
                             IF GLSetup."LCY Code" = '' THEN
@@ -785,18 +785,18 @@ report 50009 "BC6_Sales Quote"
                 var
                     SalesPost: Codeunit "Sales-Post";
                 begin
-                    CLEAR(SalesLine);
+                    CLEAR(TempSalesLine);
                     CLEAR(SalesPost);
-                    SalesLine.DELETEALL();
-                    VATAmountLine.DELETEALL();
-                    SalesPost.GetSalesLines("Sales Header", SalesLine, 0);
-                    SalesLine.CalcVATAmountLines(0, "Sales Header", SalesLine, VATAmountLine);
-                    SalesLine.UpdateVATOnLines(0, "Sales Header", SalesLine, VATAmountLine);
-                    VATAmount := VATAmountLine.GetTotalVATAmount();
-                    VATBaseAmount := VATAmountLine.GetTotalVATBase();
+                    TempSalesLine.DELETEALL();
+                    TempVATAmountLine.DELETEALL();
+                    SalesPost.GetSalesLines("Sales Header", TempSalesLine, 0);
+                    TempSalesLine.CalcVATAmountLines(0, "Sales Header", TempSalesLine, TempVATAmountLine);
+                    TempSalesLine.UpdateVATOnLines(0, "Sales Header", TempSalesLine, TempVATAmountLine);
+                    VATAmount := TempVATAmountLine.GetTotalVATAmount();
+                    VATBaseAmount := TempVATAmountLine.GetTotalVATBase();
                     VATDiscountAmount :=
-                      VATAmountLine.GetTotalVATDiscount("Sales Header"."Currency Code", "Sales Header"."Prices Including VAT");
-                    TotalAmountInclVAT := VATAmountLine.GetTotalAmountInclVAT();
+                      TempVATAmountLine.GetTotalVATDiscount("Sales Header"."Currency Code", "Sales Header"."Prices Including VAT");
+                    TotalAmountInclVAT := TempVATAmountLine.GetTotalAmountInclVAT();
 
                     IF Number > 1 THEN BEGIN
                         CopyText := Text003;
@@ -1104,7 +1104,7 @@ report 50009 "BC6_Sales Quote"
     var
         RecGItemCtg: Record "BC6_Categories of item";
         RecGDEEE: Record "BC6_DEEE Tariffs";
-        RecGTempCalcul: Record "BC6_DEEE Tariffs" temporary;
+        TempRecGCalcul: Record "BC6_DEEE Tariffs" temporary;
         CompanyInfo: Record "Company Information";
         CompanyInfo1: Record "Company Information";
         CompanyInfo2: Record "Company Information";
@@ -1122,11 +1122,11 @@ report 50009 "BC6_Sales Quote"
         SalesSetup: Record "Sales & Receivables Setup";
         RecGSalesHeader: Record "Sales Header";
         RecGSalesInvLine: Record "Sales Invoice Line";
-        SalesLine: Record "Sales Line" temporary;
+        TempSalesLine: Record "Sales Line" temporary;
         SalesPurchPerson: Record "Salesperson/Purchaser";
         ShipmentMethod: Record "Shipment Method";
         RecG_User: Record User;
-        VATAmountLine: Record "VAT Amount Line" temporary;
+        TempVATAmountLine: Record "VAT Amount Line" temporary;
         ArchiveManagement: Codeunit ArchiveManagement;
         FormatAddr: Codeunit "Format Address";
         Language: Codeunit Language;
@@ -1269,6 +1269,8 @@ report 50009 "BC6_Sales Quote"
         TxtGHomePage: Text[80];
         VALSpecLCYHeader: Text[80];
         DimText: Text[120];
+        txtlbl12: label '%1 %2';
+
 
 
     procedure DefineTagFax(TxtLTag: Text[50])

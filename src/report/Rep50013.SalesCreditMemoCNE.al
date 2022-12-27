@@ -77,7 +77,7 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                     column(CompanyInfo_City_____le__; CompanyInfo.City + ' le ')
                     {
                     }
-                    column(STRSUBSTNO__Page__1__FORMAT_CurrReport_PAGENO__; STRSUBSTNO('Page %1', FORMAT(CurrReport.PAGENO())))
+                    column(STRSUBSTNO__Page__1__FORMAT_CurrReport_PAGENO__; STRSUBSTNO(Text006, FORMAT(CurrReport.PAGENO())))
                     {
                     }
                     column(TexG_User_Name; TexG_User_Name)
@@ -283,7 +283,7 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                         column("L_acheteur_déclare_avoir_pris_connaissance_des_conditions_de_ventes_Caption"; Acheteur)
                         {
                         }
-                        column(VATAmountLine_VATAmountText; VATAmountLine.VATAmountText())
+                        column(VATAmountLine_VATAmountText; TempVATAmountLine.VATAmountText())
                         {
                         }
                         column(TotalInclVATText; TotalInclVATText)
@@ -308,18 +308,18 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                             IF (Type = Type::"G/L Account") AND (NOT ShowInternalInfo) THEN
                                 "No." := '';
 
-                            VATAmountLine.INIT();
-                            VATAmountLine."VAT Identifier" := "VAT Identifier";
-                            VATAmountLine."VAT Calculation Type" := "VAT Calculation Type";
-                            VATAmountLine."Tax Group Code" := "Tax Group Code";
-                            VATAmountLine."VAT %" := "VAT %";
-                            VATAmountLine."VAT Base" := Amount;
-                            VATAmountLine."Amount Including VAT" := "Amount Including VAT";
-                            VATAmountLine."Line Amount" := "Line Amount";
+                            TempVATAmountLine.INIT();
+                            TempVATAmountLine."VAT Identifier" := "VAT Identifier";
+                            TempVATAmountLine."VAT Calculation Type" := "VAT Calculation Type";
+                            TempVATAmountLine."Tax Group Code" := "Tax Group Code";
+                            TempVATAmountLine."VAT %" := "VAT %";
+                            TempVATAmountLine."VAT Base" := Amount;
+                            TempVATAmountLine."Amount Including VAT" := "Amount Including VAT";
+                            TempVATAmountLine."Line Amount" := "Line Amount";
                             IF "Allow Invoice Disc." THEN
-                                VATAmountLine."Inv. Disc. Base Amount" := "Line Amount";
-                            VATAmountLine."Invoice Discount Amount" := "Inv. Discount Amount";
-                            VATAmountLine.InsertLine();
+                                TempVATAmountLine."Inv. Disc. Base Amount" := "Line Amount";
+                            TempVATAmountLine."Invoice Discount Amount" := "Inv. Discount Amount";
+                            TempVATAmountLine.InsertLine();
 
                             //FG
                             IntGCpt := IntGCpt + 1;
@@ -346,24 +346,24 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                             END;
 
                             //FG
-                            VATAmountLine."BC6_DEEE HT Amount" := "Sales Cr.Memo Line"."BC6_DEEE HT Amount";
-                            VATAmountLine."BC6_DEEE VAT Amount" := "Sales Cr.Memo Line"."BC6_DEEE VAT Amount";
-                            VATAmountLine.InsertLine();
+                            TempVATAmountLine."BC6_DEEE HT Amount" := "Sales Cr.Memo Line"."BC6_DEEE HT Amount";
+                            TempVATAmountLine."BC6_DEEE VAT Amount" := "Sales Cr.Memo Line"."BC6_DEEE VAT Amount";
+                            TempVATAmountLine.InsertLine();
 
                             //MICO DEEE1.00
-                            DecGVATTotalAmount += VATAmountLine."VAT Amount" + VATAmountLine."BC6_DEEE VAT Amount";
+                            DecGVATTotalAmount += TempVATAmountLine."VAT Amount" + TempVATAmountLine."BC6_DEEE VAT Amount";
                             DecGTTCTotalAmount += "Sales Cr.Memo Line"."Amount Including VAT" + "Sales Cr.Memo Line"."BC6_DEEE TTC Amount";
 
                             //MICO : Création dynamique du tableau récapitulatif
-                            IF NOT RecGTempCalcul.GET('', "Sales Cr.Memo Line"."BC6_DEEE Category Code", 0D)
+                            IF NOT TempRecGCalcul.GET('', "Sales Cr.Memo Line"."BC6_DEEE Category Code", 0D)
                                THEN BEGIN
                                 //création d'une ligne
-                                RecGTempCalcul.INIT();
-                                RecGTempCalcul."Eco Partner" := '';
-                                RecGTempCalcul."DEEE Code" := "Sales Cr.Memo Line"."BC6_DEEE Category Code";
-                                RecGTempCalcul."Date beginning" := 0D;
-                                RecGTempCalcul."HT Unit Tax (LCY)" := "Sales Cr.Memo Line"."BC6_DEEE HT Amount";
-                                RecGTempCalcul.INSERT();
+                                TempRecGCalcul.INIT();
+                                TempRecGCalcul."Eco Partner" := '';
+                                TempRecGCalcul."DEEE Code" := "Sales Cr.Memo Line"."BC6_DEEE Category Code";
+                                TempRecGCalcul."Date beginning" := 0D;
+                                TempRecGCalcul."HT Unit Tax (LCY)" := "Sales Cr.Memo Line"."BC6_DEEE HT Amount";
+                                TempRecGCalcul.INSERT();
                             END;
                             //>>FE005:DARI 20/02/2007
 
@@ -389,17 +389,17 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                             //<<COMPTA_DEEE FG 01/03/07
 
                             BooGTotalVisible := "Sales Cr.Memo Header"."Prices Including VAT" AND ("Amount Including VAT" <> Amount);
-                            BooGVATVisible := (VATAmountLine.COUNT > 1) AND ("Amount Including VAT" <> Amount);
-                            BooGTotalVisible2 := (VATAmountLine.COUNT > 1) OR ((VATAmountLine.COUNT = 1) AND ("Amount Including VAT" = Amount));
+                            BooGVATVisible := (TempVATAmountLine.COUNT > 1) AND ("Amount Including VAT" <> Amount);
+                            BooGTotalVisible2 := (TempVATAmountLine.COUNT > 1) OR ((TempVATAmountLine.COUNT = 1) AND ("Amount Including VAT" = Amount));
 
                             //<<MIGRATION NAV 2013
                         end;
 
                         trigger OnPreDataItem()
                         begin
-                            VATAmountLine.DELETEALL();
-                            SalesShipmentBuffer.RESET();
-                            SalesShipmentBuffer.DELETEALL();
+                            TempVATAmountLine.DELETEALL();
+                            TempSalesShipmentBuffer.RESET();
+                            TempSalesShipmentBuffer.DELETEALL();
                             FirstValueEntryNo := 0;
                             MoreLines := FIND('+');
                             WHILE MoreLines AND (Description = '') AND ("No." = '') AND (Quantity = 0) AND (Amount = 0) DO
@@ -427,36 +427,36 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                     dataitem(VATCounter; Integer)
                     {
                         DataItemTableView = SORTING(Number);
-                        column(VATAmtLineVATBase; VATAmountLine."VAT Base")
+                        column(VATAmtLineVATBase; TempVATAmountLine."VAT Base")
                         {
                             AutoFormatExpression = "Sales Cr.Memo Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmtLineVATAmt; VATAmountLine."VAT Amount")
+                        column(VATAmtLineVATAmt; TempVATAmountLine."VAT Amount")
                         {
                             AutoFormatExpression = "Sales Cr.Memo Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmtLineLineAmt; VATAmountLine."Line Amount")
+                        column(VATAmtLineLineAmt; TempVATAmountLine."Line Amount")
                         {
                             AutoFormatExpression = "Sales Cr.Memo Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmtLineInvDiscBaseAmt; VATAmountLine."Inv. Disc. Base Amount")
+                        column(VATAmtLineInvDiscBaseAmt; TempVATAmountLine."Inv. Disc. Base Amount")
                         {
                             AutoFormatExpression = "Sales Cr.Memo Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmtLineInvoiceDiscAmt; VATAmountLine."Invoice Discount Amount")
+                        column(VATAmtLineInvoiceDiscAmt; TempVATAmountLine."Invoice Discount Amount")
                         {
                             AutoFormatExpression = "Sales Cr.Memo Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmtLineVAT; VATAmountLine."VAT %")
+                        column(VATAmtLineVAT; TempVATAmountLine."VAT %")
                         {
                             DecimalPlaces = 0 : 5;
                         }
-                        column(VATAmtLineVATIdentifier; VATAmountLine."VAT Identifier")
+                        column(VATAmtLineVATIdentifier; TempVATAmountLine."VAT Identifier")
                         {
                         }
                         column(VATAmtSpecificationCptn; VATAmtSpecificationCptnLbl)
@@ -474,17 +474,17 @@ report 50013 "BC6_Sales - Credit Memo CNE"
 
                         trigger OnAfterGetRecord()
                         begin
-                            VATAmountLine.GetLine(Number);
+                            TempVATAmountLine.GetLine(Number);
                         end;
 
                         trigger OnPreDataItem()
                         begin
-                            IF VATAmountLine.GetTotalVATAmount() = 0 THEN
+                            IF TempVATAmountLine.GetTotalVATAmount() = 0 THEN
                                 CurrReport.BREAK();
-                            SETRANGE(Number, 1, VATAmountLine.COUNT);
+                            SETRANGE(Number, 1, TempVATAmountLine.COUNT);
                             CurrReport.CREATETOTALS(
-                              VATAmountLine."Line Amount", VATAmountLine."Inv. Disc. Base Amount",
-                              VATAmountLine."Invoice Discount Amount", VATAmountLine."VAT Base", VATAmountLine."VAT Amount");
+                              TempVATAmountLine."Line Amount", TempVATAmountLine."Inv. Disc. Base Amount",
+                              TempVATAmountLine."Invoice Discount Amount", TempVATAmountLine."VAT Base", TempVATAmountLine."VAT Amount");
                         end;
                     }
                     dataitem("BC6_DEEE Tariffs"; "BC6_DEEE Tariffs")
@@ -595,31 +595,31 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                         {
                             AutoFormatType = 1;
                         }
-                        column(VATAmtLineVATPercent; VATAmountLine."VAT %")
+                        column(VATAmtLineVATPercent; TempVATAmountLine."VAT %")
                         {
                             DecimalPlaces = 0 : 5;
                         }
-                        column(VATIdentifier_VATCounterLCY; VATAmountLine."VAT Identifier")
+                        column(VATIdentifier_VATCounterLCY; TempVATAmountLine."VAT Identifier")
                         {
                         }
 
                         trigger OnAfterGetRecord()
                         begin
-                            VATAmountLine.GetLine(Number);
+                            TempVATAmountLine.GetLine(Number);
 
-                            VALVATBaseLCY := ROUND(VATAmountLine."VAT Base" / "Sales Cr.Memo Header"."Currency Factor");
-                            VALVATAmountLCY := ROUND(VATAmountLine."VAT Amount" / "Sales Cr.Memo Header"."Currency Factor");
+                            VALVATBaseLCY := ROUND(TempVATAmountLine."VAT Base" / "Sales Cr.Memo Header"."Currency Factor");
+                            VALVATAmountLCY := ROUND(TempVATAmountLine."VAT Amount" / "Sales Cr.Memo Header"."Currency Factor");
                         end;
 
                         trigger OnPreDataItem()
                         begin
                             IF (NOT GLSetup."Print VAT specification in LCY") OR
                                ("Sales Cr.Memo Header"."Currency Code" = '') OR
-                               (VATAmountLine.GetTotalVATAmount() = 0)
+                               (TempVATAmountLine.GetTotalVATAmount() = 0)
                             THEN
                                 CurrReport.BREAK();
 
-                            SETRANGE(Number, 1, VATAmountLine.COUNT);
+                            SETRANGE(Number, 1, TempVATAmountLine.COUNT);
                             CurrReport.CREATETOTALS(VALVATBaseLCY, VALVATAmountLCY);
 
                             IF GLSetup."LCY Code" = '' THEN
@@ -907,7 +907,7 @@ report 50013 "BC6_Sales - Credit Memo CNE"
     var
         RecGItemCtg: Record "BC6_Categories of item";
         RecGDEEE: Record "BC6_DEEE Tariffs";
-        RecGTempCalcul: Record "BC6_DEEE Tariffs" temporary;
+        TempRecGCalcul: Record "BC6_DEEE Tariffs" temporary;
         CompanyInfo: Record "Company Information";
         CompanyInfo1: Record "Company Information";
         CompanyInfo2: Record "Company Information";
@@ -924,11 +924,11 @@ report 50013 "BC6_Sales - Credit Memo CNE"
         SalesCrMemoLine: Record "Sales Cr.Memo Line";
         RecGSalesInvLine: Record "Sales Invoice Line";
         SalesPurchPerson: Record "Salesperson/Purchaser";
-        SalesShipmentBuffer: Record "Sales Shipment Buffer" temporary;
+        TempSalesShipmentBuffer: Record "Sales Shipment Buffer" temporary;
         ShipmentInvoiced: Record "Shipment Invoiced";
         ShipmentMethod: Record "Shipment Method";
         RecG_User: Record User;
-        VATAmountLine: Record "VAT Amount Line" temporary;
+        TempVATAmountLine: Record "VAT Amount Line" temporary;
         FormatAddr: Codeunit "Format Address";
         Language: Codeunit Language;
         SalesCreMemoCountPrinted: Codeunit "Sales Cr. Memo-Printed";

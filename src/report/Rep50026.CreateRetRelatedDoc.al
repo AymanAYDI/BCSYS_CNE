@@ -166,6 +166,7 @@ report 50026 "BC6_Create Ret.-Related Doc" //6697
         CreatePRO: Boolean;
         CreateSO: Boolean;
         VendorNo: Code[20];
+        "-BCSYS-": Integer;
         ErrorAlreadyExist: Label 'Unable to create related documents for sales return because they are already generated.\ Purchase return: %1 \ Purchase order: %2 \ Sales order: %3', Comment = 'FRA="Impossible de créer les documents associés pour le retour vente car ils sont déjà générés.\ Retour achat : %1 \ Commande achat : %2 \ Commande vente : %3"';
         ErrorPurchOrderExists: Label 'The associated Puchase order has already been generated. \ Please see the action View associated documents.', Comment = 'FRA="La commande achat associée est déjà générée.\Veuillez consulter l''action Affichage documents associés."';
         ErrorReturnPurchOrderExists: Label 'The associated Purchase Return has already been generated. \ Please see the action View associated documents.', Comment = 'FRA="Le retour ahat associé est déjà généré.\Veuillez consulter l''action Affichage documents associés."';
@@ -189,7 +190,7 @@ report 50026 "BC6_Create Ret.-Related Doc" //6697
 
     local procedure CreateReturnOrderRelation()
     begin
-        WITH G_ReturnOrderRelation DO BEGIN
+        WITH G_ReturnOrderRelation DO
             IF CreateSO OR CreatePRO OR CreatePO THEN
                 IF NOT G_ReturnOrderRelation.GET(SROSalesHeader."No.") THEN BEGIN
                     G_ReturnOrderRelation."Sales Return Order" := SROSalesHeader."No.";
@@ -197,7 +198,6 @@ report 50026 "BC6_Create Ret.-Related Doc" //6697
                 END ELSE
                     IF ("Sales Order No." <> '') AND ("Purchase Return Order" <> '') AND ("Purchase Order No." <> '') THEN
                         ERROR(STRSUBSTNO(ErrorAlreadyExist, "Purchase Return Order", "Purchase Order No.", "Sales Order No."));
-        END;
     end;
 }
 

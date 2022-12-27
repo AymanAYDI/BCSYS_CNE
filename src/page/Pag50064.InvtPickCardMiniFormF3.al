@@ -749,7 +749,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
     end;
 
 
-    procedure ItemExistOnInvtPick(ItemNo: Code[20]; BinCode: Code[20]): Boolean
+    procedure ItemExistOnInvtPick("ItemNo.": Code[20]; BinCode: Code[20]): Boolean
     var
         SalesLine: Record "Sales Line";
     begin
@@ -763,7 +763,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
             InvtPickLine.RESET();
             InvtPickLine.SETRANGE("Activity Type", InvtPickLine."Activity Type"::"Invt. Pick");
             InvtPickLine.SETRANGE("No.", "BC6_Whse. Document No.");
-            InvtPickLine.SETRANGE("Item No.", ItemNo);
+            InvtPickLine.SETRANGE("Item No.", "ItemNo.");
             IF BinCode <> '' THEN
                 InvtPickLine.SETRANGE("Bin Code", BinCode);
             InvtPickLine.SETFILTER(Quantity, '<>%1', 0);

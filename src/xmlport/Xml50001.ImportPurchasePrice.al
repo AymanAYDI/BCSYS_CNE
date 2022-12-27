@@ -85,5 +85,6 @@ xmlport 50001 "BC6_Import Purchase Price"
         GItem1: Record Item;
         Trovato: Boolean;
         Text001: Label '%1 %2 wrong', Comment = 'FRA="%1 %2 invalide"';
+
 }
 

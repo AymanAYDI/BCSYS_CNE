@@ -59,6 +59,5 @@ pageextension 50085 "BC6_ResponsibilityCenterCard" extends "Responsibility Cente
         }
     }
 
-
 }
 

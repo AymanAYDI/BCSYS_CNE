@@ -95,6 +95,8 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
     var
         Item: Record Item;
         ItemDiscGr: Record "Item Discount Group";
+        ItemDiscGrList: Page "Item Disc. Groups";
+        VendorList: Page "Vendor List";
         [InDataSet]
         BooGCodeFilterCtrl: Boolean;
         ItemTypeFilter: Enum "BC6_Item Type Filter";

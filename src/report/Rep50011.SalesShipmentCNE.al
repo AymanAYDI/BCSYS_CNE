@@ -114,7 +114,7 @@ report 50011 "BC6_Sales - Shipment CNE"
                     column(STRSUBSTNO_Text066_CompanyInfo__Alt_Phone_No___CompanyInfo__Alt_Fax_No___CompanyInfo__Alt_E_Mail__; STRSUBSTNO(Text066, CompanyInfo."BC6_Alt Phone No.", CompanyInfo."BC6_Alt Fax No.", CompanyInfo."BC6_Alt E-Mail"))
                     {
                     }
-                    column(DataItem1000000021; CompanyInfo."BC6_Alt Address" + ' ' + CompanyInfo."BC6_Alt Address 2" + ' ' + STRSUBSTNO('%1 %2', CompanyInfo."BC6_Alt Post Code", CompanyInfo."BC6_Alt City"))
+                    column(DataItem1000000021; CompanyInfo."BC6_Alt Address" + ' ' + CompanyInfo."BC6_Alt Address 2" + ' ' + STRSUBSTNO(txtlbl12, CompanyInfo."BC6_Alt Post Code", CompanyInfo."BC6_Alt City"))
                     {
                     }
                     column(CompanyInfo__Alt_Name_; CompanyInfo."BC6_Alt Name")
@@ -123,7 +123,7 @@ report 50011 "BC6_Sales - Shipment CNE"
                     column(STRSUBSTNO_Text066_CompanyInfo__Phone_No___CompanyInfo__Fax_No___CompanyInfo__E_Mail__; STRSUBSTNO(Text066, CompanyInfo."Phone No.", CompanyInfo."Fax No.", CompanyInfo."E-Mail"))
                     {
                     }
-                    column(CompanyInfo_Address______CompanyInfo__Address_2______STRSUBSTNO___1__2__CompanyInfo__Post_Code__CompanyInfo_City_; CompanyInfo.Address + ' ' + CompanyInfo."Address 2" + ' ' + STRSUBSTNO('%1 %2', CompanyInfo."Post Code", CompanyInfo.City))
+                    column(CompanyInfo_Address______CompanyInfo__Address_2______STRSUBSTNO___1__2__CompanyInfo__Post_Code__CompanyInfo_City_; CompanyInfo.Address + ' ' + CompanyInfo."Address 2" + ' ' + STRSUBSTNO(txtlbl12, CompanyInfo."Post Code", CompanyInfo.City))
                     {
                     }
                     column(CompanyInfo_Name; CompanyInfo.Name)
@@ -840,7 +840,7 @@ report 50011 "BC6_Sales - Shipment CNE"
     var
         RecGItemCtg: Record "BC6_Categories of item";
         RecGDEEE: Record "BC6_DEEE Tariffs";
-        RecGTempCalcul: Record "BC6_DEEE Tariffs" temporary;
+        TempRecGCalcul: Record "BC6_DEEE Tariffs" temporary;
         CompanyInfo: Record "Company Information";
         CompanyInfo1: Record "Company Information";
         CompanyInfo2: Record "Company Information";
@@ -939,6 +939,8 @@ report 50011 "BC6_Sales - Shipment CNE"
         Text070: Label '';
         Text071: Label 'Affair No. : ', Comment = 'FRA="Affaire n° :"';
         Total_Net_HTCaptionLbl: Label 'Total Net HT', Comment = 'FRA="Total Net HT"';
+        txtlbl12: label '%1 %2';
+
         ShowAmountType: Option Yes,No,Customer;
         SalesPersonText: Text[20];
         CopyText: Text[30];

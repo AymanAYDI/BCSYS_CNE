@@ -22,7 +22,7 @@ codeunit 50090 "BC6_ScanDeviceHelper"
             BinContent.SETRANGE("Item No.", ItemNo);
             BinContent.SETRANGE("Variant Code", VariantCode);
             BinContent.FILTERGROUP(0);
-            if ACTION::LookupOK = PAGE.RUNMODAL(PAGE::"Item Bin Contents", BinContent) then begin
+            if ACTION::LookupOK = PAGE.RUNMODAL(PAGE::"Item Bin Contents", BinContent) then
                 if not BinContent.Default then begin
                     BinContent2.SETRANGE("Item No.", ItemNo);
                     BinContent2.SETRANGE("Variant Code", VariantCode);
@@ -32,7 +32,7 @@ codeunit 50090 "BC6_ScanDeviceHelper"
                     BinContent2.VALIDATE(Default, true);
                     BinContent2.MODIFY(true);
                 end;
-            end;
+
 
         end;
     end;

@@ -32,7 +32,7 @@ report 50076 "BC6_Traite fourn. sur bord"
             column(CustAdr_7_; CustAdr[7])
             {
             }
-            column(Du____STRSUBSTNO___1__FORMAT_PaymtHeader__Document_Date__0_4__; 'Du ' + STRSUBSTNO('%1', FORMAT(PaymtHeader."Document Date", 0, 4)))
+            column(Du____STRSUBSTNO___1__FORMAT_PaymtHeader__Document_Date__0_4__; 'Du ' + STRSUBSTNO(txtlbl1, FORMAT(PaymtHeader."Document Date", 0, 4)))
             {
             }
             column(STRSUBSTNO__Page__1__FORMAT_CurrReport_PAGENO__; STRSUBSTNO('Page %1', FORMAT(CurrReport.PAGENO())))
@@ -44,7 +44,7 @@ report 50076 "BC6_Traite fourn. sur bord"
             column(Payment_Line__Account_No__; "Account No.")
             {
             }
-            column(STRSUBSTNO___1__FORMAT_TODAY_12_7__; STRSUBSTNO('%1', FORMAT(TODAY, 12, 7)))
+            column(STRSUBSTNO___1__FORMAT_TODAY_12_7__; STRSUBSTNO(txtlbl1, FORMAT(TODAY, 12, 7)))
             {
             }
             column(Text121; Text121)
@@ -647,6 +647,7 @@ report 50076 "BC6_Traite fourn. sur bord"
         TOCaptionLbl: Label 'TO', comment = 'FRA="A"';
         TRAITE_A_DETACHERCaptionLbl: Label 'TRAITE A DETACHER';
         TypeCaptionLbl: Label ' Type';
+        txtlbl1: label '%1';
         Value_in_EURCaptionLbl: Label 'Value in EUR', comment = 'FRA="Valeur en EUR"';
         VAT_Registration_No__CaptionLbl: Label '<VAT Registration No.>', comment = 'FRA="N° TVA Intracommunautaire :"';
         Votre_Cmde__CaptionLbl: Label 'Votre Cmde :';

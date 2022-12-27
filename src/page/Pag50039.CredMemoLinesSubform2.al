@@ -1,6 +1,6 @@
 page 50039 "BC6_Cred. Memo Lines Subform 2"
 {
-    Caption = 'Credit Memo Purachase Lines';
+    Caption = 'Credit Memo Purachase Lines', Comment = 'FRA=""';
     Editable = false;
     PageType = List;
     SourceTable = "Sales Cr.Memo Line";
@@ -172,7 +172,7 @@ page 50039 "BC6_Cred. Memo Lines Subform 2"
         {
             action(Show)
             {
-                Caption = '&Show';
+                Caption = '&Show', Comment = 'FRA=""';
                 Image = Document;
                 ApplicationArea = All;
 

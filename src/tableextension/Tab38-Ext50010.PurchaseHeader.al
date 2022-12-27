@@ -218,14 +218,14 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
         PurchLine: Record "Purchase Line";
         PurchSetup: Record "Purchases & Payables Setup";
     begin
-        if PurchLinesExist() then begin
+        if PurchLinesExist() then
             repeat
                 if (PurchLine.Type = PurchSetup.BC6_Type)
                   and (PurchLine."No." = PurchSetup."BC6_No.")
                   and (PurchLine."Line Amount" <> 0) then
                     exit(true);
-            until PurchLine.NEXT() = 0;
-        end else
+            until PurchLine.NEXT() = 0
+        else
             exit(false);
     end;
 
@@ -254,12 +254,12 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
         PurchLine: record "Purchase Line";
         PurchSetup: Record "Purchases & Payables Setup";
     begin
-        if PurchLinesExist() then begin
+        if PurchLinesExist() then
             repeat
                 if (PurchLine.Type = PurchSetup.BC6_Type) and (PurchLine."No." = PurchSetup."BC6_No.") then
                     exit(true);
-            until PurchLine.NEXT() = 0;
-        end else
+            until PurchLine.NEXT() = 0
+        else
             exit(false);
     end;
 

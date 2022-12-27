@@ -2,6 +2,9 @@ codeunit 50024 "BC6_IC Validation IC Doc lien"
 {
 
     trigger OnRun()
+    var
+        Txt12: Label '%1%2';
+
     begin
         RecGCompagnyInfo.FINDFIRST();
 
@@ -17,7 +20,7 @@ codeunit 50024 "BC6_IC Validation IC Doc lien"
                     CodeGAncPurchOrder := RecGDocIC."Purch Order IC No.";
                     Rupture := RecGDocIC."Shipment No." + RecGDocIC."Purch Order IC No.";
                 end;
-                if Rupture <> STRSUBSTNO('%1%2', RecGDocIC."Shipment No.", RecGDocIC."Purch Order IC No.") then begin
+                if Rupture <> STRSUBSTNO(Txt12, RecGDocIC."Shipment No.", RecGDocIC."Purch Order IC No.") then begin
                     if RecGICPurchOrder.GET(RecGICPurchOrder."Document Type"::Order, CodeGAncPurchOrder) then begin
                         RecGICPurchOrder.Invoice := false;
                         RecGICPurchOrder.Receive := true;

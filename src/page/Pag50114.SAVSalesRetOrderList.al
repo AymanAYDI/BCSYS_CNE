@@ -280,7 +280,7 @@ page 50114 "BC6_SAV Sales Ret. Order List"
                     var
                         ApprovalEntries: Page "Approval Entries";
                     begin
-                        ApprovalEntries.Setfilters(DATABASE::"Sales Header", "Document Type", "No.");
+                        ApprovalEntries.Setfilters(DATABASE::"Sales Header", "Document Type".AsInteger(), "No.");
                         ApprovalEntries.RUN();
                     end;
                 }

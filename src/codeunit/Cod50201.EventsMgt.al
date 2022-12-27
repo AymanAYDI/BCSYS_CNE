@@ -2151,7 +2151,7 @@ then begin
             SalesOrderLine.SETRANGE("BC6_Purch. Line No.", PurchaseLine."Line No.");
             if SalesOrderLine.FIND('-') then
                 repeat
-                    SalesOrderLine."BC6_Purch. Document Type" := 0;
+                    SalesOrderLine."BC6_Purch. Document Type" := PurchaseLine."Document Type"::Quote;
                     SalesOrderLine."BC6_Purch. Order No." := '';
                     SalesOrderLine."BC6_Purch. Line No." := 0;
                     SalesOrderLine.MODIFY();
@@ -2244,7 +2244,7 @@ then begin
             Rec."Destination Type"::Customer:
                 begin
                     Customer.GET(Rec."Destination No.");
-                    case Customer.Blocked of
+                    case Customer.Blocked.AsInteger() of
                         1, 3:
                             Customer.TESTFIELD(Blocked, 0);
                     end;
@@ -3000,7 +3000,7 @@ then begin
             GRecEntry.SETCURRENTKEY("Document No.", "Posting Date");
             GRecEntry.SETFILTER("Document No.", DocNoFilter);
             GRecEntry.SETFILTER("Posting Date", PostingDateFilter);
-            Navigate.InsertIntoDocEntry(DocumentEntry, DATABASE::"BC6_DEEE Ledger Entry", 0, GRecEntry.TABLECAPTION, GRecEntry.COUNT);
+            Navigate.InsertIntoDocEntry(DocumentEntry, DATABASE::"BC6_DEEE Ledger Entry", "Document Entry Document Type"::Quote, GRecEntry.TABLECAPTION, GRecEntry.COUNT);
         end;
     end;
 

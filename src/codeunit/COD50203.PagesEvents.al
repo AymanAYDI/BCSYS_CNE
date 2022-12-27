@@ -17,13 +17,13 @@ codeunit 50203 "BC6_PagesEvents"
     var
         Cust: record customer;
         CalcType: Enum "Customer Apply Calculation Type"; //CHECK ME!
-        TextGestTierPayeur001: Label 'There is no ledger entries.; FRA=Il n''y a pas d''écitures.';
+        TextGestTierPayeur001: Label 'There is no ledger entries.', comment = 'FRA="Il n''y a pas d''écitures."';
 
     begin
         Cust.get(Cust."No.");
-        if CalcType = CalcType::Direct then begin
+        if CalcType = CalcType::Direct then
             IF NOT Cust.GET(CustLedgerEntry."Customer No.") AND NOT Cust.GET(CustLedgerEntry."BC6_Pay-to Customer No.") THEN ERROR(TextGestTierPayeur001);
-        end;
+
     End;
 
     //Page 5703
@@ -83,9 +83,9 @@ codeunit 50203 "BC6_PagesEvents"
         //TODO://  SumPurchLinesTemp has changes in the parameters (when we merge the cod90)
         // PurchPost.SumPurchLinesTemp(
         //  PurchHeader , TempPurchLine, 0, TempPurchLine, TotalPurchLineLCY, VATAmount, VATAmountText,DecGHTAmount,DecGVATAmount,DecGTTCAmount,DecGHTAmountLCY);
-        IF not PurchHeader."Prices Including VAT" THEN begin
+        IF not PurchHeader."Prices Including VAT" THEN
             TotalAmt2 := TotalAmt2 + DecGTTCAmount;
-        END;
+
     end;
 
     [EventSubscriber(ObjectType::Page, Page::"Purchase Statistics", 'OnAfterUpdateHeaderInfo', '', false, false)]

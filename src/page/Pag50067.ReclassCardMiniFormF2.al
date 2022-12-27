@@ -499,18 +499,18 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
     end;
 
 
-    procedure AssignLocationCode(var LocationCode: Code[20])
+    procedure AssignLocationCode(var LocationsCode: Code[20])
     var
         Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
         CLEAR(Location);
-        IF (LocationCode <> '') AND
-           (STRLEN(LocationCode) < 20) THEN BEGIN
-            IF Location.GET(LocationCode) THEN
-                "Location Code" := LocationCode;
+        IF (LocationsCode <> '') AND
+           (STRLEN(LocationsCode) < 20) THEN BEGIN
+            IF Location.GET(LocationsCode) THEN
+                "Location Code" := LocationsCode;
         END ELSE BEGIN
-            LocationCode := '';
-            "Location Code" := LocationCode;
+            LocationsCode := '';
+            "Location Code" := LocationsCode;
             MESSAGE(Text004);
         END;
     end;
@@ -604,22 +604,22 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
         UpdateCurrForm();
     end;
 
-    procedure AssignQty(var Qty: Code[20])
+    procedure AssignQty(var Quantity: Code[20])
     var
         Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
-        IF (Qty <> '') THEN BEGIN
-            EVALUATE(Quantity, Qty);
+        IF (Quantity <> '') THEN BEGIN
+            EVALUATE(Quantity, Quantity);
             VALIDATE(Quantity);
-            Qty := FORMAT(Quantity);
+            Quantity := FORMAT(Quantity);
             EXIT;
         END;
 
-        IF Qty <> '' THEN
-            MESSAGE(Text006, Qty);
-        Qty := '';
+        IF Quantity <> '' THEN
+            MESSAGE(Text006, Quantity);
+        Quantity := '';
         VALIDATE(Quantity, 0);
-        Qty := FORMAT(Quantity);
+        Quantity := FORMAT(Quantity);
     end;
 
 

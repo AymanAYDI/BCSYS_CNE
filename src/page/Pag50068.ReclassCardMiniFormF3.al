@@ -544,7 +544,7 @@ page 50068 "BC6_Reclass. Card MiniForm F3"
         "Bin Code" := BinCode;
     end;
 
-    procedure AssignItemNo(var ItemNo: Code[20])
+    procedure AssignItemNo(var "ItemNo.": Code[20])
     var
         FunctionMgt: Codeunit "BC6_Functions Mgt";
         Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
@@ -552,19 +552,19 @@ page 50068 "BC6_Reclass. Card MiniForm F3"
         ItemError := FALSE;
         ErrorTxt := '';
 
-        IF (ItemNo <> '') THEN BEGIN
-            IF CodeEANOk(ItemNo) THEN BEGIN
-                ItemNo2 := FunctionMgt.GetItem(ItemNo);
+        IF ("ItemNo." <> '') THEN BEGIN
+            IF CodeEANOk("ItemNo.") THEN BEGIN
+                ItemNo2 := FunctionMgt.GetItem("ItemNo.");
                 IF Item.GET(ItemNo2) THEN
-                    ItemNo := Item."No."
+                    "ItemNo." := Item."No."
                 ELSE BEGIN
                     ItemError := TRUE;
-                    ErrorTxt := STRSUBSTNO(Text013, ItemNo);
+                    ErrorTxt := STRSUBSTNO(Text013, "ItemNo.");
                 END;
             END ELSE BEGIN
-                IF NOT Item.GET(ItemNo) THEN BEGIN
+                IF NOT Item.GET("ItemNo.") THEN BEGIN
                     ItemError := TRUE;
-                    ErrorTxt := STRSUBSTNO(Text013, ItemNo);
+                    ErrorTxt := STRSUBSTNO(Text013, "ItemNo.");
                 END;
             END;
 
@@ -589,7 +589,7 @@ page 50068 "BC6_Reclass. Card MiniForm F3"
         IF ItemError THEN BEGIN
             MESSAGE('%1', ErrorTxt);
         END ELSE BEGIN
-            VALIDATE("Item No.", ItemNo);
+            VALIDATE("Item No.", "ItemNo.");
             VALIDATE("Bin Code", FromBinCode);
             VALIDATE(Quantity, 1);
         END;
@@ -597,22 +597,22 @@ page 50068 "BC6_Reclass. Card MiniForm F3"
         UpdateCurrForm();
     end;
 
-    procedure AssignQty(var Qty: Code[20])
+    procedure AssignQty(var Quantity: Code[20])
     var
         Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
-        IF (Qty <> '') THEN BEGIN
-            EVALUATE(Quantity, Qty);
+        IF (Quantity <> '') THEN BEGIN
+            EVALUATE(Quantity, Quantity);
             VALIDATE(Quantity);
-            Qty := FORMAT(Quantity);
+            Quantity := FORMAT(Quantity);
             EXIT;
         END;
 
-        IF Qty <> '' THEN
-            MESSAGE(Text006, Qty);
-        Qty := '';
+        IF Quantity <> '' THEN
+            MESSAGE(Text006, Quantity);
+        Quantity := '';
         VALIDATE(Quantity, 0);
-        Qty := FORMAT(Quantity);
+        Quantity := FORMAT(Quantity);
     end;
 
     procedure PostBatch()

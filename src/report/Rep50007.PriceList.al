@@ -61,10 +61,10 @@ report 50007 "BC6_Price List" //715
             column(SalesDesc; SalesDesc)
             {
             }
-            column(UnitPriceFieldCaption; SalesPrice.FIELDCAPTION("Unit Price") + CurrencyText)
+            column(UnitPriceFieldCaption; TempSalesPrice.FIELDCAPTION("Unit Price") + CurrencyText)
             {
             }
-            column(LineDiscountFieldCaption; SalesLineDisc.FIELDCAPTION("Line Discount %") + CurrencyText)
+            column(LineDiscountFieldCaption; TempSalesLineDisc.FIELDCAPTION("Line Discount %") + CurrencyText)
             {
             }
             column(No_Item; "No.")
@@ -113,7 +113,7 @@ report 50007 "BC6_Price List" //715
                 column(VATText_SalesPrices; VATText)
                 {
                 }
-                column(SalesPriceUnitPrice; SalesPrice."Unit Price")
+                column(SalesPriceUnitPrice; TempSalesPrice."Unit Price")
                 {
                     AutoFormatExpression = Currency.Code;
                     AutoFormatType = 2;
@@ -128,7 +128,7 @@ report 50007 "BC6_Price List" //715
                 {
                     // OptionCaption = 'Description';
                 }
-                column(MinimumQty_SalesPrices; SalesPrice."Minimum Quantity")
+                column(MinimumQty_SalesPrices; TempSalesPrice."Minimum Quantity")
                 {
                 }
 
@@ -146,12 +146,12 @@ report 50007 "BC6_Price List" //715
             {
                 DataItemTableView = SORTING(Number)
                                     WHERE(Number = FILTER(1 ..));
-                column(LineDisc_SalesLineDisc; SalesLineDisc."Line Discount %")
+                column(LineDisc_SalesLineDisc; TempSalesLineDisc."Line Discount %")
                 {
                     AutoFormatExpression = Currency.Code;
                     AutoFormatType = 2;
                 }
-                column(MinimumQty_SalesLineDiscs; SalesLineDisc."Minimum Quantity")
+                column(MinimumQty_SalesLineDiscs; TempSalesLineDisc."Minimum Quantity")
                 {
                 }
                 column(UOM_SalesLineDiscs; UnitOfMeasure)
@@ -190,10 +190,10 @@ report 50007 "BC6_Price List" //715
                     column(UOM_Variant_SalesPrices; UnitOfMeasure)
                     {
                     }
-                    column(MinimumQty_Variant_SalesPrices; SalesPrice."Minimum Quantity")
+                    column(MinimumQty_Variant_SalesPrices; TempSalesPrice."Minimum Quantity")
                     {
                     }
-                    column(UnitPrince_Variant_SalesPrices; SalesPrice."Unit Price")
+                    column(UnitPrince_Variant_SalesPrices; TempSalesPrice."Unit Price")
                     {
                     }
                     column(VATText_Variant_SalesPrices; VATText)
@@ -223,10 +223,10 @@ report 50007 "BC6_Price List" //715
                     column(UOM_Variant_SalesLineDescs; UnitOfMeasure)
                     {
                     }
-                    column(MinimumQty_Variant_SalesLineDescs; SalesLineDisc."Minimum Quantity")
+                    column(MinimumQty_Variant_SalesLineDescs; TempSalesLineDisc."Minimum Quantity")
                     {
                     }
-                    column(LineDisc_Variant_SalesLineDescs; SalesLineDisc."Line Discount %")
+                    column(LineDisc_Variant_SalesLineDescs; TempSalesLineDisc."Line Discount %")
                     {
                     }
 
@@ -247,9 +247,9 @@ report 50007 "BC6_Price List" //715
                     ItemDesc := Description;
 
                     SalesPriceCalcMgt.FindSalesPrice(
-                      SalesPrice, CustNo, ContNo, CustPriceGrCode, CampaignNo, Item."No.", Code, '', Currency.Code, DateReq, FALSE);
+                      TempSalesPrice, CustNo, ContNo, CustPriceGrCode, CampaignNo, Item."No.", Code, '', Currency.Code, DateReq, FALSE);
                     SalesPriceCalcMgt.FindSalesLineDisc(
-                      SalesLineDisc, CustNo, ContNo, CustDiscGrCode, CampaignNo, Item."No.",
+                      TempSalesLineDisc, CustNo, ContNo, CustDiscGrCode, CampaignNo, Item."No.",
                         Item."Item Disc. Group", '', '', Currency.Code, DateReq, FALSE);
                 end;
             }
@@ -260,9 +260,9 @@ report 50007 "BC6_Price List" //715
                 ItemDesc := Description;
 
                 SalesPriceCalcMgt.FindSalesPrice(
-                  SalesPrice, CustNo, ContNo, CustPriceGrCode, CampaignNo, "No.", '', '', Currency.Code, DateReq, FALSE);
+                  TempSalesPrice, CustNo, ContNo, CustPriceGrCode, CampaignNo, "No.", '', '', Currency.Code, DateReq, FALSE);
                 SalesPriceCalcMgt.FindSalesLineDisc(
-                  SalesLineDisc, CustNo, ContNo, CustDiscGrCode, CampaignNo, "No.",
+                  TempSalesLineDisc, CustNo, ContNo, CustDiscGrCode, CampaignNo, "No.",
                     "Item Disc. Group", '', '', Currency.Code, DateReq, FALSE);
             end;
 
@@ -440,8 +440,8 @@ report 50007 "BC6_Price List" //715
         Cust: Record Customer;
         CustPriceGr: Record "Customer Price Group";
         GLSetup: Record "General Ledger Setup";
-        SalesLineDisc: Record "Sales Line Discount" temporary;
-        SalesPrice: Record "Sales Price" temporary;
+        TempSalesLineDisc: Record "Sales Line Discount" temporary;
+        TempSalesPrice: Record "Sales Price" temporary;
         FormatAddr: Codeunit "Format Address";
         SalesPriceCalcMgt: Codeunit "Sales Price Calc. Mgt.";
         IsFirstSalesLineDisc: Boolean;
@@ -525,7 +525,7 @@ report 50007 "BC6_Price List" //715
 
     local procedure PreparePrintSalesPrice(IsVariant: Boolean)
     begin
-        WITH SalesPrice DO BEGIN
+        WITH TempSalesPrice DO BEGIN
             IF PricesInCurrency THEN BEGIN
                 SETRANGE("Currency Code", Currency.Code);
                 IF FIND('-') THEN BEGIN
@@ -550,7 +550,7 @@ report 50007 "BC6_Price List" //715
 
     local procedure PrintSalesPrice(IsVariant: Boolean)
     begin
-        WITH SalesPrice DO BEGIN
+        WITH TempSalesPrice DO BEGIN
             IF IsFirstSalesPrice THEN BEGIN
                 IsFirstSalesPrice := FALSE;
                 IF NOT FIND('-') THEN BEGIN
@@ -585,7 +585,7 @@ report 50007 "BC6_Price List" //715
 
     local procedure PreparePrintSalesDisc(IsVariant: Boolean)
     begin
-        WITH SalesLineDisc DO BEGIN
+        WITH TempSalesLineDisc DO BEGIN
             IF PricesInCurrency THEN BEGIN
                 SETRANGE("Currency Code", Currency.Code);
                 IF FIND('-') THEN BEGIN
@@ -607,7 +607,7 @@ report 50007 "BC6_Price List" //715
 
     local procedure PrintSalesDisc()
     begin
-        WITH SalesLineDisc DO BEGIN
+        WITH TempSalesLineDisc DO BEGIN
             IF IsFirstSalesLineDisc THEN BEGIN
                 IsFirstSalesLineDisc := FALSE;
                 IF NOT FIND('-') THEN
@@ -626,7 +626,6 @@ report 50007 "BC6_Price List" //715
         END;
     end;
 
-    [Scope('Internal')]
     procedure InitializeRequest(NewDateReq: Date; NewSalesType: Option; NewSalesCode: Code[20]; NewCurrencyCode: Code[10])
     begin
         DateReq := NewDateReq;

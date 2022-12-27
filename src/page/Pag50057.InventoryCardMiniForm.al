@@ -135,10 +135,7 @@ page 50057 "BC6_Inventory Card MiniForm"
                                 END;
                             END;
 
-                        3:
-                            BEGIN
 
-                            END;
 
                     END;
 

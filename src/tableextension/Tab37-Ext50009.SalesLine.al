@@ -686,7 +686,7 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
         IF PurchLine.GET("BC6_Purch. Document Type", "BC6_Purch. Order No.", "BC6_Purch. Line No.") THEN BEGIN
             ERROR(TextG006);
         END ELSE BEGIN
-            "BC6_Purch. Document Type" := 0;
+            "BC6_Purch. Document Type" := PurchLine."Document Type"::Quote;
             "BC6_Purch. Order No." := '';
             "BC6_Purch. Line No." := 0;
             MODIFY();

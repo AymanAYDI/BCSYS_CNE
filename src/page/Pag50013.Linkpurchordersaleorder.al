@@ -35,7 +35,6 @@ page 50013 "Link purch. order - sale order"
                     Caption = 'Document status', comment = 'FRA="Statut Document"';
                     Editable = false;
                     Lookup = false;
-                    //TODO: //the field is already declared Enum// OptionCaption = 'Open,Released';
                 }
                 field("Document No."; "Document No.")
                 {

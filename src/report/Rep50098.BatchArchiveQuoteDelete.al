@@ -20,7 +20,7 @@ report 50098 "BC6_Batch Archive Quote Delete"
 
                 window.UPDATE(1, "Sales Header"."No.");
 
-                ok := Fct_Check("Sales Header"."Document Type", "Sales Header"."No.");
+                ok := Fct_Check("Sales Header"."Document Type".AsInteger(), "Sales Header"."No.");
 
 
                 IF ok THEN BEGIN

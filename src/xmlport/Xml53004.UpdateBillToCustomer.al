@@ -178,12 +178,12 @@ xmlport 53004 "BC6_Update Bill-To-Customer"
                 trigger OnBeforeInsertRecord()
                 begin
 
-                    IF (CliFact <> '') AND (CliFact <> Num) THEN BEGIN
+                    IF (CliFact <> '') AND (CliFact <> Num) THEN
                         IF RecGCust.GET(Num) THEN BEGIN
                             RecGCust.VALIDATE("Bill-to Customer No.", CliFact);
                             RecGCust.MODIFY(TRUE);
                         END;
-                    END;
+
                 end;
             }
         }

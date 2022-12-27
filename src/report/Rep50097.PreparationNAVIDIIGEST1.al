@@ -131,7 +131,7 @@ report 50097 "BC6_Preparation NAVIDIIGEST1"
                     column(STRSUBSTNO_Text006_CompanyInfo__Alt_Phone_No___CompanyInfo__Alt_Fax_No___CompanyInfo__Alt_E_Mail__; STRSUBSTNO(Text006, CompanyInfo."BC6_Alt Phone No.", CompanyInfo."BC6_Alt Fax No.", CompanyInfo."BC6_Alt E-Mail"))
                     {
                     }
-                    column(DataItem1000000036; CompanyInfo."BC6_Alt Address" + ' ' + CompanyInfo."BC6_Alt Address 2" + ' ' + STRSUBSTNO('%1 %2', CompanyInfo."BC6_Alt Post Code", CompanyInfo."BC6_Alt City"))
+                    column(DataItem1000000036; CompanyInfo."BC6_Alt Address" + ' ' + CompanyInfo."BC6_Alt Address 2" + ' ' + STRSUBSTNO(txtlbl12, CompanyInfo."BC6_Alt Post Code", CompanyInfo."BC6_Alt City"))
                     {
                     }
                     column(CompanyInfo__Alt_Name_; CompanyInfo."BC6_Alt Name")
@@ -140,7 +140,7 @@ report 50097 "BC6_Preparation NAVIDIIGEST1"
                     column(STRSUBSTNO_Text006_CompanyInfo__Phone_No___CompanyInfo__Fax_No___CompanyInfo__E_Mail__; STRSUBSTNO(Text006, CompanyInfo."Phone No.", CompanyInfo."Fax No.", CompanyInfo."E-Mail"))
                     {
                     }
-                    column(CompanyInfo_Address______CompanyInfo__Address_2______STRSUBSTNO___1__2__CompanyInfo__Post_Code__CompanyInfo_City_; CompanyInfo.Address + ' ' + CompanyInfo."Address 2" + ' ' + STRSUBSTNO('%1 %2', CompanyInfo."Post Code", CompanyInfo.City))
+                    column(CompanyInfo_Address______CompanyInfo__Address_2______STRSUBSTNO___1__2__CompanyInfo__Post_Code__CompanyInfo_City_; CompanyInfo.Address + ' ' + CompanyInfo."Address 2" + ' ' + STRSUBSTNO(txtlbl12, CompanyInfo."Post Code", CompanyInfo.City))
                     {
                     }
                     column(CompanyInfo_Name; CompanyInfo.Name)
@@ -449,18 +449,18 @@ report 50097 "BC6_Preparation NAVIDIIGEST1"
                 var
                     SalesPost: Codeunit "Sales-Post";
                 begin
-                    CLEAR(SalesLine);
+                    CLEAR(TempSalesLine);
                     CLEAR(SalesPost);
-                    VATAmountLine.DELETEALL();
-                    SalesPost.GetSalesLines("Sales Header", SalesLine, 0);
-                    SalesLine.SETRANGE("Line No.", 0, SalesLine."Line No.");
+                    TempVATAmountLine.DELETEALL();
+                    SalesPost.GetSalesLines("Sales Header", TempSalesLine, 0);
+                    TempSalesLine.SETRANGE("Line No.", 0, TempSalesLine."Line No.");
 
 
-                    MoreLines := SalesLine.FIND('+');
+                    MoreLines := TempSalesLine.FIND('+');
 
-                    WHILE MoreLines AND (SalesLine."Outstanding Quantity" = 0)
+                    WHILE MoreLines AND (TempSalesLine."Outstanding Quantity" = 0)
                     DO
-                        MoreLines := SalesLine.NEXT(-1) <> 0;
+                        MoreLines := TempSalesLine.NEXT(-1) <> 0;
                     IF NOT MoreLines THEN
                         CurrReport.BREAK();
 
@@ -668,14 +668,14 @@ report 50097 "BC6_Preparation NAVIDIIGEST1"
         RespCenter: Record "Responsibility Center";
         SalesCommentLine: Record "Sales Comment Line";
         RecGSalesLine: Record "Sales Line";
-        SalesLine: Record "Sales Line" temporary;
+        TempSalesLine: Record "Sales Line" temporary;
         SalesPurchPerson: Record "Salesperson/Purchaser";
         ShipmentMethod: Record "Shipment Method";
         ShippingAgent: Record "Shipping Agent";
         PrestaTrans: Record "Shipping Agent Services";
         StandardCustomerSalesCode: Record "Standard Customer Sales Code";
         StandardSalesLine: Record "Standard Sales Line";
-        VATAmountLine: Record "VAT Amount Line" temporary;
+        TempVATAmountLine: Record "VAT Amount Line" temporary;
         ArchiveManagement: Codeunit ArchiveManagement;
         FormatAddr: Codeunit "Format Address";
         SalesCountPrinted: Codeunit "Sales-Printed";
@@ -762,6 +762,7 @@ report 50097 "BC6_Preparation NAVIDIIGEST1"
         To_prepareCaptionLbl: Label 'To prepare', Comment = 'FRA="A servir"';
         UserCaptionLbl: Label 'User', Comment = 'FRA="Utilisateur"';
         VAT_Registration_No__CaptionLbl: Label '<VAT Registration No.>', Comment = 'FRA="N° TVA :"';
+        txtlbl12: label '%1 %2';
         Langue: Text[10];
         LangueLig01: Text[10];
         LangueLig10: Text[10];

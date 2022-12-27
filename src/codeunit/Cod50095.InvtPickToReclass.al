@@ -238,8 +238,7 @@ codeunit 50095 "BC6_Invt. Pick To Reclass."
                         TempWhseActivLine."Source Line No." := SalesLine."Line No.";
                         TempWhseActivLine.MODIFY();
 
-                        if SalesOrderCreatedOk then begin
-                        end;
+                        if SalesOrderCreatedOk then;
                     end;
                 end;
 

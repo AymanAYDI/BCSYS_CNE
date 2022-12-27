@@ -90,7 +90,7 @@ pageextension 50114 "BC6_SalesLineFactBox" extends "Sales Line FactBox"  //9087
         }
         addafter(Item)
         {
-            field(AvailabilityToPick; STRSUBSTNO('%1', FunctionMgt.CalcQtyAvailToPick(Rec)))
+            field(AvailabilityToPick; STRSUBSTNO(txtlbl1, FunctionMgt.CalcQtyAvailToPick(Rec)))
             {
                 Caption = 'Availa&bility To Pick', Comment = 'FRA="Disp&o. prélèv."';
                 ApplicationArea = All;
@@ -100,7 +100,7 @@ pageextension 50114 "BC6_SalesLineFactBox" extends "Sales Line FactBox"  //9087
                     SalesInfoPaneMgt.LookupItem(Rec);
                 end;
             }
-            field(QtyOnPurchOrder; STRSUBSTNO('%1', FunctionMgt.CalcQtyOnPurchOrder(Rec)))
+            field(QtyOnPurchOrder; STRSUBSTNO(txtlbl1, FunctionMgt.CalcQtyOnPurchOrder(Rec)))
             {
                 Caption = 'Qty. on Purch. Order', Comment = 'FRA="Qté sur commande achat"';
                 ApplicationArea = All;
@@ -119,6 +119,8 @@ pageextension 50114 "BC6_SalesLineFactBox" extends "Sales Line FactBox"  //9087
         FunctionMgt: Codeunit "BC6_Functions Mgt";
         ShowAvaibility: Boolean;
         ShowCNEInfo: Boolean;
+        txtlbl1: label '%1';
+
 
 
 

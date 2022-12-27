@@ -107,9 +107,9 @@ xmlport 50012 "BC6_Import Adr. Livraison Clts"
 
                         IF STRLEN(vpostcode) < 5 THEN BEGIN
                             CPLength := STRLEN(vpostcode);
-                            FOR i := 1 TO 5 - CPLength DO BEGIN
+                            FOR i := 1 TO 5 - CPLength DO
                                 vpostcode := '0' + vpostcode;
-                            END;
+
                         END;
 
                         recPostCode.RESET();
@@ -133,9 +133,9 @@ xmlport 50012 "BC6_Import Adr. Livraison Clts"
 
                     END;
 
-                    IF vcountry <> '' THEN BEGIN
+                    IF vcountry <> '' THEN
                         recShipTo.VALIDATE("Country/Region Code", vcountry);
-                    END;
+
 
 
                     recShipTo.MODIFY(TRUE);

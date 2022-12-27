@@ -225,14 +225,14 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
     procedure GetCD7321_TempSalesLine(var TempSalesLineLocal: Record "Sales Line" temporary)
     begin
 
-        TempSalesLineLocal.Copy(CD7321_TempSalesLine, true);
+        TempSalesLineLocal.Copy(TempSalesLine, true);
 
     end;
 
     procedure SetCD7321_TempSalesLine(var TempSalesLineLocal: Record "Sales Line" temporary)
     begin
 
-        CD7321_TempSalesLine.Copy(TempSalesLineLocal, true);
+        TempSalesLine.Copy(TempSalesLineLocal, true);
 
     end;
 
@@ -312,14 +312,14 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
         exit(G_LinkedPurchOrderNo);
     end;
 
-    procedure SetEnableIncrPurchCost( pEnableIncrPurchCost: Boolean)
+    procedure SetEnableIncrPurchCost(pEnableIncrPurchCost: Boolean)
     begin
-         EnableIncrPurchCost := pEnableIncrPurchCost;
+        EnableIncrPurchCost := pEnableIncrPurchCost;
     end;
 
-    procedure  GetEnableIncrPurchCost() EnableIncrPurchCost: Boolean;
+    procedure GetEnableIncrPurchCost() EnableIncrPurchCost: Boolean;
     begin
-         exit(EnableIncrPurchCost);
+        exit(EnableIncrPurchCost);
     end;
 
     procedure SetBoolGCopyLinesExactly(pBoolGCopyLinesExactly: Boolean)
@@ -341,9 +341,10 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
     begin
         exit(HideValidationDialog);
     end;
+
     var
         T77_SalesHeader: Record "Sales Header";
-        CD7321_TempSalesLine: Record "Sales Line" temporary;
+        TempSalesLine: Record "Sales Line" temporary;
         _IsSAVReturnOrder: Boolean;
         BooGAutoTextSpe: Boolean;
         BooGVendorNoStyle: Boolean;
@@ -374,6 +375,6 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
         VATAmount: Decimal;
         IntLSignFactor: Integer;
         YourReference: Text;
-        
+
 
 }

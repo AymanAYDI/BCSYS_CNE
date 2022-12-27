@@ -91,7 +91,7 @@ report 50010 "BC6_Sales - Invoice CNE"
                     column(CompanyInfo_City_____le__; CompanyInfo.City + ' le ')
                     {
                     }
-                    column(STRSUBSTNO__Page__1__FORMAT_CurrReport_PAGENO__; STRSUBSTNO('Page %1', FORMAT(CurrReport.PAGENO())))
+                    column(STRSUBSTNO__Page__1__FORMAT_CurrReport_PAGENO__; STRSUBSTNO(Text005, FORMAT(CurrReport.PAGENO())))
                     {
                     }
                     column(Sales_Invoice_Header___Due_Date_; "Sales Invoice Header"."Due Date")
@@ -309,18 +309,18 @@ report 50010 "BC6_Sales - Invoice CNE"
                             IF (Type = Type::"G/L Account") AND (NOT ShowInternalInfo) THEN
                                 "No." := '';
 
-                            VATAmountLine.INIT();
-                            VATAmountLine."VAT Identifier" := "VAT Identifier";
-                            VATAmountLine."VAT Calculation Type" := "VAT Calculation Type";
-                            VATAmountLine."Tax Group Code" := "Tax Group Code";
-                            VATAmountLine."VAT %" := "VAT %";
-                            VATAmountLine."VAT Base" := Amount;
-                            VATAmountLine."Amount Including VAT" := "Amount Including VAT";
-                            VATAmountLine."Line Amount" := "Line Amount";
+                            TempVATAmountLine.INIT();
+                            TempVATAmountLine."VAT Identifier" := "VAT Identifier";
+                            TempVATAmountLine."VAT Calculation Type" := "VAT Calculation Type";
+                            TempVATAmountLine."Tax Group Code" := "Tax Group Code";
+                            TempVATAmountLine."VAT %" := "VAT %";
+                            TempVATAmountLine."VAT Base" := Amount;
+                            TempVATAmountLine."Amount Including VAT" := "Amount Including VAT";
+                            TempVATAmountLine."Line Amount" := "Line Amount";
                             IF "Allow Invoice Disc." THEN
-                                VATAmountLine."Inv. Disc. Base Amount" := "Line Amount";
-                            VATAmountLine."Invoice Discount Amount" := "Inv. Discount Amount";
-                            VATAmountLine.InsertLine();
+                                TempVATAmountLine."Inv. Disc. Base Amount" := "Line Amount";
+                            TempVATAmountLine."Invoice Discount Amount" := "Inv. Discount Amount";
+                            TempVATAmountLine.InsertLine();
                             // FR0001.begin
                             IF IncludeShptNo THEN BEGIN
                                 ShipmentInvoiced.RESET();
@@ -355,16 +355,16 @@ report 50010 "BC6_Sales - Invoice CNE"
 
                             //FG
                             //pamo
-                            VATAmountLine."VAT %" := 0;
-                            VATAmountLine."VAT Base" := 0;
-                            VATAmountLine."Amount Including VAT" := 0;
-                            VATAmountLine."Line Amount" := 0;
-                            VATAmountLine."Inv. Disc. Base Amount" := 0;
-                            VATAmountLine."Invoice Discount Amount" := 0;
+                            TempVATAmountLine."VAT %" := 0;
+                            TempVATAmountLine."VAT Base" := 0;
+                            TempVATAmountLine."Amount Including VAT" := 0;
+                            TempVATAmountLine."Line Amount" := 0;
+                            TempVATAmountLine."Inv. Disc. Base Amount" := 0;
+                            TempVATAmountLine."Invoice Discount Amount" := 0;
                             //pamo
-                            VATAmountLine."BC6_DEEE HT Amount" := "BC6_DEEE HT Amount";
-                            VATAmountLine."BC6_DEEE VAT Amount" := "BC6_DEEE VAT Amount";
-                            VATAmountLine.InsertLine();
+                            TempVATAmountLine."BC6_DEEE HT Amount" := "BC6_DEEE HT Amount";
+                            TempVATAmountLine."BC6_DEEE VAT Amount" := "BC6_DEEE VAT Amount";
+                            TempVATAmountLine.InsertLine();
 
                             //MICO DEEE1.00
                             //DecGVATTotalAmount += VATAmountLine."VAT Amount" + VATAmountLine."DEEE VAT Amount";
@@ -379,35 +379,27 @@ report 50010 "BC6_Sales - Invoice CNE"
                             TotalAmountVATDEE += "Amount Including VAT" - Amount + "BC6_DEEE VAT Amount";
                             TotalAmountInclVATDEE += "Amount Including VAT" + "BC6_DEEE HT Amount" + "BC6_DEEE VAT Amount";
 
-                            //>>TDL DARI 23/04/07
                             TexGTest := ' ';
                             IF STRLEN(Description) > 2 THEN
                                 TexGTest := COPYSTR(Description, 3, 1);
 
-                            BooGVisibleDesc := (Type = 0) AND (1 = STRPOS(Description, 'BL')) AND (TexGTest IN ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
-                            //<<TDL DARI 23/04/07
+                            BooGVisibleDesc := (Type.AsInteger() = 0) AND (1 = STRPOS(Description, 'BL')) AND (TexGTest IN ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
 
-                            //>>TDL DARI 23/04/07
-                            BooGVisibleDesc2 := (Type = 0) AND ((1 <> STRPOS(Description, 'BL')) OR NOT (TexGTest IN ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']));
-                            //>>TDL DARI 23/04/07
+                            BooGVisibleDesc2 := (Type.AsInteger() = 0) AND ((1 <> STRPOS(Description, 'BL')) OR NOT (TexGTest IN ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']));
 
 
-                            //>>COMPTA_DEEE FG 01/03/07
                             IF RecGBillCustomer."BC6_Submitted to DEEE" THEN BEGIN
                                 BooGVisibleDesc3 := ("BC6_DEEE Category Code" <> '') AND (Quantity <> 0) AND ("BC6_Eco partner DEEE" <> '');
                             END ELSE BEGIN
                                 BooGVisibleDesc3 := FALSE;
                             END;
-                            //<<COMPTA_DEEE FG 01/03/07
-
-                            //<<MIGRATION NAV 2013
                         end;
 
                         trigger OnPreDataItem()
                         begin
-                            VATAmountLine.DELETEALL();
-                            SalesShipmentBuffer.RESET();
-                            SalesShipmentBuffer.DELETEALL();
+                            TempVATAmountLine.DELETEALL();
+                            TempSalesShipmentBuffer.RESET();
+                            TempSalesShipmentBuffer.DELETEALL();
                             FirstValueEntryNo := 0;
                             MoreLines := FIND('+');
                             WHILE MoreLines AND (Description = '') AND ("No." = '') AND (Quantity = 0) AND (Amount = 0) DO
@@ -434,36 +426,36 @@ report 50010 "BC6_Sales - Invoice CNE"
                     dataitem(VATCounter; Integer)
                     {
                         DataItemTableView = SORTING(Number);
-                        column(VATAmtLineVATBase; VATAmountLine."VAT Base")
+                        column(VATAmtLineVATBase; TempVATAmountLine."VAT Base")
                         {
                             AutoFormatExpression = "Sales Invoice Line".GetCurrencyCode();
                             AutoFormatType = 1;
                         }
-                        column(VATAmtLineVATAmt; VATAmountLine."VAT Amount")
+                        column(VATAmtLineVATAmt; TempVATAmountLine."VAT Amount")
                         {
                             AutoFormatExpression = "Sales Invoice Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmtLineLineAmt; VATAmountLine."Line Amount")
+                        column(VATAmtLineLineAmt; TempVATAmountLine."Line Amount")
                         {
                             AutoFormatExpression = "Sales Invoice Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmtLineInvDiscBaseAmt; VATAmountLine."Inv. Disc. Base Amount")
+                        column(VATAmtLineInvDiscBaseAmt; TempVATAmountLine."Inv. Disc. Base Amount")
                         {
                             AutoFormatExpression = "Sales Invoice Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmtLineInvoiceDiscAmt; VATAmountLine."Invoice Discount Amount")
+                        column(VATAmtLineInvoiceDiscAmt; TempVATAmountLine."Invoice Discount Amount")
                         {
                             AutoFormatExpression = "Sales Invoice Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmtLineVAT; VATAmountLine."VAT %")
+                        column(VATAmtLineVAT; TempVATAmountLine."VAT %")
                         {
                             DecimalPlaces = 0 : 5;
                         }
-                        column(VATAmtLineVATIdentifier; VATAmountLine."VAT Identifier")
+                        column(VATAmtLineVATIdentifier; TempVATAmountLine."VAT Identifier")
                         {
                         }
                         column(VATPercentCaption; VATPercentCaptionLbl)
@@ -493,24 +485,24 @@ report 50010 "BC6_Sales - Invoice CNE"
                         column(TotalCaption; TotalCaptionLbl)
                         {
                         }
-                        column(VATAmountLineCOUNT; VATAmountLine.COUNT)
+                        column(VATAmountLineCOUNT; TempVATAmountLine.COUNT)
                         {
                         }
-                        column(VATAmountText2; VATAmountLine.VATAmountText())
+                        column(VATAmountText2; TempVATAmountLine.VATAmountText())
                         {
                         }
 
                         trigger OnAfterGetRecord()
                         begin
-                            VATAmountLine.GetLine(Number);
+                            TempVATAmountLine.GetLine(Number);
                         end;
 
                         trigger OnPreDataItem()
                         begin
-                            SETRANGE(Number, 1, VATAmountLine.COUNT);
+                            SETRANGE(Number, 1, TempVATAmountLine.COUNT);
                             CurrReport.CREATETOTALS(
-                              VATAmountLine."Line Amount", VATAmountLine."Inv. Disc. Base Amount",
-                              VATAmountLine."Invoice Discount Amount", VATAmountLine."VAT Base", VATAmountLine."VAT Amount");
+                              TempVATAmountLine."Line Amount", TempVATAmountLine."Inv. Disc. Base Amount",
+                              TempVATAmountLine."Invoice Discount Amount", TempVATAmountLine."VAT Base", TempVATAmountLine."VAT Amount");
                         end;
                     }
                     dataitem(VatCounterLCY; Integer)
@@ -530,20 +522,20 @@ report 50010 "BC6_Sales - Invoice CNE"
                         {
                             AutoFormatType = 1;
                         }
-                        column(VATAmtLineVAT1; VATAmountLine."VAT %")
+                        column(VATAmtLineVAT1; TempVATAmountLine."VAT %")
                         {
                             DecimalPlaces = 0 : 5;
                         }
-                        column(VATAmtLineVATIdentifier1; VATAmountLine."VAT Identifier")
+                        column(VATAmtLineVATIdentifier1; TempVATAmountLine."VAT Identifier")
                         {
                         }
 
                         trigger OnAfterGetRecord()
                         begin
-                            VATAmountLine.GetLine(Number);
+                            TempVATAmountLine.GetLine(Number);
 
-                            VALVATBaseLCY := ROUND(VATAmountLine."VAT Base" / "Sales Invoice Header"."Currency Factor");
-                            VALVATAmountLCY := ROUND(VATAmountLine."VAT Amount" / "Sales Invoice Header"."Currency Factor");
+                            VALVATBaseLCY := ROUND(TempVATAmountLine."VAT Base" / "Sales Invoice Header"."Currency Factor");
+                            VALVATAmountLCY := ROUND(TempVATAmountLine."VAT Amount" / "Sales Invoice Header"."Currency Factor");
                         end;
 
                         trigger OnPreDataItem()
@@ -553,7 +545,7 @@ report 50010 "BC6_Sales - Invoice CNE"
                             THEN
                                 CurrReport.BREAK();
 
-                            SETRANGE(Number, 1, VATAmountLine.COUNT);
+                            SETRANGE(Number, 1, TempVATAmountLine.COUNT);
                             CurrReport.CREATETOTALS(VALVATBaseLCY, VALVATAmountLCY);
 
                             IF GLSetup."LCY Code" = '' THEN
@@ -685,7 +677,7 @@ report 50010 "BC6_Sales - Invoice CNE"
                         {
 
                         }
-                        column(VATAmountLine_VATAmountText; VATAmountLine.VATAmountText())
+                        column(VATAmountLine_VATAmountText; TempVATAmountLine.VATAmountText())
                         {
 
                         }
@@ -973,11 +965,11 @@ report 50010 "BC6_Sales - Invoice CNE"
         GCdeArch: Record "Sales Header Archive";
         RecGSalesInvLine: Record "Sales Invoice Line";
         SalesPurchPerson: Record "Salesperson/Purchaser";
-        SalesShipmentBuffer: Record "Sales Shipment Buffer" temporary;
+        TempSalesShipmentBuffer: Record "Sales Shipment Buffer" temporary;
         ShipmentInvoiced: Record "Shipment Invoiced";
         ShipmentMethod: Record "Shipment Method";
         RecG_User: Record User;
-        VATAmountLine: Record "VAT Amount Line" temporary;
+        TempVATAmountLine: Record "VAT Amount Line" temporary;
         FormatAddr: Codeunit "Format Address";
         Language: Codeunit Language;
         SalesInvCountPrinted: Codeunit "Sales Inv.-Printed";

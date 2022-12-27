@@ -50,6 +50,7 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
                 trigger OnAction()
                 var
                     RecLPostSalesShpt: Record "Sales Shipment Header";
+                    "-MIGNAV2013-": Integer;
                 begin
                     RecLPostSalesShpt := Rec;
                     RecLPostSalesShpt.SETRECFILTER();
@@ -84,6 +85,7 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
                 trigger OnAction()
                 var
                     RecLPostSalesShpt: Record "Sales Shipment Header";
+                    "-MIGNAV2013-": Integer;
                 begin
                     RecLPostSalesShpt := Rec;
                     RecLPostSalesShpt.SETRECFILTER();

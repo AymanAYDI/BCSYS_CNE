@@ -360,15 +360,15 @@ report 50004 "BC6_Combine Shipments"
                 Message(Text008);
     end;
 
-    local procedure ShouldFinalizeSalesInvHeader(SalesOrderHeader: Record "Sales Header"; SalesHeader: Record "Sales Header"; SalesShipmentLine: Record "Sales Shipment Line") Finalize: Boolean
+    local procedure ShouldFinalizeSalesInvHeader(SalesOrderHeader: Record "Sales Header"; SalesHead: Record "Sales Header"; SalesShipmentLine: Record "Sales Shipment Line") Finalize: Boolean
     begin
         Finalize :=
-          (SalesOrderHeader."Sell-to Customer No." <> SalesHeader."Sell-to Customer No.") or
-          (SalesOrderHeader."Bill-to Customer No." <> SalesHeader."Bill-to Customer No.") or
-          (SalesOrderHeader."Currency Code" <> SalesHeader."Currency Code") or
-          (SalesOrderHeader."EU 3-Party Trade" <> SalesHeader."EU 3-Party Trade") or
-          (SalesOrderHeader."Dimension Set ID" <> SalesHeader."Dimension Set ID") or
-          (SalesOrderHeader."Journal Templ. Name" <> SalesHeader."Journal Templ. Name");
+          (SalesOrderHeader."Sell-to Customer No." <> SalesHead."Sell-to Customer No.") or
+          (SalesOrderHeader."Bill-to Customer No." <> SalesHead."Bill-to Customer No.") or
+          (SalesOrderHeader."Currency Code" <> SalesHead."Currency Code") or
+          (SalesOrderHeader."EU 3-Party Trade" <> SalesHead."EU 3-Party Trade") or
+          (SalesOrderHeader."Dimension Set ID" <> SalesHead."Dimension Set ID") or
+          (SalesOrderHeader."Journal Templ. Name" <> SalesHead."Journal Templ. Name");
         exit(Finalize);
     end;
 

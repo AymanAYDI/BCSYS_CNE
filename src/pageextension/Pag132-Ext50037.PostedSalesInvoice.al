@@ -77,6 +77,7 @@ pageextension 50037 "BC6_PostedSalesInvoice" extends "Posted Sales Invoice" //13
                 trigger OnAction()
                 var
                     RecLPostSalesShpt: Record "Sales Invoice Header";
+                    "-MIGNAV2013-": Integer;
                 begin
                     RecLPostSalesShpt := Rec;
                     RecLPostSalesShpt.SETRECFILTER();

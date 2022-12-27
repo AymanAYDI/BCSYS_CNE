@@ -14,9 +14,7 @@ codeunit 50052 "BC6_Return Order Mgt."
         L_RealedPurchReturn: Record "Purchase Header";
         L_RelatedPurchOrder: Record "Purchase Header";
         L_ReturnOrderRelation: Record "BC6_Return Order Relation";
-        L_ReturnOrderRelation1: Record "BC6_Return Order Relation";
         Confirm: Boolean;
-        "-BCSYS-": Integer;
     begin
         with P_SalesHeader do begin
             if ("Document Type" = "Document Type"::"Return Order") and ("BC6_Return Order Type" = "BC6_Return Order Type"::SAV) then
@@ -90,7 +88,6 @@ codeunit 50052 "BC6_Return Order Mgt."
     local procedure ExtractOrderNo(P_SalesInvoiceLine: Record "Sales Invoice Line"): Code[20]
     var
         ItemLedgEntry: Record "Item Ledger Entry";
-        L_SalesHeader: Record "Sales Header";
         SalesShptHeader: Record "Sales Shipment Header";
         SalesShptLine: Record "Sales Shipment Line";
         ValueEntry: Record "Value Entry";
@@ -121,7 +118,7 @@ codeunit 50052 "BC6_Return Order Mgt."
     var
         L_ReturnOrderRelation: Record "BC6_Return Order Relation";
     begin
-        with P_SalesHeader do begin
+        with P_SalesHeader do
             if ("Document Type" = "Document Type"::Order) then begin
                 L_ReturnOrderRelation.RESET();
                 L_ReturnOrderRelation.SETRANGE("Sales Order No.", P_SalesHeader."No.");
@@ -130,14 +127,13 @@ codeunit 50052 "BC6_Return Order Mgt."
                     L_ReturnOrderRelation.MODIFY();
                 end;
             end;
-        end;
     end;
 
     procedure DeleteRelatedPurchOrderNo(var P_PurchaseHeader: Record "Purchase Header")
     var
         L_ReturnOrderRelation: Record "BC6_Return Order Relation";
     begin
-        with P_PurchaseHeader do begin
+        with P_PurchaseHeader do
             if ("Document Type" = "Document Type"::Order) then begin
                 L_ReturnOrderRelation.RESET();
                 L_ReturnOrderRelation.SETRANGE("Purchase Order No.", P_PurchaseHeader."No.");
@@ -146,14 +142,13 @@ codeunit 50052 "BC6_Return Order Mgt."
                     L_ReturnOrderRelation.MODIFY();
                 end;
             end;
-        end;
     end;
 
     procedure DeleteRelatedPurchReturnOrderNo(var P_PurchaseHeader: Record "Purchase Header")
     var
         L_ReturnOrderRelation: Record "BC6_Return Order Relation";
     begin
-        with P_PurchaseHeader do begin
+        with P_PurchaseHeader do
             if ("Document Type" = "Document Type"::"Return Order") then begin
                 L_ReturnOrderRelation.RESET();
                 L_ReturnOrderRelation.SETRANGE("Purchase Return Order", P_PurchaseHeader."No.");
@@ -162,7 +157,6 @@ codeunit 50052 "BC6_Return Order Mgt."
                     L_ReturnOrderRelation.MODIFY();
                 end;
             end;
-        end;
     end;
 
     local procedure DeleteSalesAndPurchDoc(var P_SalesHeader: Record "Sales Header")

@@ -4363,6 +4363,28 @@ then begin
             NewReportId := Report::"BC6_Batch Post Sales Orders";
     end;
 
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Reporting Triggers", 'SubstituteReport', '', false, false)]
+    local procedure SubstituteReport_PriceList(ReportId: Integer; RunMode: Option Normal,ParametersOnly,Execute,Print,SaveAs,RunModal; RequestPageXml: Text; RecordRef: RecordRef; var NewReportId: Integer)
+    begin
+        if ReportId = Report::"Price List" then
+            NewReportId := Report::"BC6_Price List";
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Reporting Triggers", 'SubstituteReport', '', false, false)]
+    local procedure SubstituteReport_CalculPlanReqWksh(ReportId: Integer; RunMode: Option Normal,ParametersOnly,Execute,Print,SaveAs,RunModal; RequestPageXml: Text; RecordRef: RecordRef; var NewReportId: Integer)
+    begin
+        if ReportId = Report::"Calculate Plan - Req. Wksh." then
+            NewReportId := Report::"BC6_Calcul Plan - Req. Wksh.";
+    end;
+
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Reporting Triggers", 'SubstituteReport', '', false, false)]
+    local procedure SubstituteReport_CreateRetRelatedDocuments(ReportId: Integer; RunMode: Option Normal,ParametersOnly,Execute,Print,SaveAs,RunModal; RequestPageXml: Text; RecordRef: RecordRef; var NewReportId: Integer)
+    begin
+        if ReportId = Report::"Create Ret.-Related Documents" then
+            NewReportId := Report::"BC6_Create Ret.-Related Doc";
+    end;
+
+
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Whse.-Activity-Post", 'OnCodeOnAfterWhseActivLineSetFilters', '', false, false)]
     local procedure OnCodeOnAfterWhseActivLineSetFilters(var WhseActivHeader: Record "Warehouse Activity Header"; var WhseActivLine: Record "Warehouse Activity Line")
     var
@@ -4402,7 +4424,6 @@ then begin
     end;
     // page30
     [EventSubscriber(ObjectType::Page, Page::"Item Card", 'OnAfterEnablePlanningControls', '', false, false)]
-
     local procedure OnAfterEnablePlanningControls(var PlanningParameters: Record "Planning Parameters")
     var
         UserSetup: Record "User Setup";
@@ -4411,9 +4432,10 @@ then begin
         IF UserSetup.GET(USERID) AND UserSetup."BC6_Aut. Real Sales Profit %" THEN
             GlobalFct.SetShowIncreaseCoeff(true)
         ELSE
-        GlobalFct.SetShowIncreaseCoeff(false);
+            GlobalFct.SetShowIncreaseCoeff(false);
 
     end;
+
 
 }
 

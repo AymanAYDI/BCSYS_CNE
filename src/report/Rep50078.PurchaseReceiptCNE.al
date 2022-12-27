@@ -593,20 +593,20 @@ report 50078 "BC6_Purchase - Receipt CNE"
                     Caption = 'Options';
                     field(NoOfCopies; NoOfCopies)
                     {
-                        Caption = 'No. of Copies';
+                        Caption = 'No. of Copies', Comment = 'FRA=""';
                     }
                     field(ShowInternalInfo; ShowInternalInfo)
                     {
-                        Caption = 'Show Internal Information';
+                        Caption = 'Show Internal Information', Comment = 'FRA=""';
                     }
                     field(LogInteraction; LogInteraction)
                     {
-                        Caption = 'Log Interaction';
+                        Caption = 'Log Interaction', Comment = 'FRA=""';
                         Enabled = LogInteractionEnable;
                     }
                     field(ShowCorrectionLines; ShowCorrectionLines)
                     {
-                        Caption = 'Show Correction Lines';
+                        Caption = 'Show Correction Lines', Comment = 'FRA=""';
                     }
                 }
             }

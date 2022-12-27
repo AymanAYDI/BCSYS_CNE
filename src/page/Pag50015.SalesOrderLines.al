@@ -372,25 +372,25 @@ page 50015 "BC6_Sales Order Lines"
                                     RecLSalesLines."BC6_Purchase Receipt Date" := RecLPurchLine."Expected Receipt Date";
                                     RecLSalesLines."BC6_Qty. To Order" := 0;
                                     RecLSalesLines."BC6_To Order" := FALSE;
-                                    RecLSalesLineTmp.TRANSFERFIELDS(RecLSalesLines);
-                                    RecLSalesLineTmp.INSERT(FALSE);
+                                    TempRecLSalesLine.TRANSFERFIELDS(RecLSalesLines);
+                                    TempRecLSalesLine.INSERT(FALSE);
                                     RecLSalesLines.MODIFY(FALSE);
 
                                 UNTIL RecLSalesLines.NEXT = 0;
                                 // Insert extended text
-                                RecLSalesLineTmp.RESET;
-                                IF RecLSalesLineTmp.FIND('-') THEN
+                                TempRecLSalesLine.RESET;
+                                IF TempRecLSalesLine.FIND('-') THEN
                                     REPEAT
                                         RecLPurchLine2.RESET;
-                                        RecLPurchLine2.SETRANGE("Document Type", RecLSalesLineTmp."BC6_Purch. Document Type"::Order);
-                                        RecLPurchLine2.SETRANGE("Document No.", RecLSalesLineTmp."BC6_Purch. Order No.");
-                                        RecLPurchLine2.SETRANGE("Line No.", RecLSalesLineTmp."BC6_Purch. Line No.");
+                                        RecLPurchLine2.SETRANGE("Document Type", TempRecLSalesLine."BC6_Purch. Document Type"::Order);
+                                        RecLPurchLine2.SETRANGE("Document No.", TempRecLSalesLine."BC6_Purch. Order No.");
+                                        RecLPurchLine2.SETRANGE("Line No.", TempRecLSalesLine."BC6_Purch. Line No.");
                                         IF RecLPurchLine2.FIND('-') THEN
                                             REPEAT
                                                 InsertExtendedText(TRUE, RecLPurchLine2);
                                                 RecLPurchLine2.MODIFY(FALSE);
                                             UNTIL RecLPurchLine2.NEXT = 0;
-                                    UNTIL RecLSalesLineTmp.NEXT = 0;
+                                    UNTIL TempRecLSalesLine.NEXT = 0;
                             END;
 
                             DiaGWindow.CLOSE;
@@ -476,7 +476,7 @@ page 50015 "BC6_Sales Order Lines"
         CstGText50002: Label 'Purchase Header          #2##########\', comment = 'FRA=""';
         CstGText50003: Label 'Purchase Lines             #3###########\', comment = 'FRA=""';
         "<<<PRODWARE>>>": Integer;
-        RecLSalesLineTmp: Record "Sales Line" temporary;
+        TempRecLSalesLine: Record "Sales Line" temporary;
         GPurchCost: Decimal;
         BooGNotGroupByItem: Boolean;
 

@@ -142,11 +142,10 @@ xmlport 50023 "BC6_Intégration catalogue"
                     "BC6_Temporary import catalogue"."Net Weight" := DecGpoidsnet;
                     GeneralLedgerSetup.GET();
                     IF GeneralLedgerSetup."BC6_DEEE Management" THEN BEGIN
-                        IF DEEECategoryCode <> '' THEN BEGIN
-                            IF NOT CategoriesOfItem.GET(DEEECategoryCode, GeneralLedgerSetup."BC6_Defaut Eco partner DEEE") THEN BEGIN
+                        IF DEEECategoryCode <> '' THEN
+                            IF NOT CategoriesOfItem.GET(DEEECategoryCode, GeneralLedgerSetup."BC6_Defaut Eco partner DEEE") THEN
                                 MESSAGE(Textg004, "BC6_Temporary import catalogue".FIELDCAPTION("DEEE Category Code"), DEEECategoryCode);
-                            END;
-                        END;
+
                         IF DEEECategoryCode = '' THEN BEGIN
 
                             //celui de l'art

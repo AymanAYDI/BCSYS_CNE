@@ -138,14 +138,14 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
                 trigger OnAction()
                 var
                     FromItem: Record Item;
-                    PrintLabel: Report 50049;
-                    PrintLabel2: Report 50059;
+                    PrintLabel: Report "BC6_Item Label v2";
+                    PrintLabel2: Report "BC6_Item Label v3";
                 begin
                     CLEAR(PrintLabel);
                     CLEAR(FromItem);
                     CurrPage.SETSELECTIONFILTER(FromItem);
                     PrintLabel2.SETTABLEVIEW(FromItem);
-                    PrintLabel2.RUN;
+                    PrintLabel2.RUN();
                 end;
             }
             action(BC6_UpdateUnitPriceIncVAT)
@@ -158,13 +158,13 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
                 trigger OnAction()
                 var
                     ItemToUpdate: Record Item;
-                    UpdateUnitPriceIncVAT: Report 50053;
+                    UpdateUnitPriceIncVAT: Report "BC6_Update Items Prices";
                 begin
                     CLEAR(ItemToUpdate);
                     CLEAR(UpdateUnitPriceIncVAT);
                     CurrPage.SETSELECTIONFILTER(ItemToUpdate);
                     UpdateUnitPriceIncVAT.SETTABLEVIEW(ItemToUpdate);
-                    UpdateUnitPriceIncVAT.RUN;
+                    UpdateUnitPriceIncVAT.RUN();
                 end;
             }
             group("BC6_&Bin Contents")
@@ -196,19 +196,19 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
 
     trigger OnAfterGetRecord()
     var
-        "-MIGNAV2013-": Integer;
         functionMgt: Codeunit "BC6_Functions Mgt";
+        "-MIGNAV2013-": Integer;
     begin
         EAN13Code := functionMgt.GetItemEAN13Code("No.");
     end;
 
     var
+        MemberOf: Record "Access Control";
+        RecGAccessControl: Record "Access Control";
+        ItemCrossRef: Record "Item Reference";
+        DistInt: Codeunit "Dist. Integration";
         UpdateICPartnerItemsEnabled: Boolean;
         EAN13Code: Code[20];
-        DistInt: Codeunit "Dist. Integration";
-        MemberOf: Record "Access Control";
-        ItemCrossRef: Record "Item Reference";
-        RecGAccessControl: Record "Access Control";
 
 
 

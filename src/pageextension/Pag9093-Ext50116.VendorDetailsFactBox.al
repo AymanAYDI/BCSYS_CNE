@@ -19,17 +19,17 @@ pageextension 50116 "BC6_VendorDetailsFactBox" extends "Vendor Details FactBox" 
     }
 
     var
+        DateFilterCalc: Codeunit "DateFilter-Calc";
         CurrentDate: Date;
+        PurchasesLCY: Decimal;
         VendDateFilter: Text[30];
         VendDateName: Text[30];
-        DateFilterCalc: Codeunit "DateFilter-Calc";
-        PurchasesLCY: Decimal;
 
     trigger OnAfterGetRecord()
     begin
         CLEAR(DateFilterCalc);
-        IF CurrentDate <> WORKDATE THEN BEGIN
-            CurrentDate := WORKDATE;
+        IF CurrentDate <> WORKDATE() THEN BEGIN
+            CurrentDate := WORKDATE();
             DateFilterCalc.CreateFiscalYearFilter(VendDateFilter, VendDateName, CurrentDate, 0);
         END;
 

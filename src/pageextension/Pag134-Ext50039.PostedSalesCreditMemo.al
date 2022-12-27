@@ -54,8 +54,8 @@ pageextension 50039 "BC6_PostedSalesCreditMemo" extends "Posted Sales Credit Mem
 
                     trigger OnAction()
                     var
-                        "-MIGNAV2013-": Integer;
                         RecLSalesCrMemoHeader: Record "Sales Cr.Memo Header";
+                        "-MIGNAV2013-": Integer;
                     begin
                         RecLSalesCrMemoHeader := Rec;
                         RecLSalesCrMemoHeader.SETRECFILTER();
@@ -68,8 +68,8 @@ pageextension 50039 "BC6_PostedSalesCreditMemo" extends "Posted Sales Credit Mem
 
                     trigger OnAction()
                     var
-                        "-MIGNAV2013-": Integer;
                         RecLSalesCrMemoHeader: Record "Sales Cr.Memo Header";
+                        "-MIGNAV2013-": Integer;
                     begin
                         RecLSalesCrMemoHeader := Rec;
                         RecLSalesCrMemoHeader.SETRECFILTER();
@@ -85,22 +85,22 @@ pageextension 50039 "BC6_PostedSalesCreditMemo" extends "Posted Sales Credit Mem
     end;
 
     var
-        "-MIGNAV2013-": Integer;
-        DocPrint: Codeunit "Document-Print";
         HistMail: Record "BC6_Historique Mails Envoyés";
         cust: Record Customer;
-        nameF: Text[250];
-        Mail: Codeunit Mail;
         SalesSetup: Record "Sales & Receivables Setup";
+        SalesShptHeader: Record "Sales Shipment Header";
+        DocPrint: Codeunit "Document-Print";
+        Mail: Codeunit Mail;
         Excel: Boolean;
+        "-MIGNAV2013-": Integer;
         STR1: Label 'Archiver Devis';
         STR2: Label 'Créer Commande';
         STR3: Label 'Imprimer le document ?';
         STR4: Label 'Envoyer le document par mail ?';
         STR5: Label 'Envoyer le document par fax ?';
-        Text004: Label 'Fichiers Pdf (*.pdf)|*.pdf|Tous les fichiers (*.*)|*.*';
         Text001: Label '';
-        SalesShptHeader: Record "Sales Shipment Header";
+        Text004: Label 'Fichiers Pdf (*.pdf)|*.pdf|Tous les fichiers (*.*)|*.*';
+        nameF: Text[250];
 
     procedure "---MIGNAV2013---"()
     begin

@@ -60,12 +60,12 @@ report 50056 "BC6_Blocked Items"
     }
 
     var
-        Text002: Label 'Extract Inventory Location %1...', comment = 'FRA="Débloquer articles, stock négatif ..."';
-        Text003: Label 'Item No. #1#############', comment = 'FRA="article n° #1#############"';
-        Window: Dialog;
         QtyToEmpty: Decimal;
-        Text004: Label '           #2#####|#3#####';
+        Window: Dialog;
         Counter: Integer;
         TotalCounter: Integer;
+        Text002: Label 'Extract Inventory Location %1...', comment = 'FRA="Débloquer articles, stock négatif ..."';
+        Text003: Label 'Item No. #1#############', comment = 'FRA="article n° #1#############"';
+        Text004: Label '           #2#####|#3#####';
 }
 

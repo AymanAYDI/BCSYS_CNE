@@ -32,10 +32,10 @@ report 50076 "BC6_Traite fourn. sur bord"
             column(CustAdr_7_; CustAdr[7])
             {
             }
-            column(Du____STRSUBSTNO___1__FORMAT_PaymtHeader__Document_Date__0_4__; 'Du ' + STRSUBSTNO('%1', FORMAT(PaymtHeader."Document Date", 0, 4)))
+            column(Du____STRSUBSTNO___1__FORMAT_PaymtHeader__Document_Date__0_4__; 'Du ' + STRSUBSTNO(txtlbl1, FORMAT(PaymtHeader."Document Date", 0, 4)))
             {
             }
-            column(STRSUBSTNO__Page__1__FORMAT_CurrReport_PAGENO__; STRSUBSTNO('Page %1', FORMAT(CurrReport.PAGENO)))
+            column(STRSUBSTNO__Page__1__FORMAT_CurrReport_PAGENO__; STRSUBSTNO('Page %1', FORMAT(CurrReport.PAGENO())))
             {
             }
             column(CustAdr_2_; CustAdr[2])
@@ -44,7 +44,7 @@ report 50076 "BC6_Traite fourn. sur bord"
             column(Payment_Line__Account_No__; "Account No.")
             {
             }
-            column(STRSUBSTNO___1__FORMAT_TODAY_12_7__; STRSUBSTNO('%1', FORMAT(TODAY, 12, 7)))
+            column(STRSUBSTNO___1__FORMAT_TODAY_12_7__; STRSUBSTNO(txtlbl1, FORMAT(TODAY, 12, 7)))
             {
             }
             column(Text121; Text121)
@@ -220,7 +220,7 @@ report 50076 "BC6_Traite fourn. sur bord"
 
                     CLEAR(CodG_OrderNo);
                     IF (VendorLedgerEntry."Document Type" = VendorLedgerEntry."Document Type"::Invoice) THEN BEGIN
-                        RecGPurchInvHeader.RESET;
+                        RecGPurchInvHeader.RESET();
                         IF (RecGPurchInvHeader.GET(VendorLedgerEntry."Document No.")) THEN BEGIN
                             CodG_OrderNo := RecGPurchInvHeader."Order No.";
                         END;
@@ -427,21 +427,21 @@ report 50076 "BC6_Traite fourn. sur bord"
             trigger OnAfterGetRecord()
             var
                 Currency: Record Currency;
-                FormatAddress: Codeunit "Format Address";
-                CustPaymentAddr: Record "Payment Address";
                 Cust: Record Customer;
+                CustPaymentAddr: Record "Payment Address";
+                FormatAddress: Codeunit "Format Address";
             begin
 
-                CustPaymentAddr.INIT;
+                CustPaymentAddr.INIT();
 
                 PaymtHeader.GET("No.");
                 PostingDate := PaymtHeader."Posting Date";
 
                 Amount := -Amount;
 
-                GLSetup.GET;
+                GLSetup.GET();
                 IF IssueDate = 0D THEN
-                    IssueDate := WORKDATE;
+                    IssueDate := WORKDATE();
 
                 IF CustPaymentAddr.GET(PaymentLine."Account Type", PaymentLine."Account No.", PaymentLine."Payment Address Code") THEN
                     PaymtManagt.PaymentAddr(CustAdr, CustPaymentAddr)
@@ -459,10 +459,10 @@ report 50076 "BC6_Traite fourn. sur bord"
 
                 IF Country.GET(CompanyInfo."Country/Region Code") THEN;
 
-                RecG_Vendor.RESET;
+                RecG_Vendor.RESET();
                 IF RecG_Vendor.GET(PaymentLine."Account No.") THEN BEGIN
 
-                    RecG_PaymentTerms.RESET;
+                    RecG_PaymentTerms.RESET();
                     IF RecG_PaymentTerms.GET(RecG_Vendor."Payment Terms Code") THEN BEGIN
                         CodGPaymentTermsCode := RecG_PaymentTerms.Code;
                         TexGPaymentTermsDescription := RecG_PaymentTerms.Description;
@@ -471,7 +471,7 @@ report 50076 "BC6_Traite fourn. sur bord"
                         TexGPaymentTermsDescription := '';
                     END;
 
-                    RecGPaymentMethod.RESET;
+                    RecGPaymentMethod.RESET();
                     IF RecGPaymentMethod.GET(RecG_Vendor."Payment Method Code") THEN BEGIN
                         CodGPaymentMethodCode := RecGPaymentMethod.Code;
                         TexGPaymentMethodDescription := RecGPaymentMethod.Description;
@@ -480,7 +480,7 @@ report 50076 "BC6_Traite fourn. sur bord"
                         TexGPaymentMethodDescription := '';
                     END;
 
-                    RecG_SalespersonPurchaser.RESET;
+                    RecG_SalespersonPurchaser.RESET();
                     IF RecG_SalespersonPurchaser.GET(RecG_Vendor."Purchaser Code") THEN
                         CodGVendorPurchaserCode := RecG_SalespersonPurchaser.Code
                     ELSE
@@ -525,7 +525,7 @@ report 50076 "BC6_Traite fourn. sur bord"
             trigger OnPreDataItem()
             begin
 
-                CompanyInfo.GET;
+                CompanyInfo.GET();
 
                 FormatAddress.Company(CompanyAddr, CompanyInfo);
             end;
@@ -563,107 +563,109 @@ report 50076 "BC6_Traite fourn. sur bord"
 
     trigger OnInitReport()
     begin
-        CompanyInfo.GET;
+        CompanyInfo.GET();
         //pour afficher les logos
         CompanyInfo.CALCFIELDS(Picture);
     end;
 
     var
         CompanyInfo: Record "Company Information";
+        Country: Record "Country/Region";
         Cust: Record Customer;
         GLSetup: Record "General Ledger Setup";
-        PaymtLine: Record "Payment Line";
+        PaymentAddress: Record "Payment Address";
         PaymtHeader: Record "Payment Header";
-        Text001: Label 'Amount', comment = 'FRA="Montant"';
-        Country: Record "Country/Region";
-        PaymtManagt: Codeunit "Payment Management";
+        PaymtLine: Record "Payment Line";
+        RecGPaymentMethod: Record "Payment Method";
+        RecG_PaymentTerms: Record "Payment Terms";
+        RecGPurchInvHeader: Record "Purch. Inv. Header";
+        RecGPurchaseHeader: Record "Purchase Header";
+        "RecGSalesCr.MemoHeader": Record "Sales Cr.Memo Header";
+        RecG_SalespersonPurchaser: Record "Salesperson/Purchaser";
+        RecG_Vendor: Record Vendor;
+        Vendor: Record Vendor;
         FormatAddress: Codeunit "Format Address";
+        PaymtManagt: Codeunit "Payment Management";
+        CodGPaymentMethodCode: Code[10];
+        CodGPaymentTermsCode: Code[10];
+        CodGVendorPurchaserCode: Code[10];
+        AccountNo: Code[20];
+        CodG_OrderNo: Code[20];
+        IssueDate: Date;
+        PostingDate: Date;
+        DecG_VendorLedger_CreditAmount: Decimal;
+        DecG_VendorLedger_DebitAmount: Decimal;
+        NSCAmount: Decimal;
+        PrintAmount: Decimal;
+        ReportAmount: Decimal;
+        "--NSC1.02--": Integer;
+        A_payerCaptionLbl: Label 'A payer';
+        ACCEPTANCE_or_ENDORSMENTCaptionLbl: Label 'ACCEPTANCE or ENDORSMENT', comment = 'FRA="ACCEPTATION ou AVAL"';
+        ADDRESSCaptionLbl: Label 'ADDRESS', comment = 'FRA="ADDRESSE"';
+        Against_this_BILLCaptionLbl: Label 'Against this BILL', comment = 'FRA="Contre cette LETTRE DE CHANGE"';
+        AMOUNT_FOR_CONTROLCaption_Control1000000040Lbl: Label 'AMOUNT FOR CONTROL', comment = 'FRA="Débit"';
+        AMOUNT_FOR_CONTROLCaption_Control1000000130Lbl: Label 'AMOUNT FOR CONTROL', comment = 'FRA="Crédit"';
+        AMOUNT_FOR_CONTROLCaption_Control1000000269Lbl: Label 'AMOUNT FOR CONTROL', comment = 'FRA="MONTANT POUR CONTROLE"';
+        AMOUNT_FOR_CONTROLCaptionLbl: Label 'AMOUNT FOR CONTROL', comment = 'FRA="Echéance"';
+        below_to__CaptionLbl: Label 'below to :', comment = 'FRA="ci-dessous à :"';
+        Control1000000275CaptionLbl: Label 'Label1000000275', comment = 'FRA=""';
+        CREATION_DATECaptionLbl: Label 'CREATION DATE', comment = 'FRA="DATE DE CREATION"';
+        DateCaptionLbl: Label 'Date';
+        DOMICILIATIONCaptionLbl: Label 'DOMICILIATION', comment = 'FRA="DOMICILIATION"';
+        DUE_DATECaptionLbl: Label 'DUE DATE', comment = 'FRA="ECHEANCE"';
+        etab_CaptionLbl: Label 'etab.';
+        Follow_up_by_the_accounts_receivable____01_48_11_49_66LCaptionLbl: Label 'Follow-up by the accounts receivable  : 01 48 11 49 66L', comment = 'FRA="Suivi par la comptabilité clients : 01 48 11 49 66"';
+        guichetCaptionLbl: Label 'guichet';
+        L_C_R__onlyCaptionLbl: Label 'L.C.R. only', comment = 'FRA="L.C.R. seulement"';
+        LETTRE_TRAITE_FOURNISSEURCaptionLbl: Label 'LETTRE TRAITE FOURNISSEUR';
+        "Montant_PayéCaptionLbl": Label 'Montant Payé';
+        n__compteCaptionLbl: Label 'n° compte';
+        NAME_andCaptionLbl: Label 'NAME and', comment = 'FRA="NOM et"';
+        noted_as_NO_CHARGESCaptionLbl: Label 'noted as NO CHARGES', comment = 'FRA="=stipulée SANS FRAIS"';
+        NumberCaptionLbl: Label 'Number', comment = 'FRA="Numéro"';
+        "NuméroCaptionLbl": Label 'Numéro';
+        of_SUBSCRIBERCaptionLbl: Label 'of SUBSCRIBER', comment = 'FRA="du SOUSCRIPTEUR"';
+        ONCaptionLbl: Label 'ON', comment = 'FRA="LE"';
+        Posting_DateCaptionLbl: Label 'Posting Date', comment = 'FRA="Date"';
+        Report___CaptionLbl: Label 'Report...', comment = 'FRA="Report..."';
+        RIBCaptionLbl: Label 'RIB';
+        Stamp_Allow_and_SignatureCaptionLbl: Label 'Stamp Allow and Signature', comment = 'FRA="Droit de timbre et signature"';
+        SUBSCRIBER_REF_CaptionLbl: Label 'SUBSCRIBER REF.', comment = 'FRA="REF. SOUSCRIPTEUR"';
+        SUBSCRIBER_S_R_I_B_CaptionLbl: Label 'SUBSCRIBER''S R.I.B.', comment = 'FRA="R.I.B. du SOUSCRIPTEUR"';
+        Text001: Label 'Amount', comment = 'FRA="Montant"';
         Text030: Label '%1 - %2 %3';
         Text031: Label 'Tel. :  %1 - Fax :  %2';
         Text032: Label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5', comment = 'FRA="%1 AU CAPITAL DE %2  · %3  · SIRET %4 ·  APE %5"';
         Text033: Label 'Fax :  %1';
-        CustAdr: array[8] of Text[50];
-        IssueCity: Text[30];
-        AmountText: Text[30];
-        CompanyAddr: array[8] of Text[50];
-        AccountNo: Code[20];
-        PostingDate: Date;
-        IssueDate: Date;
-        NSCAmount: Decimal;
-        PrintAmount: Decimal;
-        "--NSC1.02--": Integer;
-        ReportAmount: Decimal;
-        RecG_Vendor: Record Vendor;
-        RecG_PaymentTerms: Record "Payment Terms";
-        RecG_SalespersonPurchaser: Record "Salesperson/Purchaser";
         Text120: Label 'Mode de règlement';
         Text121: Label 'Votre Interlocuteur Commercial :';
-        CodGPaymentTermsCode: Code[10];
-        CodGVendorPurchaserCode: Code[10];
-        DecG_VendorLedger_DebitAmount: Decimal;
-        DecG_VendorLedger_CreditAmount: Decimal;
-        CodG_OrderNo: Code[20];
-        RecGPurchaseHeader: Record "Purchase Header";
-        "RecGSalesCr.MemoHeader": Record "Sales Cr.Memo Header";
-        RecGPaymentMethod: Record "Payment Method";
-        TexGPaymentMethodDescription: Text[30];
-        CodGPaymentMethodCode: Code[10];
         Text122: Label 'Conditions commerciales %1 - %2 Au %3';
-        TexGPaymentTermsDescription: Text[50];
         Text123: Label 'Mesdames, Messieurs,';
         Text124: Label 'Nous vous remettons, ci-inclus une lettre de change en';
         Text125: Label 'règlement du relevé ci-dessous';
         Text126: Label 'Veuillez agréer, %1 nos sincères salutations.';
-        Name: Text[50];
+        TOCaptionLbl: Label 'TO', comment = 'FRA="A"';
+        TRAITE_A_DETACHERCaptionLbl: Label 'TRAITE A DETACHER';
+        TypeCaptionLbl: Label ' Type';
+        txtlbl1: label '%1';
+
+        Value_in_EURCaptionLbl: Label 'Value in EUR', comment = 'FRA="Valeur en EUR"';
+        VAT_Registration_No__CaptionLbl: Label '<VAT Registration No.>', comment = 'FRA="N° TVA Intracommunautaire :"';
+        Votre_Cmde__CaptionLbl: Label 'Votre Cmde :';
+        Votre_CodeCaptionLbl: Label 'Votre Code';
+        whe_will__pay_the_indicated_sumCaptionLbl: Label 'whe will  pay the indicated sum', comment = 'FRA="nous paierons la somme indiquée"';
+        Write_nothings_under_this_lineCaptionLbl: Label 'Write nothings under this line', comment = 'FRA="ne rien inscrire au dessous de cette ligne"';
+        AmountText: Text[30];
+        IssueCity: Text[30];
+        PostCode: Text[30];
+        TexGPaymentMethodDescription: Text[30];
         Address: Text[50];
         Address2: Text[50];
-        PostCode: Text[30];
         City: Text[50];
+        CompanyAddr: array[8] of Text[50];
         CountryName: Text[50];
-        Vendor: Record Vendor;
-        PaymentAddress: Record "Payment Address";
-        RecGPurchInvHeader: Record "Purch. Inv. Header";
-        LETTRE_TRAITE_FOURNISSEURCaptionLbl: Label 'LETTRE TRAITE FOURNISSEUR';
-        Follow_up_by_the_accounts_receivable____01_48_11_49_66LCaptionLbl: Label 'Follow-up by the accounts receivable  : 01 48 11 49 66L', comment = 'FRA="Suivi par la comptabilité clients : 01 48 11 49 66"';
-        Votre_CodeCaptionLbl: Label 'Votre Code';
-        "NuméroCaptionLbl": Label 'Numéro';
-        DateCaptionLbl: Label 'Date';
-        VAT_Registration_No__CaptionLbl: Label '<VAT Registration No.>', comment = 'FRA="N° TVA Intracommunautaire :"';
-        TypeCaptionLbl: Label ' Type';
-        AMOUNT_FOR_CONTROLCaptionLbl: Label 'AMOUNT FOR CONTROL', comment = 'FRA="Echéance"';
-        AMOUNT_FOR_CONTROLCaption_Control1000000130Lbl: Label 'AMOUNT FOR CONTROL', comment = 'FRA="Crédit"';
-        Posting_DateCaptionLbl: Label 'Posting Date', comment = 'FRA="Date"';
-        NumberCaptionLbl: Label 'Number', comment = 'FRA="Numéro"';
-        AMOUNT_FOR_CONTROLCaption_Control1000000040Lbl: Label 'AMOUNT FOR CONTROL', comment = 'FRA="Débit"';
-        "Montant_PayéCaptionLbl": Label 'Montant Payé';
-        Votre_Cmde__CaptionLbl: Label 'Votre Cmde :';
-        Report___CaptionLbl: Label 'Report...', comment = 'FRA="Report..."';
-        A_payerCaptionLbl: Label 'A payer';
-        TRAITE_A_DETACHERCaptionLbl: Label 'TRAITE A DETACHER';
-        of_SUBSCRIBERCaptionLbl: Label 'of SUBSCRIBER', comment = 'FRA="du SOUSCRIPTEUR"';
-        below_to__CaptionLbl: Label 'below to :', comment = 'FRA="ci-dessous à :"';
-        whe_will__pay_the_indicated_sumCaptionLbl: Label 'whe will  pay the indicated sum', comment = 'FRA="nous paierons la somme indiquée"';
-        noted_as_NO_CHARGESCaptionLbl: Label 'noted as NO CHARGES', comment = 'FRA="=stipulée SANS FRAIS"';
-        Against_this_BILLCaptionLbl: Label 'Against this BILL', comment = 'FRA="Contre cette LETTRE DE CHANGE"';
-        Stamp_Allow_and_SignatureCaptionLbl: Label 'Stamp Allow and Signature', comment = 'FRA="Droit de timbre et signature"';
-        DOMICILIATIONCaptionLbl: Label 'DOMICILIATION', comment = 'FRA="DOMICILIATION"';
-        Write_nothings_under_this_lineCaptionLbl: Label 'Write nothings under this line', comment = 'FRA="ne rien inscrire au dessous de cette ligne"';
-        SUBSCRIBER_REF_CaptionLbl: Label 'SUBSCRIBER REF.', comment = 'FRA="REF. SOUSCRIPTEUR"';
-        L_C_R__onlyCaptionLbl: Label 'L.C.R. only', comment = 'FRA="L.C.R. seulement"';
-        DUE_DATECaptionLbl: Label 'DUE DATE', comment = 'FRA="ECHEANCE"';
-        NAME_andCaptionLbl: Label 'NAME and', comment = 'FRA="NOM et"';
-        ADDRESSCaptionLbl: Label 'ADDRESS', comment = 'FRA="ADDRESSE"';
-        RIBCaptionLbl: Label 'RIB';
-        ONCaptionLbl: Label 'ON', comment = 'FRA="LE"';
-        CREATION_DATECaptionLbl: Label 'CREATION DATE', comment = 'FRA="DATE DE CREATION"';
-        n__compteCaptionLbl: Label 'n° compte';
-        SUBSCRIBER_S_R_I_B_CaptionLbl: Label 'SUBSCRIBER''S R.I.B.', comment = 'FRA="R.I.B. du SOUSCRIPTEUR"';
-        ACCEPTANCE_or_ENDORSMENTCaptionLbl: Label 'ACCEPTANCE or ENDORSMENT', comment = 'FRA="ACCEPTATION ou AVAL"';
-        AMOUNT_FOR_CONTROLCaption_Control1000000269Lbl: Label 'AMOUNT FOR CONTROL', comment = 'FRA="MONTANT POUR CONTROLE"';
-        guichetCaptionLbl: Label 'guichet';
-        Control1000000275CaptionLbl: Label 'Label1000000275', comment = 'FRA=""';
-        Value_in_EURCaptionLbl: Label 'Value in EUR', comment = 'FRA="Valeur en EUR"';
-        etab_CaptionLbl: Label 'etab.';
-        TOCaptionLbl: Label 'TO', comment = 'FRA="A"';
+        CustAdr: array[8] of Text[50];
+        Name: Text[50];
+        TexGPaymentTermsDescription: Text[50];
 }
 

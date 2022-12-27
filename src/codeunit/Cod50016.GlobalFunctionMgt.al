@@ -225,14 +225,14 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
     procedure GetCD7321_TempSalesLine(var TempSalesLineLocal: Record "Sales Line" temporary)
     begin
 
-        TempSalesLineLocal.Copy(CD7321_TempSalesLine, true);
+        TempSalesLineLocal.Copy(TempSalesLine, true);
 
     end;
 
     procedure SetCD7321_TempSalesLine(var TempSalesLineLocal: Record "Sales Line" temporary)
     begin
 
-        CD7321_TempSalesLine.Copy(TempSalesLineLocal, true);
+        TempSalesLine.Copy(TempSalesLineLocal, true);
 
     end;
 
@@ -293,33 +293,33 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
     end;
 
     var
-        BooGVendorNoStyle: Boolean;
-        BooGAutoTextSpe: Boolean;
-        PostingDate: Date;
-        DeleteWhseActivity: Boolean;
-        GDecMntTTCDEEE: Decimal;
-        GDecMntHTDEEE: Decimal;
-        SGDecMntTTCDEEE: Decimal;
-        SGDecMntHTDEEE: Decimal;
-        IntLSignFactor: Integer;
-        _EcoPartnerDEEE: code[20];
-        _DEEECategoryCode: code[20];
-        SalesReservationFound: Boolean;
-        CD7321_TempSalesLine: Record "Sales Line" temporary;
-        DeleteWhseActivityHeaderOk: Boolean;
         T77_SalesHeader: Record "Sales Header";
+        TempSalesLine: Record "Sales Line" temporary;
         _IsSAVReturnOrder: Boolean;
-        PurchGDecMntTTCDEEE: Decimal;
-        PurchGDecMntHTDEEE: Decimal;
-        _PurchEcoPartnerDEEE: Code[20];
-        _PurchDEEECategoryCode: Code[20];
-        DecGVATAmount: Decimal;
-        VATAmount: Decimal;
-        DecGTTCAmount: Decimal;
+        BooGAutoTextSpe: Boolean;
+        BooGVendorNoStyle: Boolean;
+        DeleteWhseActivity: Boolean;
+        DeleteWhseActivityHeaderOk: Boolean;
+        NewAssemblyShipmentBinCodeEnable: Boolean;
         NewReceiptBinCodeEnable: Boolean;
         NewShipmentBinCodeEnable: Boolean;
-        NewAssemblyShipmentBinCodeEnable: Boolean;
-        ShowIncreaseCoeff: Boolean;
         NewShowIncreaseCoeff: Boolean;
+        SalesReservationFound: Boolean;
+        ShowIncreaseCoeff: Boolean;
+        _DEEECategoryCode: code[20];
+        _EcoPartnerDEEE: code[20];
+        _PurchDEEECategoryCode: Code[20];
+        _PurchEcoPartnerDEEE: Code[20];
+        PostingDate: Date;
+        DecGTTCAmount: Decimal;
+        DecGVATAmount: Decimal;
+        GDecMntHTDEEE: Decimal;
+        GDecMntTTCDEEE: Decimal;
+        PurchGDecMntHTDEEE: Decimal;
+        PurchGDecMntTTCDEEE: Decimal;
+        SGDecMntHTDEEE: Decimal;
+        SGDecMntTTCDEEE: Decimal;
+        VATAmount: Decimal;
+        IntLSignFactor: Integer;
 
 }

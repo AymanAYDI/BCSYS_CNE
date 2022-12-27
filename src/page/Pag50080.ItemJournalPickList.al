@@ -78,25 +78,25 @@ page 50080 "BC6_Item Journal Pick List"
     end;
 
     var
-        txt003: Label 'You cannot delete the entry', Comment = 'FRA="Vous ne pouvez pas supprimer la saisie."';
+        PickNoCaption: Label 'Pick No.', Comment = 'FRA="N° prélèvement"';
         Text001: Label 'User %1 does not exist on warehouse salary list', Comment = 'FRA="L''utilisateur %1 n''est pas un salarié magasin."';
         Text002: Label 'Location %1 incorrect', Comment = 'FRA="Emplacement (%1) erroné"';
         Text006: Label 'Palette nr (%1) incorrect', Comment = 'FRA="Quantité (%1) erronée"';
-        Text016: Label 'Item %1 not exit on Invt. Pick', Comment = 'FRA="Article (%1)  n''est pas sur le prélèvement."';
+        Text012: Label 'Item %1 with tracking', Comment = 'FRA="%1 article avec traçabilité"';
         Text013: Label 'Item No. %1 Incorrect', Comment = 'FRA="%1 n° article erroné"';
         Text014: Label 'Item %1 blocked', Comment = 'FRA="%1 article bloqué"';
-        Text012: Label 'Item %1 with tracking', Comment = 'FRA="%1 article avec traçabilité"';
         Text015: Label 'User %1 model sheet does not exist', Comment = 'FRA="Pas de nom de feuille article utilisateur %1"';
-        PickNoCaption: Label 'Pick No.', Comment = 'FRA="N° prélèvement"';
+        Text016: Label 'Item %1 not exit on Invt. Pick', Comment = 'FRA="Article (%1)  n''est pas sur le prélèvement."';
+        txt003: Label 'You cannot delete the entry', Comment = 'FRA="Vous ne pouvez pas supprimer la saisie."';
 
     procedure OpenWithWhseEmployee(): Boolean
     var
-        WhseEmployee: Record "Warehouse Employee";
         InvSetup: Record "Inventory Setup";
+        ItemBatchJnl: Record "Item Journal Batch";
+        ItemJnlTemplate: Record "Item Journal Template";
+        WhseEmployee: Record "Warehouse Employee";
         WmsManagement: Codeunit "WMS Management";
         CurrentLocationCode: Code[10];
-        ItemJnlTemplate: Record "Item Journal Template";
-        ItemBatchJnl: Record "Item Journal Batch";
     begin
 
         InvSetup.GET();

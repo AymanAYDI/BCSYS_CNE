@@ -89,9 +89,9 @@ page 50017 "BC6_Purch. Rcpt. Lines Subform"
         RecGPurchPostedRcptHeader: Record "Purch. Rcpt. Header";
         TempPurchRcptLine: Record "Purch. Rcpt. Line" temporary;
         [InDataSet]
-        "Document No.HideValue": Boolean;
-        [InDataSet]
         "Document No.Emphasize": Boolean;
+        [InDataSet]
+        "Document No.HideValue": Boolean;
 
     procedure IsFirstDocLine(): Boolean
     var

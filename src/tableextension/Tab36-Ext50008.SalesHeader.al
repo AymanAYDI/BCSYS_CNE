@@ -551,9 +551,10 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
         RecGCommentLine: Record "Comment Line";
         RecGCustomer: Record Customer;
         GenJnlLine: Record "Gen. Journal Line";
-        ShipmentMethodRec: Record "Shipment Method";
         ShipToAddr: Record "Ship-to Address";
+        ShipmentMethodRec: Record "Shipment Method";
         ApprovalsMgmt: Codeunit "Approvals Mgmt.";
+        G_ReturnOrderMgt: Codeunit "BC6_Return Order Mgt.";
         UpdateSalesShipment: Codeunit BC6_UpdateSalesShipment;
         CustEntrySetApplID: Codeunit "Cust. Entry-SetAppl.ID";
         GenJnlApply: Codeunit "Gen. Jnl.-Apply";
@@ -568,7 +569,6 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
         IsDeleteFromReturnOrder: Boolean;
         SelectNoSeriesAllowed: Boolean;
         BinCode: Code[20];
-        G_ReturnOrderMgt: Codeunit "BC6_Return Order Mgt.";
         "-BCSYS-": Integer;
         "-NSC1.00-": Integer;
         BillToCustomerTxt: Label 'Bill-to Customer', Comment = 'FRA="Client facturé"';

@@ -71,7 +71,7 @@ page 50004 "BC6_Special Extended Text"
         {
             action(List)
             {
-                Caption = 'List';
+                Caption = 'List', Comment = 'FRA=""';
                 Promoted = true;
                 PromotedCategory = Process;
                 RunPageOnRec = true;
@@ -140,14 +140,14 @@ page 50004 "BC6_Special Extended Text"
     end;
 
     var
-        TableCustomer: Record Customer;
-        TableVendor: Record Vendor;
-        TableItem: Record Item;
         SpecialExtendedTextLine: Record "BC6_Special Extended Text Line";
         SpecialExtendedTextLine2: Record "BC6_Special Extended Text Line";
-        CurrentType: Enum "Credit Transfer Account Type";
+        TableCustomer: Record Customer;
+        TableItem: Record Item;
+        TableVendor: Record Vendor;
         CurrentCode: Code[20];
         CurrentNo: Code[20];
+        CurrentType: Enum "Credit Transfer Account Type";
         CustomerName: Text[100];
         ItemName: Text[100];
 

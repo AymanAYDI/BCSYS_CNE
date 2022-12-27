@@ -34,10 +34,10 @@ report 50038 "BC6_Statement avec traite"
                 column(STRSUBSTNO_1_2_3_4_Text105_StartDate_Text101_EndDate_; STRSUBSTNO('%1 %2 %3 %4', Text105, StartDate, Text101, EndDate))
                 {
                 }
-                column(STRSUBSTNO___1__2__Text103_Customer__Last_Statement_No___; STRSUBSTNO('%1 %2', Text103, Customer."Last Statement No."))
+                column(STRSUBSTNO___1__2__Text103_Customer__Last_Statement_No___; STRSUBSTNO(txtlbl12, Text103, Customer."Last Statement No."))
                 {
                 }
-                column(STRSUBSTNO___1__2__Text102_Customer__No___; STRSUBSTNO('%1 %2', Text102, Customer."No."))
+                column(STRSUBSTNO___1__2__Text102_Customer__No___; STRSUBSTNO(txtlbl12, Text102, Customer."No."))
                 {
                 }
                 column(CustAddr_6_; CustAddr[6])
@@ -58,7 +58,7 @@ report 50038 "BC6_Statement avec traite"
                 column(CustAddr_1_; CustAddr[1])
                 {
                 }
-                column(STRSUBSTNO___1__2__Text106_FORMAT_TODAY_0_4__; STRSUBSTNO('%1 %2', Text106, FORMAT(TODAY, 0, '<Day,2>/<Month,2>/<Year4>')))
+                column(STRSUBSTNO___1__2__Text106_FORMAT_TODAY_0_4__; STRSUBSTNO(txtlbl12, Text106, FORMAT(TODAY, 0, '<Day,2>/<Month,2>/<Year4>')))
                 {
                 }
                 column(Customer__Payment_Method_Code_; Customer."Payment Method Code")
@@ -67,7 +67,7 @@ report 50038 "BC6_Statement avec traite"
                 column(STRSUBSTNO_Text066_CompanyInfo__Alt_Phone_No___CompanyInfo__Alt_Fax_No___CompanyInfo__Alt_E_Mail__; STRSUBSTNO(Text066, CompanyInfo."BC6_Alt Phone No.", CompanyInfo."BC6_Alt Fax No.", CompanyInfo."BC6_Alt E-Mail"))
                 {
                 }
-                column(DataItem1000000007; CompanyInfo."BC6_Alt Address" + ' ' + CompanyInfo."BC6_Alt Address 2" + ' ' + STRSUBSTNO('%1 %2', CompanyInfo."BC6_Alt Post Code", CompanyInfo."BC6_Alt City"))
+                column(DataItem1000000007; CompanyInfo."BC6_Alt Address" + ' ' + CompanyInfo."BC6_Alt Address 2" + ' ' + STRSUBSTNO(txtlbl12, CompanyInfo."BC6_Alt Post Code", CompanyInfo."BC6_Alt City"))
                 {
                 }
                 column(CompanyInfo__Alt_Name_; CompanyInfo."BC6_Alt Name")
@@ -76,7 +76,7 @@ report 50038 "BC6_Statement avec traite"
                 column(STRSUBSTNO_Text066_CompanyInfo__Phone_No___CompanyInfo__Fax_No___CompanyInfo__E_Mail__; STRSUBSTNO(Text066, CompanyInfo."Phone No.", CompanyInfo."Fax No.", CompanyInfo."E-Mail"))
                 {
                 }
-                column(CompanyInfo_Address______CompanyInfo__Address_2______STRSUBSTNO___1__2__CompanyInfo__Post_Code__CompanyInfo_City_; CompanyInfo.Address + ' ' + CompanyInfo."Address 2" + ' ' + STRSUBSTNO('%1 %2', CompanyInfo."Post Code", CompanyInfo.City))
+                column(CompanyInfo_Address______CompanyInfo__Address_2______STRSUBSTNO___1__2__CompanyInfo__Post_Code__CompanyInfo_City_; CompanyInfo.Address + ' ' + CompanyInfo."Address 2" + ' ' + STRSUBSTNO(txtlbl12, CompanyInfo."Post Code", CompanyInfo.City))
                 {
                 }
                 column(CompanyInfo_Name; CompanyInfo.Name)
@@ -121,12 +121,12 @@ report 50038 "BC6_Statement avec traite"
                     {
                         DataItemTableView = SORTING(Number)
                                             WHERE(Number = CONST(1));
-                        column(Currency2Code_CustLedgEntryHdr; STRSUBSTNO(Text001, Currency2.Code))
+                        column(Currency2Code_CustLedgEntryHdr; STRSUBSTNO(Text001, TempCurrency2.Code))
                         {
                         }
                         column(StartBalance; StartBalance)
                         {
-                            AutoFormatExpression = Currency2.Code;
+                            AutoFormatExpression = TempCurrency2.Code;
                             AutoFormatType = 1;
                         }
                         column(CustLedgEntryHdr_Number; Number)
@@ -195,7 +195,7 @@ report 50038 "BC6_Statement avec traite"
                             column(DtldCustLedgEntries_Entry_No_; "Entry No.")
                             {
                             }
-                            column(Currency2Code; Currency2.Code)
+                            column(Currency2Code; TempCurrency2.Code)
                             {
                             }
                             column(BooGAffiche; BooGAffiche)
@@ -271,16 +271,16 @@ report 50038 "BC6_Statement avec traite"
                             begin
                                 SETRANGE("Customer No.", Customer."No.");
                                 SETRANGE("Posting Date", StartDate, EndDate);
-                                SETRANGE("Currency Code", Currency2.Code);
+                                SETRANGE("Currency Code", TempCurrency2.Code);
 
 
                                 IF OnlySales THEN
                                     SETFILTER("Document Type", '%1|%2', "Document Type"::Invoice, "Document Type"::"Credit Memo");
-                                IF Currency2.Code = '' THEN BEGIN
+                                IF TempCurrency2.Code = '' THEN BEGIN
                                     GLSetup.TESTFIELD("LCY Code");
                                     CurrencyCode3 := GLSetup."LCY Code"
                                 END ELSE
-                                    CurrencyCode3 := Currency2.Code;
+                                    CurrencyCode3 := TempCurrency2.Code;
                                 TotalRemainingAmount := 0;
                             end;
                         }
@@ -294,7 +294,7 @@ report 50038 "BC6_Statement avec traite"
                         }
                         column(CustBalance_Control71; CustBalance)
                         {
-                            AutoFormatExpression = Currency2.Code;
+                            AutoFormatExpression = TempCurrency2.Code;
                             AutoFormatType = 1;
                         }
                         column(CustBalance_Control71Caption; CustBalance_Control71CaptionLbl)
@@ -315,7 +315,7 @@ report 50038 "BC6_Statement avec traite"
                         DataItemLink = "Customer No." = FIELD("No.");
                         DataItemLinkReference = Customer;
                         DataItemTableView = SORTING("Customer No.", Open, Positive, "Due Date");
-                        column(STRSUBSTNO_Text002_Currency2_Code_; STRSUBSTNO(Text002, Currency2.Code))
+                        column(STRSUBSTNO_Text002_Currency2_Code_; STRSUBSTNO(Text002, TempCurrency2.Code))
                         {
                         }
                         column(CustLedgEntry2__Remaining_Amount_; "Remaining Amount")
@@ -375,7 +375,7 @@ report 50038 "BC6_Statement avec traite"
                         column(CustLedgEntry2_Customer_No_; "Customer No.")
                         {
                         }
-                        column(Currency2Code_CustLedgEntry2; Currency2.Code)
+                        column(Currency2Code_CustLedgEntry2; TempCurrency2.Code)
                         {
                         }
                         column(PrintEntriesDue; PrintEntriesDue)
@@ -397,7 +397,7 @@ report 50038 "BC6_Statement avec traite"
                                 CurrReport.SKIP();
 
                             IF IncludeAgingBand AND ("Posting Date" <= EndDate) THEN
-                                UpdateBuffer(Currency2.Code, GetDate("Posting Date", "Due Date"), "Remaining Amount");
+                                UpdateBuffer(TempCurrency2.Code, GetDate("Posting Date", "Due Date"), "Remaining Amount");
                             IF ("Due Date" >= EndDate) OR ("Remaining Amount" < 0) THEN
                                 CurrReport.SKIP();
                         end;
@@ -409,7 +409,7 @@ report 50038 "BC6_Statement avec traite"
                                 SETRANGE("Due Date", 0D, EndDate - 1);
                                 SETRANGE(Positive, TRUE);
                             END;
-                            SETRANGE("Currency Code", Currency2.Code);
+                            SETRANGE("Currency Code", TempCurrency2.Code);
                             IF OnlySales THEN
                                 SETFILTER("Document Type", '%1|%2', "Document Type"::Invoice, "Document Type"::"Credit Memo");
                             IF (NOT PrintEntriesDue) AND (NOT IncludeAgingBand) THEN
@@ -420,21 +420,21 @@ report 50038 "BC6_Statement avec traite"
                     trigger OnAfterGetRecord()
                     begin
                         IF Number = 1 THEN
-                            Currency2.FIND('-')
+                            TempCurrency2.FIND('-')
                         ELSE
-                            IF Currency2.NEXT() = 0 THEN
+                            IF TempCurrency2.NEXT() = 0 THEN
                                 CurrReport.BREAK();
 
                         Cust2 := Customer;
                         Cust2.SETRANGE("Date Filter", 0D, StartDate - 1);
-                        Cust2.SETRANGE("Currency Filter", Currency2.Code);
+                        Cust2.SETRANGE("Currency Filter", TempCurrency2.Code);
                         Cust2.CALCFIELDS("Net Change");
                         StartBalance := Cust2."Net Change";
                         CustBalance := Cust2."Net Change";
                         "Cust. Ledger Entry".SETCURRENTKEY("Customer No.", "Posting Date", "Currency Code");
                         "Cust. Ledger Entry".SETRANGE("Customer No.", Customer."No.");
                         "Cust. Ledger Entry".SETRANGE("Posting Date", StartDate, EndDate);
-                        "Cust. Ledger Entry".SETRANGE("Currency Code", Currency2.Code);
+                        "Cust. Ledger Entry".SETRANGE("Currency Code", TempCurrency2.Code);
                         EntriesExists := "Cust. Ledger Entry".FIND('-');
                         IF NOT EntriesExists THEN
                             CurrReport.SKIP();
@@ -442,7 +442,7 @@ report 50038 "BC6_Statement avec traite"
 
                     trigger OnPreDataItem()
                     begin
-                        Customer.COPYFILTER("Currency Filter", Currency2.Code);
+                        Customer.COPYFILTER("Currency Filter", TempCurrency2.Code);
                     end;
                 }
                 dataitem(AgingBandLoop; Integer)
@@ -476,29 +476,29 @@ report 50038 "BC6_Statement avec traite"
                     column(AgingDate_5_; AgingDate[5])
                     {
                     }
-                    column(AgingBandBuf__Column_1_Amt__; AgingBandBuf."Column 1 Amt.")
+                    column(AgingBandBuf__Column_1_Amt__; TempAgingBandBuf."Column 1 Amt.")
                     {
-                        AutoFormatExpression = AgingBandBuf."Currency Code";
+                        AutoFormatExpression = TempAgingBandBuf."Currency Code";
                         AutoFormatType = 1;
                     }
-                    column(AgingBandBuf__Column_2_Amt__; AgingBandBuf."Column 2 Amt.")
+                    column(AgingBandBuf__Column_2_Amt__; TempAgingBandBuf."Column 2 Amt.")
                     {
-                        AutoFormatExpression = AgingBandBuf."Currency Code";
+                        AutoFormatExpression = TempAgingBandBuf."Currency Code";
                         AutoFormatType = 1;
                     }
-                    column(AgingBandBuf__Column_3_Amt__; AgingBandBuf."Column 3 Amt.")
+                    column(AgingBandBuf__Column_3_Amt__; TempAgingBandBuf."Column 3 Amt.")
                     {
-                        AutoFormatExpression = AgingBandBuf."Currency Code";
+                        AutoFormatExpression = TempAgingBandBuf."Currency Code";
                         AutoFormatType = 1;
                     }
-                    column(AgingBandBuf__Column_4_Amt__; AgingBandBuf."Column 4 Amt.")
+                    column(AgingBandBuf__Column_4_Amt__; TempAgingBandBuf."Column 4 Amt.")
                     {
-                        AutoFormatExpression = AgingBandBuf."Currency Code";
+                        AutoFormatExpression = TempAgingBandBuf."Currency Code";
                         AutoFormatType = 1;
                     }
-                    column(AgingBandBuf__Column_5_Amt__; AgingBandBuf."Column 5 Amt.")
+                    column(AgingBandBuf__Column_5_Amt__; TempAgingBandBuf."Column 5 Amt.")
                     {
-                        AutoFormatExpression = AgingBandBuf."Currency Code";
+                        AutoFormatExpression = TempAgingBandBuf."Currency Code";
                         AutoFormatType = 1;
                     }
                     column(AgingBandCurrencyCode; AgingBandCurrencyCode)
@@ -514,12 +514,12 @@ report 50038 "BC6_Statement avec traite"
                     trigger OnAfterGetRecord()
                     begin
                         IF Number = 1 THEN BEGIN
-                            IF NOT AgingBandBuf.FIND('-') THEN
+                            IF NOT TempAgingBandBuf.FIND('-') THEN
                                 CurrReport.BREAK();
                         END ELSE
-                            IF AgingBandBuf.NEXT() = 0 THEN
+                            IF TempAgingBandBuf.NEXT() = 0 THEN
                                 CurrReport.BREAK();
-                        AgingBandCurrencyCode := AgingBandBuf."Currency Code";
+                        AgingBandCurrencyCode := TempAgingBandBuf."Currency Code";
                         IF AgingBandCurrencyCode = '' THEN
                             AgingBandCurrencyCode := GLSetup."LCY Code";
                     end;
@@ -631,7 +631,7 @@ report 50038 "BC6_Statement avec traite"
                 column(TraiteTotalRemainingAmount; TraiteTotalRemainingAmount)
                 {
                 }
-                column(STRSUBSTNO___1__2__Text102_Customer__No____Control1100294001; STRSUBSTNO('%1 %2', Text102, Customer."No."))
+                column(STRSUBSTNO___1__2__Text102_Customer__No____Control1100294001; STRSUBSTNO(txtlbl12, Text102, Customer."No."))
                 {
                 }
                 column(ACCEPTANCE_or_ENDORSMENTCaption; ACCEPTANCE_or_ENDORSMENTCaptionLbl)
@@ -758,18 +758,18 @@ report 50038 "BC6_Statement avec traite"
             trigger OnAfterGetRecord()
             begin
                 TraiteTotalRemainingAmount := 0;
-                AgingBandBuf.DELETEALL();
+                TempAgingBandBuf.DELETEALL();
                 PrintLine := FALSE;
                 Cust2 := Customer;
-                COPYFILTER("Currency Filter", Currency2.Code);
+                COPYFILTER("Currency Filter", TempCurrency2.Code);
                 IF PrintAllHavingBal THEN BEGIN
-                    IF Currency2.FIND('-') THEN
+                    IF TempCurrency2.FIND('-') THEN
                         REPEAT
                             Cust2.SETRANGE("Date Filter", 0D, EndDate);
-                            Cust2.SETRANGE("Currency Filter", Currency2.Code);
+                            Cust2.SETRANGE("Currency Filter", TempCurrency2.Code);
                             Cust2.CALCFIELDS("Net Change");
                             PrintLine := Cust2."Net Change" <> 0;
-                        UNTIL (Currency2.NEXT() = 0) OR PrintLine;
+                        UNTIL (TempCurrency2.NEXT() = 0) OR PrintLine;
                 END;
                 IF (NOT PrintLine) AND PrintAllHavingEntry THEN BEGIN
                     "Cust. Ledger Entry".RESET();
@@ -808,13 +808,13 @@ report 50038 "BC6_Statement avec traite"
                 EndDate := GETRANGEMAX("Date Filter");
                 AgingBandEndingDate := EndDate;
                 CalcAgingBandDates();
-                Currency2.Code := '';
-                Currency2.INSERT();
+                TempCurrency2.Code := '';
+                TempCurrency2.INSERT();
                 COPYFILTER("Currency Filter", Currency.Code);
                 IF Currency.FIND('-') THEN
                     REPEAT
-                        Currency2 := Currency;
-                        Currency2.INSERT();
+                        TempCurrency2 := Currency;
+                        TempCurrency2.INSERT();
                     UNTIL Currency.NEXT() = 0;
             end;
         }
@@ -925,11 +925,11 @@ report 50038 "BC6_Statement avec traite"
     end;
 
     var
-        AgingBandBuf: Record "Aging Band Buffer" temporary;
+        TempAgingBandBuf: Record "Aging Band Buffer" temporary;
         CompanyInfo: Record "Company Information";
         CompanyInfo1: Record "Company Information";
         Currency: Record Currency;
-        Currency2: Record Currency temporary;
+        TempCurrency2: Record Currency temporary;
         "Cust. Ledger Entry": Record "Cust. Ledger Entry";
         "Cust. Ledger Entry1": Record "Cust. Ledger Entry";
         Cust2: Record Customer;
@@ -1033,6 +1033,7 @@ report 50038 "BC6_Statement avec traite"
         Text106: Label 'Print Date', comment = 'FRA="Date d''édition "';
         TOCaptionLbl: Label 'TO', comment = 'FRA="A"';
         Total_CaptionLbl: Label 'Total', comment = 'FRA="Total"';
+        txtlbl12: label '%1 %2';
         TraiteTotalRemainingAmountCaptionLbl: Label 'Label1000000145', comment = 'FRA="Label1000000145"';
         Value_in__CaptionLbl: Label 'Value in :', comment = 'FRA="Valeur en :"';
         Write_nothings_under_this_lineCaptionLbl: Label 'Write nothings under this line', comment = 'FRA="ne rien inscrire au dessous de cette ligne"';
@@ -1045,12 +1046,12 @@ report 50038 "BC6_Statement avec traite"
         CustAdr: array[8] of Text[50];
         Description: Text[50];
 
-    local procedure GetDate(PostingDate: Date; DueDate: Date): Date
+    local procedure GetDate(PostngDate: Date; DueeDate: Date): Date
     begin
         IF DateChoice = DateChoice::"Posting Date" THEN
-            EXIT(PostingDate)
+            EXIT(PostngDate)
         ELSE
-            EXIT(DueDate);
+            EXIT(DueeDate);
     end;
 
     local procedure CalcAgingBandDates()
@@ -1076,41 +1077,41 @@ report 50038 "BC6_Statement avec traite"
         GoOn: Boolean;
         I: Integer;
     begin
-        AgingBandBuf.INIT();
-        AgingBandBuf."Currency Code" := CurrencyCode;
-        IF NOT AgingBandBuf.FIND() THEN
-            AgingBandBuf.INSERT();
+        TempAgingBandBuf.INIT();
+        TempAgingBandBuf."Currency Code" := CurrencyCode;
+        IF NOT TempAgingBandBuf.FIND() THEN
+            TempAgingBandBuf.INSERT();
         I := 1;
         GoOn := TRUE;
         WHILE (I <= 5) AND GoOn DO BEGIN
             IF Date <= AgingDate[I] THEN
                 IF I = 1 THEN BEGIN
-                    AgingBandBuf."Column 1 Amt." := AgingBandBuf."Column 1 Amt." + Amount;
+                    TempAgingBandBuf."Column 1 Amt." := TempAgingBandBuf."Column 1 Amt." + Amount;
                     GoOn := FALSE;
                 END;
             IF Date <= AgingDate[I] THEN
                 IF I = 2 THEN BEGIN
-                    AgingBandBuf."Column 2 Amt." := AgingBandBuf."Column 2 Amt." + Amount;
+                    TempAgingBandBuf."Column 2 Amt." := TempAgingBandBuf."Column 2 Amt." + Amount;
                     GoOn := FALSE;
                 END;
             IF Date <= AgingDate[I] THEN
                 IF I = 3 THEN BEGIN
-                    AgingBandBuf."Column 3 Amt." := AgingBandBuf."Column 3 Amt." + Amount;
+                    TempAgingBandBuf."Column 3 Amt." := TempAgingBandBuf."Column 3 Amt." + Amount;
                     GoOn := FALSE;
                 END;
             IF Date <= AgingDate[I] THEN
                 IF I = 4 THEN BEGIN
-                    AgingBandBuf."Column 4 Amt." := AgingBandBuf."Column 4 Amt." + Amount;
+                    TempAgingBandBuf."Column 4 Amt." := TempAgingBandBuf."Column 4 Amt." + Amount;
                     GoOn := FALSE;
                 END;
             IF Date <= AgingDate[I] THEN
                 IF I = 5 THEN BEGIN
-                    AgingBandBuf."Column 5 Amt." := AgingBandBuf."Column 5 Amt." + Amount;
+                    TempAgingBandBuf."Column 5 Amt." := TempAgingBandBuf."Column 5 Amt." + Amount;
                     GoOn := FALSE;
                 END;
             I := I + 1;
         END;
-        AgingBandBuf.MODIFY();
+        TempAgingBandBuf.MODIFY();
     end;
 
 

@@ -10,7 +10,7 @@ page 50114 "BC6_SAV Sales Ret. Order List"
     SourceTable = "Sales Header";
     SourceTableView = WHERE("Document Type" = CONST("Return Order"),
                             "BC6_Return Order Type" = CONST(SAV));
-  
+
     layout
     {
         area(content)
@@ -248,7 +248,7 @@ page 50114 "BC6_SAV Sales Ret. Order List"
 
                     trigger OnAction()
                     begin
-                        OpenSalesOrderStatistics;
+                        OpenSalesOrderStatistics();
                     end;
                 }
                 action(Dimensions)
@@ -265,7 +265,7 @@ page 50114 "BC6_SAV Sales Ret. Order List"
 
                     trigger OnAction()
                     begin
-                        ShowDocDim;
+                        ShowDocDim();
                     end;
                 }
                 action(Approvals)
@@ -280,8 +280,8 @@ page 50114 "BC6_SAV Sales Ret. Order List"
                     var
                         ApprovalEntries: Page "Approval Entries";
                     begin
-                        ApprovalEntries.Setfilters(DATABASE::"Sales Header", "Document Type", "No.");
-                        ApprovalEntries.RUN;
+                        ApprovalEntries.Setfilters(DATABASE::"Sales Header", "Document Type".AsInteger(), "No.");
+                        ApprovalEntries.RUN();
                     end;
                 }
                 action("Co&mments")
@@ -363,7 +363,7 @@ page 50114 "BC6_SAV Sales Ret. Order List"
                     IF "BC6_Return Order Type" = "BC6_Return Order Type"::Location THEN
                         DocPrint.PrintSalesHeader(Rec)
                     ELSE BEGIN
-                        L_SalesHeader.RESET;
+                        L_SalesHeader.RESET();
                         L_SalesHeader.SETRANGE("Document Type", "Document Type");
                         L_SalesHeader.SETRANGE("No.", "No.");
                         REPORT.RUNMODAL(Report::"BC6_Return Order SAV Conf.", TRUE, FALSE, L_SalesHeader);
@@ -415,7 +415,7 @@ page 50114 "BC6_SAV Sales Ret. Order List"
 
                     trigger OnAction()
                     begin
-                        GetPstdDocLinesToRevere;
+                        GetPstdDocLinesToRevere();
                     end;
                 }
                 separator(Action1)
@@ -606,7 +606,7 @@ page 50114 "BC6_SAV Sales Ret. Order List"
 
                     trigger OnAction()
                     begin
-                        CancelBackgroundPosting;
+                        CancelBackgroundPosting();
                     end;
                 }
             }
@@ -615,26 +615,26 @@ page 50114 "BC6_SAV Sales Ret. Order List"
 
     trigger OnAfterGetCurrRecord()
     begin
-        SetControlAppearance;
+        SetControlAppearance();
     end;
 
     trigger OnOpenPage()
     var
         SalesSetup: Record "Sales & Receivables Setup";
     begin
-        SetSecurityFilterOnRespCenter;
+        SetSecurityFilterOnRespCenter();
 
         IF NOT RecGUserSeup.GET(USERID) THEN
-            RecGUserSeup.INIT;
+            RecGUserSeup.INIT();
         IF RecGUserSeup."BC6_Limited User" THEN BEGIN
             FILTERGROUP(2);
             SETFILTER("BC6_Salesperson Filter", '*' + RecGUserSeup."Salespers./Purch. Code" + '*');
             FILTERGROUP(0);
         END;
 
-        JobQueueActive := SalesSetup.JobQueueActive;
+        JobQueueActive := SalesSetup.JobQueueActive();
 
-        CopySellToCustomerFilter;
+        CopySellToCustomerFilter();
     end;
 
     var

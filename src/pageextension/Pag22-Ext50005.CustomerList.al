@@ -398,9 +398,9 @@ pageextension 50005 "BC6_CustomerList" extends "Customer List" //22
     end;
 
     var
+        RecGUserSeup: Record "User Setup";
         [InDataSet]
         BooGinvisibleList: Boolean;
         [InDataSet]
         BooGvisibleList: Boolean;
-        RecGUserSeup: Record "User Setup";
 }

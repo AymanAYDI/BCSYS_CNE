@@ -306,37 +306,37 @@ page 50028 "BC6_Sales Hist. Sellto FactBox"
     end;
 
     var
-        RecGSalesLine: Record "Sales Line";
         RecGCustomer: Record Customer;
+        RecGPostdReturnSales: Record "Return Receipt Line";
+        RecGReturnReceiptLine: Record "Return Receipt Line";
+        RecGPostdCrdMemo: Record "Sales Cr.Memo Line";
+        RecGSalesCrMemoLine: Record "Sales Cr.Memo Line";
+        RecGPostdSalesInvoices: Record "Sales Invoice Line";
+        RecGSalesInvoiceLine: Record "Sales Invoice Line";
+        RecGSalesLine: Record "Sales Line";
         RecGSalesLines: Record "Sales Line";
         RecGSalesShipementLine: Record "Sales Shipment Line";
-        RecGPostdSalesInvoices: Record "Sales Invoice Line";
-        RecGPostdReturnSales: Record "Return Receipt Line";
-        RecGPostdCrdMemo: Record "Sales Cr.Memo Line";
         RecGSalesShipmentLine: Record "Sales Shipment Line";
-        RecGSalesInvoiceLine: Record "Sales Invoice Line";
-        RecGReturnReceiptLine: Record "Return Receipt Line";
-        RecGSalesCrMemoLine: Record "Sales Cr.Memo Line";
-        PagGShipmentLinesSubform3: page "BC6_Shipment Lines Subform 3";
-        PagGSalesLinesSubform3: Page "BC6_Sales Lines Subform 3";
-        PagGInvoiceLinesSubform3: Page "BC6_Invoice Lines Subform 3";
         PagGCreditMemoLinesSubform2: Page "BC6_Cred. Memo Lines Subform 2";
+        PagGInvoiceLinesSubform3: Page "BC6_Invoice Lines Subform 3";
+        PagGSalesLinesSubform3: Page "BC6_Sales Lines Subform 3";
+        PagGShipmentLinesSubform3: page "BC6_Shipment Lines Subform 3";
         PagGGReturnRcptLinesSubform2: Page "Return Rcpt Lines Subform 2";
+        CodGDocNo: Code[20];
+        LastMarge: Decimal;
+        LastPrice: Decimal;
+        LastRemise: Decimal;
 
         NoOfBlanketOrders: Integer;
-        NoOfOrders: Integer;
-        NoOfQuotes: Integer;
-        NoofInvoices: Integer;
-        NoOfReturnOrders: Integer;
         NoOfCreditMemos: Integer;
-        NoOfPstdShipments: Integer;
+        NoofInvoices: Integer;
+        NoOfOrders: Integer;
+        NoOfPstdCreditMemos: Integer;
         NoOfPstdInvoices: Integer;
         NoOfPstdReturnReceipts: Integer;
-        NoOfPstdCreditMemos: Integer;
-        LastPrice: Decimal;
-        LastMarge: Decimal;
-        LastRemise: Decimal;
-        CodGDocNo: Code[20];
+        NoOfPstdShipments: Integer;
+        NoOfQuotes: Integer;
+        NoOfReturnOrders: Integer;
         Txt1: Label '(%1)';
 
     procedure ShowDetails()

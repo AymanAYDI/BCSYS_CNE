@@ -2,7 +2,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
 {
     AutoSplitKey = false;
     Caption = 'Invt Pick Card', Comment = 'FRA="Prélèvement stock"';
-    DataCaptionExpression = GetCaptionClass;
+    DataCaptionExpression = GetCaptionClass();
     DelayedInsert = false;
     DeleteAllowed = false;
     InsertAllowed = false;
@@ -33,7 +33,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                         CurrPage.ScanZone.AddControl(2, BinLabel, FromBinCode);
                         CurrPage.ScanZone.AddControl(3, FIELDCAPTION("Item No."), ItemNo);
                         CurrPage.ScanZone.AddControl(4, FIELDCAPTION(Quantity), Qty);
-                        UpdateCurrForm;
+                        UpdateCurrForm();
                     end;
 
                     trigger KeyPressed(index: Integer; data: Text)
@@ -54,21 +54,21 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                             1:
                                 BEGIN
                                     PickNo := COPYSTR(data, 1, MAXSTRLEN(PickNo));
-                                    PickNoOnAfterValidate;
+                                    PickNoOnAfterValidate();
                                     CurrPage.ScanZone.reset(index);
                                     CurrPage.ScanZone.SetText(index, PickNo);
                                 END;
                             2:
                                 BEGIN
                                     FromBinCode := COPYSTR(data, 1, MAXSTRLEN(FromBinCode));
-                                    FromBinCodeOnAfterValidate;
+                                    FromBinCodeOnAfterValidate();
                                     CurrPage.ScanZone.reset(index);
                                     CurrPage.ScanZone.SetText(index, FromBinCode);
                                 END;
                             3:
                                 BEGIN
                                     ItemNo := COPYSTR(data, 1, MAXSTRLEN(ItemNo));
-                                    ItemNoOnAfterValidate;
+                                    ItemNoOnAfterValidate();
                                     CurrPage.ScanZone.reset(index);
                                     CurrPage.ScanZone.SetText(index, ItemNo);
                                     CurrPage.ScanZone.SetText(index + 1, Qty);
@@ -76,7 +76,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                             4:
                                 BEGIN
                                     Qty := COPYSTR(data, 1, MAXSTRLEN(Qty));
-                                    QtyOnAfterValidate;
+                                    QtyOnAfterValidate();
                                     CurrPage.ScanZone.reset(index);
                                     CurrPage.ScanZone.SetText(index, Qty);
                                 END;
@@ -91,14 +91,14 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                             1:
                                 BEGIN
                                     CLEAR(InvtPickForm);
-                                    InvtPick.RESET;
+                                    InvtPick.RESET();
                                     InvtPick.ASCENDING(FALSE);
                                     InvtPickForm.LOOKUPMODE(TRUE);
                                     IF (PickNo <> '') THEN
                                         IF InvtPick.GET(InvtPick.Type::"Invt. Pick", PickNo) THEN
                                             InvtPickForm.SETRECORD(InvtPick);
                                     InvtPickForm.SETTABLEVIEW(InvtPick);
-                                    IF InvtPickForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                                    IF InvtPickForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                                         InvtPickForm.GETRECORD(InvtPick);
                                         PickNo := InvtPick."No.";
                                         CurrPage.ScanZone.SetText(1, PickNo);
@@ -111,7 +111,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                                 BEGIN
                                     IF ItemNo <> '' THEN BEGIN
                                         CLEAR(BinContentForm);
-                                        BinContent.RESET;
+                                        BinContent.RESET();
                                         IF LocationCode <> '' THEN
                                             BinContent.SETRANGE("Location Code", LocationCode);
                                         IF ItemNo <> '' THEN
@@ -123,7 +123,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                                         BinContentForm.LOOKUPMODE(TRUE);
                                         IF BinContent.FIND('-') THEN
                                             BinContentForm.SETRECORD(BinContent);
-                                        IF BinContentForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                                        IF BinContentForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                                             BinContentForm.GETRECORD(BinContent);
                                             FromBinCode := BinContent."Bin Code";
                                             CurrPage.ScanZone.SetText(2, FromBinCode);
@@ -132,14 +132,14 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                                         END;
                                     END ELSE BEGIN
                                         CLEAR(BinForm);
-                                        Bin.RESET;
+                                        Bin.RESET();
                                         IF LocationCode <> '' THEN
                                             Bin.SETRANGE("Location Code", LocationCode);
                                         BinForm.SETTABLEVIEW(Bin);
                                         BinForm.LOOKUPMODE(TRUE);
                                         IF Bin.FIND('-') THEN
                                             BinForm.SETRECORD(Bin);
-                                        IF BinForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                                        IF BinForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                                             BinForm.GETRECORD(Bin);
                                             FromBinCode := Bin.Code;
                                             CurrPage.ScanZone.SetText(2, FromBinCode);
@@ -152,7 +152,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                             3:
                                 BEGIN
                                     CLEAR(ItemForm);
-                                    Item.RESET;
+                                    Item.RESET();
                                     //>>TI318739
                                     Item.SETRANGE(Blocked, FALSE);
                                     //<<TI318739
@@ -161,7 +161,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                                     IF ItemNo <> '' THEN
                                         IF Item.GET(ItemNo) THEN
                                             ItemForm.SETRECORD(Item);
-                                    IF ItemForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                                    IF ItemForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                                         ItemForm.GETRECORD(Item);
                                         ItemNo := Item."No.";
                                         CurrPage.ScanZone.SetText(3, ItemNo);
@@ -217,7 +217,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                             0:
                                 BEGIN
                                     SkipUpdateData := TRUE;
-                                    CurrPage.CLOSE;
+                                    CurrPage.CLOSE();
                                 END;
 
                             1:
@@ -227,9 +227,9 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
 
 
                                     CurrPage.ScanZone.SetFocus(1);
-                                    RefreshDataControlAddin;
-                                    PostBatch;
-                                    LastJnlLine.RESET;
+                                    RefreshDataControlAddin();
+                                    PostBatch();
+                                    LastJnlLine.RESET();
                                     LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
                                     LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
                                     IF LastJnlLine.FIND('+') THEN BEGIN
@@ -242,18 +242,18 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                                     SkipUpdateData := FALSE;
                                     SkipClosePage := FALSE;
                                     SkipAssignValue := TRUE;
-                                    CurrPage.CLOSE;
+                                    CurrPage.CLOSE();
                                     EXIT;
                                 END;
 
                             2:
-                                CloseAndOpenCurrentPickAndBin;
+                                CloseAndOpenCurrentPickAndBin();
 
                             3:
-                                CloseAndOpenCurrentPick;
+                                CloseAndOpenCurrentPick();
 
                         END;
-                        RefreshDataControlAddin
+                        RefreshDataControlAddin()
                     end;
                 }
                 field(PickNoCtrl; PickNo)
@@ -272,25 +272,25 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                     begin
 
                         CLEAR(InvtPickForm);
-                        InvtPick.RESET;
+                        InvtPick.RESET();
                         InvtPick.ASCENDING(FALSE);
                         InvtPickForm.LOOKUPMODE(TRUE);
                         IF (PickNo <> '') THEN
                             IF InvtPick.GET(InvtPick.Type::"Invt. Pick", PickNo) THEN
                                 InvtPickForm.SETRECORD(InvtPick);
                         InvtPickForm.SETTABLEVIEW(InvtPick);
-                        IF InvtPickForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                        IF InvtPickForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                             InvtPickForm.GETRECORD(InvtPick);
                             PickNo := InvtPick."No.";
                             AssignPickNo(PickNo);
                         END;
-                        RefreshDataControlAddin
+                        RefreshDataControlAddin()
                     end;
 
                     trigger OnValidate()
                     begin
-                        PickNoOnAfterValidate;
-                        RefreshDataControlAddin
+                        PickNoOnAfterValidate();
+                        RefreshDataControlAddin()
                     end;
                 }
                 field(LocationCodeCtrl; LocationCode)
@@ -310,24 +310,24 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                     begin
 
                         CLEAR(LocationForm);
-                        Location.RESET;
+                        Location.RESET();
                         Location.SETRANGE("Bin Mandatory", TRUE);
                         LocationForm.SETTABLEVIEW(Location);
                         LocationForm.LOOKUPMODE(TRUE);
                         IF Location.FIND('-') THEN
                             LocationForm.SETRECORD(Location);
-                        IF LocationForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                        IF LocationForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                             LocationForm.GETRECORD(Location);
                             LocationCode := Location.Code;
                             AssignLocationCode(LocationCode);
                         END;
-                        RefreshDataControlAddin
+                        RefreshDataControlAddin()
                     end;
 
                     trigger OnValidate()
                     begin
-                        LocationCodeOnAfterValidate;
-                        RefreshDataControlAddin
+                        LocationCodeOnAfterValidate();
+                        RefreshDataControlAddin()
                     end;
                 }
                 field(FromBinCodeCtrl; FromBinCode)
@@ -346,7 +346,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                     begin
                         IF ItemNo <> '' THEN BEGIN
                             CLEAR(BinContentForm);
-                            BinContent.RESET;
+                            BinContent.RESET();
                             IF LocationCode <> '' THEN
                                 BinContent.SETRANGE("Location Code", LocationCode);
                             IF ItemNo <> '' THEN
@@ -358,21 +358,21 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                             BinContentForm.LOOKUPMODE(TRUE);
                             IF BinContent.FIND('-') THEN
                                 BinContentForm.SETRECORD(BinContent);
-                            IF BinContentForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                            IF BinContentForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                                 BinContentForm.GETRECORD(BinContent);
                                 FromBinCode := BinContent."Bin Code";
                                 AssignFromBinCode(FromBinCode);
                             END;
                         END ELSE BEGIN
                             CLEAR(BinForm);
-                            Bin.RESET;
+                            Bin.RESET();
                             IF LocationCode <> '' THEN
                                 Bin.SETRANGE("Location Code", LocationCode);
                             BinForm.SETTABLEVIEW(Bin);
                             BinForm.LOOKUPMODE(TRUE);
                             IF Bin.FIND('-') THEN
                                 BinForm.SETRECORD(Bin);
-                            IF BinForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                            IF BinForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                                 BinForm.GETRECORD(Bin);
                                 FromBinCode := Bin.Code;
                                 AssignFromBinCode(FromBinCode);
@@ -383,8 +383,8 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
 
                     trigger OnValidate()
                     begin
-                        FromBinCodeOnAfterValidate;
-                        RefreshDataControlAddin
+                        FromBinCodeOnAfterValidate();
+                        RefreshDataControlAddin()
                     end;
                 }
                 field(ItemNoCtrl; ItemNo)
@@ -401,7 +401,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                         Item: Record Item;
                     begin
                         CLEAR(ItemForm);
-                        Item.RESET;
+                        Item.RESET();
                         //>>TI318739
                         Item.SETRANGE(Blocked, FALSE);
                         //<<TI318739
@@ -410,18 +410,18 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                         IF ItemNo <> '' THEN
                             IF Item.GET(ItemNo) THEN
                                 ItemForm.SETRECORD(Item);
-                        IF ItemForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                        IF ItemForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                             ItemForm.GETRECORD(Item);
                             ItemNo := Item."No.";
                             AssignItemNo(ItemNo);
                         END;
-                        RefreshDataControlAddin
+                        RefreshDataControlAddin()
                     end;
 
                     trigger OnValidate()
                     begin
-                        ItemNoOnAfterValidate;
-                        RefreshDataControlAddin
+                        ItemNoOnAfterValidate();
+                        RefreshDataControlAddin()
                     end;
                 }
                 field(QtyCtrl; Qty)
@@ -435,8 +435,8 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
 
                     trigger OnValidate()
                     begin
-                        QtyOnAfterValidate;
-                        RefreshDataControlAddin
+                        QtyOnAfterValidate();
+                        RefreshDataControlAddin()
                     end;
                 }
                 field(Description; Description)
@@ -459,7 +459,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                         Bin: Record Bin;
                     begin
                         CLEAR(BinForm);
-                        Bin.RESET;
+                        Bin.RESET();
                         IF LocationCode <> '' THEN
                             Bin.SETRANGE("Location Code", LocationCode);
 
@@ -467,20 +467,20 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                         BinForm.LOOKUPMODE(TRUE);
                         IF Bin.FIND('-') THEN
                             BinForm.SETRECORD(Bin);
-                        IF BinForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                        IF BinForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                             BinForm.GETRECORD(Bin);
                             IF ToBinCodeCtrlEditable THEN BEGIN
                                 ToBinCode := Bin.Code;
                                 AssignBinCode(ToBinCode);
                             END;
                         END;
-                        RefreshDataControlAddin
+                        RefreshDataControlAddin()
                     end;
 
                     trigger OnValidate()
                     begin
-                        ToBinCodeOnAfterValidate;
-                        RefreshDataControlAddin
+                        ToBinCodeOnAfterValidate();
+                        RefreshDataControlAddin()
                     end;
                 }
             }
@@ -563,7 +563,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
 
                 trigger OnAction()
                 begin
-                    CurrPage.CLOSE;
+                    CurrPage.CLOSE();
                 end;
             }
             action(DeleteButton)
@@ -585,15 +585,15 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                     SETFILTER("Journal Template Name", "Journal Template Name");
                     SETFILTER("Journal Batch Name", "Journal Batch Name");
                     IF DELETE(TRUE) THEN
-                        COMMIT;
+                        COMMIT();
 
                     IF ISEMPTY THEN BEGIN
                         SkipClosePage := FALSE;
                         SkipUpdateData := TRUE;
-                        CurrPage.CLOSE;
+                        CurrPage.CLOSE();
                         EXIT;
                     END;
-                    UpdateCurrForm;
+                    UpdateCurrForm();
                 end;
             }
         }
@@ -601,7 +601,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
 
     trigger OnAfterGetRecord()
     begin
-        UpdateCurrForm;
+        UpdateCurrForm();
     end;
 
     trigger OnFindRecord(Which: Text): Boolean
@@ -610,7 +610,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
     begin
         found := FIND(Which);
         UpdateCurrForm();
-        RefreshDataControlAddin;
+        RefreshDataControlAddin();
         EXIT(found);
     end;
 
@@ -636,7 +636,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
     begin
         found := NEXT(Steps);
         UpdateCurrForm();
-        RefreshDataControlAddin;
+        RefreshDataControlAddin();
         EXIT(found);
     end;
 
@@ -663,85 +663,85 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
     end;
 
     var
-        OptionMode: Option New,Edit,KeepPick,KeepPickAndBin;
+        Bin: Record Bin;
+        BinContent: Record "Bin Content";
         InvSetup: Record "Inventory Setup";
-        ItemJnlTemplate: Record "Item Journal Template";
+        Item: Record Item;
         ItemBatchJnl: Record "Item Journal Batch";
-        txt003: Label 'You cannot delete the entry', Comment = 'FRA="Vous ne pouvez pas supprimer la saisie."';
-        WhseEmployee: Record "Warehouse Employee";
-        InvtPick: Record "Warehouse Activity Header";
-        InvtPickLine: Record "Warehouse Activity Line";
+        ItemJnlTemplate: Record "Item Journal Template";
         ItemTrackingCode: Record "Item Tracking Code";
         Location: Record Location;
-        Text001: Label 'User %1 does not exist on warehouse salary list', Comment = 'FRA="L''utilisateur %1 n''est pas un salarié magasin."';
-        Text002: Label 'Location %1 incorrect', Comment = 'FRA="Emplacement (%1) erroné"';
-        Text006: Label 'Palette nr (%1) incorrect', Comment = 'FRA="Quantité (%1) erronée"';
-        Bin: Record Bin;
-        Item: Record Item;
-        BinContent: Record "Bin Content";
+        InvtPick: Record "Warehouse Activity Header";
+        InvtPickLine: Record "Warehouse Activity Line";
+        WhseEmployee: Record "Warehouse Employee";
+        FunctionsMgt: Codeunit "BC6_Functions Mgt";
+        ScanDeviceHelper: Codeunit BC6_ScanDeviceHelper;
+        DistInt: Codeunit "Dist. Integration";
         JnlPostBatch: Codeunit "Item Jnl.-Post Batch";
-        BatchName: Code[20];
-        CurrentLocationCode: Code[20];
-        DefaultLocationCode: Code[20];
-        "---": Integer;
-        PickNo: Code[20];
-        LocationCode: Code[20];
-        FromBinCode: Code[20];
-        ToBinCode: Code[20];
-        ShipBinCode: Code[20];
-        ItemNo: Code[20];
-        Qty: Code[10];
-        PostingDate: Date;
-        DocNo: Code[20];
-        ShowCtrl: Boolean;
+        BinContentForm: Page "BC6_Bin Content List MiniForm";
+        BinForm: Page "BC6_Bin List MiniForm";
+        InvtPickForm: Page "BC6_Invt Pick List MiniForm";
+        ItemForm: Page "BC6_Item List MiniForm";
+        LocationForm: Page "BC6_Location List MiniForm";
+        BoolWait: Boolean;
         EditableCtrl: Boolean;
         EditableFromBinCtrl: Boolean;
-        ItemNo2: Code[20];
-        DistInt: Codeunit "Dist. Integration";
-        FunctionsMgt: Codeunit "BC6_Functions Mgt";
-        Text016: Label 'Item %1 not exit on Invt. Pick', Comment = 'FRA="Article (%1)  n''est pas sur le prélèvement."';
-        ErrorTxt: Text[250];
-        Text013: Label 'Item No. %1 Incorrect', Comment = 'FRA="%1 n° article erroné"';
-        Text014: Label 'Item %1 blocked', Comment = 'FRA="%1 article bloqué"';
-        Text012: Label 'Item %1 with tracking', Comment = 'FRA="%1 article avec traçabilité"';
-        Text015: Label 'User %1 model sheet does not exist', Comment = 'FRA="Pas de nom de feuille article utilisateur %1"';
         [InDataSet]
-        ToBinCodeCtrlEditable: Boolean;
+        FromBinCodeCtrlVisible: Boolean;
+        [InDataSet]
+        IsReady: Boolean;
+        [InDataSet]
+        IsVisibleSearch: Boolean;
+        [InDataSet]
+        ItemNoCtrlVisible: Boolean;
+        [InDataSet]
+        ItemNoLibCtrlVisible: Boolean;
+        LocationCodeVisible: Boolean;
         [InDataSet]
         PickNoCtrlVisible: Boolean;
         [InDataSet]
         PickNoLibCtrlVisible: Boolean;
         [InDataSet]
-        FromBinCodeCtrlVisible: Boolean;
-        [InDataSet]
-        ToBinCodeCtrlVisible: Boolean;
-        [InDataSet]
-        ItemNoCtrlVisible: Boolean;
-        [InDataSet]
-        ItemNoLibCtrlVisible: Boolean;
+        QtyCtrlEditable: Boolean;
         [InDataSet]
         QtyCtrlVisible: Boolean;
-        [InDataSet]
-        QtyCtrlEditable: Boolean;
-        LocationCodeVisible: Boolean;
-        InvtPickForm: Page "BC6_Invt Pick List MiniForm";
-        LocationForm: Page "BC6_Location List MiniForm";
-        BinContentForm: Page "BC6_Bin Content List MiniForm";
-        BinForm: Page "BC6_Bin List MiniForm";
-        ItemForm: Page "BC6_Item List MiniForm";
-        VisibleTestBool: Boolean;
-        BoolWait: Boolean;
-        [InDataSet]
-        IsVisibleSearch: Boolean;
-        ScanDeviceHelper: Codeunit BC6_ScanDeviceHelper;
-        [InDataSet]
-        IsReady: Boolean;
-        PickNoCaption: Label 'Pick No.', Comment = 'FRA="N° prélèvement"';
-        SkipUpdateData: Boolean;
-        SkipClosePage: Boolean;
-        PickLabel: Label 'Pick', Comment = 'FRA="Prélèv."';
-        BinLabel: Label 'Bin', Comment = 'FRA="Empl."';
+        ShowCtrl: Boolean;
         SkipAssignValue: Boolean;
+        SkipClosePage: Boolean;
+        SkipUpdateData: Boolean;
+        [InDataSet]
+        ToBinCodeCtrlEditable: Boolean;
+        [InDataSet]
+        ToBinCodeCtrlVisible: Boolean;
+        VisibleTestBool: Boolean;
+        Qty: Code[10];
+        BatchName: Code[20];
+        CurrentLocationCode: Code[20];
+        DefaultLocationCode: Code[20];
+        DocNo: Code[20];
+        FromBinCode: Code[20];
+        ItemNo: Code[20];
+        ItemNo2: Code[20];
+        LocationCode: Code[20];
+        PickNo: Code[20];
+        ShipBinCode: Code[20];
+        ToBinCode: Code[20];
+        PostingDate: Date;
+        "---": Integer;
+        BinLabel: Label 'Bin', Comment = 'FRA="Empl."';
+        PickLabel: Label 'Pick', Comment = 'FRA="Prélèv."';
+        PickNoCaption: Label 'Pick No.', Comment = 'FRA="N° prélèvement"';
+        Text001: Label 'User %1 does not exist on warehouse salary list', Comment = 'FRA="L''utilisateur %1 n''est pas un salarié magasin."';
+        Text002: Label 'Location %1 incorrect', Comment = 'FRA="Emplacement (%1) erroné"';
+        Text006: Label 'Palette nr (%1) incorrect', Comment = 'FRA="Quantité (%1) erronée"';
+        Text012: Label 'Item %1 with tracking', Comment = 'FRA="%1 article avec traçabilité"';
+        Text013: Label 'Item No. %1 Incorrect', Comment = 'FRA="%1 n° article erroné"';
+        Text014: Label 'Item %1 blocked', Comment = 'FRA="%1 article bloqué"';
+        Text015: Label 'User %1 model sheet does not exist', Comment = 'FRA="Pas de nom de feuille article utilisateur %1"';
+        Text016: Label 'Item %1 not exit on Invt. Pick', Comment = 'FRA="Article (%1)  n''est pas sur le prélèvement."';
+        txt003: Label 'You cannot delete the entry', Comment = 'FRA="Vous ne pouvez pas supprimer la saisie."';
+        OptionMode: Option New,Edit,KeepPick,KeepPickAndBin;
+        ErrorTxt: Text[250];
 
 
     procedure NewLine(LastJnlLine: Record "Item Journal Line")
@@ -757,11 +757,11 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         CLEAR(InvtPickLine);
 
         CLEAR(LastJnlLine);
-        LastJnlLine.RESET;
+        LastJnlLine.RESET();
         LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
         LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
         IF NOT LastJnlLine.FIND('+') THEN BEGIN
-            LastJnlLine.INIT;
+            LastJnlLine.INIT();
             LastJnlLine."Journal Template Name" := "Journal Template Name";
             LastJnlLine."Journal Batch Name" := "Journal Batch Name";
             "Location Code" := DefaultLocationCode;
@@ -772,14 +772,14 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
             SetUpNewLine(xRec);
         "Entry Type" := "Entry Type"::Transfer;
         "Line No." := LastJnlLine."Line No." + 10000;
-        VALIDATE("Posting Date", WORKDATE);
+        VALIDATE("Posting Date", WORKDATE());
         AssignPickNo(PickNo);
 
         LocationCode := DefaultLocationCode;
         AssignLocationCode(LocationCode);
         INSERT(TRUE);
         ToBinCodeCtrlVisible := FALSE;
-        RefreshDataControlAddin
+        RefreshDataControlAddin()
     end;
 
 
@@ -790,7 +790,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         CurrentLocationCode: Code[10];
     begin
 
-        InvSetup.GET;
+        InvSetup.GET();
         InvSetup.TESTFIELD("BC6_Item Jnl Template Name 1");
 
         IF USERID <> '' THEN BEGIN
@@ -800,10 +800,10 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                 IF WhseEmployee.FIND('-') THEN
                     DefaultLocationCode := WhseEmployee."Location Code"
                 ELSE
-                    DefaultLocationCode := WmsManagement.GetDefaultLocation;
+                    DefaultLocationCode := WmsManagement.GetDefaultLocation();
                 LocationCode := DefaultLocationCode;
                 IF NOT Location.GET(LocationCode) THEN
-                    Location.INIT;
+                    Location.INIT();
                 FILTERGROUP := 2;
                 ItemJnlTemplate.GET(InvSetup."BC6_Item Jnl Template Name 1");
                 ItemJnlTemplate.TESTFIELD(Type, ItemJnlTemplate.Type::Transfer);
@@ -819,12 +819,12 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                     EXIT(FALSE);
                 END;
                 FILTERGROUP := 0;
-                PostingDate := WORKDATE;
+                PostingDate := WORKDATE();
                 IF NOT Rec.FIND('+') THEN BEGIN
                     "Journal Template Name" := ItemJnlTemplate.Name;
                     "Journal Batch Name" := ItemBatchJnl.Name;
                     NewLine(Rec);
-                    CurrPage.SAVERECORD;
+                    CurrPage.SAVERECORD();
                 END;
                 EXIT(TRUE);
             END ELSE BEGIN
@@ -835,7 +835,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
             ERROR('');
             EXIT(FALSE);
         END;
-        RefreshDataControlAddin
+        RefreshDataControlAddin()
     end;
 
 
@@ -934,10 +934,10 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
             END ELSE BEGIN
                 //>>TI318739
                 //IF NOT Item.GET(ItemNo) THEN
-                Item.RESET;
+                Item.RESET();
                 Item.SETRANGE("No.", ItemNo);
                 Item.SETRANGE(Blocked, FALSE);
-                IF NOT Item.FINDFIRST THEN
+                IF NOT Item.FINDFIRST() THEN
                 //<<TI318739
                   BEGIN
                     ItemError := TRUE;
@@ -1039,7 +1039,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         PickNo := "BC6_Whse. Document No.";
         LocationCode := "Location Code";
         IF NOT Location.GET("Location Code") THEN BEGIN
-            Location.INIT;
+            Location.INIT();
             ShipBinCode := '';
         END;
         FromBinCode := "Bin Code";
@@ -1047,7 +1047,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         ItemNo := "Item No.";
         Qty := FORMAT(Quantity);
         EditableCtrl := ("Item No." <> '');
-        CtrlEnabled;
+        CtrlEnabled();
         IF IsReady THEN BEGIN
             CASE OptionMode OF
                 OptionMode::Edit:
@@ -1103,7 +1103,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                 EXIT(TRUE);
             END;
 
-            InvtPickLine.RESET;
+            InvtPickLine.RESET();
             InvtPickLine.SETRANGE("Activity Type", InvtPickLine."Activity Type"::"Invt. Pick");
             InvtPickLine.SETRANGE("No.", "BC6_Whse. Document No.");
             InvtPickLine.SETRANGE("Item No.", ItemNo);
@@ -1177,21 +1177,21 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
 
     local procedure CloseAndOpenCurrentPickAndBin()
     var
-        InvtPickCardMiniForm: Page "BC6_Invt. Pick Card MiniForm";
         LastJnlLine: Record "Item Journal Line";
+        InvtPickCardMiniForm: Page "BC6_Invt. Pick Card MiniForm";
     begin
         IF MODIFY(TRUE) THEN;
         LastJnlLine := Rec;
-        LastJnlLine.RESET;
+        LastJnlLine.RESET();
         LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
         LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
         IF LastJnlLine.FIND('+') THEN BEGIN
-            INIT;
+            INIT();
             "Journal Template Name" := LastJnlLine."Journal Template Name";
             "Journal Batch Name" := LastJnlLine."Journal Batch Name";
             "Line No." := LastJnlLine."Line No." + 10000;
             VALIDATE("Entry Type", "Entry Type"::Transfer);
-            VALIDATE("Posting Date", WORKDATE);
+            VALIDATE("Posting Date", WORKDATE());
             "Document No." := LastJnlLine."Document No.";
             AssignPickNo(PickNo);
             "Location Code" := LastJnlLine."Location Code";
@@ -1211,21 +1211,21 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
 
     local procedure CloseAndOpenCurrentPick()
     var
-        InvtPickCardMiniForm: Page "BC6_Invt. Pick Card MiniForm";
         LastJnlLine: Record "Item Journal Line";
+        InvtPickCardMiniForm: Page "BC6_Invt. Pick Card MiniForm";
     begin
         IF MODIFY(TRUE) THEN;
         LastJnlLine := Rec;
-        LastJnlLine.RESET;
+        LastJnlLine.RESET();
         LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
         LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
         IF LastJnlLine.FIND('+') THEN BEGIN
-            INIT;
+            INIT();
             "Journal Template Name" := LastJnlLine."Journal Template Name";
             "Journal Batch Name" := LastJnlLine."Journal Batch Name";
             "Line No." := LastJnlLine."Line No." + 10000;
             VALIDATE("Entry Type", "Entry Type"::Transfer);
-            VALIDATE("Posting Date", WORKDATE);
+            VALIDATE("Posting Date", WORKDATE());
             "Document No." := LastJnlLine."Document No.";
             AssignPickNo(PickNo);
             "Location Code" := LastJnlLine."Location Code";

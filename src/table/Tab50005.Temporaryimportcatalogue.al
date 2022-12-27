@@ -323,9 +323,9 @@ table 50005 "BC6_Temporary import catalogue"
     var
         RecLExtTextHeader: Record "Extended Text Header";
         RecLExtTextLine: Record "Extended Text Line";
+        "--point55": Integer;
         intlLineno: Integer;
         intLstartpos: Integer;
-        "--point55": Integer;
         TxtLExtendedtext: Text[250];
     begin
         TxtLExtendedtext := COPYSTR(designation, MAXSTRLEN(recgItem.Description) + 1);

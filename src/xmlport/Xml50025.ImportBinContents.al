@@ -30,7 +30,7 @@ xmlport 50025 "BC6_Import Bin Contents"
                     LocationCode := Location.Code;
                     TotalCounter := 0;
                     Counter := 0;
-                    DefBinContent.RESET;
+                    DefBinContent.RESET();
                 end;
 
                 trigger OnAfterInitRecord()
@@ -54,11 +54,11 @@ xmlport 50025 "BC6_Import Bin Contents"
                     DefBinContent.SETRANGE("Item No.", ItemNo);
                     DefBinContent.SETRANGE("Unit of Measure Code", Item."Base Unit of Measure");
                     DefBinContent.SETRANGE(Default, TRUE);
-                    DefBinContentOk := DefBinContent.FINDFIRST;
+                    DefBinContentOk := DefBinContent.FINDFIRST();
 
                     CLEAR(BinContent);
                     IF NOT BinContent.GET(LocationCode, BinCode, ItemNo, '', Item."Base Unit of Measure") THEN BEGIN
-                        BinContent.INIT;
+                        BinContent.INIT();
                         BinContent."Location Code" := Location.Code;
                         BinContent.VALIDATE("Bin Code", BinCode);
                         BinContent.VALIDATE("Item No.", ItemNo);
@@ -91,16 +91,16 @@ xmlport 50025 "BC6_Import Bin Contents"
     end;
 
     var
-        Item: Record 27;
-        Bin: Record 7354;
-        BinContent: Record 7302;
-        DefBinContent: Record 7302;
-        Location: Record 14;
-        OLDLocation: Record 14;
+        Bin: Record Bin;
+        BinContent: Record "Bin Content";
+        DefBinContent: Record "Bin Content";
+        Item: Record Item;
+        Location: Record Location;
+        OLDLocation: Record Location;
+        DefBinContentOk: Boolean;
         LocationCode: Code[20];
         Counter: Integer;
         TotalCounter: Integer;
-        DefBinContentOk: Boolean;
         Text001: Label '%1 contenus emplacements créés sur %2.';
 }
 

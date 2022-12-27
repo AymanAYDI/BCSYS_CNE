@@ -105,7 +105,7 @@ tableextension 50071 "BC6_WarehouseActivityLine" extends "Warehouse Activity Lin
                 IF ("Activity Type" IN ["Activity Type"::Pick, "Activity Type"::"Invt. Pick", "Activity Type"::"Invt. Movement"]) AND
                    ("Action Type" <> "Action Type"::Place) AND ("Lot No." <> '') AND (CurrFieldNo <> 0)
                 THEN
-                    CheckReservedItemTrkg(1, "Lot No.");
+                    CheckReservedItemTrkg("Item Tracking Type"::"Lot No.", "Lot No.");
 
                 IF "Qty. to Handle" = 0 THEN
                     FctMangt.UpdateReservation(Rec, FALSE)
@@ -127,8 +127,8 @@ tableextension 50071 "BC6_WarehouseActivityLine" extends "Warehouse Activity Lin
 
     var
         Location: Record Location;
-        WMSMgt: Codeunit "WMS Management";
         UOMMgt: Codeunit "Unit of Measure Management";
+        WMSMgt: Codeunit "WMS Management";
         UseBaseQty: Boolean;
         Text002: Label 'You cannot handle more than the outstanding %1 units.', Comment = 'FRA="Vous ne pouvez pas traiter plus que les %1 unités restantes."';
 }

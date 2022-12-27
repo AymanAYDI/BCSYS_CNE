@@ -10,8 +10,8 @@ report 50016 "BC6_Maj cout standard article"
 
             trigger OnAfterGetRecord()
             var
-                CduPurchPricemgt: Codeunit "Purch. Price Calc. Mgt.";
                 FunctionMgt: Codeunit "BC6_Functions Mgt";
+                CduPurchPricemgt: Codeunit "Purch. Price Calc. Mgt.";
 
             begin
                 IntGCounter += 1;
@@ -52,9 +52,9 @@ report 50016 "BC6_Maj cout standard article"
     }
 
     var
+        DlgGWin: Dialog;
         IntGCounter: Integer;
         IntGTotal: Integer;
-        DlgGWin: Dialog;
         CstG001: Label 'Traitement des articles @1@@@@@@@@@';
 }
 

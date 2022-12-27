@@ -258,7 +258,7 @@ codeunit 50202 "BC6_Functions Mgt"
     procedure PrintInvtPickHeaderCheck(WhseActivHeader: Record "Warehouse Activity Header"; HideDialog: Boolean);
     var
 
-        WhsePick: Report 50047;
+        WhsePick: Report "BC6_Invt. Pick";
         WhsePick2: Report "Picking List";
     begin
         WhseActivHeader.SETRANGE("No.", WhseActivHeader."No.");
@@ -1195,11 +1195,11 @@ codeunit 50202 "BC6_Functions Mgt"
 
     procedure InsertSalesAndPurOrderShptLine(FromSalesInvoiceLine: Record "Sales Invoice Line"; ToSalesHeader: Record "Sales Header"; var NextLineNo: Integer);
     var
-        L_ShipmentInvoiced: Record "Shipment Invoiced";
-        L_SalesShptHeader: Record "Sales Shipment Header";
-        L_SalesHeader: Record "Sales Header";
         L_PurchaseHeader: Record "Purchase Header";
+        L_SalesHeader: Record "Sales Header";
         ToSalesLine2: Record "Sales Line";
+        L_SalesShptHeader: Record "Sales Shipment Header";
+        L_ShipmentInvoiced: Record "Shipment Invoiced";
         LanguageManagement: Codeunit Language;
         Text018: label '%1 - %2:';
     begin
@@ -1224,7 +1224,7 @@ codeunit 50202 "BC6_Functions Mgt"
             ToSalesLine2."Document Type" := ToSalesHeader."Document Type";
             ToSalesLine2."Document No." := ToSalesHeader."No.";
 
-          //TODO  // LanguageManagement.SetGlobalLanguageByCode(ToSalesHeader."Language Code");
+            //TODO  // LanguageManagement.SetGlobalLanguageByCode(ToSalesHeader."Language Code");
 
             if PurchaseOrderExists then
                 ToSalesLine2.Description :=
@@ -1291,7 +1291,7 @@ codeunit 50202 "BC6_Functions Mgt"
         GloablFunction.SetSGDecMntHTDEEE(GloablFunction.GetSGDecMntHTDEEE() + RecPSalesLine."BC6_DEEE HT Amount");
     END;
 
-    PROCEDURE MntInverseDEEESales(VAR RecPSalesLine: Record 37);
+    PROCEDURE MntInverseDEEESales(VAR RecPSalesLine: Record "Sales Line");
     BEGIN
 
         //>>DEEE1.00 :
@@ -1307,8 +1307,8 @@ codeunit 50202 "BC6_Functions Mgt"
 
     procedure UpdateInvoicePostBuffer(var InvoicePostBuffer: Record "Invoice Post. Buffer"; TempInvoicePostBuffer: Record "Invoice Post. Buffer" temporary)
     var
-        FALineNo: Integer;
         DeferralLineNo: Integer;
+        FALineNo: Integer;
         InvDefLineNo: Integer;
 
     begin
@@ -1323,20 +1323,20 @@ codeunit 50202 "BC6_Functions Mgt"
 
     procedure OnRunTiersPayeur(var Rec: Record "Payment Line");
     var
-        Header: Record "Payment Header";
-        GenJnlLine: Record "Gen. Journal Line";
+        Currency: Record Currency;
         CurrExchRate: Record "Currency Exchange Rate";
         CustLedgEntry: Record "Cust. Ledger Entry";
+        GenJnlLine: Record "Gen. Journal Line";
+        Header: Record "Payment Header";
         VendLedgEntry: Record "Vendor Ledger Entry";
-        Currency: Record Currency;
+        PayApply: Codeunit "Payment-Apply";
         ApplyCustEntries: Page "Apply Customer Entries";
         ApplyVendEntries: Page "Apply Vendor Entries";
-        PayApply: Codeunit "Payment-Apply";
-        GenJnlPostLine: Integer;
-        AccType: Enum "Gen. Journal Account Type";
-        AccNo: Code[20];
-        CurrencyCode2: Code[10];
         OK: Boolean;
+        CurrencyCode2: Code[10];
+        AccNo: Code[20];
+        AccType: Enum "Gen. Journal Account Type";
+        GenJnlPostLine: Integer;
         Text001: label 'The %1 in the %2 will be changed from %3 to %4.\', Comment = 'FRA="Remplacement de %1 %3 par %4 dans %2.\"';
         Text002: label 'Do you wish to continue?', Comment = 'FRA="Souhaitez-vous continuer ?"';
         Text003: label 'The update has been interrupted to respect the warning.', Comment = 'FRA="La mise à jour a été interrompue pour respecter l''alerte."';
@@ -1383,7 +1383,7 @@ codeunit 50202 "BC6_Functions Mgt"
                             CurrencyCode2 := CustLedgEntry."Currency Code";
                             if Amount = 0 then begin
                                 repeat
-                                    PayApply.CheckAgainstApplnCurrency(CurrencyCode2, CustLedgEntry."Currency Code", AccType::Customer, true);
+                                    PayApply.CheckAgainstApplnCurrency(CurrencyCode2, CustLedgEntry."Currency Code", AccType::Customer.AsInteger(), true);
                                     CustLedgEntry.CALCFIELDS("Remaining Amount");
                                     CustLedgEntry."Remaining Amount" :=
                                       CurrExchRate.ExchangeAmount(
@@ -1416,7 +1416,7 @@ codeunit 50202 "BC6_Functions Mgt"
                                 VALIDATE("Amount (LCY)");
                             end else
                                 repeat
-                                    PayApply.CheckAgainstApplnCurrency(CurrencyCode2, CustLedgEntry."Currency Code", AccType::Customer, true);
+                                    PayApply.CheckAgainstApplnCurrency(CurrencyCode2, CustLedgEntry."Currency Code", AccType::Customer.AsInteger(), true);
                                 until CustLedgEntry.NEXT() = 0;
                             if "Currency Code" <> CurrencyCode2 then
                                 if Amount = 0 then begin
@@ -1430,8 +1430,8 @@ codeunit 50202 "BC6_Functions Mgt"
                                         ERROR(Text003);
                                     "Currency Code" := CustLedgEntry."Currency Code"
                                 end else
-                                    PayApply.CheckAgainstApplnCurrency("Currency Code", CustLedgEntry."Currency Code", AccType::Customer, true);
-                            "Applies-to Doc. Type" := 0;
+                                    PayApply.CheckAgainstApplnCurrency("Currency Code", CustLedgEntry."Currency Code", AccType::Customer.AsInteger(), true);
+                            "Applies-to Doc. Type" := GenJnlLine."Applies-to Doc. Type"::" ";
                             "Applies-to Doc. No." := '';
                         end else
                             "Applies-to ID" := '';
@@ -1460,7 +1460,7 @@ codeunit 50202 "BC6_Functions Mgt"
                             CurrencyCode2 := VendLedgEntry."Currency Code";
                             if Amount = 0 then begin
                                 repeat
-                                    PayApply.CheckAgainstApplnCurrency(CurrencyCode2, VendLedgEntry."Currency Code", AccType::Vendor, true);
+                                    PayApply.CheckAgainstApplnCurrency(CurrencyCode2, VendLedgEntry."Currency Code", AccType::Vendor.AsInteger(), true);
                                     VendLedgEntry.CALCFIELDS("Remaining Amount");
                                     VendLedgEntry."Remaining Amount" :=
                                       CurrExchRate.ExchangeAmount(
@@ -1493,7 +1493,7 @@ codeunit 50202 "BC6_Functions Mgt"
                                 VALIDATE("Amount (LCY)");
                             end else
                                 repeat
-                                    PayApply.CheckAgainstApplnCurrency(CurrencyCode2, VendLedgEntry."Currency Code", AccType::Vendor, true);
+                                    PayApply.CheckAgainstApplnCurrency(CurrencyCode2, VendLedgEntry."Currency Code", AccType::Vendor.AsInteger(), true);
                                 until VendLedgEntry.NEXT() = 0;
                             if "Currency Code" <> CurrencyCode2 then
                                 if Amount = 0 then begin
@@ -1507,8 +1507,8 @@ codeunit 50202 "BC6_Functions Mgt"
                                         ERROR(Text003);
                                     "Currency Code" := VendLedgEntry."Currency Code"
                                 end else
-                                    PayApply.CheckAgainstApplnCurrency("Currency Code", VendLedgEntry."Currency Code", AccType::Vendor, true);
-                            "Applies-to Doc. Type" := 0;
+                                    PayApply.CheckAgainstApplnCurrency("Currency Code", VendLedgEntry."Currency Code", AccType::Vendor.AsInteger(), true);
+                            "Applies-to Doc. Type" := VendLedgEntry."Applies-to Doc. Type"::" ";
                             "Applies-to Doc. No." := '';
                         end else
                             "Applies-to ID" := '';
@@ -1540,13 +1540,13 @@ codeunit 50202 "BC6_Functions Mgt"
     procedure CalcQtyAvailToPick(var SalesLine: Record "Sales Line"): Decimal;
     var
         Item: Record Item;
-        SIPM: Codeunit "Sales Info-Pane Management";
         AvailableToPromise: Codeunit "Available to Promise";
+        SIPM: Codeunit "Sales Info-Pane Management";
+        LookaheadDateformula: DateFormula;
+        AvailabilityDate: Date;
         GrossRequirement: Decimal;
         ScheduledReceipt: Decimal;
         PeriodType: enum "Analysis Period Type";
-        AvailabilityDate: Date;
-        LookaheadDateformula: DateFormula;
     begin
         if SIPM.GetItem(SalesLine) then begin
             Item.RESET();
@@ -1560,13 +1560,13 @@ codeunit 50202 "BC6_Functions Mgt"
     procedure CalcQtyOnPurchOrder(var SalesLine: Record "Sales Line"): Decimal;
     var
         Item: Record Item;
-        SIPM: Codeunit "Sales Info-Pane Management";
         AvailableToPromis: Codeunit "Available to Promise";
+        SIPM: Codeunit "Sales Info-Pane Management";
+        LookaheadDateformula: DateFormula;
+        AvailabilityDate: Date;
         GrossRequirement: Decimal;
         ScheduledReceipt: Decimal;
         PeriodType: enum "Analysis Period Type";
-        AvailabilityDate: Date;
-        LookaheadDateformula: DateFormula;
     begin
         if SIPM.GetItem(SalesLine) then begin
             Item.RESET();
@@ -1581,9 +1581,9 @@ codeunit 50202 "BC6_Functions Mgt"
     procedure LookupQtyOnPurchOrder(SalesLine: Record "Sales Line");
     var
         Item: Record Item;
-        SIPM: Codeunit "Sales Info-Pane Management";
         PurchLine: Record "Purchase Line";
         ItemAvailFormsMgt: Codeunit "Item Availability Forms Mgt";
+        SIPM: Codeunit "Sales Info-Pane Management";
     begin
         SalesLine.TESTFIELD(Type, SalesLine.Type::Item);
         SalesLine.TESTFIELD("No.");
@@ -1640,8 +1640,8 @@ codeunit 50202 "BC6_Functions Mgt"
     procedure CalcAvailableInventoryCNE(SalesLine: Record "Sales Line"; var Item: Record Item): Decimal;
     var
         CopyOfItem: Record Item;
-        SIPM: Codeunit "Sales Info-Pane Management";
         AvailableToPromise: Codeunit "Available to Promise";
+        SIPM: Codeunit "Sales Info-Pane Management";
     begin
         //BCSYS 220321
         CopyOfItem.COPY(Item);
@@ -1685,13 +1685,13 @@ codeunit 50202 "BC6_Functions Mgt"
 
     procedure CalcAvailabilityCNE(var SalesLine: Record "Sales Line"; var Item: Record Item): Decimal;
     var
-        SIPM: Codeunit "Sales Info-Pane Management";
+        CopyOfItem: Record Item;
         AvailableToPromise: Codeunit "Available to Promise";
+        SIPM: Codeunit "Sales Info-Pane Management";
+        LookaheadDateformula: DateFormula;
         GrossRequirement: Decimal;
         ScheduledReceipt: Decimal;
         PeriodType: enum "Analysis Period Type";
-        LookaheadDateformula: DateFormula;
-        CopyOfItem: Record Item;
     begin
         CopyOfItem.COPY(Item);
         if SalesLine.Type <> SalesLine.Type::Item then exit(0);
@@ -1700,20 +1700,20 @@ codeunit 50202 "BC6_Functions Mgt"
             CopyOfItem.SETRANGE("Variant Filter", SalesLine."Variant Code");
             CopyOfItem.SETRANGE("Drop Shipment Filter", false);
 
-            exit(ConvertQty(AvailableToPromise.QtyAvailabletoPromise(CopyOfItem, GrossRequirement, ScheduledReceipt, SIPM.CalcAvailabilityDate(SalesLine), PeriodType, LookaheadDateformula), SalesLine."Qty. per Unit of Measure"));
+            exit(ConvertQty(AvailableToPromise.QtyAvailabletoPromise(CopyOfItem, GrossRequirement, ScheduledReceipt, SIPM.CalcAvailabilityDate(SalesLine), PeriodType.AsInteger(), LookaheadDateformula), SalesLine."Qty. per Unit of Measure"));
         end;
     end;
 
 
     procedure CalcAvailabilityMETZ(var SalesLine: Record "Sales Line"; var Item: Record Item): Decimal;
     var
-        SIPM: Codeunit "Sales Info-Pane Management";
+        CopyOfItem: Record Item;
         AvailableToPromise: Codeunit "Available to Promise";
+        SIPM: Codeunit "Sales Info-Pane Management";
+        LookaheadDateformula: DateFormula;
         GrossRequirement: Decimal;
         ScheduledReceipt: Decimal;
         PeriodType: enum "Analysis Period Type";
-        LookaheadDateformula: DateFormula;
-        CopyOfItem: Record Item;
     begin
         CopyOfItem.COPY(Item);
         if SalesLine.Type <> SalesLine.Type::Item then exit(0);
@@ -1723,7 +1723,7 @@ codeunit 50202 "BC6_Functions Mgt"
             CopyOfItem.SETRANGE("Drop Shipment Filter", false);
 
             exit(
-            ConvertQty(AvailableToPromise.QtyAvailabletoPromise(CopyOfItem, GrossRequirement, ScheduledReceipt, SIPM.CalcAvailabilityDate(SalesLine), PeriodType, LookaheadDateformula), SalesLine."Qty. per Unit of Measure"));
+            ConvertQty(AvailableToPromise.QtyAvailabletoPromise(CopyOfItem, GrossRequirement, ScheduledReceipt, SIPM.CalcAvailabilityDate(SalesLine), PeriodType.AsInteger(), LookaheadDateformula), SalesLine."Qty. per Unit of Measure"));
         end;
     end;
 
@@ -1787,15 +1787,15 @@ codeunit 50202 "BC6_Functions Mgt"
     // function specifique codeunit 378 "Transfer Extended Text"
     procedure InsertSalesExtTextSpe(var SalesLine: Record "Sales Line");
     var
-        ToSalesLine: Record "Sales Line";
-        SalesHeader: Record "Sales Header";
-        Item: Record Item;
         RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line";
+        Item: Record Item;
+        SalesHeader: Record "Sales Header";
+        ToSalesLine: Record "Sales Line";
         GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
         MakeUpdateRequired: Boolean; // TODO: check variable global dans la codeunit 378 "Transfer Extended Text"
         OKA: Boolean;
-        NextLineNo: Integer;
         LineSpacing: Integer;
+        NextLineNo: Integer;
         Text000: label 'There is not enough space to insert extended text lines.', Comment = 'FRA="Il n''y a pas suffisamment de place pour insérer des lignes texte étendu."';
     begin
         OKA := false;
@@ -1856,15 +1856,15 @@ codeunit 50202 "BC6_Functions Mgt"
     // function specifique codeunit 378 "Transfer Extended Text" 
     procedure InsertPurchExtTextSpe(var PurchLine: Record "Purchase Line");
     var
-        ToPurchLine: Record "Purchase Line";
-        PurchHeader: Record "Purchase Header";
-        Item: Record Item;
         RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line";
+        Item: Record Item;
+        PurchHeader: Record "Purchase Header";
+        ToPurchLine: Record "Purchase Line";
         GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
         MakeUpdateRequired: Boolean; // TODO: check variable global dans la codeunit 378 "Transfer Extended Text"
         OKA: Boolean;
-        NextLineNo: Integer;
         LineSpacing: Integer;
+        NextLineNo: Integer;
     begin
         OKA := false;
         if PurchLine.Type = PurchLine.Type::Item then
@@ -1966,10 +1966,10 @@ codeunit 50202 "BC6_Functions Mgt"
 
     PROCEDURE GetItemEAN13Code(ItemNo: Code[20]) EAN13Code: Code[20];
     VAR
-        ItemReference: Record "Item Reference";
-        Item: record Item;
-        CrossRefTypeNo: Code[20];
         InvSetup: Record "Inventory Setup";
+        Item: record Item;
+        ItemReference: Record "Item Reference";
+        CrossRefTypeNo: Code[20];
 
     BEGIN
         EAN13Code := '';
@@ -1995,10 +1995,10 @@ codeunit 50202 "BC6_Functions Mgt"
 
     PROCEDURE GetItem(EAN13Code: Code[20]) ItemNo: Code[20];
     var
-        ItemReference: Record "Item Reference";
-        Item: record Item;
-        CrossRefTypeNo: Code[20];
         InvSetup: Record "Inventory Setup";
+        Item: record Item;
+        ItemReference: Record "Item Reference";
+        CrossRefTypeNo: Code[20];
 
     BEGIN
         ItemNo := '';
@@ -2032,13 +2032,13 @@ codeunit 50202 "BC6_Functions Mgt"
 
     PROCEDURE CreateItemEAN13Code(ItemNo: Code[20]; ShowMessage: Boolean) EAN13Code: Code[20];
     VAR
+        InvSetup: Record "Inventory Setup";
+        Item: record Item;
         ItemReference2: Record "Item Reference";
+        NoSeriesMgt: Codeunit NoSeriesManagement;
+        CrossRefTypeNo: Code[20];
         SeriesNo: Code[20];
         Checksum: Integer;
-        Item: record Item;
-        CrossRefTypeNo: Code[20];
-        InvSetup: Record "Inventory Setup";
-        NoSeriesMgt: Codeunit NoSeriesManagement;
         CstG001: Label 'N° code-barres %1 erroné.';
         CstG002: Label 'Code-barres interne %1 ajouté comme référence externe.';
 
@@ -2080,10 +2080,10 @@ codeunit 50202 "BC6_Functions Mgt"
 
     PROCEDURE LookupItemEAN13Code(ItemNo: Code[20]; EAN13Code: Code[20]);
     var
-        ItemReference: Record "Item Reference";
-        Item: record Item;
-        CrossRefTypeNo: Code[20];
         InvSetup: Record "Inventory Setup";
+        Item: record Item;
+        ItemReference: Record "Item Reference";
+        CrossRefTypeNo: Code[20];
 
     BEGIN
 
@@ -2118,8 +2118,8 @@ codeunit 50202 "BC6_Functions Mgt"
 
     procedure ReleaseATOs(SalesHeader: Record "Sales Header")
     var
-        SalesLine: Record "Sales Line";
         AsmHeader: Record "Assembly Header";
+        SalesLine: Record "Sales Line";
     begin
         SalesLine.SetRange("Document Type", SalesHeader."Document Type");
         SalesLine.SetRange("Document No.", SalesHeader."No.");
@@ -2132,15 +2132,15 @@ codeunit 50202 "BC6_Functions Mgt"
 
 
     var
-        EnableIncrPurchCost: Boolean;
         BoolGCopyLinesExactly: Boolean;
-        NextLineNoNewInsert: Integer;
-        SalesOrderExists: Boolean;
+        EnableIncrPurchCost: Boolean;
+        IsSAVReturnOrder: Boolean;
         PurchaseOrderExists: Boolean;
+        SalesOrderExists: Boolean;
+        G_LinkedPurchOrderNo: Code[20];
+        NextLineNoNewInsert: Integer;
         Text50000: label 'Sales Oder No., Purch Order No.', comment = 'FRA="N° Cde vente.,N° Cde achat."';
         Text50001: label '%1:';
-        G_LinkedPurchOrderNo: Code[20];
-        IsSAVReturnOrder: Boolean;
 
         YourReference: Text; // related to SetYourReference function
 }

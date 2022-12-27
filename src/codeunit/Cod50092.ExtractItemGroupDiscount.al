@@ -4,10 +4,10 @@ codeunit 50092 "Extract Item Group Discount"
 
     trigger OnRun()
     var
+        ItemDiscGroup: Record "Item Discount Group";
         FromSalesLineDiscount: Record "Sales Line Discount";
         SalesLineDiscount: Record "Sales Line Discount";
         ToSalesLineDiscount: Record "Sales Line Discount";
-        ItemDiscGroup: Record "Item Discount Group";
         ItemDiscGroupForm: Page "Item Disc. Groups";
     begin
 

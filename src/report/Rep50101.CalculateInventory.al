@@ -98,17 +98,17 @@ report 50101 "BC6_Calculate Inventory"
                     if not "Item Ledger Entry".IsEmpty() then
                         CurrReport.Skip();   // Skip if item has any record in Item Ledger Entry.
 
-                    Clear(QuantityOnHandBuffer);
-                    QuantityOnHandBuffer."Item No." := "Item No.";
-                    QuantityOnHandBuffer."Location Code" := "Location Code";
-                    QuantityOnHandBuffer."Variant Code" := "Variant Code";
+                    Clear(TempQuantityOnHandBuffer);
+                    TempQuantityOnHandBuffer."Item No." := "Item No.";
+                    TempQuantityOnHandBuffer."Location Code" := "Location Code";
+                    TempQuantityOnHandBuffer."Variant Code" := "Variant Code";
 
                     GetLocation("Location Code");
                     if Location."Bin Mandatory" and not Location."Directed Put-away and Pick" then
-                        QuantityOnHandBuffer."Bin Code" := "Bin Code";
+                        TempQuantityOnHandBuffer."Bin Code" := "Bin Code";
 
-                    if not QuantityOnHandBuffer.Find then
-                        QuantityOnHandBuffer.Insert();   // Insert a zero quantity line.
+                    if not TempQuantityOnHandBuffer.Find() then
+                        TempQuantityOnHandBuffer.Insert();   // Insert a zero quantity line.
                 end;
             }
             dataitem(ItemWithNoTransaction; "Integer")
@@ -125,13 +125,13 @@ report 50101 "BC6_Calculate Inventory"
             trigger OnAfterGetRecord()
             begin
                 if not HideValidationDialog then
-                    Window.Update;
+                    Window.Update();
                 TempSKU.DeleteAll();
             end;
 
             trigger OnPostDataItem()
             begin
-                CalcPhysInvQtyAndInsertItemJnlLine;
+                CalcPhysInvQtyAndInsertItemJnlLine();
             end;
 
             trigger OnPreDataItem()
@@ -166,8 +166,8 @@ report 50101 "BC6_Calculate Inventory"
                 if not SkipDim then
                     SelectedDim.GetSelectedDim(UserId, 3, REPORT::"Calculate Inventory", '', TempSelectedDim);
 
-                QuantityOnHandBuffer.Reset();
-                QuantityOnHandBuffer.DeleteAll();
+                TempQuantityOnHandBuffer.Reset();
+                TempQuantityOnHandBuffer.DeleteAll();
 
             end;
         }
@@ -192,7 +192,7 @@ report 50101 "BC6_Calculate Inventory"
 
                         trigger OnValidate()
                         begin
-                            ValidatePostingDate;
+                            ValidatePostingDate();
                         end;
                     }
                     field(DocumentNo; NextDocNo)
@@ -250,8 +250,8 @@ report 50101 "BC6_Calculate Inventory"
         trigger OnOpenPage()
         begin
             if PostingDate = 0D then
-                PostingDate := WorkDate;
-            ValidatePostingDate;
+                PostingDate := WorkDate();
+            ValidatePostingDate();
             ColumnDim := DimSelectionBuf.GetDimSelectionText(3, REPORT::"Calculate Inventory", '');
             Item.SETRANGE(Blocked, FALSE);
             Item.SETFILTER("Location Filter", 'ACTI');
@@ -306,7 +306,7 @@ report 50101 "BC6_Calculate Inventory"
         CycleSourceType: Option " ",Item,SKU;
 
     protected var
-        QuantityOnHandBuffer: Record "Inventory Buffer" temporary;
+        TempQuantityOnHandBuffer: Record "Inventory Buffer" temporary;
         TempSKU: Record "Stockkeeping Unit" temporary;
         HideValidationDialog: Boolean;
         IncludeItemWithNoTransaction: Boolean;
@@ -364,7 +364,7 @@ report 50101 "BC6_Calculate Inventory"
                             NoBinExist := true;
 
 
-                    Init;
+                    Init();
                     "Line No." := NextLineNo;
                     Validate("Posting Date", PostingDate);
                     if PhysInvQuantity >= Quantity2 then
@@ -409,7 +409,7 @@ report 50101 "BC6_Calculate Inventory"
                             ReserveWarehouse(ItemJnlLine);
 
                     if ColumnDim = '' then
-                        DimEntryNo2 := CreateDimFromItemDefault;
+                        DimEntryNo2 := CreateDimFromItemDefault();
 
                     if DimBufMgt.GetDimensions(DimEntryNo2, TempDimBufOut) then begin
                         TempDimSetEntry.Reset();
@@ -424,7 +424,7 @@ report 50101 "BC6_Calculate Inventory"
                                 "Dimension Set ID" := DimMgt.GetDimensionSetID(TempDimSetEntry);
                                 DimMgt.UpdateGlobalDimFromDimSetID("Dimension Set ID",
                                   "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code");
-                                Modify;
+                                Modify();
                             until TempDimBufOut.Next() = 0;
                             TempDimBufOut.DeleteAll();
                         end;
@@ -436,14 +436,14 @@ report 50101 "BC6_Calculate Inventory"
 
     local procedure InsertQuantityOnHandBuffer(ItemNo: Code[20]; LocationCode: Code[10]; VariantCode: Code[10])
     begin
-        with QuantityOnHandBuffer do begin
-            Reset;
+        with TempQuantityOnHandBuffer do begin
+            Reset();
             SetRange("Item No.", ItemNo);
             SetRange("Location Code", LocationCode);
             SetRange("Variant Code", VariantCode);
             if not FindFirst() then begin
-                Reset;
-                Init;
+                Reset();
+                Init();
                 "Item No." := ItemNo;
                 "Location Code" := LocationCode;
                 "Variant Code" := VariantCode;
@@ -454,7 +454,7 @@ report 50101 "BC6_Calculate Inventory"
         end;
     end;
 
-    local procedure ReserveWarehouse(ItemJnlLine: Record "Item Journal Line")
+    local procedure ReserveWarehouse(ItemJournlLine: Record "Item Journal Line")
     var
         ReservEntry: Record "Reservation Entry";
         WhseEntry: Record "Warehouse Entry";
@@ -463,7 +463,7 @@ report 50101 "BC6_Calculate Inventory"
         OrderLineNo: Integer;
         EntryType: Option "Negative Adjmt.","Positive Adjmt.";
     begin
-        with ItemJnlLine do begin
+        with ItemJournlLine do begin
             WhseEntry.SetCurrentKey(
                 "Item No.", "Bin Code", "Location Code", "Variant Code", "Unit of Measure Code",
                 "Lot No.", "Serial No.", "Entry Type");
@@ -511,7 +511,7 @@ report 50101 "BC6_Calculate Inventory"
                             "Item No.", "Variant Code", "Location Code", Description, 0D, 0D, 0, "Reservation Status"::Prospect);
                     end;
                     WhseEntry.Find('+');
-                    WhseEntry.ClearTrackingFilter;
+                    WhseEntry.ClearTrackingFilter();
                 until WhseEntry.Next() = 0;
         end;
     end;
@@ -550,7 +550,7 @@ report 50101 "BC6_Calculate Inventory"
         WhseQuantity: Decimal;
     begin
         AdjustPosQty := false;
-        with QuantityOnHandBuffer do begin
+        with TempQuantityOnHandBuffer do begin
             ItemTrackingMgt.GetWhseItemTrkgSetup("Item No.", WhseItemTrackingSetup);
             ItemTrackingSplit := WhseItemTrackingSetup.TrackingRequired();
             WhseEntry.SetCurrentKey(
@@ -672,7 +672,7 @@ report 50101 "BC6_Calculate Inventory"
     var
         DimEntryNo: Integer;
     begin
-        with QuantityOnHandBuffer do begin
+        with TempQuantityOnHandBuffer do begin
             if not HasNewQuantity(NewQuantity) then
                 exit;
             if BinCode = '' then begin
@@ -684,24 +684,24 @@ report 50101 "BC6_Calculate Inventory"
             end;
             if RetrieveBuffer(BinCode, DimEntryNo) then begin
                 Quantity := Quantity + NewQuantity;
-                Modify;
+                Modify();
             end else begin
                 Quantity := NewQuantity;
-                Insert;
+                Insert();
             end;
         end;
     end;
 
     local procedure RetrieveBuffer(BinCode: Code[20]; DimEntryNo: Integer): Boolean
     begin
-        with QuantityOnHandBuffer do begin
-            Reset;
+        with TempQuantityOnHandBuffer do begin
+            Reset();
             "Item No." := "Item Ledger Entry"."Item No.";
             "Variant Code" := "Item Ledger Entry"."Variant Code";
             "Location Code" := "Item Ledger Entry"."Location Code";
             "Dimension Entry No." := DimEntryNo;
             "Bin Code" := BinCode;
-            exit(Find);
+            exit(Find());
         end;
     end;
 
@@ -712,8 +712,8 @@ report 50101 "BC6_Calculate Inventory"
 
     local procedure ItemBinLocationIsCalculated(BinCode: Code[20]): Boolean
     begin
-        with QuantityOnHandBuffer do begin
-            Reset;
+        with TempQuantityOnHandBuffer do begin
+            Reset();
             SetRange("Item No.", "Item Ledger Entry"."Item No.");
             SetRange("Variant Code", "Item Ledger Entry"."Variant Code");
             SetRange("Location Code", "Item Ledger Entry"."Location Code");
@@ -756,8 +756,8 @@ report 50101 "BC6_Calculate Inventory"
 
     local procedure CalcPhysInvQtyAndInsertItemJnlLine()
     begin
-        with QuantityOnHandBuffer do begin
-            Reset;
+        with TempQuantityOnHandBuffer do begin
+            Reset();
             if FindSet() then begin
                 repeat
                     PosQty := 0;
@@ -813,7 +813,7 @@ report 50101 "BC6_Calculate Inventory"
         DefaultDimension: Record "Default Dimension";
     begin
         with DefaultDimension do begin
-            SetRange("No.", QuantityOnHandBuffer."Item No.");
+            SetRange("No.", TempQuantityOnHandBuffer."Item No.");
             SetRange("Table ID", DATABASE::Item);
             SetFilter("Dimension Value Code", '<>%1', '');
             if FindSet() then
@@ -830,7 +830,7 @@ report 50101 "BC6_Calculate Inventory"
     local procedure InsertDim(TableID: Integer; EntryNo: Integer; DimCode: Code[20]; DimValueCode: Code[20])
     begin
         with TempDimBufIn do begin
-            Init;
+            Init();
             "Table ID" := TableID;
             "Entry No." := EntryNo;
             "Dimension Code" := DimCode;

@@ -67,19 +67,19 @@ pageextension 50016 "BC6_SalesCreditMemo" extends "Sales Credit Memo" //44
     }
 
     var
-        "--NSC1.01--": Integer;
-        cust: Record Customer;
-        nameF: Text[250];
-        Mail: Codeunit Mail;
-        "Sales & Receivables Setup": Record "Sales & Receivables Setup";
-        Excel: Boolean;
         HistMail: Record "BC6_Historique Mails Envoyés";
+        cust: Record Customer;
+        "Sales & Receivables Setup": Record "Sales & Receivables Setup";
+        Salessetup: Record "Sales & Receivables Setup";
+        Mail: Codeunit Mail;
+        Excel: Boolean;
+        "--NSC1.01--": Integer;
         STR3: Label 'Imprimer lme document';
         STR4: Label 'Envoyer par Mail';
         STR5: Label 'Envoyer par Fax';
         Text001: Label '';
         Text004: Label '';
-        Salessetup: Record "Sales & Receivables Setup";
+        nameF: Text[250];
 
     procedure "--Functions_NSC1.01--"()
     begin
@@ -87,11 +87,11 @@ pageextension 50016 "BC6_SalesCreditMemo" extends "Sales Credit Memo" //44
 
     procedure EnvoiMail()
     begin
-        Salessetup.GET;
+        Salessetup.GET();
         cust.SETRANGE(cust."No.", "Sell-to Customer No.");
         IF cust.FIND('-') THEN
             cust.TESTFIELD("E-Mail");
-        OpenFile;
+        OpenFile();
         IF nameF <> '' THEN BEGIN
             Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + "No.", '', nameF, FALSE);
             ERASE(nameF);

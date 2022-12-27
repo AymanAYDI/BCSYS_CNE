@@ -167,7 +167,7 @@ page 50082 "BC6_Item Replanishment List"
                     trigger OnAction()
                     begin
                         PAGE.RUNMODAL(PAGE::"Item Attribute Value Editor", Rec);
-                        CurrPage.SAVERECORD;
+                        CurrPage.SAVERECORD();
                         CurrPage.ItemAttributesFactBox.PAGE.LoadItemAttributesData("No.");
                     end;
                 }
@@ -187,9 +187,9 @@ page 50082 "BC6_Item Replanishment List"
                         ItemAttributeManagement: Codeunit "Item Attribute Management";
                         TypeHelper: Codeunit "Type Helper";
                         CloseAction: Action;
-                        FilterText: Text;
                         FilterPageID: Integer;
                         ParameterCount: Integer;
+                        FilterText: Text;
                     begin
                         FilterPageID := PAGE::"Filter Items by Attribute";
                         IF CURRENTCLIENTTYPE = CLIENTTYPE::Phone THEN
@@ -202,14 +202,14 @@ page 50082 "BC6_Item Replanishment List"
                         ItemAttributeManagement.FindItemsByAttributes(TempFilterItemAttributesBuffer, TempFilteredItem);
                         FilterText := ItemAttributeManagement.GetItemNoFilterText(TempFilteredItem, ParameterCount);
 
-                        IF ParameterCount < TypeHelper.GetMaxNumberOfParametersInSQLQuery - 100 THEN BEGIN
+                        IF ParameterCount < TypeHelper.GetMaxNumberOfParametersInSQLQuery() - 100 THEN BEGIN
                             FILTERGROUP(0);
                             MARKEDONLY(FALSE);
                             SETFILTER("No.", FilterText);
                         END ELSE BEGIN
                             RunOnTempRec := TRUE;
-                            CLEARMARKS;
-                            RESET;
+                            CLEARMARKS();
+                            RESET();
                         END;
                     end;
                 }
@@ -226,12 +226,12 @@ page 50082 "BC6_Item Replanishment List"
 
                     trigger OnAction()
                     begin
-                        CLEARMARKS;
+                        CLEARMARKS();
                         MARKEDONLY(FALSE);
-                        TempFilterItemAttributesBuffer.RESET;
-                        TempFilterItemAttributesBuffer.DELETEALL;
-                        TempFilteredItem.RESET;
-                        TempFilteredItem.DELETEALL;
+                        TempFilterItemAttributesBuffer.RESET();
+                        TempFilterItemAttributesBuffer.DELETEALL();
+                        TempFilteredItem.RESET();
+                        TempFilteredItem.DELETEALL();
                         RunOnTempRec := FALSE;
                         FILTERGROUP(0);
                         SETRANGE("No.");
@@ -319,7 +319,7 @@ page 50082 "BC6_Item Replanishment List"
 
                         trigger OnAction()
                         begin
-                            COMMIT;
+                            COMMIT();
                             PAGE.RUNMODAL(PAGE::"Adjust Inventory", Rec)
                         end;
                     }
@@ -353,7 +353,7 @@ page 50082 "BC6_Item Replanishment List"
                         begin
                             CurrPage.SETSELECTIONFILTER(Item);
                             DefaultDimMultiple.SetMultiRecord(Item, Rec.FieldNo("No."));
-                            DefaultDimMultiple.RUNMODAL;
+                            DefaultDimMultiple.RUNMODAL();
                         end;
                     }
                 }
@@ -439,7 +439,7 @@ page 50082 "BC6_Item Replanishment List"
                     begin
                         SalesPriceAndLineDiscounts.InitPage(TRUE);
                         SalesPriceAndLineDiscounts.LoadItem(Rec);
-                        SalesPriceAndLineDiscounts.RUNMODAL;
+                        SalesPriceAndLineDiscounts.RUNMODAL();
                     end;
                 }
                 action("Sales Price Worksheet")
@@ -1023,7 +1023,7 @@ page 50082 "BC6_Item Replanishment List"
 
                         trigger OnAction()
                         begin
-                            ItemAvailFormsMgt.ShowItemAvailFromItem(Rec, ItemAvailFormsMgt.ByEvent);
+                            ItemAvailFormsMgt.ShowItemAvailFromItem(Rec, ItemAvailFormsMgt.ByEvent());
                         end;
                     }
                     action(Period)
@@ -1073,7 +1073,7 @@ page 50082 "BC6_Item Replanishment List"
 
                         trigger OnAction()
                         begin
-                            ItemAvailFormsMgt.ShowItemAvailFromItem(Rec, ItemAvailFormsMgt.ByBOM);
+                            ItemAvailFormsMgt.ShowItemAvailFromItem(Rec, ItemAvailFormsMgt.ByBOM());
                         end;
                     }
                     action(Timeline)
@@ -1122,7 +1122,7 @@ page 50082 "BC6_Item Replanishment List"
                         ItemRecordRef: RecordRef;
                     begin
                         CurrPage.SETSELECTIONFILTER(Item);
-                        Item.NEXT;
+                        Item.NEXT();
 
                         IF Item.COUNT = 1 THEN
                             CRMIntegrationManagement.UpdateOneNow(Item.RECORDID)
@@ -1185,7 +1185,7 @@ page 50082 "BC6_Item Replanishment List"
                         BOMStructure: Page "BOM Structure";
                     begin
                         BOMStructure.InitItem(Rec);
-                        BOMStructure.RUN;
+                        BOMStructure.RUN();
                     end;
                 }
                 action("Cost Shares")
@@ -1199,7 +1199,7 @@ page 50082 "BC6_Item Replanishment List"
                         BOMCostShares: Page "BOM Cost Shares";
                     begin
                         BOMCostShares.InitItem(Rec);
-                        BOMCostShares.RUN;
+                        BOMCostShares.RUN();
                     end;
                 }
                 group("Assemb&ly")
@@ -1272,8 +1272,8 @@ page 50082 "BC6_Item Replanishment List"
                         var
                             ProdBOMWhereUsed: Page "Prod. BOM Where-Used";
                         begin
-                            ProdBOMWhereUsed.SetItem(Rec, WORKDATE);
-                            ProdBOMWhereUsed.RUNMODAL;
+                            ProdBOMWhereUsed.SetItem(Rec, WORKDATE());
+                            ProdBOMWhereUsed.RUNMODAL();
                         end;
                     }
                     action("Calc. Stan&dard Cost2")
@@ -1346,7 +1346,7 @@ page 50082 "BC6_Item Replanishment List"
                             ItemStatistics: Page "Item Statistics";
                         begin
                             ItemStatistics.SetItem(Rec);
-                            ItemStatistics.RUNMODAL;
+                            ItemStatistics.RUNMODAL();
                         end;
                     }
                     action("Entry Statistics")
@@ -1607,7 +1607,7 @@ page 50082 "BC6_Item Replanishment List"
                         begin
                             CLEAR(SkilledResourceList);
                             SkilledResourceList.Initialize(ResourceSkill.Type::Item, "No.", Description);
-                            SkilledResourceList.RUNMODAL;
+                            SkilledResourceList.RUNMODAL();
                         end;
                     }
                 }
@@ -1648,7 +1648,7 @@ page 50082 "BC6_Item Replanishment List"
                     CLEAR(FromItem);
                     CurrPage.SETSELECTIONFILTER(FromItem);
                     PrintLabel.SETTABLEVIEW(FromItem);
-                    PrintLabel.RUN;
+                    PrintLabel.RUN();
                 end;
             }
             action(UpdateUnitPriceIncVAT)
@@ -1667,7 +1667,7 @@ page 50082 "BC6_Item Replanishment List"
                     CLEAR(UpdateUnitPriceIncVAT);
                     CurrPage.SETSELECTIONFILTER(ItemToUpdate);
                     UpdateUnitPriceIncVAT.SETTABLEVIEW(ItemToUpdate);
-                    UpdateUnitPriceIncVAT.RUN;
+                    UpdateUnitPriceIncVAT.RUN();
                 end;
             }
             group("&Bin Contents_group")
@@ -1699,15 +1699,15 @@ page 50082 "BC6_Item Replanishment List"
         CanCancelApprovalForRecord := ApprovalsMgmt.CanCancelApprovalForRecord(RECORDID);
         CurrPage.ItemAttributesFactBox.PAGE.LoadItemAttributesData("No.");
 
-        SetWorkflowManagementEnabledState;
+        SetWorkflowManagementEnabledState();
     end;
 
     trigger OnAfterGetRecord()
     var
-        "-MIGNAV2013-": Integer;
         FunctionsMgt: Codeunit "BC6_Functions Mgt";
+        "-MIGNAV2013-": Integer;
     begin
-        EnableControls;
+        EnableControls();
         EAN13Code := FunctionsMgt.GetItemEAN13Code("No.");
     end;
 
@@ -1751,48 +1751,48 @@ page 50082 "BC6_Item Replanishment List"
     var
         CRMIntegrationManagement: Codeunit "CRM Integration Management";
     begin
-        CRMIntegrationEnabled := CRMIntegrationManagement.IsCRMIntegrationEnabled;
+        CRMIntegrationEnabled := CRMIntegrationManagement.IsCRMIntegrationEnabled();
         IsFoundationEnabled := ApplicationAreaMgmtFacade.IsFoundationEnabled();
-        SetWorkflowManagementEnabledState;
+        SetWorkflowManagementEnabledState();
         SETRANGE("Reordering Policy", "Reordering Policy"::"Fixed Reorder Qty.");
     end;
 
     var
+        MemberOf: Record "Access Control";
+        RecGAccessControl: Record "Access Control";
         TempFilterItemAttributesBuffer: Record "Filter Item Attributes Buffer" temporary;
         TempFilteredItem: Record Item temporary;
+        ItemCrossRef: Record "Item Reference";
         ApplicationAreaMgmtFacade: Codeunit "Application Area Mgmt. Facade";
-        CalculateStdCost: Codeunit "Calculate Standard Cost";
-        ItemAvailFormsMgt: Codeunit "Item Availability Forms Mgt";
         ApprovalsMgmt: Codeunit "Approvals Mgmt.";
+        FunctionMgt: Codeunit "BC6_Functions Mgt";
+        CalculateStdCost: Codeunit "Calculate Standard Cost";
+        DistInt: Codeunit "Dist. Integration";
+        ItemAvailFormsMgt: Codeunit "Item Availability Forms Mgt";
+        FormItemCrossRef: Page "Item References";
         SkilledResourceList: Page "Skilled Resource List";
+        CanCancelApprovalForRecord: Boolean;
+        CRMIntegrationEnabled: Boolean;
+        CRMIsCoupledToRecord: Boolean;
+        EnabledApprovalWorkflowsExist: Boolean;
+        [InDataSet]
+        InventoryItemEditable: Boolean;
         IsFoundationEnabled: Boolean;
+        [InDataSet]
+        IsService: Boolean;
+        OpenApprovalEntriesExist: Boolean;
+        RunOnTempRec: Boolean;
         [InDataSet]
 
         SocialListeningSetupVisible: Boolean;
         [InDataSet]
         SocialListeningVisible: Boolean;
-        CRMIntegrationEnabled: Boolean;
-        CRMIsCoupledToRecord: Boolean;
-        OpenApprovalEntriesExist: Boolean;
-        [InDataSet]
-        IsService: Boolean;
-        [InDataSet]
-        InventoryItemEditable: Boolean;
-        EnabledApprovalWorkflowsExist: Boolean;
-        CanCancelApprovalForRecord: Boolean;
-        RunOnTempRec: Boolean;
-        EventFilter: Text;
-        "-MIGNAV2013-": Integer;
-        "--NSC1.01--": Integer;
-        MemberOf: Record "Access Control";
-        EAN13Code: Code[20];
-        DistInt: Codeunit "Dist. Integration";
-        FunctionMgt: Codeunit "BC6_Functions Mgt";
-        FormItemCrossRef: Page "Item References";
-        ItemCrossRef: Record "Item Reference";
-        RecGAccessControl: Record "Access Control";
-        "-CNEIC-": Integer;
         UpdateICPartnerItemsEnabled: Boolean;
+        EAN13Code: Code[20];
+        "--NSC1.01--": Integer;
+        "-CNEIC-": Integer;
+        "-MIGNAV2013-": Integer;
+        EventFilter: Text;
 
     procedure GetSelectionFilter(): Text
     var
@@ -1816,11 +1816,11 @@ page 50082 "BC6_Item Replanishment List"
 
     local procedure SetWorkflowManagementEnabledState()
     var
-        WorkflowManagement: Codeunit "Workflow Management";
         WorkflowEventHandling: Codeunit "Workflow Event Handling";
+        WorkflowManagement: Codeunit "Workflow Management";
     begin
-        EventFilter := WorkflowEventHandling.RunWorkflowOnSendItemForApprovalCode + '|' +
-          WorkflowEventHandling.RunWorkflowOnItemChangedCode;
+        EventFilter := WorkflowEventHandling.RunWorkflowOnSendItemForApprovalCode() + '|' +
+          WorkflowEventHandling.RunWorkflowOnItemChangedCode();
 
         EnabledApprovalWorkflowsExist := WorkflowManagement.EnabledWorkflowExist(DATABASE::Item, EventFilter);
     end;

@@ -38,14 +38,14 @@ xmlport 50022 "BC6_Intégration catalogue2"
                 trigger OnPreXmlItem()
                 begin
 
-                    "BC6_Temporary import catalogue".DELETEALL;
+                    "BC6_Temporary import catalogue".DELETEALL();
                     clef := 0;
                 end;
 
                 trigger OnAfterInitRecord()
                 begin
 
-                    "BC6_Temporary import catalogue".INIT;
+                    "BC6_Temporary import catalogue".INIT();
                     clef += 1;
                 end;
             }
@@ -128,7 +128,7 @@ xmlport 50022 "BC6_Intégration catalogue2"
 
     trigger OnInitXmlPort()
     begin
-        DateDeb := WORKDATE;
+        DateDeb := WORKDATE();
     end;
 
     trigger OnPreXmlPort()
@@ -140,8 +140,8 @@ xmlport 50022 "BC6_Intégration catalogue2"
     end;
 
     var
-        Vendor: Record 23;
-        RecLItemdiscGrp: Record 341;
+        RecLItemdiscGrp: Record "Item Discount Group";
+        Vendor: Record Vendor;
         Cat: Code[10];
         GRPProduit: Code[10];
         Num: Code[10];
@@ -159,7 +159,7 @@ xmlport 50022 "BC6_Intégration catalogue2"
     procedure create_disc_familly()
     begin
         IF NOT RecLItemdiscGrp.GET(famille) THEN BEGIN
-            RecLItemdiscGrp.INIT;
+            RecLItemdiscGrp.INIT();
             RecLItemdiscGrp.Code := famille;
             RecLItemdiscGrp.INSERT(TRUE);
         END;

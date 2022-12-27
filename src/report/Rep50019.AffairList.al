@@ -17,7 +17,7 @@ report 50019 "BC6_Affair List"
             column(FORMAT_TODAY_0_4_; FORMAT(TODAY, 0, 4))
             {
             }
-            column(CurrReport_PAGENO; CurrReport.PAGENO)
+            column(CurrReport_PAGENO; CurrReport.PAGENO())
             {
             }
             column("USERID"; USERID)
@@ -159,7 +159,7 @@ report 50019 "BC6_Affair List"
                 trigger OnAfterGetRecord()
                 begin
                     IF TxtGContact = "Contact No." + ' ' + ContactProjectRel."Contact Name" THEN
-                        CurrReport.SKIP;
+                        CurrReport.SKIP();
 
                     TxtGContactTiers := '';
                     TxtGContact := '';
@@ -173,14 +173,14 @@ report 50019 "BC6_Affair List"
                         TxtGContactPhone := FORMAT(RecGContact."Phone No.");
 
 
-                        RecGCntBusiness.RESET;
+                        RecGCntBusiness.RESET();
                         RecGCntBusiness.SETFILTER("Contact No.", RecGContact."Company No.");
 
                         RecGCntBusiness.SETRANGE(RecGCntBusiness."Link to Table", RecGCntBusiness."Link to Table"::Customer);
-                        IF NOT RecGCntBusiness.FINDFIRST THEN
+                        IF NOT RecGCntBusiness.FINDFIRST() THEN
                             RecGCntBusiness.SETRANGE(RecGCntBusiness."Link to Table", RecGCntBusiness."Link to Table"::Vendor);
 
-                        IF RecGCntBusiness.FINDFIRST THEN
+                        IF RecGCntBusiness.FINDFIRST() THEN
                             TxtGContactTiers := RecGCntBusiness."No.";
                     END;
                 end;
@@ -239,7 +239,7 @@ report 50019 "BC6_Affair List"
                     CLEAR(DecGCost);
 
 
-                    RecLSalesLine.RESET;
+                    RecLSalesLine.RESET();
                     RecLSalesLine.SETFILTER("Document Type", '%1', SalesHeader."Document Type");
                     RecLSalesLine.SETFILTER("Document No.", SalesHeader."No.");
 
@@ -247,7 +247,7 @@ report 50019 "BC6_Affair List"
                         REPEAT
                             DecGAmount += RecLSalesLine.Amount;
                             DecGCost += RecLSalesLine."BC6_Purchase cost" * RecLSalesLine.Quantity;
-                        UNTIL RecLSalesLine.NEXT = 0;
+                        UNTIL RecLSalesLine.NEXT() = 0;
 
 
                     DecGProfitLCY := DecGAmount - DecGCost;
@@ -316,46 +316,46 @@ report 50019 "BC6_Affair List"
                 IF TxtGcontactfilter <> '' THEN BEGIN
                     RecGCntAffair.SETFILTER(RecGCntAffair."Contact No.", TxtGcontactfilter);
                     RecGCntAffair.SETFILTER(RecGCntAffair."Affair No.", Job."No.");
-                    IF NOT RecGCntAffair.FIND('-') THEN CurrReport.SKIP;
+                    IF NOT RecGCntAffair.FIND('-') THEN CurrReport.SKIP();
                 END;
 
                 IF CodGCustomer <> '' THEN BEGIN
-                    RecGCntAffair.RESET;
+                    RecGCntAffair.RESET();
                     RecGCntAffair.SETFILTER(RecGCntAffair."Affair No.", Job."No.");
                     RecGCntAffair.SETFILTER(RecGCntAffair."No.", CodGCustomer);
-                    IF NOT RecGCntAffair.FIND('-') THEN CurrReport.SKIP;
+                    IF NOT RecGCntAffair.FIND('-') THEN CurrReport.SKIP();
                 END;
 
                 IF CodGVendor <> '' THEN BEGIN
-                    RecGCntAffair.RESET;
+                    RecGCntAffair.RESET();
                     RecGCntAffair.SETFILTER(RecGCntAffair."Affair No.", Job."No.");
                     RecGCntAffair.SETFILTER(RecGCntAffair."No.", CodGVendor);
-                    IF NOT RecGCntAffair.FIND('-') THEN CurrReport.SKIP;
+                    IF NOT RecGCntAffair.FIND('-') THEN CurrReport.SKIP();
                 END;
 
                 IF TxtGInterlocutor <> '' THEN BEGIN
-                    RecGAffairSteps.RESET;
+                    RecGAffairSteps.RESET();
                     RecGAffairSteps.SETFILTER(RecGAffairSteps."Affair No.", Job."No.");
                     RecGAffairSteps.SETFILTER(RecGAffairSteps.Interlocutor, TxtGInterlocutor);
-                    IF NOT RecGAffairSteps.FIND('-') THEN CurrReport.SKIP;
+                    IF NOT RecGAffairSteps.FIND('-') THEN CurrReport.SKIP();
                 END;
 
                 IF TxtGRemindDateFilter <> '' THEN BEGIN
-                    RecGAffairSteps.RESET;
+                    RecGAffairSteps.RESET();
                     RecGAffairSteps.SETFILTER(RecGAffairSteps."Affair No.", Job."No.");
                     RecGAffairSteps.SETFILTER(RecGAffairSteps."Reminder Date", TxtGRemindDateFilter);
                 END;
 
-                RecGCntAffair.RESET;
+                RecGCntAffair.RESET();
                 RecGCntAffair.SETFILTER(RecGCntAffair."Affair No.", Job."No.");
 
-                IF RecGCntAffair.FINDFIRST THEN BEGIN
+                IF RecGCntAffair.FINDFIRST() THEN BEGIN
                     IF RecGContact.GET(RecGCntAffair."Contact No.") THEN BEGIN
                         TxtGContact := RecGContact."No." + ' ' + RecGContact.Name;
                         TxtGContactType := FORMAT(RecGContact.Type);
                         TxtGContactPhone := FORMAT(RecGContact."Phone No.");
                         BooGAwarder := RecGCntAffair.Awarder;
-                        RecGCntBusiness.RESET;
+                        RecGCntBusiness.RESET();
                         RecGCntBusiness.SETFILTER(RecGCntBusiness."Contact No.", RecGCntAffair."Contact No.");
                         RecGCntBusiness.SETRANGE(RecGCntBusiness."Link to Table", RecGCntBusiness."Link to Table"::Customer);
                         IF NOT RecGCntBusiness.FindSet() THEN

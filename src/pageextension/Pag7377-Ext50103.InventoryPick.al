@@ -136,11 +136,11 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
     var
         WhseActPrint: Codeunit "Warehouse Document-Print";
         WMSMgt: Codeunit "WMS Management";
-        CtrlEditableOk: Boolean;
-        CurrFormEditableOk: Boolean;
         BooGDestinationNoCtrl: Boolean;
         BooGSourceNoCtrl: Boolean;
         BooGWhseActivityLines: Boolean;
+        CtrlEditableOk: Boolean;
+        CurrFormEditableOk: Boolean;
 
     PROCEDURE CtrlEditable()
     BEGIN

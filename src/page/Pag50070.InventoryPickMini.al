@@ -60,13 +60,13 @@ page 50070 "BC6_Inventory Pick Mini"
                 }
                 field(DestinationNoCtrl; "Destination No.")
                 {
-                    CaptionClass = FORMAT(WMSMgt.GetCaption("Destination Type", "Source Document", 0));
+                    CaptionClass = FORMAT(WMSMgt.GetCaption("Destination Type".AsInteger(), "Source Document".AsInteger(), 0));
                     Editable = BooGDestinationNoCtrl;
                     ApplicationArea = All;
                 }
                 field(DestinationName; WMSMgt.GetDestinationEntityName("Destination Type", "Destination No."))
                 {
-                    CaptionClass = FORMAT(WMSMgt.GetCaption(Rec."Destination Type", Rec."Source Document", 1));
+                    CaptionClass = FORMAT(WMSMgt.GetCaption(Rec."Destination Type".AsInteger(), Rec."Source Document".AsInteger(), 1));
                     Caption = 'Name', Comment = 'FRA="Nom"';
                     Editable = false;
                     ApplicationArea = All;
@@ -114,12 +114,12 @@ page 50070 "BC6_Inventory Pick Mini"
                 }
                 field("External Document No."; "External Document No.")
                 {
-                    CaptionClass = FORMAT(WMSMgt.GetCaption(Rec."Destination Type", Rec."Source Document", 2));
+                    CaptionClass = FORMAT(WMSMgt.GetCaption(Rec."Destination Type".AsInteger(), Rec."Source Document".AsInteger(), 2));
                     ApplicationArea = All;
                 }
                 field("External Document No.2"; "External Document No.2")
                 {
-                    CaptionClass = FORMAT(WMSMgt.GetCaption("Destination Type", "Source Document", 3));
+                    CaptionClass = FORMAT(WMSMgt.GetCaption("Destination Type".AsInteger(), "Source Document".AsInteger(), 3));
                     ApplicationArea = All;
                 }
             }
@@ -397,15 +397,15 @@ page 50070 "BC6_Inventory Pick Mini"
     var
         WhseActPrint: Codeunit "Warehouse Document-Print";
         WMSMgt: Codeunit "WMS Management";
-        "- MIGNAV2013 -": Integer;
-        CtrlEditableOk: Boolean;
-        CurrFormEditableOk: Boolean;
         [InDataSet]
         BooGDestinationNoCtrl: Boolean;
         [InDataSet]
         BooGSourceNoCtrl: Boolean;
         [InDataSet]
         BooGWhseActivityLines: Boolean;
+        CtrlEditableOk: Boolean;
+        CurrFormEditableOk: Boolean;
+        "- MIGNAV2013 -": Integer;
 
     local procedure AutofillQtyToHandle()
     begin

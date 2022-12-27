@@ -43,25 +43,25 @@ pageextension 50041 "BC6_PostedPurchaseReceipt" extends "Posted Purchase Receipt
 
     var
 
-        PurchRcptHeader: Record "Purch. Rcpt. Header";
         HistMail: Record "BC6_Historique Mails Envoyés";
         cust: Record Customer;
+        PurchRcptHeader: Record "Purch. Rcpt. Header";
         SalesSetup: Record "Sales & Receivables Setup";
-        "-MIGNAV2013-": Integer;
+        ArchiveManagement: Codeunit ArchiveManagement;
+        DocPrint: Codeunit "Document-Print";
+        Mail: Codeunit Mail;
         ReportPrint: Codeunit "Test Report-Print";
         UserMgt: Codeunit "User Setup Management";
-        DocPrint: Codeunit "Document-Print";
-        ArchiveManagement: Codeunit ArchiveManagement;
-        Mail: Codeunit Mail;
-        nameF: Text[250];
         Excel: Boolean;
+        "-MIGNAV2013-": Integer;
         STR1: Label 'Archiver Devis';
         STR2: Label 'Créer Commande';
         STR3: Label 'Imprimer le document ?';
         STR4: Label 'Envoyer le document par mail ?';
         STR5: Label 'Envoyer le document par fax ?';
-        Text004: Label 'Fichiers Pdf (*.pdf)|*.pdf|Tous les fichiers (*.*)|*.*';
         Text001: Label '';
+        Text004: Label 'Fichiers Pdf (*.pdf)|*.pdf|Tous les fichiers (*.*)|*.*';
+        nameF: Text[250];
 
     procedure EnvoiMail()
     begin

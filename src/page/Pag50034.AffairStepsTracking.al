@@ -123,15 +123,15 @@ page 50034 "BC6_Affair Steps Tracking"
     end;
 
     var
-        BooGFinichedfilter: Boolean;
-        TxtGIntelocutor: Text[30];
-        DatLRminderDate: Date;
         RecGStepsAffair: Record "BC6_Affair Steps";
+        BooGFinichedfilter: Boolean;
+        DatLRminderDate: Date;
         DiaGWindow: Dialog;
         Text001: Label 'Steps search in prgress...', Comment = 'FRA="Recherche des étapes en cours..."';
         Text19001151: Label 'Interlocutor', Comment = 'FRA="Interlocuteur"';
         Text19017858: Label 'Reminder Date', Comment = 'FRA="Date rappel"';
         Text19022765: Label 'Finished', Comment = 'FRA="Terminer"';
+        TxtGIntelocutor: Text[30];
 
 
     procedure SearchAffairSteps(finish: Boolean; Interlocuteur: Text[30]; ReminderDate: Date)

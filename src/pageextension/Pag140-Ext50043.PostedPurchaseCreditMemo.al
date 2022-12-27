@@ -41,8 +41,8 @@ pageextension 50043 "BC6_PostedPurchaseCreditMemo" extends "Posted Purchase Cred
     var
         HistMail: Record "BC6_Historique Mails Envoyés";
         cust: Record Customer;
-        SalesSetup: Record "Sales & Receivables Setup";
         PurchCrMemoHeader: Record "Purch. Cr. Memo Hdr.";
+        SalesSetup: Record "Sales & Receivables Setup";
         Mail: Codeunit Mail;
         STR3: Label 'Imprimer le document ?';
         STR4: Label 'Envoyer le document par mail ?';

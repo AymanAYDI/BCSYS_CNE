@@ -78,9 +78,9 @@ page 50019 "Purch. Cr. Memo Line Subform"
         RecGPurchCrMemoHdr: Record "Purch. Cr. Memo Hdr.";
         TempPurchCrdMemo: Record "Purch. Cr. Memo Line" temporary;
         [InDataSet]
-        "Document No.HideValue": Boolean;
-        [InDataSet]
         "Document No.Emphasize": Boolean;
+        [InDataSet]
+        "Document No.HideValue": Boolean;
 
 
     procedure isFirstDocLine(): Boolean

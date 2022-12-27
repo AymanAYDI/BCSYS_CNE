@@ -33,7 +33,7 @@ xmlport 53006 "BC6_Import Stock"
                         IntGLineNo += 10000;
 
                         "Item Journal Line".VALIDATE("Line No.", IntGLineNo);
-                        "Item Journal Line".VALIDATE("Posting Date", WORKDATE);
+                        "Item Journal Line".VALIDATE("Posting Date", WORKDATE());
                         "Item Journal Line".VALIDATE("Entry Type", "Item Journal Line"."Entry Type"::"Positive Adjmt.");
                         "Item Journal Line".VALIDATE("Document No.", 'INIT');
                         "Item Journal Line".VALIDATE("Item No.", Ref);
@@ -41,7 +41,7 @@ xmlport 53006 "BC6_Import Stock"
                         IF EVALUATE(DecGQte, Qte) THEN;
                         "Item Journal Line".VALIDATE(Quantity, DecGQte);
 
-                        "Item Journal Line".INSERT;
+                        "Item Journal Line".INSERT();
 
                     END;
                 end;
@@ -49,7 +49,7 @@ xmlport 53006 "BC6_Import Stock"
                 trigger OnBeforeInsertRecord()
                 begin
 
-                    "Item Journal Line".INIT;
+                    "Item Journal Line".INIT();
                     "Item Journal Line".VALIDATE("Journal Template Name", 'ARTICLE');
                     "Item Journal Line".VALIDATE("Journal Batch Name", 'DEFAUT');
 
@@ -74,8 +74,8 @@ xmlport 53006 "BC6_Import Stock"
     }
 
     var
-        IntGLineNo: Integer;
         TabArt: Record Item;
         DecGQte: Decimal;
+        IntGLineNo: Integer;
 }
 

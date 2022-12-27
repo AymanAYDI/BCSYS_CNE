@@ -93,8 +93,8 @@ xmlport 53007 "BC6_Import Tiers"
 
                 trigger OnBeforeInsertRecord()
                 var
-                    DecLDebit: Decimal;
                     DecLCred: Decimal;
+                    DecLDebit: Decimal;
                 begin
 
                     IntGLineNo += 10000;
@@ -200,18 +200,18 @@ xmlport 53007 "BC6_Import Tiers"
     end;
 
     var
-        CodGJnlBatchName: Code[10];
-        CodGJnlTemplName: Code[10];
+        RecGJnlBatchName: Record "Gen. Journal Batch";
         RecGGenJnlLine: Record "Gen. Journal Line";
         RecGGenJnlLineTmp: Record "Gen. Journal Line";
-        IntGLineNo: Integer;
-        TxtGFileName: Text[250];
-        "--": Integer;
         FormJnlBatchName: Page "General Journal Batches";
-        RecGJnlBatchName: Record "Gen. Journal Batch";
-        TypeBalAccountNo: Option "G/L Account",Customer,Vendor,"Bank Account","Fixed Asset","IC Partner";
+        CodGJnlBatchName: Code[10];
+        CodGJnlTemplName: Code[10];
         BalAccountNo: Code[20];
+        "--": Integer;
+        IntGLineNo: Integer;
         TextError001: Label 'Account %1 do not exist !!', Comment = 'FRA="Compte %1 n''existe pas !!"';
+        TypeBalAccountNo: Option "G/L Account",Customer,Vendor,"Bank Account","Fixed Asset","IC Partner";
+        TxtGFileName: Text[250];
 
 
     procedure DeleteGenJnlLine(): Integer

@@ -20,7 +20,7 @@ report 50098 "BC6_Batch Archive Quote Delete"
 
                 window.UPDATE(1, "Sales Header"."No.");
 
-                ok := Fct_Check("Sales Header"."Document Type", "Sales Header"."No.");
+                ok := Fct_Check("Sales Header"."Document Type".AsInteger(), "Sales Header"."No.");
 
 
                 IF ok THEN BEGIN
@@ -51,12 +51,12 @@ report 50098 "BC6_Batch Archive Quote Delete"
     end;
 
     var
-        i: Integer;
+        SalesHeader2: Record "Sales Header";
         ArchiveManagement: Codeunit ArchiveManagement;
         ok: Boolean;
-        SalesHeader2: Record "Sales Header";
-        z: Integer;
         window: Dialog;
+        i: Integer;
+        z: Integer;
 
 
     procedure Fct_Check(DocType: Integer; DocNo: Code[20]): Boolean

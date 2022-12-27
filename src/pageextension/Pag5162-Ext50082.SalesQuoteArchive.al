@@ -474,13 +474,13 @@ pageextension 50082 "BC6_SalesQuoteArchive" extends "Sales Quote Archive" //5162
 
     var
         [InDataSet]
+        "Bill-to Customer No.Enable": Boolean;
+        [InDataSet]
         BilltoCustomerTemplateCodeEnab: Boolean;
         [InDataSet]
-        SelltoCustomerTemplateCodeEnab: Boolean;
+        BooGQuoteStatut: Boolean;
         [InDataSet]
         "Sell-to Customer No.Enable": Boolean;
         [InDataSet]
-        "Bill-to Customer No.Enable": Boolean;
-        [InDataSet]
-        BooGQuoteStatut: Boolean;
+        SelltoCustomerTemplateCodeEnab: Boolean;
 }

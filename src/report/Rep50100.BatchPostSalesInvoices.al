@@ -15,10 +15,10 @@ report 50100 "BC6_Batch Post Sales Invoices" //296
                 ApprovalsMgmt: Codeunit "Approvals Mgmt.";
             begin
                 IF ApprovalsMgmt.IsSalesApprovalsWorkflowEnabled("Sales Header") OR (Status = Status::"Pending Approval") THEN
-                    CurrReport.SKIP;
+                    CurrReport.SKIP();
 
                 IF CalcInvDisc THEN
-                    CalculateInvoiceDiscount;
+                    CalculateInvoiceDiscount();
 
                 BatchConfirmUpdateDeferralDate(BatchConfirm, ReplacePostingDate, PostingDateReq);
 
@@ -37,7 +37,7 @@ report 50100 "BC6_Batch Post Sales Invoices" //296
 
             trigger OnPostDataItem()
             begin
-                Window.CLOSE;
+                Window.CLOSE();
                 MESSAGE(Text002, CounterOK, CounterTotal);
             end;
 
@@ -124,36 +124,36 @@ report 50100 "BC6_Batch Post Sales Invoices" //296
     }
 
     var
+        SalesSetup: Record "Sales & Receivables Setup";
+        SalesLine: Record "Sales Line";
+        AssemblyPost: Codeunit "Assembly-Post";
+        SalesCalcDisc: Codeunit "Sales-Calc. Discount";
+        SalesPost: Codeunit "Sales-Post";
+        BooGExcludeShipment: Boolean;
+        CalcInvDisc: Boolean;
+        ReplaceDocumentDate: Boolean;
+        ReplacePostingDate: Boolean;
+        PostingDateReq: Date;
+        Window: Dialog;
+        "---NSC1,0": Integer;
+        Counter: Integer;
+        CounterOK: Integer;
+        CounterTotal: Integer;
         Text000: Label 'Enter the posting date.';
         Text001: Label 'Posting invoices   #1########## @2@@@@@@@@@@@@@';
         Text002: Label '%1 invoices out of a total of %2 have now been posted.';
         Text003: Label 'The exchange rate associated with the new posting date on the sales header will not apply to the sales lines.', Comment = 'FRA="Le taux de change associé à la nouvelle date de comptabilisation de l''en-tête vente ne s''appliquera pas aux lignes vente."';
-        SalesLine: Record "Sales Line";
-        SalesSetup: Record "Sales & Receivables Setup";
-        SalesCalcDisc: Codeunit "Sales-Calc. Discount";
-        SalesPost: Codeunit "Sales-Post";
-        AssemblyPost: Codeunit "Assembly-Post";
-        Window: Dialog;
-        PostingDateReq: Date;
-        CounterTotal: Integer;
-        Counter: Integer;
-        CounterOK: Integer;
-        ReplacePostingDate: Boolean;
-        ReplaceDocumentDate: Boolean;
-        CalcInvDisc: Boolean;
         BatchConfirm: Option " ",Skip,Update;
-        "---NSC1,0": Integer;
-        BooGExcludeShipment: Boolean;
 
     local procedure CalculateInvoiceDiscount()
     begin
-        SalesLine.RESET;
+        SalesLine.RESET();
         SalesLine.SETRANGE("Document Type", "Sales Header"."Document Type");
         SalesLine.SETRANGE("Document No.", "Sales Header"."No.");
-        IF SalesLine.FINDFIRST THEN
+        IF SalesLine.FINDFIRST() THEN
             IF SalesCalcDisc.RUN(SalesLine) THEN BEGIN
                 "Sales Header".GET("Sales Header"."Document Type", "Sales Header"."No.");
-                COMMIT;
+                COMMIT();
             END;
     end;
 

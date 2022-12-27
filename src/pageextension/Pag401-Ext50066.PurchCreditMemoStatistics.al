@@ -48,15 +48,15 @@ pageextension 50066 "BC6_PurchCreditMemoStatistics" extends "Purch. Credit Memo 
     }
 
     var
-        DecGMntTTCDEEE: Decimal;
+        CurrExchRate: Record "Currency Exchange Rate";
         DecGMntHTDEEE: Decimal;
-        NewVendAmount: Decimal;
-        NewVATAmount: Decimal;
+        DecGMntTTCDEEE: Decimal;
         NewAmountInclVAT: Decimal;
         NewAmountLCY: Decimal;
+        NewVATAmount: Decimal;
         NewVATPercentage: Decimal;
+        NewVendAmount: Decimal;
         NewVATAmountText: Text[30];
-        CurrExchRate: Record "Currency Exchange Rate";
 
     procedure Increment_MntHTDEEE(_DecGMntHTDEEE: Decimal)
     begin

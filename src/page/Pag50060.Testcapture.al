@@ -137,10 +137,10 @@ page 50060 "BC6_Test capture"
         [InDataSet]
         IsScanEditable: Boolean;
         ScanZoneCaption: Label 'Scan Zone', Comment = 'FRA="Scan Zone"';
+        TextCst: Label 'Field %1', Comment = 'FRA="Champ %1"';
         ArrayCaption: array[4] of Text;
         ArrayValue: array[4] of Text;
-        test: Text;
         Result: Text;
-        TextCst: Label 'Field %1', Comment = 'FRA="Champ %1"';
+        test: Text;
 }
 

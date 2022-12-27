@@ -53,7 +53,7 @@ xmlport 50013 "BC6_Import R.I.B Clients"
                 trigger OnAfterInitRecord()
                 begin
 
-                    recCustBank.INIT;
+                    recCustBank.INIT();
 
                     customer := '';
                     Code := '';
@@ -114,7 +114,7 @@ xmlport 50013 "BC6_Import R.I.B Clients"
     }
 
     var
-        recCustBank: Record 287;
+        recCustBank: Record "Customer Bank Account";
         "--record--": Integer;
         "- MIGNAV2013 -": Integer;
         IntGRIB: Integer;

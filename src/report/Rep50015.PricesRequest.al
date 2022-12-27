@@ -28,7 +28,7 @@ report 50015 "BC6_Prices Request"
 
                     DataItemTableView = SORTING(Number)
                                         WHERE(Number = CONST(1));
-                    column(CurrReport_PAGENO__; STRSUBSTNO(Text005, FORMAT(CurrReport.PAGENO)))
+                    column(CurrReport_PAGENO__; STRSUBSTNO(Text005, FORMAT(CurrReport.PAGENO())))
                     {
                     }
                     column(Text012_Purchase_Header___No__; Text012 + ' ' + PurchaseHeader."No.")
@@ -91,7 +91,7 @@ report 50015 "BC6_Prices Request"
                     column(Text066_TxtGPhone_TxtGFax_TxtGEmail_; STRSUBSTNO(Text066, TxtGPhone, TxtGFax, TxtGEmail))
                     {
                     }
-                    column(CompanyAddr_2_3_4_5; CompanyAddr[2] + ' ' + CompanyAddr[3] + ' ' + STRSUBSTNO('%1 %2', CompanyAddr[4], CompanyAddr[5]))
+                    column(CompanyAddr_2_3_4_5; CompanyAddr[2] + ' ' + CompanyAddr[3] + ' ' + STRSUBSTNO(txtlbl12, CompanyAddr[4], CompanyAddr[5]))
                     {
                     }
                     column(CompanyAddr_1_; CompanyAddr[1])
@@ -106,7 +106,7 @@ report 50015 "BC6_Prices Request"
                     column(TxtGAltName; TxtGAltName)
                     {
                     }
-                    column(TxtGAltAdress__Adress2_TxtGAltPostCode_TxtGAltCity_; TxtGAltAdress + ' ' + TxtGAltAdress2 + ' ' + STRSUBSTNO('%1 %2', TxtGAltPostCode, TxtGAltCity))
+                    column(TxtGAltAdress__Adress2_TxtGAltPostCode_TxtGAltCity_; TxtGAltAdress + ' ' + TxtGAltAdress2 + ' ' + STRSUBSTNO(txtlbl12, TxtGAltPostCode, TxtGAltCity))
                     {
                     }
                     column(Text066_TxtGAltPhone_TxtGAltFax_TxtGAltEmail_; STRSUBSTNO(Text066, TxtGAltPhone, TxtGAltFax, TxtGAltEmail))
@@ -184,7 +184,7 @@ report 50015 "BC6_Prices Request"
                     column(Text011; Text011)
                     {
                     }
-                    column(PurchaseLine_Type; PurchLine.Type)
+                    column(PurchaseLine_Type; TempPurchLine.Type)
                     {
                     }
                     dataitem(PurchaseLine; "Purchase Line")
@@ -196,7 +196,7 @@ report 50015 "BC6_Prices Request"
 
                         trigger OnPreDataItem()
                         begin
-                            CurrReport.BREAK;
+                            CurrReport.BREAK();
                         end;
                     }
                     dataitem(RoundLoop; Integer)
@@ -214,7 +214,7 @@ report 50015 "BC6_Prices Request"
                         column(Purchase_Line___Unit_of_Measure_; PurchaseLine."Unit of Measure")
                         {
                         }
-                        column(PurchLine__Expected_Receipt_Date_; PurchLine."Expected Receipt Date")
+                        column(PurchLine__Expected_Receipt_Date_; TempPurchLine."Expected Receipt Date")
                         {
                         }
                         column(Purchase_Line__Description_Control; PurchaseLine.Description)
@@ -230,37 +230,37 @@ report 50015 "BC6_Prices Request"
                         trigger OnAfterGetRecord()
                         begin
                             IF Number = 1 THEN
-                                PurchLine.FIND('-')
+                                TempPurchLine.FIND('-')
                             ELSE
-                                PurchLine.NEXT;
-                            PurchaseLine := PurchLine;
+                                TempPurchLine.NEXT();
+                            PurchaseLine := TempPurchLine;
 
                             IF NOT PurchaseHeader."Prices Including VAT" AND
-                               (PurchLine."VAT Calculation Type" = PurchLine."VAT Calculation Type"::"Full VAT")
+                               (TempPurchLine."VAT Calculation Type" = TempPurchLine."VAT Calculation Type"::"Full VAT")
                             THEN
-                                PurchLine."Line Amount" := 0;
+                                TempPurchLine."Line Amount" := 0;
 
-                            IF (PurchLine.Type = PurchLine.Type::"G/L Account") AND (NOT ShowInternalInfo) THEN
+                            IF (TempPurchLine.Type = TempPurchLine.Type::"G/L Account") AND (NOT ShowInternalInfo) THEN
                                 PurchaseLine."No." := '';
                         end;
 
                         trigger OnPostDataItem()
                         begin
-                            PurchLine.DELETEALL;
+                            TempPurchLine.DELETEALL();
                         end;
 
                         trigger OnPreDataItem()
                         begin
-                            MoreLines := PurchLine.FIND('+');
-                            WHILE MoreLines AND (PurchLine.Description = '') AND (PurchLine."Description 2" = '') AND
-                                  (PurchLine."No." = '') AND (PurchLine.Quantity = 0) AND
-                                  (PurchLine.Amount = 0) DO
-                                MoreLines := PurchLine.NEXT(-1) <> 0;
+                            MoreLines := TempPurchLine.FIND('+');
+                            WHILE MoreLines AND (TempPurchLine.Description = '') AND (TempPurchLine."Description 2" = '') AND
+                                  (TempPurchLine."No." = '') AND (TempPurchLine.Quantity = 0) AND
+                                  (TempPurchLine.Amount = 0) DO
+                                MoreLines := TempPurchLine.NEXT(-1) <> 0;
                             IF NOT MoreLines THEN
-                                CurrReport.BREAK;
-                            PurchLine.SETRANGE("Line No.", 0, PurchLine."Line No.");
-                            SETRANGE(Number, 1, PurchLine.COUNT);
-                            CurrReport.CREATETOTALS(PurchLine."Line Amount", PurchLine."Inv. Discount Amount");
+                                CurrReport.BREAK();
+                            TempPurchLine.SETRANGE("Line No.", 0, TempPurchLine."Line No.");
+                            SETRANGE(Number, 1, TempPurchLine.COUNT);
+                            CurrReport.CREATETOTALS(TempPurchLine."Line Amount", TempPurchLine."Inv. Discount Amount");
                         end;
                     }
                     dataitem(VATCounter; Integer)
@@ -269,7 +269,7 @@ report 50015 "BC6_Prices Request"
 
                         trigger OnAfterGetRecord()
                         begin
-                            VATAmountLine.GetLine(Number);
+                            TempVATAmountLine.GetLine(Number);
                         end;
 
                     }
@@ -279,14 +279,14 @@ report 50015 "BC6_Prices Request"
 
                         trigger OnAfterGetRecord()
                         begin
-                            VATAmountLine.GetLine(Number);
+                            TempVATAmountLine.GetLine(Number);
 
                             VALVATBaseLCY := ROUND(CurrExchRate.ExchangeAmtFCYToLCY(
                                                PurchaseHeader."Posting Date", PurchaseHeader."Currency Code",
-                                               VATAmountLine."VAT Base", PurchaseHeader."Currency Factor"));
+                                               TempVATAmountLine."VAT Base", PurchaseHeader."Currency Factor"));
                             VALVATAmountLCY := ROUND(CurrExchRate.ExchangeAmtFCYToLCY(
                                                  PurchaseHeader."Posting Date", PurchaseHeader."Currency Code",
-                                                 VATAmountLine."VAT Amount", PurchaseHeader."Currency Factor"));
+                                                 TempVATAmountLine."VAT Amount", PurchaseHeader."Currency Factor"));
                         end;
 
                     }
@@ -303,10 +303,10 @@ report 50015 "BC6_Prices Request"
                         trigger OnPreDataItem()
                         begin
 
-                            CurrReport.BREAK;
+                            CurrReport.BREAK();
 
                             IF PurchaseHeader."Buy-from Vendor No." = PurchaseHeader."Pay-to Vendor No." THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
 
                         end;
                     }
@@ -318,17 +318,17 @@ report 50015 "BC6_Prices Request"
                         trigger OnPreDataItem()
                         begin
 
-                            CurrReport.BREAK;
+                            CurrReport.BREAK();
 
                             IF (PurchaseHeader."Sell-to Customer No." = '') AND (ShipToAddr[1] = '') THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                         end;
                     }
 
                     trigger OnAfterGetRecord()
                     begin
                         recLBuyVendor.SETFILTER("No.", PurchaseHeader."Buy-from Vendor No.");
-                        IF recLBuyVendor.FINDFIRST THEN;
+                        IF recLBuyVendor.FINDFIRST() THEN;
                     end;
 
                     trigger OnPreDataItem()
@@ -380,18 +380,18 @@ report 50015 "BC6_Prices Request"
 
                 trigger OnAfterGetRecord()
                 begin
-                    CLEAR(PurchLine);
+                    CLEAR(TempPurchLine);
                     CLEAR(PurchPost);
-                    PurchLine.DELETEALL;
-                    VATAmountLine.DELETEALL;
-                    PurchPost.GetPurchLines(PurchaseHeader, PurchLine, 0);
-                    PurchLine.CalcVATAmountLines(0, PurchaseHeader, PurchLine, VATAmountLine);
-                    PurchLine.UpdateVATOnLines(0, PurchaseHeader, PurchLine, VATAmountLine);
-                    VATAmount := VATAmountLine.GetTotalVATAmount;
-                    VATBaseAmount := VATAmountLine.GetTotalVATBase;
+                    TempPurchLine.DELETEALL();
+                    TempVATAmountLine.DELETEALL();
+                    PurchPost.GetPurchLines(PurchaseHeader, TempPurchLine, 0);
+                    TempPurchLine.CalcVATAmountLines(0, PurchaseHeader, TempPurchLine, TempVATAmountLine);
+                    TempPurchLine.UpdateVATOnLines(0, PurchaseHeader, TempPurchLine, TempVATAmountLine);
+                    VATAmount := TempVATAmountLine.GetTotalVATAmount();
+                    VATBaseAmount := TempVATAmountLine.GetTotalVATBase();
                     VATDiscountAmount :=
-                      VATAmountLine.GetTotalVATDiscount(PurchaseHeader."Currency Code", PurchaseHeader."Prices Including VAT");
-                    TotalAmountInclVAT := VATAmountLine.GetTotalAmountInclVAT;
+                      TempVATAmountLine.GetTotalVATDiscount(PurchaseHeader."Currency Code", PurchaseHeader."Prices Including VAT");
+                    TotalAmountInclVAT := TempVATAmountLine.GetTotalAmountInclVAT();
 
                     IF Number > 1 THEN
                         CopyText := Text003;
@@ -420,7 +420,7 @@ report 50015 "BC6_Prices Request"
             begin
                 CurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
 
-                CompanyInfo.GET;
+                CompanyInfo.GET();
                 IF BoolGRespCenter THEN
                     RespCenter.CALCFIELDS(RespCenter."BC6_Picture", RespCenter."BC6_Alt Picture")
                 ELSE
@@ -437,7 +437,7 @@ report 50015 "BC6_Prices Request"
                 END;
 
                 IF "Purchaser Code" = '' THEN BEGIN
-                    SalesPurchPerson.INIT;
+                    SalesPurchPerson.INIT();
                     PurchaserText := '';
                 END ELSE BEGIN
                     SalesPurchPerson.GET("Purchaser Code");
@@ -452,17 +452,17 @@ report 50015 "BC6_Prices Request"
                 IF (PurchaseHeader."Buy-from Vendor No." <> PurchaseHeader."Pay-to Vendor No.") THEN
                     FormatAddr.PurchHeaderPayTo(VendAddr, PurchaseHeader);
                 IF "Payment Terms Code" = '' THEN
-                    PaymentTerms.INIT
+                    PaymentTerms.INIT()
                 ELSE
                     PaymentTerms.GET("Payment Terms Code");
 
                 IF "Payment Method Code" = '' THEN
-                    PaymentMethod.INIT
+                    PaymentMethod.INIT()
                 ELSE
                     PaymentMethod.GET("Payment Method Code");
 
                 IF "Shipment Method Code" = '' THEN
-                    ShipmentMethod.INIT
+                    ShipmentMethod.INIT()
                 ELSE
                     ShipmentMethod.GET("Shipment Method Code");
 
@@ -562,27 +562,27 @@ report 50015 "BC6_Prices Request"
 
     trigger OnInitReport()
     begin
-        GLSetup.GET;
+        GLSetup.GET();
     end;
 
     var
         CompanyInfo: Record "Company Information";
         CurrExchRate: Record "Currency Exchange Rate";
         GLSetup: Record "General Ledger Setup";
-        Language: Codeunit Language;
         PaymentMethod: Record "Payment Method";
         PaymentTerms: Record "Payment Terms";
-        PurchLine: Record "Purchase Line" temporary;
+        TempPurchLine: Record "Purchase Line" temporary;
         PurchSetup: Record "Purchases & Payables Setup";
         RespCenter: Record "Responsibility Center";
         RecGParamVente: Record "Sales & Receivables Setup";
         SalesPurchPerson: Record "Salesperson/Purchaser";
         ShipmentMethod: Record "Shipment Method";
         RecGUser: Record User;
-        VATAmountLine: Record "VAT Amount Line" temporary;
+        TempVATAmountLine: Record "VAT Amount Line" temporary;
         recLBuyVendor: Record Vendor;
         ArchiveManagement: Codeunit ArchiveManagement;
         FormatAddr: Codeunit "Format Address";
+        Language: Codeunit Language;
         PurchPost: Codeunit "Purch.-Post";
         PurchCountPrinted: Codeunit "Purch.Header-Printed";
         SegManagement: Codeunit SegManagement;
@@ -640,6 +640,8 @@ report 50015 "BC6_Prices Request"
         Text068: Label '%1';
         Text070: Label 'Affair No. : ', comment = 'FRA="Affaire n° :"';
         TimeCaptionLbl: Label 'Time', comment = 'FRA="Délai "';
+        txtlbl12: label '%1 %2';
+
         TxtGAltFax: Text[20];
         TxtGAltPhone: Text[20];
         TxtGAltPostCode: Text[20];
@@ -678,13 +680,13 @@ report 50015 "BC6_Prices Request"
 
     procedure DefineTagFax(TxtLTag: Text[50])
     begin
-        RecGParamVente.GET;
+        RecGParamVente.GET();
         TxtGTag := RecGParamVente."BC6_RTE Fax Tag" + TxtLTag + '@cne.fax';
     end;
 
     procedure DefineTagMail(TxtLTag: Text[50])
     begin
-        RecGParamVente.GET;
+        RecGParamVente.GET();
         TxtGTag := RecGParamVente."BC6_PDF Mail Tag" + TxtLTag;
     end;
 

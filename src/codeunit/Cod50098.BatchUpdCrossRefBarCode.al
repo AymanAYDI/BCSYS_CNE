@@ -37,8 +37,8 @@ codeunit 50098 "Batch Upd. Cross Ref. Bar Code"
     end;
 
     var
-        Item: Record Item;
         InvSetup: Record "Inventory Setup";
+        Item: Record Item;
         ItemReference: Record "Item Reference";
         RefTypeNo: Code[20];
         Window: Dialog;

@@ -15,7 +15,7 @@ report 50046 "Cust/Item Sales (Purch.Amount)"
             column(STRSUBSTNO_Text000_PeriodText_; STRSUBSTNO(Text000, PeriodText))
             {
             }
-            column(CurrReport_PAGENO; CurrReport.PAGENO)
+            column(CurrReport_PAGENO; CurrReport.PAGENO())
             {
             }
             column(COMPANYNAME; COMPANYNAME)
@@ -45,10 +45,10 @@ report 50046 "Cust/Item Sales (Purch.Amount)"
             column(Customer__Phone_No__; "Phone No.")
             {
             }
-            column(ValueEntryBuffer__Sales_Amount__Actual__; ValueEntryBuffer."Sales Amount (Actual)")
+            column(ValueEntryBuffer__Sales_Amount__Actual__; TempValueEntryBuffer."Sales Amount (Actual)")
             {
             }
-            column(ValueEntryBuffer__Discount_Amount_; -ValueEntryBuffer."Discount Amount")
+            column(ValueEntryBuffer__Discount_Amount_; -TempValueEntryBuffer."Discount Amount")
             {
             }
             column(Profit; Profit)
@@ -117,52 +117,52 @@ report 50046 "Cust/Item Sales (Purch.Amount)"
                 var
                     EntryInBufferExists: Boolean;
                 begin
-                    ValueEntryBuffer.INIT;
-                    ValueEntryBuffer.SETRANGE("Item No.", "Item No.");
-                    EntryInBufferExists := ValueEntryBuffer.FINDFIRST;
+                    TempValueEntryBuffer.INIT();
+                    TempValueEntryBuffer.SETRANGE("Item No.", "Item No.");
+                    EntryInBufferExists := TempValueEntryBuffer.FINDFIRST();
 
                     IF NOT EntryInBufferExists THEN
-                        ValueEntryBuffer."Entry No." := "Item Ledger Entry No.";
-                    ValueEntryBuffer."Item No." := "Item No.";
-                    ValueEntryBuffer."Invoiced Quantity" += "Invoiced Quantity";
-                    ValueEntryBuffer."Sales Amount (Actual)" += "Sales Amount (Actual)";
-                    ValueEntryBuffer."Cost Amount (Actual)" += "Cost Amount (Actual)";
-                    ValueEntryBuffer."Cost Amount (Non-Invtbl.)" += "Cost Amount (Non-Invtbl.)";
-                    ValueEntryBuffer."Discount Amount" += "Discount Amount";
+                        TempValueEntryBuffer."Entry No." := "Item Ledger Entry No.";
+                    TempValueEntryBuffer."Item No." := "Item No.";
+                    TempValueEntryBuffer."Invoiced Quantity" += "Invoiced Quantity";
+                    TempValueEntryBuffer."Sales Amount (Actual)" += "Sales Amount (Actual)";
+                    TempValueEntryBuffer."Cost Amount (Actual)" += "Cost Amount (Actual)";
+                    TempValueEntryBuffer."Cost Amount (Non-Invtbl.)" += "Cost Amount (Non-Invtbl.)";
+                    TempValueEntryBuffer."Discount Amount" += "Discount Amount";
                     IF EntryInBufferExists THEN
-                        ValueEntryBuffer.MODIFY
+                        TempValueEntryBuffer.MODIFY()
                     ELSE
-                        ValueEntryBuffer.INSERT;
+                        TempValueEntryBuffer.INSERT();
                 end;
 
                 trigger OnPreDataItem()
                 begin
-                    ValueEntryBuffer.RESET;
-                    ValueEntryBuffer.DELETEALL;
+                    TempValueEntryBuffer.RESET();
+                    TempValueEntryBuffer.DELETEALL();
                 end;
             }
             dataitem(Integer; Integer)
             {
                 DataItemTableView = SORTING(Number);
-                column(ValueEntryBuffer__Item_No__; ValueEntryBuffer."Item No.")
+                column(ValueEntryBuffer__Item_No__; TempValueEntryBuffer."Item No.")
                 {
                 }
                 column(Item_Description; Item.Description)
                 {
                 }
-                column(ValueEntryBuffer__Invoiced_Quantity_; -ValueEntryBuffer."Invoiced Quantity")
+                column(ValueEntryBuffer__Invoiced_Quantity_; -TempValueEntryBuffer."Invoiced Quantity")
                 {
                     DecimalPlaces = 0 : 5;
                 }
-                column(ValueEntryBuffer__Sales_Amount__Actual___Control44; ValueEntryBuffer."Sales Amount (Actual)")
+                column(ValueEntryBuffer__Sales_Amount__Actual___Control44; TempValueEntryBuffer."Sales Amount (Actual)")
                 {
                     AutoFormatType = 1;
                 }
-                column(ValueEntryBuffer__Discount_Amount__Control45; -ValueEntryBuffer."Discount Amount")
+                column(ValueEntryBuffer__Discount_Amount__Control45; -TempValueEntryBuffer."Discount Amount")
                 {
                     AutoFormatType = 1;
                 }
-                column(ValueEntryBuffer__Cost_Amount__Actual; ValueEntryBuffer."Cost Amount (Actual)")
+                column(ValueEntryBuffer__Cost_Amount__Actual; TempValueEntryBuffer."Cost Amount (Actual)")
                 {
                 }
                 column(Profit_Control46; Profit)
@@ -182,38 +182,38 @@ report 50046 "Cust/Item Sales (Purch.Amount)"
                     ValueEntry: Record "Value Entry";
                 begin
                     IF Number = 1 THEN
-                        ValueEntryBuffer.FIND('-')
+                        TempValueEntryBuffer.FIND('-')
                     ELSE
-                        ValueEntryBuffer.NEXT;
+                        TempValueEntryBuffer.NEXT();
 
                     "Value Entry".COPYFILTER("Posting Date", ValueEntry."Posting Date");
-                    ValueEntry.SETRANGE("Item No.", ValueEntryBuffer."Item No.");
+                    ValueEntry.SETRANGE("Item No.", TempValueEntryBuffer."Item No.");
                     ValueEntry.SETFILTER("Item Charge No.", '<>%1', '');
                     ValueEntry.CALCSUMS("Sales Amount (Actual)", "Cost Amount (Actual)", "Cost Amount (Non-Invtbl.)", "Discount Amount");
 
-                    ValueEntryBuffer."Sales Amount (Actual)" += ValueEntry."Sales Amount (Actual)";
-                    ValueEntryBuffer."Cost Amount (Actual)" += ValueEntry."Cost Amount (Actual)";
-                    ValueEntryBuffer."Cost Amount (Non-Invtbl.)" += ValueEntry."Cost Amount (Non-Invtbl.)";
-                    ValueEntryBuffer."Discount Amount" += ValueEntry."Discount Amount";
+                    TempValueEntryBuffer."Sales Amount (Actual)" += ValueEntry."Sales Amount (Actual)";
+                    TempValueEntryBuffer."Cost Amount (Actual)" += ValueEntry."Cost Amount (Actual)";
+                    TempValueEntryBuffer."Cost Amount (Non-Invtbl.)" += ValueEntry."Cost Amount (Non-Invtbl.)";
+                    TempValueEntryBuffer."Discount Amount" += ValueEntry."Discount Amount";
 
                     Profit :=
-                      ValueEntryBuffer."Sales Amount (Actual)" +
-                      ValueEntryBuffer."Cost Amount (Actual)" +
-                      ValueEntryBuffer."Cost Amount (Non-Invtbl.)";
+                      TempValueEntryBuffer."Sales Amount (Actual)" +
+                      TempValueEntryBuffer."Cost Amount (Actual)" +
+                      TempValueEntryBuffer."Cost Amount (Non-Invtbl.)";
 
-                    IF Item.GET(ValueEntryBuffer."Item No.") THEN;
+                    IF Item.GET(TempValueEntryBuffer."Item No.") THEN;
                 end;
 
                 trigger OnPreDataItem()
                 begin
                     CurrReport.CREATETOTALS(
-                      ValueEntryBuffer."Sales Amount (Actual)",
-                      ValueEntryBuffer."Discount Amount",
-                      ValueEntryBuffer."Cost Amount (Actual)", //BCSYS 220121
+                      TempValueEntryBuffer."Sales Amount (Actual)",
+                      TempValueEntryBuffer."Discount Amount",
+                      TempValueEntryBuffer."Cost Amount (Actual)", //BCSYS 220121
                       Profit);
 
-                    ValueEntryBuffer.RESET;
-                    SETRANGE(Number, 1, ValueEntryBuffer.COUNT);
+                    TempValueEntryBuffer.RESET();
+                    SETRANGE(Number, 1, TempValueEntryBuffer.COUNT);
                 end;
             }
 
@@ -222,9 +222,9 @@ report 50046 "Cust/Item Sales (Purch.Amount)"
                 CurrReport.NEWPAGEPERRECORD := PrintOnlyOnePerPage;
 
                 CurrReport.CREATETOTALS(
-                  ValueEntryBuffer."Sales Amount (Actual)",
-                  ValueEntryBuffer."Discount Amount",
-                  ValueEntryBuffer."Cost Amount (Actual)", //BCSYS 220121
+                  TempValueEntryBuffer."Sales Amount (Actual)",
+                  TempValueEntryBuffer."Discount Amount",
+                  TempValueEntryBuffer."Cost Amount (Actual)", //BCSYS 220121
                   Profit);
             end;
         }
@@ -271,7 +271,7 @@ report 50046 "Cust/Item Sales (Purch.Amount)"
 
     var
         Item: Record Item;
-        ValueEntryBuffer: Record "Value Entry" temporary;
+        TempValueEntryBuffer: Record "Value Entry" temporary;
         PrintOnlyOnePerPage: Boolean;
         Profit: Decimal;
         ProfitPct: Decimal;

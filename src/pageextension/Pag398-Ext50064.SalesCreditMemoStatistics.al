@@ -37,11 +37,11 @@ pageextension 50064 "BC6_SalesCreditMemoStatistics" extends "Sales Credit Memo S
 
 
     var
-        "-MIGNAV2013-": Integer;
-        "-DEEE1.00-": Integer;
-        DecGMntTTCDEEE: Decimal;
         DecGMntHTDEEE: Decimal;
+        DecGMntTTCDEEE: Decimal;
         NewCustAmount: Decimal;
+        "-DEEE1.00-": Integer;
+        "-MIGNAV2013-": Integer;
 
 
     procedure IncremntDecGMntHTDEEE(_DecGMntHTDEEE: Decimal)

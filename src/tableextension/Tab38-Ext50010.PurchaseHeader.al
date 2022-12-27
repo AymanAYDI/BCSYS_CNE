@@ -230,14 +230,14 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
         RecLSalesLine: Record "Purchase Line";
         PurchSetup: Record "Purchases & Payables Setup";
     begin
-        if PurchLinesExist() then begin
+        if PurchLinesExist() then
             repeat
                 if (PurchLine.Type = PurchSetup.BC6_Type)
                   and (PurchLine."No." = PurchSetup."BC6_No.")
                   and (PurchLine."Line Amount" <> 0) then
                     exit(true);
-            until PurchLine.NEXT() = 0;
-        end else
+            until PurchLine.NEXT() = 0
+        else
             exit(false);
     end;
 
@@ -266,12 +266,12 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
         PurchLine: record "Purchase Line";
         PurchSetup: Record "Purchases & Payables Setup";
     begin
-        if PurchLinesExist() then begin
+        if PurchLinesExist() then
             repeat
                 if (PurchLine.Type = PurchSetup.BC6_Type) and (PurchLine."No." = PurchSetup."BC6_No.") then
                     exit(true);
-            until PurchLine.NEXT() = 0;
-        end else
+            until PurchLine.NEXT() = 0
+        else
             exit(false);
     end;
 
@@ -327,8 +327,8 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
         Confirmed: Boolean;
         "-BCSYS-": Integer;
         "-NSC1.00-": Integer;
-        ConfirmChangeQst: label 'Do you want to change %1?';
         "---NSC1.01": label '';
+        ConfirmChangeQst: label 'Do you want to change %1?';
         Text50000: label 'Quantity cannot be 0.';
 
         TextG001: label 'Warning, using foreign currency will generate wrong profit calculation.';

@@ -110,16 +110,16 @@ xmlport 50000 "BC6_Export Purchase Price"
     }
 
     var
-        TableNumber: Integer;
+        GItem1: Record Item;
+        PurchasePrice: Record "Purchase Price";
+        GVATBusinessPostingGroup2: Record "VAT Business Posting Group";
+        Vendor: Record Vendor;
         Trovato: Boolean;
         TrovatoError: Boolean;
         NumError: Integer;
-        GItem1: Record Item;
-        GVATBusinessPostingGroup2: Record "VAT Business Posting Group";
-        PurchasePrice: Record "Purchase Price";
-        Text11: Text[1000];
-        Text2: Text[1000];
-        Vendor: Record Vendor;
+        TableNumber: Integer;
         Text001: Label '%1 %2 wrong', Comment = 'FRA="%1 %2 invalide"';
+        Text2: Text[1000];
+        Text11: Text[1000];
 }
 

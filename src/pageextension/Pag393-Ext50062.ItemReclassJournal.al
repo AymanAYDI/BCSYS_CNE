@@ -28,14 +28,14 @@ pageextension 50062 "BC6_ItemReclassJournal" extends "Item Reclass. Journal" //3
 
                 trigger OnAction()
                 var
-                    Location: Record Location;
                     Item: Record Item;
+                    Location: Record Location;
                     GetLocationContent: Report "BC6_Whse. Get Inventory";
                 begin
                     Item.SETFILTER("Location Filter", Location.Code);
                     GetLocationContent.SETTABLEVIEW(Item);
                     GetLocationContent.InitializeItemJournalLine(Rec);
-                    GetLocationContent.RUNMODAL;
+                    GetLocationContent.RUNMODAL();
                     CurrPage.UPDATE(FALSE);
                 end;
             }

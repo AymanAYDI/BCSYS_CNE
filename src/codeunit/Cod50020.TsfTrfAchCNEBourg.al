@@ -4,12 +4,12 @@ codeunit 50020 "BC6_Tsf Trf Ach CNE ==> Bourg"
 
 
     var
-        PurchPrice_Source: Record "Purchase Price";
-        PurchPrice_Cible: Record "Purchase Price";
-        Item_Source: Record Item;
         Item_Cible: Record Item;
-        ItemU_Source: Record "Item Unit of Measure";
+        Item_Source: Record Item;
         ItemU_Cible: Record "Item Unit of Measure";
+        ItemU_Source: Record "Item Unit of Measure";
+        PurchPrice_Cible: Record "Purchase Price";
+        PurchPrice_Source: Record "Purchase Price";
 
         Dialog_D: Dialog;
         Text001: Label 'FORBIDDEN treatment in this company', Comment = 'FRA="Traitement INTERDIT dans cette société"';

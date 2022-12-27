@@ -397,7 +397,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                 }
                 field(BC6_Area; Rec.Area)
                 {
-                    ToolTip = 'Specifies the code for the area of the vendor''s address.', comment = 'FRA=""';
+                    ToolTip = 'Specifies the code for the area of the vendor''s address.', comment = 'FRA="Spécifie le code de la zone de l''adresse du fournisseur."';
                 }
             }
         }

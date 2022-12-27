@@ -390,7 +390,6 @@ report 50008 "BC6_Purchase Order"
                             IF (PurchLine.Type = PurchLine.Type::"G/L Account") AND (NOT ShowInternalInfo) THEN
                                 "Purchase Line"."No." := '';
 
-                            //<<FE005:DARI 20/02/2007
                             IF (("Purchase Line"."BC6_DEEE Category Code" <> '') AND ("Purchase Line".Quantity <> 0)
                             AND ("Purchase Line"."BC6_Eco partner DEEE" <> '')) THEN BEGIN
 
@@ -407,49 +406,37 @@ report 50008 "BC6_Purchase Order"
                                 ELSE
                                     DecGHTUnitTaxLCY := 0;
 
-                                //>>COMPTA_DEEE FG 01/03/07
                                 DecGHTUnitTaxLCY := "Purchase Line"."BC6_DEEE Unit Price (LCY)";
-                                //<<COMPTA_DEEE FG 01/03/07
                             END;
-                            //FG
 
-                            //>> MODIF HL 15/05/2012 SU-LALE cf appel TI099639
                             VATAmountLine."VAT %" := 0;
                             VATAmountLine."VAT Base" := 0;
                             VATAmountLine."Amount Including VAT" := 0;
                             VATAmountLine."Line Amount" := 0;
                             VATAmountLine."Inv. Disc. Base Amount" := 0;
                             VATAmountLine."Invoice Discount Amount" := 0;
-                            //<< MODIF HL 15/05/2012 SU-LALE cf appel TI099639
 
                             VATAmountLine."BC6_DEEE HT Amount" := "Purchase Line"."BC6_DEEE HT Amount";
                             VATAmountLine."BC6_DEEE VAT Amount" := "Purchase Line"."BC6_DEEE VAT Amount";
                             VATAmountLine.InsertLine;
 
-                            //MICO DEEE1.00
-                            //DecGVATTotalAmount += VATAmountLine."VAT Amount" + VATAmountLine."DEEE VAT Amount";
                             DecGTTCTotalAmount += "Purchase Line"."Amount Including VAT" + "Purchase Line"."BC6_DEEE TTC Amount";
 
                             //MICO : Création dynamique du tableau récapitulatif
-                            IF NOT RecGTempCalcul.GET('', "Purchase Line"."BC6_DEEE Category Code", 0D)
+                            IF NOT TempRecGCalcul.GET('', "Purchase Line"."BC6_DEEE Category Code", 0D)
                                THEN BEGIN
                                 //création d'une ligne
-                                RecGTempCalcul.INIT;
-                                RecGTempCalcul."Eco Partner" := '';
-                                RecGTempCalcul."DEEE Code" := "Purchase Line"."BC6_DEEE Category Code";
-                                RecGTempCalcul."Date beginning" := 0D;
-                                RecGTempCalcul."HT Unit Tax (LCY)" := "Purchase Line"."BC6_DEEE HT Amount";
-                                RecGTempCalcul.INSERT;
+                                TempRecGCalcul.INIT;
+                                TempRecGCalcul."Eco Partner" := '';
+                                TempRecGCalcul."DEEE Code" := "Purchase Line"."BC6_DEEE Category Code";
+                                TempRecGCalcul."Date beginning" := 0D;
+                                TempRecGCalcul."HT Unit Tax (LCY)" := "Purchase Line"."BC6_DEEE HT Amount";
+                                TempRecGCalcul.INSERT;
                             END;
-                            //>>FE005:DARI 20/02/2007
-
-                            //>>MIGRATION NAV 2013
-                            //>>COMPTA_DEEE DARI 17/04/07
                             IF NOT RecGPayVendor."BC6_Posting DEEE" THEN BEGIN
                                 PurchLine."BC6_DEEE HT Amount" := 0;
                                 PurchLine."BC6_DEEE VAT Amount" := 0;
                             END;
-                            //<<COMPTA_DEEE DARI 17/04/07
 
                             TotalAmountVATDEE += PurchLine."Amount Including VAT" - PurchLine.Amount + PurchLine."BC6_DEEE VAT Amount";
                             TotalAmtHTDEEE += PurchLine.Amount + PurchLine."BC6_DEEE HT Amount";
@@ -460,10 +447,6 @@ report 50008 "BC6_Purchase Order"
                             TotalAmountTTC += -PurchLine."Inv. Discount Amount" +
                                                         PurchLine."Amount Including VAT" +
                                                         PurchLine."BC6_DEEE HT Amount" + PurchLine."BC6_DEEE VAT Amount";
-                            //<<MIGRATION NAV 2013
-
-
-                            //>>COMPTA_DEEE FG 01/03/07
                             IF RecGPayVendor."BC6_Posting DEEE" THEN BEGIN
                                 BooGPostingDEEE := (("Purchase Line"."BC6_DEEE Category Code" <> '') AND
                                                         ("Purchase Line".Quantity <> 0) AND
@@ -471,7 +454,6 @@ report 50008 "BC6_Purchase Order"
                             END ELSE BEGIN
                                 BooGPostingDEEE := FALSE;
                             END;
-                            //<<COMPTA_DEEE FG 01/03/07
                         end;
 
                         trigger OnPostDataItem()
@@ -491,20 +473,12 @@ report 50008 "BC6_Purchase Order"
                             PurchLine.SETRANGE("Line No.", 0, PurchLine."Line No.");
                             SETRANGE(Number, 1, PurchLine.COUNT);
 
-                            //>>FE005:DARI 20/02/2007
-                            //CurrReport.CREATETOTALS(PurchLine."Line Amount",PurchLine."Inv. Discount Amount");
                             CurrReport.CREATETOTALS(PurchLine."Line Amount", PurchLine.Amount, PurchLine."Amount Including VAT",
 
-                            //>>DARI 17/04/07
-                            //PurchLine."Inv. Discount Amount", PurchLine."DEEE HT Amount");
                             PurchLine."Inv. Discount Amount", PurchLine."BC6_DEEE HT Amount", PurchLine."BC6_DEEE VAT Amount");
-                            //>>DARI 17/04/07
-
-                            //MICO DEEE1.00
 
                             DecGVATTotalAmount := 0;
                             DecGTTCTotalAmount := 0;
-                            //<<FE005:DARI 20/02/2007
                         end;
                     }
                     dataitem(DataItem5444; Integer)
@@ -646,9 +620,7 @@ report 50008 "BC6_Purchase Order"
                             SETRANGE(Number, 1, VATAmountLine.COUNT);
                             CurrReport.CREATETOTALS(
                               VATAmountLine."Line Amount", VATAmountLine."Inv. Disc. Base Amount",
-                              //FG
                               VATAmountLine."Invoice Discount Amount", VATAmountLine."VAT Base", VATAmountLine."VAT Amount",
-                              //VATAmountLine."Invoice Discount Amount",VATAmountLine."VAT Base",VATAmountLine."VAT Amount");
                               VATAmountLine."BC6_DEEE HT Amount", VATAmountLine."BC6_DEEE VAT Amount");
                         end;
                     }
@@ -980,7 +952,6 @@ report 50008 "BC6_Purchase Order"
                         IF recLBuyVendor.FINDFIRST THEN;
 
 
-                        //>>FED_ADV_ 20091005_CENTRE GESTION STANDARD: OR 29/01/2010
                         IF BoolGRespCenter THEN BEGIN
                             TxtGPhone := RespCenter."Phone No.";
                             TxtGFax := RespCenter."Fax No.";
@@ -1010,7 +981,6 @@ report 50008 "BC6_Purchase Order"
                             TxtGAltEmail := CompanyInfo."BC6_Alt E-Mail";
                             TxtGAltHomePage := CompanyInfo."BC6_Alt Home Page";
                         END;
-                        //<<FED_ADV_ 20091005_CENTRE GESTION STANDARD: OR 29/01/2010
                     end;
 
                     trigger OnPreDataItem()
@@ -1052,7 +1022,6 @@ report 50008 "BC6_Purchase Order"
                       VATAmountLine.GetTotalVATDiscount("Purchase Header"."Currency Code", "Purchase Header"."Prices Including VAT");
                     TotalAmountInclVAT := VATAmountLine.GetTotalAmountInclVAT;
 
-                    //>>MIGRATION NAV 2013
                     TotalAmountVATDEE := 0;
                     TotalAmtHTDEEE := 0;
                     TotalDEEEHTAmount := 0;
@@ -1062,12 +1031,8 @@ report 50008 "BC6_Purchase Order"
                     TotalAmountTTC := 0;
 
                     BooGVisibleTabTot1 := ("Purchase Header"."Prices Including VAT" AND (VATAmount <> 0));
-                    //>>20131024
-                    //BooGVisibleTabTot2 := (NOT "Purchase Header"."Prices Including VAT" AND ( VATAmount <> 0)) ;
                     BooGVisibleTabTot2 := TRUE;
-                    //<<20131024
 
-                    //<<MIGRATION NAV 2013
                 end;
 
                 trigger OnPostDataItem()
@@ -1088,23 +1053,16 @@ report 50008 "BC6_Purchase Order"
             begin
                 CurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
 
-                //>>FED_ADV_ 20091005_CENTRE GESTION STANDARD: OR 29/01/2010
-                //IF RespCenter.GET("Responsibility Center") THEN BEGIN
                 IF RespCenter.GET(CodGRespCenter) THEN BEGIN
-                    //<<FED_ADV_ 20091005_CENTRE GESTION STANDARD: OR 29/01/2010
                     FormatAddr.RespCenter(CompanyAddr, RespCenter);
                     CompanyInfo."Phone No." := RespCenter."Phone No.";
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
 
-                    //>>FED_ADV_ 20091005_CENTRE GESTION STANDARD: OR 29/01/2010
                     BoolGRespCenter := TRUE;
-                    //END ELSE
-                    //  FormatAddr.Company(CompanyAddr,CompanyInfo);
                 END ELSE BEGIN
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
                     BoolGRespCenter := FALSE;
                 END;
-                //<<FED_ADV_ 20091005_CENTRE GESTION STANDARD: OR 29/01/2010
 
                 IF "Purchaser Code" = '' THEN BEGIN
                     SalesPurchPerson.INIT;
@@ -1171,19 +1129,13 @@ report 50008 "BC6_Purchase Order"
                     END;
                 END;
 
-                //>>COMPTA_DEEE FG 01/03/07
                 RecGPayVendor.RESET;
                 RecGPayVendor.GET("Purchase Header"."Pay-to Vendor No.");
-                //<<COMPTA_DEEE FG 01/03/07
 
-                //>>MIGRATION NAV 2013
-                //>>FED_ADV_ 20091005_CENTRE GESTION STANDARD: OR 29/01/2010
                 IF BoolGRespCenter THEN
                     RespCenter.CALCFIELDS(RespCenter.BC6_Picture, RespCenter."BC6_Alt Picture")
                 ELSE
                     CompanyInfo.CALCFIELDS(CompanyInfo.Picture, CompanyInfo."BC6_Alt Picture");
-                //<<FED_ADV_ 20091005_CENTRE GESTION STANDARD: OR 29/01/2010
-                //<<MIGRATION NAV 2013
             end;
         }
     }
@@ -1197,7 +1149,7 @@ report 50008 "BC6_Purchase Order"
             {
                 group(Options)
                 {
-                    Caption = 'Options', Comment = 'FRA=""';
+                    Caption = 'Options', Comment = 'FRA="Options"';
                     field(NoOfCopies; NoOfCopies)
                     {
                         Caption = 'No. of Copies', Comment = 'FRA="Nombre de copies"';
@@ -1249,12 +1201,8 @@ report 50008 "BC6_Purchase Order"
             ArchiveDocumentEnable := ArchiveDocument;
 
 
-            //RequestOptionsPage.ArchiveDocument.ENABLED(ArchiveDocument);
-            //RequestOptionsPage.LogInteraction.ENABLED(LogInteraction);
 
-            //>>FED_ADV_ 20091005_CENTRE GESTION STANDARD: OR 29/01/2010
             CLEAR(CodGRespCenter);
-            //<<FED_ADV_ 20091005_CENTRE GESTION STANDARD: OR 29/01/2010
         end;
     }
 
@@ -1267,9 +1215,7 @@ report 50008 "BC6_Purchase Order"
         GLSetup.GET;
         CompanyInfo.GET;
 
-        //>>FED_ADV_ 20091005_CENTRE GESTION STANDARD: OR 29/01/2010
         CompanyInfo.CALCFIELDS(Picture, "BC6_Alt Picture");
-        //<<FED_ADV_ 20091005_CENTRE GESTION STANDARD: OR 29/01/2010
     end;
 
     var
@@ -1346,22 +1292,19 @@ report 50008 "BC6_Purchase Order"
         BooGDEEEFind: Boolean;
         RecGDEEE: Record "BC6_DEEE Tariffs";
         RecGItemCtg: Record "BC6_Categories of item";
-        RecGTempCalcul: Record "BC6_DEEE Tariffs" temporary;
+        TempRecGCalcul: Record "BC6_DEEE Tariffs" temporary;
         DecGVATTotalAmount: Decimal;
         DecGTTCTotalAmount: Decimal;
         RecGItem: Record Item;
         DecGNumbeofUnitsDEEE: Decimal;
-        "-NSC-": Integer;
         TxtGTag: Text[70];
         RecGParamVente: Record "Sales & Receivables Setup";
         DecGHTUnitTaxLCY: Decimal;
         RecGPayVendor: Record Vendor;
-        "--FEP-ADVE-200706_18_A.--": Integer;
         TxtGLblProjet: Text[30];
         TxtGNoProjet: Text[30];
         TxtGDesignation: Text[50];
         Text070: Label 'Affair No. : ', Comment = 'FRA="Affaire n° :"';
-        "--CNE3.02--": Integer;
         BoolGRespCenter: Boolean;
         TxtGPhone: Text[20];
         TxtGFax: Text[20];
@@ -1457,14 +1400,12 @@ report 50008 "BC6_Purchase Order"
 
     procedure DefineTagFax(TxtLTag: Text[50])
     begin
-        //>>FE005 MICO LE 15.02.2007
         RecGParamVente.GET;
         TxtGTag := RecGParamVente."BC6_RTE Fax Tag" + TxtLTag + '@cne.fax';
     end;
 
     procedure DefineTagMail(TxtLTag: Text[50])
     begin
-        //>>FE005 MICO LE 15,02,2007
         RecGParamVente.GET;
         TxtGTag := RecGParamVente."BC6_PDF Mail Tag" + TxtLTag;
     end;

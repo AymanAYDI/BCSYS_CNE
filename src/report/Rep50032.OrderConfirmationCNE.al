@@ -1345,7 +1345,7 @@ report 50032 "BC6_Order Confirmation CNE"
         SubtotalCaptionLbl: Label 'Subtotal', comment = 'FRA="Sous-total"';
         Terms_of_PaymentCaptionLbl: Label 'Terms of Payment', comment = 'FRA="Méthode réglement"';
         Text000: Label 'Salesperson', comment = 'FRA="Vendeur"';
-        Text001: Label 'Total %1', comment = 'FRA=""';
+        Text001: Label 'Total %1';
         Text002: Label 'Total %1 Incl. VAT', comment = 'FRA="Total %1 HT"';
         Text003: Label 'COPY', comment = 'FRA="COPIE"';
         Text004: Label 'Order Confirmation No.', comment = 'FRA="Confirmation de commande N°"';
@@ -1358,11 +1358,11 @@ report 50032 "BC6_Order Confirmation CNE"
         Text067: Label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5', comment = 'FRA="%1 au capital de  %2   - %3  -  APE %4 - N°TVA : %5"';
         Text068: Label '%1';
         Text070: Label 'Affair No.', comment = 'FRA="Affaire n°"';
-        Text100: Label 'Salesperson : ', comment = 'FRA=""';
+        Text100: Label 'Salesperson : ';
         Text101: Label 'Phone :', comment = 'FRA="Tel:"';
         Text200: Label 'If you agree on conditions, please return this order acknowledgement duly signed and stamped', comment = 'FRA=""';
-        Total_Due_CaptionLbl: Label 'Total Due ', comment = 'FRA=""';
-        TOTAL_incl__VATCaptionLbl: Label 'TOTAL incl. VAT', comment = 'FRA=""';
+        Total_Due_CaptionLbl: Label 'Total Due ', comment = 'FRA="Net à Payer"';
+        TOTAL_incl__VATCaptionLbl: Label 'TOTAL incl. VAT', comment = 'FRA="TOTAL TTC"';
         TotalCaptionLbl: Label 'Total';
         V_DocumentCaptionLbl: Label 'V/Document';
         VATAmtCaptionLbl: Label 'VAT Amount', comment = 'FRA="Montant TVA"';

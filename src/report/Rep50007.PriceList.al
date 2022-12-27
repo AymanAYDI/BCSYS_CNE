@@ -1,7 +1,7 @@
 report 50007 "BC6_Price List" //715 
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './src/Report/RDL/PriceList.rdlc';
+    RDLCLayout = './src/Report/RDL/PriceList.rdl';
     Caption = 'Price List', Comment = 'FRA="Liste des prix"';
 
     dataset

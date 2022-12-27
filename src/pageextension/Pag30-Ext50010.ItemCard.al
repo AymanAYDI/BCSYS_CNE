@@ -121,8 +121,8 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
             {
                 ApplicationArea = Basic, Suite;
                 Editable = BooGBlocked;
-                ToolTip = 'Specifies that transactions with the item cannot be posted, for example, because the item is in quarantine.', Comment = 'FRA=""';
-                Caption = 'Blocked', Comment = 'FRA=""';
+                ToolTip = 'Specifies that transactions with the item cannot be posted, for example, because the item is in quarantine.', Comment = 'FRA="Indique que les transactions avec l''article ne peuvent pas être validées, par exemple, parce que l''article est en quarantaine."';
+                Caption = 'Blocked', Comment = 'FRA="Bloqué"';
             }
         }
         addafter(ItemPicture)

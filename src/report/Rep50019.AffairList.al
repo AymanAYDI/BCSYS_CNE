@@ -293,12 +293,10 @@ report 50019 "BC6_Affair List"
                     IF FORMAT(TxtGTerminatedFilter) <> '' THEN
                         SETRANGE(BC6_AffairSteps.Terminated, TxtGTerminatedFilter);
 
-                    //>FEP6-ACHAT-200706_18_A.001
                     IF TxtGRemindDateFilter <> '' THEN
                         BC6_AffairSteps.SETFILTER("Reminder Date", TxtGRemindDateFilter);
                     IF TxtGInterlocutor <> '' THEN
                         BC6_AffairSteps.SETFILTER(Interlocutor, TxtGInterlocutor);
-                    //<FEP6-ACHAT-200706_18_A.001
                 end;
             }
             dataitem(Integer; Integer)
@@ -384,15 +382,15 @@ report 50019 "BC6_Affair List"
             {
                 group(Options)
                 {
-                    Caption = 'Options';
+                    Caption = 'Options', Comment = 'FRA="Options"';
                     field(TxtGStatutFilter; TxtGStatutFilter)
                     {
-                        Caption = 'Status';
+                        Caption = 'Status', Comment = 'FRA="Statut"';
                         OptionCaption = ' ,Outstanding,Lost,Won';
                     }
                     field(TxtGRemindDateFilter; TxtGRemindDateFilter)
                     {
-                        Caption = 'Reminder Date';
+                        Caption = 'Reminder Date', Comment = 'FRA="Date relance"';
 
                         trigger OnValidate()
                         begin
@@ -405,24 +403,24 @@ report 50019 "BC6_Affair List"
                     }
                     field(TxtGTerminatedFilter; TxtGTerminatedFilter)
                     {
-                        Caption = 'Terminer';
+                        Caption = 'Terminated', Comment = 'FRA="Terminer"';
                     }
                     field(BooGShowQuote; BooGShowQuote)
                     {
-                        Caption = 'Show Quote Details';
+                        Caption = 'Show Quote Details', Comment = 'FRA="Afficher détail devis"';
                     }
                     field(BooGShowSteps; BooGShowSteps)
                     {
-                        Caption = 'Show Steps';
+                        Caption = 'Show Steps', Comment = 'FRA="Afficher étapes"';
                     }
                     field(CodGCustomer; CodGCustomer)
                     {
-                        Caption = 'Customer Code';
+                        Caption = 'Customer Code', Comment = 'FRA="Code client"';
                         TableRelation = Customer;
                     }
                     field(CodGVendor; CodGVendor)
                     {
-                        Caption = 'Vendor Code';
+                        Caption = 'Vendor Code', Comment = 'FRA="Code fournisseur"';
                         TableRelation = Vendor;
                     }
                 }
@@ -475,8 +473,8 @@ report 50019 "BC6_Affair List"
         Awa_Caption_Control1000000109Lbl: Label 'Awa.', comment = 'FRA="Adj."';
         Awa_CaptionLbl: Label 'Awa.', comment = 'FRA="Adj."';
         Business_ListCaptionLbl: Label 'Business List', comment = 'FRA="Liste des affaires"';
-        Contact_TypeCaptionLbl: Label 'Contact Type', comment = 'FRA=""';
-        ContactCaption_Control1000000021Lbl: Label 'Contact', comment = 'FRA=""';
+        Contact_TypeCaptionLbl: Label 'Contact Type', comment = 'FRA="Type Contact"';
+        ContactCaption_Control1000000021Lbl: Label 'Contact', comment = 'FRA="Contact"';
         ContactCaptionLbl: Label 'Contact';
         CurrReport_PAGENOCaptionLbl: Label 'Page';
         Customer_Or_VendorCaptionLbl: Label 'Customer Or Vendor', comment = 'FRA="Client ou fournisseur"';
@@ -500,8 +498,5 @@ report 50019 "BC6_Affair List"
         TxtHInterlocutor: Text[30];
         TxtGContact: Text[100];
 
-    procedure getContactInfo("contactNo.": Code[20])
-    begin
-    end;
 }
 

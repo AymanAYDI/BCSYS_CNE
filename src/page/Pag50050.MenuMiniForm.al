@@ -1,10 +1,10 @@
 page 50050 "BC6_Menu MiniForm"
 {
-    Caption = 'Whse Menu', Comment = 'FRA=""';
+    Caption = 'Whse Menu', Comment = 'FRA="Menu magasin"';
     LinksAllowed = false;
     PageType = Card;
     ShowFilter = false;
-ApplicationArea = all;
+    ApplicationArea = all;
     UsageCategory = Tasks;
 
     layout
@@ -29,13 +29,6 @@ ApplicationArea = all;
                 ApplicationArea = All;
 
 
-                trigger OnAction()
-                var
-                    Page50057: Page "BC6_Inventory Card MiniForm";
-                begin
-                    //Page50057.RUN;
-                    //Page50057.NewLine;
-                end;
 
             }
             action(Inventory_2)

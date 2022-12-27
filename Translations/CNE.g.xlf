@@ -3088,11 +3088,6 @@
           <note from="Developer" annotates="general" priority="2">FRA="Vous ne pouvez pas délettrer %1 n° %2, car l'écriture a été impliquée dans une contrepassation."</note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit BC6_VendEntry-Apply Posted SPE - NamedType Text017</note>
         </trans-unit>
-        <trans-unit id="Codeunit 80768342 - NamedType 3114637384" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Souhaitez-vous supprimer les %1 remises existantes ?</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Codeunit Extract Item Group Discount - NamedType Text001</note>
-        </trans-unit>
         <trans-unit id="Page 4168150488 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Add Log Purch. Comment</source>
           <note from="Developer" annotates="general" priority="2">FRA="Ajouter information connexe"</note>
@@ -3240,7 +3235,7 @@
         </trans-unit>
         <trans-unit id="Page 2121096678 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Marge Client</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Marge Client"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Customer Profit - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 3631851994 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
@@ -5235,7 +5230,7 @@
         </trans-unit>
         <trans-unit id="Page 3971299488 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Groupe Marge Vente Article</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Groupe Marge Vente Article"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Item Sales Profit Group - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 186435814 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
@@ -5395,7 +5390,7 @@
         </trans-unit>
         <trans-unit id="Page 3993415425 - Control 3681623761 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the code for the area of the vendor's address.</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Spécifie le code de la zone de l'adresse du fournisseur."</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_LOC Purchase Return Order - Control BC6_Area - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 3993415425 - Control 451703052 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
@@ -6395,22 +6390,22 @@
         </trans-unit>
         <trans-unit id="Page 218156481 - NamedType 2046653305" size-unit="char" translate="yes" xml:space="preserve">
           <source>The return order has been posted and moved to the Posted Sales Credit Memos window.\\Do you want to open the posted credit memo?</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - NamedType OpenPostedSalesReturnOrderQst</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - NamedType 2677164794" size-unit="char" translate="yes" xml:space="preserve">
           <source>Print Document</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - NamedType STR3</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - NamedType 3314861411" size-unit="char" translate="yes" xml:space="preserve">
           <source>Envoyer par Mail</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - NamedType STR4</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - NamedType 3952558028" size-unit="char" translate="yes" xml:space="preserve">
           <source>Envoyer par Fax</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - NamedType STR5</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - NamedType 3114637384" size-unit="char" translate="yes" xml:space="preserve">
@@ -6425,62 +6420,62 @@
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 3624777196 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Foreign Trade</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Foreign Trade - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 3681623761 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the area of the customer's address, for the purpose of reporting to INTRASTAT.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control BC6_Area - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 3348534314 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies whether the sales document is part of a three-party trade.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control EU 3-Party Trade - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 2923940816 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the point of exit through which you ship the items out of your country/region, for reporting to Intrastat.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Exit Point - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 1267997203 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies a code for the sales document's transaction specification, for the purpose of reporting to INTRASTAT.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Transaction Specification - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 3193866272 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the transport method, for the purpose of reporting to INTRASTAT.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Transport Method - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 2445482498 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>General</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control General - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 3294270728 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the ID of the user who is responsible for the document.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Assigned User ID - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 3048556483 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the number of the campaign that the document is linked to.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Campaign No. - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 580412389 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the date on which you created the sales document.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Document Date - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 1527563463 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the number that the customer uses in their own system to refer to this sales document.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control External Document No. - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 3423211158 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the status of a job queue entry or task that handles the posting of sales orders.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Job Queue Status - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 4200184881 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
@@ -6490,37 +6485,37 @@
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 1935647251 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the number of archived versions for this sales document.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control No. of Archived Versions - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 2632124822 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the date on which the exchange rate applies to prices listed in a foreign currency on the sales order.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Order Date - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 3710982960 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the date when the posting of the sales document will be recorded.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Posting Date - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 2247850105 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the code of the responsibility center that is associated with the user, company, or vendor.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Responsibility Center - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 553464652 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the name of the salesperson who is assigned to the customer.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Salesperson Code - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 1171597780 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Sell-to</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Sell-to - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 3606264650 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the address where the customer is located.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Sell-to Address - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 3606264650 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
@@ -6530,52 +6525,52 @@
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 469609400 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies additional address information.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Sell-to Address 2 - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 469609400 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Address 2</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Sell-to Address 2 - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 1281923305 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the city where the customer is located.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Sell-to City - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 1281923305 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>City</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Sell-to City - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 3128777977 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the number of the contact that the sales document will be sent to.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Sell-to Contact No. - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 3128777977 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Contact No.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Sell-to Contact No. - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 709296807 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the postal code.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Sell-to Post Code - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 709296807 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Post Code</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Sell-to Post Code - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 1006519668 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the name of the person to contact at the customer.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Sell-to Contact - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 1006519668 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Contact</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Sell-to Contact - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 1474036805 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
@@ -6585,307 +6580,307 @@
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 1474036805 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Customer</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Sell-to Customer Name - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 513339096 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies whether the document is open, waiting to be approved, has been invoiced for prepayment, or has been released to the next stage of processing.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Status - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 712518885 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Invoice Details</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Invoice Details - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 2899774127 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the number of the posted document that this document or journal line will be applied to when you post, for example to register payment.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Applies-to Doc. No. - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 2865137134 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the type of the posted document that this document or journal line will be applied to when you post, for example to register payment.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Applies-to Doc. Type - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 3093642907 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the ID of entries that will be applied to when you choose the Apply Entries action.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Applies-to ID - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 4198939294 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the currency of amounts on the sales document.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Currency Code - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 304272296 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies whether the unit price on the line should be displayed including or excluding VAT.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Prices Including VAT - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 4112852368 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the date you expect to ship items on the sales document.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Shipment Date - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 1577567912 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the dimension value code associated with the sales header.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Shortcut Dimension 1 Code - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 1003760969 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the dimension value code associated with the sales header.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Shortcut Dimension 2 Code - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 3773776616 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the type of transaction that the sales document represents, for the purpose of reporting to INTRASTAT.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Transaction Type - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 1844012642 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the customer's VAT specification to link transactions made for this customer to.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control VAT Bus. Posting Group - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 3786975230 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Shipping and Billing</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Shipping and Billing - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 1974884895 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Bill-to</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Bill-to - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 831017837 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the address of the customer that you will send the invoice to.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Bill-to Address - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 831017837 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Address</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Bill-to Address - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 460968363 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies additional address information.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Bill-to Address 2 - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 460968363 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Address 2</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Bill-to Address 2 - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 3869539606 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the city you will send the invoice to.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Bill-to City - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 3869539606 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>City</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Bill-to City - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 4064815791 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the name of the person you should contact at the customer who you are sending the invoice to.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Bill-to Contact - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 4064815791 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Contact</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Bill-to Contact - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 3363652926 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the number of the contact the invoice will be sent to.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Bill-to Contact No. - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 3363652926 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Contact No.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Bill-to Contact No. - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 240204966 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the customer to whom you will send the sales invoice, when different from the customer that you are selling to.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Bill-to Name - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 240204966 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Name</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Bill-to Name - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 675862156 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the postal code.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Bill-to Post Code - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 675862156 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Post Code</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Bill-to Post Code - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 2150623144 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Ship-to</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Ship-to - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 2161572060 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the location from where inventory items to the customer on the sales document are to be shipped by default.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Location Code - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 2161572060 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Location</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Location Code - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 1187003046 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the address that products on the sales document will be shipped to.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Ship-to Address - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 1187003046 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Address</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Ship-to Address - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 1417792948 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies additional address information.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Ship-to Address 2 - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 1417792948 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Address 2</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Ship-to Address 2 - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 1981213637 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the city that products on the sales document will be shipped to.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Ship-to City - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 1981213637 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>City</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Ship-to City - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 929198632 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the name of the contact person at the address that products on the sales document will be shipped to.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Ship-to Contact - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 929198632 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Contact</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Ship-to Contact - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 2743501653 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the name that products on the sales document will be shipped to.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Ship-to Name - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 2743501653 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Name</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Ship-to Name - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 3172878019 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the postal code.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Ship-to Post Code - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 3172878019 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Post Code</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Ship-to Post Code - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 3470333905 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Shipment Method</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Shipment Method - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 1115434830 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the shipping agent's package number.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Package Tracking No. - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 4045368290 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies which shipping agent is used to transport the items on the sales document to the customer.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Shipping Agent Code - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 4045368290 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Agent</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Shipping Agent Code - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 2730811709 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies which shipping agent service is used to transport the items on the sales document to the customer.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Shipping Agent Service Code - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Control 2730811709 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Agent Service</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Control Shipping Agent Service Code - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 1078931750 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>&amp;Return Order</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action &amp;Return Order - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 3860314472 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>View a list of the records that are waiting to be approved. For example, you can see who requested the record to be approved, when it was sent, and when it is due to be approved.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Approvals - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 3860314472 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Approvals</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Approvals - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 4125097576 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>View or edit detailed information about the customer on the sales document.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Card - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 4125097576 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Card</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Card - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 3000180178 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>View or add notes about the sales return order.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Co&amp;mments - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 3000180178 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Co&amp;mments</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Co&amp;mments - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 2173385693 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>View or edit dimensions, such as area, project, or department, that you can assign to sales and purchase documents to distribute costs and analyze transaction history.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Dimensions - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 2173385693 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Dimensions</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Dimensions - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 84074407 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>View statistical information, such as the value of posted entries, for the record.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Statistics - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 84074407 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Statistics</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Statistics - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 3324780168 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
@@ -6895,232 +6890,232 @@
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 3156602822 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Cred&amp;it Memos</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Cred&amp;it Memos - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 605212479 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Return Receipts</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Return Receipts - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 1944724714 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Warehouse</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Warehouses - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 626952520 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>In&amp;vt. Put-away/Pick Lines</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action In&amp;vt. Put-away/Pick Lines - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 770987266 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Whse. Receipt Lines</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Whse. Receipt Lines - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 1344672713 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>&amp;Print</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action &amp;Print - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 227370865 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Approval</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Approval - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 803889193 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Approve the requested changes.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Approve - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 803889193 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Approve</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Approve - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 2790486453 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>View or add comments.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Comment - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 2790486453 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Comments</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Comment - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 1013253961 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Delegate the approval to a substitute approver.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Delegate - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 1013253961 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Delegate</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Delegate - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 113888489 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Reject the approval request.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Reject - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 113888489 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Reject</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Reject - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 3106002577 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>F&amp;unctions</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action F&amp;unctions - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 2474225426 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Select one or more ledger entries that you want to apply this record to so that the related posted documents are closed as paid or refunded.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Apply Entries - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 2474225426 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Apply Entries</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Apply Entries - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 3304622623 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Archive Document</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Archive Document - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 453400556 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Calculate the invoice discount that applies to the sales order.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action CalculateInvoiceDiscount - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 453400556 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Calculate &amp;Invoice Discount</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action CalculateInvoiceDiscount - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 1359316502 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Copy document lines and header information from another sales document to this document. You can copy a posted sales invoice into a new sales invoice to quickly create a similar document.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action CopyDocument - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 1359316502 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Copy Document</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action CopyDocument - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 3515655514 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Create Return-Related &amp;Documents</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Create Return-Related &amp;Documents - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 2323168067 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Affichage documents associés</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action DisplayRelatedDocuments - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 1710214330 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Copy one or more posted sales document lines in order to reverse the original order.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action GetPostedDocumentLinesToReverse - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 1710214330 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Get Posted Doc&amp;ument Lines to Reverse</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action GetPostedDocumentLinesToReverse - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 4168948025 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Move Negative Lines</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action MoveNegativeLines - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 1426118776 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Send IC Return Order Cnfmn.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Send IC Return Order Cnfmn. - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 2245087378 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>P&amp;osting</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action P&amp;osting - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 2282416948 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Finalize the document or journal by posting the amounts and quantities to the related accounts in your company books.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Post - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 2282416948 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>P&amp;ost</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Post - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 732253414 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Post &amp;Batch</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Post &amp;Batch - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 1333595352 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Finalize and prepare to print the document or journal. The values and quantities are posted to the related accounts. A report request window where you can specify what to include on the print-out.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Post and &amp;Print - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 1333595352 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Post and &amp;Print</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Post and &amp;Print - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 1714499022 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Review the different types of entries that will be created when you post the document or journal.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Preview Posting - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 1714499022 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Preview Posting</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Preview Posting - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 1271989106 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Remove the scheduled processing of this record from the job queue.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Remove From Job Queue - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 1271989106 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Remove From Job Queue</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Remove From Job Queue - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 3150094508 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>View a test report so that you can find and correct any errors before you perform the actual posting of the journal or document.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Test Report - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 3150094508 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Test Report</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Test Report - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 4032263875 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Release</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Release - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 483158641 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Re&amp;lease</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Re&amp;lease - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 2071937805 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Reopen the document to change it after it has been approved. Approved documents have the Released status and must be opened before they can be changed</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Reopen - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 2071937805 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Re&amp;open</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Reopen - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 2364670106 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Request Approval</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Request Approval - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 858296388 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
@@ -7130,32 +7125,32 @@
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 858296388 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Cancel Approval Re&amp;quest</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action CancelApprovalRequest - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 383335270 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Send an approval request.</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action SendApprovalRequest - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 383335270 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Send A&amp;pproval Request</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action SendApprovalRequest - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 1484878399 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Warehouse</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Warehouse - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 1845035571 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Create &amp;Whse. Receipt</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Create &amp;Whse. Receipt - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 218156481 - Action 875193488 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Create Inventor&amp;y Put-away/Pick</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Locat. Sales Return Order - Action Create Inventor&amp;y Put-away/Pick - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 4199388326 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
@@ -7170,7 +7165,7 @@
         </trans-unit>
         <trans-unit id="Page 2644169914 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Whse Menu</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Menu magasin"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Menu MiniForm - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2644169914 - NamedType 3114637384" size-unit="char" translate="yes" xml:space="preserve">
@@ -9040,137 +9035,142 @@
         </trans-unit>
         <trans-unit id="Page 2812411325 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Sales Order Lines</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Lignes commandes vente"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - NamedType 2974992350" size-unit="char" translate="yes" xml:space="preserve">
           <source>Item No.          #2##########\</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="N° article traité           #2###########\"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - NamedType CstGText50001</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - NamedType 1061902499" size-unit="char" translate="yes" xml:space="preserve">
           <source>Purchase Header          #2##########\</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="En-tête achat               #3###########\"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - NamedType CstGText50002</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - NamedType 1699599116" size-unit="char" translate="yes" xml:space="preserve">
           <source>Purchase Lines             #3###########\</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Lignes achat                #4###########\"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - NamedType CstGText50003</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - NamedType 2806083327" size-unit="char" translate="yes" xml:space="preserve">
           <source>Created lines                 #1##########\</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Traitement des lignes       #1###########\"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - NamedType CstGText50006</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - Control 3792369418 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Vendor No.</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="N° fournisseur"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - Control Buy-from Vendor No. - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - Control 3167396937 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Mini Amount</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Montant mini franco"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - Control Mini Amount - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - Control 834210419 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Purchaser Comments</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Commentaires acheteur"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - Control Purchaser Comments - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - Control 3420811913 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Qty. on Purchase Order</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Quantité sur commande achat"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - Control Qty. on Purch. Order - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - Control 3546573663 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Qty. on Sales Order</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Quantité sur commande vente"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - Control Qty. on Sales Order - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - Control 4080241654 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Qty In Inventory</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Qté en stock"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - Control RecGItem.Inventory - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - Control 664377473 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>CNE Spokesman Name</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Nom interlocuteur CNE"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - Control RecGSalesHeader.ID - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - Control 3286273746 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Vendor Name</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Nom fournisseur"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - Control RecGVendor.Name - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - Control 135600996 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Requested Receipt Date</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Date réception demandée"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - Control Requested Delivery Date - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - Control 1474036805 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Customer Name</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA=""Nom du client ""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - Control Sell-to Customer Name - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2812411325 - Control 3744117490 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Shipping Advice</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Option d'expédition"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - Control Shipping Advice - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - Control 4208000180 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Stock prévisionnel</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Stock prévisionnel"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - Control Stock prévisionnel - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - Control 852268447 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>To Order</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="A commander"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - Control To Order - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - Control 2726408711 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Warehouse Comments</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Commentaires magasins"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - Control Warehouse Comments - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - Control 3006241347 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Filters :</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Filtres"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - Control Filters : - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - Control 2384835308 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Exclude Drop Shipments</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Exclure livraisons directes"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - Control BooGExcDropShipFilter - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - Control 2286863523 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Exclude Sales Quotes</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Exclure commandes en demande de prix"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - Control BooGExcQuoteFilter - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - Control 900752576 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Exclude Shipment Orders</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Exclure commandes en préparation"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - Control BooGExcShipOrders - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - Control 2340282821 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Negative Forecast Inventory</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Stock prévisionnel négatif"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - Control BooGNegForecastInv - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - Control 1644481995 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Not group by Item</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Ne pas regrouper par article"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - Control BooGNotGroupByItem - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - Control 1172051094 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Exclude Orders Already Send</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Exclure commandes déjà traitées"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - Control BooGOneTimeOrdering - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - Control 1473054493 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Vendor No. Filter</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Filtre N° fournisseur"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - Control CodGVendorFilter - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - Control 1369889826 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Sorting</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Tri par"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - Control OptGSort - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - Control 1369889826 - Property 62802879" size-unit="char" translate="yes" xml:space="preserve">
@@ -9180,22 +9180,22 @@
         </trans-unit>
         <trans-unit id="Page 2812411325 - Control 2573325205 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>ShipmentDateFilter</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Filtre date préparation"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - Control TxtGShipmentDateFilter - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - Action 1929393835 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Functions</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Fonctions"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - Action Functions - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - Action 4020402782 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Create Purchase Orders</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Créer commandes achat"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - Action Create Purchase Orders - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2812411325 - Action 4025085091 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>RAZ</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="RAZ"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Sales Order Lines - Action RAZ - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1219021887 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
@@ -10960,7 +10960,7 @@
         </trans-unit>
         <trans-unit id="Page 1707019103 - Action 1595310009 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Re&amp;lease</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="&amp;Lancer"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_SAV Sales Ret. Order List - Action ReleaseAction - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1707019103 - Action 2071937805 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
@@ -11015,7 +11015,7 @@
         </trans-unit>
         <trans-unit id="Page 1978130020 - Property 2019332006" size-unit="char" translate="yes" xml:space="preserve">
           <source>New,Process,Report,Approve,Release,Posting,Prepare,Invoice,Request Approval</source>
-          <note from="Developer" annotates="general" priority="2">FRA"Nouveau,Traitement,tat,Approuver,Lancer,Comptabilisation,Préparer,Facture,Demande d'approbation"</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Nouveau,Traitement,état,Approuver,Lancer,Comptabilisation,Préparer,Facture,Demande d'approbation"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_SAV Sales Return Order - Property PromotedActionCategories</note>
         </trans-unit>
         <trans-unit id="Page 1978130020 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
@@ -11230,7 +11230,7 @@
         </trans-unit>
         <trans-unit id="Page 1978130020 - Control 2899774127 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the number of the posted document that this document or journal line will be applied to when you post, for example to register payment.</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Spécifie le numéro du document validé avec lequel ce document ou cette ligne feuille sera lettré lorsque vous validez, par exemple pour enregistrer un paiement."</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_SAV Sales Return Order - Control Applies-to Doc. No. - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 1978130020 - Control 2865137134 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
@@ -11405,7 +11405,7 @@
         </trans-unit>
         <trans-unit id="Page 1978130020 - Control 929198632 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the name of the contact person at the address that products on the sales document will be shipped to.</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Spécifie le nom de la personne de contact à l'adresse d'expédition des produits figurant sur le document vente."</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_SAV Sales Return Order - Control Ship-to Contact - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 1978130020 - Control 929198632 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
@@ -11825,7 +11825,7 @@
         </trans-unit>
         <trans-unit id="Page 2453485831 - Action 2713276947 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Gestion Tables Diverses</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Gestion Tables Diverses"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Setup Various Tables2 - Action Gestion Tables Diverses - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 4267542791 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
@@ -12280,7 +12280,7 @@
         </trans-unit>
         <trans-unit id="Page 1009207194 - NamedType 3577229803" size-unit="char" translate="yes" xml:space="preserve">
           <source>User %1 model sheet does not exist</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Pas de nom de feuille article utilisateur %1"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Invt. Pick Card MiniForm F3 - NamedType Text015</note>
         </trans-unit>
         <trans-unit id="Page 1009207194 - NamedType 1195352358" size-unit="char" translate="yes" xml:space="preserve">
@@ -13035,7 +13035,7 @@
         </trans-unit>
         <trans-unit id="Page 3190122834 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Item Sales/Purchase History</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Historique vente/achat article"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Sales/Purch. History FactB STD - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 3190122834 - Control 1823430260 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
@@ -13265,7 +13265,7 @@
         </trans-unit>
         <trans-unit id="Page 3576380867 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Activities</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Activités"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Salespers Processor Activities - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 3576380867 - Control 3419015742 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
@@ -13840,12 +13840,12 @@
         </trans-unit>
         <trans-unit id="Report 1284547011 - NamedType 855691674" size-unit="char" translate="yes" xml:space="preserve">
           <source>Contact</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Contact"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Affair List - NamedType ContactCaption_Control1000000021Lbl</note>
         </trans-unit>
         <trans-unit id="Report 1284547011 - NamedType 4268246885" size-unit="char" translate="yes" xml:space="preserve">
           <source>Contact Type</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Type Contact"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Affair List - NamedType Contact_TypeCaptionLbl</note>
         </trans-unit>
         <trans-unit id="Report 1284547011 - NamedType 1987762555" size-unit="char" translate="yes" xml:space="preserve">
@@ -13905,37 +13905,37 @@
         </trans-unit>
         <trans-unit id="Report 1284547011 - Control 2346885236 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Options</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA="Options"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Affair List - Control Options - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 1284547011 - Control 101940624 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Show Quote Details</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA="Afficher détail devis"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Affair List - Control BooGShowQuote - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 1284547011 - Control 245626825 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Show Steps</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA="Afficher étapes"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Affair List - Control BooGShowSteps - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 1284547011 - Control 4072177741 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Customer Code</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA="Code client"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Affair List - Control CodGCustomer - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 1284547011 - Control 713226757 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Vendor Code</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA="Code fournisseur"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Affair List - Control CodGVendor - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 1284547011 - Control 424264406 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Reminder Date</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA="Date relance"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Affair List - Control TxtGRemindDateFilter - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 1284547011 - Control 433079816 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Status</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA="Statut"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Affair List - Control TxtGStatutFilter - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 1284547011 - Control 433079816 - Property 62802879" size-unit="char" translate="yes" xml:space="preserve">
@@ -13944,8 +13944,8 @@
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Affair List - Control TxtGStatutFilter - Property OptionCaption</note>
         </trans-unit>
         <trans-unit id="Report 1284547011 - Control 2027813606 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Terminer</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <source>Terminated</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Terminer"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Affair List - Control TxtGTerminatedFilter - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 4003258287 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
@@ -14613,7 +14613,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Blocked Items - NamedType Text004</note>
         </trans-unit>
-<<<<<<< HEAD
         <trans-unit id="Report 971693637 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Calculate Plan - Req. Wksh.</source>
           <note from="Developer" annotates="general" priority="2">FRA="Calculer planning - F. demande"</note>
@@ -14683,7 +14682,7 @@
           <source>Use Forecast</source>
           <note from="Developer" annotates="general" priority="2">FRA="Utiliser prévisions"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calcul Plan - Req. Wksh. - Control UseForecast - Property Caption</note>
-=======
+        </trans-unit>
         <trans-unit id="Report 4095111458 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Calculate Inventory</source>
           <note from="Developer" annotates="general" priority="2">FRA="Calculer Inventaire"</note>
@@ -14768,7 +14767,6 @@
           <source>Posting Date</source>
           <note from="Developer" annotates="general" priority="2">FRA="Date comptabilisation"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calculate Inventory - Control PostingDate - Property Caption</note>
->>>>>>> 95830f92aafde9120a9b1537f48167f74ae4e363
         </trans-unit>
         <trans-unit id="Report 1995640998 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Combine Shipments</source>
@@ -14949,6 +14947,66 @@
           <source>Sell-to Customer No.</source>
           <note from="Developer" annotates="general" priority="2">FRA="N° donneur d'ordre"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Copy Sales Document - Control SellToCustNo - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1282456437 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Create Ret.-Related Documents</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Créer doc. associés retour"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Create Ret.-Related Doc - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1282456437 - NamedType 717718431" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Unable to create related documents for sales return because they are already generated.\ Purchase return: %1 \ Purchase order: %2 \ Sales order: %3</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Impossible de créer les documents associés pour le retour vente car ils sont déjà générés.\ Retour achat : %1 \ Commande achat : %2 \ Commande vente : %3"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Create Ret.-Related Doc - NamedType ErrorAlreadyExist</note>
+        </trans-unit>
+        <trans-unit id="Report 1282456437 - NamedType 624916758" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The associated Puchase order has already been generated. \ Please see the action View associated documents.</source>
+          <note from="Developer" annotates="general" priority="2">FRA="La commande achat associée est déjà générée.\Veuillez consulter l'action Affichage documents associés."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Create Ret.-Related Doc - NamedType ErrorPurchOrderExists</note>
+        </trans-unit>
+        <trans-unit id="Report 1282456437 - NamedType 3075561196" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The associated Purchase Return has already been generated. \ Please see the action View associated documents.</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Le retour ahat associé est déjà généré.\Veuillez consulter l'action Affichage documents associés."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Create Ret.-Related Doc - NamedType ErrorReturnPurchOrderExists</note>
+        </trans-unit>
+        <trans-unit id="Report 1282456437 - NamedType 1264192770" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The associated sales order has already been generated. \ Please see the action View associated documents.</source>
+          <note from="Developer" annotates="general" priority="2">FRA="La commande vente associée est déjà générée.\Veuillez consulter l'action Affichage documents associés."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Create Ret.-Related Doc - NamedType ErrorSalesOrderExists</note>
+        </trans-unit>
+        <trans-unit id="Report 1282456437 - Control 2346885236 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Options</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Options"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Create Ret.-Related Doc - Control Options - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1282456437 - Control 1577904858 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Replacement</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Remplacement"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Create Ret.-Related Doc - Control Replacement - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1282456437 - Control 2648269774 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Create Sales Order</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Créer commande vente"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Create Ret.-Related Doc - Control CreateSalesOrder - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1282456437 - Control 3490530119 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Return to Vendor</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Retour fournisseur"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Create Ret.-Related Doc - Control Return to Vendor - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1282456437 - Control 1315191579 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Create Purchase Order</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Créer commande achat"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Create Ret.-Related Doc - Control CreatePurchaseOrder - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1282456437 - Control 2037296855 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Create Purch. Ret. Order</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Créer retour achat"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Create Ret.-Related Doc - Control CreatePurchRetOrder - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1282456437 - Control 1607295407 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Vendor No.</source>
+          <note from="Developer" annotates="general" priority="2">FRA="N° fournisseur"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Create Ret.-Related Doc - Control VendorNo - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 1565637661 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Creation Auto Cde Achat</source>
@@ -18132,22 +18190,22 @@
         </trans-unit>
         <trans-unit id="Report 3832222502 - Control 816368762 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Log Interaction</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Purchase - Receipt CNE - Control LogInteraction - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 3832222502 - Control 2578066365 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>No. of Copies</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Purchase - Receipt CNE - Control NoOfCopies - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 3832222502 - Control 3917594004 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Show Correction Lines</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Purchase - Receipt CNE - Control ShowCorrectionLines - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 3832222502 - Control 316520822 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Show Internal Information</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Purchase - Receipt CNE - Control ShowInternalInfo - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 710257935 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
@@ -18547,7 +18605,7 @@
         </trans-unit>
         <trans-unit id="Report 710257935 - Control 2346885236 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Options</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Options"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Purchase Order - Control Options - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 710257935 - Control 3255118903 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
@@ -19247,7 +19305,7 @@
         </trans-unit>
         <trans-unit id="Report 1868348574 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Sales - Credit Memo</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Ventes : Avoir"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales - Credit Memo CNE - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 1868348574 - NamedType 1792278083" size-unit="char" translate="yes" xml:space="preserve">
@@ -19332,7 +19390,7 @@
         </trans-unit>
         <trans-unit id="Report 1868348574 - NamedType 1174847086" size-unit="char" translate="yes" xml:space="preserve">
           <source>Payment Terms</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Conditions de paiement"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales - Credit Memo CNE - NamedType PaymentTerms_Description_Control1000000177CaptionLbl</note>
         </trans-unit>
         <trans-unit id="Report 1868348574 - NamedType 3246368361" size-unit="char" translate="yes" xml:space="preserve">
@@ -20182,22 +20240,22 @@
         </trans-unit>
         <trans-unit id="Report 1364089352 - Control 2346885236 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Options</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Options"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales - Invoice CNE - Control Options - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 1364089352 - Control 816368762 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Log Interaction</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Journal interaction"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales - Invoice CNE - Control LogInteraction - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 1364089352 - Control 2578066365 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>No. of Copies</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Nombre de copies"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales - Invoice CNE - Control NoOfCopies - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 1364089352 - Control 316520822 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Show Internal Information</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Afficher info. internes"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales - Invoice CNE - Control ShowInternalInfo - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 3777542068 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
@@ -23712,22 +23770,22 @@
         </trans-unit>
         <trans-unit id="PageExtension 1502375205 - Action 2397334589 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4240524421">
           <source>ToCheck</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Contrôler"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_InventoryPick - Action BC6_&amp;ToCheck - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1502375205 - Action 3685552023 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4240524421">
           <source>Autofill Qty. to Handle</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Remplir qté à traiter"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_InventoryPick - Action BC6_AutofillQtyToHandle - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1502375205 - Action 1255395518 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4240524421">
           <source>Delete Qty. to Handle</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Vider quantité à traiter"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_InventoryPick - Action BC6_Delete Qty. to Handle - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1502375205 - Action 2829679304 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4240524421">
           <source>Get Source Document</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Extraire document origine"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_InventoryPick - Action BC6_Get Source Document - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 4207384843 - Action 4163263337 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1434786627">
@@ -23767,12 +23825,12 @@
         </trans-unit>
         <trans-unit id="PageExtension 4207384843 - Control 186989948 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1434786627">
           <source>Specifies that transactions with the item cannot be posted, for example, because the item is in quarantine.</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Indique que les transactions avec l'article ne peuvent pas être validées, par exemple, parce que l'article est en quarantaine."</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_ItemCard - Control BC6_Blocked - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="PageExtension 4207384843 - Control 186989948 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1434786627">
           <source>Blocked</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Bloqué"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_ItemCard - Control BC6_Blocked - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 4207384843 - Control 416140366 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1434786627">
@@ -24067,7 +24125,7 @@
         </trans-unit>
         <trans-unit id="PageExtension 3368737450 - Action 2292456880 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4205919186">
           <source>Application Pay-to</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Lettrer Tiers payeur"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_PaymentSlipSubform - Action BC6_Application Pay-to - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 4084347499 - Action 3510069095 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2187133665">
@@ -24947,18 +25005,13 @@
         </trans-unit>
         <trans-unit id="PageExtension 1199972306 - Method 1722665144 - NamedType 2469557483" size-unit="char" translate="yes" xml:space="preserve" al-object-target="PageExtension 1199972306">
           <source>Your order isn't released, Do You want release it ?</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA="Votre commande n'est pas lancée, souhaitez-vous la lancer ?"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesOrder - Method CheckIfReleased - NamedType CstL0001</note>
         </trans-unit>
         <trans-unit id="PageExtension 1199972306 - Method 1722665144 - NamedType 87680038" size-unit="char" translate="yes" xml:space="preserve" al-object-target="PageExtension 1199972306">
           <source>Aborted Operation</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA="Opération interrompue"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesOrder - Method CheckIfReleased - NamedType CstL0002</note>
-        </trans-unit>
-        <trans-unit id="PageExtension 1199972306 - Action 17496322 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
-          <source>Create an inventory put-away or inventory pick to handle items on the document according to a basic warehouse configuration that does not require warehouse receipt or shipment documents.</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesOrder - Action BC6_Create Inventor&amp;y Put-away/Pick2 - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="PageExtension 1199972306 - Action 17496322 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
           <source>Create Inventor&amp;y Put-away/Pick</source>
@@ -25267,7 +25320,7 @@
         </trans-unit>
         <trans-unit id="PageExtension 2808424006 - Control 4027647916 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 280137910">
           <source>Bin Code</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesQuote - Control BC6_Bin Code - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 3776541523 - Control 3478514330 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 734185571">

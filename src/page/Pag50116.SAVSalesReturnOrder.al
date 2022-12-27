@@ -2,7 +2,7 @@ page 50116 "BC6_SAV Sales Return Order"
 {
     Caption = 'Sales Return Order', comment = 'FRA="Retour vente"';
     PageType = Document;
-    PromotedActionCategories = 'New,Process,Report,Approve,Release,Posting,Prepare,Invoice,Request Approval', Comment = 'FRA"Nouveau,Traitement,tat,Approuver,Lancer,Comptabilisation,Préparer,Facture,Demande d''approbation"';
+    PromotedActionCategories = 'New,Process,Report,Approve,Release,Posting,Prepare,Invoice,Request Approval', Comment = 'FRA="Nouveau,Traitement,état,Approuver,Lancer,Comptabilisation,Préparer,Facture,Demande d''approbation"';
     RefreshOnActivate = true;
     SourceTable = "Sales Header";
     SourceTableView = WHERE("Document Type" = FILTER("Return Order"));
@@ -252,7 +252,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 {
                     Importance = Promoted;
                     ToolTip = 'Specifies the number of the posted document that this document or journal line will be applied to when you post, for example to register payment.'
-                    , comment = 'FRA=""';
+                    , comment = 'FRA="Spécifie le numéro du document validé avec lequel ce document ou cette ligne feuille sera lettré lorsque vous validez, par exemple pour enregistrer un paiement."';
                 }
                 field("Applies-to ID"; Rec."Applies-to ID")
                 {
@@ -324,7 +324,7 @@ page 50116 "BC6_SAV Sales Return Order"
                     field("Ship-to Contact"; Rec."Ship-to Contact")
                     {
                         Caption = 'Contact', comment = 'FRA="Contact"';
-                        ToolTip = 'Specifies the name of the contact person at the address that products on the sales document will be shipped to.', comment = 'FRA=""';
+                        ToolTip = 'Specifies the name of the contact person at the address that products on the sales document will be shipped to.', comment = 'FRA="Spécifie le nom de la personne de contact à l''adresse d''expédition des produits figurant sur le document vente."';
                     }
                 }
                 group("Bill-to")

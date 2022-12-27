@@ -73,7 +73,7 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
         {
             action("BC6_&ToCheck")
             {
-                Caption = 'ToCheck', Comment = 'FRA=""';
+                Caption = 'ToCheck', Comment = 'FRA="Contrôler"';
                 Image = Confirm;
                 trigger OnAction()
                 var
@@ -101,7 +101,7 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
             {
                 ShortCutKey = 'Ctrl+F7';
                 Ellipsis = True;
-                Caption = 'Get Source Document', Comment = 'FRA=""';
+                Caption = 'Get Source Document', Comment = 'FRA="Extraire document origine"';
                 Promoted = True;
                 Image = GetSourceDoc;
                 PromotedCategory = Process;
@@ -113,7 +113,7 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
             }
             action(BC6_AutofillQtyToHandle)
             {
-                Caption = 'Autofill Qty. to Handle', Comment = 'FRA=""';
+                Caption = 'Autofill Qty. to Handle', Comment = 'FRA="Remplir qté à traiter"';
                 Image = AutofillQtyToHandle;
                 trigger OnAction()
                 BEGIN
@@ -123,7 +123,7 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
             }
             action("BC6_Delete Qty. to Handle")
             {
-                Caption = 'Delete Qty. to Handle', Comment = 'FRA=""';
+                Caption = 'Delete Qty. to Handle', Comment = 'FRA="Vider quantité à traiter"';
                 Image = DeleteQtyToHandle;
                 trigger OnAction()
                 BEGIN
@@ -134,7 +134,6 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
         }
     }
     var
-        WhseActPrint: Codeunit "Warehouse Document-Print";
         WMSMgt: Codeunit "WMS Management";
         CtrlEditableOk: Boolean;
         CurrFormEditableOk: Boolean;

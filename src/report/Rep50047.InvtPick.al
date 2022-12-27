@@ -4,6 +4,9 @@ report 50047 "BC6_Invt. Pick"
     RDLCLayout = './src/report/RDL/InvtPick.rdl';
 
     Caption = 'Picking List', Comment = 'FRA="Prélèvement stock"';
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = all;
+
     dataset
     {
         dataitem(WhseActivityHeader; "Warehouse Activity Header")

@@ -5,6 +5,8 @@ report 50049 "BC6_Item Label v2"
     RDLCLayout = './src/report/RDL/ItemLabelv2.rdl';
 
     Caption = 'Item Label 108x35', Comment = 'FRA="Etiquette article 108x35"';
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = all;
 
     dataset
     {

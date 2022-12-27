@@ -2,8 +2,9 @@ report 50017 "BC6_Sales Statistic/Vendor"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/SalesStatisticVendor.rdl';
-
     Caption = 'Sales Statistic/Vendor', Comment = 'FRA="Statistique vente/fournisseur"';
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = all;
 
     dataset
     {

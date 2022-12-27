@@ -13953,6 +13953,71 @@
           <note from="Developer" annotates="general" priority="2">FRA="Archivage et Suppression Devis"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Batch Archive Quote Delete - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Report 2374868138 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Batch Post Sales Invoices</source>
+          <note from="Developer" annotates="general" priority="2">FRA="TPL valider commandes vente"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Batch Post Sales Invoices - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 2374868138 - NamedType 2476940767" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Enter the posting date.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Batch Post Sales Invoices - NamedType Text000</note>
+        </trans-unit>
+        <trans-unit id="Report 2374868138 - NamedType 3114637384" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Posting invoices   #1########## @2@@@@@@@@@@@@@</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Batch Post Sales Invoices - NamedType Text001</note>
+        </trans-unit>
+        <trans-unit id="Report 2374868138 - NamedType 3752334001" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%1 invoices out of a total of %2 have now been posted.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Batch Post Sales Invoices - NamedType Text002</note>
+        </trans-unit>
+        <trans-unit id="Report 2374868138 - NamedType 95063322" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The exchange rate associated with the new posting date on the sales header will not apply to the sales lines.</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Le taux de change associé à la nouvelle date de comptabilisation de l'en-tête vente ne s'appliquera pas aux lignes vente."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Batch Post Sales Invoices - NamedType Text003</note>
+        </trans-unit>
+        <trans-unit id="Report 2374868138 - ReportDataItem 1192395785 - Property 1806354803" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Sales Invoice</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Batch Post Sales Invoices - ReportDataItem Sales Header - Property RequestFilterHeading</note>
+        </trans-unit>
+        <trans-unit id="Report 2374868138 - Control 2346885236 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Options</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Batch Post Sales Invoices - Control Options - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 2374868138 - Control 3919944797 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Exclure BL à regrouper</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Batch Post Sales Invoices - Control BooGExcludeShipment - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 2374868138 - Control 2780809675 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Calc. Inv. Discount</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Calculer remise facture"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Batch Post Sales Invoices - Control CalcInvDisc - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 2374868138 - Control 3037438984 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Posting Date</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Date comptabilisation"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Batch Post Sales Invoices - Control PostingDate - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 2374868138 - Control 4126205201 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies if the new document date will be applied.</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Spécifie si la nouvelle date comptabilisation sera appliquée."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Batch Post Sales Invoices - Control ReplaceDocumentDate - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 2374868138 - Control 4126205201 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Replace Document Date</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Remplacer date document"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Batch Post Sales Invoices - Control ReplaceDocumentDate - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 2374868138 - Control 2095981932 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Replace Posting Date</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Remplacer date comptabilisation"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Batch Post Sales Invoices - Control ReplacePostingDate - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Report 751385803 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Batch Post Sales Orders</source>
           <note from="Developer" annotates="general" priority="2">FRA="TPL valider commandes vente"</note>
@@ -14239,8 +14304,8 @@
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - Control ShowInternalInformation - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 2703772864 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>BIBLE V2</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <source>BIBLE</source>
+          <note from="Developer" annotates="general" priority="2">FRA="BIBLE"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BIBLE V2 - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 2703772864 - NamedType 1987762555" size-unit="char" translate="yes" xml:space="preserve">
@@ -14548,6 +14613,7 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Blocked Items - NamedType Text004</note>
         </trans-unit>
+<<<<<<< HEAD
         <trans-unit id="Report 971693637 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Calculate Plan - Req. Wksh.</source>
           <note from="Developer" annotates="general" priority="2">FRA="Calculer planning - F. demande"</note>
@@ -14617,6 +14683,92 @@
           <source>Use Forecast</source>
           <note from="Developer" annotates="general" priority="2">FRA="Utiliser prévisions"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calcul Plan - Req. Wksh. - Control UseForecast - Property Caption</note>
+=======
+        <trans-unit id="Report 4095111458 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Calculate Inventory</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Calculer Inventaire"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calculate Inventory - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 4095111458 - NamedType 3833134354" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Items Not on Inventory.</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Avec qté calculée = 0."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calculate Inventory - NamedType ItemNotOnInventoryErr</note>
+        </trans-unit>
+        <trans-unit id="Report 4095111458 - NamedType 2476940767" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Enter the posting date.</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Entrez une date comptabilisation."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calculate Inventory - NamedType Text000</note>
+        </trans-unit>
+        <trans-unit id="Report 4095111458 - NamedType 3114637384" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Enter the document no.</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Entrez un numéro de document."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calculate Inventory - NamedType Text001</note>
+        </trans-unit>
+        <trans-unit id="Report 4095111458 - NamedType 3752334001" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Processing items    #1##########</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Traitement des articles #1##########"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calculate Inventory - NamedType Text002</note>
+        </trans-unit>
+        <trans-unit id="Report 4095111458 - NamedType 95063322" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Retain Dimensions</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Conserver axes"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calculate Inventory - NamedType Text003</note>
+        </trans-unit>
+        <trans-unit id="Report 4095111458 - Control 2346885236 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Options</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calculate Inventory - Control Options - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 4095111458 - Control 3388546572 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the dimensions that you want the batch job to consider.</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Spécifie les axes analytiques dont vous souhaitez que le traitement par lots tienne compte."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calculate Inventory - Control ByDimensions - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 4095111458 - Control 3388546572 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>By Dimensions</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Par axe"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calculate Inventory - Control ByDimensions - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 4095111458 - Control 3117834186 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the number of the document that is processed by the report or batch job.</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Spécifie le nombre de documents traités par l'état ou le traitement par lots."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calculate Inventory - Control DocumentNo - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 4095111458 - Control 3117834186 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Document No.</source>
+          <note from="Developer" annotates="general" priority="2">FRA="N° document"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calculate Inventory - Control DocumentNo - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 4095111458 - Control 952512786 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies if journal lines should be created for items that are not on inventory and are not used in any transactions.</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Indique si les lignes feuille doivent être créées pour les articles qui ne figurent pas en stock et qui ne sont pas utilisés dans les transactions."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calculate Inventory - Control IncludeItemWithNoTransaction - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 4095111458 - Control 952512786 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Include Item without Transactions</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Inclure l'article sans transactions"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calculate Inventory - Control IncludeItemWithNoTransaction - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 4095111458 - Control 2810852820 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies if journal lines should be created for items that are not on inventory, that is, items where the value in the Qty. (Calculated) field is 0.</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Indique si les lignes feuille doivent être créées pour les articles qui ne figurent pas en stock, à savoir les articles dont la valeur du champ Quantité (calculée) est égale à 0."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calculate Inventory - Control ItemsNotOnInventory - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 4095111458 - Control 2810852820 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Items Not on Inventory.</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Avec qté calculée = 0."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calculate Inventory - Control ItemsNotOnInventory - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 4095111458 - Control 3037438984 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the date for the posting of this batch job. By default, the working date is entered, but you can change it.</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Spécifie la date comptabilisation de ce traitement par lots. Par défaut, la date de travail est saisie, mais vous pouvez la modifier."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calculate Inventory - Control PostingDate - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Report 4095111458 - Control 3037438984 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Posting Date</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Date comptabilisation"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calculate Inventory - Control PostingDate - Property Caption</note>
+>>>>>>> 95830f92aafde9120a9b1537f48167f74ae4e363
         </trans-unit>
         <trans-unit id="Report 1995640998 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Combine Shipments</source>

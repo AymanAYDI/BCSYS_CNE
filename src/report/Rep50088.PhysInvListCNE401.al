@@ -4,6 +4,8 @@ report 50088 "BC6_Phys. Inv. List CNE401"
     RDLCLayout = './src/Report/RDL/PhysInventoryListCNE401.rdl';
 
     Caption = 'Phys. Inventory List', comment = 'FRA="Liste d''inventaire"';
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = all;
 
     dataset
     {

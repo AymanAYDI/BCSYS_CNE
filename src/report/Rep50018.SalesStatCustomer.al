@@ -4,7 +4,8 @@ report 50018 "BC6_Sales Stat/Customer"
     RDLCLayout = './src/report/RDL/SalesStatCustomer.rdl';
 
     Caption = 'Sales Stat/Customer', Comment = 'FRA="Stat vente/Client"';
-
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = all;
     dataset
     {
         dataitem(CustLedgEntry; "Cust. Ledger Entry")

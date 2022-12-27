@@ -4,6 +4,8 @@ report 50048 "BC6_Bin Barcodes"
     RDLCLayout = './src/report/RDL/BinBarcodes.rdl';
 
     Caption = 'Bin Barcodes', Comment = 'FRA="Code barre emplacement"';
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = all;
 
     dataset
     {

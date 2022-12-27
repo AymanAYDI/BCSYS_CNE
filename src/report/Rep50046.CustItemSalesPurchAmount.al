@@ -3,6 +3,8 @@ report 50046 "Cust/Item Sales (Purch.Amount)"
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/CustItemSalesPurchAmount.rdl';
     Caption = 'Cust/Item Sales (Purch.Amount)', Comment = 'FRA="Ventes d''articles par client (Montant Achat)"';
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = all;
 
     dataset
     {

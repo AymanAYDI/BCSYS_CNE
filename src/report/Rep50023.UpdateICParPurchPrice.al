@@ -3,6 +3,8 @@ report 50023 "BC6_Update IC Par Purch. Price"
 
     Caption = 'Update IC Partner Purch. Price', comment = 'FRA="Màj tarif fournisseur partnaire"';
     ProcessingOnly = true;
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = all;
 
     dataset
     {

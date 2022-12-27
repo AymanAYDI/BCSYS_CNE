@@ -1,9 +1,10 @@
 report 50004 "BC6_Combine Shipments"
 {
-    ApplicationArea = Basic, Suite;
     Caption = 'Combine Shipments', Comment = 'FRA="Regrouper les B.L."';
     ProcessingOnly = true;
-    UsageCategory = Tasks;
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = all;
+
 
     dataset
     {

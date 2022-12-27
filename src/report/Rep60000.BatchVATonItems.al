@@ -2,6 +2,8 @@ report 60000 "BC6_Batch VAT on Items"
 {
     Caption = 'TPL TVA sur articles';
     ProcessingOnly = true;
+    UsageCategory = ReportsAndAnalysis;
+    ApplicationArea = all;
 
     dataset
     {

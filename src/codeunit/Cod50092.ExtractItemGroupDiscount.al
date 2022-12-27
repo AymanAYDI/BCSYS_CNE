@@ -62,6 +62,5 @@ codeunit 50092 "Extract Item Group Discount"
     end;
 
     var
-        Text001: label 'Souhaitez-vous supprimer les %1 remises existantes ?', comment = 'FRA=""';
 }
 

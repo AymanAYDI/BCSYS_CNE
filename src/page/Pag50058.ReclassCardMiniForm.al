@@ -350,7 +350,6 @@ page 50058 "BC6_Reclass. Card MiniForm"
                 }
                 field(QtyCtrl; Qty)
                 {
-                    // BlankZero = true; TODO:
                     Caption = 'Quantity', Comment = 'FRA="Quantité"';
                     Editable = QtyCtrlEditable;
                     Style = Standard;
@@ -683,7 +682,6 @@ page 50058 "BC6_Reclass. Card MiniForm"
         LocationForm: Page "BC6_Location List MiniForm";
         BinForm: Page "BC6_Bin List MiniForm";
         BinContentForm: Page "BC6_Bin Content List MiniForm";
-        // WshShell: Automation; TODO:
         BoolWait: Boolean;
         FromBinCaption: Label 'From Bin Code', Comment = 'FRA="De empl."';
         ItemNoCaption: Label 'Item nr', Comment = 'FRA="N° article"';

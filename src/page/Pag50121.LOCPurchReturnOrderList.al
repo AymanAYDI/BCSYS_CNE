@@ -419,7 +419,7 @@ page 50121 "LOC Purch. Return Order List"
 
                     trigger OnAction()
                     begin
-                        GetPstdDocLinesToReverse;
+                        Rec.GetPstdDocLinesToReverse();
                     end;
                 }
                 separator(Action1102601020)

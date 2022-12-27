@@ -7,7 +7,7 @@ page 50122 "Stockkeeping Unit List ACTI"
     PageType = List;
     RefreshOnActivate = true;
     SourceTable = "Stockkeeping Unit";
-    SourceTableView = WHERE("Location Code" = CONST('ACTI')); // TODO: Check
+    SourceTableView = WHERE("Location Code" = CONST('ACTI'));
     UsageCategory = Lists;
     ApplicationArea = All;
 
@@ -343,7 +343,7 @@ page 50122 "Stockkeeping Unit List ACTI"
                         var
                             ItemTrackingDocMgt: Codeunit "Item Tracking Doc. Management";
                         begin
-                            // ItemTrackingDocMgt.ShowItemTrackingForMasterData(0, '', "Item No.", "Variant Code", '', '', "Location Code"); TODO:
+                            ItemTrackingDocMgt.ShowItemTrackingForEntity(0, '', "Item No.", "Variant Code", "Location Code");
                         end;
                     }
                 }

@@ -10,7 +10,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
     SourceTable = "Item Journal Line";
     SourceTableView = SORTING("Journal Template Name", "Journal Batch Name", "Line No.")
                       ORDER(Ascending);
-    
+
     layout
     {
         area(content)
@@ -144,7 +144,6 @@ page 50064 "Invt. Pick Card MiniForm F3"
             }
             field(QtyCtrl; Qty)
             {
-                // BlankZero = true; TODO:
                 Caption = 'Quantity', Comment = 'FRA="Quantité"';
                 Editable = QtyCtrlEditable;
                 Style = Standard;
@@ -427,7 +426,6 @@ page 50064 "Invt. Pick Card MiniForm F3"
         ItemForm: Page "BC6_Item List MiniForm";
         LocationForm: Page "BC6_Location List MiniForm";
         InvtPickForm: Page "BC6_Invt Pick List MiniForm";
-        // WshShell: Automation; TODO:
         EditableCtrl: Boolean;
         [InDataSet]
         FromBinCodeCtrlVisible: Boolean;
@@ -631,6 +629,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
     procedure AssignItemNo(var ItemNum: Code[20])
     var
         ItemError: Boolean;
+        FunctionMgt: Codeunit "BC6_Functions Mgt";
     begin
         ItemError := FALSE;
         ErrorTxt := '';
@@ -638,7 +637,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
         IF (ItemNum <> '') THEN BEGIN
             TESTFIELD("BC6_Whse. Document No.");
             IF CodeEANOk(ItemNum) THEN BEGIN
-                // ItemNo2 := DistInt.GetItem(ItemNo); TODO:
+                ItemNo2 := FunctionMgt.GetItem(ItemNo);
                 IF Item.GET(ItemNo2) THEN
                     ItemNum := Item."No."
                 ELSE BEGIN

@@ -55,7 +55,6 @@ page 50065 "BC6_Inventory Card MiniForm F2"
             }
             field(QtyCtrl; Qty)
             {
-                // BlankZero = true; TODO:
                 Caption = 'Quantity', Comment = 'FRA="Quantité"';
                 Editable = QtyCtrlEditable;
                 Style = Standard;
@@ -293,7 +292,6 @@ page 50065 "BC6_Inventory Card MiniForm F2"
         BinForm: Page "BC6_Bin List MiniForm";
         ItemForm: Page "BC6_Item List MiniForm";
         LocationForm: Page "BC6_Location List MiniForm";
-        // WshShell: Automation; TODO:
         BoolWait: Boolean;
         EditableCtrl: Boolean;
         EditableFromBinCtrl: Boolean;
@@ -468,11 +466,12 @@ page 50065 "BC6_Inventory Card MiniForm F2"
 
     procedure AssignItemNo(var ItemN: Code[20])
     var
+        FunctionMgt: Codeunit "BC6_Functions Mgt";
         Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
         IF (ItemN <> '') THEN BEGIN
             IF CodeEANOk(ItemN) THEN BEGIN
-                // ItemNo2 := DistInt.GetItem(ItemNo); TODO:
+                ItemNo2 := FunctionMgt.GetItem(ItemNo);
                 IF Item.GET(ItemNo2) THEN
                     ItemN := Item."No.";
             END ELSE BEGIN

@@ -426,7 +426,6 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                 }
                 field(QtyCtrl; Qty)
                 {
-                    // BlankZero = true; TODO:
                     Caption = 'Quantity', Comment = 'FRA="Quantité"';
                     Editable = QtyCtrlEditable;
                     Style = Standard;
@@ -731,7 +730,6 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         BinForm: Page "BC6_Bin List MiniForm";
         ItemForm: Page "BC6_Item List MiniForm";
         VisibleTestBool: Boolean;
-        // WshShell: Automation; TODO:
         BoolWait: Boolean;
         [InDataSet]
         IsVisibleSearch: Boolean;

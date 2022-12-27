@@ -21,9 +21,6 @@ page 50106 "BC6_Add Log Purch. Comment"
                 field(ReceiptType2; ReceiptType)
                 {
                     Caption = 'Type', comment = 'FRA="Type"';
-
-                    //TODO: optioncaption
-                    // OptionCaption = 'Package,Pallet';
                 }
             }
         }

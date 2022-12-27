@@ -1,7 +1,7 @@
 pageextension 50089 "BC6_SalesReturnOrder" extends "Sales Return Order" //6630
 {
 
-    //TODO Unsupported feature: Property Insertion (InsertAllowed) on ""Sales Return Order"(Page 6630)".
+
     layout
     {
         addafter("Sell-to")
@@ -82,8 +82,8 @@ pageextension 50089 "BC6_SalesReturnOrder" extends "Sales Return Order" //6630
             {
                 Caption = 'Affichage documents associés';
                 Image = CopyDocument;
-                //The property 'PromotedIsBig' can only be set if the property 'Promoted' is set to 'true'
-                //PromotedIsBig = true;
+                Promoted = true;
+                PromotedIsBig = true;
 
                 trigger OnAction()
                 var
@@ -105,7 +105,12 @@ pageextension 50089 "BC6_SalesReturnOrder" extends "Sales Return Order" //6630
         Text001: Label '';
         nameF: Text[250];
 
-
+    trigger OnInsertRecord(BelowxRec: Boolean): Boolean
+    var
+        Error: Label 'you don''t have permission to add records', Comment = 'FRA="vous n''êtes pas autorisé à ajouter des enregistrements"';
+    begin
+        Error(Error); //TODO: Check Modify property InsertAllowed by Error
+    end;
 
     procedure EnvoiMail()
     begin
@@ -143,15 +148,19 @@ pageextension 50089 "BC6_SalesReturnOrder" extends "Sales Return Order" //6630
         NotificationEntry: Record "Notification Entry";
         L_UserSetup: Record "User Setup";
         notification: Notification;
+        WorkflowStepArgument: Record "Workflow Step Argument";
+        WorkflowStepInstance: Record "Workflow Step Instance";
     begin
         L_UserSetup.RESET();
         L_UserSetup.SETRANGE("BC6_SAV Admin", TRUE);
-        //TODO: 0 Régler les param:// IF L_UserSetup.FINDFIRST THEN
-        //     REPEAT
-        //         NotificationEntry.CreateNew(
-        //           NotificationEntry.Type::"New Record", L_UserSetup."User ID",
-        //           Rec, 6630, '');
-        //     UNTIL L_UserSetup.NEXT = 0;
+        IF L_UserSetup.FINDFIRST() THEN begin
+            WorkflowStepInstance.Get();
+            if WorkflowStepArgument.Get(WorkflowStepInstance.Argument) then
+                REPEAT
+                    NotificationEntry.CreateNotificationEntry(NotificationEntry.Type::"New Record", L_UserSetup."User ID", Rec, WorkflowStepArgument."Link Target Page",
+                                        WorkflowStepArgument."Custom Link", CopyStr(UserId(), 1, 50));
+                UNTIL L_UserSetup.NEXT = 0;
+        end;
     end;
 }
 

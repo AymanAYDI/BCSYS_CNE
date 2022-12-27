@@ -111,7 +111,7 @@ xmlport 53000 "BC6_Import Client"
                 trigger OnAfterInitRecord()
                 begin
 
-                    RecGCust.INIT;
+                    RecGCust.INIT();
 
                     Num := '';
                     DateCreat := '';
@@ -148,9 +148,9 @@ xmlport 53000 "BC6_Import Client"
 
                 trigger OnBeforeInsertRecord()
                 var
+                    PostCodeExist: Boolean;
                     CPLength: Integer;
                     i: Integer;
-                    PostCodeExist: Boolean;
                 begin
 
                     RecGCust.VALIDATE("No.", Num);
@@ -179,12 +179,12 @@ xmlport 53000 "BC6_Import Client"
                         END;
 
 
-                        PostCode.RESET;
+                        PostCode.RESET();
                         PostCode.SETCURRENTKEY("Search City");
                         PostCode.SETRANGE("Search City", UPPERCASE(Ville));
                         PostCode.SETRANGE(Code, CP);
                         IF NOT (PostCode.FIND('-')) THEN BEGIN
-                            PostCode.INIT;
+                            PostCode.INIT();
 
                             PostCode.Code := CP;
                             PostCode.City := Ville;
@@ -205,7 +205,7 @@ xmlport 53000 "BC6_Import Client"
 
                     //Secteur
                     IF NOT Territory.GET(Secteur) THEN BEGIN
-                        Territory.INIT;
+                        Territory.INIT();
                         Territory.VALIDATE(Code, Secteur);
                         Territory.VALIDATE(Name, 'A completer');
                         Territory.INSERT(TRUE);
@@ -245,7 +245,7 @@ xmlport 53000 "BC6_Import Client"
                     //Condition Règlement
                     IF Liv <> '' THEN BEGIN
                         IF NOT ShipMethode.GET(Liv) THEN BEGIN
-                            ShipMethode.INIT;
+                            ShipMethode.INIT();
                             ShipMethode.VALIDATE(Code, Liv);
                             ShipMethode.VALIDATE(Description, 'A completer');
                             ShipMethode.INSERT(TRUE);
@@ -285,7 +285,7 @@ xmlport 53000 "BC6_Import Client"
                     //Langue
                     IF Langue <> '' THEN BEGIN
                         IF NOT Language.GET(Langue) THEN BEGIN
-                            Language.INIT;
+                            Language.INIT();
                             Language.VALIDATE(Code, Langue);
                             Language.VALIDATE(Name, 'A completer');
                             Language.INSERT(TRUE);
@@ -322,11 +322,11 @@ xmlport 53000 "BC6_Import Client"
 
                     // Commentaires
                     IF Commentaire <> '' THEN BEGIN
-                        Commentaires.INIT;
+                        Commentaires.INIT();
                         Commentaires.VALIDATE("Table Name", Commentaires."Table Name"::Customer);
                         Commentaires.VALIDATE("No.", Num);
                         Commentaires.VALIDATE("Line No.", 10000);
-                        Commentaires.VALIDATE(Date, WORKDATE);
+                        Commentaires.VALIDATE(Date, WORKDATE());
                         Commentaires.VALIDATE(Comment, Commentaire);
                         Commentaires.INSERT(TRUE);
                     END;
@@ -365,19 +365,19 @@ xmlport 53000 "BC6_Import Client"
     }
 
     var
-        RecGCust: Record Customer;
-        PostCode: Record "Post Code";
-        Territory: Record Territory;
-        ShipMethode: Record "Shipment Method";
-        Contact: Record Contact;
-        Language: Record Language;
-        Currency: Record Currency;
-        GpCptaMarche: Record "Gen. Business Posting Group";
-        PaymentTerms: Record "Payment Terms";
-        PaymentMethod: Record "Payment Method";
-        Vendeur: Record "Salesperson/Purchaser";
-        Commentaires: Record "Comment Line";
         Defaut: Record "BC6_Navi+ Setup";
+        Commentaires: Record "Comment Line";
+        Contact: Record Contact;
+        Currency: Record Currency;
+        RecGCust: Record Customer;
         GpRemise: Record "Customer Discount Group";
+        GpCptaMarche: Record "Gen. Business Posting Group";
+        Language: Record Language;
+        PaymentMethod: Record "Payment Method";
+        PaymentTerms: Record "Payment Terms";
+        PostCode: Record "Post Code";
+        Vendeur: Record "Salesperson/Purchaser";
+        ShipMethode: Record "Shipment Method";
+        Territory: Record Territory;
 }
 

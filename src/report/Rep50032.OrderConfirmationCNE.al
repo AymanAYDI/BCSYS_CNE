@@ -100,7 +100,7 @@ report 50032 "BC6_Order Confirmation CNE"
                     column(CompanyInfo_Picture; CompanyInfo.Picture)
                     {
                     }
-                    column(STRSUBSTNO_Text005_FORMAT_CurrReport_PAGENO__; STRSUBSTNO(Text005, FORMAT(CurrReport.PAGENO)))
+                    column(STRSUBSTNO_Text005_FORMAT_CurrReport_PAGENO__; STRSUBSTNO(Text005, FORMAT(CurrReport.PAGENO())))
                     {
                     }
                     column(TmpNamereport; TmpNamereport)
@@ -215,37 +215,37 @@ report 50032 "BC6_Order Confirmation CNE"
                                     IF Number = 1 THEN
                                         StandardSalesLine.FIND('-')
                                     ELSE BEGIN
-                                        StandardSalesLine.NEXT;
+                                        StandardSalesLine.NEXT();
                                     END;
                                 END;
                             end;
 
                             trigger OnPreDataItem()
                             begin
-                                IF NOT Edition THEN CurrReport.BREAK;
-                                StandardSalesLine.RESET;
+                                IF NOT Edition THEN CurrReport.BREAK();
+                                StandardSalesLine.RESET();
                                 StandardSalesLine.SETRANGE(StandardSalesLine."Standard Sales Code", StandardCustomerSalesCode.Code);
                                 Edition2 := TRUE;
                                 IF StandardSalesLine.COUNT <> 0 THEN
                                     TexteClient.SETRANGE(Number, 1, StandardSalesLine.COUNT)
                                 ELSE
                                     Edition2 := FALSE;
-                                IF NOT Edition2 THEN CurrReport.BREAK;
+                                IF NOT Edition2 THEN CurrReport.BREAK();
                             end;
                         }
 
                         trigger OnAfterGetRecord()
                         begin
-                            IF NOT Edition THEN CurrReport.BREAK;
+                            IF NOT Edition THEN CurrReport.BREAK();
                             IF Number = 1 THEN
                                 StandardCustomerSalesCode.FIND('-')
                             ELSE
-                                StandardCustomerSalesCode.NEXT;
+                                StandardCustomerSalesCode.NEXT();
                         end;
 
                         trigger OnPreDataItem()
                         begin
-                            StandardCustomerSalesCode.RESET;
+                            StandardCustomerSalesCode.RESET();
                             StandardCustomerSalesCode.SETRANGE(StandardCustomerSalesCode.BC6_TextautoReport, TRUE);
                             StandardCustomerSalesCode.SETRANGE(StandardCustomerSalesCode."Customer No.", SalesHeader."Sell-to Customer No.");
                             Edition := TRUE;
@@ -268,7 +268,7 @@ report 50032 "BC6_Order Confirmation CNE"
                             IF (Type = Type::"G/L Account") AND (NOT ShowInternalInfo) THEN
                                 "No." := '';
 
-                            VATAmountLine.INIT;
+                            VATAmountLine.INIT();
                             VATAmountLine."VAT Identifier" := "VAT Identifier";
                             VATAmountLine."VAT Calculation Type" := "VAT Calculation Type";
                             VATAmountLine."Tax Group Code" := "Tax Group Code";
@@ -279,18 +279,18 @@ report 50032 "BC6_Order Confirmation CNE"
                             IF "Allow Invoice Disc." THEN
                                 VATAmountLine."Inv. Disc. Base Amount" := "Line Amount";
                             VATAmountLine."Invoice Discount Amount" := "Inv. Discount Amount";
-                            VATAmountLine.InsertLine;
+                            VATAmountLine.InsertLine();
                         end;
 
                         trigger OnPreDataItem()
                         begin
-                            CurrReport.BREAK;
-                            VATAmountLine.DELETEALL;
+                            CurrReport.BREAK();
+                            VATAmountLine.DELETEALL();
                             MoreLines := FIND('+');
                             WHILE MoreLines AND (Description = '') AND ("No." = '') AND (Quantity = 0) AND (Amount = 0) DO
                                 MoreLines := NEXT(-1) <> 0;
                             IF NOT MoreLines THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                             SETRANGE("Line No.", 0, "Line No.");
 
                             CurrReport.CREATETOTALS("Line Amount", Amount, "Amount Including VAT", "Inv. Discount Amount");
@@ -456,7 +456,7 @@ report 50032 "BC6_Order Confirmation CNE"
                             IF Number = 1 THEN
                                 SalesLine.FIND('-')
                             ELSE
-                                SalesLine.NEXT;
+                                SalesLine.NEXT();
                             "Sales Line" := SalesLine;
 
                             IF NOT SalesHeader."Prices Including VAT" AND
@@ -468,7 +468,7 @@ report 50032 "BC6_Order Confirmation CNE"
                                 "Sales Line"."No." := '';
 
                             //Debut affichage des references externes
-                            ItemReference.RESET;
+                            ItemReference.RESET();
                             ItemReference.SETRANGE("Item No.", SalesLine."No.");
                             ItemReference.SETRANGE("Reference Type", ItemReference."Reference Type"::Customer);
                             ItemReference.SETRANGE("Reference Type No.", SalesHeader."Sell-to Customer No.");
@@ -478,7 +478,7 @@ report 50032 "BC6_Order Confirmation CNE"
                             //Fin affichage des references externes
 
                             //Début recuperation du code barre (gencod)
-                            ItemReference.RESET;
+                            ItemReference.RESET();
                             ItemReference.SETRANGE("Item No.", SalesLine."No.");
                             ItemReference.SETRANGE("Reference Type", ItemReference."Reference Type"::"Bar Code");
                             ItemReference.SETRANGE("Discontinue Bar Code", FALSE);
@@ -499,7 +499,7 @@ report 50032 "BC6_Order Confirmation CNE"
                                 ELSE
                                     DecGNumbeofUnitsDEEE := 0;
 
-                                RecGDEEE.RESET;
+                                RecGDEEE.RESET();
                                 RecGDEEE.SETFILTER(RecGDEEE."DEEE Code", SalesLine."BC6_DEEE Category Code");
                                 RecGDEEE.SETFILTER(RecGDEEE."Date beginning", '<=%1', SalesHeader."Posting Date");
                                 IF RecGDEEE.FIND('+') THEN
@@ -513,12 +513,12 @@ report 50032 "BC6_Order Confirmation CNE"
                             IF NOT RecGTempCalcul.GET('', SalesLine."BC6_DEEE Category Code", 0D)
                                THEN BEGIN
                                 //création d'une ligne
-                                RecGTempCalcul.INIT;
+                                RecGTempCalcul.INIT();
                                 RecGTempCalcul."Eco Partner" := '';
                                 RecGTempCalcul."DEEE Code" := SalesLine."BC6_DEEE Category Code";
                                 RecGTempCalcul."Date beginning" := 0D;
                                 RecGTempCalcul."HT Unit Tax (LCY)" := SalesLine."BC6_DEEE HT Amount";
-                                RecGTempCalcul.INSERT;
+                                RecGTempCalcul.INSERT();
                             END;
                             Asterisque := COPYSTR(SalesLine.Description, 1, 1);
                             BooGDescVisible := (SalesLine.Type = 0) AND (Asterisque <> '*');
@@ -555,7 +555,7 @@ report 50032 "BC6_Order Confirmation CNE"
 
                         trigger OnPostDataItem()
                         begin
-                            SalesLine.DELETEALL;
+                            SalesLine.DELETEALL();
                         end;
 
                         trigger OnPreDataItem()
@@ -567,7 +567,7 @@ report 50032 "BC6_Order Confirmation CNE"
                             DO
                                 MoreLines := SalesLine.NEXT(-1) <> 0;
                             IF NOT MoreLines THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                             SalesLine.SETRANGE("Line No.", 0, SalesLine."Line No.");
                             SETRANGE(Number, 1, SalesLine.COUNT);
                             CurrReport.CREATETOTALS(SalesLine."Line Amount", SalesLine."Inv. Discount Amount");
@@ -629,7 +629,7 @@ report 50032 "BC6_Order Confirmation CNE"
                         trigger OnPreDataItem()
                         begin
                             IF VATAmount = 0 THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                             SETRANGE(Number, 1, VATAmountLine.COUNT);
                             CurrReport.CREATETOTALS(
                               VATAmountLine."Line Amount", VATAmountLine."Inv. Disc. Base Amount",
@@ -677,9 +677,9 @@ report 50032 "BC6_Order Confirmation CNE"
                         begin
                             IF (NOT GLSetup."Print VAT specification in LCY") OR
                                (SalesHeader."Currency Code" = '') OR
-                               (VATAmountLine.GetTotalVATAmount = 0)
+                               (VATAmountLine.GetTotalVATAmount() = 0)
                             THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
 
                             SETRANGE(Number, 1, VATAmountLine.COUNT);
                             CurrReport.CREATETOTALS(VALVATBaseLCY, VALVATAmountLCY);
@@ -732,15 +732,15 @@ report 50032 "BC6_Order Confirmation CNE"
                             RecLSalesLine: Record "Sales Line";
                         begin
                             BooGDEEEFind := FALSE;
-                            RecLSalesLine.RESET;
+                            RecLSalesLine.RESET();
                             RecLSalesLine.SETRANGE("Document No.", SalesHeader."No.");
                             RecLSalesLine.SETFILTER(RecLSalesLine."Document Type", '%1', RecLSalesLine."Document Type"::Order);
                             IF RecLSalesLine.FIND('-') THEN
                                 REPEAT
                                     BooGDEEEFind := ((RecLSalesLine."BC6_DEEE Category Code" = DEEETariffs."DEEE Code") AND (RecLSalesLine.Quantity <> 0));
-                                UNTIL ((BooGDEEEFind = TRUE) OR (RecLSalesLine.NEXT = 0));
+                                UNTIL ((BooGDEEEFind = TRUE) OR (RecLSalesLine.NEXT() = 0));
 
-                            RecGDEEE.RESET;
+                            RecGDEEE.RESET();
                             RecGDEEE.SETFILTER(RecGDEEE."DEEE Code", DEEETariffs."DEEE Code");
                             RecGDEEE.SETFILTER(RecGDEEE."Date beginning", '<=%1', SalesHeader."Posting Date");
                             IF RecGDEEE.FIND('+') THEN BEGIN
@@ -748,12 +748,12 @@ report 50032 "BC6_Order Confirmation CNE"
                                     BooGDEEEFind := FALSE;
                             END;
 
-                            RecGItemCtg.RESET;
+                            RecGItemCtg.RESET();
                             IF NOT RecGItemCtg.GET(DEEETariffs."DEEE Code", DEEETariffs."Eco Partner") THEN
-                                RecGItemCtg.INIT;
+                                RecGItemCtg.INIT();
 
                             IF BooGDEEEFind = FALSE THEN
-                                CurrReport.SKIP;
+                                CurrReport.SKIP();
                         end;
 
                         trigger OnPreDataItem()
@@ -761,23 +761,23 @@ report 50032 "BC6_Order Confirmation CNE"
                             RecLSalesLine: Record "Sales Line";
                         begin
                             BooGDEEEFind := FALSE;
-                            RecLSalesLine.RESET;
+                            RecLSalesLine.RESET();
 
                             RecLSalesLine.SETFILTER(RecLSalesLine."Document No.", SalesHeader."No.");
                             RecLSalesLine.SETFILTER(RecLSalesLine."Document Type", '%1', RecLSalesLine."Document Type"::Order);
                             IF RecLSalesLine.FIND('-') THEN
                                 REPEAT
                                     BooGDEEEFind := ((RecLSalesLine."BC6_DEEE Category Code" <> '') AND (RecLSalesLine.Quantity <> 0));
-                                UNTIL ((BooGDEEEFind = TRUE) OR (RecLSalesLine.NEXT = 0));
+                                UNTIL ((BooGDEEEFind = TRUE) OR (RecLSalesLine.NEXT() = 0));
 
                             IF BooGDEEEFind = FALSE THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
 
                             IF NOT RecGBillCustomer."BC6_Submitted to DEEE" THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
 
                             //Ne pas afficher tableau récap DEEE SEDU 02/03/2007
-                            CurrReport.BREAK;
+                            CurrReport.BREAK();
                         end;
                     }
                     dataitem(Total; Integer)
@@ -810,7 +810,7 @@ report 50032 "BC6_Order Confirmation CNE"
                             AutoFormatExpression = SalesHeader."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmountLine_VATAmountText; VATAmountLine.VATAmountText)
+                        column(VATAmountLine_VATAmountText; VATAmountLine.VATAmountText())
                         {
                         }
                         column(TotalExclVATText; TotalExclVATText)
@@ -872,7 +872,7 @@ report 50032 "BC6_Order Confirmation CNE"
                         trigger OnPreDataItem()
                         begin
                             IF NOT ShowShippingAddr THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                         end;
                     }
 
@@ -895,7 +895,7 @@ report 50032 "BC6_Order Confirmation CNE"
 
 
                         //Recherche des libellés text selon langue
-                        IF CurrReport.PAGENO = 1 THEN BEGIN
+                        IF CurrReport.PAGENO() = 1 THEN BEGIN
                             LangueLig10 := Langue + '' + '10';
                             LangueLig20 := Langue + '' + '20';
                             LangueLig30 := Langue + '' + '30';
@@ -928,16 +928,16 @@ report 50032 "BC6_Order Confirmation CNE"
                 begin
                     CLEAR(SalesLine);
                     CLEAR(SalesPost);
-                    VATAmountLine.DELETEALL;
+                    VATAmountLine.DELETEALL();
                     SalesPost.GetSalesLines(SalesHeader, SalesLine, 0);
                     SalesLine.CalcVATAmountLines(0, SalesHeader, SalesLine, VATAmountLine);
                     SalesLine.UpdateVATOnLines(0, SalesHeader, SalesLine, VATAmountLine);
-                    VATAmount := VATAmountLine.GetTotalVATAmount;
-                    VATBaseAmount := VATAmountLine.GetTotalVATBase;
+                    VATAmount := VATAmountLine.GetTotalVATAmount();
+                    VATBaseAmount := VATAmountLine.GetTotalVATBase();
                     VATDiscountAmount :=
                       VATAmountLine.GetTotalVATDiscount(SalesHeader."Currency Code", SalesHeader."Prices Including VAT");
 
-                    TotalAmountInclVAT := VATAmountLine.GetTotalAmountInclVAT + VATAmountLine.GetTotalAmountDEEEInclVAT;
+                    TotalAmountInclVAT := VATAmountLine.GetTotalAmountInclVAT() + VATAmountLine.GetTotalAmountDEEEInclVAT();
 
                     IF Number > 1 THEN BEGIN
                         CopyText := Text003;
@@ -1105,19 +1105,19 @@ report 50032 "BC6_Order Confirmation CNE"
                 //Adresse à imprimer = adresse de commande et non pas adresse de Facturation
                 FormatAddr.SalesHeaderBillTo(CustAddr, SalesHeader);
 
-                RecG_User.RESET;
+                RecG_User.RESET();
                 RecG_User.SETRANGE("User Name", ID);
-                IF RecG_User.FINDFIRST THEN
+                IF RecG_User.FINDFIRST() THEN
                     TexG_User_Name := RecG_User."Full Name"
                 ELSE
                     TexG_User_Name := '';
 
                 IF "Payment Terms Code" = '' THEN
-                    PaymentTerms.INIT
+                    PaymentTerms.INIT()
                 ELSE
                     PaymentTerms.GET("Payment Terms Code");
                 IF "Shipment Method Code" = '' THEN
-                    ShipmentMethod.INIT
+                    ShipmentMethod.INIT()
                 ELSE
                     ShipmentMethod.GET("Shipment Method Code");
 
@@ -1153,7 +1153,7 @@ report 50032 "BC6_Order Confirmation CNE"
                     END;
                 END;
 
-                RecGBillCustomer.RESET;
+                RecGBillCustomer.RESET();
                 RecGBillCustomer.GET(SalesHeader."Bill-to Customer No.");
             end;
         }
@@ -1218,8 +1218,8 @@ report 50032 "BC6_Order Confirmation CNE"
 
     trigger OnInitReport()
     begin
-        GLSetup.GET;
-        CompanyInfo.GET;
+        GLSetup.GET();
+        CompanyInfo.GET();
     end;
 
     trigger OnPreReport()
@@ -1238,38 +1238,38 @@ report 50032 "BC6_Order Confirmation CNE"
     end;
 
     var
-        PaymentTerms: Record "Payment Terms";
-        Language: Record Language;
-        Language2: Codeunit Language;
-        Country: Record "Country/Region";
-        ShipmentMethod: Record "Shipment Method";
-        SalesPurchPerson: Record "Salesperson/Purchaser";
-        customer: Record Customer;
-        RecGBillCustomer: Record Customer;
-        item: Record Item;
-        RecGItem: Record Item;
-        SalesLine: Record "Sales Line" temporary;
-        CompanyInfo: Record "Company Information";
-        GLSetup: Record "General Ledger Setup";
-        RecGSalesInvLine: Record "Sales Invoice Line";
-        StandardSalesLine: Record "Standard Sales Line";
-        StandardCustomerSalesCode: Record "Standard Customer Sales Code";
-        PaymentMethod: Record "Payment Method";
-        VATAmountLine: Record "VAT Amount Line" temporary;
-        ShippingAgent: Record "Shipping Agent";
-        RecGParamVente: Record "Sales & Receivables Setup";
-        CurrExchRate: Record "Currency Exchange Rate";
-        RespCenter: Record "Responsibility Center";
-        ItemReference: Record "Item Reference";
-        TablesDiverses: Record "BC6_Various Tables";
         RecGItemCtg: Record "BC6_Categories of item";
         RecGDEEE: Record "BC6_DEEE Tariffs";
         RecGTempCalcul: Record "BC6_DEEE Tariffs" temporary;
+        TablesDiverses: Record "BC6_Various Tables";
+        CompanyInfo: Record "Company Information";
+        Country: Record "Country/Region";
+        CurrExchRate: Record "Currency Exchange Rate";
+        customer: Record Customer;
+        RecGBillCustomer: Record Customer;
+        GLSetup: Record "General Ledger Setup";
+        item: Record Item;
+        RecGItem: Record Item;
+        ItemReference: Record "Item Reference";
+        Language: Record Language;
+        PaymentMethod: Record "Payment Method";
+        PaymentTerms: Record "Payment Terms";
+        RespCenter: Record "Responsibility Center";
+        RecGParamVente: Record "Sales & Receivables Setup";
+        RecGSalesInvLine: Record "Sales Invoice Line";
+        SalesLine: Record "Sales Line" temporary;
+        SalesPurchPerson: Record "Salesperson/Purchaser";
+        ShipmentMethod: Record "Shipment Method";
+        ShippingAgent: Record "Shipping Agent";
+        StandardCustomerSalesCode: Record "Standard Customer Sales Code";
+        StandardSalesLine: Record "Standard Sales Line";
         RecG_User: Record User;
-        SalesCountPrinted: Codeunit "Sales-Printed";
-        FormatAddr: Codeunit "Format Address";
-        SegManagement: Codeunit SegManagement;
+        VATAmountLine: Record "VAT Amount Line" temporary;
         ArchiveManagement: Codeunit ArchiveManagement;
+        FormatAddr: Codeunit "Format Address";
+        Language2: Codeunit Language;
+        SalesCountPrinted: Codeunit "Sales-Printed";
+        SegManagement: Codeunit SegManagement;
         ArchiveDocument: Boolean;
         BooGDEEEFind: Boolean;
         BooGDescVisible: Boolean;
@@ -1429,13 +1429,13 @@ report 50032 "BC6_Order Confirmation CNE"
 
     procedure DefineTagFax(TxtLTag: Text[50])
     begin
-        RecGParamVente.GET;
+        RecGParamVente.GET();
         TxtGTag := RecGParamVente."BC6_RTE Fax Tag" + TxtLTag + '@cne.fax';
     end;
 
     procedure DefineTagMail(TxtLTag: Text[50])
     begin
-        RecGParamVente.GET;
+        RecGParamVente.GET();
         TxtGTag := RecGParamVente."BC6_PDF Mail Tag" + TxtLTag;
     end;
 }

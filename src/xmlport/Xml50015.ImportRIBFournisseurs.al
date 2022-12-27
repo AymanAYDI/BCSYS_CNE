@@ -44,7 +44,7 @@ xmlport 50015 "BC6_Import R.I.B Fournisseurs"
                 begin
 
 
-                    recVendBank.INIT;
+                    recVendBank.INIT();
 
                     vendor := '';
                     Code := '';
@@ -108,7 +108,7 @@ xmlport 50015 "BC6_Import R.I.B Fournisseurs"
     }
 
     var
-        recVendBank: Record 288;
+        recVendBank: Record "Vendor Bank Account";
         IntGrib: Integer;
 }
 

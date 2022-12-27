@@ -24,7 +24,7 @@ page 50117 "BC6_Locat. Sales Return Order"
                     trigger OnAssistEdit()
                     begin
                         IF Rec.AssistEdit(xRec) THEN
-                            CurrPage.UPDATE;
+                            CurrPage.UPDATE();
                     end;
                 }
                 field("Sell-to Customer Name"; Rec."Sell-to Customer Name")
@@ -41,7 +41,7 @@ page 50117 "BC6_Locat. Sales Return Order"
                             IF Rec."Sell-to Customer No." <> xRec."Sell-to Customer No." THEN
                                 Rec.SETRANGE("Sell-to Customer No.");
 
-                        CurrPage.UPDATE;
+                        CurrPage.UPDATE();
                     end;
                 }
                 group("Sell-to")
@@ -132,7 +132,7 @@ page 50117 "BC6_Locat. Sales Return Order"
 
                     trigger OnValidate()
                     begin
-                        SalespersonCodeOnAfterValidate;
+                        SalespersonCodeOnAfterValidate();
                     end;
                 }
                 field("Campaign No."; Rec."Campaign No.")
@@ -182,17 +182,17 @@ page 50117 "BC6_Locat. Sales Return Order"
                         IF Rec."Posting Date" <> 0D THEN
                             ChangeExchangeRate.SetParameter(Rec."Currency Code", Rec."Currency Factor", Rec."Posting Date")
                         ELSE
-                            ChangeExchangeRate.SetParameter(Rec."Currency Code", Rec."Currency Factor", WORKDATE);
-                        IF ChangeExchangeRate.RUNMODAL = ACTION::OK THEN BEGIN
-                            Rec.VALIDATE("Currency Factor", ChangeExchangeRate.GetParameter);
-                            CurrPage.UPDATE;
+                            ChangeExchangeRate.SetParameter(Rec."Currency Code", Rec."Currency Factor", WORKDATE());
+                        IF ChangeExchangeRate.RUNMODAL() = ACTION::OK THEN BEGIN
+                            Rec.VALIDATE("Currency Factor", ChangeExchangeRate.GetParameter());
+                            CurrPage.UPDATE();
                         END;
                         CLEAR(ChangeExchangeRate);
                     end;
 
                     trigger OnValidate()
                     begin
-                        CurrPage.SAVERECORD;
+                        CurrPage.SAVERECORD();
                         SalesCalcDiscByType.ApplyDefaultInvoiceDiscount(0, Rec);
                     end;
                 }
@@ -202,7 +202,7 @@ page 50117 "BC6_Locat. Sales Return Order"
 
                     trigger OnValidate()
                     begin
-                        PricesIncludingVATOnAfterValid;
+                        PricesIncludingVATOnAfterValid();
                     end;
                 }
                 field("VAT Bus. Posting Group"; Rec."VAT Bus. Posting Group")
@@ -219,7 +219,7 @@ page 50117 "BC6_Locat. Sales Return Order"
 
                     trigger OnValidate()
                     begin
-                        ShortcutDimension1CodeOnAfterV;
+                        ShortcutDimension1CodeOnAfterV();
                     end;
                 }
                 field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
@@ -228,7 +228,7 @@ page 50117 "BC6_Locat. Sales Return Order"
 
                     trigger OnValidate()
                     begin
-                        ShortcutDimension2CodeOnAfterV;
+                        ShortcutDimension2CodeOnAfterV();
                     end;
                 }
                 field("Shipment Date"; Rec."Shipment Date")
@@ -472,7 +472,7 @@ page 50117 "BC6_Locat. Sales Return Order"
                     begin
                         OnBeforeStatisticsAction(Rec, Handled);
                         IF NOT Handled THEN BEGIN
-                            Rec.OpenSalesOrderStatistics;
+                            Rec.OpenSalesOrderStatistics();
                             SalesCalcDiscByType.ResetRecalculateInvoiceDisc(Rec);
                         END
                     end;
@@ -499,8 +499,8 @@ page 50117 "BC6_Locat. Sales Return Order"
 
                     trigger OnAction()
                     begin
-                        Rec.ShowDocDim;
-                        CurrPage.SAVERECORD;
+                        Rec.ShowDocDim();
+                        CurrPage.SAVERECORD();
                     end;
                 }
                 action(Approvals)
@@ -515,7 +515,7 @@ page 50117 "BC6_Locat. Sales Return Order"
                         ApprovalEntries: Page "Approval Entries";
                     begin
                         ApprovalEntries.Setfilters(DATABASE::"Sales Header", Rec."Document Type", Rec."No.");
-                        ApprovalEntries.RUN;
+                        ApprovalEntries.RUN();
                     end;
                 }
                 action("Co&mments")
@@ -668,14 +668,14 @@ page 50117 "BC6_Locat. Sales Return Order"
                             1:
                                 DocPrint.PrintSalesHeader(Rec);
                             2:
-                                EnvoiMail;
+                                EnvoiMail();
                         END;
                     END ELSE
                         CASE STRMENU(STR3 + ',' + STR4) OF
                             1:
                                 BEGIN
                                     Rec.TESTFIELD(Status, Rec.Status::Released);
-                                    L_SalesHeader.RESET;
+                                    L_SalesHeader.RESET();
                                     L_SalesHeader.SETRANGE("Document Type", Rec."Document Type");
                                     L_SalesHeader.SETRANGE("No.", Rec."No.");
                                     REPORT.RUNMODAL(Report::"BC6_Return Order SAV Conf.", TRUE, FALSE, L_SalesHeader);
@@ -683,7 +683,7 @@ page 50117 "BC6_Locat. Sales Return Order"
                             2:
                                 BEGIN
                                     Rec.TESTFIELD(Status, Rec.Status::Released);
-                                    EnvoiMail;
+                                    EnvoiMail();
                                 END;
 
                         END;
@@ -704,7 +704,7 @@ page 50117 "BC6_Locat. Sales Return Order"
                         ReleaseSalesDoc: Codeunit "Release Sales Document";
                     begin
                         ReleaseSalesDoc.PerformManualRelease(Rec);
-                        FctSendNotification
+                        FctSendNotification()
                     end;
                 }
                 action(Reopen)
@@ -740,7 +740,7 @@ page 50117 "BC6_Locat. Sales Return Order"
 
                     trigger OnAction()
                     begin
-                        ApproveCalcInvDisc;
+                        ApproveCalcInvDisc();
                         SalesCalcDiscByType.ResetRecalculateInvoiceDisc(Rec);
                     end;
                 }
@@ -774,8 +774,8 @@ page 50117 "BC6_Locat. Sales Return Order"
                     begin
                         CLEAR(CreateRetRelDocs);
                         CreateRetRelDocs.SetSalesHeader(Rec);
-                        CreateRetRelDocs.RUNMODAL;
-                        CreateRetRelDocs.ShowDocuments;
+                        CreateRetRelDocs.RUNMODAL();
+                        CreateRetRelDocs.ShowDocuments();
                     end;
                 }
                 separator(sep3)
@@ -793,7 +793,7 @@ page 50117 "BC6_Locat. Sales Return Order"
                     trigger OnAction()
                     begin
                         CopySalesDoc.SetSalesHeader(Rec);
-                        CopySalesDoc.RUNMODAL;
+                        CopySalesDoc.RUNMODAL();
                         CLEAR(CopySalesDoc);
                         IF Rec.GET(Rec."Document Type", Rec."No.") THEN;
                     end;
@@ -808,8 +808,8 @@ page 50117 "BC6_Locat. Sales Return Order"
                     begin
                         CLEAR(MoveNegSalesLines);
                         MoveNegSalesLines.SetSalesHeader(Rec);
-                        MoveNegSalesLines.RUNMODAL;
-                        MoveNegSalesLines.ShowDocument;
+                        MoveNegSalesLines.RUNMODAL();
+                        MoveNegSalesLines.ShowDocument();
                     end;
                 }
                 action(GetPostedDocumentLinesToReverse)
@@ -824,7 +824,7 @@ page 50117 "BC6_Locat. Sales Return Order"
 
                     trigger OnAction()
                     begin
-                        GetPstdDocLinesToRevere;
+                        GetPstdDocLinesToRevere();
                     end;
                 }
                 action("Archive Document")
@@ -936,7 +936,7 @@ page 50117 "BC6_Locat. Sales Return Order"
 
                     trigger OnAction()
                     begin
-                        ShowPreview;
+                        ShowPreview();
                     end;
                 }
                 action("Test Report")
@@ -988,7 +988,7 @@ page 50117 "BC6_Locat. Sales Return Order"
 
                     trigger OnAction()
                     begin
-                        Rec.CancelBackgroundPosting;
+                        Rec.CancelBackgroundPosting();
                     end;
                 }
             }
@@ -1044,51 +1044,51 @@ page 50117 "BC6_Locat. Sales Return Order"
 
     trigger OnAfterGetRecord()
     begin
-        SetControlAppearance;
+        SetControlAppearance();
     end;
 
     trigger OnDeleteRecord(): Boolean
     begin
-        CurrPage.SAVERECORD;
-        EXIT(Rec.ConfirmDeletion);
+        CurrPage.SAVERECORD();
+        EXIT(Rec.ConfirmDeletion());
     end;
 
     trigger OnInit()
     var
         SalesReceivablesSetup: Record "Sales & Receivables Setup";
     begin
-        JobQueueUsed := SalesReceivablesSetup.JobQueueActive;
+        JobQueueUsed := SalesReceivablesSetup.JobQueueActive();
     end;
 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
         IF DocNoVisible THEN
-            Rec.CheckCreditMaxBeforeInsert;
+            Rec.CheckCreditMaxBeforeInsert();
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        Rec."Responsibility Center" := UserMgt.GetSalesFilter;
+        Rec."Responsibility Center" := UserMgt.GetSalesFilter();
         IF (NOT DocNoVisible) AND (Rec."No." = '') THEN
-            Rec.SetSellToCustomerFromFilter;
+            Rec.SetSellToCustomerFromFilter();
         "BC6_Return Order Type" := "BC6_Return Order Type"::Location;
     end;
 
     trigger OnOpenPage()
     begin
-        IF UserMgt.GetSalesFilter <> '' THEN BEGIN
+        IF UserMgt.GetSalesFilter() <> '' THEN BEGIN
             Rec.FILTERGROUP(2);
-            Rec.SETRANGE("Responsibility Center", UserMgt.GetSalesFilter);
+            Rec.SETRANGE("Responsibility Center", UserMgt.GetSalesFilter());
             Rec.FILTERGROUP(0);
         END;
 
-        SetDocNoVisible;
+        SetDocNoVisible();
     end;
 
     trigger OnQueryClosePage(CloseAction: Action): Boolean
     begin
         IF NOT DocumentIsPosted THEN
-            EXIT(Rec.ConfirmCloseUnposted);
+            EXIT(Rec.ConfirmCloseUnposted());
     end;
 
     var
@@ -1139,19 +1139,19 @@ page 50117 "BC6_Locat. Sales Return Order"
         DocumentIsPosted := NOT SalesHeader.GET(Rec."Document Type", Rec."No.");
 
         IF Rec."Job Queue Status" = Rec."Job Queue Status"::"Scheduled for Posting" THEN
-            CurrPage.CLOSE;
+            CurrPage.CLOSE();
         CurrPage.UPDATE(FALSE);
 
         IF PostingCodeunitID <> CODEUNIT::"Sales-Post (Yes/No)" THEN
             EXIT;
 
-        IF InstructionMgt.IsEnabled(InstructionMgt.ShowPostedConfirmationMessageCode) THEN
-            ShowPostedConfirmationMessage;
+        IF InstructionMgt.IsEnabled(InstructionMgt.ShowPostedConfirmationMessageCode()) THEN
+            ShowPostedConfirmationMessage();
     end;
 
     local procedure ApproveCalcInvDisc()
     begin
-        CurrPage.SalesLines.PAGE.ApproveCalcInvDisc;
+        CurrPage.SalesLines.PAGE.ApproveCalcInvDisc();
     end;
 
     local procedure SalespersonCodeOnAfterValidate()
@@ -1171,7 +1171,7 @@ page 50117 "BC6_Locat. Sales Return Order"
 
     local procedure PricesIncludingVATOnAfterValid()
     begin
-        CurrPage.UPDATE;
+        CurrPage.UPDATE();
     end;
 
     local procedure SetDocNoVisible()
@@ -1209,8 +1209,8 @@ page 50117 "BC6_Locat. Sales Return Order"
     begin
         IF NOT ReturnOrderSalesHeader.GET(Rec."Document Type", Rec."No.") THEN BEGIN
             SalesCrMemoHeader.SETRANGE("No.", Rec."Last Posting No.");
-            IF SalesCrMemoHeader.FINDFIRST THEN
-                IF InstructionMgt.ShowConfirm(OpenPostedSalesReturnOrderQst, InstructionMgt.ShowPostedConfirmationMessageCode) THEN
+            IF SalesCrMemoHeader.FINDFIRST() THEN
+                IF InstructionMgt.ShowConfirm(OpenPostedSalesReturnOrderQst, InstructionMgt.ShowPostedConfirmationMessageCode()) THEN
                     PAGE.RUN(PAGE::"Posted Sales Credit Memo", SalesCrMemoHeader);
         END;
     end;
@@ -1231,7 +1231,7 @@ page 50117 "BC6_Locat. Sales Return Order"
         cust.SETRANGE(cust."No.", Rec."Sell-to Customer No.");
         IF cust.FIND('-') THEN
             cust.TESTFIELD("E-Mail");
-        OpenFile;
+        OpenFile();
         IF nameF <> '' THEN BEGIN
             Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + Rec."No.", '', nameF, FALSE);
             ERASE(nameF);
@@ -1265,20 +1265,20 @@ page 50117 "BC6_Locat. Sales Return Order"
     var
         NotificationEntry: Record "Notification Entry";
         L_UserSetup: Record "User Setup";
-        notification: Notification;
         WorkflowStepArgument: Record "Workflow Step Argument";
         WorkflowStepInstance: Record "Workflow Step Instance";
+        notification: Notification;
     begin
-        L_UserSetup.RESET;
+        L_UserSetup.RESET();
         L_UserSetup.SETRANGE("BC6_SAV Admin", TRUE);
-        IF L_UserSetup.FINDFIRST THEN begin
+        IF L_UserSetup.FINDFIRST() THEN begin
             WorkflowStepInstance.Get();
             if WorkflowStepArgument.Get(WorkflowStepInstance.Argument) then
                 REPEAT
                     NotificationEntry.CreateNotificationEntry(NotificationEntry.Type::"New Record", L_UserSetup."User ID", Rec, WorkflowStepArgument."Link Target Page",
                                                  WorkflowStepArgument."Custom Link", CopyStr(UserId(), 1, 50));
 
-                UNTIL L_UserSetup.NEXT = 0;
+                UNTIL L_UserSetup.NEXT() = 0;
         end;
     end;
 }

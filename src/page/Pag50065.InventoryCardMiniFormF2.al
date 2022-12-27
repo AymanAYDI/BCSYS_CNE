@@ -30,13 +30,13 @@ page 50065 "BC6_Inventory Card MiniForm F2"
                     Item: Record Item;
                 begin
                     CLEAR(ItemForm);
-                    Item.RESET;
+                    Item.RESET();
                     ItemForm.SETTABLEVIEW(Item);
                     ItemForm.LOOKUPMODE(TRUE);
                     IF ItemNo <> '' THEN
                         IF Item.GET(ItemNo) THEN
                             ItemForm.SETRECORD(Item);
-                    IF ItemForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                    IF ItemForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                         ItemForm.GETRECORD(Item);
                         ItemNo := Item."No.";
                         AssignItemNo(ItemNo);
@@ -45,7 +45,7 @@ page 50065 "BC6_Inventory Card MiniForm F2"
 
                 trigger OnValidate()
                 begin
-                    ItemNoOnAfterValidate;
+                    ItemNoOnAfterValidate();
                 end;
             }
             field(Description; Description)
@@ -67,7 +67,7 @@ page 50065 "BC6_Inventory Card MiniForm F2"
                     IF FromBinCode = '' THEN
                         ERROR('Veuillez spécifier l''emplacement.');
 
-                    QtyOnAfterValidate;
+                    QtyOnAfterValidate();
                 end;
             }
             field(FromBinCodeCtrl; FromBinCode)
@@ -85,7 +85,7 @@ page 50065 "BC6_Inventory Card MiniForm F2"
                     Bin: Record Bin;
                 begin
                     CLEAR(BinForm);
-                    Bin.RESET;
+                    Bin.RESET();
                     IF LocationCode <> '' THEN
                         Bin.SETRANGE("Location Code", LocationCode);
                     BinForm.SETTABLEVIEW(Bin);
@@ -93,7 +93,7 @@ page 50065 "BC6_Inventory Card MiniForm F2"
                     IF FromBinCode <> '' THEN
                         IF Bin.GET(LocationCode, FromBinCode) THEN
                             BinForm.SETRECORD(Bin);
-                    IF BinForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                    IF BinForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                         BinForm.GETRECORD(Bin);
                         FromBinCode := Bin.Code;
                         AssignFromBinCode(FromBinCode);
@@ -102,7 +102,7 @@ page 50065 "BC6_Inventory Card MiniForm F2"
 
                 trigger OnValidate()
                 begin
-                    FromBinCodeOnAfterValidate;
+                    FromBinCodeOnAfterValidate();
                 end;
             }
             field(LocationCodeCtrl; LocationCode)
@@ -121,13 +121,13 @@ page 50065 "BC6_Inventory Card MiniForm F2"
                 begin
 
                     CLEAR(LocationForm);
-                    Location.RESET;
+                    Location.RESET();
                     Location.SETRANGE("Bin Mandatory", TRUE);
                     LocationForm.SETTABLEVIEW(Location);
                     LocationForm.LOOKUPMODE(TRUE);
                     IF Location.FIND('-') THEN
                         LocationForm.SETRECORD(Location);
-                    IF LocationForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                    IF LocationForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                         LocationForm.GETRECORD(Location);
                         LocationCode := Location.Code;
                         AssignLocationCode(LocationCode);
@@ -136,7 +136,7 @@ page 50065 "BC6_Inventory Card MiniForm F2"
 
                 trigger OnValidate()
                 begin
-                    LocationCodeOnAfterValidate;
+                    LocationCodeOnAfterValidate();
                 end;
             }
         }
@@ -160,25 +160,25 @@ page 50065 "BC6_Inventory Card MiniForm F2"
                     PgeLInventoryItemSelection: Page "BC6_Inventory Card MiniForm F2";
                 begin
                     CLEAR(LastJnlLine);
-                    LastJnlLine.RESET;
+                    LastJnlLine.RESET();
                     LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
                     LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
                     IF LastJnlLine.FIND('+') THEN BEGIN
-                        INIT;
+                        INIT();
                         "Journal Template Name" := LastJnlLine."Journal Template Name";
                         "Journal Batch Name" := LastJnlLine."Journal Batch Name";
                         "Line No." := LastJnlLine."Line No." + 10000;
                         VALIDATE("Entry Type", "Entry Type"::"Positive Adjmt.");
-                        VALIDATE("Posting Date", WORKDATE);
+                        VALIDATE("Posting Date", WORKDATE());
                         "Document No." := LastJnlLine."Document No.";
                         "Location Code" := LastJnlLine."Location Code";
                         "Bin Code" := LastJnlLine."Bin Code";
                         INSERT(TRUE);
 
-                        CurrPage.CLOSE;
+                        CurrPage.CLOSE();
                         CLEAR(PgeLInventoryItemSelection);
                         PgeLInventoryItemSelection.SETTABLEVIEW(Rec);
-                        PgeLInventoryItemSelection.RUN;
+                        PgeLInventoryItemSelection.RUN();
 
                     END;
                 end;
@@ -197,24 +197,24 @@ page 50065 "BC6_Inventory Card MiniForm F2"
                     PgeLInventoryBinSelection: Page "BC6_Inventory Card MiniForm F3";
                 begin
                     CLEAR(LastJnlLine);
-                    LastJnlLine.RESET;
+                    LastJnlLine.RESET();
                     LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
                     LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
                     IF LastJnlLine.FIND('+') THEN BEGIN
-                        INIT;
+                        INIT();
                         "Journal Template Name" := LastJnlLine."Journal Template Name";
                         "Journal Batch Name" := LastJnlLine."Journal Batch Name";
                         "Line No." := LastJnlLine."Line No." + 10000;
                         VALIDATE("Entry Type", "Entry Type"::"Positive Adjmt.");
-                        VALIDATE("Posting Date", WORKDATE);
+                        VALIDATE("Posting Date", WORKDATE());
                         "Document No." := LastJnlLine."Document No.";
                         "Location Code" := LastJnlLine."Location Code";
                         INSERT(TRUE);
 
-                        CurrPage.CLOSE;
+                        CurrPage.CLOSE();
                         CLEAR(PgeLInventoryBinSelection);
                         PgeLInventoryBinSelection.SETTABLEVIEW(Rec);
-                        PgeLInventoryBinSelection.RUN;
+                        PgeLInventoryBinSelection.RUN();
 
                     END;
                 end;
@@ -229,7 +229,7 @@ page 50065 "BC6_Inventory Card MiniForm F2"
 
                 trigger OnAction()
                 begin
-                    CurrPage.CLOSE;
+                    CurrPage.CLOSE();
                 end;
             }
             action("&Delete")
@@ -245,7 +245,7 @@ page 50065 "BC6_Inventory Card MiniForm F2"
                     DELETE(TRUE);
 
                     page50065.SETTABLEVIEW(Rec);
-                    page50065.RUN;
+                    page50065.RUN();
                 end;
             }
         }
@@ -253,7 +253,7 @@ page 50065 "BC6_Inventory Card MiniForm F2"
 
     trigger OnAfterGetRecord()
     begin
-        AfterGetCurrRecord;
+        AfterGetCurrRecord();
     end;
 
     trigger OnInit()
@@ -267,7 +267,7 @@ page 50065 "BC6_Inventory Card MiniForm F2"
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        AfterGetCurrRecord;
+        AfterGetCurrRecord();
     end;
 
     trigger OnOpenPage()
@@ -341,11 +341,11 @@ page 50065 "BC6_Inventory Card MiniForm F2"
         EditableCtrl := TRUE;
 
         CLEAR(LastJnlLine);
-        LastJnlLine.RESET;
+        LastJnlLine.RESET();
         LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
         LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
         IF NOT LastJnlLine.FIND('+') THEN BEGIN
-            LastJnlLine.INIT;
+            LastJnlLine.INIT();
             LastJnlLine."Journal Template Name" := "Journal Template Name";
             LastJnlLine."Journal Batch Name" := "Journal Batch Name";
             LastJnlLine."Line No." := 0;
@@ -354,7 +354,7 @@ page 50065 "BC6_Inventory Card MiniForm F2"
         SetUpNewLine(xRec);
         "Entry Type" := "Entry Type"::"Positive Adjmt.";
         "Line No." := LastJnlLine."Line No." + 10000;
-        VALIDATE("Posting Date", WORKDATE);
+        VALIDATE("Posting Date", WORKDATE());
 
         IF LocationCode = '' THEN
             LocationCode := Location.Code;
@@ -370,7 +370,7 @@ page 50065 "BC6_Inventory Card MiniForm F2"
     begin
         CurrPage.CAPTION := Text011;
 
-        InvSetup.GET;
+        InvSetup.GET();
         InvSetup.TESTFIELD("BC6_Item Jnl Template Name 3");
         IF USERID <> '' THEN BEGIN
             WhseEmployee.SETRANGE("User ID", USERID);
@@ -379,9 +379,9 @@ page 50065 "BC6_Inventory Card MiniForm F2"
                 IF WhseEmployee.FIND('-') THEN
                     LocationCode := WhseEmployee."Location Code"
                 ELSE
-                    LocationCode := WmsManagement.GetDefaultLocation;
+                    LocationCode := WmsManagement.GetDefaultLocation();
                 IF NOT Location.GET(LocationCode) THEN
-                    Location.INIT;
+                    Location.INIT();
                 FILTERGROUP := 2;
                 ItemJnlTemplate.GET(InvSetup."BC6_Item Jnl Template Name 3");
                 ItemJnlTemplate.TESTFIELD(Type, ItemJnlTemplate.Type::"Phys. Inventory");
@@ -397,7 +397,7 @@ page 50065 "BC6_Inventory Card MiniForm F2"
                     EXIT(FALSE);
                 END;
                 FILTERGROUP := 0;
-                PostingDate := WORKDATE;
+                PostingDate := WORKDATE();
                 IF Rec.FIND('+') THEN;
                 EXIT(TRUE);
             END ELSE BEGIN
@@ -540,13 +540,13 @@ page 50065 "BC6_Inventory Card MiniForm F2"
     begin
         LocationCode := "Location Code";
         IF NOT Location.GET("Location Code") THEN
-            Location.INIT;
+            Location.INIT();
         FromBinCode := "Bin Code";
         ToBinCode := "New Bin Code";
         ItemNo := "Item No.";
         Qty := FORMAT("Qty. (Phys. Inventory)");
         EditableCtrl := ("Item No." <> '');
-        CtrlEnabled;
+        CtrlEnabled();
     end;
 
     procedure CodeEANOk("Code": Code[20]) CodeOk: Boolean

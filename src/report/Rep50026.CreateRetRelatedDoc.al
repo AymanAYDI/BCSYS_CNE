@@ -78,10 +78,10 @@ report 50026 "BC6_Create Ret.-Related Doc" //6697
 
     trigger OnPreReport()
     begin
-        TempRetRelDoc.DELETEALL;
+        TempRetRelDoc.DELETEALL();
 
         //>>BCSYS
-        CreateReturnOrderRelation;
+        CreateReturnOrderRelation();
         //<<BCSYS
 
         IF CreateSO THEN BEGIN
@@ -99,10 +99,10 @@ report 50026 "BC6_Create Ret.-Related Doc" //6697
             TempRetRelDoc."Entry No." := 3;
             TempRetRelDoc."Document Type" := TempRetRelDoc."Document Type"::"Sales Order";
             TempRetRelDoc."No." := SOSalesHeader."No.";
-            TempRetRelDoc.INSERT;
+            TempRetRelDoc.INSERT();
             //>>BCSYS
             G_ReturnOrderRelation."Sales Order No." := SOSalesHeader."No.";
-            G_ReturnOrderRelation.MODIFY;
+            G_ReturnOrderRelation.MODIFY();
             //<<BCSYS
         END;
 
@@ -121,10 +121,10 @@ report 50026 "BC6_Create Ret.-Related Doc" //6697
             TempRetRelDoc."Entry No." := 1;
             TempRetRelDoc."Document Type" := TempRetRelDoc."Document Type"::"Purchase Return Order";
             TempRetRelDoc."No." := PROPurchHeader."No.";
-            TempRetRelDoc.INSERT;
+            TempRetRelDoc.INSERT();
             //>>BCSYS
             G_ReturnOrderRelation."Purchase Return Order" := PROPurchHeader."No.";
-            G_ReturnOrderRelation.MODIFY;
+            G_ReturnOrderRelation.MODIFY();
             //<<BCSYS
         END;
 
@@ -144,34 +144,33 @@ report 50026 "BC6_Create Ret.-Related Doc" //6697
             TempRetRelDoc."Entry No." := 2;
             TempRetRelDoc."Document Type" := TempRetRelDoc."Document Type"::"Purchase Order";
             TempRetRelDoc."No." := POPurchHeader."No.";
-            TempRetRelDoc.INSERT;
+            TempRetRelDoc.INSERT();
             //>>BCSYS
             G_ReturnOrderRelation."Purchase Order No." := POPurchHeader."No.";
-            G_ReturnOrderRelation.MODIFY;
+            G_ReturnOrderRelation.MODIFY();
             //<<BCSYS
         END;
     end;
 
     var
-        Vend: Record Vendor;
-        PROPurchHeader: Record "Purchase Header";
-        POPurchHeader: Record "Purchase Header";
-        SROSalesHeader: Record "Sales Header";
-        SOSalesHeader: Record "Sales Header";
-        TempRetRelDoc: Record "Returns-Related Document" temporary;
-        CopyDocMgt: Codeunit "Copy Document Mgt.";
-        FunctionMgt: Codeunit "BC6_Functions Mgt";
-        VendorNo: Code[20];
-        DocType: Option Quote,"Blanket Order","Order",Invoice,"Return Order","Credit Memo","Posted Shipment","Posted Invoice","Posted Return Receipt","Posted Credit Memo";
-        CreatePRO: Boolean;
-        CreatePO: Boolean;
-        CreateSO: Boolean;
-        "-BCSYS-": Integer;
         G_ReturnOrderRelation: Record "BC6_Return Order Relation";
+        POPurchHeader: Record "Purchase Header";
+        PROPurchHeader: Record "Purchase Header";
+        TempRetRelDoc: Record "Returns-Related Document" temporary;
+        SOSalesHeader: Record "Sales Header";
+        SROSalesHeader: Record "Sales Header";
+        Vend: Record Vendor;
+        FunctionMgt: Codeunit "BC6_Functions Mgt";
+        CopyDocMgt: Codeunit "Copy Document Mgt.";
+        CreatePO: Boolean;
+        CreatePRO: Boolean;
+        CreateSO: Boolean;
+        VendorNo: Code[20];
         ErrorAlreadyExist: Label 'Unable to create related documents for sales return because they are already generated.\ Purchase return: %1 \ Purchase order: %2 \ Sales order: %3', Comment = 'FRA="Impossible de créer les documents associés pour le retour vente car ils sont déjà générés.\ Retour achat : %1 \ Commande achat : %2 \ Commande vente : %3"';
-        ErrorSalesOrderExists: Label 'The associated sales order has already been generated. \ Please see the action View associated documents.', Comment = 'FRA="La commande vente associée est déjà générée.\Veuillez consulter l''action Affichage documents associés."';
         ErrorPurchOrderExists: Label 'The associated Puchase order has already been generated. \ Please see the action View associated documents.', Comment = 'FRA="La commande achat associée est déjà générée.\Veuillez consulter l''action Affichage documents associés."';
         ErrorReturnPurchOrderExists: Label 'The associated Purchase Return has already been generated. \ Please see the action View associated documents.', Comment = 'FRA="Le retour ahat associé est déjà généré.\Veuillez consulter l''action Affichage documents associés."';
+        ErrorSalesOrderExists: Label 'The associated sales order has already been generated. \ Please see the action View associated documents.', Comment = 'FRA="La commande vente associée est déjà générée.\Veuillez consulter l''action Affichage documents associés."';
+        DocType: Option Quote,"Blanket Order","Order",Invoice,"Return Order","Credit Memo","Posted Shipment","Posted Invoice","Posted Return Receipt","Posted Credit Memo";
 
     [Scope('Internal')]
     procedure SetSalesHeader(NewSROSalesHeader: Record "Sales Header")
@@ -182,13 +181,11 @@ report 50026 "BC6_Create Ret.-Related Doc" //6697
     [Scope('Internal')]
     procedure ShowDocuments()
     begin
-        IF TempRetRelDoc.FINDFIRST THEN
+        IF TempRetRelDoc.FINDFIRST() THEN
             PAGE.RUN(PAGE::"Returns-Related Documents", TempRetRelDoc);
     end;
 
-    local procedure "---BCSYS---"()
-    begin
-    end;
+
 
     local procedure CreateReturnOrderRelation()
     begin
@@ -196,7 +193,7 @@ report 50026 "BC6_Create Ret.-Related Doc" //6697
             IF CreateSO OR CreatePRO OR CreatePO THEN
                 IF NOT G_ReturnOrderRelation.GET(SROSalesHeader."No.") THEN BEGIN
                     G_ReturnOrderRelation."Sales Return Order" := SROSalesHeader."No.";
-                    G_ReturnOrderRelation.INSERT;
+                    G_ReturnOrderRelation.INSERT();
                 END ELSE
                     IF ("Sales Order No." <> '') AND ("Purchase Return Order" <> '') AND ("Purchase Order No." <> '') THEN
                         ERROR(STRSUBSTNO(ErrorAlreadyExist, "Purchase Return Order", "Purchase Order No.", "Sales Order No."));

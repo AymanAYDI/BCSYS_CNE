@@ -142,9 +142,9 @@ codeunit 50006 "BC6_Create Pur. Ord From Sales"
 
     procedure FinalizePurchHeader(FromPurchHeader: Record "Purchase Header")
     var
+        FunctionMgt: Codeunit "BC6_Functions Mgt";
         TransferExtendedText: Codeunit "Transfer Extended Text";
         Unconditionally: Boolean;
-        FunctionMgt: Codeunit "BC6_Functions Mgt";
     begin
         IF NOT InsertPurchHeaderOk THEN
             EXIT;

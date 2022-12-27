@@ -18,7 +18,7 @@ report 50002 "BC6_TI213763"
                 IF Item."VAT Prod. Posting Group" = 'TVA19,6' THEN BEGIN
                     i := i + 1;
                     Item."VAT Prod. Posting Group" := 'TVA20';
-                    Item.MODIFY;
+                    Item.MODIFY();
                 END
             end;
 

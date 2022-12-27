@@ -95,15 +95,12 @@ page 50054 "BC6_Bin Content List MiniForm"
     }
 
     var
+        Bin: Record Bin;
         Item: Record Item;
         Location: Record Location;
-        Bin: Record Bin;
+        BinForm: Page "BC6_Bin List MiniForm";
         ItemForm: Page "BC6_Item List MiniForm";
         LocationForm: Page "BC6_Location List MiniForm";
-        BinForm: Page "BC6_Bin List MiniForm";
-        ItemNo: Code[20];
-        LocationCode: Code[20];
-        BinCode: Code[20];
 
 
     procedure CalcAvailQty(): Decimal

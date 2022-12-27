@@ -15,7 +15,7 @@ report 50046 "Cust/Item Sales (Purch.Amount)"
             column(STRSUBSTNO_Text000_PeriodText_; STRSUBSTNO(Text000, PeriodText))
             {
             }
-            column(CurrReport_PAGENO; CurrReport.PAGENO)
+            column(CurrReport_PAGENO; CurrReport.PAGENO())
             {
             }
             column(COMPANYNAME; COMPANYNAME)
@@ -117,9 +117,9 @@ report 50046 "Cust/Item Sales (Purch.Amount)"
                 var
                     EntryInBufferExists: Boolean;
                 begin
-                    ValueEntryBuffer.INIT;
+                    ValueEntryBuffer.INIT();
                     ValueEntryBuffer.SETRANGE("Item No.", "Item No.");
-                    EntryInBufferExists := ValueEntryBuffer.FINDFIRST;
+                    EntryInBufferExists := ValueEntryBuffer.FINDFIRST();
 
                     IF NOT EntryInBufferExists THEN
                         ValueEntryBuffer."Entry No." := "Item Ledger Entry No.";
@@ -130,15 +130,15 @@ report 50046 "Cust/Item Sales (Purch.Amount)"
                     ValueEntryBuffer."Cost Amount (Non-Invtbl.)" += "Cost Amount (Non-Invtbl.)";
                     ValueEntryBuffer."Discount Amount" += "Discount Amount";
                     IF EntryInBufferExists THEN
-                        ValueEntryBuffer.MODIFY
+                        ValueEntryBuffer.MODIFY()
                     ELSE
-                        ValueEntryBuffer.INSERT;
+                        ValueEntryBuffer.INSERT();
                 end;
 
                 trigger OnPreDataItem()
                 begin
-                    ValueEntryBuffer.RESET;
-                    ValueEntryBuffer.DELETEALL;
+                    ValueEntryBuffer.RESET();
+                    ValueEntryBuffer.DELETEALL();
                 end;
             }
             dataitem(Integer; Integer)
@@ -184,7 +184,7 @@ report 50046 "Cust/Item Sales (Purch.Amount)"
                     IF Number = 1 THEN
                         ValueEntryBuffer.FIND('-')
                     ELSE
-                        ValueEntryBuffer.NEXT;
+                        ValueEntryBuffer.NEXT();
 
                     "Value Entry".COPYFILTER("Posting Date", ValueEntry."Posting Date");
                     ValueEntry.SETRANGE("Item No.", ValueEntryBuffer."Item No.");
@@ -212,7 +212,7 @@ report 50046 "Cust/Item Sales (Purch.Amount)"
                       ValueEntryBuffer."Cost Amount (Actual)", //BCSYS 220121
                       Profit);
 
-                    ValueEntryBuffer.RESET;
+                    ValueEntryBuffer.RESET();
                     SETRANGE(Number, 1, ValueEntryBuffer.COUNT);
                 end;
             }

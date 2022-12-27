@@ -86,9 +86,9 @@ page 50030 "BC6_Return Ship. Line Subform"
         RecGReturnShipmentHeader: Record "Return Shipment Header";
         TempPurchShipement: Record "Return Shipment Line";
         [InDataSet]
-        "Document No.HideValue": Boolean;
-        [InDataSet]
         "Document No.Emphasize": Boolean;
+        [InDataSet]
+        "Document No.HideValue": Boolean;
 
     procedure isFirstDocLine(): Boolean
     var

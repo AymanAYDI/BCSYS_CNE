@@ -28,7 +28,7 @@ report 50042 "BC6_Statement sans traite V2"
                 column(CompanyInfo__Alt_Picture_; CompanyInfo1."BC6_Alt Picture")
                 {
                 }
-                column(STRSUBSTNO_Text000_FORMAT_CurrReport_PAGENO__; STRSUBSTNO(Text000, FORMAT(CurrReport.PAGENO)))
+                column(STRSUBSTNO_Text000_FORMAT_CurrReport_PAGENO__; STRSUBSTNO(Text000, FORMAT(CurrReport.PAGENO())))
                 {
                 }
                 column(STRSUBSTNO_1_2_3_4_Text105_StartDate_Text101_EndDate_; STRSUBSTNO('%1 %2 %3 %4', Text105, StartDate, Text101, EndDate))
@@ -206,7 +206,7 @@ report 50042 "BC6_Statement sans traite V2"
                             begin
 
                                 IF SkipReversedUnapplied(DtldCustLedgEntries) THEN
-                                    CurrReport.SKIP;
+                                    CurrReport.SKIP();
                                 "Remaining Amount" := 0;
                                 PrintLine := TRUE;
                                 CASE "Entry Type" OF
@@ -395,22 +395,22 @@ report 50042 "BC6_Statement sans traite V2"
 
                         trigger OnAfterGetRecord()
                         var
-                            CustLedgEntry: Record 21;
+                            CustLedgEntry: Record "Cust. Ledger Entry";
                         begin
                             IF IncludeAgingBand THEN
                                 IF ("Posting Date" > EndDate) AND ("Due Date" >= EndDate) THEN
-                                    CurrReport.SKIP;
+                                    CurrReport.SKIP();
                             CustLedgEntry := CustLedgEntry2;
                             CustLedgEntry.SETRANGE("Date Filter", 0D, EndDate);
                             CustLedgEntry.CALCFIELDS("Remaining Amount");
                             "Remaining Amount" := CustLedgEntry."Remaining Amount";
                             IF CustLedgEntry."Remaining Amount" = 0 THEN
-                                CurrReport.SKIP;
+                                CurrReport.SKIP();
 
                             IF IncludeAgingBand AND ("Posting Date" <= EndDate) THEN
                                 UpdateBuffer(Currency2.Code, GetDate("Posting Date", "Due Date"), "Remaining Amount");
                             IF ("Due Date" >= EndDate) OR ("Remaining Amount" < 0) THEN
-                                CurrReport.SKIP;
+                                CurrReport.SKIP();
                         end;
 
                         trigger OnPreDataItem()
@@ -426,7 +426,7 @@ report 50042 "BC6_Statement sans traite V2"
                                 SETFILTER("Document Type", '%1|%2', "Document Type"::Invoice, "Document Type"::"Credit Memo");
 
                             IF (NOT PrintEntriesDue) AND (NOT IncludeAgingBand) THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                         end;
                     }
 
@@ -435,8 +435,8 @@ report 50042 "BC6_Statement sans traite V2"
                         IF Number = 1 THEN
                             Currency2.FIND('-')
                         ELSE
-                            IF Currency2.NEXT = 0 THEN
-                                CurrReport.BREAK;
+                            IF Currency2.NEXT() = 0 THEN
+                                CurrReport.BREAK();
 
                         Cust2 := Customer;
                         Cust2.SETRANGE("Date Filter", 0D, StartDate - 1);
@@ -450,7 +450,7 @@ report 50042 "BC6_Statement sans traite V2"
                         "Cust. Ledger Entry".SETRANGE("Currency Code", Currency2.Code);
                         EntriesExists := "Cust. Ledger Entry".FIND('-');
                         IF NOT EntriesExists THEN
-                            CurrReport.SKIP;
+                            CurrReport.SKIP();
                     end;
 
                     trigger OnPreDataItem()
@@ -528,10 +528,10 @@ report 50042 "BC6_Statement sans traite V2"
                     begin
                         IF Number = 1 THEN BEGIN
                             IF NOT AgingBandBuf.FIND('-') THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                         END ELSE
-                            IF AgingBandBuf.NEXT = 0 THEN
-                                CurrReport.BREAK;
+                            IF AgingBandBuf.NEXT() = 0 THEN
+                                CurrReport.BREAK();
                         AgingBandCurrencyCode := AgingBandBuf."Currency Code";
                         IF AgingBandCurrencyCode = '' THEN
                             AgingBandCurrencyCode := GLSetup."LCY Code";
@@ -540,7 +540,7 @@ report 50042 "BC6_Statement sans traite V2"
                     trigger OnPreDataItem()
                     begin
                         IF NOT IncludeAgingBand THEN
-                            CurrReport.BREAK;
+                            CurrReport.BREAK();
                     end;
                 }
 
@@ -553,7 +553,7 @@ report 50042 "BC6_Statement sans traite V2"
                         "Cust. Ledger Entry1".SETFILTER("Document Type", '%1|%2',
                         "Cust. Ledger Entry1"."Document Type"::Invoice, "Cust. Ledger Entry1"."Document Type"::"Credit Memo");
                         IF NOT "Cust. Ledger Entry1".FIND('-') THEN
-                            CurrReport.SKIP;
+                            CurrReport.SKIP();
                     END;
                 end;
             }
@@ -562,7 +562,7 @@ report 50042 "BC6_Statement sans traite V2"
             begin
                 TraiteTotalRemainingAmount := 0;
 
-                AgingBandBuf.DELETEALL;
+                AgingBandBuf.DELETEALL();
                 PrintLine := FALSE;
                 Cust2 := Customer;
                 COPYFILTER("Currency Filter", Currency2.Code);
@@ -573,10 +573,10 @@ report 50042 "BC6_Statement sans traite V2"
                             Cust2.SETRANGE("Currency Filter", Currency2.Code);
                             Cust2.CALCFIELDS("Net Change");
                             PrintLine := Cust2."Net Change" <> 0;
-                        UNTIL (Currency2.NEXT = 0) OR PrintLine;
+                        UNTIL (Currency2.NEXT() = 0) OR PrintLine;
                 END;
                 IF (NOT PrintLine) AND PrintAllHavingEntry THEN BEGIN
-                    "Cust. Ledger Entry".RESET;
+                    "Cust. Ledger Entry".RESET();
                     "Cust. Ledger Entry".SETCURRENTKEY("Customer No.", "Posting Date");
                     "Cust. Ledger Entry".SETRANGE("Customer No.", Customer."No.");
                     "Cust. Ledger Entry".SETRANGE("Posting Date", StartDate, EndDate);
@@ -584,18 +584,18 @@ report 50042 "BC6_Statement sans traite V2"
                     PrintLine := "Cust. Ledger Entry".FIND('-');
                 END;
                 IF NOT PrintLine THEN
-                    CurrReport.SKIP;
+                    CurrReport.SKIP();
 
 
                 FormatAddr.Customer(CustAddr, Customer);
                 CurrReport.PAGENO := 1;
 
                 IF NOT CurrReport.PREVIEW THEN BEGIN
-                    Customer.LOCKTABLE;
-                    Customer.FIND;
+                    Customer.LOCKTABLE();
+                    Customer.FIND();
                     Customer."Last Statement No." := Customer."Last Statement No." + 1;
-                    Customer.MODIFY;
-                    COMMIT;
+                    Customer.MODIFY();
+                    COMMIT();
                 END ELSE
                     Customer."Last Statement No." := Customer."Last Statement No." + 1;
 
@@ -611,16 +611,16 @@ report 50042 "BC6_Statement sans traite V2"
                 StartDate := GETRANGEMIN("Date Filter");
                 EndDate := GETRANGEMAX("Date Filter");
                 AgingBandEndingDate := EndDate;
-                CalcAgingBandDates;
+                CalcAgingBandDates();
 
                 Currency2.Code := '';
-                Currency2.INSERT;
+                Currency2.INSERT();
                 COPYFILTER("Currency Filter", Currency.Code);
                 IF Currency.FIND('-') THEN
                     REPEAT
                         Currency2 := Currency;
-                        Currency2.INSERT;
-                    UNTIL Currency.NEXT = 0;
+                        Currency2.INSERT();
+                    UNTIL Currency.NEXT() = 0;
             end;
         }
     }
@@ -719,32 +719,32 @@ report 50042 "BC6_Statement sans traite V2"
 
     trigger OnInitReport()
     begin
-        GLSetup.GET;
+        GLSetup.GET();
         LogInteractionEnable := TRUE;
 
-        CompanyInfo.GET;
+        CompanyInfo.GET();
 
-        CompanyInfo1.GET;
+        CompanyInfo1.GET();
         CompanyInfo1.CALCFIELDS(Picture);
         CompanyInfo1.CALCFIELDS("BC6_Alt Picture");
     end;
 
     var
-        RecGPaymentTerms: Record 3;
-        Currency: Record 4;
-        Currency2: Record 4 temporary;
-        Language: Record 8;
-        Cust2: Record 18;
-        "Cust. Ledger Entry": Record 21;
-        "Cust. Ledger Entry1": Record 21;
-        AgingBandBuf: Record 47 temporary;
-        CompanyInfo: Record 79;
-        CompanyInfo1: Record 79;
-        GLSetup: Record 98;
-        RecGCustomerBankAccount: Record 287;
-        DtldCustLedgEntries2: Record 379;
-        FormatAddr: Codeunit 365;
-        SegManagement: Codeunit 5051;
+        AgingBandBuf: Record "Aging Band Buffer" temporary;
+        CompanyInfo: Record "Company Information";
+        CompanyInfo1: Record "Company Information";
+        Currency: Record Currency;
+        Currency2: Record Currency temporary;
+        "Cust. Ledger Entry": Record "Cust. Ledger Entry";
+        "Cust. Ledger Entry1": Record "Cust. Ledger Entry";
+        Cust2: Record Customer;
+        RecGCustomerBankAccount: Record "Customer Bank Account";
+        DtldCustLedgEntries2: Record "Detailed Cust. Ledg. Entry";
+        GLSetup: Record "General Ledger Setup";
+        Language: Record Language;
+        RecGPaymentTerms: Record "Payment Terms";
+        FormatAddr: Codeunit "Format Address";
+        SegManagement: Codeunit SegManagement;
         PeriodLength: DateFormula;
         PeriodLength2: DateFormula;
         [InDataSet]
@@ -881,10 +881,10 @@ report 50042 "BC6_Statement sans traite V2"
         GoOn: Boolean;
         I: Integer;
     begin
-        AgingBandBuf.INIT;
+        AgingBandBuf.INIT();
         AgingBandBuf."Currency Code" := CurrencyCode;
-        IF NOT AgingBandBuf.FIND THEN
-            AgingBandBuf.INSERT;
+        IF NOT AgingBandBuf.FIND() THEN
+            AgingBandBuf.INSERT();
         I := 1;
         GoOn := TRUE;
         WHILE (I <= 5) AND GoOn DO BEGIN
@@ -915,13 +915,13 @@ report 50042 "BC6_Statement sans traite V2"
                 END;
             I := I + 1;
         END;
-        AgingBandBuf.MODIFY;
+        AgingBandBuf.MODIFY();
     end;
 
 
-    procedure SkipReversedUnapplied(var DtldCustLedgEntries: Record 379): Boolean
+    procedure SkipReversedUnapplied(var DtldCustLedgEntries: Record "Detailed Cust. Ledg. Entry"): Boolean
     var
-        CustLedgEntry: Record 21;
+        CustLedgEntry: Record "Cust. Ledger Entry";
     begin
         IF PrintReversedEntries AND PrintUnappliedEntries THEN
             EXIT(FALSE);
@@ -939,7 +939,7 @@ report 50042 "BC6_Statement sans traite V2"
 
     procedure InitializeRequest(NewPrintEntriesDue: Boolean; NewPrintAllHavingEntry: Boolean; NewPrintAllHavingBal: Boolean; NewPrintReversedEntries: Boolean; NewPrintUnappliedEntries: Boolean; NewIncludeAgingBand: Boolean; NewPeriodLength: Text[30]; NewDateChoice: Option; NewLogInteraction: Boolean)
     begin
-        InitRequestPageDataInternal;
+        InitRequestPageDataInternal();
 
         PrintEntriesDue := NewPrintEntriesDue;
         PrintAllHavingEntry := NewPrintAllHavingEntry;

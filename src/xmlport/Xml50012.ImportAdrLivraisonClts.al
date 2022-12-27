@@ -112,12 +112,12 @@ xmlport 50012 "BC6_Import Adr. Livraison Clts"
                             END;
                         END;
 
-                        recPostCode.RESET;
+                        recPostCode.RESET();
                         recPostCode.SETCURRENTKEY("Search City");
                         recPostCode.SETRANGE("Search City", UPPERCASE(vcity));
                         recPostCode.SETRANGE(Code, vpostcode);
                         IF NOT (recPostCode.FIND('-')) THEN BEGIN
-                            recPostCode.INIT;
+                            recPostCode.INIT();
 
                             recPostCode.Code := vpostcode;
                             recPostCode.City := vcity;
@@ -159,8 +159,6 @@ xmlport 50012 "BC6_Import Adr. Livraison Clts"
     var
         recPostCode: Record "Post Code";
         recShipTo: Record "Ship-to Address";
-        "--records--": Integer;
-        "--variables--": Integer;
         vname2: Text[30];
 }
 

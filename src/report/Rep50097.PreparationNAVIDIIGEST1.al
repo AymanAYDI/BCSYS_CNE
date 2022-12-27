@@ -35,7 +35,7 @@ report 50097 "BC6_Preparation NAVIDIIGEST1"
                     column(CompanyInfo2Picture; CompanyInfo."BC6_Alt Picture")
                     {
                     }
-                    column(STRSUBSTNO_Text005_FORMAT_CurrReport_PAGENO__; STRSUBSTNO(Text005, FORMAT(CurrReport.PAGENO)))
+                    column(STRSUBSTNO_Text005_FORMAT_CurrReport_PAGENO__; STRSUBSTNO(Text005, FORMAT(CurrReport.PAGENO())))
                     {
                     }
                     column(ShipToAddr_1_; ShipToAddr[1])
@@ -228,38 +228,38 @@ report 50097 "BC6_Preparation NAVIDIIGEST1"
                                     IF Number = 1 THEN
                                         StandardSalesLine.FIND('-')
                                     ELSE BEGIN
-                                        StandardSalesLine.NEXT;
+                                        StandardSalesLine.NEXT();
                                     END;
                                 END;
                             end;
 
                             trigger OnPreDataItem()
                             begin
-                                IF NOT Edition THEN CurrReport.BREAK;
-                                StandardSalesLine.RESET;
+                                IF NOT Edition THEN CurrReport.BREAK();
+                                StandardSalesLine.RESET();
                                 StandardSalesLine.SETRANGE(StandardSalesLine."Standard Sales Code", StandardCustomerSalesCode.Code);
                                 Edition2 := TRUE;
                                 IF StandardSalesLine.COUNT <> 0 THEN
                                     TexteClient.SETRANGE(Number, 1, StandardSalesLine.COUNT)
                                 ELSE
                                     Edition2 := FALSE;
-                                IF NOT Edition2 THEN CurrReport.BREAK;
+                                IF NOT Edition2 THEN CurrReport.BREAK();
                             end;
                         }
 
                         trigger OnAfterGetRecord()
                         begin
-                            IF NOT Edition THEN CurrReport.BREAK;
+                            IF NOT Edition THEN CurrReport.BREAK();
                             IF Number = 1 THEN
                                 StandardCustomerSalesCode.FIND('-')
                             ELSE
-                                StandardCustomerSalesCode.NEXT;
+                                StandardCustomerSalesCode.NEXT();
                         end;
 
                         trigger OnPreDataItem()
                         begin
 
-                            StandardCustomerSalesCode.RESET;
+                            StandardCustomerSalesCode.RESET();
                             StandardCustomerSalesCode.SETRANGE(StandardCustomerSalesCode.BC6_TextautoReport, TRUE);
                             StandardCustomerSalesCode.SETRANGE(StandardCustomerSalesCode."Customer No.", "Sales Header"."Sell-to Customer No.");
                             Edition := TRUE;
@@ -433,14 +433,14 @@ report 50097 "BC6_Preparation NAVIDIIGEST1"
                                 NetWeight := NetWeight + (tempcalc);
                             END;
                             ItemInventory := 0;
-                            item.RESET;
+                            item.RESET();
                             IF item.GET("No.") THEN BEGIN
                                 item.SETRANGE("Location Filter", "Location Code");
                                 item.CALCFIELDS(Inventory);
                                 ItemInventory := item.Inventory;
                             END;
                             IF (BooGRespectLinesPrep) AND NOT ("Sales Line"."BC6_To Prepare") THEN
-                                CurrReport.SKIP;
+                                CurrReport.SKIP();
                         end;
                     }
                 }
@@ -451,7 +451,7 @@ report 50097 "BC6_Preparation NAVIDIIGEST1"
                 begin
                     CLEAR(SalesLine);
                     CLEAR(SalesPost);
-                    VATAmountLine.DELETEALL;
+                    VATAmountLine.DELETEALL();
                     SalesPost.GetSalesLines("Sales Header", SalesLine, 0);
                     SalesLine.SETRANGE("Line No.", 0, SalesLine."Line No.");
 
@@ -462,7 +462,7 @@ report 50097 "BC6_Preparation NAVIDIIGEST1"
                     DO
                         MoreLines := SalesLine.NEXT(-1) <> 0;
                     IF NOT MoreLines THEN
-                        CurrReport.BREAK;
+                        CurrReport.BREAK();
 
 
                     IF Number > 1 THEN
@@ -500,7 +500,7 @@ report 50097 "BC6_Preparation NAVIDIIGEST1"
 
             trigger OnAfterGetRecord()
             begin
-                CompanyInfo.GET;
+                CompanyInfo.GET();
                 IF Country.GET(CompanyInfo."Country/Region Code") THEN
                     Pays := Country.Name;
 
@@ -511,10 +511,10 @@ report 50097 "BC6_Preparation NAVIDIIGEST1"
                     CompanyInfo."Phone No." := RespCenter."Phone No.";
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
                 END ELSE BEGIN
-                    CompanyInfo.GET;
+                    CompanyInfo.GET();
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
                 END;
-                GLSetup.GET;
+                GLSetup.GET();
                 PrincipalContact := '';
 
                 ShipmentDate := 0D;
@@ -561,17 +561,17 @@ report 50097 "BC6_Preparation NAVIDIIGEST1"
 
 
                 IF "Payment Terms Code" = '' THEN
-                    PaymentTerms.INIT
+                    PaymentTerms.INIT()
                 ELSE
                     PaymentTerms.GET("Payment Terms Code");
 
                 IF "Shipment Method Code" = '' THEN
-                    ShipmentMethod.INIT
+                    ShipmentMethod.INIT()
                 ELSE
                     ShipmentMethod.GET("Shipment Method Code");
 
                 IF "Sales Header"."Shipping Agent Service Code" = '' THEN
-                    PrestaTrans.INIT
+                    PrestaTrans.INIT()
                 ELSE
                     PrestaTrans.GET("Sales Header"."Shipping Agent Code", "Sales Header"."Shipping Agent Service Code");
 
@@ -587,13 +587,13 @@ report 50097 "BC6_Preparation NAVIDIIGEST1"
                 IF NOT CurrReport.PREVIEW THEN BEGIN
                 END;
 
-                RecGSalesLine.RESET;
+                RecGSalesLine.RESET();
                 RecGSalesLine.SETCURRENTKEY("Document Type", "Document No.", "Line No.");
                 RecGSalesLine.SETRANGE(RecGSalesLine."Document Type", "Sales Header"."Document Type");
                 RecGSalesLine.SETRANGE(RecGSalesLine."Document No.", "Sales Header"."No.");
                 RecGSalesLine.SETRANGE(RecGSalesLine."BC6_To Prepare", TRUE);
                 IF NOT RecGSalesLine.FIND('-') THEN
-                    CurrReport.SKIP;
+                    CurrReport.SKIP();
 
             end;
         }
@@ -650,36 +650,36 @@ report 50097 "BC6_Preparation NAVIDIIGEST1"
 
     trigger OnInitReport()
     begin
-        GLSetup.GET;
+        GLSetup.GET();
     end;
 
     var
-        PaymentTerms: Record "Payment Terms";
-        Language: Record Language;
+        TablesDiverses: Record "BC6_Various Tables";
+        CompanyInfo: Record "Company Information";
         Country: Record "Country/Region";
-        ShipmentMethod: Record "Shipment Method";
-        SalesPurchPerson: Record "Salesperson/Purchaser";
         Customer: Record Customer;
+        DimensionValue: Record "Dimension Value";
+        GLSetup: Record "General Ledger Setup";
         item: Record Item;
+        ItemReference: Record "Item Reference";
+        Language: Record Language;
+        PaymentMethod: Record "Payment Method";
+        PaymentTerms: Record "Payment Terms";
+        RespCenter: Record "Responsibility Center";
+        SalesCommentLine: Record "Sales Comment Line";
         RecGSalesLine: Record "Sales Line";
         SalesLine: Record "Sales Line" temporary;
-        SalesCommentLine: Record "Sales Comment Line";
-        CompanyInfo: Record "Company Information";
-        GLSetup: Record "General Ledger Setup";
-        StandardSalesLine: Record "Standard Sales Line";
-        StandardCustomerSalesCode: Record "Standard Customer Sales Code";
-        PaymentMethod: Record "Payment Method";
-        VATAmountLine: Record "VAT Amount Line" temporary;
+        SalesPurchPerson: Record "Salesperson/Purchaser";
+        ShipmentMethod: Record "Shipment Method";
         ShippingAgent: Record "Shipping Agent";
-        DimensionValue: Record "Dimension Value";
-        RespCenter: Record "Responsibility Center";
-        ItemReference: Record "Item Reference";
         PrestaTrans: Record "Shipping Agent Services";
-        TablesDiverses: Record "BC6_Various Tables";
-        SalesCountPrinted: Codeunit "Sales-Printed";
-        FormatAddr: Codeunit "Format Address";
-        SegManagement: Codeunit SegManagement;
+        StandardCustomerSalesCode: Record "Standard Customer Sales Code";
+        StandardSalesLine: Record "Standard Sales Line";
+        VATAmountLine: Record "VAT Amount Line" temporary;
         ArchiveManagement: Codeunit ArchiveManagement;
+        FormatAddr: Codeunit "Format Address";
+        SalesCountPrinted: Codeunit "Sales-Printed";
+        SegManagement: Codeunit SegManagement;
         ArchiveDocument: Boolean;
         [InDataSet]
         ArchiveDocumentEnable: Boolean;

@@ -170,33 +170,33 @@ report 50006 "BC6_Calcul Plan - Req. Wksh."  //699
     end;
 
     var
+        ActionMessageEntry: Record "Action Message Entry";
+        MfgSetup: Record "Manufacturing Setup";
+        PlanningAssignment: Record "Planning Assignment";
+        PurchReqLine: Record "Requisition Line";
+        ReqLine: Record "Requisition Line";
+        ReqLineExtern: Record "Requisition Line";
+        SKU: Record "Stockkeeping Unit";
+        InvtProfileOffsetting: Codeunit "Inventory Profile Offsetting";
+        RespectPlanningParm: Boolean;
+        CurrTemplateName: Code[10];
+        CurrWorksheetName: Code[10];
+        UseForecast: Code[10];
+        ReqWkshFilter: Code[50];
+        ReqWkshTemplateFilter: Code[50];
+        ExcludeForecastBefore: Date;
+        FromDate: Date;
+        ToDate: Date;
+        Window: Dialog;
+        Counter: Integer;
+        PeriodLength: Integer;
         Text002: Label 'Enter a starting date.', Comment = 'FRA="Entrez une date de début."';
         Text003: Label 'Enter an ending date.', Comment = 'FRA="Entrez une date de fin."';
         Text004: Label 'The ending date must not be before the order date.', Comment = 'FRA="La date de fin doit être postérieure à la date de début."';
         Text005: Label 'You must not use a variant filter when calculating MPS from a forecast.', Comment = 'FRA="Vous ne devez pas utiliser de filtre variante lorsque vous calculez un PDP à partir d''une prévision."';
         Text006: Label 'Calculating the plan...\\', Comment = 'FRA="Calcul du planning...\\"';
         Text007: Label 'Item No.  #1##################', Comment = 'FRA="N° art.   #1##################"';
-        ReqLine: Record "Requisition Line";
-        ActionMessageEntry: Record "Action Message Entry";
-        ReqLineExtern: Record "Requisition Line";
-        PurchReqLine: Record "Requisition Line";
-        SKU: Record "Stockkeeping Unit";
-        PlanningAssignment: Record "Planning Assignment";
-        MfgSetup: Record "Manufacturing Setup";
-        InvtProfileOffsetting: Codeunit "Inventory Profile Offsetting";
-        Window: Dialog;
         CurrWorksheetType: Option Requisition,Planning;
-        PeriodLength: Integer;
-        CurrTemplateName: Code[10];
-        CurrWorksheetName: Code[10];
-        FromDate: Date;
-        ToDate: Date;
-        ReqWkshTemplateFilter: Code[50];
-        ReqWkshFilter: Code[50];
-        Counter: Integer;
-        UseForecast: Code[10];
-        ExcludeForecastBefore: Date;
-        RespectPlanningParm: Boolean;
 
     [Scope('Internal')]
     procedure SetTemplAndWorksheet(TemplateName: Code[10]; WorksheetName: Code[10])

@@ -188,7 +188,7 @@ report 50008 "BC6_Purchase Order"
                 {
                     DataItemTableView = SORTING(Number)
                                         WHERE(Number = CONST(1));
-                    column(STRSUBSTNO_Text005_FORMAT_CurrReport_PAGENO__; STRSUBSTNO(Text005, FORMAT(CurrReport.PAGENO)))
+                    column(STRSUBSTNO_Text005_FORMAT_CurrReport_PAGENO__; STRSUBSTNO(Text005, FORMAT(CurrReport.PAGENO())))
                     {
                     }
                     column(Text012__________Purchase_Header___No__; Text012 + ' ' + "Purchase Header"."No.")
@@ -290,7 +290,7 @@ report 50008 "BC6_Purchase Order"
 
                         trigger OnPreDataItem()
                         begin
-                            CurrReport.BREAK;
+                            CurrReport.BREAK();
                         end;
                     }
                     dataitem(RoundLoop; Integer)
@@ -379,7 +379,7 @@ report 50008 "BC6_Purchase Order"
                             IF Number = 1 THEN
                                 PurchLine.FIND('-')
                             ELSE
-                                PurchLine.NEXT;
+                                PurchLine.NEXT();
                             "Purchase Line" := PurchLine;
 
                             IF NOT "Purchase Header"."Prices Including VAT" AND
@@ -399,7 +399,7 @@ report 50008 "BC6_Purchase Order"
                                 ELSE
                                     DecGNumbeofUnitsDEEE := 0;
 
-                                RecGDEEE.RESET;
+                                RecGDEEE.RESET();
                                 RecGDEEE.SETFILTER(RecGDEEE."DEEE Code", PurchLine."BC6_DEEE Category Code");
                                 RecGDEEE.SETFILTER(RecGDEEE."Date beginning", '<=%1', "Purchase Header"."Posting Date");
                                 IF RecGDEEE.FIND('+') THEN
@@ -424,7 +424,7 @@ report 50008 "BC6_Purchase Order"
 
                             VATAmountLine."BC6_DEEE HT Amount" := "Purchase Line"."BC6_DEEE HT Amount";
                             VATAmountLine."BC6_DEEE VAT Amount" := "Purchase Line"."BC6_DEEE VAT Amount";
-                            VATAmountLine.InsertLine;
+                            VATAmountLine.InsertLine();
 
                             //MICO DEEE1.00
                             //DecGVATTotalAmount += VATAmountLine."VAT Amount" + VATAmountLine."DEEE VAT Amount";
@@ -434,12 +434,12 @@ report 50008 "BC6_Purchase Order"
                             IF NOT RecGTempCalcul.GET('', "Purchase Line"."BC6_DEEE Category Code", 0D)
                                THEN BEGIN
                                 //création d'une ligne
-                                RecGTempCalcul.INIT;
+                                RecGTempCalcul.INIT();
                                 RecGTempCalcul."Eco Partner" := '';
                                 RecGTempCalcul."DEEE Code" := "Purchase Line"."BC6_DEEE Category Code";
                                 RecGTempCalcul."Date beginning" := 0D;
                                 RecGTempCalcul."HT Unit Tax (LCY)" := "Purchase Line"."BC6_DEEE HT Amount";
-                                RecGTempCalcul.INSERT;
+                                RecGTempCalcul.INSERT();
                             END;
                             //>>FE005:DARI 20/02/2007
 
@@ -476,7 +476,7 @@ report 50008 "BC6_Purchase Order"
 
                         trigger OnPostDataItem()
                         begin
-                            PurchLine.DELETEALL;
+                            PurchLine.DELETEALL();
                         end;
 
                         trigger OnPreDataItem()
@@ -487,7 +487,7 @@ report 50008 "BC6_Purchase Order"
                                   (PurchLine.Amount = 0) DO
                                 MoreLines := PurchLine.NEXT(-1) <> 0;
                             IF NOT MoreLines THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                             PurchLine.SETRANGE("Line No.", 0, PurchLine."Line No.");
                             SETRANGE(Number, 1, PurchLine.COUNT);
 
@@ -642,7 +642,7 @@ report 50008 "BC6_Purchase Order"
                         trigger OnPreDataItem()
                         begin
                             IF VATAmount = 0 THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                             SETRANGE(Number, 1, VATAmountLine.COUNT);
                             CurrReport.CREATETOTALS(
                               VATAmountLine."Line Amount", VATAmountLine."Inv. Disc. Base Amount",
@@ -733,8 +733,8 @@ report 50008 "BC6_Purchase Order"
                         begin
                             IF (NOT GLSetup."Print VAT specification in LCY") OR
                                ("Purchase Header"."Currency Code" = '') OR
-                               (VATAmountLine.GetTotalVATAmount = 0) THEN
-                                CurrReport.BREAK;
+                               (VATAmountLine.GetTotalVATAmount() = 0) THEN
+                                CurrReport.BREAK();
 
                             SETRANGE(Number, 1, VATAmountLine.COUNT);
                             CurrReport.CREATETOTALS(VALVATBaseLCY, VALVATAmountLCY);
@@ -802,14 +802,14 @@ report 50008 "BC6_Purchase Order"
                             RecLPurchaseLine: Record "Purchase Line";
                         begin
                             BooGDEEEFind := FALSE;
-                            RecLPurchaseLine.RESET;
+                            RecLPurchaseLine.RESET();
                             RecLPurchaseLine.SETRANGE("Document No.", "Purchase Header"."No.");
                             IF RecLPurchaseLine.FIND('-') THEN
                                 REPEAT
                                     BooGDEEEFind := ((RecLPurchaseLine."BC6_DEEE Category Code" = "DEEE Tariffs"."DEEE Code") AND (RecLPurchaseLine.Quantity <> 0));
-                                UNTIL ((BooGDEEEFind = TRUE) OR (RecLPurchaseLine.NEXT = 0));
+                                UNTIL ((BooGDEEEFind = TRUE) OR (RecLPurchaseLine.NEXT() = 0));
 
-                            RecGDEEE.RESET;
+                            RecGDEEE.RESET();
                             RecGDEEE.SETFILTER(RecGDEEE."DEEE Code", "DEEE Tariffs"."DEEE Code");
                             RecGDEEE.SETFILTER(RecGDEEE."Date beginning", '<=%1', "Purchase Header"."Posting Date");
                             IF RecGDEEE.FIND('+') THEN BEGIN
@@ -817,12 +817,12 @@ report 50008 "BC6_Purchase Order"
                                     BooGDEEEFind := FALSE;
                             END;
 
-                            RecGItemCtg.RESET;
+                            RecGItemCtg.RESET();
                             IF NOT RecGItemCtg.GET("DEEE Tariffs"."DEEE Code", "DEEE Tariffs"."Eco Partner") THEN
-                                RecGItemCtg.INIT;
+                                RecGItemCtg.INIT();
 
                             IF BooGDEEEFind = FALSE THEN
-                                CurrReport.SKIP;
+                                CurrReport.SKIP();
                         end;
 
                         trigger OnPreDataItem()
@@ -830,26 +830,26 @@ report 50008 "BC6_Purchase Order"
                             RecLPurchaseLine: Record "Purchase Line";
                         begin
                             BooGDEEEFind := FALSE;
-                            RecLPurchaseLine.RESET;
+                            RecLPurchaseLine.RESET();
 
                             RecLPurchaseLine.SETFILTER(RecLPurchaseLine."Document No.", "Purchase Header"."No.");
                             RecLPurchaseLine.SETFILTER(RecLPurchaseLine."Document Type", '%1', RecLPurchaseLine."Document Type"::Order);
                             IF RecLPurchaseLine.FIND('-') THEN
                                 REPEAT
                                     BooGDEEEFind := ((RecLPurchaseLine."BC6_DEEE Category Code" <> '') AND (RecLPurchaseLine.Quantity <> 0));
-                                UNTIL ((BooGDEEEFind = TRUE) OR (RecLPurchaseLine.NEXT = 0));
+                                UNTIL ((BooGDEEEFind = TRUE) OR (RecLPurchaseLine.NEXT() = 0));
 
                             IF BooGDEEEFind = FALSE THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
 
                             //>>COMPTA_DEEE FG 01/03/07
                             IF NOT RecGPayVendor."BC6_Posting DEEE" THEN
-                                CurrReport.BREAK;
-                            CurrReport.BREAK;
+                                CurrReport.BREAK();
+                            CurrReport.BREAK();
                             //<<COMPTA_DEEE FG 01/03/07
 
                             //Ne pas afficher tableau récap DEEE SEDU 02/03/2007
-                            CurrReport.BREAK;
+                            CurrReport.BREAK();
                         end;
                     }
                     dataitem(Total; Integer)
@@ -888,7 +888,7 @@ report 50008 "BC6_Purchase Order"
                         column(TotalInclVATText_Control1000000067; TotalInclVATText)
                         {
                         }
-                        column(VATAmountLine_VATAmountText_Control1000000068; VATAmountLine.VATAmountText)
+                        column(VATAmountLine_VATAmountText_Control1000000068; VATAmountLine.VATAmountText())
                         {
                         }
                         column(VATAmount_PurchLine__DEEE_VAT_Amount__Control1000000069; VATAmount + PurchLine."BC6_DEEE VAT Amount")
@@ -953,7 +953,7 @@ report 50008 "BC6_Purchase Order"
                         trigger OnPreDataItem()
                         begin
                             IF "Purchase Header"."Buy-from Vendor No." = "Purchase Header"."Pay-to Vendor No." THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                         end;
                     }
                     dataitem(Total3; Integer)
@@ -970,14 +970,14 @@ report 50008 "BC6_Purchase Order"
                         trigger OnPreDataItem()
                         begin
                             IF ("Purchase Header"."Sell-to Customer No." = '') AND (ShipToAddr[1] = '') THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                         end;
                     }
 
                     trigger OnAfterGetRecord()
                     begin
                         recLBuyVendor.SETFILTER("No.", "Purchase Header"."Buy-from Vendor No.");
-                        IF recLBuyVendor.FINDFIRST THEN;
+                        IF recLBuyVendor.FINDFIRST() THEN;
 
 
                         //>>FED_ADV_ 20091005_CENTRE GESTION STANDARD: OR 29/01/2010
@@ -1041,16 +1041,16 @@ report 50008 "BC6_Purchase Order"
                     BooGVisibleVAT := ((VATAmountLine.COUNT > 1) AND ("Purchase Line"."Amount Including VAT" <> "Purchase Line".Amount));
                     CLEAR(PurchLine);
                     CLEAR(PurchPost);
-                    PurchLine.DELETEALL;
-                    VATAmountLine.DELETEALL;
+                    PurchLine.DELETEALL();
+                    VATAmountLine.DELETEALL();
                     PurchPost.GetPurchLines("Purchase Header", PurchLine, 0);
                     PurchLine.CalcVATAmountLines(0, "Purchase Header", PurchLine, VATAmountLine);
                     PurchLine.UpdateVATOnLines(0, "Purchase Header", PurchLine, VATAmountLine);
-                    VATAmount := VATAmountLine.GetTotalVATAmount;
-                    VATBaseAmount := VATAmountLine.GetTotalVATBase;
+                    VATAmount := VATAmountLine.GetTotalVATAmount();
+                    VATBaseAmount := VATAmountLine.GetTotalVATBase();
                     VATDiscountAmount :=
                       VATAmountLine.GetTotalVATDiscount("Purchase Header"."Currency Code", "Purchase Header"."Prices Including VAT");
-                    TotalAmountInclVAT := VATAmountLine.GetTotalAmountInclVAT;
+                    TotalAmountInclVAT := VATAmountLine.GetTotalAmountInclVAT();
 
                     //>>MIGRATION NAV 2013
                     TotalAmountVATDEE := 0;
@@ -1107,7 +1107,7 @@ report 50008 "BC6_Purchase Order"
                 //<<FED_ADV_ 20091005_CENTRE GESTION STANDARD: OR 29/01/2010
 
                 IF "Purchaser Code" = '' THEN BEGIN
-                    SalesPurchPerson.INIT;
+                    SalesPurchPerson.INIT();
                     PurchaserText := '';
                 END ELSE BEGIN
                     SalesPurchPerson.GET("Purchaser Code");
@@ -1136,24 +1136,24 @@ report 50008 "BC6_Purchase Order"
                 IF ("Purchase Header"."Buy-from Vendor No." <> "Purchase Header"."Pay-to Vendor No.") THEN
                     FormatAddr.PurchHeaderPayTo(VendAddr, "Purchase Header");
                 IF "Payment Terms Code" = '' THEN
-                    PaymentTerms.INIT
+                    PaymentTerms.INIT()
                 ELSE
                     PaymentTerms.GET("Payment Terms Code");
 
                 IF "Payment Method Code" = '' THEN
-                    PaymentMethod.INIT
+                    PaymentMethod.INIT()
                 ELSE
                     PaymentMethod.GET("Payment Method Code");
 
-                RecG_User.RESET;
+                RecG_User.RESET();
                 RecG_User.SETRANGE("User Name", ID);
-                IF RecG_User.FINDFIRST THEN
+                IF RecG_User.FINDFIRST() THEN
                     TexG_User_Name := RecG_User."User Name"
                 ELSE
                     TexG_User_Name := '';
 
                 IF "Shipment Method Code" = '' THEN
-                    ShipmentMethod.INIT
+                    ShipmentMethod.INIT()
                 ELSE
                     ShipmentMethod.GET("Shipment Method Code");
 
@@ -1172,7 +1172,7 @@ report 50008 "BC6_Purchase Order"
                 END;
 
                 //>>COMPTA_DEEE FG 01/03/07
-                RecGPayVendor.RESET;
+                RecGPayVendor.RESET();
                 RecGPayVendor.GET("Purchase Header"."Pay-to Vendor No.");
                 //<<COMPTA_DEEE FG 01/03/07
 
@@ -1243,7 +1243,7 @@ report 50008 "BC6_Purchase Order"
         trigger OnOpenPage()
         begin
 
-            ArchiveDocument := ArchiveManagement.PurchaseDocArchiveGranule;
+            ArchiveDocument := ArchiveManagement.PurchaseDocArchiveGranule();
             LogInteraction := SegManagement.FindInteractTmplCode(13) <> '';
             LogInteractionEnable := LogInteraction;
             ArchiveDocumentEnable := ArchiveDocument;
@@ -1264,8 +1264,8 @@ report 50008 "BC6_Purchase Order"
 
     trigger OnInitReport()
     begin
-        GLSetup.GET;
-        CompanyInfo.GET;
+        GLSetup.GET();
+        CompanyInfo.GET();
 
         //>>FED_ADV_ 20091005_CENTRE GESTION STANDARD: OR 29/01/2010
         CompanyInfo.CALCFIELDS(Picture, "BC6_Alt Picture");
@@ -1273,6 +1273,122 @@ report 50008 "BC6_Purchase Order"
     end;
 
     var
+        RecGItemCtg: Record "BC6_Categories of item";
+        RecGDEEE: Record "BC6_DEEE Tariffs";
+        RecGTempCalcul: Record "BC6_DEEE Tariffs" temporary;
+        CompanyInfo: Record "Company Information";
+        CurrExchRate: Record "Currency Exchange Rate";
+        GLSetup: Record "General Ledger Setup";
+        RecGItem: Record Item;
+        PaymentMethod: Record "Payment Method";
+        PaymentTerms: Record "Payment Terms";
+        PurchLine: Record "Purchase Line" temporary;
+        RespCenter: Record "Responsibility Center";
+        RecGParamVente: Record "Sales & Receivables Setup";
+        RecGSalesInvLine: Record "Sales Invoice Line";
+        SalesPurchPerson: Record "Salesperson/Purchaser";
+        ShipmentMethod: Record "Shipment Method";
+        RecG_User: Record User;
+        VATAmountLine: Record "VAT Amount Line" temporary;
+        RecGPayVendor: Record Vendor;
+        recLBuyVendor: Record Vendor;
+        ArchiveManagement: Codeunit ArchiveManagement;
+        FormatAddr: Codeunit "Format Address";
+        Language: Codeunit Language;
+        PurchPost: Codeunit "Purch.-Post";
+        PurchCountPrinted: Codeunit "Purch.Header-Printed";
+        SegManagement: Codeunit SegManagement;
+        ArchiveDocument: Boolean;
+        [InDataSet]
+        ArchiveDocumentEnable: Boolean;
+        BooGDEEEFind: Boolean;
+        [InDataSet]
+        BooGIncVAT: Boolean;
+        BooGPostingDEEE: Boolean;
+        BooGVisibleTabTot1: Boolean;
+        BooGVisibleTabTot2: Boolean;
+        BooGVisibleVAT: Boolean;
+        BoolGRespCenter: Boolean;
+        Continue: Boolean;
+        LogInteraction: Boolean;
+        [InDataSet]
+        LogInteractionEnable: Boolean;
+        MoreLines: Boolean;
+        ShowInternalInfo: Boolean;
+        CodGDevise: Code[10];
+        CodGRespCenter: Code[10];
+        DecGHTUnitTaxLCY: Decimal;
+        DecGNumbeofUnitsDEEE: Decimal;
+        DecGTTCTotalAmount: Decimal;
+        DecGVATTotalAmount: Decimal;
+        TotalAmount: Decimal;
+        TotalAmountInclVAT: Decimal;
+        TotalAmountInclVATDEE: Decimal;
+        TotalAmountInclVATDEE2: Decimal;
+        TotalAmountTTC: Decimal;
+        TotalAmountVATBase: Decimal;
+        TotalAmountVATDEE: Decimal;
+        TotalAmtHTDEEE: Decimal;
+        TotalDEEEHTAmount: Decimal;
+        VALVATAmountLCY: Decimal;
+        VALVATBaseLCY: Decimal;
+        VATAmount: Decimal;
+        VATBaseAmount: Decimal;
+        VATDiscountAmount: Decimal;
+        "--CNE3.02--": Integer;
+        "--FEP-ADVE-200706_18_A.--": Integer;
+        "-DEEE1.00-": Integer;
+        "-NSC-": Integer;
+        NoOfCopies: Integer;
+        NoOfLoops: Integer;
+        OutputNo: Integer;
+        AmountCaption_Control45Lbl: Label 'Amount', Comment = 'FRA="Montant"';
+        AmountCaptionLbl: Label 'Amount', Comment = 'FRA="Montant"';
+        AmountEco_ConributionCaption_Control1000000173Lbl: Label 'AmountEco-Conribution', Comment = 'FRA="Total Eco-Contribution HT"';
+        AmountEco_ConributionCaptionLbl: Label 'AmountEco-Conribution', Comment = 'FRA="Total Eco-Contribution HT"';
+        Base_TVACaption_Control1000000112Lbl: Label 'Base TVA', Comment = 'FRA="Base TVA"';
+        Base_TVACaptionLbl: Label 'Base TVA', Comment = 'FRA="Base TVA"';
+        "Date_de_réception_demandéeCaptionLbl": Label 'Date de réception demandée', Comment = 'FRA="Date de réception demandée"';
+        DEEE_Contribution___Caption_Control1000000148Lbl: Label 'DEEE Contribution : ', Comment = 'FRA="Contribution DEEE : "';
+        DEEE_Contribution___CaptionLbl: Label 'DEEE Contribution : ', Comment = 'FRA="Contribution DEEE : "';
+        DEEE_Tariffs__DEEE_Tariffs___DEEE_Code_Caption_Control1000000196Lbl: Label 'Category', Comment = 'FRA="Catégorie"';
+        DEEE_Tariffs__DEEE_Tariffs___DEEE_Code_CaptionLbl: Label 'Category', Comment = 'FRA="Catégorie"';
+        DEEE_Tariffs__DEEE_Tariffs___HT_Unit_Tax__LCY__Caption_Control1000000198Lbl: Label 'HT Unit Tax (LCY)', Comment = 'FRA="Coût Unitaire HT (DS)"';
+        DEEE_Tariffs__DEEE_Tariffs___HT_Unit_Tax__LCY__CaptionLbl: Label 'HT Unit Tax (LCY)', Comment = 'FRA="Coût Unitaire HT (DS)"';
+        DescriptionCaption_Control40Lbl: Label 'Description', Comment = 'FRA="Description"';
+        DescriptionCaptionLbl: Label 'Description', Comment = 'FRA="Description"';
+        Excl__VAT_Total_Incl_DEEECaption_Control1000000175Lbl: Label 'Excl. VAT Total Incl.DEEE', Comment = 'FRA="Total HT DEEE comprise"';
+        Excl__VAT_Total_Incl_DEEECaptionLbl: Label 'Excl. VAT Total Incl.DEEE', Comment = 'FRA="Total HT DEEE comprise"';
+        FORMAT__Purchase_Header___Document_Date__0_4_CaptionLbl: Label 'Date :', Comment = 'FRA="Date :"';
+        Identifiant_TVACaption_Control1000000115Lbl: Label 'Identifiant TVA', Comment = 'FRA="Identifiant TVA"';
+        Identifiant_TVACaptionLbl: Label 'Identifiant TVA', Comment = 'FRA="Identifiant TVA"';
+        Interlocutor___CaptionLbl: Label 'Interlocutor : ', Comment = 'FRA="Interlocuteur : "';
+        Montant_base_remise_factureCaptionLbl: Label 'Montant base remise facture', Comment = 'FRA="Montant base remise facture"';
+        Montant_ligneCaptionLbl: Label 'Montant ligne', Comment = 'FRA="Montant ligne"';
+        Montant_remise_factureCaptionLbl: Label 'Montant remise facture', Comment = 'FRA="Montant remise facture"';
+        Montant_TVACaption_Control1000000111Lbl: Label 'Montant TVA', Comment = 'FRA="Montant TVA"';
+        Montant_TVACaptionLbl: Label 'Montant TVA', Comment = 'FRA="Montant TVA"';
+        PaymentTerms_Description_Control1000000051CaptionLbl: Label 'Payment Method', Comment = 'FRA="Mode de réglement"';
+        PaymentTerms_Description_Control1000000074CaptionLbl: Label 'Payment Method', Comment = 'FRA="Mode de réglement"';
+        PaymentTerms_DescriptionCaptionLbl: Label 'Payment Method', Comment = 'FRA="Mode de réglement"';
+        Planned_Receipt_DateCaptionLbl: Label 'Planned Receipt Date', Comment = 'FRA="Date de réception demandée"';
+        Purchase_Line___DEEE_Category_Code_CaptionLbl: Label ' -   Category :', Comment = 'FRA=" -   Catégorie :"';
+        Purchase_Line___No___Control1000000165CaptionLbl: Label 'Item : ', Comment = 'FRA="Art. : "';
+        Purchase_OrderCaptionLbl: Label 'Purchase Order', Comment = 'FRA="Commande achat"';
+        QuantityCaptionLbl: Label 'Quantity', Comment = 'FRA="Quantité"';
+        RecGItemCtg__Weight_Min__Control1000000145Caption_Control1000000199Lbl: Label 'Weight Max', Comment = 'FRA="Poids Max"';
+        RecGItemCtg__Weight_Min__Control1000000145CaptionLbl: Label 'Weight Max', Comment = 'FRA="Poids Max"';
+        RecGItemCtg__Weight_Min_Caption_Control1000000197Lbl: Label 'Weight Min', Comment = 'FRA="Poids Min"';
+        RecGItemCtg__Weight_Min_CaptionLbl: Label 'Weight Min', Comment = 'FRA="Poids Min"';
+        ReferenceCaption_Control39Lbl: Label 'Reference', Comment = 'FRA="Référence"';
+        ReferenceCaption_Control1000000017Lbl: Label 'Reference', Comment = 'FRA="Référence"';
+        ReferenceCaptionLbl: Label 'Reference', Comment = 'FRA="Référence"';
+        ReportCaption_Control1000000105Lbl: Label 'Report', Comment = 'FRA="Report"';
+        ReportCaption_Control1000000117Lbl: Label 'Report', Comment = 'FRA="Report"';
+        ReportCaptionLbl: Label 'Report', Comment = 'FRA="Report"';
+        ShipmentMethod_Description_Control1000000159CaptionLbl: Label 'Shipment Method', Comment = 'FRA="Conditions de livraison"';
+        ShipmentMethod_Description_Control1000000202CaptionLbl: Label 'Shipment Method', Comment = 'FRA="Conditions de livraison"';
+        ShipmentMethod_DescriptionCaptionLbl: Label 'Shipment Method', Comment = 'FRA="Conditions de livraison"';
         Text000: Label 'Purchaser', Comment = 'FRA="Acheteur"';
         Text001: Label 'Total Order %1', Comment = 'FRA="Total commande %1"';
         Text002: Label 'Total Order %1 Incl. VAT', Comment = 'FRA="Total commande %1 TTC"';
@@ -1280,59 +1396,11 @@ report 50008 "BC6_Purchase Order"
         Text004: Label 'Order %1', Comment = 'FRA="Commande %1"';
         Text005: Label 'Page %1', Comment = 'FRA="Page %1"';
         Text006: Label 'Total Order %1 Excl. VAT', Comment = 'FRA="Total commande %1 HT"';
-        GLSetup: Record "General Ledger Setup";
-        CompanyInfo: Record "Company Information";
-        ShipmentMethod: Record "Shipment Method";
-        PaymentTerms: Record "Payment Terms";
-        PaymentMethod: Record "Payment Method";
-        SalesPurchPerson: Record "Salesperson/Purchaser";
-        VATAmountLine: Record "VAT Amount Line" temporary;
-        PurchLine: Record "Purchase Line" temporary;
-        RespCenter: Record "Responsibility Center";
-        Language: Codeunit Language;
-        CurrExchRate: Record "Currency Exchange Rate";
-        recLBuyVendor: Record Vendor;
-        PurchCountPrinted: Codeunit "Purch.Header-Printed";
-        FormatAddr: Codeunit "Format Address";
-        PurchPost: Codeunit "Purch.-Post";
-        ArchiveManagement: Codeunit ArchiveManagement;
-        SegManagement: Codeunit SegManagement;
-        VendAddr: array[8] of Text[50];
-        ShipToAddr: array[8] of Text[50];
-        CompanyAddr: array[8] of Text[50];
-        BuyFromAddr: array[8] of Text[50];
-        PurchaserText: Text[30];
-        VATNoText: Text[30];
-        ReferenceText: Text[30];
-        TotalText: Text[50];
-        TotalInclVATText: Text[50];
-        TotalExclVATText: Text[50];
-        MoreLines: Boolean;
-        NoOfCopies: Integer;
-        NoOfLoops: Integer;
-        CopyText: Text[30];
-        DimText: Text[120];
-        OldDimText: Text[75];
-        ShowInternalInfo: Boolean;
-        Continue: Boolean;
-        ArchiveDocument: Boolean;
-        LogInteraction: Boolean;
-        VATAmount: Decimal;
-        VATBaseAmount: Decimal;
-        VATDiscountAmount: Decimal;
-        TotalAmountInclVAT: Decimal;
-        VALVATBaseLCY: Decimal;
-        VALVATAmountLCY: Decimal;
-        VALSpecLCYHeader: Text[80];
-        VALExchRate: Text[50];
         Text007: Label 'VAT Amount Specification in ', Comment = 'FRA="Détail TVA dans "';
         Text008: Label 'Local Currency', Comment = 'FRA="Devise locale"';
         Text009: Label 'Exchange rate: %1/%2', Comment = 'FRA="Taux de change : %1/%2"';
-        TextGVendorTel: Text[30];
-        TextGVendorFax: Text[30];
         Text010: Label 'IMPERTIVE : US TO CONFIRM THIS ORDER BY RETURN OF EMAIL TO ', Comment = 'FRA="IMPERATIF : NOUS CONFIRMER CETTE COMMANDE PAR RETOUR D''EMAIL A "';
         Text011: Label 'DELIVERY ADDRESS', Comment = 'FRA="ADRESSE DE LIVRAISON"';
-        CodGDevise: Code[10];
         Text012: Label 'No.', Comment = 'FRA="N°"';
         Text013: Label ' with capital of ', Comment = 'FRA=" au capital de "';
         Text014: Label ' -Registration ', Comment = 'FRA=" -SIRET "';
@@ -1340,132 +1408,64 @@ report 50008 "BC6_Purchase Order"
         Text016: Label ' -VAT Registration ', Comment = 'FRA=" -N° TVA "';
         Text066: Label 'TEL : %1 FAX : %2 / email : %3', Comment = 'FRA="TEL : %1 FAX : %2 / email : %3"';
         Text067: Label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5', Comment = 'FRA="%1 au capital de  %2   - %3  -  APE %4 - N°TVA : %5"';
-        TexG_User_Name: Text[30];
-        "-DEEE1.00-": Integer;
-        RecGSalesInvLine: Record "Sales Invoice Line";
-        BooGDEEEFind: Boolean;
-        RecGDEEE: Record "BC6_DEEE Tariffs";
-        RecGItemCtg: Record "BC6_Categories of item";
-        RecGTempCalcul: Record "BC6_DEEE Tariffs" temporary;
-        DecGVATTotalAmount: Decimal;
-        DecGTTCTotalAmount: Decimal;
-        RecGItem: Record Item;
-        DecGNumbeofUnitsDEEE: Decimal;
-        "-NSC-": Integer;
-        TxtGTag: Text[70];
-        RecGParamVente: Record "Sales & Receivables Setup";
-        DecGHTUnitTaxLCY: Decimal;
-        RecGPayVendor: Record Vendor;
-        "--FEP-ADVE-200706_18_A.--": Integer;
-        TxtGLblProjet: Text[30];
-        TxtGNoProjet: Text[30];
-        TxtGDesignation: Text[50];
-        Text070: Label 'Affair No. : ', Comment = 'FRA="Affaire n° :"';
-        "--CNE3.02--": Integer;
-        BoolGRespCenter: Boolean;
-        TxtGPhone: Text[20];
-        TxtGFax: Text[20];
-        TxtGEmail: Text[80];
-        TxtGHomePage: Text[80];
-        TxtGAltName: Text[50];
-        TxtGAltAdress: Text[50];
-        TxtGAltAdress2: Text[50];
-        TxtGAltPostCode: Text[20];
-        TxtGAltCity: Text[30];
-        TxtGAltPhone: Text[20];
-        TxtGAltFax: Text[20];
-        TxtGAltEmail: Text[80];
-        TxtGAltHomePage: Text[80];
         Text068: Label '%1', Comment = 'FRA="%1"';
-        CodGRespCenter: Code[10];
-        Purchase_OrderCaptionLbl: Label 'Purchase Order', Comment = 'FRA="Commande achat"';
-        Vendor_No___CaptionLbl: Label 'Vendor No :.', Comment = 'FRA="N° fournisseur :"';
-        FORMAT__Purchase_Header___Document_Date__0_4_CaptionLbl: Label 'Date :', Comment = 'FRA="Date :"';
-        Interlocutor___CaptionLbl: Label 'Interlocutor : ', Comment = 'FRA="Interlocuteur : "';
-        ReferenceCaptionLbl: Label 'Reference', Comment = 'FRA="Référence"';
-        ReferenceCaption_Control1000000017Lbl: Label 'Reference', Comment = 'FRA="Référence"';
-        DescriptionCaptionLbl: Label 'Description', Comment = 'FRA="Description"';
-        Unit_PriceCaptionLbl: Label 'Unit Price', Comment = 'FRA="Prix Unitaire net HT"';
-        QuantityCaptionLbl: Label 'Quantity', Comment = 'FRA="Quantité"';
-        AmountCaptionLbl: Label 'Amount', Comment = 'FRA="Montant"';
-        Planned_Receipt_DateCaptionLbl: Label 'Planned Receipt Date', Comment = 'FRA="Date de réception demandée"';
-        ReferenceCaption_Control39Lbl: Label 'Reference', Comment = 'FRA="Référence"';
-        DescriptionCaption_Control40Lbl: Label 'Description', Comment = 'FRA="Description"';
-        Unit_PriceCaption_Control43Lbl: Label 'Unit Price', Comment = 'FRA="Prix Unitaire net HT"';
-        AmountCaption_Control45Lbl: Label 'Amount', Comment = 'FRA="Montant"';
-        "Date_de_réception_demandéeCaptionLbl": Label 'Date de réception demandée', Comment = 'FRA="Date de réception demandée"';
-        DEEE_Contribution___CaptionLbl: Label 'DEEE Contribution : ', Comment = 'FRA="Contribution DEEE : "';
-        Purchase_Line___No___Control1000000165CaptionLbl: Label 'Item : ', Comment = 'FRA="Art. : "';
-        Purchase_Line___DEEE_Category_Code_CaptionLbl: Label ' -   Category :', Comment = 'FRA=" -   Catégorie :"';
-        ShipmentMethod_DescriptionCaptionLbl: Label 'Shipment Method', Comment = 'FRA="Conditions de livraison"';
-        PaymentTerms_DescriptionCaptionLbl: Label 'Payment Method', Comment = 'FRA="Mode de réglement"';
-        TVACaptionLbl: Label '% TVA', Comment = 'FRA="% TVA"';
-        Base_TVACaptionLbl: Label 'Base TVA', Comment = 'FRA="Base TVA"';
-        Montant_TVACaptionLbl: Label 'Montant TVA', Comment = 'FRA="Montant TVA"';
-        VAT_Amount_SpecificationCaptionLbl: Label 'VAT Amount Specification', Comment = 'FRA="Détail TVA"';
-        Montant_base_remise_factureCaptionLbl: Label 'Montant base remise facture', Comment = 'FRA="Montant base remise facture"';
-        Montant_ligneCaptionLbl: Label 'Montant ligne', Comment = 'FRA="Montant ligne"';
-        Montant_remise_factureCaptionLbl: Label 'Montant remise facture', Comment = 'FRA="Montant remise facture"';
-        Identifiant_TVACaptionLbl: Label 'Identifiant TVA', Comment = 'FRA="Identifiant TVA"';
-        ReportCaptionLbl: Label 'Report', Comment = 'FRA="Report"';
-        ReportCaption_Control1000000105Lbl: Label 'Report', Comment = 'FRA="Report"';
+        Text070: Label 'Affair No. : ', Comment = 'FRA="Affaire n° :"';
         TotalCaptionLbl: Label 'Total', Comment = 'FRA="Total"';
-        Montant_TVACaption_Control1000000111Lbl: Label 'Montant TVA', Comment = 'FRA="Montant TVA"';
-        Base_TVACaption_Control1000000112Lbl: Label 'Base TVA', Comment = 'FRA="Base TVA"';
         TVACaption_Control1000000114Lbl: Label '% TVA', Comment = 'FRA="% TVA"';
-        Identifiant_TVACaption_Control1000000115Lbl: Label 'Identifiant TVA', Comment = 'FRA="Identifiant TVA"';
-        ReportCaption_Control1000000117Lbl: Label 'Report', Comment = 'FRA="Report"';
+        TVACaptionLbl: Label '% TVA', Comment = 'FRA="% TVA"';
+        Unit_PriceCaption_Control43Lbl: Label 'Unit Price', Comment = 'FRA="Prix Unitaire net HT"';
+        Unit_PriceCaptionLbl: Label 'Unit Price', Comment = 'FRA="Prix Unitaire net HT"';
         VALVATBaseLCY_Control1000000125CaptionLbl: Label 'Continued', Comment = 'FRA="Report"';
         VALVATBaseLCY_Control1000000128CaptionLbl: Label 'Total', Comment = 'FRA="Total"';
-        DEEE_Contribution___Caption_Control1000000148Lbl: Label 'DEEE Contribution : ', Comment = 'FRA="Contribution DEEE : "';
-        DEEE_Tariffs__DEEE_Tariffs___DEEE_Code_CaptionLbl: Label 'Category', Comment = 'FRA="Catégorie"';
-        RecGItemCtg__Weight_Min_CaptionLbl: Label 'Weight Min', Comment = 'FRA="Poids Min"';
-        DEEE_Tariffs__DEEE_Tariffs___HT_Unit_Tax__LCY__CaptionLbl: Label 'HT Unit Tax (LCY)', Comment = 'FRA="Coût Unitaire HT (DS)"';
-        RecGItemCtg__Weight_Min__Control1000000145CaptionLbl: Label 'Weight Max', Comment = 'FRA="Poids Max"';
-        DEEE_Tariffs__DEEE_Tariffs___DEEE_Code_Caption_Control1000000196Lbl: Label 'Category', Comment = 'FRA="Catégorie"';
-        RecGItemCtg__Weight_Min_Caption_Control1000000197Lbl: Label 'Weight Min', Comment = 'FRA="Poids Min"';
-        DEEE_Tariffs__DEEE_Tariffs___HT_Unit_Tax__LCY__Caption_Control1000000198Lbl: Label 'HT Unit Tax (LCY)', Comment = 'FRA="Coût Unitaire HT (DS)"';
-        RecGItemCtg__Weight_Min__Control1000000145Caption_Control1000000199Lbl: Label 'Weight Max', Comment = 'FRA="Poids Max"';
-        PaymentTerms_Description_Control1000000051CaptionLbl: Label 'Payment Method', Comment = 'FRA="Mode de réglement"';
-        Excl__VAT_Total_Incl_DEEECaptionLbl: Label 'Excl. VAT Total Incl.DEEE', Comment = 'FRA="Total HT DEEE comprise"';
-        AmountEco_ConributionCaptionLbl: Label 'AmountEco-Conribution', Comment = 'FRA="Total Eco-Contribution HT"';
-        ShipmentMethod_Description_Control1000000159CaptionLbl: Label 'Shipment Method', Comment = 'FRA="Conditions de livraison"';
-        PaymentTerms_Description_Control1000000074CaptionLbl: Label 'Payment Method', Comment = 'FRA="Mode de réglement"';
-        AmountEco_ConributionCaption_Control1000000173Lbl: Label 'AmountEco-Conribution', Comment = 'FRA="Total Eco-Contribution HT"';
-        Excl__VAT_Total_Incl_DEEECaption_Control1000000175Lbl: Label 'Excl. VAT Total Incl.DEEE', Comment = 'FRA="Total HT DEEE comprise"';
-        ShipmentMethod_Description_Control1000000202CaptionLbl: Label 'Shipment Method', Comment = 'FRA="Conditions de livraison"';
-        OutputNo: Integer;
-        [InDataSet]
-        BooGIncVAT: Boolean;
-        BooGPostingDEEE: Boolean;
-        [InDataSet]
-        LogInteractionEnable: Boolean;
-        [InDataSet]
-        ArchiveDocumentEnable: Boolean;
-        BooGVisibleVAT: Boolean;
-        TotalAmount: Decimal;
-        TotalAmtHTDEEE: Decimal;
-        TotalDEEEHTAmount: Decimal;
-        TotalAmountVATDEE: Decimal;
-        TotalAmountVATBase: Decimal;
-        TotalAmountInclVATDEE2: Decimal;
-        TotalAmountTTC: Decimal;
-        BooGVisibleTabTot1: Boolean;
-        BooGVisibleTabTot2: Boolean;
-        RecG_User: Record User;
-        TotalAmountInclVATDEE: Decimal;
+        VAT_Amount_SpecificationCaptionLbl: Label 'VAT Amount Specification', Comment = 'FRA="Détail TVA"';
+        Vendor_No___CaptionLbl: Label 'Vendor No :.', Comment = 'FRA="N° fournisseur :"';
+        TxtGAltFax: Text[20];
+        TxtGAltPhone: Text[20];
+        TxtGAltPostCode: Text[20];
+        TxtGFax: Text[20];
+        TxtGPhone: Text[20];
+        CopyText: Text[30];
+        PurchaserText: Text[30];
+        ReferenceText: Text[30];
+        TexG_User_Name: Text[30];
+        TextGVendorFax: Text[30];
+        TextGVendorTel: Text[30];
+        TxtGAltCity: Text[30];
+        TxtGLblProjet: Text[30];
+        TxtGNoProjet: Text[30];
+        VATNoText: Text[30];
+        BuyFromAddr: array[8] of Text[50];
+        CompanyAddr: array[8] of Text[50];
+        ShipToAddr: array[8] of Text[50];
+        TotalExclVATText: Text[50];
+        TotalInclVATText: Text[50];
+        TotalText: Text[50];
+        TxtGAltAdress: Text[50];
+        TxtGAltAdress2: Text[50];
+        TxtGAltName: Text[50];
+        TxtGDesignation: Text[50];
+        VALExchRate: Text[50];
+        VendAddr: array[8] of Text[50];
+        TxtGTag: Text[70];
+        OldDimText: Text[75];
+        TxtGAltEmail: Text[80];
+        TxtGAltHomePage: Text[80];
+        TxtGEmail: Text[80];
+        TxtGHomePage: Text[80];
+        VALSpecLCYHeader: Text[80];
+        DimText: Text[120];
 
     procedure DefineTagFax(TxtLTag: Text[50])
     begin
         //>>FE005 MICO LE 15.02.2007
-        RecGParamVente.GET;
+        RecGParamVente.GET();
         TxtGTag := RecGParamVente."BC6_RTE Fax Tag" + TxtLTag + '@cne.fax';
     end;
 
     procedure DefineTagMail(TxtLTag: Text[50])
     begin
         //>>FE005 MICO LE 15,02,2007
-        RecGParamVente.GET;
+        RecGParamVente.GET();
         TxtGTag := RecGParamVente."BC6_PDF Mail Tag" + TxtLTag;
     end;
 

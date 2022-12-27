@@ -59,10 +59,6 @@ pageextension 50085 "BC6_ResponsibilityCenterCard" extends "Responsibility Cente
         }
     }
 
-    var
-        PictureExists: Boolean;
-        Picture2Exists: Boolean;
-        Text001: Label 'Do you want to replace the existing picture?', comment = 'FRA="Souhaitez-vous remplacer l''image existante ?"';
-        Text002: Label 'Do you want to delete the picture?', comment = 'FRA="Souhaitez-vous supprimer l''image"';
+
 }
 

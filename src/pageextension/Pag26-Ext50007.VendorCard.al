@@ -67,7 +67,7 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
                     ApplicationArea = All;
                     trigger OnValidate()
                     begin
-                        Incoterm;
+                        Incoterm();
                     end;
                 }
                 field(BC6_TxtGTransType; TxtGTransType)
@@ -83,7 +83,7 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
                     ApplicationArea = All;
                     trigger OnValidate()
                     begin
-                        Incoterm;
+                        Incoterm();
                     end;
                 }
                 field(BC6_TxtGTransSpe; TxtGTransSpe)
@@ -99,7 +99,7 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
                     ApplicationArea = All;
                     trigger OnValidate()
                     begin
-                        Incoterm;
+                        Incoterm();
                     end;
                 }
                 field(BC6_TxtGTransMeth; TxtGTransMeth)
@@ -115,7 +115,7 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
                     ApplicationArea = All;
                     trigger OnValidate()
                     begin
-                        Incoterm;
+                        Incoterm();
                     end;
                 }
                 field(BC6_TxtGESPoint; TxtGESPoint)
@@ -131,7 +131,7 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
                     ApplicationArea = All;
                     trigger OnValidate()
                     begin
-                        Incoterm;
+                        Incoterm();
                     end;
                 }
                 field(BC6_TxtGArea; TxtGArea)
@@ -197,20 +197,18 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
     end;
 
     var
-
-        "-NSC1.00-": Integer;
-        TxtGTransType: Text[100];
-        TxtGTransSpe: Text[100];
-        TxtGTransMeth: Text[100];
-        TxtGESPoint: Text[100];
-        TxtGArea: Text[100];
-        RecGTransType: Record "Transaction Type";
-        RecGTransSpe: Record "Transaction Specification";
-        RecGTransMeth: Record "Transport Method";
-        RecGTransESPoint: Record "Entry/Exit Point";
         RecGArea: Record "Area";
+        RecGTransESPoint: Record "Entry/Exit Point";
+        RecGTransSpe: Record "Transaction Specification";
+        RecGTransType: Record "Transaction Type";
+        RecGTransMeth: Record "Transport Method";
         ShowMiniMargin: Boolean;
-        UserSetup: Record "User Setup";
+        TxtGArea: Text[100];
+        TxtGESPoint: Text[100];
+        TxtGTransMeth: Text[100];
+        TxtGTransSpe: Text[100];
+        TxtGTransType: Text[100];
+
 
     procedure SetShowMiniMargin(_ShowMiniMargin: Boolean)
     begin

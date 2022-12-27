@@ -580,16 +580,16 @@ report 50037 "BC6_BC6_Relance  CNE"
     end;
 
     var
+        CompanyInfo: Record "Company Information";
+        Country: Record "Country/Region";
+        Cust: Record Customer;
+        DimSetEntry: Record "Dimension Set Entry";
+        GLSetup: Record "General Ledger Setup";
+        SalesPurchPerson: Record "Salesperson/Purchaser";
+        VATAmountLine: Record "VAT Amount Line" temporary;
+        FormatAddrCodeunit: Codeunit "Format Address";
         Language: Codeunit Language;
         Language2: Codeunit Language;
-        Country: Record "Country/Region";
-        SalesPurchPerson: Record "Salesperson/Purchaser";
-        Cust: Record Customer;
-        CompanyInfo: Record "Company Information";
-        GLSetup: Record "General Ledger Setup";
-        VATAmountLine: Record "VAT Amount Line" temporary;
-        DimSetEntry: Record "Dimension Set Entry";
-        FormatAddrCodeunit: Codeunit "Format Address";
         SegManagement: Codeunit SegManagement;
         BooGIRLineBody1: Boolean;
         BooGIRLineBody2: Boolean;

@@ -1,7 +1,7 @@
 report 50007 "BC6_Price List" //715 
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './src/Report/RDL/PriceList.rdlc';
+    RDLCLayout = './src/Report/RDL/PriceList.rdl';
     Caption = 'Price List', Comment = 'FRA="Liste des prix"';
 
     dataset
@@ -166,7 +166,7 @@ report 50007 "BC6_Price List" //715
 
                 trigger OnAfterGetRecord()
                 begin
-                    PrintSalesDisc;
+                    PrintSalesDisc();
                 end;
 
                 trigger OnPreDataItem()
@@ -232,7 +232,7 @@ report 50007 "BC6_Price List" //715
 
                     trigger OnAfterGetRecord()
                     begin
-                        PrintSalesDisc;
+                        PrintSalesDisc();
                     end;
 
                     trigger OnPreDataItem()
@@ -298,7 +298,7 @@ report 50007 "BC6_Price List" //715
 
                 ContBusRel.SETRANGE("Link to Table", ContBusRel."Link to Table"::Customer);
                 ContBusRel.SETRANGE("No.", CustNo);
-                IF ContBusRel.FINDFIRST THEN
+                IF ContBusRel.FINDFIRST() THEN
                     ContNo := ContBusRel."Contact No.";
             end;
         }
@@ -342,16 +342,16 @@ report 50007 "BC6_Price List" //715
 
                         trigger OnLookup(var Text: Text): Boolean
                         var
+                            CampaignList: Page "Campaign List";
                             CustList: Page "Customer List";
                             CustPriceGrList: Page "Customer Price Groups";
-                            CampaignList: Page "Campaign List";
                         begin
                             CASE SalesType OF
                                 SalesType::Customer:
                                     BEGIN
                                         CustList.LOOKUPMODE := TRUE;
                                         CustList.SETRECORD(Cust);
-                                        IF CustList.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                                        IF CustList.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                                             CustList.GETRECORD(Cust);
                                             SalesCode := Cust."No.";
                                         END;
@@ -360,7 +360,7 @@ report 50007 "BC6_Price List" //715
                                     BEGIN
                                         CustPriceGrList.LOOKUPMODE := TRUE;
                                         CustPriceGrList.SETRECORD(CustPriceGr);
-                                        IF CustPriceGrList.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                                        IF CustPriceGrList.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                                             CustPriceGrList.GETRECORD(CustPriceGr);
                                             SalesCode := CustPriceGr.Code;
                                         END;
@@ -369,7 +369,7 @@ report 50007 "BC6_Price List" //715
                                     BEGIN
                                         CampaignList.LOOKUPMODE := TRUE;
                                         CampaignList.SETRECORD(Campaign);
-                                        IF CampaignList.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                                        IF CampaignList.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                                             CampaignList.GETRECORD(Campaign);
                                             SalesCode := Campaign."No.";
                                         END;
@@ -379,7 +379,7 @@ report 50007 "BC6_Price List" //715
 
                         trigger OnValidate()
                         begin
-                            ValidateSalesCode;
+                            ValidateSalesCode();
                         end;
                     }
                     field("Currency.Code";
@@ -406,7 +406,7 @@ report 50007 "BC6_Price List" //715
         trigger OnOpenPage()
         begin
             IF DateReq = 0D THEN
-                DateReq := WORKDATE;
+                DateReq := WORKDATE();
 
             SalesCodeCtrlEnable := TRUE;
             IF SalesType = SalesType::"All Customers" THEN
@@ -420,78 +420,78 @@ report 50007 "BC6_Price List" //715
 
     trigger OnPreReport()
     begin
-        ValidateSalesCode;
+        ValidateSalesCode();
 
-        CompanyInfo.GET;
+        CompanyInfo.GET();
         FormatAddr.Company(CompanyAddr, CompanyInfo);
 
         IF CustPriceGr.Code <> '' THEN
-            CustPriceGr.FIND;
+            CustPriceGr.FIND();
 
-        SetCurrency;
+        SetCurrency();
     end;
 
     var
+        Campaign: Record Campaign;
+        CompanyInfo: Record "Company Information";
+        ContBusRel: Record "Contact Business Relation";
+        Currency: Record Currency;
+        CurrExchRate: Record "Currency Exchange Rate";
+        Cust: Record Customer;
+        CustPriceGr: Record "Customer Price Group";
+        GLSetup: Record "General Ledger Setup";
+        SalesLineDisc: Record "Sales Line Discount" temporary;
+        SalesPrice: Record "Sales Price" temporary;
+        FormatAddr: Codeunit "Format Address";
+        SalesPriceCalcMgt: Codeunit "Sales Price Calc. Mgt.";
+        IsFirstSalesLineDisc: Boolean;
+        IsFirstSalesPrice: Boolean;
+        PricesInCurrency: Boolean;
+        [InDataSet]
+        SalesCodeCtrlEnable: Boolean;
+        CustPriceGrCode: Code[10];
+        UnitOfMeasure: Code[10];
+        CampaignNo: Code[20];
+        ContNo: Code[20];
+        CustDiscGrCode: Code[20];
+        CustNo: Code[20];
+        ItemNo: Code[20];
+        SalesCode: Code[20];
+        DateReq: Date;
+        CurrencyFactor: Decimal;
+        SalesType: Enum "Sales Price Type";
+        CompanyInfoBankAccNoCaptionLbl: Label 'Account No.', Comment = 'FRA="N° compte"';
+        CompanyInfoBankNameCaptionLbl: Label 'Bank', Comment = 'FRA="Banque"';
+        CompanyInfoFaxNoCaptionLbl: Label 'Fax No.', Comment = 'FRA="N° télécopie"';
+        CompanyInfoGiroNoCaptionLbl: Label 'Giro No.', Comment = 'FRA="N° CCP"';
+        CompanyInfoPhoneNoCaptionLbl: Label 'Phone No.', Comment = 'FRA="N° téléphone"';
+        CompanyInfoVATRegNoCaptionLbl: Label 'VAT Reg. No.', Comment = 'FRA="N° id. intracomm."';
+        ItemDescCaptionLbl: Label 'Description', Comment = 'FRA="Description"';
+        ItemNoCaptionLbl: Label 'Item No.', Comment = 'FRA="N° article"';
+        MinimumQuantityCaptionLbl: Label 'Minimum Quantity', Comment = 'FRA="Quantité minimum"';
+        PriceListCaptionLbl: Label 'Price List', Comment = 'FRA="Liste des prix"';
         Text000: Label 'Incl.', Comment = 'FRA="TTC"';
         Text001: Label 'Excl.', Comment = 'FRA="HT"';
         Text002: Label 'Page %1', Comment = 'FRA="Page %1"';
         Text003: Label 'As of %1', Comment = 'FRA="Au %1"';
-        CompanyInfo: Record "Company Information";
-        CustPriceGr: Record "Customer Price Group";
-        Cust: Record Customer;
-        Campaign: Record Campaign;
-        Currency: Record Currency;
-        CurrExchRate: Record "Currency Exchange Rate";
-        SalesPrice: Record "Sales Price" temporary;
-        SalesLineDisc: Record "Sales Line Discount" temporary;
-        ContBusRel: Record "Contact Business Relation";
-        GLSetup: Record "General Ledger Setup";
-        FormatAddr: Codeunit "Format Address";
-        SalesPriceCalcMgt: Codeunit "Sales Price Calc. Mgt.";
+        Text004: Label 'You must specify a sales code, if the sales type is different from All Customers.', Comment = 'FRA="Vous devez spécifier un code vente, si le type vente est différent de Tous les clients."';
+        UnitOfMeasureCaptionLbl: Label 'Unit of Measure', Comment = 'FRA="Unité"';
+        VATTextCaptionLbl: Label 'VAT', Comment = 'FRA="TVA"';
         VATText: Text[20];
-        DateReq: Date;
-        CompanyAddr: array[8] of Text[50];
         CurrencyText: Text[30];
-        UnitOfMeasure: Code[10];
-        SalesType: Enum "Sales Price Type";
-        SalesCode: Code[20];
-        CustNo: Code[20];
-        ContNo: Code[20];
-        CampaignNo: Code[20];
-        ItemNo: Code[20];
+        CompanyAddr: array[8] of Text[50];
         ItemDesc: Text[50];
         SalesDesc: Text[50];
-        CustPriceGrCode: Code[10];
-        CustDiscGrCode: Code[20];
-        IsFirstSalesPrice: Boolean;
-        IsFirstSalesLineDisc: Boolean;
-        PricesInCurrency: Boolean;
-        CurrencyFactor: Decimal;
-        [InDataSet]
-        SalesCodeCtrlEnable: Boolean;
-        Text004: Label 'You must specify a sales code, if the sales type is different from All Customers.', Comment = 'FRA="Vous devez spécifier un code vente, si le type vente est différent de Tous les clients."';
-        PriceListCaptionLbl: Label 'Price List', Comment = 'FRA="Liste des prix"';
-        CompanyInfoPhoneNoCaptionLbl: Label 'Phone No.', Comment = 'FRA="N° téléphone"';
-        CompanyInfoFaxNoCaptionLbl: Label 'Fax No.', Comment = 'FRA="N° télécopie"';
-        CompanyInfoVATRegNoCaptionLbl: Label 'VAT Reg. No.', Comment = 'FRA="N° id. intracomm."';
-        CompanyInfoGiroNoCaptionLbl: Label 'Giro No.', Comment = 'FRA="N° CCP"';
-        CompanyInfoBankNameCaptionLbl: Label 'Bank', Comment = 'FRA="Banque"';
-        CompanyInfoBankAccNoCaptionLbl: Label 'Account No.', Comment = 'FRA="N° compte"';
-        ItemNoCaptionLbl: Label 'Item No.', Comment = 'FRA="N° article"';
-        ItemDescCaptionLbl: Label 'Description', Comment = 'FRA="Description"';
-        UnitOfMeasureCaptionLbl: Label 'Unit of Measure', Comment = 'FRA="Unité"';
-        MinimumQuantityCaptionLbl: Label 'Minimum Quantity', Comment = 'FRA="Quantité minimum"';
-        VATTextCaptionLbl: Label 'VAT', Comment = 'FRA="TVA"';
 
     local procedure SetCurrency()
     begin
         PricesInCurrency := Currency.Code <> '';
         IF PricesInCurrency THEN BEGIN
-            Currency.FIND;
+            Currency.FIND();
             CurrencyText := ' (' + Currency.Code + ')';
             CurrencyFactor := 0;
         END ELSE
-            GLSetup.GET;
+            GLSetup.GET();
     end;
 
     local procedure ConvertPricetoUoM(var UOMCode: Code[10]; var UnitPrice: Decimal)
@@ -530,7 +530,7 @@ report 50007 "BC6_Price List" //715
                 SETRANGE("Currency Code", Currency.Code);
                 IF FIND('-') THEN BEGIN
                     SETRANGE("Currency Code", '');
-                    DELETEALL;
+                    DELETEALL();
                 END;
                 SETRANGE("Currency Code");
             END;
@@ -540,7 +540,7 @@ report 50007 "BC6_Price List" //715
 
             IF IsVariant THEN BEGIN
                 SETRANGE("Variant Code", '');
-                DELETEALL;
+                DELETEALL();
                 SETRANGE("Variant Code");
             END;
         END;
@@ -556,7 +556,7 @@ report 50007 "BC6_Price List" //715
                 IF NOT FIND('-') THEN BEGIN
                     IF NOT IsVariant THEN BEGIN
                         IF SalesType = SalesType::Campaign THEN
-                            CurrReport.SKIP;
+                            CurrReport.SKIP();
 
                         "Currency Code" := '';
                         "Price Includes VAT" := Item."Price Includes VAT";
@@ -564,14 +564,14 @@ report 50007 "BC6_Price List" //715
                         "Unit of Measure Code" := Item."Base Unit of Measure";
                         "Minimum Quantity" := 0;
                     END ELSE
-                        CurrReport.SKIP;
+                        CurrReport.SKIP();
                 END;
             END ELSE
-                IF NEXT = 0 THEN
-                    CurrReport.BREAK;
+                IF NEXT() = 0 THEN
+                    CurrReport.BREAK();
 
             IF (SalesType = SalesType::Campaign) AND ("Sales Type" <> "Sales Type"::Campaign) THEN
-                CurrReport.SKIP;
+                CurrReport.SKIP();
 
             IF "Price Includes VAT" THEN
                 VATText := Text000
@@ -590,14 +590,14 @@ report 50007 "BC6_Price List" //715
                 SETRANGE("Currency Code", Currency.Code);
                 IF FIND('-') THEN BEGIN
                     SETRANGE("Currency Code", '');
-                    DELETEALL;
+                    DELETEALL();
                 END;
                 SETRANGE("Currency Code");
             END;
 
             IF IsVariant THEN BEGIN
                 SETRANGE("Variant Code", '');
-                DELETEALL;
+                DELETEALL();
                 SETRANGE("Variant Code");
             END;
         END;
@@ -611,13 +611,13 @@ report 50007 "BC6_Price List" //715
             IF IsFirstSalesLineDisc THEN BEGIN
                 IsFirstSalesLineDisc := FALSE;
                 IF NOT FIND('-') THEN
-                    CurrReport.BREAK;
+                    CurrReport.BREAK();
             END ELSE
-                IF NEXT = 0 THEN
-                    CurrReport.BREAK;
+                IF NEXT() = 0 THEN
+                    CurrReport.BREAK();
 
             IF (SalesType = SalesType::Campaign) AND ("Sales Type" <> "Sales Type"::Campaign) THEN
-                CurrReport.SKIP;
+                CurrReport.SKIP();
 
             IF "Unit of Measure Code" = '' THEN
                 UnitOfMeasure := Item."Base Unit of Measure"

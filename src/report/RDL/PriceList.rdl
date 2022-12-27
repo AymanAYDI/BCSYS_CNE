@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="CompanyAddr1">
+          <DataField>CompanyAddr1</DataField>
+        </Field>
+        <Field Name="CompanyAddr2">
+          <DataField>CompanyAddr2</DataField>
+        </Field>
+        <Field Name="CompanyAddr3">
+          <DataField>CompanyAddr3</DataField>
+        </Field>
+        <Field Name="CompanyAddr4">
+          <DataField>CompanyAddr4</DataField>
+        </Field>
+        <Field Name="CompanyInfoPhoneNo">
+          <DataField>CompanyInfoPhoneNo</DataField>
+        </Field>
+        <Field Name="CompanyInfoFaxNo">
+          <DataField>CompanyInfoFaxNo</DataField>
+        </Field>
+        <Field Name="CompanyInfoVATRegNo">
+          <DataField>CompanyInfoVATRegNo</DataField>
+        </Field>
+        <Field Name="CompanyInfoGiroNo">
+          <DataField>CompanyInfoGiroNo</DataField>
+        </Field>
+        <Field Name="CompanyInfoBankName">
+          <DataField>CompanyInfoBankName</DataField>
+        </Field>
+        <Field Name="CompanyInfoBankAccNo">
+          <DataField>CompanyInfoBankAccNo</DataField>
+        </Field>
+        <Field Name="ReqDateFormatted">
+          <DataField>ReqDateFormatted</DataField>
+        </Field>
+        <Field Name="CompanyAddr5">
+          <DataField>CompanyAddr5</DataField>
+        </Field>
+        <Field Name="CompanyAddr6">
+          <DataField>CompanyAddr6</DataField>
+        </Field>
+        <Field Name="SalesType">
+          <DataField>SalesType</DataField>
+        </Field>
+        <Field Name="SalesCode">
+          <DataField>SalesCode</DataField>
+        </Field>
+        <Field Name="PageCaption">
+          <DataField>PageCaption</DataField>
+        </Field>
+        <Field Name="SalesDesc">
+          <DataField>SalesDesc</DataField>
+        </Field>
+        <Field Name="UnitPriceFieldCaption">
+          <DataField>UnitPriceFieldCaption</DataField>
+        </Field>
+        <Field Name="LineDiscountFieldCaption">
+          <DataField>LineDiscountFieldCaption</DataField>
+        </Field>
+        <Field Name="No_Item">
+          <DataField>No_Item</DataField>
+        </Field>
+        <Field Name="PriceListCaption">
+          <DataField>PriceListCaption</DataField>
+        </Field>
+        <Field Name="CompanyInfoPhoneNoCaption">
+          <DataField>CompanyInfoPhoneNoCaption</DataField>
+        </Field>
+        <Field Name="CompanyInfoFaxNoCaption">
+          <DataField>CompanyInfoFaxNoCaption</DataField>
+        </Field>
+        <Field Name="CompanyInfoVATRegNoCaption">
+          <DataField>CompanyInfoVATRegNoCaption</DataField>
+        </Field>
+        <Field Name="CompanyInfoGiroNoCaption">
+          <DataField>CompanyInfoGiroNoCaption</DataField>
+        </Field>
+        <Field Name="CompanyInfoBankNameCaption">
+          <DataField>CompanyInfoBankNameCaption</DataField>
+        </Field>
+        <Field Name="CompanyInfoBankAccNoCaption">
+          <DataField>CompanyInfoBankAccNoCaption</DataField>
+        </Field>
+        <Field Name="ItemNoCaption">
+          <DataField>ItemNoCaption</DataField>
+        </Field>
+        <Field Name="ItemDescCaption">
+          <DataField>ItemDescCaption</DataField>
+        </Field>
+        <Field Name="UnitOfMeasureCaption">
+          <DataField>UnitOfMeasureCaption</DataField>
+        </Field>
+        <Field Name="MinimumQuantityCaption">
+          <DataField>MinimumQuantityCaption</DataField>
+        </Field>
+        <Field Name="VATTextCaption">
+          <DataField>VATTextCaption</DataField>
+        </Field>
+        <Field Name="VATText_SalesPrices">
+          <DataField>VATText_SalesPrices</DataField>
+        </Field>
+        <Field Name="SalesPriceUnitPrice">
+          <DataField>SalesPriceUnitPrice</DataField>
+        </Field>
+        <Field Name="SalesPriceUnitPriceFormat">
+          <DataField>SalesPriceUnitPriceFormat</DataField>
+        </Field>
+        <Field Name="UOM_SalesPrices">
+          <DataField>UOM_SalesPrices</DataField>
+        </Field>
+        <Field Name="ItemNo_SalesPrices">
+          <DataField>ItemNo_SalesPrices</DataField>
+        </Field>
+        <Field Name="ItemDesc_SalesPrices">
+          <DataField>ItemDesc_SalesPrices</DataField>
+        </Field>
+        <Field Name="MinimumQty_SalesPrices">
+          <DataField>MinimumQty_SalesPrices</DataField>
+        </Field>
+        <Field Name="MinimumQty_SalesPricesFormat">
+          <DataField>MinimumQty_SalesPricesFormat</DataField>
+        </Field>
+        <Field Name="LineDisc_SalesLineDisc">
+          <DataField>LineDisc_SalesLineDisc</DataField>
+        </Field>
+        <Field Name="LineDisc_SalesLineDiscFormat">
+          <DataField>LineDisc_SalesLineDiscFormat</DataField>
+        </Field>
+        <Field Name="MinimumQty_SalesLineDiscs">
+          <DataField>MinimumQty_SalesLineDiscs</DataField>
+        </Field>
+        <Field Name="MinimumQty_SalesLineDiscsFormat">
+          <DataField>MinimumQty_SalesLineDiscsFormat</DataField>
+        </Field>
+        <Field Name="UOM_SalesLineDiscs">
+          <DataField>UOM_SalesLineDiscs</DataField>
+        </Field>
+        <Field Name="ItemDesc_SalesLineDiscs">
+          <DataField>ItemDesc_SalesLineDiscs</DataField>
+        </Field>
+        <Field Name="ItemNo_SalesLineDiscs">
+          <DataField>ItemNo_SalesLineDiscs</DataField>
+        </Field>
+        <Field Name="ItemNo_Variant_SalesPrices">
+          <DataField>ItemNo_Variant_SalesPrices</DataField>
+        </Field>
+        <Field Name="ItemDesc_Variant_SalesPrices">
+          <DataField>ItemDesc_Variant_SalesPrices</DataField>
+        </Field>
+        <Field Name="UOM_Variant_SalesPrices">
+          <DataField>UOM_Variant_SalesPrices</DataField>
+        </Field>
+        <Field Name="MinimumQty_Variant_SalesPrices">
+          <DataField>MinimumQty_Variant_SalesPrices</DataField>
+        </Field>
+        <Field Name="MinimumQty_Variant_SalesPricesFormat">
+          <DataField>MinimumQty_Variant_SalesPricesFormat</DataField>
+        </Field>
+        <Field Name="UnitPrince_Variant_SalesPrices">
+          <DataField>UnitPrince_Variant_SalesPrices</DataField>
+        </Field>
+        <Field Name="UnitPrince_Variant_SalesPricesFormat">
+          <DataField>UnitPrince_Variant_SalesPricesFormat</DataField>
+        </Field>
+        <Field Name="VATText_Variant_SalesPrices">
+          <DataField>VATText_Variant_SalesPrices</DataField>
+        </Field>
+        <Field Name="ItemNo_Variant_SalesLineDescs">
+          <DataField>ItemNo_Variant_SalesLineDescs</DataField>
+        </Field>
+        <Field Name="ItemDesc_Variant_SalesLineDescs">
+          <DataField>ItemDesc_Variant_SalesLineDescs</DataField>
+        </Field>
+        <Field Name="UOM_Variant_SalesLineDescs">
+          <DataField>UOM_Variant_SalesLineDescs</DataField>
+        </Field>
+        <Field Name="MinimumQty_Variant_SalesLineDescs">
+          <DataField>MinimumQty_Variant_SalesLineDescs</DataField>
+        </Field>
+        <Field Name="MinimumQty_Variant_SalesLineDescsFormat">
+          <DataField>MinimumQty_Variant_SalesLineDescsFormat</DataField>
+        </Field>
+        <Field Name="LineDisc_Variant_SalesLineDescs">
+          <DataField>LineDisc_Variant_SalesLineDescs</DataField>
+        </Field>
+        <Field Name="LineDisc_Variant_SalesLineDescsFormat">
+          <DataField>LineDisc_Variant_SalesLineDescsFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

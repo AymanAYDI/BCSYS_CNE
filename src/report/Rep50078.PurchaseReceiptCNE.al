@@ -46,7 +46,7 @@ report 50078 "BC6_Purchase - Receipt CNE"
                     column(PurchRcptCopyText; STRSUBSTNO(Text002, CopyText))
                     {
                     }
-                    column(CurrentReportPageNo; STRSUBSTNO(Text003, FORMAT(CurrReport.PAGENO)))
+                    column(CurrentReportPageNo; STRSUBSTNO(Text003, FORMAT(CurrReport.PAGENO())))
                     {
                     }
                     column(ShipToAddr1; ShipToAddr[1])
@@ -202,11 +202,11 @@ report 50078 "BC6_Purchase - Receipt CNE"
                         trigger OnAfterGetRecord()
                         begin
                             IF Number = 1 THEN BEGIN
-                                IF NOT DimSetEntry1.FINDSET THEN
-                                    CurrReport.BREAK;
+                                IF NOT DimSetEntry1.FINDSET() THEN
+                                    CurrReport.BREAK();
                             END ELSE
                                 IF NOT Continue THEN
-                                    CurrReport.BREAK;
+                                    CurrReport.BREAK();
 
                             CLEAR(DimText);
                             Continue := FALSE;
@@ -224,13 +224,13 @@ report 50078 "BC6_Purchase - Receipt CNE"
                                     Continue := TRUE;
                                     EXIT;
                                 END;
-                            UNTIL DimSetEntry1.NEXT = 0;
+                            UNTIL DimSetEntry1.NEXT() = 0;
                         end;
 
                         trigger OnPreDataItem()
                         begin
                             IF NOT ShowInternalInfo THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                         end;
                     }
                     dataitem(PurchRcptLine; "Purch. Rcpt. Line")
@@ -341,7 +341,7 @@ report 50078 "BC6_Purchase - Receipt CNE"
                             trigger OnPreDataItem()
                             begin
                                 IF NOT PostedInvtPutawayHeaderOk THEN
-                                    CurrReport.BREAK;
+                                    CurrReport.BREAK();
 
                                 SETRANGE("Source Type", 39);
                                 SETRANGE("Source Subtype", 1);
@@ -366,11 +366,11 @@ report 50078 "BC6_Purchase - Receipt CNE"
                             trigger OnAfterGetRecord()
                             begin
                                 IF Number = 1 THEN BEGIN
-                                    IF NOT DimSetEntry2.FINDSET THEN
-                                        CurrReport.BREAK;
+                                    IF NOT DimSetEntry2.FINDSET() THEN
+                                        CurrReport.BREAK();
                                 END ELSE
                                     IF NOT Continue THEN
-                                        CurrReport.BREAK;
+                                        CurrReport.BREAK();
 
                                 CLEAR(DimText);
                                 Continue := FALSE;
@@ -388,23 +388,23 @@ report 50078 "BC6_Purchase - Receipt CNE"
                                         Continue := TRUE;
                                         EXIT;
                                     END;
-                                UNTIL DimSetEntry2.NEXT = 0;
+                                UNTIL DimSetEntry2.NEXT() = 0;
                             end;
 
                             trigger OnPreDataItem()
                             begin
                                 IF NOT ShowInternalInfo THEN
-                                    CurrReport.BREAK;
+                                    CurrReport.BREAK();
                             end;
                         }
 
                         trigger OnAfterGetRecord()
                         begin
                             IF (NOT ShowCorrectionLines) AND Correction THEN
-                                CurrReport.SKIP;
+                                CurrReport.SKIP();
 
                             IF PurchRcptLine.Type = PurchRcptLine.Type::" " THEN
-                                CurrReport.SKIP;
+                                CurrReport.SKIP();
 
                             DimSetEntry2.SETRANGE("Dimension Set ID", "Dimension Set ID");
 
@@ -428,7 +428,7 @@ report 50078 "BC6_Purchase - Receipt CNE"
                                             AttachedLineNo := "Line No.";
                                         END
                                         ELSE
-                                            CurrReport.SKIP;
+                                            CurrReport.SKIP();
                                     END;
                             END;
                         end;
@@ -439,7 +439,7 @@ report 50078 "BC6_Purchase - Receipt CNE"
                             WHILE MoreLines AND (Description = '') AND ("No." = '') AND (Quantity = 0) DO
                                 MoreLines := NEXT(-1) <> 0;
                             IF NOT MoreLines THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                             SETRANGE("Line No.", 0, "Line No.");
                             AttachedLineNo := 0;
                         end;
@@ -458,7 +458,7 @@ report 50078 "BC6_Purchase - Receipt CNE"
                         trigger OnPreDataItem()
                         begin
                             IF PurchRcptHeader."Buy-from Vendor No." = PurchRcptHeader."Pay-to Vendor No." THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                         end;
                     }
                     dataitem(Total2; Integer)
@@ -530,7 +530,7 @@ report 50078 "BC6_Purchase - Receipt CNE"
             begin
                 CurrReport.Language := Language2.GetLanguageIdOrDefault("Language Code");
 
-                CompanyInfo.GET;
+                CompanyInfo.GET();
 
                 IF RespCenter.GET("Responsibility Center") THEN BEGIN
                     FormatAddr.RespCenter(CompanyAddr, RespCenter);
@@ -542,7 +542,7 @@ report 50078 "BC6_Purchase - Receipt CNE"
                 DimSetEntry1.SETRANGE("Dimension Set ID", "Dimension Set ID");
 
                 IF "Purchaser Code" = '' THEN BEGIN
-                    SalesPurchPerson.INIT;
+                    SalesPurchPerson.INIT();
                     PurchaserText := '';
                 END ELSE BEGIN
                     SalesPurchPerson.GET("Purchaser Code");
@@ -562,9 +562,9 @@ report 50078 "BC6_Purchase - Receipt CNE"
                           15, "No.", 0, 0, DATABASE::Vendor, "Buy-from Vendor No.", "Purchaser Code", '', "Posting Description", '');
 
 
-                PostedInvtPutawayHeader.RESET;
+                PostedInvtPutawayHeader.RESET();
                 PostedInvtPutawayHeader.SETRANGE("Source No.", PurchRcptHeader."No.");
-                PostedInvtPutawayHeaderOk := PostedInvtPutawayHeader.FINDFIRST;
+                PostedInvtPutawayHeaderOk := PostedInvtPutawayHeader.FINDFIRST();
 
                 CLEAR(DefaultReceiptBinCode);
                 CLEAR(DefaultReceiptBinBarTxt);

@@ -58,7 +58,7 @@ report 50099 "Update Item Cost Incr. Coeff."
 
     trigger OnPostReport()
     begin
-        Window.CLOSE;
+        Window.CLOSE();
         MESSAGE(MsgCompleted);
     end;
 
@@ -71,10 +71,10 @@ report 50099 "Update Item Cost Incr. Coeff."
 
     var
         NewCoeff: Decimal;
-        i: Integer;
         Window: Dialog;
+        i: Integer;
         DlgMsg: Label 'Processing items :\@@1@@@@@@@@@@@@@@@@@@@@@@\##2######################', Comment = 'FRA="Traitement des articles en cours :\@@1@@@@@@@@@@@@@@@@@@@@@@\##2######################"';
-        MsgCompleted: Label 'Process completed.', Comment = 'FRA="Traitement terminé."';
         ErrFilters: Label 'Filters on Items cannot be empty.', Comment = 'FRA="Au moins un filtre est requis sur la liste des articles."';
+        MsgCompleted: Label 'Process completed.', Comment = 'FRA="Traitement terminé."';
 }
 

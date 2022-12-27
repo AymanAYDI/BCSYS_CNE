@@ -397,15 +397,15 @@ page 50070 "BC6_Inventory Pick Mini"
     var
         WhseActPrint: Codeunit "Warehouse Document-Print";
         WMSMgt: Codeunit "WMS Management";
-        "- MIGNAV2013 -": Integer;
-        CtrlEditableOk: Boolean;
-        CurrFormEditableOk: Boolean;
         [InDataSet]
         BooGDestinationNoCtrl: Boolean;
         [InDataSet]
         BooGSourceNoCtrl: Boolean;
         [InDataSet]
         BooGWhseActivityLines: Boolean;
+        CtrlEditableOk: Boolean;
+        CurrFormEditableOk: Boolean;
+        "- MIGNAV2013 -": Integer;
 
     local procedure AutofillQtyToHandle()
     begin

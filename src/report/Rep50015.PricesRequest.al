@@ -28,7 +28,7 @@ report 50015 "BC6_Prices Request"
 
                     DataItemTableView = SORTING(Number)
                                         WHERE(Number = CONST(1));
-                    column(CurrReport_PAGENO__; STRSUBSTNO(Text005, FORMAT(CurrReport.PAGENO)))
+                    column(CurrReport_PAGENO__; STRSUBSTNO(Text005, FORMAT(CurrReport.PAGENO())))
                     {
                     }
                     column(Text012_Purchase_Header___No__; Text012 + ' ' + PurchaseHeader."No.")
@@ -196,7 +196,7 @@ report 50015 "BC6_Prices Request"
 
                         trigger OnPreDataItem()
                         begin
-                            CurrReport.BREAK;
+                            CurrReport.BREAK();
                         end;
                     }
                     dataitem(RoundLoop; Integer)
@@ -232,7 +232,7 @@ report 50015 "BC6_Prices Request"
                             IF Number = 1 THEN
                                 PurchLine.FIND('-')
                             ELSE
-                                PurchLine.NEXT;
+                                PurchLine.NEXT();
                             PurchaseLine := PurchLine;
 
                             IF NOT PurchaseHeader."Prices Including VAT" AND
@@ -246,7 +246,7 @@ report 50015 "BC6_Prices Request"
 
                         trigger OnPostDataItem()
                         begin
-                            PurchLine.DELETEALL;
+                            PurchLine.DELETEALL();
                         end;
 
                         trigger OnPreDataItem()
@@ -257,7 +257,7 @@ report 50015 "BC6_Prices Request"
                                   (PurchLine.Amount = 0) DO
                                 MoreLines := PurchLine.NEXT(-1) <> 0;
                             IF NOT MoreLines THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                             PurchLine.SETRANGE("Line No.", 0, PurchLine."Line No.");
                             SETRANGE(Number, 1, PurchLine.COUNT);
                             CurrReport.CREATETOTALS(PurchLine."Line Amount", PurchLine."Inv. Discount Amount");
@@ -303,10 +303,10 @@ report 50015 "BC6_Prices Request"
                         trigger OnPreDataItem()
                         begin
 
-                            CurrReport.BREAK;
+                            CurrReport.BREAK();
 
                             IF PurchaseHeader."Buy-from Vendor No." = PurchaseHeader."Pay-to Vendor No." THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
 
                         end;
                     }
@@ -318,17 +318,17 @@ report 50015 "BC6_Prices Request"
                         trigger OnPreDataItem()
                         begin
 
-                            CurrReport.BREAK;
+                            CurrReport.BREAK();
 
                             IF (PurchaseHeader."Sell-to Customer No." = '') AND (ShipToAddr[1] = '') THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                         end;
                     }
 
                     trigger OnAfterGetRecord()
                     begin
                         recLBuyVendor.SETFILTER("No.", PurchaseHeader."Buy-from Vendor No.");
-                        IF recLBuyVendor.FINDFIRST THEN;
+                        IF recLBuyVendor.FINDFIRST() THEN;
                     end;
 
                     trigger OnPreDataItem()
@@ -382,16 +382,16 @@ report 50015 "BC6_Prices Request"
                 begin
                     CLEAR(PurchLine);
                     CLEAR(PurchPost);
-                    PurchLine.DELETEALL;
-                    VATAmountLine.DELETEALL;
+                    PurchLine.DELETEALL();
+                    VATAmountLine.DELETEALL();
                     PurchPost.GetPurchLines(PurchaseHeader, PurchLine, 0);
                     PurchLine.CalcVATAmountLines(0, PurchaseHeader, PurchLine, VATAmountLine);
                     PurchLine.UpdateVATOnLines(0, PurchaseHeader, PurchLine, VATAmountLine);
-                    VATAmount := VATAmountLine.GetTotalVATAmount;
-                    VATBaseAmount := VATAmountLine.GetTotalVATBase;
+                    VATAmount := VATAmountLine.GetTotalVATAmount();
+                    VATBaseAmount := VATAmountLine.GetTotalVATBase();
                     VATDiscountAmount :=
                       VATAmountLine.GetTotalVATDiscount(PurchaseHeader."Currency Code", PurchaseHeader."Prices Including VAT");
-                    TotalAmountInclVAT := VATAmountLine.GetTotalAmountInclVAT;
+                    TotalAmountInclVAT := VATAmountLine.GetTotalAmountInclVAT();
 
                     IF Number > 1 THEN
                         CopyText := Text003;
@@ -420,7 +420,7 @@ report 50015 "BC6_Prices Request"
             begin
                 CurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
 
-                CompanyInfo.GET;
+                CompanyInfo.GET();
                 IF BoolGRespCenter THEN
                     RespCenter.CALCFIELDS(RespCenter."BC6_Picture", RespCenter."BC6_Alt Picture")
                 ELSE
@@ -437,7 +437,7 @@ report 50015 "BC6_Prices Request"
                 END;
 
                 IF "Purchaser Code" = '' THEN BEGIN
-                    SalesPurchPerson.INIT;
+                    SalesPurchPerson.INIT();
                     PurchaserText := '';
                 END ELSE BEGIN
                     SalesPurchPerson.GET("Purchaser Code");
@@ -452,17 +452,17 @@ report 50015 "BC6_Prices Request"
                 IF (PurchaseHeader."Buy-from Vendor No." <> PurchaseHeader."Pay-to Vendor No.") THEN
                     FormatAddr.PurchHeaderPayTo(VendAddr, PurchaseHeader);
                 IF "Payment Terms Code" = '' THEN
-                    PaymentTerms.INIT
+                    PaymentTerms.INIT()
                 ELSE
                     PaymentTerms.GET("Payment Terms Code");
 
                 IF "Payment Method Code" = '' THEN
-                    PaymentMethod.INIT
+                    PaymentMethod.INIT()
                 ELSE
                     PaymentMethod.GET("Payment Method Code");
 
                 IF "Shipment Method Code" = '' THEN
-                    ShipmentMethod.INIT
+                    ShipmentMethod.INIT()
                 ELSE
                     ShipmentMethod.GET("Shipment Method Code");
 
@@ -562,14 +562,13 @@ report 50015 "BC6_Prices Request"
 
     trigger OnInitReport()
     begin
-        GLSetup.GET;
+        GLSetup.GET();
     end;
 
     var
         CompanyInfo: Record "Company Information";
         CurrExchRate: Record "Currency Exchange Rate";
         GLSetup: Record "General Ledger Setup";
-        Language: Codeunit Language;
         PaymentMethod: Record "Payment Method";
         PaymentTerms: Record "Payment Terms";
         PurchLine: Record "Purchase Line" temporary;
@@ -583,6 +582,7 @@ report 50015 "BC6_Prices Request"
         recLBuyVendor: Record Vendor;
         ArchiveManagement: Codeunit ArchiveManagement;
         FormatAddr: Codeunit "Format Address";
+        Language: Codeunit Language;
         PurchPost: Codeunit "Purch.-Post";
         PurchCountPrinted: Codeunit "Purch.Header-Printed";
         SegManagement: Codeunit SegManagement;
@@ -678,13 +678,13 @@ report 50015 "BC6_Prices Request"
 
     procedure DefineTagFax(TxtLTag: Text[50])
     begin
-        RecGParamVente.GET;
+        RecGParamVente.GET();
         TxtGTag := RecGParamVente."BC6_RTE Fax Tag" + TxtLTag + '@cne.fax';
     end;
 
     procedure DefineTagMail(TxtLTag: Text[50])
     begin
-        RecGParamVente.GET;
+        RecGParamVente.GET();
         TxtGTag := RecGParamVente."BC6_PDF Mail Tag" + TxtLTag;
     end;
 

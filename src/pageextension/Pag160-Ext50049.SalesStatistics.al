@@ -63,11 +63,8 @@ pageextension 50049 "BC6_SalesStatistics" extends "Sales Statistics" //160
 
     var
         UserSetup: Record "User Setup";
-        RecGCustomer: Record Customer;
         [INDATASET]
         ShowRealProfit: Boolean;
-        DecGTTCAmount: Decimal;
-        DecGVATAmount: Decimal;
 
     //TODO UpdateHeaderInfo // Araxis ligne 467 //
     //TODO CalculateTotals // Araxis ligne  74 

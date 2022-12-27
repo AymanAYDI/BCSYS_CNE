@@ -196,12 +196,12 @@ page 50039 "BC6_Cred. Memo Lines Subform 2"
     end;
 
     var
+        RecGSalesCrMemoHeader: Record "Sales Cr.Memo Header";
         TempSalesCrMemoLine: Record "Sales Cr.Memo Line" temporary;
         [InDataSet]
-        "Document No.HideValue": Boolean;
-        [InDataSet]
         "Document No.Emphasize": Boolean;
-        RecGSalesCrMemoHeader: Record "Sales Cr.Memo Header";
+        [InDataSet]
+        "Document No.HideValue": Boolean;
 
     local procedure IsFirstDocLine(): Boolean
     var

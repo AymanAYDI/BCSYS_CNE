@@ -206,9 +206,9 @@ page 50043 "BC6_Invoice Lines Subform 3"
         RecGSalesInvoiceHeader: Record "Sales Invoice Header";
         TempSalesInvLine: Record "Sales Invoice Line" temporary;
         [InDataSet]
-        "Document No.HideValue": Boolean;
-        [InDataSet]
         "Document No.Emphasize": Boolean;
+        [InDataSet]
+        "Document No.HideValue": Boolean;
 
     local procedure IsFirstDocLine(): Boolean
     var

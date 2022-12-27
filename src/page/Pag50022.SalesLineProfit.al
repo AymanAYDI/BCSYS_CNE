@@ -25,7 +25,7 @@ page 50022 "BC6_Sales Line Profit"
 
                     trigger OnValidate()
                     begin
-                        SalesTypeFilterOnAfterValidate;
+                        SalesTypeFilterOnAfterValidate();
                     end;
                 }
                 field(SalesCodeFilterCtrl; SalesCodeFilter)
@@ -36,11 +36,11 @@ page 50022 "BC6_Sales Line Profit"
 
                     trigger OnLookup(var Text: Text): Boolean
                     var
-                        "- MIGNAV2013": Integer;
-                        CustList: Page "Customer List";
-                        CustDiscGrList: Page "Customer Disc. Groups";
                         CampaignList: Page "Campaign List";
+                        CustDiscGrList: Page "Customer Disc. Groups";
+                        CustList: Page "Customer List";
                         ItemList: Page "Item List";
+                        "- MIGNAV2013": Integer;
                     begin
                         IF SalesTypeFilter = SalesTypeFilter::"All Customers" THEN EXIT;
 
@@ -48,24 +48,24 @@ page 50022 "BC6_Sales Line Profit"
                             SalesTypeFilter::Customer:
                                 BEGIN
                                     CustList.LOOKUPMODE := TRUE;
-                                    IF CustList.RUNMODAL = ACTION::LookupOK THEN
-                                        Text := CustList.GetSelectionFilter
+                                    IF CustList.RUNMODAL() = ACTION::LookupOK THEN
+                                        Text := CustList.GetSelectionFilter()
                                     ELSE
                                         EXIT(FALSE);
                                 END;
                             SalesTypeFilter::"Customer Discount Group":
                                 BEGIN
                                     CustDiscGrList.LOOKUPMODE := TRUE;
-                                    IF CustDiscGrList.RUNMODAL = ACTION::LookupOK THEN
-                                        Text := CustDiscGrList.GetSelectionFilter
+                                    IF CustDiscGrList.RUNMODAL() = ACTION::LookupOK THEN
+                                        Text := CustDiscGrList.GetSelectionFilter()
                                     ELSE
                                         EXIT(FALSE);
                                 END;
                             SalesTypeFilter::Campaign:
                                 BEGIN
                                     CampaignList.LOOKUPMODE := TRUE;
-                                    IF CampaignList.RUNMODAL = ACTION::LookupOK THEN
-                                        Text := CampaignList.GetSelectionFilter
+                                    IF CampaignList.RUNMODAL() = ACTION::LookupOK THEN
+                                        Text := CampaignList.GetSelectionFilter()
                                     ELSE
                                         EXIT(FALSE);
                                 END;
@@ -76,7 +76,7 @@ page 50022 "BC6_Sales Line Profit"
 
                     trigger OnValidate()
                     begin
-                        SalesCodeFilterOnAfterValidate;
+                        SalesCodeFilterOnAfterValidate();
                     end;
                 }
                 field(ItemTypeFilter; ItemTypeFilter)
@@ -86,7 +86,7 @@ page 50022 "BC6_Sales Line Profit"
 
                     trigger OnValidate()
                     begin
-                        ItemTypeFilterOnAfterValidate;
+                        ItemTypeFilterOnAfterValidate();
                     end;
                 }
                 field(CodeFilterCtrl; CodeFilter)
@@ -97,23 +97,23 @@ page 50022 "BC6_Sales Line Profit"
 
                     trigger OnLookup(var Text: Text): Boolean
                     var
-                        ItemList: Page "Item List";
                         ItemDiscGrList: Page "Item Disc. Groups";
+                        ItemList: Page "Item List";
                     begin
                         CASE Type OF
                             Type::Item:
                                 BEGIN
                                     ItemList.LOOKUPMODE := TRUE;
-                                    IF ItemList.RUNMODAL = ACTION::LookupOK THEN
-                                        Text := ItemList.GetSelectionFilter
+                                    IF ItemList.RUNMODAL() = ACTION::LookupOK THEN
+                                        Text := ItemList.GetSelectionFilter()
                                     ELSE
                                         EXIT(FALSE);
                                 END;
                             Type::"Item Disc. Group":
                                 BEGIN
                                     ItemDiscGrList.LOOKUPMODE := TRUE;
-                                    IF ItemDiscGrList.RUNMODAL = ACTION::LookupOK THEN
-                                        Text := ItemDiscGrList.GetSelectionFilter
+                                    IF ItemDiscGrList.RUNMODAL() = ACTION::LookupOK THEN
+                                        Text := ItemDiscGrList.GetSelectionFilter()
                                     ELSE
                                         EXIT(FALSE);
                                 END;
@@ -124,7 +124,7 @@ page 50022 "BC6_Sales Line Profit"
 
                     trigger OnValidate()
                     begin
-                        CodeFilterOnAfterValidate;
+                        CodeFilterOnAfterValidate();
                     end;
                 }
                 field(StartingDateFilter; StartingDateFilter)
@@ -138,7 +138,7 @@ page 50022 "BC6_Sales Line Profit"
                     begin
                         // IF ApplicationMgt.MakeDateFilter(StartingDateFilter) = 0 THEN; // TODO: Old code
                         ApplicationMgt.MakeDateFilter(StartingDateFilter);
-                        StartingDateFilterOnAfterValid;
+                        StartingDateFilterOnAfterValid();
                     end;
                 }
             }
@@ -213,8 +213,8 @@ page 50022 "BC6_Sales Line Profit"
                         CurrencyList: Page Currencies;
                     begin
                         CurrencyList.LOOKUPMODE := TRUE;
-                        IF CurrencyList.RUNMODAL = ACTION::LookupOK THEN
-                            Text := CurrencyList.GetSelectionFilter
+                        IF CurrencyList.RUNMODAL() = ACTION::LookupOK THEN
+                            Text := CurrencyList.GetSelectionFilter()
                         ELSE
                             EXIT(FALSE);
 
@@ -223,7 +223,7 @@ page 50022 "BC6_Sales Line Profit"
 
                     trigger OnValidate()
                     begin
-                        CurrencyCodeFilterOnAfterValid;
+                        CurrencyCodeFilterOnAfterValid();
                     end;
                 }
             }
@@ -277,31 +277,31 @@ page 50022 "BC6_Sales Line Profit"
 
     trigger OnOpenPage()
     begin
-        GetRecFilters;
-        SetRecFilters;
+        GetRecFilters();
+        SetRecFilters();
         //SETCURRENTKEY(Code,"Sales Code","Sales Type",Type,"Starting Date","Ending Date","Profit %")
     end;
 
     var
+        Campaign: Record Campaign;
         Cust: Record Customer;
         CustDiscGr: Record "Customer Discount Group";
-        Campaign: Record Campaign;
         Item: Record Item;
         ItemDiscGr: Record "Item Discount Group";
-        SalesTypeFilter: Enum "Sales Price Type";
-        SalesCodeFilter: Text[250];
-        ItemTypeFilter: Enum "Sales Line Discount Type";
-        CodeFilter: Text[250];
-        StartingDateFilter: Text[30];
-        Text000: Label 'All Customers', Comment = 'FRA="Tous les clients"';
-        CurrencyCodeFilter: Text[250];
-        Text004: Label 'Start Date Obligatory', Comment = 'FRA="Date Début Obligatoire"';
+        [InDataSet]
+        CodeFilterCtrlEnable: Boolean;
         [InDataSet]
         "Sales CodeEditable": Boolean;
         [InDataSet]
         SalesCodeFilterCtrlEnable: Boolean;
-        [InDataSet]
-        CodeFilterCtrlEnable: Boolean;
+        ItemTypeFilter: Enum "Sales Line Discount Type";
+        SalesTypeFilter: Enum "Sales Price Type";
+        Text000: Label 'All Customers', Comment = 'FRA="Tous les clients"';
+        Text004: Label 'Start Date Obligatory', Comment = 'FRA="Date Début Obligatoire"';
+        StartingDateFilter: Text[30];
+        CodeFilter: Text[250];
+        CurrencyCodeFilter: Text[250];
+        SalesCodeFilter: Text[250];
 
 
     procedure GetRecFilters()
@@ -376,11 +376,11 @@ page 50022 "BC6_Sales Line Profit"
     procedure GetCaption(): Text[250]
     var
         ObjTransl: Record "Object Translation";
-        SourceTableName: Text[100];
         SalesSrcTableName: Text[100];
+        SourceTableName: Text[100];
         Description: Text[250];
     begin
-        GetRecFilters;
+        GetRecFilters();
         "Sales CodeEditable" := "Sales Type" <> "Sales Type"::"All Customers";
 
         SourceTableName := '';
@@ -403,21 +403,21 @@ page 50022 "BC6_Sales Line Profit"
                 BEGIN
                     SalesSrcTableName := ObjTransl.TranslateObject(ObjTransl."Object Type"::Table, 18);
                     Cust."No." := SalesCodeFilter;
-                    IF Cust.FIND THEN
+                    IF Cust.FIND() THEN
                         Description := Cust.Name;
                 END;
             SalesTypeFilter::"Customer Discount Group":
                 BEGIN
                     SalesSrcTableName := ObjTransl.TranslateObject(ObjTransl."Object Type"::Table, 340);
                     CustDiscGr.Code := SalesCodeFilter;
-                    IF CustDiscGr.FIND THEN
+                    IF CustDiscGr.FIND() THEN
                         Description := CustDiscGr.Description;
                 END;
             SalesTypeFilter::Campaign:
                 BEGIN
                     SalesSrcTableName := ObjTransl.TranslateObject(ObjTransl."Object Type"::Table, 5071);
                     Campaign."No." := SalesCodeFilter;
-                    IF Campaign.FIND THEN
+                    IF Campaign.FIND() THEN
                         Description := Campaign.Description;
                 END;
 
@@ -435,40 +435,40 @@ page 50022 "BC6_Sales Line Profit"
 
     local procedure SalesCodeFilterOnAfterValidate()
     begin
-        CurrPage.SAVERECORD;
-        SetRecFilters;
+        CurrPage.SAVERECORD();
+        SetRecFilters();
     end;
 
     local procedure SalesTypeFilterOnAfterValidate()
     begin
-        CurrPage.SAVERECORD;
+        CurrPage.SAVERECORD();
         SalesCodeFilter := '';
-        SetRecFilters;
+        SetRecFilters();
     end;
 
     local procedure StartingDateFilterOnAfterValid()
     begin
-        CurrPage.SAVERECORD;
-        SetRecFilters;
+        CurrPage.SAVERECORD();
+        SetRecFilters();
     end;
 
     local procedure ItemTypeFilterOnAfterValidate()
     begin
-        CurrPage.SAVERECORD;
+        CurrPage.SAVERECORD();
         CodeFilter := '';
-        SetRecFilters;
+        SetRecFilters();
     end;
 
     local procedure CodeFilterOnAfterValidate()
     begin
-        CurrPage.SAVERECORD;
-        SetRecFilters;
+        CurrPage.SAVERECORD();
+        SetRecFilters();
     end;
 
     local procedure CurrencyCodeFilterOnAfterValid()
     begin
-        CurrPage.SAVERECORD;
-        SetRecFilters;
+        CurrPage.SAVERECORD();
+        SetRecFilters();
     end;
 
     local procedure OnAfterGetCurrRecord()

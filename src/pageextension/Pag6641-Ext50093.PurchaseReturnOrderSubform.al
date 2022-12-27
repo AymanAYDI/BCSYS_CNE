@@ -39,7 +39,6 @@ pageextension 50093 "BC6_PurchaseReturnOrderSubform" extends "Purchase Return Or
     }
 
     var
-        "-BCSYS-": Integer;
         BooGSAVVisible: Boolean;
 
     procedure SetBooGSAVVisible(_BooGSAVVisible: Boolean)

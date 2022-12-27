@@ -49,7 +49,6 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
 
                 trigger OnAction()
                 var
-                    "-MIGNAV2013-": Integer;
                     RecLPostSalesShpt: Record "Sales Shipment Header";
                 begin
                     RecLPostSalesShpt := Rec;
@@ -84,7 +83,6 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
 
                 trigger OnAction()
                 var
-                    "-MIGNAV2013-": Integer;
                     RecLPostSalesShpt: Record "Sales Shipment Header";
                 begin
                     RecLPostSalesShpt := Rec;
@@ -100,29 +98,21 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
     end;
 
     var
-        STR1: Label 'Archiver Devis';
-        STR2: Label 'Créer Commande';
-        STR3: Label 'Imprimer le document ?';
-        STR4: Label 'Envoyer le document par mail ?';
-        STR5: Label 'Envoyer le document par fax ?';
-        Text004: Label 'Fichiers Pdf (*.pdf)|*.pdf|Tous les fichiers (*.*)|*.*';
-        Text001: Label '';
-        "-MIGNAV2013-": Integer;
-        DocPrint: Codeunit "Document-Print";
         HistMail: Record "BC6_Historique Mails Envoyés";
-        cust: Record Customer;
-        nameF: Text[250];
-        Mail: Codeunit Mail;
-        SalesSetup: Record "Sales & Receivables Setup";
-        Excel: Boolean;
-        "-CNE-": Integer;
-        cduMail: Codeunit Mail;
-        FileName: Text[250];
-        ToFile: Text[250];
-        Objet: Text[250];
-        Body: Text[1024];
         recGCompanyInfo: Record "Company Information";
+        cust: Record Customer;
+        SalesSetup: Record "Sales & Receivables Setup";
         ReportHelper: Codeunit BC6_ReportHelper;
+        cduMail: Codeunit Mail;
+        Mail: Codeunit Mail;
+        Excel: Boolean;
+        Text001: Label '';
+        Text004: Label 'Fichiers Pdf (*.pdf)|*.pdf|Tous les fichiers (*.*)|*.*';
+        FileName: Text[250];
+        nameF: Text[250];
+        Objet: Text[250];
+        ToFile: Text[250];
+        Body: Text[1024];
 
 
 

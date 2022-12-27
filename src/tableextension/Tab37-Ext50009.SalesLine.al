@@ -845,8 +845,8 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
         BooGsubmittedtodeee: Boolean;
         SkipPurchCostVerif: Boolean;
         "---BC6---": Integer;
-        "--NSC1.01--": Integer;
         "--- TDL94.001---": Integer;
+        "--NSC1.01--": Integer;
         TextDate: Label '0D', Comment = 'FRA="0J"';
         TextG001: Label 'Quote Locked', Comment = 'FRA="Devis Bloqué"';
         textg002: Label 'You will lost link between Sales document No %1 line %2 \ and purchase document of type %3, No %4 ,  line %5 \ Are you sure?', Comment = 'FRA="Vous allez perdre le lien entre le document vente n° %1 ligne %2 \ et le document d''achat de type %3 , n° %4 , ligne %5 \ êtes vous sûr ? "';

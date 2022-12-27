@@ -176,9 +176,9 @@ page 50044 "Credit Memo Lines Subform 4"
     var
         TempSalesCrMemoLine: Record "Sales Cr.Memo Line" temporary;
         [InDataSet]
-        "Document No.HideValue": Boolean;
-        [InDataSet]
         "Document No.Emphasize": Boolean;
+        [InDataSet]
+        "Document No.HideValue": Boolean;
 
     local procedure IsFirstDocLine(): Boolean
     var

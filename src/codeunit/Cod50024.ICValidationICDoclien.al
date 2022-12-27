@@ -67,14 +67,14 @@ codeunit 50024 "BC6_IC Validation IC Doc lien"
     end;
 
     var
-        RecGCompagnyInfo: Record "Company Information";
         RecGDocIC: Record "BC6_IC Table Validate";
+        RecGCompagnyInfo: Record "Company Information";
+        RecGICPurchOrder: Record "Purchase Header";
         RecGICPurchOrderLines: Record "Purchase Line";
         RecGICSalesOrderLines: Record "Sales Line";
-        RecGICPurchOrder: Record "Purchase Header";
         CodeGAncPurchOrder: Code[20];
-        Text001: Label 'Treatment Completed', Comment = 'FRA="Traitement Terminé"';
         Rupture: Code[50];
+        Text001: Label 'Treatment Completed', Comment = 'FRA="Traitement Terminé"';
 
     local procedure CanBeReceived(var PurchLine2: Record "Purchase Line"; PurchHeader2: Record "Purchase Header") OK: Boolean
     begin

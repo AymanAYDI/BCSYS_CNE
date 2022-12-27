@@ -96,7 +96,7 @@ xmlport 53003 "BC6_Import article"
                 trigger OnAfterInitRecord()
                 begin
 
-                    recArticle.INIT;
+                    recArticle.INIT();
 
                     four := '';
                     ref := '';
@@ -159,7 +159,7 @@ xmlport 53003 "BC6_Import article"
                     //Declanche de suite a cause des validates qui en decoulent
                     IF famillecne <> '' THEN BEGIN
                         IF NOT (recItemCatCode.GET(famillecne)) THEN BEGIN
-                            recItemCatCode.INIT;
+                            recItemCatCode.INIT();
                             recItemCatCode.VALIDATE(Code, famillecne);
                             recItemCatCode.VALIDATE(Description, 'A compléter');
                             recItemCatCode.INSERT(TRUE);
@@ -178,7 +178,7 @@ xmlport 53003 "BC6_Import article"
                             ref := COPYSTR(ref, 4, STRLEN(ref));
 
                         //item cross reference
-                        recCross.INIT;
+                        recCross.INIT();
                         recCross.VALIDATE("Item No.", refcne);
                         recCross.VALIDATE("Cross-Reference Type", recCross."Cross-Reference Type"::Vendor);
                         recCross.VALIDATE("Cross-Reference Type No.", four);
@@ -192,7 +192,7 @@ xmlport 53003 "BC6_Import article"
                     IF ean <> '' THEN BEGIN
 
                         //item cross reference
-                        recCross.INIT;
+                        recCross.INIT();
                         recCross.VALIDATE("Item No.", refcne);
                         recCross.VALIDATE("Cross-Reference Type", recCross."Cross-Reference Type"::"Bar Code");
                         //recCross.VALIDATE("Cross-Reference Type No.",'');
@@ -236,7 +236,7 @@ xmlport 53003 "BC6_Import article"
 
                         //Purchase Price
                         //Field, Item No., Vendor No., Starting Date, Currency Code, Variant Code, Unit of Measure Code, Minimum Quantity
-                        recPPx.INIT;
+                        recPPx.INIT();
                         recPPx.VALIDATE("Item No.", refcne);
                         recPPx.VALIDATE("Vendor No.", four);
                         IF EVALUATE(DecGpxachat1, pxachat1) THEN;
@@ -268,7 +268,7 @@ xmlport 53003 "BC6_Import article"
                         END;
                         //Purchase Price
                         //Field, Item No., Vendor No., Starting Date, Currency Code, Variant Code, Unit of Measure Code, Minimum Quantity
-                        recPPx.INIT;
+                        recPPx.INIT();
                         recPPx.VALIDATE("Item No.", refcne);
                         recPPx.VALIDATE("Vendor No.", four);
                         IF EVALUATE(DecGpxachat2, pxachat2) THEN;
@@ -285,7 +285,7 @@ xmlport 53003 "BC6_Import article"
                         //code
 
                         IF NOT recIDicGroup.GET(famille) THEN BEGIN
-                            recIDicGroup.INIT;
+                            recIDicGroup.INIT();
                             recIDicGroup.VALIDATE(Code, famille);
                             recIDicGroup.VALIDATE(Description, 'A compléter');
                             recIDicGroup.INSERT(TRUE);
@@ -298,7 +298,7 @@ xmlport 53003 "BC6_Import article"
                     IF uv <> '' THEN BEGIN
                         IF uv = 'C' THEN BEGIN
                             IF NOT recUv.GET(refcne, 'C') THEN BEGIN
-                                recUv.INIT;
+                                recUv.INIT();
                                 recUv.VALIDATE("Item No.", refcne);
                                 recUv.VALIDATE(Code, 'C');
                                 recUv.VALIDATE("Qty. per Unit of Measure", 100);
@@ -306,7 +306,7 @@ xmlport 53003 "BC6_Import article"
                             END;
 
                             IF NOT recUv.GET(refcne, 'P') THEN BEGIN
-                                recUv.INIT;
+                                recUv.INIT();
                                 recUv.VALIDATE("Item No.", refcne);
                                 recUv.VALIDATE(Code, 'P');
                                 recUv.VALIDATE("Qty. per Unit of Measure", 1);
@@ -319,7 +319,7 @@ xmlport 53003 "BC6_Import article"
                         END
                         ELSE BEGIN
                             IF NOT recUv.GET(refcne, 'P') THEN BEGIN
-                                recUv.INIT;
+                                recUv.INIT();
                                 recUv.VALIDATE("Item No.", refcne);
                                 recUv.VALIDATE(Code, 'P');
                                 recUv.VALIDATE("Qty. per Unit of Measure", 1);
@@ -334,14 +334,14 @@ xmlport 53003 "BC6_Import article"
 
 
                     IF commentaire <> '' THEN BEGIN
-                        recTextHeader.INIT;
+                        recTextHeader.INIT();
                         recTextHeader.VALIDATE("Table Name", recTextHeader."Table Name"::Item);
                         recTextHeader.VALIDATE("No.", refcne);
                         recTextHeader.VALIDATE("Text No.", 0);
                         recTextHeader.VALIDATE("All Language Codes", TRUE);
                         recTextHeader.INSERT(TRUE);
 
-                        recText.INIT;
+                        recText.INIT();
                         recText.VALIDATE("Table Name", recText."Table Name"::Item);
                         recText.VALIDATE("No.", refcne);
                         recText.VALIDATE("Text No.", 1);
@@ -361,7 +361,7 @@ xmlport 53003 "BC6_Import article"
 
                     IF coref <> '' THEN BEGIN
                         IF NOT recCountry.GET(coref) THEN BEGIN
-                            recCountry.INIT;
+                            recCountry.INIT();
                             recCountry.VALIDATE(Code, coref);
                             recCountry.VALIDATE(Name, 'A compléter');
                             recCountry.INSERT(TRUE);
@@ -435,20 +435,20 @@ xmlport 53003 "BC6_Import article"
     }
 
     var
-        recArticle: Record Item;
-        recCross: Record "Item Cross Reference";
-        recPPx: Record "Purchase Price";
-        recIDicGroup: Record "Item Discount Group";
-        recUv: Record "Item Unit of Measure";
-        recText: Record "Extended Text Line";
         recCountry: Record "Country/Region";
         recTextHeader: Record "Extended Text Header";
+        recText: Record "Extended Text Line";
+        recArticle: Record Item;
         recItemCatCode: Record "Item Category";
+        recCross: Record "Item Cross Reference";
+        recIDicGroup: Record "Item Discount Group";
+        recUv: Record "Item Unit of Measure";
+        recPPx: Record "Purchase Price";
+        DecGpmp: Decimal;
         DecGpxachat1: Decimal;
-        DecGpxpub1: Decimal;
         DecGpxachat2: Decimal;
+        DecGpxpub1: Decimal;
         DecGpxpub2: Decimal;
         DecGstockmini: Decimal;
-        DecGpmp: Decimal;
 }
 

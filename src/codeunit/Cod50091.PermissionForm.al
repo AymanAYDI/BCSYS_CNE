@@ -4,7 +4,6 @@ codeunit 50091 "BC6_Permission Form"
 
     procedure HasEditablePermission(UserID2: Text[65]; ObjectType: Integer; ObjectID: Integer): Boolean
     var
-        AllObjWithCaption: Record AllObjWithCaption;
         WinAccControl: Record "Access Control";
         HasPermission: Boolean;
     begin
@@ -20,13 +19,11 @@ codeunit 50091 "BC6_Permission Form"
 
     procedure HasWinPermission(UserID2: Text[65]; ObjectType: Integer; ObjectID: Integer): Boolean
     var
-        WinLogin: Record User;
-        WinLogin2: Record User;
         WinAccessControl: Record "Access Control";
         Permission: Record Permission;
-        LoginManagement: Codeunit "User Management";
+        WinLogin: Record User;
+        WinLogin2: Record User;
         Found: Boolean;
-        MorePermissions: Boolean;
         HasPermission: Boolean;
     begin
 

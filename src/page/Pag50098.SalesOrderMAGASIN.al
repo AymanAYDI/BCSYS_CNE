@@ -21,7 +21,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                     trigger OnAssistEdit()
                     begin
                         IF AssistEdit(xRec) THEN
-                            CurrPage.UPDATE;
+                            CurrPage.UPDATE();
                     end;
                 }
                 field("Sell-to Customer No."; "Sell-to Customer No.")
@@ -101,7 +101,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
 
                     trigger OnValidate()
                     begin
-                        SalespersonCodeOnAfterValidate;
+                        SalespersonCodeOnAfterValidate();
                     end;
                 }
                 field("No. of Archived Versions"; "No. of Archived Versions")
@@ -135,7 +135,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
 
                     trigger OnValidate()
                     begin
-                        BilltoCustomerNoOnAfterValidate;
+                        BilltoCustomerNoOnAfterValidate();
                     end;
                 }
                 field("Bill-to Contact No."; "Bill-to Contact No.")
@@ -288,9 +288,9 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                     begin
                         CLEAR(ChangeExchangeRate);
                         ChangeExchangeRate.SetParameter("Currency Code", "Currency Factor", "Posting Date");
-                        IF ChangeExchangeRate.RUNMODAL = ACTION::OK THEN BEGIN
-                            VALIDATE("Currency Factor", ChangeExchangeRate.GetParameter);
-                            CurrPage.UPDATE;
+                        IF ChangeExchangeRate.RUNMODAL() = ACTION::OK THEN BEGIN
+                            VALIDATE("Currency Factor", ChangeExchangeRate.GetParameter());
+                            CurrPage.UPDATE();
                         END;
                         CLEAR(ChangeExchangeRate);
                     end;
@@ -416,10 +416,10 @@ page 50098 "BC6_Sales Order (MAGASIN)"
 
                     trigger OnAction()
                     begin
-                        SalesSetup.GET;
+                        SalesSetup.GET();
                         IF SalesSetup."Calc. Inv. Discount" THEN BEGIN
-                            CurrPage.SalesLines.PAGE.CalcInvDisc;
-                            COMMIT
+                            CurrPage.SalesLines.PAGE.CalcInvDisc();
+                            COMMIT()
                         END;
                         PAGE.RUNMODAL(PAGE::"Sales Order Statistics", Rec);
                     end;
@@ -468,7 +468,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
 
                     trigger OnAction()
                     begin
-                        Rec.ShowDocDim;
+                        Rec.ShowDocDim();
                     end;
                 }
                 separator(Action172)
@@ -509,7 +509,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                         SalesPlanForm: Page "Sales Order Planning";
                     begin
                         SalesPlanForm.SetSalesOrder("No.");
-                        SalesPlanForm.RUNMODAL;
+                        SalesPlanForm.RUNMODAL();
                     end;
                 }
                 action("Order &Promising")
@@ -539,7 +539,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
 
                         trigger OnAction()
                         begin
-                            CurrPage.SalesLines.PAGE.OpenPurchOrderForm;
+                            CurrPage.SalesLines.PAGE.OpenPurchOrderForm();
                         end;
                     }
                 }
@@ -555,7 +555,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
 
                         trigger OnAction()
                         begin
-                            CurrPage.SalesLines.PAGE.OpenSpecialPurchOrderForm;
+                            CurrPage.SalesLines.PAGE.OpenSpecialPurchOrderForm();
                         end;
                     }
                 }
@@ -574,7 +574,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
 
                     trigger OnAction()
                     begin
-                        CurrPage.SalesLines.PAGE.ApproveCalcInvDisc;
+                        CurrPage.SalesLines.PAGE.ApproveCalcInvDisc();
                     end;
                 }
                 action("Get Price")
@@ -586,7 +586,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
 
                     trigger OnAction()
                     begin
-                        CurrPage.SalesLines.PAGE.ShowPrices
+                        CurrPage.SalesLines.PAGE.ShowPrices()
                     end;
                 }
                 action("Get Li&ne Discount")
@@ -598,7 +598,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
 
                     trigger OnAction()
                     begin
-                        CurrPage.SalesLines.PAGE.ShowLineDisc
+                        CurrPage.SalesLines.PAGE.ShowLineDisc()
                     end;
                 }
                 separator(Avtion177)
@@ -612,7 +612,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
 
                     trigger OnAction()
                     begin
-                        CurrPage.SalesLines.PAGE.ExplodeBOM;
+                        CurrPage.SalesLines.PAGE.ExplodeBOM();
                     end;
                 }
                 action("Insert &Ext. Texts")
@@ -651,7 +651,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
 
                     trigger OnAction()
                     begin
-                        CurrPage.SalesLines.PAGE.ShowTracking;
+                        CurrPage.SalesLines.PAGE.ShowTracking();
                     end;
                 }
                 separator(Action195)
@@ -665,10 +665,10 @@ page 50098 "BC6_Sales Order (MAGASIN)"
 
                     trigger OnAction()
                     begin
-                        IF NOT UpdateAllowed THEN
+                        IF NOT UpdateAllowed() THEN
                             EXIT;
 
-                        CurrPage.SalesLines.PAGE.ShowNonstockItems;
+                        CurrPage.SalesLines.PAGE.ShowNonstockItems();
                     end;
                 }
                 separator(Action174)
@@ -684,7 +684,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                     trigger OnAction()
                     begin
                         CopySalesDoc.SetSalesHeader(Rec);
-                        CopySalesDoc.RUNMODAL;
+                        CopySalesDoc.RUNMODAL();
                         CLEAR(CopySalesDoc);
                     end;
                 }
@@ -711,8 +711,8 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                     begin
                         CLEAR(MoveNegSalesLines);
                         MoveNegSalesLines.SetSalesHeader(Rec);
-                        MoveNegSalesLines.RUNMODAL;
-                        MoveNegSalesLines.ShowDocument;
+                        MoveNegSalesLines.RUNMODAL();
+                        MoveNegSalesLines.ShowDocument();
                     end;
                 }
                 separator(Action175)
@@ -869,7 +869,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                             1:
                                 DocPrint.PrintSalesOrder(Rec, Usage::"Order Confirmation");
                             2:
-                                EnvoiMail;
+                                EnvoiMail();
                         END;
                     end;
                 }
@@ -883,7 +883,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                     var
                         RecGSalesHeader: Record "Sales Header";
                     begin
-                        RecGSalesHeader.RESET;
+                        RecGSalesHeader.RESET();
                         RecGSalesHeader.SETRANGE(RecGSalesHeader."Document Type", "Document Type");
                         RecGSalesHeader.SETRANGE(RecGSalesHeader."No.", "No.");
                         RecGSalesHeader.FIND('-');
@@ -897,13 +897,13 @@ page 50098 "BC6_Sales Order (MAGASIN)"
 
     trigger OnAfterGetRecord()
     begin
-        OnAfterGetCurrRecord;
+        OnAfterGetCurrRecord();
     end;
 
     trigger OnDeleteRecord(): Boolean
     begin
-        CurrPage.SAVERECORD;
-        EXIT(ConfirmDeletion);
+        CurrPage.SAVERECORD();
+        EXIT(ConfirmDeletion());
     end;
 
     trigger OnInit()
@@ -916,13 +916,13 @@ page 50098 "BC6_Sales Order (MAGASIN)"
 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
-        CheckCreditMaxBeforeInsert;
+        CheckCreditMaxBeforeInsert();
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
         "Responsibility Center" := UserMgt.GetSalesFilter();
-        OnAfterGetCurrRecord;
+        OnAfterGetCurrRecord();
     end;
 
     trigger OnOpenPage()
@@ -933,47 +933,47 @@ page 50098 "BC6_Sales Order (MAGASIN)"
             FILTERGROUP(0);
         END;
 
-        SETRANGE("Date Filter", 0D, WORKDATE - 1);
+        SETRANGE("Date Filter", 0D, WORKDATE() - 1);
     end;
 
     var
-        Text000: Label 'Unable to execute this function while in view only mode.', Comment = 'FRA="Impossible d''exécuter cette fonction quand vous êtes en mode visualisation seule."';
-        CopySalesDoc: Report "Copy Sales Document";
-        MoveNegSalesLines: Report "Move Negative Sales Lines";
-        ReportPrint: Codeunit "Test Report-Print";
-        DocPrint: Codeunit "Document-Print";
-        ArchiveManagement: Codeunit ArchiveManagement;
-        SalesInfoPaneMgt: Codeunit "Sales Info-Pane Management";
-        SalesSetup: Record "Sales & Receivables Setup";
-        UserMgt: Codeunit "User Setup Management";
-        Usage: Option "Order Confirmation","Work Order";
-        "-NSC1.01-": Integer;
-        Livraison: Record "Shipment Method";
+        cust: Record Customer;
         Frais: Record "Item Charge";
+        "Sales & Receivables Setup": Record "Sales & Receivables Setup";
+        SalesSetup: Record "Sales & Receivables Setup";
         SalesHeader: Record "Sales Header";
         SalesLine: Record "Sales Line";
-        cust: Record Customer;
-        nameF: Text[250];
+        Livraison: Record "Shipment Method";
+        PreparationNAVIDIIGEST: Report "BC6_Preparation NAVIDIIGEST1";
+        CopySalesDoc: Report "Copy Sales Document";
+        MoveNegSalesLines: Report "Move Negative Sales Lines";
+        ArchiveManagement: Codeunit ArchiveManagement;
+        DocPrint: Codeunit "Document-Print";
         Mail: Codeunit Mail;
-        "Sales & Receivables Setup": Record "Sales & Receivables Setup";
-        Excel: Boolean;
-        PreparationNAVIDIIGEST: Report 50097;
-        STR3: Label 'Impimer le document', Comment = 'FRA="Impimer le document"';
-        STR4: Label 'Envoyer le document par E-Mail', Comment = 'FRA="Envoyer le document par E-Mail"';
-        STR5: Label 'Envoyer le document par Fax', Comment = 'FRA="Envoyer le document par Fax"';
-        Text001: Label '';
-        Text004: Label '';
-        [InDataSet]
-        SalesHistoryBtnVisible: Boolean;
-        [InDataSet]
-        BillToCommentPictVisible: Boolean;
+        SalesInfoPaneMgt: Codeunit "Sales Info-Pane Management";
+        ReportPrint: Codeunit "Test Report-Print";
+        UserMgt: Codeunit "User Setup Management";
+        ChangeExchangeRate: Page "Change Exchange Rate";
         [InDataSet]
         BillToCommentBtnVisible: Boolean;
         [InDataSet]
+        BillToCommentPictVisible: Boolean;
+        Excel: Boolean;
+        [InDataSet]
+        SalesHistoryBtnVisible: Boolean;
+        [InDataSet]
         SalesHistoryStnVisible: Boolean;
-        Text19070588: Label 'Sell-to Customer', Comment = 'FRA="Donneur d''ordre"';
+        "-NSC1.01-": Integer;
+        STR3: Label 'Impimer le document', Comment = 'FRA="Impimer le document"';
+        STR4: Label 'Envoyer le document par E-Mail', Comment = 'FRA="Envoyer le document par E-Mail"';
+        STR5: Label 'Envoyer le document par Fax', Comment = 'FRA="Envoyer le document par Fax"';
+        Text000: Label 'Unable to execute this function while in view only mode.', Comment = 'FRA="Impossible d''exécuter cette fonction quand vous êtes en mode visualisation seule."';
+        Text001: Label '';
+        Text004: Label '';
         Text19069283: Label 'Bill-to Customer', Comment = 'FRA="Client facturé"';
-        ChangeExchangeRate: Page "Change Exchange Rate";
+        Text19070588: Label 'Sell-to Customer', Comment = 'FRA="Donneur d''ordre"';
+        Usage: Option "Order Confirmation","Work Order";
+        nameF: Text[250];
 
     procedure UpdateAllowed(): Boolean
     begin
@@ -1006,7 +1006,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
         cust.SETRANGE(cust."No.", "Sell-to Customer No.");
         IF cust.FIND('-') THEN
             cust.TESTFIELD("E-Mail");
-        OpenFile;
+        OpenFile();
         IF nameF <> '' THEN BEGIN
             Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + "No.", '', nameF, FALSE);
             ERASE(nameF);
@@ -1040,7 +1040,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
 
     local procedure _SelltoCustomerNoOnAfterValidate()
     begin
-        CurrPage.UPDATE;
+        CurrPage.UPDATE();
     end;
 
     local procedure SalespersonCodeOnAfterValidate()
@@ -1050,13 +1050,13 @@ page 50098 "BC6_Sales Order (MAGASIN)"
 
     local procedure BilltoCustomerNoOnAfterValidate()
     begin
-        CurrPage.UPDATE;
+        CurrPage.UPDATE();
     end;
 
     local procedure OnAfterGetCurrRecord()
     begin
         xRec := Rec;
-        SETRANGE("Date Filter", 0D, WORKDATE - 1);
+        SETRANGE("Date Filter", 0D, WORKDATE() - 1);
     end;
 }
 

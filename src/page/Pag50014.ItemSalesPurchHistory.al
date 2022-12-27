@@ -824,8 +824,8 @@ page 50014 "BC6_Item Sales/Purch. History"
         ToSalesHeader: Record "Sales Header";
         RecGPostdSalesInvoices: Record "Sales Invoice Line";
         RecGSalesLine: Record "Sales Line";
-        CuGItemHistoryMgt: Codeunit "BC6_Item History Management";
         RecGSalesShipementLine: Record "Sales Shipment Line";
+        CuGItemHistoryMgt: Codeunit "BC6_Item History Management";
         SalesHistCopyLineMgt: Codeunit "Sales Info-Pane Management";
         SalesInfoPaneMgt: Codeunit "Sales Info-Pane Management";
         BillTo: Boolean;
@@ -852,6 +852,7 @@ page 50014 "BC6_Item Sales/Purch. History"
         SalesLinesVisible: Boolean;
         CodGCustNo: Code[20];
         CodGDocNo: Code[20];
+        CurrentMenuTypeOpt: Enum BC6_CurrentMenuTypeOpt;
         "--FEP-ADVE-200706_18_B--": Integer;
         CurrentMenuType: Integer;
         NbrOfPurchBlanketOrder: Integer;
@@ -875,7 +876,6 @@ page 50014 "BC6_Item Sales/Purch. History"
         NoOfQuotes: Integer;
         NoOfReturnOrders: Integer;
         OldMenuType: Integer;
-        CurrentMenuTypeOpt: Enum BC6_CurrentMenuTypeOpt;
 
     local procedure ChangeSubMenu(NewMenuType: Integer)
     begin

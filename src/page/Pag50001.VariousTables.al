@@ -179,45 +179,16 @@ page 50001 "BC6_Various Tables"
 
     trigger OnOpenPage()
     begin
-        OnActivateForm;
+        OnActivateForm();
     end;
 
     var
+        DivTableParam_G: Record "BC6_Setup Various Tables";
         Param: Record "BC6_Setup Various Tables";
         TableDiv: Record "BC6_Various Tables";
-        DivTableParam_G: Record "BC6_Setup Various Tables";
         CommentLine: Record "Comment Line";
-        Text001: Label 'This field cannot be empty.', comment = 'FRA="Ce champ ne doit pas être vide."';
-        Descriptif: Text[50];
-        TitreTexte1: Text[30];
-        CodeCaptionClass: Text[80];
-        Text1CaptionClass: Text[80];
-        Text2CaptionClass: Text[80];
-        Text3CaptionClass: Text[80];
-        Nombre1CaptionClass: Text[80];
-        Nombre2CaptionClass: Text[80];
-        Nombre3CaptionClass: Text[80];
-        Date1CaptionClass: Text[80];
-        Date2CaptionClass: Text[80];
-        Date3CaptionClass: Text[80];
-        Bool1CaptionClass: Text[80];
-        Bool2CaptionClass: Text[80];
-        Bool3CaptionClass: Text[80];
-        Rad1CaptionClass: Text[80];
-        Rad2CaptionClass: Text[80];
-        Rad3CaptionClass: Text[80];
         [InDataSet]
-        Text1Visible: Boolean;
-        [InDataSet]
-        Text2Visible: Boolean;
-        [InDataSet]
-        Text3Visible: Boolean;
-        [InDataSet]
-        Number1Visible: Boolean;
-        [InDataSet]
-        Number2Visible: Boolean;
-        [InDataSet]
-        Number3Visible: Boolean;
+        CommentVisible: Boolean;
         [InDataSet]
         Date1Visible: Boolean;
         [InDataSet]
@@ -225,11 +196,11 @@ page 50001 "BC6_Various Tables"
         [InDataSet]
         Date3Visible: Boolean;
         [InDataSet]
-        "Top Logical1Visible": Boolean;
+        Number1Visible: Boolean;
         [InDataSet]
-        "Top Logical2Visible": Boolean;
+        Number2Visible: Boolean;
         [InDataSet]
-        "Top Logical3Visible": Boolean;
+        Number3Visible: Boolean;
         [InDataSet]
         "Radical Code1Visible": Boolean;
         [InDataSet]
@@ -237,24 +208,53 @@ page 50001 "BC6_Various Tables"
         [InDataSet]
         "Radical Code3Visible": Boolean;
         [InDataSet]
-        CommentVisible: Boolean;
+        Text1Visible: Boolean;
+        [InDataSet]
+        Text2Visible: Boolean;
+        [InDataSet]
+        Text3Visible: Boolean;
+        [InDataSet]
+        "Top Logical1Visible": Boolean;
+        [InDataSet]
+        "Top Logical2Visible": Boolean;
+        [InDataSet]
+        "Top Logical3Visible": Boolean;
+        Text001: Label 'This field cannot be empty.', comment = 'FRA="Ce champ ne doit pas être vide."';
+        TitreTexte1: Text[30];
+        Descriptif: Text[50];
+        Bool1CaptionClass: Text[80];
+        Bool2CaptionClass: Text[80];
+        Bool3CaptionClass: Text[80];
+        CodeCaptionClass: Text[80];
+        Date1CaptionClass: Text[80];
+        Date2CaptionClass: Text[80];
+        Date3CaptionClass: Text[80];
+        Nombre1CaptionClass: Text[80];
+        Nombre2CaptionClass: Text[80];
+        Nombre3CaptionClass: Text[80];
+        Rad1CaptionClass: Text[80];
+        Rad2CaptionClass: Text[80];
+        Rad3CaptionClass: Text[80];
+        Text1CaptionClass: Text[80];
+        Text2CaptionClass: Text[80];
+        Text3CaptionClass: Text[80];
 
     local procedure TopLogical1OnActivate()
     begin
         Descriptif := Param."Top Logical1 Description";
-        CurrPage.UPDATE;
+        CurrPage.UPDATE();
     end;
 
     local procedure TopLogical2OnActivate()
     begin
         Descriptif := Param."Top Logical2 Description";
-        CurrPage.UPDATE;
+        CurrPage.UPDATE();
     end;
 
     local procedure TopLogical3OnActivate()
     begin
         Descriptif := Param."Top Logical3 Description";
-        CurrPage.UPDATE;
+        CurrPage.UPDATE();
     end;
 
     local procedure OnActivateForm()

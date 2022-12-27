@@ -182,9 +182,9 @@ page 50038 "BC6_Invoice Lines Subform 2"
     var
         TempSalesInvLine: Record "Sales Invoice Line" temporary;
         [InDataSet]
-        "Document No.HideValue": Boolean;
-        [InDataSet]
         "Document No.Emphasize": Boolean;
+        [InDataSet]
+        "Document No.HideValue": Boolean;
 
     local procedure IsFirstDocLine(): Boolean
     var

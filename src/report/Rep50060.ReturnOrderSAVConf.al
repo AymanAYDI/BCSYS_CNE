@@ -130,7 +130,7 @@ report 50060 "BC6_Return Order SAV Conf."
                     column(TotalInclVATText; TotalInclVATText)
                     {
                     }
-                    column(VATAmtLineVATAmtText; VATAmountLine.VATAmountText)
+                    column(VATAmtLineVATAmtText; VATAmountLine.VATAmountText())
                     {
                     }
                     column(VATDiscountAmountCaption; VATDiscountAmountCaptionLbl)
@@ -358,11 +358,11 @@ report 50060 "BC6_Return Order SAV Conf."
                         trigger OnAfterGetRecord()
                         begin
                             IF Number = 1 THEN BEGIN
-                                IF NOT DimSetEntry1.FINDSET THEN
-                                    CurrReport.BREAK;
+                                IF NOT DimSetEntry1.FINDSET() THEN
+                                    CurrReport.BREAK();
                             END ELSE
                                 IF NOT Continue THEN
-                                    CurrReport.BREAK;
+                                    CurrReport.BREAK();
 
                             CLEAR(DimText);
                             Continue := FALSE;
@@ -380,13 +380,13 @@ report 50060 "BC6_Return Order SAV Conf."
                                     Continue := TRUE;
                                     EXIT;
                                 END;
-                            UNTIL DimSetEntry1.NEXT = 0;
+                            UNTIL DimSetEntry1.NEXT() = 0;
                         end;
 
                         trigger OnPreDataItem()
                         begin
                             IF NOT ShowInternalInfo THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                         end;
                     }
                     dataitem(SalesLine2; "Sales Line")
@@ -398,7 +398,7 @@ report 50060 "BC6_Return Order SAV Conf."
 
                         trigger OnPreDataItem()
                         begin
-                            CurrReport.BREAK;
+                            CurrReport.BREAK();
                         end;
                     }
                     dataitem(RoundLoop; Integer)
@@ -539,11 +539,11 @@ report 50060 "BC6_Return Order SAV Conf."
                             trigger OnAfterGetRecord()
                             begin
                                 IF Number = 1 THEN BEGIN
-                                    IF NOT DimSetEntry2.FINDSET THEN
-                                        CurrReport.BREAK;
+                                    IF NOT DimSetEntry2.FINDSET() THEN
+                                        CurrReport.BREAK();
                                 END ELSE
                                     IF NOT Continue THEN
-                                        CurrReport.BREAK;
+                                        CurrReport.BREAK();
 
                                 CLEAR(DimText);
                                 Continue := FALSE;
@@ -561,13 +561,13 @@ report 50060 "BC6_Return Order SAV Conf."
                                         Continue := TRUE;
                                         EXIT;
                                     END;
-                                UNTIL DimSetEntry2.NEXT = 0;
+                                UNTIL DimSetEntry2.NEXT() = 0;
                             end;
 
                             trigger OnPreDataItem()
                             begin
                                 IF NOT ShowInternalInfo THEN
-                                    CurrReport.BREAK;
+                                    CurrReport.BREAK();
 
                                 DimSetEntry2.SETRANGE("Dimension Set ID", SalesLine."Dimension Set ID");
                             end;
@@ -578,7 +578,7 @@ report 50060 "BC6_Return Order SAV Conf."
                             IF Number = 1 THEN
                                 SalesLine.FIND('-')
                             ELSE
-                                SalesLine.NEXT;
+                                SalesLine.NEXT();
                             SalesLine := SalesLine;
 
                             IF (SalesLine.Type = SalesLine.Type::"G/L Account") AND (NOT ShowInternalInfo) THEN BEGIN
@@ -600,7 +600,7 @@ report 50060 "BC6_Return Order SAV Conf."
 
                         trigger OnPostDataItem()
                         begin
-                            SalesLine.DELETEALL;
+                            SalesLine.DELETEALL();
                         end;
 
                         trigger OnPreDataItem()
@@ -612,7 +612,7 @@ report 50060 "BC6_Return Order SAV Conf."
                             DO
                                 MoreLines := SalesLine.NEXT(-1) <> 0;
                             IF NOT MoreLines THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                             SalesLine.SETRANGE("Line No.", 0, SalesLine."Line No.");
                             SETRANGE(Number, 1, SalesLine.COUNT);
                             CurrReport.CREATETOTALS(SalesLine."Line Amount", SalesLine."Inv. Discount Amount");
@@ -674,7 +674,7 @@ report 50060 "BC6_Return Order SAV Conf."
                         trigger OnPreDataItem()
                         begin
                             IF VATAmount = 0 THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                             SETRANGE(Number, 1, VATAmountLine.COUNT);
                             CurrReport.CREATETOTALS(
                               VATAmountLine."Line Amount", VATAmountLine."Inv. Disc. Base Amount",
@@ -722,9 +722,9 @@ report 50060 "BC6_Return Order SAV Conf."
                         begin
                             IF (NOT GLSetup."Print VAT specification in LCY") OR
                                (SalesHeader."Currency Code" = '') OR
-                               (VATAmountLine.GetTotalVATAmount = 0)
+                               (VATAmountLine.GetTotalVATAmount() = 0)
                             THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
 
                             SETRANGE(Number, 1, VATAmountLine.COUNT);
                             CurrReport.CREATETOTALS(VALVATBaseLCY, VALVATAmountLCY);
@@ -746,19 +746,19 @@ report 50060 "BC6_Return Order SAV Conf."
                 begin
                     CLEAR(SalesLine);
                     CLEAR(SalesPost);
-                    SalesLine.DELETEALL;
-                    VATAmountLine.DELETEALL;
+                    SalesLine.DELETEALL();
+                    VATAmountLine.DELETEALL();
                     SalesPost.GetSalesLines(SalesHeader, SalesLine, 0);
                     SalesLine.CalcVATAmountLines(0, SalesHeader, SalesLine, VATAmountLine);
                     SalesLine.UpdateVATOnLines(0, SalesHeader, SalesLine, VATAmountLine);
-                    VATAmount := VATAmountLine.GetTotalVATAmount;
-                    VATBaseAmount := VATAmountLine.GetTotalVATBase;
+                    VATAmount := VATAmountLine.GetTotalVATAmount();
+                    VATBaseAmount := VATAmountLine.GetTotalVATBase();
                     VATDiscountAmount :=
                       VATAmountLine.GetTotalVATDiscount(SalesHeader."Currency Code", SalesHeader."Prices Including VAT");
-                    TotalAmountInclVAT := VATAmountLine.GetTotalAmountInclVAT;
+                    TotalAmountInclVAT := VATAmountLine.GetTotalAmountInclVAT();
 
                     IF Number > 1 THEN BEGIN
-                        CopyText := FormatDocument.GetCOPYText;
+                        CopyText := FormatDocument.GetCOPYText();
                         OutputNo += 1;
                     END;
                     CurrReport.PAGENO := 1;
@@ -803,11 +803,11 @@ report 50060 "BC6_Return Order SAV Conf."
                               "Campaign No.", "Posting Description", "Opportunity No.");
                     END;
 
-                L_SalesLine.RESET;
+                L_SalesLine.RESET();
                 L_SalesLine.SETRANGE("Document Type", SalesHeader."Document Type");
                 L_SalesLine.SETRANGE("Document No.", SalesHeader."No.");
                 L_SalesLine.SETRANGE(Type, L_SalesLine.Type::Item);
-                IF L_SalesLine.FINDFIRST THEN BEGIN
+                IF L_SalesLine.FINDFIRST() THEN BEGIN
                     IF L_SalesHeader.GET(L_SalesHeader."Document Type"::Order, L_SalesLine."BC6_ReturnOrderShpt SalesOrder") THEN
                         IF G_PurchaseHeader.GET(G_PurchaseHeader."Document Type"::Order, L_SalesHeader."BC6_Purchase No. Order Lien") THEN
                             IF G_Vendor.GET(L_PurchaseHeader."Buy-from Vendor No.") THEN;
@@ -857,7 +857,7 @@ report 50060 "BC6_Return Order SAV Conf."
 
         trigger OnOpenPage()
         begin
-            InitLogInteraction;
+            InitLogInteraction();
             LogInteractionEnable := LogInteraction;
         end;
     }
@@ -868,16 +868,16 @@ report 50060 "BC6_Return Order SAV Conf."
 
     trigger OnInitReport()
     begin
-        GLSetup.GET;
-        CompanyInfo.GET;
-        SalesSetup.GET;
+        GLSetup.GET();
+        CompanyInfo.GET();
+        SalesSetup.GET();
         FormatDocument.SetLogoPosition(SalesSetup."Logo Position on Documents", CompanyInfo1, CompanyInfo2, CompanyInfo3);
     end;
 
     trigger OnPreReport()
     begin
         IF NOT CurrReport.USEREQUESTPAGE THEN
-            InitLogInteraction;
+            InitLogInteraction();
     end;
 
     var
@@ -995,7 +995,7 @@ report 50060 "BC6_Return Order SAV Conf."
 
     procedure InitializeRequest(ShowInternalInfoFrom: Boolean; LogInteractionFrom: Boolean)
     begin
-        InitLogInteraction;
+        InitLogInteraction();
         ShowInternalInfo := ShowInternalInfoFrom;
         LogInteraction := LogInteractionFrom;
     end;

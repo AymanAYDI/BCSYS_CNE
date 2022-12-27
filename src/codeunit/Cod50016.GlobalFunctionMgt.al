@@ -292,34 +292,88 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
         NewShowIncreaseCoeff := pShowIncreaseCoeff;
     end;
 
+    procedure SetYourReference(pYourReference: Text)
+    begin
+        YourReference := pYourReference;
+    end;
+
+    procedure GetYourReference(): Text;
+    begin
+        exit(YourReference);
+    end;
+
+    procedure SetG_LinkedPurchOrderNo(pG_LinkedPurchOrderNo: Code[20])
+    begin
+        G_LinkedPurchOrderNo := pG_LinkedPurchOrderNo;
+    end;
+
+    procedure GetG_LinkedPurchOrderNo(): Code[20];
+    begin
+        exit(G_LinkedPurchOrderNo);
+    end;
+
+    procedure SetEnableIncrPurchCost( pEnableIncrPurchCost: Boolean)
+    begin
+         EnableIncrPurchCost := pEnableIncrPurchCost;
+    end;
+
+    procedure  GetEnableIncrPurchCost() EnableIncrPurchCost: Boolean;
+    begin
+         exit(EnableIncrPurchCost);
+    end;
+
+    procedure SetBoolGCopyLinesExactly(pBoolGCopyLinesExactly: Boolean)
+    begin
+        BoolGCopyLinesExactly := pBoolGCopyLinesExactly;
+    end;
+
+    procedure GetBoolGCopyLinesExactly(): Boolean;
+    begin
+        exit(BoolGCopyLinesExactly);
+    end;
+
+    procedure SetHideValidationDialog(pHideValidationDialog: Boolean);
+    begin
+        HideValidationDialog := pHideValidationDialog;
+    end;
+
+    procedure GetHideValidationDialog(): Boolean;
+    begin
+        exit(HideValidationDialog);
+    end;
     var
-        BooGVendorNoStyle: Boolean;
-        BooGAutoTextSpe: Boolean;
-        PostingDate: Date;
-        DeleteWhseActivity: Boolean;
-        GDecMntTTCDEEE: Decimal;
-        GDecMntHTDEEE: Decimal;
-        SGDecMntTTCDEEE: Decimal;
-        SGDecMntHTDEEE: Decimal;
-        IntLSignFactor: Integer;
-        _EcoPartnerDEEE: code[20];
-        _DEEECategoryCode: code[20];
-        SalesReservationFound: Boolean;
-        CD7321_TempSalesLine: Record "Sales Line" temporary;
-        DeleteWhseActivityHeaderOk: Boolean;
         T77_SalesHeader: Record "Sales Header";
+        CD7321_TempSalesLine: Record "Sales Line" temporary;
         _IsSAVReturnOrder: Boolean;
-        PurchGDecMntTTCDEEE: Decimal;
-        PurchGDecMntHTDEEE: Decimal;
-        _PurchEcoPartnerDEEE: Code[20];
-        _PurchDEEECategoryCode: Code[20];
-        DecGVATAmount: Decimal;
-        VATAmount: Decimal;
-        DecGTTCAmount: Decimal;
+        BooGAutoTextSpe: Boolean;
+        BooGVendorNoStyle: Boolean;
+        DeleteWhseActivity: Boolean;
+        DeleteWhseActivityHeaderOk: Boolean;
+        NewAssemblyShipmentBinCodeEnable: Boolean;
         NewReceiptBinCodeEnable: Boolean;
         NewShipmentBinCodeEnable: Boolean;
-        NewAssemblyShipmentBinCodeEnable: Boolean;
-        ShowIncreaseCoeff: Boolean;
         NewShowIncreaseCoeff: Boolean;
+        SalesReservationFound: Boolean;
+        EnableIncrPurchCost: Boolean;
+        BoolGCopyLinesExactly: Boolean;
+        HideValidationDialog: Boolean;
+        _DEEECategoryCode: code[20];
+        _EcoPartnerDEEE: code[20];
+        _PurchDEEECategoryCode: Code[20];
+        _PurchEcoPartnerDEEE: Code[20];
+        G_LinkedPurchOrderNo: Code[20];
+        PostingDate: Date;
+        DecGTTCAmount: Decimal;
+        DecGVATAmount: Decimal;
+        GDecMntHTDEEE: Decimal;
+        GDecMntTTCDEEE: Decimal;
+        PurchGDecMntHTDEEE: Decimal;
+        PurchGDecMntTTCDEEE: Decimal;
+        SGDecMntHTDEEE: Decimal;
+        SGDecMntTTCDEEE: Decimal;
+        VATAmount: Decimal;
+        IntLSignFactor: Integer;
+        YourReference: Text;
+        
 
 }

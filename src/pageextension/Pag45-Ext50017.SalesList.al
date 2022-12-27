@@ -77,40 +77,36 @@ pageextension 50017 "BC6_SalesList" extends "Sales List" //45
     }
 
     var
-        "- MIGNAV2013 -": Integer;
+        RecGSalesSetup: Record "Sales & Receivables Setup";
+        RecGSalesLine: Record "Sales Line";
+        [InDataSet]
+        BooGID: Boolean;
+        BooGProfitamount: Boolean;
+        BooGProfitpct: Boolean;
+        [InDataSet]
+        BooGPurchcost: Boolean;
+        DecGAmountHT: Decimal;
         "DecGProfit%": Decimal;
         DecGProfitAmount: Decimal;
         DecGPurchCost: Decimal;
-        RecGSalesLine: Record "Sales Line";
-        DecGAmountHT: Decimal;
-        RecGSalesSetup: Record "Sales & Receivables Setup";
-        [InDataSet]
-        BooGID: Boolean;
-        [InDataSet]
-        BooGPurchcost: Boolean;
-        BooGProfitamount: Boolean;
-        BooGProfitpct: Boolean;
 
 
     trigger OnAfterGetRecord()
     begin
-        hideuser;
-        calcprofit;
+        hideuser();
+        calcprofit();
     end;
 
-    procedure "----NSC1,0---"()
-    begin
-    end;
 
     procedure hideuser()
     var
         RecLAccessControl: Record "Access Control";
     begin
-        RecGSalesSetup.GET;
+        RecGSalesSetup.GET();
         RecGSalesSetup.TESTFIELD("BC6_allow Profit% to");
-        RecLAccessControl.SETRANGE("User Security ID", USERSECURITYID);
+        RecLAccessControl.SETRANGE("User Security ID", USERSECURITYID());
         RecLAccessControl.SETRANGE("Role ID", RecGSalesSetup."BC6_allow Profit% to");
-        IF RecLAccessControl.FINDFIRST THEN BEGIN
+        IF RecLAccessControl.FINDFIRST() THEN BEGIN
             BooGID := TRUE;
             BooGPurchcost := TRUE;
             BooGProfitamount := TRUE;
@@ -129,7 +125,7 @@ pageextension 50017 "BC6_SalesList" extends "Sales List" //45
         DecGPurchCost := 0;
         DecGAmountHT := 0;
 
-        RecGSalesLine.RESET;
+        RecGSalesLine.RESET();
         RecGSalesLine.SETFILTER("Document Type", '%1', "Document Type");
         RecGSalesLine.SETFILTER("Sell-to Customer No.", "Sell-to Customer No.");
         RecGSalesLine.SETFILTER("Document No.", '%1', "No.");
@@ -137,7 +133,7 @@ pageextension 50017 "BC6_SalesList" extends "Sales List" //45
             REPEAT
                 DecGPurchCost += RecGSalesLine.Quantity * RecGSalesLine."BC6_Purchase cost";
                 DecGAmountHT += RecGSalesLine.Quantity * RecGSalesLine."BC6_Discount unit price";
-            UNTIL RecGSalesLine.NEXT = 0;
+            UNTIL RecGSalesLine.NEXT() = 0;
 
         DecGProfitAmount := DecGAmountHT - DecGPurchCost;
 

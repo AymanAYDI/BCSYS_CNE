@@ -3,9 +3,9 @@ codeunit 50010 "BC6_ReportHelper"
 
     procedure DownloadToClientFileName(ServerFileName: Text[250]; ToFile: Text[250]): Text[250]
     var
-        ClientFileName: Text[250];
         //TODO objScript: Automation;
         CR: Text[1];
+        ClientFileName: Text[250];
     begin
         ClientFileName := ToFile;
         IF NOT DOWNLOAD(ServerFileName, '', '<TEMP>', '', ClientFileName) THEN

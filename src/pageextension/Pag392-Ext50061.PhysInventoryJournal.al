@@ -28,7 +28,7 @@ pageextension 50061 "BC6_PhysInventoryJournal" extends "Phys. Inventory Journal"
                 trigger OnAction()
                 begin
                     RefreshPhysQty.SetItemJnlLine(Rec);
-                    RefreshPhysQty.RUNMODAL;
+                    RefreshPhysQty.RUNMODAL();
                     CLEAR(RefreshPhysQty);
                 end;
             }

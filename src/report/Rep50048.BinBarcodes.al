@@ -54,7 +54,6 @@ report 50048 "BC6_Bin Barcodes"
 
     var
         gBin1: Record Bin;
-        gBin2: Record Bin;
         BarcodeMngt: Codeunit "BC6_Barcode Mngt AutoID";
 
 

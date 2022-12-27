@@ -125,10 +125,7 @@ pageextension 50067 "BC6_SalesOrderStatistics" extends "Sales Order Statistics" 
 
 
     var
-        "-MIGNAV2013-": Integer;
-        RecGCustomer: Record Customer;
         ShowRealProfit: Boolean;
-        UserSetup: Record "User Setup";
 
 
 }

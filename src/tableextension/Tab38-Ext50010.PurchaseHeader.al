@@ -82,9 +82,7 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
         }
     }
 
-    procedure "---NSC1.00---"()
-    begin
-    end;
+
 
     procedure UpdateIncoterm()
     begin
@@ -97,9 +95,6 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
         end;
     end;
 
-    procedure "**NSC1.01**"()
-    begin
-    end;
 
     procedure ControleMinimMNTandQTE(): Boolean
     var
@@ -177,13 +172,7 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
         TempPurchLine: Record "Purchase Line" temporary;
         TotalPurchLine: Record "Purchase Line";
         TotalPurchLineLCY: Record "Purchase Line";
-        PurchSetup: Record "Purchases & Payables Setup";
-        TempVATAmountLine: Record "VAT Amount Line" temporary;
-        Vend: Record Vendor;
         PurchPost: Codeunit "Purch.-Post";
-        AllowInvDisc: Boolean;
-        AllowVATDifference: Boolean;
-        PrevNo: Code[20];
         TotalAmount1: Decimal;
         TotalAmount2: Decimal;
         VATAmount: Decimal;
@@ -227,7 +216,6 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
     procedure Existfreightcharge(): Boolean
     var
         PurchLine: Record "Purchase Line";
-        RecLSalesLine: Record "Purchase Line";
         PurchSetup: Record "Purchases & Payables Setup";
     begin
         if PurchLinesExist() then begin
@@ -298,9 +286,7 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
         L_PurchCommentLine.INSERT(true);
     end;
 
-    local procedure "---BCSYS---"()
-    begin
-    end;
+
 
     local procedure UpdateSalesLineReturnType()
     var
@@ -318,21 +304,8 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
     end;
 
     var
-        RecGParamNavi: Record "BC6_Navi+ Setup";
-        RecGCommentLine: Record "Comment Line";
         RecGVendor: Record Vendor;
-        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
-        G_ReturnOrderMgt: Codeunit "BC6_Return Order Mgt.";
-        FrmGLignesCommentaires: Page "Comment Sheet";
         Confirmed: Boolean;
-        "-BCSYS-": Integer;
-        "-NSC1.00-": Integer;
-        ConfirmChangeQst: label 'Do you want to change %1?';
-        "---NSC1.01": label '';
-        Text50000: label 'Quantity cannot be 0.';
-
-        TextG001: label 'Warning, using foreign currency will generate wrong profit calculation.';
-        TextG002: label 'Thank to inform freight charge amount for line %1, No. %2';
-        TextG003: label 'Warning:This purchase order is linked to a sales order.';
-        YouCannotChangeFieldErr: label 'You cannot change %1 because the order is associated with one or more sales orders.';
+        Text50000: label 'Quantity cannot be 0.', Comment = 'FRA="Quantité ne peut pas être à 0."';
+        TextG002: label 'Thank to inform freight charge amount for line %1, No. %2', Comment = 'FRA="Merci de renseigner le montant frais de port pour la ligne %1, N° %2"';
 }

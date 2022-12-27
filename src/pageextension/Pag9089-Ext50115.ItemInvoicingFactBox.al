@@ -87,9 +87,9 @@ pageextension 50115 "BC6_ItemInvoicingFactBox" extends "Item Invoicing FactBox" 
 
     VAR
         UserSetup: Record "User Setup";
-        IncrStandardCost: Decimal;
-        IncrUnitCost: Decimal;
+        ShowRealProfit: Boolean;
         IncrLastDirectCost: Decimal;
         IncrProfit: Decimal;
-        ShowRealProfit: Boolean;
+        IncrStandardCost: Decimal;
+        IncrUnitCost: Decimal;
 }

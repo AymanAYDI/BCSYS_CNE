@@ -51,12 +51,11 @@ report 50098 "BC6_Batch Archive Quote Delete"
     end;
 
     var
-        i: Integer;
-        ArchiveManagement: Codeunit ArchiveManagement;
-        ok: Boolean;
         SalesHeader2: Record "Sales Header";
-        z: Integer;
+        ok: Boolean;
         window: Dialog;
+        i: Integer;
+        z: Integer;
 
 
     procedure Fct_Check(DocType: Integer; DocNo: Code[20]): Boolean

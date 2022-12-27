@@ -18,7 +18,7 @@ report 50025 "BC6_Sales Stat/Vendor Filiale"
             column(COMPANYNAME; COMPANYNAME)
             {
             }
-            column(CurrReport_PAGENO; CurrReport.PAGENO)
+            column(CurrReport_PAGENO; CurrReport.PAGENO())
             {
             }
             column("USERID"; USERID)
@@ -143,7 +143,7 @@ report 50025 "BC6_Sales Stat/Vendor Filiale"
                             DecGMontant += RecGSalesInvLineTEMP.Quantity * RecGSalesInvLineTEMP."BC6_Purchase Cost";
                             DecGCAVente += RecGSalesInvLineTEMP.Amount;
                         END;
-                    UNTIL RecGSalesInvLineTEMP.NEXT = 0;
+                    UNTIL RecGSalesInvLineTEMP.NEXT() = 0;
                 END;
 
                 // Sales Credit Memo Line
@@ -157,7 +157,7 @@ report 50025 "BC6_Sales Stat/Vendor Filiale"
                             DecGMontant -= (RecGSalesCrMemoLineTEMP.Quantity * RecGSalesCrMemoLineTEMP."BC6_Purchase cost");
                             DecGCAVente -= RecGSalesCrMemoLineTEMP.Amount;
                         END;
-                    UNTIL RecGSalesCrMemoLineTEMP.NEXT = 0;
+                    UNTIL RecGSalesCrMemoLineTEMP.NEXT() = 0;
                 END;
 
 
@@ -172,7 +172,7 @@ report 50025 "BC6_Sales Stat/Vendor Filiale"
                         DecGCAAchatEnCmd := DecGCAAchatEnCmd + (RecGPurchLineTEMP.Quantity - RecGPurchLineTEMP."Quantity Invoiced")
                                             * RecGPurchLineTEMP."Direct Unit Cost"
                                             * (1 - RecGPurchLineTEMP."Line Discount %" / 100);
-                    UNTIL RecGPurchLineTEMP.NEXT = 0;
+                    UNTIL RecGPurchLineTEMP.NEXT() = 0;
                 END;
 
                 // Purchase Invoice Line
@@ -185,7 +185,7 @@ report 50025 "BC6_Sales Stat/Vendor Filiale"
                         RecLPurchInvHeader.SETFILTER("No.", RecGPurchInvLineTEMP."Document No.");
                         IF RecLPurchInvHeader.FindSet() THEN
                             DecGCAAchat += RecGPurchInvLineTEMP.Amount;
-                    UNTIL RecGPurchInvLineTEMP.NEXT = 0;
+                    UNTIL RecGPurchInvLineTEMP.NEXT() = 0;
                 END;
 
                 // Purchase Credit Memo Line
@@ -198,7 +198,7 @@ report 50025 "BC6_Sales Stat/Vendor Filiale"
                         RecLPurchCrMemoHeader.SETFILTER("No.", RecGPurchCrMemoLineTEMP."Document No.");
                         IF RecLPurchCrMemoHeader.FindSet() THEN
                             DecGCAAchat -= RecGPurchCrMemoLineTEMP.Amount;
-                    UNTIL RecGPurchCrMemoLineTEMP.NEXT = 0;
+                    UNTIL RecGPurchCrMemoLineTEMP.NEXT() = 0;
                 END;
 
                 DecGMontantMarge := DecGCAVente - DecGMontant;
@@ -260,9 +260,9 @@ report 50025 "BC6_Sales Stat/Vendor Filiale"
                 RecGSalesInvLineTEMP := RecGSalesInvLine;
                 IF RecGitem.GET(RecGSalesInvLineTEMP."No.") THEN BEGIN
                     RecGSalesInvLineTEMP."BC6_Buy-from Vendor No." := RecGitem."Vendor No.";
-                    RecGSalesInvLineTEMP.INSERT;
+                    RecGSalesInvLineTEMP.INSERT();
                 END;
-            UNTIL RecGSalesInvLine.NEXT <= 0;
+            UNTIL RecGSalesInvLine.NEXT() <= 0;
 
         RecGSalesCrMemoLine.SETFILTER("Posting Date", '%1..%2', DatGDateDebut, DatDateFin);
         IF RecGSalesCrMemoLine.FindSet() THEN
@@ -270,9 +270,9 @@ report 50025 "BC6_Sales Stat/Vendor Filiale"
                 RecGSalesCrMemoLineTEMP := RecGSalesCrMemoLine;
                 IF RecGitem.GET(RecGSalesCrMemoLineTEMP."No.") THEN BEGIN
                     RecGSalesCrMemoLineTEMP."BC6_Buy-from Vendor No." := RecGitem."Vendor No.";
-                    RecGSalesCrMemoLineTEMP.INSERT;
+                    RecGSalesCrMemoLineTEMP.INSERT();
                 END;
-            UNTIL RecGSalesCrMemoLine.NEXT <= 0;
+            UNTIL RecGSalesCrMemoLine.NEXT() <= 0;
 
 
         RecGPurchLine.SETFILTER("Planned Receipt Date", '%1..%2', DatGDateDebut, DatDateFin);
@@ -281,9 +281,9 @@ report 50025 "BC6_Sales Stat/Vendor Filiale"
                 RecGPurchLineTEMP := RecGPurchLine;
                 IF RecGitem.GET(RecGPurchLineTEMP."No.") THEN BEGIN
                     RecGPurchLineTEMP."Buy-from Vendor No." := RecGitem."Vendor No.";
-                    RecGPurchLineTEMP.INSERT;
+                    RecGPurchLineTEMP.INSERT();
                 END;
-            UNTIL RecGPurchLine.NEXT <= 0;
+            UNTIL RecGPurchLine.NEXT() <= 0;
 
         RecGPurchInvLine.SETFILTER("Posting Date", '%1..%2', DatGDateDebut, DatDateFin);
         IF RecGPurchInvLine.FindSet() THEN
@@ -291,9 +291,9 @@ report 50025 "BC6_Sales Stat/Vendor Filiale"
                 RecGPurchInvLineTEMP := RecGPurchInvLine;
                 IF RecGitem.GET(RecGPurchInvLineTEMP."No.") THEN BEGIN
                     RecGPurchInvLineTEMP."Buy-from Vendor No." := RecGitem."Vendor No.";
-                    RecGPurchInvLineTEMP.INSERT;
+                    RecGPurchInvLineTEMP.INSERT();
                 END;
-            UNTIL RecGPurchInvLine.NEXT <= 0;
+            UNTIL RecGPurchInvLine.NEXT() <= 0;
 
         RecGPurchCrMemoLine.SETFILTER("Posting Date", '%1..%2', DatGDateDebut, DatDateFin);
         IF RecGPurchCrMemoLine.FindSet() THEN
@@ -301,9 +301,9 @@ report 50025 "BC6_Sales Stat/Vendor Filiale"
                 RecGPurchCrMemoLineTEMP := RecGPurchCrMemoLine;
                 IF RecGitem.GET(RecGPurchCrMemoLineTEMP."No.") THEN BEGIN
                     RecGPurchCrMemoLineTEMP."Buy-from Vendor No." := RecGitem."Vendor No.";
-                    RecGPurchCrMemoLineTEMP.INSERT;
+                    RecGPurchCrMemoLineTEMP.INSERT();
                 END;
-            UNTIL RecGPurchCrMemoLine.NEXT <= 0;
+            UNTIL RecGPurchCrMemoLine.NEXT() <= 0;
     end;
 
     var

@@ -60,7 +60,7 @@ xmlport 50001 "BC6_Import Purchase Price"
                         Trovato := GItem1.GET("Purchase Price"."Item No.");
                         IF (NOT Trovato) THEN BEGIN
                             ERROR(Text001, "Purchase Price".FIELDCAPTION("Item No."), "Purchase Price"."Item No.");
-                            currXMLport.QUIT;
+                            currXMLport.QUIT();
                         END;
                     END;
 
@@ -82,17 +82,8 @@ xmlport 50001 "BC6_Import Purchase Price"
     }
 
     var
-        TableNumber: Integer;
-        Trovato: Boolean;
-        TrovatoError: Boolean;
-        NumError: Integer;
         GItem1: Record Item;
-        GVATBusinessPostingGroup2: Record "VAT Business Posting Group";
-        PurchasePrice: Record "Purchase Price";
-        Text1: Text[1000];
-        Text2: Text[1000];
-        Vendor: Record Vendor;
-        RecGPurchasePrice: Record "Purchase Price";
+        Trovato: Boolean;
         Text001: Label '%1 %2 wrong', Comment = 'FRA="%1 %2 invalide"';
 }
 

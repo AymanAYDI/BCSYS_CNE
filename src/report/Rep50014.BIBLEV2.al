@@ -15,7 +15,7 @@ report 50014 "BC6_BIBLE V2"
             column(FORMAT_TODAY_0_4_; FORMAT(TODAY, 0, 4))
             {
             }
-            column(CurrReport_PAGENO; CurrReport.PAGENO)
+            column(CurrReport_PAGENO; CurrReport.PAGENO())
             {
             }
             column(COMPANYNAME; COMPANYNAME)
@@ -239,7 +239,7 @@ report 50014 "BC6_BIBLE V2"
                         RecLSaleHeader: Record "Sales Header";
                         decLLineAmount: Decimal;
                     begin
-                        RecGSaleLine.RESET;
+                        RecGSaleLine.RESET();
                         IF RecGSaleLine.GET(RecGSaleLine."Document Type"::Order,
                                             "Sales Shipment Line"."Order No.", "Sales Shipment Line"."Order Line No.") THEN;
 
@@ -274,14 +274,14 @@ report 50014 "BC6_BIBLE V2"
 
                 trigger OnAfterGetRecord()
                 var
-                    RecLSalesLine: Record "Sales Line";
-                    RecLSaleShipLine: Record "Sales Shipment Line";
                     RecLSalesHeader: Record "Sales Header";
-                    RecLSaleShipLine2: Record "Sales Shipment Line";
+                    RecLSalesLine: Record "Sales Line";
                     RecLSalesLine2: Record "Sales Line";
+                    RecLSaleShipLine: Record "Sales Shipment Line";
+                    RecLSaleShipLine2: Record "Sales Shipment Line";
                 begin
                     IF NOT ("Sales Shipment Header"."Posting Date" IN [DatGStartingDateShipment .. DatGEndingDateShipment]) THEN
-                        CurrReport.SKIP;
+                        CurrReport.SKIP();
 
                     DeGTotalAmount := 0;
                     DecGTotalProfit := 0;
@@ -292,16 +292,16 @@ report 50014 "BC6_BIBLE V2"
                     RecLSaleShipLine.SETRANGE(Type, RecLSalesLine.Type::Item);
                     RecLSaleShipLine.SETFILTER(Quantity, '<>%1', 0);
                     RecLSaleShipLine.SETFILTER("Qty. Shipped Not Invoiced", '<>%1', 0);
-                    IF RecLSaleShipLine.FINDFIRST THEN
+                    IF RecLSaleShipLine.FINDFIRST() THEN
                         REPEAT
-                            RecLSalesLine.RESET;
+                            RecLSalesLine.RESET();
                             IF RecLSalesLine.GET(RecLSalesLine."Document Type"::Order, RecLSaleShipLine."Order No.",
                                                  RecLSaleShipLine."Order Line No.") THEN BEGIN
                                 DeGTotalAmount := DeGTotalAmount + RecLSalesLine."BC6_Discount unit price" * RecLSaleShipLine."Qty. Shipped Not Invoiced";
                                 DecGTotalProfit := DecGTotalProfit + RecLSaleShipLine."Qty. Shipped Not Invoiced" *
                                                                      (RecLSalesLine."BC6_Discount unit price" - RecLSalesLine."BC6_Purchase cost");
                             END;
-                        UNTIL RecLSaleShipLine.NEXT = 0;
+                        UNTIL RecLSaleShipLine.NEXT() = 0;
 
                     IF DeGTotalAmount <> 0 THEN
                         DecGPourTotalProfit := DecGTotalProfit / DeGTotalAmount * 100;
@@ -311,14 +311,14 @@ report 50014 "BC6_BIBLE V2"
                     RecLSaleShipLine2.SETFILTER(Type, '<>%1', RecLSalesLine.Type::Item);
                     RecLSaleShipLine2.SETFILTER(Quantity, '<>%1', 0);
                     RecLSaleShipLine2.SETFILTER("Qty. Shipped Not Invoiced", '<>%1', 0);
-                    IF RecLSaleShipLine2.FINDFIRST THEN
+                    IF RecLSaleShipLine2.FINDFIRST() THEN
                         REPEAT
-                            RecLSalesLine2.RESET;
+                            RecLSalesLine2.RESET();
                             IF RecLSalesLine2.GET(RecLSalesLine2."Document Type"::Order, RecLSaleShipLine2."Order No.",
                                                   RecLSaleShipLine2."Order Line No.") THEN
                                 //DecGAmount := DecGAmount + RecLSalesLine2."Discount unit price" * RecLSaleShipLine2."Qty. Shipped Not Invoiced";
                                 DecGAmount := DecGAmount + RecLSalesLine2."Unit Price" * RecLSaleShipLine2."Qty. Shipped Not Invoiced";
-                        UNTIL RecLSaleShipLine2.NEXT = 0;
+                        UNTIL RecLSaleShipLine2.NEXT() = 0;
                     //>>The Bible CASC [FE020.V2] 17/01/2007
                     //DecGChargeAmount := DecGAmount -  DeGTotalAmount;
                     DecGChargeAmount := DecGAmount;
@@ -359,47 +359,47 @@ report 50014 "BC6_BIBLE V2"
 
                 trigger OnAfterGetRecord()
                 var
-                    RecLSaleShipLine: Record "Sales Shipment Line";
                     RecLSalesLine: Record "Sales Line";
-                    RecLSaleShipLine2: Record "Sales Shipment Line";
                     RecLSalesLine2: Record "Sales Line";
+                    RecLSaleShipLine: Record "Sales Shipment Line";
+                    RecLSaleShipLine2: Record "Sales Shipment Line";
                     DecLExpAmount: Decimal;
                 begin
                     IF NOT (SalesShipmentHeader2."Posting Date" IN [DatGStartingDateOrder .. DatGEndingDateOrder]) THEN
-                        CurrReport.SKIP;
+                        CurrReport.SKIP();
 
                     //Calculation of the delivery order footer Period2
-                    RecLSaleShipLine.RESET;
+                    RecLSaleShipLine.RESET();
                     RecLSaleShipLine.SETFILTER("Document No.", "No.");
                     RecLSaleShipLine.SETRANGE(Type, RecLSalesLine.Type::Item);
                     RecLSaleShipLine.SETFILTER(Quantity, '<>%1', 0);
                     RecLSaleShipLine.SETFILTER("Qty. Shipped Not Invoiced", '<>%1', 0);
-                    IF RecLSaleShipLine.FINDFIRST THEN
+                    IF RecLSaleShipLine.FINDFIRST() THEN
                         REPEAT
-                            RecLSalesLine.RESET;
+                            RecLSalesLine.RESET();
                             IF RecLSalesLine.GET(RecLSalesLine."Document Type"::Order, RecLSaleShipLine."Order No.",
                                                  RecLSaleShipLine."Order Line No.") THEN
                                 DecGTotOrderAmount := DecGTotOrderAmount + RecLSalesLine."BC6_Discount unit price" * RecLSaleShipLine."Qty. Shipped Not Invoiced";
                             DecGTotOrderProfit := DecGTotOrderProfit + RecLSaleShipLine."Qty. Shipped Not Invoiced" *
                                                                        (RecLSalesLine."BC6_Discount unit price" - RecLSalesLine."BC6_Purchase cost");
 
-                        UNTIL RecLSaleShipLine.NEXT = 0;
+                        UNTIL RecLSaleShipLine.NEXT() = 0;
 
                     IF DecGTotOrderAmount <> 0 THEN
                         DecGTotOrderPourProfit := DecGTotOrderProfit / DecGTotOrderAmount * 100;
 
-                    RecLSaleShipLine2.RESET;
+                    RecLSaleShipLine2.RESET();
                     RecLSaleShipLine2.SETFILTER("Document No.", "No.");
                     RecLSaleShipLine2.SETFILTER(Type, '<>%1', RecLSalesLine2.Type::Item);
                     RecLSaleShipLine2.SETFILTER(Quantity, '<>%1', 0);
                     RecLSaleShipLine2.SETFILTER("Qty. Shipped Not Invoiced", '<>%1', 0);
-                    IF RecLSaleShipLine2.FINDFIRST THEN
+                    IF RecLSaleShipLine2.FINDFIRST() THEN
                         REPEAT
-                            RecLSalesLine2.RESET;
+                            RecLSalesLine2.RESET();
                             IF RecLSalesLine2.GET(RecLSalesLine2."Document Type"::Order, RecLSaleShipLine2."Order No.",
                                                   RecLSaleShipLine2."Order Line No.") THEN;
                             DecLExpAmount := DecLExpAmount + RecLSalesLine2."Unit Price" * RecLSaleShipLine2."Qty. Shipped Not Invoiced";
-                        UNTIL RecLSaleShipLine2.NEXT = 0;
+                        UNTIL RecLSaleShipLine2.NEXT() = 0;
 
                     DecGTotBLExpAmount := DecGTotBLExpAmount + DecLExpAmount;
                 end;
@@ -514,10 +514,10 @@ report 50014 "BC6_BIBLE V2"
                     begin
                         //>> 29.03.2012 Begin
                         IF NOT SalesLineDateOk("Shipment Date", "BC6_Purchase Receipt Date", RecGSaleLine."BC6_Invoiced Date (Expected)") THEN
-                            CurrReport.SKIP;
+                            CurrReport.SKIP();
 
                         IF ("Quantity Shipped" = Quantity) THEN
-                            CurrReport.SKIP;
+                            CurrReport.SKIP();
 
                         IF NOT BooGFlag THEN BEGIN
                             IntGNbCde := IntGNbCde + 1;
@@ -548,9 +548,9 @@ report 50014 "BC6_BIBLE V2"
                 var
                     RecLSalesLine: Record "Sales Line";
                     RecLSalesLine2: Record "Sales Line";
-                    IntLLine: Integer;
-                    DecGAmount: Decimal;
                     BoolSalesLineFound: Boolean;
+                    DecGAmount: Decimal;
+                    IntLLine: Integer;
                 begin
                     RecLSalesLine.SETRANGE("Document Type", "Sales Header"."Document Type");
                     RecLSalesLine.SETFILTER("Document No.", "Sales Header"."No.");
@@ -563,11 +563,11 @@ report 50014 "BC6_BIBLE V2"
                     //>> 29.03.2012 Begin
                     // RecLSalesLine.SETRANGE("Shipment Date", DatGStartingDateOrder, DatGEndingDateOrder);
                     BoolSalesLineFound := FALSE;
-                    IF RecLSalesLine.FINDFIRST THEN
+                    IF RecLSalesLine.FINDFIRST() THEN
                         REPEAT
                             IF SalesLineDateOk(RecLSalesLine."Shipment Date", RecLSalesLine."BC6_Purchase Receipt Date", RecGSaleLine."BC6_Invoiced Date (Expected)") THEN
                                 BoolSalesLineFound := TRUE;
-                        UNTIL (RecLSalesLine.NEXT = 0) OR BoolSalesLineFound;
+                        UNTIL (RecLSalesLine.NEXT() = 0) OR BoolSalesLineFound;
                     //>> End
 
                     //<< TODOLIST DARI 07/03/2007 point 70 - Evolution
@@ -587,7 +587,7 @@ report 50014 "BC6_BIBLE V2"
                     //Evol IF NOT (("Sales Header"."Shipment Date" IN [DatGStartingDateOrder..DatGEndingDateOrder]) OR BoolSalesLineFound) THEN
 
                     IF NOT BoolSalesLineFound THEN
-                        CurrReport.SKIP;
+                        CurrReport.SKIP();
                     //<<TODOLIST DARI 07/03/2007 point 70
                     //<<TODOLIST DARI 07/03/2007 point 70 - Evolution
 
@@ -607,7 +607,7 @@ report 50014 "BC6_BIBLE V2"
                     //<<FLGR
                     */
 
-                    IF RecLSalesLine.FINDFIRST THEN
+                    IF RecLSalesLine.FINDFIRST() THEN
                         REPEAT
                             //>>TODOLIST DARI 07/03/2007 point 70
                             // IF Qty Shipped = 0 => "Outstanding Quantity" = Quantity
@@ -625,7 +625,7 @@ report 50014 "BC6_BIBLE V2"
                             END;
                         //<<TODOLIST DARI 07/03/2007 point 70
 
-                        UNTIL RecLSalesLine.NEXT = 0;
+                        UNTIL RecLSalesLine.NEXT() = 0;
 
                     IF DecGTotalOrderAmount <> 0 THEN
                         DecGTotalOrderPour := DecGTotalOrderProfit / DecGTotalOrderAmount * 100;
@@ -639,12 +639,12 @@ report 50014 "BC6_BIBLE V2"
                     // RecLSalesLine2.SETRANGE("Shipment Date", DatGStartingDateOrder, DatGEndingDateOrder);
                     //<<FLGR
 
-                    IF RecLSalesLine2.FINDFIRST THEN
+                    IF RecLSalesLine2.FINDFIRST() THEN
                         REPEAT
                             //>> 29.03.2012 Begin
                             IF SalesLineDateOk(RecLSalesLine2."Shipment Date", RecLSalesLine2."BC6_Purchase Receipt Date", RecGSaleLine."BC6_Invoiced Date (Expected)") THEN
                                 DecGAmount := DecGAmount + RecLSalesLine2.Amount;
-                        UNTIL RecLSalesLine2.NEXT = 0;
+                        UNTIL RecLSalesLine2.NEXT() = 0;
 
                     //>>The Bible CASC [FE020.V2] 17/01/2007
                     //DecGTotOrderexpAmount := DecGAmount - DecGTotalOrderAmount;
@@ -718,10 +718,10 @@ report 50014 "BC6_BIBLE V2"
 
     trigger OnInitReport()
     begin
-        DatGStartingDateShipment := WORKDATE;
-        DatGEndingDateShipment := WORKDATE;
-        DatGStartingDateOrder := CALCDATE('-1M+FM+1J', WORKDATE);
-        DatGEndingDateOrder := CALCDATE('+FM', WORKDATE);
+        DatGStartingDateShipment := WORKDATE();
+        DatGEndingDateShipment := WORKDATE();
+        DatGStartingDateOrder := CALCDATE('-1M+FM+1J', WORKDATE());
+        DatGEndingDateOrder := CALCDATE('+FM', WORKDATE());
 
         IF (DatGStartingDateShipment = 0D) OR (DatGEndingDateShipment = 0D) OR (DatGStartingDateOrder = 0D) OR (DatGEndingDateOrder = 0D) THEN
             ERROR('Veuillez renseigner toutes les dates.');
@@ -730,71 +730,71 @@ report 50014 "BC6_BIBLE V2"
     var
         RecGSaleHeader: Record "Sales Header";
         RecGSaleLine: Record "Sales Line";
-        DatGStartingDateShipment: Date;
+        BooGFlag: Boolean;
+        DatGEndingDateOrder: Date;
         DatGEndingDateShipment: Date;
         DatGStartingDateOrder: Date;
-        DatGEndingDateOrder: Date;
-        IntGNbCde: Integer;
-        IntGOrderLine: Integer;
-        IntGNbLine: Integer;
-        BooGFlag: Boolean;
-        DecGDiscountUnitPrice: Decimal;
-        DecGProfitAmount: Decimal;
-        DecGPourcProfit: Decimal;
-        DecGChargeAmount: Decimal;
-        DeGTotalAmount: Decimal;
-        DecGTotalProfit: Decimal;
-        DecGPourTotalProfit: Decimal;
+        DatGStartingDateShipment: Date;
         DecGAmount: Decimal;
-        DecGTotBLAmount: Decimal;
-        DecGTotBLProfit: Decimal;
-        DecGTotBLPourcProf: Decimal;
-        DecGTotBLExpAmount: Decimal;
-        DecGTotPour: Decimal;
-        DecGTotExpAmount: Decimal;
-        DecGTotOrderAmount: Decimal;
-        DecGTotOrderProfit: Decimal;
-        DecGTotOrderPourProfit: Decimal;
-        DecGTotOrderexpAmount: Decimal;
-        DecGTotOrderAmount2: Decimal;
+        DecGChargeAmount: Decimal;
+        DecGDiscountUnitPrice: Decimal;
         DecGOrderPour: Decimal;
-        DecGTotalOrderPour: Decimal;
+        DecGPourcProfit: Decimal;
+        DecGPourTotalProfit: Decimal;
+        DecGProfitAmount: Decimal;
         DecGTotalOrderAmount: Decimal;
+        DecGTotalOrderPour: Decimal;
         DecGTotalOrderProfit: Decimal;
-        DecGTotOrdPour: Decimal;
+        DecGTotalProfit: Decimal;
         DecGTotalPurchCost: Decimal;
-        "//--Total Order Period2--//": Integer;
-        DecGTotPeriod2Amount: Decimal;
-        DecGTotPeriod2Profit: Decimal;
-        DecGTotPeriod2Pourc: Decimal;
-        DecGTotPeriod2Exp: Decimal;
-        DecTotBLOrderPourc: Decimal;
+        DecGTotBLAmount: Decimal;
+        DecGTotBLExpAmount: Decimal;
+        DecGTotBLPourcProf: Decimal;
+        DecGTotBLProfit: Decimal;
+        DecGTotExpAmount: Decimal;
         DecGTotMarge: Decimal;
+        DecGTotOrderAmount: Decimal;
+        DecGTotOrderAmount2: Decimal;
+        DecGTotOrderexpAmount: Decimal;
+        DecGTotOrderPourProfit: Decimal;
+        DecGTotOrderProfit: Decimal;
+        DecGTotOrdPour: Decimal;
+        DecGTotPeriod2Amount: Decimal;
+        DecGTotPeriod2Exp: Decimal;
+        DecGTotPeriod2Pourc: Decimal;
+        DecGTotPeriod2Profit: Decimal;
+        DecGTotPour: Decimal;
+        DecTotBLOrderPourc: Decimal;
+        DeGTotalAmount: Decimal;
         "--FEP-ADVE-200711_21_A--": Integer;
-        TxtGDerogation: Text[30];
-        Customer___Top_10_ListCaptionLbl: Label 'Customer - Top 10 List', Comment = 'FRA="LISTE DES BL ET RELIQUAT COMMANDE AVEC MARGES"';
+        "//--Total Order Period2--//": Integer;
+        IntGNbCde: Integer;
+        IntGNbLine: Integer;
+        IntGOrderLine: Integer;
         CurrReport_PAGENOCaptionLbl: Label 'Page', Comment = 'FRA="Page"';
+        Customer___Top_10_ListCaptionLbl: Label 'Customer - Top 10 List', Comment = 'FRA="LISTE DES BL ET RELIQUAT COMMANDE AVEC MARGES"';
+        DecGChargeAmountCaptionLbl: Label 'Expense Amount', Comment = 'FRA="Montant frais"';
+        DecGOrderPourCaptionLbl: Label '% Profit', Comment = 'FRA="% marge"';
+        DecGPourcProfitCaptionLbl: Label '% Profit', Comment = 'FRA="% marge"';
+        DecGPourTotalProfitCaptionLbl: Label '% Profit', Comment = 'FRA="% marge"';
+        DecGTotalOrderAmountCaptionLbl: Label 'Item Total Amount', Comment = 'FRA="Montant total article"';
+        DecGTotalOrderPourCaptionLbl: Label '% Profit', Comment = 'FRA="% marge"';
+        DecGTotalOrderProfitCaptionLbl: Label 'Profit Amount', Comment = 'FRA="Montant  marge"';
+        DecGTotalProfitCaptionLbl: Label 'Profit Amount', Comment = 'FRA="Montant  marge"';
+        DecGTotOrderexpAmountCaptionLbl: Label 'Expense Amount', Comment = 'FRA="Montant frais"';
+        DeGTotalAmountCaptionLbl: Label 'Item Total Amount', Comment = 'FRA="Montant total article"';
+        Delivery_OrderCaptionLbl: Label 'Delivery Order', Comment = 'FRA="Bon de livraison"';
+        OrderCaptionLbl: Label 'Order', Comment = 'FRA="Commande"';
         RecGSaleLine__Discount_unit_price_CaptionLbl: Label 'Discount Excluding VAT Unit Price', Comment = 'FRA="Prix unitaire net remisé"';
+        Sales_Line___Outstanding_Quantity______Sales_Line___Discount_unit_price_____Sales_Line___Purchase_cost__CaptionLbl: Label 'Profil Amount', Comment = 'FRA="Montant marge"';
+        Sales_Line___Outstanding_Quantity_____Sales_Line___Discount_unit_price_CaptionLbl: Label 'Line Amount Excluding VAT', Comment = 'FRA="Montant ligne HT"';
+        Sales_Line__Sales_Line___Discount_unit_price_CaptionLbl: Label 'Discount Excluding VAT Unit Price', Comment = 'FRA="Prix unitaire net remisé"';
+        Sales_Line__Sales_Line___No__CaptionLbl: Label 'No.', Comment = 'FRA="N°"';
+        Sales_Line__Sales_Line___Outstanding_Quantity_CaptionLbl: Label 'Quantity', Comment = 'FRA="Quantité"';
+        Sales_Line__Sales_Line__DescriptionCaptionLbl: Label 'Description', Comment = 'FRA="Désignation"';
         Sales_Shipment_Line___Qty__Shipped_Not_Invoiced_____RecGSaleLine__Discount_unit_price_CaptionLbl: Label 'Line Amount Excluding VAT', Comment = 'FRA="Montant ligne HT"';
         Sales_Shipment_Line_Qty_Shipped_Not_Invoiced_RecGSaleLine_Discount_unit_price_RecGSaleLine_Purchase_cost_CaptionLbl: Label 'Profil Amount', Comment = 'FRA="Montant ligne HT"';
-        DecGPourcProfitCaptionLbl: Label '% Profit', Comment = 'FRA="% marge"';
-        DeGTotalAmountCaptionLbl: Label 'Item Total Amount', Comment = 'FRA="Montant total article"';
-        DecGTotalProfitCaptionLbl: Label 'Profit Amount', Comment = 'FRA="Montant  marge"';
-        DecGPourTotalProfitCaptionLbl: Label '% Profit', Comment = 'FRA="% marge"';
-        DecGChargeAmountCaptionLbl: Label 'Expense Amount', Comment = 'FRA="Montant frais"';
-        Delivery_OrderCaptionLbl: Label 'Delivery Order', Comment = 'FRA="Bon de livraison"';
-        Sales_Line__Sales_Line___No__CaptionLbl: Label 'No.', Comment = 'FRA="N°"';
-        Sales_Line__Sales_Line__DescriptionCaptionLbl: Label 'Description', Comment = 'FRA="Désignation"';
-        Sales_Line__Sales_Line___Outstanding_Quantity_CaptionLbl: Label 'Quantity', Comment = 'FRA="Quantité"';
-        Sales_Line__Sales_Line___Discount_unit_price_CaptionLbl: Label 'Discount Excluding VAT Unit Price', Comment = 'FRA="Prix unitaire net remisé"';
-        Sales_Line___Outstanding_Quantity_____Sales_Line___Discount_unit_price_CaptionLbl: Label 'Line Amount Excluding VAT', Comment = 'FRA="Montant ligne HT"';
-        Sales_Line___Outstanding_Quantity______Sales_Line___Discount_unit_price_____Sales_Line___Purchase_cost__CaptionLbl: Label 'Profil Amount', Comment = 'FRA="Montant marge"';
-        DecGOrderPourCaptionLbl: Label '% Profit', Comment = 'FRA="% marge"';
-        DecGTotalOrderAmountCaptionLbl: Label 'Item Total Amount', Comment = 'FRA="Montant total article"';
-        DecGTotalOrderProfitCaptionLbl: Label 'Profit Amount', Comment = 'FRA="Montant  marge"';
-        DecGTotalOrderPourCaptionLbl: Label '% Profit', Comment = 'FRA="% marge"';
-        DecGTotOrderexpAmountCaptionLbl: Label 'Expense Amount', Comment = 'FRA="Montant frais"';
-        OrderCaptionLbl: Label 'Order', Comment = 'FRA="Commande"';
+        TxtGDerogation: Text[30];
 
 
     procedure SalesLineDateOk(ShipmentDate: Date; ReceiptDate: Date; InvoicedDate: Date): Boolean

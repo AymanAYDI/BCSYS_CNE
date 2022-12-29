@@ -14613,7 +14613,6 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Blocked Items - NamedType Text004</note>
         </trans-unit>
-<<<<<<< HEAD
         <trans-unit id="Report 971693637 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Calculate Plan - Req. Wksh.</source>
           <note from="Developer" annotates="general" priority="2">FRA="Calculer planning - F. demande"</note>
@@ -14683,7 +14682,7 @@
           <source>Use Forecast</source>
           <note from="Developer" annotates="general" priority="2">FRA="Utiliser prévisions"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calcul Plan - Req. Wksh. - Control UseForecast - Property Caption</note>
-=======
+        </trans-unit>
         <trans-unit id="Report 4095111458 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Calculate Inventory</source>
           <note from="Developer" annotates="general" priority="2">FRA="Calculer Inventaire"</note>
@@ -14768,7 +14767,6 @@
           <source>Posting Date</source>
           <note from="Developer" annotates="general" priority="2">FRA="Date comptabilisation"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calculate Inventory - Control PostingDate - Property Caption</note>
->>>>>>> 95830f92aafde9120a9b1537f48167f74ae4e363
         </trans-unit>
         <trans-unit id="Report 1995640998 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Combine Shipments</source>
@@ -14949,6 +14947,66 @@
           <source>Sell-to Customer No.</source>
           <note from="Developer" annotates="general" priority="2">FRA="N° donneur d'ordre"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Copy Sales Document - Control SellToCustNo - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1282456437 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Create Ret.-Related Documents</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Créer doc. associés retour"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Create Ret.-Related Doc - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1282456437 - NamedType 717718431" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Unable to create related documents for sales return because they are already generated.\ Purchase return: %1 \ Purchase order: %2 \ Sales order: %3</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Impossible de créer les documents associés pour le retour vente car ils sont déjà générés.\ Retour achat : %1 \ Commande achat : %2 \ Commande vente : %3"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Create Ret.-Related Doc - NamedType ErrorAlreadyExist</note>
+        </trans-unit>
+        <trans-unit id="Report 1282456437 - NamedType 624916758" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The associated Puchase order has already been generated. \ Please see the action View associated documents.</source>
+          <note from="Developer" annotates="general" priority="2">FRA="La commande achat associée est déjà générée.\Veuillez consulter l'action Affichage documents associés."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Create Ret.-Related Doc - NamedType ErrorPurchOrderExists</note>
+        </trans-unit>
+        <trans-unit id="Report 1282456437 - NamedType 3075561196" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The associated Purchase Return has already been generated. \ Please see the action View associated documents.</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Le retour ahat associé est déjà généré.\Veuillez consulter l'action Affichage documents associés."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Create Ret.-Related Doc - NamedType ErrorReturnPurchOrderExists</note>
+        </trans-unit>
+        <trans-unit id="Report 1282456437 - NamedType 1264192770" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The associated sales order has already been generated. \ Please see the action View associated documents.</source>
+          <note from="Developer" annotates="general" priority="2">FRA="La commande vente associée est déjà générée.\Veuillez consulter l'action Affichage documents associés."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Create Ret.-Related Doc - NamedType ErrorSalesOrderExists</note>
+        </trans-unit>
+        <trans-unit id="Report 1282456437 - Control 2346885236 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Options</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Options"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Create Ret.-Related Doc - Control Options - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1282456437 - Control 1577904858 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Replacement</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Remplacement"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Create Ret.-Related Doc - Control Replacement - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1282456437 - Control 2648269774 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Create Sales Order</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Créer commande vente"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Create Ret.-Related Doc - Control CreateSalesOrder - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1282456437 - Control 3490530119 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Return to Vendor</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Retour fournisseur"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Create Ret.-Related Doc - Control Return to Vendor - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1282456437 - Control 1315191579 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Create Purchase Order</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Créer commande achat"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Create Ret.-Related Doc - Control CreatePurchaseOrder - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1282456437 - Control 2037296855 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Create Purch. Ret. Order</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Créer retour achat"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Create Ret.-Related Doc - Control CreatePurchRetOrder - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 1282456437 - Control 1607295407 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Vendor No.</source>
+          <note from="Developer" annotates="general" priority="2">FRA="N° fournisseur"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Create Ret.-Related Doc - Control VendorNo - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 1565637661 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Creation Auto Cde Achat</source>

@@ -71,21 +71,16 @@ codeunit 50203 "BC6_PagesEvents"
                     END;
             end;
     end;
-    //PAGE 161 //TODO
+    //PAGE 161 
     [EventSubscriber(ObjectType::Page, Page::"Purchase Statistics", 'OnAfterCalculateTotals', '', false, false)]
     local procedure P161_OnAfterCalculateTotals(var PurchHeader: Record "Purchase Header"; var TotalPurchLine: Record "Purchase Line"; var TotalPurchLineLCY: Record "Purchase Line"; var TempVATAmountLine: Record "VAT Amount Line" temporary; var TotalAmt1: Decimal; var TotalAmt2: Decimal)
-    var
-        TempPurchLine: Record "Purchase Line" temporary;
-        PurchPost: Codeunit "Purch.-Post";
-        //TODO---check the global decimal variables.. 
-        DecGTTCAmount: Decimal;
     begin
         //TODO://  SumPurchLinesTemp has changes in the parameters (when we merge the cod90)
         // PurchPost.SumPurchLinesTemp(
         //  PurchHeader , TempPurchLine, 0, TempPurchLine, TotalPurchLineLCY, VATAmount, VATAmountText,DecGHTAmount,DecGVATAmount,DecGTTCAmount,DecGHTAmountLCY);
-        IF not PurchHeader."Prices Including VAT" THEN begin
-            TotalAmt2 := TotalAmt2 + DecGTTCAmount;
-        END;
+        TotalAmt1 += TotalPurchLine."BC6_DEEE VAT Amount";
+        IF not PurchHeader."Prices Including VAT" THEN
+            TotalAmt2 += TotalPurchLine."BC6_DEEE TTC Amount";
     end;
 
     [EventSubscriber(ObjectType::Page, Page::"Purchase Statistics", 'OnAfterUpdateHeaderInfo', '', false, false)]
@@ -220,8 +215,27 @@ codeunit 50203 "BC6_PagesEvents"
     end;
 
     //ligne718 
-    // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnAfterPostVendorEntry', '', false, false)]
-    // procedure COD90_OnAfterPostVendorEntry(var GenJnlLine: Record "Gen. Journal Line"; var PurchHeader: Record "Purchase Header"; var TotalPurchLine: Record "Purchase Line"; var TotalPurchLineLCY: Record "Purchase Line"; CommitIsSupressed: Boolean; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line")
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnAfterPostVendorEntry', '', false, false)]
+    procedure COD90_OnAfterPostVendorEntry(var GenJnlLine: Record "Gen. Journal Line"; var PurchHeader: Record "Purchase Header"; var TotalPurchLine: Record "Purchase Line"; var TotalPurchLineLCY: Record "Purchase Line"; CommitIsSupressed: Boolean; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line")
+    var
+        _EcoPartnerDEEE: Code[10];
+        _DEEECategoryCode: code[10];
+        GlobalFunction: Codeunit "BC6_GlobalFunctionMgt";
+    begin
+
+        GenJnlLine."BC6_DEEE HT Amount" := TotalPurchLine."BC6_DEEE HT Amount";
+        GenJnlLine."BC6_DEEE VAT Amount" := TotalPurchLine."BC6_DEEE VAT Amount";
+        GenJnlLine."BC6_DEEE TTC Amount" := TotalPurchLine."BC6_DEEE TTC Amount";
+        GenJnlLine."BC6_DEEE HT Amount (LCY)" := TotalPurchLine."BC6_DEEE HT Amount (LCY)";
+        GenJnlLine."BC6_Eco partner DEEE" := _EcoPartnerDEEE;
+        GenJnlLine."BC6_DEEE Category Code" := _DEEECategoryCode;
+
+        GenJnlLine.Amount := GenJnlLine.Amount - GlobalFunction.GetGDecMntTTCDEEE();
+        GenJnlLine."Source Currency Amount" := GenJnlLine."Source Currency Amount" - GlobalFunction.GetGDecMntTTCDEEE();
+        GenJnlLine."Amount (LCY)" := GenJnlLine."Amount (LCY)" - GlobalFunction.GetGDecMntTTCDEEE();
+        GenJnlLine."Payment Method Code" := GenJnlLine."Payment Method Code";
+
+    end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch. Post Invoice Events", 'OnPostLedgerEntryOnAfterGenJnlPostLine', '', false, false)]
 

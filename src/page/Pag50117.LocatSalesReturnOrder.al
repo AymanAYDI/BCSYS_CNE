@@ -1271,7 +1271,7 @@ page 50117 "BC6_Locat. Sales Return Order"
     begin
         L_UserSetup.RESET;
         L_UserSetup.SETRANGE("BC6_SAV Admin", TRUE);
-        IF L_UserSetup.FINDFIRST THEN begin
+        IF L_UserSetup.FINDFIRST() THEN begin
             WorkflowStepInstance.Get();
             if WorkflowStepArgument.Get(WorkflowStepInstance.Argument) then
                 REPEAT

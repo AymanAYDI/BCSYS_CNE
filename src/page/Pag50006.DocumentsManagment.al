@@ -82,13 +82,13 @@ page 50006 "BC6_Documents Managment"
                 trigger OnAction()
                 var
                     RecGNaviSetup: Record "BC6_Navi+ Setup";
+                    FileManagement: Codeunit "File Management";
                     InStr: InStream;
                 begin
 
                     IF "Table No." <> 167 THEN
                         //TODO:CHEKME "Path and file" := CduGFileManagement.OpenFileDialog(STRSUBSTNO(TxtG001), "Path and file", '*.*|*.*')
                     UPLOADINTOSTREAM(STRSUBSTNO(TxtG001), '', '(*.*)|*.*', "Path and file", InStr)
-
                     ELSE
                         IF RecGNaviSetup.FindFirst() THEN
                             IF RecGNaviSetup."Default Directory" <> '' THEN
@@ -97,7 +97,7 @@ page 50006 "BC6_Documents Managment"
 
                             ELSE
                                 ERROR(Text003);
-
+                    //"Path and file" := FileManagement.UploadFile(STRSUBSTNO(TxtG001),"Path and file" + '*.*|*.*');
                     CurrPage.UPDATE(TRUE);
                 end;
             }

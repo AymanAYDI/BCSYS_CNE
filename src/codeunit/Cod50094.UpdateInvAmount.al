@@ -30,10 +30,10 @@ codeunit 50094 "BC6_Update Inv. Amount"
     end;
 
     var
-        ItemJnlLine: Record "Item Journal Line";
         Item: Record Item;
-        Counter: Integer;
-        Window: Dialog;
+        ItemJnlLine: Record "Item Journal Line";
         InvDate: Date;
+        Window: Dialog;
+        Counter: Integer;
 }
 

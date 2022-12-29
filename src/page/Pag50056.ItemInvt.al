@@ -58,7 +58,7 @@ page 50056 "BC6_Item Invt."
                         1:
                             BEGIN
                                 CLEAR(ItemForm);
-                                Item.RESET;
+                                Item.RESET();
                                 //>>TI318739
                                 Item.SETRANGE(Blocked, FALSE);
                                 //<<TI318739
@@ -67,12 +67,12 @@ page 50056 "BC6_Item Invt."
                                 IF ItemNo <> '' THEN
                                     IF Item.GET(ItemNo) THEN
                                         ItemForm.SETRECORD(Item);
-                                IF ItemForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                                IF ItemForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                                     ItemForm.GETRECORD(Item);
                                     ItemNo := Item."No.";
                                     CurrPage.ScanZone.SetText(1, ItemNo);
                                     LocationCode := '';
-                                    CurrPage.SAVERECORD;
+                                    CurrPage.SAVERECORD();
                                     AssignItemNo(ItemNo);
                                 END;
                             END;
@@ -290,25 +290,25 @@ page 50056 "BC6_Item Invt."
     end;
 
     var
+        Bin: Record Bin;
         Item: Record Item;
         Location: Record Location;
-        Bin: Record Bin;
-        ItemNo: Code[20];
-        ItemNo2: Code[20];
-        ItemDescription: Text[250];
-        LocationCode: Code[20];
-        DistInt: Codeunit "Dist. Integration";
         FunctionsMgt: Codeunit "BC6_Functions Mgt";
+        ScanDeviceHelper: Codeunit BC6_ScanDeviceHelper;
+        DistInt: Codeunit "Dist. Integration";
+        BinForm: Page "BC6_Bin List MiniForm";
         ItemForm: Page "BC6_Item List MiniForm";
         LocationForm: Page "BC6_Location List MiniForm";
-        BinForm: Page "BC6_Bin List MiniForm";
         BoolWait: Boolean;
-        ScanDeviceHelper: Codeunit BC6_ScanDeviceHelper;
-        [InDataSet]
-        IsVisibleSearch: Boolean;
-        ItemNoCaption: Label 'Item No.', Comment = 'FRA="N° Article"';
         [InDataSet]
         IsChangeBinEnabled: Boolean;
+        [InDataSet]
+        IsVisibleSearch: Boolean;
+        ItemNo: Code[20];
+        ItemNo2: Code[20];
+        LocationCode: Code[20];
+        ItemNoCaption: Label 'Item No.', Comment = 'FRA="N° Article"';
+        ItemDescription: Text[250];
 
 
     procedure SetRecFilters()

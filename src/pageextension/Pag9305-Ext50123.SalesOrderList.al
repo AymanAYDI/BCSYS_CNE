@@ -122,15 +122,15 @@ pageextension 50123 "BC6_SalesOrderList" extends "Sales Order List" //9305
     }
 
     var
-        "- TDL.78 -": Integer;
-        DecGProfit: Decimal;
-        DecGProfitPct: Decimal;
-        [InDataSet]
-        BooGVisible: Boolean;
+        SalesSetup: Record "Sales & Receivables Setup";
+        RecGUserSeup: Record "User Setup";
         [InDataSet]
         BooGEditSalesperson: Boolean;
-        RecGUserSeup: Record "User Setup";
-        SalesSetup: Record "Sales & Receivables Setup";
+        [InDataSet]
+        BooGVisible: Boolean;
+        DecGProfit: Decimal;
+        DecGProfitPct: Decimal;
+        "- TDL.78 -": Integer;
 
     trigger OnOpenPage()
     begin
@@ -167,8 +167,8 @@ pageextension 50123 "BC6_SalesOrderList" extends "Sales Order List" //9305
 
     procedure IsProfitVisible()
     var
-        RecLSalesSetup: Record "Sales & Receivables Setup";
         RecLAccessCtrl: Record "Access Control";
+        RecLSalesSetup: Record "Sales & Receivables Setup";
     begin
         RecLSalesSetup.GET();
         RecLSalesSetup.TESTFIELD("BC6_allow Profit% to");
@@ -183,8 +183,8 @@ pageextension 50123 "BC6_SalesOrderList" extends "Sales Order List" //9305
     procedure CalcProfit()
     var
         RecLSalesLine: Record "Sales Line";
-        DecLPurchCost: Decimal;
         DecLAmount: Decimal;
+        DecLPurchCost: Decimal;
     begin
         IF BooGVisible THEN BEGIN
             DecLPurchCost := 0;

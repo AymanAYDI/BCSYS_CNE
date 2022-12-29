@@ -1,9 +1,9 @@
 codeunit 50090 "BC6_ScanDeviceHelper"
 {
     var
+        ConfChange: label 'Change default Bin Content for Item %1 ?', comment = 'FRA="Changer l''emplacement par défaut pour l''article %1 ?"';
         ConvertFrom: label '&é"''(-è_çà';
         ConvertTo: label '1234567890';
-        ConfChange: label 'Change default Bin Content for Item %1 ?', comment = 'FRA="Changer l''emplacement par défaut pour l''article %1 ?"';
 
 
     procedure ConvertScanData(_TextToConvert: Text): Text
@@ -22,7 +22,7 @@ codeunit 50090 "BC6_ScanDeviceHelper"
             BinContent.SETRANGE("Item No.", ItemNo);
             BinContent.SETRANGE("Variant Code", VariantCode);
             BinContent.FILTERGROUP(0);
-            if ACTION::LookupOK = PAGE.RUNMODAL(PAGE::"Item Bin Contents", BinContent) then begin
+            if ACTION::LookupOK = PAGE.RUNMODAL(PAGE::"Item Bin Contents", BinContent) then
                 if not BinContent.Default then begin
                     BinContent2.SETRANGE("Item No.", ItemNo);
                     BinContent2.SETRANGE("Variant Code", VariantCode);
@@ -32,7 +32,7 @@ codeunit 50090 "BC6_ScanDeviceHelper"
                     BinContent2.VALIDATE(Default, true);
                     BinContent2.MODIFY(true);
                 end;
-            end;
+
 
         end;
     end;
@@ -45,7 +45,7 @@ codeunit 50090 "BC6_ScanDeviceHelper"
         BinContent.SETRANGE("Item No.", ItemNo);
         BinContent.SETRANGE("Variant Code", VariantCode);
         BinContent.SETRANGE(Default, true);
-        if BinContent.FINDFIRST then
+        if BinContent.FINDFIRST() then
             exit(BinContent."Bin Code");
     end;
 

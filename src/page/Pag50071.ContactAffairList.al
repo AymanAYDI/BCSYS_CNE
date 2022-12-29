@@ -101,16 +101,16 @@ page 50071 "BC6_Contact Affair List"
 
     trigger OnAfterGetRecord()
     begin
-        OnAfterGetCurrRecord;
-        AffairNoOnFormat;
-        ContactNoOnFormat;
-        ContactNameOnFormat;
-        RelationTypeOnFormat;
-        RelationDescriptionOnFormat;
-        PhoneNoOnFormat;
-        NoOnFormat;
-        CompanyNoOnFormat;
-        TypeOnFormat;
+        OnAfterGetCurrRecord();
+        AffairNoOnFormat();
+        ContactNoOnFormat();
+        ContactNameOnFormat();
+        RelationTypeOnFormat();
+        RelationDescriptionOnFormat();
+        PhoneNoOnFormat();
+        NoOnFormat();
+        CompanyNoOnFormat();
+        TypeOnFormat();
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)

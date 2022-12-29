@@ -188,12 +188,12 @@ page 50040 "Return Rcpt Lines Subform 2"
     end;
 
     var
+        RecGReturnReceiptHeader: Record "Return Receipt Header";
         TempReturnRcptLine: Record "Return Receipt Line" temporary;
         [InDataSet]
-        "Document No.HideValue": Boolean;
-        [InDataSet]
         "Document No.Emphasize": Boolean;
-        RecGReturnReceiptHeader: Record "Return Receipt Header";
+        [InDataSet]
+        "Document No.HideValue": Boolean;
 
     local procedure IsFirstDocLine(): Boolean
     var

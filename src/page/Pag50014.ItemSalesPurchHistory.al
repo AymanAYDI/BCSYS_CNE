@@ -49,52 +49,52 @@ page 50014 "BC6_Item Sales/Purch. History"
 
                 }
 
-                field(Quotes; STRSUBSTNO('(%1)', NoOfQuotes))
+                field(Quotes; STRSUBSTNO(txtlbl1, NoOfQuotes))
                 {
                     Caption = '&Quotes', comment = 'FRA="&Devis"';
                     Editable = false;
                 }
-                field("Blanket Orders"; STRSUBSTNO('(%1)', NoOfBlanketOrders))
+                field("Blanket Orders"; STRSUBSTNO(txtlbl1, NoOfBlanketOrders))
                 {
                     Caption = '&Blanket Orders', comment = 'FRA="&Commandes ouvertes"';
                     Editable = false;
                 }
-                field(Orders; STRSUBSTNO('(%1)', NoOfOrders))
+                field(Orders; STRSUBSTNO(txtlbl1, NoOfOrders))
                 {
                     Caption = '&Orders', comment = 'FRA="C&ommandes"';
                     Editable = false;
                 }
-                field(Invoices; STRSUBSTNO('(%1)', NoofInvoices))
+                field(Invoices; STRSUBSTNO(txtlbl1, NoofInvoices))
                 {
                     Caption = '&Invoices', comment = 'FRA="&Factures"';
                     Editable = false;
                 }
-                field("Return Orders"; STRSUBSTNO('(%1)', NoOfReturnOrders))
+                field("Return Orders"; STRSUBSTNO(txtlbl1, NoOfReturnOrders))
                 {
                     Caption = '&Return Orders', comment = 'FRA="&Retours"';
                     Editable = false;
                 }
-                field("Cre&dit Memos"; STRSUBSTNO('(%1)', NoOfCreditMemos))
+                field("Cre&dit Memos"; STRSUBSTNO(txtlbl1, NoOfCreditMemos))
                 {
                     Caption = 'Cre&dit Memos', comment = 'FRA="A&voirs"';
                     Editable = false;
                 }
-                field("&Posted Shipments"; STRSUBSTNO('(%1)', NoOfPstdShipments))
+                field("&Posted Shipments"; STRSUBSTNO(txtlbl1, NoOfPstdShipments))
                 {
                     Caption = '&Posted Shipments', comment = 'FRA="Ex&péditions enregistrées"';
                     Editable = false;
                 }
-                field("Posted I&nvoices"; STRSUBSTNO('(%1)', NoOfPstdInvoices))
+                field("Posted I&nvoices"; STRSUBSTNO(txtlbl1, NoOfPstdInvoices))
                 {
                     Caption = 'Posted I&nvoices', comment = 'FRA="Factures e&nregistrées"';
                     Editable = false;
                 }
-                field("Posted Ret&urn Receipts"; STRSUBSTNO('(%1)', NoOfPstdReturnReceipts))
+                field("Posted Ret&urn Receipts"; STRSUBSTNO(txtlbl1, NoOfPstdReturnReceipts))
                 {
                     Caption = 'Posted Ret&urn Receipts', comment = 'FRA="Réceptions reto&ur enregistrées"';
                     Editable = false;
                 }
-                field("Posted Cr. &Memos"; STRSUBSTNO('(%1)', NoOfPstdCreditMemos))
+                field("Posted Cr. &Memos"; STRSUBSTNO(txtlbl1, NoOfPstdCreditMemos))
                 {
                     Caption = 'Posted Cr. &Memos', comment = 'FRA="&Avoirs enregistrés"';
                     Editable = false;
@@ -107,52 +107,52 @@ page 50014 "BC6_Item Sales/Purch. History"
                 {
 
                 }
-                field("Purch Quote"; STRSUBSTNO('(%1)', NbrOfPurchQuote))
+                field("Purch Quote"; STRSUBSTNO(txtlbl1, NbrOfPurchQuote))
                 {
                     Caption = 'Purch Quote', comment = 'FRA="Demandes de prix"';
                     Editable = false;
                 }
-                field("Blanket Order Purchas"; STRSUBSTNO('(%1)', NbrOfPurchBlanketOrder))
+                field("Blanket Order Purchas"; STRSUBSTNO(txtlbl1, NbrOfPurchBlanketOrder))
                 {
                     Caption = 'Blanket Order Purchas ', comment = 'FRA="Commandes achat ouvertes"';
                     Editable = false;
                 }
-                field("Purchase Order"; STRSUBSTNO('(%1)', NbrOfPurchOrder))
+                field("Purchase Order"; STRSUBSTNO(txtlbl1, NbrOfPurchOrder))
                 {
                     Caption = 'Purchase Order', comment = 'FRA="Commandes achat"';
                     Editable = false;
                 }
-                field("Purchase Invoice"; STRSUBSTNO('(%1)', NbrOfPurchInvoice))
+                field("Purchase Invoice"; STRSUBSTNO(txtlbl1, NbrOfPurchInvoice))
                 {
                     Caption = 'Purchase Invoice', comment = 'FRA="Factures achat"';
                     Editable = false;
                 }
-                field("Purchase Return"; STRSUBSTNO('(%1)', NbrOfPurchReturn))
+                field("Purchase Return"; STRSUBSTNO(txtlbl1, NbrOfPurchReturn))
                 {
                     Caption = 'Purchase Return', comment = 'FRA="Retours achat"';
                     Editable = false;
                 }
-                field("Purchase Credit Memo"; STRSUBSTNO('(%1)', NbrOfPurchCrdMemo))
+                field("Purchase Credit Memo"; STRSUBSTNO(txtlbl1, NbrOfPurchCrdMemo))
                 {
                     Caption = 'Purchase Credit Memo', comment = 'FRA="Avoirs achat"';
                     Editable = false;
                 }
-                field("Posted Purchase Receipt"; STRSUBSTNO('(%1)', NbrOfPurchPostedRcpt))
+                field("Posted Purchase Receipt"; STRSUBSTNO(txtlbl1, NbrOfPurchPostedRcpt))
                 {
                     Caption = 'Posted Purchase Receipt', comment = 'FRA="Réceptions achat enregistrées"';
                     Editable = false;
                 }
-                field("Posted Purchase Invoice"; STRSUBSTNO('(%1)', NbrOfPurchPostedInvoice))
+                field("Posted Purchase Invoice"; STRSUBSTNO(txtlbl1, NbrOfPurchPostedInvoice))
                 {
                     Caption = 'Posted Purchase Invoice', comment = 'FRA="Factures achat enregistrées"';
                     Editable = false;
                 }
-                field("Posted Purchase Return Shipement"; STRSUBSTNO('(%1)', NbrOfPurchPostedReturnShipemen))
+                field("Posted Purchase Return Shipement"; STRSUBSTNO(txtlbl1, NbrOfPurchPostedReturnShipemen))
                 {
                     Caption = 'Posted Purchase Return Shipement', comment = 'FRA="Expéditions retour achat"';
                     Editable = false;
                 }
-                field("Posted Purchase Credit Memo"; STRSUBSTNO('(%1)', NbrOfPurchPostedCrdMemo))
+                field("Posted Purchase Credit Memo"; STRSUBSTNO(txtlbl1, NbrOfPurchPostedCrdMemo))
                 {
                     Caption = 'Posted Purchase Credit Memo', comment = 'FRA="Avoirs achat enregistrés"';
                     Editable = false;
@@ -824,8 +824,8 @@ page 50014 "BC6_Item Sales/Purch. History"
         ToSalesHeader: Record "Sales Header";
         RecGPostdSalesInvoices: Record "Sales Invoice Line";
         RecGSalesLine: Record "Sales Line";
-        CuGItemHistoryMgt: Codeunit "BC6_Item History Management";
         RecGSalesShipementLine: Record "Sales Shipment Line";
+        CuGItemHistoryMgt: Codeunit "BC6_Item History Management";
         SalesHistCopyLineMgt: Codeunit "Sales Info-Pane Management";
         SalesInfoPaneMgt: Codeunit "Sales Info-Pane Management";
         BillTo: Boolean;
@@ -852,6 +852,7 @@ page 50014 "BC6_Item Sales/Purch. History"
         SalesLinesVisible: Boolean;
         CodGCustNo: Code[20];
         CodGDocNo: Code[20];
+        CurrentMenuTypeOpt: Enum BC6_CurrentMenuTypeOpt;
         "--FEP-ADVE-200706_18_B--": Integer;
         CurrentMenuType: Integer;
         NbrOfPurchBlanketOrder: Integer;
@@ -875,7 +876,7 @@ page 50014 "BC6_Item Sales/Purch. History"
         NoOfQuotes: Integer;
         NoOfReturnOrders: Integer;
         OldMenuType: Integer;
-        CurrentMenuTypeOpt: Enum BC6_CurrentMenuTypeOpt;
+        txtlbl1: label '(%1)';
 
     local procedure ChangeSubMenu(NewMenuType: Integer)
     begin

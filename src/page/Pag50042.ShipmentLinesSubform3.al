@@ -201,9 +201,9 @@ page 50042 "BC6_Shipment Lines Subform 3"
         RecGSalesShipmentHeader: Record "Sales Shipment Header";
         TempSalesShptLine: Record "Sales Shipment Line" temporary;
         [InDataSet]
-        "Document No.HideValue": Boolean;
-        [InDataSet]
         "Document No.Emphasize": Boolean;
+        [InDataSet]
+        "Document No.HideValue": Boolean;
 
     local procedure IsFirstDocLine(): Boolean
     var

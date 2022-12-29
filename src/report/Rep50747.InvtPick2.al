@@ -107,7 +107,7 @@ report 50747 "BC6_Invt. Pick2"
                     column(SalesPersonName; SalesPersonName)
                     {
                     }
-                    column(CurrReport_PAGENO; CurrReport.PAGENO)
+                    column(CurrReport_PAGENO; CurrReport.PAGENO())
                     {
                     }
                     column(WhseActivityHeader__Sales_Counter_; WhseActivityHeader."BC6_Sales Counter")
@@ -128,13 +128,13 @@ report 50747 "BC6_Invt. Pick2"
                     column(STRSUBSTNO_Text006_CompanyInfo__Alt_Phone_No___CompanyInfo__Alt_Fax_No___CompanyInfo__Alt_E_Mail__; STRSUBSTNO(Text006, CompanyInfo."BC6_Alt Phone No.", CompanyInfo."BC6_Alt Fax No.", CompanyInfo."BC6_Alt E-Mail"))
                     {
                     }
-                    column(DataItem1000000007; CompanyInfo."BC6_Alt Address" + ' ' + CompanyInfo."BC6_Alt Address 2" + ' ' + STRSUBSTNO('%1 %2', CompanyInfo."BC6_Alt Post Code", CompanyInfo."BC6_Alt City"))
+                    column(DataItem1000000007; CompanyInfo."BC6_Alt Address" + ' ' + CompanyInfo."BC6_Alt Address 2" + ' ' + STRSUBSTNO(txtlbl12, CompanyInfo."BC6_Alt Post Code", CompanyInfo."BC6_Alt City"))
                     {
                     }
                     column(STRSUBSTNO_Text006_CompanyInfo__Phone_No___CompanyInfo__Fax_No___CompanyInfo__E_Mail__; STRSUBSTNO(Text006, CompanyInfo."Phone No.", CompanyInfo."Fax No.", CompanyInfo."E-Mail"))
                     {
                     }
-                    column(CompanyInfo_Address______CompanyInfo__Address_2______STRSUBSTNO___1__2__CompanyInfo__Post_Code__CompanyInfo_City_; CompanyInfo.Address + ' ' + CompanyInfo."Address 2" + ' ' + STRSUBSTNO('%1 %2', CompanyInfo."Post Code", CompanyInfo.City))
+                    column(CompanyInfo_Address______CompanyInfo__Address_2______STRSUBSTNO___1__2__CompanyInfo__Post_Code__CompanyInfo_City_; CompanyInfo.Address + ' ' + CompanyInfo."Address 2" + ' ' + STRSUBSTNO(txtlbl12, CompanyInfo."Post Code", CompanyInfo.City))
                     {
                     }
                     column(CompanyInfo__Alt_Name_; CompanyInfo."BC6_Alt Name")
@@ -334,7 +334,7 @@ report 50747 "BC6_Invt. Pick2"
 
                             trigger OnPreDataItem()
                             begin
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                                 SETRANGE(Number, 1, EmptyLines);
                             end;
                         }
@@ -342,7 +342,7 @@ report 50747 "BC6_Invt. Pick2"
                         trigger OnAfterGetRecord()
                         begin
                             IF Quantity = 0 THEN
-                                CurrReport.SKIP;
+                                CurrReport.SKIP();
 
                             CLEAR(UnitCode);
                             CLEAR(DueDate);
@@ -381,10 +381,10 @@ report 50747 "BC6_Invt. Pick2"
                                     BEGIN
                                         // Sales Line
                                         SalesLine.GET(WhseActLine."Source Subtype", WhseActLine."Source No.", WhseActLine."Source Line No.");
-                                        IF NOT TmpSalesLine.GET(SalesLine."Document Type", SalesLine."Document No.", SalesLine."Line No.") THEN BEGIN
-                                            TmpSalesLine.INIT;
-                                            TmpSalesLine := SalesLine;
-                                            TmpSalesLine.INSERT;
+                                        IF NOT TempSalesLine.GET(SalesLine."Document Type", SalesLine."Document No.", SalesLine."Line No.") THEN BEGIN
+                                            TempSalesLine.INIT();
+                                            TempSalesLine := SalesLine;
+                                            TempSalesLine.INSERT();
                                             RemainingQty := SalesLine."Outstanding Quantity";
                                         END;
 
@@ -420,20 +420,20 @@ report 50747 "BC6_Invt. Pick2"
                         trigger OnPostDataItem()
                         begin
                             //
-                            TmpSalesLine2.RESET;
-                            TmpSalesLine2.DELETEALL;
+                            TempSalesLine2.RESET();
+                            TempSalesLine2.DELETEALL();
                             CASE "Source Document" OF
                                 "Source Document"::"Sales Order":
                                     BEGIN
 
-                                        WhseActLine2.RESET;
+                                        WhseActLine2.RESET();
                                         WhseActLine2.COPY(WhseActLine);
                                         WhseActLine2.SETRANGE("Source Type", 37);
                                         WhseActLine2.SETRANGE("Source Subtype", 1);
                                         WhseActLine2.SETRANGE("Source Document", WhseActLine2."Source Document"::"Sales Order");
 
                                         // Sales Line
-                                        SalesLine.RESET;
+                                        SalesLine.RESET();
                                         SalesLine.SETRANGE("Document Type", WhseActLine."Source Subtype");
                                         SalesLine.SETRANGE("Document No.", WhseActLine."Source No.");
                                         SalesLine.SETRANGE(Type, SalesLine.Type::Item);
@@ -441,7 +441,7 @@ report 50747 "BC6_Invt. Pick2"
                                             REPEAT
                                                 CLEAR(RemainingQty2);
                                                 CLEAR(QtyToPick2);
-                                                IF NOT TmpSalesLine.GET(SalesLine."Document Type", SalesLine."Document No.", SalesLine."Line No.") THEN BEGIN
+                                                IF NOT TempSalesLine.GET(SalesLine."Document Type", SalesLine."Document No.", SalesLine."Line No.") THEN BEGIN
                                                     RemainingQty2 := SalesLine."Outstanding Quantity";
                                                 END ELSE BEGIN
                                                     WhseActLine2.SETRANGE("Source No.", SalesLine."Document No.");
@@ -449,18 +449,18 @@ report 50747 "BC6_Invt. Pick2"
                                                     IF WhseActLine2.FINDSET(FALSE, FALSE) THEN
                                                         REPEAT
                                                             QtyToPick2 += WhseActLine2.Quantity;
-                                                        UNTIL WhseActLine2.NEXT = 0;
+                                                        UNTIL WhseActLine2.NEXT() = 0;
                                                     RemainingQty2 := SalesLine."Outstanding Quantity" - QtyToPick2;
                                                 END;
 
                                                 IF (RemainingQty2 > 0) THEN BEGIN
-                                                    TmpSalesLine2.INIT;
-                                                    TmpSalesLine2 := SalesLine;
-                                                    TmpSalesLine2."Outstanding Quantity" := RemainingQty2;
-                                                    TmpSalesLine2.INSERT;
+                                                    TempSalesLine2.INIT();
+                                                    TempSalesLine2 := SalesLine;
+                                                    TempSalesLine2."Outstanding Quantity" := RemainingQty2;
+                                                    TempSalesLine2.INSERT();
                                                 END;
 
-                                            UNTIL SalesLine.NEXT = 0;
+                                            UNTIL SalesLine.NEXT() = 0;
                                     END;
                             END;
                         end;
@@ -476,8 +476,8 @@ report 50747 "BC6_Invt. Pick2"
                             SETRANGE("Activity Type", "Activity Type"::"Invt. Pick");
                             CurrReport.CREATETOTALS(QtyToPick, QtyToHandle, RemainingQty, NetWeight, GrossWeight);
 
-                            TmpSalesLine.RESET;
-                            TmpSalesLine.DELETEALL;
+                            TempSalesLine.RESET();
+                            TempSalesLine.DELETEALL();
                         end;
                     }
                     dataitem(OutStockLoop; Integer)
@@ -487,10 +487,10 @@ report 50747 "BC6_Invt. Pick2"
                         column(WhseActivityHeaderNo; WhseActivityHeaderNo)
                         {
                         }
-                        column(TmpSalesLine2_Description; TmpSalesLine2.Description)
+                        column(TmpSalesLine2_Description; TempSalesLine2.Description)
                         {
                         }
-                        column(TmpSalesLine2__No__; TmpSalesLine2."No.")
+                        column(TmpSalesLine2__No__; TempSalesLine2."No.")
                         {
                         }
                         column(RemainingQty_Control1000000113; RemainingQty)
@@ -517,9 +517,9 @@ report 50747 "BC6_Invt. Pick2"
                         trigger OnAfterGetRecord()
                         begin
                             IF (Number = 1) THEN
-                                TmpSalesLine2.FINDFIRST ELSE
-                                IF (TmpSalesLine2.NEXT = 0) THEN
-                                    CurrReport.BREAK;
+                                TempSalesLine2.FINDFIRST() ELSE
+                                IF (TempSalesLine2.NEXT() = 0) THEN
+                                    CurrReport.BREAK();
 
                             CLEAR(WhseActivityHeaderNo);
                             CLEAR(UnitCode);
@@ -528,18 +528,18 @@ report 50747 "BC6_Invt. Pick2"
                             CLEAR(QtyToPick);
                             CLEAR(AvailableQty);
                             CLEAR(Item);
-                            IF TmpSalesLine2.Type = TmpSalesLine2.Type::Item THEN BEGIN
-                                Item.GET(TmpSalesLine2."No.");
+                            IF TempSalesLine2.Type = TempSalesLine2.Type::Item THEN BEGIN
+                                Item.GET(TempSalesLine2."No.");
 
-                                UnitCode := TmpSalesLine2."Unit of Measure Code";
-                                RemainingQty := TmpSalesLine2."Outstanding Quantity";
-                                NetWeight := TmpSalesLine2."Net Weight" * RemainingQty;
-                                GrossWeight := TmpSalesLine2."Gross Weight" * RemainingQty;
+                                UnitCode := TempSalesLine2."Unit of Measure Code";
+                                RemainingQty := TempSalesLine2."Outstanding Quantity";
+                                NetWeight := TempSalesLine2."Net Weight" * RemainingQty;
+                                GrossWeight := TempSalesLine2."Gross Weight" * RemainingQty;
 
                                 //>>
-                                WhseActLine3.SETRANGE("Source No.", TmpSalesLine2."Document No.");
-                                WhseActLine3.SETRANGE("Source Line No.", TmpSalesLine2."Line No.");
-                                IF WhseActLine3.FINDFIRST THEN
+                                WhseActLine3.SETRANGE("Source No.", TempSalesLine2."Document No.");
+                                WhseActLine3.SETRANGE("Source Line No.", TempSalesLine2."Line No.");
+                                IF WhseActLine3.FINDFIRST() THEN
                                     //  REPEAT
                                     WhseActivityHeaderNo := WhseActLine3."No.";
                                 // UNTIL WhseActLine3.NEXT = 0;
@@ -554,15 +554,15 @@ report 50747 "BC6_Invt. Pick2"
                         trigger OnPreDataItem()
                         begin
                             IF NOT ShowOutStock THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
 
-                            SETRANGE(Number, 1, TmpSalesLine2.COUNT);
+                            SETRANGE(Number, 1, TempSalesLine2.COUNT);
                             CurrReport.CREATETOTALS(QtyToPick, QtyToHandle, RemainingQty, NetWeight, GrossWeight);
 
                             CASE WhseActivityHeader."Source Document" OF
                                 WhseActivityHeader."Source Document"::"Sales Order":
                                     BEGIN
-                                        WhseActLine3.RESET;
+                                        WhseActLine3.RESET();
                                         WhseActLine3.SETRANGE("Source Type", 37);
                                         WhseActLine3.SETRANGE("Source Subtype", 1);
                                         WhseActLine3.SETRANGE("Source Document", WhseActLine2."Source Document"::"Sales Order");
@@ -593,7 +593,7 @@ report 50747 "BC6_Invt. Pick2"
                        WhseActivityHeader."Source Document"::"Outbound Transfer",
                        WhseActivityHeader."Source Document"::"Purchase Return Order"])
                        THEN
-                    CurrReport.SKIP;
+                    CurrReport.SKIP();
 
                 // IF (WhseActivityHeader."Source Document" = WhseActivityHeader."Source Document"::"Sales Order") AND
                 //   (WhseActivityHeader."Source No." = '') THEN
@@ -621,7 +621,7 @@ report 50747 "BC6_Invt. Pick2"
                 CLEAR(Cust);
                 CLEAR(InvtPickCheckTxt);
 
-                CompanyInfo.GET;
+                CompanyInfo.GET();
                 CompanyInfo.CALCFIELDS(Picture);
                 CompanyInfo.CALCFIELDS("BC6_Alt Picture");
 
@@ -636,7 +636,7 @@ report 50747 "BC6_Invt. Pick2"
                                     ERROR(Text002);
 
                                 Cust.GET("Destination No.");
-                                SalesHeader.INIT;
+                                SalesHeader.INIT();
                                 SalesHeader."Sell-to Customer No." := Cust."No.";
                                 SalesHeader."Sell-to Customer Name" := Cust.Name;
                                 SalesHeader."Sell-to Customer Name 2" := Cust."Name 2";
@@ -698,99 +698,100 @@ report 50747 "BC6_Invt. Pick2"
     end;
 
     var
+        Bin: Record Bin;
         CompanyInfo: Record "Company Information";
-        Location: Record Location;
         Cust: Record Customer;
-        SalesHeader: Record "Sales Header";
-        SalesLine: Record "Sales Line";
-        TmpSalesLine: Record "Sales Line" temporary;
-        TmpSalesLine2: Record "Sales Line" temporary;
-        WhseActLine2: Record "Warehouse Activity Line";
-        WhseActLine3: Record "Warehouse Activity Line";
-        TransferHeader: Record "Transfer Header";
-        TransferLine: Record "Transfer Line";
+        Item: Record Item;
+        Location: Record Location;
         ReturnHeader: Record "Purchase Header";
         ReturnLine: Record "Purchase Line";
-        Item: Record Item;
+        SalesHeader: Record "Sales Header";
+        SalesLine: Record "Sales Line";
+        TempSalesLine: Record "Sales Line" temporary;
+        TempSalesLine2: Record "Sales Line" temporary;
+        SalesPerson: Record "Salesperson/Purchaser";
+        ShipmentMethod: Record "Shipment Method";
+        ShippingAgent: Record "Shipping Agent";
+        TransferHeader: Record "Transfer Header";
+        TransferLine: Record "Transfer Line";
+        WhseActLine2: Record "Warehouse Activity Line";
+        WhseActLine3: Record "Warehouse Activity Line";
+        BarcodeMngt: Codeunit "BC6_Barcode Mngt AutoID";
+        FunctionsMgt: Codeunit "BC6_Functions Mgt";
+        DistInt: Codeunit "Dist. Integration";
         FormatAddr: Codeunit "Format Address";
         WhseCountPrinted: Codeunit "Whse.-Printed";
-        Counter: Integer;
-        EmptyLines: Integer;
-        NoOfLoops: Integer;
-        CopyText: Text[30];
-        NoOfCopies: Integer;
-        ShipToAddr: array[8] of Text[50];
-        Text001: Label 'Copie', Comment = 'FRA="Copie"';
-        BillToAddr: array[8] of Text[50];
-        CustToAddr: array[8] of Text[50];
+        BinDetailed: Boolean;
+        ShowOutStock: Boolean;
         UnitCode: Code[10];
-        DueDate: Date;
-        RemainingQty: Decimal;
-        RemainingQty2: Decimal;
-        QtyToPick: Decimal;
-        QtyToPick2: Decimal;
-        QtyToHandle: Decimal;
-        ExtDocNo: Code[20];
-        YourRef: Text[30];
         BarCodeNo: Code[20];
-        BarcodeMngt: Codeunit "BC6_Barcode Mngt AutoID";
+        ExtDocNo: Code[20];
+        WhseActivityHeaderNo: Code[20];
         DeliveryDate: Date;
+        DueDate: Date;
         OrderDate: Date;
-        ShippingAgent: Record "Shipping Agent";
-        ShipmentMethod: Record "Shipment Method";
-        ShippingAgentTxt: Text[50];
-        SalesPerson: Record "Salesperson/Purchaser";
-        SalesPersonName: Text[50];
-        ShipmentMethodTxt: Text[50];
-        Text032: Label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5', Comment = 'FRA="%1 au capital de  %2   - %3  -  APE %4 - N°TVA : %5"';
-        Text006: Label 'Total %1 Excl. VAT', Comment = 'FRA="TEL : %1 FAX : %2 / email : %3"';
+        AvailableQty: Decimal;
         GrossWeight: Decimal;
         NetWeight: Decimal;
-        SortingMethod: Option Item,Bin;
-        BinDescription: Text[50];
-        Bin: Record Bin;
-        BinDetailed: Boolean;
-        Text002: Label 'Vente comptoire, vous devez renseigner le n° du client ?', Comment = 'FRA="Vente comptoire, vous devez renseigner le n° du client ?"';
-        WhseActivityHeaderNo: Code[20];
-        ShowOutStock: Boolean;
-        AvailableQty: Decimal;
-        Text004: Label 'Check Invt. Pick', Comment = 'FRA="EDITION DE CONTROLE"';
-        InvtPickCheckTxt: Text[250];
-        DistInt: Codeunit "Dist. Integration";
-        FunctionsMgt: Codeunit "BC6_Functions Mgt";
-        EAN13Txt: Text[13];
-        EAN13Bar: Text[13];
-        EAN13BarTxt: Text[120];
-        Inv__PickingCaptionLbl: Label 'Inv. Picking', Comment = 'FRA="Prélèvement stock"';
-        Ship_To_AdressCaptionLbl: Label 'Ship-To Adress', Comment = 'FRA="Adresse de livraison"';
+        QtyToHandle: Decimal;
+        QtyToPick: Decimal;
+        QtyToPick2: Decimal;
+        RemainingQty: Decimal;
+        RemainingQty2: Decimal;
+        Counter: Integer;
+        EmptyLines: Integer;
+        NoOfCopies: Integer;
+        NoOfLoops: Integer;
+        Available_QtyCaptionLbl: Label 'Available Qty', Comment = 'FRA="Quantité disponible"';
         Bill_To_AdressCaptionLbl: Label 'Bill-To Adress', Comment = 'FRA="Adresse de commande"';
-        WhseActivityHeader__No__CaptionLbl: Label 'Inv. Picking', Comment = 'FRA="Prélèvement stock"';
-        YourRefCaptionLbl: Label 'Your Reference', Comment = 'FRA="Votre référence"';
-        WhseActivityHeader__Location_Code_CaptionLbl: Label 'Location Code', Comment = 'FRA="Code magasin"';
-        FORMAT_TODAY_0_CaptionLbl: Label 'Print Date', Comment = 'FRA="Date imp."';
-        USERIDCaptionLbl: Label 'User Code', Comment = 'FRA="Code utilisateur"';
-        OrderDateCaptionLbl: Label 'Order Date', Comment = 'FRA="Date commande"';
-        DeliveryDateCaptionLbl: Label 'Delivery Date', Comment = 'FRA="Date de livraison"';
-        ShipmentMethodTxtCaptionLbl: Label 'Shipping condition', Comment = 'FRA="Condition de livraison"';
-        ShippingAgentTxtCaptionLbl: Label 'Shipping Agent', Comment = 'FRA="Transporteur"';
-        SalesPersonNameCaptionLbl: Label 'Sales Person', Comment = 'FRA="Vendeur"';
         CurrReport_PAGENOCaptionLbl: Label 'Page', Comment = 'FRA="Page"';
-        WhseActivityHeader__Destination_Name_CaptionLbl: Label 'Name', Comment = 'FRA="Nom"';
-        WhseActivityHeader_CommentsCaptionLbl: Label 'Comments', Comment = 'FRA="Commentaires"';
-        RemainingQtyCaptionLbl: Label 'Quantity To Ship', Comment = 'FRA="Quantité à expédier"';
-        QtyToPickCaptionLbl: Label 'Qty', Comment = 'FRA="Quantité"';
-        QtyToHandleCaptionLbl: Label 'Qty To Handle', Comment = 'FRA="Quantité à traiter"';
+        DeliveryDateCaptionLbl: Label 'Delivery Date', Comment = 'FRA="Date de livraison"';
+        FORMAT_TODAY_0_CaptionLbl: Label 'Print Date', Comment = 'FRA="Date imp."';
         Gross_WeightCaptionLbl: Label 'Gross Weight', Comment = 'FRA="Poids brut"';
+        Inv__PickingCaptionLbl: Label 'Inv. Picking', Comment = 'FRA="Prélèvement stock"';
         Items_To_PickCaptionLbl: Label 'Items To Pick', Comment = 'FRA="Références à prélever"';
-        TOTALCaptionLbl: Label 'TOTAL', Comment = 'FRA="TOTAL"';
+        OrderDateCaptionLbl: Label 'Order Date', Comment = 'FRA="Date commande"';
         Out_StockCaptionLbl: Label 'Out Stock', Comment = 'FRA="Références manquantes"';
         Pick_NoCaptionLbl: Label 'Pick No', Comment = 'FRA="N° prélèvement"';
-        Available_QtyCaptionLbl: Label 'Available Qty', Comment = 'FRA="Quantité disponible"';
+        QtyToHandleCaptionLbl: Label 'Qty To Handle', Comment = 'FRA="Quantité à traiter"';
+        QtyToPickCaptionLbl: Label 'Qty', Comment = 'FRA="Quantité"';
+        RemainingQtyCaptionLbl: Label 'Quantity To Ship', Comment = 'FRA="Quantité à expédier"';
+        SalesPersonNameCaptionLbl: Label 'Sales Person', Comment = 'FRA="Vendeur"';
+        Ship_To_AdressCaptionLbl: Label 'Ship-To Adress', Comment = 'FRA="Adresse de livraison"';
+        ShipmentMethodTxtCaptionLbl: Label 'Shipping condition', Comment = 'FRA="Condition de livraison"';
+        ShippingAgentTxtCaptionLbl: Label 'Shipping Agent', Comment = 'FRA="Transporteur"';
+        Text001: Label 'Copie', Comment = 'FRA="Copie"';
+        Text002: Label 'Vente comptoire, vous devez renseigner le n° du client ?', Comment = 'FRA="Vente comptoire, vous devez renseigner le n° du client ?"';
+        Text004: Label 'Check Invt. Pick', Comment = 'FRA="EDITION DE CONTROLE"';
+        Text006: Label 'Total %1 Excl. VAT', Comment = 'FRA="TEL : %1 FAX : %2 / email : %3"';
+        Text032: Label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5', Comment = 'FRA="%1 au capital de  %2   - %3  -  APE %4 - N°TVA : %5"';
+        TOTALCaptionLbl: Label 'TOTAL', Comment = 'FRA="TOTAL"';
+        txtlbl12: label '%1 %2';
+        USERIDCaptionLbl: Label 'User Code', Comment = 'FRA="Code utilisateur"';
+        WhseActivityHeader__Destination_Name_CaptionLbl: Label 'Name', Comment = 'FRA="Nom"';
+        WhseActivityHeader__Location_Code_CaptionLbl: Label 'Location Code', Comment = 'FRA="Code magasin"';
+        WhseActivityHeader__No__CaptionLbl: Label 'Inv. Picking', Comment = 'FRA="Prélèvement stock"';
+        WhseActivityHeader_CommentsCaptionLbl: Label 'Comments', Comment = 'FRA="Commentaires"';
+        YourRefCaptionLbl: Label 'Your Reference', Comment = 'FRA="Votre référence"';
+        SortingMethod: Option Item,Bin;
+        EAN13Bar: Text[13];
+        EAN13Txt: Text[13];
+        CopyText: Text[30];
+        YourRef: Text[30];
+        BillToAddr: array[8] of Text[50];
+        BinDescription: Text[50];
+        CustToAddr: array[8] of Text[50];
+        SalesPersonName: Text[50];
+        ShipmentMethodTxt: Text[50];
+        ShippingAgentTxt: Text[50];
+        ShipToAddr: array[8] of Text[50];
+        EAN13BarTxt: Text[120];
+        InvtPickCheckTxt: Text[250];
 
     procedure GetLocation(LocationCode: Code[10])
     begin
         IF LocationCode = '' THEN
-            Location.INIT
+            Location.INIT()
         ELSE
             IF Location.Code <> LocationCode THEN
                 Location.GET(LocationCode);

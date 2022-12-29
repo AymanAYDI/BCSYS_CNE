@@ -50,15 +50,7 @@ codeunit 50097 "BC6_Batch.Update Location"
         Customer: Record Customer;
         Location: Record Location;
         OLDLocation: Record Location;
-        PurchHeader: Record "Purchase Header";
-        PurchLine: Record "Purchase Line";
-        SalesHeader: Record "Sales Header";
-        SalesLine: Record "Sales Line";
         Vendor: Record Vendor;
-        ReleasePurchDoc: Codeunit "Release Purchase Document";
-        ReleaseSalesDoc: Codeunit "Release Sales Document";
-        PurchDocReleaseOk: Boolean;
-        SalesDocReleaseOk: Boolean;
         Window: Dialog;
         Counter: Integer;
         TotalCounter: Integer;

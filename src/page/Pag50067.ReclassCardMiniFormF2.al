@@ -28,13 +28,13 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
                     Item: Record Item;
                 begin
                     CLEAR(ItemForm);
-                    Item.RESET;
+                    Item.RESET();
                     ItemForm.SETTABLEVIEW(Item);
                     ItemForm.LOOKUPMODE(TRUE);
                     IF (ItemNo <> '') THEN
                         IF Item.GET(ItemNo) THEN
                             ItemForm.SETRECORD(Item);
-                    IF ItemForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                    IF ItemForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                         ItemForm.GETRECORD(Item);
                         ItemNo := Item."No.";
                         AssignItemNo(ItemNo);
@@ -43,7 +43,7 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
 
                 trigger OnValidate()
                 begin
-                    ItemNoOnAfterValidate;
+                    ItemNoOnAfterValidate();
                 end;
             }
             field(Description; Description)
@@ -63,7 +63,7 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
 
                 trigger OnValidate()
                 begin
-                    QtyOnAfterValidate;
+                    QtyOnAfterValidate();
                 end;
             }
             field(ToBinCodeCtrl; ToBinCode)
@@ -81,7 +81,7 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
                     Bin: Record Bin;
                 begin
                     CLEAR(BinForm);
-                    Bin.RESET;
+                    Bin.RESET();
                     IF LocationCode <> '' THEN
                         Bin.SETRANGE("Location Code", LocationCode);
 
@@ -89,7 +89,7 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
                     BinForm.LOOKUPMODE(TRUE);
                     IF Bin.FIND('-') THEN
                         BinForm.SETRECORD(Bin);
-                    IF BinForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                    IF BinForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                         BinForm.GETRECORD(Bin);
                         ToBinCode := Bin.Code;
                         AssignBinCode(ToBinCode);
@@ -98,7 +98,7 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
 
                 trigger OnValidate()
                 begin
-                    ToBinCodeOnAfterValidate;
+                    ToBinCodeOnAfterValidate();
                 end;
             }
             field(FromBinCodeCtrl; FromBinCode)
@@ -117,7 +117,7 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
                 begin
                     IF ItemNo <> '' THEN BEGIN
                         CLEAR(BinContentForm);
-                        BinContent.RESET;
+                        BinContent.RESET();
                         IF LocationCode <> '' THEN
                             BinContent.SETRANGE("Location Code", LocationCode);
                         IF ItemNo <> '' THEN
@@ -129,21 +129,21 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
                         BinContentForm.LOOKUPMODE(TRUE);
                         IF BinContent.FIND('-') THEN
                             BinContentForm.SETRECORD(BinContent);
-                        IF BinContentForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                        IF BinContentForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                             BinContentForm.GETRECORD(BinContent);
                             FromBinCode := BinContent."Bin Code";
                             AssignFromBinCode(FromBinCode);
                         END;
                     END ELSE BEGIN
                         CLEAR(BinForm);
-                        Bin.RESET;
+                        Bin.RESET();
                         IF LocationCode <> '' THEN
                             Bin.SETRANGE("Location Code", LocationCode);
                         BinForm.SETTABLEVIEW(Bin);
                         BinForm.LOOKUPMODE(TRUE);
                         IF Bin.FIND('-') THEN
                             BinForm.SETRECORD(Bin);
-                        IF BinForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                        IF BinForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                             BinForm.GETRECORD(Bin);
                             FromBinCode := Bin.Code;
                             AssignFromBinCode(FromBinCode);
@@ -153,7 +153,7 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
 
                 trigger OnValidate()
                 begin
-                    FromBinCodeOnAfterValidate;
+                    FromBinCodeOnAfterValidate();
                 end;
             }
             field(LocationCodeCtrl; LocationCode)
@@ -172,13 +172,13 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
                 begin
 
                     CLEAR(LocationForm);
-                    Location.RESET;
+                    Location.RESET();
                     Location.SETRANGE("Bin Mandatory", TRUE);
                     LocationForm.SETTABLEVIEW(Location);
                     LocationForm.LOOKUPMODE(TRUE);
                     IF Location.FIND('-') THEN
                         LocationForm.SETRECORD(Location);
-                    IF LocationForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                    IF LocationForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                         LocationForm.GETRECORD(Location);
                         LocationCode := Location.Code;
                         AssignLocationCode(LocationCode);
@@ -187,7 +187,7 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
 
                 trigger OnValidate()
                 begin
-                    LocationCodeOnAfterValidate;
+                    LocationCodeOnAfterValidate();
                 end;
             }
         }
@@ -211,24 +211,24 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
                     PgeLReclassItemSelection: Page "BC6_Reclass. Card MiniForm F2";
                 begin
                     CLEAR(LastJnlLine);
-                    LastJnlLine.RESET;
+                    LastJnlLine.RESET();
                     LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
                     LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
                     IF LastJnlLine.FIND('+') THEN BEGIN
-                        INIT;
+                        INIT();
                         "Journal Template Name" := LastJnlLine."Journal Template Name";
                         "Journal Batch Name" := LastJnlLine."Journal Batch Name";
                         "Line No." := LastJnlLine."Line No." + 10000;
                         VALIDATE("Entry Type", "Entry Type"::Transfer);
-                        VALIDATE("Posting Date", WORKDATE);
+                        VALIDATE("Posting Date", WORKDATE());
                         "Document No." := LastJnlLine."Document No.";
                         "Location Code" := LastJnlLine."Location Code";
                         "Bin Code" := LastJnlLine."Bin Code";
                         INSERT(TRUE);
 
-                        CurrPage.CLOSE;
+                        CurrPage.CLOSE();
                         PgeLReclassItemSelection.SETTABLEVIEW(Rec);
-                        PgeLReclassItemSelection.RUN;
+                        PgeLReclassItemSelection.RUN();
 
                     END;
                 end;
@@ -247,23 +247,23 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
                     PgeLReclassBinSelection: Page "BC6_Reclass. Card MiniForm F3";
                 begin
                     CLEAR(LastJnlLine);
-                    LastJnlLine.RESET;
+                    LastJnlLine.RESET();
                     LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
                     LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
                     IF LastJnlLine.FIND('+') THEN BEGIN
-                        INIT;
+                        INIT();
                         "Journal Template Name" := LastJnlLine."Journal Template Name";
                         "Journal Batch Name" := LastJnlLine."Journal Batch Name";
                         "Line No." := LastJnlLine."Line No." + 10000;
                         VALIDATE("Entry Type", "Entry Type"::Transfer);
-                        VALIDATE("Posting Date", WORKDATE);
+                        VALIDATE("Posting Date", WORKDATE());
                         "Document No." := LastJnlLine."Document No.";
                         "Location Code" := LastJnlLine."Location Code";
                         INSERT(TRUE);
 
-                        CurrPage.CLOSE;
+                        CurrPage.CLOSE();
                         PgeLReclassBinSelection.SETTABLEVIEW(Rec);
-                        PgeLReclassBinSelection.RUN;
+                        PgeLReclassBinSelection.RUN();
 
                     END;
                 end;
@@ -284,7 +284,7 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
                 begin
                     PostBatch();
 
-                    CurrPage.CLOSE;
+                    CurrPage.CLOSE();
                     /*
                     IF ISCLEAR(WshShell) THEN
                       CREATE(WshShell,FALSE ,TRUE);
@@ -305,7 +305,7 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
 
                 trigger OnAction()
                 begin
-                    CurrPage.CLOSE;
+                    CurrPage.CLOSE();
                 end;
             }
             action("&Delete")
@@ -321,7 +321,7 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
                     DELETE(TRUE);
 
                     page50067.SETTABLEVIEW(Rec);
-                    page50067.RUN;
+                    page50067.RUN();
                 end;
             }
         }
@@ -329,7 +329,7 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
 
     trigger OnAfterGetRecord()
     begin
-        OnAfterGetCurrRecord;
+        OnAfterGetCurrRecord();
     end;
 
     trigger OnInit()
@@ -345,7 +345,7 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        OnAfterGetCurrRecord;
+        OnAfterGetCurrRecord();
     end;
 
     trigger OnOpenPage()
@@ -429,11 +429,11 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
         EditableCtrl := TRUE;
 
         CLEAR(LastJnlLine);
-        LastJnlLine.RESET;
+        LastJnlLine.RESET();
         LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
         LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
         IF NOT LastJnlLine.FIND('+') THEN BEGIN
-            LastJnlLine.INIT;
+            LastJnlLine.INIT();
             LastJnlLine."Journal Template Name" := "Journal Template Name";
             LastJnlLine."Journal Batch Name" := "Journal Batch Name";
             LastJnlLine."Line No." := 0;
@@ -442,7 +442,7 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
         SetUpNewLine(xRec);
         "Entry Type" := "Entry Type"::Transfer;
         "Line No." := LastJnlLine."Line No." + 10000;
-        VALIDATE("Posting Date", WORKDATE);
+        VALIDATE("Posting Date", WORKDATE());
 
         IF LocationCode = '' THEN
             LocationCode := Location.Code;
@@ -457,7 +457,7 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
         CurrentLocatCode: Code[10];
     begin
 
-        InvSetup.GET;
+        InvSetup.GET();
         InvSetup.TESTFIELD("BC6_Item Jnl Template Name 2");
 
         IF USERID <> '' THEN BEGIN
@@ -467,9 +467,9 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
                 IF WhsEmployee.FIND('-') THEN
                     LocationCode := WhsEmployee."Location Code"
                 ELSE
-                    LocationCode := WmsManagement.GetDefaultLocation;
+                    LocationCode := WmsManagement.GetDefaultLocation();
                 IF NOT Location.GET(LocationCode) THEN
-                    Location.INIT;
+                    Location.INIT();
                 FILTERGROUP := 2;
                 ItemJnlTemplate.GET(InvSetup."BC6_Item Jnl Template Name 2");
                 ItemJnlTemplate.TESTFIELD(Type, ItemJnlTemplate.Type::Transfer);
@@ -485,7 +485,7 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
                     EXIT(FALSE);
                 END;
                 FILTERGROUP := 0;
-                PostingDate := WORKDATE;
+                PostingDate := WORKDATE();
                 IF Rec.FIND('+') THEN;
                 EXIT(TRUE);
             END ELSE BEGIN
@@ -499,18 +499,18 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
     end;
 
 
-    procedure AssignLocationCode(var LocationCode: Code[20])
+    procedure AssignLocationCode(var LocationsCode: Code[20])
     var
         Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
         CLEAR(Location);
-        IF (LocationCode <> '') AND
-           (STRLEN(LocationCode) < 20) THEN BEGIN
-            IF Location.GET(LocationCode) THEN
-                "Location Code" := LocationCode;
+        IF (LocationsCode <> '') AND
+           (STRLEN(LocationsCode) < 20) THEN BEGIN
+            IF Location.GET(LocationsCode) THEN
+                "Location Code" := LocationsCode;
         END ELSE BEGIN
-            LocationCode := '';
-            "Location Code" := LocationCode;
+            LocationsCode := '';
+            "Location Code" := LocationsCode;
             MESSAGE(Text004);
         END;
     end;
@@ -604,22 +604,22 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
         UpdateCurrForm();
     end;
 
-    procedure AssignQty(var Qty: Code[20])
+    procedure AssignQty(var Quantity: Code[20])
     var
         Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
-        IF (Qty <> '') THEN BEGIN
-            EVALUATE(Quantity, Qty);
+        IF (Quantity <> '') THEN BEGIN
+            EVALUATE(Quantity, Quantity);
             VALIDATE(Quantity);
-            Qty := FORMAT(Quantity);
+            Quantity := FORMAT(Quantity);
             EXIT;
         END;
 
-        IF Qty <> '' THEN
-            MESSAGE(Text006, Qty);
-        Qty := '';
+        IF Quantity <> '' THEN
+            MESSAGE(Text006, Quantity);
+        Quantity := '';
         VALIDATE(Quantity, 0);
-        Qty := FORMAT(Quantity);
+        Quantity := FORMAT(Quantity);
     end;
 
 
@@ -652,13 +652,13 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
         BarCode := '';
         LocationCode := "Location Code";
         IF NOT Location.GET("Location Code") THEN
-            Location.INIT;
+            Location.INIT();
         FromBinCode := "Bin Code";
         ToBinCode := "New Bin Code";
         ItemNo := "Item No.";
         Qty := FORMAT(Quantity);
         EditableCtrl := ("Item No." <> '');
-        CtrlEnabled;
+        CtrlEnabled();
     end;
 
     procedure CodeEANOk("Code": Code[20]) CodeOk: Boolean

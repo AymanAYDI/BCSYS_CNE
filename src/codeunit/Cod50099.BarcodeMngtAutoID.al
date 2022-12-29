@@ -6,11 +6,9 @@ codeunit 50099 "BC6_Barcode Mngt AutoID"
         DigitValueArrayF13: array[15, 2] of Char;
         DigitValueArrayF14: array[14] of Char;
         LeadingDigit: Char;
-        f: Integer;
         i: Integer;
         j: Integer;
         Encoding: Text[12];
-        CharTxt: Text[13];
 
     procedure EncodeBarcodeEAN13(FromEAN13Bar: Text[13]; var EAN13Txt: Text[13]) EAN13Bar: Text[120]
     begin

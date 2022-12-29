@@ -42,10 +42,8 @@ page 50061 "BC6_Recherche Fichier"
     end;
 
     var
-        File_Name: Text[100];
         Filtre: Text[10];
+        File_Name: Text[100];
         Init_Dir: Text[100];
-        Text19062749: Label 'Filter', Comment = 'FRA="Filtre"';
-        Text19016114: Label 'File', Comment = 'FRA="Fichier"';
 }
 

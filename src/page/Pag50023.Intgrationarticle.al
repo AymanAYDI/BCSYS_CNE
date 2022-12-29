@@ -121,7 +121,7 @@ page 50023 "BC6_Intégration article"
 
                     COMMIT();
 
-                    XMLPORT.RUN(50023, TRUE, TRUE);
+                    XMLPORT.RUN(XmlPort::"BC6_Intégration catalogue", TRUE, TRUE);
                     RESET();
                     CurrPage.UPDATE(TRUE);
                     IF NOT FIND('-') THEN;
@@ -164,10 +164,9 @@ page 50023 "BC6_Intégration article"
     }
 
     var
+        TestG004: Label 'You can not insert line', Comment = 'FRA="vous ne pouvez pas insérer de ligne"';
         textg001: Label 'do you want integrate this data ?', Comment = 'FRA="Voulez vous intégrer ces données ?"';
         textg002: Label 'Empty Integration form ?', Comment = 'FRA="Remettre à zéro le formulaire d''intégration ? "';
-        textg003: Label 'Integration finished', Comment = 'FRA="Intégration terminée"';
-        TestG004: Label 'You can not insert line', Comment = 'FRA="vous ne pouvez pas insérer de ligne"';
         textG005: Label 'Mise à jour terminée.', Comment = 'FRA="Mise à jour terminée."';
 }
 

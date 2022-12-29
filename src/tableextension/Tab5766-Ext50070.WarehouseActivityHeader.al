@@ -59,7 +59,11 @@ tableextension 50070 "BC6_WarehouseActivityHeader" extends "Warehouse Activity H
             begin
                 IF "BC6_Bin Code" <> '' THEN begin
                     TESTFIELD(Type, Type::"Invt. Pick");
-                    FctMangt.GetLocation("Location Code");
+                    if "Location Code" = '' then
+                        Clear(Location)
+                    else
+                        if Location.Code <> "Location Code" then
+                            Location.Get("Location Code");
                     TESTFIELD("Location Code");
                     Location.GET("Location Code");
                     Location.TESTFIELD("Bin Mandatory");

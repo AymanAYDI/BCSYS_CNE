@@ -303,8 +303,8 @@ page 50092 "BC6_Sales Quote Archive STD"
 
                     trigger OnAction()
                     begin
-                        ShowDimensions;
-                        CurrPage.SAVERECORD;
+                        ShowDimensions();
+                        CurrPage.SAVERECORD();
                     end;
                 }
                 action("Co&mments")

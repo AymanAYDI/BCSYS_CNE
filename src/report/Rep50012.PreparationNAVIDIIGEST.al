@@ -33,7 +33,7 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
                     column(CompanyInfo__Alt_Picture_; CompanyInfo1."BC6_Alt Picture")
                     {
                     }
-                    column(STRSUBSTNO_Text005_FORMAT_CurrReport_PAGENO__; STRSUBSTNO(Text005, FORMAT(CurrReport.PAGENO)))
+                    column(STRSUBSTNO_Text005_FORMAT_CurrReport_PAGENO__; STRSUBSTNO(Text005, FORMAT(CurrReport.PAGENO())))
                     {
                     }
                     column(ShipToAddr_1_; ShipToAddr[1])
@@ -120,7 +120,7 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
                     column(STRSUBSTNO_Text006_CompanyInfo__Alt_Phone_No___CompanyInfo__Alt_Fax_No___CompanyInfo__Alt_E_Mail__; STRSUBSTNO(Text006, CompanyInfo."BC6_Alt Phone No.", CompanyInfo."BC6_Alt Fax No.", CompanyInfo."BC6_Alt E-Mail"))
                     {
                     }
-                    column(DataItem1000000036; CompanyInfo."BC6_Alt Address" + ' ' + CompanyInfo."BC6_Alt Address 2" + ' ' + STRSUBSTNO('%1 %2', CompanyInfo."BC6_Alt Post Code", CompanyInfo."BC6_Alt City"))
+                    column(DataItem1000000036; CompanyInfo."BC6_Alt Address" + ' ' + CompanyInfo."BC6_Alt Address 2" + ' ' + STRSUBSTNO(txtlbl12, CompanyInfo."BC6_Alt Post Code", CompanyInfo."BC6_Alt City"))
                     {
                     }
                     column(CompanyInfo__Alt_Name_; CompanyInfo."BC6_Alt Name")
@@ -129,7 +129,7 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
                     column(STRSUBSTNO_Text006_CompanyInfo__Phone_No___CompanyInfo__Fax_No___CompanyInfo__E_Mail__; STRSUBSTNO(Text006, CompanyInfo."Phone No.", CompanyInfo."Fax No.", CompanyInfo."E-Mail"))
                     {
                     }
-                    column(CompanyInfo_Address______CompanyInfo__Address_2______STRSUBSTNO___1__2__CompanyInfo__Post_Code__CompanyInfo_City_; CompanyInfo.Address + ' ' + CompanyInfo."Address 2" + ' ' + STRSUBSTNO('%1 %2', CompanyInfo."Post Code", CompanyInfo.City))
+                    column(CompanyInfo_Address______CompanyInfo__Address_2______STRSUBSTNO___1__2__CompanyInfo__Post_Code__CompanyInfo_City_; CompanyInfo.Address + ' ' + CompanyInfo."Address 2" + ' ' + STRSUBSTNO(txtlbl12, CompanyInfo."Post Code", CompanyInfo.City))
                     {
                     }
                     column(CompanyInfo_Name; CompanyInfo.Name)
@@ -214,38 +214,38 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
                                     IF Number = 1 THEN
                                         StandardSalesLine.FIND('-')
                                     ELSE BEGIN
-                                        StandardSalesLine.NEXT;
+                                        StandardSalesLine.NEXT();
                                     END;
                                 END;
                             end;
 
                             trigger OnPreDataItem()
                             begin
-                                IF NOT Edition THEN CurrReport.BREAK;
-                                StandardSalesLine.RESET;
+                                IF NOT Edition THEN CurrReport.BREAK();
+                                StandardSalesLine.RESET();
                                 StandardSalesLine.SETRANGE(StandardSalesLine."Standard Sales Code", StandardCustomerSalesCode.Code);
                                 Edition2 := TRUE;
                                 IF StandardSalesLine.COUNT <> 0 THEN
                                     TexteClient.SETRANGE(Number, 1, StandardSalesLine.COUNT)
                                 ELSE
                                     Edition2 := FALSE;
-                                IF NOT Edition2 THEN CurrReport.BREAK;
+                                IF NOT Edition2 THEN CurrReport.BREAK();
                             end;
                         }
 
                         trigger OnAfterGetRecord()
                         begin
-                            IF NOT Edition THEN CurrReport.BREAK;
+                            IF NOT Edition THEN CurrReport.BREAK();
                             IF Number = 1 THEN
                                 StandardCustomerSalesCode.FIND('-')
                             ELSE
-                                StandardCustomerSalesCode.NEXT;
+                                StandardCustomerSalesCode.NEXT();
                         end;
 
                         trigger OnPreDataItem()
                         begin
 
-                            StandardCustomerSalesCode.RESET;
+                            StandardCustomerSalesCode.RESET();
                             StandardCustomerSalesCode.SETRANGE(StandardCustomerSalesCode.BC6_TextautoReport, TRUE);
                             StandardCustomerSalesCode.SETRANGE(StandardCustomerSalesCode."Customer No.", "Sales Header"."Sell-to Customer No.");
                             Edition := TRUE;
@@ -270,7 +270,7 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
                         begin
                             //>>MIGRATION NAV 2013
 
-                            SalesCommentLine.RESET;
+                            SalesCommentLine.RESET();
                             SalesCommentLine.SETRANGE("Document Type", "Sales Header"."Document Type");
                             SalesCommentLine.SETRANGE("No.", "Sales Header"."No.");
 
@@ -440,7 +440,7 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
 
                             //STOCK SL 06/10/06 Ajout de la colonne stock
                             ItemInventory := 0;
-                            item.RESET;
+                            item.RESET();
                             IF item.GET("No.") THEN BEGIN
                                 item.SETRANGE("Location Filter", "Location Code");
                                 item.CALCFIELDS(Inventory);
@@ -450,7 +450,7 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
 
                             //>>FEP-ACHAT-200706_18_A.001
                             IF (BooGRespectLinesPrep) AND NOT ("Sales Line"."BC6_To Prepare") THEN
-                                CurrReport.SKIP;
+                                CurrReport.SKIP();
                             //<<FEP-ACHAT-200706_18_A.001
 
                             CASE Type OF
@@ -477,24 +477,24 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
                 var
                     SalesPost: Codeunit "Sales-Post";
                 begin
-                    CLEAR(SalesLine);
+                    CLEAR(TempSalesLine);
                     CLEAR(SalesPost);
-                    VATAmountLine.DELETEALL;
-                    SalesPost.GetSalesLines("Sales Header", SalesLine, 0);
-                    SalesLine.SETRANGE("Line No.", 0, SalesLine."Line No.");
+                    TempVATAmountLine.DELETEALL();
+                    SalesPost.GetSalesLines("Sales Header", TempSalesLine, 0);
+                    TempSalesLine.SETRANGE("Line No.", 0, TempSalesLine."Line No.");
 
                     //   PRM
 
-                    MoreLines := SalesLine.FIND('+');
+                    MoreLines := TempSalesLine.FIND('+');
 
                     //QUANTITE SL 14/09/06 NSC1.05
                     //WHILE MoreLines AND (SalesLine."Qty. to Ship" = 0)
-                    WHILE MoreLines AND (SalesLine."Outstanding Quantity" = 0)
+                    WHILE MoreLines AND (TempSalesLine."Outstanding Quantity" = 0)
                     //Fin QUANTITE SL 14/09/06 NSC1.05
                     DO
-                        MoreLines := SalesLine.NEXT(-1) <> 0;
+                        MoreLines := TempSalesLine.NEXT(-1) <> 0;
                     IF NOT MoreLines THEN
-                        CurrReport.BREAK;
+                        CurrReport.BREAK();
                     //  PRM
 
 
@@ -535,7 +535,7 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
                 //                 PRM l'édition ne doit pas se faire dans la langue du client....
                 //CurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
                 //PRM debut pour avoir les infos société
-                CompanyInfo.GET;
+                CompanyInfo.GET();
                 IF Country.GET(CompanyInfo."Country/Region Code") THEN
                     Pays := Country.Name;
 
@@ -547,12 +547,12 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
                     CompanyInfo."Phone No." := RespCenter."Phone No.";
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
                 END ELSE BEGIN
-                    CompanyInfo.GET;
+                    CompanyInfo.GET();
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
                 END;
 
                 //NATURE_COMMANDE SL 14/09/06 NSC1.05  Ajout de l'interlocuteur principal basé sur axe analytique 1
-                GLSetup.GET;
+                GLSetup.GET();
                 PrincipalContact := '';
                 //>>MIGRATION NAV 2013
                 /*
@@ -624,17 +624,17 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
 
 
                 IF "Payment Terms Code" = '' THEN
-                    PaymentTerms.INIT
+                    PaymentTerms.INIT()
                 ELSE
                     PaymentTerms.GET("Payment Terms Code");
 
                 IF "Shipment Method Code" = '' THEN
-                    ShipmentMethod.INIT
+                    ShipmentMethod.INIT()
                 ELSE
                     ShipmentMethod.GET("Shipment Method Code");
 
                 IF "Sales Header"."Shipping Agent Service Code" = '' THEN
-                    PrestaTrans.INIT
+                    PrestaTrans.INIT()
                 ELSE
                     PrestaTrans.GET("Sales Header"."Shipping Agent Code", "Sales Header"."Shipping Agent Service Code");
 
@@ -672,13 +672,13 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
                 END;
 
                 //>>FEP-ACHAT-200706_18_A.001
-                RecGSalesLine.RESET;
+                RecGSalesLine.RESET();
                 RecGSalesLine.SETCURRENTKEY("Document Type", "Document No.", "Line No.");
                 RecGSalesLine.SETRANGE(RecGSalesLine."Document Type", "Sales Header"."Document Type");
                 RecGSalesLine.SETRANGE(RecGSalesLine."Document No.", "Sales Header"."No.");
                 RecGSalesLine.SETRANGE(RecGSalesLine."BC6_To Prepare", TRUE);
                 IF NOT RecGSalesLine.FIND('-') THEN
-                    CurrReport.SKIP;
+                    CurrReport.SKIP();
                 //<<FEP-ACHAT-200706_18_A.001
 
             end;
@@ -729,17 +729,12 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
 
         trigger OnOpenPage()
         begin
-            //>>MIGRATION NAV 2013
 
-            ArchiveDocument := ArchiveManagement.SalesDocArchiveGranule;
+            ArchiveDocument := ArchiveManagement.SalesDocArchiveGranule();
             LogInteraction := SegManagement.FindInteractTmplCode(3) <> '';
 
             BooGEnableArchiveDocument := ArchiveDocument;
             BooGEnableLogInteraction := LogInteraction;
-            //RequestOptionsForm.ArchiveDocument.ENABLED(ArchiveDocument);
-            //RequestOptionsForm.LogInteraction.ENABLED(LogInteraction);
-
-            //<<MIGRATION NAV 2013
         end;
     }
 
@@ -749,170 +744,169 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
 
     trigger OnInitReport()
     begin
-        GLSetup.GET;
-
-        //>>MIGRATION NAV 2013
-        CompanyInfo1.GET;
+        GLSetup.GET();
+        CompanyInfo1.GET();
         CompanyInfo1.CALCFIELDS(Picture);
         CompanyInfo1.CALCFIELDS("BC6_Alt Picture");
-        //<<MIGRATION NAV 2013
     end;
 
     var
+        TablesDiverses: Record "BC6_Various Tables";
+        CompanyInfo: Record "Company Information";
+        CompanyInfo1: Record "Company Information";
+        CompanyInfo2: Record "Company Information";
+        Country: Record "Country/Region";
+        customer: Record Customer;
+        DocDim1: Record "Dimension Set Entry";
+        DocDim2: Record "Dimension Set Entry";
+        DocDimension: Record "Dimension Set Entry";
+        DimensionValue: Record "Dimension Value";
+        GLSetup: Record "General Ledger Setup";
+        item: Record Item;
+        ItemReference: Record "Item Reference";
+        Language: Record Language;
+        PaymentMethod: Record "Payment Method";
+        PaymentTerms: Record "Payment Terms";
+        RespCenter: Record "Responsibility Center";
+        SalesCommentLine: Record "Sales Comment Line";
+        RecGSalesLine: Record "Sales Line";
+        TempSalesLine: Record "Sales Line" temporary;
+        SalesPurchPerson: Record "Salesperson/Purchaser";
+        ShipmentMethod: Record "Shipment Method";
+        ShippingAgent: Record "Shipping Agent";
+        PrestaTrans: Record "Shipping Agent Services";
+        StandardCustomerSalesCode: Record "Standard Customer Sales Code";
+        StandardSalesLine: Record "Standard Sales Line";
+        TempVATAmountLine: Record "VAT Amount Line" temporary;
+        ArchiveManagement: Codeunit ArchiveManagement;
+        ConvertAutoIDEAN13: Codeunit "BC6_Barcode Mngt AutoID";
+        FunctionsMgt: Codeunit "BC6_Functions Mgt";
+        DistInt: Codeunit "Dist. Integration";
+        FormatAddr: Codeunit "Format Address";
+        SalesCountPrinted: Codeunit "Sales-Printed";
+        SegManagement: Codeunit SegManagement;
+        ArchiveDocument: Boolean;
+        [InDataSet]
+        BooGEnableArchiveDocument: Boolean;
+        [InDataSet]
+        BooGEnableLogInteraction: Boolean;
+        BooGRespectLinesPrep: Boolean;
+        Continue: Boolean;
+        EditerToutesLignes: Boolean;
+        Edition: Boolean;
+        Edition2: Boolean;
+        FlagSaleCommentLine: Boolean;
+        FlagText: Boolean;
+        LogInteraction: Boolean;
+        MoreLines: Boolean;
+        ShowInternalInfo: Boolean;
+        ShowShippingAddr: Boolean;
+        PrincipalContact: Code[10];
+        ShipmentDate: Date;
+        GrossWeight: Decimal;
+        ItemInventory: Decimal;
+        NetWeight: Decimal;
+        PrixNet: Decimal;
+        tempcalc: Decimal;
+        TotalAmountInclVAT: Decimal;
+        VATAmount: Decimal;
+        VATBaseAmount: Decimal;
+        VATDiscountAmount: Decimal;
+        "--NSC1.01--": Integer;
+        "--NSC1.10--": Integer;
+        "--NSC1.11--": Integer;
+        "-FEP-ACHAT-200706_18_A -": Integer;
+        "-MIGNAV2013-": Integer;
+        CompteurDeLigne: Integer;
+        i: Integer;
+        NoOfCopies: Integer;
+        NoOfLoops: Integer;
+        OutputNo: Integer;
+        bill_DepartementCaptionLbl: Label 'bill Departement', Comment = 'FRA="Adresse de Facturation"';
+        Customer_NumberCaptionLbl: Label 'Customer Number', Comment = 'FRA="Code Client"';
+        DateCaptionLbl: Label 'Date', Comment = 'FRA="Date"';
+        DeliveredCaption_Control1000000110Lbl: Label 'Delivered', Comment = 'FRA="Livrée"';
+        DeliveredCaptionLbl: Label 'Delivered', Comment = 'FRA="Livrée"';
+        DescriptionCaption_Control1000000121Lbl: Label 'Description', Comment = 'FRA="Description"';
+        DescriptionCaptionLbl: Label 'Description', Comment = 'FRA="Description"';
+        Gross_WeightCaptionLbl: Label 'Gross Weight', Comment = 'FRA="Poids brut"';
+        GrossWeightCaptionLbl: Label 'Gross Weight', Comment = 'FRA="Poids brut"';
+        Header_DimensionsCaptionLbl: Label 'Header Dimensions', Comment = 'FRA="Analytique en-tête"';
+        InventoryCaption_Control1000000126Lbl: Label 'Inventory', Comment = 'FRA="Stock"';
+        InventoryCaptionLbl: Label 'Inventory', Comment = 'FRA="Stock"';
+        ItemCaption_Control1000000067Lbl: Label 'Item', Comment = 'FRA="Référence"';
+        ItemCaptionLbl: Label 'Item', Comment = 'FRA="Référence"';
+        Net_WeightCaptionLbl: Label 'Net Weight', Comment = 'FRA="Poids net"';
+        NextCaptionLbl: Label 'Next', Comment = 'FRA="Suite"';
+        Order_NumberCaptionLbl: Label 'Order Number', Comment = 'FRA="N° de Commande"';
+        OrderCaption_Control1000000119Lbl: Label 'Order', Comment = 'FRA="Cdée"';
+        OrderCaptionLbl: Label 'Order', Comment = 'FRA="Cdée"';
+        Preparation_and_shipping_instructions__CaptionLbl: Label 'Preparation and shipping instructions :', Comment = 'FRA="Instructions de préparation et livraison"';
+        Preparation_OrderCaptionLbl: Label 'Preparation Order', Comment = 'FRA="Bon de préparation"';
+        QuantityCaption_Control1000000118Lbl: Label 'Quantity', Comment = 'FRA="Quantité"';
+        QuantityCaptionLbl: Label 'Quantity', Comment = 'FRA="Quantité"';
+        ReferenceCaptionLbl: Label 'Reference', Comment = 'FRA="Référence"';
+        Shelf_No_Caption_Control1000000123Lbl: Label 'Shelf No.', Comment = 'FRA="N° emplacement"';
+        Shelf_No_CaptionLbl: Label 'Shelf No.', Comment = 'FRA="N° emplacement"';
+        Shipment_departementCaptionLbl: Label 'Shipment departement', Comment = 'FRA="Adresse de livraison"';
+        ShipmentCaptionLbl: Label 'Shipment', Comment = 'FRA="Livraison"';
+        Shipping_conditionCaptionLbl: Label 'Shipping condition', Comment = 'FRA="Condition de livraison"';
+        Shipping_ServiceCaptionLbl: Label 'Shipping Service', Comment = 'FRA="Prestation Transport"';
+        ShippingCaptionLbl: Label 'Shipping', Comment = 'FRA="Transporteur"';
+        Text000: Label 'Salesperson', Comment = 'FRA="Vendeur"';
         Text001: Label 'Total %1', Comment = 'FRA="Total %1"';
         Text002: Label 'Total %1 Incl. VAT', Comment = 'FRA="Total %1 TTC"';
         Text003: Label 'COPY', Comment = 'FRA="COPIE"';
         Text004: Label 'Order Confirmation %1', Comment = 'FRA="Confirmation de commande %1"';
         Text005: Label 'Page %1', Comment = 'FRA="Page %1"';
         Text006: Label 'Total %1 Excl. VAT', Comment = 'FRA="TEL : %1 FAX : %2 / email : %3"';
-        GLSetup: Record "General Ledger Setup";
-        ShipmentMethod: Record "Shipment Method";
-        PaymentTerms: Record "Payment Terms";
-        SalesPurchPerson: Record "Salesperson/Purchaser";
-        CompanyInfo: Record "Company Information";
-        VATAmountLine: Record "VAT Amount Line" temporary;
-        SalesLine: Record "Sales Line" temporary;
-        DocDim1: Record "Dimension Set Entry";
-        DocDim2: Record "Dimension Set Entry";
-        RespCenter: Record "Responsibility Center";
-        Language: Record Language;
-        SalesCountPrinted: Codeunit "Sales-Printed";
-        FormatAddr: Codeunit "Format Address";
-        SegManagement: Codeunit SegManagement;
-        ArchiveManagement: Codeunit ArchiveManagement;
-        PrestaTrans: Record "Shipping Agent Services";
-        ShippingAgent: Record "Shipping Agent";
-        ModeTransport: Text[30];
-        Country: Record "Country/Region";
-        CustAddr: array[8] of Text[50];
-        ShipToAddr: array[8] of Text[50];
-        CompanyAddr: array[8] of Text[50];
-        SalesPersonText: Text[50];
-        VATNoText: Text[30];
-        ReferenceText: Text[30];
-        TotalText: Text[50];
-        TotalExclVATText: Text[50];
-        TotalInclVATText: Text[50];
-        MoreLines: Boolean;
-        NoOfCopies: Integer;
-        NoOfLoops: Integer;
-        CopyText: Text[30];
-        ShowShippingAddr: Boolean;
-        i: Integer;
-        DimText: Text[120];
-        OldDimText: Text[75];
-        ShowInternalInfo: Boolean;
-        Continue: Boolean;
-        ArchiveDocument: Boolean;
-        [InDataSet]
-        BooGEnableArchiveDocument: Boolean;
-        LogInteraction: Boolean;
-        [InDataSet]
-        BooGEnableLogInteraction: Boolean;
-        VATAmount: Decimal;
-        VATBaseAmount: Decimal;
-        VATDiscountAmount: Decimal;
-        TotalAmountInclVAT: Decimal;
         Text008: Label 'de commande', Comment = 'FRA="de commande"';
-        CompteurDeLigne: Integer;
-        PaymentMethod: Record "Payment Method";
-        ModeDePayment: Text[30];
-        VotreRef: Text[200];
-        PrixNet: Decimal;
-        Text10: Text[200];
-        Text20: Text[200];
-        Text30: Text[200];
-        Text40: Text[200];
-        Text50: Text[200];
-        TmpNamereport: Text[30];
         Text016: Label 'INVOICE DEPARTMENT', Comment = 'FRA="SERVICE FACTURATION"';
         Text030: Label '%1 - %2 - %3 %4', Comment = 'FRA="%1 - %2 - %3 %4"';
         Text032: Label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5', Comment = 'FRA="%1 au capital de  %2   - %3  -  APE %4 - N°TVA : %5"';
+        To_be_continuedCaptionLbl: Label 'To be continued', Comment = 'FRA="A Suivre"';
+        To_prepareCaption_Control1000000096Lbl: Label 'To prepare', Comment = 'FRA="A servir"';
+        To_prepareCaptionLbl: Label 'To prepare', Comment = 'FRA="A servir"';
+        UserCaptionLbl: Label 'User', Comment = 'FRA="Utilisateur"';
+        VAT_Registration_No__CaptionLbl: Label '<VAT Registration No.>', Comment = 'FRA="N° TVA :"';
+        txtlbl12: label '%1 %2';
+
+        Langue: Text[10];
         LangueLig01: Text[10];
         LangueLig10: Text[10];
         LangueLig20: Text[10];
         LangueLig30: Text[10];
         LangueLig40: Text[10];
         LangueLig50: Text[10];
-        TablesDiverses: Record "BC6_Various Tables";
-        Langue: Text[10];
         ListeTable: Text[10];
-        Text000: Label 'Salesperson', Comment = 'FRA="Vendeur"';
-        customer: Record Customer;
-        TempGencod: Text[30];
-        ItemCrossReference: Record "Item Cross Reference";
-        CrossrefNo: Text[20];
-        item: Record Item;
-        templibelledouanier: Text[30];
-        tempcalc: Decimal;
-        GrossWeight: Decimal;
-        NetWeight: Decimal;
-        FlagSaleCommentLine: Boolean;
-        StandardCustomerSalesCode: Record "Standard Customer Sales Code";
-        StandardSalesLine: Record "Standard Sales Line";
-        FlagText: Boolean;
-        Edition: Boolean;
-        Edition2: Boolean;
-        Pays: Text[30];
-        "--NSC1.01--": Integer;
-        EditerToutesLignes: Boolean;
-        SalesCommentLine: Record "Sales Comment Line";
-        "--NSC1.10--": Integer;
-        PrincipalContact: Code[10];
-        DocDimension: Record "Dimension Set Entry";
-        DimensionValue: Record "Dimension Value";
-        PrincContactName: Text[50];
-        ShipmentDate: Date;
-        "--NSC1.11--": Integer;
-        ItemInventory: Decimal;
-        "-FEP-ACHAT-200706_18_A -": Integer;
-        BooGRespectLinesPrep: Boolean;
-        RecGSalesLine: Record "Sales Line";
-        EAN13BarTxt: Text[120];
-        EAN13Txt: Text[13];
         EAN13Bar: Text[13];
-        DistInt: Codeunit "Dist. Integration";
-        FunctionsMgt: Codeunit "BC6_Functions Mgt";
-        ConvertAutoIDEAN13: Codeunit "BC6_Barcode Mngt AutoID";
-        Shipment_departementCaptionLbl: Label 'Shipment departement', Comment = 'FRA="Adresse de livraison"';
-        ReferenceCaptionLbl: Label 'Reference', Comment = 'FRA="Référence"';
-        VAT_Registration_No__CaptionLbl: Label '<VAT Registration No.>', Comment = 'FRA="N° TVA :"';
-        ShipmentCaptionLbl: Label 'Shipment', Comment = 'FRA="Livraison"';
-        DateCaptionLbl: Label 'Date', Comment = 'FRA="Date"';
-        Order_NumberCaptionLbl: Label 'Order Number', Comment = 'FRA="N° de Commande"';
-        Customer_NumberCaptionLbl: Label 'Customer Number', Comment = 'FRA="Code Client"';
-        Shipping_ServiceCaptionLbl: Label 'Shipping Service', Comment = 'FRA="Prestation Transport"';
-        bill_DepartementCaptionLbl: Label 'bill Departement', Comment = 'FRA="Adresse de Facturation"';
-        Preparation_OrderCaptionLbl: Label 'Preparation Order', Comment = 'FRA="Bon de préparation"';
-        ShippingCaptionLbl: Label 'Shipping', Comment = 'FRA="Transporteur"';
-        Shipping_conditionCaptionLbl: Label 'Shipping condition', Comment = 'FRA="Condition de livraison"';
-        UserCaptionLbl: Label 'User', Comment = 'FRA="Utilisateur"';
-        Header_DimensionsCaptionLbl: Label 'Header Dimensions', Comment = 'FRA="Analytique en-tête"';
-        Preparation_and_shipping_instructions__CaptionLbl: Label 'Preparation and shipping instructions :', Comment = 'FRA="Instructions de préparation et livraison"';
-        To_prepareCaptionLbl: Label 'To prepare', Comment = 'FRA="A servir"';
-        DeliveredCaptionLbl: Label 'Delivered', Comment = 'FRA="Livrée"';
-        QuantityCaptionLbl: Label 'Quantity', Comment = 'FRA="Quantité"';
-        OrderCaptionLbl: Label 'Order', Comment = 'FRA="Cdée"';
-        DescriptionCaptionLbl: Label 'Description', Comment = 'FRA="Description"';
-        ItemCaptionLbl: Label 'Item', Comment = 'FRA="Référence"';
-        Shelf_No_CaptionLbl: Label 'Shelf No.', Comment = 'FRA="N° emplacement"';
-        InventoryCaptionLbl: Label 'Inventory', Comment = 'FRA="Stock"';
-        NextCaptionLbl: Label 'Next', Comment = 'FRA="Suite"';
-        ItemCaption_Control1000000067Lbl: Label 'Item', Comment = 'FRA="Référence"';
-        To_prepareCaption_Control1000000096Lbl: Label 'To prepare', Comment = 'FRA="A servir"';
-        DeliveredCaption_Control1000000110Lbl: Label 'Delivered', Comment = 'FRA="Livrée"';
-        QuantityCaption_Control1000000118Lbl: Label 'Quantity', Comment = 'FRA="Quantité"';
-        OrderCaption_Control1000000119Lbl: Label 'Order', Comment = 'FRA="Cdée"';
-        DescriptionCaption_Control1000000121Lbl: Label 'Description', Comment = 'FRA="Description"';
-        Shelf_No_Caption_Control1000000123Lbl: Label 'Shelf No.', Comment = 'FRA="N° emplacement"';
-        InventoryCaption_Control1000000126Lbl: Label 'Inventory', Comment = 'FRA="Stock"';
-        Gross_WeightCaptionLbl: Label 'Gross Weight', Comment = 'FRA="Poids brut"';
-        To_be_continuedCaptionLbl: Label 'To be continued', Comment = 'FRA="A Suivre"';
-        Net_WeightCaptionLbl: Label 'Net Weight', Comment = 'FRA="Poids net"';
-        GrossWeightCaptionLbl: Label 'Gross Weight', Comment = 'FRA="Poids brut"';
-        "-MIGNAV2013-": Integer;
-        OutputNo: Integer;
-        CompanyInfo1: Record "Company Information";
-        CompanyInfo2: Record "Company Information";
+        EAN13Txt: Text[13];
+        CrossrefNo: Text[20];
+        CopyText: Text[30];
+        ModeDePayment: Text[30];
+        ModeTransport: Text[30];
+        Pays: Text[30];
+        ReferenceText: Text[30];
+        TempGencod: Text[30];
+        templibelledouanier: Text[30];
+        TmpNamereport: Text[30];
+        VATNoText: Text[30];
+        CompanyAddr: array[8] of Text[50];
+        CustAddr: array[8] of Text[50];
+        PrincContactName: Text[50];
+        SalesPersonText: Text[50];
+        ShipToAddr: array[8] of Text[50];
+        TotalExclVATText: Text[50];
+        TotalInclVATText: Text[50];
+        TotalText: Text[50];
+        OldDimText: Text[75];
+        DimText: Text[120];
+        EAN13BarTxt: Text[120];
+        Text10: Text[200];
+        Text20: Text[200];
+        Text30: Text[200];
+        Text40: Text[200];
+        Text50: Text[200];
+        VotreRef: Text[200];
 }
 

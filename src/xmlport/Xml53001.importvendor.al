@@ -80,7 +80,7 @@ xmlport 53001 "BC6_import vendor"
                 trigger OnAfterInitRecord()
                 begin
 
-                    regVendor.INIT;
+                    regVendor.INIT();
 
                     no := '';
                     //dtcrea:=0D;
@@ -163,13 +163,13 @@ xmlport 53001 "BC6_import vendor"
                         END;
 
 
-                        PostCode.RESET;
+                        PostCode.RESET();
 
                         PostCode.SETCURRENTKEY("Search City");
                         PostCode.SETRANGE("Search City", UPPERCASE(ville));
                         PostCode.SETRANGE(Code, cp);
                         IF NOT PostCode.FIND('-') THEN BEGIN
-                            PostCode.INIT;
+                            PostCode.INIT();
 
                             PostCode.Code := cp;
                             PostCode.City := ville;
@@ -190,7 +190,7 @@ xmlport 53001 "BC6_import vendor"
                         IF pays = 'FRA' THEN pays := 'FR';
 
                         IF NOT Country.GET(pays) THEN BEGIN
-                            Country.INIT;
+                            Country.INIT();
                             Country.VALIDATE(Code, pays);
                             Country.VALIDATE(Name, 'libelle import');
                             Country.INSERT(TRUE);
@@ -240,11 +240,11 @@ xmlport 53001 "BC6_import vendor"
 
                     // Commentaires
                     IF commentaire <> '' THEN BEGIN
-                        Com.INIT;
+                        Com.INIT();
                         Com.VALIDATE("Table Name", Com."Table Name"::Vendor);
                         Com.VALIDATE("No.", no);
                         Com.VALIDATE("Line No.", 10000);
-                        Com.VALIDATE(Date, WORKDATE);
+                        Com.VALIDATE(Date, WORKDATE());
                         Com.VALIDATE(Comment, commentaire);
                         Com.INSERT(TRUE);
                     END;
@@ -275,10 +275,10 @@ xmlport 53001 "BC6_import vendor"
     }
 
     var
-        regVendor: Record Vendor;
-        PostCode: Record "Post Code";
-        Country: Record "Country/Region";
         Com: Record "Comment Line";
+        Country: Record "Country/Region";
+        PostCode: Record "Post Code";
+        regVendor: Record Vendor;
         DatGdtcrea: Date;
         IntGcmdmin: Integer;
         IntGfrancomin: Integer;

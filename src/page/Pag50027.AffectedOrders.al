@@ -99,7 +99,6 @@ page 50027 "BC6_Affected Orders"
     var
         RecGCustomer: Record Customer;
         RecGSalesHeader: Record "Sales Header";
-        "-FEP-ACHAT-200706_18_A-": Integer;
 
 
     procedure DisplayOrder()

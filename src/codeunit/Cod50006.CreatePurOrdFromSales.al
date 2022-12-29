@@ -28,6 +28,8 @@ codeunit 50006 "BC6_Create Pur. Ord From Sales"
         Text004: Label 'Nothing to Post', Comment = 'FRA="Il n''y a rien à valider"';
 
     procedure "Code"()
+    var
+        Txt12: Label '%1 %2';
     begin
         SalesSetup.GET();
         CLEAR(VendorNo);
@@ -55,7 +57,7 @@ codeunit 50006 "BC6_Create Pur. Ord From Sales"
             IF FINDSET() THEN
                 REPEAT
 
-                    Window.UPDATE(1, STRSUBSTNO('%1 %2', "Document Type", "Document No."));
+                    Window.UPDATE(1, STRSUBSTNO(Txt12, "Document Type", "Document No."));
                     Window.UPDATE(2, "Line No.");
 
                     TESTFIELD("BC6_Buy-from Vendor No.");
@@ -107,7 +109,7 @@ codeunit 50006 "BC6_Create Pur. Ord From Sales"
         END;
     end;
 
-    procedure InsertPurchLine(var SalesLine: Record "Sales Line")
+    procedure InsertPurchLine(var SaleLine: Record "Sales Line")
     begin
         // Insert Purchase Line
         WITH PurchLine DO BEGIN
@@ -115,22 +117,22 @@ codeunit 50006 "BC6_Create Pur. Ord From Sales"
             VALIDATE("Document Type", "Document Type"::Order);
             VALIDATE("Document No.", PurchHeader."No.");
             VALIDATE("Line No.", NextLineNo);
-            VALIDATE(Type, SalesLine.Type);
-            VALIDATE("No.", SalesLine."No.");
-            VALIDATE("Variant Code", SalesLine."Variant Code");
-            VALIDATE("Location Code", SalesLine."Location Code");
-            VALIDATE("Unit of Measure Code", SalesLine."Unit of Measure Code");
+            VALIDATE(Type, SaleLine.Type);
+            VALIDATE("No.", SaleLine."No.");
+            VALIDATE("Variant Code", SaleLine."Variant Code");
+            VALIDATE("Location Code", SaleLine."Location Code");
+            VALIDATE("Unit of Measure Code", SaleLine."Unit of Measure Code");
             IF (Type = Type::Item) AND ("No." <> '') THEN
                 UpdateUOMQtyPerStockQty();
-            VALIDATE("Expected Receipt Date", SalesLine."Shipment Date");
-            VALIDATE(Quantity, SalesLine."BC6_Qty. To Order");
-            VALIDATE("Return Reason Code", SalesLine."Return Reason Code");
-            VALIDATE("Direct Unit Cost", SalesLine."BC6_Purchase cost");
-            VALIDATE("Purchasing Code", SalesLine."Purchasing Code");
+            VALIDATE("Expected Receipt Date", SaleLine."Shipment Date");
+            VALIDATE(Quantity, SaleLine."BC6_Qty. To Order");
+            VALIDATE("Return Reason Code", SaleLine."Return Reason Code");
+            VALIDATE("Direct Unit Cost", SaleLine."BC6_Purchase cost");
+            VALIDATE("Purchasing Code", SaleLine."Purchasing Code");
 
-            VALIDATE("BC6_Sales No.", SalesLine."Document No.");
-            VALIDATE("BC6_Sales Line No.", SalesLine."Line No.");
-            VALIDATE("BC6_Sales Document Type", SalesLine."Document Type");
+            VALIDATE("BC6_Sales No.", SaleLine."Document No.");
+            VALIDATE("BC6_Sales Line No.", SaleLine."Line No.");
+            VALIDATE("BC6_Sales Document Type", SaleLine."Document Type");
 
             VALIDATE("Line Discount %", 0);
             INSERT(TRUE);
@@ -142,9 +144,9 @@ codeunit 50006 "BC6_Create Pur. Ord From Sales"
 
     procedure FinalizePurchHeader(FromPurchHeader: Record "Purchase Header")
     var
+        FunctionMgt: Codeunit "BC6_Functions Mgt";
         TransferExtendedText: Codeunit "Transfer Extended Text";
         Unconditionally: Boolean;
-        FunctionMgt: Codeunit "BC6_Functions Mgt";
     begin
         IF NOT InsertPurchHeaderOk THEN
             EXIT;

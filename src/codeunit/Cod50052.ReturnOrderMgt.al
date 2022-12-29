@@ -6,14 +6,13 @@ codeunit 50052 "BC6_Return Order Mgt."
 
         ComfirmDeleteAllRelatedDocuments: label 'Souhaitez-vous supprimer tous les documents associés?';
         ErrValidateReturnPurchOrder: label 'Validation Impossible. \Le retour vente associé %1 n''a pas été validé.';
-        NoyExistingRelatedDocuments: label 'Aucun document associé n''est crée pour ce retour vente.';
 
     procedure DeleteRelatedDocument(P_SalesHeader: Record "Sales Header")
     var
-        L_SalesHeader: Record "Sales Header";
+        L_ReturnOrderRelation: Record "BC6_Return Order Relation";
         L_RealedPurchReturn: Record "Purchase Header";
         L_RelatedPurchOrder: Record "Purchase Header";
-        L_ReturnOrderRelation: Record "BC6_Return Order Relation";
+        L_SalesHeader: Record "Sales Header";
         Confirm: Boolean;
     begin
         with P_SalesHeader do begin
@@ -53,8 +52,8 @@ codeunit 50052 "BC6_Return Order Mgt."
 
     procedure DisableRelatedDocuments(P_ReturnOrderNo: Code[20])
     var
-        TempRetRelDoc: Record "Returns-Related Document" temporary;
         L_ReturnOrderRelation: Record "BC6_Return Order Relation";
+        TempRetRelDoc: Record "Returns-Related Document" temporary;
     begin
         TempRetRelDoc.DELETEALL();
 
@@ -159,16 +158,13 @@ codeunit 50052 "BC6_Return Order Mgt."
             end;
     end;
 
-    local procedure DeleteSalesAndPurchDoc(var P_SalesHeader: Record "Sales Header")
-    begin
-    end;
+
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnBeforePostPurchaseDoc', '', false, false)]
-
     procedure OnBeforePostPurchaseDoc(var PurchaseHeader: Record "Purchase Header")
     var
-        L_SalesCrMemoHeader: Record "Sales Cr.Memo Header";
         L_ReturnOrderRelation: Record "BC6_Return Order Relation";
+        L_SalesCrMemoHeader: Record "Sales Cr.Memo Header";
     begin
         with PurchaseHeader do begin
             if "Document Type" <> "Document Type"::"Return Order" then
@@ -189,12 +185,11 @@ codeunit 50052 "BC6_Return Order Mgt."
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterModifyEvent', '', false, false)]
-
     procedure OnAfterModifySalesHeader(var Rec: Record "Sales Header"; var xRec: Record "Sales Header"; RunTrigger: Boolean)
     var
-        RecLModifiedSalesHeader: Record "Sales Header";
         RecLNoSeries: Record "No. Series";
         RecLSalesReceivablesSetup: Record "Sales & Receivables Setup";
+        RecLModifiedSalesHeader: Record "Sales Header";
         CduNoSeriesMgt: Codeunit NoSeriesManagement;
     begin
         with Rec do begin

@@ -124,19 +124,19 @@ report 50005 "BC6_Batch Post Sales Orders"
     }
 
     var
-        Text003: Label 'The exchange rate associated with the new posting date on the sales header will not apply to the sales lines.', Comment = 'FRA="Le taux de change associé à la nouvelle date de comptabilisation de l''en-tête vente ne s''appliquera pas aux lignes vente."';
+        BooGExcludeShipment: Boolean;
         PrintDoc: Boolean;
         [InDataSet]
         PrintDocVisible: Boolean;
-        BooGExcludeShipment: Boolean;
+        Text003: Label 'The exchange rate associated with the new posting date on the sales header will not apply to the sales lines.', Comment = 'FRA="Le taux de change associé à la nouvelle date de comptabilisation de l''en-tête vente ne s''appliquera pas aux lignes vente."';
 
     protected var
-        ShipReq: Boolean;
-        InvReq: Boolean;
-        PostingDateReq: Date;
-        ReplacePostingDate: Boolean;
-        ReplaceDocumentDate: Boolean;
         CalcInvDisc: Boolean;
+        InvReq: Boolean;
+        ReplaceDocumentDate: Boolean;
+        ReplacePostingDate: Boolean;
+        ShipReq: Boolean;
+        PostingDateReq: Date;
 
     procedure InitializeRequest(ShipParam: Boolean; InvoiceParam: Boolean; PostingDateParam: Date; ReplacePostingDateParam: Boolean; ReplaceDocumentDateParam: Boolean; CalcInvDiscParam: Boolean)
     begin

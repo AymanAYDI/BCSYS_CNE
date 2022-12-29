@@ -61,8 +61,8 @@ report 50004 "BC6_Combine Shipments"
 
                     trigger OnPostDataItem()
                     var
-                        SalesShipmentLine: Record "Sales Shipment Line";
                         SalesLineInvoice: Record "Sales Line";
+                        SalesShipmentLine: Record "Sales Shipment Line";
                         SalesGetShpt: Codeunit "Sales-Get Shipment";
                     begin
                         SalesShipmentLine.SetRange("Document No.", "Document No.");
@@ -212,20 +212,24 @@ report 50004 "BC6_Combine Shipments"
         end;
     }
     var
-        SalesSetup: Record "Sales & Receivables Setup";
         Cust: Record Customer;
         GLSetup: Record "General Ledger Setup";
         PmtTerms: Record "Payment Terms";
+        SalesSetup: Record "Sales & Receivables Setup";
         Language: Codeunit Language;
         SalesCalcDisc: Codeunit "Sales-Calc. Discount";
         SalesPost: Codeunit "Sales-Post";
-        Window: Dialog;
+        booGlastinvoicemethod: Boolean;
+        BooGNewOrderHdr: Boolean;
         HasAmount: Boolean;
         HideDialog: Boolean;
-        NoOfSalesInvErrors: Integer;
+        ExtDocReq: Code[20];
+        Window: Dialog;
         NoOfSalesInv: Integer;
+        NoOfSalesInvErrors: Integer;
         NoOfskippedShiment: Integer;
         ReportLanguage: Integer;
+        NotAllInvoicesCreatedMsg: Label 'Not all the invoices were created. A total of %1 invoices were not created.', Comment = 'FRA="Les factures n''ont pas toutes été créées. Au total, %1 factures n''ont pas été créées."';
 
         Text000: Label 'Enter the posting date.', Comment = 'FRA="Entrez une date comptabilisation."';
         Text001: Label 'Enter the document date.', Comment = 'FRA="Entrez la date du document."';
@@ -237,21 +241,17 @@ report 50004 "BC6_Combine Shipments"
         Text008: Label 'There is nothing to combine.', Comment = 'FRA="Il n''y a rien à regrouper."';
         Text010: Label 'The shipments are now combined and the number of invoices created is %1.', Comment = 'FRA="Les expéditions sont maintenant regroupées, et le nombre de factures créées est de %1."';
         Text011: Label 'The shipments are now combined, and the number of invoices created is %1.\%2 Shipments with nonstandard payment terms have not been combined.', Comment = 'FRA="Les expéditions sont maintenant regroupées, et le nombre de factures créées est de %1.\%2 expéditions avec des conditions de paiement non standard n''ont pas été combinées."';
-        NotAllInvoicesCreatedMsg: Label 'Not all the invoices were created. A total of %1 invoices were not created.', Comment = 'FRA="Les factures n''ont pas toutes été créées. Au total, %1 factures n''ont pas été créées."';
-        ExtDocReq: Code[20];
-        booGlastinvoicemethod: Boolean;
-        BooGNewOrderHdr: Boolean;
 
     protected var
         SalesHeader: Record "Sales Header";
         SalesLine: Record "Sales Line";
         SalesShptLine: Record "Sales Shipment Line";
-        PostingDateReq: Date;
-        DocDateReq: Date;
         CalcInvDisc: Boolean;
-        PostInv: Boolean;
-        OnlyStdPmtTerms: Boolean;
         CopyTextLines: Boolean;
+        OnlyStdPmtTerms: Boolean;
+        PostInv: Boolean;
+        DocDateReq: Date;
+        PostingDateReq: Date;
 
     local procedure FinalizeSalesInvHeader()
     var
@@ -360,15 +360,15 @@ report 50004 "BC6_Combine Shipments"
                 Message(Text008);
     end;
 
-    local procedure ShouldFinalizeSalesInvHeader(SalesOrderHeader: Record "Sales Header"; SalesHeader: Record "Sales Header"; SalesShipmentLine: Record "Sales Shipment Line") Finalize: Boolean
+    local procedure ShouldFinalizeSalesInvHeader(SalesOrderHeader: Record "Sales Header"; SalesHead: Record "Sales Header"; SalesShipmentLine: Record "Sales Shipment Line") Finalize: Boolean
     begin
         Finalize :=
-          (SalesOrderHeader."Sell-to Customer No." <> SalesHeader."Sell-to Customer No.") or
-          (SalesOrderHeader."Bill-to Customer No." <> SalesHeader."Bill-to Customer No.") or
-          (SalesOrderHeader."Currency Code" <> SalesHeader."Currency Code") or
-          (SalesOrderHeader."EU 3-Party Trade" <> SalesHeader."EU 3-Party Trade") or
-          (SalesOrderHeader."Dimension Set ID" <> SalesHeader."Dimension Set ID") or
-          (SalesOrderHeader."Journal Templ. Name" <> SalesHeader."Journal Templ. Name");
+          (SalesOrderHeader."Sell-to Customer No." <> SalesHead."Sell-to Customer No.") or
+          (SalesOrderHeader."Bill-to Customer No." <> SalesHead."Bill-to Customer No.") or
+          (SalesOrderHeader."Currency Code" <> SalesHead."Currency Code") or
+          (SalesOrderHeader."EU 3-Party Trade" <> SalesHead."EU 3-Party Trade") or
+          (SalesOrderHeader."Dimension Set ID" <> SalesHead."Dimension Set ID") or
+          (SalesOrderHeader."Journal Templ. Name" <> SalesHead."Journal Templ. Name");
         exit(Finalize);
     end;
 

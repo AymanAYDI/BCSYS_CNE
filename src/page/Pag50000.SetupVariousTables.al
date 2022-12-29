@@ -26,63 +26,63 @@ page 50000 "BC6_Setup Various Tables"
                     {
                         trigger OnValidate()
                         begin
-                            Text1UseOnAfterValidate;
+                            Text1UseOnAfterValidate();
                         end;
                     }
                     field("Text2 Use"; "Text2 Use")
                     {
                         trigger OnValidate()
                         begin
-                            Text2UseOnAfterValidate;
+                            Text2UseOnAfterValidate();
                         end;
                     }
                     field("Text3 Use"; "Text3 Use")
                     {
                         trigger OnValidate()
                         begin
-                            Text3UseOnAfterValidate;
+                            Text3UseOnAfterValidate();
                         end;
                     }
                     field("Number1 Use"; "Number1 Use")
                     {
                         trigger OnValidate()
                         begin
-                            Number1UseOnAfterValidate;
+                            Number1UseOnAfterValidate();
                         end;
                     }
                     field("Number2 Use"; "Number2 Use")
                     {
                         trigger OnValidate()
                         begin
-                            Number2UseOnAfterValidate;
+                            Number2UseOnAfterValidate();
                         end;
                     }
                     field("Number3 Use"; "Number3 Use")
                     {
                         trigger OnValidate()
                         begin
-                            Number3UseOnAfterValidate;
+                            Number3UseOnAfterValidate();
                         end;
                     }
                     field("Date1 Use"; "Date1 Use")
                     {
                         trigger OnValidate()
                         begin
-                            Date1UseOnAfterValidate;
+                            Date1UseOnAfterValidate();
                         end;
                     }
                     field("Date2 Use"; "Date2 Use")
                     {
                         trigger OnValidate()
                         begin
-                            Date2UseOnAfterValidate;
+                            Date2UseOnAfterValidate();
                         end;
                     }
                     field("Date3 Use"; "Date3 Use")
                     {
                         trigger OnValidate()
                         begin
-                            Date3UseOnAfterValidate;
+                            Date3UseOnAfterValidate();
                         end;
                     }
                 }
@@ -183,21 +183,21 @@ page 50000 "BC6_Setup Various Tables"
                 {
                     trigger OnValidate()
                     begin
-                        TopLogical1UseOnAfterValidate;
+                        TopLogical1UseOnAfterValidate();
                     end;
                 }
                 field("Top Logical2 Use"; "Top Logical2 Use")
                 {
                     trigger OnValidate()
                     begin
-                        TopLogical2UseOnAfterValidate;
+                        TopLogical2UseOnAfterValidate();
                     end;
                 }
                 field("Top Logical3 Use"; "Top Logical3 Use")
                 {
                     trigger OnValidate()
                     begin
-                        TopLogical3UseOnAfterValidate;
+                        TopLogical3UseOnAfterValidate();
                     end;
                 }
                 field("Top Logical1 Description"; "Top Logical1 Description")
@@ -221,21 +221,21 @@ page 50000 "BC6_Setup Various Tables"
                     {
                         trigger OnValidate()
                         begin
-                            RadicalCode1UseOnAfterValidate;
+                            RadicalCode1UseOnAfterValidate();
                         end;
                     }
                     field("Radical Code2 Use"; "Radical Code2 Use")
                     {
                         trigger OnValidate()
                         begin
-                            RadicalCode2UseOnAfterValidate;
+                            RadicalCode2UseOnAfterValidate();
                         end;
                     }
                     field("Radical Code3 Use"; "Radical Code3 Use")
                     {
                         trigger OnValidate()
                         begin
-                            RadicalCode3UseOnAfterValidate;
+                            RadicalCode3UseOnAfterValidate();
                         end;
                     }
                 }
@@ -316,7 +316,7 @@ page 50000 "BC6_Setup Various Tables"
 
     trigger OnAfterGetRecord()
     begin
-        EnableFields;
+        EnableFields();
     end;
 
     trigger OnInit()
@@ -354,32 +354,8 @@ page 50000 "BC6_Setup Various Tables"
     end;
 
     var
-        "Object": Record Object;
         TableDiv: Record "BC6_Various Tables";
-        [InDataSet]
-        "Text1 DescriptionEnable": Boolean;
-        [InDataSet]
-        "Text2 DescriptionEnable": Boolean;
-        [InDataSet]
-        "Text3 DescriptionEnable": Boolean;
-        [InDataSet]
-        "Obligatory Text1Enable": Boolean;
-        [InDataSet]
-        "Obligatory Text2Enable": Boolean;
-        [InDataSet]
-        "Obligatory Text3Enable": Boolean;
-        [InDataSet]
-        "Number1 DescriptionEnable": Boolean;
-        [InDataSet]
-        "Number2 DescriptionEnable": Boolean;
-        [InDataSet]
-        "Number3 DescriptionEnable": Boolean;
-        [InDataSet]
-        "Obligatory Number1Enable": Boolean;
-        [InDataSet]
-        "Obligatory Number2Enable": Boolean;
-        [InDataSet]
-        "Obligatory Number3Enable": Boolean;
+        "Object": Record Object;
         [InDataSet]
         "Date1 DescriptionEnable": Boolean;
         [InDataSet]
@@ -387,35 +363,59 @@ page 50000 "BC6_Setup Various Tables"
         [InDataSet]
         "Date3 DescriptionEnable": Boolean;
         [InDataSet]
+        "Number1 DescriptionEnable": Boolean;
+        [InDataSet]
+        "Number2 DescriptionEnable": Boolean;
+        [InDataSet]
+        "Number3 DescriptionEnable": Boolean;
+        [InDataSet]
         "Obligatory Date1Enable": Boolean;
         [InDataSet]
         "Obligatory Date2Enable": Boolean;
         [InDataSet]
         "Obligatory Date3Enable": Boolean;
         [InDataSet]
-        "Top Logical1 DescriptionEnable": Boolean;
+        "Obligatory Number1Enable": Boolean;
         [InDataSet]
-        "Top Logical2 DescriptionEnable": Boolean;
+        "Obligatory Number2Enable": Boolean;
         [InDataSet]
-        "Top Logical3 DescriptionEnable": Boolean;
-        [InDataSet]
-        RadicalCode1DescriptionEnable: Boolean;
-        [InDataSet]
-        RadicalCode2DescriptionEnable: Boolean;
-        [InDataSet]
-        RadicalCode3DescriptionEnable: Boolean;
-        [InDataSet]
-        "Radical Code1Enable": Boolean;
-        [InDataSet]
-        "Radical Code2Enable": Boolean;
-        [InDataSet]
-        "Radical Code3Enable": Boolean;
+        "Obligatory Number3Enable": Boolean;
         [InDataSet]
         "Obligatory Radical Code1Enable": Boolean;
         [InDataSet]
         "Obligatory Radical Code2Enable": Boolean;
         [InDataSet]
         "Obligatory Radical Code3Enable": Boolean;
+        [InDataSet]
+        "Obligatory Text1Enable": Boolean;
+        [InDataSet]
+        "Obligatory Text2Enable": Boolean;
+        [InDataSet]
+        "Obligatory Text3Enable": Boolean;
+        [InDataSet]
+        RadicalCode1DescriptionEnable: Boolean;
+        [InDataSet]
+        "Radical Code1Enable": Boolean;
+        [InDataSet]
+        RadicalCode2DescriptionEnable: Boolean;
+        [InDataSet]
+        "Radical Code2Enable": Boolean;
+        [InDataSet]
+        RadicalCode3DescriptionEnable: Boolean;
+        [InDataSet]
+        "Radical Code3Enable": Boolean;
+        [InDataSet]
+        "Text1 DescriptionEnable": Boolean;
+        [InDataSet]
+        "Text2 DescriptionEnable": Boolean;
+        [InDataSet]
+        "Text3 DescriptionEnable": Boolean;
+        [InDataSet]
+        "Top Logical1 DescriptionEnable": Boolean;
+        [InDataSet]
+        "Top Logical2 DescriptionEnable": Boolean;
+        [InDataSet]
+        "Top Logical3 DescriptionEnable": Boolean;
 
     procedure EnableFields()
     begin
@@ -462,76 +462,76 @@ page 50000 "BC6_Setup Various Tables"
 
     local procedure Text1UseOnAfterValidate()
     begin
-        EnableFields;
+        EnableFields();
     end;
 
     local procedure Text2UseOnAfterValidate()
     begin
-        EnableFields;
+        EnableFields();
     end;
 
     local procedure Text3UseOnAfterValidate()
     begin
-        EnableFields;
+        EnableFields();
     end;
 
     local procedure Number1UseOnAfterValidate()
     begin
-        EnableFields;
+        EnableFields();
     end;
 
     local procedure Number2UseOnAfterValidate()
     begin
-        EnableFields;
+        EnableFields();
     end;
 
     local procedure Number3UseOnAfterValidate()
     begin
-        EnableFields;
+        EnableFields();
     end;
 
     local procedure Date1UseOnAfterValidate()
     begin
-        EnableFields;
+        EnableFields();
     end;
 
     local procedure Date2UseOnAfterValidate()
     begin
-        EnableFields;
+        EnableFields();
     end;
 
     local procedure Date3UseOnAfterValidate()
     begin
-        EnableFields;
+        EnableFields();
     end;
 
     local procedure TopLogical1UseOnAfterValidate()
     begin
-        EnableFields;
+        EnableFields();
     end;
 
     local procedure TopLogical2UseOnAfterValidate()
     begin
-        EnableFields;
+        EnableFields();
     end;
 
     local procedure TopLogical3UseOnAfterValidate()
     begin
-        EnableFields;
+        EnableFields();
     end;
 
     local procedure RadicalCode1UseOnAfterValidate()
     begin
-        EnableFields;
+        EnableFields();
     end;
 
     local procedure RadicalCode2UseOnAfterValidate()
     begin
-        EnableFields;
+        EnableFields();
     end;
 
     local procedure RadicalCode3UseOnAfterValidate()
     begin
-        EnableFields;
+        EnableFields();
     end;
 }

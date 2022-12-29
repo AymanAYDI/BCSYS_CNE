@@ -21,13 +21,12 @@ codeunit 50022 "BC6_Creat Auto Cde Achat"
         RecGVendor.SETRANGE("IC Partner Code", RecGPartnerIC.Code);
         RecGVendor.FINDFIRST();
 
-
         RESET();
         SETFILTER("BC6_Purchase No. Order Lien", '= %1', '');
         SETRANGE(Status, Status::Released);
         SETRANGE("Document Type", "Document Type"::Order);
 
-        IF FindFirst() THEN
+        IF Findset() THEN
             REPEAT
 
                 RecGPurchaseHeader.INIT();
@@ -102,7 +101,7 @@ codeunit 50022 "BC6_Creat Auto Cde Achat"
                     IF CuGApprovalMgt.PrePostApprovalCheckPurch(RecGPurchaseHeader) THEN
                         CuGICInOutboxMgt.SendPurchDoc(RecGPurchaseHeader, FALSE);
 
-            UNTIL NEXT() <= 0;
+            UNTIL Rec.NEXT() <= 0;
 
         IF GUIALLOWED THEN
             DialogG.CLOSE();

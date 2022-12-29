@@ -115,14 +115,10 @@ page 50078 "Scan Ship & Receive Activities"
 
     local procedure OpenWithWhseEmployeeFilter(WhichItemJnlLineList: Option Pick,Reclass): Boolean
     var
-        WhseEmployee: Record "Warehouse Employee";
-        WmsManagement: Codeunit "WMS Management";
-        CurrentLocationCode: Code[10];
         InvSetup: Record "Inventory Setup";
-        DefaultLocationCode: Code[20];
-        ItemJnlTemplate: Record "Item Journal Template";
         ItemBatchJnl: Record "Item Journal Batch";
-        BatchName: Code[20];
+        ItemJnlTemplate: Record "Item Journal Template";
+        WhseEmployee: Record "Warehouse Employee";
     begin
 
         InvSetup.GET();

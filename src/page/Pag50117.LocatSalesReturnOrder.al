@@ -14,7 +14,7 @@ page 50117 "BC6_Locat. Sales Return Order"
         {
             group(General)
             {
-                Caption = 'General';
+                Caption = 'General', Comment = 'FRA=""';
                 field("No."; Rec."No.")
                 {
                     Importance = Additional;
@@ -24,12 +24,12 @@ page 50117 "BC6_Locat. Sales Return Order"
                     trigger OnAssistEdit()
                     begin
                         IF Rec.AssistEdit(xRec) THEN
-                            CurrPage.UPDATE;
+                            CurrPage.UPDATE();
                     end;
                 }
                 field("Sell-to Customer Name"; Rec."Sell-to Customer Name")
                 {
-                    Caption = 'Customer';
+                    Caption = 'Customer', Comment = 'FRA=""';
                     Importance = Promoted;
                     QuickEntry = false;
                     ShowMandatory = true;
@@ -41,42 +41,42 @@ page 50117 "BC6_Locat. Sales Return Order"
                             IF Rec."Sell-to Customer No." <> xRec."Sell-to Customer No." THEN
                                 Rec.SETRANGE("Sell-to Customer No.");
 
-                        CurrPage.UPDATE;
+                        CurrPage.UPDATE();
                     end;
                 }
                 group("Sell-to")
                 {
-                    Caption = 'Sell-to';
+                    Caption = 'Sell-to', Comment = 'FRA=""';
                     field("Sell-to Address"; Rec."Sell-to Address")
                     {
                         Caption = 'Address';
                         Importance = Additional;
-                        ToolTip = 'Specifies the address where the customer is located.';
+                        ToolTip = 'Specifies the address where the customer is located.', Comment = 'FRA=""';
                     }
                     field("Sell-to Address 2"; Rec."Sell-to Address 2")
                     {
-                        Caption = 'Address 2';
+                        Caption = 'Address 2', Comment = 'FRA=""';
                         Importance = Additional;
-                        ToolTip = 'Specifies additional address information.';
+                        ToolTip = 'Specifies additional address information.', Comment = 'FRA=""';
                     }
                     field("Sell-to Post Code"; Rec."Sell-to Post Code")
                     {
-                        Caption = 'Post Code';
+                        Caption = 'Post Code', Comment = 'FRA=""';
                         Importance = Additional;
-                        ToolTip = 'Specifies the postal code.';
+                        ToolTip = 'Specifies the postal code.', Comment = 'FRA=""';
                     }
                     field("Sell-to City"; Rec."Sell-to City")
                     {
-                        Caption = 'City';
+                        Caption = 'City', Comment = 'FRA=""';
                         Importance = Additional;
                         QuickEntry = false;
-                        ToolTip = 'Specifies the city where the customer is located.';
+                        ToolTip = 'Specifies the city where the customer is located.', Comment = 'FRA=""';
                     }
                     field("Sell-to Contact No."; Rec."Sell-to Contact No.")
                     {
-                        Caption = 'Contact No.';
+                        Caption = 'Contact No.', Comment = 'FRA=""';
                         Importance = Additional;
-                        ToolTip = 'Specifies the number of the contact that the sales document will be sent to.';
+                        ToolTip = 'Specifies the number of the contact that the sales document will be sent to.', Comment = 'FRA=""';
 
                         trigger OnValidate()
                         begin
@@ -97,61 +97,61 @@ page 50117 "BC6_Locat. Sales Return Order"
                 }
                 field("Sell-to Contact"; Rec."Sell-to Contact")
                 {
-                    Caption = 'Contact';
-                    ToolTip = 'Specifies the name of the person to contact at the customer.';
+                    Caption = 'Contact', Comment = 'FRA=""';
+                    ToolTip = 'Specifies the name of the person to contact at the customer.', Comment = 'FRA=""';
                 }
                 field("Document Date"; Rec."Document Date")
                 {
                     QuickEntry = false;
-                    ToolTip = 'Specifies the date on which you created the sales document.';
+                    ToolTip = 'Specifies the date on which you created the sales document.', Comment = 'FRA=""';
                 }
                 field("Posting Date"; Rec."Posting Date")
                 {
                     QuickEntry = false;
-                    ToolTip = 'Specifies the date when the posting of the sales document will be recorded.';
+                    ToolTip = 'Specifies the date when the posting of the sales document will be recorded.', Comment = 'FRA=""';
                 }
                 field("Order Date"; Rec."Order Date")
                 {
                     Importance = Promoted;
                     QuickEntry = false;
-                    ToolTip = 'Specifies the date on which the exchange rate applies to prices listed in a foreign currency on the sales order.';
+                    ToolTip = 'Specifies the date on which the exchange rate applies to prices listed in a foreign currency on the sales order.', Comment = 'FRA=""';
                 }
                 field("External Document No."; Rec."External Document No.")
                 {
                     Importance = Promoted;
-                    ToolTip = 'Specifies the number that the customer uses in their own system to refer to this sales document.';
+                    ToolTip = 'Specifies the number that the customer uses in their own system to refer to this sales document.', Comment = 'FRA=""';
                 }
                 field("No. of Archived Versions"; Rec."No. of Archived Versions")
                 {
-                    ToolTip = 'Specifies the number of archived versions for this sales document.';
+                    ToolTip = 'Specifies the number of archived versions for this sales document.', Comment = 'FRA=""';
                 }
                 field("Salesperson Code"; Rec."Salesperson Code")
                 {
                     QuickEntry = false;
-                    ToolTip = 'Specifies the name of the salesperson who is assigned to the customer.';
+                    ToolTip = 'Specifies the name of the salesperson who is assigned to the customer.', Comment = 'FRA=""';
 
                     trigger OnValidate()
                     begin
-                        SalespersonCodeOnAfterValidate;
+                        SalespersonCodeOnAfterValidate();
                     end;
                 }
                 field("Campaign No."; Rec."Campaign No.")
                 {
-                    ToolTip = 'Specifies the number of the campaign that the document is linked to.';
+                    ToolTip = 'Specifies the number of the campaign that the document is linked to.', Comment = 'FRA=""';
                 }
                 field("Responsibility Center"; Rec."Responsibility Center")
                 {
-                    ToolTip = 'Specifies the code of the responsibility center that is associated with the user, company, or vendor.';
+                    ToolTip = 'Specifies the code of the responsibility center that is associated with the user, company, or vendor.', Comment = 'FRA=""';
                 }
                 field("Assigned User ID"; Rec."Assigned User ID")
                 {
-                    ToolTip = 'Specifies the ID of the user who is responsible for the document.';
+                    ToolTip = 'Specifies the ID of the user who is responsible for the document.', Comment = 'FRA=""';
                 }
                 field("Job Queue Status"; Rec."Job Queue Status")
                 {
                     ApplicationArea = All;
                     Importance = Additional;
-                    ToolTip = 'Specifies the status of a job queue entry or task that handles the posting of sales orders.';
+                    ToolTip = 'Specifies the status of a job queue entry or task that handles the posting of sales orders.', Comment = 'FRA=""';
                     Visible = JobQueueUsed;
                 }
                 field("Return Order Type"; Rec."BC6_Return Order Type")
@@ -161,7 +161,7 @@ page 50117 "BC6_Locat. Sales Return Order"
                 {
                     Importance = Promoted;
                     QuickEntry = false;
-                    ToolTip = 'Specifies whether the document is open, waiting to be approved, has been invoiced for prepayment, or has been released to the next stage of processing.';
+                    ToolTip = 'Specifies whether the document is open, waiting to be approved, has been invoiced for prepayment, or has been released to the next stage of processing.', Comment = 'FRA=""';
                 }
             }
             part(SalesLines; "Sales Return Order Subform")
@@ -171,218 +171,218 @@ page 50117 "BC6_Locat. Sales Return Order"
             }
             group("Invoice Details")
             {
-                Caption = 'Invoice Details';
+                Caption = 'Invoice Details', Comment = 'FRA=""';
                 field("Currency Code"; Rec."Currency Code")
                 {
                     Importance = Promoted;
-                    ToolTip = 'Specifies the currency of amounts on the sales document.';
+                    ToolTip = 'Specifies the currency of amounts on the sales document.', Comment = 'FRA=""';
 
                     trigger OnAssistEdit()
                     begin
                         IF Rec."Posting Date" <> 0D THEN
                             ChangeExchangeRate.SetParameter(Rec."Currency Code", Rec."Currency Factor", Rec."Posting Date")
                         ELSE
-                            ChangeExchangeRate.SetParameter(Rec."Currency Code", Rec."Currency Factor", WORKDATE);
-                        IF ChangeExchangeRate.RUNMODAL = ACTION::OK THEN BEGIN
-                            Rec.VALIDATE("Currency Factor", ChangeExchangeRate.GetParameter);
-                            CurrPage.UPDATE;
+                            ChangeExchangeRate.SetParameter(Rec."Currency Code", Rec."Currency Factor", WORKDATE());
+                        IF ChangeExchangeRate.RUNMODAL() = ACTION::OK THEN BEGIN
+                            Rec.VALIDATE("Currency Factor", ChangeExchangeRate.GetParameter());
+                            CurrPage.UPDATE();
                         END;
                         CLEAR(ChangeExchangeRate);
                     end;
 
                     trigger OnValidate()
                     begin
-                        CurrPage.SAVERECORD;
+                        CurrPage.SAVERECORD();
                         SalesCalcDiscByType.ApplyDefaultInvoiceDiscount(0, Rec);
                     end;
                 }
                 field("Prices Including VAT"; Rec."Prices Including VAT")
                 {
-                    ToolTip = 'Specifies whether the unit price on the line should be displayed including or excluding VAT.';
+                    ToolTip = 'Specifies whether the unit price on the line should be displayed including or excluding VAT.', Comment = 'FRA=""';
 
                     trigger OnValidate()
                     begin
-                        PricesIncludingVATOnAfterValid;
+                        PricesIncludingVATOnAfterValid();
                     end;
                 }
                 field("VAT Bus. Posting Group"; Rec."VAT Bus. Posting Group")
                 {
-                    ToolTip = 'Specifies the customer''s VAT specification to link transactions made for this customer to.';
+                    ToolTip = 'Specifies the customer''s VAT specification to link transactions made for this customer to.', Comment = 'FRA=""';
                 }
                 field("Transaction Type"; Rec."Transaction Type")
                 {
-                    ToolTip = 'Specifies the type of transaction that the sales document represents, for the purpose of reporting to INTRASTAT.';
+                    ToolTip = 'Specifies the type of transaction that the sales document represents, for the purpose of reporting to INTRASTAT.', Comment = 'FRA=""';
                 }
                 field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
-                    ToolTip = 'Specifies the dimension value code associated with the sales header.';
+                    ToolTip = 'Specifies the dimension value code associated with the sales header.', Comment = 'FRA=""';
 
                     trigger OnValidate()
                     begin
-                        ShortcutDimension1CodeOnAfterV;
+                        ShortcutDimension1CodeOnAfterV();
                     end;
                 }
                 field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
-                    ToolTip = 'Specifies the dimension value code associated with the sales header.';
+                    ToolTip = 'Specifies the dimension value code associated with the sales header.', Comment = 'FRA=""';
 
                     trigger OnValidate()
                     begin
-                        ShortcutDimension2CodeOnAfterV;
+                        ShortcutDimension2CodeOnAfterV();
                     end;
                 }
                 field("Shipment Date"; Rec."Shipment Date")
                 {
                     Importance = Promoted;
-                    ToolTip = 'Specifies the date you expect to ship items on the sales document.';
+                    ToolTip = 'Specifies the date you expect to ship items on the sales document.', Comment = 'FRA=""';
                 }
                 field("Applies-to Doc. Type"; Rec."Applies-to Doc. Type")
                 {
                     Importance = Promoted;
-                    ToolTip = 'Specifies the type of the posted document that this document or journal line will be applied to when you post, for example to register payment.';
+                    ToolTip = 'Specifies the type of the posted document that this document or journal line will be applied to when you post, for example to register payment.', Comment = 'FRA=""';
                 }
                 field("Applies-to Doc. No."; Rec."Applies-to Doc. No.")
                 {
                     Importance = Promoted;
-                    ToolTip = 'Specifies the number of the posted document that this document or journal line will be applied to when you post, for example to register payment.';
+                    ToolTip = 'Specifies the number of the posted document that this document or journal line will be applied to when you post, for example to register payment.', Comment = 'FRA=""';
                 }
                 field("Applies-to ID"; Rec."Applies-to ID")
                 {
-                    ToolTip = 'Specifies the ID of entries that will be applied to when you choose the Apply Entries action.';
+                    ToolTip = 'Specifies the ID of entries that will be applied to when you choose the Apply Entries action.', Comment = 'FRA=""';
                 }
             }
             group("Shipping and Billing")
             {
-                Caption = 'Shipping and Billing';
+                Caption = 'Shipping and Billing', Comment = 'FRA=""';
                 group("Shipment Method")
                 {
-                    Caption = 'Shipment Method';
+                    Caption = 'Shipment Method', Comment = 'FRA=""';
                     field("Shipping Agent Code"; Rec."Shipping Agent Code")
                     {
-                        Caption = 'Agent';
+                        Caption = 'Agent', Comment = 'FRA=""';
                         Importance = Additional;
-                        ToolTip = 'Specifies which shipping agent is used to transport the items on the sales document to the customer.';
+                        ToolTip = 'Specifies which shipping agent is used to transport the items on the sales document to the customer.', Comment = 'FRA=""';
                     }
                     field("Shipping Agent Service Code"; Rec."Shipping Agent Service Code")
                     {
-                        Caption = 'Agent Service';
+                        Caption = 'Agent Service', Comment = 'FRA=""';
                         Importance = Additional;
-                        ToolTip = 'Specifies which shipping agent service is used to transport the items on the sales document to the customer.';
+                        ToolTip = 'Specifies which shipping agent service is used to transport the items on the sales document to the customer.', Comment = 'FRA=""';
                     }
                     field("Package Tracking No."; Rec."Package Tracking No.")
                     {
                         Importance = Additional;
-                        ToolTip = 'Specifies the shipping agent''s package number.';
+                        ToolTip = 'Specifies the shipping agent''s package number.', Comment = 'FRA=""';
                     }
                 }
                 group("Ship-to")
                 {
-                    Caption = 'Ship-to';
+                    Caption = 'Ship-to', Comment = 'FRA=""';
                     field("Location Code"; Rec."Location Code")
                     {
-                        Caption = 'Location';
+                        Caption = 'Location', Comment = 'FRA=""';
                         Importance = Promoted;
-                        ToolTip = 'Specifies the location from where inventory items to the customer on the sales document are to be shipped by default.';
+                        ToolTip = 'Specifies the location from where inventory items to the customer on the sales document are to be shipped by default.', Comment = 'FRA=""';
                     }
                     field("Ship-to Name"; Rec."Ship-to Name")
                     {
-                        Caption = 'Name';
-                        ToolTip = 'Specifies the name that products on the sales document will be shipped to.';
+                        Caption = 'Name', Comment = 'FRA=""';
+                        ToolTip = 'Specifies the name that products on the sales document will be shipped to.', Comment = 'FRA=""';
                     }
                     field("Ship-to Address"; Rec."Ship-to Address")
                     {
-                        Caption = 'Address';
-                        ToolTip = 'Specifies the address that products on the sales document will be shipped to.';
+                        Caption = 'Address', Comment = 'FRA=""';
+                        ToolTip = 'Specifies the address that products on the sales document will be shipped to.', Comment = 'FRA=""';
                     }
                     field("Ship-to Address 2"; Rec."Ship-to Address 2")
                     {
-                        Caption = 'Address 2';
-                        ToolTip = 'Specifies additional address information.';
+                        Caption = 'Address 2', Comment = 'FRA=""';
+                        ToolTip = 'Specifies additional address information.', Comment = 'FRA=""';
                     }
                     field("Ship-to Post Code"; Rec."Ship-to Post Code")
                     {
-                        Caption = 'Post Code';
-                        ToolTip = 'Specifies the postal code.';
+                        Caption = 'Post Code', Comment = 'FRA=""';
+                        ToolTip = 'Specifies the postal code.', Comment = 'FRA=""';
                     }
                     field("Ship-to City"; Rec."Ship-to City")
                     {
-                        Caption = 'City';
-                        ToolTip = 'Specifies the city that products on the sales document will be shipped to.';
+                        Caption = 'City', Comment = 'FRA=""';
+                        ToolTip = 'Specifies the city that products on the sales document will be shipped to.', Comment = 'FRA=""';
                     }
                     field("Ship-to Contact"; Rec."Ship-to Contact")
                     {
-                        Caption = 'Contact';
-                        ToolTip = 'Specifies the name of the contact person at the address that products on the sales document will be shipped to.';
+                        Caption = 'Contact', Comment = 'FRA=""';
+                        ToolTip = 'Specifies the name of the contact person at the address that products on the sales document will be shipped to.', Comment = 'FRA=""';
                     }
                 }
                 group("Bill-to")
                 {
-                    Caption = 'Bill-to';
+                    Caption = 'Bill-to', Comment = 'FRA=""';
                     field("Bill-to Name"; Rec."Bill-to Name")
                     {
-                        Caption = 'Name';
+                        Caption = 'Name', Comment = 'FRA=""';
                         Importance = Promoted;
-                        ToolTip = 'Specifies the customer to whom you will send the sales invoice, when different from the customer that you are selling to.';
+                        ToolTip = 'Specifies the customer to whom you will send the sales invoice, when different from the customer that you are selling to.', Comment = 'FRA=""';
                     }
                     field("Bill-to Address"; Rec."Bill-to Address")
                     {
-                        Caption = 'Address';
+                        Caption = 'Address', Comment = 'FRA=""';
                         Importance = Additional;
-                        ToolTip = 'Specifies the address of the customer that you will send the invoice to.';
+                        ToolTip = 'Specifies the address of the customer that you will send the invoice to.', Comment = 'FRA=""';
                     }
                     field("Bill-to Address 2"; Rec."Bill-to Address 2")
                     {
-                        Caption = 'Address 2';
+                        Caption = 'Address 2', Comment = 'FRA=""';
                         Importance = Additional;
-                        ToolTip = 'Specifies additional address information.';
+                        ToolTip = 'Specifies additional address information.', Comment = 'FRA=""';
                     }
                     field("Bill-to Post Code"; Rec."Bill-to Post Code")
                     {
-                        Caption = 'Post Code';
+                        Caption = 'Post Code', Comment = 'FRA=""';
                         Importance = Additional;
-                        ToolTip = 'Specifies the postal code.';
+                        ToolTip = 'Specifies the postal code.', Comment = 'FRA=""';
                     }
                     field("Bill-to City"; Rec."Bill-to City")
                     {
-                        Caption = 'City';
+                        Caption = 'City', Comment = 'FRA=""';
                         Importance = Additional;
-                        ToolTip = 'Specifies the city you will send the invoice to.';
+                        ToolTip = 'Specifies the city you will send the invoice to.', Comment = 'FRA=""';
                     }
                     field("Bill-to Contact No."; Rec."Bill-to Contact No.")
                     {
-                        Caption = 'Contact No.';
+                        Caption = 'Contact No.', Comment = 'FRA=""';
                         Importance = Additional;
-                        ToolTip = 'Specifies the number of the contact the invoice will be sent to.';
+                        ToolTip = 'Specifies the number of the contact the invoice will be sent to.', Comment = 'FRA=""';
                     }
                     field("Bill-to Contact"; Rec."Bill-to Contact")
                     {
-                        Caption = 'Contact';
-                        ToolTip = 'Specifies the name of the person you should contact at the customer who you are sending the invoice to.';
+                        Caption = 'Contact', Comment = 'FRA=""';
+                        ToolTip = 'Specifies the name of the person you should contact at the customer who you are sending the invoice to.', Comment = 'FRA=""';
                     }
                 }
             }
             group("Foreign Trade")
             {
-                Caption = 'Foreign Trade';
+                Caption = 'Foreign Trade', Comment = 'FRA=""';
                 field("EU 3-Party Trade"; Rec."EU 3-Party Trade")
                 {
-                    ToolTip = 'Specifies whether the sales document is part of a three-party trade.';
+                    ToolTip = 'Specifies whether the sales document is part of a three-party trade.', Comment = 'FRA=""';
                 }
                 field("Transaction Specification"; Rec."Transaction Specification")
                 {
-                    ToolTip = 'Specifies a code for the sales document''s transaction specification, for the purpose of reporting to INTRASTAT.';
+                    ToolTip = 'Specifies a code for the sales document''s transaction specification, for the purpose of reporting to INTRASTAT.', Comment = 'FRA=""';
                 }
                 field("Transport Method"; Rec."Transport Method")
                 {
-                    ToolTip = 'Specifies the transport method, for the purpose of reporting to INTRASTAT.';
+                    ToolTip = 'Specifies the transport method, for the purpose of reporting to INTRASTAT.', Comment = 'FRA=""';
                 }
                 field("Exit Point"; Rec."Exit Point")
                 {
-                    ToolTip = 'Specifies the point of exit through which you ship the items out of your country/region, for reporting to Intrastat.';
+                    ToolTip = 'Specifies the point of exit through which you ship the items out of your country/region, for reporting to Intrastat.', Comment = 'FRA=""';
                 }
                 field(BC6_Area; Rec.Area)
                 {
-                    ToolTip = 'Specifies the area of the customer''s address, for the purpose of reporting to INTRASTAT.';
+                    ToolTip = 'Specifies the area of the customer''s address, for the purpose of reporting to INTRASTAT.', Comment = 'FRA=""';
                 }
             }
         }
@@ -454,17 +454,17 @@ page 50117 "BC6_Locat. Sales Return Order"
         {
             group("&Return Order")
             {
-                Caption = '&Return Order';
+                Caption = '&Return Order', Comment = 'FRA=""';
                 Image = Return;
                 action(Statistics)
                 {
-                    Caption = 'Statistics';
+                    Caption = 'Statistics', Comment = 'FRA=""';
                     Image = Statistics;
                     Promoted = true;
                     PromotedCategory = Process;
                     PromotedIsBig = true;
                     ShortCutKey = 'F7';
-                    ToolTip = 'View statistical information, such as the value of posted entries, for the record.';
+                    ToolTip = 'View statistical information, such as the value of posted entries, for the record.', Comment = 'FRA=""';
 
                     trigger OnAction()
                     var
@@ -472,62 +472,63 @@ page 50117 "BC6_Locat. Sales Return Order"
                     begin
                         OnBeforeStatisticsAction(Rec, Handled);
                         IF NOT Handled THEN BEGIN
-                            Rec.OpenSalesOrderStatistics;
+                            Rec.OpenSalesOrderStatistics();
                             SalesCalcDiscByType.ResetRecalculateInvoiceDisc(Rec);
                         END
                     end;
                 }
                 action(Card)
                 {
-                    Caption = 'Card';
+                    Caption = 'Card', Comment = 'FRA=""';
                     Image = EditLines;
                     Promoted = false;
                     RunObject = Page "Customer Card";
                     RunPageLink = "No." = FIELD("Sell-to Customer No.");
                     ShortCutKey = 'Shift+F7';
-                    ToolTip = 'View or edit detailed information about the customer on the sales document.';
+                    ToolTip = 'View or edit detailed information about the customer on the sales document.', Comment = 'FRA=""';
                 }
                 action(Dimensions)
                 {
                     AccessByPermission = TableData Dimension = R;
-                    Caption = 'Dimensions';
+                    Caption = 'Dimensions', Comment = 'FRA=""';
                     Enabled = Rec."No." <> '';
                     Image = Dimensions;
                     Promoted = false;
                     ShortCutKey = 'Shift+Ctrl+D';
-                    ToolTip = 'View or edit dimensions, such as area, project, or department, that you can assign to sales and purchase documents to distribute costs and analyze transaction history.';
+                    ToolTip = 'View or edit dimensions, such as area, project, or department, that you can assign to sales and purchase documents to distribute costs and analyze transaction history.', Comment = 'FRA=""';
 
                     trigger OnAction()
                     begin
-                        Rec.ShowDocDim;
-                        CurrPage.SAVERECORD;
+                        Rec.ShowDocDim();
+                        CurrPage.SAVERECORD();
                     end;
                 }
                 action(Approvals)
                 {
                     AccessByPermission = TableData "Approval Entry" = R;
-                    Caption = 'Approvals';
+                    Caption = 'Approvals', Comment = 'FRA=""';
                     Image = Approvals;
-                    ToolTip = 'View a list of the records that are waiting to be approved. For example, you can see who requested the record to be approved, when it was sent, and when it is due to be approved.';
+                    ToolTip = 'View a list of the records that are waiting to be approved. For example, you can see who requested the record to be approved, when it was sent, and when it is due to be approved.', Comment = 'FRA=""';
 
                     trigger OnAction()
                     var
                         ApprovalEntries: Page "Approval Entries";
                     begin
-                        ApprovalEntries.Setfilters(DATABASE::"Sales Header", Rec."Document Type", Rec."No.");
-                        ApprovalEntries.RUN;
+
+                        ApprovalEntries.Setfilters(DATABASE::"Sales Header", Rec."Document Type".AsInteger(), Rec."No.");
+                        ApprovalEntries.RUN();
                     end;
                 }
                 action("Co&mments")
                 {
-                    Caption = 'Co&mments';
+                    Caption = 'Co&mments', Comment = 'FRA=""';
                     Image = ViewComments;
                     Promoted = false;
                     RunObject = Page "Sales Comment Sheet";
                     RunPageLink = "Document Type" = CONST("Return Order"),
                                   "No." = FIELD("No."),
                                   "Document Line No." = CONST(0);
-                    ToolTip = 'View or add notes about the sales return order.';
+                    ToolTip = 'View or add notes about the sales return order.', Comment = 'FRA=""';
                 }
             }
             group(Documents)
@@ -536,7 +537,7 @@ page 50117 "BC6_Locat. Sales Return Order"
                 Image = Documents;
                 action("Return Receipts")
                 {
-                    Caption = 'Return Receipts';
+                    Caption = 'Return Receipts', Comment = 'FRA=""';
                     Image = ReturnReceipt;
                     RunObject = Page "Posted Return Receipts";
                     RunPageLink = "Return Order No." = FIELD("No.");
@@ -544,7 +545,7 @@ page 50117 "BC6_Locat. Sales Return Order"
                 }
                 action("Cred&it Memos")
                 {
-                    Caption = 'Cred&it Memos';
+                    Caption = 'Cred&it Memos', Comment = 'FRA=""';
                     Image = CreditMemo;
                     RunObject = Page "Posted Sales Credit Memos";
                     RunPageLink = "Return Order No." = FIELD("No.");
@@ -556,11 +557,11 @@ page 50117 "BC6_Locat. Sales Return Order"
             }
             group(Warehouses)
             {
-                Caption = 'Warehouse';
+                Caption = 'Warehouse', Comment = 'FRA=""';
                 Image = Warehouse;
                 action("In&vt. Put-away/Pick Lines")
                 {
-                    Caption = 'In&vt. Put-away/Pick Lines';
+                    Caption = 'In&vt. Put-away/Pick Lines', Comment = 'FRA=""';
                     Image = PickLines;
                     RunObject = Page "Warehouse Activity List";
                     RunPageLink = "Source Document" = CONST("Sales Return Order"),
@@ -569,7 +570,7 @@ page 50117 "BC6_Locat. Sales Return Order"
                 }
                 action("Whse. Receipt Lines")
                 {
-                    Caption = 'Whse. Receipt Lines';
+                    Caption = 'Whse. Receipt Lines', Comment = 'FRA=""';
                     Image = ReceiptLines;
                     RunObject = Page "Whse. Receipt Lines";
                     RunPageLink = "Source Type" = CONST(37),
@@ -583,15 +584,15 @@ page 50117 "BC6_Locat. Sales Return Order"
         {
             group(Approval)
             {
-                Caption = 'Approval';
+                Caption = 'Approval', Comment = 'FRA=""';
                 action(Approve)
                 {
-                    Caption = 'Approve';
+                    Caption = 'Approve', Comment = 'FRA=""';
                     Image = Approve;
                     Promoted = true;
                     PromotedCategory = Category4;
                     PromotedIsBig = true;
-                    ToolTip = 'Approve the requested changes.';
+                    ToolTip = 'Approve the requested changes.', Comment = 'FRA=""';
                     Visible = OpenApprovalEntriesExistForCurrUser;
 
                     trigger OnAction()
@@ -603,12 +604,12 @@ page 50117 "BC6_Locat. Sales Return Order"
                 }
                 action(Reject)
                 {
-                    Caption = 'Reject';
+                    Caption = 'Reject', Comment = 'FRA=""';
                     Image = Reject;
                     Promoted = true;
                     PromotedCategory = Category4;
                     PromotedIsBig = true;
-                    ToolTip = 'Reject the approval request.';
+                    ToolTip = 'Reject the approval request.', Comment = 'FRA=""';
                     Visible = OpenApprovalEntriesExistForCurrUser;
 
                     trigger OnAction()
@@ -620,11 +621,11 @@ page 50117 "BC6_Locat. Sales Return Order"
                 }
                 action(Delegate)
                 {
-                    Caption = 'Delegate';
+                    Caption = 'Delegate', Comment = 'FRA=""';
                     Image = Delegate;
                     Promoted = true;
                     PromotedCategory = Category4;
-                    ToolTip = 'Delegate the approval to a substitute approver.';
+                    ToolTip = 'Delegate the approval to a substitute approver.', Comment = 'FRA=""';
                     Visible = OpenApprovalEntriesExistForCurrUser;
 
                     trigger OnAction()
@@ -636,11 +637,11 @@ page 50117 "BC6_Locat. Sales Return Order"
                 }
                 action(Comment)
                 {
-                    Caption = 'Comments';
+                    Caption = 'Comments', Comment = 'FRA=""';
                     Image = ViewComments;
                     Promoted = true;
                     PromotedCategory = Category4;
-                    ToolTip = 'View or add comments.';
+                    ToolTip = 'View or add comments.', Comment = 'FRA=""';
                     Visible = OpenApprovalEntriesExistForCurrUser;
 
                     trigger OnAction()
@@ -653,7 +654,7 @@ page 50117 "BC6_Locat. Sales Return Order"
             }
             action("&Print")
             {
-                Caption = '&Print';
+                Caption = '&Print', Comment = 'FRA=""';
                 Ellipsis = true;
                 Image = Print;
                 Promoted = true;
@@ -668,14 +669,14 @@ page 50117 "BC6_Locat. Sales Return Order"
                             1:
                                 DocPrint.PrintSalesHeader(Rec);
                             2:
-                                EnvoiMail;
+                                EnvoiMail();
                         END;
                     END ELSE
                         CASE STRMENU(STR3 + ',' + STR4) OF
                             1:
                                 BEGIN
                                     Rec.TESTFIELD(Status, Rec.Status::Released);
-                                    L_SalesHeader.RESET;
+                                    L_SalesHeader.RESET();
                                     L_SalesHeader.SETRANGE("Document Type", Rec."Document Type");
                                     L_SalesHeader.SETRANGE("No.", Rec."No.");
                                     REPORT.RUNMODAL(Report::"BC6_Return Order SAV Conf.", TRUE, FALSE, L_SalesHeader);
@@ -683,7 +684,7 @@ page 50117 "BC6_Locat. Sales Return Order"
                             2:
                                 BEGIN
                                     Rec.TESTFIELD(Status, Rec.Status::Released);
-                                    EnvoiMail;
+                                    EnvoiMail();
                                 END;
 
                         END;
@@ -691,11 +692,11 @@ page 50117 "BC6_Locat. Sales Return Order"
             }
             group(Release)
             {
-                Caption = 'Release';
+                Caption = 'Release', Comment = 'FRA=""';
                 Image = ReleaseDoc;
                 action("Re&lease")
                 {
-                    Caption = 'Re&lease';
+                    Caption = 'Re&lease', Comment = 'FRA=""';
                     Image = ReleaseDoc;
                     ShortCutKey = 'Ctrl+F9';
 
@@ -704,17 +705,17 @@ page 50117 "BC6_Locat. Sales Return Order"
                         ReleaseSalesDoc: Codeunit "Release Sales Document";
                     begin
                         ReleaseSalesDoc.PerformManualRelease(Rec);
-                        FctSendNotification
+                        FctSendNotification()
                     end;
                 }
                 action(Reopen)
                 {
-                    Caption = 'Re&open';
+                    Caption = 'Re&open', Comment = 'FRA=""';
                     Enabled = Rec.Status <> Rec.Status::Open;
                     Image = ReOpen;
                     Promoted = true;
                     PromotedCategory = Process;
-                    ToolTip = 'Reopen the document to change it after it has been approved. Approved documents have the Released status and must be opened before they can be changed';
+                    ToolTip = 'Reopen the document to change it after it has been approved. Approved documents have the Released status and must be opened before they can be changed', Comment = 'FRA=""';
 
                     trigger OnAction()
                     var
@@ -729,18 +730,18 @@ page 50117 "BC6_Locat. Sales Return Order"
             }
             group("F&unctions")
             {
-                Caption = 'F&unctions';
+                Caption = 'F&unctions', Comment = 'FRA=""';
                 Image = "Action";
                 action(CalculateInvoiceDiscount)
                 {
                     AccessByPermission = TableData "Cust. Invoice Disc." = R;
-                    Caption = 'Calculate &Invoice Discount';
+                    Caption = 'Calculate &Invoice Discount', Comment = 'FRA=""';
                     Image = CalculateInvoiceDiscount;
-                    ToolTip = 'Calculate the invoice discount that applies to the sales order.';
+                    ToolTip = 'Calculate the invoice discount that applies to the sales order.', Comment = 'FRA=""';
 
                     trigger OnAction()
                     begin
-                        ApproveCalcInvDisc;
+                        ApproveCalcInvDisc();
                         SalesCalcDiscByType.ResetRecalculateInvoiceDisc(Rec);
                     end;
                 }
@@ -749,13 +750,13 @@ page 50117 "BC6_Locat. Sales Return Order"
                 }
                 action("Apply Entries")
                 {
-                    Caption = 'Apply Entries';
+                    Caption = 'Apply Entries', Comment = 'FRA=""';
                     Ellipsis = true;
                     Image = ApplyEntries;
                     Promoted = true;
                     PromotedCategory = Process;
                     ShortCutKey = 'Shift+F11';
-                    ToolTip = 'Select one or more ledger entries that you want to apply this record to so that the related posted documents are closed as paid or refunded.';
+                    ToolTip = 'Select one or more ledger entries that you want to apply this record to so that the related posted documents are closed as paid or refunded.', Comment = 'FRA=""';
 
                     trigger OnAction()
                     begin
@@ -764,7 +765,7 @@ page 50117 "BC6_Locat. Sales Return Order"
                 }
                 action("Create Return-Related &Documents")
                 {
-                    Caption = 'Create Return-Related &Documents';
+                    Caption = 'Create Return-Related &Documents', Comment = 'FRA=""';
                     Ellipsis = true;
                     Image = ApplyEntries;
                     Promoted = true;
@@ -774,8 +775,8 @@ page 50117 "BC6_Locat. Sales Return Order"
                     begin
                         CLEAR(CreateRetRelDocs);
                         CreateRetRelDocs.SetSalesHeader(Rec);
-                        CreateRetRelDocs.RUNMODAL;
-                        CreateRetRelDocs.ShowDocuments;
+                        CreateRetRelDocs.RUNMODAL();
+                        CreateRetRelDocs.ShowDocuments();
                     end;
                 }
                 separator(sep3)
@@ -783,24 +784,24 @@ page 50117 "BC6_Locat. Sales Return Order"
                 }
                 action(CopyDocument)
                 {
-                    Caption = 'Copy Document';
+                    Caption = 'Copy Document', Comment = 'FRA=""';
                     Ellipsis = true;
                     Image = CopyDocument;
                     Promoted = true;
                     PromotedCategory = Process;
-                    ToolTip = 'Copy document lines and header information from another sales document to this document. You can copy a posted sales invoice into a new sales invoice to quickly create a similar document.';
+                    ToolTip = 'Copy document lines and header information from another sales document to this document. You can copy a posted sales invoice into a new sales invoice to quickly create a similar document.', Comment = 'FRA=""';
 
                     trigger OnAction()
                     begin
                         CopySalesDoc.SetSalesHeader(Rec);
-                        CopySalesDoc.RUNMODAL;
+                        CopySalesDoc.RUNMODAL();
                         CLEAR(CopySalesDoc);
                         IF Rec.GET(Rec."Document Type", Rec."No.") THEN;
                     end;
                 }
                 action(MoveNegativeLines)
                 {
-                    Caption = 'Move Negative Lines';
+                    Caption = 'Move Negative Lines', Comment = 'FRA=""';
                     Ellipsis = true;
                     Image = MoveNegativeLines;
 
@@ -808,28 +809,28 @@ page 50117 "BC6_Locat. Sales Return Order"
                     begin
                         CLEAR(MoveNegSalesLines);
                         MoveNegSalesLines.SetSalesHeader(Rec);
-                        MoveNegSalesLines.RUNMODAL;
-                        MoveNegSalesLines.ShowDocument;
+                        MoveNegSalesLines.RUNMODAL();
+                        MoveNegSalesLines.ShowDocument();
                     end;
                 }
                 action(GetPostedDocumentLinesToReverse)
                 {
-                    Caption = 'Get Posted Doc&ument Lines to Reverse';
+                    Caption = 'Get Posted Doc&ument Lines to Reverse', Comment = 'FRA=""';
                     Ellipsis = true;
                     Image = ReverseLines;
                     Promoted = true;
                     PromotedCategory = Process;
                     PromotedIsBig = true;
-                    ToolTip = 'Copy one or more posted sales document lines in order to reverse the original order.';
+                    ToolTip = 'Copy one or more posted sales document lines in order to reverse the original order.', Comment = 'FRA=""';
 
                     trigger OnAction()
                     begin
-                        GetPstdDocLinesToRevere;
+                        GetPstdDocLinesToRevere();
                     end;
                 }
                 action("Archive Document")
                 {
-                    Caption = 'Archive Document';
+                    Caption = 'Archive Document', Comment = 'FRA=""';
                     Image = Archive;
 
                     trigger OnAction()
@@ -841,7 +842,7 @@ page 50117 "BC6_Locat. Sales Return Order"
                 action("Send IC Return Order Cnfmn.")
                 {
                     AccessByPermission = TableData "IC G/L Account" = R;
-                    Caption = 'Send IC Return Order Cnfmn.';
+                    Caption = 'Send IC Return Order Cnfmn.', Comment = 'FRA=""';
                     Image = IntercompanyOrder;
 
                     trigger OnAction()
@@ -858,7 +859,7 @@ page 50117 "BC6_Locat. Sales Return Order"
                 }
                 action(DisplayRelatedDocuments)
                 {
-                    Caption = 'Affichage documents associés';
+                    Caption = 'Affichage documents associés', Comment = 'FRA=""';
                     Image = CopyDocument;
 
                     // trigger OnAction()
@@ -872,7 +873,7 @@ page 50117 "BC6_Locat. Sales Return Order"
             }
             group(Warehouse)
             {
-                Caption = 'Warehouse';
+                Caption = 'Warehouse', Comment = 'FRA=""';
                 Image = Warehouse;
                 separator(Sep5)
                 {
@@ -880,7 +881,7 @@ page 50117 "BC6_Locat. Sales Return Order"
                 action("Create &Whse. Receipt")
                 {
                     AccessByPermission = TableData "Warehouse Receipt Header" = R;
-                    Caption = 'Create &Whse. Receipt';
+                    Caption = 'Create &Whse. Receipt', Comment = 'FRA=""';
                     Image = NewReceipt;
 
                     trigger OnAction()
@@ -893,7 +894,7 @@ page 50117 "BC6_Locat. Sales Return Order"
                 action("Create Inventor&y Put-away/Pick")
                 {
                     AccessByPermission = TableData "Posted Invt. Put-away Header" = R;
-                    Caption = 'Create Inventor&y Put-away/Pick';
+                    Caption = 'Create Inventor&y Put-away/Pick', Comment = 'FRA=""';
                     Ellipsis = true;
                     Image = CreateInventoryPickup;
 
@@ -910,18 +911,18 @@ page 50117 "BC6_Locat. Sales Return Order"
             }
             group("P&osting")
             {
-                Caption = 'P&osting';
+                Caption = 'P&osting', Comment = 'FRA=""';
                 Image = Post;
                 action(Post)
                 {
-                    Caption = 'P&ost';
+                    Caption = 'P&ost', Comment = 'FRA=""';
                     Ellipsis = true;
                     Image = PostOrder;
                     Promoted = true;
                     PromotedCategory = Process;
                     PromotedIsBig = true;
                     ShortCutKey = 'F9';
-                    ToolTip = 'Finalize the document or journal by posting the amounts and quantities to the related accounts in your company books.';
+                    ToolTip = 'Finalize the document or journal by posting the amounts and quantities to the related accounts in your company books.', Comment = 'FRA=""';
 
                     trigger OnAction()
                     begin
@@ -930,21 +931,21 @@ page 50117 "BC6_Locat. Sales Return Order"
                 }
                 action("Preview Posting")
                 {
-                    Caption = 'Preview Posting';
+                    Caption = 'Preview Posting', Comment = 'FRA=""';
                     Image = ViewPostedOrder;
-                    ToolTip = 'Review the different types of entries that will be created when you post the document or journal.';
+                    ToolTip = 'Review the different types of entries that will be created when you post the document or journal.', Comment = 'FRA=""';
 
                     trigger OnAction()
                     begin
-                        ShowPreview;
+                        ShowPreview();
                     end;
                 }
                 action("Test Report")
                 {
-                    Caption = 'Test Report';
+                    Caption = 'Test Report', Comment = 'FRA=""';
                     Ellipsis = true;
                     Image = TestReport;
-                    ToolTip = 'View a test report so that you can find and correct any errors before you perform the actual posting of the journal or document.';
+                    ToolTip = 'View a test report so that you can find and correct any errors before you perform the actual posting of the journal or document.', Comment = 'FRA=""';
 
                     trigger OnAction()
                     begin
@@ -953,14 +954,14 @@ page 50117 "BC6_Locat. Sales Return Order"
                 }
                 action("Post and &Print")
                 {
-                    Caption = 'Post and &Print';
+                    Caption = 'Post and &Print', Comment = 'FRA=""';
                     Ellipsis = true;
                     Image = PostPrint;
                     Promoted = true;
                     PromotedCategory = Process;
                     PromotedIsBig = true;
                     ShortCutKey = 'Shift+F9';
-                    ToolTip = 'Finalize and prepare to print the document or journal. The values and quantities are posted to the related accounts. A report request window where you can specify what to include on the print-out.';
+                    ToolTip = 'Finalize and prepare to print the document or journal. The values and quantities are posted to the related accounts. A report request window where you can specify what to include on the print-out.', Comment = 'FRA=""';
 
                     trigger OnAction()
                     begin
@@ -969,7 +970,7 @@ page 50117 "BC6_Locat. Sales Return Order"
                 }
                 action("Post &Batch")
                 {
-                    Caption = 'Post &Batch';
+                    Caption = 'Post &Batch', Comment = 'FRA=""';
                     Ellipsis = true;
                     Image = PostBatch;
 
@@ -981,30 +982,30 @@ page 50117 "BC6_Locat. Sales Return Order"
                 }
                 action("Remove From Job Queue")
                 {
-                    Caption = 'Remove From Job Queue';
+                    Caption = 'Remove From Job Queue', Comment = 'FRA=""';
                     Image = RemoveLine;
-                    ToolTip = 'Remove the scheduled processing of this record from the job queue.';
+                    ToolTip = 'Remove the scheduled processing of this record from the job queue.', Comment = 'FRA=""';
                     Visible = JobQueueVisible;
 
                     trigger OnAction()
                     begin
-                        Rec.CancelBackgroundPosting;
+                        Rec.CancelBackgroundPosting();
                     end;
                 }
             }
             group("Request Approval")
             {
-                Caption = 'Request Approval';
+                Caption = 'Request Approval', Comment = 'FRA=""';
                 action(SendApprovalRequest)
                 {
-                    Caption = 'Send A&pproval Request';
+                    Caption = 'Send A&pproval Request', Comment = 'FRA=""';
                     Enabled = NOT OpenApprovalEntriesExist;
                     Image = SendApprovalRequest;
                     Promoted = true;
                     PromotedCategory = Category9;
                     PromotedIsBig = true;
                     PromotedOnly = true;
-                    ToolTip = 'Send an approval request.';
+                    ToolTip = 'Send an approval request.', Comment = 'FRA=""';
 
                     trigger OnAction()
                     var
@@ -1016,7 +1017,7 @@ page 50117 "BC6_Locat. Sales Return Order"
                 }
                 action(CancelApprovalRequest)
                 {
-                    Caption = 'Cancel Approval Re&quest';
+                    Caption = 'Cancel Approval Re&quest', Comment = 'FRA=""';
                     Enabled = CanCancelApprovalForRecord;
                     Image = CancelApprovalRequest;
                     Promoted = true;
@@ -1044,51 +1045,51 @@ page 50117 "BC6_Locat. Sales Return Order"
 
     trigger OnAfterGetRecord()
     begin
-        SetControlAppearance;
+        SetControlAppearance();
     end;
 
     trigger OnDeleteRecord(): Boolean
     begin
-        CurrPage.SAVERECORD;
-        EXIT(Rec.ConfirmDeletion);
+        CurrPage.SAVERECORD();
+        EXIT(Rec.ConfirmDeletion());
     end;
 
     trigger OnInit()
     var
         SalesReceivablesSetup: Record "Sales & Receivables Setup";
     begin
-        JobQueueUsed := SalesReceivablesSetup.JobQueueActive;
+        JobQueueUsed := SalesReceivablesSetup.JobQueueActive();
     end;
 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
         IF DocNoVisible THEN
-            Rec.CheckCreditMaxBeforeInsert;
+            Rec.CheckCreditMaxBeforeInsert();
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        Rec."Responsibility Center" := UserMgt.GetSalesFilter;
+        Rec."Responsibility Center" := UserMgt.GetSalesFilter();
         IF (NOT DocNoVisible) AND (Rec."No." = '') THEN
-            Rec.SetSellToCustomerFromFilter;
+            Rec.SetSellToCustomerFromFilter();
         "BC6_Return Order Type" := "BC6_Return Order Type"::Location;
     end;
 
     trigger OnOpenPage()
     begin
-        IF UserMgt.GetSalesFilter <> '' THEN BEGIN
+        IF UserMgt.GetSalesFilter() <> '' THEN BEGIN
             Rec.FILTERGROUP(2);
-            Rec.SETRANGE("Responsibility Center", UserMgt.GetSalesFilter);
+            Rec.SETRANGE("Responsibility Center", UserMgt.GetSalesFilter());
             Rec.FILTERGROUP(0);
         END;
 
-        SetDocNoVisible;
+        SetDocNoVisible();
     end;
 
     trigger OnQueryClosePage(CloseAction: Action): Boolean
     begin
         IF NOT DocumentIsPosted THEN
-            EXIT(Rec.ConfirmCloseUnposted);
+            EXIT(Rec.ConfirmCloseUnposted());
     end;
 
     var
@@ -1120,10 +1121,10 @@ page 50117 "BC6_Locat. Sales Return Order"
         ShowWorkflowStatus: Boolean;
         "--NSC1.01--": Integer;
         CstNewReturnOrder: Label 'Nouveau retour SAV';
-        OpenPostedSalesReturnOrderQst: Label 'The return order has been posted and moved to the Posted Sales Credit Memos window.\\Do you want to open the posted credit memo?';
-        STR3: Label 'Print Document';
-        STR4: Label 'Envoyer par Mail';
-        STR5: Label 'Envoyer par Fax';
+        OpenPostedSalesReturnOrderQst: Label 'The return order has been posted and moved to the Posted Sales Credit Memos window.\\Do you want to open the posted credit memo?', Comment = 'FRA=""';
+        STR3: Label 'Print Document', Comment = 'FRA=""';
+        STR4: Label 'Envoyer par Mail', Comment = 'FRA=""';
+        STR5: Label 'Envoyer par Fax', Comment = 'FRA=""';
 
         Text001: label '';
         Text004: label '';
@@ -1139,19 +1140,19 @@ page 50117 "BC6_Locat. Sales Return Order"
         DocumentIsPosted := NOT SalesHeader.GET(Rec."Document Type", Rec."No.");
 
         IF Rec."Job Queue Status" = Rec."Job Queue Status"::"Scheduled for Posting" THEN
-            CurrPage.CLOSE;
+            CurrPage.CLOSE();
         CurrPage.UPDATE(FALSE);
 
         IF PostingCodeunitID <> CODEUNIT::"Sales-Post (Yes/No)" THEN
             EXIT;
 
-        IF InstructionMgt.IsEnabled(InstructionMgt.ShowPostedConfirmationMessageCode) THEN
-            ShowPostedConfirmationMessage;
+        IF InstructionMgt.IsEnabled(InstructionMgt.ShowPostedConfirmationMessageCode()) THEN
+            ShowPostedConfirmationMessage();
     end;
 
     local procedure ApproveCalcInvDisc()
     begin
-        CurrPage.SalesLines.PAGE.ApproveCalcInvDisc;
+        CurrPage.SalesLines.PAGE.ApproveCalcInvDisc();
     end;
 
     local procedure SalespersonCodeOnAfterValidate()
@@ -1171,7 +1172,7 @@ page 50117 "BC6_Locat. Sales Return Order"
 
     local procedure PricesIncludingVATOnAfterValid()
     begin
-        CurrPage.UPDATE;
+        CurrPage.UPDATE();
     end;
 
     local procedure SetDocNoVisible()
@@ -1209,8 +1210,8 @@ page 50117 "BC6_Locat. Sales Return Order"
     begin
         IF NOT ReturnOrderSalesHeader.GET(Rec."Document Type", Rec."No.") THEN BEGIN
             SalesCrMemoHeader.SETRANGE("No.", Rec."Last Posting No.");
-            IF SalesCrMemoHeader.FINDFIRST THEN
-                IF InstructionMgt.ShowConfirm(OpenPostedSalesReturnOrderQst, InstructionMgt.ShowPostedConfirmationMessageCode) THEN
+            IF SalesCrMemoHeader.FINDFIRST() THEN
+                IF InstructionMgt.ShowConfirm(OpenPostedSalesReturnOrderQst, InstructionMgt.ShowPostedConfirmationMessageCode()) THEN
                     PAGE.RUN(PAGE::"Posted Sales Credit Memo", SalesCrMemoHeader);
         END;
     end;
@@ -1231,7 +1232,7 @@ page 50117 "BC6_Locat. Sales Return Order"
         cust.SETRANGE(cust."No.", Rec."Sell-to Customer No.");
         IF cust.FIND('-') THEN
             cust.TESTFIELD("E-Mail");
-        OpenFile;
+        OpenFile();
         IF nameF <> '' THEN BEGIN
             Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + Rec."No.", '', nameF, FALSE);
             ERASE(nameF);
@@ -1265,11 +1266,11 @@ page 50117 "BC6_Locat. Sales Return Order"
     var
         NotificationEntry: Record "Notification Entry";
         L_UserSetup: Record "User Setup";
-        notification: Notification;
         WorkflowStepArgument: Record "Workflow Step Argument";
         WorkflowStepInstance: Record "Workflow Step Instance";
+        notification: Notification;
     begin
-        L_UserSetup.RESET;
+        L_UserSetup.RESET();
         L_UserSetup.SETRANGE("BC6_SAV Admin", TRUE);
         IF L_UserSetup.FINDFIRST() THEN begin
             WorkflowStepInstance.Get();
@@ -1278,7 +1279,7 @@ page 50117 "BC6_Locat. Sales Return Order"
                     NotificationEntry.CreateNotificationEntry(NotificationEntry.Type::"New Record", L_UserSetup."User ID", Rec, WorkflowStepArgument."Link Target Page",
                                                  WorkflowStepArgument."Custom Link", CopyStr(UserId(), 1, 50));
 
-                UNTIL L_UserSetup.NEXT = 0;
+                UNTIL L_UserSetup.NEXT() = 0;
         end;
     end;
 }

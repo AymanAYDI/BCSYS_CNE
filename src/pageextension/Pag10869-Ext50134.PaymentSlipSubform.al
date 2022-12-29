@@ -20,7 +20,7 @@ pageextension 50134 "BC6_PaymentSlipSubform" extends "Payment Slip Subform" //10
 
                 trigger OnAction()
                 begin
-                    ApplicationTiersPayeur;
+                    ApplicationTiersPayeur();
                 end;
             }
         }

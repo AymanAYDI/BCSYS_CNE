@@ -22,7 +22,7 @@ report 50088 "BC6_Phys. Inv. List CNE401"
             column("USERID"; USERID)
             {
             }
-            column(CurrReport_PAGENO; CurrReport.PAGENO)
+            column(CurrReport_PAGENO; CurrReport.PAGENO())
             {
             }
             column(Item_Journal_Batch__TABLECAPTION_______Item_Journal_Batch__GETFILTERS; ItemJournalBatch.TABLECAPTION + ': ' + ItemJournalBatch.GETFILTERS)
@@ -201,7 +201,7 @@ report 50088 "BC6_Phys. Inv. List CNE401"
             begin
                 IF ItemJournalTemplate.GET(ItemJournalBatch."Journal Template Name") THEN
                     IF ItemJournalTemplate.Type <> ItemJournalTemplate.Type::"Phys. Inventory" THEN
-                        CurrReport.SKIP;
+                        CurrReport.SKIP();
             end;
         }
     }

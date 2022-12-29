@@ -251,7 +251,6 @@ report 50035 "BC6_Traite/Facture NAVIDIIGEST"
         Cust: Record Customer;
         CustBankAcc_Grc: Record "Customer Bank Account";
         GenLedgSetup_Grc: Record "General Ledger Setup";
-        PaymtLine: Record "Payment Line";
         IssueDate: Date;
         PostingDate: Date;
         ACCEPTANCE_or_ENDORSMENTCaptionLbl: Label 'ACCEPTANCE or ENDORSMENT', comment = 'FRA="ACCEPTATION ou AVAL"';

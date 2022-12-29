@@ -84,9 +84,9 @@ page 50018 "BC6_Purch. Inv. Line Subform"
         RecGPurchInvHeader: Record "Purch. Inv. Header";
         TempPurchInvoice: Record "Purch. Inv. Line" temporary;
         [InDataSet]
-        "Document No.HideValue": Boolean;
-        [InDataSet]
         "Document No.Emphasize": Boolean;
+        [InDataSet]
+        "Document No.HideValue": Boolean;
 
 
     procedure isFirstdocLine(): Boolean

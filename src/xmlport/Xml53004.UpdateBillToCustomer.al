@@ -178,12 +178,12 @@ xmlport 53004 "BC6_Update Bill-To-Customer"
                 trigger OnBeforeInsertRecord()
                 begin
 
-                    IF (CliFact <> '') AND (CliFact <> Num) THEN BEGIN
+                    IF (CliFact <> '') AND (CliFact <> Num) THEN
                         IF RecGCust.GET(Num) THEN BEGIN
                             RecGCust.VALIDATE("Bill-to Customer No.", CliFact);
                             RecGCust.MODIFY(TRUE);
                         END;
-                    END;
+
                 end;
             }
         }
@@ -202,20 +202,6 @@ xmlport 53004 "BC6_Update Bill-To-Customer"
     }
 
     var
-        "------------- Tables ---------": Integer;
         RecGCust: Record Customer;
-        PostCode: Record "Post Code";
-        Territory: Record Territory;
-        ShipMethode: Record "Shipment Method";
-        Contact: Record Contact;
-        Language: Record Language;
-        Currency: Record Currency;
-        GpCptaMarche: Record "Gen. Business Posting Group";
-        PaymentTerms: Record "Payment Terms";
-        PaymentMethod: Record "Payment Method";
-        Vendeur: Record "Salesperson/Purchaser";
-        Commentaires: Record "Comment Line";
-        Defaut: Record "BC6_Navi+ Setup";
-        GpRemise: Record "Customer Discount Group";
 }
 

@@ -2,6 +2,8 @@ codeunit 50051 "BC6_tmp SH"
 {
 
     trigger OnRun()
+    var
+        Txtlbl: Label '%1 %2 - Régul. Imputation DEEE';
     begin
         CustLedgerEntry.SETFILTER("Posting Date", '%1..', 20160418D);
         CustLedgerEntry.SETFILTER("BC6_DEEE TTC Amount", '<>0');
@@ -42,7 +44,7 @@ codeunit 50051 "BC6_tmp SH"
                     GenJnlLine."Bal. Account Type" := GenJnlLine."Bal. Account Type"::Customer;
                     GenJnlLine.VALIDATE("Bal. Account No.", CustLedgerEntry."Customer No.");
                     GenJnlLine.VALIDATE(Amount, GLEntry.Amount - (CustLedgerEntry.Amount + CustLedgerEntry."BC6_DEEE TTC Amount"));
-                    GenJnlLine.Description := COPYSTR(STRSUBSTNO('%1 %2 - Régul. Imputation DEEE', CustLedgerEntry."Document Type", CustLedgerEntry."Document No."), 1, MAXSTRLEN(GenJnlLine.Description));
+                    GenJnlLine.Description := COPYSTR(STRSUBSTNO(Txtlbl, CustLedgerEntry."Document Type", CustLedgerEntry."Document No."), 1, MAXSTRLEN(GenJnlLine.Description));
                     GenJnlLine."Dimension Set ID" := CustLedgerEntry."Dimension Set ID";
                     GenJnlLine.INSERT(true);
                 end;

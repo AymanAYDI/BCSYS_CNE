@@ -40,7 +40,7 @@ report 50050 "BC6_Refresh Phys. Qty"
 
                 trigger OnPostDataItem()
                 begin
-                    WITH QuantityOnHandBuffer DO BEGIN
+                    WITH TempQuantityOnHandBuffer DO BEGIN
                         RESET();
                         IF FIND('-') THEN BEGIN
                             REPEAT
@@ -62,8 +62,8 @@ report 50050 "BC6_Refresh Phys. Qty"
                     SETRANGE("Journal Template Name", ItemJnlBatch."Journal Template Name");
                     SETRANGE("Phys. Inventory", TRUE);
 
-                    QuantityOnHandBuffer.RESET();
-                    QuantityOnHandBuffer.DELETEALL();
+                    TempQuantityOnHandBuffer.RESET();
+                    TempQuantityOnHandBuffer.DELETEALL();
                 end;
             }
 
@@ -160,7 +160,7 @@ report 50050 "BC6_Refresh Phys. Qty"
 
     var
         DimSelectionBuf: Record "Dimension Selection Buffer";
-        QuantityOnHandBuffer: Record "Inventory Buffer" temporary;
+        TempQuantityOnHandBuffer: Record "Inventory Buffer" temporary;
         ItemJnlBatch: Record "Item Journal Batch";
         ItemJnlBatch2: Record "Item Journal Batch";
         ItemJnlLine: Record "Item Journal Line";
@@ -312,7 +312,7 @@ report 50050 "BC6_Refresh Phys. Qty"
     var
         DimEntryNo: Integer;
     begin
-        WITH QuantityOnHandBuffer DO BEGIN
+        WITH TempQuantityOnHandBuffer DO BEGIN
             IF NOT HasNewQuantity(NewQuantity) THEN
                 EXIT;
             IF RetrieveBuffer(BinCode) THEN BEGIN
@@ -328,7 +328,7 @@ report 50050 "BC6_Refresh Phys. Qty"
 
     procedure RetrieveBuffer(BinCode: Code[20]): Boolean
     begin
-        WITH QuantityOnHandBuffer DO BEGIN
+        WITH TempQuantityOnHandBuffer DO BEGIN
             RESET();
             "Item No." := ItemJournalLine."Item No.";
             "Variant Code" := ItemJournalLine."Variant Code";

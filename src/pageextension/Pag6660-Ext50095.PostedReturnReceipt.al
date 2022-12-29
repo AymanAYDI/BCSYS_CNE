@@ -39,22 +39,18 @@ pageextension 50095 "BC6_PostedReturnReceipt" extends "Posted Return Receipt" //
     }
 
     var
-        ReturnRcptHeader: Record "Return Receipt Header";
         HistMail: Record "BC6_Historique Mails Envoyés";
         cust: Record Customer;
+        ReturnRcptHeader: Record "Return Receipt Header";
         SalesSetup: Record "Sales & Receivables Setup";
-        DocPrint: Codeunit "Document-Print";
         Mail: Codeunit Mail;
-        STR1: Label 'Archiver Devis';
-        STR2: Label 'Créer Commande';
+        Excel: Boolean;
         STR3: Label 'Imprimer le document ?';
         STR4: Label 'Envoyer le document par mail ?';
         STR5: Label 'Envoyer le document par fax ?';
-        Text004: Label 'Fichiers Pdf (*.pdf)|*.pdf|Tous les fichiers (*.*)|*.*';
         Text001: Label '';
-        "-MIGNAV2013-": Integer;
+        Text004: Label 'Fichiers Pdf (*.pdf)|*.pdf|Tous les fichiers (*.*)|*.*';
         nameF: Text[250];
-        Excel: Boolean;
 
 
     procedure EnvoiMail()

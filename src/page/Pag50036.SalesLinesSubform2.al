@@ -244,9 +244,9 @@ page 50036 "BC6_Sales Lines Subform 2"
     var
         TempSalesLine: Record "Sales Line" temporary;
         [InDataSet]
-        "Document No.HideValue": Boolean;
-        [InDataSet]
         "Document No.Emphasize": Boolean;
+        [InDataSet]
+        "Document No.HideValue": Boolean;
 
     local procedure IsFirstDocLine(): Boolean
     var

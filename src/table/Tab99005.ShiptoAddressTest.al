@@ -2,7 +2,7 @@ table 99005 "BC6_Ship-to Address Test"
 {
     Caption = 'Ship-to Address', Comment = 'FRA="Adresse destinataire"';
     DataCaptionFields = "Customer No.", Name, "Code";
-    LookupPageID = 301;
+    LookupPageID = "Ship-to Address List";
 
     fields
     {

@@ -76,18 +76,18 @@ codeunit 50021 "BC6_Update IC Partner Items"
     var
         RecGICPartner: Record "IC Partner";
         RecGICPartnerPartner: Record "IC Partner";
+        RecGItem: Record Item;
         RecGItemPartner: Record Item;
         RecGItemUnitofMeasure: Record "Item Unit of Measure";
         RecGItemUnitofMeasurePartner: Record "Item Unit of Measure";
         RecGPurchasePrice: Record "Purchase Price";
         RecGPurchasePricePartner: Record "Purchase Price";
         RecGVendorPartner: Record Vendor;
-        RecGItem: Record Item;
+        ItemPartnerOldCostIncreaseCoeff: Decimal;
+        Windows: Dialog;
         CstGText000: Label 'Treatment allowed only for CNE.', Comment = 'FRA="Traitement autorisé seulement sur CNE."';
 
         CstGText001: Label 'Item %1 duplicate on Partner %2.', Comment = 'FRA="Article %1 dupliqué sur partenaire %2."';
-        Windows: Dialog;
-        ItemPartnerOldCostIncreaseCoeff: Decimal;
 
     procedure FctGUpdatePurchasePriceVendor(RecPVendor: Record Vendor)
     begin

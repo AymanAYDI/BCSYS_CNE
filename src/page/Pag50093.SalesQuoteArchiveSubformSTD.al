@@ -289,11 +289,11 @@ page 50093 "Sales Quote Archive SubformSTD"
     var
         ShortcutDimCode: array[8] of Code[20];
 
-    procedure ShowShortcutDimCode(var ShortcutDimCode: array[8] of Code[20])
+    procedure ShowShortcutDimCode(var ShortcuttDimCode: array[8] of Code[20])
     var
         DimMgt: Codeunit DimensionManagement;
     begin
-        DimMgt.GetShortcutDimensions("Dimension Set ID", ShortcutDimCode);
+        DimMgt.GetShortcutDimensions("Dimension Set ID", ShortcuttDimCode);
     end;
 }
 

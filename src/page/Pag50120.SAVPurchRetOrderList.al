@@ -246,7 +246,7 @@ page 50120 "BC6_SAV Purch. Ret. Order List"
 
                     trigger OnAction()
                     begin
-                        Rec.OpenPurchaseOrderStatistics;
+                        Rec.OpenPurchaseOrderStatistics();
                     end;
                 }
                 action(Dimensions)
@@ -260,7 +260,7 @@ page 50120 "BC6_SAV Purch. Ret. Order List"
 
                     trigger OnAction()
                     begin
-                        Rec.ShowDocDim;
+                        Rec.ShowDocDim();
                     end;
                 }
                 action(Approvals)
@@ -275,8 +275,9 @@ page 50120 "BC6_SAV Purch. Ret. Order List"
                     var
                         ApprovalEntries: Page "Approval Entries";
                     begin
-                        ApprovalEntries.Setfilters(DATABASE::"Purchase Header", Rec."Document Type", Rec."No.");
-                        ApprovalEntries.RUN;
+
+                        ApprovalEntries.Setfilters(DATABASE::"Purchase Header", Rec."Document Type".AsInteger(), Rec."No.");
+                        ApprovalEntries.RUN();
                     end;
                 }
                 action("Co&mments")
@@ -362,7 +363,7 @@ page 50120 "BC6_SAV Purch. Ret. Order List"
                     IF Rec."BC6_Return Order Type" = Rec."BC6_Return Order Type"::Location THEN
                         DocPrint.PrintPurchHeader(Rec)
                     ELSE BEGIN
-                        L_PurchaseHeader.RESET;
+                        L_PurchaseHeader.RESET();
                         L_PurchaseHeader.SETRANGE("Document Type", Rec."Document Type");
                         L_PurchaseHeader.SETRANGE("No.", Rec."No.");
                         REPORT.RUNMODAL(Report::"BC6_Purchase Ret. Order - SAV", TRUE, FALSE, L_PurchaseHeader);
@@ -419,7 +420,7 @@ page 50120 "BC6_SAV Purch. Ret. Order List"
 
                     trigger OnAction()
                     begin
-                        Rec.GetPstdDocLinesToReverse;
+                        Rec.GetPstdDocLinesToReverse();
                     end;
                 }
                 separator(sep2)
@@ -434,8 +435,8 @@ page 50120 "BC6_SAV Purch. Ret. Order List"
 
                     trigger OnAction()
                     var
-                        ICInOutMgt: Codeunit ICInboxOutboxMgt;
                         ApprovalsMgmt: Codeunit "Approvals Mgmt.";
+                        ICInOutMgt: Codeunit ICInboxOutboxMgt;
                     begin
                         IF ApprovalsMgmt.PrePostApprovalCheckPurch(Rec) THEN
                             ICInOutMgt.SendPurchDoc(Rec, FALSE);
@@ -612,7 +613,7 @@ page 50120 "BC6_SAV Purch. Ret. Order List"
 
                     trigger OnAction()
                     begin
-                        Rec.CancelBackgroundPosting;
+                        Rec.CancelBackgroundPosting();
                     end;
                 }
             }
@@ -621,27 +622,27 @@ page 50120 "BC6_SAV Purch. Ret. Order List"
 
     trigger OnAfterGetCurrRecord()
     begin
-        SetControlAppearance;
+        SetControlAppearance();
     end;
 
     trigger OnOpenPage()
     var
         PurchasesPayablesSetup: Record "Purchases & Payables Setup";
     begin
-        Rec.SetSecurityFilterOnRespCenter;
+        Rec.SetSecurityFilterOnRespCenter();
 
-        JobQueueActive := PurchasesPayablesSetup.JobQueueActive;
+        JobQueueActive := PurchasesPayablesSetup.JobQueueActive();
 
-        Rec.CopyBuyFromVendorFilter;
+        Rec.CopyBuyFromVendorFilter();
     end;
 
     var
         DocPrint: Codeunit "Document-Print";
         ReportPrint: Codeunit "Test Report-Print";
+        CanCancelApprovalForRecord: Boolean;
         [InDataSet]
         JobQueueActive: Boolean;
         OpenApprovalEntriesExist: Boolean;
-        CanCancelApprovalForRecord: Boolean;
 
     local procedure SetControlAppearance()
     var

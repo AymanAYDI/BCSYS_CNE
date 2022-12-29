@@ -116,14 +116,14 @@ codeunit 50004 "BC6_Post Code Rebuild"
     end;
 
     var
-        RecGCustomer: Record Customer;
-        RecGVendor: Record Vendor;
-        RecGPostCode: Record "Post Code";
         RecGContact: Record Contact;
+        RecGCustomer: Record Customer;
+        RecGPostCode: Record "Post Code";
         RecGShiptoAddress: Record "Ship-to Address";
+        RecGVendor: Record Vendor;
+        DiaGWindow: Dialog;
 
         IntGI: Integer;
         IntGNb: Integer;
-        DiaGWindow: Dialog;
 }
 

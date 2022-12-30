@@ -46,14 +46,14 @@ page 50078 "Scan Ship & Receive Activities"
                 }
                 field("Invt. Picks Until Today"; "Invt. Picks Until Today")
                 {
-                    Caption = 'Inventory Picks Until Today';
+                    Caption = 'Inventory Picks Until Today', Comment = 'FRA=""';
                     DrillDownPageID = "Inventory Picks";
                     ToolTip = 'Specifies the number of inventory picks that are displayed in the Warehouse Basic Cue on the Role Center. The documents are filtered by today''s date.', Comment = 'FRA="Spécifie le nombre de prélèvements stock qui sont affichés dans la pile Base entrepôt du tableau de bord. Les documents sont filtrés à la date du jour."';
                     ApplicationArea = All;
                 }
                 field("Invt. Put-aways Until Today"; "Invt. Put-aways Until Today")
                 {
-                    Caption = 'Inventory Put-aways Until Today';
+                    Caption = 'Inventory Put-aways Until Today', Comment = 'FRA=""';
                     DrillDownPageID = "Inventory Put-aways";
                     ToolTip = 'Specifies the number of inventory put-always that are displayed in the Warehouse Basic Cue on the Role Center. The documents are filtered by today''s date.', Comment = 'FRA="Spécifie le nombre de rangements stock qui sont affichés dans la pile Base entrepôt du tableau de bord. Les documents sont filtrés à la date du jour."';
                     ApplicationArea = All;

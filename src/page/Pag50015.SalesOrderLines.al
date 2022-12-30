@@ -457,11 +457,9 @@ page 50015 "BC6_Sales Order Lines"
         RecGItem: Record Item;
         RecGPurchasing: Record Purchasing;
         RecGSalesHeader: Record "Sales Header";
-<<<<<<< HEAD
+
         TempRecLSalesLine: Record "Sales Line" temporary;
-=======
-        RecLSalesLineTmp: Record "Sales Line" temporary;
->>>>>>> c99b0a100caa41cf476a06447b48a65bbd71428f
+
         RecGVendor: Record Vendor;
         BooGExcDropShipFilter: Boolean;
         BooGExcQuoteFilter: Boolean;
@@ -470,7 +468,6 @@ page 50015 "BC6_Sales Order Lines"
         BooGNotGroupByItem: Boolean;
         BooGOneTimeOrdering: Boolean;
         CodGVendorFilter: Code[20];
-        TempRecLSalesLine: Record "Sales Line" temporary;
         GPurchCost: Decimal;
         DiaGWindow: Dialog;
         CstGText50001: Label 'Item No.          #2##########\', comment = 'FRA="N° article traité           #2###########\"';

@@ -2,17 +2,17 @@ report 50015 "BC6_Prices Request"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/PricesRequest.rdl';
-    Caption = 'Prices Request';
+    Caption = 'Prices Request', Comment = 'FRA=""';
 
     dataset
     {
         dataitem(PurchaseHeader; "Purchase Header")
         {
 
-            DataItemTableView = SORTING("Document Type", "No.")
-                                WHERE("Document Type" = CONST(Quote));
+            DataItemTableView = sorting("Document Type", "No.")
+                                where("Document Type" = const(Quote));
             RequestFilterFields = "No.", "Buy-from Vendor No.", "No. Printed";
-            RequestFilterHeading = 'Purchase Order';
+            RequestFilterHeading = 'Purchase Order', Comment = 'FRA=""';
             column(Purchase_Header_Document_Type; "Document Type")
             {
             }
@@ -21,13 +21,13 @@ report 50015 "BC6_Prices Request"
             }
             dataitem(CopyLoop; Integer)
             {
-                DataItemTableView = SORTING(Number);
+                DataItemTableView = sorting(Number);
 
                 dataitem(PageLoop; Integer)
                 {
 
-                    DataItemTableView = SORTING(Number)
-                                        WHERE(Number = CONST(1));
+                    DataItemTableView = sorting(Number)
+                                        where(Number = const(1));
                     column(CurrReport_PAGENO__; STRSUBSTNO(Text005, FORMAT(CurrReport.PAGENO())))
                     {
                     }
@@ -189,10 +189,10 @@ report 50015 "BC6_Prices Request"
                     }
                     dataitem(PurchaseLine; "Purchase Line")
                     {
-                        DataItemLink = "Document Type" = FIELD("Document Type"),
-                                      "Document No." = FIELD("No.");
+                        DataItemLink = "Document Type" = field("Document Type"),
+                                      "Document No." = field("No.");
                         DataItemLinkReference = PurchaseHeader;
-                        DataItemTableView = SORTING("Document Type", "Document No.", "Line No.");
+                        DataItemTableView = sorting("Document Type", "Document No.", "Line No.");
 
                         trigger OnPreDataItem()
                         begin
@@ -201,7 +201,7 @@ report 50015 "BC6_Prices Request"
                     }
                     dataitem(RoundLoop; Integer)
                     {
-                        DataItemTableView = SORTING(Number);
+                        DataItemTableView = sorting(Number);
                         column(Purchase_Line__Description; PurchaseLine.Description)
                         {
                         }
@@ -229,18 +229,18 @@ report 50015 "BC6_Prices Request"
 
                         trigger OnAfterGetRecord()
                         begin
-                            IF Number = 1 THEN
+                            if Number = 1 then
                                 TempPurchLine.FIND('-')
-                            ELSE
+                            else
                                 TempPurchLine.NEXT();
                             PurchaseLine := TempPurchLine;
 
-                            IF NOT PurchaseHeader."Prices Including VAT" AND
+                            if not PurchaseHeader."Prices Including VAT" and
                                (TempPurchLine."VAT Calculation Type" = TempPurchLine."VAT Calculation Type"::"Full VAT")
-                            THEN
+                            then
                                 TempPurchLine."Line Amount" := 0;
 
-                            IF (TempPurchLine.Type = TempPurchLine.Type::"G/L Account") AND (NOT ShowInternalInfo) THEN
+                            if (TempPurchLine.Type = TempPurchLine.Type::"G/L Account") and (not ShowInternalInfo) then
                                 PurchaseLine."No." := '';
                         end;
 
@@ -248,24 +248,23 @@ report 50015 "BC6_Prices Request"
                         begin
                             TempPurchLine.DELETEALL();
                         end;
-
-                        trigger OnPreDataItem()
-                        begin
-                            MoreLines := TempPurchLine.FIND('+');
-                            WHILE MoreLines AND (TempPurchLine.Description = '') AND (TempPurchLine."Description 2" = '') AND
-                                  (TempPurchLine."No." = '') AND (TempPurchLine.Quantity = 0) AND
-                                  (TempPurchLine.Amount = 0) DO
-                                MoreLines := TempPurchLine.NEXT(-1) <> 0;
-                            IF NOT MoreLines THEN
-                                CurrReport.BREAK();
-                            TempPurchLine.SETRANGE("Line No.", 0, TempPurchLine."Line No.");
-                            SETRANGE(Number, 1, TempPurchLine.COUNT);
-                            CurrReport.CREATETOTALS(TempPurchLine."Line Amount", TempPurchLine."Inv. Discount Amount");
-                        end;
+                        //prb
+                        // trigger OnPreDataItem()
+                        // begin
+                        //     MoreLines := TempPurchLine.FIND('+');
+                        //     while MoreLines and (TempPurchLine.Description = '') and (TempPurchLine."Description 2" = '') and
+                        //           (TempPurchLine."No." = '') and (TempPurchLine.Quantity = 0) and
+                        //           (TempPurchLine.Amount = 0) do
+                        //         MoreLines := TempPurchLine.NEXT(-1) <> 0;
+                        //     if not MoreLines then
+                        //         CurrReport.BREAK();
+                        //     TempPurchLine.SETRANGE("Line No.", 0, TempPurchLine."Line No.");
+                        //     SETRANGE(Number, 1, TempPurchLine.COUNT);
+                        // end;
                     }
                     dataitem(VATCounter; Integer)
                     {
-                        DataItemTableView = SORTING(Number);
+                        DataItemTableView = sorting(Number);
 
                         trigger OnAfterGetRecord()
                         begin
@@ -275,7 +274,7 @@ report 50015 "BC6_Prices Request"
                     }
                     dataitem(VATCounterLCY; Integer)
                     {
-                        DataItemTableView = SORTING(Number);
+                        DataItemTableView = sorting(Number);
 
                         trigger OnAfterGetRecord()
                         begin
@@ -292,35 +291,35 @@ report 50015 "BC6_Prices Request"
                     }
                     dataitem(Total; Integer)
                     {
-                        DataItemTableView = SORTING(Number)
-                                            WHERE(Number = CONST(1));
+                        DataItemTableView = sorting(Number)
+                                            where(Number = const(1));
                     }
                     dataitem(Total2; Integer)
                     {
-                        DataItemTableView = SORTING(Number)
-                                            WHERE(Number = CONST(1));
+                        DataItemTableView = sorting(Number)
+                                            where(Number = const(1));
 
                         trigger OnPreDataItem()
                         begin
 
                             CurrReport.BREAK();
 
-                            IF PurchaseHeader."Buy-from Vendor No." = PurchaseHeader."Pay-to Vendor No." THEN
+                            if PurchaseHeader."Buy-from Vendor No." = PurchaseHeader."Pay-to Vendor No." then
                                 CurrReport.BREAK();
 
                         end;
                     }
                     dataitem(Total3; Integer)
                     {
-                        DataItemTableView = SORTING(Number)
-                                            WHERE(Number = CONST(1));
+                        DataItemTableView = sorting(Number)
+                                            where(Number = const(1));
 
                         trigger OnPreDataItem()
                         begin
 
                             CurrReport.BREAK();
 
-                            IF (PurchaseHeader."Sell-to Customer No." = '') AND (ShipToAddr[1] = '') THEN
+                            if (PurchaseHeader."Sell-to Customer No." = '') and (ShipToAddr[1] = '') then
                                 CurrReport.BREAK();
                         end;
                     }
@@ -328,25 +327,25 @@ report 50015 "BC6_Prices Request"
                     trigger OnAfterGetRecord()
                     begin
                         recLBuyVendor.SETFILTER("No.", PurchaseHeader."Buy-from Vendor No.");
-                        IF recLBuyVendor.FINDFIRST() THEN;
+                        if recLBuyVendor.FINDFIRST() then;
                     end;
 
                     trigger OnPreDataItem()
                     var
                         RecGJob: Record Job;
                     begin
-                        IF PurchaseHeader."BC6_Affair No." <> '' THEN BEGIN
+                        if PurchaseHeader."BC6_Affair No." <> '' then begin
                             TxtGLblProjet := Text070;
                             TxtGNoProjet := PurchaseHeader."BC6_Affair No.";
                             RecGJob.GET(PurchaseHeader."BC6_Affair No.");
                             TxtGDesignation := RecGJob.Description;
-                        END ELSE BEGIN
+                        end else begin
                             TxtGLblProjet := '';
                             TxtGNoProjet := '';
                             TxtGDesignation := '';
-                        END;
+                        end;
 
-                        IF BoolGRespCenter THEN BEGIN
+                        if BoolGRespCenter then begin
                             TxtGPhone := RespCenter."Phone No.";
                             TxtGFax := RespCenter."Fax No.";
                             TxtGEmail := RespCenter."E-Mail";
@@ -360,7 +359,7 @@ report 50015 "BC6_Prices Request"
                             TxtGAltFax := RespCenter."BC6_Alt Fax No.";
                             TxtGAltEmail := RespCenter."BC6_Alt E-Mail";
                             TxtGAltHomePage := RespCenter."BC6_Alt Home Page";
-                        END ELSE BEGIN
+                        end else begin
                             TxtGPhone := CompanyInfo."Phone No.";
                             TxtGFax := CompanyInfo."Fax No.";
                             TxtGEmail := CompanyInfo."E-Mail";
@@ -374,7 +373,7 @@ report 50015 "BC6_Prices Request"
                             TxtGAltFax := CompanyInfo."BC6_Alt Fax No.";
                             TxtGAltEmail := CompanyInfo."BC6_Alt E-Mail";
                             TxtGAltHomePage := CompanyInfo."BC6_Alt Home Page";
-                        END;
+                        end;
                     end;
                 }
 
@@ -393,7 +392,7 @@ report 50015 "BC6_Prices Request"
                       TempVATAmountLine.GetTotalVATDiscount(PurchaseHeader."Currency Code", PurchaseHeader."Prices Including VAT");
                     TotalAmountInclVAT := TempVATAmountLine.GetTotalAmountInclVAT();
 
-                    IF Number > 1 THEN
+                    if Number > 1 then
                         CopyText := Text003;
                     CurrReport.PAGENO := 1;
 
@@ -402,7 +401,7 @@ report 50015 "BC6_Prices Request"
 
                 trigger OnPostDataItem()
                 begin
-                    IF NOT CurrReport.PREVIEW THEN
+                    if not CurrReport.PREVIEW then
                         PurchCountPrinted.RUN(PurchaseHeader);
                 end;
 
@@ -500,36 +499,36 @@ report 50015 "BC6_Prices Request"
                     Caption = 'Options';
                     field(NoofCopies; NoOfCopies)
                     {
-                        Caption = 'No. of Copies';
+                        Caption = 'No. of Copies', Comment = 'FRA=""';
                     }
                     field(ShowInternalInformation; ShowInternalInfo)
                     {
-                        Caption = 'Show Internal Information';
+                        Caption = 'Show Internal Information', Comment = 'FRA=""';
                     }
                     field(ArchiveDocument; ArchiveDocument)
                     {
-                        Caption = 'Archive Document';
+                        Caption = 'Archive Document', Comment = 'FRA=""';
 
                         trigger OnValidate()
                         begin
-                            IF NOT ArchiveDocument THEN
-                                LogInteraction := FALSE;
+                            if not ArchiveDocument then
+                                LogInteraction := false;
                         end;
                     }
                     field(LogInteraction; LogInteraction)
                     {
-                        Caption = 'Log Interaction';
+                        Caption = 'Log Interaction', Comment = 'FRA=""';
                         Enabled = LogInteractionEnable;
 
                         trigger OnValidate()
                         begin
-                            IF LogInteraction THEN
+                            if LogInteraction then
                                 ArchiveDocument := ArchiveDocumentEnable;
                         end;
                     }
                     field(CodGRespCenter; CodGRespCenter)
                     {
-                        Caption = 'Print Characteristics Agency:';
+                        Caption = 'Print Characteristics Agency:', Comment = 'FRA=""';
                         TableRelation = "Responsibility Center";
                     }
                 }
@@ -608,38 +607,38 @@ report 50015 "BC6_Prices Request"
         NoOfCopies: Integer;
         NoOfLoops: Integer;
         OutputNo: Integer;
-        CstGTxt01: Label 'Page';
-        "DésignationCaptionLbl": Label 'Désignation';
-        FAX___CaptionLbl: Label 'FAX : ';
-        FORMAT__Purchase_Header___Document_Date__0_4_CaptionLbl: Label 'Date :', comment = 'FRA="Date :"';
-        Interlocutor___CaptionLbl: Label 'Interlocutor : ', comment = 'FRA="Interlocuteur : "';
-        Prices_RequestCaptionLbl: Label 'Prices Request', comment = 'FRA="Demande de prix"';
-        Purchase_Header___Buy_from_Vendor_No__CaptionLbl: Label 'Vendor No.', comment = 'FRA="N° fournisseur"';
-        QuantityCaptionLbl: Label 'Quantity', comment = 'FRA="Quantité"';
-        ReferenceCaptionLbl: Label 'Reference', comment = 'FRA="Reference"';
-        TEL___CaptionLbl: Label 'TEL : ';
-        Text000: Label 'Purchaser', comment = 'FRA="Acheteur"';
-        Text001: Label 'Total Order %1', comment = 'FRA="Total commande %1"';
-        Text002: Label 'Total Order %1 Incl. VAT', comment = 'FRA="Total commande %1 TTC"';
-        Text003: Label 'COPY', comment = 'FRA="COPIE"';
-        Text004: Label 'Order %1', comment = 'FRA="Commande %1"';
-        Text005: Label 'Page %1', comment = 'FRA="Page %1"';
-        Text006: Label 'Total Order %1 Excl. VAT', comment = 'FRA="Total commande %1 HT"';
-        Text007: Label 'VAT Amount Specification in ', comment = 'FRA="Détail TVA dans"';
-        Text008: Label 'Local Currency', comment = 'FRA="Devise locale"';
-        Text009: Label 'Exchange rate: %1/%2', comment = 'FRA="Taux de change : %1/%2"';
-        Text010: Label 'IMPERTIVE : US TO CONFIRM THIS ORDER BY RETURN OF FAX TO ', comment = 'FRA="IMPERATIF : NOUS CONFIRMER CETTE COMMANDE PAR RETOUR D''EMAIL A "';
-        Text011: Label 'DELIVERY ADDRESS', comment = 'FRA="ADRESSE DE LIVRAISON"';
-        Text012: Label 'No.', comment = 'FRA="N°"';
-        Text013: Label ' with capital of ', comment = 'FRA="au capital de"';
-        Text014: Label ' -Registration ', comment = 'FRA="-SIRET"';
-        Text015: Label ' -EP ';
-        Text016: Label ' -VAT Registration ', comment = 'FRA="-N° TVA "';
-        Text066: Label 'TEL : %1 FAX : %2 / email : %3', comment = 'FRA="%1 FAX : %2 / email : %3"';
-        Text067: Label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5', comment = 'FRA="%1 au capital de  %2   - %3  -  APE %4 - n°TVA : %5"';
-        Text068: Label '%1';
-        Text070: Label 'Affair No. : ', comment = 'FRA="Affaire n° :"';
-        TimeCaptionLbl: Label 'Time', comment = 'FRA="Délai "';
+        CstGTxt01: label 'Page';
+        "DésignationCaptionLbl": label 'Désignation';
+        FAX___CaptionLbl: label 'FAX : ';
+        FORMAT__Purchase_Header___Document_Date__0_4_CaptionLbl: label 'Date :', comment = 'FRA="Date :"';
+        Interlocutor___CaptionLbl: label 'Interlocutor : ', comment = 'FRA="Interlocuteur : "';
+        Prices_RequestCaptionLbl: label 'Prices Request', comment = 'FRA="Demande de prix"';
+        Purchase_Header___Buy_from_Vendor_No__CaptionLbl: label 'Vendor No.', comment = 'FRA="N° fournisseur"';
+        QuantityCaptionLbl: label 'Quantity', comment = 'FRA="Quantité"';
+        ReferenceCaptionLbl: label 'Reference', comment = 'FRA="Reference"';
+        TEL___CaptionLbl: label 'TEL : ';
+        Text000: label 'Purchaser', comment = 'FRA="Acheteur"';
+        Text001: label 'Total Order %1', comment = 'FRA="Total commande %1"';
+        Text002: label 'Total Order %1 Incl. VAT', comment = 'FRA="Total commande %1 TTC"';
+        Text003: label 'COPY', comment = 'FRA="COPIE"';
+        Text004: label 'Order %1', comment = 'FRA="Commande %1"';
+        Text005: label 'Page %1', comment = 'FRA="Page %1"';
+        Text006: label 'Total Order %1 Excl. VAT', comment = 'FRA="Total commande %1 HT"';
+        Text007: label 'VAT Amount Specification in ', comment = 'FRA="Détail TVA dans"';
+        Text008: label 'Local Currency', comment = 'FRA="Devise locale"';
+        Text009: label 'Exchange rate: %1/%2', comment = 'FRA="Taux de change : %1/%2"';
+        Text010: label 'IMPERTIVE : US TO CONFIRM THIS ORDER BY RETURN OF FAX TO ', comment = 'FRA="IMPERATIF : NOUS CONFIRMER CETTE COMMANDE PAR RETOUR D''EMAIL A "';
+        Text011: label 'DELIVERY ADDRESS', comment = 'FRA="ADRESSE DE LIVRAISON"';
+        Text012: label 'No.', comment = 'FRA="N°"';
+        Text013: label ' with capital of ', comment = 'FRA="au capital de"';
+        Text014: label ' -Registration ', comment = 'FRA="-SIRET"';
+        Text015: label ' -EP ';
+        Text016: label ' -VAT Registration ', comment = 'FRA="-N° TVA "';
+        Text066: label 'TEL : %1 FAX : %2 / email : %3', comment = 'FRA="%1 FAX : %2 / email : %3"';
+        Text067: label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5', comment = 'FRA="%1 au capital de  %2   - %3  -  APE %4 - n°TVA : %5"';
+        Text068: label '%1';
+        Text070: label 'Affair No. : ', comment = 'FRA="Affaire n° :"';
+        TimeCaptionLbl: label 'Time', comment = 'FRA="Délai "';
         txtlbl12: label '%1 %2';
 
         TxtGAltFax: Text[20];

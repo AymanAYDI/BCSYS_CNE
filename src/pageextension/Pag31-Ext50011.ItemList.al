@@ -7,7 +7,7 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
         {
             field(BC6_CodeEAN13Ctrl; EAN13Code)
             {
-
+                Caption = 'EAN13 Code', comment = 'FRA="EAN13 Code"';
                 trigger OnLookup(var Text: Text): Boolean
                 var
                     functionMgt: Codeunit "BC6_Functions Mgt";

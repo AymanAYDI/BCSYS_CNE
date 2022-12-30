@@ -3,7 +3,8 @@ page 50023 "BC6_Intégration article"
     InsertAllowed = false;
     PageType = List;
     SourceTable = "BC6_Temporary import catalogue";
-
+    UsageCategory = Tasks;
+    ApplicationArea = All;
     layout
     {
         area(content)
@@ -12,66 +13,87 @@ page 50023 "BC6_Intégration article"
             {
                 field(Ref_externe; Ref_externe)
                 {
+                    ApplicationArea = All;
                 }
                 field(Ref_Interne; Ref_Interne)
                 {
+                    ApplicationArea = All;
                 }
                 field(designation; designation)
                 {
+                    ApplicationArea = All;
                 }
                 field(Prix_public; Prix_public)
                 {
+                    ApplicationArea = All;
                 }
                 field(famille; famille)
                 {
+                    ApplicationArea = All;
                 }
                 field(remise; remise)
                 {
+                    ApplicationArea = All;
                 }
                 field(prix_net; prix_net)
                 {
+                    ApplicationArea = All;
                 }
                 field("date debut"; "date debut")
                 {
+                    ApplicationArea = All;
                 }
                 field("date fin"; "date fin")
                 {
+                    ApplicationArea = All;
                 }
                 field(Vendor; Vendor)
                 {
+                    ApplicationArea = All;
                 }
                 field("Item Category Code"; "Item Category Code")
                 {
+                    ApplicationArea = All;
                 }
                 field("Product Group Code"; "Product Group Code")
                 {
+                    ApplicationArea = All;
                 }
                 field("Net Weight"; "Net Weight")
                 {
+                    ApplicationArea = All;
                 }
                 field("Item BarCode"; "Item BarCode")
                 {
+                    ApplicationArea = All;
                 }
                 field(BarCode; BarCode)
                 {
+                    ApplicationArea = All;
                 }
                 field("Replace Item BarCode"; "Replace Item BarCode")
                 {
+                    ApplicationArea = All;
                 }
                 field("DEEE Category Code"; "DEEE Category Code")
                 {
+                    ApplicationArea = All;
                 }
                 field("Number of Units DEEE"; "Number of Units DEEE")
                 {
+                    ApplicationArea = All;
                 }
                 field("DEEE Unit Amount"; "DEEE Unit Amount")
                 {
+                    ApplicationArea = All;
                 }
                 field("Emplacement par défaut"; "Emplacement par défaut")
                 {
+                    ApplicationArea = All;
                 }
                 field(Stocks; Stocks)
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -83,10 +105,11 @@ page 50023 "BC6_Intégration article"
         {
             action(Import)
             {
-                Caption = 'Import';
+                Caption = 'Import', Comment = 'FRA="Import"';
                 Image = Import;
                 Promoted = true;
                 PromotedCategory = Process;
+                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -98,7 +121,7 @@ page 50023 "BC6_Intégration article"
 
                     COMMIT();
 
-                    XMLPORT.RUN(50023, TRUE, TRUE);
+                    XMLPORT.RUN(XmlPort::"BC6_Intégration catalogue", TRUE, TRUE);
                     RESET();
                     CurrPage.UPDATE(TRUE);
                     IF NOT FIND('-') THEN;
@@ -106,10 +129,11 @@ page 50023 "BC6_Intégration article"
             }
             action("Update")
             {
-                Caption = 'Update';
+                Caption = 'Update', Comment = 'FRA="Mise à Jour"';
                 Image = UpdateDescription;
                 Promoted = true;
                 PromotedCategory = Process;
+                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -117,38 +141,32 @@ page 50023 "BC6_Intégration article"
                     IF FIND('-') THEN
                         IF CONFIRM(textg001, FALSE) THEN BEGIN
                             importdata();
-                            //>>Item import CASC 19/01/2007 FE06.V2 NSC1.01 : delete table after update
                             DELETEALL();
-                            //<<Item import CASC 19/01/2007 FE06.V2 NSC1.01 : delete table after update
                         END;
                 end;
             }
             action("Update Item Std Cost")
             {
-                Caption = 'Update Item Std Cost';
+                Caption = 'Update Item Std Cost', Comment = 'FRA="Maj Coût standard article"';
                 Image = UpdateUnitCost;
                 Promoted = true;
+                PromotedOnly = true;
                 PromotedCategory = Process;
+                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
-                    //REPORT.RUNMODAL(50101);
-                    //>>Change report Number CASC 18/01/2007 NSC1.01
-                    REPORT.RUNMODAL(50016);
-                    //>>MICO point 68
+                    REPORT.RUNMODAL(Report::"BC6_Maj Cout standard article");
                     MESSAGE(textG005);
-                    //<<MICO point 68
-                    //<<Change report Number CASC 18/01/2007 NSC1.01
                 end;
             }
         }
     }
 
     var
-        textg001: Label 'do you want integrate this data ?';
-        textg002: Label 'Empty Integration form ?';
-        textg003: Label 'Integration finished';
-        TestG004: Label 'You can not insert line';
-        textG005: Label 'Mise à jour terminée.';
+        TestG004: Label 'You can not insert line', Comment = 'FRA="vous ne pouvez pas insérer de ligne"';
+        textg001: Label 'do you want integrate this data ?', Comment = 'FRA="Voulez vous intégrer ces données ?"';
+        textg002: Label 'Empty Integration form ?', Comment = 'FRA="Remettre à zéro le formulaire d''intégration ? "';
+        textG005: Label 'Mise à jour terminée.', Comment = 'FRA="Mise à jour terminée."';
 }
 

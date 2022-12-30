@@ -46,8 +46,5 @@ tableextension 50081 "BC6_SalesLineDiscount" extends "Sales Line Discount" //700
     }
     keys
     {
-        // key(Key3; "Code", "Sales Code", "Sales Type", Type, "Starting Date", "Ending Date", "BC6_Profit %") // TODO: La propriété 'Key3' ne peut être définie que si les champs spécifiés proviennent de la même table.
-        // {
-        // }
     }
 }

@@ -19,7 +19,7 @@ table 50010 "BC6_Affair Steps"
         }
         field(3; "Step Date"; Date)
         {
-            Caption = 'Step date', comment = 'FRA="Date etape"';
+            Caption = 'Step date', comment = 'FRA="Date étape"';
             DataClassification = CustomerContent;
         }
         field(4; Interlocutor; Text[50])

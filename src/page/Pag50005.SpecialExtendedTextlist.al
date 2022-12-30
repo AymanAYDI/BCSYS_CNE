@@ -24,7 +24,7 @@ page 50005 "BC6_Special Extended Text list"
                 }
                 field(Name; Name)
                 {
-                    Caption = 'Name';
+                    Caption = 'Name', comment = 'FRA="Nom"';
                 }
             }
         }
@@ -53,27 +53,23 @@ page 50005 "BC6_Special Extended Text list"
 
         IF "No." <> '' THEN
             SETRANGE("No.", "No.");
-        IF FIND('-') THEN BEGIN
+        IF FIND('-') THEN
             REPEAT
                 IF ("No." <> '') AND (Text <> '') THEN
                     IF (Code <> '') AND (Code <> SaveCode) THEN BEGIN
                         MARK(TRUE);
                         SaveCode := Code;
                     END;
-            UNTIL NEXT = 0;
-        END;
+            UNTIL NEXT() = 0;
+
         MARKEDONLY(TRUE);
     end;
 
     var
-        Name: Text[30];
         Customer: Record Customer;
         Vendor: Record Vendor;
         SaveCode: Code[20];
+        Name: Text[100];
 
-    local procedure OnBeforePutRecord()
-    begin
-        MARK(FALSE);
-    end;
 }
 

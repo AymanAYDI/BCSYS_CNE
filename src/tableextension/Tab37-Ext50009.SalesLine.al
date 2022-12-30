@@ -1,5 +1,6 @@
 tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
 {
+
     fields
     {
         modify("Return Reason Code")
@@ -50,12 +51,10 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
 
             trigger OnValidate()
             begin
-                //>>FEP-ACHAT-200706_18_A.002
                 IF "BC6_Purch. Order No." <> '' THEN BEGIN
                     IF NOT CONFIRM(TextG005) THEN
                         ERROR('');
                 END;
-                //<<FEP-ACHAT-200706_18_A.002
             end;
         }
         field(50008; "BC6_Prom. Purch. Receipt Date"; Boolean)
@@ -109,7 +108,6 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
             var
                 reclPurchHdr: Record "Purchase Header";
             begin
-                //>>FE004.4
                 reclPurchHdr.SETFILTER("Document Type", '%1', "BC6_Purch. Document Type");
                 reclPurchHdr.SETFILTER("No.", "BC6_Purch. Order No.");
                 CASE "BC6_Purch. Document Type" OF
@@ -118,7 +116,6 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
                     "BC6_Purch. Document Type"::Quote:
                         PAGE.RUNMODAL(PAGE::"Purchase Quote", reclPurchHdr);
                 END;
-                //<<FE004.4
             end;
         }
         field(50027; "BC6_Purch. Line No."; Integer)
@@ -189,7 +186,6 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
                 L_Vendor: Record Vendor;
                 ShowErrorMsg: Boolean;
             begin
-                //BC6 - MM 15/02/19 >>
                 IF (("Document Type" = "Document Type"::Quote) OR ("Document Type" = "Document Type"::Order)) AND
                    NOT SkipPurchCostVerif AND
                    (xRec."BC6_Purchase cost" <> Rec."BC6_Purchase cost") THEN BEGIN
@@ -206,19 +202,13 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
                     IF ShowErrorMsg THEN
                         ERROR(UpdatePurchCostErr, FIELDCAPTION("BC6_Purchase cost"));
                 END;
-                //BC6 - MM 15/02/19 <<
 
-                //COUT_ACHAT FG 20/12/06 NSC1.01
                 CalcProfit();
-                //CalcDiscount ;
-                //Fin COUT_ACHAT FG 20/12/06 NSC1.01
 
                 RecGCompanyInfo.FINDFIRST();
                 IF (RecGCompanyInfo."BC6_Branch Company" = FALSE) AND (SalesHeader."Sell-to IC Partner Code" <> '') THEN BEGIN
-                    // prix de vente avec 2 dec.
                     VALIDATE("Unit Price", ROUND("BC6_Purchase cost", 0.01));
                 END;
-                //<<CNEIC : 06/2015
             end;
         }
         field(50042; "BC6_Invoiced Date (Expected)"; Date)
@@ -312,9 +302,7 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
 
             trigger OnValidate()
             begin
-                //>>DEEE1.00
                 CalculateDEEE('');
-                //<<DEEE1.00
             end;
         }
         field(80801; "BC6_DEEE Unit Price"; Decimal)
@@ -326,7 +314,6 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
             var
                 RecLCurrency: Record Currency;
             begin
-                //>>DEEE1.00  : calculate DEEE amount (LCY)
                 GetSalesHeader();
                 RecLCurrency.InitRoundingPrecision();
                 IF SalesHeader."Currency Code" <> '' THEN
@@ -345,7 +332,6 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
                 "BC6_DEEE TTC Amount" := "BC6_DEEE HT Amount" + "BC6_DEEE VAT Amount";
                 "BC6_DEEE Amount (LCY) for Stat" := "Quantity (Base)" * "BC6_DEEE Unit Price (LCY)";
 
-                //<<DEEE1.00  : calculate DEEE amount (LCY)
             end;
         }
         field(80802; "BC6_DEEE HT Amount"; Decimal)
@@ -359,7 +345,6 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
             var
                 Currency2: Record Currency;
             begin
-                //>>DEEE1.00  : calculate DEEE amount (LCY)
                 GetSalesHeader();
                 Currency2.InitRoundingPrecision();
                 IF SalesHeader."Currency Code" <> '' THEN
@@ -373,7 +358,6 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
                     "BC6_DEEE HT Amount (LCY)" :=
                       ROUND("BC6_DEEE HT Amount", Currency2."Amount Rounding Precision");
 
-                //<<DEEE1.00  : calculate DEEE amount (LCY)
             end;
         }
         field(80803; "BC6_DEEE Unit Price (LCY)"; Decimal)
@@ -500,12 +484,9 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
     begin
         GetSalesHeader();
         IF (Type = Type::Item) AND ("BC6_Discount unit price" <> 0) THEN BEGIN
-            //>>FEP_ADVE_200711_21_1-DEROGATOIRE
             IF (("BC6_Purchase cost" <> "BC6_Dispensed Purchase Cost") AND ("BC6_Dispensed Purchase Cost" <> 0)) THEN
                 "Profit %" := 100 * (1 - ("BC6_Dispensed Purchase Cost" / "BC6_Discount unit price"))
             ELSE
-                //<<FEP_ADVE_200711_21_1-DEROGATOIRE
-
                 "Profit %" := 100 * (1 - ("BC6_Purchase cost" / "BC6_Discount unit price"));
         END;
     end;
@@ -520,14 +501,11 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
             ELSE
                 "Line Discount %" := 0;
 
-        //>>FEP_ADVE_200711_21_1-DEROGATOIRE
         FctGCalcLineDiscount();
-        //<<FEP_ADVE_200711_21_1-DEROGATOIRE
 
         IF "Line Discount %" < 0 THEN BEGIN
             MESSAGE(TextG004, "Profit %", getUnitpriceHT());
         END;
-        //UpdateAmounts;
     end;
 
     procedure CalcDiscountUnitPrice()
@@ -572,7 +550,6 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
             declpuht := "Unit Price" / (1 + "VAT %" / 100)
         ELSE
             declpuht := "Unit Price";
-        //EXIT(ROUND(declpuht,Currency."Amount Rounding Precision"));
         EXIT(declpuht);
     end;
 
@@ -585,7 +562,6 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
         RecLSalesSetup: Record "Sales & Receivables Setup";
         IntLGenerate: Integer;
     begin
-        //>>DEEE1.00 : Calculate DEEE amount from Tariff by Eco partner
         RecLSalesSetup.GET();
         GetSalesHeader();
 
@@ -594,11 +570,11 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
             BooGsubmittedtodeee := RecLCustomer."BC6_Submitted to DEEE";
         END
         ELSE BEGIN
-            IF RecGCustTemplate.GET(SalesHeader."Sell-to Customer Template Code") THEN BEGIN
+            IF RecGCustTemplate.GET(SalesHeader."Sell-to Customer Templ. Code") THEN BEGIN
                 BooGsubmittedtodeee := RecGCustTemplate."BC6_Submitted to DEEE";
             END;
         END;
-        //<<DEEE1.01
+
 
         IF CodPNewReasonCode <> '' THEN
             SalesHeader."Reason Code" := CodPNewReasonCode;
@@ -608,75 +584,48 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
 
         IntLGenerate := 0;
 
-        //assign value 2-> posting + Stat
-        //assign value 1-> just for Stat
-        //assign value 0-> nothing to do
 
         IF RecLSalesSetup."BC6_DEEE Management" THEN BEGIN
             RecLItem.GET("No.");
             IF RecLItem."BC6_DEEE Category Code" = '' THEN
                 IntLGenerate := 0
             ELSE BEGIN
-                //>>DEEE1.01
-                //IF ((SalesHeader."Reason Code"='') OR (NOT RecLReasonCode."Disable DEEE")) AND (RecLCustomer."Submitted to DEEE") THEN
                 IF ((SalesHeader."Reason Code" = '') OR (NOT RecLReasonCode."BC6_Disable DEEE")) AND (BooGsubmittedtodeee) THEN
-                    //<<DEEE1.01
                     IntLGenerate := 2;
-                //>>DEEE1.01
-                //IF ((SalesHeader."Reason Code"='') OR (NOT RecLReasonCode."Disable DEEE")) AND (NOT RecLCustomer."Submitted to DEEE") THEN
                 IF ((SalesHeader."Reason Code" = '') OR (NOT RecLReasonCode."BC6_Disable DEEE")) AND (NOT BooGsubmittedtodeee) THEN
-                    //<<DEEE1.01
-                    //TDL94.001
-                    //IntLGenerate:=1;
                     IntLGenerate := 0;
             END;
         END;
 
-        //"Is Line Submitted":=IntLGenerate ;
 
         IF IntLGenerate = 0 THEN BEGIN
-            //Initvalue
             "BC6_DEEE Unit Price" := 0;
             "BC6_DEEE HT Amount" := 0;
             "BC6_DEEE VAT Amount" := 0;
             "BC6_DEEE TTC Amount" := 0;
             "BC6_Eco partner DEEE" := '';
             "BC6_DEEE Amount (LCY) for Stat" := 0;
-            //"Is Line Submitted":=0 ;
-            EXIT; //get out from there
+            EXIT;
         END;
 
-        //found the last tariff with the posting date (just for one eco partner)
         RecLDEEETariffs.RESET();
         RecLDEEETariffs.SETRANGE("DEEE Code", "BC6_DEEE Category Code");
         RecLDEEETariffs.SETRANGE("Eco Partner", RecLItem."BC6_Eco partner DEEE");
-        //>>DEEE1.01
         IF SalesHeader."Posting Date" <> 0D THEN
-            //<<DEEE1.01
             RecLDEEETariffs.SETFILTER("Date beginning", '<=%1', SalesHeader."Posting Date")
-        //>>DEEE1.01
         ELSE
             RecLDEEETariffs.SETFILTER("Date beginning", '<=%1', SalesHeader."Document Date");
-        //<<DEEE1.01
         IF NOT RecLDEEETariffs.FIND('+') THEN BEGIN
-            ERROR('Paramétrage incorrect pour les filtres %1', RecLDEEETariffs.GETFILTERS); //textconstant
+            ERROR('Paramétrage incorrect pour les filtres %1', RecLDEEETariffs.GETFILTERS);
         END;
 
         VALIDATE("BC6_DEEE Unit Price", RecLDEEETariffs."HT Unit Tax (LCY)" * RecLItem."BC6_Number of Units DEEE");
         "BC6_Eco partner DEEE" := RecLItem."BC6_Eco partner DEEE";
 
-        /*
-        VALIDATE("DEEE HT Amount","DEEE Unit Price" * "Quantity (Base)") ;
-        "DEEE VAT Amount" := ROUND("DEEE HT Amount" * "VAT %"/ 100,Currency."Amount Rounding Precision");
-        "DEEE TTC Amount" := "DEEE HT Amount" + "DEEE VAT Amount" ;
-        "DEEE Amount (LCY) for Stat":="Quantity (Base)"*"DEEE Unit Price (LCY)" ;
-        */
-
         IF IntLGenerate <> 2 THEN BEGIN
             VALIDATE("BC6_DEEE HT Amount", 0);
             "BC6_DEEE VAT Amount" := 0;
             "BC6_DEEE TTC Amount" := 0;
-            //"Eco partner DEEE":='' ;
         END;
 
         VALIDATE("BC6_DEEE HT Amount", "BC6_DEEE Unit Price" * "Quantity (Base)");
@@ -684,7 +633,6 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
         "BC6_DEEE TTC Amount" := "BC6_DEEE HT Amount" + "BC6_DEEE VAT Amount";
         "BC6_DEEE Amount (LCY) for Stat" := "Quantity (Base)" * "BC6_DEEE Unit Price (LCY)";
 
-        //<<DEEE1.00 : Calculate DEEE amount from Tariff by Eco partner
     end;
 
     procedure FctGCalcLineDiscount()
@@ -694,7 +642,6 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
         BooLCalc: Boolean;
         DecLDiscountAdded: Decimal;
     begin
-        //>>FEP_ADVE_200711_21_1-DEROGATOIRE
         IF "BC6_Discount unit price" <> 0 THEN BEGIN
             CLEAR(DecLDiscountAdded);
             IF "BC6_Standard Net Price" = 0 THEN
@@ -726,11 +673,9 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
                 UNTIL RecLSalesLineDiscount.NEXT() = 0;
 
             IF DecLDiscountAdded <> 0 THEN BEGIN
-                //"Line Discount %" := "Line Discount %" + ((1 - "Line Discount %"/100)* DecLDiscountAdded);
                 "BC6_Dispensed Purchase Cost" := ("BC6_Purchase cost" * (1 - DecLDiscountAdded / 100));
             END;
         END;
-        //<<FEP_ADVE_200711_21_1-DEROGATOIRE
     end;
 
     procedure FctGDeletePurchLink()
@@ -741,7 +686,7 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
         IF PurchLine.GET("BC6_Purch. Document Type", "BC6_Purch. Order No.", "BC6_Purch. Line No.") THEN BEGIN
             ERROR(TextG006);
         END ELSE BEGIN
-            "BC6_Purch. Document Type" := 0;
+            "BC6_Purch. Document Type" := PurchLine."Document Type"::Quote;
             "BC6_Purch. Order No." := '';
             "BC6_Purch. Line No." := 0;
             MODIFY();
@@ -754,11 +699,9 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
     begin
         IF Type = Type::Item THEN
             IF (L_Item.GET("No.")) THEN
-                //BC6 - MM 050319 >>
                 IF L_Item."BC6_Cost Increase Coeff %" = 0 THEN
                     _IncrPurchCost := "BC6_Purchase cost"
                 ELSE
-                    //BC6 - MM 050319 <<
                     _IncrPurchCost := ROUND("BC6_Purchase cost" * (1 + (L_Item."BC6_Cost Increase Coeff %" / 100)), 0.01);
     end;
 
@@ -766,13 +709,11 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
     var
         L_Item: Record Item;
     begin
-        //BC6 - MM 050319 >>
         IF Type = Type::Item THEN
             IF (L_Item.GET("No.")) THEN
                 IF L_Item."BC6_Cost Increase Coeff %" = 0 THEN
                     _IncrProfit := "Profit %"
                 ELSE
-                    //BC6 - MM 050319 <<
                     IF "BC6_Discount unit price" <> 0 THEN
                         _IncrProfit := ROUND(100 * (1 - (_IncrPurchCost / "BC6_Discount unit price")), 0.01)
                     ELSE
@@ -816,24 +757,17 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
             ELSE
                 "Line Discount %" := 0;
 
-        //>>FEP_ADVE_200711_21_1-DEROGATOIRE
         FctGCalcLineDiscountIncreased();
-        //<<FEP_ADVE_200711_21_1-DEROGATOIRE
-
         IF "Line Discount %" < 0 THEN BEGIN
-            //"Line Discount %" :=0 ;
             MESSAGE(TextG004, IncreasedProfit, getUnitpriceHT());
         END;
-        //UpdateAmounts;
     end;
 
     procedure CalcDiscountUnitPriceIncreased()
     begin
         GetSalesHeader();
         IF Type = Type::Item THEN BEGIN
-            "BC6_Discount unit price" :=
-              //ROUND(getUnitpriceHT - (getUnitpriceHT * "Line Discount %" / 100), Currency."Amount Rounding Precision");
-              getUnitpriceHT() - (getUnitpriceHT() * "Line Discount %" / 100);
+            "BC6_Discount unit price" := getUnitpriceHT() - (getUnitpriceHT() * "Line Discount %" / 100);
         END;
     end;
 
@@ -844,7 +778,6 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
         BooLCalc: Boolean;
         DecLDiscountAdded: Decimal;
     begin
-        //>>FEP_ADVE_200711_21_1-DEROGATOIRE
         IF "BC6_Discount unit price" <> 0 THEN BEGIN
             CLEAR(DecLDiscountAdded);
             IF "BC6_Standard Net Price" = 0 THEN
@@ -876,23 +809,19 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
                 UNTIL RecLSalesLineDiscount.NEXT() = 0;
 
             IF DecLDiscountAdded <> 0 THEN BEGIN
-                //"Line Discount %" := "Line Discount %" + ((1 - "Line Discount %"/100)* DecLDiscountAdded);
                 "BC6_Dispensed Purchase Cost" := ("BC6_Purchase cost" * (1 - DecLDiscountAdded / 100));
             END;
         END;
-        //<<FEP_ADVE_200711_21_1-DEROGATOIRE
     end;
 
     procedure UpdateReturnOrderTypeFromSalesHeader()
     var
         L_SalesHeader: Record "Sales Header";
     begin
-        //>>BCSYS
         IF "Document Type" = "Document Type"::"Return Order" THEN BEGIN
             IF L_SalesHeader.GET("Document Type", "Document No.") THEN;
             "BC6_Return Order Type" := L_SalesHeader."BC6_Return Order Type";
         END;
-        //<<BCSYS
     end;
 
     procedure SetSkipPurchCostVerif(Skip: Boolean)
@@ -916,16 +845,16 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
         BooGsubmittedtodeee: Boolean;
         SkipPurchCostVerif: Boolean;
         "---BC6---": Integer;
-        "--NSC1.01--": Integer;
         "--- TDL94.001---": Integer;
-        TextDate: Label '0D';
-        TextG001: Label 'Quote Locked';
-        textg002: Label 'You will lost link between Sales document No %1 line %2 \ and purchase document of type %3, No %4 ,  line %5 \ Are you sure?';
-        TextG003: Label 'Document %1, No %2 line %3 not found';
-        TextG004: Label 'Profit % %1 notpossible with %2 as Unit price (excluding VAT) ';
-        TextG005: Label 'There is a Purchase Order existing for this Line. Do you want to continue ?';
-        TextG006: Label 'Vous devez supprimer la ligne de commande d''achat pour cette ligne. ';
-        UpdateProfitErr: Label '%1 cannot be less than %2 in %3 %4';
-        UpdatePurchCostErr: Label 'Unable to modify %1';
+        "--NSC1.01--": Integer;
+        TextDate: Label '0D', Comment = 'FRA="0J"';
+        TextG001: Label 'Quote Locked', Comment = 'FRA="Devis Bloqué"';
+        textg002: Label 'You will lost link between Sales document No %1 line %2 \ and purchase document of type %3, No %4 ,  line %5 \ Are you sure?', Comment = 'FRA="Vous allez perdre le lien entre le document vente n° %1 ligne %2 \ et le document d''achat de type %3 , n° %4 , ligne %5 \ êtes vous sûr ? "';
+        TextG003: Label 'Document %1, No %2 line %3 not found', Comment = 'FRA="Le document %1, n° %2 ligne %3 n''a pas été trouvé"';
+        TextG004: Label 'Profit % %1 notpossible with %2 as Unit price (excluding VAT) ', Comment = 'FRA="Marge %1 non réalisable avec %2 comme Prix Unitaire HT"';
+        TextG005: Label 'There is a Purchase Order existing for this Line. Do you want to continue ?', Comment = 'FRA="Il existe déjà une commande d''achat pour cettte ligne. Voulez-vous continuer ?"';
+        TextG006: Label 'Vous devez supprimer la ligne de commande d''achat pour cette ligne. ', Comment = 'FRA="Vous devez supprimer la ligne de commande d''achat pour cette ligne. "';
+        UpdateProfitErr: Label '%1 cannot be less than %2 in %3 %4', Comment = 'FRA="%1 ne peut pas être inférieur à %2 dans %3 %4 "';
+        UpdatePurchCostErr: Label 'Unable to modify %1', Comment = 'FRA="Impossible de modifier %1"';
         "--COR001--": Text;
 }

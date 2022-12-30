@@ -207,9 +207,6 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
         key(Key14; "Document Type", "Combine Shipments", "Bill-to Customer No.", "Currency Code", "EU 3-Party Trade", "Dimension Set ID")
         {
         }
-        //TODO // key(Key15; "Document Type", "BC6_Combine Shipments by Order", "Combine Shipments", "Bill-to Customer No.", "Currency Code")
-        // {
-        // }
         key(Key16; "Shipping Agent Code")
         {
         }
@@ -240,10 +237,6 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
         key(Key25; "Document Type", "Order Date", "No.")
         {
         }
-        //TODO
-        // key(Key26; "Document Type", "Sell-to Customer No.", "BC6_Salesperson Filter", "Order Date", "No.")
-        // {
-        // }
     }
 
     //ces 2 procedures sont dupliqué du std car ils sont locales
@@ -321,8 +314,8 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
         CodLLastVendor: Code[20];
         IntLnumberofQuote: Integer;
         NextLineNo: Integer;
-        TextL001: Label '%1 Purchase Quote already existfor vendor %3, the newest from %2 do you to create a new one ?';
-        TextL002: Label '%1 quote created';
+        TextL001: Label '%1 Purchase Quote already existfor vendor %3, the newest from %2 do you to create a new one ?', Comment = 'FRA="%1  demande(s) de prix éxiste déja pour le fournisseur %3 , La plus récente est du %2 voulez vous en créer une nouvelle ?"';
+        TextL002: Label '%1 quote created', Comment = 'FRA="%1 demande(s) de prix créée(s)"';
     begin
         RecLSalesLine.RESET();
         RecLSalesLine.SETCURRENTKEY("Document Type", RecLSalesLine."BC6_Buy-from Vendor No.");
@@ -436,7 +429,7 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
                 EXIT(TRUE)
             ELSE BEGIN
                 "BC6_Quote statut" := "BC6_Quote statut"::locked;
-                //TODO // PAGE.RUN(PAGE::"BC6_Quote Blocked", Rec);
+                PAGE.RUN(PAGE::"BC6_Quote Blocked", Rec);
                 EXIT(FALSE);
             END;
         END;
@@ -558,9 +551,10 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
         RecGCommentLine: Record "Comment Line";
         RecGCustomer: Record Customer;
         GenJnlLine: Record "Gen. Journal Line";
-        ShipmentMethodRec: Record "Shipment Method";
         ShipToAddr: Record "Ship-to Address";
+        ShipmentMethodRec: Record "Shipment Method";
         ApprovalsMgmt: Codeunit "Approvals Mgmt.";
+        G_ReturnOrderMgt: Codeunit "BC6_Return Order Mgt.";
         UpdateSalesShipment: Codeunit BC6_UpdateSalesShipment;
         CustEntrySetApplID: Codeunit "Cust. Entry-SetAppl.ID";
         GenJnlApply: Codeunit "Gen. Jnl.-Apply";
@@ -575,7 +569,6 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
         IsDeleteFromReturnOrder: Boolean;
         SelectNoSeriesAllowed: Boolean;
         BinCode: Code[20];
-        //  G_ReturnOrderMgt: Codeunit 50052;
         "-BCSYS-": Integer;
         "-NSC1.00-": Integer;
         BillToCustomerTxt: Label 'Bill-to Customer', Comment = 'FRA="Client facturé"';

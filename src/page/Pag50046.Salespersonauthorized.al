@@ -1,6 +1,6 @@
 page 50046 "BC6_Salesperson authorized"
 {
-    Caption = 'Salespersons authorizeds';
+    Caption = 'Salespersons authorizeds', Comment = 'FRA="Vendeurs Autorisés"';
     DeleteAllowed = false;
     InsertAllowed = false;
     MultipleNewLines = false;
@@ -17,12 +17,15 @@ page 50046 "BC6_Salesperson authorized"
                 field("Customer No."; "Customer No.")
                 {
                     Visible = false;
+                    ApplicationArea = All;
                 }
                 field("Salesperson code"; "Salesperson code")
                 {
+                    ApplicationArea = All;
                 }
                 field(authorized; authorized)
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -35,51 +38,48 @@ page 50046 "BC6_Salesperson authorized"
     trigger OnClosePage()
     begin
 
-        IF GETFILTER("Customer No.") <> '' THEN BEGIN
+        IF GETFILTER("Customer No.") <> '' THEN
             IF RecGCustomer.GET(FORMAT(GETFILTER("Customer No."))) THEN BEGIN
                 CLEAR(TxtGSalespersonFilter);
-                IF FINDFIRST THEN
+                IF FINDFIRST() THEN
                     REPEAT
                         IF authorized THEN
                             TxtGSalespersonFilter += "Salesperson code" + '|';
-                    UNTIL NEXT = 0;
+                    UNTIL NEXT() = 0;
 
                 IF TxtGSalespersonFilter <> '' THEN BEGIN
                     TxtGSalespersonFilter := COPYSTR(TxtGSalespersonFilter, 1, STRLEN(TxtGSalespersonFilter) - 1);
                     RecGCustomer.VALIDATE("BC6_Salesperson Filter", TxtGSalespersonFilter);
-                    RecGCustomer.MODIFY;
+                    RecGCustomer.MODIFY();
                 END;
             END;
-        END;
     end;
 
     trigger OnOpenPage()
     begin
 
-        IF GETFILTER("Customer No.") <> '' THEN BEGIN
-
+        IF GETFILTER("Customer No.") <> '' THEN
             IF RecGCustomer.GET(FORMAT(GETFILTER("Customer No."))) THEN BEGIN
-                IF RecGSalesperson.FINDFIRST THEN
+                IF RecGSalesperson.FINDFIRST() THEN
                     REPEAT
                         IF NOT RecGAuthorizdeSalesperson.GET(RecGCustomer."No.", RecGSalesperson.Code) THEN BEGIN
-                            RecGAuthorizdeSalesperson.INIT;
+                            RecGAuthorizdeSalesperson.INIT();
                             RecGAuthorizdeSalesperson."Customer No." := RecGCustomer."No.";
                             RecGAuthorizdeSalesperson."Salesperson code" := RecGSalesperson.Code;
                             RecGAuthorizdeSalesperson.authorized := (RecGCustomer."Salesperson Code" = RecGSalesperson.Code);
-                            RecGAuthorizdeSalesperson.INSERT;
+                            RecGAuthorizdeSalesperson.INSERT();
                         END;
-                    UNTIL RecGSalesperson.NEXT = 0;
+                    UNTIL RecGSalesperson.NEXT() = 0;
                 FILTERGROUP(2);
                 SETRANGE("Customer No.", RecGCustomer."No.");
                 FILTERGROUP(0);
             END;
-        END;
     end;
 
     var
         RecGAuthorizdeSalesperson: Record "BC6_Salesperson authorized";
-        RecGSalesperson: Record "Salesperson/Purchaser";
         RecGCustomer: Record Customer;
+        RecGSalesperson: Record "Salesperson/Purchaser";
         TxtGSalespersonFilter: Text[250];
 }
 

@@ -2,6 +2,14 @@ tableextension 50071 "BC6_WarehouseActivityLine" extends "Warehouse Activity Lin
 {
     fields
     {
+
+        modify("Qty. to Handle (Base)")
+        {
+            trigger OnAfterValidate()
+            begin
+                UseBaseQty := true;
+            end;
+        }
         field(50040; "BC6_Source No. 2"; Code[20])
         {
             Caption = 'Source No.', Comment = 'FRA="Lien n° origine"';
@@ -67,7 +75,12 @@ tableextension 50071 "BC6_WarehouseActivityLine" extends "Warehouse Activity Lin
                     ERROR(CstL001);
                 //<<CNE5.00
 
-                FctMangt.GetLocation("Location Code");
+                if "Location Code" = '' then
+                    Clear(Location)
+                else
+                    if Location.Code <> "Location Code" then
+                        Location.Get("Location Code");
+
                 IF Location."Directed Put-away and Pick" THEN
                     WMSMgt.CalcCubageAndWeight(
                       "Item No.", "Unit of Measure Code", "Qty. to Handle", Cubage, Weight);
@@ -81,11 +94,11 @@ tableextension 50071 "BC6_WarehouseActivityLine" extends "Warehouse Activity Lin
                     IF GetBin("Location Code", "Bin Code") THEN
                         CheckIncreaseCapacity(TRUE);
 
-                // IF NOT UseBaseQty THEN BEGIN //TODO: STD Global variable 
-                //     "Qty. to Handle (Base)" := CalcBaseQty("Qty. to Handle");
-                //     IF "Qty. to Handle (Base)" > "Qty. Outstanding (Base)" THEN // rounding error- qty same, not base qty
-                //         "Qty. to Handle (Base)" := "Qty. Outstanding (Base)";
-                // END;
+                IF NOT UseBaseQty THEN BEGIN
+                    "Qty. to Handle (Base)" := CalcBaseQty("Qty. to Handle", FieldCaption("Qty. to Handle"), FieldCaption("Qty. Outstanding (Base)"));
+                    IF "Qty. to Handle (Base)" > "Qty. Outstanding (Base)" THEN // rounding error- qty same, not base qty
+                        "Qty. to Handle (Base)" := "Qty. Outstanding (Base)";
+                END;
 
                 IF ("Activity Type" = "Activity Type"::"Put-away") AND
                    ("Action Type" = "Action Type"::Take) AND
@@ -97,16 +110,30 @@ tableextension 50071 "BC6_WarehouseActivityLine" extends "Warehouse Activity Lin
                 IF ("Activity Type" IN ["Activity Type"::Pick, "Activity Type"::"Invt. Pick", "Activity Type"::"Invt. Movement"]) AND
                    ("Action Type" <> "Action Type"::Place) AND ("Lot No." <> '') AND (CurrFieldNo <> 0)
                 THEN
-                    CheckReservedItemTrkg(1, "Lot No.");
+                    CheckReservedItemTrkg("Item Tracking Type"::"Lot No.", "Lot No.");
 
                 IF "Qty. to Handle" = 0 THEN
                     FctMangt.UpdateReservation(Rec, FALSE)
             end;
         }
+        field(50047; BC6_DeleteWhseActivityHeader; Boolean)
+        {
+            DataClassification = CustomerContent;
+            InitValue = true;
+        }
     }
+
+
+    local procedure CalcBaseQty(Qty: Decimal; FromFieldName: Text; ToFieldName: Text): Decimal
+    begin
+        exit(UOMMgt.CalcBaseQty(
+            "Item No.", "Variant Code", "Unit of Measure Code", Qty, "Qty. per Unit of Measure", "Qty. Rounding Precision (Base)", FieldCaption("Qty. Rounding Precision"), FromFieldName, ToFieldName));
+    end;
 
     var
         Location: Record Location;
+        UOMMgt: Codeunit "Unit of Measure Management";
         WMSMgt: Codeunit "WMS Management";
+        UseBaseQty: Boolean;
         Text002: Label 'You cannot handle more than the outstanding %1 units.', Comment = 'FRA="Vous ne pouvez pas traiter plus que les %1 unités restantes."';
 }

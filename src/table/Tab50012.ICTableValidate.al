@@ -47,7 +47,7 @@ table 50012 "BC6_IC Table Validate"
         field(16; "Purchase cost"; Decimal)
         {
             AutoFormatType = 2;
-            Caption = 'Purchase cost', comment = 'FRA="Coût d`achat"';
+            Caption = 'Purchase cost', comment = 'FRA="Coût d''achat"';
             DecimalPlaces = 2 : 5;
             Description = 'hors taxe';
             DataClassification = CustomerContent;

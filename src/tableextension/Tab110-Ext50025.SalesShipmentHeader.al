@@ -111,7 +111,7 @@ tableextension 50025 "BC6_SalesShipmentHeader" extends "Sales Shipment Header" /
     }
     keys
     {
-        key(Key8; "External Document No.", "No.")
+        key(Key50000; "External Document No.", "No.")
         {
         }
     }

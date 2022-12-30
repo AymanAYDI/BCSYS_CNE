@@ -1,9 +1,10 @@
 page 50001 "BC6_Various Tables"
 {
-    Caption = 'Various Tables';
+    Caption = 'Various Tables', comment = 'FRA="Tables Diverses"';
     PageType = List;
     SourceTable = "BC6_Various Tables";
-
+    UsageCategory = Tasks;
+    ApplicationArea = all;
     layout
     {
         area(content)
@@ -178,45 +179,16 @@ page 50001 "BC6_Various Tables"
 
     trigger OnOpenPage()
     begin
-        OnActivateForm;
+        OnActivateForm();
     end;
 
     var
+        DivTableParam_G: Record "BC6_Setup Various Tables";
         Param: Record "BC6_Setup Various Tables";
         TableDiv: Record "BC6_Various Tables";
-        DivTableParam_G: Record "BC6_Setup Various Tables";
         CommentLine: Record "Comment Line";
-        Text001: Label 'This field cannot be empty.';
-        Descriptif: Text[50];
-        TitreTexte1: Text[30];
-        CodeCaptionClass: Text[80];
-        Text1CaptionClass: Text[80];
-        Text2CaptionClass: Text[80];
-        Text3CaptionClass: Text[80];
-        Nombre1CaptionClass: Text[80];
-        Nombre2CaptionClass: Text[80];
-        Nombre3CaptionClass: Text[80];
-        Date1CaptionClass: Text[80];
-        Date2CaptionClass: Text[80];
-        Date3CaptionClass: Text[80];
-        Bool1CaptionClass: Text[80];
-        Bool2CaptionClass: Text[80];
-        Bool3CaptionClass: Text[80];
-        Rad1CaptionClass: Text[80];
-        Rad2CaptionClass: Text[80];
-        Rad3CaptionClass: Text[80];
         [InDataSet]
-        Text1Visible: Boolean;
-        [InDataSet]
-        Text2Visible: Boolean;
-        [InDataSet]
-        Text3Visible: Boolean;
-        [InDataSet]
-        Number1Visible: Boolean;
-        [InDataSet]
-        Number2Visible: Boolean;
-        [InDataSet]
-        Number3Visible: Boolean;
+        CommentVisible: Boolean;
         [InDataSet]
         Date1Visible: Boolean;
         [InDataSet]
@@ -224,11 +196,11 @@ page 50001 "BC6_Various Tables"
         [InDataSet]
         Date3Visible: Boolean;
         [InDataSet]
-        "Top Logical1Visible": Boolean;
+        Number1Visible: Boolean;
         [InDataSet]
-        "Top Logical2Visible": Boolean;
+        Number2Visible: Boolean;
         [InDataSet]
-        "Top Logical3Visible": Boolean;
+        Number3Visible: Boolean;
         [InDataSet]
         "Radical Code1Visible": Boolean;
         [InDataSet]
@@ -236,30 +208,57 @@ page 50001 "BC6_Various Tables"
         [InDataSet]
         "Radical Code3Visible": Boolean;
         [InDataSet]
-        CommentVisible: Boolean;
+        Text1Visible: Boolean;
+        [InDataSet]
+        Text2Visible: Boolean;
+        [InDataSet]
+        Text3Visible: Boolean;
+        [InDataSet]
+        "Top Logical1Visible": Boolean;
+        [InDataSet]
+        "Top Logical2Visible": Boolean;
+        [InDataSet]
+        "Top Logical3Visible": Boolean;
+        Text001: Label 'This field cannot be empty.', comment = 'FRA="Ce champ ne doit pas être vide."';
+        TitreTexte1: Text[30];
+        Descriptif: Text[50];
+        Bool1CaptionClass: Text[80];
+        Bool2CaptionClass: Text[80];
+        Bool3CaptionClass: Text[80];
+        CodeCaptionClass: Text[80];
+        Date1CaptionClass: Text[80];
+        Date2CaptionClass: Text[80];
+        Date3CaptionClass: Text[80];
+        Nombre1CaptionClass: Text[80];
+        Nombre2CaptionClass: Text[80];
+        Nombre3CaptionClass: Text[80];
+        Rad1CaptionClass: Text[80];
+        Rad2CaptionClass: Text[80];
+        Rad3CaptionClass: Text[80];
+        Text1CaptionClass: Text[80];
+        Text2CaptionClass: Text[80];
+        Text3CaptionClass: Text[80];
 
     local procedure TopLogical1OnActivate()
     begin
         Descriptif := Param."Top Logical1 Description";
-        CurrPage.UPDATE;
+        CurrPage.UPDATE();
     end;
 
     local procedure TopLogical2OnActivate()
     begin
         Descriptif := Param."Top Logical2 Description";
-        CurrPage.UPDATE;
+        CurrPage.UPDATE();
     end;
 
     local procedure TopLogical3OnActivate()
     begin
         Descriptif := Param."Top Logical3 Description";
-        CurrPage.UPDATE;
+        CurrPage.UPDATE();
     end;
 
     local procedure OnActivateForm()
     begin
-
-        //Descriptif := 'Code';
 
         IF GETFILTER(Radical) <> '' THEN
             IF GETRANGEMIN(Radical) = GETRANGEMAX(Radical) THEN
@@ -315,7 +314,6 @@ page 50001 "BC6_Various Tables"
                         END;
                     END;
 
-
                     // Libelle du formulaire
                     CurrPage.CAPTION := Param.Description;
 
@@ -343,110 +341,4 @@ page 50001 "BC6_Various Tables"
                     CommentVisible := Param."Comment Use";
                 END;
     end;
-
-    local procedure CodeOnBeforeInput()
-    begin
-        Descriptif := 'Code (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure DescriptionOnBeforeInput()
-    begin
-        Descriptif := 'Libellé (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure Text1OnBeforeInput()
-    begin
-        Descriptif := Param."Text1 Description";
-        IF Param."Obligatory Text1" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure Text2OnBeforeInput()
-    begin
-        Descriptif := Param."Text2 Description";
-        IF Param."Obligatory Text2" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure Text3OnBeforeInput()
-    begin
-        Descriptif := Param."Text3 Description";
-        IF Param."Obligatory Text3" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure Number1OnBeforeInput()
-    begin
-        Descriptif := Param."Number1 Description";
-        IF Param."Obligatory Number1" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure Number2OnBeforeInput()
-    begin
-        Descriptif := Param."Number2 Description";
-        IF Param."Obligatory Number2" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure Number3OnBeforeInput()
-    begin
-        Descriptif := Param."Number3 Description";
-        IF Param."Obligatory Number3" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure Date1OnBeforeInput()
-    begin
-        Descriptif := Param."Date1 Description";
-        IF Param."Obligatory Date1" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure Date2OnBeforeInput()
-    begin
-        Descriptif := Param."Date2 Description";
-        IF Param."Obligatory Date2" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure Date3OnBeforeInput()
-    begin
-        Descriptif := Param."Date3 Description";
-        IF Param."Obligatory Date3" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure RadicalCode1OnBeforeInput()
-    begin
-        Param.CALCFIELDS("Radical Code1 Description");
-        Descriptif := Param."Radical Code1 Description";
-        IF Param."Obligatory Radical Code1" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure RadicalCode2OnBeforeInput()
-    begin
-        Param.CALCFIELDS("Radical Code2 Description");
-        Descriptif := Param."Radical Code2 Description";
-        IF Param."Obligatory Radical Code2" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure RadicalCode3OnBeforeInput()
-    begin
-        Param.CALCFIELDS("Radical Code3 Description");
-        Descriptif := Param."Radical Code3 Description";
-        IF Param."Obligatory Radical Code3" = TRUE THEN Descriptif := Descriptif + ' (Obligatoire)';
-        CurrPage.UPDATE;
-    end;
-
-    local procedure CommentOnBeforeInput()
-    begin
-        Descriptif := 'Commentaire';
-        CurrPage.UPDATE;
-    end;
 }
-

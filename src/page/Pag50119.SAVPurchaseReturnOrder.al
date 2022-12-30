@@ -561,6 +561,7 @@ page 50119 "BC6_SAV Purchase Return Order"
                     var
                         ApprovalEntries: Page "Approval Entries";
                     begin
+
                         ApprovalEntries.Setfilters(DATABASE::"Purchase Header", Rec."Document Type".AsInteger(), Rec."No.");
                         ApprovalEntries.RUN();
                     end;

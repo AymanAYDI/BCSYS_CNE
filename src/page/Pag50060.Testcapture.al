@@ -113,8 +113,6 @@ page 50060 "BC6_Test capture"
                     ApplicationArea = All;
 
                     trigger OnAction()
-                    var
-                        myValue: Text;
                     begin
                         CurrPage.ScanZone.SubmitAllData(1);
                     end;
@@ -125,7 +123,6 @@ page 50060 "BC6_Test capture"
 
     trigger OnOpenPage()
     var
-        BinContent: Record "Bin Content";
         i: Integer;
     begin
         FOR i := 1 TO ARRAYLEN(ArrayCaption) DO
@@ -134,13 +131,9 @@ page 50060 "BC6_Test capture"
 
     var
         ScanDeviceHelper: Codeunit BC6_ScanDeviceHelper;
-        [InDataSet]
-        IsScanEditable: Boolean;
-        ScanZoneCaption: Label 'Scan Zone', Comment = 'FRA="Scan Zone"';
         TextCst: Label 'Field %1', Comment = 'FRA="Champ %1"';
         ArrayCaption: array[4] of Text;
         ArrayValue: array[4] of Text;
-        Result: Text;
-        test: Text;
+
 }
 

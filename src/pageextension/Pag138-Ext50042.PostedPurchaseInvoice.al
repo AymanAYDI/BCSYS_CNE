@@ -54,15 +54,8 @@ pageextension 50042 "BC6_PostedPurchaseInvoice" extends "Posted Purchase Invoice
         cust: Record Customer;
         PurchInvHeader: Record "Purch. Inv. Header";
         SalesSetup: Record "Sales & Receivables Setup";
-        ArchiveManagement: Codeunit ArchiveManagement;
-        DocPrint: Codeunit "Document-Print";
         Mail: Codeunit Mail;
-        ReportPrint: Codeunit "Test Report-Print";
-        UserMgt: Codeunit "User Setup Management";
         Excel: Boolean;
-        "-MIGNAV2013-": Integer;
-        STR1: Label 'Archiver Devis';
-        STR2: Label 'Créer Commande';
         STR3: Label 'Imprimer le document ?';
         STR4: Label 'Envoyer le document par mail ?';
         STR5: Label 'Envoyer le document par fax ?';
@@ -70,9 +63,6 @@ pageextension 50042 "BC6_PostedPurchaseInvoice" extends "Posted Purchase Invoice
         Text004: Label 'Fichiers Pdf (*.pdf)|*.pdf|Tous les fichiers (*.*)|*.*';
         nameF: Text[250];
 
-    procedure "---MIGNAV2013---"()
-    begin
-    end;
 
     procedure EnvoiMail()
     begin

@@ -69,11 +69,9 @@ pageextension 50016 "BC6_SalesCreditMemo" extends "Sales Credit Memo" //44
     var
         HistMail: Record "BC6_Historique Mails Envoyés";
         cust: Record Customer;
-        "Sales & Receivables Setup": Record "Sales & Receivables Setup";
         Salessetup: Record "Sales & Receivables Setup";
         Mail: Codeunit Mail;
         Excel: Boolean;
-        "--NSC1.01--": Integer;
         STR3: Label 'Imprimer lme document';
         STR4: Label 'Envoyer par Mail';
         STR5: Label 'Envoyer par Fax';
@@ -81,9 +79,7 @@ pageextension 50016 "BC6_SalesCreditMemo" extends "Sales Credit Memo" //44
         Text004: Label '';
         nameF: Text[250];
 
-    procedure "--Functions_NSC1.01--"()
-    begin
-    end;
+
 
     procedure EnvoiMail()
     begin

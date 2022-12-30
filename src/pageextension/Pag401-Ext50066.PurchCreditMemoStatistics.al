@@ -50,7 +50,6 @@ pageextension 50066 "BC6_PurchCreditMemoStatistics" extends "Purch. Credit Memo 
     var
         CurrExchRate: Record "Currency Exchange Rate";
         DecGMntHTDEEE: Decimal;
-        DecGMntTTCDEEE: Decimal;
         NewAmountInclVAT: Decimal;
         NewAmountLCY: Decimal;
         NewVATAmount: Decimal;

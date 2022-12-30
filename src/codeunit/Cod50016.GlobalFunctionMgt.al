@@ -292,6 +292,56 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
         NewShowIncreaseCoeff := pShowIncreaseCoeff;
     end;
 
+    procedure SetYourReference(pYourReference: Text)
+    begin
+        YourReference := pYourReference;
+    end;
+
+    procedure GetYourReference(): Text;
+    begin
+        exit(YourReference);
+    end;
+
+    procedure SetG_LinkedPurchOrderNo(pG_LinkedPurchOrderNo: Code[20])
+    begin
+        G_LinkedPurchOrderNo := pG_LinkedPurchOrderNo;
+    end;
+
+    procedure GetG_LinkedPurchOrderNo(): Code[20];
+    begin
+        exit(G_LinkedPurchOrderNo);
+    end;
+
+    procedure SetEnableIncrPurchCost(pEnableIncrPurchCost: Boolean)
+    begin
+        EnableIncrPurchCost := pEnableIncrPurchCost;
+    end;
+
+    procedure GetEnableIncrPurchCost() EnableIncrPurchCost: Boolean;
+    begin
+        exit(EnableIncrPurchCost);
+    end;
+
+    procedure SetBoolGCopyLinesExactly(pBoolGCopyLinesExactly: Boolean)
+    begin
+        BoolGCopyLinesExactly := pBoolGCopyLinesExactly;
+    end;
+
+    procedure GetBoolGCopyLinesExactly(): Boolean;
+    begin
+        exit(BoolGCopyLinesExactly);
+    end;
+
+    procedure SetHideValidationDialog(pHideValidationDialog: Boolean);
+    begin
+        HideValidationDialog := pHideValidationDialog;
+    end;
+
+    procedure GetHideValidationDialog(): Boolean;
+    begin
+        exit(HideValidationDialog);
+    end;
+
     var
         T77_SalesHeader: Record "Sales Header";
         TempSalesLine: Record "Sales Line" temporary;
@@ -305,11 +355,14 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
         NewShipmentBinCodeEnable: Boolean;
         NewShowIncreaseCoeff: Boolean;
         SalesReservationFound: Boolean;
-        ShowIncreaseCoeff: Boolean;
+        EnableIncrPurchCost: Boolean;
+        BoolGCopyLinesExactly: Boolean;
+        HideValidationDialog: Boolean;
         _DEEECategoryCode: code[20];
         _EcoPartnerDEEE: code[20];
         _PurchDEEECategoryCode: Code[20];
         _PurchEcoPartnerDEEE: Code[20];
+        G_LinkedPurchOrderNo: Code[20];
         PostingDate: Date;
         DecGTTCAmount: Decimal;
         DecGVATAmount: Decimal;
@@ -321,5 +374,7 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
         SGDecMntTTCDEEE: Decimal;
         VATAmount: Decimal;
         IntLSignFactor: Integer;
+        YourReference: Text;
+
 
 }

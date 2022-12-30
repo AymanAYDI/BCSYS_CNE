@@ -27,7 +27,6 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
                 var
                     ItemDiscGrList: Page "Item Disc. Groups";
                     ItemList: Page "Item List";
-                    VendorList: Page "Vendor List";
                 begin
                     CASE BC6_Type OF
                         BC6_Type::Item:
@@ -101,7 +100,6 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
         [InDataSet]
         BooGCodeFilterCtrl: Boolean;
         ItemTypeFilter: Enum "BC6_Item Type Filter";
-        "-NSC1.01-": Integer;
         ItemNoFilter: Text;
         VendNoFilter: Text;
         StartingDateFilter: Text[30];

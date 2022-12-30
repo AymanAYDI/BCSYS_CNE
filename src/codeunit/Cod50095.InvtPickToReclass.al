@@ -22,17 +22,13 @@ codeunit 50095 "BC6_Invt. Pick To Reclass."
         TempWhseActivLine: Record "Warehouse Activity Line" temporary;
         WhseActivLine: Record "Warehouse Activity Line";
         WhseJnlLine: Record "Warehouse Journal Line";
-        ReleaseSalesDoc: Codeunit "Release Sales Document";
-        WhseSalesRelease: Codeunit "Whse.-Sales Release";
         LineCreated: Boolean;
         LineCreatedOk: Boolean;
         SalesOrderCreatedOk: Boolean;
-        CurrentDate: Date;
         DueDate: Date;
         QtyAvailToPickBase: Decimal;
         QtyBase: Decimal;
         RemQtyToPickBase: Decimal;
-        LineSpacing: Integer;
         NextLineNo: Integer;
         NextSourceLineNo: Integer;
         SourceLineNo: Integer;
@@ -166,9 +162,6 @@ codeunit 50095 "BC6_Invt. Pick To Reclass."
     end;
 
     local procedure ModifyPickBinWhseActivLine(WhseActivityLine: Record "Warehouse Activity Line"; QtyToPickBase: Decimal; var RemQuantityToPickBase: Decimal)
-    var
-        ITQtyToPickBase: Decimal;
-        QtyAvailbToPickBase: Decimal;
     begin
         if QtyToPickBase <= 0 then
             exit;
@@ -198,7 +191,6 @@ codeunit 50095 "BC6_Invt. Pick To Reclass."
 
     local procedure InsertPickBinWhseActivLine(NewWhseActivityLine: Record "Warehouse Activity Line")
     var
-        QtyAvaileToPickBase: Decimal;
         QtyToPickBase: Decimal;
     begin
         with WhseJnlLine do begin

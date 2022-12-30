@@ -712,6 +712,5 @@ page 60045 "Sales/Purch. History FactB STD"
         NoOfQuotes: Integer;
         NoOfReturnOrders: Integer;
         txtlbl1: label '(%1)';
-
 }
 

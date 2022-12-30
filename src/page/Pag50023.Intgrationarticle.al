@@ -167,7 +167,6 @@ page 50023 "BC6_Intégration article"
         TestG004: Label 'You can not insert line', Comment = 'FRA="vous ne pouvez pas insérer de ligne"';
         textg001: Label 'do you want integrate this data ?', Comment = 'FRA="Voulez vous intégrer ces données ?"';
         textg002: Label 'Empty Integration form ?', Comment = 'FRA="Remettre à zéro le formulaire d''intégration ? "';
-        textg003: Label 'Integration finished', Comment = 'FRA="Intégration terminée"';
         textG005: Label 'Mise à jour terminée.', Comment = 'FRA="Mise à jour terminée."';
 }
 

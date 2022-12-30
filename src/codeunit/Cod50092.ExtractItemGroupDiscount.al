@@ -61,6 +61,6 @@ codeunit 50092 "Extract Item Group Discount"
             until ItemDiscGroup.NEXT() = 0;
     end;
 
-    var
+
 }
 

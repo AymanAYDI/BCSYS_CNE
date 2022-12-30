@@ -6,7 +6,6 @@ codeunit 50052 "BC6_Return Order Mgt."
 
         ComfirmDeleteAllRelatedDocuments: label 'Souhaitez-vous supprimer tous les documents associés?';
         ErrValidateReturnPurchOrder: label 'Validation Impossible. \Le retour vente associé %1 n''a pas été validé.';
-        NoyExistingRelatedDocuments: label 'Aucun document associé n''est crée pour ce retour vente.';
 
     procedure DeleteRelatedDocument(P_SalesHeader: Record "Sales Header")
     var
@@ -159,12 +158,9 @@ codeunit 50052 "BC6_Return Order Mgt."
             end;
     end;
 
-    local procedure DeleteSalesAndPurchDoc(var P_SalesHeader: Record "Sales Header")
-    begin
-    end;
+
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnBeforePostPurchaseDoc', '', false, false)]
-
     procedure OnBeforePostPurchaseDoc(var PurchaseHeader: Record "Purchase Header")
     var
         L_ReturnOrderRelation: Record "BC6_Return Order Relation";
@@ -189,7 +185,6 @@ codeunit 50052 "BC6_Return Order Mgt."
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterModifyEvent', '', false, false)]
-
     procedure OnAfterModifySalesHeader(var Rec: Record "Sales Header"; var xRec: Record "Sales Header"; RunTrigger: Boolean)
     var
         RecLNoSeries: Record "No. Series";

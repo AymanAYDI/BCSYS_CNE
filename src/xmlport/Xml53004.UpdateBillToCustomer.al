@@ -202,20 +202,6 @@ xmlport 53004 "BC6_Update Bill-To-Customer"
     }
 
     var
-        Defaut: Record "BC6_Navi+ Setup";
-        Commentaires: Record "Comment Line";
-        Contact: Record Contact;
-        Currency: Record Currency;
         RecGCust: Record Customer;
-        GpRemise: Record "Customer Discount Group";
-        GpCptaMarche: Record "Gen. Business Posting Group";
-        Language: Record Language;
-        PaymentMethod: Record "Payment Method";
-        PaymentTerms: Record "Payment Terms";
-        PostCode: Record "Post Code";
-        Vendeur: Record "Salesperson/Purchaser";
-        ShipMethode: Record "Shipment Method";
-        Territory: Record Territory;
-        "------------- Tables ---------": Integer;
 }
 

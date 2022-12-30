@@ -10,7 +10,6 @@ report 50016 "BC6_Maj cout standard article"
 
             trigger OnAfterGetRecord()
             var
-                FunctionMgt: Codeunit "BC6_Functions Mgt";
                 CduPurchPricemgt: Codeunit "Purch. Price Calc. Mgt.";
 
             begin

@@ -98,7 +98,6 @@ report 50049 "BC6_Item Label v2"
     var
         ConvertAutoIDEAN13: Codeunit "BC6_Barcode Mngt AutoID";
         DistInt: Codeunit "Dist. Integration";
-        i: Integer;
         NumOfLabel: Integer;
         Text1100267001: Label '%1 € TTC';
         Text1100267003: Label '%1 € HT  ';

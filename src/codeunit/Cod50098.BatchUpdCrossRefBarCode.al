@@ -44,7 +44,6 @@ codeunit 50098 "Batch Upd. Cross Ref. Bar Code"
         Window: Dialog;
         Counter: Integer;
         TotalCounter: Integer;
-        Text001: Label 'Update Cross. Ref. Bar Code...', comment = 'FRA="Mise à jour magasin..."';
         Text002: Label '#1#####';
         Text003: Label 'Update Cross. Ref. Bar Code...', comment = 'FRA="Mise à jour magasin..."';
 }

@@ -1699,7 +1699,13 @@ then begin
         Bin: Record Bin;
         FctMangt: Codeunit "BC6_Functions Mgt";
     begin
-        FctMangt.GetBin(BinContent."Location Code", BinContent."Bin Code", Bin);
+        if (BinContent."Location Code" = '') or (BinContent."Bin Code" = '') then
+            Bin.Init
+        else
+            if (Bin."Location Code" <> BinContent."Location Code") or
+               (Bin.Code <> BinContent."Bin Code")
+            then
+                Bin.Get(BinContent."Location Code", BinContent."Bin Code");
         if Bin."BC6_Exclude Inventory Pick" then
             IsHandled := true;
     end;

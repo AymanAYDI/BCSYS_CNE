@@ -115,8 +115,6 @@ xmlport 50013 "BC6_Import R.I.B Clients"
 
     var
         recCustBank: Record "Customer Bank Account";
-        "--record--": Integer;
-        "- MIGNAV2013 -": Integer;
         IntGRIB: Integer;
 }
 

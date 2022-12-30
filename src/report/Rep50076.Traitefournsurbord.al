@@ -648,7 +648,6 @@ report 50076 "BC6_Traite fourn. sur bord"
         TRAITE_A_DETACHERCaptionLbl: Label 'TRAITE A DETACHER';
         TypeCaptionLbl: Label ' Type';
         txtlbl1: label '%1';
-
         Value_in_EURCaptionLbl: Label 'Value in EUR', comment = 'FRA="Valeur en EUR"';
         VAT_Registration_No__CaptionLbl: Label '<VAT Registration No.>', comment = 'FRA="N° TVA Intracommunautaire :"';
         Votre_Cmde__CaptionLbl: Label 'Votre Cmde :';

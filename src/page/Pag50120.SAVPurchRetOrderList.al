@@ -275,6 +275,7 @@ page 50120 "BC6_SAV Purch. Ret. Order List"
                     var
                         ApprovalEntries: Page "Approval Entries";
                     begin
+
                         ApprovalEntries.Setfilters(DATABASE::"Purchase Header", Rec."Document Type".AsInteger(), Rec."No.");
                         ApprovalEntries.RUN();
                     end;

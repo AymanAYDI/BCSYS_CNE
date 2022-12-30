@@ -43,12 +43,8 @@ pageextension 50095 "BC6_PostedReturnReceipt" extends "Posted Return Receipt" //
         cust: Record Customer;
         ReturnRcptHeader: Record "Return Receipt Header";
         SalesSetup: Record "Sales & Receivables Setup";
-        DocPrint: Codeunit "Document-Print";
         Mail: Codeunit Mail;
         Excel: Boolean;
-        "-MIGNAV2013-": Integer;
-        STR1: Label 'Archiver Devis';
-        STR2: Label 'Créer Commande';
         STR3: Label 'Imprimer le document ?';
         STR4: Label 'Envoyer le document par mail ?';
         STR5: Label 'Envoyer le document par fax ?';

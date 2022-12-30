@@ -1420,7 +1420,6 @@ report 50008 "BC6_Purchase Order"
         VAT_Amount_SpecificationCaptionLbl: Label 'VAT Amount Specification', Comment = 'FRA="Détail TVA"';
         Vendor_No___CaptionLbl: Label 'Vendor No :.', Comment = 'FRA="N° fournisseur :"';
         txtlbl12: label '%1 %2';
-
         TxtGAltFax: Text[20];
         TxtGAltPhone: Text[20];
         TxtGAltPostCode: Text[20];

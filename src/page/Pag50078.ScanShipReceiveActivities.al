@@ -119,10 +119,6 @@ page 50078 "Scan Ship & Receive Activities"
         ItemBatchJnl: Record "Item Journal Batch";
         ItemJnlTemplate: Record "Item Journal Template";
         WhseEmployee: Record "Warehouse Employee";
-        WmsManagement: Codeunit "WMS Management";
-        CurrentLocationCode: Code[10];
-        BatchName: Code[20];
-        DefaultLocationCode: Code[20];
     begin
 
         InvSetup.GET();

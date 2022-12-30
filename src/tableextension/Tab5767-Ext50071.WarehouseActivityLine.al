@@ -75,7 +75,12 @@ tableextension 50071 "BC6_WarehouseActivityLine" extends "Warehouse Activity Lin
                     ERROR(CstL001);
                 //<<CNE5.00
 
-                FctMangt.GetLocation("Location Code");
+                if "Location Code" = '' then
+                    Clear(Location)
+                else
+                    if Location.Code <> "Location Code" then
+                        Location.Get("Location Code");
+
                 IF Location."Directed Put-away and Pick" THEN
                     WMSMgt.CalcCubageAndWeight(
                       "Item No.", "Unit of Measure Code", "Qty. to Handle", Cubage, Weight);

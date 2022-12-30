@@ -2,9 +2,6 @@ codeunit 60000 "BC6_UpdateVersionListForMig"
 {
 
     trigger OnRun()
-    var
-        Pos: Integer;
-        VersionList: Text;
     begin
         MyTag := 'MIG2017';
         AddATag();
@@ -12,7 +9,6 @@ codeunit 60000 "BC6_UpdateVersionListForMig"
     end;
 
     var
-        LicPermission: Record "License Permission";
         "Object": Record Object;
         MyTag: Text;
 

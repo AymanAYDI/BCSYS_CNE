@@ -207,7 +207,6 @@ xmlport 53007 "BC6_Import Tiers"
         CodGJnlBatchName: Code[10];
         CodGJnlTemplName: Code[10];
         BalAccountNo: Code[20];
-        "--": Integer;
         IntGLineNo: Integer;
         TextError001: Label 'Account %1 do not exist !!', Comment = 'FRA="Compte %1 n''existe pas !!"';
         TypeBalAccountNo: Option "G/L Account",Customer,Vendor,"Bank Account","Fixed Asset","IC Partner";

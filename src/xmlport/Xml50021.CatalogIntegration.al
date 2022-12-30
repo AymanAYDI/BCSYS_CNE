@@ -171,7 +171,6 @@ xmlport 50021 "BC6_Catalog Integration"
         DateDeb: Date;
         DateFin: Date;
         // Common_Dlg: OCX;
-        Text008: Label 'Starting Date %1 must be less than end date %2', Comment = 'FRA="Date début %1 doit être inférieur à date fin %2"';
         textG001: Label 'Import File', Comment = 'FRA="Importer le fichier"';
         TextG002: Label 'Please fill up start date and Vendor No', Comment = 'FRA="Veuillez valoriser les champs date de début et N° de fournisseur"';
         FileName: Text[250];

@@ -116,6 +116,5 @@ xmlport 50026 "BC6_Import Av. Orders"
         Counter: Integer;
         TotalCounter: Integer;
         Text001: Label '%1 commandes à jour %2.', Comment = 'FRA="%1 commandes à jour %2."';
-        Text002: Label 'Commandes %1', Comment = 'FRA="Commandes %1"';
 }
 

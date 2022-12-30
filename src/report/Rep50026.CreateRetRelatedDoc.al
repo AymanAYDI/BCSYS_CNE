@@ -186,9 +186,7 @@ report 50026 "BC6_Create Ret.-Related Doc" //6697
             PAGE.RUN(PAGE::"Returns-Related Documents", TempRetRelDoc);
     end;
 
-    local procedure "---BCSYS---"()
-    begin
-    end;
+
 
     local procedure CreateReturnOrderRelation()
     begin

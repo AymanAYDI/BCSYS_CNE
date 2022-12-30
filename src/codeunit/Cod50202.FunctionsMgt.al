@@ -1,7 +1,7 @@
 codeunit 50202 "BC6_Functions Mgt"
 {
     Permissions = TableData "Sales Invoice Header" = imd;
-
+    //--CU7010--
     procedure FindVeryBestCost(var RecLPurchaseLine: Record "Purchase Line"; RecLPurchaseHeader: Record "Purchase Header")
     var
         Item: Record Item;
@@ -54,6 +54,61 @@ codeunit 50202 "BC6_Functions Mgt"
                 end;
             end;
     end;
+
+    // PROCEDURE Findbestpurchprice(CodLitem: Code[20]) decLstdcost: Decimal;
+    // VAR
+    //     Item: Record Item;
+    //     GLSetup: Record "General Ledger Setup";
+    //     Vend: Record vendor;
+    //     PurchPriceCalcMgt: Codeunit "Purch. Price Calc. Mgt.";
+    //     ItemDirectUnitCost: Decimal;
+    //     BestCost: Decimal;
+    //     BestDiscount: Decimal;
+    //     ItemDirectUnitCostBestDiscount: Decimal;
+    // BEGIN
+
+    //     //Prix unitaire
+    //     Item.RESET;
+    //     IF Item.GET(CodLitem) THEN BEGIN
+    //         GLSetup.GET;
+    //         IF Vend.GET(Item."Vendor No.") THEN;
+    //         PurchPriceCalcMgt.SetUoM(0, 1);
+    //         //  PricesInCurrency := TRUE;
+    //         ItemDirectUnitCost := Item."Unit Price";
+
+    //         //Meilleur prix
+    //         PurchPriceCalcMgt.FindPurchPrice(
+    //          TempPurchPrice, Item."Vendor No.", Item."No.", '', Item."Base Unit of Measure",
+    //          '', WORKDATE, TRUE);
+    //         IF TempPurchPrice.FIND('-') THEN BEGIN
+    //             CalcBestDirectUnitCost(TempPurchPrice);
+    //             BestCost := TempPurchPrice."Direct Unit Cost";
+    //         END ELSE BEGIN
+    //             BestCost := 0;
+    //         END;
+
+    //         //Meilleur remise
+    //         FindPurchLineDisc(
+    //           TempPurchLineDisc, Item."Vendor No.", Item."No.", '', Item."Base Unit of Measure",
+    //             '', WORKDATE, FALSE, Item."Item Disc. Group");
+    //         IF TempPurchLineDisc.FIND('-') THEN BEGIN
+    //             CalcBestLineDisc(TempPurchLineDisc);
+    //             BestDiscount := TempPurchLineDisc."Line Discount %";
+    //         END ELSE BEGIN
+    //             BestDiscount := 0;
+    //         END;
+
+    //         ItemDirectUnitCostBestDiscount := (ItemDirectUnitCost * (1 - BestDiscount / 100));
+
+    //         IF (ItemDirectUnitCostBestDiscount < BestCost) OR (BestCost = 0) THEN BEGIN
+    //             decLstdcost := ItemDirectUnitCostBestDiscount;
+    //         END ELSE BEGIN
+    //             decLstdcost := BestCost;
+    //         END;
+    //     END ELSE BEGIN
+    //         decLstdcost := 0;
+    //     END;
+    // END;
 
     //COD419
 
@@ -274,7 +329,11 @@ codeunit 50202 "BC6_Functions Mgt"
         Location: Record Location;
         WMSMgt: codeunit "WMS Management";
     begin
-        GetLocation(LocationCode);
+        if LocationCode = '' then
+            Clear(Location)
+        else
+            if Location.Code <> LocationCode then
+                Location.Get(LocationCode);
 
         if not Location."Bin Mandatory" then
             exit;
@@ -368,21 +427,8 @@ codeunit 50202 "BC6_Functions Mgt"
         end;
     end;
 
-    procedure GetLocation(LocationCode: Code[10])// TODO: fonction dupliquée
-    var
-        Location: Record Location;
-    begin
-        if LocationCode = '' then
-            Clear(Location)
-        else
-            if Location.Code <> LocationCode then
-                Location.Get(LocationCode);
-    end;
 
-    procedure SetBinCode(_BinCode: Code[20]) // TODO: setter for variable BinCode in function CreatePutAwayLinesFromPurchase
-    begin
-        BinCode := _BinCode;
-    end;
+
 
     // TODO: function specific related to codeunit 7324 "Whse.-Activity-Post"
     procedure SetPostingDate(NewPostingDate: Date);
@@ -600,15 +646,7 @@ codeunit 50202 "BC6_Functions Mgt"
         RecLInvPostingBufferCopy.INSERT();
     end;
 
-    procedure SetHideValidationDialog(NewHideValidationDialog: Boolean);
-    begin
-        HideValidationDialog := NewHideValidationDialog;
-    end;
 
-    procedure GetHideValidationDialog(): Boolean;
-    begin
-        exit(HideValidationDialog);
-    end;
 
     procedure CheckReturnOrderMandatoryFields(PurchaseHeader: Record "Purchase Header");
     var
@@ -655,10 +693,7 @@ codeunit 50202 "BC6_Functions Mgt"
         end;
     end;
 
-    var
-        HideValidationDialog: Boolean;
-        BinCode: Code[20]; // TODO: related to codeunit 7302
-        myInt: Integer;
+
     //COD12
     procedure TotalVATAmountOnJnlLines(GenJnlLine: Record "Gen. Journal Line") TotalVATAmount: Decimal
     var
@@ -713,9 +748,9 @@ codeunit 50202 "BC6_Functions Mgt"
         Number := Number + Number2;
     end;
 
-    procedure SetIncrPurchCost(Value: Boolean);
+    procedure SetIncrPurchCost(pValue: Boolean);
     begin
-        EnableIncrPurchCost := Value;
+        GloblFuncMgt.SetEnableIncrPurchCost(pValue);
     end;
 
 
@@ -934,20 +969,11 @@ codeunit 50202 "BC6_Functions Mgt"
                 exit(SearchContact.Get(Contact."Company No."));
     end;
 
-    procedure GetBin(_LocationCode: Code[10]; _BinCode: Code[20]; var _Bin: Record Bin) // Fonction dupliquer
-    begin
-        if (_LocationCode = '') or (BinCode = '') then
-            _Bin.Init()
-        else
-            if (_Bin."Location Code" <> _LocationCode) or
-               (_Bin.Code <> BinCode)
-            then
-                _Bin.Get(_LocationCode, BinCode);
-    end;
+
 
     procedure SetYourReference(_YourRef: Text);
     begin
-        YourReference := _YourRef;
+        GloblFuncMgt.SetYourReference(_YourRef);
     end;
 
     procedure FindVeryBestPrice(var RecLSalesLine: Record "Sales Line"; RecLSalesHeader: Record "Sales Header");
@@ -977,7 +1003,7 @@ codeunit 50202 "BC6_Functions Mgt"
 
                 //Meilleur remise
                 if PriceCalcMgt.SalesLineLineDiscExists(RecLSalesHeader, RecLSalesLine, false) then begin
-                    // PriceCalcMgt.CalcBestLineDisc(TempSalesLineDisc); TODO:
+                    // PriceCalcMgt.CalcBestLineDisc(TempSalesLineDisc); //TODO:
                     // BestDiscount := TempSalesLineDisc."Line Discount %";
                 end else begin
                     BestDiscount := 0;
@@ -1181,10 +1207,12 @@ codeunit 50202 "BC6_Functions Mgt"
 
     procedure Fct_SetProperties(NewCopyLinesExactly: Boolean);
     begin
-        BoolGCopyLinesExactly := NewCopyLinesExactly;
+        GloblFuncMgt.SetBoolGCopyLinesExactly(NewCopyLinesExactly);
     end;
 
     procedure InsertOldOrders(FromSalesInvoiceLine: Record "Sales Invoice Line"; ToSalesHeader: Record "Sales Header"; var NextLineNo: Integer);
+    var
+        NextLineNoNewInsert: Integer;
     begin
         if (ToSalesHeader."Document Type" = ToSalesHeader."Document Type"::"Return Order") and (ToSalesHeader."BC6_Return Order Type" = ToSalesHeader."BC6_Return Order Type"::SAV) then begin
             NextLineNoNewInsert := NextLineNo;
@@ -1201,7 +1229,13 @@ codeunit 50202 "BC6_Functions Mgt"
         L_SalesShptHeader: Record "Sales Shipment Header";
         L_ShipmentInvoiced: Record "Shipment Invoiced";
         LanguageManagement: Codeunit Language;
+        TranslationHelper: Codeunit "Translation Helper";
+        SalesOrderExists: Boolean;
+        PurchaseOrderExists: Boolean;
         Text018: label '%1 - %2:';
+        Text50000: label 'Sales Oder No., Purch Order No.', comment = 'FRA="N° Cde vente.,N° Cde achat."';
+        Text50001: label '%1:';
+
     begin
         L_ShipmentInvoiced.RESET();
         L_ShipmentInvoiced.SETCURRENTKEY("Invoice No.", "Invoice Line No.", "Shipment No.", "Shipment Line No.");
@@ -1215,7 +1249,7 @@ codeunit 50202 "BC6_Functions Mgt"
                     PurchaseOrderExists := true;
                 end;
 
-        G_LinkedPurchOrderNo := L_SalesShptHeader."Order No.";
+        GloblFuncMgt.SetG_LinkedPurchOrderNo(L_SalesShptHeader."Order No.");
 
         if SalesOrderExists then begin
             NextLineNo := NextLineNo + 10000;
@@ -1223,9 +1257,7 @@ codeunit 50202 "BC6_Functions Mgt"
             ToSalesLine2."Line No." := NextLineNo;
             ToSalesLine2."Document Type" := ToSalesHeader."Document Type";
             ToSalesLine2."Document No." := ToSalesHeader."No.";
-
-            //TODO  // LanguageManagement.SetGlobalLanguageByCode(ToSalesHeader."Language Code");
-
+            TranslationHelper.SetGlobalLanguageByCode(ToSalesHeader."Language Code");
             if PurchaseOrderExists then
                 ToSalesLine2.Description :=
                 STRSUBSTNO(
@@ -2132,15 +2164,8 @@ codeunit 50202 "BC6_Functions Mgt"
 
 
     var
-        BoolGCopyLinesExactly: Boolean;
-        EnableIncrPurchCost: Boolean;
+        GloblFuncMgt: Codeunit "BC6_GlobalFunctionMgt";
         IsSAVReturnOrder: Boolean;
-        PurchaseOrderExists: Boolean;
-        SalesOrderExists: Boolean;
-        G_LinkedPurchOrderNo: Code[20];
-        NextLineNoNewInsert: Integer;
-        Text50000: label 'Sales Oder No., Purch Order No.', comment = 'FRA="N° Cde vente.,N° Cde achat."';
-        Text50001: label '%1:';
 
-        YourReference: Text; // related to SetYourReference function
+
 }

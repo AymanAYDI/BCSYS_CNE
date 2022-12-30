@@ -375,6 +375,8 @@ page 50015 "BC6_Sales Order Lines"
 
                                 UNTIL RecLSalesLines.NEXT() = 0;
                                 // Insert extended text
+
+
                                 TempRecLSalesLine.RESET();
                                 IF TempRecLSalesLine.FIND('-') THEN
                                     REPEAT
@@ -459,7 +461,6 @@ page 50015 "BC6_Sales Order Lines"
         RecGSalesHeader: Record "Sales Header";
 
         TempRecLSalesLine: Record "Sales Line" temporary;
-
         RecGVendor: Record Vendor;
         BooGExcDropShipFilter: Boolean;
         BooGExcQuoteFilter: Boolean;

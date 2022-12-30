@@ -35,6 +35,5 @@ pageextension 50030 "BC6_PurchaseQuoteSubform" extends "Purchase Quote Subform" 
         }
     }
 
-    var
-        CuGItemHistoryMgt: Codeunit "BC6_Item History Management";
+
 }

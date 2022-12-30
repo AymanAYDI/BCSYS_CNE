@@ -150,8 +150,6 @@ xmlport 50014 "BC6_Import Fiches Fourisseurs"
         }
     }
 
-    var
-        TxEscompte: Code[10];
-        MinCmd: Decimal;
+
 }
 

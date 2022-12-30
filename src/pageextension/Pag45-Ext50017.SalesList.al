@@ -89,7 +89,6 @@ pageextension 50017 "BC6_SalesList" extends "Sales List" //45
         "DecGProfit%": Decimal;
         DecGProfitAmount: Decimal;
         DecGPurchCost: Decimal;
-        "- MIGNAV2013 -": Integer;
 
 
     trigger OnAfterGetRecord()
@@ -98,9 +97,6 @@ pageextension 50017 "BC6_SalesList" extends "Sales List" //45
         calcprofit();
     end;
 
-    procedure "----NSC1,0---"()
-    begin
-    end;
 
     procedure hideuser()
     var

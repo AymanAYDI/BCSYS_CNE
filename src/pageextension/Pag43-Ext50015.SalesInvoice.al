@@ -5,7 +5,7 @@ pageextension 50015 "BC6_SalesInvoice" extends "Sales Invoice" //43
 
         addafter("Sell-to Contact No.")
         {
-            field(BC6_ID; ID)
+            field(BC6_ID; Rec.ID)
             {
                 Editable = false;
                 ApplicationArea = All;
@@ -91,12 +91,9 @@ pageextension 50015 "BC6_SalesInvoice" extends "Sales Invoice" //43
     var
         HistMail: Record "BC6_Historique Mails Envoyés";
         cust: Record Customer;
-        "Sales & Receivables Setup": Record "Sales & Receivables Setup";
         SalesSetup: Record "Sales & Receivables Setup";
         Mail: Codeunit Mail;
         Excel: Boolean;
-        "--NSC1.01--": Integer;
-        "-MIGNAV2013-": Integer;
         STR3: Label 'Imprimer lme document';
         STR4: Label 'Envoyer par Mail';
         STR5: Label 'Envoyer par Fax';
@@ -104,9 +101,7 @@ pageextension 50015 "BC6_SalesInvoice" extends "Sales Invoice" //43
         Text004: Label '';
         nameF: Text[250];
 
-    procedure "---MIGNAV2013---"()
-    begin
-    end;
+
 
     procedure FnctGOnAvterValidateReasonCode()
     begin

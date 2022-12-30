@@ -328,8 +328,6 @@ xmlport 50023 "BC6_Intégration catalogue"
         DecGpx_pub: Decimal;
         DecGrem: Decimal;
         DlgGWin: Dialog;
-        "---DEEE---": Integer;
-        "- TDL.76 -": Integer;
         IntGLine: Integer;
         CstG001: Label 'Import de la ligne #1#######';
         Text008: Label 'Starting Date %1 must be less than end date %2', Comment = 'FRA="Date début %1 doit être inférieur à date fin %2"';
@@ -337,7 +335,6 @@ xmlport 50023 "BC6_Intégration catalogue"
         TextG002: Label 'Starting date and Vendor No fields are mandatory', Comment = 'FRA="les champs date de début et N° de fournisseur sont obligatoires"';
         TextG003: Label 'Another instance of item %1 already exist', Comment = 'FRA="L''article %1 est en doublon"';
         Textg004: Label '%1 %2 doesn''t exist, \ please create it.', Comment = 'FRA="%1 %2 n''existe pas, \ merci de le créer."';
-        Textg005: Label 'No DEEE category matching for item %1', Comment = 'FRA="Aucun rapprochement de code tarif DEEE possible pour l''article %1"';
         FileName: Text[250];
 }
 

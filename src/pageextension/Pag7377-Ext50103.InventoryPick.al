@@ -134,7 +134,6 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
         }
     }
     var
-        WhseActPrint: Codeunit "Warehouse Document-Print";
         WMSMgt: Codeunit "WMS Management";
         BooGDestinationNoCtrl: Boolean;
         BooGSourceNoCtrl: Boolean;

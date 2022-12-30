@@ -307,7 +307,6 @@ page 50028 "BC6_Sales Hist. Sellto FactBox"
 
     var
         RecGCustomer: Record Customer;
-        RecGPostdReturnSales: Record "Return Receipt Line";
         RecGReturnReceiptLine: Record "Return Receipt Line";
         RecGPostdCrdMemo: Record "Sales Cr.Memo Line";
         RecGSalesCrMemoLine: Record "Sales Cr.Memo Line";
@@ -315,7 +314,6 @@ page 50028 "BC6_Sales Hist. Sellto FactBox"
         RecGSalesInvoiceLine: Record "Sales Invoice Line";
         RecGSalesLine: Record "Sales Line";
         RecGSalesLines: Record "Sales Line";
-        RecGSalesShipementLine: Record "Sales Shipment Line";
         RecGSalesShipmentLine: Record "Sales Shipment Line";
         PagGCreditMemoLinesSubform2: Page "BC6_Cred. Memo Lines Subform 2";
         PagGInvoiceLinesSubform3: Page "BC6_Invoice Lines Subform 3";

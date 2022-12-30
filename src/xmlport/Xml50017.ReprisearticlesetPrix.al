@@ -178,18 +178,11 @@ xmlport 50017 "BC6_Reprise articles et Prix"
 
     var
         Art: Record Item;
-        Article: Record Item;
-        Categorie: Record "Item Category";
-        REF: Record "Item Identifier";
-        UNITE: Record "Item Unit of Measure";
         UniteArt: Record "Item Unit of Measure";
         Catalogue: Record "Item Vendor";
         Remise: Record "Purchase Line Discount";
         PrixUnit: Record "Purchase Price";
-        Frs: Record Vendor;
-        Vendor: Record Vendor;
         CodeCat: Code[20];
         CodeFrs: Code[20];
-        "--NSC1.01--": Integer;
 }
 

@@ -92,16 +92,9 @@ pageextension 50037 "BC6_PostedSalesInvoice" extends "Posted Sales Invoice" //13
         cust: Record Customer;
         SalesSetup: Record "Sales & Receivables Setup";
         ReportHelper: Codeunit BC6_ReportHelper;
-        DocPrint: Codeunit "Document-Print";
         cduMail: Codeunit Mail;
         Mail: Codeunit Mail;
         Excel: Boolean;
-        "-CNE-": Integer;
-        STR1: Label 'Archiver Devis';
-        STR2: Label 'Créer Commande';
-        STR3: Label 'Imprimer le document ?';
-        STR4: Label 'Envoyer le document par mail ?';
-        STR5: Label 'Envoyer le document par fax ?';
         Text001: Label '';
         Text004: Label 'Fichiers Pdf (*.pdf)|*.pdf|Tous les fichiers (*.*)|*.*';
         FileName: Text[250];

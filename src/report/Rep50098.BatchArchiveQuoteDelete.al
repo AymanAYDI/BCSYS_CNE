@@ -52,7 +52,6 @@ report 50098 "BC6_Batch Archive Quote Delete"
 
     var
         SalesHeader2: Record "Sales Header";
-        ArchiveManagement: Codeunit ArchiveManagement;
         ok: Boolean;
         window: Dialog;
         i: Integer;

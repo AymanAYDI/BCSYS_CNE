@@ -82,15 +82,13 @@ page 50006 "BC6_Documents Managment"
                 trigger OnAction()
                 var
                     RecGNaviSetup: Record "BC6_Navi+ Setup";
-                    TempBlob: Codeunit "Temp Blob";
                     DialogFile: Dialog;
                     InStr: InStream;
                     AllFilesFilterTxt: Label '*.*', Locked = true;
                 begin
 
                     IF "Table No." <> 167 THEN
-                        "Path and file" := CduGFileManagement.BLOBImport(TempBlob, "Path and file")
-                    // "Path and file" := CduGFileManagement.UploadFile(STRSUBSTNO(TxtG001), "Path and file")
+                        "Path and file" := CduGFileManagement.UploadFile(STRSUBSTNO(TxtG001), "Path and file")
                     //TODO:CHEKME "Path and file" := CduGFileManagement.OpenFileDialog(STRSUBSTNO(TxtG001), "Path and file", '*.*|*.*')
                     // UPLOADINTOSTREAM(STRSUBSTNO(TxtG001), '', '(*.*)|*.*', "Path and file", InStr)
 
@@ -103,7 +101,6 @@ page 50006 "BC6_Documents Managment"
 
                             ELSE
                                 ERROR(Text003);
-
                     CurrPage.UPDATE(TRUE);
                 end;
             }

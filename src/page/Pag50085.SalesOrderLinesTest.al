@@ -371,6 +371,7 @@ page 50085 "BC6_Sales Order Lines Test"
                                     RecLSalesLines.MODIFY(FALSE);
 
                                 UNTIL RecLSalesLines.NEXT() = 0;
+
                                 TempRecLSalesLine.RESET();
                                 IF TempRecLSalesLine.FIND('-') THEN
                                     REPEAT
@@ -383,6 +384,7 @@ page 50085 "BC6_Sales Order Lines Test"
                                                 InsertExtendedText(TRUE, RecLPurchLine2);
                                                 RecLPurchLine2.MODIFY(FALSE);
                                             UNTIL RecLPurchLine2.NEXT() = 0;
+
                                     UNTIL TempRecLSalesLine.NEXT() = 0;
                             END;
 

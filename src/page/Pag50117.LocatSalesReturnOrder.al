@@ -514,6 +514,7 @@ page 50117 "BC6_Locat. Sales Return Order"
                     var
                         ApprovalEntries: Page "Approval Entries";
                     begin
+
                         ApprovalEntries.Setfilters(DATABASE::"Sales Header", Rec."Document Type".AsInteger(), Rec."No.");
                         ApprovalEntries.RUN();
                     end;

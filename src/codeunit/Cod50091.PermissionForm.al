@@ -24,7 +24,6 @@ codeunit 50091 "BC6_Permission Form"
         Permission: Record Permission;
         WinLogin: Record User;
         WinLogin2: Record User;
-        LoginManagement: Codeunit "User Management";
         Found: Boolean;
         HasPermission: Boolean;
         MorePermissions: Boolean;

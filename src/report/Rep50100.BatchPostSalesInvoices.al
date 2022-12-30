@@ -124,7 +124,6 @@ report 50100 "BC6_Batch Post Sales Invoices" //296
     }
 
     var
-        SalesSetup: Record "Sales & Receivables Setup";
         SalesLine: Record "Sales Line";
         AssemblyPost: Codeunit "Assembly-Post";
         SalesCalcDisc: Codeunit "Sales-Calc. Discount";
@@ -135,7 +134,6 @@ report 50100 "BC6_Batch Post Sales Invoices" //296
         ReplacePostingDate: Boolean;
         PostingDateReq: Date;
         Window: Dialog;
-        "---NSC1,0": Integer;
         Counter: Integer;
         CounterOK: Integer;
         CounterTotal: Integer;

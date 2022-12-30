@@ -47,15 +47,8 @@ pageextension 50041 "BC6_PostedPurchaseReceipt" extends "Posted Purchase Receipt
         cust: Record Customer;
         PurchRcptHeader: Record "Purch. Rcpt. Header";
         SalesSetup: Record "Sales & Receivables Setup";
-        ArchiveManagement: Codeunit ArchiveManagement;
-        DocPrint: Codeunit "Document-Print";
         Mail: Codeunit Mail;
-        ReportPrint: Codeunit "Test Report-Print";
-        UserMgt: Codeunit "User Setup Management";
         Excel: Boolean;
-        "-MIGNAV2013-": Integer;
-        STR1: Label 'Archiver Devis';
-        STR2: Label 'Créer Commande';
         STR3: Label 'Imprimer le document ?';
         STR4: Label 'Envoyer le document par mail ?';
         STR5: Label 'Envoyer le document par fax ?';

@@ -159,8 +159,6 @@ xmlport 50012 "BC6_Import Adr. Livraison Clts"
     var
         recPostCode: Record "Post Code";
         recShipTo: Record "Ship-to Address";
-        "--records--": Integer;
-        "--variables--": Integer;
         vname2: Text[30];
 }
 

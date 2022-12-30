@@ -203,9 +203,7 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
         RecGTransSpe: Record "Transaction Specification";
         RecGTransType: Record "Transaction Type";
         RecGTransMeth: Record "Transport Method";
-        UserSetup: Record "User Setup";
         ShowMiniMargin: Boolean;
-        "-NSC1.00-": Integer;
         TxtGArea: Text[100];
         TxtGESPoint: Text[100];
         TxtGTransMeth: Text[100];

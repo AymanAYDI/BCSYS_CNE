@@ -2,7 +2,7 @@ report 50015 "BC6_Prices Request"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/PricesRequest.rdl';
-    Caption = 'Prices Request', Comment = 'FRA=""';
+    Caption = 'Prices Request', Comment = 'FRA="Demande de prix"';
 
     dataset
     {
@@ -12,7 +12,7 @@ report 50015 "BC6_Prices Request"
             DataItemTableView = sorting("Document Type", "No.")
                                 where("Document Type" = const(Quote));
             RequestFilterFields = "No.", "Buy-from Vendor No.", "No. Printed";
-            RequestFilterHeading = 'Purchase Order', Comment = 'FRA=""';
+            RequestFilterHeading = 'Purchase Order', Comment = 'FRA="Commande achat"';
             column(Purchase_Header_Document_Type; "Document Type")
             {
             }
@@ -248,19 +248,6 @@ report 50015 "BC6_Prices Request"
                         begin
                             TempPurchLine.DELETEALL();
                         end;
-                        //prb
-                        // trigger OnPreDataItem()
-                        // begin
-                        //     MoreLines := TempPurchLine.FIND('+');
-                        //     while MoreLines and (TempPurchLine.Description = '') and (TempPurchLine."Description 2" = '') and
-                        //           (TempPurchLine."No." = '') and (TempPurchLine.Quantity = 0) and
-                        //           (TempPurchLine.Amount = 0) do
-                        //         MoreLines := TempPurchLine.NEXT(-1) <> 0;
-                        //     if not MoreLines then
-                        //         CurrReport.BREAK();
-                        //     TempPurchLine.SETRANGE("Line No.", 0, TempPurchLine."Line No.");
-                        //     SETRANGE(Number, 1, TempPurchLine.COUNT);
-                        // end;
                     }
                     dataitem(VATCounter; Integer)
                     {
@@ -499,15 +486,15 @@ report 50015 "BC6_Prices Request"
                     Caption = 'Options';
                     field(NoofCopies; NoOfCopies)
                     {
-                        Caption = 'No. of Copies', Comment = 'FRA=""';
+                        Caption = 'No. of Copies', Comment = 'FRA="Nombre de copies"';
                     }
                     field(ShowInternalInformation; ShowInternalInfo)
                     {
-                        Caption = 'Show Internal Information', Comment = 'FRA=""';
+                        Caption = 'Show Internal Information', Comment = 'FRA="Afficher info. internes"';
                     }
                     field(ArchiveDocument; ArchiveDocument)
                     {
-                        Caption = 'Archive Document', Comment = 'FRA=""';
+                        Caption = 'Archive Document', Comment = 'FRA="Archiver document"';
 
                         trigger OnValidate()
                         begin
@@ -517,7 +504,7 @@ report 50015 "BC6_Prices Request"
                     }
                     field(LogInteraction; LogInteraction)
                     {
-                        Caption = 'Log Interaction', Comment = 'FRA=""';
+                        Caption = 'Log Interaction', Comment = 'FRA="Journal interaction"';
                         Enabled = LogInteractionEnable;
 
                         trigger OnValidate()
@@ -528,7 +515,7 @@ report 50015 "BC6_Prices Request"
                     }
                     field(CodGRespCenter; CodGRespCenter)
                     {
-                        Caption = 'Print Characteristics Agency:', Comment = 'FRA=""';
+                        Caption = 'Print Characteristics Agency:', Comment = 'FRA="Imprimer Caractéristiques Agence:"';
                         TableRelation = "Responsibility Center";
                     }
                 }

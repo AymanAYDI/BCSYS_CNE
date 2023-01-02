@@ -1198,7 +1198,7 @@ report 50008 "BC6_Purchase Order"
             {
                 group(Options)
                 {
-                    Caption = 'Options', Comment = 'FRA=""';
+                    Caption = 'Options', Comment = 'FRA="Options"';
                     field(NoOfCopies; NoOfCopies)
                     {
                         Caption = 'No. of Copies', Comment = 'FRA="Nombre de copies"';

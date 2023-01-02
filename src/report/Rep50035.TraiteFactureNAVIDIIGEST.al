@@ -268,7 +268,7 @@ report 50035 "BC6_Traite/Facture NAVIDIIGEST"
         guichetCaptionLbl: Label 'guichet';
         L_C_R__onlyCaptionLbl: Label 'L.C.R. only', comment = 'FRA="L.C.R. seulement"';
         n__compteCaptionLbl: Label 'n° compte';
-        NAME_andCaptionLbl: Label 'NAME and', comment = 'FRA=""';
+        NAME_andCaptionLbl: Label 'NAME and', comment = 'FRA="NOM et"';
         noted_as_NO_CHARGESCaptionLbl: Label 'noted as NO CHARGES', comment = 'FRA="stipulée SANS FRAIS"';
         of_DRAWEECaptionLbl: Label 'of DRAWEE', comment = 'FRA="du TIRE"';
         ONCaptionLbl: Label 'ON', comment = 'FRA="LE"';

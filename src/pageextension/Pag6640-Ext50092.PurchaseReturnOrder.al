@@ -50,7 +50,7 @@ pageextension 50092 "BC6_PurchaseReturnOrder" extends "Purchase Return Order" //
             action("BC6_&Print2")
             {
                 ApplicationArea = PurchReturnOrder;
-                Caption = '&Print';
+                Caption = '&Print', Comment = 'FRA="&Imprimer"';
                 Ellipsis = true;
                 Image = Print;
                 Promoted = true;

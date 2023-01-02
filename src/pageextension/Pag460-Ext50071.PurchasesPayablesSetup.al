@@ -11,7 +11,7 @@ pageextension 50071 "BC6_PurchasesPayablesSetup" extends "Purchases & Payables S
             }
             group("BC6_Freigth charge")
             {
-                Caption = 'Freigth charge';
+                Caption = 'Freigth charge', Comment = 'FRA="Ligne de port"';
                 field(BC6_Type; BC6_Type)
                 {
                     ApplicationArea = All;

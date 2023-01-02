@@ -7,7 +7,7 @@ pageextension 50039 "BC6_PostedSalesCreditMemo" extends "Posted Sales Credit Mem
         {
             field("BC6_Sell-to E-Mail Address"; "BC6_Sell-to E-Mail Address")
             {
-                Caption = 'Sell-to Customer E-Mail';
+                Caption = 'Sell-to Customer E-Mail', Comment = 'FRA="E-Mail donneur d''ordre"';
                 Editable = false;
                 ApplicationArea = All;
             }
@@ -34,7 +34,7 @@ pageextension 50039 "BC6_PostedSalesCreditMemo" extends "Posted Sales Credit Mem
                 Caption = 'E&nvoyer/Imprimer';
                 action("BC6_&Print")
                 {
-                    Caption = '&Print';
+                    Caption = '&Print', Comment = 'FRA="&Imprimer"';
                     Ellipsis = true;
                     Image = Print;
                     Promoted = true;
@@ -55,7 +55,6 @@ pageextension 50039 "BC6_PostedSalesCreditMemo" extends "Posted Sales Credit Mem
                     trigger OnAction()
                     var
                         RecLSalesCrMemoHeader: Record "Sales Cr.Memo Header";
-                        "-MIGNAV2013-": Integer;
                     begin
                         RecLSalesCrMemoHeader := Rec;
                         RecLSalesCrMemoHeader.SETRECFILTER();
@@ -69,7 +68,6 @@ pageextension 50039 "BC6_PostedSalesCreditMemo" extends "Posted Sales Credit Mem
                     trigger OnAction()
                     var
                         RecLSalesCrMemoHeader: Record "Sales Cr.Memo Header";
-                        "-MIGNAV2013-": Integer;
                     begin
                         RecLSalesCrMemoHeader := Rec;
                         RecLSalesCrMemoHeader.SETRECFILTER();
@@ -90,9 +88,7 @@ pageextension 50039 "BC6_PostedSalesCreditMemo" extends "Posted Sales Credit Mem
         SalesSetup: Record "Sales & Receivables Setup";
         SalesShptHeader: Record "Sales Shipment Header";
         Mail: Codeunit Mail;
-        Excel: Boolean;
         Text001: Label '';
-        Text004: Label 'Fichiers Pdf (*.pdf)|*.pdf|Tous les fichiers (*.*)|*.*';
         nameF: Text[250];
 
 
@@ -101,7 +97,7 @@ pageextension 50039 "BC6_PostedSalesCreditMemo" extends "Posted Sales Credit Mem
     begin
         SalesSetup.GET();
         cust.SETRANGE(cust."No.", "Sell-to Customer No.");
-        IF cust.FIND('-') THEN
+        IF cust.FindSet() THEN
             cust.TESTFIELD("E-Mail");
         OpenFile();
         IF nameF <> '' THEN BEGIN
@@ -121,24 +117,5 @@ pageextension 50039 "BC6_PostedSalesCreditMemo" extends "Posted Sales Credit Mem
 
     procedure OpenFile()
     begin
-        //>>MIGRATION NAV 2013
-
-        /*//EMAIL NSC00.01 SBH [005] Envoi document
-        FileDialog.DialogTitle('Envoi'+' '+CurrForm.CAPTION);
-        FileDialog.Filter := Text004;
-        SalesSetup.GET;
-        FileDialog.FileName := '';
-        FileDialog.InitDir(SalesSetup.Repertoire);
-        FileDialog.Flags := 4096 + 2048; // vérification de l'existence du fichier, code qui suit inutile.
-        FileDialog.ShowOpen;
-        nameF:=FileDialog.FileName;
-        IF nameF='' THEN
-          BEGIN
-            Excel := FALSE;
-            EXIT;
-          END;
-        //Fin EMAIL NSC00.01 SBH [005] Envoi document
-        */
-        //<<MIGRATION NAv 2013
     end;
 }

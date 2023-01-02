@@ -9,7 +9,7 @@ pageextension 50054 "BC6_ApplyVendorEntries" extends "Apply Vendor Entries" //23
             }
             field(BC6_GetPayToVenNo; getVendorName("BC6_Pay-to Vend. No."))
             {
-                Caption = 'Pay-to Vend. No.';
+                Caption = 'Pay-to Vend. No.', Comment = 'FRA="Tiers payeur"';
             }
         }
         modify("Vendor No.")

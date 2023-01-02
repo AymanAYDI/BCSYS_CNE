@@ -142,25 +142,6 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
 
     procedure OpenFile()
     begin
-        //>>MIGRATION NAV 2013
-
-        /*//EMAIL NSC00.01 SBH [005] Envoi document
-        FileDialog.DialogTitle('Envoi'+' '+CurrForm.CAPTION);
-        FileDialog.Filter := Text004;
-        SalesSetup.GET;
-        FileDialog.FileName := '';
-        FileDialog.InitDir(SalesSetup.Repertoire);
-        FileDialog.Flags := 4096 + 2048; // vérification de l'existence du fichier, code qui suit inutile.
-        FileDialog.ShowOpen;
-        nameF:=FileDialog.FileName;
-        IF nameF='' THEN
-          BEGIN
-            Excel := FALSE;
-            EXIT;
-          END;
-        //Fin EMAIL NSC00.01 SBH [005] Envoi document
-        */
-        //<<MIGRATION NAv 2013
     end;
 
 

@@ -37,7 +37,7 @@ pageextension 50028 "BC6_SalesQuoteSubform" extends "Sales Quote Subform" //95
         {
             field("BC6_Purchase cost"; "BC6_Purchase cost")
             {
-                Caption = 'Real purchase cost';
+                Caption = 'Real purchase cost', Comment = 'FRA="Coût d''achat réel"';
                 Visible = ShowRealProfit;
 
                 trigger OnValidate()

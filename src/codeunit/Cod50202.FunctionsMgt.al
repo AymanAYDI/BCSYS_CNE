@@ -1,7 +1,7 @@
 codeunit 50202 "BC6_Functions Mgt"
 {
     Permissions = TableData "Sales Invoice Header" = imd;
-
+    //--CU7010--
     procedure FindVeryBestCost(var RecLPurchaseLine: Record "Purchase Line"; RecLPurchaseHeader: Record "Purchase Header")
     var
         Item: Record Item;
@@ -54,6 +54,61 @@ codeunit 50202 "BC6_Functions Mgt"
                 end;
             end;
     end;
+
+    // PROCEDURE Findbestpurchprice(CodLitem: Code[20]) decLstdcost: Decimal;
+    // VAR
+    //     Item: Record Item;
+    //     GLSetup: Record "General Ledger Setup";
+    //     Vend: Record vendor;
+    //     PurchPriceCalcMgt: Codeunit "Purch. Price Calc. Mgt.";
+    //     ItemDirectUnitCost: Decimal;
+    //     BestCost: Decimal;
+    //     BestDiscount: Decimal;
+    //     ItemDirectUnitCostBestDiscount: Decimal;
+    // BEGIN
+
+    //     //Prix unitaire
+    //     Item.RESET;
+    //     IF Item.GET(CodLitem) THEN BEGIN
+    //         GLSetup.GET;
+    //         IF Vend.GET(Item."Vendor No.") THEN;
+    //         PurchPriceCalcMgt.SetUoM(0, 1);
+    //         //  PricesInCurrency := TRUE;
+    //         ItemDirectUnitCost := Item."Unit Price";
+
+    //         //Meilleur prix
+    //         PurchPriceCalcMgt.FindPurchPrice(
+    //          TempPurchPrice, Item."Vendor No.", Item."No.", '', Item."Base Unit of Measure",
+    //          '', WORKDATE, TRUE);
+    //         IF TempPurchPrice.FIND('-') THEN BEGIN
+    //             CalcBestDirectUnitCost(TempPurchPrice);
+    //             BestCost := TempPurchPrice."Direct Unit Cost";
+    //         END ELSE BEGIN
+    //             BestCost := 0;
+    //         END;
+
+    //         //Meilleur remise
+    //         FindPurchLineDisc(
+    //           TempPurchLineDisc, Item."Vendor No.", Item."No.", '', Item."Base Unit of Measure",
+    //             '', WORKDATE, FALSE, Item."Item Disc. Group");
+    //         IF TempPurchLineDisc.FIND('-') THEN BEGIN
+    //             CalcBestLineDisc(TempPurchLineDisc);
+    //             BestDiscount := TempPurchLineDisc."Line Discount %";
+    //         END ELSE BEGIN
+    //             BestDiscount := 0;
+    //         END;
+
+    //         ItemDirectUnitCostBestDiscount := (ItemDirectUnitCost * (1 - BestDiscount / 100));
+
+    //         IF (ItemDirectUnitCostBestDiscount < BestCost) OR (BestCost = 0) THEN BEGIN
+    //             decLstdcost := ItemDirectUnitCostBestDiscount;
+    //         END ELSE BEGIN
+    //             decLstdcost := BestCost;
+    //         END;
+    //     END ELSE BEGIN
+    //         decLstdcost := 0;
+    //     END;
+    // END;
 
     //COD419
 
@@ -948,7 +1003,7 @@ codeunit 50202 "BC6_Functions Mgt"
 
                 //Meilleur remise
                 if PriceCalcMgt.SalesLineLineDiscExists(RecLSalesHeader, RecLSalesLine, false) then begin
-                    // PriceCalcMgt.CalcBestLineDisc(TempSalesLineDisc); TODO:
+                    // PriceCalcMgt.CalcBestLineDisc(TempSalesLineDisc); //TODO:
                     // BestDiscount := TempSalesLineDisc."Line Discount %";
                 end else begin
                     BestDiscount := 0;
@@ -1174,6 +1229,7 @@ codeunit 50202 "BC6_Functions Mgt"
         L_SalesShptHeader: Record "Sales Shipment Header";
         L_ShipmentInvoiced: Record "Shipment Invoiced";
         LanguageManagement: Codeunit Language;
+        TranslationHelper: Codeunit "Translation Helper";
         SalesOrderExists: Boolean;
         PurchaseOrderExists: Boolean;
         Text018: label '%1 - %2:';
@@ -1201,9 +1257,7 @@ codeunit 50202 "BC6_Functions Mgt"
             ToSalesLine2."Line No." := NextLineNo;
             ToSalesLine2."Document Type" := ToSalesHeader."Document Type";
             ToSalesLine2."Document No." := ToSalesHeader."No.";
-
-            //TODO  // LanguageManagement.SetGlobalLanguageByCode(ToSalesHeader."Language Code");
-
+            TranslationHelper.SetGlobalLanguageByCode(ToSalesHeader."Language Code");
             if PurchaseOrderExists then
                 ToSalesLine2.Description :=
                 STRSUBSTNO(

@@ -3464,9 +3464,10 @@
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit BC6_PagesEvents - Method COD415_OnBeforeCheckPurchaseHeaderPendingApproval - NamedType Text002</note>
         </trans-unit>
         <trans-unit id="Codeunit 3106290929 - Method 473378937 - NamedType 4007599411" size-unit="char" translate="yes" xml:space="preserve">
-          <source>There is no ledger entries.; FRA=Il n'y a pas d'écitures.</source>
-          <note from="Developer" annotates="general" priority="2"/>
+          <source>There is no ledger entries.</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Il n'y a pas d'écitures."</note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit BC6_PagesEvents - Method P232_OnAfterOnOpenPage - NamedType TextGestTierPayeur001</note>
+          <target>Il n'y a pas d'écitures.</target>
         </trans-unit>
         <trans-unit id="Codeunit 3106290929 - Method 531672881 - NamedType 4007599411" size-unit="char" translate="yes" xml:space="preserve">
           <source>There is no ledger entries.</source>
@@ -3667,8 +3668,9 @@
         </trans-unit>
         <trans-unit id="Page 1449391695 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Affair Steps Sub-form</source>
-          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Affair Steps Sub-form - Property Caption</note>
+          <target/>
         </trans-unit>
         <trans-unit id="Page 3794855111 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Affair Steps Tracking</source>
@@ -3801,13 +3803,15 @@
         </trans-unit>
         <trans-unit id="Page 2058336531 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Credit Memo Purachase Lines</source>
-          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Cred. Memo Lines Subform 2 - Property Caption</note>
+          <target/>
         </trans-unit>
         <trans-unit id="Page 2058336531 - Action 366713437 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>&amp;Show</source>
-          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Cred. Memo Lines Subform 2 - Action Show - Property Caption</note>
+          <target/>
         </trans-unit>
         <trans-unit id="Page 2121096678 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Marge Client</source>
@@ -14119,8 +14123,9 @@
         </trans-unit>
         <trans-unit id="Page 2346303421 - Action 1606682606 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>List</source>
-          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Special Extended Text - Action List - Property Caption</note>
+          <target/>
         </trans-unit>
         <trans-unit id="Page 3601846579 - Control 2961552353 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Name</source>
@@ -34815,8 +34820,9 @@
         </trans-unit>
         <trans-unit id="EnumExtension 3462097957 - EnumValue 1159958008 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Enum 1519117069">
           <source>Nowhere</source>
-          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">EnumExtension BC6_NavigateAfterPosting - EnumValue Nowhere - Property Caption</note>
+          <target/>
         </trans-unit>
         <trans-unit id="EnumExtension 2420483485 - EnumValue 3371220206 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Enum 160616565">
           <source>None</source>
@@ -34831,13 +34837,15 @@
         </trans-unit>
         <trans-unit id="EnumExtension 1049726895 - EnumValue 4094296290 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Enum 3570782335">
           <source>Customer Discount Group</source>
-          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">EnumExtension BC6_SalesPriceType - EnumValue Customer Discount Group - Property Caption</note>
+          <target/>
         </trans-unit>
         <trans-unit id="EnumExtension 1049726895 - EnumValue 3371220206 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Enum 3570782335">
           <source>None</source>
-          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">EnumExtension BC6_SalesPriceType - EnumValue None - Property Caption</note>
+          <target/>
         </trans-unit>
         <trans-unit id="PermissionSet 2192738300 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>CNE</source>

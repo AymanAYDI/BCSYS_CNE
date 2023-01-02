@@ -54,11 +54,11 @@ pageextension 50083 "BC6_LocationCard" extends "Location Card" //5703
 
     var
         [InDataSet]
+        NewAssemblyShipmentBinCodeEnable: boolean;
+        [InDataSet]
         NewReceiptBinCodeEnable: Boolean;
         [InDataSet]
         NewShipmentBinCodeEnable: Boolean;
-        [InDataSet]
-        NewAssemblyShipmentBinCodeEnable: boolean;
 
     trigger OnOpenPage()
     begin

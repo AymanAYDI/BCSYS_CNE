@@ -329,11 +329,11 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
                         trigger OnAfterGetRecord()
                         begin
                             IF Number = 1 THEN BEGIN
-                                IF NOT DimSetEntry1.FINDSET THEN
-                                    CurrReport.BREAK;
+                                IF NOT DimSetEntry1.FINDSET() THEN
+                                    CurrReport.BREAK();
                             END ELSE
                                 IF NOT Continue THEN
-                                    CurrReport.BREAK;
+                                    CurrReport.BREAK();
 
                             CLEAR(DimText);
                             Continue := FALSE;
@@ -351,13 +351,13 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
                                     Continue := TRUE;
                                     EXIT;
                                 END;
-                            UNTIL DimSetEntry1.NEXT = 0;
+                            UNTIL DimSetEntry1.NEXT() = 0;
                         end;
 
                         trigger OnPreDataItem()
                         begin
                             IF NOT ShowInternalInfo THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                         end;
                     }
                     dataitem(PurchaseLine; "Purchase Line")
@@ -375,7 +375,7 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
 
                         trigger OnPreDataItem()
                         begin
-                            CurrReport.BREAK;
+                            CurrReport.BREAK();
                         end;
                     }
                     dataitem(RoundLoop; Integer)
@@ -384,7 +384,7 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
                         column(TypeInt; TypeInt)
                         {
                         }
-                        column(LineAmt_PurchLine; PurchLine."Line Amount")
+                        column(LineAmt_PurchLine; TempPurchLine."Line Amount")
                         {
                             AutoFormatExpression = PurchaseLine."Currency Code";
                             AutoFormatType = 1;
@@ -433,12 +433,12 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
                         column(AllInvDiscYesNo_PurchLine; FORMAT(PurchaseLine."Allow Invoice Disc."))
                         {
                         }
-                        column(PurchLineInvDiscountAmt; -PurchLine."Inv. Discount Amount")
+                        column(PurchLineInvDiscountAmt; -TempPurchLine."Inv. Discount Amount")
                         {
                             AutoFormatExpression = PurchaseLine."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(PurchLineLnAmtInvDiscAmt; PurchLine."Line Amount" - PurchLine."Inv. Discount Amount")
+                        column(PurchLineLnAmtInvDiscAmt; TempPurchLine."Line Amount" - TempPurchLine."Inv. Discount Amount")
                         {
                             AutoFormatExpression = PurchaseHeader."Currency Code";
                             AutoFormatType = 1;
@@ -461,7 +461,7 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
                             AutoFormatExpression = PurchaseHeader."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmtLineVATAmtText; VATAmountLine.VATAmountText)
+                        column(VATAmtLineVATAmtText; TempVATAmountLine.VATAmountText())
                         {
                         }
                         column(VATAmt; VATAmount)
@@ -469,7 +469,7 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
                             AutoFormatExpression = PurchaseHeader."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(PurchLnLnAmtInvDiscAmtVATAmt; PurchLine."Line Amount" - PurchLine."Inv. Discount Amount" + VATAmount)
+                        column(PurchLnLnAmtInvDiscAmtVATAmt; TempPurchLine."Line Amount" - TempPurchLine."Inv. Discount Amount" + VATAmount)
                         {
                             AutoFormatExpression = PurchaseHeader."Currency Code";
                             AutoFormatType = 1;
@@ -527,11 +527,11 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
                             trigger OnAfterGetRecord()
                             begin
                                 IF Number = 1 THEN BEGIN
-                                    IF NOT DimSetEntry2.FINDSET THEN
-                                        CurrReport.BREAK;
+                                    IF NOT DimSetEntry2.FINDSET() THEN
+                                        CurrReport.BREAK();
                                 END ELSE
                                     IF NOT Continue THEN
-                                        CurrReport.BREAK;
+                                        CurrReport.BREAK();
 
                                 CLEAR(DimText);
                                 Continue := FALSE;
@@ -549,13 +549,13 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
                                         Continue := TRUE;
                                         EXIT;
                                     END;
-                                UNTIL DimSetEntry2.NEXT = 0;
+                                UNTIL DimSetEntry2.NEXT() = 0;
                             end;
 
                             trigger OnPreDataItem()
                             begin
                                 IF NOT ShowInternalInfo THEN
-                                    CurrReport.BREAK;
+                                    CurrReport.BREAK();
 
                                 DimSetEntry2.SETRANGE("Dimension Set ID", PurchaseLine."Dimension Set ID");
                             end;
@@ -564,75 +564,75 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
                         trigger OnAfterGetRecord()
                         begin
                             IF Number = 1 THEN
-                                PurchLine.FIND('-')
+                                TempPurchLine.FIND('-')
                             ELSE
-                                PurchLine.NEXT;
-                            PurchaseLine := PurchLine;
+                                TempPurchLine.NEXT();
+                            PurchaseLine := TempPurchLine;
 
-                            IF (PurchLine.Type = PurchLine.Type::"G/L Account") AND (NOT ShowInternalInfo) THEN
+                            IF (TempPurchLine.Type = TempPurchLine.Type::"G/L Account") AND (NOT ShowInternalInfo) THEN
                                 PurchaseLine."No." := '';
 
-                            TypeInt := PurchaseLine.Type;
+                            TypeInt := PurchaseLine.Type.AsInteger();
                             TotalSubTotal += PurchaseLine."Line Amount";
                             TotalInvoiceDiscountAmount -= PurchaseLine."Inv. Discount Amount";
                             TotalAmount += PurchaseLine.Amount;
 
-                            IF (PurchLine.Type = PurchLine.Type::Item) AND (PurchLine."No." <> '') THEN
-                                G_Item.GET(PurchLine."No.");
+                            IF (TempPurchLine.Type = TempPurchLine.Type::Item) AND (TempPurchLine."No." <> '') THEN
+                                G_Item.GET(TempPurchLine."No.");
                         end;
 
                         trigger OnPostDataItem()
                         begin
-                            PurchLine.DELETEALL;
+                            TempPurchLine.DELETEALL();
                         end;
 
                         trigger OnPreDataItem()
                         begin
-                            MoreLines := PurchLine.FIND('+');
-                            WHILE MoreLines AND (PurchLine.Description = '') AND (PurchLine."Description 2" = '') AND
-                                  (PurchLine."No." = '') AND (PurchLine.Quantity = 0) AND
-                                  (PurchLine.Amount = 0)
+                            MoreLines := TempPurchLine.FIND('+');
+                            WHILE MoreLines AND (TempPurchLine.Description = '') AND (TempPurchLine."Description 2" = '') AND
+                                  (TempPurchLine."No." = '') AND (TempPurchLine.Quantity = 0) AND
+                                  (TempPurchLine.Amount = 0)
                             DO
-                                MoreLines := PurchLine.NEXT(-1) <> 0;
+                                MoreLines := TempPurchLine.NEXT(-1) <> 0;
                             IF NOT MoreLines THEN
-                                CurrReport.BREAK;
-                            PurchLine.SETRANGE("Line No.", 0, PurchLine."Line No.");
-                            SETRANGE(Number, 1, PurchLine.COUNT);
-                            CurrReport.CREATETOTALS(PurchLine."Line Amount", PurchLine."Inv. Discount Amount");
+                                CurrReport.BREAK();
+                            TempPurchLine.SETRANGE("Line No.", 0, TempPurchLine."Line No.");
+                            SETRANGE(Number, 1, TempPurchLine.COUNT);
+                            CurrReport.CREATETOTALS(TempPurchLine."Line Amount", TempPurchLine."Inv. Discount Amount");
                         end;
                     }
                     dataitem(VATCounter; Integer)
                     {
                         DataItemTableView = SORTING(Number);
-                        column(VATAmtLineVATBase; VATAmountLine."VAT Base")
+                        column(VATAmtLineVATBase; TempVATAmountLine."VAT Base")
                         {
                             AutoFormatExpression = PurchaseHeader."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmtLineVATAmt; VATAmountLine."VAT Amount")
+                        column(VATAmtLineVATAmt; TempVATAmountLine."VAT Amount")
                         {
                             AutoFormatExpression = PurchaseHeader."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmtLineLineAmt; VATAmountLine."Line Amount")
+                        column(VATAmtLineLineAmt; TempVATAmountLine."Line Amount")
                         {
                             AutoFormatExpression = PurchaseHeader."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmtLineInvDiscBaseAmt; VATAmountLine."Inv. Disc. Base Amount")
+                        column(VATAmtLineInvDiscBaseAmt; TempVATAmountLine."Inv. Disc. Base Amount")
                         {
                             AutoFormatExpression = PurchaseHeader."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmtLineInvDiscAmt; VATAmountLine."Invoice Discount Amount")
+                        column(VATAmtLineInvDiscAmt; TempVATAmountLine."Invoice Discount Amount")
                         {
                             AutoFormatExpression = PurchaseHeader."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmtLineVAT; VATAmountLine."VAT %")
+                        column(VATAmtLineVAT; TempVATAmountLine."VAT %")
                         {
                         }
-                        column(VATAmtLineVATIdentifier; VATAmountLine."VAT Identifier")
+                        column(VATAmtLineVATIdentifier; TempVATAmountLine."VAT Identifier")
                         {
                         }
                         column(VATPercentCaption; VATPercentCaptionLbl)
@@ -665,17 +665,17 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
 
                         trigger OnAfterGetRecord()
                         begin
-                            VATAmountLine.GetLine(Number);
+                            TempVATAmountLine.GetLine(Number);
                         end;
 
                         trigger OnPreDataItem()
                         begin
                             IF VATAmount = 0 THEN
-                                CurrReport.BREAK;
-                            SETRANGE(Number, 1, VATAmountLine.COUNT);
+                                CurrReport.BREAK();
+                            SETRANGE(Number, 1, TempVATAmountLine.COUNT);
                             CurrReport.CREATETOTALS(
-                              VATAmountLine."Line Amount", VATAmountLine."Inv. Disc. Base Amount",
-                              VATAmountLine."Invoice Discount Amount", VATAmountLine."VAT Base", VATAmountLine."VAT Amount");
+                              TempVATAmountLine."Line Amount", TempVATAmountLine."Inv. Disc. Base Amount",
+                              TempVATAmountLine."Invoice Discount Amount", TempVATAmountLine."VAT Base", TempVATAmountLine."VAT Amount");
                         end;
                     }
                     dataitem(VATCounterLCY; Integer)
@@ -695,34 +695,34 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
                         {
                             AutoFormatType = 1;
                         }
-                        column(VATAmtLineVAT1; VATAmountLine."VAT %")
+                        column(VATAmtLineVAT1; TempVATAmountLine."VAT %")
                         {
                         }
-                        column(VATAmtLineVATIdentifier1; VATAmountLine."VAT Identifier")
+                        column(VATAmtLineVATIdentifier1; TempVATAmountLine."VAT Identifier")
                         {
                         }
 
                         trigger OnAfterGetRecord()
                         begin
-                            VATAmountLine.GetLine(Number);
+                            TempVATAmountLine.GetLine(Number);
 
                             VALVATBaseLCY := ROUND(CurrExchRate.ExchangeAmtFCYToLCY(
                                   PurchaseHeader."Posting Date", PurchaseHeader."Currency Code",
-                                  VATAmountLine."VAT Base", PurchaseHeader."Currency Factor"));
+                                  TempVATAmountLine."VAT Base", PurchaseHeader."Currency Factor"));
                             VALVATAmountLCY := ROUND(CurrExchRate.ExchangeAmtFCYToLCY(
                                   PurchaseHeader."Posting Date", PurchaseHeader."Currency Code",
-                                  VATAmountLine."VAT Amount", PurchaseHeader."Currency Factor"));
+                                  TempVATAmountLine."VAT Amount", PurchaseHeader."Currency Factor"));
                         end;
 
                         trigger OnPreDataItem()
                         begin
                             IF (NOT GLSetup."Print VAT specification in LCY") OR
                                (PurchaseHeader."Currency Code" = '') OR
-                               (VATAmountLine.GetTotalVATAmount = 0)
+                               (TempVATAmountLine.GetTotalVATAmount() = 0)
                             THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
 
-                            SETRANGE(Number, 1, VATAmountLine.COUNT);
+                            SETRANGE(Number, 1, TempVATAmountLine.COUNT);
                             CurrReport.CREATETOTALS(VALVATBaseLCY, VALVATAmountLCY);
 
                             IF GLSetup."LCY Code" = '' THEN
@@ -742,28 +742,28 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
                         trigger OnPreDataItem()
                         begin
                             IF PurchaseHeader."Buy-from Vendor No." = PurchaseHeader."Pay-to Vendor No." THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                         end;
                     }
                 }
 
                 trigger OnAfterGetRecord()
                 begin
-                    CLEAR(PurchLine);
+                    CLEAR(TempPurchLine);
                     CLEAR(PurchPost);
-                    PurchLine.DELETEALL;
-                    VATAmountLine.DELETEALL;
-                    PurchPost.GetPurchLines(PurchaseHeader, PurchLine, 0);
-                    PurchLine.CalcVATAmountLines(0, PurchaseHeader, PurchLine, VATAmountLine);
-                    PurchLine.UpdateVATOnLines(0, PurchaseHeader, PurchLine, VATAmountLine);
-                    VATAmount := VATAmountLine.GetTotalVATAmount;
-                    VATBaseAmount := VATAmountLine.GetTotalVATBase;
+                    TempPurchLine.DELETEALL();
+                    TempVATAmountLine.DELETEALL();
+                    PurchPost.GetPurchLines(PurchaseHeader, TempPurchLine, 0);
+                    TempPurchLine.CalcVATAmountLines(0, PurchaseHeader, TempPurchLine, TempVATAmountLine);
+                    TempPurchLine.UpdateVATOnLines(0, PurchaseHeader, TempPurchLine, TempVATAmountLine);
+                    VATAmount := TempVATAmountLine.GetTotalVATAmount();
+                    VATBaseAmount := TempVATAmountLine.GetTotalVATBase();
                     VATDiscountAmount :=
-                      VATAmountLine.GetTotalVATDiscount(PurchaseHeader."Currency Code", PurchaseHeader."Prices Including VAT");
-                    TotalAmountInclVAT := VATAmountLine.GetTotalAmountInclVAT;
+                      TempVATAmountLine.GetTotalVATDiscount(PurchaseHeader."Currency Code", PurchaseHeader."Prices Including VAT");
+                    TotalAmountInclVAT := TempVATAmountLine.GetTotalAmountInclVAT();
 
                     IF Number > 1 THEN BEGIN
-                        CopyText := FormatDocument.GetCOPYText;
+                        CopyText := FormatDocument.GetCOPYText();
                         OutputNo += 1;
                     END;
                     CurrReport.PAGENO := 1;
@@ -811,17 +811,17 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
                     END;
 
                 IF G_Vendor.GET(PurchaseHeader."Buy-from Vendor No.") THEN;
-                L_PurchaseLine.RESET;
+                L_PurchaseLine.RESET();
                 L_PurchaseLine.SETRANGE("Document Type", PurchaseHeader."Document Type");
                 L_PurchaseLine.SETRANGE("Document No.", PurchaseHeader."No.");
                 L_PurchaseLine.SETRANGE(Type, L_PurchaseLine.Type::Item);
-                IF L_PurchaseLine.FINDFIRST THEN
+                IF L_PurchaseLine.FINDFIRST() THEN
                     IF L_SalesHeader.GET(L_SalesHeader."Document Type"::Order, L_PurchaseLine."BC6_Retrn. Sales OrderShpt") THEN
                         IF G_PurchaseHeader.GET(G_PurchaseHeader."Document Type"::Order, L_SalesHeader."BC6_Purchase No. Order Lien") THEN;
 
-                G_ReturnOrderRelation.RESET;
+                G_ReturnOrderRelation.RESET();
                 G_ReturnOrderRelation.SETRANGE("Purchase Return Order", PurchaseHeader."No.");
-                IF G_ReturnOrderRelation.FINDFIRST THEN;
+                IF G_ReturnOrderRelation.FINDFIRST() THEN;
             end;
         }
     }
@@ -876,8 +876,8 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
 
     trigger OnInitReport()
     begin
-        GLSetup.GET;
-        CompanyInfo.GET;
+        GLSetup.GET();
+        CompanyInfo.GET();
 
         CompanyInfo.CALCFIELDS(Picture);
     end;
@@ -893,11 +893,11 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
         Language: Record Language;
         G_PurchaseHeader: Record "Purchase Header";
         UserID: Record "Purchase Header";
-        PurchLine: Record "Purchase Line" temporary;
+        TempPurchLine: Record "Purchase Line" temporary;
         RespCenter: Record "Responsibility Center";
         SalesPurchPerson: Record "Salesperson/Purchaser";
         UserSetup: Record "User Setup";
-        VATAmountLine: Record "VAT Amount Line" temporary;
+        TempVATAmountLine: Record "VAT Amount Line" temporary;
         G_Vendor: Record Vendor;
         FormatAddr: Codeunit "Format Address";
         FormatDocument: Codeunit "Format Document";

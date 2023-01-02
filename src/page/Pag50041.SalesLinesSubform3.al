@@ -263,7 +263,7 @@ page 50041 "BC6_Sales Lines Subform 3"
     trigger OnAfterGetRecord()
     begin
         "Document No.HideValue" := FALSE;
-        DocumentNoOnFormat;
+        DocumentNoOnFormat();
     end;
 
     trigger OnOpenPage()
@@ -272,7 +272,7 @@ page 50041 "BC6_Sales Lines Subform 3"
         CALCFIELDS("BC6_Document Date flow");
         REPEAT
             "BC6_Document Date" := "BC6_Document Date flow";
-        UNTIL Rec.NEXT = 0;
+        UNTIL Rec.NEXT() = 0;
         //SETCURRENTKEY("Document Type","No.");
     end;
 
@@ -280,15 +280,15 @@ page 50041 "BC6_Sales Lines Subform 3"
         RecGSalesHeader: Record "Sales Header";
         TempSalesLine: Record "Sales Line" temporary;
         [InDataSet]
-        "Document No.HideValue": Boolean;
-        [InDataSet]
         "Document No.Emphasize": Boolean;
+        [InDataSet]
+        "Document No.HideValue": Boolean;
 
     local procedure IsFirstDocLine(): Boolean
     var
         SalesLine: Record "Sales Line";
     begin
-        TempSalesLine.RESET;
+        TempSalesLine.RESET();
         TempSalesLine.COPYFILTERS(Rec);
         TempSalesLine.SETRANGE("Document Type", "Document Type");
         TempSalesLine.SETRANGE("Document No.", "Document No.");
@@ -298,7 +298,7 @@ page 50041 "BC6_Sales Lines Subform 3"
             SalesLine.SETRANGE("Document No.", "Document No.");
             SalesLine.FIND('-');
             TempSalesLine := SalesLine;
-            TempSalesLine.INSERT;
+            TempSalesLine.INSERT();
         END;
         IF "Line No." = TempSalesLine."Line No." THEN
             EXIT(TRUE);
@@ -312,7 +312,7 @@ page 50041 "BC6_Sales Lines Subform 3"
 
     local procedure DocumentNoOnFormat()
     begin
-        IF IsFirstDocLine THEN
+        IF IsFirstDocLine() THEN
             "Document No.Emphasize" := TRUE
         ELSE
             "Document No.HideValue" := TRUE;

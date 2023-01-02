@@ -78,8 +78,8 @@ page 50046 "BC6_Salesperson authorized"
 
     var
         RecGAuthorizdeSalesperson: Record "BC6_Salesperson authorized";
-        RecGSalesperson: Record "Salesperson/Purchaser";
         RecGCustomer: Record Customer;
+        RecGSalesperson: Record "Salesperson/Purchaser";
         TxtGSalespersonFilter: Text[250];
 }
 

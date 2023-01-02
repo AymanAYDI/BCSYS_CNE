@@ -208,7 +208,7 @@ page 50122 "Stockkeeping Unit List ACTI"
                             COPYFILTER("Global Dimension 1 Filter", Item."Global Dimension 1 Filter");
                             COPYFILTER("Global Dimension 2 Filter", Item."Global Dimension 2 Filter");
                             COPYFILTER("Drop Shipment Filter", Item."Drop Shipment Filter");
-                            ItemAvailFormsMgt.ShowItemAvailFromItem(Item, ItemAvailFormsMgt.ByEvent);
+                            ItemAvailFormsMgt.ShowItemAvailFromItem(Item, ItemAvailFormsMgt.ByEvent());
                         end;
                     }
                     action(Period)
@@ -237,7 +237,7 @@ page 50122 "Stockkeeping Unit List ACTI"
                             Item.GET("Item No.");
                             Item.SETRANGE("Global Dimension 2 Filter", "Location Code");
                             Item.SETRANGE("Variant Filter", "Variant Code");
-                            ItemAvailFormsMgt.ShowItemAvailFromItem(Item, ItemAvailFormsMgt.ByBOM);
+                            ItemAvailFormsMgt.ShowItemAvailFromItem(Item, ItemAvailFormsMgt.ByBOM());
                         end;
                     }
                     action(Timeline)

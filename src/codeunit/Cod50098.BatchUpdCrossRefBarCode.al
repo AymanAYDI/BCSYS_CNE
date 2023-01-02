@@ -37,14 +37,13 @@ codeunit 50098 "Batch Upd. Cross Ref. Bar Code"
     end;
 
     var
-        Item: Record Item;
         InvSetup: Record "Inventory Setup";
+        Item: Record Item;
         ItemReference: Record "Item Reference";
         RefTypeNo: Code[20];
         Window: Dialog;
         Counter: Integer;
         TotalCounter: Integer;
-        Text001: Label 'Update Cross. Ref. Bar Code...', comment = 'FRA="Mise à jour magasin..."';
         Text002: Label '#1#####';
         Text003: Label 'Update Cross. Ref. Bar Code...', comment = 'FRA="Mise à jour magasin..."';
 }

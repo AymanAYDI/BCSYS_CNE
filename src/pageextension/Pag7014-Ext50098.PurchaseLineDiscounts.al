@@ -1,6 +1,6 @@
 pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts" //7014
 {
-    DataCaptionExpression = NewGetCaption;
+    DataCaptionExpression = NewGetCaption();
     //Unsupported feature: Property Insertion (SaveValues) on ""Purchase Line Discounts"(Page 7014)". TODO:
 
     layout
@@ -25,9 +25,8 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
 
                 trigger OnLookup(var Text: Text): Boolean
                 var
-                    ItemList: Page "Item List";
                     ItemDiscGrList: Page "Item Disc. Groups";
-                    VendorList: Page "Vendor List";
+                    ItemList: Page "Item List";
                 begin
                     CASE BC6_Type OF
                         BC6_Type::Item:
@@ -94,18 +93,17 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
     }
 
     var
-        ItemDiscGrList: Page "Item Disc. Groups";
-        VendorList: Page "Vendor List";
-        "-NSC1.01-": Integer;
-        ItemTypeFilter: Enum "BC6_Item Type Filter";
-        CodeFilter: Text[250];
         Item: Record Item;
         ItemDiscGr: Record "Item Discount Group";
+        ItemDiscGrList: Page "Item Disc. Groups";
+        VendorList: Page "Vendor List";
         [InDataSet]
         BooGCodeFilterCtrl: Boolean;
-        VendNoFilter: Text;
+        ItemTypeFilter: Enum "BC6_Item Type Filter";
         ItemNoFilter: Text;
+        VendNoFilter: Text;
         StartingDateFilter: Text[30];
+        CodeFilter: Text[250];
 
 
 
@@ -166,10 +164,10 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
 
     local procedure NewGetCaption(): Text[250]
     var
-        Vendor: Record Vendor;
         ObjTransl: Record "Object Translation";
-        SourceTableName: Text[250];
+        Vendor: Record Vendor;
         Description: Text[250];
+        SourceTableName: Text[250];
     begin
         GetRecFilters();
 

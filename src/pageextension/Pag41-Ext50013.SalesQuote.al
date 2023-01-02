@@ -149,7 +149,7 @@ pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
                     RecLSalesHeader.SETRECFILTER();
                     RptLSalesQuote.SETTABLEVIEW(RecLSalesHeader);
                     RptLSalesQuote.DefineTagFax("BC6_Sell-to Fax No.");
-                    RptLSalesQuote.RUN;
+                    RptLSalesQuote.RUN();
                 end;
             }
         }

@@ -158,7 +158,7 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
                     CLEAR(FromItem);
                     CurrPage.SETSELECTIONFILTER(FromItem);
                     PrintLabel.SETTABLEVIEW(FromItem);
-                    PrintLabel.RUN;
+                    PrintLabel.RUN();
                 end;
             }
             action("Créer code-barres interne")
@@ -218,12 +218,12 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
 
 
     var
-        DistInt: Codeunit "Dist. Integration";
-        EAN13Code: Code[20];
-        UpdateICPartnerItemsEnabled: Boolean;
-        BooGBlocked: Boolean;
         GlobalFct: Codeunit BC6_GlobalFunctionMgt;
+        DistInt: Codeunit "Dist. Integration";
+        BooGBlocked: Boolean;
         ShowIncreaseCoeff: Boolean;
+        UpdateICPartnerItemsEnabled: Boolean;
+        EAN13Code: Code[20];
 
 
 

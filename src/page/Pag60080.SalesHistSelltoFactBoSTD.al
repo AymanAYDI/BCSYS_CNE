@@ -15,7 +15,7 @@ page 60080 "Sales Hist. Sell-to FactBo STD"
 
                 trigger OnDrillDown()
                 begin
-                    ShowDetails;
+                    ShowDetails();
                 end;
             }
             field("No. of Quotes"; "No. of Quotes")

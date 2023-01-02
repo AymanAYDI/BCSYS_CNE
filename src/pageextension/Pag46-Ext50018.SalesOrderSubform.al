@@ -63,7 +63,7 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
 
                 trigger OnValidate()
                 begin
-                    UpdateIncreasedFields;
+                    UpdateIncreasedFields();
                 end;
             }
             field("BC6_Increase Purchase cost"; IncrPurchCost)
@@ -74,7 +74,7 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
                 trigger OnValidate()
                 begin
                     ValidateIncreasePurchCost(IncrPurchCost);
-                    UpdateIncreasedFields;
+                    UpdateIncreasedFields();
                 end;
             }
             field("BC6_Public Price"; "BC6_Public Price")
@@ -127,7 +127,7 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
 
                 trigger OnValidate()
                 begin
-                    UpdateIncreasedFields;
+                    UpdateIncreasedFields();
                 end;
             }
             field("BC6_Increase Profit %"; IncrProfit)
@@ -138,7 +138,7 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
                 trigger OnValidate()
                 begin
                     ValidateIncreaseProfit(IncrProfit, IncrPurchCost);
-                    UpdateIncreasedFields;
+                    UpdateIncreasedFields();
                 end;
             }
 
@@ -234,7 +234,7 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
 
     trigger OnAfterGetRecord()
     begin
-        UpdateIncreasedFields;
+        UpdateIncreasedFields();
 
         ShowRealProfit := FALSE;
         IF UserSetup.GET(USERID) THEN
@@ -250,15 +250,15 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
 
     trigger OnModifyRecord(): Boolean
     begin
-        UpdateIncreasedFields
+        UpdateIncreasedFields()
     end;
 
 
     var
-        IncrPurchCost: Decimal;
-        IncrProfit: Decimal;
-        ShowRealProfit: Boolean;
         UserSetup: Record "User Setup";
+        ShowRealProfit: Boolean;
+        IncrProfit: Decimal;
+        IncrPurchCost: Decimal;
 
 
     procedure UpdateIncreasedFields()

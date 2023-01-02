@@ -37,7 +37,7 @@ page 50106 "BC6_Add Log Purch. Comment"
     end;
 
     var
-        Qty: Integer;
         ReceiptType: Enum "BC6_ReceiptType";
+        Qty: Integer;
 }
 

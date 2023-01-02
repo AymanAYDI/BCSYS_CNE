@@ -19,7 +19,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                     trigger OnAssistEdit()
                     begin
                         IF AssistEdit(xRec) THEN
-                            CurrPage.UPDATE;
+                            CurrPage.UPDATE();
                     end;
                 }
                 field("Buy-from Vendor No."; "Buy-from Vendor No.")
@@ -27,7 +27,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
 
                     trigger OnValidate()
                     begin
-                        BuyfromVendorNoOnAfterValidate;
+                        BuyfromVendorNoOnAfterValidate();
                     end;
                 }
                 field("Buy-from Contact No."; "Buy-from Contact No.")
@@ -84,7 +84,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
 
                     trigger OnValidate()
                     begin
-                        PurchaserCodeOnAfterValidate;
+                        PurchaserCodeOnAfterValidate();
                     end;
                 }
                 field("No. of Archived Versions"; "No. of Archived Versions")
@@ -113,7 +113,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
 
                     trigger OnValidate()
                     begin
-                        PaytoVendorNoOnAfterValidate;
+                        PaytoVendorNoOnAfterValidate();
                     end;
                 }
                 field("Pay-to Contact No."; "Pay-to Contact No.")
@@ -143,7 +143,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
 
                     trigger OnValidate()
                     begin
-                        ShortcutDimension1CodeOnAfterValidate;
+                        ShortcutDimension1CodeOnAfterValidate();
                     end;
                 }
                 field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
@@ -151,7 +151,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
 
                     trigger OnValidate()
                     begin
-                        ShortcutDimension2CodeOnAfterValidate;
+                        ShortcutDimension2CodeOnAfterValidate();
                     end;
                 }
                 field("Payment Terms Code"; "Payment Terms Code")
@@ -177,7 +177,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
 
                     trigger OnValidate()
                     begin
-                        PricesIncludingVATOnAfterValidate;
+                        PricesIncludingVATOnAfterValidate();
                     end;
                 }
                 field("VAT Bus. Posting Group"; "VAT Bus. Posting Group")
@@ -244,9 +244,9 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                     begin
                         CLEAR(ChangeExchangeRate);
                         ChangeExchangeRate.SetParameter("Currency Code", "Currency Factor", "Posting Date");
-                        IF ChangeExchangeRate.RUNMODAL = ACTION::OK THEN BEGIN
-                            VALIDATE("Currency Factor", ChangeExchangeRate.GetParameter);
-                            CurrPage.UPDATE;
+                        IF ChangeExchangeRate.RUNMODAL() = ACTION::OK THEN BEGIN
+                            VALIDATE("Currency Factor", ChangeExchangeRate.GetParameter());
+                            CurrPage.UPDATE();
                         END;
                         CLEAR(ChangeExchangeRate);
                     end;
@@ -287,10 +287,10 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
 
                     trigger OnAction()
                     begin
-                        PurchSetup.GET;
+                        PurchSetup.GET();
                         IF PurchSetup."Calc. Inv. Discount" THEN BEGIN
-                            CurrPage.PurchLines.PAGE.ApproveCalcInvDisc;
-                            COMMIT;
+                            CurrPage.PurchLines.PAGE.ApproveCalcInvDisc();
+                            COMMIT();
                         END;
                         PAGE.RUNMODAL(PAGE::"Purchase Order Statistics", Rec);
                     end;
@@ -334,7 +334,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
 
                     trigger OnAction()
                     begin
-                        Rec.ShowDocDim;
+                        Rec.ShowDocDim();
                     end;
                 }
                 separator(Action181)
@@ -420,7 +420,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                 trigger OnAction()
                 begin
                     IF NOT "BC6_From Sales Module" THEN
-                        CurrPage.PurchLines.PAGE.ChooseSalesLineOrderToAffect
+                        CurrPage.PurchLines.PAGE.ChooseSalesLineOrderToAffect()
                     ELSE
                         MESSAGE(txtg001);
                 end;
@@ -435,7 +435,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
 
                     trigger OnAction()
                     begin
-                        CurrPage.PurchLines.PAGE.ApproveCalcInvDisc;
+                        CurrPage.PurchLines.PAGE.ApproveCalcInvDisc();
                     end;
                 }
                 separator(Action190)
@@ -481,7 +481,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
 
                     trigger OnAction()
                     begin
-                        CurrPage.PurchLines.PAGE.ShowTracking;
+                        CurrPage.PurchLines.PAGE.ShowTracking();
                     end;
                 }
                 separator(Action151)
@@ -496,7 +496,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                     trigger OnAction()
                     begin
                         CopyPurchDoc.SetPurchHeader(Rec);
-                        CopyPurchDoc.RUNMODAL;
+                        CopyPurchDoc.RUNMODAL();
                         CLEAR(CopyPurchDoc);
                     end;
                 }
@@ -521,8 +521,8 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                     begin
                         CLEAR(MoveNegPurchLines);
                         MoveNegPurchLines.SetPurchHeader(Rec);
-                        MoveNegPurchLines.RUNMODAL;
-                        MoveNegPurchLines.ShowDocument;
+                        MoveNegPurchLines.RUNMODAL();
+                        MoveNegPurchLines.ShowDocument();
                     end;
                 }
                 separator(Action189)
@@ -603,7 +603,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
 
                     trigger OnAction()
                     begin
-                        IF NOT ControleMinimMNTandQTE THEN
+                        IF NOT ControleMinimMNTandQTE() THEN
                             ReportPrint.PrintPurchHeader(Rec);
                     end;
                 }
@@ -637,7 +637,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
 
                     trigger OnAction()
                     begin
-                        IF NOT ControleMinimMNTandQTE THEN BEGIN
+                        IF NOT ControleMinimMNTandQTE() THEN BEGIN
                             REPORT.RUNMODAL(REPORT::"Batch Post Purchase Orders", TRUE, TRUE, Rec);
                             CurrPage.UPDATE(FALSE);
                         END;
@@ -654,7 +654,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
 
                 trigger OnAction()
                 begin
-                    IF ControleMinimMNTandQTE THEN
+                    IF ControleMinimMNTandQTE() THEN
                         EXIT;
 
                     DocPrint.PrintPurchHeader(Rec);
@@ -676,7 +676,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                                 DocPrint.PrintPurchHeader(Rec);
                             END;
                         2:
-                            EnvoiMail;
+                            EnvoiMail();
                     END;
                 end;
             }
@@ -685,8 +685,8 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
 
     trigger OnDeleteRecord(): Boolean
     begin
-        CurrPage.SAVERECORD;
-        EXIT(ConfirmDeletion);
+        CurrPage.SAVERECORD();
+        EXIT(ConfirmDeletion());
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
@@ -733,7 +733,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
         cust.SETRANGE(cust."No.", "Sell-to Customer No.");
         IF cust.FindFirst() THEN
             cust.TESTFIELD("E-Mail");
-        OpenFile;
+        OpenFile();
         IF nameF <> '' THEN BEGIN
             Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + "No.", '', nameF, FALSE);
             ERASE(nameF);
@@ -758,7 +758,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
 
     local procedure BuyfromVendorNoOnAfterValidate()
     begin
-        CurrPage.UPDATE;
+        CurrPage.UPDATE();
     end;
 
     local procedure PurchaserCodeOnAfterValidate()
@@ -768,7 +768,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
 
     local procedure PaytoVendorNoOnAfterValidate()
     begin
-        CurrPage.UPDATE;
+        CurrPage.UPDATE();
     end;
 
     local procedure ShortcutDimension1CodeOnAfterValidate()
@@ -783,7 +783,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
 
     local procedure PricesIncludingVATOnAfterValidate()
     begin
-        CurrPage.UPDATE;
+        CurrPage.UPDATE();
     end;
 }
 

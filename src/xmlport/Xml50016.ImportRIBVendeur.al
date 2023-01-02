@@ -41,7 +41,7 @@ xmlport 50016 "BC6_Import RIB Vendeur"
                 trigger OnBeforeInsertRecord()
                 begin
 
-                    RibVend.RESET;
+                    RibVend.RESET();
                     RibVend."Vendor No." := NumVend;
                     RibVend.Code := CodeVend;
                     RibVend."Bank Branch No." := CodeEtab;
@@ -51,7 +51,7 @@ xmlport 50016 "BC6_Import RIB Vendeur"
                     IF EVALUATE(RibVend."RIB Key", RIB) THEN;
                     RibVend.Name := Nom;
                     RibVend."Name 2" := Nom2;
-                    RibVend.INSERT;
+                    RibVend.INSERT();
                 end;
             }
         }
@@ -74,7 +74,7 @@ xmlport 50016 "BC6_Import RIB Vendeur"
 
         RibVend.SETRANGE(Code, '');
         IF RibVend.FIND('-') THEN
-            RibVend.DELETE;
+            RibVend.DELETE();
     end;
 
     var

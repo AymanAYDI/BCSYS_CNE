@@ -2,18 +2,14 @@ codeunit 60000 "BC6_UpdateVersionListForMig"
 {
 
     trigger OnRun()
-    var
-        VersionList: Text;
-        Pos: Integer;
     begin
         MyTag := 'MIG2017';
-        AddATag;
+        AddATag();
         MESSAGE('End');
     end;
 
     var
         "Object": Record Object;
-        LicPermission: Record "License Permission";
         MyTag: Text;
 
     local procedure DeleteATag()
@@ -28,9 +24,9 @@ codeunit 60000 "BC6_UpdateVersionListForMig"
                 Pos := STRPOS(Object."Version List", ',MyTag');
                 if Pos <> 0 then begin
                     Object."Version List" := DELSTR(Object."Version List", Pos, STRLEN(',MyTag'));
-                    Object.MODIFY;
+                    Object.MODIFY();
                 end;
-            until Object.NEXT = 0;
+            until Object.NEXT() = 0;
         MESSAGE('End');
 
         exit;
@@ -42,7 +38,7 @@ codeunit 60000 "BC6_UpdateVersionListForMig"
         Object.SETFILTER("Version List", '<>*%1*', MyTag);
         Object.SETFILTER(Object.Type, '<>%1&', Object.Type::TableData);
         Object.SETFILTER(ID, '<50000|>99999');
-        if Object.FINDFIRST then
+        if Object.FINDFIRST() then
             ERROR('%1', Object);
         repeat
             if STRPOS(Object."Version List", MyTag) = 0 then begin
@@ -52,7 +48,7 @@ codeunit 60000 "BC6_UpdateVersionListForMig"
                     Object."Version List" := MyTag;
                 Object.MODIFY();
             end;
-        until Object.NEXT = 0;
+        until Object.NEXT() = 0;
     end;
 }
 

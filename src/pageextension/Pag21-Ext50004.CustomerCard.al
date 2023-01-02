@@ -239,16 +239,16 @@ pageextension 50004 "BC6_CustomerCard" extends "Customer Card" //21
 
     var
 
-        TxtGTransType: Text[100];
-        TxtGTransSpe: Text[100];
-        TxtGTransMeth: Text[100];
-        TxtGESPoint: Text[100];
-        TxtGArea: Text[100];
-        RecGTransType: Record "Transaction Type";
-        RecGTransSpe: Record "Transaction Specification";
-        RecGTransMeth: Record "Transport Method";
-        RecGTransESPoint: Record "Entry/Exit Point";
         RecGArea: Record "Area";
+        RecGTransESPoint: Record "Entry/Exit Point";
+        RecGTransSpe: Record "Transaction Specification";
+        RecGTransType: Record "Transaction Type";
+        RecGTransMeth: Record "Transport Method";
+        TxtGArea: Text[100];
+        TxtGESPoint: Text[100];
+        TxtGTransMeth: Text[100];
+        TxtGTransSpe: Text[100];
+        TxtGTransType: Text[100];
 
     procedure "---NSC1.00---"()
     begin

@@ -17,13 +17,13 @@ codeunit 50203 "BC6_PagesEvents"
     var
         Cust: record customer;
         CalcType: Enum "Customer Apply Calculation Type"; //CHECK ME!
-        TextGestTierPayeur001: Label 'There is no ledger entries.; FRA=Il n''y a pas d''écitures.';
+        TextGestTierPayeur001: Label 'There is no ledger entries.', comment = 'FRA="Il n''y a pas d''écitures."';
 
     begin
         Cust.get(Cust."No.");
-        if CalcType = CalcType::Direct then begin
+        if CalcType = CalcType::Direct then
             IF NOT Cust.GET(CustLedgerEntry."Customer No.") AND NOT Cust.GET(CustLedgerEntry."BC6_Pay-to Customer No.") THEN ERROR(TextGestTierPayeur001);
-        end;
+
     End;
 
     //Page 5703
@@ -67,7 +67,7 @@ codeunit 50203 "BC6_PagesEvents"
                 2:
                     BEGIN
                         SalesHeader.TESTFIELD(Status, "Sales Document Status"::Released);
-                        "Sales Return Order".EnvoiMail;
+                        "Sales Return Order".EnvoiMail();
                     END;
             end;
     end;
@@ -83,9 +83,9 @@ codeunit 50203 "BC6_PagesEvents"
         //TODO://  SumPurchLinesTemp has changes in the parameters (when we merge the cod90)
         // PurchPost.SumPurchLinesTemp(
         //  PurchHeader , TempPurchLine, 0, TempPurchLine, TotalPurchLineLCY, VATAmount, VATAmountText,DecGHTAmount,DecGVATAmount,DecGTTCAmount,DecGHTAmountLCY);
-        IF not PurchHeader."Prices Including VAT" THEN begin
+        IF not PurchHeader."Prices Including VAT" THEN
             TotalAmt2 := TotalAmt2 + DecGTTCAmount;
-        END;
+
     end;
 
     [EventSubscriber(ObjectType::Page, Page::"Purchase Statistics", 'OnAfterUpdateHeaderInfo', '', false, false)]
@@ -94,9 +94,9 @@ codeunit 50203 "BC6_PagesEvents"
         TempVATAmountLine: Record "VAT Amount Line" temporary;
         GlobalFct: Codeunit BC6_GlobalFunctionMgt;
     begin
-        GlobalFct.SetDecGVATAmount(TempVATAmountLine.GetTotalVATDEEEAmount);
-        GlobalFct.SetDecGTTCAmount(TempVATAmountLine.GetTotalAmountDEEEInclVAT);
-        GlobalFct.SetVATAmount(TempVATAmountLine.GetTotalVATAmount + GlobalFct.GetDecGVATAmount);
+        GlobalFct.SetDecGVATAmount(TempVATAmountLine.GetTotalVATDEEEAmount());
+        GlobalFct.SetDecGTTCAmount(TempVATAmountLine.GetTotalAmountDEEEInclVAT());
+        GlobalFct.SetVATAmount(TempVATAmountLine.GetTotalVATAmount() + GlobalFct.GetDecGVATAmount());
     end;
 
     [EventSubscriber(ObjectType::Page, Page::"Apply Customer Entries", 'OnBeforeSetApplyingCustLedgEntry', '', false, false)]
@@ -132,13 +132,13 @@ codeunit 50203 "BC6_PagesEvents"
     [EventSubscriber(ObjectType::Page, Page::"Purchase Order Subform", 'OnBeforeInsertExtendedText', '', false, false)]
     local procedure OnBeforeInsertExtendedText(var PurchaseLine: Record "Purchase Line"; var IsHandled: Boolean)
     var
+        FctMngt: Codeunit "BC6_Functions Mgt";
         TransferExtendedText: Codeunit "Transfer Extended Text";
         PurchOrd: page "Purchase Order Subform";
         Unconditionally: Boolean;
-        FctMngt: Codeunit "BC6_Functions Mgt";
     begin
         if TransferExtendedText.PurchCheckIfAnyExtText(PurchaseLine, Unconditionally) then begin
-            PurchOrd.SaveRecord;
+            PurchOrd.SaveRecord();
             TransferExtendedText.InsertPurchExtText(PurchaseLine);
             FctMngt.InsertPurchExtTextSpe(PurchaseLine);
         end;
@@ -227,9 +227,9 @@ codeunit 50203 "BC6_PagesEvents"
 
     local procedure COD90_OnPostLedgerEntryOnAfterGenJnlPostLine(var GenJnlLine: Record "Gen. Journal Line"; var PurchHeader: Record "Purchase Header"; var TotalPurchLine: Record "Purchase Line"; var TotalPurchLineLCY: Record "Purchase Line"; PreviewMode: Boolean; SuppressCommit: Boolean; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line")
     var
-        _EcoPartnerDEEE: Code[10];
-        _DEEECategoryCode: code[10];
         GlobalFunction: Codeunit "BC6_GlobalFunctionMgt";
+        _DEEECategoryCode: code[10];
+        _EcoPartnerDEEE: Code[10];
     begin
 
         GenJnlLine."BC6_DEEE HT Amount" := TotalPurchLine."BC6_DEEE HT Amount";
@@ -257,11 +257,11 @@ codeunit 50203 "BC6_PagesEvents"
     local procedure COD90_OnBeforeValidatePostingAndDocumentDate(var PurchaseHeader: Record "Purchase Header"; CommitIsSupressed: Boolean)
     var
         RecLNavisetup: Record "BC6_Navi+ Setup";
-        FctMngt: Codeunit "BC6_Functions Mgt";
         AssemPost: Codeunit "Assembly-Post";
+        FctMngt: Codeunit "BC6_Functions Mgt";
     begin
-        IF RecLNavisetup.GET AND RecLNavisetup."Date jour ds date facture Acha" then
-            AssemPost.SetPostingDate(TRUE, WORKDATE);
+        IF RecLNavisetup.GET() AND RecLNavisetup."Date jour ds date facture Acha" then
+            AssemPost.SetPostingDate(TRUE, WORKDATE());
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnFinalizePostingOnBeforeUpdateAfterPosting', '', false, false)]
@@ -271,7 +271,7 @@ codeunit 50203 "BC6_PagesEvents"
         CduGArchiveManagement: codeunit ArchiveManagement;
     begin
         if not IsHandled then
-            IF RecLNavisetup.GET THEN
+            IF RecLNavisetup.GET() THEN
                 IF RecLNavisetup."Filing Purchases Orders" AND (PurchHeader."Document Type" = PurchHeader."Document Type"::Order) THEN
                     CduGArchiveManagement.StorePurchDocument(PurchHeader, FALSE);
     end;
@@ -355,17 +355,17 @@ codeunit 50203 "BC6_PagesEvents"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Quote to Order", 'OnCreatePurchHeaderOnAfterInitFromPurchHeader', '', false, false)]
     local procedure COD96_OnCreatePurchHeaderOnAfterInitFromPurchHeader(var PurchOrderHeader: Record "Purchase Header"; PurchHeader: Record "Purchase Header")
     begin
-        PurchOrderHeader."Posting Date" := WORKDATE;
+        PurchOrderHeader."Posting Date" := WORKDATE();
     end;
     //COD 260
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Document-Mailing", 'OnBeforeGetEmailSubject', '', false, false)]
     local procedure COD260_OnBeforeGetEmailSubject(PostedDocNo: Code[20]; EmailDocumentName: Text[250]; ReportUsage: Integer; var EmailSubject: Text[250]; var IsHandled: Boolean)
     var
+        CompanyInformation: Record "Company Information";
+        EmailSubjectCapTxt: Label '%1 - %2 %3';
+        EmailSubjectPluralCapTxt: Label '%1 - %2';
         YourReference: Text;
         Subject: Text[250];
-        CompanyInformation: Record "Company Information";
-        EmailSubjectPluralCapTxt: Label '%1 - %2';
-        EmailSubjectCapTxt: Label '%1 - %2 %3';
 
     begin
         if PostedDocNo = '' then
@@ -382,22 +382,22 @@ codeunit 50203 "BC6_PagesEvents"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item-Check Avail.", 'OnBeforeCreateAndSendNotification', '', false, false)]
     local procedure COD311_OnBeforeCreateAndSendNotification(ItemNo: Code[20]; UnitOfMeasureCode: Code[20]; InventoryQty: Decimal; GrossReq: Decimal; ReservedReq: Decimal; SchedRcpt: Decimal; ReservedRcpt: Decimal; CurrentQuantity: Decimal; CurrentReservedQty: Decimal; TotalQuantity: Decimal; EarliestAvailDate: Date; RecordId: RecordID; LocationCode: Code[10]; ContextInfo: Dictionary of [Text, Text]; var Rollback: Boolean; var IsHandled: Boolean)
     var
+        ItemCheckAvail: Codeunit "Item-Check Avail.";
+        NotificationLifecycleMgt: Codeunit "Notification Lifecycle Mgt.";
         ItemAvailabilityCheck: Page "Item Availability Check";
 
-        LastNotification: Notification;
-
         AvailabilityCheckNotification: Notification;
+
+        LastNotification: Notification;
         VariantCode: code[20];
         DetailsTxt: Label 'Show details';
-        NotificationMsg: Label 'The available inventory for item %1 is lower than the entered quantity at this location.';
         DontShowAgainTxt: Label 'Don''t show again';
-        NotificationLifecycleMgt: Codeunit "Notification Lifecycle Mgt.";
-        ItemCheckAvail: Codeunit "Item-Check Avail.";
+        NotificationMsg: Label 'The available inventory for item %1 is lower than the entered quantity at this location.';
 
     begin
         IsHandled := true; //TODO: CHECKME !
 
-        AvailabilityCheckNotification.Id(CreateGuid);
+        AvailabilityCheckNotification.Id(CreateGuid());
         AvailabilityCheckNotification.Message(StrSubstNo(NotificationMsg, ItemNo));
         AvailabilityCheckNotification.Scope(NOTIFICATIONSCOPE::LocalScope);
         AvailabilityCheckNotification.AddAction(DetailsTxt, CODEUNIT::"Item-Check Avail.", 'ShowNotificationDetails');
@@ -410,7 +410,7 @@ codeunit 50203 "BC6_PagesEvents"
 
         ItemAvailabilityCheck.PopulateDataOnNotification(AvailabilityCheckNotification, 'VariantCode', VariantCode);
         NotificationLifecycleMgt.SendNotificationWithAdditionalContext(
-          AvailabilityCheckNotification, RecordId, ItemCheckAvail.GetItemAvailabilityNotificationId);
+          AvailabilityCheckNotification, RecordId, ItemCheckAvail.GetItemAvailabilityNotificationId());
         exit;
 
     end;
@@ -419,11 +419,11 @@ codeunit 50203 "BC6_PagesEvents"
     procedure COD312_OnNewCheckRemoveCustomerNotifications(RecId: RecordID; RecallCreditOverdueNotif: Boolean)
     var
         SalesHeader: Record "Sales Header";
-        InstructionMgt: Codeunit "Instruction Mgt.";
         CustCheckCrLimit: codeunit "Cust-Check Cr. Limit";
-        AdditionalContextId: Guid;
+        InstructionMgt: Codeunit "Instruction Mgt.";
         CustCheckCreditLimit: Page "Check Credit Limit";
         LastNotification: Notification;
+        AdditionalContextId: Guid;
 
     begin
 
@@ -440,8 +440,8 @@ codeunit 50203 "BC6_PagesEvents"
     local procedure COD312_OnBeforeCreateAndSendNotification(RecordId: RecordID; AdditionalContextId: Guid; Heading: Text[250]; NotificationToSend: Notification; var IsHandled: Boolean; var CustCheckCreditLimit: Page "Check Credit Limit");
     var
         NotificationLifecycleMgt: Codeunit "Notification Lifecycle Mgt.";
-        LastNotification: Notification;
         CreditLimitNotification: Notification;
+        LastNotification: Notification;
         GetDetailsTxt: Label 'Show details';
 
     begin
@@ -468,16 +468,16 @@ codeunit 50203 "BC6_PagesEvents"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Release Purchase Document", 'OnCodeOnBeforeModifyHeader', '', false, false)]
     local procedure COD415_OnCodeOnBeforeModifyHeader(var PurchaseHeader: Record "Purchase Header"; var PurchaseLine: Record "Purchase Line"; PreviewMode: Boolean; var LinesWereModified: Boolean)
     var
-        RecLSalesLine: Record "Sales Line";
         RecLPurchLine2: Record "Purchase Line";
+        RecLSalesLine: Record "Sales Line";
     begin
-        RecLPurchLine2.RESET;
+        RecLPurchLine2.RESET();
         RecLPurchLine2.SETRANGE(RecLPurchLine2."Document Type", PurchaseHeader."Document Type");
         RecLPurchLine2.SETRANGE(RecLPurchLine2."Document No.", PurchaseHeader."No.");
         IF RecLPurchLine2.FindFirst() THEN BEGIN
             REPEAT
                 IF (RecLPurchLine2."BC6_Sales No." <> '') AND (RecLPurchLine2."BC6_Sales Line No." <> 0) THEN BEGIN
-                    RecLSalesLine.RESET;
+                    RecLSalesLine.RESET();
                     RecLSalesLine.SETRANGE(RecLSalesLine."Document Type", RecLPurchLine2."BC6_Sales Document Type");
                     RecLSalesLine.SETRANGE(RecLSalesLine."Document No.", RecLPurchLine2."BC6_Sales No.");
                     RecLSalesLine.SETRANGE(RecLSalesLine."Line No.", RecLPurchLine2."BC6_Sales Line No.");
@@ -486,10 +486,10 @@ codeunit 50203 "BC6_PagesEvents"
                         RecLSalesLine.SuspendStatusCheck(TRUE);
                         //<<PDW : le 04/08/15
                         RecLSalesLine.VALIDATE("BC6_Purchase cost", RecLPurchLine2."BC6_Discount Direct Unit Cost");
-                        RecLSalesLine.MODIFY;
+                        RecLSalesLine.MODIFY();
                     END;
                 END;
-            UNTIL RecLPurchLine2.NEXT = 0;
+            UNTIL RecLPurchLine2.NEXT() = 0;
         END;
         PurchaseLine.Modify(true);
         //////
@@ -500,12 +500,12 @@ codeunit 50203 "BC6_PagesEvents"
 
     local procedure COD415_OnBeforeReleasePurchaseDoc(var PurchaseHeader: Record "Purchase Header"; PreviewMode: Boolean)
     var
+        FctMngt: Codeunit "BC6_GlobalFunctionMgt";
         HideValidationDialog: Boolean;
-        FctMngt: Codeunit "BC6_Functions Mgt";
     begin
         IF PurchaseHeader."Document Type" = PurchaseHeader."Document Type"::Order THEN BEGIN
             FctMngt.SetHideValidationDialog(HideValidationDialog);
-            IF PurchaseHeader.ControleMinimMNTandQTE THEN
+            IF PurchaseHeader.ControleMinimMNTandQTE() THEN
                 EXIT;
         END;
         //TODO: checkMe ! 
@@ -522,7 +522,7 @@ codeunit 50203 "BC6_PagesEvents"
 
         if ApprovalsMgmt.IsPurchaseHeaderPendingApproval(PurchaseHeader) then
             Error(Text002);
-        COMMIT;
+        COMMIT();
     end;
 
 }

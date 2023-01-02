@@ -31,7 +31,7 @@ page 50066 "BC6_Inventory Card MiniForm F3"
                     Bin: Record Bin;
                 begin
                     CLEAR(BinForm);
-                    Bin.RESET;
+                    Bin.RESET();
                     IF LocationCode <> '' THEN
                         Bin.SETRANGE("Location Code", LocationCode);
                     BinForm.SETTABLEVIEW(Bin);
@@ -39,7 +39,7 @@ page 50066 "BC6_Inventory Card MiniForm F3"
                     IF FromBinCode <> '' THEN
                         IF Bin.GET(LocationCode, FromBinCode) THEN
                             BinForm.SETRECORD(Bin);
-                    IF BinForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                    IF BinForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                         BinForm.GETRECORD(Bin);
                         FromBinCode := Bin.Code;
                         AssignFromBinCode(FromBinCode);
@@ -50,7 +50,7 @@ page 50066 "BC6_Inventory Card MiniForm F3"
 
                 trigger OnValidate()
                 begin
-                    FromBinCodeOnAfterValidate;
+                    FromBinCodeOnAfterValidate();
                 end;
             }
             field(ItemNoCtrl; ItemNo)
@@ -67,13 +67,13 @@ page 50066 "BC6_Inventory Card MiniForm F3"
                     Item: Record Item;
                 begin
                     CLEAR(ItemForm);
-                    Item.RESET;
+                    Item.RESET();
                     ItemForm.SETTABLEVIEW(Item);
                     ItemForm.LOOKUPMODE(TRUE);
                     IF ItemNo <> '' THEN
                         IF Item.GET(ItemNo) THEN
                             ItemForm.SETRECORD(Item);
-                    IF ItemForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                    IF ItemForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                         ItemForm.GETRECORD(Item);
                         ItemNo := Item."No.";
                         AssignItemNo(ItemNo);
@@ -82,7 +82,7 @@ page 50066 "BC6_Inventory Card MiniForm F3"
 
                 trigger OnValidate()
                 begin
-                    ItemNoOnAfterValidate;
+                    ItemNoOnAfterValidate();
                 end;
             }
             field(Description; Description)
@@ -105,7 +105,7 @@ page 50066 "BC6_Inventory Card MiniForm F3"
                     IF FromBinCode = '' THEN
                         ERROR('Veuillez spécifier l''emplacement.');
 
-                    QtyOnAfterValidate;
+                    QtyOnAfterValidate();
                 end;
             }
             field(LocationCodeCtrl; LocationCode)
@@ -124,13 +124,13 @@ page 50066 "BC6_Inventory Card MiniForm F3"
                 begin
 
                     CLEAR(LocationForm);
-                    Location.RESET;
+                    Location.RESET();
                     Location.SETRANGE("Bin Mandatory", TRUE);
                     LocationForm.SETTABLEVIEW(Location);
                     LocationForm.LOOKUPMODE(TRUE);
                     IF Location.FIND('-') THEN
                         LocationForm.SETRECORD(Location);
-                    IF LocationForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                    IF LocationForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                         LocationForm.GETRECORD(Location);
                         LocationCode := Location.Code;
                         AssignLocationCode(LocationCode);
@@ -139,7 +139,7 @@ page 50066 "BC6_Inventory Card MiniForm F3"
 
                 trigger OnValidate()
                 begin
-                    LocationCodeOnAfterValidate;
+                    LocationCodeOnAfterValidate();
                 end;
             }
         }
@@ -163,25 +163,25 @@ page 50066 "BC6_Inventory Card MiniForm F3"
                     PgeLInventoryItemSelection: Page "BC6_Inventory Card MiniForm F2";
                 begin
                     CLEAR(LastJnlLine);
-                    LastJnlLine.RESET;
+                    LastJnlLine.RESET();
                     LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
                     LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
                     IF LastJnlLine.FIND('+') THEN BEGIN
-                        INIT;
+                        INIT();
                         "Journal Template Name" := LastJnlLine."Journal Template Name";
                         "Journal Batch Name" := LastJnlLine."Journal Batch Name";
                         "Line No." := LastJnlLine."Line No." + 10000;
                         VALIDATE("Entry Type", "Entry Type"::"Positive Adjmt.");
-                        VALIDATE("Posting Date", WORKDATE);
+                        VALIDATE("Posting Date", WORKDATE());
                         "Document No." := LastJnlLine."Document No.";
                         "Location Code" := LastJnlLine."Location Code";
                         "Bin Code" := LastJnlLine."Bin Code";
                         INSERT(TRUE);
 
-                        CurrPage.CLOSE;
+                        CurrPage.CLOSE();
                         CLEAR(PgeLInventoryItemSelection);
                         PgeLInventoryItemSelection.SETTABLEVIEW(Rec);
-                        PgeLInventoryItemSelection.RUN;
+                        PgeLInventoryItemSelection.RUN();
 
                     END;
                 end;
@@ -200,24 +200,24 @@ page 50066 "BC6_Inventory Card MiniForm F3"
                     PgeLInventoryBinSelection: Page "BC6_Inventory Card MiniForm F3";
                 begin
                     CLEAR(LastJnlLine);
-                    LastJnlLine.RESET;
+                    LastJnlLine.RESET();
                     LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
                     LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
                     IF LastJnlLine.FIND('+') THEN BEGIN
-                        INIT;
+                        INIT();
                         "Journal Template Name" := LastJnlLine."Journal Template Name";
                         "Journal Batch Name" := LastJnlLine."Journal Batch Name";
                         "Line No." := LastJnlLine."Line No." + 10000;
                         VALIDATE("Entry Type", "Entry Type"::"Positive Adjmt.");
-                        VALIDATE("Posting Date", WORKDATE);
+                        VALIDATE("Posting Date", WORKDATE());
                         "Document No." := LastJnlLine."Document No.";
                         "Location Code" := LastJnlLine."Location Code";
                         INSERT(TRUE);
 
-                        CurrPage.CLOSE;
+                        CurrPage.CLOSE();
                         CLEAR(PgeLInventoryBinSelection);
                         PgeLInventoryBinSelection.SETTABLEVIEW(Rec);
-                        PgeLInventoryBinSelection.RUN;
+                        PgeLInventoryBinSelection.RUN();
 
                     END;
                 end;
@@ -232,7 +232,7 @@ page 50066 "BC6_Inventory Card MiniForm F3"
 
                 trigger OnAction()
                 begin
-                    CurrPage.CLOSE;
+                    CurrPage.CLOSE();
                 end;
             }
             action("&Delete")
@@ -248,7 +248,7 @@ page 50066 "BC6_Inventory Card MiniForm F3"
                     DELETE(TRUE);
 
                     page50066.SETTABLEVIEW(Rec);
-                    page50066.RUN;
+                    page50066.RUN();
                 end;
             }
         }
@@ -256,7 +256,7 @@ page 50066 "BC6_Inventory Card MiniForm F3"
 
     trigger OnAfterGetRecord()
     begin
-        AfterGetCurrRecord;
+        AfterGetCurrRecord();
     end;
 
     trigger OnInit()
@@ -270,7 +270,7 @@ page 50066 "BC6_Inventory Card MiniForm F3"
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        AfterGetCurrRecord;
+        AfterGetCurrRecord();
     end;
 
     trigger OnOpenPage()
@@ -343,11 +343,11 @@ page 50066 "BC6_Inventory Card MiniForm F3"
         EditableCtrl := TRUE;
 
         CLEAR(LastJnlLine);
-        LastJnlLine.RESET;
+        LastJnlLine.RESET();
         LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
         LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
         IF NOT LastJnlLine.FIND('+') THEN BEGIN
-            LastJnlLine.INIT;
+            LastJnlLine.INIT();
             LastJnlLine."Journal Template Name" := "Journal Template Name";
             LastJnlLine."Journal Batch Name" := "Journal Batch Name";
             LastJnlLine."Line No." := 0;
@@ -356,7 +356,7 @@ page 50066 "BC6_Inventory Card MiniForm F3"
         SetUpNewLine(xRec);
         "Entry Type" := "Entry Type"::"Positive Adjmt.";
         "Line No." := LastJnlLine."Line No." + 10000;
-        VALIDATE("Posting Date", WORKDATE);
+        VALIDATE("Posting Date", WORKDATE());
 
         IF LocationCode = '' THEN
             LocationCode := Location.Code;
@@ -373,7 +373,7 @@ page 50066 "BC6_Inventory Card MiniForm F3"
     begin
         CurrPage.CAPTION := Text011;
 
-        InvSetup.GET;
+        InvSetup.GET();
         InvSetup.TESTFIELD("BC6_Item Jnl Template Name 3");
         IF USERID <> '' THEN BEGIN
             WhsEmployee.SETRANGE("User ID", USERID);
@@ -382,9 +382,9 @@ page 50066 "BC6_Inventory Card MiniForm F3"
                 IF WhsEmployee.FIND('-') THEN
                     LocationCode := WhsEmployee."Location Code"
                 ELSE
-                    LocationCode := WmsManagement.GetDefaultLocation;
+                    LocationCode := WmsManagement.GetDefaultLocation();
                 IF NOT Location.GET(LocationCode) THEN
-                    Location.INIT;
+                    Location.INIT();
                 FILTERGROUP := 2;
                 ItemJnlTemplate.GET(InvSetup."BC6_Item Jnl Template Name 3");
                 ItemJnlTemplate.TESTFIELD(Type, ItemJnlTemplate.Type::"Phys. Inventory");
@@ -400,7 +400,7 @@ page 50066 "BC6_Inventory Card MiniForm F3"
                     EXIT(FALSE);
                 END;
                 FILTERGROUP := 0;
-                PostingDate := WORKDATE;
+                PostingDate := WORKDATE();
                 IF Rec.FIND('+') THEN;
                 EXIT(TRUE);
             END ELSE BEGIN
@@ -413,18 +413,18 @@ page 50066 "BC6_Inventory Card MiniForm F3"
         END;
     end;
 
-    procedure AssignLocationCode(var LocationCode: Code[20])
+    procedure AssignLocationCode(var LocationsCode: Code[20])
     var
         Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
         CLEAR(Location);
-        IF (LocationCode <> '') AND
-           (STRLEN(LocationCode) < 20) THEN BEGIN
-            IF Location.GET(LocationCode) THEN
-                "Location Code" := LocationCode;
+        IF (LocationsCode <> '') AND
+           (STRLEN(LocationsCode) < 20) THEN BEGIN
+            IF Location.GET(LocationsCode) THEN
+                "Location Code" := LocationsCode;
         END ELSE BEGIN
-            LocationCode := '';
-            "Location Code" := LocationCode;
+            LocationsCode := '';
+            "Location Code" := LocationsCode;
             MESSAGE(Text004);
         END;
     end;
@@ -464,53 +464,53 @@ page 50066 "BC6_Inventory Card MiniForm F3"
         "Bin Code" := BinCode;
     end;
 
-    procedure AssignItemNo(var ItemNo: Code[20])
+    procedure AssignItemNo(var "ItemNo.": Code[20])
     var
         FunctionMgt: Codeunit "BC6_Functions Mgt";
         Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
-        IF (ItemNo <> '') THEN BEGIN
-            IF CodeEANOk(ItemNo) THEN BEGIN
-                ItemNo2 := FunctionMgt.GetItem(ItemNo);
+        IF ("ItemNo." <> '') THEN BEGIN
+            IF CodeEANOk("ItemNo.") THEN BEGIN
+                ItemNo2 := FunctionMgt.GetItem("ItemNo.");
                 IF Item.GET(ItemNo2) THEN
-                    ItemNo := Item."No.";
+                    "ItemNo." := Item."No.";
             END ELSE BEGIN
-                IF Item.GET(ItemNo) THEN;
+                IF Item.GET("ItemNo.") THEN;
             END;
             "Phys. Inventory" := FALSE;
-            VALIDATE("Item No.", ItemNo);
+            VALIDATE("Item No.", "ItemNo.");
             VALIDATE("Bin Code", FromBinCode);
             "Phys. Inventory" := TRUE;
             UpdateCurrForm();
             EXIT;
         END;
 
-        IF ItemNo <> '' THEN
-            MESSAGE(Text004, ItemNo);
-        ItemNo := '';
+        IF "ItemNo." <> '' THEN
+            MESSAGE(Text004, "ItemNo.");
+        "ItemNo." := '';
         Description := '';
-        VALIDATE("Item No.", ItemNo);
-        ItemNo := "Item No.";
+        VALIDATE("Item No.", "ItemNo.");
+        "ItemNo." := "Item No.";
         UpdateCurrForm();
     end;
 
-    procedure AssignQty(var Qty: Code[20])
+    procedure AssignQty(var Quantity: Code[20])
     var
         Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
-        IF (Qty <> '') THEN BEGIN
+        IF (Quantity <> '') THEN BEGIN
             "Phys. Inventory" := TRUE;
-            EVALUATE("Qty. (Phys. Inventory)", Qty);
+            EVALUATE("Qty. (Phys. Inventory)", Quantity);
             VALIDATE("Qty. (Phys. Inventory)");
-            Qty := FORMAT("Qty. (Phys. Inventory)");
+            Quantity := FORMAT("Qty. (Phys. Inventory)");
             EXIT;
         END;
 
-        IF Qty <> '' THEN
-            MESSAGE(Text006, Qty);
-        Qty := '';
+        IF Quantity <> '' THEN
+            MESSAGE(Text006, Quantity);
+        Quantity := '';
         VALIDATE(Quantity, 0);
-        Qty := FORMAT(Quantity);
+        Quantity := FORMAT(Quantity);
     end;
 
     procedure PostBatch()
@@ -536,13 +536,13 @@ page 50066 "BC6_Inventory Card MiniForm F3"
     begin
         LocationCode := "Location Code";
         IF NOT Location.GET("Location Code") THEN
-            Location.INIT;
+            Location.INIT();
         FromBinCode := "Bin Code";
         ToBinCode := "New Bin Code";
         ItemNo := "Item No.";
         Qty := FORMAT("Qty. (Phys. Inventory)");
         EditableCtrl := ("Item No." <> '');
-        CtrlEnabled;
+        CtrlEnabled();
     end;
 
     procedure CodeEANOk("Code": Code[20]) CodeOk: Boolean

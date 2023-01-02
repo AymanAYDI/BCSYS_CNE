@@ -32,13 +32,13 @@ page 50064 "Invt. Pick Card MiniForm F3"
                 begin
 
                     CLEAR(LocationForm);
-                    Location.RESET;
+                    Location.RESET();
                     Location.SETRANGE("Bin Mandatory", TRUE);
                     LocationForm.SETTABLEVIEW(Location);
                     LocationForm.LOOKUPMODE(TRUE);
                     IF Location.FIND('-') THEN
                         LocationForm.SETRECORD(Location);
-                    IF LocationForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                    IF LocationForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                         LocationForm.GETRECORD(Location);
                         LocationCode := Location.Code;
                         AssignLocationCode(LocationCode);
@@ -47,7 +47,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
 
                 trigger OnValidate()
                 begin
-                    LocationCodeOnAfterValidate;
+                    LocationCodeOnAfterValidate();
                 end;
             }
             field(FromBinCodeCtrl; FromBinCode)
@@ -66,7 +66,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
                 begin
                     IF ItemNo <> '' THEN BEGIN
                         CLEAR(BinContentForm);
-                        BinContent.RESET;
+                        BinContent.RESET();
                         IF LocationCode <> '' THEN
                             BinContent.SETRANGE("Location Code", LocationCode);
                         IF ItemNo <> '' THEN
@@ -78,21 +78,21 @@ page 50064 "Invt. Pick Card MiniForm F3"
                         BinContentForm.LOOKUPMODE(TRUE);
                         IF BinContent.FIND('-') THEN
                             BinContentForm.SETRECORD(BinContent);
-                        IF BinContentForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                        IF BinContentForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                             BinContentForm.GETRECORD(BinContent);
                             FromBinCode := BinContent."Bin Code";
                             AssignFromBinCode(FromBinCode);
                         END;
                     END ELSE BEGIN
                         CLEAR(BinForm);
-                        Bin.RESET;
+                        Bin.RESET();
                         IF LocationCode <> '' THEN
                             Bin.SETRANGE("Location Code", LocationCode);
                         BinForm.SETTABLEVIEW(Bin);
                         BinForm.LOOKUPMODE(TRUE);
                         IF Bin.FIND('-') THEN
                             BinForm.SETRECORD(Bin);
-                        IF BinForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                        IF BinForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                             BinForm.GETRECORD(Bin);
                             FromBinCode := Bin.Code;
                             AssignFromBinCode(FromBinCode);
@@ -102,7 +102,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
 
                 trigger OnValidate()
                 begin
-                    FromBinCodeOnAfterValidate;
+                    FromBinCodeOnAfterValidate();
                 end;
             }
             field(ItemNoCtrl; ItemNo)
@@ -119,13 +119,13 @@ page 50064 "Invt. Pick Card MiniForm F3"
                     Item: Record Item;
                 begin
                     CLEAR(ItemForm);
-                    Item.RESET;
+                    Item.RESET();
                     ItemForm.SETTABLEVIEW(Item);
                     ItemForm.LOOKUPMODE(TRUE);
                     IF ItemNo <> '' THEN
                         IF Item.GET(ItemNo) THEN
                             ItemForm.SETRECORD(Item);
-                    IF ItemForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                    IF ItemForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                         ItemForm.GETRECORD(Item);
                         ItemNo := Item."No.";
                         AssignItemNo(ItemNo);
@@ -134,7 +134,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
 
                 trigger OnValidate()
                 begin
-                    ItemNoOnAfterValidate;
+                    ItemNoOnAfterValidate();
                 end;
             }
             field(Description; Description)
@@ -153,7 +153,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
 
                 trigger OnValidate()
                 begin
-                    QtyOnAfterValidate;
+                    QtyOnAfterValidate();
                 end;
             }
             field(ToBinCodeCtrl; ToBinCode)
@@ -171,7 +171,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
                     Bin: Record Bin;
                 begin
                     CLEAR(BinForm);
-                    Bin.RESET;
+                    Bin.RESET();
                     IF LocationCode <> '' THEN
                         Bin.SETRANGE("Location Code", LocationCode);
 
@@ -179,7 +179,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
                     BinForm.LOOKUPMODE(TRUE);
                     IF Bin.FIND('-') THEN
                         BinForm.SETRECORD(Bin);
-                    IF BinForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                    IF BinForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                         BinForm.GETRECORD(Bin);
                         IF ToBinCodeCtrlEditable THEN BEGIN
                             ToBinCode := Bin.Code;
@@ -190,7 +190,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
 
                 trigger OnValidate()
                 begin
-                    ToBinCodeOnAfterValidate;
+                    ToBinCodeOnAfterValidate();
                 end;
             }
             field(PickNoCtrl; PickNo)
@@ -209,13 +209,13 @@ page 50064 "Invt. Pick Card MiniForm F3"
                 begin
 
                     CLEAR(InvtPickForm);
-                    InvtPick.RESET;
+                    InvtPick.RESET();
                     InvtPickForm.LOOKUPMODE(TRUE);
                     IF (PickNo <> '') THEN
                         IF InvtPick.GET(InvtPick.Type::"Invt. Pick", PickNo) THEN
                             InvtPickForm.SETRECORD(InvtPick);
                     InvtPickForm.SETTABLEVIEW(InvtPick);
-                    IF InvtPickForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
+                    IF InvtPickForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
                         InvtPickForm.GETRECORD(InvtPick);
                         PickNo := InvtPick."No.";
                         AssignPickNo(PickNo);
@@ -224,7 +224,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
 
                 trigger OnValidate()
                 begin
-                    PickNoOnAfterValidate;
+                    PickNoOnAfterValidate();
                 end;
             }
         }
@@ -249,16 +249,16 @@ page 50064 "Invt. Pick Card MiniForm F3"
                 begin
                     CLEAR(LastJnlLine);
 
-                    LastJnlLine.RESET;
+                    LastJnlLine.RESET();
                     LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
                     LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
                     IF LastJnlLine.FIND('+') THEN BEGIN
-                        INIT;
+                        INIT();
                         "Journal Template Name" := LastJnlLine."Journal Template Name";
                         "Journal Batch Name" := LastJnlLine."Journal Batch Name";
                         "Line No." := LastJnlLine."Line No." + 10000;
                         VALIDATE("Entry Type", "Entry Type"::Transfer);
-                        VALIDATE("Posting Date", WORKDATE);
+                        VALIDATE("Posting Date", WORKDATE());
                         "Document No." := LastJnlLine."Document No.";
                         AssignPickNo(PickNo);
                         "Location Code" := LastJnlLine."Location Code";
@@ -269,9 +269,9 @@ page 50064 "Invt. Pick Card MiniForm F3"
                     VisibleTestBool := FALSE;
                     ToBinCodeCtrlVisible := FALSE;
 
-                    CurrPage.CLOSE;
+                    CurrPage.CLOSE();
                     page50063.SETTABLEVIEW(Rec);
-                    page50063.RUN;
+                    page50063.RUN();
                 end;
             }
             action("&Bin")
@@ -288,16 +288,16 @@ page 50064 "Invt. Pick Card MiniForm F3"
                     page50064: Page "Invt. Pick Card MiniForm F3";
                 begin
                     CLEAR(LastJnlLine);
-                    LastJnlLine.RESET;
+                    LastJnlLine.RESET();
                     LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
                     LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
                     IF LastJnlLine.FIND('+') THEN BEGIN
-                        INIT;
+                        INIT();
                         "Journal Template Name" := LastJnlLine."Journal Template Name";
                         "Journal Batch Name" := LastJnlLine."Journal Batch Name";
                         "Line No." := LastJnlLine."Line No." + 10000;
                         VALIDATE("Entry Type", "Entry Type"::Transfer);
-                        VALIDATE("Posting Date", WORKDATE);
+                        VALIDATE("Posting Date", WORKDATE());
                         "Document No." := LastJnlLine."Document No.";
                         AssignPickNo(PickNo);
                         "Location Code" := LastJnlLine."Location Code";
@@ -310,9 +310,9 @@ page 50064 "Invt. Pick Card MiniForm F3"
                         INSERT(TRUE);
                     END;
 
-                    CurrPage.CLOSE;
+                    CurrPage.CLOSE();
                     page50064.SETTABLEVIEW(Rec);
-                    page50064.RUN;
+                    page50064.RUN();
                 end;
             }
             action("&Post")
@@ -338,7 +338,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
                              */
                     PostBatch();
 
-                    CurrPage.CLOSE;
+                    CurrPage.CLOSE();
 
                 end;
             }
@@ -352,7 +352,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
 
                 trigger OnAction()
                 begin
-                    CurrPage.CLOSE;
+                    CurrPage.CLOSE();
                 end;
             }
             action("&Delete")
@@ -368,7 +368,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
                     DELETE(TRUE);
 
                     page50064.SETTABLEVIEW(Rec);
-                    page50064.RUN;
+                    page50064.RUN();
                 end;
             }
         }
@@ -376,7 +376,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
 
     trigger OnAfterGetRecord()
     begin
-        AfterGetCurrRecord;
+        AfterGetCurrRecord();
     end;
 
     trigger OnInit()
@@ -396,7 +396,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
         //NewLine();
-        AfterGetCurrRecord;
+        AfterGetCurrRecord();
     end;
 
     trigger OnOpenPage()
@@ -423,9 +423,9 @@ page 50064 "Invt. Pick Card MiniForm F3"
         JnlPostBatch: Codeunit "Item Jnl.-Post Batch";
         BinContentForm: Page "BC6_Bin Content List MiniForm";
         BinForm: Page "BC6_Bin List MiniForm";
+        InvtPickForm: Page "BC6_Invt Pick List MiniForm";
         ItemForm: Page "BC6_Item List MiniForm";
         LocationForm: Page "BC6_Location List MiniForm";
-        InvtPickForm: Page "BC6_Invt Pick List MiniForm";
         EditableCtrl: Boolean;
         [InDataSet]
         FromBinCodeCtrlVisible: Boolean;
@@ -484,11 +484,11 @@ page 50064 "Invt. Pick Card MiniForm F3"
         CLEAR(InvtPickLine);
 
         CLEAR(LastJnlLine);
-        LastJnlLine.RESET;
+        LastJnlLine.RESET();
         LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
         LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
         IF NOT LastJnlLine.FIND('+') THEN BEGIN
-            LastJnlLine.INIT;
+            LastJnlLine.INIT();
             LastJnlLine."Journal Template Name" := "Journal Template Name";
             LastJnlLine."Journal Batch Name" := "Journal Batch Name";
             LastJnlLine."Line No." := 0;
@@ -497,7 +497,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
         SetUpNewLine(xRec);
         "Entry Type" := "Entry Type"::Transfer;
         "Line No." := LastJnlLine."Line No." + 10000;
-        VALIDATE("Posting Date", WORKDATE);
+        VALIDATE("Posting Date", WORKDATE());
         AssignPickNo(PickNo);
 
         LocationCode := DefaultLocationCode;
@@ -513,7 +513,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
         CurrentLocatCode: Code[10];
     begin
 
-        InvSetup.GET;
+        InvSetup.GET();
         InvSetup.TESTFIELD("BC6_Item Jnl Template Name 1");
 
         IF USERID <> '' THEN BEGIN
@@ -523,9 +523,9 @@ page 50064 "Invt. Pick Card MiniForm F3"
                 IF WhsEmployee.FIND('-') THEN
                     DefaultLocationCode := WhsEmployee."Location Code"
                 ELSE
-                    DefaultLocationCode := WmsManagement.GetDefaultLocation;
+                    DefaultLocationCode := WmsManagement.GetDefaultLocation();
                 IF NOT Location.GET(LocationCode) THEN
-                    Location.INIT;
+                    Location.INIT();
                 FILTERGROUP := 2;
                 ItemJnlTemplate.GET(InvSetup."BC6_Item Jnl Template Name 1");
                 ItemJnlTemplate.TESTFIELD(Type, ItemJnlTemplate.Type::Transfer);
@@ -541,7 +541,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
                     EXIT(FALSE);
                 END;
                 FILTERGROUP := 0;
-                PostingDate := WORKDATE;
+                PostingDate := WORKDATE();
                 IF Rec.FIND('+') THEN;
                 EXIT(TRUE);
             END ELSE BEGIN
@@ -627,8 +627,8 @@ page 50064 "Invt. Pick Card MiniForm F3"
 
     procedure AssignItemNo(var ItemNum: Code[20])
     var
-        ItemError: Boolean;
         FunctionMgt: Codeunit "BC6_Functions Mgt";
+        ItemError: Boolean;
     begin
         ItemError := FALSE;
         ErrorTxt := '';
@@ -736,7 +736,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
         PickNo := "BC6_Whse. Document No.";
         LocationCode := "Location Code";
         IF NOT Location.GET("Location Code") THEN BEGIN
-            Location.INIT;
+            Location.INIT();
             ShipBinCode := '';
         END;
         FromBinCode := "Bin Code";
@@ -744,11 +744,11 @@ page 50064 "Invt. Pick Card MiniForm F3"
         ItemNo := "Item No.";
         Qty := FORMAT(Quantity);
         EditableCtrl := ("Item No." <> '');
-        CtrlEnabled;
+        CtrlEnabled();
     end;
 
 
-    procedure ItemExistOnInvtPick(ItemNo: Code[20]; BinCode: Code[20]): Boolean
+    procedure ItemExistOnInvtPick("ItemNo.": Code[20]; BinCode: Code[20]): Boolean
     var
         SalesLine: Record "Sales Line";
     begin
@@ -759,10 +759,10 @@ page 50064 "Invt. Pick Card MiniForm F3"
             EXIT(true);
 
 
-            InvtPickLine.RESET;
+            InvtPickLine.RESET();
             InvtPickLine.SETRANGE("Activity Type", InvtPickLine."Activity Type"::"Invt. Pick");
             InvtPickLine.SETRANGE("No.", "BC6_Whse. Document No.");
-            InvtPickLine.SETRANGE("Item No.", ItemNo);
+            InvtPickLine.SETRANGE("Item No.", "ItemNo.");
             IF BinCode <> '' THEN
                 InvtPickLine.SETRANGE("Bin Code", BinCode);
             InvtPickLine.SETFILTER(Quantity, '<>%1', 0);

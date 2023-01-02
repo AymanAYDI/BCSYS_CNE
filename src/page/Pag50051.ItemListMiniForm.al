@@ -59,11 +59,11 @@ page 50051 "BC6_Item List MiniForm"
 
     procedure GetSelectionFilter(): Code[80]
     var
+        More: Boolean;
         FirstItem: Code[30];
         LastItem: Code[30];
         SelectionFilter: Code[250];
         ItemCount: Integer;
-        More: Boolean;
     begin
         CurrPage.SETSELECTIONFILTER(Item);
         ItemCount := Item.COUNT;

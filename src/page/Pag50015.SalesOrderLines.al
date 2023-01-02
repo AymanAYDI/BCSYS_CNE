@@ -24,7 +24,7 @@ page 50015 "BC6_Sales Order Lines"
 
                     trigger OnValidate()
                     begin
-                        OptGSortOnAfterValidate;
+                        OptGSortOnAfterValidate();
                     end;
                 }
                 field(BooGExcDropShipFilter; BooGExcDropShipFilter)
@@ -33,7 +33,7 @@ page 50015 "BC6_Sales Order Lines"
 
                     trigger OnValidate()
                     begin
-                        BooGExcDropShipFilterOnAfterVa;
+                        BooGExcDropShipFilterOnAfterVa();
                     end;
                 }
                 field(BooGExcQuoteFilter; BooGExcQuoteFilter)
@@ -42,7 +42,7 @@ page 50015 "BC6_Sales Order Lines"
 
                     trigger OnValidate()
                     begin
-                        BooGExcQuoteFilterOnAfterValid;
+                        BooGExcQuoteFilterOnAfterValid();
                     end;
                 }
                 field(BooGOneTimeOrdering; BooGOneTimeOrdering)
@@ -51,7 +51,7 @@ page 50015 "BC6_Sales Order Lines"
 
                     trigger OnValidate()
                     begin
-                        BooGOneTimeOrderingOnAfterVali;
+                        BooGOneTimeOrderingOnAfterVali();
                     end;
                 }
                 field(BooGNegForecastInv; BooGNegForecastInv)
@@ -60,7 +60,7 @@ page 50015 "BC6_Sales Order Lines"
 
                     trigger OnValidate()
                     begin
-                        BooGNegForecastInvOnAfterValid;
+                        BooGNegForecastInvOnAfterValid();
                     end;
                 }
                 field(CodGVendorFilter; CodGVendorFilter)
@@ -70,7 +70,7 @@ page 50015 "BC6_Sales Order Lines"
 
                     trigger OnValidate()
                     begin
-                        CodGVendorFilterOnAfterValidat;
+                        CodGVendorFilterOnAfterValidat();
                     end;
                 }
                 field(BooGExcShipOrders; BooGExcShipOrders)
@@ -79,7 +79,7 @@ page 50015 "BC6_Sales Order Lines"
 
                     trigger OnValidate()
                     begin
-                        BooGExcShipOrdersOnAfterValida;
+                        BooGExcShipOrdersOnAfterValida();
                     end;
                 }
                 field(TxtGShipmentDateFilter; TxtGShipmentDateFilter)
@@ -88,7 +88,7 @@ page 50015 "BC6_Sales Order Lines"
 
                     trigger OnValidate()
                     begin
-                        TxtGShipmentDateFilterOnAfterV;
+                        TxtGShipmentDateFilterOnAfterV();
                     end;
                 }
                 field(BooGNotGroupByItem; BooGNotGroupByItem)
@@ -278,7 +278,7 @@ page 50015 "BC6_Sales Order Lines"
                                   CstGText50006 + CstGText50001 +
                                   CstGText50002 + CstGText50003);
 
-                            RecLSalesSetup.GET;
+                            RecLSalesSetup.GET();
                             CodLVendorNo := '';
                             GPurchCost := 0;
 
@@ -288,22 +288,22 @@ page 50015 "BC6_Sales Order Lines"
                             RecLSalesLines.SETFILTER(RecLSalesLines."BC6_Qty. To Order", '<>%1', 0);
                             RecLSalesLines.SETRANGE(RecLSalesLines."BC6_To Order", TRUE);
 
-                            IF RecLSalesLines.FINDSET THEN BEGIN
-                                RecLPurchLine.LOCKTABLE;
+                            IF RecLSalesLines.FINDSET() THEN BEGIN
+                                RecLPurchLine.LOCKTABLE();
                                 IF NOT RECORDLEVELLOCKING THEN
                                     RecLPurchHeader.LOCKTABLE(TRUE, TRUE); // Only version check
-                                RecLSalesLines.LOCKTABLE;
+                                RecLSalesLines.LOCKTABLE();
                                 REPEAT
                                     DiaGWindow.UPDATE(1, STRSUBSTNO('%1 %2', RecLSalesLines."Document Type",
                                                                            RecLSalesLines."Document No."));
                                     DiaGWindow.UPDATE(2, RecLSalesLines."No.");
                                     IF CodLVendorNo <> RecLSalesLines."BC6_Buy-from Vendor No." THEN BEGIN
                                         // Create Purchase Header
-                                        RecLPurchHeader.INIT;
+                                        RecLPurchHeader.INIT();
                                         RecLPurchHeader.VALIDATE("No.", '');
                                         RecLPurchHeader.VALIDATE("Document Type", RecLSalesLines."Document Type");
                                         RecLPurchHeader.INSERT(TRUE);
-                                        RecLPurchHeader.VALIDATE("Document Date", WORKDATE);
+                                        RecLPurchHeader.VALIDATE("Document Date", WORKDATE());
                                         RecLPurchHeader.VALIDATE("Buy-from Vendor No.", RecLSalesLines."BC6_Buy-from Vendor No.");
                                         RecLPurchHeader.MODIFY(TRUE);
                                         DiaGWindow.UPDATE(3, RecLPurchHeader."No.");
@@ -319,7 +319,7 @@ page 50015 "BC6_Sales Order Lines"
                                       THEN BEGIN
 
                                         // Insert Line
-                                        RecLPurchLine.INIT;
+                                        RecLPurchLine.INIT();
                                         RecLPurchLine.VALIDATE("Document Type", RecLPurchLine."Document Type"::Order);
                                         RecLPurchLine.VALIDATE("Document No.", RecLPurchHeader."No.");
                                         RecLPurchLine.VALIDATE("Line No.", IntLLineNo);
@@ -329,7 +329,7 @@ page 50015 "BC6_Sales Order Lines"
                                         RecLPurchLine.VALIDATE("Location Code", RecLSalesLines."Location Code");
                                         RecLPurchLine.VALIDATE("Unit of Measure Code", RecLSalesLines."Unit of Measure Code");
                                         IF (RecLPurchLine.Type = RecLPurchLine.Type::Item) AND (RecLPurchLine."No." <> '') THEN
-                                            RecLPurchLine.UpdateUOMQtyPerStockQty;
+                                            RecLPurchLine.UpdateUOMQtyPerStockQty();
                                         RecLPurchLine.VALIDATE("Expected Receipt Date", RecLSalesLines."Shipment Date");
                                         RecLPurchLine.VALIDATE(Quantity, RecLSalesLines."BC6_Qty. To Order");
                                         RecLPurchLine.VALIDATE("Return Reason Code", RecLSalesLines."Return Reason Code");
@@ -373,12 +373,14 @@ page 50015 "BC6_Sales Order Lines"
                                     TempRecLSalesLine.INSERT(FALSE);
                                     RecLSalesLines.MODIFY(FALSE);
 
-                                UNTIL RecLSalesLines.NEXT = 0;
+                                UNTIL RecLSalesLines.NEXT() = 0;
                                 // Insert extended text
-                                TempRecLSalesLine.RESET;
+
+
+                                TempRecLSalesLine.RESET();
                                 IF TempRecLSalesLine.FIND('-') THEN
                                     REPEAT
-                                        RecLPurchLine2.RESET;
+                                        RecLPurchLine2.RESET();
                                         RecLPurchLine2.SETRANGE("Document Type", TempRecLSalesLine."BC6_Purch. Document Type"::Order);
                                         RecLPurchLine2.SETRANGE("Document No.", TempRecLSalesLine."BC6_Purch. Order No.");
                                         RecLPurchLine2.SETRANGE("Line No.", TempRecLSalesLine."BC6_Purch. Line No.");
@@ -386,11 +388,11 @@ page 50015 "BC6_Sales Order Lines"
                                             REPEAT
                                                 InsertExtendedText(TRUE, RecLPurchLine2);
                                                 RecLPurchLine2.MODIFY(FALSE);
-                                            UNTIL RecLPurchLine2.NEXT = 0;
-                                    UNTIL TempRecLSalesLine.NEXT = 0;
+                                            UNTIL RecLPurchLine2.NEXT() = 0;
+                                    UNTIL TempRecLSalesLine.NEXT() = 0;
                             END;
 
-                            DiaGWindow.CLOSE;
+                            DiaGWindow.CLOSE();
 
 
                         END;
@@ -412,7 +414,7 @@ page 50015 "BC6_Sales Order Lines"
                             CurrPage.UPDATE(FALSE);
                             "BC6_Qty. To Order" := 0;
                             CurrPage.UPDATE(TRUE);
-                        UNTIL NEXT = 0;
+                        UNTIL NEXT() = 0;
                         FIND('-');
                     END;
                 end;
@@ -422,16 +424,16 @@ page 50015 "BC6_Sales Order Lines"
 
     trigger OnAfterGetRecord()
     begin
-        RecGSalesHeader.RESET;
+        RecGSalesHeader.RESET();
         IF RecGSalesHeader.GET("Document Type", "Document No.") THEN;
 
-        RecGItem.RESET;
+        RecGItem.RESET();
         IF RecGItem.GET("No.") THEN
             RecGItem.CALCFIELDS(RecGItem."Qty. on Purch. Order", RecGItem."Qty. on Sales Order", RecGItem.Inventory);
 
 
-        RecGVendor.RESET;
-        RecGVendor.INIT;
+        RecGVendor.RESET();
+        RecGVendor.INIT();
         IF RecGVendor.GET("BC6_Buy-from Vendor No.") THEN;
 
         // voir si c'est une commande en demande de prix  (Quote Order)
@@ -450,14 +452,15 @@ page 50015 "BC6_Sales Order Lines"
         BooGExcQuoteFilter := FALSE;
         BooGNotGroupByItem := FALSE;
 
-        SetRecFilters;
+        SetRecFilters();
     end;
 
     var
         RecGItem: Record Item;
         RecGPurchasing: Record Purchasing;
         RecGSalesHeader: Record "Sales Header";
-        RecLSalesLineTmp: Record "Sales Line" temporary;
+
+        TempRecLSalesLine: Record "Sales Line" temporary;
         RecGVendor: Record Vendor;
         BooGExcDropShipFilter: Boolean;
         BooGExcQuoteFilter: Boolean;
@@ -466,7 +469,7 @@ page 50015 "BC6_Sales Order Lines"
         BooGNotGroupByItem: Boolean;
         BooGOneTimeOrdering: Boolean;
         CodGVendorFilter: Code[20];
-        TempRecLSalesLine: Record "Sales Line" temporary;
+
         GPurchCost: Decimal;
         DiaGWindow: Dialog;
         CstGText50001: Label 'Item No.          #2##########\', comment = 'FRA="N° article traité           #2###########\"';
@@ -480,7 +483,7 @@ page 50015 "BC6_Sales Order Lines"
     var
         RecLSalesSetup: Record "Sales & Receivables Setup";
     begin
-        RecLSalesSetup.GET;
+        RecLSalesSetup.GET();
         RecLSalesSetup.TESTFIELD("BC6_Purcha. Code Grouping Line");
         SETRANGE("Purchasing Code", RecLSalesSetup."BC6_Purcha. Code Grouping Line");
 
@@ -529,18 +532,18 @@ page 50015 "BC6_Sales Order Lines"
         ELSE
             SETRANGE("Shipment Date");
 
-        CLEARMARKS;
+        CLEARMARKS();
         IF BooGNegForecastInv THEN BEGIN
             IF NOT ISEMPTY THEN BEGIN
-                IF FINDSET THEN
+                IF FINDSET() THEN
                     REPEAT
                         IF RecGItem.GET("No.") THEN
                             RecGItem.CALCFIELDS(RecGItem."Qty. on Purch. Order", RecGItem."Qty. on Sales Order", RecGItem.Inventory);
                         IF 0 > (RecGItem.Inventory - RecGItem."Qty. on Sales Order" + RecGItem."Qty. on Purch. Order") THEN
                             MARK(TRUE);
-                    UNTIL NEXT = 0;
+                    UNTIL NEXT() = 0;
                 MARKEDONLY(TRUE);
-                FINDFIRST;
+                FINDFIRST();
             END;
 
         END ELSE
@@ -558,7 +561,7 @@ page 50015 "BC6_Sales Order Lines"
         TransferExtendedText: Codeunit "Transfer Extended Text";
     begin
         IF TransferExtendedText.PurchCheckIfAnyExtText(RecLPurch, Unconditionally) THEN BEGIN
-            COMMIT;
+            COMMIT();
             TransferExtendedText.InsertPurchExtText(RecLPurch);
             FunctionMgt.InsertPurchExtTextSpe(RecLPurch);
         END;
@@ -566,7 +569,7 @@ page 50015 "BC6_Sales Order Lines"
 
     local procedure BooGExcDropShipFilterOnAfterVa()
     begin
-        OptGSortOnAfterValidate;
+        OptGSortOnAfterValidate();
         IF BooGExcDropShipFilter THEN
             SETRANGE("Drop Shipment", FALSE)
         ELSE
@@ -590,18 +593,18 @@ page 50015 "BC6_Sales Order Lines"
 
     local procedure BooGNegForecastInvOnAfterValid()
     begin
-        CLEARMARKS;
+        CLEARMARKS();
         IF BooGNegForecastInv THEN BEGIN
             IF NOT ISEMPTY THEN BEGIN
-                IF FINDSET THEN
+                IF FINDSET() THEN
                     REPEAT
                         IF RecGItem.GET("No.") THEN
                             RecGItem.CALCFIELDS(RecGItem."Qty. on Purch. Order", RecGItem."Qty. on Sales Order", RecGItem.Inventory);
                         IF 0 > (RecGItem.Inventory - RecGItem."Qty. on Sales Order" + RecGItem."Qty. on Purch. Order") THEN
                             MARK(TRUE);
-                    UNTIL NEXT = 0;
+                    UNTIL NEXT() = 0;
                 MARKEDONLY(TRUE);
-                FINDFIRST;
+                FINDFIRST();
             END;
 
         END ELSE

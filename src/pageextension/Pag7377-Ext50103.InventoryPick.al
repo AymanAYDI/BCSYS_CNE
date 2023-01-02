@@ -135,11 +135,11 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
     }
     var
         WMSMgt: Codeunit "WMS Management";
-        CtrlEditableOk: Boolean;
-        CurrFormEditableOk: Boolean;
         BooGDestinationNoCtrl: Boolean;
         BooGSourceNoCtrl: Boolean;
         BooGWhseActivityLines: Boolean;
+        CtrlEditableOk: Boolean;
+        CurrFormEditableOk: Boolean;
 
     PROCEDURE CtrlEditable()
     BEGIN

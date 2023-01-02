@@ -44,12 +44,12 @@ pageextension 50037 "BC6_PostedSalesInvoice" extends "Posted Sales Invoice" //13
                     RecLPostSalesInv: Record "Sales Invoice Header";
                 begin
                     RecLPostSalesInv := Rec;
-                    RecLPostSalesInv.SETRECFILTER;
+                    RecLPostSalesInv.SETRECFILTER();
                     CLEAR(cduMail);
                     recGCompanyInfo.GET();
 
                     RecLPostSalesInv := Rec;
-                    RecLPostSalesInv.SETRECFILTER;
+                    RecLPostSalesInv.SETRECFILTER();
                     ToFile := 'BON DE LIVRAISON CNE N° ' + DELCHR((RecLPostSalesInv."No."), '=', '/\:.,') + '.pdf';
                     FileName := TEMPORARYPATH + ToFile;
                     REPORT.SAVEASPDF(REPORT::"BC6_Sales - Invoice CNE", FileName, RecLPostSalesInv);
@@ -76,39 +76,32 @@ pageextension 50037 "BC6_PostedSalesInvoice" extends "Posted Sales Invoice" //13
 
                 trigger OnAction()
                 var
-                    "-MIGNAV2013-": Integer;
                     RecLPostSalesShpt: Record "Sales Invoice Header";
+                    "-MIGNAV2013-": Integer;
                 begin
                     RecLPostSalesShpt := Rec;
-                    RecLPostSalesShpt.SETRECFILTER;
+                    RecLPostSalesShpt.SETRECFILTER();
                 end;
             }
         }
     }
 
     var
-        DocPrint: Codeunit "Document-Print";
         HistMail: Record "BC6_Historique Mails Envoyés";
-        cust: Record Customer;
-        nameF: Text[250];
-        Mail: Codeunit Mail;
-        SalesSetup: Record "Sales & Receivables Setup";
-        Excel: Boolean;
-        STR1: Label 'Archiver Devis';
-        STR2: Label 'Créer Commande';
-        STR3: Label 'Imprimer le document ?';
-        STR4: Label 'Envoyer le document par mail ?';
-        STR5: Label 'Envoyer le document par fax ?';
-        Text004: Label 'Fichiers Pdf (*.pdf)|*.pdf|Tous les fichiers (*.*)|*.*';
-        Text001: Label '';
-        "-CNE-": Integer;
-        cduMail: Codeunit Mail;
-        FileName: Text[250];
-        ToFile: Text[250];
-        Objet: Text[250];
-        Body: Text[1024];
         recGCompanyInfo: Record "Company Information";
+        cust: Record Customer;
+        SalesSetup: Record "Sales & Receivables Setup";
         ReportHelper: Codeunit BC6_ReportHelper;
+        cduMail: Codeunit Mail;
+        Mail: Codeunit Mail;
+        Excel: Boolean;
+        Text001: Label '';
+        Text004: Label 'Fichiers Pdf (*.pdf)|*.pdf|Tous les fichiers (*.*)|*.*';
+        FileName: Text[250];
+        nameF: Text[250];
+        Objet: Text[250];
+        ToFile: Text[250];
+        Body: Text[1024];
 
 
     procedure EnvoiMail()
@@ -116,7 +109,7 @@ pageextension 50037 "BC6_PostedSalesInvoice" extends "Posted Sales Invoice" //13
         cust.SETRANGE(cust."No.", "Sell-to Customer No.");
         IF cust.FIND('-') THEN
             cust.TESTFIELD("E-Mail");
-        OpenFile;
+        OpenFile();
         IF nameF <> '' THEN BEGIN
             Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + "No.", '', nameF, FALSE);
             ERASE(nameF);

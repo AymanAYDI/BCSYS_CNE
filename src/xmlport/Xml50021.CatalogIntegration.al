@@ -43,10 +43,10 @@ xmlport 50021 "BC6_Catalog Integration"
                     IF REF_INT = '' THEN
                         REF_INT := TextGabbreviation + REF_EXT;
 
-                    create_disc_familly; // test si famille et remise existe et les crée si necessaire
+                    create_disc_familly(); // test si famille et remise existe et les crée si necessaire
 
                     IF NOT RecGItem.GET(REF_INT) THEN BEGIN
-                        RecGItem.INIT;
+                        RecGItem.INIT();
                         RecGItem.VALIDATE("No.", REF_INT);
                         RecGItem.VALIDATE("Vendor No.", Num);
                         RecGItem.VALIDATE("Vendor Item No.", REF_EXT);
@@ -149,7 +149,7 @@ xmlport 50021 "BC6_Catalog Integration"
 
     trigger OnInitXmlPort()
     begin
-        DateDeb := WORKDATE;
+        DateDeb := WORKDATE();
     end;
 
     trigger OnPreXmlPort()
@@ -171,7 +171,6 @@ xmlport 50021 "BC6_Catalog Integration"
         DateDeb: Date;
         DateFin: Date;
         // Common_Dlg: OCX;
-        Text008: Label 'Starting Date %1 must be less than end date %2', Comment = 'FRA="Date début %1 doit être inférieur à date fin %2"';
         textG001: Label 'Import File', Comment = 'FRA="Importer le fichier"';
         TextG002: Label 'Please fill up start date and Vendor No', Comment = 'FRA="Veuillez valoriser les champs date de début et N° de fournisseur"';
         FileName: Text[250];
@@ -180,7 +179,7 @@ xmlport 50021 "BC6_Catalog Integration"
     procedure create_disc_familly()
     begin
         IF NOT RecLItemdiscGrp.GET(FAMILLE) THEN BEGIN
-            RecLItemdiscGrp.INIT;
+            RecLItemdiscGrp.INIT();
             RecLItemdiscGrp.Code := FAMILLE;
             RecLItemdiscGrp.INSERT(TRUE);
         END;

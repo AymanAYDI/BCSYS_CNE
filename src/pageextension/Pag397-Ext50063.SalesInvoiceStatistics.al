@@ -45,11 +45,7 @@ pageextension 50063 "BC6_SalesInvoiceStatistics" extends "Sales Invoice Statisti
     end;
 
     var
-        "-MIGNAV2013-": Integer;
-        "-DEEE1.00-": Integer;
-        DecGMntTTCDEEE: Decimal;
         DecGMntHTDEEE: Decimal;
+        DecGMntTTCDEEE: Decimal;
         NewCustAmount: Decimal;
-        "--- TDL94.001 ---": Integer;
-        RecGCustomer: Record Customer;
 }

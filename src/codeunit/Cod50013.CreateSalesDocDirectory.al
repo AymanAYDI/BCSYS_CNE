@@ -27,7 +27,6 @@ codeunit 50013 "BC6_Create SalesDoc Directory"
         Text002: Label 'URL #1#############';
         Text003: Label 'Nombre fichier(s) copié(s) #2####';
         Text010: Label 'Il n''y a pas de ligne article';
-        Text012: Label 'Aucun fichier copié';
         LastTargetFileName: Text;
         SourceFilePath: Text;
         TargetDirectoryName: Text;

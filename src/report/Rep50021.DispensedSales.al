@@ -145,7 +145,7 @@ report 50021 "BC6_Dispensed Sales"
                     IF RecGSalesInvoiceHeader.GET(SalesInvoiceLine."Document No.") THEN
                         IF ((RecGSalesInvoiceHeader."Posting Date" < DatGDateDebut) OR
                            (RecGSalesInvoiceHeader."Posting Date" > DatGDateFin)) THEN
-                            CurrReport.SKIP;
+                            CurrReport.SKIP();
 
                     //>>MIGRATION NAV 2013
                     CLEAR(TxtGCustomerName);
@@ -227,7 +227,7 @@ report 50021 "BC6_Dispensed Sales"
                     IF RecGSalesCrMemoHeader.GET(SalesInvoiceLine."Document No.") THEN
                         IF ((RecGSalesCrMemoHeader."Posting Date" < DatGDateDebut) OR
                            (RecGSalesCrMemoHeader."Posting Date" > DatGDateFin)) THEN
-                            CurrReport.SKIP;
+                            CurrReport.SKIP();
 
 
                     CLEAR(TxtGCustomerName);
@@ -264,38 +264,38 @@ report 50021 "BC6_Dispensed Sales"
 
 
                 BooGShowEntries := FALSE;
-                RecGSalesInvoiceLine.RESET;
+                RecGSalesInvoiceLine.RESET();
                 RecGSalesInvoiceLine.SETCURRENTKEY("BC6_Buy-from Vendor No.");
                 RecGSalesInvoiceLine.SETFILTER("BC6_Buy-from Vendor No.", '%1', FORMAT(Vendor."No."));
                 RecGSalesInvoiceLine.SETFILTER("BC6_Dispensation No.", '<>%1', '');
-                IF RecGSalesInvoiceLine.FINDset THEN
+                IF RecGSalesInvoiceLine.FINDset() THEN
                     REPEAT
                         RecGSalesInvoiceHeader.GET(RecGSalesInvoiceLine."Document No.");
                         IF ((RecGSalesInvoiceHeader."Posting Date" >= DatGDateDebut) AND (RecGSalesInvoiceHeader."Posting Date" <= DatGDateFin)) THEN
                             BooGShowEntries := TRUE;
-                    UNTIL ((RecGSalesInvoiceLine.NEXT = 0) OR (BooGShowEntries));
+                    UNTIL ((RecGSalesInvoiceLine.NEXT() = 0) OR (BooGShowEntries));
                 IF NOT BooGShowEntries THEN BEGIN
-                    RecGSalesCreditMemoLine.RESET;
+                    RecGSalesCreditMemoLine.RESET();
                     RecGSalesCreditMemoLine.SETCURRENTKEY("BC6_Buy-from Vendor No.");
                     RecGSalesCreditMemoLine.SETFILTER("BC6_Buy-from Vendor No.", '%1', FORMAT(Vendor."No."));
                     RecGSalesCreditMemoLine.SETFILTER("BC6_Dispensation No.", '<>%1', '');
-                    IF RecGSalesCreditMemoLine.FINDSET THEN
+                    IF RecGSalesCreditMemoLine.FINDSET() THEN
                         REPEAT
                             RecGSalesCrMemoHeader.GET(RecGSalesCreditMemoLine."Document No.");
                             IF ((RecGSalesCrMemoHeader."Posting Date" >= DatGDateDebut) AND (RecGSalesCrMemoHeader."Posting Date" <= DatGDateFin)) THEN
                                 BooGShowEntries := TRUE;
-                        UNTIL ((RecGSalesInvoiceLine.NEXT = 0) OR (BooGShowEntries));
+                        UNTIL ((RecGSalesInvoiceLine.NEXT() = 0) OR (BooGShowEntries));
                 END;
 
 
 
                 IF NOT BooGShowEntries THEN
-                    CurrReport.SKIP;
+                    CurrReport.SKIP();
             end;
 
             trigger OnPostDataItem()
             begin
-                DiaGWin.CLOSE;
+                DiaGWin.CLOSE();
             end;
 
             trigger OnPreDataItem()
@@ -347,13 +347,13 @@ report 50021 "BC6_Dispensed Sales"
         RowNo := 1;
         ColumnNo := 1;
 
-        ExcelBuf.RESET;
-        ExcelBuf.DELETEALL;
+        TempExcelBuf.RESET();
+        TempExcelBuf.DELETEALL();
     end;
 
     var
         RecGCustomer: Record Customer;
-        ExcelBuf: Record "Excel Buffer" temporary;
+        TempExcelBuf: Record "Excel Buffer" temporary;
         RecGItem: Record Item;
         RecGSalesCrMemoHeader: Record "Sales Cr.Memo Header";
         RecGSalesCreditMemoLine: Record "Sales Cr.Memo Line";
@@ -394,17 +394,17 @@ report 50021 "BC6_Dispensed Sales"
         Vendor_No_CaptionLbl: Label 'Vendor No.', comment = 'FRA="n° fournisseur"';
         TxtGCustomerName: Text[50];
 
-    local procedure EnterCell(RowNo: Integer; ColumnNo: Integer; CellValue: Text[250]; Bold: Boolean; UnderLine: Boolean; NumberFormat: Text[30])
+    local procedure EnterCell("RowNo.": Integer; "ColumnNo.": Integer; CellValue: Text[250]; Bold: Boolean; UnderLine: Boolean; NumberFormat: Text[30])
     begin
-        ExcelBuf.INIT;
-        ExcelBuf.VALIDATE("Row No.", RowNo);
-        ExcelBuf.VALIDATE("Column No.", ColumnNo);
-        ExcelBuf."Cell Value as Text" := CellValue;
-        ExcelBuf.Formula := '';
-        ExcelBuf.Bold := Bold;
-        ExcelBuf.Underline := UnderLine;
-        ExcelBuf.NumberFormat := NumberFormat;
-        ExcelBuf.INSERT;
+        TempExcelBuf.INIT();
+        TempExcelBuf.VALIDATE("Row No.", "RowNo.");
+        TempExcelBuf.VALIDATE("Column No.", "ColumnNo.");
+        TempExcelBuf."Cell Value as Text" := CellValue;
+        TempExcelBuf.Formula := '';
+        TempExcelBuf.Bold := Bold;
+        TempExcelBuf.Underline := UnderLine;
+        TempExcelBuf.NumberFormat := NumberFormat;
+        TempExcelBuf.INSERT();
     end;
 }
 

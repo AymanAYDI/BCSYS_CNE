@@ -175,9 +175,9 @@ page 50037 "BC6_Shipment Lines Subform 2"
     var
         TempSalesShptLine: Record "Sales Shipment Line" temporary;
         [InDataSet]
-        "Document No.HideValue": Boolean;
-        [InDataSet]
         "Document No.Emphasize": Boolean;
+        [InDataSet]
+        "Document No.HideValue": Boolean;
 
     local procedure IsFirstDocLine(): Boolean
     var

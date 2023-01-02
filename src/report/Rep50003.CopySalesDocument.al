@@ -177,28 +177,28 @@ report 50003 "BC6_Copy Sales Document"
     end;
 
     var
+        DocNoNotSerErr: Label 'Select a document number to continue, or choose Cancel to close the page.', Comment = 'FRA="Sélectionnez un numéro de document pour continuer ou choisissez Annuler pour fermer la page."';
         Text000: Label 'The price information may not be reversed correctly, if you copy a %1. If possible copy a %2 instead or use %3 functionality.', Comment = 'FRA="Les informations de prix risquent de ne pas être annulées correctement si vous copiez un(e) %1. Si possible, copiez plutôt un(e) %2 ou utilisez la fonctionnalité %3."';
         Text001: Label 'Undo Shipment', Comment = 'FRA="Annuler expédition"';
         Text002: Label 'Undo Return Receipt', Comment = 'FRA="Annuler réception retour"';
-        DocNoNotSerErr: Label 'Select a document number to continue, or choose Cancel to close the page.', Comment = 'FRA="Sélectionnez un numéro de document pour continuer ou choisissez Annuler pour fermer la page."';
 
     protected var
-        SalesHeader: Record "Sales Header";
-        FromSalesHeader: Record "Sales Header";
-        FromSalesShptHeader: Record "Sales Shipment Header";
-        FromSalesInvHeader: Record "Sales Invoice Header";
         FromReturnRcptHeader: Record "Return Receipt Header";
-        FromSalesCrMemoHeader: Record "Sales Cr.Memo Header";
-        FromSalesHeaderArchive: Record "Sales Header Archive";
         SalesSetup: Record "Sales & Receivables Setup";
+        FromSalesCrMemoHeader: Record "Sales Cr.Memo Header";
+        FromSalesHeader: Record "Sales Header";
+        SalesHeader: Record "Sales Header";
+        FromSalesHeaderArchive: Record "Sales Header Archive";
+        FromSalesInvHeader: Record "Sales Invoice Header";
+        FromSalesShptHeader: Record "Sales Shipment Header";
         CopyDocMgt: Codeunit "Copy Document Mgt.";
-        FromDocType: Enum "Sales Document Type From";
-        FromDocNo: Code[20];
-        FromDocNoOccurrence: Integer;
-        FromDocVersionNo: Integer;
+        BoolGCopyLinesExactly: Boolean;
         IncludeHeader: Boolean;
         RecalculateLines: Boolean;
-        BoolGCopyLinesExactly: Boolean;
+        FromDocNo: Code[20];
+        FromDocType: Enum "Sales Document Type From";
+        FromDocNoOccurrence: Integer;
+        FromDocVersionNo: Integer;
 
     procedure SetSalesHeader(var NewSalesHeader: Record "Sales Header")
     begin

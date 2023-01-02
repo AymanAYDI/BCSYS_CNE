@@ -57,11 +57,11 @@ xmlport 50026 "BC6_Import Av. Orders"
                         SalesOrder.VALIDATE("Shipment Method Code", 'ADI');
                         SalesOrder.VALIDATE("BC6_Bin Code", BinCode);
                         IF SalesOrder."Requested Delivery Date" = 0D THEN
-                            SalesOrder.VALIDATE("Requested Delivery Date", WORKDATE);
-                        SalesOrder.MODIFY;
+                            SalesOrder.VALIDATE("Requested Delivery Date", WORKDATE());
+                        SalesOrder.MODIFY();
                         Counter += 1;
 
-                        SalesLine.RESET;
+                        SalesLine.RESET();
                         SalesLine.SETRANGE("Document Type", SalesOrder."Document Type");
                         SalesLine.SETRANGE("Document No.", SalesOrder."No.");
                         SalesLine.SetHideValidationDialog(TRUE);
@@ -73,9 +73,9 @@ xmlport 50026 "BC6_Import Av. Orders"
                                    (SalesLine."Qty. Shipped Not Invoiced" = 0) THEN BEGIN
                                     SalesLine.VALIDATE("Location Code", Location.Code);
                                     SalesLine.VALIDATE("Bin Code", SalesOrder."BC6_Bin Code");
-                                    SalesLine.MODIFY;
+                                    SalesLine.MODIFY();
                                 END;
-                            UNTIL SalesLine.NEXT = 0;
+                            UNTIL SalesLine.NEXT() = 0;
 
                         IF SalesDocReleaseOk THEN BEGIN
                             CLEAR(ReleaseSalesDoc);
@@ -106,16 +106,15 @@ xmlport 50026 "BC6_Import Av. Orders"
     end;
 
     var
-        SalesOrder: Record "Sales Header";
         Location: Record Location;
         OLDLocation: Record Location;
+        SalesOrder: Record "Sales Header";
+        SalesLine: Record "Sales Line";
+        ReleaseSalesDoc: Codeunit "Release Sales Document";
+        SalesDocReleaseOk: Boolean;
         LocationCode: Code[20];
         Counter: Integer;
         TotalCounter: Integer;
-        ReleaseSalesDoc: Codeunit "Release Sales Document";
-        SalesDocReleaseOk: Boolean;
-        SalesLine: Record "Sales Line";
         Text001: Label '%1 commandes à jour %2.', Comment = 'FRA="%1 commandes à jour %2."';
-        Text002: Label 'Commandes %1', Comment = 'FRA="Commandes %1"';
 }
 

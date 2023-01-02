@@ -37,7 +37,7 @@ page 50074 "BC6_Item List Search CNE"
                         SearchField := COPYSTR(data, 1, MAXSTRLEN(SearchField));
                         CurrPage.ScanZone.SetText(index, SearchField); //TODO: Check param
                         CurrPage.ScanZone.reset(index); //TODO: Check param
-                        OnAfterValidate;
+                        OnAfterValidate();
                         CurrPage.ScanZone.focus();
                     end;
                 }
@@ -49,7 +49,7 @@ page 50074 "BC6_Item List Search CNE"
 
                     trigger OnValidate()
                     begin
-                        OnAfterValidate;
+                        OnAfterValidate();
                     end;
                 }
                 field(LastSearchField; LastSearchField)
@@ -63,17 +63,17 @@ page 50074 "BC6_Item List Search CNE"
                     var
                         ItemCrossReference: Record "Item Reference";
                     begin
-                        RESET;
-                        DELETEALL;
+                        RESET();
+                        DELETEALL();
                         IF SearchField <> '' THEN BEGIN
                             ItemCrossReference.SETRANGE("Reference Type", ItemCrossReference."Reference Type"::"Bar Code");
                             ItemCrossReference.SETRANGE("Reference No.", SearchField);
-                            IF ItemCrossReference.FINDSET THEN
+                            IF ItemCrossReference.FINDSET() THEN
                                 REPEAT
                                     Item.GET(ItemCrossReference."Item No.");
                                     Rec := Item;
-                                    IF INSERT THEN;
-                                UNTIL ItemCrossReference.NEXT = 0;
+                                    IF INSERT() THEN;
+                                UNTIL ItemCrossReference.NEXT() = 0;
                         END;
                         LastSearchField := SearchField;
                         SearchField := '';
@@ -391,7 +391,7 @@ page 50074 "BC6_Item List Search CNE"
 
     trigger OnAfterGetRecord()
     begin
-        EnableControls;
+        EnableControls();
         CurrPage.ScanZone.focus();
     end;
 
@@ -399,44 +399,44 @@ page 50074 "BC6_Item List Search CNE"
     var
         CRMIntegrationManagement: Codeunit "CRM Integration Management";
     begin
-        CRMIntegrationEnabled := CRMIntegrationManagement.IsCRMIntegrationEnabled;
-        IsFoundationEnabled := ApplicationAreaSetup.IsFoundationEnabled;
-        SetWorkflowManagementEnabledState;
+        CRMIntegrationEnabled := CRMIntegrationManagement.IsCRMIntegrationEnabled();
+        IsFoundationEnabled := ApplicationAreaSetup.IsFoundationEnabled();
+        SetWorkflowManagementEnabledState();
         IsVisibleSearch := NOT (CURRENTCLIENTTYPE = CLIENTTYPE::Windows);
     end;
 
     var
-        TempFilterItemAttributesBuffer: Record "Filter Item Attributes Buffer" temporary;
         ApplicationAreaSetup: Record "Application Area Setup";
+        TempFilterItemAttributesBuffer: Record "Filter Item Attributes Buffer" temporary;
+        Item: Record Item;
+        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
         CalculateStdCost: Codeunit "Calculate Standard Cost";
         ItemAvailFormsMgt: Codeunit "Item Availability Forms Mgt";
-        ApprovalsMgmt: Codeunit "Approvals Mgmt.";
         SkilledResourceList: Page "Skilled Resource List";
+        CanCancelApprovalForRecord: Boolean;
+        CRMIntegrationEnabled: Boolean;
+        CRMIsCoupledToRecord: Boolean;
+        EnabledApprovalWorkflowsExist: Boolean;
+        [InDataSet]
+        InventoryItemEditable: Boolean;
         IsFoundationEnabled: Boolean;
+        [InDataSet]
+        IsService: Boolean;
+        [InDataSet]
+        IsVisibleSearch: Boolean;
+        OpenApprovalEntriesExist: Boolean;
         [InDataSet]
 
 
         SocialListeningSetupVisible: Boolean;
         [InDataSet]
         SocialListeningVisible: Boolean;
-        CRMIntegrationEnabled: Boolean;
-        CRMIsCoupledToRecord: Boolean;
-        OpenApprovalEntriesExist: Boolean;
-        [InDataSet]
-        IsService: Boolean;
-        [InDataSet]
-        InventoryItemEditable: Boolean;
-        EnabledApprovalWorkflowsExist: Boolean;
-        CanCancelApprovalForRecord: Boolean;
-        EventFilter: Text;
-        SearchField: Code[20];
-        Item: Record Item;
         LastSearchField: Code[20];
-        [InDataSet]
-        IsVisibleSearch: Boolean;
+        SearchField: Code[20];
         ConfAddToItem: Label 'Add to an existing Item ?', Comment = 'FRA="Ajouter à un article existant ?"';
         ConvertFrom: Label '&é"''(-è_çà';
         ConvertTo: Label '1234567890';
+        EventFilter: Text;
 
 
     procedure GetSelectionFilter(): Text
@@ -449,9 +449,9 @@ page 50074 "BC6_Item List Search CNE"
     end;
 
 
-    procedure SetSelection(var Item: Record Item)
+    procedure SetSelection(var Items: Record Item)
     begin
-        CurrPage.SETSELECTIONFILTER(Item);
+        CurrPage.SETSELECTIONFILTER(Items);
     end;
 
 
@@ -465,42 +465,42 @@ page 50074 "BC6_Item List Search CNE"
 
     local procedure SetWorkflowManagementEnabledState()
     var
-        WorkflowManagement: Codeunit "Workflow Management";
         WorkflowEventHandling: Codeunit "Workflow Event Handling";
+        WorkflowManagement: Codeunit "Workflow Management";
     begin
-        EventFilter := WorkflowEventHandling.RunWorkflowOnSendItemForApprovalCode + '|' +
-          WorkflowEventHandling.RunWorkflowOnItemChangedCode;
+        EventFilter := WorkflowEventHandling.RunWorkflowOnSendItemForApprovalCode() + '|' +
+          WorkflowEventHandling.RunWorkflowOnItemChangedCode();
 
         EnabledApprovalWorkflowsExist := WorkflowManagement.EnabledWorkflowExist(DATABASE::Item, EventFilter);
     end;
 
     local procedure OnAfterValidate()
     var
-        ItemReference: Record "Item Reference";
         Item: Record Item;
+        ItemReference: Record "Item Reference";
     begin
-        RESET;
-        DELETEALL;
+        RESET();
+        DELETEALL();
         CLEAR(Rec);
         IF SearchField <> '' THEN BEGIN
             ItemReference.SETRANGE("Reference Type", ItemReference."Reference Type"::"Bar Code");
             ItemReference.SETRANGE("Reference No.", SearchField);
-            IF ItemReference.FINDSET THEN BEGIN
+            IF ItemReference.FINDSET() THEN BEGIN
                 REPEAT
                     Item.GET(ItemReference."Item No.");
                     Rec := Item;
-                    IF INSERT THEN;
-                UNTIL ItemReference.NEXT = 0;
+                    IF INSERT() THEN;
+                UNTIL ItemReference.NEXT() = 0;
             END ELSE BEGIN
                 IF CONFIRM(ConfAddToItem, TRUE) THEN
                     IF ACTION::LookupOK = PAGE.RUNMODAL(PAGE::"Item List", Item) THEN BEGIN
-                        ItemReference.INIT;
+                        ItemReference.INIT();
                         ItemReference."Reference Type" := ItemReference."Reference Type"::"Bar Code";
                         ItemReference."Reference No." := SearchField;
                         ItemReference."Item No." := Item."No.";
-                        ItemReference.INSERT;
+                        ItemReference.INSERT();
                         Rec := Item;
-                        IF INSERT THEN;
+                        IF INSERT() THEN;
                     END;
             END;
         END;

@@ -5,7 +5,7 @@ pageextension 50015 "BC6_SalesInvoice" extends "Sales Invoice" //43
 
         addafter("Sell-to Contact No.")
         {
-            field(BC6_ID; ID)
+            field(BC6_ID; Rec.ID)
             {
                 Editable = false;
                 ApplicationArea = All;
@@ -80,7 +80,7 @@ pageextension 50015 "BC6_SalesInvoice" extends "Sales Invoice" //43
                         1:
                             CallPostDocument(CODEUNIT::"Sales-Post (Yes/No)", "Navigate After Posting"::"New Document");
                         2:
-                            EnvoiMail;
+                            EnvoiMail();
                     END;
                 end;
             }
@@ -89,24 +89,19 @@ pageextension 50015 "BC6_SalesInvoice" extends "Sales Invoice" //43
     }
 
     var
+        HistMail: Record "BC6_Historique Mails Envoyés";
+        cust: Record Customer;
+        SalesSetup: Record "Sales & Receivables Setup";
+        Mail: Codeunit Mail;
+        Excel: Boolean;
         STR3: Label 'Imprimer lme document';
         STR4: Label 'Envoyer par Mail';
         STR5: Label 'Envoyer par Fax';
-        "-MIGNAV2013-": Integer;
-        "--NSC1.01--": Integer;
-        cust: Record Customer;
-        nameF: Text[250];
-        Mail: Codeunit Mail;
-        "Sales & Receivables Setup": Record "Sales & Receivables Setup";
-        Excel: Boolean;
-        HistMail: Record "BC6_Historique Mails Envoyés";
-        SalesSetup: Record "Sales & Receivables Setup";
         Text001: Label '';
         Text004: Label '';
+        nameF: Text[250];
 
-    procedure "---MIGNAV2013---"()
-    begin
-    end;
+
 
     procedure FnctGOnAvterValidateReasonCode()
     begin
@@ -122,7 +117,7 @@ pageextension 50015 "BC6_SalesInvoice" extends "Sales Invoice" //43
         cust.SETRANGE(cust."No.", "Sell-to Customer No.");
         IF cust.FIND('-') THEN
             cust.TESTFIELD("E-Mail");
-        OpenFile;
+        OpenFile();
         IF nameF <> '' THEN BEGIN
             Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + "No.", '', nameF, FALSE);
             ERASE(nameF);

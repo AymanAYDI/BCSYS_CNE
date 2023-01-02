@@ -26,7 +26,7 @@ page 50119 "BC6_SAV Purchase Return Order"
                     trigger OnAssistEdit()
                     begin
                         IF Rec.AssistEdit(xRec) THEN
-                            CurrPage.UPDATE;
+                            CurrPage.UPDATE();
                     end;
                 }
                 field("Buy-from Vendor Name"; Rec."Buy-from Vendor Name")
@@ -43,7 +43,7 @@ page 50119 "BC6_SAV Purchase Return Order"
                             IF Rec."Buy-from Vendor No." <> xRec."Buy-from Vendor No." THEN
                                 Rec.SETRANGE("Buy-from Vendor No.");
 
-                        CurrPage.UPDATE;
+                        CurrPage.UPDATE();
                     end;
                 }
                 group("Buy-from")
@@ -152,7 +152,7 @@ page 50119 "BC6_SAV Purchase Return Order"
 
                     trigger OnValidate()
                     begin
-                        PurchaserCodeOnAfterValidate;
+                        PurchaserCodeOnAfterValidate();
                     end;
                 }
                 field("Campaign No."; Rec."Campaign No.")
@@ -225,17 +225,17 @@ page 50119 "BC6_SAV Purchase Return Order"
                         IF Rec."Posting Date" <> 0D THEN
                             ChangeExchangeRate.SetParameter(Rec."Currency Code", Rec."Currency Factor", Rec."Posting Date")
                         ELSE
-                            ChangeExchangeRate.SetParameter(Rec."Currency Code", Rec."Currency Factor", WORKDATE);
-                        IF ChangeExchangeRate.RUNMODAL = ACTION::OK THEN BEGIN
-                            Rec.VALIDATE("Currency Factor", ChangeExchangeRate.GetParameter);
-                            CurrPage.UPDATE;
+                            ChangeExchangeRate.SetParameter(Rec."Currency Code", Rec."Currency Factor", WORKDATE());
+                        IF ChangeExchangeRate.RUNMODAL() = ACTION::OK THEN BEGIN
+                            Rec.VALIDATE("Currency Factor", ChangeExchangeRate.GetParameter());
+                            CurrPage.UPDATE();
                         END;
                         CLEAR(ChangeExchangeRate);
                     end;
 
                     trigger OnValidate()
                     begin
-                        CurrPage.SAVERECORD;
+                        CurrPage.SAVERECORD();
                         PurchCalcDiscByType.ApplyDefaultInvoiceDiscount(0, Rec);
                     end;
                 }
@@ -252,7 +252,7 @@ page 50119 "BC6_SAV Purchase Return Order"
 
                     trigger OnValidate()
                     begin
-                        PricesIncludingVATOnAfterValid;
+                        PricesIncludingVATOnAfterValid();
                     end;
                 }
                 field("VAT Bus. Posting Group"; Rec."VAT Bus. Posting Group")
@@ -272,7 +272,7 @@ page 50119 "BC6_SAV Purchase Return Order"
 
                     trigger OnValidate()
                     begin
-                        ShortcutDimension1CodeOnAfterV;
+                        ShortcutDimension1CodeOnAfterV();
                     end;
                 }
                 field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
@@ -282,7 +282,7 @@ page 50119 "BC6_SAV Purchase Return Order"
 
                     trigger OnValidate()
                     begin
-                        ShortcutDimension2CodeOnAfterV;
+                        ShortcutDimension2CodeOnAfterV();
                     end;
                 }
                 field("Location Code"; Rec."Location Code")
@@ -520,7 +520,7 @@ page 50119 "BC6_SAV Purchase Return Order"
 
                     trigger OnAction()
                     begin
-                        Rec.OpenPurchaseOrderStatistics;
+                        Rec.OpenPurchaseOrderStatistics();
                         PurchCalcDiscByType.ResetRecalculateInvoiceDisc(Rec);
                     end;
                 }
@@ -545,8 +545,8 @@ page 50119 "BC6_SAV Purchase Return Order"
 
                     trigger OnAction()
                     begin
-                        Rec.ShowDocDim;
-                        CurrPage.SAVERECORD;
+                        Rec.ShowDocDim();
+                        CurrPage.SAVERECORD();
                     end;
                 }
                 action(Approvals)
@@ -561,8 +561,9 @@ page 50119 "BC6_SAV Purchase Return Order"
                     var
                         ApprovalEntries: Page "Approval Entries";
                     begin
-                        ApprovalEntries.Setfilters(DATABASE::"Purchase Header", Rec."Document Type", Rec."No.");
-                        ApprovalEntries.RUN;
+
+                        ApprovalEntries.Setfilters(DATABASE::"Purchase Header", Rec."Document Type".AsInteger(), Rec."No.");
+                        ApprovalEntries.RUN();
                     end;
                 }
                 action("Co&mments")
@@ -722,7 +723,7 @@ page 50119 "BC6_SAV Purchase Return Order"
                     IF Rec."BC6_Return Order Type" = Rec."BC6_Return Order Type"::Location THEN
                         DocPrint.PrintPurchHeader(Rec)
                     ELSE BEGIN
-                        L_PurchaseHeader.RESET;
+                        L_PurchaseHeader.RESET();
                         L_PurchaseHeader.SETRANGE("Document Type", Rec."Document Type");
                         L_PurchaseHeader.SETRANGE("No.", Rec."No.");
                         REPORT.RUNMODAL(Report::"BC6_Purchase Ret. Order - SAV", TRUE, FALSE, L_PurchaseHeader);
@@ -787,7 +788,7 @@ page 50119 "BC6_SAV Purchase Return Order"
 
                     trigger OnAction()
                     begin
-                        Rec.GetPstdDocLinesToReverse;
+                        Rec.GetPstdDocLinesToReverse();
                     end;
                 }
                 action("Apply Entries")
@@ -817,7 +818,7 @@ page 50119 "BC6_SAV Purchase Return Order"
 
                     trigger OnAction()
                     begin
-                        ApproveCalcInvDisc;
+                        ApproveCalcInvDisc();
                         PurchCalcDiscByType.ResetRecalculateInvoiceDisc(Rec);
                     end;
                 }
@@ -836,7 +837,7 @@ page 50119 "BC6_SAV Purchase Return Order"
                     trigger OnAction()
                     begin
                         CopyPurchDoc.SetPurchHeader(Rec);
-                        CopyPurchDoc.RUNMODAL;
+                        CopyPurchDoc.RUNMODAL();
                         CLEAR(CopyPurchDoc);
                         IF Rec.GET(Rec."Document Type", Rec."No.") THEN;
                     end;
@@ -852,8 +853,8 @@ page 50119 "BC6_SAV Purchase Return Order"
                     begin
                         CLEAR(MoveNegPurchLines);
                         MoveNegPurchLines.SetPurchHeader(Rec);
-                        MoveNegPurchLines.RUNMODAL;
-                        MoveNegPurchLines.ShowDocument;
+                        MoveNegPurchLines.RUNMODAL();
+                        MoveNegPurchLines.ShowDocument();
                     end;
                 }
                 action("Archive Document")
@@ -877,8 +878,8 @@ page 50119 "BC6_SAV Purchase Return Order"
 
                     trigger OnAction()
                     var
-                        ICInOutMgt: Codeunit ICInboxOutboxMgt;
                         ApprovalsMgmt: Codeunit "Approvals Mgmt.";
+                        ICInOutMgt: Codeunit ICInboxOutboxMgt;
                     begin
                         IF ApprovalsMgmt.PrePostApprovalCheckPurch(Rec) THEN
                             ICInOutMgt.SendPurchDoc(Rec, FALSE);
@@ -1057,7 +1058,7 @@ page 50119 "BC6_SAV Purchase Return Order"
 
                     trigger OnAction()
                     begin
-                        Rec.CancelBackgroundPosting;
+                        Rec.CancelBackgroundPosting();
                     end;
                 }
             }
@@ -1072,71 +1073,71 @@ page 50119 "BC6_SAV Purchase Return Order"
 
     trigger OnAfterGetRecord()
     begin
-        SetControlAppearance;
+        SetControlAppearance();
     end;
 
     trigger OnDeleteRecord(): Boolean
     begin
-        CurrPage.SAVERECORD;
-        EXIT(Rec.ConfirmDeletion);
+        CurrPage.SAVERECORD();
+        EXIT(Rec.ConfirmDeletion());
     end;
 
     trigger OnInit()
     var
         PurchasesPayablesSetup: Record "Purchases & Payables Setup";
     begin
-        JobQueueUsed := PurchasesPayablesSetup.JobQueueActive;
+        JobQueueUsed := PurchasesPayablesSetup.JobQueueActive();
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        Rec."Responsibility Center" := UserMgt.GetPurchasesFilter;
+        Rec."Responsibility Center" := UserMgt.GetPurchasesFilter();
         IF (NOT DocNoVisible) AND (Rec."No." = '') THEN
-            Rec.SetBuyFromVendorFromFilter;
+            Rec.SetBuyFromVendorFromFilter();
 
         Rec."BC6_Return Order Type" := Rec."BC6_Return Order Type"::SAV;
     end;
 
     trigger OnOpenPage()
     begin
-        IF UserMgt.GetPurchasesFilter <> '' THEN BEGIN
+        IF UserMgt.GetPurchasesFilter() <> '' THEN BEGIN
             Rec.FILTERGROUP(2);
-            Rec.SETRANGE("Responsibility Center", UserMgt.GetPurchasesFilter);
+            Rec.SETRANGE("Responsibility Center", UserMgt.GetPurchasesFilter());
             Rec.FILTERGROUP(0);
         END;
 
-        SetDocNoVisible;
+        SetDocNoVisible();
     end;
 
     trigger OnQueryClosePage(CloseAction: Action): Boolean
     begin
         IF NOT DocumentIsPosted THEN
-            EXIT(Rec.ConfirmCloseUnposted);
+            EXIT(Rec.ConfirmCloseUnposted());
     end;
 
     var
         CopyPurchDoc: Report "Copy Purchase Document";
         MoveNegPurchLines: Report "Move Negative Purchase Lines";
+        ArchiveManagement: Codeunit ArchiveManagement;
         DocPrint: Codeunit "Document-Print";
+        PurchCalcDiscByType: Codeunit "Purch - Calc Disc. By Type";
         ReportPrint: Codeunit "Test Report-Print";
         UserMgt: Codeunit "User Setup Management";
-        ArchiveManagement: Codeunit ArchiveManagement;
-        PurchCalcDiscByType: Codeunit "Purch - Calc Disc. By Type";
         ChangeExchangeRate: Page "Change Exchange Rate";
+        BooGReminderDateVisible: Boolean;
+        CanCancelApprovalForRecord: Boolean;
+        DocNoVisible: Boolean;
+        DocumentIsPosted: Boolean;
+        [InDataSet]
+        JobQueueUsed: Boolean;
         [InDataSet]
 
         JobQueueVisible: Boolean;
-        [InDataSet]
-        JobQueueUsed: Boolean;
-        DocNoVisible: Boolean;
         OpenApprovalEntriesExist: Boolean;
         OpenApprovalEntriesExistForCurrUser: Boolean;
         ShowWorkflowStatus: Boolean;
-        CanCancelApprovalForRecord: Boolean;
-        DocumentIsPosted: Boolean;
-        OpenPostedPurchaseReturnOrderQst: Label 'The return order has been posted and moved to the Posted Purchase Credit Memos window.\\Do you want to open the posted credit memo?', Comment = 'FRA="Le retour vente a été enregistré et déplacé dans la fenêtre Avoirs achat enregistrés.\\Voulez-vous ouvrir l''avoir enregistré ?"';
         "-BCSYS-": Integer;
-        BooGReminderDateVisible: Boolean;
+        OpenPostedPurchaseReturnOrderQst: Label 'The return order has been posted and moved to the Posted Purchase Credit Memos window.\\Do you want to open the posted credit memo?', Comment = 'FRA="Le retour vente a été enregistré et déplacé dans la fenêtre Avoirs achat enregistrés.\\Voulez-vous ouvrir l''avoir enregistré ?"';
 
     local procedure Post(PostingCodeunitID: Integer)
     var
@@ -1148,19 +1149,19 @@ page 50119 "BC6_SAV Purchase Return Order"
         DocumentIsPosted := NOT PurchaseHeader.GET(Rec."Document Type", Rec."No.");
 
         IF Rec."Job Queue Status" = Rec."Job Queue Status"::"Scheduled for Posting" THEN
-            CurrPage.CLOSE;
+            CurrPage.CLOSE();
         CurrPage.UPDATE(FALSE);
 
         IF PostingCodeunitID <> CODEUNIT::"Purch.-Post (Yes/No)" THEN
             EXIT;
 
-        IF InstructionMgt.IsEnabled(InstructionMgt.ShowPostedConfirmationMessageCode) THEN
-            ShowPostedConfirmationMessage;
+        IF InstructionMgt.IsEnabled(InstructionMgt.ShowPostedConfirmationMessageCode()) THEN
+            ShowPostedConfirmationMessage();
     end;
 
     local procedure ApproveCalcInvDisc()
     begin
-        CurrPage.PurchLines.PAGE.ApproveCalcInvDisc;
+        CurrPage.PurchLines.PAGE.ApproveCalcInvDisc();
     end;
 
     local procedure PurchaserCodeOnAfterValidate()
@@ -1180,7 +1181,7 @@ page 50119 "BC6_SAV Purchase Return Order"
 
     local procedure PricesIncludingVATOnAfterValid()
     begin
-        CurrPage.UPDATE;
+        CurrPage.UPDATE();
     end;
 
     local procedure SetDocNoVisible()
@@ -1207,14 +1208,14 @@ page 50119 "BC6_SAV Purchase Return Order"
 
     local procedure ShowPostedConfirmationMessage()
     var
-        ReturnOrderPurchaseHeader: Record "Purchase Header";
         PurchCrMemoHdr: Record "Purch. Cr. Memo Hdr.";
+        ReturnOrderPurchaseHeader: Record "Purchase Header";
         InstructionMgt: Codeunit "Instruction Mgt.";
     begin
         IF NOT ReturnOrderPurchaseHeader.GET(Rec."Document Type", Rec."No.") THEN BEGIN
             PurchCrMemoHdr.SETRANGE("No.", Rec."Last Posting No.");
-            IF PurchCrMemoHdr.FINDFIRST THEN
-                IF InstructionMgt.ShowConfirm(OpenPostedPurchaseReturnOrderQst, InstructionMgt.ShowPostedConfirmationMessageCode) THEN
+            IF PurchCrMemoHdr.FINDFIRST() THEN
+                IF InstructionMgt.ShowConfirm(OpenPostedPurchaseReturnOrderQst, InstructionMgt.ShowPostedConfirmationMessageCode()) THEN
                     PAGE.RUN(PAGE::"Posted Purchase Credit Memo", PurchCrMemoHdr);
         END;
     end;

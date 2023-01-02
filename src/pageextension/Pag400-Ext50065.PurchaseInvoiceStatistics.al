@@ -53,15 +53,15 @@ pageextension 50065 "BC6_PurchaseInvoiceStatistics" extends "Purchase Invoice St
     }
 
     var
+        CurrExchRate: Record "Currency Exchange Rate";
         DecGMntHTDEEE: Decimal;
         DecGMntTTCDEEE: Decimal;
-        NewVendAmount: Decimal;
-        NewVATAmount: Decimal;
         NewAmountInclVAT: Decimal;
         NewAmountLCY: Decimal;
+        NewVATAmount: Decimal;
         NewVATPercentage: Decimal;
+        NewVendAmount: Decimal;
         NewVATAmountText: Text[30];
-        CurrExchRate: Record "Currency Exchange Rate";
 
     procedure IncrementDecGMntHTDEEE(pDecGMntHTDEEE: Decimal)
     begin

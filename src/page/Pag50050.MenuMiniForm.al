@@ -29,7 +29,6 @@ page 50050 "BC6_Menu MiniForm"
                 ApplicationArea = All;
 
 
-
             }
             action(Inventory_2)
             {

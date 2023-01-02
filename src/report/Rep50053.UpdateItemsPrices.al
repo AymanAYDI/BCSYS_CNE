@@ -50,8 +50,8 @@ report 50053 "BC6_Update Items Prices"
 
     var
         Window: Dialog;
-        Text001: Label 'Mise à jour prix public TTC';
         Counter: Integer;
+        Text001: Label 'Mise à jour prix public TTC';
         Text1100267003: Label '%1 article(s) traité(s)';
 }
 

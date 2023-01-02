@@ -194,7 +194,6 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
                 trigger OnAction()
                 var
                     RecGSalesHeader: Record "Sales Header";
-                    "-MIGNAV2013-": Integer;
                 begin
                     CheckIfReleased();
                     RecGSalesHeader.RESET();

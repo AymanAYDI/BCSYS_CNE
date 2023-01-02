@@ -91,7 +91,7 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
                 column(QuantityCaption; QuantityCaptionLbl)
                 {
                 }
-                column(Purchase_Line__DescriptionCaption; PurchaseLine.FIELDCAPTION(Description))
+                column(Purchase_Line__DescriptionCaption; TempPurchaseLine.FIELDCAPTION(Description))
                 {
                 }
                 column(ItemCaption; ItemCaptionLbl)
@@ -121,7 +121,7 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
                 column(TotalInclVATText; TotalInclVATText)
                 {
                 }
-                column(VATAmountLine_VATAmountText; VATAmountLine.VATAmountText)
+                column(VATAmountLine_VATAmountText; TempVATAmountLine.VATAmountText())
                 {
                 }
                 column(Text50; Text50)
@@ -200,7 +200,7 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
                     column(PurchaserText; PurchaserText)
                     {
                     }
-                    column(STRSUBSTNO___1__2__CompanyInfo__Home_Page__CompanyInfo__E_Mail__; STRSUBSTNO('%1 %2', CompanyInfo."Home Page", CompanyInfo."E-Mail"))
+                    column(STRSUBSTNO___1__2__CompanyInfo__Home_Page__CompanyInfo__E_Mail__; STRSUBSTNO(txtlbl12, CompanyInfo."Home Page", CompanyInfo."E-Mail"))
                     {
                     }
                     column(STRSUBSTNO_Text033_CompanyInfo__Fax_No___; STRSUBSTNO(Text033, CompanyInfo."Fax No."))
@@ -212,7 +212,7 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
                     column(pays; pays)
                     {
                     }
-                    column(STRSUBSTNO___1__2__CompanyInfo__Post_Code__CompanyInfo_City_; STRSUBSTNO('%1 %2', CompanyInfo."Post Code", CompanyInfo.City))
+                    column(STRSUBSTNO___1__2__CompanyInfo__Post_Code__CompanyInfo_City_; STRSUBSTNO(txtlbl12, CompanyInfo."Post Code", CompanyInfo.City))
                     {
                     }
                     column(CompanyInfo__Address_2_; CompanyInfo."Address 2")
@@ -227,7 +227,7 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
                     column(ShipToAddr_6_; ShipToAddr[6])
                     {
                     }
-                    column(STRSUBSTNO_Text005_FORMAT_CurrReport_PAGENO__; STRSUBSTNO(Text005, FORMAT(CurrReport.PAGENO)))
+                    column(STRSUBSTNO_Text005_FORMAT_CurrReport_PAGENO__; STRSUBSTNO(Text005, FORMAT(CurrReport.PAGENO())))
                     {
                     }
                     column(TmpNamereport; TmpNamereport)
@@ -249,10 +249,10 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
                         begin
                             IF Number = 1 THEN BEGIN
                                 IF NOT DocDim1.FIND('-') THEN
-                                    CurrReport.BREAK;
+                                    CurrReport.BREAK();
                             END ELSE
                                 IF NOT Continue THEN
-                                    CurrReport.BREAK;
+                                    CurrReport.BREAK();
 
                             CLEAR(DimText);
                             Continue := FALSE;
@@ -260,7 +260,7 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
                                 OldDimText := DimText;
                                 IF DimText = '' THEN
                                     DimText := STRSUBSTNO(
-                                      '%1 %2', DocDim1."Dimension Code", DocDim1."Dimension Value Code")
+                                      txtlbl12, DocDim1."Dimension Code", DocDim1."Dimension Value Code")
                                 ELSE
                                     DimText :=
                                       STRSUBSTNO(
@@ -271,13 +271,13 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
                                     Continue := TRUE;
                                     EXIT;
                                 END;
-                            UNTIL (DocDim1.NEXT = 0);
+                            UNTIL (DocDim1.NEXT() = 0);
                         end;
 
                         trigger OnPreDataItem()
                         begin
                             IF NOT ShowInternalInfo THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                         end;
                     }
                     dataitem(TraitementTexteFournisseur; Integer)
@@ -301,37 +301,37 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
                                     IF Number = 1 THEN
                                         StandardPurchaseLine.FIND('-')
                                     ELSE BEGIN
-                                        StandardPurchaseLine.NEXT;
+                                        StandardPurchaseLine.NEXT();
                                     END;
                                 END;
                             end;
 
                             trigger OnPreDataItem()
                             begin
-                                IF NOT Edition THEN CurrReport.BREAK;
-                                StandardPurchaseLine.RESET;
+                                IF NOT Edition THEN CurrReport.BREAK();
+                                StandardPurchaseLine.RESET();
                                 StandardPurchaseLine.SETRANGE(StandardPurchaseLine."Standard Purchase Code", StandardVendorPurchaseCode.Code);
                                 Edition2 := TRUE;
                                 IF StandardPurchaseLine.COUNT <> 0 THEN
                                     TexteFournisseur.SETRANGE(Number, 1, StandardPurchaseLine.COUNT)
                                 ELSE
                                     Edition2 := FALSE;
-                                IF NOT Edition2 THEN CurrReport.BREAK;
+                                IF NOT Edition2 THEN CurrReport.BREAK();
                             end;
                         }
 
                         trigger OnAfterGetRecord()
                         begin
-                            IF NOT Edition THEN CurrReport.BREAK;
+                            IF NOT Edition THEN CurrReport.BREAK();
                             IF Number = 1 THEN
                                 StandardVendorPurchaseCode.FIND('-')
                             ELSE
-                                StandardVendorPurchaseCode.NEXT;
+                                StandardVendorPurchaseCode.NEXT();
                         end;
 
                         trigger OnPreDataItem()
                         begin
-                            StandardVendorPurchaseCode.RESET;
+                            StandardVendorPurchaseCode.RESET();
                             StandardVendorPurchaseCode.SETRANGE(StandardVendorPurchaseCode.BC6_TextautoReport, TRUE);
                             StandardVendorPurchaseCode.SETRANGE(StandardVendorPurchaseCode."Vendor No.", "Purchase Header"."Buy-from Vendor No.");
                             Edition := TRUE;
@@ -350,80 +350,80 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
 
                         trigger OnPreDataItem()
                         begin
-                            CurrReport.BREAK;
+                            CurrReport.BREAK();
                         end;
                     }
                     dataitem(RoundLoop; Integer)
                     {
                         DataItemTableView = SORTING(Number);
-                        column(PurchLine__Line_Amount_; PurchaseLine."Line Amount")
+                        column(PurchLine__Line_Amount_; TempPurchaseLine."Line Amount")
                         {
                             AutoFormatExpression = "Purchase Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(Purchase_Line__Description; PurchaseLine.Description)
+                        column(Purchase_Line__Description; TempPurchaseLine.Description)
                         {
                         }
-                        column(Purchase_Line__Description_Control1000000172; PurchaseLine.Description)
+                        column(Purchase_Line__Description_Control1000000172; TempPurchaseLine.Description)
                         {
                         }
-                        column(Purchase_Line___Line_Amount_; PurchaseLine."Line Amount")
+                        column(Purchase_Line___Line_Amount_; TempPurchaseLine."Line Amount")
                         {
                             AutoFormatExpression = "Purchase Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(Purchase_Line___Planned_Receipt_Date_; PurchaseLine."Planned Receipt Date")
+                        column(Purchase_Line___Planned_Receipt_Date_; TempPurchaseLine."Planned Receipt Date")
                         {
                         }
-                        column(Purchase_Line___Direct_Unit_Cost_; PurchaseLine."Direct Unit Cost")
+                        column(Purchase_Line___Direct_Unit_Cost_; TempPurchaseLine."Direct Unit Cost")
                         {
                             AutoFormatExpression = "Purchase Header"."Currency Code";
                             AutoFormatType = 2;
                         }
-                        column(Purchase_Line___Unit_of_Measure_Code_; PurchaseLine."Unit of Measure Code")
+                        column(Purchase_Line___Unit_of_Measure_Code_; TempPurchaseLine."Unit of Measure Code")
                         {
                         }
-                        column(Purchase_Line__Quantity; PurchaseLine.Quantity)
+                        column(Purchase_Line__Quantity; TempPurchaseLine.Quantity)
                         {
                         }
-                        column(COPYSTR__Purchase_Line__Description_1_28_; COPYSTR(PurchaseLine.Description, 1, 28))
+                        column(COPYSTR__Purchase_Line__Description_1_28_; COPYSTR(TempPurchaseLine.Description, 1, 28))
                         {
                         }
-                        column(Purchase_Line___No__; PurchaseLine."No.")
+                        column(Purchase_Line___No__; TempPurchaseLine."No.")
                         {
                         }
                         column(CrossrefNo; CrossrefNo)
                         {
                         }
-                        column(COPYSTR__Purchase_Line__Description_29_22_; COPYSTR(PurchaseLine.Description, 29, 22))
+                        column(COPYSTR__Purchase_Line__Description_29_22_; COPYSTR(TempPurchaseLine.Description, 29, 22))
                         {
                         }
-                        column(Purchase_Line___Units_per_Parcel_; PurchaseLine."Units per Parcel")
+                        column(Purchase_Line___Units_per_Parcel_; TempPurchaseLine."Units per Parcel")
                         {
                         }
-                        column(Purchase_Line__Quantity_Control1000000064; PurchaseLine.Quantity)
+                        column(Purchase_Line__Quantity_Control1000000064; TempPurchaseLine.Quantity)
                         {
                         }
-                        column(Purchase_Line__Description_Control1000000066; PurchaseLine.Description)
+                        column(Purchase_Line__Description_Control1000000066; TempPurchaseLine.Description)
                         {
                         }
-                        column(Purchase_Line___No___Control1000000076; PurchaseLine."No.")
+                        column(Purchase_Line___No___Control1000000076; TempPurchaseLine."No.")
                         {
                         }
                         column(CrossrefNo_Control1000000080; CrossrefNo)
                         {
                         }
-                        column(PurchLine__Line_Amount__Control1000000069; PurchaseLine."Line Amount")
+                        column(PurchLine__Line_Amount__Control1000000069; TempPurchaseLine."Line Amount")
                         {
                             AutoFormatExpression = "Purchase Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(PurchLine__Line_Amount__PurchLine__Inv__Discount_Amount_; PurchaseLine."Line Amount" - PurchaseLine."Inv. Discount Amount")
+                        column(PurchLine__Line_Amount__PurchLine__Inv__Discount_Amount_; TempPurchaseLine."Line Amount" - TempPurchaseLine."Inv. Discount Amount")
                         {
                             AutoFormatExpression = "Purchase Header"."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(PurchLine__Line_Amount__PurchLine__Inv__Discount_Amount____VATAmount; PurchaseLine."Line Amount" - PurchaseLine."Inv. Discount Amount" + VATAmount)
+                        column(PurchLine__Line_Amount__PurchLine__Inv__Discount_Amount____VATAmount; TempPurchaseLine."Line Amount" - TempPurchaseLine."Inv. Discount Amount" + VATAmount)
                         {
                             AutoFormatExpression = "Purchase Header"."Currency Code";
                             AutoFormatType = 1;
@@ -463,7 +463,7 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
                         column(BooGVisibleBody5; BooGVisibleBody5)
                         {
                         }
-                        column(Purchase_Line_Inv_Discount_Amount; PurchaseLine."Inv. Discount Amount")
+                        column(Purchase_Line_Inv_Discount_Amount; TempPurchaseLine."Inv. Discount Amount")
                         {
                         }
                         dataitem(DimensionLoop2; Integer)
@@ -475,10 +475,10 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
                             begin
                                 IF Number = 1 THEN BEGIN
                                     IF NOT DocDim2.FIND('-') THEN
-                                        CurrReport.BREAK;
+                                        CurrReport.BREAK();
                                 END ELSE
                                     IF NOT Continue THEN
-                                        CurrReport.BREAK;
+                                        CurrReport.BREAK();
 
                                 CLEAR(DimText);
                                 Continue := FALSE;
@@ -486,7 +486,7 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
                                     OldDimText := DimText;
                                     IF DimText = '' THEN
                                         DimText := STRSUBSTNO(
-                                          '%1 %2', DocDim2."Dimension Code", DocDim2."Dimension Value Code")
+                                          txtlbl12, DocDim2."Dimension Code", DocDim2."Dimension Value Code")
                                     ELSE
                                         DimText :=
                                           STRSUBSTNO(
@@ -497,13 +497,13 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
                                         Continue := TRUE;
                                         EXIT;
                                     END;
-                                UNTIL (DocDim2.NEXT = 0);
+                                UNTIL (DocDim2.NEXT() = 0);
                             end;
 
                             trigger OnPreDataItem()
                             begin
                                 IF NOT ShowInternalInfo THEN
-                                    CurrReport.BREAK;
+                                    CurrReport.BREAK();
 
                             end;
                         }
@@ -511,68 +511,68 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
                         trigger OnAfterGetRecord()
                         begin
                             IF Number = 1 THEN
-                                PurchaseLine.FIND('-')
+                                TempPurchaseLine.FIND('-')
                             ELSE
-                                PurchaseLine.NEXT;
-                            PurchaseLine := PurchaseLine;
+                                TempPurchaseLine.NEXT();
+                            TempPurchaseLine := TempPurchaseLine;
 
                             IF NOT "Purchase Header"."Prices Including VAT" AND
-                               (PurchaseLine."VAT Calculation Type" = PurchaseLine."VAT Calculation Type"::"Full VAT")
+                               (TempPurchaseLine."VAT Calculation Type" = TempPurchaseLine."VAT Calculation Type"::"Full VAT")
                             THEN
-                                PurchaseLine."Line Amount" := 0;
+                                TempPurchaseLine."Line Amount" := 0;
 
-                            IF (PurchaseLine.Type = PurchaseLine.Type::"G/L Account") AND (NOT ShowInternalInfo) THEN
-                                PurchaseLine."No." := '';
+                            IF (TempPurchaseLine.Type = TempPurchaseLine.Type::"G/L Account") AND (NOT ShowInternalInfo) THEN
+                                TempPurchaseLine."No." := '';
 
                             CrossrefNo := '';
-                            IF ItemVendor.GET(PurchaseLine."Buy-from Vendor No.", PurchaseLine."No.", PurchaseLine."Variant Code") THEN
+                            IF ItemVendor.GET(TempPurchaseLine."Buy-from Vendor No.", TempPurchaseLine."No.", TempPurchaseLine."Variant Code") THEN
                                 CrossrefNo := ItemVendor."Vendor Item No.";
                             IF CrossrefNo = '' THEN
-                                CrossrefNo := PurchaseLine."Item Reference No.";
+                                CrossrefNo := TempPurchaseLine."Item Reference No.";
                             TempNomenclaturedouaniere := '';
-                            item.RESET;
+                            item.RESET();
                             IF "Purchase Header"."Buy-from Country/Region Code" <> CompanyInfo."Country/Region Code" THEN BEGIN
-                                IF PurchaseLine.Type = PurchaseLine.Type::Item THEN
-                                    IF item.GET(PurchaseLine."No.") THEN
+                                IF TempPurchaseLine.Type = TempPurchaseLine.Type::Item THEN
+                                    IF item.GET(TempPurchaseLine."No.") THEN
                                         TempNomenclaturedouaniere := item."Tariff No.";
                                 ;
                             END;
 
-                            Asterisque := COPYSTR(PurchaseLine.Description, 1, 1);
+                            Asterisque := COPYSTR(TempPurchaseLine.Description, 1, 1);
 
-                            BooGVisibleBody1 := ((PurchaseLine.Type.AsInteger() = 0) AND (ShowAmount = TRUE) AND (Asterisque <> '*'));
-                            BooGVisibleBody2 := ((PurchaseLine.Type.AsInteger() = 0) AND (ShowAmount = FALSE) AND (Asterisque <> '*'));
+                            BooGVisibleBody1 := ((TempPurchaseLine.Type.AsInteger() = 0) AND (ShowAmount = TRUE) AND (Asterisque <> '*'));
+                            BooGVisibleBody2 := ((TempPurchaseLine.Type.AsInteger() = 0) AND (ShowAmount = FALSE) AND (Asterisque <> '*'));
 
-                            BooGVisibleBody3 := (PurchaseLine.Type.AsInteger() > 0) AND (ShowAmount = TRUE);
+                            BooGVisibleBody3 := (TempPurchaseLine.Type.AsInteger() > 0) AND (ShowAmount = TRUE);
 
-                            IF (PurchaseLine."Line Amount" <> 0) AND (PurchaseLine.Quantity <> 0) THEN
-                                PrixNet := PurchaseLine."Line Amount" / PurchaseLine.Quantity
+                            IF (TempPurchaseLine."Line Amount" <> 0) AND (TempPurchaseLine.Quantity <> 0) THEN
+                                PrixNet := TempPurchaseLine."Line Amount" / TempPurchaseLine.Quantity
                             ELSE
                                 PrixNet := 0;
 
-                            BooGVisibleBody4 := (PurchaseLine.Type.AsInteger() > 0) AND (ShowAmount = TRUE)
-                                                 AND (COPYSTR(PurchaseLine.Description, 29, 22) <> '');
-                            BooGVisibleBody5 := (PurchaseLine.Type.AsInteger() > 0) AND (ShowAmount = FALSE);
+                            BooGVisibleBody4 := (TempPurchaseLine.Type.AsInteger() > 0) AND (ShowAmount = TRUE)
+                                                 AND (COPYSTR(TempPurchaseLine.Description, 29, 22) <> '');
+                            BooGVisibleBody5 := (TempPurchaseLine.Type.AsInteger() > 0) AND (ShowAmount = FALSE);
 
                         end;
 
                         trigger OnPostDataItem()
                         begin
-                            PurchaseLine.DELETEALL;
+                            TempPurchaseLine.DELETEALL();
                         end;
 
                         trigger OnPreDataItem()
                         begin
-                            MoreLines := PurchaseLine.FIND('+');
-                            WHILE MoreLines AND (PurchaseLine.Description = '') AND (PurchaseLine."Description 2" = '') AND
-                                  (PurchaseLine."No." = '') AND (PurchaseLine.Quantity = 0) AND
-                                  (PurchaseLine.Amount = 0) DO
-                                MoreLines := PurchaseLine.NEXT(-1) <> 0;
+                            MoreLines := TempPurchaseLine.FIND('+');
+                            WHILE MoreLines AND (TempPurchaseLine.Description = '') AND (TempPurchaseLine."Description 2" = '') AND
+                                  (TempPurchaseLine."No." = '') AND (TempPurchaseLine.Quantity = 0) AND
+                                  (TempPurchaseLine.Amount = 0) DO
+                                MoreLines := TempPurchaseLine.NEXT(-1) <> 0;
                             IF NOT MoreLines THEN
-                                CurrReport.BREAK;
-                            PurchaseLine.SETRANGE("Line No.", 0, PurchaseLine."Line No.");
-                            SETRANGE(Number, 1, PurchaseLine.COUNT);
-                            CurrReport.CREATETOTALS(PurchaseLine."Line Amount", PurchaseLine."Inv. Discount Amount");
+                                CurrReport.BREAK();
+                            TempPurchaseLine.SETRANGE("Line No.", 0, TempPurchaseLine."Line No.");
+                            SETRANGE(Number, 1, TempPurchaseLine.COUNT);
+                            CurrReport.CREATETOTALS(TempPurchaseLine."Line Amount", TempPurchaseLine."Inv. Discount Amount");
                         end;
                     }
                     dataitem(VATCounter; Integer)
@@ -581,17 +581,17 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
 
                         trigger OnAfterGetRecord()
                         begin
-                            VATAmountLine.GetLine(Number);
+                            TempVATAmountLine.GetLine(Number);
                         end;
 
                         trigger OnPreDataItem()
                         begin
                             IF VATAmount = 0 THEN
-                                CurrReport.BREAK;
-                            SETRANGE(Number, 1, VATAmountLine.COUNT);
+                                CurrReport.BREAK();
+                            SETRANGE(Number, 1, TempVATAmountLine.COUNT);
                             CurrReport.CREATETOTALS(
-                              VATAmountLine."Line Amount", VATAmountLine."Inv. Disc. Base Amount",
-                              VATAmountLine."Invoice Discount Amount", VATAmountLine."VAT Base", VATAmountLine."VAT Amount");
+                              TempVATAmountLine."Line Amount", TempVATAmountLine."Inv. Disc. Base Amount",
+                              TempVATAmountLine."Invoice Discount Amount", TempVATAmountLine."VAT Base", TempVATAmountLine."VAT Amount");
                         end;
                     }
                     dataitem(Total; Integer)
@@ -607,7 +607,7 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
                         trigger OnPreDataItem()
                         begin
                             IF "Purchase Header"."Buy-from Vendor No." = "Purchase Header"."Pay-to Vendor No." THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                         end;
                     }
                     dataitem(Total3; Integer)
@@ -618,13 +618,13 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
                         trigger OnPreDataItem()
                         begin
                             IF ("Purchase Header"."Sell-to Customer No." = '') AND (ShipToAddr[1] = '') THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                         end;
                     }
 
                     trigger OnPreDataItem()
                     begin
-                        IF CurrReport.PAGENO = 1 THEN BEGIN
+                        IF CurrReport.PAGENO() = 1 THEN BEGIN
                             FlagText10 := FALSE;
                             LangueLig10 := Langue + '' + '10';
                             LangueLig20 := Langue + '' + '20';
@@ -649,18 +649,18 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
 
                 trigger OnAfterGetRecord()
                 begin
-                    CLEAR(PurchaseLine);
+                    CLEAR(TempPurchaseLine);
                     CLEAR(PurchPost);
-                    PurchaseLine.DELETEALL;
-                    VATAmountLine.DELETEALL;
-                    PurchPost.GetPurchLines("Purchase Header", PurchaseLine, 0);
-                    PurchaseLine.CalcVATAmountLines(0, "Purchase Header", PurchaseLine, VATAmountLine);
-                    PurchaseLine.UpdateVATOnLines(0, "Purchase Header", PurchaseLine, VATAmountLine);
-                    VATAmount := VATAmountLine.GetTotalVATAmount;
-                    VATBaseAmount := VATAmountLine.GetTotalVATBase;
+                    TempPurchaseLine.DELETEALL();
+                    TempVATAmountLine.DELETEALL();
+                    PurchPost.GetPurchLines("Purchase Header", TempPurchaseLine, 0);
+                    TempPurchaseLine.CalcVATAmountLines(0, "Purchase Header", TempPurchaseLine, TempVATAmountLine);
+                    TempPurchaseLine.UpdateVATOnLines(0, "Purchase Header", TempPurchaseLine, TempVATAmountLine);
+                    VATAmount := TempVATAmountLine.GetTotalVATAmount();
+                    VATBaseAmount := TempVATAmountLine.GetTotalVATBase();
                     VATDiscountAmount :=
-                      VATAmountLine.GetTotalVATDiscount("Purchase Header"."Currency Code", "Purchase Header"."Prices Including VAT");
-                    TotalAmountInclVAT := VATAmountLine.GetTotalAmountInclVAT;
+                      TempVATAmountLine.GetTotalVATDiscount("Purchase Header"."Currency Code", "Purchase Header"."Prices Including VAT");
+                    TotalAmountInclVAT := TempVATAmountLine.GetTotalAmountInclVAT();
 
                     IF Number > 1 THEN BEGIN
                         CopyText := Text003;
@@ -690,7 +690,7 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
             begin
                 CurrReport.LANGUAGE := LanguageC.GetLanguageId("Language Code");
 
-                CompanyInfo.GET;
+                CompanyInfo.GET();
                 IF country.GET(CompanyInfo."Country/Region Code") THEN
                     pays := country.Name;
 
@@ -742,7 +742,7 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
                 Text204 := Text204T;
 
                 IF "Purchaser Code" = '' THEN BEGIN
-                    SalesPurchPerson.INIT;
+                    SalesPurchPerson.INIT();
                     PurchaserText := '';
                 END ELSE BEGIN
                     SalesPurchPerson.GET("Purchaser Code");
@@ -792,11 +792,11 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
                 IF ("Purchase Header"."Buy-from Vendor No." <> "Purchase Header"."Pay-to Vendor No.") THEN
                     FormatAddr.PurchHeaderPayTo(VendAddr, "Purchase Header");
                 IF "Payment Terms Code" = '' THEN
-                    PaymentTerms.INIT
+                    PaymentTerms.INIT()
                 ELSE
                     PaymentTerms.GET("Payment Terms Code");
                 IF "Shipment Method Code" = '' THEN
-                    ShipmentMethod.INIT
+                    ShipmentMethod.INIT()
                 ELSE
                     ShipmentMethod.GET("Shipment Method Code");
 
@@ -864,7 +864,7 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
         trigger OnOpenPage()
         begin
 
-            ArchiveDocument := ArchiveManagement.SalesDocArchiveGranule;
+            ArchiveDocument := ArchiveManagement.SalesDocArchiveGranule();
             LogInteraction := SegManagement.FindInteractTmplCode(13) <> '';
 
             BooGEnableLogInteraction := LogInteraction;
@@ -879,11 +879,11 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
 
     trigger OnInitReport()
     begin
-        GLSetup.GET;
+        GLSetup.GET();
         ShowAmount := TRUE;
 
 
-        CompanyInfo1.GET;
+        CompanyInfo1.GET();
         CompanyInfo1.CALCFIELDS(Picture);
     end;
 
@@ -901,14 +901,14 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
         Language: Record Language;
         PaymentMethod: Record "Payment Method";
         PaymentTerms: Record "Payment Terms";
-        PurchaseLine: Record "Purchase Line" temporary;
+        TempPurchaseLine: Record "Purchase Line" temporary;
         RespCenter: Record "Responsibility Center";
         SalesPurchPerson: Record "Salesperson/Purchaser";
         ShipmentMethod: Record "Shipment Method";
         ShippingAgent: Record "Shipping Agent";
         StandardPurchaseLine: Record "Standard Purchase Line";
         StandardVendorPurchaseCode: Record "Standard Vendor Purchase Code";
-        VATAmountLine: Record "VAT Amount Line" temporary;
+        TempVATAmountLine: Record "VAT Amount Line" temporary;
         Vendor: Record Vendor;
         ArchiveManagement: Codeunit ArchiveManagement;
         FormatAddr: Codeunit "Format Address";
@@ -992,6 +992,7 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
         Unit_PriceCaptionLbl: Label 'Unit Price', Comment = 'FRA="Prix unitaire HT"';
         VAT_Registration_No__CaptionLbl: Label '<VAT Registration No.>', Comment = 'FRA="N° TVA :"';
         Vendor_NumberCaptionLbl: Label 'Vendor Number', Comment = 'FRA="Code Fournisseur"';
+        txtlbl12: label '%1 %2';
         Asterisque: Text[1];
         Langue: Text[10];
         LangueLig01: Text[10];

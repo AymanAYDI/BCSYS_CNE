@@ -51,13 +51,13 @@ report 50059 "BC6_Item Label v3"
 
                 ExtendedTextHeader.SETRANGE("No.", "No.");
 
-                ExtendedTextHeader.SETRANGE("Starting Date", 0D, WORKDATE);
-                ExtendedTextHeader.SETFILTER("Ending Date", '%1..|%2', WORKDATE, 0D);
+                ExtendedTextHeader.SETRANGE("Starting Date", 0D, WORKDATE());
+                ExtendedTextHeader.SETFILTER("Ending Date", '%1..|%2', WORKDATE(), 0D);
                 ExtendedTextHeader.SETRANGE("All Language Codes", TRUE);
 
-                IF ExtendedTextHeader.FINDFIRST THEN BEGIN
+                IF ExtendedTextHeader.FINDFIRST() THEN BEGIN
                     ExtendedTextLine.SETRANGE("No.", "No.");
-                    IF ExtendedTextLine.FINDFIRST THEN
+                    IF ExtendedTextLine.FINDFIRST() THEN
                         ExtendedTextItem := ExtendedTextLine.Text;
                 END;
 
@@ -81,7 +81,7 @@ report 50059 "BC6_Item Label v3"
                     CLEAR(ConvertAutoIDEAN13);
                     EAN13BarTxt := ConvertAutoIDEAN13.EncodeBarcodeEAN13(EAN13Bar, EAN13Txt);
                 END ELSE
-                    CurrReport.SKIP;
+                    CurrReport.SKIP();
             end;
         }
     }
@@ -103,20 +103,20 @@ report 50059 "BC6_Item Label v3"
     }
 
     var
-        EAN13Txt: Text[13];
-        EAN13Bar: Text[13];
-        EAN13BarTxt: Text[120];
-        NumOfLabel: Integer;
+        ExtendedTextHeader: Record "Extended Text Header";
+        ExtendedTextLine: Record "Extended Text Line";
         ConvertAutoIDEAN13: Codeunit "BC6_Barcode Mngt AutoID";
-        DistInt: Codeunit "Dist. Integration";
         FctMangt: Codeunit "BC6_Functions Mgt";
+        DistInt: Codeunit "Dist. Integration";
+        NumOfLabel: Integer;
+        Text1100267001: Label '%1 € TTC';
+        Text1100267003: Label '%1 € HT  ';
+        EAN13Bar: Text[13];
+        EAN13Txt: Text[13];
+        ExtendedTextItem: Text[50];
+        EAN13BarTxt: Text[120];
         ItemDescription: Text[120];
         UnitPriceIncVATTxt: Text[120];
-        Text1100267001: Label '%1 € TTC';
         UnitPriceTxt: Text[120];
-        Text1100267003: Label '%1 € HT  ';
-        ExtendedTextLine: Record "Extended Text Line";
-        ExtendedTextHeader: Record "Extended Text Header";
-        ExtendedTextItem: Text[50];
 }
 

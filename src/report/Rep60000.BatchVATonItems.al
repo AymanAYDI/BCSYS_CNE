@@ -37,7 +37,7 @@ report 60000 "BC6_Batch VAT on Items"
                     IF ("VAT Prod. Posting Group" = 'TVA19,6') AND ("Quantity Received" = 0) THEN BEGIN
                         SuspendStatusCheck(TRUE);
                         VALIDATE("VAT Prod. Posting Group", 'TVA20');
-                        MODIFY;
+                        MODIFY();
                         SuspendStatusCheck(FALSE);
                     END;
                 end;
@@ -48,7 +48,7 @@ report 60000 "BC6_Batch VAT on Items"
                 IF "VAT Prod. Posting Group" = 'TVA19,6' THEN BEGIN
                     DlgGWin.UPDATE(1, "No.");
                     VALIDATE("VAT Prod. Posting Group", 'TVA20');
-                    MODIFY;
+                    MODIFY();
                 END;
             end;
 

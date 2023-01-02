@@ -1,6 +1,6 @@
 page 60045 "Sales/Purch. History FactB STD"
 {
-    Caption = 'Item Sales/Purchase History', Comment = 'FRA=""';
+    Caption = 'Item Sales/Purchase History', Comment = 'FRA="Historique vente/achat article"';
     PageType = CardPart;
     SourceTable = Item;
 

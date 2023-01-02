@@ -366,12 +366,8 @@ report 50010 "BC6_Sales - Invoice CNE"
                             TempVATAmountLine."BC6_DEEE VAT Amount" := "BC6_DEEE VAT Amount";
                             TempVATAmountLine.InsertLine();
 
-                            //MICO DEEE1.00
-                            //DecGVATTotalAmount += VATAmountLine."VAT Amount" + VATAmountLine."DEEE VAT Amount";
                             DecGTTCTotalAmount += "Amount Including VAT" + "BC6_DEEE TTC Amount";
-                            //>>FE005:DARI 22/02/2007
 
-                            //>>MIGRATION NAV 2013
                             TotalAmount += Amount;
                             TotalAmountInclVAT += "Amount Including VAT";
                             TotalDEEEHTAmount += "BC6_DEEE HT Amount";
@@ -408,14 +404,10 @@ report 50010 "BC6_Sales - Invoice CNE"
                                 CurrReport.BREAK();
                             SETRANGE("Line No.", 0, "Line No.");
 
-                            //>>FE005:DARI 22/02/2007
-                            //CurrReport.CREATETOTALS("Line Amount",Amount,"Amount Including VAT","Inv. Discount Amount");
                             CurrReport.CREATETOTALS("Line Amount", Amount, "Amount Including VAT", "Inv. Discount Amount", "BC6_DEEE HT Amount", "BC6_DEEE VAT Amount");
-                            //MICO DEEE1.00
 
                             DecGVATTotalAmount := 0;
                             DecGTTCTotalAmount := 0;
-                            //<<FE005:DARI 20/02/2007
 
 
                             //FG
@@ -768,17 +760,14 @@ report 50010 "BC6_Sales - Invoice CNE"
                 END;
 
 
-                //>> 10/10/2012 SU-DADE cf Appal TI125440
                 GtextAcompte := '';
                 GAcompte := 0;
-                //<< 10/10/2012 SU-DADE cf Appal TI125440
 
                 IF "Order No." = '' THEN
                     OrderNoText := ''
                 ELSE
                     OrderNoText := FIELDCAPTION("Order No.");
 
-                //>> 10/10/2012 SU-DADE cf Appal TI125440
                 GCde.SETRANGE("No.", "Order No.");
                 IF GCde.FIND('-') THEN BEGIN
                     GtextAcompte := 'Acompte :';
@@ -790,7 +779,6 @@ report 50010 "BC6_Sales - Invoice CNE"
                         GAcompte := GCdeArch."BC6_Advance Payment";
                     END;
                 END;
-                //<< 10/10/2012 SU-DADE cf Appal TI125440
 
                 IF "Salesperson Code" = '' THEN BEGIN
                     SalesPurchPerson.INIT();
@@ -820,14 +808,12 @@ report 50010 "BC6_Sales - Invoice CNE"
                 FormatAddr.SalesInvBillTo(CustAddr, "Sales Invoice Header");
                 Cust.GET("Bill-to Customer No.");
 
-                //>>MIGRATION NAV 2013
                 RecG_User.RESET();
                 RecG_User.SETRANGE("User Name", "User ID");
                 IF RecG_User.FINDFIRST() THEN
                     TexG_User_Name := RecG_User."Full Name"
                 ELSE
                     TexG_User_Name := '';
-                //<<MIGRATION NAV 2013
 
                 IF "Payment Terms Code" = '' THEN
                     PaymentTerms.INIT()
@@ -856,21 +842,15 @@ report 50010 "BC6_Sales - Invoice CNE"
                               "Campaign No.", "Posting Description", '');
                     END;
 
-                //>>COMPTA_DEEE FG 01/03/07
                 RecGBillCustomer.RESET();
                 RecGBillCustomer.GET("Sales Invoice Header"."Bill-to Customer No.");
-                //<<COMPTA_DEEE FG 01/03/07
 
-                //>>MIGRATION NAV 2013
                 BooGTotalVisible := "Prices Including VAT";
-                //<<MIGRATION NAV 2013
             end;
 
             trigger OnPreDataItem()
             begin
-                //DEEE
                 BooGDEEEFind := FALSE;
-                //FIN DEEE
             end;
         }
     }
@@ -884,18 +864,18 @@ report 50010 "BC6_Sales - Invoice CNE"
             {
                 group(Options)
                 {
-                    Caption = 'Options', Comment = 'FRA=""';
+                    Caption = 'Options', Comment = 'FRA="Options"';
                     field(NoOfCopies; NoOfCopies)
                     {
-                        Caption = 'No. of Copies', Comment = 'FRA=""';
+                        Caption = 'No. of Copies', Comment = 'FRA="Nombre de copies"';
                     }
                     field(ShowInternalInfo; ShowInternalInfo)
                     {
-                        Caption = 'Show Internal Information', Comment = 'FRA=""';
+                        Caption = 'Show Internal Information', Comment = 'FRA="Afficher info. internes"';
                     }
                     field(LogInteraction; LogInteraction)
                     {
-                        Caption = 'Log Interaction', Comment = 'FRA=""';
+                        Caption = 'Log Interaction', Comment = 'FRA="Journal interaction"';
                         Enabled = LogInteractionEnable;
                     }
                 }
@@ -1004,11 +984,6 @@ report 50010 "BC6_Sales - Invoice CNE"
         TotalDEEEHTAmount: Decimal;
         VALVATAmountLCY: Decimal;
         VALVATBaseLCY: Decimal;
-        "--FEP-ADVE-200706_18_A--": Integer;
-        "--FG--": Integer;
-        "-- TDL 100--": Integer;
-        "-DEEE1.00-": Integer;
-        "- MIGNAV2013 -": Integer;
         FirstValueEntryNo: Integer;
         i: Integer;
         IntGCpt: Integer;
@@ -1124,4 +1099,3 @@ report 50010 "BC6_Sales - Invoice CNE"
         TxtGTag := RecGParamVente."BC6_PDF Mail Tag" + TxtLTag;
     end;
 }
-

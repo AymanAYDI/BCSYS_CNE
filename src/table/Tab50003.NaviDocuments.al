@@ -101,7 +101,7 @@ table 50003 "BC6_Navi+ Documents"
             Editable = false;
             DataClassification = CustomerContent;
         }
-        field(19; "Modified By"; Code[20])
+        field(19; "Modified By"; Code[50])
         {
             Caption = 'Modified By', comment = 'FRA="Modifié par"';
             Editable = false;

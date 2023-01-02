@@ -3,7 +3,7 @@ report 50076 "BC6_Traite fourn. sur bord"
     DefaultLayout = RDLC;
     RDLCLayout = './src/Report/RDL/Traitefournisseursurbord.rdl';
 
-    Caption = 'Bill WORMS', comment = 'FRA=""';
+    Caption = 'Bill WORMS', comment = 'FRA="Lettre de change WORMS"';
 
     dataset
     {
@@ -13,7 +13,7 @@ report 50076 "BC6_Traite fourn. sur bord"
                                 WHERE("Account Type" = FILTER(Vendor));
             PrintOnlyIfDetail = true;
             RequestFilterFields = "No.";
-            RequestFilterHeading = 'Payment lines', comment = 'FRA=""';
+            RequestFilterHeading = 'Payment lines', comment = 'FRA="Lignes règlement"';
             column(CustAdr_1_; CustAdr[1])
             {
             }
@@ -608,7 +608,7 @@ report 50076 "BC6_Traite fourn. sur bord"
         AMOUNT_FOR_CONTROLCaption_Control1000000269Lbl: Label 'AMOUNT FOR CONTROL', comment = 'FRA="MONTANT POUR CONTROLE"';
         AMOUNT_FOR_CONTROLCaptionLbl: Label 'AMOUNT FOR CONTROL', comment = 'FRA="Echéance"';
         below_to__CaptionLbl: Label 'below to :', comment = 'FRA="ci-dessous à :"';
-        Control1000000275CaptionLbl: Label 'Label1000000275', comment = 'FRA=""';
+        Control1000000275CaptionLbl: Label 'Label1000000275', comment = 'FRA="Label1000000275"';
         CREATION_DATECaptionLbl: Label 'CREATION DATE', comment = 'FRA="DATE DE CREATION"';
         DateCaptionLbl: Label 'Date';
         DOMICILIATIONCaptionLbl: Label 'DOMICILIATION', comment = 'FRA="DOMICILIATION"';

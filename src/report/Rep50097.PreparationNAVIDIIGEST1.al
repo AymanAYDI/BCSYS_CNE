@@ -725,8 +725,8 @@ report 50097 "BC6_Preparation NAVIDIIGEST1"
         DescriptionCaptionLbl: Label 'Description';
         Gross_WeightCaptionLbl: Label 'Gross Weight', Comment = 'FRA="Poids brut"';
         GrossWeightCaptionLbl: Label 'Gross Weight', Comment = 'FRA="Poids brut"';
-        InventoryCaption_Control1000000126Lbl: Label 'Inventory', Comment = 'FRA=""';
-        InventoryCaptionLbl: Label 'Inventory', Comment = 'FRA=""';
+        InventoryCaption_Control1000000126Lbl: Label 'Inventory', Comment = 'FRA="Stock"';
+        InventoryCaptionLbl: Label 'Inventory', Comment = 'FRA="Stock"';
         ItemCaption_Control1000000067Lbl: Label 'Item', Comment = 'FRA="Référence"';
         ItemCaptionLbl: Label 'Item', Comment = 'FRA="Référence"';
         Net_WeightCaptionLbl: Label 'Net Weight', Comment = 'FRA="Poids net"';

@@ -469,7 +469,6 @@ page 50015 "BC6_Sales Order Lines"
         BooGNotGroupByItem: Boolean;
         BooGOneTimeOrdering: Boolean;
         CodGVendorFilter: Code[20];
-
         GPurchCost: Decimal;
         DiaGWindow: Dialog;
         CstGText50001: Label 'Item No.          #2##########\', comment = 'FRA="N° article traité           #2###########\"';

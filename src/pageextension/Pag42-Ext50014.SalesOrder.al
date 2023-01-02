@@ -111,7 +111,6 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
                 Image = CreateInventoryPickup;
                 Promoted = true;
                 PromotedCategory = Process;
-                ToolTip = 'Create an inventory put-away or inventory pick to handle items on the document according to a basic warehouse configuration that does not require warehouse receipt or shipment documents.', Comment = 'FRA=""';
 
                 trigger OnAction()
                 var
@@ -237,8 +236,8 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
     procedure CheckIfReleased()
     var
         SalesSetup: Record "Sales & Receivables Setup";
-        CstL0001: Label 'Your order isn''t released, Do You want release it ?';
-        CstL0002: Label 'Aborted Operation';
+        CstL0001: Label 'Your order isn''t released, Do You want release it ?', Comment = 'FRA="Votre commande n''est pas lancée, souhaitez-vous la lancer ?"';
+        CstL0002: Label 'Aborted Operation', Comment = 'FRA="Opération interrompue"';
 
     begin
         SalesSetup.GET();

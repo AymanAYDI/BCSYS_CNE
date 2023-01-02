@@ -82,22 +82,25 @@ page 50006 "BC6_Documents Managment"
                 trigger OnAction()
                 var
                     RecGNaviSetup: Record "BC6_Navi+ Setup";
-                    FileManagement: Codeunit "File Management";
+                    DialogFile: Dialog;
                     InStr: InStream;
+                    AllFilesFilterTxt: Label '*.*', Locked = true;
                 begin
 
                     IF "Table No." <> 167 THEN
-                        //TODO:CHEKME "Path and file" := CduGFileManagement.OpenFileDialog(STRSUBSTNO(TxtG001), "Path and file", '*.*|*.*')
-                    UPLOADINTOSTREAM(STRSUBSTNO(TxtG001), '', '(*.*)|*.*', "Path and file", InStr)
+                        "Path and file" := CduGFileManagement.UploadFile(STRSUBSTNO(TxtG001), "Path and file")
+                    //TODO:CHEKME "Path and file" := CduGFileManagement.OpenFileDialog(STRSUBSTNO(TxtG001), "Path and file", '*.*|*.*')
+                    // UPLOADINTOSTREAM(STRSUBSTNO(TxtG001), '', '(*.*)|*.*', "Path and file", InStr)
+
                     ELSE
                         IF RecGNaviSetup.FindFirst() THEN
                             IF RecGNaviSetup."Default Directory" <> '' THEN
-                                //TODO:CHECKME "Path and file" := CduGFileManagement.OpenFileDialog(STRSUBSTNO(TxtG001), RecGNaviSetup."Default Directory" + '\' + Text004, '*.*|*.*')
-                                UPLOADINTOSTREAM(STRSUBSTNO(TxtG001), '', '(*.*)|*.*', RecGNaviSetup."Default Directory", InStr)
+                                "Path and file" := CduGFileManagement.UploadFile(STRSUBSTNO(TxtG001), RecGNaviSetup."Default Directory" + '\' + Text004)
+                            //TODO:CHECKME "Path and file" := CduGFileManagement.OpenFileDialog(STRSUBSTNO(TxtG001), RecGNaviSetup."Default Directory" + '\' + Text004, '*.*|*.*')
+                            // UPLOADINTOSTREAM(STRSUBSTNO(TxtG001), '', '(*.*)|*.*', RecGNaviSetup."Default Directory", InStr)
 
                             ELSE
                                 ERROR(Text003);
-                    //"Path and file" := FileManagement.UploadFile(STRSUBSTNO(TxtG001),"Path and file" + '*.*|*.*');
                     CurrPage.UPDATE(TRUE);
                 end;
             }

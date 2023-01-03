@@ -47,12 +47,10 @@ pageextension 50094 "BC6_PostedReturnShipment" extends "Posted Return Shipment" 
         ReturnShptHeader: Record "Return Shipment Header";
         SalesSetup: Record "Sales & Receivables Setup";
         Mail: Codeunit Mail;
-        Excel: Boolean;
         STR3: Label 'Imprimer le document ?';
         STR4: Label 'Envoyer le document par mail ?';
         STR5: Label 'Envoyer le document par fax ?';
         Text001: Label '';
-        Text004: Label 'Fichiers Pdf (*.pdf)|*.pdf|Tous les fichiers (*.*)|*.*';
         nameF: Text[250];
 
     procedure EnvoiMail()

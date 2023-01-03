@@ -2,7 +2,7 @@ page 50077 "BC6_Test Scan List"
 {
     PageType = List;
     SourceTable = "Item Journal Line";
-
+    Caption = 'Test Scan List';
     layout
     {
         area(content)

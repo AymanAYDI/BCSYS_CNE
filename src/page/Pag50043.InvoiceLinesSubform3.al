@@ -58,7 +58,7 @@ page 50043 "BC6_Invoice Lines Subform 3"
                 {
                     ApplicationArea = All;
                 }
-                field("Cross-Reference No."; "Cross-Reference No.")
+                field("Cross-Reference No."; "Item Reference No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
@@ -220,7 +220,7 @@ page 50043 "BC6_Invoice Lines Subform 3"
         IF NOT TempSalesInvLine.FIND('-') THEN BEGIN
             SalesInvLine.COPYFILTERS(Rec);
             SalesInvLine.SETRANGE("Document No.", "Document No.");
-            SalesInvLine.FIND('-');
+            SalesInvLine.FindFirst();
             TempSalesInvLine := SalesInvLine;
             TempSalesInvLine.INSERT();
         END;

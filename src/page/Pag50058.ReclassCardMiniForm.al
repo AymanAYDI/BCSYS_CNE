@@ -230,9 +230,9 @@ page 50058 "BC6_Reclass. Card MiniForm"
                                     LastJnlLine.RESET();
                                     LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
                                     LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
-                                    IF LastJnlLine.FIND('+') THEN
+                                    IF LastJnlLine.FINDLast() THEN //find('+)
                                         Rec := LastJnlLine
-                                    ELSE BEGIN
+                                    ELSE BEGIN+
                                         //NewLine(Rec);
                                         Rec := xRec;
                                         CurrPage.UPDATE(FALSE);
@@ -558,7 +558,7 @@ page 50058 "BC6_Reclass. Card MiniForm"
 
     trigger OnAfterGetRecord()
     begin
-        OnAfterGetCurrRecord();
+        ProcOnAfterGetCurrRecord();
     end;
 
     trigger OnFindRecord(Which: Text): Boolean
@@ -585,7 +585,7 @@ page 50058 "BC6_Reclass. Card MiniForm"
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
         NewLine(Rec);
-        OnAfterGetCurrRecord();
+        ProcOnAfterGetCurrRecord();
     end;
 
     trigger OnNextRecord(Steps: Integer): Integer
@@ -1024,7 +1024,7 @@ page 50058 "BC6_Reclass. Card MiniForm"
         AssignQty(Qty);
     end;
 
-    local procedure OnAfterGetCurrRecord()
+    local procedure ProcOnAfterGetCurrRecord()
     begin
         xRec := Rec;
         UpdateCurrForm();

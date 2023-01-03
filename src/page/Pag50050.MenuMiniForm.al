@@ -64,7 +64,7 @@ page 50050 "BC6_Menu MiniForm"
             }
             action("Raccourci clavier terminaux")
             {
-                RunObject = Page "Raccourci clavier terminaux";
+                RunObject = Page "BC6_Racc. clavier terminaux";
                 ApplicationArea = All;
             }
             action(Commande)

@@ -39,7 +39,7 @@ pageextension 50022 "BC6_PurchaseList" extends "Purchase List" //53
         RecGsalesSetup.TESTFIELD("BC6_allow Profit% to");
         RecLAccessControl.SETRANGE("User Security ID", USERSECURITYID());
         RecLAccessControl.SETRANGE("Role ID", RecGsalesSetup."BC6_allow Profit% to");
-        IF RecLAccessControl.FINDset() THEN
+        IF RecLAccessControl.FindFirst() THEN
             BooGID := TRUE
         ELSE
             BooGID := FALSE;

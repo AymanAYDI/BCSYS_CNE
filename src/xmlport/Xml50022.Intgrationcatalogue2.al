@@ -61,7 +61,7 @@ xmlport 50022 "BC6_Intégration catalogue2"
             {
                 field(FileName; FileName)
                 {
-                    Caption = 'Open File';
+                    Caption = 'Open File', Comment = 'FRA="Ouvrir Fichier"';
                     //TODO:OCX
                     // trigger OnAssistEdit()
                     // begin
@@ -73,11 +73,11 @@ xmlport 50022 "BC6_Intégration catalogue2"
                     //     FileName := Common_Dlg.FileName;
                     // end;
                 }
-                field(DateDeb; DateDeb)
+                field(DateDebF; DateDeb)
                 {
                     Caption = 'Date début';
                 }
-                field(DateFin; DateFin)
+                field(DateFinF; DateFin)
                 {
                     Caption = 'Date fin';
 
@@ -88,7 +88,7 @@ xmlport 50022 "BC6_Intégration catalogue2"
                             ERROR('Date début(%1) doit être inférieur à date fin (%2)', DateDeb, DateFin)
                     end;
                 }
-                field(Num; Num)
+                field(NumF; Num)
                 {
                     Caption = 'Fournisseur';
 
@@ -99,11 +99,11 @@ xmlport 50022 "BC6_Intégration catalogue2"
                             TextGabbreviation := COPYSTR(Vendor.Name, 1, 3);
                     end;
                 }
-                field(TextGabbreviation; TextGabbreviation)
+                field(TextGabbreviationF; TextGabbreviation)
                 {
-                    Caption = 'Vendor abbreviation';
+                    Caption = 'Vendor abbreviation', Comment = 'FRA="Abréviation fournisseur"';
                 }
-                field(Cat; Cat)
+                field(CatF; Cat)
                 {
                     Caption = 'Catégorie Article';
 
@@ -114,7 +114,7 @@ xmlport 50022 "BC6_Intégration catalogue2"
                             GRPProduit := '';
                     end;
                 }
-                field(GRPProduit; GRPProduit)
+                field(GRPProduitF; GRPProduit)
                 {
                     Caption = 'Product Group', Comment = 'FRA="Groupe Produit Article"';
                 }

@@ -102,7 +102,7 @@ page 50078 "Scan Ship & Receive Activities"
         SETRANGE("Date Filter", 0D, WORKDATE());
         SETRANGE("Date Filter2", WORKDATE(), WORKDATE());
 
-        LocationCode := WhseWMSCue.GetEmployeeLocation(USERID);
+        LocationCode := WhseWMSCue.GetEmployeeLocation(CopyStr(USERID, 1, 50));
         SETFILTER("Location Filter", LocationCode);
 
         OpenWithWhseEmployeeFilter(0);
@@ -138,11 +138,11 @@ page 50078 "Scan Ship & Receive Activities"
 
         IF USERID <> '' THEN BEGIN
             WhseEmployee.SETRANGE("User ID", USERID);
-            IF WhseEmployee.FIND('-') THEN BEGIN
+            IF WhseEmployee.FindFirst() THEN BEGIN
                 ItemJnlTemplate.TESTFIELD(Type, ItemJnlTemplate.Type::Transfer);
                 ItemBatchJnl.SETRANGE("Journal Template Name", ItemJnlTemplate.Name);
                 ItemBatchJnl.SETRANGE("BC6_Assigned User ID", USERID);
-                IF ItemBatchJnl.FIND('-') THEN;
+                IF ItemBatchJnl.FindFirst() THEN;
             END;
         END;
         CASE WhichItemJnlLineList OF

@@ -216,11 +216,11 @@ report 50088 "BC6_Phys. Inv. List CNE401"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(ShowQtyCalculated; ShowQtyCalculated)
+                    field(ShowQtyCalculatedF; ShowQtyCalculated)
                     {
                         Caption = 'Show Qty. (Calculated)', comment = 'FRA="Afficher quantité calculée"';
                     }
-                    field(ShowPhysQty; ShowPhysQty)
+                    field(ShowPhysQtyF; ShowPhysQty)
                     {
                         Caption = 'Show Phys. Qty.', comment = 'FRA="Afficher quantité constatée"';
                     }
@@ -268,7 +268,7 @@ report 50088 "BC6_Phys. Inv. List CNE401"
         Qty___Phys__Inventory_CaptionLbl: Label 'Qty. (Phys. Inventory)', comment = 'FRA="Qté constatée"';
         QuantityCaptionLbl: Label 'Quantity', comment = 'FRA="Quantité"';
         RefreshQtyOkTxt: Text[10];
-        ItemJnlLineFilter: Text[250];
+        ItemJnlLineFilter: Text;
 
     procedure Initialize(ShowQtyCalculated2: Boolean)
     begin

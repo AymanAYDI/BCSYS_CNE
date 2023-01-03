@@ -50,7 +50,7 @@ page 50040 "Return Rcpt Lines Subform 2"
                 {
                     ApplicationArea = All;
                 }
-                field("Cross-Reference No."; "Cross-Reference No.")
+                field("Cross-Reference No."; "Item Reference No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
@@ -205,7 +205,7 @@ page 50040 "Return Rcpt Lines Subform 2"
         IF NOT TempReturnRcptLine.FIND('-') THEN BEGIN
             ReturnRcptLine.COPYFILTERS(Rec);
             ReturnRcptLine.SETRANGE("Document No.", "Document No.");
-            ReturnRcptLine.FIND('-');
+            ReturnRcptLine.FindFirst();
             TempReturnRcptLine := ReturnRcptLine;
             TempReturnRcptLine.INSERT();
         END;

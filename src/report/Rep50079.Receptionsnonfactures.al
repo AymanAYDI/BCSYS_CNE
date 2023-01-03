@@ -215,6 +215,6 @@ report 50079 "BC6_Receptions non facturées"
         Still_to_invoiceCaptionLbl: Label 'Still to invoice', comment = 'FRA="Reste … facturer"';
         TotalCaptionLbl: Label 'Total';
         Unit_Price___LCY_CaptionLbl: Label ' Unit Price ( LCY)', comment = 'FRA="Prix unitaire DS"';
-        Filtre: Text[200];
+        Filtre: Text;
 }
 

@@ -44,12 +44,10 @@ pageextension 50095 "BC6_PostedReturnReceipt" extends "Posted Return Receipt" //
         ReturnRcptHeader: Record "Return Receipt Header";
         SalesSetup: Record "Sales & Receivables Setup";
         Mail: Codeunit Mail;
-        Excel: Boolean;
         STR3: Label 'Imprimer le document ?';
         STR4: Label 'Envoyer le document par mail ?';
         STR5: Label 'Envoyer le document par fax ?';
         Text001: Label '';
-        Text004: Label 'Fichiers Pdf (*.pdf)|*.pdf|Tous les fichiers (*.*)|*.*';
         nameF: Text[250];
 
 

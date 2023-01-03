@@ -97,7 +97,7 @@ codeunit 50203 "BC6_PagesEvents"
     [EventSubscriber(ObjectType::Page, Page::"Apply Customer Entries", 'OnBeforeSetApplyingCustLedgEntry', '', false, false)]
     local procedure P232_OnBeforeSetApplyingCustLedgEntry(var ApplyingCustLedgEntry: Record "Cust. Ledger Entry"; GenJournalLine: Record "Gen. Journal Line"; SalesHeader: Record "Sales Header"; var CalcType: Enum "Customer Apply Calculation Type"; ServHeader: Record "Service Header")
     var
-        TotalSalesLine: Record "Sales Line";
+    // TotalSalesLine: Record "Sales Line";
     begin
         // //TODO: changed in cdu 90 SalesPost.SumSalesLines(
         // //   SalesHeader, 0, TotalSalesLine, TotalSalesLineLCY,
@@ -179,9 +179,8 @@ codeunit 50203 "BC6_PagesEvents"
         TextGestTierPayeur001: Label 'There is no ledger entries.', comment = 'FRA="Il n''y a pas d''écitures."';
     begin
         Vend.GET(VendorLedgerEntry."Entry No."); //CHECK THE GET()
-        if CalcType = CalcType::Direct then begin
+        if CalcType = CalcType::Direct then
             IF NOT Vend.GET(VendorLedgerEntry."Vendor No.") AND NOT Vend.GET(Vend."BC6_Pay-to Vend. No.") THEN ERROR(TextGestTierPayeur001);
-        end;
     end;
 
 
@@ -338,9 +337,8 @@ codeunit 50203 "BC6_PagesEvents"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post (Yes/No)", 'OnBeforeConfirmPostProcedure', '', false, false)]
     local procedure COD91_OnBeforeConfirmPostProcedure(var PurchaseHeader: Record "Purchase Header"; var DefaultOption: Integer; var Result: Boolean; var IsHandled: Boolean)
     begin
-        WITH PurchaseHeader DO BEGIN
+        WITH PurchaseHeader DO
             TESTFIELD(Status, Status::Released);
-        end;
     end;
     //COD 93 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Quote to Order (Yes/No)", 'OnBeforePurchQuoteToOrder', '', false, false)]
@@ -443,11 +441,10 @@ codeunit 50203 "BC6_PagesEvents"
 
         if not CustCheckCreditLimit.SalesHeaderShowWarningAndGetCause(SalesHeader, AdditionalContextId) then
             SalesHeader.CustomerCreditLimitNotExceeded()
-        else begin
+        else
 
             //TODO: à voir l'inside de else begin
             CustCheckCrLimit.ShowNotificationDetails(LastNotification);
-        end;
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Cust-Check Cr. Limit", 'OnBeforeCreateAndSendNotification', '', false, false)]
@@ -488,7 +485,7 @@ codeunit 50203 "BC6_PagesEvents"
         RecLPurchLine2.RESET();
         RecLPurchLine2.SETRANGE(RecLPurchLine2."Document Type", PurchaseHeader."Document Type");
         RecLPurchLine2.SETRANGE(RecLPurchLine2."Document No.", PurchaseHeader."No.");
-        IF RecLPurchLine2.FindFirst() THEN BEGIN
+        IF RecLPurchLine2.FindFirst() THEN
             REPEAT
                 IF (RecLPurchLine2."BC6_Sales No." <> '') AND (RecLPurchLine2."BC6_Sales Line No." <> 0) THEN BEGIN
                     RecLSalesLine.RESET();
@@ -504,7 +501,6 @@ codeunit 50203 "BC6_PagesEvents"
                     END;
                 END;
             UNTIL RecLPurchLine2.NEXT() = 0;
-        END;
         PurchaseLine.Modify(true);
         //////
         Commit();

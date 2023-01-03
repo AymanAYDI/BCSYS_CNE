@@ -632,7 +632,7 @@ report 50015 "BC6_Prices Request"
         TxtGAltAdress2: Text[50];
         TxtGAltName: Text[50];
         TxtGDesignation: Text[100];
-        TxtGTag: Text[50];
+        TxtGTag: Text;
         VendAddr: array[8] of Text[50];
         TxtGAltEmail: Text[80];
         TxtGAltHomePage: Text[80];

@@ -71,12 +71,10 @@ pageextension 50016 "BC6_SalesCreditMemo" extends "Sales Credit Memo" //44
         cust: Record Customer;
         Salessetup: Record "Sales & Receivables Setup";
         Mail: Codeunit Mail;
-        Excel: Boolean;
         STR3: Label 'Imprimer lme document';
         STR4: Label 'Envoyer par Mail';
         STR5: Label 'Envoyer par Fax';
         Text001: Label '';
-        Text004: Label '';
         nameF: Text[250];
 
 
@@ -105,23 +103,6 @@ pageextension 50016 "BC6_SalesCreditMemo" extends "Sales Credit Memo" //44
 
     procedure OpenFile()
     begin
-        /*//EMAIL NSC00.01 SBH [005] Envoi document
-        FileDialog.DialogTitle('Envoi'+' '+CurrForm.CAPTION);
-        FileDialog.Filter := Text004;
-        Salessetup.GET;
-        FileDialog.FileName := '';
-        FileDialog.InitDir(Salessetup.Repertoire);
-        FileDialog.Flags := 4096 + 2048; // vérification de l'existence du fichier, code qui suit inutile.
-        FileDialog.ShowOpen;
-        nameF:=FileDialog.FileName;
-        IF nameF='' THEN
-          BEGIN
-            Excel := FALSE;
-            EXIT;
-          END;
-        //Fin EMAIL NSC00.01 SBH [005] Envoi document
-        */
-
     end;
 
     procedure OpenFile1(WindowTitle: Text[50]; DefaultFileName: Text[250]; DefaultFileType: Option " ",Text,Excel,Word,Custom; FilterString: Text[250]; "Action": Option Open,Save): Text[260]

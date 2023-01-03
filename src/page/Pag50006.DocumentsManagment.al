@@ -82,9 +82,6 @@ page 50006 "BC6_Documents Managment"
                 trigger OnAction()
                 var
                     RecGNaviSetup: Record "BC6_Navi+ Setup";
-                    DialogFile: Dialog;
-                    InStr: InStream;
-                    AllFilesFilterTxt: Label '*.*', Locked = true;
                 begin
 
                     IF "Table No." <> 167 THEN
@@ -131,13 +128,13 @@ page 50006 "BC6_Documents Managment"
 
     procedure ExplorerFolder(var FolderName: Text[250])
     var
-    //TODO WindowsShell: Automation;
-    // CduLFileManagement: Codeunit "File Management";
-    // FolderName2: Text[250];
+    // //TODO WindowsShell: Automation;
+    // // CduLFileManagement: Codeunit "File Management";
+    // // FolderName2: Text[250];
     begin
-        // IF ISCLEAR(WindowsShell) THEN
-        //  CREATE(WindowsShell);
+        //     // IF ISCLEAR(WindowsShell) THEN
+        //     //  CREATE(WindowsShell);
 
-        // WindowsShell.Open(FolderName);
+        //     // WindowsShell.Open(FolderName);
     end;
 }

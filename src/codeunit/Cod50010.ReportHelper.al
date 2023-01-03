@@ -4,12 +4,12 @@ codeunit 50010 "BC6_ReportHelper"
     procedure DownloadToClientFileName(ServerFileName: Text[250]; ToFile: Text[250]): Text[250]
     var
         //TODO objScript: Automation;
-        CR: Text[50];
+        //CR: Text[50];
         ClientFileName: Text[250];
     begin
         ClientFileName := ToFile;
-        IF NOT DOWNLOAD(ServerFileName, '', '<TEMP>', '', ClientFileName) THEN
-            EXIT('');
+        // IF NOT DOWNLOAD(ServerFileName, '', '<TEMP>', '', ClientFileName) THEN
+        //     EXIT('');
         //TODO IF CREATE(objScript, TRUE, TRUE) THEN BEGIN
         //     CR := ' ';
         //     CR[1] := 13;

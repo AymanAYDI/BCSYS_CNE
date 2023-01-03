@@ -55,7 +55,6 @@ tableextension 50070 "BC6_WarehouseActivityHeader" extends "Warehouse Activity H
 
             trigger OnValidate()
             var
-                FctMangt: Codeunit "BC6_Functions Mgt";
             begin
                 IF "BC6_Bin Code" <> '' THEN begin
                     TESTFIELD(Type, Type::"Invt. Pick");

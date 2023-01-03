@@ -164,7 +164,7 @@ report 50101 "BC6_Calculate Inventory"
                     Window.Open(Text002, "No.");
 
                 if not SkipDim then
-                    SelectedDim.GetSelectedDim(UserId, 3, REPORT::"Calculate Inventory", '', TempSelectedDim);
+                    SelectedDim.GetSelectedDim(CopyStr(UserId, 1, 50), 3, REPORT::"Calculate Inventory", '', TempSelectedDim);
 
                 TempQuantityOnHandBuffer.Reset();
                 TempQuantityOnHandBuffer.DeleteAll();
@@ -184,7 +184,7 @@ report 50101 "BC6_Calculate Inventory"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(PostingDate; PostingDate)
+                    field(PostingDateF; PostingDate)
                     {
                         ApplicationArea = Basic, Suite;
                         Caption = 'Posting Date', comment = 'FRA="Date comptabilisation"';
@@ -213,7 +213,7 @@ report 50101 "BC6_Calculate Inventory"
                                 IncludeItemWithNoTransaction := false;
                         end;
                     }
-                    field(IncludeItemWithNoTransaction; IncludeItemWithNoTransaction)
+                    field(IncludeItemWithNoTransactionF; IncludeItemWithNoTransaction)
                     {
                         ApplicationArea = Basic, Suite;
                         Caption = 'Include Item without Transactions', Comment = 'FRA="Inclure l''article sans transactions"';

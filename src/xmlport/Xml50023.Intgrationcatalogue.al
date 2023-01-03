@@ -206,9 +206,9 @@ xmlport 50023 "BC6_Intégration catalogue"
         {
             area(content)
             {
-                field(FileName; FileName)
+                field(FileNameF; FileName)
                 {
-                    Caption = 'Open File';
+                    Caption = 'Open File', Comment = 'FRA="Ouvrir Fichier"';
                     Visible = false;
 
                     trigger OnAssistEdit()
@@ -217,14 +217,16 @@ xmlport 50023 "BC6_Intégration catalogue"
                     begin
 
                         RecGNavisetup.GET();
-                        //TODO      // FileName := cduFileMngt.OpenFileDialog(textG001, RecGNavisetup."Catalog import Path", '');
+                        //TODO  CHECKME !    // FileName := cduFileMngt.OpenFileDialog(textG001, RecGNavisetup."Catalog import Path", '');
+                        FileName := cduFileMngt.UploadFile(STRSUBSTNO(textG001), RecGNavisetup."Catalog import Path")
+
                     end;
                 }
-                field(DateDeb; DateDeb)
+                field(DateDebF; DateDeb)
                 {
                     Caption = 'Date début';
                 }
-                field(DateFin; DateFin)
+                field(DateFinF; DateFin)
                 {
                     Caption = 'Date fin';
 
@@ -235,7 +237,7 @@ xmlport 50023 "BC6_Intégration catalogue"
                             ERROR('Date début(%1) doit être inférieur à date fin (%2)', DateDeb, DateFin)
                     end;
                 }
-                field(Num; Num)
+                field(NumF; Num)
                 {
                     Caption = 'Fournisseur';
                     TableRelation = Vendor;
@@ -247,11 +249,11 @@ xmlport 50023 "BC6_Intégration catalogue"
                             TextGabbreviation := COPYSTR(Vendor.Name, 1, 3);
                     end;
                 }
-                field(TextGabbreviation; TextGabbreviation)
+                field(TextGabbreviationF; TextGabbreviation)
                 {
-                    Caption = 'Vendor abbreviation';
+                    Caption = 'Vendor abbreviation', Comment = 'FRA="Abréviation fournisseur"';
                 }
-                field(Cat; Cat)
+                field(CatF; Cat)
                 {
                     Caption = 'Catégorie Article';
 
@@ -262,9 +264,9 @@ xmlport 50023 "BC6_Intégration catalogue"
                             GRPProduit := '';
                     end;
                 }
-                field(GRPProduit; GRPProduit)
+                field(GRPProduitF; GRPProduit)
                 {
-                    Caption = 'Product Group';
+                    Caption = 'Product Group', Comment = 'FRA="Groupe Produit Article"';
                     //TODO
                     // trigger OnLookup(var Text: Text): Boolean
                     // begin
@@ -335,6 +337,6 @@ xmlport 50023 "BC6_Intégration catalogue"
         TextG002: Label 'Starting date and Vendor No fields are mandatory', Comment = 'FRA="les champs date de début et N° de fournisseur sont obligatoires"';
         TextG003: Label 'Another instance of item %1 already exist', Comment = 'FRA="L''article %1 est en doublon"';
         Textg004: Label '%1 %2 doesn''t exist, \ please create it.', Comment = 'FRA="%1 %2 n''existe pas, \ merci de le créer."';
-        FileName: Text[250];
+        FileName: Text;
 }
 

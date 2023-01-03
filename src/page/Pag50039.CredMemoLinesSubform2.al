@@ -55,7 +55,7 @@ page 50039 "BC6_Cred. Memo Lines Subform 2"
                 {
                     ApplicationArea = All;
                 }
-                field("Cross-Reference No."; "Cross-Reference No.")
+                field("Cross-Reference No."; "Item Reference No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
@@ -210,7 +210,7 @@ page 50039 "BC6_Cred. Memo Lines Subform 2"
         IF NOT TempSalesCrMemoLine.FindSet() THEN BEGIN
             SalesCrMemoLine.COPYFILTERS(Rec);
             SalesCrMemoLine.SETRANGE("Document No.", "Document No.");
-            SalesCrMemoLine.FindSet();
+            SalesCrMemoLine.FindFirst();
             TempSalesCrMemoLine := SalesCrMemoLine;
             TempSalesCrMemoLine.INSERT();
         END;

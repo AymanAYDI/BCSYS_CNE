@@ -52,7 +52,7 @@ page 50044 "Credit Memo Lines Subform 4"
                 {
                     ApplicationArea = All;
                 }
-                field("Cross-Reference No."; "Cross-Reference No.")
+                field("Cross-Reference No."; "Item Reference No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
@@ -190,7 +190,7 @@ page 50044 "Credit Memo Lines Subform 4"
         IF NOT TempSalesCrMemoLine.FIND('-') THEN BEGIN
             SalesCrMemoLine.COPYFILTERS(Rec);
             SalesCrMemoLine.SETRANGE("Document No.", "Document No.");
-            SalesCrMemoLine.FIND('-');
+            SalesCrMemoLine.FindFirst();
             TempSalesCrMemoLine := SalesCrMemoLine;
             TempSalesCrMemoLine.INSERT();
         END;

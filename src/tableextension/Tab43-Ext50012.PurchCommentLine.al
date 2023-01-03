@@ -26,7 +26,7 @@ tableextension 50012 "BC6_PurchCommentLine" extends "Purch. Comment Line" //43
     begin
         IF "BC6_Is Log" THEN BEGIN
             "BC6_Log Date" := CURRENTDATETIME;
-            "BC6_User ID" := USERID;
+            "BC6_User ID" := CopyStr(USERID, 1, MaxStrLen("BC6_User ID"));
         END;
     END;
 }

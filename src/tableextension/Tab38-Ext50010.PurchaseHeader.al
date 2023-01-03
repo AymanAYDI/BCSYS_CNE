@@ -125,7 +125,7 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
         if MntTot < Frs."BC6_Mini Amount" then
             if not Existfreightcharge() then
                 if not ExistFreightChargeSSAmount() then begin
-                    Msg := Msg + TextControleMinima01;
+                    Msg := CopyStr(Msg + TextControleMinima01, 1, MaxStrLen(Msg));
                     if HideValidationDialog then
                         Confirmed := true
                     else
@@ -187,18 +187,11 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
         CLEAR(PurchPost);
         PurchPost.SumPurchLinesTemp(
         Rec, TempPurchLine, 0, TotalPurchLine, TotalPurchLineLCY, VATAmount, VATAmountText);//,
-        //TotalPurchLine."BC6_DEEE HT Amount", TotalPurchLine."BC6_DEEE VAT Amount", TotalPurchLine."BC6_DEEE TTC Amount",
-        //TotalPurchLine."BC6_DEEE HT Amount (LCY)");
         VATAmount += TotalPurchLine."BC6_DEEE VAT Amount";
-        //>>MIGRATION NAV 2013
-        //<<DEEE1.00 : increase amount for DEEE (stat F9)
-        //IF OldPurchLine."Is Line Submitted"=2 THEN BEGIN
         TotalPurchLine."BC6_DEEE HT Amount" := TotalPurchLine."BC6_DEEE HT Amount";
         TotalPurchLine."BC6_DEEE VAT Amount" := TotalPurchLine."BC6_DEEE VAT Amount";
         TotalPurchLine."BC6_DEEE TTC Amount" := TotalPurchLine."BC6_DEEE TTC Amount";
         TotalPurchLine."BC6_DEEE HT Amount (LCY)" := TotalPurchLine."BC6_DEEE HT Amount (LCY)";
-        //<<DEEE1.00 : increase amount for DEEE (stat F9)
-        //<<MIGRATION NAV 2013
 
         if "Prices Including VAT" then begin
             TotalAmount2 := TotalPurchLine.Amount;
@@ -224,7 +217,9 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
                   and (PurchLine."No." = PurchSetup."BC6_No.")
                   and (PurchLine."Line Amount" <> 0) then
                     exit(true);
+#pragma warning disable AA0181
             until PurchLine.NEXT() = 0
+#pragma warning restore AA0181
         else
             exit(false);
     end;
@@ -244,7 +239,7 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
         RecLContact: Record Contact;
     begin
         if RecLContact.GET(CodContactNo) then
-            "BC6_Buy-from E-Mail Address" := RecLContact."E-Mail"
+            "BC6_Buy-from E-Mail Address" := CopyStr(RecLContact."E-Mail", 1, MaxStrLen("BC6_Buy-from E-Mail Address"))
         else
             "BC6_Buy-from E-Mail Address" := '';
     end;
@@ -258,7 +253,9 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
             repeat
                 if (PurchLine.Type = PurchSetup.BC6_Type) and (PurchLine."No." = PurchSetup."BC6_No.") then
                     exit(true);
+#pragma warning disable AA0181
             until PurchLine.NEXT() = 0
+#pragma warning restore AA0181
         else
             exit(false);
     end;

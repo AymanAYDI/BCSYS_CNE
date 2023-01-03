@@ -5,12 +5,11 @@ codeunit 50091 "BC6_Permission Form"
     procedure HasEditablePermission(UserID2: Text; ObjectType: Integer; ObjectID: Integer): Boolean
     var
         WinAccControl: Record "Access Control";
-        AllObjWithCaption: Record AllObjWithCaption;
         HasPermission: Boolean;
     begin
         HasPermission := WinAccControl.ISEMPTY;
         IF NOT HasPermission THEN
-            HasPermission := HasWinPermission(UserID2, ObjectType, ObjectID);
+            HasPermission := HasWinPermission(CopyStr(UserID2, 1, 65), ObjectType, ObjectID);
         EXIT(HasPermission);
 
     end;
@@ -26,7 +25,6 @@ codeunit 50091 "BC6_Permission Form"
         WinLogin2: Record User;
         Found: Boolean;
         HasPermission: Boolean;
-        MorePermissions: Boolean;
     begin
 
         IF WinLogin2.FINDSET() THEN

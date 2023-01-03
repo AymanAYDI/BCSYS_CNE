@@ -59,7 +59,7 @@ page 50042 "BC6_Shipment Lines Subform 3"
                 {
                     ApplicationArea = All;
                 }
-                field("Cross-Reference No."; "Cross-Reference No.")
+                field("Cross-Reference No."; "Item Reference No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
@@ -215,7 +215,7 @@ page 50042 "BC6_Shipment Lines Subform 3"
         IF NOT TempSalesShptLine.FIND('-') THEN BEGIN
             SalesShptLine.COPYFILTERS(Rec);
             SalesShptLine.SETRANGE("Document No.", "Document No.");
-            SalesShptLine.FIND('-');
+            SalesShptLine.FindFirst();
             TempSalesShptLine := SalesShptLine;
             TempSalesShptLine.INSERT();
         END;

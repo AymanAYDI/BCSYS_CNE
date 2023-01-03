@@ -84,7 +84,7 @@ page 50030 "BC6_Return Ship. Line Subform"
 
     var
         RecGReturnShipmentHeader: Record "Return Shipment Header";
-        TempPurchShipement: Record "Return Shipment Line";
+        PurchShipement: Record "Return Shipment Line";
         [InDataSet]
         "Document No.Emphasize": Boolean;
         [InDataSet]
@@ -92,19 +92,19 @@ page 50030 "BC6_Return Ship. Line Subform"
 
     procedure isFirstDocLine(): Boolean
     var
-        PurchShipement: Record "Return Shipment Line";
+        LPurchShipement: Record "Return Shipment Line";
     begin
-        TempPurchShipement.RESET();
-        TempPurchShipement.COPYFILTERS(Rec);
-        TempPurchShipement.SETRANGE("Document No.", "Document No.");
-        IF NOT TempPurchShipement.FIND('-') THEN BEGIN
-            PurchShipement.COPYFILTERS(Rec);
-            PurchShipement.SETRANGE("Document No.", "Document No.");
-            PurchShipement.FIND('-');
-            TempPurchShipement := PurchShipement;
-            TempPurchShipement.INSERT();
+        LPurchShipement.RESET();
+        LPurchShipement.COPYFILTERS(Rec);
+        LPurchShipement.SETRANGE("Document No.", "Document No.");
+        IF NOT LPurchShipement.FIND('-') THEN BEGIN
+            LPurchShipement.COPYFILTERS(Rec);
+            LPurchShipement.SETRANGE("Document No.", "Document No.");
+            LPurchShipement.FindFirst();
+            LPurchShipement := LPurchShipement;
+            LPurchShipement.INSERT();
         END;
-        IF "Line No." = TempPurchShipement."Line No." THEN
+        IF "Line No." = LPurchShipement."Line No." THEN
             EXIT(TRUE);
     end;
 

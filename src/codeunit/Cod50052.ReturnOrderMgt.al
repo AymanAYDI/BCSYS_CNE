@@ -161,7 +161,7 @@ codeunit 50052 "BC6_Return Order Mgt."
 
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnBeforePostPurchaseDoc', '', false, false)]
-    procedure OnBeforePostPurchaseDoc(var PurchaseHeader: Record "Purchase Header")
+    local procedure OnBeforePostPurchaseDoc(var PurchaseHeader: Record "Purchase Header")
     var
         L_ReturnOrderRelation: Record "BC6_Return Order Relation";
         L_SalesCrMemoHeader: Record "Sales Cr.Memo Header";

@@ -50,7 +50,6 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
                 trigger OnAction()
                 var
                     RecLPostSalesShpt: Record "Sales Shipment Header";
-                    "-MIGNAV2013-": Integer;
                 begin
                     RecLPostSalesShpt := Rec;
                     RecLPostSalesShpt.SETRECFILTER();
@@ -85,7 +84,6 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
                 trigger OnAction()
                 var
                     RecLPostSalesShpt: Record "Sales Shipment Header";
-                    "-MIGNAV2013-": Integer;
                 begin
                     RecLPostSalesShpt := Rec;
                     RecLPostSalesShpt.SETRECFILTER();
@@ -107,9 +105,7 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
         ReportHelper: Codeunit BC6_ReportHelper;
         cduMail: Codeunit Mail;
         Mail: Codeunit Mail;
-        Excel: Boolean;
         Text001: Label '';
-        Text004: Label 'Fichiers Pdf (*.pdf)|*.pdf|Tous les fichiers (*.*)|*.*';
         FileName: Text[250];
         nameF: Text[250];
         Objet: Text[250];

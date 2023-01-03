@@ -96,16 +96,11 @@ report 50049 "BC6_Item Label v2"
     }
 
     var
-        ConvertAutoIDEAN13: Codeunit "BC6_Barcode Mngt AutoID";
-        DistInt: Codeunit "Dist. Integration";
         NumOfLabel: Integer;
-        EAN13Bar: Text[13];
         EAN13BarTxt: Text;
         EAN13Txt: Text[20];
         ItemDescription: Text[120];
         UnitPriceIncVATTxt: Text[120];
         UnitPriceTxt: Text[120];
-        Text1100267001: Label '%1 € TTC';
-        Text1100267003: Label '%1 € HT  ';
 }
 

@@ -23,8 +23,10 @@ codeunit 50020 "BC6_Tsf Trf Ach CNE ==> Bourg"
 
         PurchPrice_Cible.RESET();
         PurchPrice_Cible.CHANGECOMPANY('SCENEO_Bourgogne');
+        Item_Cible.Init();
         Item_Cible.RESET();
         Item_Cible.CHANGECOMPANY('SCENEO_Bourgogne');
+        ItemU_Cible.Init();
         ItemU_Cible.RESET();
         ItemU_Cible.CHANGECOMPANY('SCENEO_Bourgogne');
 
@@ -34,9 +36,9 @@ codeunit 50020 "BC6_Tsf Trf Ach CNE ==> Bourg"
         Item_Source.SETRANGE("Vendor No.", CodeFourn);
         IF Item_Source.FindFirst() THEN
             REPEAT
+
                 Dialog_D.UPDATE(1, Item_Source."No.");
                 Dialog_D.UPDATE(3, CodeFourn);
-
                 IF NOT (Item_Cible.GET(PurchPrice_Source."Item No.")) THEN BEGIN
                     Item_Cible.TRANSFERFIELDS(Item_Source);
                     IF Item_Cible.INSERT(FALSE) THEN;

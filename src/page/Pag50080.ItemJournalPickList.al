@@ -93,7 +93,7 @@ page 50080 "BC6_Item Journal Pick List"
             ItemJnlTemplate.TESTFIELD(Type, ItemJnlTemplate.Type::Transfer);
             ItemBatchJnl.SETRANGE("Journal Template Name", ItemJnlTemplate.Name);
             ItemBatchJnl.SETRANGE("BC6_Assigned User ID", USERID);
-            IF ItemBatchJnl.FIND('-') THEN BEGIN
+            IF ItemBatchJnl.FindFirst() THEN BEGIN
                 FILTERGROUP := 2;
                 SETFILTER("Journal Template Name", ItemBatchJnl."Journal Template Name");
                 SETFILTER("Journal Batch Name", ItemBatchJnl.Name);

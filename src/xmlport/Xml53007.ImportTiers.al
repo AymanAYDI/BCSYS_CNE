@@ -155,12 +155,12 @@ xmlport 53007 "BC6_Import Tiers"
         {
             area(content)
             {
-                field(CodGJnlTemplName; CodGJnlTemplName)
+                field(CodGJnlTemplNameF; CodGJnlTemplName)
                 {
                     Caption = 'Journal Template Name';
                     TableRelation = "Gen. Journal Template";
                 }
-                field(CodGJnlBatchName; CodGJnlBatchName)
+                field(CodGJnlBatchNameF; CodGJnlBatchName)
                 {
                     Caption = 'Journal Batch Name';
 
@@ -176,7 +176,7 @@ xmlport 53007 "BC6_Import Tiers"
                             CodGJnlBatchName := RecGJnlBatchName.Name;
                     end;
                 }
-                field(TxtGFileName; TxtGFileName)
+                field(TxtGFileNameF; TxtGFileName)
                 {
                     Caption = 'File Name';
 

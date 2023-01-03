@@ -158,9 +158,9 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
         PermissionForm: Codeunit "BC6_Permission Form";
     begin
         CurrFormEditableOk := TRUE;
-        IF NOT PermissionForm.HasEditablePermission(USERID, 8, 7377) THEN
+        IF NOT PermissionForm.HasEditablePermission(CopyStr(USERID, 1, 65), 8, 7377) THEN
             CurrPage.EDITABLE(FALSE);
-        IF NOT PermissionForm.HasEditablePermission(USERID, 8, 7378) THEN
+        IF NOT PermissionForm.HasEditablePermission(CopyStr(USERID, 1, 65), 8, 7378) THEN
             CurrFormEditableOk := FALSE;
         BooGWhseActivityLines := CurrFormEditableOk;
     end;

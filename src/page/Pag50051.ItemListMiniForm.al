@@ -54,7 +54,6 @@ page 50051 "BC6_Item List MiniForm"
     end;
 
     var
-        Item: Record Item;
         EAN13Code: Code[20];
 
     //TODO: this function is not used (source GDT)

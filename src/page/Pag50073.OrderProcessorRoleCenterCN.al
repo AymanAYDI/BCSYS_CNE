@@ -2,7 +2,7 @@ page 50073 "Order Processor Role Center CN"
 {
     Caption = 'Role Center', Comment = 'FRA="Tableau de bord"';
     PageType = RoleCenter;
-
+    UsageCategory = None;
     layout
     {
         area(rolecenter)
@@ -84,7 +84,9 @@ page 50073 "Order Processor Role Center CN"
             {
                 Caption = 'Price &List', Comment = 'FRA="&Liste des prix"';
                 Image = "Report";
+#pragma warning disable AL0432
                 RunObject = Report "Price List";
+#pragma warning restore AL0432
                 ApplicationArea = All;
             }
             separator(Action22)
@@ -254,9 +256,6 @@ page 50073 "Order Processor Role Center CN"
             {
                 Caption = 'Sales &Quote', Comment = 'FRA="&Devis"';
                 Image = Quote;
-                Promoted = false;
-                //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
-                //PromotedCategory = Process;
                 RunObject = Page "Sales Quote";
                 RunPageMode = Create;
                 ApplicationArea = All;
@@ -265,9 +264,6 @@ page 50073 "Order Processor Role Center CN"
             {
                 Caption = 'Sales &Invoice', Comment = 'FRA="Fac&ture vente"';
                 Image = Invoice;
-                Promoted = false;
-                //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
-                //PromotedCategory = Process;
                 RunObject = Page "Sales Invoice";
                 RunPageMode = Create;
                 ApplicationArea = All;
@@ -276,9 +272,6 @@ page 50073 "Order Processor Role Center CN"
             {
                 Caption = 'Sales &Order', Comment = 'FRA="&Commande vente"';
                 Image = Document;
-                Promoted = false;
-                //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
-                //PromotedCategory = Process;
                 RunObject = Page "Sales Order";
                 RunPageMode = Create;
                 ApplicationArea = All;
@@ -287,9 +280,6 @@ page 50073 "Order Processor Role Center CN"
             {
                 Caption = 'Sales &Return Order', Comment = 'FRA="&Retour vente"';
                 Image = ReturnOrder;
-                Promoted = false;
-                //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
-                //PromotedCategory = Process;
                 RunObject = Page "Sales Return Order";
                 RunPageMode = Create;
                 ApplicationArea = All;
@@ -298,9 +288,6 @@ page 50073 "Order Processor Role Center CN"
             {
                 Caption = 'Sales &Credit Memo', Comment = 'FRA="&Avoir vente"';
                 Image = CreditMemo;
-                Promoted = false;
-                //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
-                //PromotedCategory = Process;
                 RunObject = Page "Sales Credit Memo";
                 RunPageMode = Create;
                 ApplicationArea = All;
@@ -324,7 +311,9 @@ page 50073 "Order Processor Role Center CN"
             {
                 Caption = 'Sales Price &Worksheet', Comment = 'FRA="Feuille pri&x vente"';
                 Image = PriceWorksheet;
+#pragma warning disable AL0432
                 RunObject = Page "Sales Price Worksheet";
+#pragma warning restore AL0432
                 ApplicationArea = All;
             }
             separator(Action42)
@@ -334,14 +323,18 @@ page 50073 "Order Processor Role Center CN"
             {
                 Caption = 'Sales &Prices', Comment = 'FRA="&Prix vente"';
                 Image = SalesPrices;
+#pragma warning disable AL0432
                 RunObject = Page "Sales Prices";
+#pragma warning restore AL0432
                 ApplicationArea = All;
             }
             action("Sales &Line Discounts")
             {
                 Caption = 'Sales &Line Discounts', Comment = 'FRA="Re&mises ligne vente"';
                 Image = SalesLineDisc;
+#pragma warning disable AL0432
                 RunObject = Page "Sales Line Discounts";
+#pragma warning restore AL0432
                 ApplicationArea = All;
             }
             separator(History)

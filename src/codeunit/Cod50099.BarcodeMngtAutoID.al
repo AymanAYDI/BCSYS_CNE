@@ -207,7 +207,7 @@ codeunit 50099 "BC6_Barcode Mngt AutoID"
                            CheckCharBarcode39(From39BarCode[k]);
 
         IF BarCode39Ok THEN
-            "39BarCode" := '*' + From39BarCode + '*';
+            "39BarCode" := CopyStr('*' + From39BarCode + '*', 1, MaxStrLen("39BarCode"));
 
         EXIT("39BarCode");
     end;

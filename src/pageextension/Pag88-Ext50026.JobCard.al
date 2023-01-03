@@ -159,10 +159,12 @@ pageextension 50026 "BC6_JobCard" extends "Job Card" //88
             }
 
         }
+#pragma warning disable AL0432
         modify("&Prices")
         {
             Visible = FALSE;
         }
+#pragma warning restore AL0432
         modify("Plan&ning")
         {
             Visible = FALSE;

@@ -10,7 +10,7 @@ codeunit 50003 "BC6_Reconstitue lettrage FOU"
     procedure InitialisationLettrage(VendLedgerEntry: Record "Vendor Ledger Entry")
     begin
 
-        VendLedgerEntry."Applies-to ID" := USERID;
+        VendLedgerEntry."Applies-to ID" := CopyStr(UserId(), 1, MaxStrLen(VendLedgerEntry."Applies-to ID"));
         IF VendLedgerEntry."Applies-to ID" = '' THEN
             VendLedgerEntry."Applies-to ID" := '***';
 

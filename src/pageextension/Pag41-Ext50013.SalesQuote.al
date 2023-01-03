@@ -193,6 +193,7 @@ pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
             BooGQuoteStatut := true
         else
             BooGQuoteStatut := false;
+#pragma warning disable AA0206
         BooGEditSalesperson := true;
         if not RecGUserSeup.GET(USERID) then
             RecGUserSeup.INIT();

@@ -50,7 +50,9 @@ page 50040 "Return Rcpt Lines Subform 2"
                 {
                     ApplicationArea = All;
                 }
+#pragma warning disable AL0432
                 field("Cross-Reference No."; "Cross-Reference No.")
+#pragma warning restore AL0432
                 {
                     Visible = false;
                     ApplicationArea = All;
@@ -205,7 +207,9 @@ page 50040 "Return Rcpt Lines Subform 2"
         IF NOT TempReturnRcptLine.FIND('-') THEN BEGIN
             ReturnRcptLine.COPYFILTERS(Rec);
             ReturnRcptLine.SETRANGE("Document No.", "Document No.");
+#pragma warning disable AA0181
             ReturnRcptLine.FIND('-');
+#pragma warning restore AA0181
             TempReturnRcptLine := ReturnRcptLine;
             TempReturnRcptLine.INSERT();
         END;

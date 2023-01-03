@@ -5,7 +5,8 @@ page 50098 "BC6_Sales Order (MAGASIN)"
     RefreshOnActivate = true;
     SourceTable = "Sales Header";
     SourceTableView = WHERE("Document Type" = FILTER(Order));
-
+    ApplicationArea = All;
+    UsageCategory = Tasks;
 
     layout
     {
@@ -108,7 +109,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                 {
                     ApplicationArea = All;
                 }
-                field(ID; ID)
+                field(ID; Rec.BC6_ID)
                 {
                     Caption = 'User ID', Comment = 'FRA="Code Utilisateur"';
                     Editable = false;

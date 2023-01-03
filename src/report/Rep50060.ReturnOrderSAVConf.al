@@ -813,7 +813,7 @@ report 50060 "BC6_Return Order SAV Conf."
                             IF G_Vendor.GET(L_PurchaseHeader."Buy-from Vendor No.") THEN;
                 END;
 
-                UserSetup.GET(SalesHeader.ID);
+                UserSetup.GET(SalesHeader.BC6_ID);
             end;
         }
     }

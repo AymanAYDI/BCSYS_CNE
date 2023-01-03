@@ -7,7 +7,7 @@ page 50106 "BC6_Add Log Purch. Comment"
     PageType = StandardDialog;
     ShowFilter = false;
     SourceTable = "Purchase Header";
-
+    UsageCategory = None;
     layout
     {
         area(content)

@@ -6,7 +6,7 @@ page 50009 "BC6_Sales Archives"
     PageType = List;
     SourceTable = "Sales Line Archive";
     SourceTableView = WHERE("Document Type" = FILTER(Order));
-
+    UsageCategory = None;
     layout
     {
         area(content)

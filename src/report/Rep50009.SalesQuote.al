@@ -876,7 +876,7 @@ report 50009 "BC6_Sales Quote"
 
                 //>>MIGRATION NAV 2013
                 RecG_User.RESET();
-                RecG_User.SETRANGE("User Name", ID);
+                RecG_User.SETRANGE("User Name", BC6_ID);
                 IF RecG_User.FINDFIRST() THEN
                     TexG_User_Name := RecG_User."Full Name"
                 ELSE
@@ -915,7 +915,6 @@ report 50009 "BC6_Sales Quote"
                 END;
                 "Sales Header".MARK(TRUE);
 
-                //>>COMPTA_DEEE FG 01/03/07
                 IF "Sales Header"."Bill-to Customer No." <> '' THEN BEGIN
                     RecGBillCustomer.RESET();
                     RecGBillCustomer.GET("Sales Header"."Bill-to Customer No.");
@@ -923,12 +922,13 @@ report 50009 "BC6_Sales Quote"
                 END ELSE BEGIN
                     RecGCustomerTemplate.RESET();
                     IF RecGCustomerTemplate.GET("Sales Header"."Sell-to Customer Templ. Code") THEN BEGIN
+#pragma warning disable AL0432
                         BooGSubmittedToDEEE := RecGCustomerTemplate."BC6_Submitted to DEEE";
+#pragma warning restore AL0432
                     END ELSE BEGIN
                         BooGSubmittedToDEEE := FALSE;
                     END;
                 END;
-                //<<COMPTA_DEEE FG 01/03/07
             end;
 
 
@@ -1112,7 +1112,9 @@ report 50009 "BC6_Sales Quote"
         CurrExchRate: Record "Currency Exchange Rate";
         RecGBillCustomer: Record Customer;
         RecGCustomer: Record Customer;
+#pragma warning disable AL0432
         RecGCustomerTemplate: Record "Customer Template";
+#pragma warning restore AL0432
         GLSetup: Record "General Ledger Setup";
         RecGItem: Record Item;
         PaymentMethod: Record "Payment Method";

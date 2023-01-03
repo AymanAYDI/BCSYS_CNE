@@ -5,7 +5,7 @@ page 50044 "Credit Memo Lines Subform 4"
     PageType = List;
     SourceTable = "Sales Cr.Memo Line";
     SourceTableView = SORTING("No.");
-
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -52,7 +52,9 @@ page 50044 "Credit Memo Lines Subform 4"
                 {
                     ApplicationArea = All;
                 }
+#pragma warning disable AL0432
                 field("Cross-Reference No."; "Cross-Reference No.")
+#pragma warning restore AL0432
                 {
                     Visible = false;
                     ApplicationArea = All;
@@ -190,7 +192,9 @@ page 50044 "Credit Memo Lines Subform 4"
         IF NOT TempSalesCrMemoLine.FIND('-') THEN BEGIN
             SalesCrMemoLine.COPYFILTERS(Rec);
             SalesCrMemoLine.SETRANGE("Document No.", "Document No.");
+#pragma warning disable AA0181
             SalesCrMemoLine.FIND('-');
+#pragma warning restore AA0181
             TempSalesCrMemoLine := SalesCrMemoLine;
             TempSalesCrMemoLine.INSERT();
         END;

@@ -479,7 +479,7 @@ report 50015 "BC6_Prices Request"
                           "Purchaser Code", '', "Posting Description", '');
                     END;
                 END;
-                RecGUser.SETRANGE("User Name", ID);
+                RecGUser.SETRANGE("User Name", BC6_ID);
                 IF RecGUser.FIND('-') THEN
                     TexG_User_Name := RecGUser."User Name";
 

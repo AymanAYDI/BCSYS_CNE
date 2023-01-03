@@ -1,4 +1,6 @@
+#pragma warning disable AL0432
 tableextension 50083 "BC6_PurchaseLineDiscount" extends "Purchase Line Discount" //7014
+#pragma warning restore AL0432
 {
     fields
     {

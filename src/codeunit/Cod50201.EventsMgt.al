@@ -216,7 +216,10 @@ codeunit 50201 "BC6_Events Mgt"
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterInsertEvent', '', false, false)]
     procedure T36_OnAfterInsertEvent_SalesHeader(var Rec: Record "Sales Header"; RunTrigger: Boolean)
     begin
-        Rec.BC6_ID := USERID
+        if not RunTrigger then
+            exit;
+        Rec.BC6_ID := UserId();
+        Rec.Modify();
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterDeleteEvent', '', false, false)]
@@ -642,7 +645,10 @@ codeunit 50201 "BC6_Events Mgt"
     [EventSubscriber(ObjectType::Table, Database::"Purchase Header", 'OnAfterInsertEvent', '', false, false)]
     procedure T38_OnAfterInsertEvent_PurchHeader(var Rec: Record "Purchase Header"; RunTrigger: Boolean)
     begin
-        Rec.BC6_ID := USERID
+        if not RunTrigger then
+            exit;
+        Rec.BC6_ID := UserId();
+        Rec.Modify();
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Purchase Header", 'OnAfterDeleteEvent', '', false, false)]
@@ -1272,6 +1278,7 @@ then begin
         end;
     end;
     //TODO  : a voir et a verifier 
+#pragma warning disable AL0432
     [EventSubscriber(ObjectType::Codeunit, codeunit::"Sales Price Calc. Mgt.", 'OnBeforeFindServLineDisc', '', false, false)]
     procedure COD7000_OnBeforeFindServLineDisc(var ServiceHeader: Record "Service Header"; var ServiceLine: Record "Service Line"; var IsHandled: Boolean)
     var
@@ -1279,7 +1286,6 @@ then begin
         Item: record Item;
         TempSalesLineDisc: Record "Sales Line Discount" temporary;
         SalesPriceCalMgt: codeunit "Sales Price Calc. Mgt.";
-
     begin
         IsHandled := true;
         with ServiceLine do begin
@@ -1309,6 +1315,7 @@ then begin
         end;
 
     end;
+#pragma warning restore AL0432
 
 
     /////////////////////
@@ -1404,7 +1411,9 @@ then begin
     [EventSubscriber(ObjectType::Table, Database::"Purchase Line", 'OnAfterValidateEvent', 'Direct Unit Cost', false, false)]
     procedure T39_OnAfterValidateEvent_UnitPost(var Rec: Record "Purchase Line"; var xRec: Record "Purchase Line"; CurrFieldNo: Integer)
     var
+#pragma warning disable AL0432
         RecGPurchPrice: record "Purchase Price";
+#pragma warning restore AL0432
         RecGPurchsetup: Record "Purchases & Payables Setup";
         Tectg003: label 'ENU="Do you want to create a Purchase Price ?"', comment = '"FRA=Voulez-vous creer un prix d''achat négocier ?"';
 
@@ -1427,7 +1436,9 @@ then begin
                         RecGPurchPrice.INSERT(true);
                     end;
                     RecGPurchPrice.SETFILTER("Starting Date", '');
+#pragma warning disable AL0432
                     PAGE.RUN(Page::"Purchase Prices", RecGPurchPrice);
+#pragma warning restore AL0432
                 end;
             end;
         end;
@@ -1642,9 +1653,13 @@ then begin
     [EventSubscriber(ObjectType::Table, Database::Contact, 'OnCreateCustomerOnBeforeCustomerModify', '', false, false)]
     local procedure T5050_OnCreateCustomerOnBeforeCustomerModify_Contact(var Customer: Record Customer; Contact: Record Contact)
     var
+#pragma warning disable AL0432
         CustTemplate: Record "Customer Template";
+#pragma warning restore AL0432
     begin
+#pragma warning disable AL0432
         Customer."BC6_Submitted to DEEE" := CustTemplate."BC6_Submitted to DEEE";
+#pragma warning restore AL0432
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Warehouse Activity Line", 'OnBeforeValidateQtyToHandle', '', false, false)]
@@ -1669,6 +1684,7 @@ then begin
         IsHandled := true;
     end;
 
+#pragma warning disable AL0432
     [EventSubscriber(ObjectType::Table, Database::"Purchase Line Discount", 'OnAfterInsertEvent', '', false, false)]
     local procedure T7014_OnAfterInsertEvent_PurchaseLineDiscount(var Rec: Record "Purchase Line Discount"; RunTrigger: Boolean)
     begin
@@ -1680,7 +1696,9 @@ then begin
             Rec.TESTFIELD("Item No.");
         Rec.Modify();
     end;
+#pragma warning restore AL0432
 
+#pragma warning disable AL0432
     [EventSubscriber(ObjectType::Table, Database::"Purchase Line Discount", 'OnAfterRenameEvent', '', false, false)]
     local procedure T7014_OnAfterRenameEvent_PurchaseLineDiscount(var Rec: Record "Purchase Line Discount"; RunTrigger: Boolean)
     begin
@@ -1692,6 +1710,7 @@ then begin
             Rec.TESTFIELD("Item No.");
         Rec.Modify();
     end;
+#pragma warning restore AL0432
 
     [EventSubscriber(ObjectType::Table, Database::"Bin Content", 'OnBeforeCalcQtyAvailToTake', '', false, false)]
     local procedure T7302_OnBeforeCalcQtyAvailToTake_BinContent(var BinContent: Record "Bin Content"; ExcludeQtyBase: Decimal; var QtyAvailToTake: Decimal; var IsHandled: Boolean)
@@ -1825,7 +1844,9 @@ then begin
     local procedure T37_OnUpdateUnitPriceOnBeforeFindPrice_SalesLine(SalesHeader: Record "Sales Header"; var SalesLine: Record "Sales Line"; CalledByFieldNo: Integer; CallingFieldNo: Integer; var IsHandled: Boolean)
     var
         FunctionMgt: Codeunit "BC6_Functions Mgt";
+#pragma warning disable AL0432
         PriceCalcMgt: Codeunit "Sales Price Calc. Mgt.";
+#pragma warning restore AL0432
     begin
         PriceCalcMgt.FindSalesLineLineDisc(SalesHeader, SalesLine);
         PriceCalcMgt.FindSalesLinePrice(SalesHeader, SalesLine, CalledByFieldNo);
@@ -2252,6 +2273,7 @@ then begin
         end;
     end;
 
+#pragma warning disable AL0432
     [EventSubscriber(ObjectType::Table, Database::"Sales Price", 'OnAfterValidateEvent', 'Sales Code', false, false)]
     local procedure T7002_OnAfterValidateEvent(var Rec: Record "Sales Price"; var xRec: Record "Sales Price")
     var
@@ -2297,6 +2319,8 @@ then begin
                     end;
             end;
     end;
+#pragma warning restore AL0432
+
 
     // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item Reference Management", 'OnPurchaseReferenceNoLookupOnBeforeValidateDirectUnitCost', '', false, false)]
     // local procedure OnPurchaseReferenceNoLookupOnBeforeValidateDirectUnitCost(var PurchaseLine: Record "Purchase Line"; PurchHeader: Record "Purchase Header")
@@ -2515,6 +2539,7 @@ then begin
         SalesLine."BC6_Purchase cost" := -SalesLine."BC6_Purchase cost";
     end;
 
+#pragma warning disable AL0432
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnFillInvoicePostingBufferOnAfterUpdateInvoicePostBuffer', '', false, false)]
     local procedure COD80_OnFillInvoicePostingBufferOnAfterUpdateInvoicePostBuffer(SalesHeader: Record "Sales Header"; SalesLine: Record "Sales Line"; var InvoicePostBuffer: Record "Invoice Post. Buffer"; var TempInvoicePostBuffer: Record "Invoice Post. Buffer" temporary)
     var
@@ -2597,7 +2622,9 @@ then begin
                 TempInvoicePostBuffer.Type := TempInvoicePostBuffer.Type::"Fixed Asset";
         end;
     end;
+#pragma warning restore AL0432
 
+#pragma warning disable AL0432
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnBeforePostGLAndCustomer', '', false, false)]
     local procedure COD80_OnBeforePostGLAndCustomer(var SalesHeader: Record "Sales Header"; var TempInvoicePostBuffer: Record "Invoice Post. Buffer" temporary; var CustLedgerEntry: Record "Cust. Ledger Entry"; CommitIsSuppressed: Boolean; PreviewMode: Boolean; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line"; var IsHandled: Boolean)
     var
@@ -2606,7 +2633,9 @@ then begin
         GlobalFunctionMgt.Set_DEEECategoryCode(TempInvoicePostBuffer."BC6_DEEE Category Code");
         GlobalFunctionMgt.Set_EcoPartnerDEEE(TempInvoicePostBuffer."BC6_Eco partner DEEE");
     end;
+#pragma warning restore AL0432
 
+#pragma warning disable AL0432
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnBeforeRunPostCustomerEntry', '', false, false)]
     local procedure COD80_OnBeforeRunPostCustomerEntry(var SalesHeader: Record "Sales Header"; var TotalSalesLine2: Record "Sales Line"; var TotalSalesLineLCY2: Record "Sales Line"; CommitIsSuppressed: Boolean; PreviewMode: Boolean; DocType: Enum "Gen. Journal Document Type"; DocNo: Code[20]; ExtDocNo: Code[35]; SourceCode: Code[10]; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line"; var IsHandled: Boolean)
     var
@@ -2660,6 +2689,7 @@ then begin
 
         end;
     end;
+#pragma warning restore AL0432
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnInsertShipmentHeaderOnAfterTransferfieldsToSalesShptHeader', '', false, false)]
     local procedure COD80_OnInsertShipmentHeaderOnAfterTransferfieldsToSalesShptHeader(SalesHeader: Record "Sales Header"; var SalesShptHeader: Record "Sales Shipment Header")
@@ -3043,14 +3073,14 @@ then begin
         PurchCreditMemoStat.SetNewAmountInclVAT(AmountInclVAT);
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Purchase Return Order Subform", 'OnBeforeUpdateTypeText', '', false, false)]
-    local procedure P6641_OnBeforeUpdateTypeText(var PurchaseLine: Record "Purchase Line")
+    [EventSubscriber(ObjectType::Page, Page::"Purchase Return Order Subform", 'OnInsertRecordEvent', '', false, false)]
+    local procedure P6641_OnBeforeUpdateTypeText(var Rec: Record "Purchase Line")
     var
         PurchHeader: Record "Purchase Header";
         PurRetOrdSubf: Page "Purchase Return Order Subform";
     begin
-        PurchHeader.Get(PurchaseLine."Document Type", PurchaseLine."Document No.");
-        PurRetOrdSubf.SetBooGSAVVisible(PurchHeader."BC6_Return Order Type" = PurchHeader."BC6_Return Order Type"::SAV);
+        // PurchHeader.Get(Rec."Document Type", Rec."Document No.");
+        // PurRetOrdSubf.SetBooGSAVVisible(PurchHeader."BC6_Return Order Type" = PurchHeader."BC6_Return Order Type"::SAV);
     end;
 
 
@@ -3207,6 +3237,7 @@ then begin
     // end;
 
 
+#pragma warning disable AL0432
     [EventSubscriber(ObjectType::Page, Page::"Sales Line Discounts", 'OnLookupCodeFilterCaseElse', '', false, false)]
     local procedure OnLookupCodeFilterCaseElse(SalesLineDiscount: Record "Sales Line Discount"; var Text: Text; var Result: Boolean)
     var
@@ -3220,6 +3251,7 @@ then begin
                 Result := false;
         end;
     end;
+#pragma warning restore AL0432
 
     [EventSubscriber(ObjectType::Page, Page::"Vendor Card", 'OnBeforeActivateFields', '', false, false)]
     local procedure OnBeforeActivateFields(var IsCountyVisible: Boolean; var FormatAddress: Codeunit "Format Address"; var IsHandled: Boolean)
@@ -3564,6 +3596,7 @@ then begin
         IsHandled := true;
     end;
 
+#pragma warning disable AL0432
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch. Price Calc. Mgt.", 'OnBeforeFindReqLineDisc', '', false, false)]
     local procedure OnBeforeFindReqLineDisc(var ReqLine: Record "Requisition Line"; var TempPurchaseLineDiscount: Record "Purchase Line Discount" temporary; var IsHandled: Boolean)
     var
@@ -3580,7 +3613,9 @@ then begin
                           Item."Item Disc. Group");
         end;
     end;
+#pragma warning disable AL0432
 
+#pragma warning disable AL0432
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch. Price Calc. Mgt.", 'OnBeforePurchLineLineDiscExists', '', false, false)]
     local procedure OnBeforePurchLineLineDiscExists(var PurchaseLine: Record "Purchase Line"; var PurchaseHeader: Record "Purchase Header"; var TempPurchLineDisc: Record "Purchase Line Discount" temporary; ShowAll: Boolean; var IsHandled: Boolean; var DateCaption: Text[30])
     var
@@ -3595,6 +3630,7 @@ then begin
                           Item."Item Disc. Group");
         end;
     end;
+#pragma warning restore AL0432
 
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Format Address", 'OnBeforeSalesHeaderSellTo', '', false, false)]
@@ -4180,8 +4216,8 @@ then begin
 
 
     //COD7000
+#pragma warning disable AL0432
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales Price Calc. Mgt.", 'OnAfterFindSalesLineDisc', '', false, false)]
-
     procedure OnAfterFindSalesLineDisc(var ToSalesLineDisc: Record "Sales Line Discount"; CustNo: Code[20]; ContNo: Code[20]; CustDiscGrCode: Code[20]; CampaignNo: Code[20]; ItemNo: Code[20]; ItemDiscGrCode: Code[20]; VariantCode: Code[10]; UOM: Code[10]; CurrencyCode: Code[10]; StartingDate: Date; ShowAll: Boolean)
     var
         TempCampaignTargetGr: Record "Campaign Target Group" temporary;
@@ -4240,7 +4276,7 @@ then begin
                 end;
             end;
     end;
-
+#pragma warning restore AL0432
 
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Req. Wksh.-Make Order", 'OnAfterSetPurchOrderHeader', '', false, false)]
@@ -4259,6 +4295,7 @@ then begin
         PurchLine."BC6_DEEE TTC Amount" := -PurchLine."BC6_DEEE TTC Amount";
     end;
 
+#pragma warning disable AL0432
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnFillInvoicePostingBufferOnAfterUpdateInvoicePostBuffer', '', false, false)]
     local procedure OnFillInvoicePostingBufferOnAfterUpdateInvoicePostBuffer(PurchaseHeader: Record "Purchase Header"; PurchaseLine: Record "Purchase Line"; var InvoicePostBuffer: Record "Invoice Post. Buffer"; var TempInvoicePostBuffer: Record "Invoice Post. Buffer" temporary)
     var
@@ -4268,23 +4305,14 @@ then begin
         BooLPostingDEEE: Boolean;
         FALineNo: Integer;
     begin
-        //>>COMPTA_DEEE FG 01/03/07
         RecLPayVendor.RESET();
         if RecLPayVendor.GET(PurchaseLine."Pay-to Vendor No.") then
             BooLPostingDEEE := RecLPayVendor."BC6_Posting DEEE"
         else
             BooLPostingDEEE := false;
-        //<<COMPTA_DEEE FG 01/03/07
 
         if (PurchaseLine."BC6_DEEE Category Code" <> '') and (PurchaseLine."Qty. to Invoice" <> 0)
-              //>>COMPTA_DEEE FG 01/03/07
-              //AND (PurchaseLine."DEEE HT Amount"<>0) THEN BEGIN
               and (PurchaseLine."BC6_DEEE HT Amount" <> 0) and (BooLPostingDEEE) then begin
-            //<<COMPTA_DEEE FG 01/03/07
-            //IF PurchaseLine."Is Line Submitted"=PurchaseLine."Is Line Submitted"::"2" THEN BEGIN
-            // Copy DEEE  to buffer
-
-            // MIG 2017 >>
             GenPostingSetup.GET(PurchaseLine."Gen. Bus. Posting Group", PurchaseLine."Gen. Prod. Posting Group");
 
             if (PurchaseLine."Gen. Bus. Posting Group" <> GenPostingSetup."Gen. Bus. Posting Group") or
@@ -4333,6 +4361,8 @@ then begin
 
         end;
     end;
+#pragma warning restore AL0432
+
 
     //TAB341
     [EventSubscriber(ObjectType::Table, Database::"Item Discount Group", 'OnBeforeDeleteEvent', '', false, false)]
@@ -4386,7 +4416,9 @@ then begin
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Reporting Triggers", 'SubstituteReport', '', false, false)]
     local procedure SubstituteReport_PriceList(ReportId: Integer; RunMode: Option Normal,ParametersOnly,Execute,Print,SaveAs,RunModal; RequestPageXml: Text; RecordRef: RecordRef; var NewReportId: Integer)
     begin
+#pragma warning disable AL0432
         if ReportId = Report::"Price List" then
+#pragma warning restore AL0432
             NewReportId := Report::"BC6_Price List";
     end;
 

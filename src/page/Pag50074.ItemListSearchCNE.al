@@ -9,7 +9,7 @@ page 50074 "BC6_Item List Search CNE"
     RefreshOnActivate = true;
     SourceTable = Item;
     SourceTableTemporary = true;
-
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -400,7 +400,9 @@ page 50074 "BC6_Item List Search CNE"
         CRMIntegrationManagement: Codeunit "CRM Integration Management";
     begin
         CRMIntegrationEnabled := CRMIntegrationManagement.IsCRMIntegrationEnabled();
+#pragma warning disable AL0432
         IsFoundationEnabled := ApplicationAreaSetup.IsFoundationEnabled();
+#pragma warning restore AL0432
         SetWorkflowManagementEnabledState();
         IsVisibleSearch := NOT (CURRENTCLIENTTYPE = CLIENTTYPE::Windows);
     end;

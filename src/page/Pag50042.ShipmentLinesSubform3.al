@@ -6,7 +6,7 @@ page 50042 "BC6_Shipment Lines Subform 3"
     SaveValues = true;
     SourceTable = "Sales Shipment Line";
     SourceTableView = SORTING("No.");
-
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -59,7 +59,9 @@ page 50042 "BC6_Shipment Lines Subform 3"
                 {
                     ApplicationArea = All;
                 }
+#pragma warning disable AL0432
                 field("Cross-Reference No."; "Cross-Reference No.")
+#pragma warning restore AL0432
                 {
                     Visible = false;
                     ApplicationArea = All;
@@ -215,7 +217,9 @@ page 50042 "BC6_Shipment Lines Subform 3"
         IF NOT TempSalesShptLine.FIND('-') THEN BEGIN
             SalesShptLine.COPYFILTERS(Rec);
             SalesShptLine.SETRANGE("Document No.", "Document No.");
+#pragma warning disable AA0181
             SalesShptLine.FIND('-');
+#pragma warning restore AA0181
             TempSalesShptLine := SalesShptLine;
             TempSalesShptLine.INSERT();
         END;

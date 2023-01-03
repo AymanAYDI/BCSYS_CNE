@@ -5,7 +5,7 @@ pageextension 50015 "BC6_SalesInvoice" extends "Sales Invoice" //43
 
         addafter("Sell-to Contact No.")
         {
-            field(BC6_ID; Rec.ID)
+            field(BC6_ID; Rec.BC6_ID)
             {
                 Editable = false;
                 ApplicationArea = All;

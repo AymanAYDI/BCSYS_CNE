@@ -4,7 +4,7 @@ pageextension 50121 "BC6_BlanketSalesOrders" extends "Blanket Sales Orders" //93
     {
         addafter("Currency Code")
         {
-            field(BC6_ID; ID)
+            field(BC6_ID; BC6_ID)
             {
                 ApplicationArea = All;
             }

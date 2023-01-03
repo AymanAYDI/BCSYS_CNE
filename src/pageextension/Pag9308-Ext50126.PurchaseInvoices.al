@@ -8,7 +8,7 @@ pageextension 50126 "BC6_PurchaseInvoices" extends "Purchase Invoices" //9308
         }
         addafter("Job Queue Status")
         {
-            field(BC6_ID; ID)
+            field(BC6_ID; BC6_ID)
             {
             }
             field("BC6_Your Reference"; "Your Reference")

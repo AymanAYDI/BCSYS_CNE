@@ -1,13 +1,13 @@
 page 50117 "BC6_Locat. Sales Return Order"
 {
 
-    Caption = 'Sales Return Order';
+    Caption = 'Sales Return Order', comment = 'FRA="Retour vente"';
     PageType = Document;
-    PromotedActionCategories = 'New,Process,Report,Approve,Release,Posting,Prepare,Invoice,Request Approval';
+    PromotedActionCategories = 'New,Process,Report,Approve,Release,Posting,Prepare,Invoice,Request Approval', Comment = 'FRA="Nouveau,Traitement,état,Approuver,Lancer,Comptabilisation,Préparer,Facture,Demande d''approbation"';
     RefreshOnActivate = true;
     SourceTable = "Sales Header";
     SourceTableView = WHERE("Document Type" = FILTER("Return Order"));
-
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -42,6 +42,11 @@ page 50117 "BC6_Locat. Sales Return Order"
                                 Rec.SETRANGE("Sell-to Customer No.");
 
                         CurrPage.UPDATE();
+                    end;
+
+                    trigger OnLookup(var Text: Text): Boolean
+                    begin
+                        exit(Rec.LookupSellToCustomerName(Text));
                     end;
                 }
                 group("Sell-to")
@@ -86,7 +91,9 @@ page 50117 "BC6_Locat. Sales Return Order"
                         end;
                     }
                 }
+#pragma warning disable AL0432
                 field(ID; Rec.ID)
+#pragma warning restore AL0432
                 {
                 }
                 field("Sell-to Fax No."; Rec."BC6_Sell-to Fax No.")
@@ -515,7 +522,9 @@ page 50117 "BC6_Locat. Sales Return Order"
                         ApprovalEntries: Page "Approval Entries";
                     begin
 
+#pragma warning disable AL0432
                         ApprovalEntries.Setfilters(DATABASE::"Sales Header", Rec."Document Type".AsInteger(), Rec."No.");
+#pragma warning restore AL0432
                         ApprovalEntries.RUN();
                     end;
                 }

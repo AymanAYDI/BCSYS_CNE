@@ -10,7 +10,7 @@ page 50057 "BC6_Inventory Card MiniForm"
     SourceTable = "Item Journal Line";
     SourceTableView = SORTING("Journal Template Name", "Journal Batch Name", "Line No.")
                       ORDER(Ascending);
-
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -425,7 +425,7 @@ page 50057 "BC6_Inventory Card MiniForm"
 
     trigger OnAfterGetRecord()
     begin
-        OnAfterGetCurrRecord();
+        ProcOnAfterGetCurrRecord();
     end;
 
     trigger OnFindRecord(Which: Text): Boolean
@@ -450,7 +450,7 @@ page 50057 "BC6_Inventory Card MiniForm"
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
         NewLine(Rec);
-        OnAfterGetCurrRecord();
+        ProcOnAfterGetCurrRecord();
     end;
 
     trigger OnNextRecord(Steps: Integer): Integer
@@ -471,7 +471,7 @@ page 50057 "BC6_Inventory Card MiniForm"
 
         //>>MIGRATION 2013
         //NewLine();
-        //OnAfterGetCurrRecord;
+        //ProcOnAfterGetCurrRecord;
         //<<MIGRATION 2013
     end;
 
@@ -496,7 +496,6 @@ page 50057 "BC6_Inventory Card MiniForm"
         LastJnlLine: Record "Item Journal Line";
         ItemJnlTemplate: Record "Item Journal Template";
         Location: Record Location;
-        WhseEmployee: Record "Warehouse Employee";
         FunctionsMgt: Codeunit "BC6_Functions Mgt";
         ScanDeviceHelper: Codeunit BC6_ScanDeviceHelper;
         DistInt: Codeunit "Dist. Integration";
@@ -526,7 +525,6 @@ page 50057 "BC6_Inventory Card MiniForm"
         SkipUpdateData: Boolean;
         Qty: Code[10];
         BatchName: Code[20];
-        CurrentLocationCode: Code[20];
         DocNo: Code[20];
         FromBinCode: Code[20];
         ItemNo: Code[20];
@@ -552,7 +550,7 @@ page 50057 "BC6_Inventory Card MiniForm"
         BarTxt: Text[30];
 
 
-    procedure NewLine(LastJnlLine: Record "Item Journal Line")
+    procedure NewLine(pLastJnlLine: Record "Item Journal Line")
     begin
         FromBinCode := '';
         ToBinCode := '';
@@ -561,20 +559,20 @@ page 50057 "BC6_Inventory Card MiniForm"
         ShowCtrl := TRUE;
         EditableCtrl := TRUE;
 
-        CLEAR(LastJnlLine);
-        LastJnlLine.RESET();
-        LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
-        LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
-        IF NOT LastJnlLine.FIND('+') THEN BEGIN
-            LastJnlLine.INIT();
-            LastJnlLine."Journal Template Name" := "Journal Template Name";
-            LastJnlLine."Journal Batch Name" := "Journal Batch Name";
+        CLEAR(pLastJnlLine);
+        pLastJnlLine.RESET();
+        pLastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
+        pLastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
+        IF NOT pLastJnlLine.FIND('+') THEN BEGIN
+            pLastJnlLine.INIT();
+            pLastJnlLine."Journal Template Name" := "Journal Template Name";
+            pLastJnlLine."Journal Batch Name" := "Journal Batch Name";
             "Line No." := 0;
         END;
 
         SetUpNewLine(xRec);
         "Entry Type" := "Entry Type"::"Positive Adjmt.";
-        "Line No." := LastJnlLine."Line No." + 10000;
+        "Line No." := pLastJnlLine."Line No." + 10000;
         VALIDATE("Posting Date", WORKDATE());
 
         IF LocationCode = '' THEN
@@ -634,18 +632,18 @@ page 50057 "BC6_Inventory Card MiniForm"
     end;
 
 
-    procedure AssignLocationCode(var LocationCode: Code[20])
+    procedure AssignLocationCode(var pLocationCode: Code[20])
     var
         Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
         CLEAR(Location);
-        IF (LocationCode <> '') AND
-           (STRLEN(LocationCode) < 20) THEN BEGIN
-            IF Location.GET(LocationCode) THEN
-                "Location Code" := LocationCode;
+        IF (pLocationCode <> '') AND
+           (STRLEN(pLocationCode) < 20) THEN BEGIN
+            IF Location.GET(pLocationCode) THEN
+                "Location Code" := pLocationCode;
         END ELSE BEGIN
-            LocationCode := '';
-            "Location Code" := LocationCode;
+            pLocationCode := '';
+            "Location Code" := pLocationCode;
             MESSAGE(Text004);
         END;
     end;
@@ -688,53 +686,53 @@ page 50057 "BC6_Inventory Card MiniForm"
         "Bin Code" := BinCode;
     end;
 
-    procedure AssignItemNo(var ItemNo: Code[20])
+    procedure AssignItemNo(var pItemNo: Code[20])
     var
         Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
-        IF (ItemNo <> '') THEN BEGIN
-            IF CodeEANOk(ItemNo) THEN BEGIN
-                ItemNo2 := FunctionsMgt.GetItem(ItemNo);
+        IF (pItemNo <> '') THEN BEGIN
+            IF CodeEANOk(pItemNo) THEN BEGIN
+                ItemNo2 := FunctionsMgt.GetItem(pItemNo);
                 IF Item.GET(ItemNo2) THEN
-                    ItemNo := Item."No.";
+                    pItemNo := Item."No.";
             END ELSE BEGIN
-                IF Item.GET(ItemNo) THEN;
+                IF Item.GET(pItemNo) THEN;
             END;
             "Phys. Inventory" := FALSE;
-            VALIDATE("Item No.", ItemNo);
+            VALIDATE("Item No.", pItemNo);
             VALIDATE("Bin Code", FromBinCode);
             "Phys. Inventory" := TRUE;
             UpdateCurrForm();
             EXIT;
         END;
 
-        IF ItemNo <> '' THEN
-            MESSAGE(Text004, ItemNo);
-        ItemNo := '';
+        IF pItemNo <> '' THEN
+            MESSAGE(Text004, pItemNo);
+        pItemNo := '';
         Description := '';
-        VALIDATE("Item No.", ItemNo);
-        ItemNo := "Item No.";
+        VALIDATE("Item No.", pItemNo);
+        pItemNo := "Item No.";
         UpdateCurrForm();
     end;
 
 
-    procedure AssignQty(var Qty: Code[20])
+    procedure AssignQty(var pQty: Code[20])
     var
         Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
-        IF (Qty <> '') THEN BEGIN
+        IF (pQty <> '') THEN BEGIN
             "Phys. Inventory" := TRUE;
-            EVALUATE("Qty. (Phys. Inventory)", Qty);
+            EVALUATE("Qty. (Phys. Inventory)", pQty);
             VALIDATE("Qty. (Phys. Inventory)");
-            Qty := FORMAT("Qty. (Phys. Inventory)");
+            pQty := FORMAT("Qty. (Phys. Inventory)");
             EXIT;
         END;
 
-        IF Qty <> '' THEN
-            MESSAGE(Text006, Qty);
-        Qty := '';
+        IF pQty <> '' THEN
+            MESSAGE(Text006, pQty);
+        pQty := '';
         VALIDATE(Quantity, 0);
-        Qty := FORMAT(Quantity);
+        pQty := FORMAT(Quantity);
     end;
 
 
@@ -842,7 +840,7 @@ page 50057 "BC6_Inventory Card MiniForm"
         AssignQty(Qty);
     end;
 
-    local procedure OnAfterGetCurrRecord()
+    local procedure ProcOnAfterGetCurrRecord()
     begin
         xRec := Rec;
         UpdateCurrForm();
@@ -871,24 +869,24 @@ page 50057 "BC6_Inventory Card MiniForm"
 
     local procedure CloseAndOpenCurrentPickAndBin()
     var
-        LastJnlLine: Record "Item Journal Line";
+        _LastJnlLine: Record "Item Journal Line";
         InvtPickCardMiniForm: Page "BC6_Invt. Pick Card MiniForm";
     begin
         IF MODIFY(TRUE) THEN;
-        LastJnlLine := Rec;
-        LastJnlLine.RESET();
-        LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
-        LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
-        IF LastJnlLine.FIND('+') THEN BEGIN
+        _LastJnlLine := Rec;
+        _LastJnlLine.RESET();
+        _LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
+        _LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
+        IF _LastJnlLine.FIND('+') THEN BEGIN
             INIT();
-            "Journal Template Name" := LastJnlLine."Journal Template Name";
-            "Journal Batch Name" := LastJnlLine."Journal Batch Name";
-            "Line No." := LastJnlLine."Line No." + 10000;
+            "Journal Template Name" := _LastJnlLine."Journal Template Name";
+            "Journal Batch Name" := _LastJnlLine."Journal Batch Name";
+            "Line No." := _LastJnlLine."Line No." + 10000;
             VALIDATE("Entry Type", "Entry Type"::"Positive Adjmt.");
             VALIDATE("Posting Date", WORKDATE());
-            "Document No." := LastJnlLine."Document No.";
-            "Location Code" := LastJnlLine."Location Code";
-            "Bin Code" := LastJnlLine."Bin Code";
+            "Document No." := _LastJnlLine."Document No.";
+            "Location Code" := _LastJnlLine."Location Code";
+            "Bin Code" := _LastJnlLine."Bin Code";
             INSERT(TRUE);
         END;
 
@@ -898,23 +896,23 @@ page 50057 "BC6_Inventory Card MiniForm"
 
     local procedure CloseAndOpenCurrentPick()
     var
-        LastJnlLine: Record "Item Journal Line";
+        _LastJnlLine: Record "Item Journal Line";
         InvtPickCardMiniForm: Page "BC6_Invt. Pick Card MiniForm";
     begin
         IF MODIFY(TRUE) THEN;
-        LastJnlLine := Rec;
-        LastJnlLine.RESET();
-        LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
-        LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
-        IF LastJnlLine.FIND('+') THEN BEGIN
+        _LastJnlLine := Rec;
+        _LastJnlLine.RESET();
+        _LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
+        _LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
+        IF _LastJnlLine.FIND('+') THEN BEGIN
             INIT();
-            "Journal Template Name" := LastJnlLine."Journal Template Name";
-            "Journal Batch Name" := LastJnlLine."Journal Batch Name";
-            "Line No." := LastJnlLine."Line No." + 10000;
+            "Journal Template Name" := _LastJnlLine."Journal Template Name";
+            "Journal Batch Name" := _LastJnlLine."Journal Batch Name";
+            "Line No." := _LastJnlLine."Line No." + 10000;
             VALIDATE("Entry Type", "Entry Type"::"Positive Adjmt.");
             VALIDATE("Posting Date", WORKDATE());
-            "Document No." := LastJnlLine."Document No.";
-            "Location Code" := LastJnlLine."Location Code";
+            "Document No." := _LastJnlLine."Document No.";
+            "Location Code" := _LastJnlLine."Location Code";
             INSERT(TRUE);
         END;
 

@@ -1,3 +1,4 @@
+#pragma warning disable AL0432
 pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts" //7014
 {
     DataCaptionExpression = NewGetCaption();
@@ -201,4 +202,4 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
 
     end;
 }
-
+#pragma warning restore AL0432

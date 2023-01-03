@@ -3,7 +3,7 @@ page 50028 "BC6_Sales Hist. Sellto FactBox"
     Caption = 'Item Sales History', Comment = 'FRA="Historique vente article"';
     PageType = CardPart;
     SourceTable = "Sales Line";
-
+    UsageCategory = None;
     layout
     {
         area(content)

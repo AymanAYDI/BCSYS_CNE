@@ -90,7 +90,9 @@ page 50119 "BC6_SAV Purchase Return Order"
                         ApplicationArea = All;
                     }
                 }
+#pragma warning disable AL0432
                 field(ID; Rec.ID)
+#pragma warning restore AL0432
                 {
                     ApplicationArea = All;
                 }
@@ -562,7 +564,9 @@ page 50119 "BC6_SAV Purchase Return Order"
                         ApprovalEntries: Page "Approval Entries";
                     begin
 
+#pragma warning disable AL0432
                         ApprovalEntries.Setfilters(DATABASE::"Purchase Header", Rec."Document Type".AsInteger(), Rec."No.");
+#pragma warning restore AL0432
                         ApprovalEntries.RUN();
                     end;
                 }

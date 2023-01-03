@@ -3,7 +3,7 @@ page 60080 "Sales Hist. Sell-to FactBo STD"
     Caption = 'Sell-to Customer Sales History', Comment = 'FRA="Historique des ventes - donneur d''ordre"';
     PageType = CardPart;
     SourceTable = Customer;
-
+    UsageCategory = None;
     layout
     {
         area(content)

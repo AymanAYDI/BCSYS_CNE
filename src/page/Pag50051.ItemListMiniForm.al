@@ -5,7 +5,7 @@ page 50051 "BC6_Item List MiniForm"
     PageType = List;
     SourceTable = Item;
     SourceTableView = SORTING("No.");
-
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -57,6 +57,7 @@ page 50051 "BC6_Item List MiniForm"
         Item: Record Item;
         EAN13Code: Code[20];
 
+#pragma warning disable AA0205
     procedure GetSelectionFilter(): Code[80]
     var
         More: Boolean;
@@ -101,5 +102,6 @@ page 50051 "BC6_Item List MiniForm"
         END;
         EXIT(SelectionFilter);
     end;
+#pragma warning restore AA0205
 }
 

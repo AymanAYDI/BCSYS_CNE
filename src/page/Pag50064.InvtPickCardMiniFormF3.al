@@ -10,7 +10,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
     SourceTable = "Item Journal Line";
     SourceTableView = SORTING("Journal Template Name", "Journal Batch Name", "Line No.")
                       ORDER(Ascending);
-
+    UsageCategory = None;
     layout
     {
         area(content)

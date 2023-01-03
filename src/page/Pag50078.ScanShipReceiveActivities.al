@@ -4,7 +4,7 @@ page 50078 "Scan Ship & Receive Activities"
     PageType = CardPart;
     RefreshOnActivate = true;
     SourceTable = "Warehouse Basic Cue";
-
+    UsageCategory = None;
     layout
     {
         area(content)

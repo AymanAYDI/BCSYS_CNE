@@ -13,7 +13,7 @@ page 50036 "BC6_Sales Lines Subform 2"
     {
         area(content)
         {
-            repeater(Control1)
+            repeater(Control)
             {
                 field("Document No."; "Document No.")
                 {
@@ -59,7 +59,9 @@ page 50036 "BC6_Sales Lines Subform 2"
                 {
                     ApplicationArea = All;
                 }
+#pragma warning disable AL0432
                 field("Cross-Reference No."; "Cross-Reference No.")
+#pragma warning restore AL0432
                 {
                     Visible = false;
                     ApplicationArea = All;

@@ -3,7 +3,7 @@ page 50048 "Salespers Processor Activities"
     Caption = 'Activities', Comment = 'FRA=""';
     PageType = CardPart;
     SourceTable = "Sales Cue";
-
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -65,9 +65,9 @@ page 50048 "Salespers Processor Activities"
                     action(Navigate)
                     {
                         Caption = 'Navigate', Comment = 'FRA="Naviguer"';
+                        ApplicationArea = All;
                         Image = Navigate;
                         RunObject = Page Navigate;
-                        ApplicationArea = All;
                     }
                 }
             }

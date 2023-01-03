@@ -11,7 +11,7 @@ codeunit 50002 "BC6_Reconstitue lettrage CLI"
     procedure InitialisationLettrage(CustLedgerEntry: Record "Cust. Ledger Entry")
     begin
 
-        CustLedgerEntry."Applies-to ID" := UserId;
+        CustLedgerEntry."Applies-to ID" := CopyStr(UserId, 1, MaxStrLen(CustLedgerEntry."Applies-to ID"));
         IF CustLedgerEntry."Applies-to ID" = '' THEN
             CustLedgerEntry."Applies-to ID" := '***';
 

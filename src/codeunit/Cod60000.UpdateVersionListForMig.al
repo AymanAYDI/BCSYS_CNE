@@ -19,6 +19,7 @@ codeunit 60000 "BC6_UpdateVersionListForMig"
         Object.SETRANGE(Modified, true);
         Object.SETFILTER("Version List", '*%1*', MyTag);
         ERROR('%1', Object.COUNT);
+#pragma warning disable AA0136
         if Object.FindSet() then
             repeat
                 Pos := STRPOS(Object."Version List", ',MyTag');
@@ -27,6 +28,7 @@ codeunit 60000 "BC6_UpdateVersionListForMig"
                     Object.MODIFY();
                 end;
             until Object.NEXT() = 0;
+#pragma warning restore AA0136
         MESSAGE('End');
 
         exit;

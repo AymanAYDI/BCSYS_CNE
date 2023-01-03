@@ -7,7 +7,9 @@ page 50022 "BC6_Sales Line Profit"
     SaveValues = true;
     ApplicationArea = All;
     UsageCategory = Lists;
+#pragma warning disable AL0432
     SourceTable = "Sales Line Discount";
+#pragma warning restore AL0432
     SourceTableView = SORTING(Code, "Sales Code", "Sales Type", Type, "Starting Date", "Ending Date", "BC6_Profit %")
                       ORDER(Ascending);
 
@@ -165,7 +167,9 @@ page 50022 "BC6_Sales Line Profit"
                 {
                     ApplicationArea = All;
                 }
+#pragma warning disable AL0432
                 field("Profit %"; Rec."BC6_Profit %")
+#pragma warning restore AL0432
                 {
                     Visible = false;
                     ApplicationArea = All;
@@ -183,11 +187,15 @@ page 50022 "BC6_Sales Line Profit"
                 {
                     ApplicationArea = All;
                 }
+#pragma warning disable AL0432
                 field("Dispensation No."; Rec."BC6_Dispensation No.")
+#pragma warning restore AL0432
                 {
                     ApplicationArea = All;
                 }
+#pragma warning disable AL0432
                 field("Added Discount %"; Rec."BC6_Added Discount %")
+#pragma warning restore AL0432
                 {
                     ApplicationArea = All;
                 }

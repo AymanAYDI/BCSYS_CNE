@@ -4,7 +4,7 @@ page 50076 "BC6_ScanDeviceButtons"
     PageType = ListPart;
     SourceTable = "Tenant Media Set"; // TODO: check replace record tempBlob by "Tenant Media Set"
     SourceTableTemporary = true;
-
+    UsageCategory = None;
     layout
     {
         area(content)

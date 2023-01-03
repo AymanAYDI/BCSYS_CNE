@@ -4,7 +4,7 @@ pageextension 50020 "BC6_PurchaseInvoice" extends "Purchase Invoice" //51
     {
         addafter("Status")
         {
-            field(BC6_ID; Rec.ID)
+            field(BC6_ID; Rec.BC6_ID)
             {
                 Caption = 'User ID', comment = 'FRA="Code Utilisateur"';
                 Editable = false;

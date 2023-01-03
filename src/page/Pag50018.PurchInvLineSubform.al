@@ -3,7 +3,7 @@ page 50018 "BC6_Purch. Inv. Line Subform"
     Caption = 'Purchase Invoice Lines', comment = 'FRA="Lignes Facture Achat"';
     PageType = List;
     SourceTable = "Purch. Inv. Line";
-
+    UsageCategory = None;
     layout
     {
         area(content)

@@ -6,7 +6,7 @@ pageextension 50089 "BC6_SalesReturnOrder" extends "Sales Return Order" //6630
     {
         addafter("Sell-to")
         {
-            field(BC6_ID; ID)
+            field(BC6_ID; BC6_ID)
             {
             }
             field("BC6_Sell-to Fax No."; "BC6_Sell-to Fax No.")
@@ -105,12 +105,12 @@ pageextension 50089 "BC6_SalesReturnOrder" extends "Sales Return Order" //6630
         Text001: Label '';
         nameF: Text[250];
 
-    trigger OnInsertRecord(BelowxRec: Boolean): Boolean
-    var
-        Error: Label 'you don''t have permission to add records', Comment = 'FRA="vous n''êtes pas autorisé à ajouter des enregistrements"';
-    begin
-        Error(Error); //TODO: Check Modify property InsertAllowed by Error
-    end;
+    // trigger OnInsertRecord(BelowxRec: Boolean): Boolean
+    // var
+    //     Error: Label 'you don''t have permission to add records', Comment = 'FRA="vous n''êtes pas autorisé à ajouter des enregistrements"';
+    // begin
+    //     Error(Error); //TODO: Check Modify property InsertAllowed by Error
+    // end;
 
     procedure EnvoiMail()
     begin

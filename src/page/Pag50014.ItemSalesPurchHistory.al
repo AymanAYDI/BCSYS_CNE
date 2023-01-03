@@ -7,13 +7,14 @@ page 50014 "BC6_Item Sales/Purch. History"
     PageType = List;
     SaveValues = true;
     SourceTable = Item;
-
+    UsageCategory = None;
     layout
     {
         area(content)
         {
             field(CurrentMenuTypeValue; CurrentMenuType)
             {
+                Caption = 'Current Menu Type Value', Comment = 'FRA="Valeur actuelle du type de Menu"';
                 Visible = false;
             }
             group("Sales History")

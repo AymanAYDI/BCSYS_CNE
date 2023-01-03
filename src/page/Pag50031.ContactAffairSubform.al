@@ -3,6 +3,7 @@ page 50031 "BC6_Contact Affair Subform"
     Caption = 'Contact Affair Subform', Comment = 'FRA="Contact affaire"';
     PageType = ListPart;
     SourceTable = "BC6_Contact Project Relation";
+    UsageCategory = None;
     layout
     {
         area(content)

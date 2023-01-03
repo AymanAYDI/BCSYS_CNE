@@ -4,7 +4,7 @@ pageextension 50073 "BC6_BlanketSalesOrder" extends "Blanket Sales Order" //507
     {
         addafter("Sell-to Contact No.")
         {
-            field(BC6_ID; Rec.ID)
+            field(BC6_ID; Rec.BC6_ID)
             {
             }
             field("BC6_Sell-to Fax No."; Rec."BC6_Sell-to Fax No.")

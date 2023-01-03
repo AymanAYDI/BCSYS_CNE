@@ -12,6 +12,7 @@ page 50058 "BC6_Reclass. Card MiniForm"
     SourceTable = "Item Journal Line";
     SourceTableView = SORTING("Journal Template Name", "Journal Batch Name", "Line No.")
                       ORDER(Ascending);
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -233,7 +234,6 @@ page 50058 "BC6_Reclass. Card MiniForm"
                                     IF LastJnlLine.FIND('+') THEN
                                         Rec := LastJnlLine
                                     ELSE BEGIN
-                                        //NewLine(Rec);
                                         Rec := xRec;
                                         CurrPage.UPDATE(FALSE);
                                     END;
@@ -558,7 +558,7 @@ page 50058 "BC6_Reclass. Card MiniForm"
 
     trigger OnAfterGetRecord()
     begin
-        OnAfterGetCurrRecord();
+        ProcOnAfterGetCurrRecord();
     end;
 
     trigger OnFindRecord(Which: Text): Boolean
@@ -585,7 +585,7 @@ page 50058 "BC6_Reclass. Card MiniForm"
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
         NewLine(Rec);
-        OnAfterGetCurrRecord();
+        ProcOnAfterGetCurrRecord();
     end;
 
     trigger OnNextRecord(Steps: Integer): Integer
@@ -605,7 +605,7 @@ page 50058 "BC6_Reclass. Card MiniForm"
         EditableCtrl := TRUE;
         //>>MIGRATION 2013
         //NewLine();
-        //OnAfterGetCurrRecord;
+        //ProcOnAfterGetCurrRecord;
         //<<MIGRATION 2013
     end;
 
@@ -732,9 +732,7 @@ page 50058 "BC6_Reclass. Card MiniForm"
 
     procedure OpenWithWhseEmployee(): Boolean
     var
-        WhseEmployee: Record "Warehouse Employee";
         WmsManagement: Codeunit "WMS Management";
-        CurrentLocationCode: Code[10];
     begin
 
         InvSetup.GET();
@@ -1024,7 +1022,7 @@ page 50058 "BC6_Reclass. Card MiniForm"
         AssignQty(Qty);
     end;
 
-    local procedure OnAfterGetCurrRecord()
+    local procedure ProcOnAfterGetCurrRecord()
     begin
         xRec := Rec;
         UpdateCurrForm();

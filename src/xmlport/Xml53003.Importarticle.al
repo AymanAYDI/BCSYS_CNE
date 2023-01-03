@@ -440,10 +440,14 @@ xmlport 53003 "BC6_Import article"
         recText: Record "Extended Text Line";
         recArticle: Record Item;
         recItemCatCode: Record "Item Category";
+#pragma warning disable AL0432
         recCross: Record "Item Cross Reference";
+#pragma warning restore AL0432
         recIDicGroup: Record "Item Discount Group";
         recUv: Record "Item Unit of Measure";
+#pragma warning disable AL0432
         recPPx: Record "Purchase Price";
+#pragma warning restore AL0432
         DecGpmp: Decimal;
         DecGpxachat1: Decimal;
         DecGpxachat2: Decimal;

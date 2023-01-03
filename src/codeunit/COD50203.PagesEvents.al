@@ -184,9 +184,8 @@ codeunit 50203 "BC6_PagesEvents"
         TextGestTierPayeur001: Label 'There is no ledger entries.', comment = 'FRA="Il n''y a pas d''écitures."';
     begin
         Vend.GET(VendorLedgerEntry."Entry No."); //CHECK THE GET()
-        if CalcType = CalcType::Direct then begin
+        if CalcType = CalcType::Direct then
             IF NOT Vend.GET(VendorLedgerEntry."Vendor No.") AND NOT Vend.GET(Vend."BC6_Pay-to Vend. No.") THEN ERROR(TextGestTierPayeur001);
-        end;
     end;
 
 
@@ -219,25 +218,21 @@ codeunit 50203 "BC6_PagesEvents"
         GlobalFunction.SetGDecMntHTDEEE(0);
     end;
 
-    //ligne718 
-    // [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnAfterPostVendorEntry', '', false, false)]
-    // procedure COD90_OnAfterPostVendorEntry(var GenJnlLine: Record "Gen. Journal Line"; var PurchHeader: Record "Purchase Header"; var TotalPurchLine: Record "Purchase Line"; var TotalPurchLineLCY: Record "Purchase Line"; CommitIsSupressed: Boolean; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line")
+
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch. Post Invoice Events", 'OnPostLedgerEntryOnAfterGenJnlPostLine', '', false, false)]
 
     local procedure COD90_OnPostLedgerEntryOnAfterGenJnlPostLine(var GenJnlLine: Record "Gen. Journal Line"; var PurchHeader: Record "Purchase Header"; var TotalPurchLine: Record "Purchase Line"; var TotalPurchLineLCY: Record "Purchase Line"; PreviewMode: Boolean; SuppressCommit: Boolean; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line")
     var
         GlobalFunction: Codeunit "BC6_GlobalFunctionMgt";
-        _DEEECategoryCode: code[10];
-        _EcoPartnerDEEE: Code[10];
     begin
 
         GenJnlLine."BC6_DEEE HT Amount" := TotalPurchLine."BC6_DEEE HT Amount";
         GenJnlLine."BC6_DEEE VAT Amount" := TotalPurchLine."BC6_DEEE VAT Amount";
         GenJnlLine."BC6_DEEE TTC Amount" := TotalPurchLine."BC6_DEEE TTC Amount";
         GenJnlLine."BC6_DEEE HT Amount (LCY)" := TotalPurchLine."BC6_DEEE HT Amount (LCY)";
-        GenJnlLine."BC6_Eco partner DEEE" := _EcoPartnerDEEE;
-        GenJnlLine."BC6_DEEE Category Code" := _DEEECategoryCode;
+        GenJnlLine."BC6_Eco partner DEEE" := GlobalFunction.Get_EcoPartnerDEEE();
+        GenJnlLine."BC6_DEEE Category Code" := GlobalFunction.Get_DEEECategoryCode();
 
         GenJnlLine.Amount := GenJnlLine.Amount - GlobalFunction.GetGDecMntTTCDEEE();
         GenJnlLine."Source Currency Amount" := GenJnlLine."Source Currency Amount" - GlobalFunction.GetGDecMntTTCDEEE();
@@ -287,6 +282,7 @@ codeunit 50203 "BC6_PagesEvents"
         FctMngt.Increment(TotalPurchLine."BC6_DEEE HT Amount (LCY)", PurchLine."BC6_DEEE HT Amount (LCY)");
     end;
 
+#pragma warning disable AL0432
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnBeforePostVendorEntry', '', false, false)]
     local procedure OnBeforePostVendorEntry(var GenJnlLine: Record "Gen. Journal Line"; var PurchHeader: Record "Purchase Header"; var TotalPurchLine: Record "Purchase Line"; var TotalPurchLineLCY: Record "Purchase Line"; PreviewMode: Boolean; CommitIsSupressed: Boolean; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line")
     var
@@ -303,13 +299,12 @@ codeunit 50203 "BC6_PagesEvents"
         GenJnlLine.Amount := GenJnlLine.Amount - GlobalFunction.Get_PurchGDecMntTTCDEEE();
         GenJnlLine."Source Currency Amount" := GenJnlLine."Source Currency Amount" - GlobalFunction.Get_PurchGDecMntTTCDEEE();
         GenJnlLine."Amount (LCY)" := GenJnlLine."Amount (LCY)" - GlobalFunction.Get_PurchGDecMntTTCDEEE();
-        //>>DEEE1.00 : DEEE amount management
-
-        //>>REGLEMENT STLA 01.08.2006 COR001 [13] Mise ´ jour du champ Mode de r²glement de la feuille de saisie
         GenJnlLine."Payment Method Code" := GenJnlLine."Payment Method Code";
 
     end;
+#pragma warning restore AL0432
 
+#pragma warning disable AL0432
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnBeforeInitNewGenJnlLineFromPostInvoicePostBufferLine', '', false, false)]
     local procedure OnBeforeInitNewGenJnlLineFromPostInvoicePostBufferLine(var GenJnlLine: Record "Gen. Journal Line"; var PurchHeader: Record "Purchase Header"; InvoicePostBuffer: Record "Invoice Post. Buffer"; var IsHandled: Boolean)
     begin
@@ -320,6 +315,8 @@ codeunit 50203 "BC6_PagesEvents"
          InvoicePostBuffer."Dimension Set ID", PurchHeader."Reason Code");
 
     end;
+#pragma warning restore AL0432
+
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post (Yes/No)", 'OnBeforeConfirmPostProcedure', '', false, false)]
     local procedure COD91_OnBeforeConfirmPostProcedure(var PurchaseHeader: Record "Purchase Header"; var DefaultOption: Integer; var Result: Boolean; var IsHandled: Boolean)

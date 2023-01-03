@@ -89,7 +89,9 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
                 RunPageView = sorting(Code);
             }
         }
+#pragma warning disable AL0432
         modify("Line Discounts")
+#pragma warning restore AL0432
         { Visible = false; }
         addbefore(Action125)
         {
@@ -97,10 +99,16 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
             {
                 Caption = 'Line Discounts', Comment = 'FRA="Remises ligne"';
                 Image = LineDiscount;
+#pragma warning disable AL0432
                 RunObject = page "Purchase Line Discounts";
+#pragma warning restore AL0432
+#pragma warning disable AL0432
                 RunPageLink = BC6_Type = const(Item),
+#pragma warning restore AL0432
                                   "Item No." = field("No.");
+#pragma warning disable AL0432
                 RunPageView = sorting(BC6_Type, "Item No.", "Vendor No.", "Starting Date", "Currency Code", "Variant Code", "Unit of Measure Code", "Minimum Quantity");
+#pragma warning restore AL0432
             }
         }
         addafter("Skilled R&esources")

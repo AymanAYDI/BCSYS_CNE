@@ -5,9 +5,11 @@ codeunit 50202 "BC6_Functions Mgt"
     procedure FindVeryBestCost(var RecLPurchaseLine: Record "Purchase Line"; RecLPurchaseHeader: Record "Purchase Header")
     var
         Item: Record Item;
+#pragma warning disable AL0432
         PurchLineDisc: Record "Purchase Line Discount";
         PurchPrice: Record "Purchase Price";
         PurPriCalMgt: Codeunit "Purch. Price Calc. Mgt.";
+#pragma warning restore AL0432
         BestCost: Decimal;
         BestDiscount: Decimal;
         ItemDirectUnitCost: Decimal;
@@ -924,7 +926,9 @@ codeunit 50202 "BC6_Functions Mgt"
     procedure FindVeryBestPrice(var RecLSalesLine: Record "Sales Line"; RecLSalesHeader: Record "Sales Header");
     var
         Item: Record Item;
+#pragma warning disable AL0432
         PriceCalcMgt: Codeunit "Sales Price Calc. Mgt.";
+#pragma warning restore AL0432
         BestDiscount: Decimal;
         BestPrice: Decimal;
         ItemUnitPrice: Decimal;
@@ -1283,6 +1287,7 @@ codeunit 50202 "BC6_Functions Mgt"
         //<<DEEE1.00 :
     END;
 
+#pragma warning disable AL0432
     procedure UpdateInvoicePostBuffer(var InvoicePostBuffer: Record "Invoice Post. Buffer"; TempInvoicePostBuffer: Record "Invoice Post. Buffer" temporary)
     var
         DeferralLineNo: Integer;
@@ -1297,7 +1302,7 @@ codeunit 50202 "BC6_Functions Mgt"
         end;
         TempInvoicePostBuffer.Update(InvoicePostBuffer, InvDefLineNo, DeferralLineNo);
     end;
-
+#pragma warning restore AL0432
 
     procedure OnRunTiersPayeur(var Rec: Record "Payment Line");
     var
@@ -1678,7 +1683,9 @@ codeunit 50202 "BC6_Functions Mgt"
             CopyOfItem.SETRANGE("Variant Filter", SalesLine."Variant Code");
             CopyOfItem.SETRANGE("Drop Shipment Filter", false);
 
+#pragma warning disable AL0432
             exit(ConvertQty(AvailableToPromise.QtyAvailabletoPromise(CopyOfItem, GrossRequirement, ScheduledReceipt, SIPM.CalcAvailabilityDate(SalesLine), PeriodType.AsInteger(), LookaheadDateformula), SalesLine."Qty. per Unit of Measure"));
+#pragma warning restore AL0432
         end;
     end;
 
@@ -1701,10 +1708,13 @@ codeunit 50202 "BC6_Functions Mgt"
             CopyOfItem.SETRANGE("Drop Shipment Filter", false);
 
             exit(
+#pragma warning disable AL0432
             ConvertQty(AvailableToPromise.QtyAvailabletoPromise(CopyOfItem, GrossRequirement, ScheduledReceipt, SIPM.CalcAvailabilityDate(SalesLine), PeriodType.AsInteger(), LookaheadDateformula), SalesLine."Qty. per Unit of Measure"));
+#pragma warning restore AL0432
         end;
     end;
 
+#pragma warning disable AL0432
     procedure FindPurchLineDisc(var ToPurchLineDisc: Record "Purchase Line Discount"; VendorNo: Code[20]; ItemNo: Code[20]; VariantCode: Code[10]; UOM: Code[10]; CurrencyCode: Code[10]; StartingDate: Date; ShowAll: Boolean; ItemDiscGrCode: Code[10])
     var
         FromPurchLineDisc: Record "Purchase Line Discount";
@@ -1726,9 +1736,7 @@ codeunit 50202 "BC6_Functions Mgt"
                 if (BC6_Type = BC6_Type::"All items") or
                   ((BC6_Type = BC6_Type::Item) and (ItemNo <> '')) or
                   ((BC6_Type = BC6_Type::"Item Disc. Group") and (ItemDiscGrCode <> '')) then begin
-
                     SETRANGE(BC6_Type, BC6_Type);
-
                     case BC6_Type of
                         BC6_Type::"All items":
                             SETRANGE("Item No.");
@@ -1737,8 +1745,6 @@ codeunit 50202 "BC6_Functions Mgt"
                         BC6_Type::"Item Disc. Group":
                             SETRANGE("Item No.", ItemDiscGrCode);
                     end;
-                    //Fin GESTION_REMISE FG 06/12/06 NSC1.01
-                    //<<MIGRATION NAV 2013
 
                     if FIND('-') then
                         repeat
@@ -1749,6 +1755,7 @@ codeunit 50202 "BC6_Functions Mgt"
             end;
         end;
     end;
+#pragma warning restore AL0432
 
     procedure PurchHeaderStartDate(var PurchHeader: Record "Purchase Header"; var DateCaption: Text[30]) StartDate: Date
     begin
@@ -1931,6 +1938,7 @@ codeunit 50202 "BC6_Functions Mgt"
         end;
     end;
 
+#pragma warning disable AL0432
     procedure CopySalesDiscToSalesDisc(var FromSalesLineDisc: Record "Sales Line Discount"; var ToSalesLineDisc: Record "Sales Line Discount");
     begin
         with ToSalesLineDisc do begin
@@ -1941,6 +1949,7 @@ codeunit 50202 "BC6_Functions Mgt"
                 until FromSalesLineDisc.NEXT() = 0;
         end;
     end;
+#pragma warning restore AL0432
 
     PROCEDURE GetItemEAN13Code(ItemNo: Code[20]) EAN13Code: Code[20];
     VAR
@@ -1964,7 +1973,9 @@ codeunit 50202 "BC6_Functions Mgt"
         ItemReference.SETRANGE("Unit of Measure", Item."Base Unit of Measure");
         ItemReference.SETRANGE("Reference Type", ItemReference."Reference Type"::"Bar Code");
         ItemReference.SETRANGE("Reference Type No.", CrossRefTypeNo);
+#pragma warning disable AL0432
         ItemReference.SETRANGE("Discontinue Bar Code", FALSE);
+#pragma warning restore AL0432
         IF ItemReference.FINDFIRST() THEN
             EAN13Code := ItemReference."Reference No.";
 
@@ -1986,13 +1997,17 @@ codeunit 50202 "BC6_Functions Mgt"
         CrossRefTypeNo := InvSetup."BC6_Cross.Ref.Type No.BarCode";
 
         ItemReference.RESET();
+#pragma warning disable AL0432
         ItemReference.SETCURRENTKEY("Reference No.", "Reference Type", "Reference Type No.", "Discontinue Bar Code");
+#pragma warning restore AL0432
         ItemReference.SETCURRENTKEY("Reference No.", "Reference Type", "Reference Type No.");
         ItemReference.SETRANGE("Reference No.", EAN13Code);
         ItemReference.SETRANGE("Reference Type", ItemReference."Reference Type"::"Bar Code");
         ItemReference.SETRANGE("Reference Type No.", CrossRefTypeNo);
         ItemReference.SETRANGE("Variant Code", '');
+#pragma warning disable AL0432
         ItemReference.SETRANGE("Discontinue Bar Code", FALSE);
+#pragma warning restore AL0432
         IF ItemReference.FINDFIRST() THEN
             REPEAT
                 IF Item.GET(ItemReference."Item No.") THEN

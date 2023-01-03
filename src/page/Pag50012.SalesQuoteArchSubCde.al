@@ -5,7 +5,7 @@ page 50012 "BC6_Sales Quote Arch. Sub. Cde"
     PageType = List;
     SourceTable = "Sales Line Archive";
     SourceTableView = WHERE("Document Type" = CONST(Quote));
-
+    UsageCategory = None;
     layout
     {
         area(content)

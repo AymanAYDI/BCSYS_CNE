@@ -4,7 +4,7 @@ pageextension 50016 "BC6_SalesCreditMemo" extends "Sales Credit Memo" //44
     {
         addafter("No.")
         {
-            field(BC6_ID; ID)
+            field(BC6_ID; BC6_ID)
             {
                 Editable = false;
                 ApplicationArea = All;

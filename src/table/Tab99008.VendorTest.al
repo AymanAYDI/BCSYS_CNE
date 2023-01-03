@@ -869,7 +869,9 @@ table 99008 "BC6_Vendor Test"
     var
         CommentLine: Record "Comment Line";
         GenBusPostingGrp: Record "Gen. Business Posting Group";
+#pragma warning disable AL0432
         ItemCrossReference: Record "Item Cross Reference";
+#pragma warning restore AL0432
         RMSetup: Record "Marketing Setup";
         OrderAddr: Record "Order Address";
         PostCode: Record "Post Code";

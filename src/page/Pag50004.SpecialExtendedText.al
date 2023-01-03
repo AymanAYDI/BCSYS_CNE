@@ -4,7 +4,7 @@ page 50004 "BC6_Special Extended Text"
     PageType = ListPart;
     RefreshOnActivate = true;
     SourceTable = "BC6_Special Extended Text Line";
-
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -71,9 +71,7 @@ page 50004 "BC6_Special Extended Text"
         {
             action(List)
             {
-                Caption = 'List', Comment = 'FRA=""';
-                Promoted = true;
-                PromotedCategory = Process;
+                Caption = 'List', Comment = 'FRA="Liste"';
                 RunPageOnRec = true;
 
                 trigger OnAction()

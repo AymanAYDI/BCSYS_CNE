@@ -5,7 +5,6 @@ codeunit 50091 "BC6_Permission Form"
     procedure HasEditablePermission(UserID2: Text[65]; ObjectType: Integer; ObjectID: Integer): Boolean
     var
         WinAccControl: Record "Access Control";
-        AllObjWithCaption: Record AllObjWithCaption;
         HasPermission: Boolean;
     begin
         HasPermission := WinAccControl.ISEMPTY;
@@ -21,12 +20,13 @@ codeunit 50091 "BC6_Permission Form"
     procedure HasWinPermission(UserID2: Text[65]; ObjectType: Integer; ObjectID: Integer): Boolean
     var
         WinAccessControl: Record "Access Control";
+#pragma warning disable AL0432
         Permission: Record Permission;
+#pragma warning restore AL0432
         WinLogin: Record User;
         WinLogin2: Record User;
         Found: Boolean;
         HasPermission: Boolean;
-        MorePermissions: Boolean;
     begin
 
         IF WinLogin2.FINDSET() THEN
@@ -63,7 +63,7 @@ codeunit 50091 "BC6_Permission Form"
     begin
         IF STRPOS(UserID, '\') IN [0, STRLEN(UserID)] THEN
             IF STRLEN(UserID) <= 20 THEN
-                EXIT(UserID)
+                EXIT(CopyStr(UserID, 1, 20))
             ELSE
                 EXIT('')
         ELSE

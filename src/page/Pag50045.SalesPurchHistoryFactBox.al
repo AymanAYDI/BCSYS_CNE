@@ -3,7 +3,7 @@ page 50045 "Sales/Purch. History FactBox"
     Caption = 'Item Sales/Purchase History', Comment = 'FRA="Historique vente/achat article"';
     PageType = CardPart;
     SourceTable = Item;
-
+    UsageCategory = None;
     layout
     {
         area(content)

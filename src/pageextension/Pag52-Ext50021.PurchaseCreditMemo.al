@@ -4,7 +4,7 @@ pageextension 50021 "BC6_PurchaseCreditMemo" extends "Purchase Credit Memo" //52
     {
         addafter("Buy-from Vendor Name")
         {
-            field(BC6_ID; ID)
+            field(BC6_ID; BC6_ID)
             {
                 Caption = 'User ID', comment = 'FRA="Code Utilisateur"';
                 Editable = false;

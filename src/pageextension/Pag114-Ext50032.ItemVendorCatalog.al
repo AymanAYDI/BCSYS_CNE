@@ -2,11 +2,15 @@ pageextension 50032 "BC6_ItemVendorCatalog" extends "Item Vendor Catalog" //114
 {
     actions
     {
+#pragma warning disable AL0432
         modify("Purch. Line &Discounts")
+#pragma warning restore AL0432
         {
             Visible = false;
         }
+#pragma warning disable AL0432
         addafter("Purch. Line &Discounts")
+#pragma warning restore AL0432
         {
             action("BC6_Purch. Line &Discounts2")
             {

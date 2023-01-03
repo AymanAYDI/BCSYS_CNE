@@ -6,7 +6,7 @@ page 50013 "Link purch. order - sale order"
     PageType = List;
     Permissions = TableData "Sales Line" = rm;
     SourceTable = "Sales Line";
-
+    UsageCategory = None;
     layout
     {
         area(content)

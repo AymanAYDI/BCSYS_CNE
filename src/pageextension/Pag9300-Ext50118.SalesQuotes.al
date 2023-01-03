@@ -9,7 +9,7 @@ pageextension 50118 "BC6_SalesQuotes" extends "Sales Quotes" //9300
         }
         addafter("Status")
         {
-            field(BC6_ID; ID)
+            field(BC6_ID; BC6_ID)
             {
             }
             field("BC6_Your Reference"; "Your Reference")

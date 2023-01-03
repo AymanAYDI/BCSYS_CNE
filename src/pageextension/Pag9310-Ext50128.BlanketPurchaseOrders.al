@@ -4,7 +4,7 @@ pageextension 50128 "BC6_BlanketPurchaseOrders" extends "Blanket Purchase Orders
     {
         addafter("Currency Code")
         {
-            field(BC6_ID; ID)
+            field(BC6_ID; BC6_ID)
             {
             }
             field("BC6_Your Reference"; "Your Reference")

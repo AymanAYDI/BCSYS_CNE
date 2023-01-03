@@ -1,3 +1,4 @@
+#pragma warning disable AL0432
 pageextension 50096 "BC6_SalesLineDiscounts" extends "Sales Line Discounts" //7004
 {
 
@@ -16,4 +17,4 @@ pageextension 50096 "BC6_SalesLineDiscounts" extends "Sales Line Discounts" //70
         }
     }
 }
-
+#pragma warning restore AL0432

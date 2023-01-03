@@ -6,7 +6,7 @@ page 50052 "BC6_Bin List MiniForm"
     SourceTable = Bin;
     SourceTableView = SORTING("Location Code", Code)
                       ORDER(Ascending);
-
+    UsageCategory = None;
     layout
     {
         area(content)

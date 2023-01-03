@@ -3,7 +3,7 @@ page 60045 "Sales/Purch. History FactB STD"
     Caption = 'Item Sales/Purchase History', Comment = 'FRA=""';
     PageType = CardPart;
     SourceTable = Item;
-
+    UsageCategory = None;
     layout
     {
         area(content)

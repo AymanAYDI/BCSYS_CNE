@@ -2,7 +2,9 @@ pageextension 50000 "BC6_CompanyInformation" extends "Company Information" //1
 {
     layout
     {
+#pragma warning disable AL0432
         addafter("IC Inbox Details")
+#pragma warning restore AL0432
         {
             field("BC6_Branch Company"; "BC6_Branch Company")
             {

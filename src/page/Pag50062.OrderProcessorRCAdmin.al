@@ -2,6 +2,7 @@ page 50062 "BC6_Order Processor RC Admin"
 {
     Caption = 'Role Center', Comment = 'FRA="Tableau de bord"';
     PageType = RoleCenter;
+    UsageCategory = None;
     layout
     {
         area(rolecenter)
@@ -354,7 +355,9 @@ page 50062 "BC6_Order Processor RC Admin"
                 {
                     Caption = 'Sales Price &Worksheet', Comment = 'FRA="Feuille pri&x vente"';
                     Image = PriceWorksheet;
+#pragma warning disable AL0432
                     RunObject = Page "Sales Price Worksheet";
+#pragma warning restore AL0432
                     ApplicationArea = All;
                 }
             }
@@ -366,7 +369,9 @@ page 50062 "BC6_Order Processor RC Admin"
                     ApplicationArea = Basic, Suite;
                     Caption = '&Prices', Comment = 'FRA="Pri&x"';
                     Image = SalesPrices;
+#pragma warning disable AL0432
                     RunObject = Page "Sales Prices";
+#pragma warning restore AL0432
                     ToolTip = 'Set up different prices for items that you sell to the customer. An item price is automatically granted on invoice lines when the specified criteria are met, such as customer, quantity, or ending date.', Comment = 'FRA="Paramétrez des prix différents pour les articles que vous vendez au client. Un prix article est automatiquement affecté sur les lignes facture lorsque les critères spécifiés sont satisfaits, par exemple le client, la quantité ou la date de fin."';
                 }
                 action("&Line Discounts")
@@ -374,7 +379,9 @@ page 50062 "BC6_Order Processor RC Admin"
                     ApplicationArea = Basic, Suite;
                     Caption = '&Line Discounts', Comment = 'FRA="&Remises ligne"';
                     Image = SalesLineDisc;
+#pragma warning disable AL0432
                     RunObject = Page "Sales Line Discounts";
+#pragma warning restore AL0432
                     ToolTip = 'Set up different discounts for items that you sell to the customer. An item discount is automatically granted on invoice lines when the specified criteria are met, such as customer, quantity, or ending date.', Comment = 'FRA="Paramétrez des remises différentes pour les articles que vous vendez au client. Une remise article est automatiquement affectée sur les lignes facture lorsque les critères spécifiés sont satisfaits, par exemple le client, la quantité ou la date de fin."';
                 }
             }
@@ -427,7 +434,9 @@ page 50062 "BC6_Order Processor RC Admin"
                         ApplicationArea = Basic, Suite;
                         Caption = 'Price &List', Comment = 'FRA="&Liste des prix"';
                         Image = "Report";
+#pragma warning disable AL0432
                         RunObject = Report "Price List";
+#pragma warning restore AL0432
                         ToolTip = 'View a list of your items and their prices, for example, to send to customers. You can create the list for specific customers, campaigns, currencies, or other criteria.', Comment = 'FRA="Affichez une liste de vos articles ainsi que leur prix à envoyer, par exemple, aux clients. Vous pouvez créer la liste pour des clients, des campagnes ou des devises spécifiques ou encore pour d''autres critères."';
                     }
                     action("Inventory - Sales &Back Orders")

@@ -7,7 +7,7 @@ page 50046 "BC6_Salesperson authorized"
     PageType = List;
     ShowFilter = false;
     SourceTable = "BC6_Salesperson authorized";
-
+    UsageCategory = None;
     layout
     {
         area(content)

@@ -63,7 +63,9 @@ codeunit 50013 "BC6_Create SalesDoc Directory"
             TargetDirectoryName := '';
             REPEAT
 
+#pragma warning disable AA0206
                 ItemExist := Item.GET(SalesLine."No.");
+#pragma warning restore AA0206
                 ItemRecRef.GETTABLE(Item);
                 ItemRecID := ItemRecRef.RECORDID;
 

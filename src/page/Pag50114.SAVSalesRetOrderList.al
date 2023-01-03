@@ -10,7 +10,8 @@ page 50114 "BC6_SAV Sales Ret. Order List"
     SourceTable = "Sales Header";
     SourceTableView = WHERE("Document Type" = CONST("Return Order"),
                             "BC6_Return Order Type" = CONST(SAV));
-
+    ApplicationArea = All;
+    UsageCategory = Lists;
     layout
     {
         area(content)
@@ -183,7 +184,7 @@ page 50114 "BC6_SAV Sales Ret. Order List"
                      comment = 'FRA="Spécifie le statut d''une écriture file d''attente des travaux ou d''une tâche qui gére la validation des commandes vente."';
                     Visible = JobQueueActive;
                 }
-                field(ID; ID)
+                field(ID; BC6_ID)
                 {
                 }
                 field("Your Reference"; "Your Reference")
@@ -280,7 +281,7 @@ page 50114 "BC6_SAV Sales Ret. Order List"
                     var
                         ApprovalEntries: Page "Approval Entries";
                     begin
-                        ApprovalEntries.Setfilters(DATABASE::"Sales Header", "Document Type".AsInteger(), "No.");
+                        ApprovalEntries.SetRecordFilters(DATABASE::"Sales Header", "Document Type".AsInteger(), "No.");
                         ApprovalEntries.RUN();
                     end;
                 }

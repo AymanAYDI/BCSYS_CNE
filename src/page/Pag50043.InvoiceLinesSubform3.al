@@ -5,7 +5,7 @@ page 50043 "BC6_Invoice Lines Subform 3"
     PageType = List;
     SourceTable = "Sales Invoice Line";
     SourceTableView = SORTING("No.");
-
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -58,7 +58,9 @@ page 50043 "BC6_Invoice Lines Subform 3"
                 {
                     ApplicationArea = All;
                 }
+#pragma warning disable AL0432
                 field("Cross-Reference No."; "Cross-Reference No.")
+#pragma warning restore AL0432
                 {
                     Visible = false;
                     ApplicationArea = All;
@@ -220,7 +222,9 @@ page 50043 "BC6_Invoice Lines Subform 3"
         IF NOT TempSalesInvLine.FIND('-') THEN BEGIN
             SalesInvLine.COPYFILTERS(Rec);
             SalesInvLine.SETRANGE("Document No.", "Document No.");
+#pragma warning disable AA0181
             SalesInvLine.FIND('-');
+#pragma warning restore AA0181
             TempSalesInvLine := SalesInvLine;
             TempSalesInvLine.INSERT();
         END;

@@ -46,7 +46,7 @@ codeunit 50023 "BC6_IC Transfert Validation IC"
                                 RecGDocICOut.Validate := true;
                                 RecGDocICOut."Validate Date" := TODAY;
 
-                                RecGDocICOut.INSERT()
+                                RecGDocICOut.INSERT();
                             end else begin
                                 RecGDocICOut.Canceled := true;
                                 RecGDocICIn.Canceled := true;

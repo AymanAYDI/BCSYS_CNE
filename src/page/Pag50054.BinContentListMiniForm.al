@@ -3,7 +3,7 @@ page 50054 "BC6_Bin Content List MiniForm"
     Caption = 'Bin Content List MiniForm', Comment = 'FRA="Contenu emplacement"';
     PageType = List;
     SourceTable = "Bin Content";
-
+    UsageCategory = None;
     layout
     {
         area(content)

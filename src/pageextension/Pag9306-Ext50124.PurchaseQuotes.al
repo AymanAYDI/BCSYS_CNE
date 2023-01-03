@@ -4,7 +4,7 @@ pageextension 50124 "BC6_PurchaseQuotes" extends "Purchase Quotes" //9306
     {
         addafter(Status)
         {
-            field(BC6_ID; ID)
+            field(BC6_ID; BC6_ID)
             {
                 ApplicationArea = All;
             }

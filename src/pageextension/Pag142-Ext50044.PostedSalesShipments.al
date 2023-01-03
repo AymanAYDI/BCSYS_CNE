@@ -103,6 +103,7 @@ pageextension 50044 "BC6_PostedSalesShipments" extends "Posted Sales Shipments" 
 
     trigger OnAfterGetRecord()
     begin
+#pragma warning disable AA0206
         GRespAffair := '';
         IF RecAffair.GET("BC6_Affair No.") THEN
             GRespAffair := RecAffair."BC6_Affair Responsible";

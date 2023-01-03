@@ -12,7 +12,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
     SourceTable = "Item Journal Line";
     SourceTableView = SORTING("Journal Template Name", "Journal Batch Name", "Line No.")
                       ORDER(Ascending);
-
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -1229,21 +1229,9 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
             "Document No." := LastJnlLine."Document No.";
             AssignPickNo(PickNo);
             "Location Code" := LastJnlLine."Location Code";
-            //SOBI
-            //"Item No." := LastJnlLine."Item No.";
-            //Description := LastJnlLine.Description;
-            //SOBI
             INSERT(TRUE);
         END;
 
-        // CurrPage.CLOSE;
-
-        //MIG 2017
-
-        //
-        // InvtPickCardMiniForm.SETTABLEVIEW(Rec);
-        // InvtPickCardMiniForm.SetOptionMode(OptionMode::KeepBin);
-        // InvtPickCardMiniForm.RUN();
         SetOptionMode(OptionMode::KeepPick);
         CurrPage.UPDATE(FALSE);
     end;

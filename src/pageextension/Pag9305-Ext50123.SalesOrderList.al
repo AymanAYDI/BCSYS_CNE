@@ -6,7 +6,7 @@ pageextension 50123 "BC6_SalesOrderList" extends "Sales Order List" //9305
     {
         addafter("Job Queue Status")
         {
-            field(BC6_ID; Rec.ID)
+            field(BC6_ID; Rec.BC6_ID)
             {
                 ApplicationArea = All;
             }

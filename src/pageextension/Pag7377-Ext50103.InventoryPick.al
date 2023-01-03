@@ -162,6 +162,7 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
             CurrPage.EDITABLE(FALSE);
         IF NOT PermissionForm.HasEditablePermission(USERID, 8, 7378) THEN
             CurrFormEditableOk := FALSE;
+#pragma warning disable AA0206
         BooGWhseActivityLines := CurrFormEditableOk;
     end;
 }

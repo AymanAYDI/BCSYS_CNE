@@ -6,7 +6,7 @@ page 50093 "Sales Quote Archive SubformSTD"
     PageType = ListPart;
     SourceTable = "Sales Line Archive";
     SourceTableView = WHERE("Document Type" = CONST(Quote));
-
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -21,7 +21,9 @@ page 50093 "Sales Quote Archive SubformSTD"
                 {
                     ApplicationArea = All;
                 }
+#pragma warning disable AL0432
                 field("Cross-Reference No."; "Cross-Reference No.")
+#pragma warning restore AL0432
                 {
                     Visible = false;
                     ApplicationArea = All;

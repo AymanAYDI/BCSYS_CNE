@@ -84,6 +84,7 @@ codeunit 50052 "BC6_Return Order Mgt."
         end;
     end;
 
+#pragma warning disable AA0228
     local procedure ExtractOrderNo(P_SalesInvoiceLine: Record "Sales Invoice Line"): Code[20]
     var
         ItemLedgEntry: Record "Item Ledger Entry";
@@ -161,10 +162,11 @@ codeunit 50052 "BC6_Return Order Mgt."
 
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnBeforePostPurchaseDoc', '', false, false)]
-    procedure OnBeforePostPurchaseDoc(var PurchaseHeader: Record "Purchase Header")
+    Local procedure OnBeforePostPurchaseDoc(var PurchaseHeader: Record "Purchase Header")
     var
         L_ReturnOrderRelation: Record "BC6_Return Order Relation";
         L_SalesCrMemoHeader: Record "Sales Cr.Memo Header";
+        TextError: Text;
     begin
         with PurchaseHeader do begin
             if "Document Type" <> "Document Type"::"Return Order" then
@@ -178,14 +180,16 @@ codeunit 50052 "BC6_Return Order Mgt."
             if L_ReturnOrderRelation.FINDFIRST() then begin
                 L_SalesCrMemoHeader.RESET();
                 L_SalesCrMemoHeader.SETRANGE("Return Order No.", L_ReturnOrderRelation."Sales Return Order");
-                if L_SalesCrMemoHeader.ISEMPTY then
-                    ERROR(STRSUBSTNO(ErrValidateReturnPurchOrder, L_ReturnOrderRelation."Sales Return Order"));
+                if L_SalesCrMemoHeader.ISEMPTY then begin
+                    TextError := STRSUBSTNO(ErrValidateReturnPurchOrder, L_ReturnOrderRelation."Sales Return Order");
+                    ERROR(TextError);
+                end;
             end;
         end;
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Sales Header", 'OnAfterModifyEvent', '', false, false)]
-    procedure OnAfterModifySalesHeader(var Rec: Record "Sales Header"; var xRec: Record "Sales Header"; RunTrigger: Boolean)
+    Local procedure OnAfterModifySalesHeader(var Rec: Record "Sales Header"; var xRec: Record "Sales Header"; RunTrigger: Boolean)
     var
         RecLNoSeries: Record "No. Series";
         RecLSalesReceivablesSetup: Record "Sales & Receivables Setup";

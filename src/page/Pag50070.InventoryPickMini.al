@@ -6,7 +6,7 @@ page 50070 "BC6_Inventory Pick Mini"
     SaveValues = true;
     SourceTable = "Warehouse Activity Header";
     SourceTableView = WHERE(Type = CONST("Invt. Pick"));
-
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -391,6 +391,7 @@ page 50070 "BC6_Inventory Pick Mini"
             CurrPage.EDITABLE(FALSE);
         IF NOT PermissionForm.HasEditablePermission(USERID, 8, 7378) THEN
             CurrFormEditableOk := FALSE;
+#pragma warning disable AA0206
         BooGWhseActivityLines := CurrFormEditableOk;
     end;
 

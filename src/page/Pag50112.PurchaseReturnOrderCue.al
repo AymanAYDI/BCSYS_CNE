@@ -3,7 +3,7 @@ page 50112 "BC6_Purchase Return Order Cue"
     Caption = 'Purchase Activities', comment = 'FRA="Activités achat"';
     PageType = CardPart;
     SourceTable = "Purchase Cue";
-
+    UsageCategory = None;
     layout
     {
         area(content)

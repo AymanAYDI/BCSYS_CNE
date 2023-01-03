@@ -6,7 +6,7 @@ page 50034 "BC6_Affair Steps Tracking"
     PageType = List;
     ShowFilter = false;
     SourceTable = "BC6_Affair Steps";
-    UsageCategory = Lists;
+    UsageCategory = Tasks;
     ApplicationArea = All;
     layout
     {
@@ -40,10 +40,12 @@ page 50034 "BC6_Affair Steps Tracking"
                 }
                 field(DatLRminderDate; DatLRminderDate)
                 {
+                    Caption = 'DatLRminderDate', Comment = 'FRA=""';
                     ApplicationArea = All;
                 }
                 field(BooGFinichedfilter; BooGFinichedfilter)
                 {
+                    Caption = 'BooGFinichedfilter';
                     ApplicationArea = All;
                 }
             }

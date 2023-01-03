@@ -3,7 +3,7 @@ page 50024 "BC6_Item Category List"
     Caption = 'Item Category List', Comment = 'FRA="Liste des catégories d''articles"';
     PageType = List;
     SourceTable = "BC6_Categories of item";
-    UsageCategory = Lists;
+    UsageCategory = Tasks;
     ApplicationArea = All;
     layout
     {

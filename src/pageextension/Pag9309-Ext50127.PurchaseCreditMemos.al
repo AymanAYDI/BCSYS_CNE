@@ -8,7 +8,7 @@ pageextension 50127 "BC6_PurchaseCreditMemos" extends "Purchase Credit Memos" //
         }
         addafter("Job Queue Status")
         {
-            field(BC6_ID; ID)
+            field(BC6_ID; BC6_ID)
             {
             }
             field("BC6_Your Reference"; "Your Reference")

@@ -6,7 +6,7 @@ page 50053 "BC6_Location List MiniForm"
     SourceTable = Location;
     SourceTableView = SORTING(Code)
                       ORDER(Ascending);
-
+    UsageCategory = None;
     layout
     {
         area(content)

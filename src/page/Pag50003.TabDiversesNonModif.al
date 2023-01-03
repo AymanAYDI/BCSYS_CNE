@@ -3,7 +3,7 @@ page 50003 "BC6_Tab. Diverses (Non Modif)"
     Caption = 'Tables Diverses (Non Modif)';
     PageType = List;
     SourceTable = "BC6_Various Tables";
-
+    UsageCategory = None;
     layout
     {
         area(content)

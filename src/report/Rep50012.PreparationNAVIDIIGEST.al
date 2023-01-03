@@ -647,29 +647,29 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
                 //                                           PRM
                 customer.GET("Sell-to Customer No.");
 
-                IF NOT CurrReport.PREVIEW THEN BEGIN
+                // IF NOT CurrReport.PREVIEW THEN BEGIN
 
-                    //ARCHIVAGE SL 06/10/06 Ne pas archiver la commande
-                    /*
-                    IF ArchiveDocument THEN
-                      ArchiveManagement.StoreSalesDocument("Sales Header",LogInteraction);
+                //     //ARCHIVAGE SL 06/10/06 Ne pas archiver la commande
+                //     /*
+                //     IF ArchiveDocument THEN
+                //       ArchiveManagement.StoreSalesDocument("Sales Header",LogInteraction);
 
-                    IF LogInteraction THEN BEGIN
-                      CALCFIELDS("No. of Archived Versions");
-                      IF "Bill-to Contact No." <> '' THEN
-                        SegManagement.LogDocument(
-                          3,"No.","Doc. No. Occurrence",
-                          "No. of Archived Versions",DATABASE::Contact,"Bill-to Contact No."
-                          ,"Salesperson Code","Campaign No.","Posting Description","Opportunity No.")
-                      ELSE
-                        SegManagement.LogDocument(
-                          3,"No.","Doc. No. Occurrence",
-                          "No. of Archived Versions",DATABASE::Customer,"Bill-to Customer No.",
-                          "Salesperson Code","Campaign No.","Posting Description","Opportunity No.");
-                    END;
-                    */
-                    //Fin ARCHIVAGE SL 06/10/06 Ne pas archiver la commande
-                END;
+                //     IF LogInteraction THEN BEGIN
+                //       CALCFIELDS("No. of Archived Versions");
+                //       IF "Bill-to Contact No." <> '' THEN
+                //         SegManagement.LogDocument(
+                //           3,"No.","Doc. No. Occurrence",
+                //           "No. of Archived Versions",DATABASE::Contact,"Bill-to Contact No."
+                //           ,"Salesperson Code","Campaign No.","Posting Description","Opportunity No.")
+                //       ELSE
+                //         SegManagement.LogDocument(
+                //           3,"No.","Doc. No. Occurrence",
+                //           "No. of Archived Versions",DATABASE::Customer,"Bill-to Customer No.",
+                //           "Salesperson Code","Campaign No.","Posting Description","Opportunity No.");
+                //     END;
+                //     */
+                //     //Fin ARCHIVAGE SL 06/10/06 Ne pas archiver la commande
+                // END;
 
                 //>>FEP-ACHAT-200706_18_A.001
                 RecGSalesLine.RESET();

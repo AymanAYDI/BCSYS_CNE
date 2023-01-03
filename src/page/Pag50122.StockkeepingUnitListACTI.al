@@ -8,7 +8,7 @@ page 50122 "Stockkeeping Unit List ACTI"
     RefreshOnActivate = true;
     SourceTable = "Stockkeeping Unit";
     SourceTableView = WHERE("Location Code" = CONST('ACTI'));
-    UsageCategory = Lists;
+    UsageCategory = Tasks;
     ApplicationArea = All;
 
     layout

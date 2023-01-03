@@ -2,7 +2,7 @@ page 50090 "BC6_Item List Test"
 {
     PageType = List;
     SourceTable = Item;
-
+    UsageCategory = None;
     layout
     {
         area(content)

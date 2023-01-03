@@ -9,6 +9,8 @@ page 50015 "BC6_Sales Order Lines"
                       WHERE("Document Type" = FILTER(Order),
                             Type = FILTER(Item),
                             "Outstanding Quantity" = FILTER(> 0));
+    ApplicationArea = All;
+    UsageCategory = Tasks;
 
     layout
     {
@@ -125,7 +127,9 @@ page 50015 "BC6_Sales Order Lines"
                     Caption = 'Requested Receipt Date', comment = 'FRA="Date réception demandée"';
                     Editable = false;
                 }
+#pragma warning disable AL0432
                 field("RecGSalesHeader.ID"; RecGSalesHeader.ID)
+#pragma warning restore AL0432
                 {
                     Caption = 'CNE Spokesman Name', comment = 'FRA="Nom interlocuteur CNE"';
                     Editable = false;

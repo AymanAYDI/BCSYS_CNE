@@ -13,7 +13,7 @@ page 50105 "BC6_Log Purch. Comment Lines"
     PopulateAllFields = true;
     ShowFilter = false;
     SourceTable = "Purch. Comment Line";
-
+    UsageCategory = None;
     layout
     {
         area(content)

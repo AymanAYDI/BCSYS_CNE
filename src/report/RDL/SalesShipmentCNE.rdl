@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="DataSource">
@@ -7,6 +7,7 @@
         <DataProvider>SQL</DataProvider>
         <ConnectString />
       </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
       <rd:DataSourceID>85409204-775b-4018-a0d4-3c644acaae7f</rd:DataSourceID>
     </DataSource>
   </DataSources>
@@ -49,7 +50,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=
+                                                    <Value>=
 Cstr(Fields!CustAddr_1_.Value) + Chr(177) + 
 Cstr(Fields!CustAddr_2_.Value) + Chr(177) + 
 Cstr(Fields!CustAddr_3_.Value) + Chr(177) + 
@@ -133,7 +134,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value EvaluationMode="Auto">=IIF(Code.IsNewPage(Fields!No_SalesShptHeader.Value,Fields!OutputNo.Value),TRUE,FALSE)</Value>
+                                      <Value>=IIF(Code.IsNewPage(Fields!No_SalesShptHeader.Value,Fields!OutputNo.Value),TRUE,FALSE)</Value>
                                       <Style />
                                     </TextRun>
                                   </TextRuns>
@@ -187,7 +188,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!ReferenceCaption.Value</Value>
+                                                    <Value>=Fields!ReferenceCaption.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontSize>9pt</FontSize>
@@ -240,7 +241,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!DescriptionCaption.Value</Value>
+                                                    <Value>=Fields!DescriptionCaption.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontSize>9pt</FontSize>
@@ -294,7 +295,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Qty_To_shipCaption.Value</Value>
+                                                    <Value>=Fields!Qty_To_shipCaption.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>arial</FontFamily>
@@ -350,7 +351,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Net_Price_Incl__VATCaption.Value</Value>
+                                                    <Value>=Fields!Net_Price_Incl__VATCaption.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>arial</FontFamily>
@@ -406,7 +407,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Ord__QtyCaption.Value</Value>
+                                                    <Value>=Fields!Ord__QtyCaption.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>arial</FontFamily>
@@ -462,7 +463,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!QtyCaption.Value</Value>
+                                                    <Value>=Fields!QtyCaption.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>arial</FontFamily>
@@ -518,7 +519,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Incl__VAT_Line_AmountCaption.Value</Value>
+                                                    <Value>=Fields!Incl__VAT_Line_AmountCaption.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontSize>9pt</FontSize>
@@ -578,7 +579,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!ReferenceCaption.Value</Value>
+                                                    <Value>=Fields!ReferenceCaption.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontSize>9pt</FontSize>
@@ -631,7 +632,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!DescriptionCaption.Value</Value>
+                                                    <Value>=Fields!DescriptionCaption.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontSize>9pt</FontSize>
@@ -685,7 +686,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Qty_To_shipCaption.Value</Value>
+                                                    <Value>=Fields!Qty_To_shipCaption.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>arial</FontFamily>
@@ -741,7 +742,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Net_Price_Excl__VATCaption.Value</Value>
+                                                    <Value>=Fields!Net_Price_Excl__VATCaption.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>arial</FontFamily>
@@ -797,7 +798,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Ord__QtyCaption.Value</Value>
+                                                    <Value>=Fields!Ord__QtyCaption.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>arial</FontFamily>
@@ -853,7 +854,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!QtyCaption.Value</Value>
+                                                    <Value>=Fields!QtyCaption.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>arial</FontFamily>
@@ -909,7 +910,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Incl__VAT_Line_AmountCaption_Control1000000088.Value</Value>
+                                                    <Value>=Fields!Incl__VAT_Line_AmountCaption_Control1000000088.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontSize>9pt</FontSize>
@@ -968,7 +969,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontSize>9pt</FontSize>
@@ -1003,7 +1004,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Sales_Shipment_Line_Description.Value</Value>
+                                                    <Value>=Fields!Sales_Shipment_Line_Description.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -1042,7 +1043,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -1081,7 +1082,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -1120,7 +1121,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -1159,7 +1160,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -1198,7 +1199,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -1247,7 +1248,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontSize>9pt</FontSize>
@@ -1282,7 +1283,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Sales_Shipment_Line_Description.Value</Value>
+                                                    <Value>=Fields!Sales_Shipment_Line_Description.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -1321,7 +1322,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -1360,7 +1361,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -1399,7 +1400,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -1437,7 +1438,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Sales_Shipment_Line__Sales_Shipment_Line__Quantity.Value</Value>
+                                                    <Value>=Fields!Sales_Shipment_Line__Sales_Shipment_Line__Quantity.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -1477,7 +1478,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -1525,7 +1526,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Sales_Shipment_Line__No__.Value</Value>
+                                                    <Value>=Fields!Sales_Shipment_Line__No__.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -1561,7 +1562,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Sales_Shipment_Line_Description.Value</Value>
+                                                    <Value>=Fields!Sales_Shipment_Line_Description.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -1599,7 +1600,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Sales_Shipment_Line__Sales_Shipment_Line___Outstanding_Quantity_.Value</Value>
+                                                    <Value>=Fields!Sales_Shipment_Line__Sales_Shipment_Line___Outstanding_Quantity_.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -1638,7 +1639,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!DecGNetPrice.Value</Value>
+                                                    <Value>=Fields!DecGNetPrice.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -1674,7 +1675,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Sales_Shipment_Line__Sales_Shipment_Line___Ordered_Quantity_.Value</Value>
+                                                    <Value>=Fields!Sales_Shipment_Line__Sales_Shipment_Line___Ordered_Quantity_.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -1712,7 +1713,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Sales_Shipment_Line__Sales_Shipment_Line__Quantity.Value</Value>
+                                                    <Value>=Fields!Sales_Shipment_Line__Sales_Shipment_Line__Quantity.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -1751,7 +1752,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Code.BlankZero(Fields!DecGLineAmount.Value)</Value>
+                                                    <Value>=Code.BlankZero(Fields!DecGLineAmount.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -1800,7 +1801,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -1838,7 +1839,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Sales_Shipment_Line__Cross_Reference_No__Caption.Value &amp; " " &amp; Fields!Sales_Shipment_Line__Cross_Reference_No__.Value</Value>
+                                                    <Value>=Fields!Sales_Shipment_Line__Cross_Reference_No__Caption.Value &amp; " " &amp; Fields!Sales_Shipment_Line__Cross_Reference_No__.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -1877,7 +1878,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -1916,7 +1917,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -1954,7 +1955,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -1992,7 +1993,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2031,7 +2032,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2079,7 +2080,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!DEEE_Contribution___Caption.Value</Value>
+                                                    <Value>=Fields!DEEE_Contribution___Caption.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2117,7 +2118,7 @@ Cstr(Last(Fields!DecGTotTVA_DecGTotTVADEEEFormat.Value))</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Sales_Shipment_Line__No___Control1000000086Caption.Value +
+                                                    <Value>=Fields!Sales_Shipment_Line__No___Control1000000086Caption.Value +
 Fields!Sales_Shipment_Line__No__.Value +
 Fields!CodGDEEECategoryCodeCaption.Value +
 Fields!CodGDEEECategoryCode.Value</Value>
@@ -2159,7 +2160,7 @@ Fields!CodGDEEECategoryCode.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2197,7 +2198,7 @@ Fields!CodGDEEECategoryCode.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!DecGHTUnitTaxLCY.Value</Value>
+                                                    <Value>=Fields!DecGHTUnitTaxLCY.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2236,7 +2237,7 @@ Fields!CodGDEEECategoryCode.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2273,7 +2274,7 @@ Fields!CodGDEEECategoryCode.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Sales_Shipment_Line__Sales_Shipment_Line__Quantity.Value</Value>
+                                                    <Value>=Fields!Sales_Shipment_Line__Sales_Shipment_Line__Quantity.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2312,7 +2313,7 @@ Fields!CodGDEEECategoryCode.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Code.BlankZero(Fields!Sales_Shipment_Line__Quantity_DecGNumbeofUnitsDEEE_DecGHTUnitTaxLCY.Value)</Value>
+                                                    <Value>=Code.BlankZero(Fields!Sales_Shipment_Line__Quantity_DecGNumbeofUnitsDEEE_DecGHTUnitTaxLCY.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2360,7 +2361,7 @@ Fields!CodGDEEECategoryCode.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Sales_Shipment_Line__No__.Value</Value>
+                                                    <Value>=Fields!Sales_Shipment_Line__No__.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2398,7 +2399,7 @@ Fields!CodGDEEECategoryCode.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Sales_Shipment_Line_Description.Value</Value>
+                                                    <Value>=Fields!Sales_Shipment_Line_Description.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2436,7 +2437,7 @@ Fields!CodGDEEECategoryCode.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Sales_Shipment_Line__Sales_Shipment_Line___Outstanding_Quantity_.Value</Value>
+                                                    <Value>=Fields!Sales_Shipment_Line__Sales_Shipment_Line___Outstanding_Quantity_.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2475,7 +2476,7 @@ Fields!CodGDEEECategoryCode.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!DecGNetPrice.Value</Value>
+                                                    <Value>=Fields!DecGNetPrice.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2513,7 +2514,7 @@ Fields!CodGDEEECategoryCode.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Sales_Shipment_Line__Sales_Shipment_Line___Ordered_Quantity_.Value</Value>
+                                                    <Value>=Fields!Sales_Shipment_Line__Sales_Shipment_Line___Ordered_Quantity_.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2551,7 +2552,7 @@ Fields!CodGDEEECategoryCode.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Sales_Shipment_Line__Sales_Shipment_Line__Quantity.Value</Value>
+                                                    <Value>=Fields!Sales_Shipment_Line__Sales_Shipment_Line__Quantity.Value</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2591,7 +2592,7 @@ Fields!CodGDEEECategoryCode.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2639,7 +2640,7 @@ Fields!CodGDEEECategoryCode.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2682,7 +2683,7 @@ Fields!CodGDEEECategoryCode.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2726,7 +2727,7 @@ Fields!CodGDEEECategoryCode.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2770,7 +2771,7 @@ Fields!CodGDEEECategoryCode.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2813,7 +2814,7 @@ Fields!CodGDEEECategoryCode.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2856,7 +2857,7 @@ Fields!CodGDEEECategoryCode.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2900,7 +2901,7 @@ Fields!CodGDEEECategoryCode.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -3024,8 +3025,8 @@ Fields!Type_SalesShptLine.Value = "4" OR
                               <KeepTogether>true</KeepTogether>
                               <Top>0.20612cm</Top>
                               <Left>0.01618cm</Left>
-                              <Height>3.85277cm</Height>
-                              <Width>18.33321cm</Width>
+                              <Height>3.85278cm</Height>
+                              <Width>18.33323cm</Width>
                               <ZIndex>2</ZIndex>
                               <DataElementOutput>NoOutput</DataElementOutput>
                               <Style />
@@ -3037,7 +3038,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value EvaluationMode="Auto">=True</Value>
+                                      <Value>=True</Value>
                                       <Style />
                                     </TextRun>
                                   </TextRuns>
@@ -3122,7 +3123,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(12,1)</Value>
+                      <Value>=Code.GetData(12,1)</Value>
                       <Style>
                         <FontSize>7pt</FontSize>
                       </Style>
@@ -3145,7 +3146,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(9,1)</Value>
+                      <Value>=Code.GetData(9,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -3172,7 +3173,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(17,1)</Value>
+                      <Value>=Code.GetData(17,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3198,7 +3199,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(7,1)</Value>
+                      <Value>=Code.GetData(7,1)</Value>
                       <Style>
                         <FontSize>18pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -3223,7 +3224,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(8,1)</Value>
+                      <Value>=Code.GetData(8,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -3250,7 +3251,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(11,1)</Value>
+                      <Value>=Code.GetData(11,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3276,7 +3277,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(16,1)</Value>
+                      <Value>=Code.GetData(16,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3302,7 +3303,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(18,1)</Value>
+                      <Value>=Code.GetData(18,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3328,7 +3329,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(6,1)</Value>
+                      <Value>=Code.GetData(6,1)</Value>
                       <Style>
                         <FontSize>18pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -3353,7 +3354,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(19,1)</Value>
+                      <Value>=Code.GetData(19,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3379,7 +3380,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(13,1)</Value>
+                      <Value>=Code.GetData(13,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3405,7 +3406,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(15,1)</Value>
+                      <Value>=Code.GetData(15,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -3430,7 +3431,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(3,1)</Value>
+                      <Value>=Code.GetData(3,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3467,7 +3468,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">="Page "&amp;Code.GetGroupPageNumber(ReportItems!NewPage3.Value,Globals!PageNumber)</Value>
+                      <Value>="Page "&amp;Code.GetGroupPageNumber(ReportItems!NewPage3.Value,Globals!PageNumber)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3509,7 +3510,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(4,1)</Value>
+                      <Value>=Code.GetData(4,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3533,7 +3534,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(14,1)</Value>
+                      <Value>=Code.GetData(14,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3559,7 +3560,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(10,1)</Value>
+                      <Value>=Code.GetData(10,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3585,7 +3586,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(1,1)</Value>
+                      <Value>=Code.GetData(1,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3609,7 +3610,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(5,1)</Value>
+                      <Value>=Code.GetData(5,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3633,7 +3634,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(2,1)</Value>
+                      <Value>=Code.GetData(2,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3657,7 +3658,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto" />
+                      <Value />
                       <Style>
                         <Color>Red</Color>
                       </Style>
@@ -3685,7 +3686,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(20,1)</Value>
+                      <Value>=Code.GetData(20,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -3716,7 +3717,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(21,1)</Value>
+                      <Value>=Code.GetData(21,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3746,7 +3747,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(22,1)</Value>
+                      <Value>=Code.GetData(22,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3776,7 +3777,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(23,1)</Value>
+                      <Value>=Code.GetData(23,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -3803,7 +3804,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(26,1)</Value>
+                      <Value>=Code.GetData(26,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3827,7 +3828,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(27,1)</Value>
+                      <Value>=Code.GetData(27,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3851,7 +3852,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(24,1)</Value>
+                      <Value>=Code.GetData(24,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3875,7 +3876,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(28,1)</Value>
+                      <Value>=Code.GetData(28,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3899,7 +3900,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(25,1)</Value>
+                      <Value>=Code.GetData(25,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3923,7 +3924,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(29,1)</Value>
+                      <Value>=Code.GetData(29,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -3950,7 +3951,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(30,1)</Value>
+                      <Value>=Code.GetData(30,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3976,7 +3977,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(31,1)</Value>
+                      <Value>=Code.GetData(31,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -4010,7 +4011,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Fields!CompanyInfo_Name.Value</Value>
+                      <Value>=Fields!CompanyInfo_Name.Value</Value>
                       <Style>
                         <FontSize>8pt</FontSize>
                       </Style>
@@ -4040,7 +4041,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Fields!CompanyInfo_Address______CompanyInfo__Address_2______STRSUBSTNO___1__2__CompanyInfo__Post_Code__CompanyInfo_City_.Value</Value>
+                      <Value>=Fields!CompanyInfo_Address______CompanyInfo__Address_2______STRSUBSTNO___1__2__CompanyInfo__Post_Code__CompanyInfo_City_.Value</Value>
                       <Style>
                         <FontSize>8pt</FontSize>
                       </Style>
@@ -4069,7 +4070,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Fields!STRSUBSTNO_Text066_CompanyInfo__Phone_No___CompanyInfo__Fax_No___CompanyInfo__E_Mail__.Value</Value>
+                      <Value>=Fields!STRSUBSTNO_Text066_CompanyInfo__Phone_No___CompanyInfo__Fax_No___CompanyInfo__E_Mail__.Value</Value>
                       <Style>
                         <FontSize>7pt</FontSize>
                       </Style>
@@ -4097,7 +4098,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Fields!STRSUBSTNO_Text067_CompanyInfo__Legal_Form__CompanyInfo__Stock_Capital__CompanyInfo__Trade_Register__CompanyInfo__APE_Code__CompanyInfo__VAT_Registration_No___.Value</Value>
+                      <Value>=Fields!DataItem1000000039.Value</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -4127,7 +4128,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Fields!CompanyInfo__Alt_Name_.Value</Value>
+                      <Value>=Fields!CompanyInfo__Alt_Name_.Value</Value>
                       <Style>
                         <FontSize>7pt</FontSize>
                       </Style>
@@ -4164,7 +4165,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Fields!CompanyInfo__Alt_Address_______CompanyInfo__Alt_Address_2______STRSUBSTNO___1__2__CompanyInfo__Alt_Post_Code__CompanyInfo__Alt_City__.Value</Value>
+                      <Value>=Fields!DataItem1000000021.Value</Value>
                       <Style>
                         <FontSize>7pt</FontSize>
                       </Style>
@@ -4202,7 +4203,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Fields!STRSUBSTNO_Text066_CompanyInfo__Alt_Phone_No___CompanyInfo__Alt_Fax_No___CompanyInfo__Alt_E_Mail__.Value</Value>
+                      <Value>=Fields!STRSUBSTNO_Text066_CompanyInfo__Alt_Phone_No___CompanyInfo__Alt_Fax_No___CompanyInfo__Alt_E_Mail__.Value</Value>
                       <Style>
                         <FontSize>7pt</FontSize>
                       </Style>
@@ -4240,7 +4241,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Fields!CompanyInfo__Home_Page_.Value</Value>
+                      <Value>=Fields!CompanyInfo__Home_Page_.Value</Value>
                       <Style>
                         <FontSize>8pt</FontSize>
                       </Style>
@@ -4268,7 +4269,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Fields!CompanyInfo__Alt_Home_Page_.Value</Value>
+                      <Value>=Fields!CompanyInfo__Alt_Home_Page_.Value</Value>
                       <Style>
                         <FontSize>8pt</FontSize>
                       </Style>
@@ -4308,7 +4309,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value EvaluationMode="Auto">=Last(Fields!Total_Net_HTCaption.Value, "DataSet_Result")</Value>
+                          <Value>=Last(Fields!Total_Net_HTCaption.Value, "DataSet_Result")</Value>
                           <Style>
                             <FontSize>9pt</FontSize>
                             <FontWeight>Bold</FontWeight>
@@ -4339,7 +4340,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value EvaluationMode="Auto">=Last(Fields!AmountEco_ConributionCaption.Value, "DataSet_Result")</Value>
+                          <Value>=Last(Fields!AmountEco_ConributionCaption.Value, "DataSet_Result")</Value>
                           <Style>
                             <FontSize>9pt</FontSize>
                             <FontWeight>Bold</FontWeight>
@@ -4371,7 +4372,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value EvaluationMode="Auto">=Last(Fields!Excl__VAT_Total_Incl_DEEECaption.Value, "DataSet_Result")</Value>
+                          <Value>=Last(Fields!Excl__VAT_Total_Incl_DEEECaption.Value, "DataSet_Result")</Value>
                           <Style>
                             <FontSize>9pt</FontSize>
                             <FontWeight>Bold</FontWeight>
@@ -4402,7 +4403,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value EvaluationMode="Auto">=Code.GetData(32,1)</Value>
+                          <Value>=Code.GetData(32,1)</Value>
                           <Style>
                             <FontSize>9pt</FontSize>
                             <FontWeight>Bold</FontWeight>
@@ -4436,7 +4437,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value EvaluationMode="Auto">=Code.GetData(33,1)</Value>
+                          <Value>=Code.GetData(33,1)</Value>
                           <Style>
                             <FontSize>9pt</FontSize>
                             <FontWeight>Bold</FontWeight>
@@ -4470,7 +4471,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value EvaluationMode="Auto">=Code.GetData(34,1)</Value>
+                          <Value>=Code.GetData(34,1)</Value>
                           <Style>
                             <FontSize>9pt</FontSize>
                             <FontWeight>Bold</FontWeight>
@@ -4505,7 +4506,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value EvaluationMode="Auto">=Last(Fields!DecGTotTVA_DecGTotTVADEEECaption.Value, "DataSet_Result")</Value>
+                          <Value>=Last(Fields!DecGTotTVA_DecGTotTVADEEECaption.Value, "DataSet_Result")</Value>
                           <Style>
                             <FontSize>9pt</FontSize>
                           </Style>
@@ -4536,7 +4537,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value EvaluationMode="Auto">=Last(Fields!ROUND_DecGTotAmountTTC_DecGTotDEEE_DecGTotTVADEEE_0_01_____Caption.Value, "DataSet_Result")</Value>
+                          <Value>=Last(Fields!ROUND_DecGTotAmountTTC_DecGTotDEEE_DecGTotTVADEEE_0_01_____Caption.Value, "DataSet_Result")</Value>
                           <Style>
                             <FontSize>9pt</FontSize>
                             <FontWeight>Bold</FontWeight>
@@ -4568,7 +4569,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value EvaluationMode="Auto">=Last(Fields!PaymentMethod_Description___________PaymentTerms_DescriptionCaption.Value, "DataSet_Result")</Value>
+                          <Value>=Last(Fields!PaymentMethod_Description___________PaymentTerms_DescriptionCaption.Value, "DataSet_Result")</Value>
                           <Style>
                             <FontSize>9pt</FontSize>
                           </Style>
@@ -4598,7 +4599,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value EvaluationMode="Auto">=Code.GetData(35,1)</Value>
+                          <Value>=Code.GetData(35,1)</Value>
                           <Style>
                             <FontSize>9pt</FontSize>
                             <Format>0.00;(0.00)</Format>
@@ -4631,7 +4632,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value EvaluationMode="Auto">=Code.GetData(36,1)</Value>
+                          <Value>=Code.GetData(36,1)</Value>
                           <Style>
                             <FontSize>9pt</FontSize>
                             <FontWeight>Bold</FontWeight>
@@ -4665,7 +4666,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value EvaluationMode="Auto">=Code.GetData(37,1)</Value>
+                          <Value>=Code.GetData(37,1)</Value>
                           <Style>
                             <FontSize>9pt</FontSize>
                           </Style>
@@ -4696,7 +4697,7 @@ Fields!Type_SalesShptLine.Value = "4" OR
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value EvaluationMode="Auto">=Code.GetData(38,1)</Value>
+                          <Value>=Code.GetData(38,1)</Value>
                           <Style>
                             <FontSize>9pt</FontSize>
                           </Style>

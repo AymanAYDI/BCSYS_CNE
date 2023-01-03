@@ -70,6 +70,7 @@ pageextension 50065 "BC6_PurchaseInvoiceStatistics" extends "Purchase Invoice St
 
     procedure IncrementDecGMntTTCDEEE(pDecGMntTTCDEEE: Decimal)
     begin
+#pragma warning disable AA0206
         DecGMntTTCDEEE += pDecGMntTTCDEEE;
     end;
 

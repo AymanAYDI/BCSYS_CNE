@@ -2,7 +2,7 @@ page 50008 "BC6_SFAC Client"
 {
     PageType = Card;
     SourceTable = Customer;
-
+    UsageCategory = None;
     layout
     {
         area(content)

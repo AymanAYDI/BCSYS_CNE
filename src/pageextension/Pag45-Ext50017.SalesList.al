@@ -33,7 +33,7 @@ pageextension 50017 "BC6_SalesList" extends "Sales List" //45
                 Caption = 'Invoice', Comment = 'FRA="Entièrement facturée"';
                 ApplicationArea = All;
             }
-            field(BC6_ID; ID)
+            field(BC6_ID; BC6_ID)
             {
                 Visible = BooGID;
                 ApplicationArea = All;

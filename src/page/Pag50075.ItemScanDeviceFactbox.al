@@ -3,7 +3,7 @@ page 50075 "BC6_Item ScanDevice Factbox"
     Caption = 'Item details', Comment = 'FRA="Détails article"';
     PageType = CardPart;
     SourceTable = Item;
-
+    UsageCategory = None;
     layout
     {
         area(content)

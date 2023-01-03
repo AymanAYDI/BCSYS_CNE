@@ -275,7 +275,9 @@ page 50121 "LOC Purch. Return Order List"
                     var
                         ApprovalEntries: Page "Approval Entries";
                     begin
+#pragma warning disable AL0432
                         ApprovalEntries.Setfilters(DATABASE::"Purchase Header", "Document Type".AsInteger(), "No.");
+#pragma warning restore AL0432
                         ApprovalEntries.RUN();
                     end;
                 }

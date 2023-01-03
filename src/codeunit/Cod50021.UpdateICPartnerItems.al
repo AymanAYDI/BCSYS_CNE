@@ -80,8 +80,10 @@ codeunit 50021 "BC6_Update IC Partner Items"
         RecGItemPartner: Record Item;
         RecGItemUnitofMeasure: Record "Item Unit of Measure";
         RecGItemUnitofMeasurePartner: Record "Item Unit of Measure";
+#pragma warning disable AL0432
         RecGPurchasePrice: Record "Purchase Price";
         RecGPurchasePricePartner: Record "Purchase Price";
+#pragma warning restore AL0432
         RecGVendorPartner: Record Vendor;
         ItemPartnerOldCostIncreaseCoeff: Decimal;
         Windows: Dialog;

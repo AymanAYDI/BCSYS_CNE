@@ -283,7 +283,9 @@ report 50018 "BC6_Sales Stat/Customer"
 
             trigger OnPreDataItem()
             begin
+#pragma warning disable AA0206
                 LastFieldNo := FIELDNO("Customer No.");
+#pragma warning restore AA0206
                 CurrReport.CREATETOTALS(
                   DecGMontant[1], DecGMarge[1], DecGMontant[2], DecGMarge[2], DecGMontant[3], DecGMarge[3], DecGMontant[4], DecGMarge[4]);
 

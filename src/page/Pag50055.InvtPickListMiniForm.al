@@ -7,7 +7,7 @@ page 50055 "BC6_Invt Pick List MiniForm"
     SourceTableView = SORTING(Type, "No.")
                       ORDER(Ascending)
                       WHERE(Type = CONST("Invt. Pick"));
-
+    UsageCategory = None;
     layout
     {
         area(content)

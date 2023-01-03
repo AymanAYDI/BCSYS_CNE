@@ -1,3 +1,4 @@
+#pragma warning disable AL0432
 pageextension 50097 "BC6_GetSalesLineDisc" extends "Get Sales Line Disc." //7009
 {
     layout
@@ -15,4 +16,4 @@ pageextension 50097 "BC6_GetSalesLineDisc" extends "Get Sales Line Disc." //7009
         }
     }
 }
-
+#pragma warning restore AL0432

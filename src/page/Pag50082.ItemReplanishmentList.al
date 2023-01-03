@@ -7,7 +7,8 @@ page 50082 "BC6_Item Replanishment List"
     PromotedActionCategories = 'New,Process,Report,Item,History,Special Prices & Discounts,Request Approval,Periodic Activities,Inventory,Attributes', Comment = 'FRA="Nouveau,Traiter,Déclarer,Historique,Prix et remises spéciaux,Demander une approbation,Traitements,Inventaire,Attributs"';
     RefreshOnActivate = true;
     SourceTable = Item;
-
+    ApplicationArea = All;
+    UsageCategory = Tasks;
     layout
     {
         area(content)
@@ -404,7 +405,9 @@ page 50082 "BC6_Item Replanishment List"
                     Image = Price;
                     Promoted = true;
                     //PromotedCategory = Category6;
+#pragma warning disable AL0432
                     RunObject = Page "Sales Prices";
+#pragma warning restore AL0432
                     RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
                     Scope = Repeater;
@@ -417,7 +420,9 @@ page 50082 "BC6_Item Replanishment List"
                     Image = LineDiscount;
                     Promoted = true;
                     //PromotedCategory = Category6;
+#pragma warning disable AL0432
                     RunObject = Page "Sales Line Discounts";
+#pragma warning restore AL0432
                     RunPageLink = Type = CONST(Item),
                                   Code = FIELD("No.");
                     RunPageView = SORTING(Type, Code);
@@ -435,7 +440,9 @@ page 50082 "BC6_Item Replanishment List"
 
                     trigger OnAction()
                     var
+#pragma warning disable AL0432
                         SalesPriceAndLineDiscounts: Page "Sales Price and Line Discounts";
+#pragma warning restore AL0432
                     begin
                         SalesPriceAndLineDiscounts.InitPage(TRUE);
                         SalesPriceAndLineDiscounts.LoadItem(Rec);
@@ -448,7 +455,9 @@ page 50082 "BC6_Item Replanishment List"
                     Image = PriceWorksheet;
                     Promoted = true;
                     //PromotedCategory = Category6;
+#pragma warning disable AL0432
                     RunObject = Page "Sales Price Worksheet";
+#pragma warning restore AL0432
                     ApplicationArea = All;
                 }
             }
@@ -771,7 +780,9 @@ page 50082 "BC6_Item Replanishment List"
                     Image = "Report";
                     Promoted = true;
                     PromotedCategory = Category9;
+#pragma warning disable AL0432
                     RunObject = Report "Price List";
+#pragma warning restore AL0432
                     ToolTip = 'View, print, or save a list of your items and their prices, for example, to send to customers. You can create the list for specific customers, campaigns, currencies, or other criteria.', Comment = 'FRA="Affichez, imprimez ou enregistrez une liste de vos articles ainsi que leur prix, par exemple, pour envoyer aux clients. Vous pouvez créer la liste pour des clients, des campagnes ou des devises spécifiques ou encore pour d''autres critères."';
                 }
                 action("Inventory Cost and Price List")
@@ -1395,7 +1406,9 @@ page 50082 "BC6_Item Replanishment List"
                 {
                     Caption = 'Prices', Comment = 'FRA="Prix"';
                     Image = Price;
+#pragma warning disable AL0432
                     RunObject = Page "Sales Prices";
+#pragma warning restore AL0432
                     RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
                     ApplicationArea = All;
@@ -1404,7 +1417,9 @@ page 50082 "BC6_Item Replanishment List"
                 {
                     Caption = 'Line Discounts', Comment = 'FRA="Remises ligne"';
                     Image = LineDiscount;
+#pragma warning disable AL0432
                     RunObject = Page "Sales Line Discounts";
+#pragma warning restore AL0432
                     RunPageLink = Type = CONST(Item),
                                   Code = FIELD("No.");
                     RunPageView = SORTING(Type, Code);
@@ -1464,7 +1479,9 @@ page 50082 "BC6_Item Replanishment List"
                 {
                     Caption = 'Prices', Comment = 'FRA="Prix"';
                     Image = Price;
+#pragma warning disable AL0432
                     RunObject = Page "Purchase Prices";
+#pragma warning restore AL0432
                     RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
                     ApplicationArea = All;
@@ -1473,10 +1490,16 @@ page 50082 "BC6_Item Replanishment List"
                 {
                     Caption = 'Line Discounts', Comment = 'FRA="Remises ligne"';
                     Image = LineDiscount;
+#pragma warning disable AL0432
                     RunObject = Page "Purchase Line Discounts";
+#pragma warning restore AL0432
+#pragma warning disable AL0432
                     RunPageLink = BC6_Type = CONST(Item),
+#pragma warning restore AL0432
                                   "Item No." = FIELD("No.");
+#pragma warning disable AL0432
                     RunPageView = SORTING(BC6_Type, "Item No.", "Vendor No.", "Starting Date", "Currency Code", "Variant Code", "Unit of Measure Code", "Minimum Quantity");
+#pragma warning restore AL0432
                     ApplicationArea = All;
                 }
                 action("Prepa&yment Percentages2")

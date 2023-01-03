@@ -7,7 +7,7 @@ page 50016 "BC6_Purchase Lines Subform2"
     SaveValues = true;
     SourceTable = "Purchase Line";
     SourceTableView = SORTING("BC6_Document Date", "Document Type", "No.");
-
+    UsageCategory = None;
     layout
     {
         area(content)

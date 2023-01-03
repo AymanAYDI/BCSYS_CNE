@@ -10,6 +10,8 @@ page 50115 "BC6_LOC Sales Ret. Order List"
     SourceTable = "Sales Header";
     SourceTableView = WHERE("Document Type" = CONST("Return Order"),
                             "BC6_Return Order Type" = CONST(Location));
+    ApplicationArea = All;
+    UsageCategory = Lists;
 
     layout
     {
@@ -185,7 +187,9 @@ page 50115 "BC6_LOC Sales Ret. Order List"
                      comment = 'FRA="Spécifie le statut d''une écriture file d''attente des travaux ou d''une tâche qui gére la validation des commandes vente."';
                     Visible = JobQueueActive;
                 }
+#pragma warning disable AL0432
                 field(ID; Rec.ID)
+#pragma warning restore AL0432
                 {
                 }
                 field("Your Reference"; "Your Reference")
@@ -283,7 +287,9 @@ page 50115 "BC6_LOC Sales Ret. Order List"
                         ApprovalEntries: Page "Approval Entries";
                     begin
 
+#pragma warning disable AL0432
                         ApprovalEntries.Setfilters(DATABASE::"Sales Header", "Document Type".AsInteger(), "No.");
+#pragma warning restore AL0432
                         ApprovalEntries.RUN();
                     end;
                 }

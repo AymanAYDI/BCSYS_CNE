@@ -197,9 +197,11 @@ report 50011 "BC6_Sales - Shipment CNE"
                         {
                             DecimalPlaces = 0 : 2;
                         }
+#pragma warning disable AL0432
                         column(Sales_Shipment_Line__Cross_Reference_No__; "Cross-Reference No.")
                         {
                         }
+#pragma warning restore AL0432
                         column(DecGHTUnitTaxLCY; DecGHTUnitTaxLCY)
                         {
                             DecimalPlaces = 0 : 4;
@@ -241,7 +243,9 @@ report 50011 "BC6_Sales - Shipment CNE"
                         column(Net_Price_Excl__VATCaption; Net_Price_Excl__VATCaptionLbl)
                         {
                         }
+#pragma warning disable AL0432
                         column(Sales_Shipment_Line__Cross_Reference_No__Caption; FIELDCAPTION("Cross-Reference No."))
+#pragma warning restore AL0432
                         {
                         }
                         column(DEEE_Contribution___Caption; DEEE_Contribution___CaptionLbl)

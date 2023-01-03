@@ -9,7 +9,7 @@ page 50085 "BC6_Sales Order Lines Test"
                       WHERE("Document Type" = FILTER(Order),
                             Type = FILTER(Item),
                             "Outstanding Quantity" = FILTER(> 0));
-
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -126,7 +126,7 @@ page 50085 "BC6_Sales Order Lines Test"
                     ApplicationArea = All;
                 }
                 field("CNE Spokesman Name";
-                RecGSalesHeader.ID)
+                RecGSalesHeader.BC6_ID)
                 {
                     Caption = 'CNE Spokesman Name', Comment = 'FRA="Nom interlocuteur CNE"';
                     Editable = false;

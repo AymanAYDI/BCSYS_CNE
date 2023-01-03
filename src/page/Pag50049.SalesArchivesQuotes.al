@@ -6,7 +6,7 @@ page 50049 "BC6_Sales Archives - Quotes"
     PageType = List;
     SourceTable = "Sales Line Archive";
     SourceTableView = WHERE("Document Type" = FILTER(Quote));
-
+    UsageCategory = None;
     layout
     {
         area(content)

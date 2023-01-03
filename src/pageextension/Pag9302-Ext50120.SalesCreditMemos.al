@@ -4,7 +4,7 @@ pageextension 50120 "BC6_SalesCreditMemos" extends "Sales Credit Memos" //9302
     {
         addafter("Job Queue Status")
         {
-            field(BC6_ID; ID)
+            field(BC6_ID; BC6_ID)
             {
                 ApplicationArea = All;
             }

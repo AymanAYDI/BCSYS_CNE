@@ -3,7 +3,7 @@ page 50029 "BC6_Purch His. By-From FactBox"
     Caption = 'Item Purchases History', Comment = 'FRA="Historique des Achats article"';
     PageType = CardPart;
     SourceTable = "Purchase Line";
-
+    UsageCategory = None;
     layout
     {
         area(content)

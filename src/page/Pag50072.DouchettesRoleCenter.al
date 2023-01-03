@@ -2,7 +2,7 @@ page 50072 "BC6_Douchettes Role Center"
 {
     Caption = 'Role Center', Comment = 'FRA="Tableau de bord"';
     PageType = RoleCenter;
-
+    UsageCategory = None;
     layout
     {
         area(rolecenter)

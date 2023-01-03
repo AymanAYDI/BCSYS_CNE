@@ -138,7 +138,9 @@ pageextension 50023 "BC6_PurchaseOrderSubform" extends "Purchase Order Subform" 
 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
+#pragma warning disable AL0432
         IF ApplicationAreaSetup.IsFoundationEnabled() THEN
+#pragma warning restore AL0432
             Type := Type::Item;
     end;
 

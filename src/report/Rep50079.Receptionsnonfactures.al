@@ -170,7 +170,9 @@ report 50079 "BC6_Receptions non facturées"
 
             trigger OnPreDataItem()
             begin
+#pragma warning disable AA0206
                 LastFieldNo := FIELDNO("Document No.");
+#pragma warning restore AA0206
                 CurrReport.CREATETOTALS(MtHT, MtHtFAR, MtTVAFAR, MtTTCFAR);
                 SETFILTER("Qty. Rcd. Not Invoiced", '<>0');
                 Filtre := GETFILTERS;

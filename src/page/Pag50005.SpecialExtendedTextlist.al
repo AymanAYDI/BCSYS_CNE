@@ -5,7 +5,7 @@ page 50005 "BC6_Special Extended Text list"
     ModifyAllowed = false;
     PageType = ListPart;
     SourceTable = "BC6_Special Extended Text Line";
-
+    UsageCategory = None;
     layout
     {
         area(content)

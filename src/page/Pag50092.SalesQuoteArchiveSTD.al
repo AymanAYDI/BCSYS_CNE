@@ -5,7 +5,7 @@ page 50092 "BC6_Sales Quote Archive STD"
     PageType = Document;
     SourceTable = "Sales Header Archive";
     SourceTableView = WHERE("Document Type" = CONST(Quote));
-
+    UsageCategory = None;
     layout
     {
         area(content)

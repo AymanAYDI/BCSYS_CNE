@@ -8,7 +8,7 @@ pageextension 50119 "BC6_SalesInvoiceList" extends "Sales Invoice List" //9301
         }
         addafter("Job Queue Status")
         {
-            field(BC6_ID; ID)
+            field(BC6_ID; BC6_ID)
             {
             }
             field("BC6_Your Reference"; "Your Reference")

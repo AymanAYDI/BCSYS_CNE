@@ -34,7 +34,9 @@ report 50101 "BC6_Calculate Inventory"
                     if not "Drop Shipment" then
                         ByBin := Location."Bin Mandatory" and not Location."Directed Put-away and Pick";
 
+#pragma warning disable AA0206
                     IsHandled := false;
+#pragma warning restore AA0206
 
                     if not SkipCycleSKU("Location Code", "Item No.", "Variant Code") then
                         if ByBin then begin

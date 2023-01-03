@@ -4,7 +4,7 @@ pageextension 50092 "BC6_PurchaseReturnOrder" extends "Purchase Return Order" //
     {
         addafter("Buy-from Contact No.")
         {
-            field(BC6_ID; ID)
+            field(BC6_ID; BC6_ID)
             {
                 ApplicationArea = All;
             }
@@ -50,7 +50,7 @@ pageextension 50092 "BC6_PurchaseReturnOrder" extends "Purchase Return Order" //
             action("BC6_&Print2")
             {
                 ApplicationArea = PurchReturnOrder;
-                Caption = '&Print';
+                Caption = '&Printa';
                 Ellipsis = true;
                 Image = Print;
                 Promoted = true;

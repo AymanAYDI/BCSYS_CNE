@@ -8,8 +8,10 @@ codeunit 50020 "BC6_Tsf Trf Ach CNE ==> Bourg"
         Item_Source: Record Item;
         ItemU_Cible: Record "Item Unit of Measure";
         ItemU_Source: Record "Item Unit of Measure";
+#pragma warning disable AL0432
         PurchPrice_Cible: Record "Purchase Price";
         PurchPrice_Source: Record "Purchase Price";
+#pragma warning restore AL0432
 
         Dialog_D: Dialog;
         Text001: Label 'FORBIDDEN treatment in this company', Comment = 'FRA="Traitement INTERDIT dans cette société"';
@@ -39,17 +41,15 @@ codeunit 50020 "BC6_Tsf Trf Ach CNE ==> Bourg"
 
                 IF NOT (Item_Cible.GET(PurchPrice_Source."Item No.")) THEN BEGIN
                     Item_Cible.TRANSFERFIELDS(Item_Source);
-                    IF Item_Cible.INSERT(FALSE) THEN;
+                    IF Item_Cible.INSERT(false) THEN;
 
-                    // Recherche Unité Article si Existe
-                    // Item No.,Code
                     ItemU_Source.RESET();
                     ItemU_Source.SETRANGE("Item No.", Item_Source."No.");
                     IF ItemU_Source.FindFirst() THEN
                         REPEAT
                             IF NOT (ItemU_Cible.GET(PurchPrice_Source."Item No.", ItemU_Source.Code)) THEN BEGIN
                                 ItemU_Cible.TRANSFERFIELDS(ItemU_Source);
-                                IF ItemU_Cible.INSERT(FALSE) THEN;
+                                IF ItemU_Cible.INSERT(false) THEN;
                             END;
                         UNTIL ItemU_Source.NEXT() <= 0;
 
@@ -61,7 +61,6 @@ codeunit 50020 "BC6_Tsf Trf Ach CNE ==> Bourg"
                 END;
             UNTIL Item_Source.NEXT() <= 0;
 
-        // Suppression des tarifs achat de ce fournisseur dans la sté Cible.
 
         PurchPrice_Source.RESET();
         PurchPrice_Source.SETRANGE("Vendor No.", CodeFourn);

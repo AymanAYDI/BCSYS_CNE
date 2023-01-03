@@ -5,7 +5,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
     RefreshOnActivate = true;
     SourceTable = "Purchase Header";
     SourceTableView = WHERE("Document Type" = FILTER(Order));
-
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -90,7 +90,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                 field("No. of Archived Versions"; "No. of Archived Versions")
                 {
                 }
-                field(ID; Rec.ID)
+                field(ID; Rec.BC6_ID)
                 {
                     Caption = 'User ID', comment = 'FRA="Code Utilisateur"';
                     Editable = false;

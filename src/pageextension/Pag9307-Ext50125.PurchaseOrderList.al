@@ -4,7 +4,7 @@ pageextension 50125 "BC6_PurchaseOrderList" extends "Purchase Order List" //9307
     {
         addafter("Job Queue Status")
         {
-            field(BC6_ID; Rec.ID)
+            field(BC6_ID; Rec.BC6_ID)
             {
                 ApplicationArea = All;
             }

@@ -440,10 +440,12 @@ report 50007 "BC6_Price List" //715
         Cust: Record Customer;
         CustPriceGr: Record "Customer Price Group";
         GLSetup: Record "General Ledger Setup";
+#pragma warning disable AL0432
         TempSalesLineDisc: Record "Sales Line Discount" temporary;
         TempSalesPrice: Record "Sales Price" temporary;
-        FormatAddr: Codeunit "Format Address";
         SalesPriceCalcMgt: Codeunit "Sales Price Calc. Mgt.";
+#pragma warning restore AL0432
+        FormatAddr: Codeunit "Format Address";
         IsFirstSalesLineDisc: Boolean;
         IsFirstSalesPrice: Boolean;
         PricesInCurrency: Boolean;

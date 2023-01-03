@@ -6,7 +6,7 @@ page 50006 "BC6_Documents Managment"
     DeleteAllowed = false;
     PageType = List;
     SourceTable = "BC6_Navi+ Documents";
-
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -83,13 +83,16 @@ page 50006 "BC6_Documents Managment"
                 var
                     RecGNaviSetup: Record "BC6_Navi+ Setup";
                     InStr: InStream;
+                    _text: Text;
                 begin
 
-                    IF "Table No." <> 167 THEN
+                    IF "Table No." <> 167 THEN begin
                         //TODO:CHEKME "Path and file" := CduGFileManagement.OpenFileDialog(STRSUBSTNO(TxtG001), "Path and file", '*.*|*.*')
-                    UPLOADINTOSTREAM(STRSUBSTNO(TxtG001), '', '(*.*)|*.*', "Path and file", InStr)
+                        UPLOADINTOSTREAM(STRSUBSTNO(TxtG001), '', '(*.*)|*.*', "Path and file", InStr);
 
-                    ELSE
+                        _text := CduGFileManagement.GetDirectoryName("Path and file");
+                        Message('path: %', _text);
+                    end ELSE
                         IF RecGNaviSetup.FindFirst() THEN
                             IF RecGNaviSetup."Default Directory" <> '' THEN
                                 //TODO:CHECKME "Path and file" := CduGFileManagement.OpenFileDialog(STRSUBSTNO(TxtG001), RecGNaviSetup."Default Directory" + '\' + Text004, '*.*|*.*')

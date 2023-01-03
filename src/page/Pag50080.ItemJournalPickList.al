@@ -5,7 +5,7 @@ page 50080 "BC6_Item Journal Pick List"
     Editable = false;
     PageType = List;
     SourceTable = "Item Journal Line";
-
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -93,18 +93,24 @@ page 50080 "BC6_Item Journal Pick List"
             ItemJnlTemplate.TESTFIELD(Type, ItemJnlTemplate.Type::Transfer);
             ItemBatchJnl.SETRANGE("Journal Template Name", ItemJnlTemplate.Name);
             ItemBatchJnl.SETRANGE("BC6_Assigned User ID", USERID);
+#pragma warning disable AA0181
             IF ItemBatchJnl.FIND('-') THEN BEGIN
+#pragma warning restore AA0181
                 FILTERGROUP := 2;
                 SETFILTER("Journal Template Name", ItemBatchJnl."Journal Template Name");
                 SETFILTER("Journal Batch Name", ItemBatchJnl.Name);
                 FILTERGROUP := 0;
             END ELSE BEGIN
                 ERROR(Text015, USERID);
+#pragma warning disable AA0136
                 exit(false);
+#pragma warning restore AA0136
             END;
         END ELSE BEGIN
             ERROR('');
+#pragma warning disable AA0136
             exit(false);
+#pragma warning restore AA0136
         END;
     end;
 

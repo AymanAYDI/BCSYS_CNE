@@ -55,7 +55,9 @@ page 50039 "BC6_Cred. Memo Lines Subform 2"
                 {
                     ApplicationArea = All;
                 }
+#pragma warning disable AL0432
                 field("Cross-Reference No."; "Cross-Reference No.")
+#pragma warning restore AL0432
                 {
                     Visible = false;
                     ApplicationArea = All;
@@ -213,7 +215,9 @@ page 50039 "BC6_Cred. Memo Lines Subform 2"
         IF NOT TempSalesCrMemoLine.FIND('-') THEN BEGIN
             SalesCrMemoLine.COPYFILTERS(Rec);
             SalesCrMemoLine.SETRANGE("Document No.", "Document No.");
+#pragma warning disable AA0181
             SalesCrMemoLine.FIND('-');
+#pragma warning restore AA0181
             TempSalesCrMemoLine := SalesCrMemoLine;
             TempSalesCrMemoLine.INSERT();
         END;

@@ -95,7 +95,9 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
                     column(CompanyInfoEmail; CompanyInfo."E-Mail")
                     {
                     }
+#pragma warning disable AL0432
                     column("UserId"; PurchaseHeader.ID)
+#pragma warning restore AL0432
                     {
                     }
                     column(CompanyInfoName; CompanyInfo.Name)
@@ -370,7 +372,9 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
                         trigger OnAfterGetRecord()
                         begin
 
+#pragma warning disable AL0432
                             UserSetup.GET(PurchaseHeader.ID);
+#pragma warning restore AL0432
                         end;
 
                         trigger OnPreDataItem()

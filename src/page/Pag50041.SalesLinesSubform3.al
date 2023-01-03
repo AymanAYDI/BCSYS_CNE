@@ -6,7 +6,7 @@ page 50041 "BC6_Sales Lines Subform 3"
     PageType = List;
     SourceTable = "Sales Line";
     SourceTableView = SORTING("Shipment Date", "Document Type", "Sell-to Customer No.", "Document No.", "Line No.");
-
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -59,7 +59,9 @@ page 50041 "BC6_Sales Lines Subform 3"
                 {
                     ApplicationArea = All;
                 }
+#pragma warning disable AL0432
                 field("Cross-Reference No."; "Cross-Reference No.")
+#pragma warning restore AL0432
                 {
                     Visible = false;
                     ApplicationArea = All;

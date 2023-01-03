@@ -3,7 +3,7 @@ page 50010 "BC6_Quote Blocked"
     Caption = 'Quote Bloced', comment = 'FRA="Devis Bloqué"';
     PageType = ConfirmationDialog;
     SourceTable = "Sales Header";
-
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -43,8 +43,6 @@ page 50010 "BC6_Quote Blocked"
             {
                 Caption = 'Send Mail', comment = 'FRA="Envoyer Mail"';
                 Image = SendMail;
-                Promoted = true;
-                PromotedCategory = Process;
 
                 trigger OnAction()
                 begin
@@ -60,8 +58,6 @@ page 50010 "BC6_Quote Blocked"
             {
                 Caption = 'OK';
                 Image = Post;
-                Promoted = true;
-                PromotedCategory = Process;
 
                 trigger OnAction()
                 begin

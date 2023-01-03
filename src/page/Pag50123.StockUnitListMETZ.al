@@ -8,7 +8,7 @@ page 50123 "BC6_Stock. Unit List METZ"
     RefreshOnActivate = true;
     SourceTable = "Stockkeeping Unit";
     SourceTableView = WHERE("Location Code" = CONST('METZ'));
-    UsageCategory = Lists;
+    UsageCategory = Tasks;
     ApplicationArea = All;
 
     layout

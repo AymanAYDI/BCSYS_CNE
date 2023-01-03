@@ -10,7 +10,6 @@ codeunit 50095 "BC6_Invt. Pick To Reclass."
     end;
 
     var
-        Bin: Record Bin;
         Item: Record Item;
         Location: Record Location;
         Purchasing: Record Purchasing;
@@ -134,7 +133,9 @@ codeunit 50095 "BC6_Invt. Pick To Reclass."
                     TempWhseActivLine.Description := Item.Description;
                     TempWhseActivLine."Description 2" := Item."Description 2";
                     TempWhseActivLine."Due Date" := DueDate;
+#pragma warning disable AL0603
                     TempWhseActivLine."Shipping Advice" := ShippingAdvice;
+#pragma warning restore AL0603
                     TempWhseActivLine."Line No." := NextLineNo;
                     TempWhseActivLine.Quantity := TempWhseActivLine.CalcQty(RemQtyToPickBase);
                     TempWhseActivLine."Qty. (Base)" := RemQtyToPickBase;
@@ -255,18 +256,13 @@ codeunit 50095 "BC6_Invt. Pick To Reclass."
 
                 NewWhseActivityLine.INSERT();
 
+#pragma warning disable AA0206
                 LineCreated := true;
+#pragma warning restore AA0206
             end;
         end;
     end;
 
-    local procedure GetBin(LocationCode: Code[10]; BinCode: Code[20])
-    begin
-        if (Bin."Location Code" <> LocationCode) or
-           (Bin.Code <> BinCode)
-        then
-            Bin.GET(LocationCode, BinCode);
-    end;
 
     local procedure GetLocation(LocationCode: Code[10])
     begin

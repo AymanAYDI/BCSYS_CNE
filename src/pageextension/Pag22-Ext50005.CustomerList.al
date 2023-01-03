@@ -381,6 +381,7 @@ pageextension 50005 "BC6_CustomerList" extends "Customer List" //22
         RecLAccessControl.SETRANGE("User Security ID", USERSECURITYID());
         RecLAccessControl.SETRANGE("Role ID", 'SUPER');
         IF RecLAccessControl.FINDFIRST() THEN BEGIN
+#pragma warning disable AA0206
             BooGinvisibleList := FALSE;
             BooGvisibleList := TRUE;
         END ELSE BEGIN

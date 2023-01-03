@@ -129,11 +129,11 @@ page 50006 "BC6_Documents Managment"
         TxtG001: Label 'Select a document', comment = 'FRA="Choisir un document"';
         TxtG002: Label 'The field "Path and file" must not be empty to have the view', comment = 'FRA="Le champ "chemin et fichier" doit être renseigné pour afficher le document"';
 
-    procedure ExplorerFolder(var FolderName: Text[1000])
+    procedure ExplorerFolder(var FolderName: Text[250])
     var
     //TODO WindowsShell: Automation;
     // CduLFileManagement: Codeunit "File Management";
-    // FolderName2: Text[1000];
+    // FolderName2: Text[250];
     begin
         // IF ISCLEAR(WindowsShell) THEN
         //  CREATE(WindowsShell);

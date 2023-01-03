@@ -1653,8 +1653,8 @@ End Function
         <Field Name="DatGDateDebut">
           <DataField>DatGDateDebut</DataField>
         </Field>
-        <Field Name="DatDateFin">
-          <DataField>DatDateFin</DataField>
+        <Field Name="DatDateFinF">
+          <DataField>DatDateFinF</DataField>
         </Field>
         <Field Name="Vendor__No__">
           <DataField>Vendor__No__</DataField>

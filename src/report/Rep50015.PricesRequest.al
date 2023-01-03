@@ -394,7 +394,7 @@ report 50015 "BC6_Prices Request"
 
                 trigger OnPreDataItem()
                 begin
-                    NoOfLoops := ABS(NoOfCopies) + 1;
+                    NoOfLoops := ABS(NoOfCopiesF) + 1;
                     CopyText := '';
                     SETRANGE(Number, 1, NoOfLoops);
 
@@ -411,7 +411,7 @@ report 50015 "BC6_Prices Request"
                     RespCenter.CALCFIELDS(RespCenter."BC6_Picture", RespCenter."BC6_Alt Picture")
                 ELSE
                     CompanyInfo.CALCFIELDS(CompanyInfo.Picture, CompanyInfo."BC6_Alt Picture");
-                IF RespCenter.GET(CodGRespCenter) THEN BEGIN
+                IF RespCenter.GET(CodGRespCenterF) THEN BEGIN
                     FormatAddr.RespCenter(CompanyAddr, RespCenter);
                     CompanyInfo."Phone No." := RespCenter."Phone No.";
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
@@ -455,10 +455,10 @@ report 50015 "BC6_Prices Request"
                 FormatAddr.PurchHeaderShipTo(ShipToAddr, PurchaseHeader);
 
                 IF NOT CurrReport.PREVIEW THEN BEGIN
-                    IF ArchiveDocument THEN
-                        ArchiveManagement.StorePurchDocument(PurchaseHeader, LogInteraction);
+                    IF ArchiveDocumentF THEN
+                        ArchiveManagement.StorePurchDocument(PurchaseHeader, LogInteractionF);
 
-                    IF LogInteraction THEN BEGIN
+                    IF LogInteractionF THEN BEGIN
                         CALCFIELDS("No. of Archived Versions");
                         SegManagement.LogDocument(
                           13, "No.", "Doc. No. Occurrence", "No. of Archived Versions", DATABASE::Vendor, "Buy-from Vendor No.",
@@ -484,7 +484,7 @@ report 50015 "BC6_Prices Request"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(NoofCopies; NoOfCopies)
+                    field(NoofCopies; NoOfCopiesF)
                     {
                         Caption = 'No. of Copies', Comment = 'FRA="Nombre de copies"';
                     }
@@ -492,28 +492,28 @@ report 50015 "BC6_Prices Request"
                     {
                         Caption = 'Show Internal Information', Comment = 'FRA="Afficher info. internes"';
                     }
-                    field(ArchiveDocument; ArchiveDocument)
+                    field(ArchiveDocument; ArchiveDocumentF)
                     {
                         Caption = 'Archive Document', Comment = 'FRA="Archiver document"';
 
                         trigger OnValidate()
                         begin
-                            if not ArchiveDocument then
-                                LogInteraction := false;
+                            if not ArchiveDocumentF then
+                                LogInteractionF := false;
                         end;
                     }
-                    field(LogInteraction; LogInteraction)
+                    field(LogInteraction; LogInteractionF)
                     {
                         Caption = 'Log Interaction', Comment = 'FRA="Journal interaction"';
                         Enabled = LogInteractionEnable;
 
                         trigger OnValidate()
                         begin
-                            if LogInteraction then
-                                ArchiveDocument := ArchiveDocumentEnable;
+                            if LogInteractionF then
+                                ArchiveDocumentF := ArchiveDocumentEnable;
                         end;
                     }
-                    field(CodGRespCenter; CodGRespCenter)
+                    field(CodGRespCenter; CodGRespCenterF)
                     {
                         Caption = 'Print Characteristics Agency:', Comment = 'FRA="Imprimer Caractéristiques Agence:"';
                         TableRelation = "Responsibility Center";
@@ -533,12 +533,12 @@ report 50015 "BC6_Prices Request"
 
         trigger OnOpenPage()
         begin
-            ArchiveDocument := PurchSetup."Archive Quotes" = PurchSetup."Archive Quotes"::Always;
-            LogInteraction := SegManagement.FindInteractTmplCode(13) <> '';
+            ArchiveDocumentF := PurchSetup."Archive Quotes" = PurchSetup."Archive Quotes"::Always;
+            LogInteractionF := SegManagement.FindInteractTmplCode(13) <> '';
 
-            LogInteractionEnable := LogInteraction;
+            LogInteractionEnable := LogInteractionF;
 
-            CLEAR(CodGRespCenter);
+            CLEAR(CodGRespCenterF);
         end;
     }
 
@@ -572,26 +572,22 @@ report 50015 "BC6_Prices Request"
         PurchPost: Codeunit "Purch.-Post";
         PurchCountPrinted: Codeunit "Purch.Header-Printed";
         SegManagement: Codeunit SegManagement;
-        ArchiveDocument: Boolean;
+        ArchiveDocumentF: Boolean;
         [InDataSet]
         ArchiveDocumentEnable: Boolean;
         BoolGRespCenter: Boolean;
-        Continue: Boolean;
-        LogInteraction: Boolean;
+        LogInteractionF: Boolean;
         [InDataSet]
         LogInteractionEnable: Boolean;
-        MoreLines: Boolean;
         ShowInternalInfo: Boolean;
-        CodGDevise: Code[10];
-        CodGRespCenter: Code[10];
+        CodGRespCenterF: Code[10];
         TotalAmountInclVAT: Decimal;
         VALVATAmountLCY: Decimal;
         VALVATBaseLCY: Decimal;
         VATAmount: Decimal;
         VATBaseAmount: Decimal;
         VATDiscountAmount: Decimal;
-        "-NSC-": Integer;
-        NoOfCopies: Integer;
+        NoOfCopiesF: Integer;
         NoOfLoops: Integer;
         OutputNo: Integer;
         CstGTxt01: label 'Page';
@@ -605,22 +601,11 @@ report 50015 "BC6_Prices Request"
         ReferenceCaptionLbl: label 'Reference', comment = 'FRA="Reference"';
         TEL___CaptionLbl: label 'TEL : ';
         Text000: label 'Purchaser', comment = 'FRA="Acheteur"';
-        Text001: label 'Total Order %1', comment = 'FRA="Total commande %1"';
-        Text002: label 'Total Order %1 Incl. VAT', comment = 'FRA="Total commande %1 TTC"';
         Text003: label 'COPY', comment = 'FRA="COPIE"';
-        Text004: label 'Order %1', comment = 'FRA="Commande %1"';
         Text005: label 'Page %1', comment = 'FRA="Page %1"';
-        Text006: label 'Total Order %1 Excl. VAT', comment = 'FRA="Total commande %1 HT"';
-        Text007: label 'VAT Amount Specification in ', comment = 'FRA="Détail TVA dans"';
-        Text008: label 'Local Currency', comment = 'FRA="Devise locale"';
-        Text009: label 'Exchange rate: %1/%2', comment = 'FRA="Taux de change : %1/%2"';
         Text010: label 'IMPERTIVE : US TO CONFIRM THIS ORDER BY RETURN OF FAX TO ', comment = 'FRA="IMPERATIF : NOUS CONFIRMER CETTE COMMANDE PAR RETOUR D''EMAIL A "';
         Text011: label 'DELIVERY ADDRESS', comment = 'FRA="ADRESSE DE LIVRAISON"';
         Text012: label 'No.', comment = 'FRA="N°"';
-        Text013: label ' with capital of ', comment = 'FRA="au capital de"';
-        Text014: label ' -Registration ', comment = 'FRA="-SIRET"';
-        Text015: label ' -EP ';
-        Text016: label ' -VAT Registration ', comment = 'FRA="-N° TVA "';
         Text066: label 'TEL : %1 FAX : %2 / email : %3', comment = 'FRA="%1 FAX : %2 / email : %3"';
         Text067: label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5', comment = 'FRA="%1 au capital de  %2   - %3  -  APE %4 - n°TVA : %5"';
         Text068: label '%1';
@@ -631,38 +616,28 @@ report 50015 "BC6_Prices Request"
         TxtGAltFax: Text[20];
         TxtGAltPhone: Text[20];
         TxtGAltPostCode: Text[20];
-        TxtGFax: Text[20];
-        TxtGPhone: Text[20];
+        TxtGFax: Text[30];
+        TxtGPhone: Text[30];
         CopyText: Text[30];
         PurchaserText: Text[30];
-        ReferenceText: Text[30];
-        TexG_User_Name: Text[30];
-        TextGVendorFax: Text[30];
-        TextGVendorTel: Text[30];
+        ReferenceText: Text[35];
+        TexG_User_Name: Text[50];
         TxtGAltCity: Text[30];
         TxtGLblProjet: Text[30];
         TxtGNoProjet: Text[30];
-        VATNoText: Text[30];
         BuyFromAddr: array[8] of Text[50];
         CompanyAddr: array[8] of Text[50];
         ShipToAddr: array[8] of Text[50];
-        TotalExclVATText: Text[50];
-        TotalInclVATText: Text[50];
-        TotalText: Text[50];
         TxtGAltAdress: Text[50];
         TxtGAltAdress2: Text[50];
         TxtGAltName: Text[50];
-        TxtGDesignation: Text[50];
+        TxtGDesignation: Text[100];
         TxtGTag: Text[50];
-        VALExchRate: Text[50];
         VendAddr: array[8] of Text[50];
-        OldDimText: Text[75];
         TxtGAltEmail: Text[80];
         TxtGAltHomePage: Text[80];
         TxtGEmail: Text[80];
-        TxtGHomePage: Text[80];
-        VALSpecLCYHeader: Text[80];
-        DimText: Text[120];
+        TxtGHomePage: Text[90];
 
     procedure DefineTagFax(TxtLTag: Text[50])
     begin
@@ -674,14 +649,6 @@ report 50015 "BC6_Prices Request"
     begin
         RecGParamVente.GET();
         TxtGTag := RecGParamVente."BC6_PDF Mail Tag" + TxtLTag;
-    end;
-
-    procedure InitializeRequest(NewNoOfCopies: Integer; NewShowInternalInfo: Boolean; NewArchiveDocument: Boolean; NewLogInteraction: Boolean)
-    begin
-        NoOfCopies := NewNoOfCopies;
-        ShowInternalInfo := NewShowInternalInfo;
-        ArchiveDocument := NewArchiveDocument;
-        LogInteraction := NewLogInteraction;
     end;
 }
 

@@ -13858,15 +13858,15 @@
           <note from="Developer" annotates="general" priority="2">FRA="Options"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Affair List - Control Options - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 1284547011 - Control 101940624 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 1284547011 - Control 2913276718 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Show Quote Details</source>
           <note from="Developer" annotates="general" priority="2">FRA="Afficher détail devis"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Affair List - Control BooGShowQuote - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Affair List - Control BooGShowQuoteF - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 1284547011 - Control 245626825 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 1284547011 - Control 3696312427 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Show Steps</source>
           <note from="Developer" annotates="general" priority="2">FRA="Afficher étapes"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Affair List - Control BooGShowSteps - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Affair List - Control BooGShowStepsF - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 1284547011 - Control 4072177741 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Customer Code</source>
@@ -13893,10 +13893,10 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Affair List - Control TxtGStatutFilter - Property OptionCaption</note>
         </trans-unit>
-        <trans-unit id="Report 1284547011 - Control 2027813606 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 1284547011 - Control 935233032 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Terminated</source>
           <note from="Developer" annotates="general" priority="2">FRA="Terminer"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Affair List - Control TxtGTerminatedFilter - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Affair List - Control TxtGTerminatedFilterF - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 4003258287 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Batch Archive Quote Delete</source>
@@ -14033,10 +14033,10 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Batch Traitement Article - NamedType CstG001</note>
         </trans-unit>
-        <trans-unit id="Report 3620319063 - Control 1480616827 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 3620319063 - Control 1475976905 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Date dernier mouvement</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Batch Traitement Article - Control Date_Debut - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Batch Traitement Article - Control Date_DebutF - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 192977396 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>TPL TVA sur articles</source>
@@ -21498,15 +21498,15 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales Statistic/Vendor - Control Options - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 2502312167 - Control 3153588504 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 2502312167 - Control 1048004086 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Date fin</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales Statistic/Vendor - Control DatDateFin - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales Statistic/Vendor - Control DatDateFinF - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 2502312167 - Control 4018468076 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 2502312167 - Control 3849836578 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Date début</source>
           <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales Statistic/Vendor - Control DatGDateDebut - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales Statistic/Vendor - Control DatGDateDebutF - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 4612893 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Statement</source>

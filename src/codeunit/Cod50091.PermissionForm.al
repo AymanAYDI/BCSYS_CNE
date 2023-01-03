@@ -2,7 +2,7 @@ codeunit 50091 "BC6_Permission Form"
 {
 
 
-    procedure HasEditablePermission(UserID2: Text[65]; ObjectType: Integer; ObjectID: Integer): Boolean
+    procedure HasEditablePermission(UserID2: Text; ObjectType: Integer; ObjectID: Integer): Boolean
     var
         WinAccControl: Record "Access Control";
         AllObjWithCaption: Record AllObjWithCaption;
@@ -54,7 +54,6 @@ codeunit 50091 "BC6_Permission Form"
                     HasPermission := WinAccessControl.GET(WinLogin."User Security ID", Permission."Role ID", '');
             UNTIL HasPermission OR (Permission.NEXT() = 0);
         EXIT(HasPermission);
-        //<<MIGRATION NAV 2013
 
     end;
 
@@ -63,7 +62,7 @@ codeunit 50091 "BC6_Permission Form"
     begin
         IF STRPOS(UserID, '\') IN [0, STRLEN(UserID)] THEN
             IF STRLEN(UserID) <= 20 THEN
-                EXIT(UserID)
+                EXIT(CopyStr(UserID, 1, 20))
             ELSE
                 EXIT('')
         ELSE

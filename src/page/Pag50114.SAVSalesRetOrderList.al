@@ -377,7 +377,7 @@ page 50114 "BC6_SAV Sales Ret. Order List"
                 Image = ReleaseDoc;
                 action(ReleaseAction)
                 {
-                    Caption = 'Re&lease', comment = 'FRA=""';
+                    Caption = 'Re&lease', comment = 'FRA="&Lancer"';
                     Image = ReleaseDoc;
                     ShortCutKey = 'Ctrl+F9';
 

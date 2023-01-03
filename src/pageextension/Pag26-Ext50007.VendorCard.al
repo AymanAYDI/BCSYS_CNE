@@ -164,7 +164,7 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
                     Doc.SETRANGE(Doc."Table No.", 23);
                     Doc.SETRANGE(Doc."Reference No. 1", "No.");
                     TableInformation.SETRANGE(TableInformation."Table No.", 23);
-                    IF TableInformation.FIND('-') THEN
+                    IF TableInformation.FindFirst() THEN
                         Doc.SETRANGE(Doc."Table Name", TableInformation."Table Name");
                     PAGE.RUNMODAL(Page::"BC6_Documents Managment", Doc);
                 end;

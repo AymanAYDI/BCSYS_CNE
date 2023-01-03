@@ -48,7 +48,7 @@ report 50020 "BC6_Batch Traitement Article"
         {
             area(content)
             {
-                field(Date_Debut; Date_Debut)
+                field(Date_DebutF; Date_Debut)
                 {
                     Caption = 'Date dernier mouvement';
                 }

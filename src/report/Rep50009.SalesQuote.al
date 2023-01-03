@@ -384,29 +384,15 @@ report 50009 "BC6_Sales Quote"
                             IF (TempSalesLine.Type = TempSalesLine.Type::"G/L Account") AND (NOT ShowInternalInfo) THEN
                                 "Sales Line"."No." := '';
 
-                            //<<FE005:DARI 20/02/2007
-                            //>>TDL:MICO 13/04/07
-                            // DARI 17/04/07 //SalesLine.SETFILTER(SalesLine.Type,'%1',SalesLine.Type::Item);
-                            //<<TDL:MICO 13/04/07
                             IF ((TempSalesLine."BC6_DEEE Category Code" <> '') AND (TempSalesLine.Quantity <> 0)
                             AND (TempSalesLine."BC6_Eco partner DEEE" <> '')) THEN
                                 IF RecGItem.GET(TempSalesLine."No.") THEN
                                     DecGNumbeofUnitsDEEE := RecGItem."BC6_Number of Units DEEE";
-                            //FG
-                            //VATAmountLine."DEEE HT Amount"  :=SalesLine."DEEE HT Amount" ;
-                            //VATAmountLine."DEEE VAT Amount" :=SalesLine."DEEE VAT Amount" ;
-                            //VATAmountLine.InsertLine;
-
-                            //MICO DEEE1.00
-                            //DecGVATTotalAmount += VATAmountLine."VAT Amount" + VATAmountLine."DEEE VAT Amount";
-
-                            //>>TDL:MICO 16/04/2007
                             IF BooGSubmittedToDEEE THEN
                                 DecGDEEEVatAmount += TempSalesLine."BC6_DEEE VAT Amount"
                             ELSE
                                 DecGDEEEVatAmount := 0;
 
-                            //<<TDL:MICO 16/04/2007
                             DecGTTCTotalAmount += TempSalesLine."Amount Including VAT" + TempSalesLine."BC6_DEEE TTC Amount";
 
                             //MICO : Création dynamique du tableau récapitulatif
@@ -420,9 +406,6 @@ report 50009 "BC6_Sales Quote"
                                 TempRecGCalcul."HT Unit Tax (LCY)" := TempSalesLine."BC6_DEEE HT Amount";
                                 TempRecGCalcul.INSERT();
                             END;
-                            //>>FE005:DARI 20/02/2007
-
-                            //>>MIGRATION NAV 2013
                             IF (BooGSubmittedToDEEE) AND (TempSalesLine."BC6_DEEE Category Code" <> '') AND (TempSalesLine.Quantity <> 0) AND
                                (TempSalesLine."BC6_Eco partner DEEE" <> '') THEN
                                 BooGVisible1 := TRUE
@@ -449,35 +432,15 @@ report 50009 "BC6_Sales Quote"
                                 CurrReport.BREAK();
                             TempSalesLine.SETRANGE("Line No.", 0, TempSalesLine."Line No.");
 
-                            //>>TDL:MICO 17/04/07
-                            // DARI 17:04/07 SalesLine.SETFILTER(SalesLine.Type,'%1',SalesLine.Type::Item);
-                            //<<TDL:MICO 17/04/07
 
                             SETRANGE(Number, 1, TempSalesLine.COUNT);
                             CurrReport.CREATETOTALS(TempSalesLine."Line Amount", TempSalesLine."Inv. Discount Amount");
-                            //>>FE005:DARI 21/02/2007
-                            //CurrReport.CREATETOTALS(SalesLine."Line Amount",SalesLine."Inv. Discount Amount");
                             CurrReport.CREATETOTALS(TempSalesLine."Line Amount", TempSalesLine.Amount, TempSalesLine."Amount Including VAT",
                             TempSalesLine."Inv. Discount Amount", TempSalesLine."BC6_DEEE HT Amount");
-                            //MICO DEEE1.00
                             DecGVATTotalAmount := 0;
                             DecGTTCTotalAmount := 0;
-                            //<<FE005:DARI 21/02/2007
-
-                            /*
-                            //>>MIGRATION NAV 2013
-                            IF (BooGSubmittedToDEEE) AND (SalesLine."DEEE Category Code" <> '') AND (SalesLine.Quantity <> 0) AND
-                               (SalesLine."Eco partner DEEE" <> '') THEN
-                              BooGVisible1 :=TRUE
-                            ELSE
-                              BooGVisible1 := FALSE ;
-                            */
 
                             CLEAR(vGTotal1);
-                            //vGTotal1 := VATAmount + DecGDEEEVatAmount;
-
-                            //<<MIGRATION NAV 2013
-
                         end;
                     }
                     dataitem(VATCounter; Integer)
@@ -827,7 +790,6 @@ report 50009 "BC6_Sales Quote"
             begin
                 CurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
                 "Sales Header".CALCFIELDS("Sales Header"."No. of Archived Versions");
-                //>>FED_ADV_ 20091005_CENTRE GESTION STANDARD: OR 29/01/2010
                 IF BoolGRespCenter THEN BEGIN
                     FormatAddr.RespCenter(CompanyAddr, RespCenter);
                     CompanyInfo."Phone No." := RespCenter."Phone No.";
@@ -835,7 +797,6 @@ report 50009 "BC6_Sales Quote"
                 END ELSE BEGIN
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
                 END;
-                //<<FED_ADV_ 20091005_CENTRE GESTION STANDARD: OR 29/01/2010
 
                 IF "Salesperson Code" = '' THEN BEGIN
                     SalesPurchPerson.INIT();
@@ -874,14 +835,12 @@ report 50009 "BC6_Sales Quote"
                 ELSE
                     PaymentMethod.GET("Payment Method Code");
 
-                //>>MIGRATION NAV 2013
                 RecG_User.RESET();
                 RecG_User.SETRANGE("User Name", BC6_ID);
                 IF RecG_User.FINDFIRST() THEN
                     TexG_User_Name := RecG_User."Full Name"
                 ELSE
                     TexG_User_Name := '';
-                //<<MIGRATION NAV 2013
 
                 IF "Shipment Method Code" = '' THEN
                     ShipmentMethod.INIT()
@@ -937,7 +896,6 @@ report 50009 "BC6_Sales Quote"
             begin
                 NoOfRecords := COUNT;
 
-                //>>FED_ADV_ 20091005_CENTRE GESTION STANDARD: OR 29/01/2010
                 IF BoolGRespCenter THEN BEGIN
                     TxtGPhone := RespCenter."Phone No.";
                     TxtGFax := RespCenter."Fax No.";
@@ -967,13 +925,7 @@ report 50009 "BC6_Sales Quote"
                     TxtGAltEmail := CompanyInfo."BC6_Alt E-Mail";
                     TxtGAltHomePage := CompanyInfo."BC6_Alt Home Page";
                 END;
-                //<<FED_ADV_ 20091005_CENTRE GESTION STANDARD: OR 29/01/2010
-
-                //>>MIGRATION NAV 2013
-                //>> 30/10/2009 SU-DADE cf appel I014941
                 DecGDEEEVatAmount := 0;
-                //<< 30/10/2009 SU-DADE cf appel I014941
-                //<<MIGRATION NAV 2013
             end;
         }
     }
@@ -1037,17 +989,11 @@ report 50009 "BC6_Sales Quote"
 
         trigger OnOpenPage()
         begin
-            //>>MIGRATION NAV 2013
             ArchiveDocument := ArchiveManagement.SalesDocArchiveGranule();
             LogInteraction := SegManagement.FindInteractTmplCode(1) <> '';
             LogInteractionEnable := LogInteraction;
-            //RequestOptionsPage.ArchiveDocument.ENABLED(ArchiveDocument);
-            //RequestOptionsPage.LogInteraction.ENABLED(LogInteraction);
 
-            //>>FED_ADV_ 20091005_CENTRE GESTION STANDARD: OR 29/01/2010
             CLEAR(CodGRespCenter);
-            //<<FED_ADV_ 20091005_CENTRE GESTION STANDARD: OR 29/01/2010
-            //<<MIGRATION NAV 2013
         end;
     }
 
@@ -1061,34 +1007,12 @@ report 50009 "BC6_Sales Quote"
         CompanyInfo.GET();
         SalesSetup.GET();
 
-        //>>FED_ADV_ 20091005_CENTRE GESTION STANDARD: OR 16/12/2009
-        /*
-        CASE SalesSetup."Logo Position on Documents" OF
-          SalesSetup."Logo Position on Documents"::"No Logo":;
-          SalesSetup."Logo Position on Documents"::Left:
-            BEGIN
-              CompanyInfo.CALCFIELDS(Picture);
-            END;
-          SalesSetup."Logo Position on Documents"::Center:
-            BEGIN
-              CompanyInfo1.GET;
-              CompanyInfo1.CALCFIELDS(Picture);
-            END;
-          SalesSetup."Logo Position on Documents"::Right:
-            BEGIN
-              CompanyInfo2.GET;
-              CompanyInfo2.CALCFIELDS(Picture);
-            END;
-        END;
-        */
-        //<<FED_ADV_ 20091005_CENTRE GESTION STANDARD: OR 16/12/2009
 
     end;
 
     trigger OnPreReport()
     begin
 
-        //>>MIGRATION NAV 2013
         IF RespCenter.GET(CodGRespCenter) THEN
             BoolGRespCenter := TRUE
         ELSE
@@ -1098,7 +1022,6 @@ report 50009 "BC6_Sales Quote"
             RespCenter.CALCFIELDS(BC6_Picture, "BC6_Alt Picture")
         ELSE
             CompanyInfo.CALCFIELDS(Picture, "BC6_Alt Picture");
-        //<<MIGRATION NAV 2013
     end;
 
     var

@@ -47,7 +47,7 @@ codeunit 60000 "BC6_UpdateVersionListForMig"
                 if Object."Version List" <> '' then
                     Object."Version List" := Object."Version List" + ',' + MyTag
                 else
-                    Object."Version List" := MyTag;
+                    Object."Version List" := CopyStr(MyTag, 1, MaxStrLen(Object."Version List")); //My Tag
                 Object.MODIFY();
             end;
         until Object.NEXT() = 0;

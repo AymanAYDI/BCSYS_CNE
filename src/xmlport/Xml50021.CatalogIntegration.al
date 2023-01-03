@@ -94,11 +94,11 @@ xmlport 50021 "BC6_Catalog Integration"
                 //         FileName := Common_Dlg.FileName;
                 //     end;
                 // }
-                field(DateDeb; DateDeb)
+                field(DateDebF; DateDeb)
                 {
                     Caption = 'Date début';
                 }
-                field(DateFin; DateFin)
+                field(DateFinF; DateFin)
                 {
                     Caption = 'Date fin';
 
@@ -109,7 +109,7 @@ xmlport 50021 "BC6_Catalog Integration"
                             ERROR('Date début(%1) doit être inférieur à date fin (%2)', DateDeb, DateFin)
                     end;
                 }
-                field(Num; Num)
+                field(NumF; Num)
                 {
                     Caption = 'Fournisseur';
 
@@ -120,11 +120,11 @@ xmlport 50021 "BC6_Catalog Integration"
                             TextGabbreviation := COPYSTR(Vendor.Name, 1, 3);
                     end;
                 }
-                field(TextGabbreviation; TextGabbreviation)
+                field(TextGabbreviationF; TextGabbreviation)
                 {
                     Caption = 'Vendor abbreviation';
                 }
-                field(Cat; Cat)
+                field(CatF; Cat)
                 {
                     Caption = 'Catégorie Article';
 
@@ -135,7 +135,7 @@ xmlport 50021 "BC6_Catalog Integration"
                             GRPProduit := '';
                     end;
                 }
-                field(GRPProduit; GRPProduit)
+                field(GRPProduitF; GRPProduit)
                 {
                     Caption = 'Product Group', Comment = 'FRA="Groupe Produit Article"';
                 }

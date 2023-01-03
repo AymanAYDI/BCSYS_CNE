@@ -6,6 +6,7 @@ page 50005 "BC6_Special Extended Text list"
     PageType = ListPart;
     SourceTable = "BC6_Special Extended Text Line";
     UsageCategory = None;
+    Caption = 'Special Extended Text list';
     layout
     {
         area(content)

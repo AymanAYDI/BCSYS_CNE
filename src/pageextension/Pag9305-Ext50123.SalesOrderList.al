@@ -125,12 +125,10 @@ pageextension 50123 "BC6_SalesOrderList" extends "Sales Order List" //9305
         SalesSetup: Record "Sales & Receivables Setup";
         RecGUserSeup: Record "User Setup";
         [InDataSet]
-        BooGEditSalesperson: Boolean;
         [InDataSet]
         BooGVisible: Boolean;
         DecGProfit: Decimal;
         DecGProfitPct: Decimal;
-        "- TDL.78 -": Integer;
 
     trigger OnOpenPage()
     begin

@@ -814,7 +814,7 @@ report 50041 "BC6_Sales - Credit Memo CNE V2"
 
     requestpage
     {
-        Caption = 'Inlude Shipment No.', Comment = 'FRA=""';
+        Caption = 'Inlude Shipment No.', Comment = 'FRA="Inclure expéditions"';
 
         layout
         {

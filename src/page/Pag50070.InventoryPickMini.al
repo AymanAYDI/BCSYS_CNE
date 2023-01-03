@@ -45,9 +45,7 @@ page 50070 "BC6_Inventory Pick Mini"
                     begin
                         CreateInvtPick.RUN(Rec);
 
-                        //>>MIGRATION NAV 2013
                         CtrlEditable();
-                        //<<MIGRATION NAV 2013
 
                         CurrPage.UPDATE();
                         CurrPage.WhseActivityLines.PAGE.UpdateForm();
@@ -77,9 +75,7 @@ page 50070 "BC6_Inventory Pick Mini"
 
                     trigger OnValidate()
                     begin
-                        //>>MIGRATION NAV 2013
                         CtrlEditable();
-                        //<<MIGRATION NAV 2013
                     end;
                 }
                 field("No. Printed"; "No. Printed")
@@ -241,9 +237,7 @@ page 50070 "BC6_Inventory Pick Mini"
                     var
                         CreateInvtPick: Codeunit "Create Inventory Pick/Movement";
                     begin
-                        //>>MIGRATION NAV 2013
                         IF CurrFormEditableOk THEN
-                            //<<MIGRATION NAV 2013
                             CreateInvtPick.RUN(Rec);
                     end;
                 }
@@ -255,9 +249,7 @@ page 50070 "BC6_Inventory Pick Mini"
 
                     trigger OnAction()
                     begin
-                        //>>MIGRATION NAV 2013
                         IF CurrFormEditableOk THEN
-                            //<<MIGRATION NAV 2013
                             AutofillQtyToHandle();
                     end;
                 }
@@ -269,9 +261,7 @@ page 50070 "BC6_Inventory Pick Mini"
 
                     trigger OnAction()
                     begin
-                        //>>MIGRATION NAV 2013
                         IF CurrFormEditableOk THEN
-                            //<<MIGRATION NAV 2013
                             DeleteQtyToHandle();
                     end;
                 }
@@ -346,8 +336,6 @@ page 50070 "BC6_Inventory Pick Mini"
                 Caption = 'Picking List', Comment = 'FRA="Liste des prélèvements"';
                 Image = "Report";
                 Promoted = false;
-                //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
-                //PromotedCategory = "Report";
                 RunObject = Report "Picking List";
                 ApplicationArea = All;
             }
@@ -356,9 +344,7 @@ page 50070 "BC6_Inventory Pick Mini"
 
     trigger OnAfterGetRecord()
     begin
-        //>>MIGRATION NAV 2013
         CtrlEditable();
-        //<<MIGRATION NAV 2013
     end;
 
     trigger OnDeleteRecord(): Boolean
@@ -368,7 +354,7 @@ page 50070 "BC6_Inventory Pick Mini"
 
     trigger OnFindRecord(Which: Text): Boolean
     begin
-        EXIT(FindFirstAllowedRec(Which));
+        EXIT(FindFirstAllowedRec(CopyStr(Which, 1, 1024))); // 0 VOIR WHICH
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
@@ -387,9 +373,9 @@ page 50070 "BC6_Inventory Pick Mini"
     begin
         ErrorIfUserIsNotWhseEmployee();
         CurrFormEditableOk := TRUE;
-        IF NOT PermissionForm.HasEditablePermission(USERID, 8, 7377) THEN
+        IF NOT PermissionForm.HasEditablePermission(CopyStr(USERID, 1, 65), 8, 7377) THEN
             CurrPage.EDITABLE(FALSE);
-        IF NOT PermissionForm.HasEditablePermission(USERID, 8, 7378) THEN
+        IF NOT PermissionForm.HasEditablePermission(CopyStr(USERID, 1, 65), 8, 7378) THEN
             CurrFormEditableOk := FALSE;
 #pragma warning disable AA0206
         BooGWhseActivityLines := CurrFormEditableOk;
@@ -406,7 +392,6 @@ page 50070 "BC6_Inventory Pick Mini"
         BooGWhseActivityLines: Boolean;
         CtrlEditableOk: Boolean;
         CurrFormEditableOk: Boolean;
-        "- MIGNAV2013 -": Integer;
 
     local procedure AutofillQtyToHandle()
     begin
@@ -432,10 +417,6 @@ page 50070 "BC6_Inventory Pick Mini"
     begin
         CurrPage.UPDATE();
         CurrPage.WhseActivityLines.PAGE.UpdateForm();
-    end;
-
-    procedure "--- MIGNAV2013 ---"()
-    begin
     end;
 
     procedure CtrlEditable()

@@ -94,7 +94,7 @@ page 50080 "BC6_Item Journal Pick List"
             ItemBatchJnl.SETRANGE("Journal Template Name", ItemJnlTemplate.Name);
             ItemBatchJnl.SETRANGE("BC6_Assigned User ID", USERID);
 #pragma warning disable AA0181
-            IF ItemBatchJnl.FIND('-') THEN BEGIN
+            IF ItemBatchJnl.FindFirst() THEN BEGIN
 #pragma warning restore AA0181
                 FILTERGROUP := 2;
                 SETFILTER("Journal Template Name", ItemBatchJnl."Journal Template Name");

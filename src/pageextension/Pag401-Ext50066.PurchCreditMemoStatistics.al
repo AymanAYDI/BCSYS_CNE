@@ -14,8 +14,8 @@ pageextension 50066 "BC6_PurchCreditMemoStatistics" extends "Purch. Credit Memo 
                 AutoFormatExpression = "Currency Code";
                 AutoFormatType = 1;
                 CaptionClass = '3,' + Format(NewVATAmountText);
-                Caption = 'VAT Amount';
-                ToolTip = 'Specifies the total VAT amount that has been calculated for all the lines in the purchase document.';
+                Caption = 'VAT Amount', Comment = 'FRA="Montant TVA"';
+                ToolTip = 'Specifies the total VAT amount that has been calculated for all the lines in the purchase document.', Comment = 'FRA="Spécifie le montant total de la TVA qui a été calculée pour toutes les lignes du document achat."';
             }
         }
 
@@ -29,8 +29,8 @@ pageextension 50066 "BC6_PurchCreditMemoStatistics" extends "Purch. Credit Memo 
             {
                 ApplicationArea = Basic, Suite;
                 AutoFormatType = 1;
-                Caption = 'Purchase (LCY)';
-                ToolTip = 'Specifies your total purchases.';
+                Caption = 'Purchase (LCY)', Comment = 'FRA="Achats DS"';
+                ToolTip = 'Specifies your total purchases.', Comment = 'FRA="Spécifie le total de vos achats."';
             }
         }
 

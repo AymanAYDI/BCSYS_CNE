@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="DataSource">
@@ -19,12 +19,12 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>3.59372in</Width>
+                  <Width>9.16333cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>1.37795in</Height>
+                  <Height>3.57055cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -51,6 +51,7 @@
                               <Height>2.44326cm</Height>
                               <Width>4.32195cm</Width>
                               <Style>
+                                <Border />
                                 <VerticalAlign>Middle</VerticalAlign>
                                 <PaddingLeft>2pt</PaddingLeft>
                                 <PaddingRight>2pt</PaddingRight>
@@ -75,8 +76,8 @@
                                   </Style>
                                 </Paragraph>
                               </Paragraphs>
-                              <Top>0.03528cm</Top>
-                              <Left>7.03563cm</Left>
+                              <Top>0.10584cm</Top>
+                              <Left>7.07091cm</Left>
                               <Height>0.31901cm</Height>
                               <Width>1.83137cm</Width>
                               <ZIndex>1</ZIndex>
@@ -99,6 +100,7 @@
                                     <TextRun>
                                       <Value>=Fields!Item__No__.Value</Value>
                                       <Style>
+                                        <FontFamily />
                                         <FontSize>9pt</FontSize>
                                         <FontWeight>Bold</FontWeight>
                                       </Style>
@@ -109,8 +111,8 @@
                                   </Style>
                                 </Paragraph>
                               </Paragraphs>
-                              <Top>1.85277cm</Top>
-                              <Left>4.32195cm</Left>
+                              <Top>1.92333cm</Top>
+                              <Left>4.35723cm</Left>
                               <Height>0.59049cm</Height>
                               <Width>4.54505cm</Width>
                               <ZIndex>2</ZIndex>
@@ -138,8 +140,8 @@
                                   </Style>
                                 </Paragraph>
                               </Paragraphs>
-                              <Top>0.42484cm</Top>
-                              <Left>4.32195cm</Left>
+                              <Top>0.4954cm</Top>
+                              <Left>4.35723cm</Left>
                               <Height>0.59049cm</Height>
                               <Width>4.54505cm</Width>
                               <ZIndex>3</ZIndex>
@@ -168,8 +170,8 @@
                                   </Style>
                                 </Paragraph>
                               </Paragraphs>
-                              <Top>2.54909cm</Top>
-                              <Left>0.4445cm</Left>
+                              <Top>2.61965cm</Top>
+                              <Left>0.47978cm</Left>
                               <Height>0.86473cm</Height>
                               <Width>8.4225cm</Width>
                               <ZIndex>4</ZIndex>
@@ -197,8 +199,8 @@
                                   </Style>
                                 </Paragraph>
                               </Paragraphs>
-                              <Top>1.15645cm</Top>
-                              <Left>4.32195cm</Left>
+                              <Top>1.22701cm</Top>
+                              <Left>4.35723cm</Left>
                               <Height>0.59049cm</Height>
                               <Width>4.54505cm</Width>
                               <ZIndex>5</ZIndex>
@@ -240,8 +242,8 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet_Result</DataSetName>
-            <Height>3.49999cm</Height>
-            <Width>9.12805cm</Width>
+            <Height>3.57055cm</Height>
+            <Width>9.16333cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -249,17 +251,13 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>3.5cm</Height>
+        <Height>3.57055cm</Height>
         <Style />
       </Body>
-      <Width>9.12806cm</Width>
+      <Width>9.16333cm</Width>
       <Page>
         <PageHeight>29.69999cm</PageHeight>
         <PageWidth>18.29999cm</PageWidth>
-        <LeftMargin>0cm</LeftMargin>
-        <RightMargin>0cm</RightMargin>
-        <TopMargin>0cm</TopMargin>
-        <BottomMargin>0cm</BottomMargin>
         <Style />
       </Page>
     </ReportSection>

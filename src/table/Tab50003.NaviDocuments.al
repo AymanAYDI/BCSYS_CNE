@@ -101,7 +101,7 @@ table 50003 "BC6_Navi+ Documents"
             Editable = false;
             DataClassification = CustomerContent;
         }
-        field(19; "Modified By"; Code[20])
+        field(19; "Modified By"; Code[50])
         {
             Caption = 'Modified By', comment = 'FRA="Modifié par"';
             Editable = false;
@@ -140,9 +140,9 @@ table 50003 "BC6_Navi+ Documents"
             IF NOT EVALUATE("Table No.", CodGFiltreTable) THEN;
 
         // On recupère les filtres zones pour écrire...
-        CodGFiltreRef1 := GETFILTER("Reference No. 1");
-        CodGFiltreRef2 := GETFILTER("Reference No. 2");
-        TxtGFiltreRef3 := GETFILTER("Reference No. 3");
+        CodGFiltreRef1 := CopyStr(GETFILTER("Reference No. 1"), 1, MaxStrLen(CodGFiltreRef1));
+        CodGFiltreRef2 := CopyStr(GETFILTER("Reference No. 2"), 1, MaxStrLen(CodGFiltreRef2));
+        TxtGFiltreRef3 := CopyStr(GETFILTER("Reference No. 3"), 1, MaxStrLen(TxtGFiltreRef3));
         IF ("Reference No. 1" = '') AND (CodGFiltreRef1 <> '') THEN
             "Reference No. 1" := CodGFiltreRef1;
         IF ("Reference No. 2" = '') AND (CodGFiltreRef2 <> '') THEN
@@ -154,12 +154,12 @@ table 50003 "BC6_Navi+ Documents"
     trigger OnModify()
     begin
         "Modified Date" := TODAY;
-        "Modified By" := USERID;
+        "Modified By" := CopyStr(USERID, 1, MaxStrLen("Modified By"));
     end;
 
     var
         RecGDoc: Record "BC6_Navi+ Documents";
-        CodGFiltreRef1: Code[20];
+        CodGFiltreRef1: Text[20];
         CodGFiltreRef2: Code[20];
         TxtGFiltreRef3: Code[20];
         CodGFiltreTable: Text;

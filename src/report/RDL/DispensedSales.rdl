@@ -3771,8 +3771,8 @@ End Function
         <Field Name="USERID">
           <DataField>USERID</DataField>
         </Field>
-        <Field Name="DatGDateDebut">
-          <DataField>DatGDateDebut</DataField>
+        <Field Name="DatGDateDebut_Debut">
+          <DataField>DatGDateDebut_Debut</DataField>
         </Field>
         <Field Name="DatGDateFin2">
           <DataField>DatGDateFin2</DataField>

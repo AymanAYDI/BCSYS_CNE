@@ -179,7 +179,7 @@ permissionset 50000 "BC6_CNE"
         page "LOC Purch. Return Order List" = X,
         page "Order Processor Role Center CN" = X,
         page "Purch. Cr. Memo Line Subform" = X,
-        page "Raccourci clavier terminaux" = X,
+        page "BC6_Racc. clavier terminaux" = X,
         page "Return Rcpt Lines Subform 2" = X,
         page "Sales Hist. Sell-to FactBo STD" = X,
         page "Sales Quote Archive SubformSTD" = X,

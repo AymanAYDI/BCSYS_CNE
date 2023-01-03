@@ -3,7 +3,7 @@ report 50013 "BC6_Sales - Credit Memo CNE"
     DefaultLayout = RDLC;
     RDLCLayout = './src/Report/RDL/SalesCreditMemoCNE.rdl';
 
-    Caption = 'Sales - Credit Memo', Comment = 'FRA=""';
+    Caption = 'Sales - Credit Memo', Comment = 'FRA="Ventes : Avoir"';
     Permissions = TableData "Sales Shipment Buffer" = rimd;
 
     dataset
@@ -996,7 +996,6 @@ report 50013 "BC6_Sales - Credit Memo CNE"
         Inv__Discount_Amount_CaptionLbl: Label 'Inv. Discount Amount', Comment = 'FRA="Montant remise facture"';
         Line_Amount_____Inv__Discount_Amount_____Amount_Including_VAT__CaptionLbl: Label 'Payment Discount on VAT', Comment = 'FRA="Escompte sur TVA"';
         "Loi": Label 'Loi N°92-1442 du 31/12/1992. Escompte applicale en cas de paiement anticipé = 0.3 % par mois. Retard de paiement : pénalités de 1 % par mois.';
-        PaymentTerms_Description_Control1000000177CaptionLbl: Label 'Payment Terms', Comment = 'FRA=""';
         PaymentTerms_DescriptionCaptionLbl: Label 'Payment Terms', Comment = 'FRA="Conditions de paiement"';
         QuantityCaptionLbl: Label 'Quantity', Comment = 'FRA="Quantité "';
         RecGItemCtg__Weight_Min_CaptionLbl: Label 'Weight Max', Comment = 'FRA="Poids Max"';

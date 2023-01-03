@@ -48,7 +48,7 @@ page 50046 "BC6_Salesperson authorized"
                     UNTIL NEXT() = 0;
 
                 IF TxtGSalespersonFilter <> '' THEN BEGIN
-                    TxtGSalespersonFilter := COPYSTR(TxtGSalespersonFilter, 1, STRLEN(TxtGSalespersonFilter) - 1);
+                    TxtGSalespersonFilter := CopyStr(COPYSTR(TxtGSalespersonFilter, 1, STRLEN(TxtGSalespersonFilter) - 1), 1, MaxStrLen(TxtGSalespersonFilter)); //TODO à Vérifier 
                     RecGCustomer.VALIDATE("BC6_Salesperson Filter", TxtGSalespersonFilter);
                     RecGCustomer.MODIFY();
                 END;

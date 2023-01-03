@@ -45,19 +45,19 @@ report 50055 "BC6_Whse. Get Inventory"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(PostingDate; PostingDate)
+                    field(PostingDate; PostingDateF)
                     {
                         Caption = 'Posting Date', comment = 'FRA="Date comptabilisation"';
                     }
-                    field(DocNo; DocNo)
+                    field(DocNo; DocNoF)
                     {
                         Caption = 'Document No.', comment = 'FRA="N° document"';
                     }
-                    field(NewLocationCode; NewLocationCode)
+                    field(NewLocationCode; NewLocationCodeF)
                     {
                         Caption = 'New Location Code', comment = 'FRA="Nouveau code magasin"';
                     }
-                    field(NewBinCode; NewBinCode)
+                    field(NewBinCode; NewBinCodeF)
                     {
                         Caption = 'New Bin Code', comment = 'FRA="Nouveau code emplacement"';
                     }
@@ -86,9 +86,9 @@ report 50055 "BC6_Whse. Get Inventory"
         Location.GET(LocationCode);
         Location.TESTFIELD("Bin Mandatory", FALSE);
 
-        NewLocation.GET(NewLocationCode);
+        NewLocation.GET(NewLocationCodeF);
         NewLocation.TESTFIELD("Bin Mandatory", TRUE);
-        NewBin.GET(NewLocation.Code, NewBinCode);
+        NewBin.GET(NewLocation.Code, NewBinCodeF);
     end;
 
     var
@@ -97,11 +97,11 @@ report 50055 "BC6_Whse. Get Inventory"
         Location: Record Location;
         NewLocation: Record Location;
         ReportInitialized: Boolean;
-        DocNo: Code[20];
+        DocNoF: Code[20];
         LocationCode: Code[20];
-        NewBinCode: Code[20];
-        NewLocationCode: Code[20];
-        PostingDate: Date;
+        NewBinCodeF: Code[20];
+        NewLocationCodeF: Code[20];
+        PostingDateF: Date;
         QtyToEmpty: Decimal;
         Window: Dialog;
         Counter: Integer;
@@ -118,11 +118,11 @@ report 50055 "BC6_Whse. Get Inventory"
         ItemJournalLine.SETRANGE("Journal Batch Name", ItemJournalLine2."Journal Batch Name");
         IF ItemJournalLine.FIND('+') THEN;
 
-        PostingDate := ItemJournalLine2."Posting Date";
-        DocNo := ItemJournalLine2."Document No.";
+        PostingDateF := ItemJournalLine2."Posting Date";
+        DocNoF := ItemJournalLine2."Document No.";
         LocationCode := ItemJournalLine2."Location Code";
-        NewLocationCode := ItemJournalLine2."New Location Code";
-        NewBinCode := ItemJournalLine2."New Bin Code";
+        NewLocationCodeF := ItemJournalLine2."New Location Code";
+        NewBinCodeF := ItemJournalLine2."New Bin Code";
         ReportInitialized := TRUE;
     end;
 
@@ -135,14 +135,14 @@ report 50055 "BC6_Whse. Get Inventory"
             "Line No." := "Line No." + 10000;
             VALIDATE("Entry Type", "Entry Type"::Transfer);
             VALIDATE("Item No.", Item."No.");
-            VALIDATE("Posting Date", PostingDate);
-            VALIDATE("Document No.", DocNo);
+            VALIDATE("Posting Date", PostingDateF);
+            VALIDATE("Document No.", DocNoF);
             VALIDATE("Location Code", LocationCode);
-            VALIDATE("New Location Code", NewLocationCode);
+            VALIDATE("New Location Code", NewLocationCodeF);
             VALIDATE("Variant Code", '');
             VALIDATE("Unit of Measure Code", Item."Base Unit of Measure");
             VALIDATE("Bin Code", '');
-            VALIDATE("New Bin Code", NewBinCode);
+            VALIDATE("New Bin Code", NewBinCodeF);
             VALIDATE(Quantity, QtyToEmpty);
             ItemJournalTempl.GET("Journal Template Name");
             "Source Code" := ItemJournalTempl."Source Code";

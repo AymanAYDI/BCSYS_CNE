@@ -191,10 +191,6 @@ codeunit 50099 "BC6_Barcode Mngt AutoID"
         END;
     end;
 
-    procedure "-- Code39 --"()
-    begin
-    end;
-
     procedure EncodeBarcode39(From39BarCode: Text[50]) "39BarCode": Text[50]
     var
         BarCode39Ok: Boolean;

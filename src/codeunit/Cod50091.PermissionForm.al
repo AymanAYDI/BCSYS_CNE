@@ -2,14 +2,14 @@ codeunit 50091 "BC6_Permission Form"
 {
 
 
-    procedure HasEditablePermission(UserID2: Text[65]; ObjectType: Integer; ObjectID: Integer): Boolean
+    procedure HasEditablePermission(UserID2: Text; ObjectType: Integer; ObjectID: Integer): Boolean
     var
         WinAccControl: Record "Access Control";
         HasPermission: Boolean;
     begin
         HasPermission := WinAccControl.ISEMPTY;
         IF NOT HasPermission THEN
-            HasPermission := HasWinPermission(UserID2, ObjectType, ObjectID);
+            HasPermission := HasWinPermission(CopyStr(UserID2, 1, 65), ObjectType, ObjectID);
         EXIT(HasPermission);
 
     end;
@@ -54,7 +54,6 @@ codeunit 50091 "BC6_Permission Form"
                     HasPermission := WinAccessControl.GET(WinLogin."User Security ID", Permission."Role ID", '');
             UNTIL HasPermission OR (Permission.NEXT() = 0);
         EXIT(HasPermission);
-        //<<MIGRATION NAV 2013
 
     end;
 

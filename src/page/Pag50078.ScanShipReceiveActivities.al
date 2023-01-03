@@ -46,14 +46,14 @@ page 50078 "Scan Ship & Receive Activities"
                 }
                 field("Invt. Picks Until Today"; "Invt. Picks Until Today")
                 {
-                    Caption = 'Inventory Picks Until Today';
+                    Caption = 'Inventory Picks Until Today', Comment = 'FRA="Prélèvements stock à ce jour"';
                     DrillDownPageID = "Inventory Picks";
                     ToolTip = 'Specifies the number of inventory picks that are displayed in the Warehouse Basic Cue on the Role Center. The documents are filtered by today''s date.', Comment = 'FRA="Spécifie le nombre de prélèvements stock qui sont affichés dans la pile Base entrepôt du tableau de bord. Les documents sont filtrés à la date du jour."';
                     ApplicationArea = All;
                 }
                 field("Invt. Put-aways Until Today"; "Invt. Put-aways Until Today")
                 {
-                    Caption = 'Inventory Put-aways Until Today';
+                    Caption = 'Inventory Put-aways Until Today', Comment = 'FRA="Rangements stock à ce jour"';
                     DrillDownPageID = "Inventory Put-aways";
                     ToolTip = 'Specifies the number of inventory put-always that are displayed in the Warehouse Basic Cue on the Role Center. The documents are filtered by today''s date.', Comment = 'FRA="Spécifie le nombre de rangements stock qui sont affichés dans la pile Base entrepôt du tableau de bord. Les documents sont filtrés à la date du jour."';
                     ApplicationArea = All;
@@ -102,7 +102,7 @@ page 50078 "Scan Ship & Receive Activities"
         SETRANGE("Date Filter", 0D, WORKDATE());
         SETRANGE("Date Filter2", WORKDATE(), WORKDATE());
 
-        LocationCode := WhseWMSCue.GetEmployeeLocation(USERID);
+        LocationCode := WhseWMSCue.GetEmployeeLocation(CopyStr(USERID, 1, 50));
         SETFILTER("Location Filter", LocationCode);
 
         OpenWithWhseEmployeeFilter(0);
@@ -138,11 +138,11 @@ page 50078 "Scan Ship & Receive Activities"
 
         IF USERID <> '' THEN BEGIN
             WhseEmployee.SETRANGE("User ID", USERID);
-            IF WhseEmployee.FIND('-') THEN BEGIN
+            IF WhseEmployee.FindFirst() THEN BEGIN
                 ItemJnlTemplate.TESTFIELD(Type, ItemJnlTemplate.Type::Transfer);
                 ItemBatchJnl.SETRANGE("Journal Template Name", ItemJnlTemplate.Name);
                 ItemBatchJnl.SETRANGE("BC6_Assigned User ID", USERID);
-                IF ItemBatchJnl.FIND('-') THEN;
+                IF ItemBatchJnl.FindFirst() THEN;
             END;
         END;
         CASE WhichItemJnlLineList OF

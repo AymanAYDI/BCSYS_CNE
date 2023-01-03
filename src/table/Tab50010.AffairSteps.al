@@ -110,7 +110,7 @@ table 50010 "BC6_Affair Steps"
     procedure setupNewLine(recLTmpStep: Record "BC6_Affair Steps")
     begin
         "Step Date" := WORKDATE();
-        Interlocutor := USERID;
+        Interlocutor := CopyStr(USERID, 1, MaxStrLen(Interlocutor));
         "No." := recLTmpStep."No." + 1
     end;
 }

@@ -8,7 +8,7 @@ page 55020 "BC6_Code Coverage 2"
     SourceTableTemporary = true;
     UsageCategory = Lists;
     ApplicationArea = All;
-
+    Caption = 'Code Coverage', Comment = 'FRA=" Code coverage"';
     layout
     {
         area(content)

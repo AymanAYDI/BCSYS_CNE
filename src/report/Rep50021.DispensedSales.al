@@ -19,7 +19,7 @@ report 50021 "BC6_Dispensed Sales"
             column("USERID"; USERID)
             {
             }
-            column(DatGDateDebut; DatGDateDebut)
+            column(DatGDateDebut_Debut; DatGDateDebut_Debut)
             {
             }
             column(DatGDateFin2; DatGDateFin2)
@@ -143,8 +143,8 @@ report 50021 "BC6_Dispensed Sales"
                 trigger OnAfterGetRecord()
                 begin
                     IF RecGSalesInvoiceHeader.GET(SalesInvoiceLine."Document No.") THEN
-                        IF ((RecGSalesInvoiceHeader."Posting Date" < DatGDateDebut) OR
-                           (RecGSalesInvoiceHeader."Posting Date" > DatGDateFin)) THEN
+                        IF ((RecGSalesInvoiceHeader."Posting Date" < DatGDateDebut_Debut) OR
+                           (RecGSalesInvoiceHeader."Posting Date" > DatGDateFin_Fin)) THEN
                             CurrReport.SKIP();
 
                     //>>MIGRATION NAV 2013
@@ -225,8 +225,8 @@ report 50021 "BC6_Dispensed Sales"
                 trigger OnAfterGetRecord()
                 begin
                     IF RecGSalesCrMemoHeader.GET(SalesInvoiceLine."Document No.") THEN
-                        IF ((RecGSalesCrMemoHeader."Posting Date" < DatGDateDebut) OR
-                           (RecGSalesCrMemoHeader."Posting Date" > DatGDateFin)) THEN
+                        IF ((RecGSalesCrMemoHeader."Posting Date" < DatGDateDebut_Debut) OR
+                           (RecGSalesCrMemoHeader."Posting Date" > DatGDateFin_Fin)) THEN
                             CurrReport.SKIP();
 
 
@@ -271,7 +271,7 @@ report 50021 "BC6_Dispensed Sales"
                 IF RecGSalesInvoiceLine.FINDset() THEN
                     REPEAT
                         RecGSalesInvoiceHeader.GET(RecGSalesInvoiceLine."Document No.");
-                        IF ((RecGSalesInvoiceHeader."Posting Date" >= DatGDateDebut) AND (RecGSalesInvoiceHeader."Posting Date" <= DatGDateFin)) THEN
+                        IF ((RecGSalesInvoiceHeader."Posting Date" >= DatGDateDebut_Debut) AND (RecGSalesInvoiceHeader."Posting Date" <= DatGDateFin_Fin)) THEN
                             BooGShowEntries := TRUE;
                     UNTIL ((RecGSalesInvoiceLine.NEXT() = 0) OR (BooGShowEntries));
                 IF NOT BooGShowEntries THEN BEGIN
@@ -282,7 +282,7 @@ report 50021 "BC6_Dispensed Sales"
                     IF RecGSalesCreditMemoLine.FINDSET() THEN
                         REPEAT
                             RecGSalesCrMemoHeader.GET(RecGSalesCreditMemoLine."Document No.");
-                            IF ((RecGSalesCrMemoHeader."Posting Date" >= DatGDateDebut) AND (RecGSalesCrMemoHeader."Posting Date" <= DatGDateFin)) THEN
+                            IF ((RecGSalesCrMemoHeader."Posting Date" >= DatGDateDebut_Debut) AND (RecGSalesCrMemoHeader."Posting Date" <= DatGDateFin_Fin)) THEN
                                 BooGShowEntries := TRUE;
                         UNTIL ((RecGSalesInvoiceLine.NEXT() = 0) OR (BooGShowEntries));
                 END;
@@ -314,11 +314,11 @@ report 50021 "BC6_Dispensed Sales"
             {
                 group(Options)
                 {
-                    field(DatGDateDebut; DatGDateDebut)
+                    field(DatGDateDebut; DatGDateDebut_Debut)
                     {
                         Caption = 'Date début';
                     }
-                    field(DatGDateFin; DatGDateFin)
+                    field(DatGDateFin; DatGDateFin_Fin)
                     {
                         Caption = 'Date fin';
                     }
@@ -339,9 +339,9 @@ report 50021 "BC6_Dispensed Sales"
 
     trigger OnPreReport()
     begin
-        DatGDateFin2 := DatGDateFin;
-        IF DatGDateFin = 0D THEN
-            DatGDateFin := 19991231D;
+        DatGDateFin2 := DatGDateFin_Fin;
+        IF DatGDateFin_Fin = 0D THEN
+            DatGDateFin_Fin := 19991231D;
 
 
         RowNo := 1;
@@ -361,8 +361,8 @@ report 50021 "BC6_Dispensed Sales"
         RecGSalesInvoiceLine: Record "Sales Invoice Line";
         BooGExportToExcel: Boolean;
         BooGShowEntries: Boolean;
-        DatGDateDebut: Date;
-        DatGDateFin: Date;
+        DatGDateDebut_Debut: Date;
+        DatGDateFin_Fin: Date;
         DatGDateFin2: Date;
         DecGAmount: array[9] of Decimal;
         DecGFinalTotal: array[9] of Decimal;

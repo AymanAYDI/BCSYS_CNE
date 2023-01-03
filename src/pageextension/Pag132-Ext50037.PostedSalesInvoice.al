@@ -77,7 +77,6 @@ pageextension 50037 "BC6_PostedSalesInvoice" extends "Posted Sales Invoice" //13
                 trigger OnAction()
                 var
                     RecLPostSalesShpt: Record "Sales Invoice Header";
-                    "-MIGNAV2013-": Integer;
                 begin
                     RecLPostSalesShpt := Rec;
                     RecLPostSalesShpt.SETRECFILTER();
@@ -94,9 +93,7 @@ pageextension 50037 "BC6_PostedSalesInvoice" extends "Posted Sales Invoice" //13
         ReportHelper: Codeunit BC6_ReportHelper;
         cduMail: Codeunit Mail;
         Mail: Codeunit Mail;
-        Excel: Boolean;
         Text001: Label '';
-        Text004: Label 'Fichiers Pdf (*.pdf)|*.pdf|Tous les fichiers (*.*)|*.*';
         FileName: Text[250];
         nameF: Text[250];
         Objet: Text[250];
@@ -128,21 +125,5 @@ pageextension 50037 "BC6_PostedSalesInvoice" extends "Posted Sales Invoice" //13
 
     procedure OpenFile()
     begin
-        /*//EMAIL NSC00.01 SBH [005] Envoi document
-        FileDialog.DialogTitle('Envoi'+' '+CurrForm.CAPTION);
-        FileDialog.Filter := Text004;
-        SalesSetup.GET;
-        FileDialog.FileName := '';
-        FileDialog.InitDir(SalesSetup.Repertoire);
-        FileDialog.Flags := 4096 + 2048; // vérification de l'existence du fichier, code qui suit inutile.
-        FileDialog.ShowOpen;
-        nameF:=FileDialog.FileName;
-        IF nameF='' THEN
-          BEGIN
-            Excel := FALSE;
-            EXIT;
-          END;
-        //Fin EMAIL NSC00.01 SBH [005] Envoi document
-        */
     end;
 }

@@ -54,54 +54,51 @@ page 50051 "BC6_Item List MiniForm"
     end;
 
     var
-        Item: Record Item;
         EAN13Code: Code[20];
 
-#pragma warning disable AA0205
-    procedure GetSelectionFilter(): Code[80]
-    var
-        More: Boolean;
-        FirstItem: Code[30];
-        LastItem: Code[30];
-        SelectionFilter: Code[250];
-        ItemCount: Integer;
-    begin
-        CurrPage.SETSELECTIONFILTER(Item);
-        ItemCount := Item.COUNT;
-        IF ItemCount > 0 THEN BEGIN
-            Item.FIND('-');
-            WHILE ItemCount > 0 DO BEGIN
-                ItemCount := ItemCount - 1;
-                Item.MARKEDONLY(FALSE);
-                FirstItem := Item."No.";
-                LastItem := FirstItem;
-                More := (ItemCount > 0);
-                WHILE More DO
-                    IF Item.NEXT() = 0 THEN
-                        More := FALSE
-                    ELSE
-                        IF NOT Item.MARK() THEN
-                            More := FALSE
-                        ELSE BEGIN
-                            LastItem := Item."No.";
-                            ItemCount := ItemCount - 1;
-                            IF ItemCount = 0 THEN
-                                More := FALSE;
-                        END;
-                IF SelectionFilter <> '' THEN
-                    SelectionFilter := SelectionFilter + '|';
-                IF FirstItem = LastItem THEN
-                    SelectionFilter := SelectionFilter + FirstItem
-                ELSE
-                    SelectionFilter := SelectionFilter + FirstItem + '..' + LastItem;
-                IF ItemCount > 0 THEN BEGIN
-                    Item.MARKEDONLY(TRUE);
-                    Item.NEXT();
-                END;
-            END;
-        END;
-        EXIT(SelectionFilter);
-    end;
-#pragma warning restore AA0205
+    //TODO: this function is not used (source GDT)
+    // procedure GetSelectionFilter(): Code[80]  //  // var
+    //     More: Boolean;
+    //     FirstItem: Code[30];
+    //     LastItem: Code[30];
+    //     SelectionFilter: Code[80];
+    //     ItemCount: Integer;
+    // begin
+    //     CurrPage.SETSELECTIONFILTER(Item);
+    //     ItemCount := Item.COUNT;
+    //     IF ItemCount > 0 THEN BEGIN
+    //         Item.FIND('-');
+    //         WHILE ItemCount > 0 DO BEGIN
+    //             ItemCount := ItemCount - 1;
+    //             Item.MARKEDONLY(FALSE);
+    //             FirstItem := Item."No.";
+    //             LastItem := FirstItem;
+    //             More := (ItemCount > 0);
+    //             WHILE More DO
+    //                 IF Item.NEXT() = 0 THEN
+    //                     More := FALSE
+    //                 ELSE
+    //                     IF NOT Item.MARK() THEN
+    //                         More := FALSE
+    //                     ELSE BEGIN
+    //                         LastItem := Item."No.";
+    //                         ItemCount := ItemCount - 1;
+    //                         IF ItemCount = 0 THEN
+    //                             More := FALSE;
+    //                     END;
+    //             IF SelectionFilter <> '' THEN
+    //                 SelectionFilter := CopyStr(SelectionFilter + '|', 1, MaxStrLen(SelectionFilter));
+    //             IF FirstItem = LastItem THEN
+    //                 SelectionFilter := CopyStr(SelectionFilter + FirstItem, 1, MaxStrLen(SelectionFilter))
+    //             ELSE
+    //                 SelectionFilter := CopyStr(SelectionFilter + FirstItem + '..' + LastItem, 1, MaxStrLen(SelectionFilter));
+    //             IF ItemCount > 0 THEN BEGIN
+    //                 Item.MARKEDONLY(TRUE);
+    //                 Item.NEXT();
+    //             END;
+    //         END;
+    //     END;
+    //     EXIT(SelectionFilter);
+    // end;
 }
 

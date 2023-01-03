@@ -1,6 +1,6 @@
 page 50048 "Salespers Processor Activities"
 {
-    Caption = 'Activities', Comment = 'FRA=""';
+    Caption = 'Activities', Comment = 'FRA="Activités"';
     PageType = CardPart;
     SourceTable = "Sales Cue";
     UsageCategory = None;

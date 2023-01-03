@@ -52,9 +52,7 @@ page 50044 "Credit Memo Lines Subform 4"
                 {
                     ApplicationArea = All;
                 }
-#pragma warning disable AL0432
-                field("Cross-Reference No."; "Cross-Reference No.")
-#pragma warning restore AL0432
+                field("Cross-Reference No."; "Item Reference No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
@@ -193,7 +191,7 @@ page 50044 "Credit Memo Lines Subform 4"
             SalesCrMemoLine.COPYFILTERS(Rec);
             SalesCrMemoLine.SETRANGE("Document No.", "Document No.");
 #pragma warning disable AA0181
-            SalesCrMemoLine.FIND('-');
+            SalesCrMemoLine.FindFirst();
 #pragma warning restore AA0181
             TempSalesCrMemoLine := SalesCrMemoLine;
             TempSalesCrMemoLine.INSERT();

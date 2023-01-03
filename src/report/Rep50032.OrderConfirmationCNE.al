@@ -1171,16 +1171,16 @@ report 50032 "BC6_Order Confirmation CNE"
                     Caption = 'Options';
                     field(NoOfCopies; NoOfCopies)
                     {
-                        Caption = 'No. of Copies', Comment = 'FRA=""';
+                        Caption = 'No. of Copies', Comment = 'FRA="Nombre de copies"';
                     }
                     field(ShowInternalInfo; ShowInternalInfo)
                     {
-                        Caption = 'Show Internal Information', Comment = 'FRA=""';
+                        Caption = 'Show Internal Information', Comment = 'FRA="Afficher info. internes"';
                         Visible = false;
                     }
                     field(ArchiveDocument; ArchiveDocument)
                     {
-                        Caption = 'Archive Document', Comment = 'FRA=""';
+                        Caption = 'Archive Document', Comment = 'FRA="Archiver document"';
                         Visible = false;
 
                         trigger OnValidate()
@@ -1191,17 +1191,17 @@ report 50032 "BC6_Order Confirmation CNE"
                     }
                     field(LogInteraction; LogInteraction)
                     {
-                        Caption = 'Log Interaction', Comment = 'FRA=""';
+                        Caption = 'Log Interaction', Comment = 'FRA="Journal interaction"';
                         Visible = false;
                     }
                     field(CodGRespCenter; CodGRespCenter)
                     {
-                        Caption = 'Print Characteristics Agency:', Comment = 'FRA=""';
+                        Caption = 'Print Characteristics Agency:', Comment = 'FRA="Imprimer Caractéristiques Agence:"';
                         TableRelation = "Responsibility Center";
                     }
                     field(HideReference; HideReference)
                     {
-                        Caption = 'Hide Reference', Comment = 'FRA=""';
+                        Caption = 'Hide Reference', Comment = 'FRA="Masquer références"';
                     }
                 }
             }
@@ -1336,7 +1336,7 @@ report 50032 "BC6_Order Confirmation CNE"
         RecGItemCtg__Weight_Min__Control1000000244CaptionLbl: Label 'Weight Max', comment = 'FRA="Poids Max"';
         RecGItemCtg__Weight_Min_CaptionLbl: Label 'Weight Min', comment = 'FRA="Poids Min"';
         Sales_Header___Your_Reference_CaptionLbl: Label 'Your Reference :', comment = 'FRA="Votre Référence :"';
-        Sales_Line___No___Control1000000219CaptionLbl: Label 'Item : ', comment = 'FRA=""';
+        Sales_Line___No___Control1000000219CaptionLbl: Label 'Item : ', comment = 'FRA="Art. : "';
         Sales_Unit_of_MeasureCaptionLbl: Label 'Sales Unit of Measure', comment = 'FRA="Unité vente"';
         SalesLine__Inv__Discount_Amount_CaptionLbl: Label 'Inv. Discount Amount', comment = 'FRA="Montant remise facture"';
         SEAL__CaptionLbl: Label 'SEAL :', comment = 'FRA="CACHET:"';
@@ -1345,7 +1345,7 @@ report 50032 "BC6_Order Confirmation CNE"
         SubtotalCaptionLbl: Label 'Subtotal', comment = 'FRA="Sous-total"';
         Terms_of_PaymentCaptionLbl: Label 'Terms of Payment', comment = 'FRA="Méthode réglement"';
         Text000: Label 'Salesperson', comment = 'FRA="Vendeur"';
-        Text001: Label 'Total %1', comment = 'FRA=""';
+        Text001: Label 'Total %1';
         Text002: Label 'Total %1 Incl. VAT', comment = 'FRA="Total %1 HT"';
         Text003: Label 'COPY', comment = 'FRA="COPIE"';
         Text004: Label 'Order Confirmation No.', comment = 'FRA="Confirmation de commande N°"';
@@ -1358,7 +1358,7 @@ report 50032 "BC6_Order Confirmation CNE"
         Text067: Label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5', comment = 'FRA="%1 au capital de  %2   - %3  -  APE %4 - N°TVA : %5"';
         Text068: Label '%1';
         Text070: Label 'Affair No.', comment = 'FRA="Affaire n°"';
-        Text100: Label 'Salesperson : ', comment = 'FRA=""';
+        Text100: Label 'Salesperson : ';
         Text101: Label 'Phone :', comment = 'FRA="Tel:"';
         Text200: Label 'If you agree on conditions, please return this order acknowledgement duly signed and stamped', comment = 'FRA="Cette commande est soumise à nos conditions générales de vente dont vous avez pris connaissance."';
         Total_Due_CaptionLbl: Label 'Total Due ', comment = 'FRA="Net à Payer"';

@@ -127,10 +127,6 @@ tableextension 50021 "BC6_ItemJournalLine" extends "Item Journal Line" //83
     }
     fieldgroups
     {
-        // TODO: L'ajout d'un nouveau fieldgroup à une tableextension n'est pas possible.
-        // addlast(Brick;"Line No.","Journal Template Name","Item No.","Document No.","Bin Code","New Bin Code")
-        // {
-        // }
     }
 
     procedure CalculateDEEE(PCodNewReasonCode: Code[10])

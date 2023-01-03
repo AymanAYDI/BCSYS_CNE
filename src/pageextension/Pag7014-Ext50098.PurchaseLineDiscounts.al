@@ -96,8 +96,6 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
     var
         Item: Record Item;
         ItemDiscGr: Record "Item Discount Group";
-        ItemDiscGrList: Page "Item Disc. Groups";
-        VendorList: Page "Vendor List";
         [InDataSet]
         BooGCodeFilterCtrl: Boolean;
         ItemTypeFilter: Enum "BC6_Item Type Filter";
@@ -182,12 +180,12 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
             ItemTypeFilter::Item:
                 BEGIN
                     SourceTableName := ObjTransl.TranslateObject(ObjTransl."Object Type"::Table, 27);
-                    Item."No." := CodeFilter;
+                    Item."No." := CopyStr(CodeFilter, 1, MaxStrLen(Item."No."));
                 END;
             ItemTypeFilter::"Item Discount Group":
                 BEGIN
                     SourceTableName := ObjTransl.TranslateObject(ObjTransl."Object Type"::Table, 341);
-                    ItemDiscGr.Code := CodeFilter;
+                    ItemDiscGr.Code := CopyStr(CodeFilter, 1, MaxStrLen(ItemDiscGr.Code));
                 END;
         END;
 

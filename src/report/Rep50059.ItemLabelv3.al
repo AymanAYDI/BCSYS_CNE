@@ -47,7 +47,7 @@ report 50059 "BC6_Item Label v3"
             begin
                 CLEAR(ItemDescription);
                 CLEAR(ExtendedTextItem);
-                ItemDescription := Description; // + ' ' + "Description 2";
+                ItemDescription := Description;
 
                 ExtendedTextHeader.SETRANGE("No.", "No.");
 
@@ -61,7 +61,7 @@ report 50059 "BC6_Item Label v3"
                         ExtendedTextItem := ExtendedTextLine.Text;
                 END;
 
-                ItemDescription := ItemDescription + ' ' + ExtendedTextItem;
+                ItemDescription := CopyStr(ItemDescription + ' ' + ExtendedTextItem, 1, MaxStrLen(ItemDescription));
 
 
                 CLEAR(UnitPriceIncVATTxt);
@@ -113,9 +113,9 @@ report 50059 "BC6_Item Label v3"
         Text1100267003: Label '%1 € HT  ';
         EAN13Bar: Text[13];
         EAN13Txt: Text[13];
-        ExtendedTextItem: Text[50];
+        ExtendedTextItem: Text[100];
         EAN13BarTxt: Text[120];
-        ItemDescription: Text[120];
+        ItemDescription: Text[100];
         UnitPriceIncVATTxt: Text[120];
         UnitPriceTxt: Text[120];
 }

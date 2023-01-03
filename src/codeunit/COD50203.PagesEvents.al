@@ -71,21 +71,16 @@ codeunit 50203 "BC6_PagesEvents"
                     END;
             end;
     end;
-    //PAGE 161 //TODO
+    //PAGE 161 
     [EventSubscriber(ObjectType::Page, Page::"Purchase Statistics", 'OnAfterCalculateTotals', '', false, false)]
     local procedure P161_OnAfterCalculateTotals(var PurchHeader: Record "Purchase Header"; var TotalPurchLine: Record "Purchase Line"; var TotalPurchLineLCY: Record "Purchase Line"; var TempVATAmountLine: Record "VAT Amount Line" temporary; var TotalAmt1: Decimal; var TotalAmt2: Decimal)
-    var
-        TempPurchLine: Record "Purchase Line" temporary;
-        PurchPost: Codeunit "Purch.-Post";
-        //TODO---check the global decimal variables.. 
-        DecGTTCAmount: Decimal;
     begin
         //TODO://  SumPurchLinesTemp has changes in the parameters (when we merge the cod90)
         // PurchPost.SumPurchLinesTemp(
         //  PurchHeader , TempPurchLine, 0, TempPurchLine, TotalPurchLineLCY, VATAmount, VATAmountText,DecGHTAmount,DecGVATAmount,DecGTTCAmount,DecGHTAmountLCY);
+        TotalAmt1 += TotalPurchLine."BC6_DEEE VAT Amount";
         IF not PurchHeader."Prices Including VAT" THEN
-            TotalAmt2 := TotalAmt2 + DecGTTCAmount;
-
+            TotalAmt2 += TotalPurchLine."BC6_DEEE TTC Amount";
     end;
 
     [EventSubscriber(ObjectType::Page, Page::"Purchase Statistics", 'OnAfterUpdateHeaderInfo', '', false, false)]
@@ -102,7 +97,7 @@ codeunit 50203 "BC6_PagesEvents"
     [EventSubscriber(ObjectType::Page, Page::"Apply Customer Entries", 'OnBeforeSetApplyingCustLedgEntry', '', false, false)]
     local procedure P232_OnBeforeSetApplyingCustLedgEntry(var ApplyingCustLedgEntry: Record "Cust. Ledger Entry"; GenJournalLine: Record "Gen. Journal Line"; SalesHeader: Record "Sales Header"; var CalcType: Enum "Customer Apply Calculation Type"; ServHeader: Record "Service Header")
     var
-        TotalSalesLine: Record "Sales Line";
+    // TotalSalesLine: Record "Sales Line";
     begin
         // //TODO: changed in cdu 90 SalesPost.SumSalesLines(
         // //   SalesHeader, 0, TotalSalesLine, TotalSalesLineLCY,
@@ -218,7 +213,28 @@ codeunit 50203 "BC6_PagesEvents"
         GlobalFunction.SetGDecMntHTDEEE(0);
     end;
 
+    //ligne718 
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnAfterPostVendorEntry', '', false, false)]
+    procedure COD90_OnAfterPostVendorEntry(var GenJnlLine: Record "Gen. Journal Line"; var PurchHeader: Record "Purchase Header"; var TotalPurchLine: Record "Purchase Line"; var TotalPurchLineLCY: Record "Purchase Line"; CommitIsSupressed: Boolean; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line")
+    var
+        _EcoPartnerDEEE: Code[10];
+        _DEEECategoryCode: code[10];
+        GlobalFunction: Codeunit "BC6_GlobalFunctionMgt";
+    begin
 
+        GenJnlLine."BC6_DEEE HT Amount" := TotalPurchLine."BC6_DEEE HT Amount";
+        GenJnlLine."BC6_DEEE VAT Amount" := TotalPurchLine."BC6_DEEE VAT Amount";
+        GenJnlLine."BC6_DEEE TTC Amount" := TotalPurchLine."BC6_DEEE TTC Amount";
+        GenJnlLine."BC6_DEEE HT Amount (LCY)" := TotalPurchLine."BC6_DEEE HT Amount (LCY)";
+        GenJnlLine."BC6_Eco partner DEEE" := _EcoPartnerDEEE;
+        GenJnlLine."BC6_DEEE Category Code" := _DEEECategoryCode;
+
+        GenJnlLine.Amount := GenJnlLine.Amount - GlobalFunction.GetGDecMntTTCDEEE();
+        GenJnlLine."Source Currency Amount" := GenJnlLine."Source Currency Amount" - GlobalFunction.GetGDecMntTTCDEEE();
+        GenJnlLine."Amount (LCY)" := GenJnlLine."Amount (LCY)" - GlobalFunction.GetGDecMntTTCDEEE();
+        GenJnlLine."Payment Method Code" := GenJnlLine."Payment Method Code";
+
+    end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch. Post Invoice Events", 'OnPostLedgerEntryOnAfterGenJnlPostLine', '', false, false)]
 
@@ -321,9 +337,8 @@ codeunit 50203 "BC6_PagesEvents"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post (Yes/No)", 'OnBeforeConfirmPostProcedure', '', false, false)]
     local procedure COD91_OnBeforeConfirmPostProcedure(var PurchaseHeader: Record "Purchase Header"; var DefaultOption: Integer; var Result: Boolean; var IsHandled: Boolean)
     begin
-        WITH PurchaseHeader DO BEGIN
+        WITH PurchaseHeader DO
             TESTFIELD(Status, Status::Released);
-        end;
     end;
     //COD 93 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Quote to Order (Yes/No)", 'OnBeforePurchQuoteToOrder', '', false, false)]
@@ -426,11 +441,10 @@ codeunit 50203 "BC6_PagesEvents"
 
         if not CustCheckCreditLimit.SalesHeaderShowWarningAndGetCause(SalesHeader, AdditionalContextId) then
             SalesHeader.CustomerCreditLimitNotExceeded()
-        else begin
+        else
 
             //TODO: à voir l'inside de else begin
             CustCheckCrLimit.ShowNotificationDetails(LastNotification);
-        end;
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Cust-Check Cr. Limit", 'OnBeforeCreateAndSendNotification', '', false, false)]
@@ -471,7 +485,7 @@ codeunit 50203 "BC6_PagesEvents"
         RecLPurchLine2.RESET();
         RecLPurchLine2.SETRANGE(RecLPurchLine2."Document Type", PurchaseHeader."Document Type");
         RecLPurchLine2.SETRANGE(RecLPurchLine2."Document No.", PurchaseHeader."No.");
-        IF RecLPurchLine2.FindFirst() THEN BEGIN
+        IF RecLPurchLine2.FindFirst() THEN
             REPEAT
                 IF (RecLPurchLine2."BC6_Sales No." <> '') AND (RecLPurchLine2."BC6_Sales Line No." <> 0) THEN BEGIN
                     RecLSalesLine.RESET();
@@ -487,7 +501,6 @@ codeunit 50203 "BC6_PagesEvents"
                     END;
                 END;
             UNTIL RecLPurchLine2.NEXT() = 0;
-        END;
         PurchaseLine.Modify(true);
         //////
         Commit();

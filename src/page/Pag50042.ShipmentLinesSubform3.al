@@ -59,9 +59,7 @@ page 50042 "BC6_Shipment Lines Subform 3"
                 {
                     ApplicationArea = All;
                 }
-#pragma warning disable AL0432
-                field("Cross-Reference No."; "Cross-Reference No.")
-#pragma warning restore AL0432
+                field("Cross-Reference No."; "Item Reference No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
@@ -218,7 +216,7 @@ page 50042 "BC6_Shipment Lines Subform 3"
             SalesShptLine.COPYFILTERS(Rec);
             SalesShptLine.SETRANGE("Document No.", "Document No.");
 #pragma warning disable AA0181
-            SalesShptLine.FIND('-');
+            SalesShptLine.FindFirst();
 #pragma warning restore AA0181
             TempSalesShptLine := SalesShptLine;
             TempSalesShptLine.INSERT();

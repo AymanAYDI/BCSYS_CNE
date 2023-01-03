@@ -117,7 +117,7 @@ page 50034 "BC6_Affair Steps Tracking"
 
     trigger OnOpenPage()
     begin
-        TxtGIntelocutor := USERID;
+        TxtGIntelocutor := CopyStr(USERID, 1, MaxStrLen(TxtGIntelocutor)); //à vérifier lors du test
         BooGFinichedfilter := FALSE;
         DatLRminderDate := WORKDATE();
 

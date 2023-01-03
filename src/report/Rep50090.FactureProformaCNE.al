@@ -3,7 +3,7 @@ report 50090 "BC6_Facture Proforma CNE"
     DefaultLayout = RDLC;
     RDLCLayout = './src/Report/RDL/FactureProformaCNE.rdl';
 
-    Caption = 'Order Confirmation', comment = 'FRA=""';
+    Caption = 'Order Confirmation', comment = 'FRA="Facture Proforma (idem conf. de cde)"';
 
     dataset
     {
@@ -12,7 +12,7 @@ report 50090 "BC6_Facture Proforma CNE"
             DataItemTableView = SORTING("Document Type", "No.");
             PrintOnlyIfDetail = true;
             RequestFilterFields = "No.", "Sell-to Customer No.", "No. Printed";
-            RequestFilterHeading = 'Sales Order', comment = 'FRA=""';
+            RequestFilterHeading = 'Sales Order';
             column(DocType_SalesHeader; "Document Type")
             {
             }
@@ -1925,7 +1925,7 @@ report 50090 "BC6_Facture Proforma CNE"
         DescriptionCaptionLbl: Label 'Description', comment = 'FRA="Désignation"';
         DiscountPercentCaptionLbl: Label 'Discount %', comment = 'FRA="% remise"';
         DocumentDateCaptionLbl: Label 'Document Date', comment = 'FRA="Date document"';
-        EmailCaptionLbl: Label 'E-Mail', comment = 'FRA=""';
+        EmailCaptionLbl: Label 'E-Mail';
         GiroNoCaptionLbl: Label 'Giro No.', comment = 'FRA="n° CCP"';
         GLAccountNoCaptionLbl: Label 'G/L Account No.', comment = 'FRA="n° compte général"';
         HeaderDimCaptionLbl: Label 'Header Dimensions', comment = 'FRA="Analytique en-tête"';

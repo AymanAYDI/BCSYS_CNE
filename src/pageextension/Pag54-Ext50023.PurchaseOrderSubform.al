@@ -108,7 +108,8 @@ pageextension 50023 "BC6_PurchaseOrderSubform" extends "Purchase Order Subform" 
             }
             action("BC6_Affected Orders")
             {
-                Caption = 'Affected Orders';
+                Caption = 'Affected Orders', Comment = 'FRA="Commandes affectées"';
+                ;
                 RunObject = Page "BC6_Affected Orders";
                 RunPageLink = "BC6_Purch. Document Type" = CONST(Order),
                                   "BC6_Purch. Order No." = FIELD("Document No."),

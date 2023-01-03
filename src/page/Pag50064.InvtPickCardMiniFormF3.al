@@ -460,14 +460,13 @@ page 50064 "Invt. Pick Card MiniForm F3"
         ShipBinCode: Code[20];
         ToBinCode: Code[20];
         PostingDate: Date;
-        "---": Integer;
         Text001: Label 'User %1 does not exist on warehouse salary list', Comment = 'FRA="L''utilisateur %1 n''est pas un salarié magasin."';
         Text002: Label 'Location %1 incorrect', Comment = 'FRA="Emplacement (%1) erroné"';
         Text006: Label 'Palette nr (%1) incorrect', Comment = 'FRA="Quantité (%1) erronée"';
         Text012: Label 'Item %1 with tracking', Comment = 'FRA="%1 article avec traçabilité"';
         Text013: Label 'Item No. %1 Incorrect', Comment = 'FRA="%1 n° article erroné"';
         Text014: Label 'Item %1 blocked', Comment = 'FRA="%1 article bloqué"';
-        Text015: Label 'User %1 model sheet does not exist', Comment = 'FRA=""';
+        Text015: Label 'User %1 model sheet does not exist', Comment = 'FRA="Pas de nom de feuille article utilisateur %1"';
         Text016: Label 'Item %1 not exit on Invt. Pick', Comment = 'FRA="Pas de nom de feuille article utilisateur %1"';
         txt003: Label 'You cannot delete the entry', Comment = 'FRA="Vous ne pouvez pas supprimer la saisie."';
         ErrorTxt: Text[250];

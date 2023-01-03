@@ -231,7 +231,7 @@ page 50058 "BC6_Reclass. Card MiniForm"
                                     LastJnlLine.RESET();
                                     LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
                                     LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
-                                    IF LastJnlLine.FIND('+') THEN
+                                    IF LastJnlLine.FINDLast() THEN //find('+)
                                         Rec := LastJnlLine
                                     ELSE BEGIN
                                         Rec := xRec;

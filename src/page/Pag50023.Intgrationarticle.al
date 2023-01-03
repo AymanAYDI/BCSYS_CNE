@@ -5,6 +5,7 @@ page 50023 "BC6_Intégration article"
     SourceTable = "BC6_Temporary import catalogue";
     UsageCategory = Tasks;
     ApplicationArea = All;
+    Caption = 'Intégration article';
     layout
     {
         area(content)

@@ -58,9 +58,7 @@ page 50043 "BC6_Invoice Lines Subform 3"
                 {
                     ApplicationArea = All;
                 }
-#pragma warning disable AL0432
-                field("Cross-Reference No."; "Cross-Reference No.")
-#pragma warning restore AL0432
+                field("Cross-Reference No."; "Item Reference No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
@@ -223,7 +221,7 @@ page 50043 "BC6_Invoice Lines Subform 3"
             SalesInvLine.COPYFILTERS(Rec);
             SalesInvLine.SETRANGE("Document No.", "Document No.");
 #pragma warning disable AA0181
-            SalesInvLine.FIND('-');
+            SalesInvLine.FindFirst();
 #pragma warning restore AA0181
             TempSalesInvLine := SalesInvLine;
             TempSalesInvLine.INSERT();

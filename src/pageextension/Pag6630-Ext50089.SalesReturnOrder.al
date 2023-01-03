@@ -153,7 +153,7 @@ pageextension 50089 "BC6_SalesReturnOrder" extends "Sales Return Order" //6630
     begin
         L_UserSetup.RESET();
         L_UserSetup.SETRANGE("BC6_SAV Admin", TRUE);
-        IF L_UserSetup.FINDFIRST() THEN begin
+        IF L_UserSetup.FindSet() THEN begin
             WorkflowStepInstance.Get();
             if WorkflowStepArgument.Get(WorkflowStepInstance.Argument) then
                 REPEAT

@@ -82,7 +82,7 @@ pageextension 50125 "BC6_PurchaseOrderList" extends "Purchase Order List" //9307
             {
                 AccessByPermission = TableData "Posted Invt. Put-away Header" = R;
                 ApplicationArea = Warehouse;
-                Caption = 'Create Inventor&y Put-away/Pick';
+                Caption = 'Create Inventor&y Put-away/Pick', Comment = 'FRA="Créer prélèv./rangement stoc&k"';
                 Ellipsis = true;
                 Image = CreatePutawayPick;
                 trigger OnAction()

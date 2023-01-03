@@ -31,7 +31,7 @@ pageextension 50129 "BC6_PurchaseReturnOrderList" extends "Purchase Return Order
             {
                 AccessByPermission = TableData "Posted Invt. Pick Header" = R;
                 ApplicationArea = Warehouse;
-                Caption = 'Create Inventor&y Put-away/Pick';
+                Caption = 'Create Inventor&y Put-away/Pick', Comment = 'FRA="Créer prélèv./rangement stoc&k"';
                 Ellipsis = true;
                 Image = CreatePutawayPick;
                 trigger OnAction()

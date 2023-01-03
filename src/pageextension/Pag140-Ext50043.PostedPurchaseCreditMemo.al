@@ -65,6 +65,7 @@ pageextension 50043 "BC6_PostedPurchaseCreditMemo" extends "Posted Purchase Cred
             ERASE(SalesSetup."BC6_Repertoire" + 'Envoi' + '\' + CurrPage.CAPTION);
             ERROR(Text001);
         END;
+        HistMail.Init();
         HistMail."No." := cust."No.";
         HistMail.Nom := cust.Name;
         HistMail."E-Mail" := cust."E-Mail";

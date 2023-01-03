@@ -93,6 +93,7 @@ pageextension 50016 "BC6_SalesCreditMemo" extends "Sales Credit Memo" //44
             ERASE(Salessetup.BC6_Repertoire + 'Envoi' + '\' + CurrPage.CAPTION);
             ERROR(Text001);
         END;
+        HistMail.Init();
         HistMail."No." := cust."No.";
         HistMail.Nom := cust.Name;
         HistMail."E-Mail" := cust."E-Mail";

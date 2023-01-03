@@ -7,6 +7,7 @@ codeunit 50150 "BC6_PDW Trsf Articles Bourg"
         Dialog_D.OPEN('Article #1######################');
 
         PXAch_Cible.RESET();
+        PXAch_Cible.Init();
         PXAch_Cible.CHANGECOMPANY('SCENEO_Bourgogne');
 
         PXAch_Source.RESET();

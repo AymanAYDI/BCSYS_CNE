@@ -76,6 +76,7 @@ pageextension 50042 "BC6_PostedPurchaseInvoice" extends "Posted Purchase Invoice
             ERASE(SalesSetup.BC6_Repertoire + 'Envoi' + '\' + CurrPage.CAPTION);
             ERROR(Text001);
         END;
+        HistMail.Init();
         HistMail."No." := cust."No.";
         HistMail.Nom := cust.Name;
         HistMail."E-Mail" := cust."E-Mail";

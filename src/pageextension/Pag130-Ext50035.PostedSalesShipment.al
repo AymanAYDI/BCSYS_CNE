@@ -117,6 +117,7 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
     procedure EnvoiMail()
     begin
         SalesSetup.GET();
+        HistMail.Init();
         cust.SETRANGE(cust."No.", "Sell-to Customer No.");
         IF cust.FIND('-') THEN
             cust.TESTFIELD("E-Mail");

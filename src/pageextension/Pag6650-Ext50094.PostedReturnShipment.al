@@ -67,6 +67,7 @@ pageextension 50094 "BC6_PostedReturnShipment" extends "Posted Return Shipment" 
             ERASE(SalesSetup.BC6_Repertoire + 'Envoi' + '\' + CurrPage.CAPTION);
             ERROR(Text001);
         END;
+        HistMail.Init();
         HistMail."No." := cust."No.";
         HistMail.Nom := cust.Name;
         HistMail."E-Mail" := cust."E-Mail";

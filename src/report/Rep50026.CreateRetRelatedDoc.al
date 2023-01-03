@@ -166,6 +166,7 @@ report 50026 "BC6_Create Ret.-Related Doc" //6697
 
     local procedure CreateReturnOrderRelation()
     begin
+        G_ReturnOrderRelation.Init();
         WITH G_ReturnOrderRelation DO
             IF CreateSO OR CreatePRO OR CreatePO THEN
                 IF NOT G_ReturnOrderRelation.GET(SROSalesHeader."No.") THEN BEGIN

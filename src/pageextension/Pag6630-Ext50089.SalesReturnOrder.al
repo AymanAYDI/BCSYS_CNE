@@ -125,6 +125,7 @@ pageextension 50089 "BC6_SalesReturnOrder" extends "Sales Return Order" //6630
             ERASE(SalesSetup."BC6_Repertoire" + 'Envoi' + '\' + CurrPage.CAPTION);
             ERROR(Text001);
         END;
+        HistMail.Init();
         HistMail."No." := cust."No.";
         HistMail.Nom := cust.Name;
         HistMail."E-Mail" := cust."E-Mail";

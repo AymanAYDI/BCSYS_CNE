@@ -237,7 +237,6 @@ codeunit 50203 "BC6_PagesEvents"
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch. Post Invoice Events", 'OnPostLedgerEntryOnAfterGenJnlPostLine', '', false, false)]
-
     local procedure COD90_OnPostLedgerEntryOnAfterGenJnlPostLine(var GenJnlLine: Record "Gen. Journal Line"; var PurchHeader: Record "Purchase Header"; var TotalPurchLine: Record "Purchase Line"; var TotalPurchLineLCY: Record "Purchase Line"; PreviewMode: Boolean; SuppressCommit: Boolean; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line")
     var
         GlobalFunction: Codeunit "BC6_GlobalFunctionMgt";

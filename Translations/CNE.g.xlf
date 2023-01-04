@@ -25303,6 +25303,26 @@
           <note from="Developer" annotates="general" priority="2">FRA="Coût réel DS"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesStatistics - Change TotalAdjCostLCY - Property Caption</note>
         </trans-unit>
+        <trans-unit id="PageExtension 3978300363 - Action 843067452 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2589579403">
+          <source>Bible</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Bible"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SmallBusinessOwnerRC - Action BC6_Bible - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3978300363 - Action 1922404061 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2589579403">
+          <source>Sales statistics</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Statistiques vente"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SmallBusinessOwnerRC - Action BC6_Statistiques vente - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3978300363 - Action 1745171908 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2589579403">
+          <source>Sales Stat/Customer</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Vente Stat/Client"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SmallBusinessOwnerRC - Action BC6_Vente Stat/Client - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 3978300363 - Action 2149002198 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2589579403">
+          <source>Sales Stat/Vendor</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Vente Stat/Fournisseur"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SmallBusinessOwnerRC - Action BC6_Vente Stat/Fournisseur - Property Caption</note>
+        </trans-unit>
         <trans-unit id="PageExtension 114164764 - Action 3943750521 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4055858012">
           <source>Associated Document</source>
           <note from="Developer" annotates="general" priority="2">FRA="Document Associé"</note>

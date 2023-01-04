@@ -30,12 +30,12 @@ codeunit 50031 "BC6_PagesEvents"
     [EventSubscriber(ObjectType::Page, Page::"Location Card", 'OnAfterUpdateEnabled', '', false, false)]
     local procedure P5703_OnAfterUpdateEnabled(Location: Record Location)
     var
-        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
+        LocationCard: Page "Location Card";
     begin
 
-        GlobalFunctionMgt.SetNewReceiptBinCodeEnable((Location."Bin Mandatory" AND Location."Require Receive") OR Location."Directed Put-away and Pick");  //NewReceiptBinCodeEnable
-        GlobalFunctionMgt.SetNewShipmentBinCodeEnable((Location."Bin Mandatory" AND Location."Require Shipment") OR Location."Directed Put-away and Pick"); //NewShipmentBinCodeEnable
-        GlobalFunctionMgt.SetNewAssemblyShipmentBinCodeEnable(Location."Bin Mandatory" and not GlobalFunctionMgt.GetNewShipmentBinCodeEnable());
+        LocationCard.SetNewReceiptBinCodeEnable((Location."Bin Mandatory" AND Location."Require Receive") OR Location."Directed Put-away and Pick");  //NewReceiptBinCodeEnable
+        LocationCard.SetNewShipmentBinCodeEnable((Location."Bin Mandatory" AND Location."Require Shipment") OR Location."Directed Put-away and Pick"); //NewShipmentBinCodeEnable
+        LocationCard.SetNewAssemblyShipmentBinCodeEnable(Location."Bin Mandatory" and not LocationCard.GetNewShipmentBinCodeEnable());
     end;
     //Page 6630
     [EventSubscriber(ObjectType::Page, Page::"Sales Return Order", 'OnBeforeStatisticsAction', '', false, false)]

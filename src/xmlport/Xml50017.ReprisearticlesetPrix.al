@@ -86,6 +86,7 @@ xmlport 50017 "BC6_Reprise articles et Prix"
                         Art.MODIFY();
                     END
                     ELSE BEGIN
+                        ART.Init();
                         Art."No." := REF_INT;
                         Art."Vendor No." := CodeFrs;
                         Art."Item Category Code" := CodeCat;
@@ -114,6 +115,7 @@ xmlport 50017 "BC6_Reprise articles et Prix"
                         PrixUnit.MODIFY();
                     END
                     ELSE BEGIN
+                        PrixUnit.Init();
                         PrixUnit."Item No." := REF_INT;
                         PrixUnit."Direct Unit Cost" := Art."Standard Cost";
                         PrixUnit."Vendor No." := Art."Vendor No.";
@@ -142,7 +144,6 @@ xmlport 50017 "BC6_Reprise articles et Prix"
                         Catalogue."Vendor No." := CodeFrs;
                         Catalogue."Item No." := REF_INT;
                         Catalogue."Vendor Item No." := COPYSTR(Item."Vendor No.", 1, 3) + REF_EXT;
-                        ;
                         Catalogue.INSERT();
                     END;
                 end;

@@ -40,7 +40,7 @@ xmlport 50016 "BC6_Import RIB Vendeur"
 
                 trigger OnBeforeInsertRecord()
                 begin
-
+                    RibVend.Init();
                     RibVend.RESET();
                     RibVend."Vendor No." := NumVend;
                     RibVend.Code := CodeVend;

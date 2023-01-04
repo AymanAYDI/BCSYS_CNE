@@ -76,9 +76,9 @@ codeunit 50020 "BC6_Tsf Trf Ach CNE ==> Bourg"
                                           PurchPrice_Source."Minimum Quantity") THEN
                     PurchPrice_Cible.DELETE();
 
-                //Item No.,Vendor No.,Starting Date,Currency Code,Variant Code,Unit of Measure Code,Minimum Quantity
                 IF NOT (PurchPrice_Cible.GET(PurchPrice_Source."Item No.", 'CNE', PurchPrice_Source."Starting Date", PurchPrice_Source."Currency Code", PurchPrice_Source."Variant Code", PurchPrice_Source."Unit of Measure Code",
                                           PurchPrice_Source."Minimum Quantity")) THEN BEGIN
+                    PurchPrice_Cible.Init();
                     PurchPrice_Cible.TRANSFERFIELDS(PurchPrice_Source);
                     PurchPrice_Cible.VALIDATE("Vendor No.", 'CNE');
                     IF PurchPrice_Cible.INSERT(TRUE) THEN;

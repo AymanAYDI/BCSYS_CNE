@@ -1,4 +1,4 @@
-codeunit 50201 "BC6_Events Mgt"
+codeunit 50030 "BC6_Events Mgt"
 {
     //TAB111
     [EventSubscriber(ObjectType::Table, Database::"Sales Shipment Line", 'OnBeforeInsertInvLineFromShptLineBeforeInsertTextLine', '', false, false)]

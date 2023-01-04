@@ -1,5 +1,5 @@
 
-codeunit 50203 "BC6_PagesEvents"
+codeunit 50031 "BC6_PagesEvents"
 {
 
     //PAGE 95

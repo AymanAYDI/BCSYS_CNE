@@ -259,9 +259,7 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
     //******** Page 5703************//
     procedure SetNewReceiptBinCodeEnable(pNewReceiptBinCodeEnable: Boolean)
     begin
-#pragma warning disable AA0206
         NewReceiptBinCodeEnable := pNewReceiptBinCodeEnable;
-#pragma warning restore AA0206
     end;
     //------ end set
     procedure SetNewShipmentBinCodeEnable(pNewShipmentBinCodeEnable: Boolean)
@@ -276,9 +274,7 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
     //------ end  
     procedure SetNewAssemblyShipmentBinCodeEnable(pNewAssemblyShipmentBinCodeEnable: Boolean)
     begin
-#pragma warning disable AA0206
         NewAssemblyShipmentBinCodeEnable := pNewAssemblyShipmentBinCodeEnable;
-#pragma warning restore AA0206
     end;
     //------ end set
 

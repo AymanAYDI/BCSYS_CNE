@@ -4,7 +4,7 @@ pageextension 50002 "BC6_SalespersonsPurchasers" extends "Salespersons/Purchaser
     {
         addafter("Phone No.")
         {
-            field("BC6_Grouping Code"; "BC6_Grouping Code")
+            field("BC6_Grouping Code"; Rec."BC6_Grouping Code")
             {
                 ApplicationArea = All;
             }

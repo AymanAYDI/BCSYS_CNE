@@ -13,7 +13,7 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
         modify(Control1905767507) { visible = false; }
         addafter(SourceDocument)
         {
-            field("BC6_Source No."; "Source No.")
+            field("BC6_Source No."; Rec."Source No.")
             {
                 Editable = BooGSourceNoCtrl;
                 trigger OnValidate()
@@ -32,7 +32,7 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
                     CurrPage.WhseActivityLines.PAGE.UpdateForm();
                 end;
             }
-            field("BC6_Destination No."; "Destination No.")
+            field("BC6_Destination No."; Rec."Destination No.")
             {
                 CaptionClass = FORMAT(WMSMgt.GetCaption("Destination Type".AsInteger(), "Source Document".AsInteger(), 0));
                 Editable = BooGDestinationNoCtrl;
@@ -40,18 +40,18 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
         }
         addafter("WMSMgt.GetDestinationName(""Destination Type"",""Destination No."")")
         {
-            field("BC6_Sales Counter"; "BC6_Sales Counter")
+            field("BC6_Sales Counter"; Rec."BC6_Sales Counter")
             {
                 trigger OnValidate()
                 BEGIN
                     CtrlEditable();
                 END;
             }
-            field("BC6_No. Printed"; "No. Printed") { }
-            field("BC6_Bin Code"; "BC6_Bin Code") { }
-            field("BC6_Your Reference"; "BC6_Your Reference") { }
-            field("BC6_Destination Name"; "BC6_Destination Name") { }
-            field(BC6_Comments; BC6_Comments) { }
+            field("BC6_No. Printed"; Rec."No. Printed") { }
+            field("BC6_Bin Code"; Rec."BC6_Bin Code") { }
+            field("BC6_Your Reference"; Rec."BC6_Your Reference") { }
+            field("BC6_Destination Name"; Rec."BC6_Destination Name") { }
+            field(BC6_Comments; Rec.BC6_Comments) { }
         }
     }
 
@@ -143,9 +143,9 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
 
     PROCEDURE CtrlEditable()
     BEGIN
-        CtrlEditableOk := ("Source No." = '') AND ("BC6_Sales Counter");
+        CtrlEditableOk := (Rec."Source No." = '') AND (Rec."BC6_Sales Counter");
         BooGDestinationNoCtrl := CtrlEditableOk;
-        BooGSourceNoCtrl := NOT "BC6_Sales Counter";
+        BooGSourceNoCtrl := NOT Rec."BC6_Sales Counter";
     END;
 
     trigger OnAfterGetRecord()
@@ -162,7 +162,6 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
             CurrPage.EDITABLE(FALSE);
         IF NOT PermissionForm.HasEditablePermission(CopyStr(USERID, 1, 65), 8, 7378) THEN
             CurrFormEditableOk := FALSE;
-#pragma warning disable AA0206
         BooGWhseActivityLines := CurrFormEditableOk;
     end;
 }

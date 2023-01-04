@@ -9,7 +9,7 @@ pageextension 50079 "BC6_ContactList" extends "Contact List" //5052
         }
         addafter("Name")
         {
-            field(BC6_EMail; "E-Mail")
+            field(BC6_EMail; Rec."E-Mail")
             {
             }
         }

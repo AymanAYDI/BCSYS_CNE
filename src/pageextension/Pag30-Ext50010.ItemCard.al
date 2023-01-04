@@ -10,7 +10,7 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
         }
         addafter(Description)
         {
-            field("BC6_No. 2"; "No. 2")
+            field("BC6_No. 2"; Rec."No. 2")
             {
                 ApplicationArea = All;
                 Caption = 'No. 2', Comment = 'FRA="N° 2"';
@@ -26,7 +26,7 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
                 var
                     FunctionMgt: Codeunit "BC6_Functions Mgt";
                 begin
-                    FunctionMgt.LookupItemEAN13Code("No.", EAN13Code);
+                    FunctionMgt.LookupItemEAN13Code(Rec."No.", EAN13Code);
                 end;
             }
         }
@@ -40,12 +40,12 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
         }
         addafter("Search Description")
         {
-            field("BC6_Search Description 2"; "BC6_Search Description 2")
+            field("BC6_Search Description 2"; Rec."BC6_Search Description 2")
             {
                 ApplicationArea = All;
                 Caption = 'Search Description 2', Comment = 'FRA="Désignation de recherche 2"';
             }
-            field(BC6_Inventory2; Inventory)
+            field(BC6_Inventory2; Rec.Inventory)
             {
                 ApplicationArea = All;
 
@@ -53,7 +53,7 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
         }
         addafter("Qty. on Prod. Order")
         {
-            field("BC6_Qty. Return Order SAV"; "BC6_Qty. Return Order SAV")
+            field("BC6_Qty. Return Order SAV"; Rec."BC6_Qty. Return Order SAV")
             {
                 DecimalPlaces = 0 : 0;
                 ApplicationArea = All;
@@ -62,7 +62,7 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
         }
         addafter("Qty. on Asm. Component")
         {
-            field("BC6_Pick Qty."; "BC6_Pick Qty.")
+            field("BC6_Pick Qty."; Rec."BC6_Pick Qty.")
             {
                 ApplicationArea = All;
                 Caption = 'Pick Qty.', Comment = 'FRA="Prélever qté"';
@@ -70,12 +70,12 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
         }
         addafter("Unit Price")
         {
-            field("BC6_Unit Price Includes VAT"; "BC6_Unit Price Includes VAT")
+            field("BC6_Unit Price Includes VAT"; Rec."BC6_Unit Price Includes VAT")
             {
                 ApplicationArea = All;
                 Caption = 'Unit Price Includes VAT', Comment = 'FRA="Prix Public TTC"';
             }
-            field("BC6_Print Unit Price Incl. VAT"; "BC6_Print Unit Price Incl. VAT")
+            field("BC6_Print Unit Price Incl. VAT"; Rec."BC6_Print Unit Price Incl. VAT")
             {
                 ApplicationArea = All;
                 Caption = 'Print Unit Price Includes VAT On Label', Comment = 'FRA="Imprimer Prix Public TTC sur étiquette"';
@@ -83,18 +83,18 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
         }
         addafter("Item Disc. Group")
         {
-            field("BC6_DEEE Category Code"; "BC6_DEEE Category Code")
+            field("BC6_DEEE Category Code"; Rec."BC6_DEEE Category Code")
             {
                 Caption = 'DEEE Category Code ', Comment = 'FRA="DEEE Code catégorie"';
                 LookupPageID = "BC6_Item Category List";
                 ApplicationArea = All;
             }
-            field("BC6_Number of Units DEEE"; "BC6_Number of Units DEEE")
+            field("BC6_Number of Units DEEE"; Rec."BC6_Number of Units DEEE")
             {
                 ApplicationArea = All;
                 Caption = 'Number of Units DEEE', Comment = 'FRA="Nombre d''unités DEEE"';
             }
-            field("BC6_Eco partner DEEE"; "BC6_Eco partner DEEE")
+            field("BC6_Eco partner DEEE"; Rec."BC6_Eco partner DEEE")
             {
                 Importance = Promoted;
                 ApplicationArea = All;
@@ -103,7 +103,7 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
         }
         addafter("Last Direct Cost")
         {
-            field("BC6_Cost Increase Coeff %"; "BC6_Cost Increase Coeff %")
+            field("BC6_Cost Increase Coeff %"; Rec."BC6_Cost Increase Coeff %")
             {
                 Visible = ShowIncreaseCoeff;
                 ApplicationArea = All;
@@ -117,7 +117,7 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
         }
         addafter(AssemblyBOM)
         {
-            field(BC6_Blocked; Blocked)
+            field(BC6_Blocked; Rec.Blocked)
             {
                 ApplicationArea = Basic, Suite;
                 Editable = BooGBlocked;
@@ -172,7 +172,7 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
                     FunctionMgt: Codeunit "BC6_Functions Mgt";
                 begin
                     CLEAR(DistInt);
-                    FunctionMgt.CreateItemEAN13Code("No.", TRUE);
+                    FunctionMgt.CreateItemEAN13Code(Rec."No.", TRUE);
                 end;
             }
         }
@@ -211,7 +211,7 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
     var
         FunctionMgt: Codeunit "BC6_Functions Mgt";
     begin
-        EAN13Code := FunctionMgt.GetItemEAN13Code("No.");
+        EAN13Code := FunctionMgt.GetItemEAN13Code(Rec."No.");
         ShowIncreaseCoeff := GlobalFct.getShowIncreaseCoeff()
     end;
 

@@ -13,14 +13,14 @@ page 50005 "BC6_Special Extended Text list"
         {
             group(Control1100267000)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     Editable = false;
                 }
             }
             repeater(Control1000000000)
             {
-                field("Code"; Code)
+                field("Code"; Rec.Code)
                 {
                 }
                 field(Name; Name)
@@ -39,12 +39,12 @@ page 50005 "BC6_Special Extended Text list"
     begin
 
         Name := '';
-        IF "Table Name" = "Table Name"::Customer THEN BEGIN
-            IF Customer.GET(Code) THEN
+        IF Rec."Table Name" = Rec."Table Name"::Customer THEN BEGIN
+            IF Customer.GET(Rec.Code) THEN
                 Name := Customer.Name;
         END ELSE
-            IF "Table Name" = "Table Name"::Vendor THEN
-                IF Vendor.GET(Code) THEN
+            IF Rec."Table Name" = Rec."Table Name"::Vendor THEN
+                IF Vendor.GET(Rec.Code) THEN
                     Name := Vendor.Name;
     end;
 
@@ -52,18 +52,18 @@ page 50005 "BC6_Special Extended Text list"
     begin
         Name := '';
 
-        IF "No." <> '' THEN
-            SETRANGE("No.", "No.");
-        IF FIND('-') THEN
+        IF Rec."No." <> '' THEN
+            Rec.SETRANGE("No.", Rec."No.");
+        IF Rec.FIND('-') THEN
             REPEAT
-                IF ("No." <> '') AND (Text <> '') THEN
-                    IF (Code <> '') AND (Code <> SaveCode) THEN BEGIN
-                        MARK(TRUE);
-                        SaveCode := Code;
+                IF (Rec."No." <> '') AND (Rec.Text <> '') THEN
+                    IF (Rec.Code <> '') AND (Rec.Code <> SaveCode) THEN BEGIN
+                        Rec.MARK(TRUE);
+                        SaveCode := Rec.Code;
                     END;
-            UNTIL NEXT() = 0;
+            UNTIL Rec.NEXT() = 0;
 
-        MARKEDONLY(TRUE);
+        Rec.MARKEDONLY(TRUE);
     end;
 
     var

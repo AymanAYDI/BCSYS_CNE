@@ -8,19 +8,19 @@ pageextension 50125 "BC6_PurchaseOrderList" extends "Purchase Order List" //9307
             {
                 ApplicationArea = All;
             }
-            field("BC6_Your Reference"; "Your Reference")
+            field("BC6_Your Reference"; Rec."Your Reference")
             {
                 ApplicationArea = All;
             }
-            field("BC6_Affair No."; "BC6_Affair No.")
+            field("BC6_Affair No."; Rec."BC6_Affair No.")
             {
                 ApplicationArea = All;
             }
-            field(BC6_Amount; Amount)
+            field(BC6_Amount; Rec.Amount)
             {
                 ApplicationArea = All;
             }
-            field("BC6_Sales No. Order Lien"; "BC6_Sales No. Order Lien")
+            field("BC6_Sales No. Order Lien"; Rec."BC6_Sales No. Order Lien")
             {
                 Caption = 'Sales No. Order Lien', Comment = 'FRA="n° Commande Vente Lien"';
                 ApplicationArea = All;
@@ -28,13 +28,13 @@ pageextension 50125 "BC6_PurchaseOrderList" extends "Purchase Order List" //9307
         }
         addafter("Amount Including VAT")
         {
-            field("BC6_Last Related Info Date"; "BC6_Last Related Info Date")
+            field("BC6_Last Related Info Date"; Rec."BC6_Last Related Info Date")
             {
                 DrillDownPageID = "BC6_Log Purch. Comment Lines";
                 LookupPageID = "BC6_Log Purch. Comment Lines";
                 ApplicationArea = All;
             }
-            field("BC6_Related Sales Return Order"; "BC6_Related Sales Return Order")
+            field("BC6_Related Sales Return Order"; Rec."BC6_Related Sales Return Order")
             {
                 ApplicationArea = All;
             }

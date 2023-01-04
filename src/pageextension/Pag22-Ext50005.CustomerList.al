@@ -16,7 +16,7 @@ pageextension 50005 "BC6_CustomerList" extends "Customer List" //22
 
         addafter("No.")
         {
-            field(BC6_Blocked; Blocked)
+            field(BC6_Blocked; Rec.Blocked)
             {
                 Visible = true;
                 ApplicationArea = All;
@@ -30,22 +30,22 @@ pageextension 50005 "BC6_CustomerList" extends "Customer List" //22
 
         addafter(Name)
         {
-            field(BC6_Address; Address)
+            field(BC6_Address; Rec.Address)
             {
                 Editable = false;
                 ApplicationArea = All;
             }
-            field("BC6_Address 2"; "Address 2")
+            field("BC6_Address 2"; Rec."Address 2")
             {
                 Editable = false;
                 ApplicationArea = All;
             }
-            field(BC6_City; City)
+            field(BC6_City; Rec.City)
             {
                 Editable = false;
                 ApplicationArea = All;
             }
-            field("BC6_Submitted to DEEE"; "BC6_Submitted to DEEE")
+            field("BC6_Submitted to DEEE"; Rec."BC6_Submitted to DEEE")
             {
                 Editable = false;
                 ApplicationArea = All;
@@ -193,17 +193,17 @@ pageextension 50005 "BC6_CustomerList" extends "Customer List" //22
         }
         addafter("Balance (LCY)")
         {
-            field("BC6_Outstanding Orders (LCY)"; "Outstanding Orders (LCY)")
+            field("BC6_Outstanding Orders (LCY)"; Rec."Outstanding Orders (LCY)")
             {
                 Visible = false;
                 ApplicationArea = All;
             }
-            field("BC6_Shipped Not Invoiced (LCY)"; "Shipped Not Invoiced (LCY)")
+            field("BC6_Shipped Not Invoiced (LCY)"; Rec."Shipped Not Invoiced (LCY)")
             {
                 Visible = false;
                 ApplicationArea = All;
             }
-            field("BC6_VAT Registration No."; "VAT Registration No.")
+            field("BC6_VAT Registration No."; Rec."VAT Registration No.")
             {
                 ApplicationArea = Basic, Suite;
                 Editable = false;
@@ -381,7 +381,6 @@ pageextension 50005 "BC6_CustomerList" extends "Customer List" //22
         RecLAccessControl.SETRANGE("User Security ID", USERSECURITYID());
         RecLAccessControl.SETRANGE("Role ID", 'SUPER');
         IF RecLAccessControl.FINDFIRST() THEN BEGIN
-#pragma warning disable AA0206
             BooGinvisibleList := FALSE;
             BooGvisibleList := TRUE;
         END ELSE BEGIN
@@ -392,9 +391,9 @@ pageextension 50005 "BC6_CustomerList" extends "Customer List" //22
         IF NOT RecGUserSeup.GET(USERID) THEN
             RecGUserSeup.INIT();
         IF RecGUserSeup."BC6_Limited User" THEN BEGIN
-            FILTERGROUP(2);
-            SETFILTER("BC6_Salesperson Filter", '*' + RecGUserSeup."Salespers./Purch. Code" + '*');
-            FILTERGROUP(0);
+            Rec.FILTERGROUP(2);
+            Rec.SETFILTER("BC6_Salesperson Filter", '*' + RecGUserSeup."Salespers./Purch. Code" + '*');
+            Rec.FILTERGROUP(0);
         END;
     end;
 

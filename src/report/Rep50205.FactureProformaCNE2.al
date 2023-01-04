@@ -1798,9 +1798,7 @@ report 50205 "BC6_Facture Proforma CNE 2"
                 END ELSE BEGIN
                     RecGCustomerTemplate.RESET();
                     IF RecGCustomerTemplate.GET("Sales Header"."Sell-to Customer Templ. Code") THEN BEGIN
-#pragma warning disable AL0432
                         BooGSubmittedToDEEE := RecGCustomerTemplate."BC6_Submitted to DEEE";
-#pragma warning restore AL0432
                     END ELSE BEGIN
                         BooGSubmittedToDEEE := FALSE;
                     END;
@@ -1940,9 +1938,7 @@ report 50205 "BC6_Facture Proforma CNE 2"
         Client: Record Customer;
         Customer: Record Customer;
         RecGBillCustomer: Record Customer;
-#pragma warning disable AL0432
         RecGCustomerTemplate: Record "Customer Template";
-#pragma warning restore AL0432
         DimSetEntry1: Record "Dimension Set Entry";
         DimSetEntry2: Record "Dimension Set Entry";
         TempPrepmtDimSetEntry: Record "Dimension Set Entry" temporary;
@@ -1950,9 +1946,7 @@ report 50205 "BC6_Facture Proforma CNE 2"
         GLSetup: Record "General Ledger Setup";
         item: Record Item;
         RecGItem: Record Item;
-#pragma warning disable AL0432
         ItemCrossReference: Record "Item Cross Reference";
-#pragma warning restore AL0432
         PaymentMethod: Record "Payment Method";
         PaymentTerms: Record "Payment Terms";
         PrepmtPaymentTerms: Record "Payment Terms";

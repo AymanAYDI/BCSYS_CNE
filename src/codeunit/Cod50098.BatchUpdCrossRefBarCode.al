@@ -6,15 +6,11 @@ codeunit 50098 "Batch Upd. Cross Ref. Bar Code"
 
         InvSetup.GET();
         InvSetup.TESTFIELD("BC6_Cross.Ref.Type No.BarCode");
-#pragma warning disable AA0206
         RefTypeNo := InvSetup."BC6_Cross.Ref.Type No.BarCode";
-#pragma warning restore AA0206
 
         Counter := 0;
         ItemReference.RESET();
-#pragma warning disable AL0432
         ItemReference.SETCURRENTKEY("Reference No.", "Reference Type", "Reference Type No.", "Discontinue Bar Code");
-#pragma warning restore AL0432
         ItemReference.SETCURRENTKEY("Reference No.", "Reference Type", "Reference Type No.");
         ItemReference.SETRANGE("Reference Type", ItemReference."Reference Type"::"Bar Code");
         TotalCounter := ItemReference.COUNT;

@@ -13,11 +13,11 @@ page 50035 "BC6_Contact Affair Relation"
         {
             repeater(Control1)
             {
-                field("Business Relation Code"; "Business Relation Code")
+                field("Business Relation Code"; Rec."Business Relation Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Business Relation Description"; "Business Relation Description")
+                field("Business Relation Description"; Rec."Business Relation Description")
                 {
                     ApplicationArea = All;
                 }

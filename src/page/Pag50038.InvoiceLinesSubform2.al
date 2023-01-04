@@ -14,155 +14,153 @@ page 50038 "BC6_Invoice Lines Subform 2"
         {
             repeater(Control1)
             {
-                field("Document No."; "Document No.")
+                field("Document No."; Rec."Document No.")
                 {
                     HideValue = "Document No.HideValue";
                     Lookup = false;
                     ApplicationArea = All;
                 }
-                field("Shipment Date"; "Shipment Date")
+                field("Shipment Date"; Rec."Shipment Date")
                 {
                     ApplicationArea = All;
                 }
-                field("Bill-to Customer No."; "Bill-to Customer No.")
-                {
-                    Visible = false;
-                    ApplicationArea = All;
-                }
-                field("Discount Unit Price"; "BC6_Discount Unit Price")
-                {
-                    ApplicationArea = All;
-                }
-                field("Amount Including VAT"; "Amount Including VAT")
-                {
-                    ApplicationArea = All;
-                }
-                field("Line Amount"; "Line Amount")
-                {
-                    ApplicationArea = All;
-                }
-                field("Public Price"; "BC6_Public Price")
-                {
-                    ApplicationArea = All;
-                }
-                field("Sell-to Customer No."; "Sell-to Customer No.")
+                field("Bill-to Customer No."; Rec."Bill-to Customer No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field(Type; Type)
+                field("Discount Unit Price"; Rec."BC6_Discount Unit Price")
                 {
                     ApplicationArea = All;
                 }
-                field("No."; "No.")
+                field("Amount Including VAT"; Rec."Amount Including VAT")
                 {
                     ApplicationArea = All;
                 }
-#pragma warning disable AL0432
-                field("Cross-Reference No."; "Cross-Reference No.")
-#pragma warning restore AL0432
+                field("Line Amount"; Rec."Line Amount")
                 {
-                    Visible = false;
                     ApplicationArea = All;
                 }
-                field("Variant Code"; "Variant Code")
+                field("Public Price"; Rec."BC6_Public Price")
                 {
-                    Visible = false;
                     ApplicationArea = All;
                 }
-                field(Nonstock; Nonstock)
+                field("Sell-to Customer No."; Rec."Sell-to Customer No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field(Description; Description)
+                field(Type; Rec.Type)
                 {
                     ApplicationArea = All;
                 }
-                field("Return Reason Code"; "Return Reason Code")
+                field("No."; Rec."No.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
                 }
-                field("Location Code"; "Location Code")
-                {
-                    Visible = false;
-                    ApplicationArea = All;
-                }
-                field("Bin Code"; "Bin Code")
+                field("Cross-Reference No."; Rec."Cross-Reference No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
+                field("Variant Code"; Rec."Variant Code")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
+                field(Nonstock; Rec.Nonstock)
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Unit of Measure Code"; "Unit of Measure Code")
+                field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
                 }
-                field(Quantity; Quantity)
-                {
-                    ApplicationArea = All;
-                }
-                field("Unit of Measure"; "Unit of Measure")
+                field("Return Reason Code"; Rec."Return Reason Code")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Unit Cost (LCY)"; "Unit Cost (LCY)")
+                field("Location Code"; Rec."Location Code")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Line Discount %"; "Line Discount %")
+                field("Bin Code"; Rec."Bin Code")
+                {
+                    Visible = false;
+                    ApplicationArea = All;
+                }
+                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
+                {
+                    Visible = false;
+                    ApplicationArea = All;
+                }
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
+                {
+                    Visible = false;
+                    ApplicationArea = All;
+                }
+                field("Unit of Measure Code"; Rec."Unit of Measure Code")
+                {
+                    ApplicationArea = All;
+                }
+                field(Quantity; Rec.Quantity)
+                {
+                    ApplicationArea = All;
+                }
+                field("Unit of Measure"; Rec."Unit of Measure")
+                {
+                    Visible = false;
+                    ApplicationArea = All;
+                }
+                field("Unit Cost (LCY)"; Rec."Unit Cost (LCY)")
+                {
+                    Visible = false;
+                    ApplicationArea = All;
+                }
+                field("Line Discount %"; Rec."Line Discount %")
                 {
                     BlankZero = true;
                     ApplicationArea = All;
                 }
-                field("Line Discount Amount"; "Line Discount Amount")
+                field("Line Discount Amount"; Rec."Line Discount Amount")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Allow Invoice Disc."; "Allow Invoice Disc.")
+                field("Allow Invoice Disc."; Rec."Allow Invoice Disc.")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Inv. Discount Amount"; "Inv. Discount Amount")
+                field("Inv. Discount Amount"; Rec."Inv. Discount Amount")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Job No."; "Job No.")
+                field("Job No."; Rec."Job No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Blanket Order No."; "Blanket Order No.")
+                field("Blanket Order No."; Rec."Blanket Order No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Blanket Order Line No."; "Blanket Order Line No.")
+                field("Blanket Order Line No."; Rec."Blanket Order Line No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Appl.-from Item Entry"; "Appl.-from Item Entry")
+                field("Appl.-from Item Entry"; Rec."Appl.-from Item Entry")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Appl.-to Item Entry"; "Appl.-to Item Entry")
+                field("Appl.-to Item Entry"; Rec."Appl.-to Item Entry")
                 {
                     Visible = false;
                     ApplicationArea = All;
@@ -194,15 +192,15 @@ page 50038 "BC6_Invoice Lines Subform 2"
     begin
         TempSalesInvLine.RESET();
         TempSalesInvLine.COPYFILTERS(Rec);
-        TempSalesInvLine.SETRANGE("Document No.", "Document No.");
+        TempSalesInvLine.SETRANGE("Document No.", Rec."Document No.");
         IF NOT TempSalesInvLine.FIND('-') THEN BEGIN
             SalesInvLine.COPYFILTERS(Rec);
-            SalesInvLine.SETRANGE("Document No.", "Document No.");
+            SalesInvLine.SETRANGE("Document No.", Rec."Document No.");
             SalesInvLine.FindFirst();
             TempSalesInvLine := SalesInvLine;
             TempSalesInvLine.INSERT();
         END;
-        EXIT("Line No." = TempSalesInvLine."Line No.");
+        EXIT(Rec."Line No." = TempSalesInvLine."Line No.");
     end;
 
 

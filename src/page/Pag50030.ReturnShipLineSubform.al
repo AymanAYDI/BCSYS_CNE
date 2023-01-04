@@ -12,38 +12,38 @@ page 50030 "BC6_Return Ship. Line Subform"
         {
             repeater(Control1)
             {
-                field("Document No."; "Document No.")
+                field("Document No."; Rec."Document No.")
                 {
                     HideValue = "Document No.HideValue";
                     Style = StrongAccent;
                     StyleExpr = TRUE;
                     ApplicationArea = All;
                 }
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                     ApplicationArea = All;
                 }
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                 }
-                field(Quantity; Quantity)
+                field(Quantity; Rec.Quantity)
                 {
                     ApplicationArea = All;
                 }
-                field("Direct Unit Cost"; "Direct Unit Cost")
+                field("Direct Unit Cost"; Rec."Direct Unit Cost")
                 {
                     ApplicationArea = All;
                 }
-                field("Unit Cost (LCY)"; "Unit Cost (LCY)")
+                field("Unit Cost (LCY)"; Rec."Unit Cost (LCY)")
                 {
                     ApplicationArea = All;
                 }
-                field("VAT %"; "VAT %")
+                field("VAT %"; Rec."VAT %")
                 {
                     ApplicationArea = All;
                 }
-                field("Unit Price (LCY)"; "Unit Price (LCY)")
+                field("Unit Price (LCY)"; Rec."Unit Price (LCY)")
                 {
                     ApplicationArea = All;
                 }
@@ -63,7 +63,7 @@ page 50030 "BC6_Return Ship. Line Subform"
 
                 trigger OnAction()
                 begin
-                    IF NOT RecGReturnShipmentHeader.GET("Document No.") THEN
+                    IF NOT RecGReturnShipmentHeader.GET(Rec."Document No.") THEN
                         EXIT;
                     PAGE.RUN(PAGE::"Posted Return Shipment", RecGReturnShipmentHeader);
                 end;
@@ -79,7 +79,7 @@ page 50030 "BC6_Return Ship. Line Subform"
 
     trigger OnOpenPage()
     begin
-        SETCURRENTKEY("No.");
+        Rec.SETCURRENTKEY("No.");
     end;
 
     var
@@ -96,21 +96,21 @@ page 50030 "BC6_Return Ship. Line Subform"
     begin
         LPurchShipement.RESET();
         LPurchShipement.COPYFILTERS(Rec);
-        LPurchShipement.SETRANGE("Document No.", "Document No.");
+        LPurchShipement.SETRANGE("Document No.", Rec."Document No.");
         IF NOT LPurchShipement.FIND('-') THEN BEGIN
             LPurchShipement.COPYFILTERS(Rec);
-            LPurchShipement.SETRANGE("Document No.", "Document No.");
+            LPurchShipement.SETRANGE("Document No.", Rec."Document No.");
             LPurchShipement.FindFirst();
             LPurchShipement := LPurchShipement;
             LPurchShipement.INSERT();
         END;
-        IF "Line No." = LPurchShipement."Line No." THEN
+        IF Rec."Line No." = LPurchShipement."Line No." THEN
             EXIT(TRUE);
     end;
 
     local procedure DocumentNoOnFormat()
     begin
-        IF "Document No." <> '' THEN
+        IF Rec."Document No." <> '' THEN
             IF isFirstDocLine() THEN
                 "Document No.Emphasize" := TRUE
             ELSE

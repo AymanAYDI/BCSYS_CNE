@@ -39,9 +39,7 @@ xmlport 50022 "BC6_Intégration catalogue2"
                 begin
 
                     "BC6_Temporary import catalogue".DELETEALL();
-#pragma warning disable AA0206
                     clef := 0;
-#pragma warning restore AA0206
                 end;
 
                 trigger OnAfterInitRecord()

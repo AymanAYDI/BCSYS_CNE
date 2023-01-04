@@ -528,9 +528,7 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
         END
         ELSE BEGIN
             IF RecGCustTemplate.GET(SalesHeader."Sell-to Customer Templ. Code") THEN BEGIN
-#pragma warning disable AL0432
                 BooGsubmittedtodeee := RecGCustTemplate."BC6_Submitted to DEEE";
-#pragma warning restore AL0432
             END;
         END;
 
@@ -594,7 +592,6 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
 
     end;
 
-#pragma warning disable AL0432
     procedure FctGCalcLineDiscount()
     var
         recLSalesheader: Record "Sales Header";
@@ -637,7 +634,6 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
             END;
         END;
     end;
-#pragma warning restore AL0432
 
     procedure FctGDeletePurchLink()
     var
@@ -733,7 +729,6 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
     end;
 
 
-#pragma warning disable AL0432
     procedure FctGCalcLineDiscountIncreased()
     var
         recLSalesheader: Record "Sales Header";
@@ -776,7 +771,6 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
             END;
         END;
     end;
-#pragma warning restore AL0432
 
     procedure UpdateReturnOrderTypeFromSalesHeader()
     var
@@ -803,9 +797,7 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
         Currency: Record Currency;
         CurrExchRate: Record "Currency Exchange Rate";
         RecGCustomer: Record Customer;
-#pragma warning disable AL0432
         RecGCustTemplate: Record "Customer Template";
-#pragma warning restore AL0432
         GLSetup: Record "General Ledger Setup";
         SalesHeader: Record "Sales Header";
         BooGsubmittedtodeee: Boolean;

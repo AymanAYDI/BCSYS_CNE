@@ -4,30 +4,30 @@ pageextension 50008 "BC6_VendorList" extends "Vendor List" //27
     {
         addafter(Name)
         {
-            field("BC6_Name 2"; "Name 2")
+            field("BC6_Name 2"; Rec."Name 2")
             {
                 ApplicationArea = All;
             }
-            field(BC6_Address; Address)
+            field(BC6_Address; Rec.Address)
             {
                 ApplicationArea = All;
             }
-            field("BC6_Address 2"; "Address 2")
+            field("BC6_Address 2"; Rec."Address 2")
             {
                 ApplicationArea = All;
             }
-            field(BC6_City; City)
+            field(BC6_City; Rec.City)
             {
                 ApplicationArea = All;
             }
         }
         addafter("Search Name")
         {
-            field("BC6_Mini Amount"; "BC6_Mini Amount")
+            field("BC6_Mini Amount"; Rec."BC6_Mini Amount")
             {
                 ApplicationArea = All;
             }
-            field("BC6_Posting DEEE"; "BC6_Posting DEEE")
+            field("BC6_Posting DEEE"; Rec."BC6_Posting DEEE")
             {
                 ShowCaption = false;
                 ApplicationArea = All;

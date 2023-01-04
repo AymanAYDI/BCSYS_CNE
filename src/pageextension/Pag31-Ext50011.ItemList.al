@@ -12,16 +12,16 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
                 var
                     functionMgt: Codeunit "BC6_Functions Mgt";
                 begin
-                    functionMgt.LookupItemEAN13Code("No.", EAN13Code);
+                    functionMgt.LookupItemEAN13Code(Rec."No.", EAN13Code);
                 end;
             }
-            field(BC6_Blocked2; Blocked)
+            field(BC6_Blocked2; Rec.Blocked)
             {
             }
-            field("BC6_No. 2"; "No. 2")
+            field("BC6_No. 2"; Rec."No. 2")
             {
             }
-            field("BC6_Search Description 2"; "BC6_Search Description 2")
+            field("BC6_Search Description 2"; Rec."BC6_Search Description 2")
             {
                 Editable = false;
                 Caption = 'Search Description 2', Comment = 'FRA="Désignation de recherche 2"';
@@ -29,13 +29,13 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
         }
         addafter(Description)
         {
-            field(BC6_Inventory; Inventory)
+            field(BC6_Inventory; Rec.Inventory)
             {
             }
         }
         addafter("Unit Price")
         {
-            field("BC6_Unit Price Includes VAT"; "BC6_Unit Price Includes VAT")
+            field("BC6_Unit Price Includes VAT"; Rec."BC6_Unit Price Includes VAT")
             {
                 Caption = 'Unit Price Includes VAT', Comment = 'FRA="Prix Public TTC"';
             }
@@ -46,13 +46,13 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
         }
         addafter("Vendor Item No.")
         {
-            field("BC6_Reorder Quantity"; "Reorder Quantity")
+            field("BC6_Reorder Quantity"; Rec."Reorder Quantity")
             {
             }
-            field("BC6_Safety Stock Quantity"; "Safety Stock Quantity")
+            field("BC6_Safety Stock Quantity"; Rec."Safety Stock Quantity")
             {
             }
-            field("BC6_Order Multiple"; "Order Multiple")
+            field("BC6_Order Multiple"; Rec."Order Multiple")
             {
             }
         }
@@ -89,9 +89,7 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
                 RunPageView = sorting(Code);
             }
         }
-#pragma warning disable AL0432
         modify("Line Discounts")
-#pragma warning restore AL0432
         { Visible = false; }
         addbefore(Action125)
         {
@@ -99,16 +97,10 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
             {
                 Caption = 'Line Discounts', Comment = 'FRA="Remises ligne"';
                 Image = LineDiscount;
-#pragma warning disable AL0432
                 RunObject = page "Purchase Line Discounts";
-#pragma warning restore AL0432
-#pragma warning disable AL0432
                 RunPageLink = BC6_Type = const(Item),
-#pragma warning restore AL0432
                                   "Item No." = field("No.");
-#pragma warning disable AL0432
                 RunPageView = sorting(BC6_Type, "Item No.", "Vendor No.", "Starting Date", "Currency Code", "Variant Code", "Unit of Measure Code", "Minimum Quantity");
-#pragma warning restore AL0432
             }
         }
         addafter("Skilled R&esources")
@@ -134,7 +126,7 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
                     functionMgt: Codeunit "BC6_Functions Mgt";
                 begin
                     CLEAR(DistInt);
-                    functionMgt.CreateItemEAN13Code("No.", TRUE);
+                    functionMgt.CreateItemEAN13Code(Rec."No.", TRUE);
                 end;
             }
             action(BC6_PrintLabel)
@@ -206,7 +198,7 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
     var
         functionMgt: Codeunit "BC6_Functions Mgt";
     begin
-        EAN13Code := functionMgt.GetItemEAN13Code("No.");
+        EAN13Code := functionMgt.GetItemEAN13Code(Rec."No.");
     end;
 
     var

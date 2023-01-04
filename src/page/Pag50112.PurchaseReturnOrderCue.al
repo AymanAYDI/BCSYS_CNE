@@ -11,11 +11,11 @@ page 50112 "BC6_Purchase Return Order Cue"
             cuegroup("Purchase Returns Order")
             {
                 Caption = 'Purchase Returns Order', comment = 'FRA="Retours achat"';
-                field("Purchase Return - Location"; "BC6_Purchase Return - Location")
+                field("Purchase Return - Location"; Rec."BC6_Purchase Return - Location")
                 {
                     DrillDownPageID = "LOC Purch. Return Order List";
                 }
-                field("Purchase Return - SAV"; "BC6_Purchase Return - SAV")
+                field("Purchase Return - SAV"; Rec."BC6_Purchase Return - SAV")
                 {
                     DrillDownPageID = "BC6_SAV Purch. Ret. Order List";
                 }
@@ -29,13 +29,13 @@ page 50112 "BC6_Purchase Return Order Cue"
 
     trigger OnOpenPage()
     begin
-        RESET();
-        IF NOT GET() THEN BEGIN
-            INIT();
-            INSERT();
+        Rec.RESET();
+        IF NOT Rec.GET() THEN BEGIN
+            Rec.INIT();
+            Rec.INSERT();
         END;
 
-        SetRespCenterFilter();
+        Rec.SetRespCenterFilter();
     end;
 }
 

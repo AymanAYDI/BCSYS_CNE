@@ -139,15 +139,15 @@ pageextension 50114 "BC6_SalesLineFactBox" extends "Sales Line FactBox"  //9087
 
     trigger OnAfterGetRecord()
     begin
-        IF (Type = Type::Item) AND ("No." <> '') THEN
+        IF (Rec.Type = Rec.Type::Item) AND (Rec."No." <> '') THEN
             InitItemAvailibility();
     end;
 
     local procedure InitItemAvailibility()
     begin
-        GR_ItemCNE.GET("No.");
+        GR_ItemCNE.GET(Rec."No.");
         GR_ItemCNE.SETRANGE("Location Filter", 'ACTI');
-        GR_ItemMETZ.GET("No.");
+        GR_ItemMETZ.GET(Rec."No.");
         GR_ItemMETZ.SETRANGE("Location Filter", 'METZ');
     end;
 }

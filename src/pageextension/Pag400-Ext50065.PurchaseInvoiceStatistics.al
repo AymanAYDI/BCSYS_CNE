@@ -11,7 +11,7 @@ pageextension 50065 "BC6_PurchaseInvoiceStatistics" extends "Purchase Invoice St
             field(BC6_VATAmount2; NewVATAmount)
             {
                 ApplicationArea = Basic, Suite;
-                AutoFormatExpression = "Currency Code";
+                AutoFormatExpression = Rec."Currency Code";
                 AutoFormatType = 1;
                 CaptionClass = '3,' + Format(NewVATAmountText);
                 Caption = 'VAT Amount', Comment = 'FRA="Montant TVA"';
@@ -70,7 +70,6 @@ pageextension 50065 "BC6_PurchaseInvoiceStatistics" extends "Purchase Invoice St
 
     procedure IncrementDecGMntTTCDEEE(pDecGMntTTCDEEE: Decimal)
     begin
-#pragma warning disable AA0206
         DecGMntTTCDEEE += pDecGMntTTCDEEE;
     end;
 
@@ -107,12 +106,12 @@ pageextension 50065 "BC6_PurchaseInvoiceStatistics" extends "Purchase Invoice St
         ELSE
             NewAmountLCY :=
               CurrExchRate.ExchangeAmtFCYToLCY(
-                WORKDATE(), Rec."Currency Code", NewVendAmount + DecGMntHTDEEE, "Currency Factor");
+                WORKDATE(), Rec."Currency Code", NewVendAmount + DecGMntHTDEEE, Rec."Currency Factor");
 
         VendLedgEntry.SETCURRENTKEY("Document No.");
-        VendLedgEntry.SETRANGE("Document No.", "No.");
+        VendLedgEntry.SETRANGE("Document No.", Rec."No.");
         VendLedgEntry.SETRANGE("Document Type", VendLedgEntry."Document Type"::"Credit Memo");
-        VendLedgEntry.SETRANGE("Vendor No.", "Pay-to Vendor No.");
+        VendLedgEntry.SETRANGE("Vendor No.", Rec."Pay-to Vendor No.");
         IF VendLedgEntry.FINDFIRST() THEN
             NewAmountLCY := VendLedgEntry."Purchase (LCY)";
 

@@ -10,21 +10,21 @@ page 50008 "BC6_SFAC Client"
         {
             group(Control1)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     Editable = false;
                 }
-                field(Name; Name)
+                field(Name; Rec.Name)
                 {
                     Editable = false;
                 }
-                field("Credit Limit (LCY)"; "Credit Limit (LCY)")
+                field("Credit Limit (LCY)"; Rec."Credit Limit (LCY)")
                 {
                 }
-                field("SFAC Contract Date"; "BC6_SFAC Contract Date")
+                field("SFAC Contract Date"; Rec."BC6_SFAC Contract Date")
                 {
                 }
-                field("SFAC Contract No."; "BC6_SFAC Contract No.")
+                field("SFAC Contract No."; Rec."BC6_SFAC Contract No.")
                 {
                 }
             }

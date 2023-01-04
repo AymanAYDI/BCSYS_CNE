@@ -4,7 +4,7 @@ pageextension 50056 "BC6_ReasonCodes" extends "Reason Codes" //259
     {
         addafter(Description)
         {
-            field("BC6_Disable DEEE"; "BC6_Disable DEEE")
+            field("BC6_Disable DEEE"; Rec."BC6_Disable DEEE")
             {
                 ApplicationArea = All;
             }

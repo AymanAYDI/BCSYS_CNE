@@ -11,10 +11,10 @@ pageextension 50084 "BC6_GetReceiptLines" extends "Get Receipt Lines" //5709
         }
         addafter("Document No.")
         {
-            field("BC6_Order No."; "Order No.")
+            field("BC6_Order No."; Rec."Order No.")
             {
             }
-            field("BC6_Order Date"; "Order Date")
+            field("BC6_Order Date"; Rec."Order Date")
             {
             }
         }

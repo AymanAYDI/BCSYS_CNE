@@ -12,11 +12,11 @@ page 50027 "BC6_Affected Orders"
         {
             repeater(Control1)
             {
-                field("Document No."; "Document No.")
+                field("Document No."; Rec."Document No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Sell-to Customer No."; "Sell-to Customer No.")
+                field("Sell-to Customer No."; Rec."Sell-to Customer No.")
                 {
                     ApplicationArea = All;
                 }
@@ -24,19 +24,19 @@ page 50027 "BC6_Affected Orders"
                 {
                     ApplicationArea = All;
                 }
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
                 }
-                field("Outstanding Quantity"; "Outstanding Quantity")
+                field("Outstanding Quantity"; Rec."Outstanding Quantity")
                 {
                     ApplicationArea = All;
                 }
-                field("Shipment Date"; "Shipment Date")
+                field("Shipment Date"; Rec."Shipment Date")
                 {
                     ApplicationArea = All;
                 }
@@ -73,8 +73,8 @@ page 50027 "BC6_Affected Orders"
                 trigger OnAction()
                 begin
                     RecGSalesHeader.RESET();
-                    RecGSalesHeader.SETRANGE(RecGSalesHeader."Document Type", "Document Type");
-                    RecGSalesHeader.SETRANGE(RecGSalesHeader."No.", "Document No.");
+                    RecGSalesHeader.SETRANGE(RecGSalesHeader."Document Type", Rec."Document Type");
+                    RecGSalesHeader.SETRANGE(RecGSalesHeader."No.", Rec."Document No.");
                     IF RecGSalesHeader.FIND('-') THEN;
 
                     REPORT.RUNMODAL(REPORT::"BC6_Preparation NAVIDIIGEST", TRUE, FALSE, RecGSalesHeader);
@@ -87,7 +87,7 @@ page 50027 "BC6_Affected Orders"
     begin
         RecGCustomer.RESET();
         RecGCustomer.SETCURRENTKEY("No.");
-        IF RecGCustomer.GET("Sell-to Customer No.") THEN;
+        IF RecGCustomer.GET(Rec."Sell-to Customer No.") THEN;
     end;
 
     trigger OnInit()
@@ -105,15 +105,15 @@ page 50027 "BC6_Affected Orders"
     var
         RecLSalesHdr: Record "Sales Header";
     begin
-        RecLSalesHdr.GET("Document Type", "Document No.");
-        CASE "Document Type" OF
-            "Document Type"::Quote:
+        RecLSalesHdr.GET(Rec."Document Type", Rec."Document No.");
+        CASE Rec."Document Type" OF
+            Rec."Document Type"::Quote:
                 PAGE.RUNMODAL(Page::"Sales Quote", RecLSalesHdr);
-            "Document Type"::Order:
+            Rec."Document Type"::Order:
                 PAGE.RUNMODAL(Page::"Sales Order", RecLSalesHdr);
-            "Document Type"::Invoice:
+            Rec."Document Type"::Invoice:
                 PAGE.RUNMODAL(Page::"Sales Invoice", RecLSalesHdr);
-            "Document Type"::"Credit Memo":
+            Rec."Document Type"::"Credit Memo":
                 PAGE.RUNMODAL(Page::"Sales Credit Memo", RecLSalesHdr);
         END;
     end;

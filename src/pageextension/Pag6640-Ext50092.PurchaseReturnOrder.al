@@ -4,11 +4,11 @@ pageextension 50092 "BC6_PurchaseReturnOrder" extends "Purchase Return Order" //
     {
         addafter("Buy-from Contact No.")
         {
-            field(BC6_ID; BC6_ID)
+            field(BC6_ID; Rec.BC6_ID)
             {
                 ApplicationArea = All;
             }
-            field("BC6_Buy-from Fax No."; "BC6_Buy-from Fax No.")
+            field("BC6_Buy-from Fax No."; Rec."BC6_Buy-from Fax No.")
             {
                 ApplicationArea = All;
             }
@@ -16,18 +16,18 @@ pageextension 50092 "BC6_PurchaseReturnOrder" extends "Purchase Return Order" //
 
         addafter(Status)
         {
-            field("BC6_Return Order Type"; "BC6_Return Order Type")
+            field("BC6_Return Order Type"; Rec."BC6_Return Order Type")
             {
                 ApplicationArea = All;
                 trigger OnValidate()
                 begin
-                    IF "BC6_Return Order Type" = "BC6_Return Order Type"::SAV THEN
+                    IF Rec."BC6_Return Order Type" = Rec."BC6_Return Order Type"::SAV THEN
                         BooGReminderDateVisible := TRUE
                     ELSE
                         BooGReminderDateVisible := FALSE
                 end;
             }
-            field("BC6_Reminder Date"; "BC6_Reminder Date")
+            field("BC6_Reminder Date"; Rec."BC6_Reminder Date")
             {
                 Editable = BooGReminderDateVisible;
                 ApplicationArea = All;
@@ -62,12 +62,12 @@ pageextension 50092 "BC6_PurchaseReturnOrder" extends "Purchase Return Order" //
                     L_PurchaseHeader: Record "Purchase Header";
                     DocPrint: Codeunit "Document-Print";
                 BEGIN
-                    IF "BC6_Return Order Type" = "BC6_Return Order Type"::Location THEN
+                    IF Rec."BC6_Return Order Type" = Rec."BC6_Return Order Type"::Location THEN
                         DocPrint.PrintPurchHeader(Rec)
                     ELSE BEGIN
                         L_PurchaseHeader.RESET();
-                        L_PurchaseHeader.SETRANGE("Document Type", "Document Type");
-                        L_PurchaseHeader.SETRANGE("No.", "No.");
+                        L_PurchaseHeader.SETRANGE("Document Type", Rec."Document Type");
+                        L_PurchaseHeader.SETRANGE("No.", Rec."No.");
                         REPORT.RUNMODAL(Report::"BC6_Purchase Ret. Order - SAV", TRUE, FALSE, L_PurchaseHeader);
                     END;
                 END;

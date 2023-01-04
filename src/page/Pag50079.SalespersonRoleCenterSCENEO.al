@@ -84,9 +84,7 @@ page 50079 "Salesperson Role Center SCENEO"
             {
                 Caption = 'Price &List', Comment = 'FRA="&Liste des prix"';
                 Image = "Report";
-#pragma warning disable AL0432
                 RunObject = Report "Price List";
-#pragma warning restore AL0432
                 ApplicationArea = All;
             }
             separator(Action22)
@@ -322,9 +320,7 @@ page 50079 "Salesperson Role Center SCENEO"
             {
                 Caption = 'Sales Price &Worksheet', Comment = 'FRA="Feuille pri&x vente"';
                 Image = PriceWorksheet;
-#pragma warning disable AL0432
                 RunObject = Page "Sales Price Worksheet";
-#pragma warning restore AL0432
                 ApplicationArea = All;
             }
             separator(action42)
@@ -334,18 +330,14 @@ page 50079 "Salesperson Role Center SCENEO"
             {
                 Caption = 'Sales &Prices', Comment = 'FRA="&Prix vente"';
                 Image = SalesPrices;
-#pragma warning disable AL0432
                 RunObject = Page "Sales Prices";
-#pragma warning restore AL0432
                 ApplicationArea = All;
             }
             action("Sales &Line Discounts")
             {
                 Caption = 'Sales &Line Discounts', Comment = 'FRA="Re&mises ligne vente"';
                 Image = SalesLineDisc;
-#pragma warning disable AL0432
                 RunObject = Page "Sales Line Discounts";
-#pragma warning restore AL0432
                 ApplicationArea = All;
             }
             separator(History)

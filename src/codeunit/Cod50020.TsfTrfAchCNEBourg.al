@@ -8,10 +8,8 @@ codeunit 50020 "BC6_Tsf Trf Ach CNE ==> Bourg"
         Item_Source: Record Item;
         ItemU_Cible: Record "Item Unit of Measure";
         ItemU_Source: Record "Item Unit of Measure";
-#pragma warning disable AL0432
         PurchPrice_Cible: Record "Purchase Price";
         PurchPrice_Source: Record "Purchase Price";
-#pragma warning restore AL0432
 
         Dialog_D: Dialog;
         Text001: Label 'FORBIDDEN treatment in this company', Comment = 'FRA="Traitement INTERDIT dans cette société"';

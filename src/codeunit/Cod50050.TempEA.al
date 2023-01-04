@@ -4,9 +4,7 @@ codeunit 50050 "BC6_Temp EA"
     trigger OnRun()
     begin
         exit;
-#pragma warning disable AA0136
         location.SETRANGE(Code, 'METZ');
-#pragma warning restore AA0136
         if location.FINDFIRST() then begin
             location."Receipt Bin Code" := 'R.R.01.1';
             location.MODIFY();

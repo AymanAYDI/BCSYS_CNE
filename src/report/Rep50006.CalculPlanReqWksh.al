@@ -212,25 +212,22 @@ report 50006 "BC6_Calcul Plan - Req. Wksh."  //699
 
     local procedure SkipPlanningForItemOnReqWksh(Item: Record Item): Boolean
     begin
-        WITH Item DO
-            IF (CurrWorksheetType = CurrWorksheetType::Requisition) AND
-               ("Replenishment System" = "Replenishment System"::Purchase) AND
-               ("Reordering Policy" <> "Reordering Policy"::"Maximum Qty.")
-            THEN
-                EXIT(FALSE);
+        IF (CurrWorksheetType = CurrWorksheetType::Requisition) AND
+   (Item."Replenishment System" = Item."Replenishment System"::Purchase) AND
+   (Item."Reordering Policy" <> Item."Reordering Policy"::"Maximum Qty.")
+THEN
+            EXIT(FALSE);
 
-        WITH SKU DO BEGIN
-            SETRANGE("Item No.", Item."No.");
-            IF FIND('-') THEN
-                REPEAT
-                    IF (CurrWorksheetType = CurrWorksheetType::Requisition) AND
-                       ("Replenishment System" IN ["Replenishment System"::Purchase,
-                                                   "Replenishment System"::Transfer]) AND
-                       ("Reordering Policy" <> "Reordering Policy"::" ")
-                    THEN
-                        EXIT(FALSE);
-                UNTIL NEXT() = 0;
-        END;
+        SKU.SETRANGE("Item No.", Item."No.");
+        IF SKU.FIND('-') THEN
+            REPEAT
+                IF (CurrWorksheetType = CurrWorksheetType::Requisition) AND
+                   (SKU."Replenishment System" IN [SKU."Replenishment System"::Purchase,
+                                               SKU."Replenishment System"::Transfer]) AND
+                   (SKU."Reordering Policy" <> SKU."Reordering Policy"::" ")
+                THEN
+                    EXIT(FALSE);
+            UNTIL SKU.NEXT() = 0;
 
         EXIT(TRUE);
     end;

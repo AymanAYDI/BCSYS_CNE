@@ -10,7 +10,7 @@ pageextension 50117 "BC6_PurchaseLineFactBox" extends "Purchase Line FactBox" //
 
                 trigger OnAssistEdit()
                 begin
-                    CuGItemHistoryMgt.LookupItemPurchHistory(Rec, "No.")
+                    CuGItemHistoryMgt.LookupItemPurchHistory(Rec, Rec."No.")
                 end;
             }
         }

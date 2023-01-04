@@ -33,7 +33,7 @@ page 50106 "BC6_Add Log Purch. Comment"
     trigger OnQueryClosePage(CloseAction: Action): Boolean
     begin
         IF CloseAction = ACTION::LookupOK THEN
-            AddLogComment(Qty, ReceiptType);
+            Rec.AddLogComment(Qty, ReceiptType);
     end;
 
     var

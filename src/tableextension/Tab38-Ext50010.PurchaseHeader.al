@@ -217,9 +217,7 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
                   and (PurchLine."No." = PurchSetup."BC6_No.")
                   and (PurchLine."Line Amount" <> 0) then
                     exit(true);
-#pragma warning disable AA0181
             until PurchLine.NEXT() = 0
-#pragma warning restore AA0181
         else
             exit(false);
     end;
@@ -253,9 +251,7 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
             repeat
                 if (PurchLine.Type = PurchSetup.BC6_Type) and (PurchLine."No." = PurchSetup."BC6_No.") then
                     exit(true);
-#pragma warning disable AA0181
             until PurchLine.NEXT() = 0
-#pragma warning restore AA0181
         else
             exit(false);
     end;

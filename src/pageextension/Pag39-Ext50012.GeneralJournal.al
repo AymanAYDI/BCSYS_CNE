@@ -4,7 +4,7 @@ pageextension 50012 "BC6_GeneralJournal" extends "General Journal" //39
     {
         addfirst(Control1)
         {
-            field("BC6_Source Code"; "Source Code")
+            field("BC6_Source Code"; Rec."Source Code")
             {
                 ApplicationArea = All;
             }

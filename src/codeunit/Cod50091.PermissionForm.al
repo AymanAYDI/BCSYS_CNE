@@ -20,9 +20,7 @@ codeunit 50091 "BC6_Permission Form"
     procedure HasWinPermission(UserID2: Text[65]; ObjectType: Integer; ObjectID: Integer): Boolean
     var
         WinAccessControl: Record "Access Control";
-#pragma warning disable AL0432
         Permission: Record Permission;
-#pragma warning restore AL0432
         WinLogin: Record User;
         WinLogin2: Record User;
         Found: Boolean;

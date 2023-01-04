@@ -22,14 +22,14 @@ codeunit 50006 "BC6_Create Pur. Ord From Sales"
         NextLineNo: Integer;
         SalesLineNo: Integer;
 
-        Text001: Label 'Processing...  #1##########\', Comment = 'FRA="Traitement... #1###########\"';
-        Text002: Label 'Line No.       #3###########\', Comment = 'FRA="N° ligne       #2###########\"';
-        Text003: Label 'Purchase Header          #3##########\', Comment = 'FRA="Commande achat         #3###########\"';
-        Text004: Label 'Nothing to Post', Comment = 'FRA="Il n''y a rien à valider"';
+        Text001: label 'Processing...  #1##########\', Comment = 'FRA="Traitement... #1###########\"';
+        Text002: label 'Line No.       #3###########\', Comment = 'FRA="N° ligne       #2###########\"';
+        Text003: label 'Purchase Header          #3##########\', Comment = 'FRA="Commande achat         #3###########\"';
+        Text004: label 'Nothing to Post', Comment = 'FRA="Il n''y a rien à valider"';
 
     procedure "Code"()
     var
-        Txt12: Label '%1 %2';
+        Txt12: label '%1 %2';
     begin
         SalesSetup.GET();
         CLEAR(VendorNo);
@@ -40,107 +40,97 @@ codeunit 50006 "BC6_Create Pur. Ord From Sales"
                     Text002 +
                     Text003);
 
-        WITH SalesLine DO BEGIN
+        SalesLine.SETCURRENTKEY("BC6_To Order", "BC6_Buy-from Vendor No.", "Document No.", "Line No.", "BC6_Qty. To Order");
+        SalesLine.SETFILTER("BC6_Buy-from Vendor No.", '<>%1', '');
+        SalesLine.SETFILTER("BC6_Qty. To Order", '<>%1', 0);
+        SalesLine.SETRANGE("BC6_To Order", true);
+        if not SalesLine.FINDFIRST() then
+            ERROR(Text004);
 
-            SETCURRENTKEY("BC6_To Order", "BC6_Buy-from Vendor No.", "Document No.", "Line No.", "BC6_Qty. To Order");
-            SETFILTER("BC6_Buy-from Vendor No.", '<>%1', '');
-            SETFILTER("BC6_Qty. To Order", '<>%1', 0);
-            SETRANGE("BC6_To Order", TRUE);
-            IF NOT FINDFIRST() THEN
-                ERROR(Text004);
+        PurchLine.LOCKTABLE();
+        if not SalesLine.RECORDLEVELLOCKING then
+            PurchHeader.LOCKTABLE(true, true);
+        SalesLine.LOCKTABLE();
 
-            PurchLine.LOCKTABLE();
-            IF NOT RECORDLEVELLOCKING THEN
-                PurchHeader.LOCKTABLE(TRUE, TRUE);
-            LOCKTABLE();
+        if SalesLine.FINDSET() then
+            repeat
 
-            IF FINDSET() THEN
-                REPEAT
+                Window.UPDATE(1, STRSUBSTNO(Txt12, SalesLine."Document Type", SalesLine."Document No."));
+                Window.UPDATE(2, SalesLine."Line No.");
 
-                    Window.UPDATE(1, STRSUBSTNO(Txt12, "Document Type", "Document No."));
-                    Window.UPDATE(2, "Line No.");
+                SalesLine.TESTFIELD("BC6_Buy-from Vendor No.");
+                SalesLine.TESTFIELD("BC6_Qty. To Order");
+                SalesLine.TESTFIELD("BC6_To Order", true);
 
-                    TESTFIELD("BC6_Buy-from Vendor No.");
-                    TESTFIELD("BC6_Qty. To Order");
-                    TESTFIELD("BC6_To Order", TRUE);
+                NewHeaderOk := not (SalesLine."BC6_Buy-from Vendor No." = VendorNo);
+                if NewHeaderOk then begin
+                    FinalizePurchHeader(PurchHeader);
+                    InsertPurchHeader(PurchHeader, SalesLine."BC6_Buy-from Vendor No.");
+                    VendorNo := SalesLine."BC6_Buy-from Vendor No.";
 
-                    NewHeaderOk := NOT ("BC6_Buy-from Vendor No." = VendorNo);
-                    IF NewHeaderOk THEN BEGIN
-                        FinalizePurchHeader(PurchHeader);
-                        InsertPurchHeader(PurchHeader, "BC6_Buy-from Vendor No.");
-                        VendorNo := "BC6_Buy-from Vendor No.";
+                    NextLineNo := 10000;
+                end;
 
-                        NextLineNo := 10000;
-                    END;
+                InsertPurchLine(SalesLine);
 
-                    InsertPurchLine(SalesLine);
+                SalesLine."BC6_Purch. Document Type" := SalesLine."BC6_Purch. Document Type"::Order;
+                SalesLine."BC6_Purch. Order No." := PurchLine."Document No.";
+                SalesLine."BC6_Purch. Line No." := PurchLine."Line No.";
+                SalesLine."BC6_Purchase Receipt Date" := PurchLine."Expected Receipt Date";
+                SalesLine."BC6_Qty. To Order" := 0;
+                SalesLine."BC6_To Order" := false;
+                SalesLine.MODIFY(false);
 
-                    "BC6_Purch. Document Type" := "BC6_Purch. Document Type"::Order;
-                    "BC6_Purch. Order No." := PurchLine."Document No.";
-                    "BC6_Purch. Line No." := PurchLine."Line No.";
-                    "BC6_Purchase Receipt Date" := PurchLine."Expected Receipt Date";
-                    "BC6_Qty. To Order" := 0;
-                    "BC6_To Order" := FALSE;
-                    MODIFY(FALSE);
-
-                UNTIL NEXT() = 0;
-            FinalizePurchHeader(PurchHeader);
-
-        END;
+            until SalesLine.NEXT() = 0;
+        FinalizePurchHeader(PurchHeader);
 
         Window.CLOSE();
     end;
 
-#pragma warning disable AA0150
     procedure InsertPurchHeader(var FromPurchHeader: Record "Purchase Header"; var FromVendorNo: Code[20])
     begin
         // Insert Purchase Header
-        WITH FromPurchHeader DO BEGIN
-            INIT();
-            VALIDATE("Document Type", "Document Type"::Order);
-            VALIDATE("No.", '');
-            INSERT(TRUE);
-            Window.UPDATE(3, FromPurchHeader."No.");
+        FromPurchHeader.INIT();
+        FromPurchHeader.VALIDATE("Document Type", FromPurchHeader."Document Type"::Order);
+        FromPurchHeader.VALIDATE("No.", '');
+        FromPurchHeader.INSERT(true);
+        Window.UPDATE(3, FromPurchHeader."No.");
 
-            VALIDATE("Document Date", WORKDATE());
-            VALIDATE("Buy-from Vendor No.", FromVendorNo);
-            MODIFY(TRUE);
+        FromPurchHeader.VALIDATE("Document Date", WORKDATE());
+        FromPurchHeader.VALIDATE("Buy-from Vendor No.", FromVendorNo);
+        FromPurchHeader.MODIFY(true);
 
-            InsertPurchHeaderOk := TRUE;
-        END;
+        InsertPurchHeaderOk := true;
     end;
 
     procedure InsertPurchLine(var SaleLine: Record "Sales Line")
     begin
         // Insert Purchase Line
-        WITH PurchLine DO BEGIN
-            INIT();
-            VALIDATE("Document Type", "Document Type"::Order);
-            VALIDATE("Document No.", PurchHeader."No.");
-            VALIDATE("Line No.", NextLineNo);
-            VALIDATE(Type, SaleLine.Type);
-            VALIDATE("No.", SaleLine."No.");
-            VALIDATE("Variant Code", SaleLine."Variant Code");
-            VALIDATE("Location Code", SaleLine."Location Code");
-            VALIDATE("Unit of Measure Code", SaleLine."Unit of Measure Code");
-            IF (Type = Type::Item) AND ("No." <> '') THEN
-                UpdateUOMQtyPerStockQty();
-            VALIDATE("Expected Receipt Date", SaleLine."Shipment Date");
-            VALIDATE(Quantity, SaleLine."BC6_Qty. To Order");
-            VALIDATE("Return Reason Code", SaleLine."Return Reason Code");
-            VALIDATE("Direct Unit Cost", SaleLine."BC6_Purchase cost");
-            VALIDATE("Purchasing Code", SaleLine."Purchasing Code");
+        PurchLine.INIT();
+        PurchLine.VALIDATE("Document Type", PurchLine."Document Type"::Order);
+        PurchLine.VALIDATE("Document No.", PurchHeader."No.");
+        PurchLine.VALIDATE("Line No.", NextLineNo);
+        PurchLine.VALIDATE(Type, SaleLine.Type);
+        PurchLine.VALIDATE("No.", SaleLine."No.");
+        PurchLine.VALIDATE("Variant Code", SaleLine."Variant Code");
+        PurchLine.VALIDATE("Location Code", SaleLine."Location Code");
+        PurchLine.VALIDATE("Unit of Measure Code", SaleLine."Unit of Measure Code");
+        if (PurchLine.Type = PurchLine.Type::Item) and (PurchLine."No." <> '') then
+            PurchLine.UpdateUOMQtyPerStockQty();
+        PurchLine.VALIDATE("Expected Receipt Date", SaleLine."Shipment Date");
+        PurchLine.VALIDATE(Quantity, SaleLine."BC6_Qty. To Order");
+        PurchLine.VALIDATE("Return Reason Code", SaleLine."Return Reason Code");
+        PurchLine.VALIDATE("Direct Unit Cost", SaleLine."BC6_Purchase cost");
+        PurchLine.VALIDATE("Purchasing Code", SaleLine."Purchasing Code");
 
-            VALIDATE("BC6_Sales No.", SaleLine."Document No.");
-            VALIDATE("BC6_Sales Line No.", SaleLine."Line No.");
-            VALIDATE("BC6_Sales Document Type", SaleLine."Document Type");
+        PurchLine.VALIDATE("BC6_Sales No.", SaleLine."Document No.");
+        PurchLine.VALIDATE("BC6_Sales Line No.", SaleLine."Line No.");
+        PurchLine.VALIDATE("BC6_Sales Document Type", SaleLine."Document Type");
 
-            VALIDATE("Line Discount %", 0);
-            INSERT(TRUE);
+        PurchLine.VALIDATE("Line Discount %", 0);
+        PurchLine.INSERT(true);
 
-            NextLineNo += 10000;
-
-        END;
+        NextLineNo += 10000;
     end;
 
     procedure FinalizePurchHeader(FromPurchHeader: Record "Purchase Header")
@@ -149,24 +139,24 @@ codeunit 50006 "BC6_Create Pur. Ord From Sales"
         TransferExtendedText: Codeunit "Transfer Extended Text";
         Unconditionally: Boolean;
     begin
-        IF NOT InsertPurchHeaderOk THEN
-            EXIT;
+        if not InsertPurchHeaderOk then
+            exit;
 
-        Unconditionally := TRUE;
+        Unconditionally := true;
 
         // Insert extended text
         PurchLine.RESET();
         PurchLine.SETRANGE("Document Type", FromPurchHeader."Document Type");
         PurchLine.SETRANGE("Document No.", FromPurchHeader."No.");
-        IF PurchLine.FINDSET() THEN
-            REPEAT
-                IF TransferExtendedText.PurchCheckIfAnyExtText(PurchLine, Unconditionally) THEN BEGIN
+        if PurchLine.FINDSET() then
+            repeat
+                if TransferExtendedText.PurchCheckIfAnyExtText(PurchLine, Unconditionally) then begin
                     COMMIT();
                     TransferExtendedText.InsertPurchExtText(PurchLine);
                     FunctionMgt.InsertPurchExtTextSpe(PurchLine);
-                END;
-            UNTIL PurchLine.NEXT() = 0;
-        InsertPurchHeaderOk := FALSE;
+                end;
+            until PurchLine.NEXT() = 0;
+        InsertPurchHeaderOk := false;
     end;
 }
 

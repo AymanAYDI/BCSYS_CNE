@@ -92,9 +92,7 @@ page 50116 "BC6_SAV Sales Return Order"
                         end;
                     }
                 }
-#pragma warning disable AL0432
                 field(ID; Rec.ID)
-#pragma warning restore AL0432
                 {
                 }
                 field("Sell-to Fax No."; Rec."BC6_Sell-to Fax No.")
@@ -540,9 +538,7 @@ page 50116 "BC6_SAV Sales Return Order"
                         ApprovalEntries: Page "Approval Entries";
                     begin
 
-#pragma warning disable AL0432
                         ApprovalEntries.Setfilters(DATABASE::"Sales Header", Rec."Document Type".AsInteger(), Rec."No.");
-#pragma warning restore AL0432
                         ApprovalEntries.RUN();
                     end;
                 }
@@ -859,7 +855,7 @@ page 50116 "BC6_SAV Sales Return Order"
 
                     trigger OnAction()
                     begin
-                        GetPstdDocLinesToRevere();
+                        Rec.GetPstdDocLinesToRevere();
                     end;
                 }
                 action("Archive Document")
@@ -899,7 +895,7 @@ page 50116 "BC6_SAV Sales Return Order"
                     var
                         L_ReturnOrderMgt: Codeunit "BC6_Return Order Mgt.";
                     begin
-                        L_ReturnOrderMgt.DisableRelatedDocuments("No.");
+                        L_ReturnOrderMgt.DisableRelatedDocuments(Rec."No.");
                         CurrPage.UPDATE();
                     end;
                 }
@@ -1109,7 +1105,7 @@ page 50116 "BC6_SAV Sales Return Order"
         Rec."Responsibility Center" := UserMgt.GetSalesFilter();
         IF (NOT DocNoVisible) AND (Rec."No." = '') THEN
             Rec.SetSellToCustomerFromFilter();
-        "BC6_Return Order Type" := "BC6_Return Order Type"::SAV;
+        Rec."BC6_Return Order Type" := Rec."BC6_Return Order Type"::SAV;
     end;
 
     trigger OnOpenPage()

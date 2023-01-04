@@ -10,40 +10,40 @@ page 50018 "BC6_Purch. Inv. Line Subform"
         {
             repeater(Control1)
             {
-                field("Document No."; "Document No.")
+                field("Document No."; Rec."Document No.")
                 {
                     HideValue = "Document No.HideValue";
                     Style = StrongAccent;
                     StyleExpr = TRUE;
                 }
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                 }
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                 }
-                field("Expected Receipt Date"; "Expected Receipt Date")
+                field("Expected Receipt Date"; Rec."Expected Receipt Date")
                 {
                 }
-                field(Quantity; Quantity)
+                field(Quantity; Rec.Quantity)
                 {
                 }
-                field("Direct Unit Cost"; "Direct Unit Cost")
+                field("Direct Unit Cost"; Rec."Direct Unit Cost")
                 {
                 }
-                field("Unit Cost (LCY)"; "Unit Cost (LCY)")
+                field("Unit Cost (LCY)"; Rec."Unit Cost (LCY)")
                 {
                 }
-                field("VAT %"; "VAT %")
+                field("VAT %"; Rec."VAT %")
                 {
                 }
-                field("Line Discount Amount"; "Line Discount Amount")
+                field("Line Discount Amount"; Rec."Line Discount Amount")
                 {
                 }
-                field("Amount Including VAT"; "Amount Including VAT")
+                field("Amount Including VAT"; Rec."Amount Including VAT")
                 {
                 }
-                field("Unit Price (LCY)"; "Unit Price (LCY)")
+                field("Unit Price (LCY)"; Rec."Unit Price (LCY)")
                 {
                 }
             }
@@ -61,7 +61,7 @@ page 50018 "BC6_Purch. Inv. Line Subform"
 
                 trigger OnAction()
                 begin
-                    IF NOT RecGPurchInvHeader.GET("Document No.") THEN
+                    IF NOT RecGPurchInvHeader.GET(Rec."Document No.") THEN
                         EXIT;
                     PAGE.RUN(PAGE::"Posted Purchase Invoice", RecGPurchInvHeader);
                 end;
@@ -77,7 +77,7 @@ page 50018 "BC6_Purch. Inv. Line Subform"
 
     trigger OnOpenPage()
     begin
-        SETCURRENTKEY("No.");
+        Rec.SETCURRENTKEY("No.");
     end;
 
     var
@@ -95,21 +95,21 @@ page 50018 "BC6_Purch. Inv. Line Subform"
     begin
         TempPurchInvoice.RESET();
         TempPurchInvoice.COPYFILTERS(Rec);
-        TempPurchInvoice.SETRANGE("Document No.", "Document No.");
+        TempPurchInvoice.SETRANGE("Document No.", Rec."Document No.");
         IF NOT TempPurchInvoice.FindFirst() THEN BEGIN
             PurchInvoice.COPYFILTERS(Rec);
-            PurchInvoice.SETRANGE("Document No.", "Document No.");
+            PurchInvoice.SETRANGE("Document No.", Rec."Document No.");
             PurchInvoice.FindLast();
             TempPurchInvoice := PurchInvoice;
             TempPurchInvoice.INSERT();
         END;
-        IF "Line No." = TempPurchInvoice."Line No." THEN
+        IF Rec."Line No." = TempPurchInvoice."Line No." THEN
             EXIT(TRUE);
     end;
 
     local procedure DocumentNoOnFormat()
     begin
-        IF "Document No." <> '' THEN
+        IF Rec."Document No." <> '' THEN
             IF isFirstdocLine() THEN
                 "Document No.Emphasize" := TRUE
             ELSE

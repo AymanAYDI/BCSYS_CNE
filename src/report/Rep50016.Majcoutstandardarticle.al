@@ -10,9 +10,7 @@ report 50016 "BC6_Maj cout standard article"
 
             trigger OnAfterGetRecord()
             var
-#pragma warning disable AL0432
                 CduPurchPricemgt: Codeunit "Purch. Price Calc. Mgt.";
-#pragma warning restore AL0432
 
             begin
                 IntGCounter += 1;

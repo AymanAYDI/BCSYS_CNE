@@ -4,7 +4,7 @@ pageextension 50059 "BC6_GenBusinessPostingGroups" extends "Gen. Business Postin
     {
         addafter("Auto Insert Default")
         {
-            field("BC6_Subject to DEEE"; "BC6_Subject to DEEE")
+            field("BC6_Subject to DEEE"; Rec."BC6_Subject to DEEE")
             {
                 ApplicationArea = All;
             }

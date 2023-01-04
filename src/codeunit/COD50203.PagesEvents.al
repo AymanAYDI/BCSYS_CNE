@@ -30,12 +30,12 @@ codeunit 50203 "BC6_PagesEvents"
     [EventSubscriber(ObjectType::Page, Page::"Location Card", 'OnAfterUpdateEnabled', '', false, false)]
     local procedure P5703_OnAfterUpdateEnabled(Location: Record Location)
     var
-        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
+        LocationCard: Page "Location Card";
     begin
 
-        GlobalFunctionMgt.SetNewReceiptBinCodeEnable((Location."Bin Mandatory" AND Location."Require Receive") OR Location."Directed Put-away and Pick");  //NewReceiptBinCodeEnable
-        GlobalFunctionMgt.SetNewShipmentBinCodeEnable((Location."Bin Mandatory" AND Location."Require Shipment") OR Location."Directed Put-away and Pick"); //NewShipmentBinCodeEnable
-        GlobalFunctionMgt.SetNewAssemblyShipmentBinCodeEnable(Location."Bin Mandatory" and not GlobalFunctionMgt.GetNewShipmentBinCodeEnable());
+        LocationCard.SetNewReceiptBinCodeEnable((Location."Bin Mandatory" AND Location."Require Receive") OR Location."Directed Put-away and Pick");  //NewReceiptBinCodeEnable
+        LocationCard.SetNewShipmentBinCodeEnable((Location."Bin Mandatory" AND Location."Require Shipment") OR Location."Directed Put-away and Pick"); //NewShipmentBinCodeEnable
+        LocationCard.SetNewAssemblyShipmentBinCodeEnable(Location."Bin Mandatory" and not LocationCard.GetNewShipmentBinCodeEnable());
     end;
     //Page 6630
     [EventSubscriber(ObjectType::Page, Page::"Sales Return Order", 'OnBeforeStatisticsAction', '', false, false)]
@@ -297,7 +297,6 @@ codeunit 50203 "BC6_PagesEvents"
         FctMngt.Increment(TotalPurchLine."BC6_DEEE HT Amount (LCY)", PurchLine."BC6_DEEE HT Amount (LCY)");
     end;
 
-#pragma warning disable AL0432
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnBeforePostVendorEntry', '', false, false)]
     local procedure OnBeforePostVendorEntry(var GenJnlLine: Record "Gen. Journal Line"; var PurchHeader: Record "Purchase Header"; var TotalPurchLine: Record "Purchase Line"; var TotalPurchLineLCY: Record "Purchase Line"; PreviewMode: Boolean; CommitIsSupressed: Boolean; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line")
     var
@@ -317,9 +316,7 @@ codeunit 50203 "BC6_PagesEvents"
         GenJnlLine."Payment Method Code" := GenJnlLine."Payment Method Code";
 
     end;
-#pragma warning restore AL0432
 
-#pragma warning disable AL0432
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnBeforeInitNewGenJnlLineFromPostInvoicePostBufferLine', '', false, false)]
     local procedure OnBeforeInitNewGenJnlLineFromPostInvoicePostBufferLine(var GenJnlLine: Record "Gen. Journal Line"; var PurchHeader: Record "Purchase Header"; InvoicePostBuffer: Record "Invoice Post. Buffer"; var IsHandled: Boolean)
     begin
@@ -330,14 +327,12 @@ codeunit 50203 "BC6_PagesEvents"
          InvoicePostBuffer."Dimension Set ID", PurchHeader."Reason Code");
 
     end;
-#pragma warning restore AL0432
 
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post (Yes/No)", 'OnBeforeConfirmPostProcedure', '', false, false)]
     local procedure COD91_OnBeforeConfirmPostProcedure(var PurchaseHeader: Record "Purchase Header"; var DefaultOption: Integer; var Result: Boolean; var IsHandled: Boolean)
     begin
-        WITH PurchaseHeader DO
-            TESTFIELD(Status, Status::Released);
+        PurchaseHeader.TESTFIELD(Status, PurchaseHeader.Status::Released);
     end;
     //COD 93 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Quote to Order (Yes/No)", 'OnBeforePurchQuoteToOrder', '', false, false)]

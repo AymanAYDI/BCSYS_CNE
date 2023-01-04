@@ -17,7 +17,7 @@ pageextension 50044 "BC6_PostedSalesShipments" extends "Posted Sales Shipments" 
 
         addfirst(Control1)
         {
-            field("BC6_Affair No."; "BC6_Affair No.")
+            field("BC6_Affair No."; Rec."BC6_Affair No.")
             {
 
             }
@@ -25,42 +25,42 @@ pageextension 50044 "BC6_PostedSalesShipments" extends "Posted Sales Shipments" 
             {
                 Caption = 'Chargé d''affaire';
             }
-            field("BC6_Posting Date"; "Posting Date")
+            field("BC6_Posting Date"; Rec."Posting Date")
             {
             }
         }
         addafter("No.")
         {
-            field("BC6_Order No."; "Order No.")
+            field("BC6_Order No."; Rec."Order No.")
             {
             }
         }
         addafter("Sell-to Customer Name")
         {
-            field("BC6_Shipping Agent Code"; "Shipping Agent Code")
+            field("BC6_Shipping Agent Code"; Rec."Shipping Agent Code")
             {
             }
-            field("BC6_Package Tracking No."; "Package Tracking No.")
+            field("BC6_Package Tracking No."; Rec."Package Tracking No.")
             {
             }
-            field("BC6_Your Reference"; "Your Reference")
+            field("BC6_Your Reference"; Rec."Your Reference")
             {
             }
         }
         addafter("Sell-to Contact")
         {
-            field("BC6_User ID"; "User ID")
+            field("BC6_User ID"; Rec."User ID")
             {
                 Visible = BooGID;
             }
-            field("BC6_Assigned User ID"; "BC6_Assigned User ID")
+            field("BC6_Assigned User ID"; Rec."BC6_Assigned User ID")
             {
                 Visible = BooGID;
             }
         }
         addafter("Bill-to Customer No.")
         {
-            field("BC6_External Document No."; "External Document No.")
+            field("BC6_External Document No."; Rec."External Document No.")
             {
             }
         }
@@ -95,17 +95,16 @@ pageextension 50044 "BC6_PostedSalesShipments" extends "Posted Sales Shipments" 
         IF NOT RecGUserSeup.GET(USERID) THEN
             RecGUserSeup.INIT();
         IF RecGUserSeup."BC6_Limited User" THEN BEGIN
-            FILTERGROUP(2);
-            SETFILTER("BC6_Salesperson Filter", '*' + RecGUserSeup."Salespers./Purch. Code" + '*');
-            FILTERGROUP(0);
+            Rec.FILTERGROUP(2);
+            Rec.SETFILTER("BC6_Salesperson Filter", '*' + RecGUserSeup."Salespers./Purch. Code" + '*');
+            Rec.FILTERGROUP(0);
         END;
     END;
 
     trigger OnAfterGetRecord()
     begin
-#pragma warning disable AA0206
         GRespAffair := '';
-        IF RecAffair.GET("BC6_Affair No.") THEN
+        IF RecAffair.GET(Rec."BC6_Affair No.") THEN
             GRespAffair := RecAffair."BC6_Affair Responsible";
         hideuser();
         calcprofit();
@@ -161,7 +160,7 @@ pageextension 50044 "BC6_PostedSalesShipments" extends "Posted Sales Shipments" 
         DecGAmount := 0;
 
         RecGShipline.RESET();
-        RecGShipline.SETRANGE("Document No.", "No.");
+        RecGShipline.SETRANGE("Document No.", Rec."No.");
         IF RecGShipline.FIND('-') THEN
             REPEAT
                 DecGPurchCost += RecGShipline.Quantity * RecGShipline."BC6_Purchase Cost";

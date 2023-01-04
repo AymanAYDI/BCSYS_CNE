@@ -16,19 +16,19 @@ page 50010 "BC6_Quote Blocked"
                 Enabled = true;
                 MultiLine = true;
             }
-            field("No."; "No.")
+            field("No."; Rec."No.")
             {
                 Editable = false;
             }
-            field("Sell-to Customer No."; "Sell-to Customer No.")
+            field("Sell-to Customer No."; Rec."Sell-to Customer No.")
             {
                 Editable = false;
             }
-            field("Sell-to Customer Name"; "Sell-to Customer Name")
+            field("Sell-to Customer Name"; Rec."Sell-to Customer Name")
             {
                 Editable = false;
             }
-            field("Sell-to Contact"; "Sell-to Contact")
+            field("Sell-to Contact"; Rec."Sell-to Contact")
             {
                 Editable = false;
             }
@@ -47,9 +47,9 @@ page 50010 "BC6_Quote Blocked"
                 trigger OnAction()
                 begin
                     TxtGBody := '';
-                    TxtGObject := TexTG003 + ' ' + "Sell-to Customer No." + ', ' + "Sell-to Customer Name" + textg004;
+                    TxtGObject := TexTG003 + ' ' + Rec."Sell-to Customer No." + ', ' + Rec."Sell-to Customer Name" + textg004;
 
-                    TxtGBody := TxtG010 + "No." + ' ' + TxtG011 + ' ' + FORMAT("Document Date") + ', ' +
+                    TxtGBody := TxtG010 + Rec."No." + ' ' + TxtG011 + ' ' + FORMAT(Rec."Document Date") + ', ' +
                                 USERID + ', ' + FORMAT(recgSalesHdr.COUNT) + ' ' + TxtG012;
                     Mail.NewMessage(SalesSetup."BC6_E-Mail Administrateur", '', '', TxtGObject, TxtGBody, '', TRUE);
                 end;
@@ -82,8 +82,8 @@ page 50010 "BC6_Quote Blocked"
         SalesSetup.TESTFIELD(BC6_Nbr_Devis);
         SalesSetup.TESTFIELD(Période);
         recgSalesHdr.RESET();
-        recgSalesHdr.SETRANGE("Document Type", "Document Type");
-        recgSalesHdr.SETFILTER("Sell-to Customer No.", "Sell-to Customer No.");
+        recgSalesHdr.SETRANGE("Document Type", Rec."Document Type");
+        recgSalesHdr.SETFILTER("Sell-to Customer No.", Rec."Sell-to Customer No.");
         recgSalesHdr.SETRANGE("Document Date", CALCDATE('-' + FORMAT(SalesSetup.Période), WORKDATE()), WORKDATE());
 
         TxtGMessage := STRSUBSTNO(TxtG007, recgSalesHdr.COUNT,

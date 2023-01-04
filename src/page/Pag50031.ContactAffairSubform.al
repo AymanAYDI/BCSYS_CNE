@@ -10,69 +10,69 @@ page 50031 "BC6_Contact Affair Subform"
         {
             repeater(Control1)
             {
-                field("Affair No."; "Affair No.")
+                field("Affair No."; Rec."Affair No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Affair Responsible"; "Affair Responsible")
+                field("Affair Responsible"; Rec."Affair Responsible")
                 {
                     ApplicationArea = All;
                 }
-                field(Statut; Statut)
+                field(Statut; Rec.Statut)
                 {
                     ApplicationArea = All;
                 }
-                field(Blocked; Blocked)
+                field(Blocked; Rec.Blocked)
                 {
                     ApplicationArea = All;
                 }
-                field("Contact No."; "Contact No.")
+                field("Contact No."; Rec."Contact No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Contact Name"; "Contact Name")
+                field("Contact Name"; Rec."Contact Name")
                 {
                     Editable = false;
                     ApplicationArea = All;
                 }
-                field("Contact City"; "Contact City")
+                field("Contact City"; Rec."Contact City")
                 {
                     ApplicationArea = All;
                 }
-                field("Contact Post Code"; "Contact Post Code")
+                field("Contact Post Code"; Rec."Contact Post Code")
                 {
                     ApplicationArea = All;
                 }
-                field(Awarder; Awarder)
+                field(Awarder; Rec.Awarder)
                 {
                     ApplicationArea = All;
                 }
-                field("Relation Type"; "Relation Type")
+                field("Relation Type"; Rec."Relation Type")
                 {
                     ApplicationArea = All;
                 }
-                field("Relation Description"; "Relation Description")
+                field("Relation Description"; Rec."Relation Description")
                 {
                     Editable = false;
                     Enabled = true;
                     ApplicationArea = All;
                 }
-                field("Phone No."; "Phone No.")
+                field("Phone No."; Rec."Phone No.")
                 {
                     Editable = false;
                     ApplicationArea = All;
                 }
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     Editable = false;
                     ApplicationArea = All;
                 }
-                field("Company No."; "Company No.")
+                field("Company No."; Rec."Company No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                     Visible = false;
                     ApplicationArea = All;
@@ -107,52 +107,52 @@ page 50031 "BC6_Contact Affair Subform"
     local procedure AfterGetCurrRecord()
     begin
         xRec := Rec;
-        CALCFIELDS("Company No.", Type);
+        Rec.CALCFIELDS("Company No.", Type);
     end;
 
     local procedure AffairNoOnFormat()
     begin
-        IF Awarder = TRUE THEN;
+        IF Rec.Awarder = TRUE THEN;
     end;
 
     local procedure ContactNoOnFormat()
     begin
-        IF Awarder = TRUE THEN;
+        IF Rec.Awarder = TRUE THEN;
     end;
 
     local procedure ContactNameOnFormat()
     begin
-        IF Awarder = TRUE THEN;
+        IF Rec.Awarder = TRUE THEN;
     end;
 
     local procedure RelationTypeOnFormat()
     begin
-        IF Awarder = TRUE THEN;
+        IF Rec.Awarder = TRUE THEN;
     end;
 
     local procedure RelationDescriptionOnFormat()
     begin
-        IF Awarder = TRUE THEN;
+        IF Rec.Awarder = TRUE THEN;
     end;
 
     local procedure PhoneNoOnFormat()
     begin
-        IF Awarder = TRUE THEN;
+        IF Rec.Awarder = TRUE THEN;
     end;
 
     local procedure NoOnFormat()
     begin
-        IF Awarder = TRUE THEN;
+        IF Rec.Awarder = TRUE THEN;
     end;
 
     local procedure CompanyNoOnFormat()
     begin
-        IF Awarder = TRUE THEN;
+        IF Rec.Awarder = TRUE THEN;
     end;
 
     local procedure TypeOnFormat()
     begin
-        IF Awarder = TRUE THEN;
+        IF Rec.Awarder = TRUE THEN;
     end;
 }
 

@@ -4,7 +4,7 @@ pageextension 50069 "BC6_IssuedReminderList" extends "Issued Reminder List" //44
     {
         addfirst(Control1)
         {
-            field("BC6_Reminder Level"; "Reminder Level")
+            field("BC6_Reminder Level"; Rec."Reminder Level")
             {
                 ApplicationArea = All;
             }

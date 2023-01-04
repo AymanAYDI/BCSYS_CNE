@@ -46,7 +46,7 @@ pageextension 50083 "BC6_LocationCard" extends "Location Card" //5703
         }
         addafter("Default Bin Selection")
         {
-            field(BC6_Blocked; "BC6_Blocked")
+            field(BC6_Blocked; Rec."BC6_Blocked")
             {
             }
         }
@@ -65,6 +65,26 @@ pageextension 50083 "BC6_LocationCard" extends "Location Card" //5703
         NewReceiptBinCodeEnable := true;
         NewShipmentBinCodeEnable := true;
         NewAssemblyShipmentBinCodeEnable := true;
+    end;
+
+    procedure SetNewReceiptBinCodeEnable(pNewReceiptBinCodeEnable: Boolean)
+    begin
+        NewReceiptBinCodeEnable := pNewReceiptBinCodeEnable;
+    end;
+
+    procedure SetNewShipmentBinCodeEnable(pNewShipmentBinCodeEnable: Boolean)
+    begin
+        NewShipmentBinCodeEnable := pNewShipmentBinCodeEnable;
+    end;
+
+    procedure SetNewAssemblyShipmentBinCodeEnable(pNewAssemblyShipmentBinCodeEnable: Boolean)
+    begin
+        NewAssemblyShipmentBinCodeEnable := pNewAssemblyShipmentBinCodeEnable;
+    end;
+
+    procedure GetNewShipmentBinCodeEnable(): Boolean
+    begin
+        exit(NewShipmentBinCodeEnable);
     end;
 }
 

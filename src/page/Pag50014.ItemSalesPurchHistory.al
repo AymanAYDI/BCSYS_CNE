@@ -381,7 +381,7 @@ page 50014 "BC6_Item Sales/Purch. History"
         RecGSalesLine.RESET();
         RecGSalesLine.SETCURRENTKEY("Document Type", RecGSalesLine."No.");
         RecGSalesLine.SETRANGE("Document Type", RecGSalesLine."Document Type"::Quote);
-        RecGSalesLine.SETFILTER("No.", "No.");
+        RecGSalesLine.SETFILTER("No.", Rec."No.");
 
         IF BooGFilterCust THEN BEGIN
             RecGSalesLine.SETCURRENTKEY("Document Type", RecGSalesLine."Sell-to Customer No.");
@@ -401,7 +401,7 @@ page 50014 "BC6_Item Sales/Purch. History"
         RecGSalesLine.RESET();
         RecGSalesLine.SETCURRENTKEY("Document Type", RecGSalesLine."No.");
         RecGSalesLine.SETRANGE("Document Type", RecGSalesLine."Document Type"::"Blanket Order");
-        RecGSalesLine.SETFILTER("No.", "No.");
+        RecGSalesLine.SETFILTER("No.", Rec."No.");
 
         IF BooGFilterCust THEN BEGIN
             RecGSalesLine.SETCURRENTKEY("Document Type", RecGSalesLine."Sell-to Customer No.");
@@ -422,7 +422,7 @@ page 50014 "BC6_Item Sales/Purch. History"
         RecGSalesLine.RESET();
         RecGSalesLine.SETCURRENTKEY("Document Type", RecGSalesLine."No.");
         RecGSalesLine.SETRANGE("Document Type", RecGSalesLine."Document Type"::Order);
-        RecGSalesLine.SETFILTER("No.", "No.");
+        RecGSalesLine.SETFILTER("No.", Rec."No.");
 
         IF BooGFilterCust THEN BEGIN
             RecGSalesLine.SETCURRENTKEY("Document Type", RecGSalesLine."Sell-to Customer No.");
@@ -442,7 +442,7 @@ page 50014 "BC6_Item Sales/Purch. History"
         RecGSalesLine.RESET();
         RecGSalesLine.SETCURRENTKEY("Document Type", RecGSalesLine."No.");
         RecGSalesLine.SETRANGE("Document Type", RecGSalesLine."Document Type"::Invoice);
-        RecGSalesLine.SETFILTER("No.", "No.");
+        RecGSalesLine.SETFILTER("No.", Rec."No.");
 
         IF BooGFilterCust THEN BEGIN
             RecGSalesLine.SETCURRENTKEY("Document Type", RecGSalesLine."Sell-to Customer No.");
@@ -462,7 +462,7 @@ page 50014 "BC6_Item Sales/Purch. History"
         RecGSalesLine.RESET();
         RecGSalesLine.SETCURRENTKEY("Document Type", RecGSalesLine."No.");
         RecGSalesLine.SETRANGE("Document Type", RecGSalesLine."Document Type"::"Return Order");
-        RecGSalesLine.SETFILTER("No.", "No.");
+        RecGSalesLine.SETFILTER("No.", Rec."No.");
 
         IF BooGFilterCust THEN BEGIN
             RecGSalesLine.SETCURRENTKEY("Document Type", RecGSalesLine."Sell-to Customer No.");
@@ -482,7 +482,7 @@ page 50014 "BC6_Item Sales/Purch. History"
         RecGSalesLine.RESET();
         RecGSalesLine.SETCURRENTKEY("Document Type", RecGSalesLine."No.");
         RecGSalesLine.SETRANGE("Document Type", RecGSalesLine."Document Type"::"Credit Memo");
-        RecGSalesLine.SETFILTER("No.", "No.");
+        RecGSalesLine.SETFILTER("No.", Rec."No.");
 
         IF BooGFilterCust THEN BEGIN
             RecGSalesLine.SETCURRENTKEY("Document Type", RecGSalesLine."Sell-to Customer No.");
@@ -501,7 +501,7 @@ page 50014 "BC6_Item Sales/Purch. History"
         CLEAR(CodGDocNo);
         RecGSalesShipementLine.RESET();
         RecGSalesShipementLine.SETCURRENTKEY("No.");
-        RecGSalesShipementLine.SETFILTER("No.", "No.");
+        RecGSalesShipementLine.SETFILTER("No.", Rec."No.");
 
         IF BooGFilterCust THEN BEGIN
             RecGSalesShipementLine.SETCURRENTKEY(RecGSalesShipementLine."Sell-to Customer No.");
@@ -520,7 +520,7 @@ page 50014 "BC6_Item Sales/Purch. History"
         CLEAR(CodGDocNo);
         RecGPostdSalesInvoices.RESET();
         RecGPostdSalesInvoices.SETCURRENTKEY("No.");
-        RecGPostdSalesInvoices.SETFILTER("No.", "No.");
+        RecGPostdSalesInvoices.SETFILTER("No.", Rec."No.");
 
         IF BooGFilterCust THEN BEGIN
             RecGPostdSalesInvoices.SETCURRENTKEY(RecGPostdSalesInvoices."Sell-to Customer No.");
@@ -539,7 +539,7 @@ page 50014 "BC6_Item Sales/Purch. History"
         CLEAR(CodGDocNo);
         RecGPostdReturnSales.RESET();
         RecGPostdReturnSales.SETCURRENTKEY("No.");
-        RecGPostdReturnSales.SETFILTER("No.", "No.");
+        RecGPostdReturnSales.SETFILTER("No.", Rec."No.");
 
         IF BooGFilterCust THEN BEGIN
             RecGPostdReturnSales.SETCURRENTKEY(RecGPostdReturnSales."Sell-to Customer No.");
@@ -558,7 +558,7 @@ page 50014 "BC6_Item Sales/Purch. History"
         CLEAR(CodGDocNo);
         RecGPostdCrdMemo.RESET();
         RecGPostdCrdMemo.SETCURRENTKEY("No.");
-        RecGPostdCrdMemo.SETFILTER("No.", "No.");
+        RecGPostdCrdMemo.SETFILTER("No.", Rec."No.");
 
         IF BooGFilterCust THEN BEGIN
             RecGPostdCrdMemo.SETCURRENTKEY(RecGPostdCrdMemo."Sell-to Customer No.");
@@ -577,7 +577,7 @@ page 50014 "BC6_Item Sales/Purch. History"
         CLEAR(CodGDocNo);
         RecGPurchLines.RESET();
         RecGPurchLines.SETCURRENTKEY("Document Type", "No.");
-        RecGPurchLines.SETFILTER("No.", "No.");
+        RecGPurchLines.SETFILTER("No.", Rec."No.");
         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::Quote);
 
         IF BooGFilterCust THEN BEGIN
@@ -596,7 +596,7 @@ page 50014 "BC6_Item Sales/Purch. History"
         CLEAR(CodGDocNo);
         RecGPurchLines.RESET();
         RecGPurchLines.SETCURRENTKEY("Document Type", "No.");
-        RecGPurchLines.SETFILTER("No.", "No.");
+        RecGPurchLines.SETFILTER("No.", Rec."No.");
         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::"Blanket Order");
 
         IF BooGFilterCust THEN BEGIN
@@ -615,7 +615,7 @@ page 50014 "BC6_Item Sales/Purch. History"
         CLEAR(CodGDocNo);
         RecGPurchLines.RESET();
         RecGPurchLines.SETCURRENTKEY("Document Type", "No.");
-        RecGPurchLines.SETFILTER("No.", "No.");
+        RecGPurchLines.SETFILTER("No.", Rec."No.");
         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::Order);
 
         IF BooGFilterCust THEN BEGIN
@@ -634,7 +634,7 @@ page 50014 "BC6_Item Sales/Purch. History"
         CLEAR(CodGDocNo);
         RecGPurchLines.RESET();
         RecGPurchLines.SETCURRENTKEY("Document Type", "No.");
-        RecGPurchLines.SETFILTER("No.", "No.");
+        RecGPurchLines.SETFILTER("No.", Rec."No.");
         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::Invoice);
 
         IF BooGFilterCust THEN BEGIN
@@ -653,7 +653,7 @@ page 50014 "BC6_Item Sales/Purch. History"
         CLEAR(CodGDocNo);
         RecGPurchLines.RESET();
         RecGPurchLines.SETCURRENTKEY("Document Type", "No.");
-        RecGPurchLines.SETFILTER("No.", "No.");
+        RecGPurchLines.SETFILTER("No.", Rec."No.");
         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::"Return Order");
 
         IF BooGFilterCust THEN BEGIN
@@ -672,7 +672,7 @@ page 50014 "BC6_Item Sales/Purch. History"
         CLEAR(CodGDocNo);
         RecGPurchLines.RESET();
         RecGPurchLines.SETCURRENTKEY("Document Type", "No.");
-        RecGPurchLines.SETFILTER("No.", "No.");
+        RecGPurchLines.SETFILTER("No.", Rec."No.");
         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::"Credit Memo");
 
         IF BooGFilterCust THEN BEGIN
@@ -691,7 +691,7 @@ page 50014 "BC6_Item Sales/Purch. History"
         CLEAR(CodGDocNo);
         RecGPurchPostedRcpt.RESET();
         RecGPurchPostedRcpt.SETCURRENTKEY("No.");
-        RecGPurchPostedRcpt.SETFILTER("No.", "No.");
+        RecGPurchPostedRcpt.SETFILTER("No.", Rec."No.");
 
         IF BooGFilterCust THEN BEGIN
             RecGPurchPostedRcpt.SETCURRENTKEY(RecGPurchPostedRcpt."Buy-from Vendor No.");
@@ -710,7 +710,7 @@ page 50014 "BC6_Item Sales/Purch. History"
         CLEAR(CodGDocNo);
         RecGPurchPostedInvoice.RESET();
         RecGPurchPostedInvoice.SETCURRENTKEY("No.");
-        RecGPurchPostedInvoice.SETFILTER("No.", "No.");
+        RecGPurchPostedInvoice.SETFILTER("No.", Rec."No.");
 
         IF BooGFilterCust THEN BEGIN
             RecGPurchPostedInvoice.SETCURRENTKEY(RecGPurchPostedInvoice."Buy-from Vendor No.");
@@ -729,7 +729,7 @@ page 50014 "BC6_Item Sales/Purch. History"
         CLEAR(CodGDocNo);
         RecGPurchPostedReturnShipement.RESET();
         RecGPurchPostedReturnShipement.SETCURRENTKEY("No.");
-        RecGPurchPostedReturnShipement.SETFILTER("No.", "No.");
+        RecGPurchPostedReturnShipement.SETFILTER("No.", Rec."No.");
 
         IF BooGFilterCust THEN BEGIN
             RecGPurchPostedReturnShipement.SETCURRENTKEY(RecGPurchPostedReturnShipement."Buy-from Vendor No.");
@@ -748,7 +748,7 @@ page 50014 "BC6_Item Sales/Purch. History"
         CLEAR(CodGDocNo);
         RecGPurchPostedCrdMemo.RESET();
         RecGPurchPostedCrdMemo.SETCURRENTKEY("No.");
-        RecGPurchPostedCrdMemo.SETFILTER("No.", "No.");
+        RecGPurchPostedCrdMemo.SETFILTER("No.", Rec."No.");
 
         IF BooGFilterCust THEN BEGIN
             RecGPurchPostedCrdMemo.SETCURRENTKEY(RecGPurchPostedCrdMemo."Buy-from Vendor No.");
@@ -811,7 +811,7 @@ page 50014 "BC6_Item Sales/Purch. History"
             19:
                 ;
         END;
-        SETRANGE("No.", "No.");
+        Rec.SETRANGE("No.", Rec."No.");
     end;
 
     var

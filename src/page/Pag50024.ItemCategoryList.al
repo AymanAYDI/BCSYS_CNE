@@ -11,31 +11,31 @@ page 50024 "BC6_Item Category List"
         {
             repeater(Control1)
             {
-                field(Category; Category)
+                field(Category; Rec.Category)
                 {
                     ApplicationArea = All;
                 }
-                field("Eco Partner"; "Eco Partner")
+                field("Eco Partner"; Rec."Eco Partner")
                 {
                     ApplicationArea = All;
                 }
-                field("Weight Min"; "Weight Min")
+                field("Weight Min"; Rec."Weight Min")
                 {
                     ApplicationArea = All;
                 }
-                field("Weight Max"; "Weight Max")
+                field("Weight Max"; Rec."Weight Max")
                 {
                     ApplicationArea = All;
                 }
-                field("Eco-partner"; "Eco-partner")
+                field("Eco-partner"; Rec."Eco-partner")
                 {
                     ApplicationArea = All;
                 }
-                field(Designation; Designation)
+                field(Designation; Rec.Designation)
                 {
                     ApplicationArea = All;
                 }
-                field("DEEE Product Group ID"; "DEEE Product Group ID")
+                field("DEEE Product Group ID"; Rec."DEEE Product Group ID")
                 {
                     ApplicationArea = All;
                 }

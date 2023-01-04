@@ -7,6 +7,7 @@ codeunit 50150 "BC6_PDW Trsf Articles Bourg"
         Dialog_D.OPEN('Article #1######################');
 
         PXAch_Cible.RESET();
+        PXAch_Cible.Init();
         PXAch_Cible.CHANGECOMPANY('SCENEO_Bourgogne');
 
         PXAch_Source.RESET();
@@ -27,10 +28,8 @@ codeunit 50150 "BC6_PDW Trsf Articles Bourg"
     end;
 
     var
-#pragma warning disable AL0432
         PXAch_Cible: Record "Purchase Price";
         PXAch_Source: Record "Purchase Price";
-#pragma warning restore AL0432
         Dialog_D: Dialog;
         I: Integer;
 }

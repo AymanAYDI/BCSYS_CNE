@@ -14,29 +14,29 @@ page 50016 "BC6_Purchase Lines Subform2"
         {
             repeater(Control1)
             {
-                field("Document No."; "Document No.")
+                field("Document No."; Rec."Document No.")
                 {
                     HideValue = "Document No.HideValue";
                 }
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                 }
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                 }
-                field(Quantity; Quantity)
+                field(Quantity; Rec.Quantity)
                 {
                 }
-                field("Unit Cost (LCY)"; "Unit Cost (LCY)")
+                field("Unit Cost (LCY)"; Rec."Unit Cost (LCY)")
                 {
                 }
-                field(Amount; Amount)
+                field(Amount; Rec.Amount)
                 {
                 }
-                field("Amount Including VAT"; "Amount Including VAT")
+                field("Amount Including VAT"; Rec."Amount Including VAT")
                 {
                 }
-                field("Document Date flow"; "BC6_Document Date flow")
+                field("Document Date flow"; Rec."BC6_Document Date flow")
                 {
                 }
             }
@@ -54,22 +54,22 @@ page 50016 "BC6_Purchase Lines Subform2"
 
                 trigger OnAction()
                 begin
-                    IF NOT RecGPurchaseHeader.GET("Document Type", "Document No.") THEN
+                    IF NOT RecGPurchaseHeader.GET(Rec."Document Type", Rec."Document No.") THEN
                         EXIT;
-                    IF "Document Type" = "Document Type"::"Credit Memo" THEN
+                    IF Rec."Document Type" = Rec."Document Type"::"Credit Memo" THEN
                         PAGE.RUN(PAGE::"Purchase Credit Memo", RecGPurchaseHeader);
-                    IF "Document Type" = "Document Type"::Order THEN
+                    IF Rec."Document Type" = Rec."Document Type"::Order THEN
                         PAGE.RUN(PAGE::"Purchase Order", RecGPurchaseHeader);
-                    IF "Document Type" = "Document Type"::Quote THEN
+                    IF Rec."Document Type" = Rec."Document Type"::Quote THEN
                         PAGE.RUN(PAGE::"Purchase Quote", RecGPurchaseHeader);
 
-                    IF "Document Type" = "Document Type"::Invoice THEN
+                    IF Rec."Document Type" = Rec."Document Type"::Invoice THEN
                         PAGE.RUN(PAGE::"Purchase Invoice", RecGPurchaseHeader);
 
-                    IF "Document Type" = "Document Type"::"Blanket Order" THEN
+                    IF Rec."Document Type" = Rec."Document Type"::"Blanket Order" THEN
                         PAGE.RUN(PAGE::"Blanket Purchase Order", RecGPurchaseHeader);
 
-                    IF "Document Type" = "Document Type"::"Return Order" THEN
+                    IF Rec."Document Type" = Rec."Document Type"::"Return Order" THEN
                         PAGE.RUN(PAGE::"Purchase Return Order", RecGPurchaseHeader);
 
                 end;
@@ -85,10 +85,10 @@ page 50016 "BC6_Purchase Lines Subform2"
 
     trigger OnOpenPage()
     begin
-        SETCURRENTKEY("Document Type", "No.");
-        CALCFIELDS("BC6_Document Date flow");
+        Rec.SETCURRENTKEY("Document Type", "No.");
+        Rec.CALCFIELDS("BC6_Document Date flow");
         REPEAT
-            "BC6_Document Date" := "BC6_Document Date flow";
+            Rec."BC6_Document Date" := Rec."BC6_Document Date flow";
         UNTIL Rec.NEXT() = 0;
     end;
 
@@ -107,23 +107,23 @@ page 50016 "BC6_Purchase Lines Subform2"
     begin
         TempPurchLine.RESET();
         TempPurchLine.COPYFILTERS(Rec);
-        TempPurchLine.SETRANGE("Document Type", "Document Type");
-        TempPurchLine.SETRANGE("Document No.", "Document No.");
+        TempPurchLine.SETRANGE("Document Type", Rec."Document Type");
+        TempPurchLine.SETRANGE("Document No.", Rec."Document No.");
         IF NOT TempPurchLine.FindFirst() THEN BEGIN
             PurchLine.COPYFILTERS(Rec);
-            PurchLine.SETRANGE("Document Type", "Document Type");
-            PurchLine.SETRANGE("Document No.", "Document No.");
+            PurchLine.SETRANGE("Document Type", Rec."Document Type");
+            PurchLine.SETRANGE("Document No.", Rec."Document No.");
             PurchLine.FindLast();
             TempPurchLine := PurchLine;
             TempPurchLine.INSERT();
         END;
-        IF "Line No." = TempPurchLine."Line No." THEN
+        IF Rec."Line No." = TempPurchLine."Line No." THEN
             EXIT(TRUE);
     end;
 
     local procedure DocumentNoOnFormat()
     begin
-        IF "Document No." <> '' THEN
+        IF Rec."Document No." <> '' THEN
             IF IsFirstDocLine() THEN
                 "Document No.Emphasize" := TRUE
             ELSE

@@ -13,79 +13,79 @@ page 50026 "BC6_DEEE Ledger Entries"
         {
             repeater(Control1)
             {
-                field("Gen. Bus. Posting Group"; "Gen. Bus. Posting Group")
+                field("Gen. Bus. Posting Group"; Rec."Gen. Bus. Posting Group")
                 {
                     ApplicationArea = All;
                 }
-                field("Entry No."; "Entry No.")
+                field("Entry No."; Rec."Entry No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Item No."; "Item No.")
+                field("Item No."; Rec."Item No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Posting Date"; "Posting Date")
+                field("Posting Date"; Rec."Posting Date")
                 {
                     ApplicationArea = All;
                 }
-                field("Entry Type"; "Entry Type")
+                field("Entry Type"; Rec."Entry Type")
                 {
                     ApplicationArea = All;
                 }
-                field("Source No."; "Source No.")
+                field("Source No."; Rec."Source No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Document No."; "Document No.")
+                field("Document No."; Rec."Document No.")
                 {
                     ApplicationArea = All;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
                 }
-                field("Location Code"; "Location Code")
+                field("Location Code"; Rec."Location Code")
                 {
                     ApplicationArea = All;
                 }
-                field(Quantity; Quantity)
+                field(Quantity; Rec.Quantity)
                 {
                     ApplicationArea = All;
                 }
-                field("Invoiced Quantity"; "Invoiced Quantity")
+                field("Invoiced Quantity"; Rec."Invoiced Quantity")
                 {
                     ApplicationArea = All;
                 }
-                field("Global Dimension 1 Code"; "Global Dimension 1 Code")
+                field("Global Dimension 1 Code"; Rec."Global Dimension 1 Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Global Dimension 2 Code"; "Global Dimension 2 Code")
+                field("Global Dimension 2 Code"; Rec."Global Dimension 2 Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Source Type"; "Source Type")
+                field("Source Type"; Rec."Source Type")
                 {
                     ApplicationArea = All;
                 }
-                field("DEEE Category Code"; "DEEE Category Code")
+                field("DEEE Category Code"; Rec."DEEE Category Code")
                 {
                     ApplicationArea = All;
                 }
-                field("DEEE Unit Tax"; "DEEE Unit Tax")
+                field("DEEE Unit Tax"; Rec."DEEE Unit Tax")
                 {
                     ApplicationArea = All;
                 }
-                field("DEEE HT Amount"; "DEEE HT Amount")
+                field("DEEE HT Amount"; Rec."DEEE HT Amount")
                 {
                     ApplicationArea = All;
                 }
-                field("DEEE VAT Amount"; "DEEE VAT Amount")
+                field("DEEE VAT Amount"; Rec."DEEE VAT Amount")
                 {
                     ApplicationArea = All;
                 }
-                field("DEEE TTC Amount"; "DEEE TTC Amount")
+                field("DEEE TTC Amount"; Rec."DEEE TTC Amount")
                 {
                     ApplicationArea = All;
                 }

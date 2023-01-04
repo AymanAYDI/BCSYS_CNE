@@ -63,8 +63,8 @@ page 50074 "BC6_Item List Search CNE"
                     var
                         ItemCrossReference: Record "Item Reference";
                     begin
-                        RESET();
-                        DELETEALL();
+                        Rec.RESET();
+                        Rec.DELETEALL();
                         IF SearchField <> '' THEN BEGIN
                             ItemCrossReference.SETRANGE("Reference Type", ItemCrossReference."Reference Type"::"Bar Code");
                             ItemCrossReference.SETRANGE("Reference No.", SearchField);
@@ -72,7 +72,7 @@ page 50074 "BC6_Item List Search CNE"
                                 REPEAT
                                     Item.GET(ItemCrossReference."Item No.");
                                     Rec := Item;
-                                    IF INSERT() THEN;
+                                    IF Rec.INSERT() THEN;
                                 UNTIL ItemCrossReference.NEXT() = 0;
                         END;
                         LastSearchField := SearchField;
@@ -85,153 +85,153 @@ page 50074 "BC6_Item List Search CNE"
             {
                 Caption = 'Item', Comment = 'FRA="Article"';
                 Editable = false;
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the number of the item.', Comment = 'FRA="Spécifie le numéro de l''article."';
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies a description of the item.', Comment = 'FRA="Spécifie une description de l''élément."';
                 }
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies if the item card represents a physical item (Inventory) or a service (Service).', Comment = 'FRA="Spécifie si la fiche article représente un article physique (Stock) ou un service (Service)."';
                 }
-                field(Inventory; Inventory)
+                field(Inventory; Rec.Inventory)
                 {
                     ApplicationArea = Basic, Suite;
                     // HideValue = IsService;
                     ToolTip = 'Specifies how many units, such as pieces, boxes, or cans, of the item are in inventory.', Comment = 'FRA="Spécifie le nombre d''unités (par exemple des pièces, des boîtes ou des palettes) en stock."';
                 }
-                field("Created From Nonstock Item"; "Created From Nonstock Item")
+                field("Created From Nonstock Item"; Rec."Created From Nonstock Item")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Substitutes Exist"; "Substitutes Exist")
+                field("Substitutes Exist"; Rec."Substitutes Exist")
                 {
                     ApplicationArea = Suite;
                     ToolTip = 'Specifies that a substitute exists for this item.', Comment = 'FRA="Spécifie qu''un substitut existe pour cet article."';
                 }
-                field("Stockkeeping Unit Exists"; "Stockkeeping Unit Exists")
+                field("Stockkeeping Unit Exists"; Rec."Stockkeeping Unit Exists")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Assembly BOM"; "Assembly BOM")
+                field("Assembly BOM"; Rec."Assembly BOM")
                 {
                     ApplicationArea = All;
                 }
-                field("Production BOM No."; "Production BOM No.")
+                field("Production BOM No."; Rec."Production BOM No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Routing No."; "Routing No.")
+                field("Routing No."; Rec."Routing No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Base Unit of Measure"; "Base Unit of Measure")
+                field("Base Unit of Measure"; Rec."Base Unit of Measure")
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the unit in which the item is held in inventory.', Comment = 'FRA="Spécifie l''unité dans laquelle l''article est stocké."';
                 }
-                field("Shelf No."; "Shelf No.")
+                field("Shelf No."; Rec."Shelf No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Costing Method"; "Costing Method")
+                field("Costing Method"; Rec."Costing Method")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Cost is Adjusted"; "Cost is Adjusted")
+                field("Cost is Adjusted"; Rec."Cost is Adjusted")
                 {
                     ApplicationArea = All;
                 }
-                field("Standard Cost"; "Standard Cost")
+                field("Standard Cost"; Rec."Standard Cost")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Unit Cost"; "Unit Cost")
+                field("Unit Cost"; Rec."Unit Cost")
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the cost per unit of the item.', Comment = 'FRA="Spécifie le coût par unité de l''article."';
                 }
-                field("Last Direct Cost"; "Last Direct Cost")
+                field("Last Direct Cost"; Rec."Last Direct Cost")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Price/Profit Calculation"; "Price/Profit Calculation")
+                field("Price/Profit Calculation"; Rec."Price/Profit Calculation")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Profit %"; "Profit %")
+                field("Profit %"; Rec."Profit %")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Unit Price"; "Unit Price")
+                field("Unit Price"; Rec."Unit Price")
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the price for one unit of the item, in LCY.', Comment = 'FRA="Spécifie le prix unitaire, en DS, de l''article."';
                 }
-                field("Inventory Posting Group"; "Inventory Posting Group")
+                field("Inventory Posting Group"; Rec."Inventory Posting Group")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Gen. Prod. Posting Group"; "Gen. Prod. Posting Group")
+                field("Gen. Prod. Posting Group"; Rec."Gen. Prod. Posting Group")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("VAT Prod. Posting Group"; "VAT Prod. Posting Group")
+                field("VAT Prod. Posting Group"; Rec."VAT Prod. Posting Group")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Item Disc. Group"; "Item Disc. Group")
+                field("Item Disc. Group"; Rec."Item Disc. Group")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Vendor No."; "Vendor No.")
+                field("Vendor No."; Rec."Vendor No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Vendor Item No."; "Vendor Item No.")
+                field("Vendor Item No."; Rec."Vendor Item No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Tariff No."; "Tariff No.")
+                field("Tariff No."; Rec."Tariff No.")
                 {
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies a code for the item''s tariff number.', Comment = 'FRA="Spécifie un code pour la nomenclature produit de l''article."';
                     Visible = false;
                 }
-                field("Search Description"; "Search Description")
+                field("Search Description"; Rec."Search Description")
                 {
                     ApplicationArea = All;
                 }
-                field("Overhead Rate"; "Overhead Rate")
-                {
-                    Visible = false;
-                    ApplicationArea = All;
-                }
-                field("Indirect Cost %"; "Indirect Cost %")
+                field("Overhead Rate"; Rec."Overhead Rate")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Item Category Code"; "Item Category Code")
+                field("Indirect Cost %"; Rec."Indirect Cost %")
+                {
+                    Visible = false;
+                    ApplicationArea = All;
+                }
+                field("Item Category Code"; Rec."Item Category Code")
                 {
                     Visible = false;
                     ApplicationArea = All;
@@ -241,57 +241,57 @@ page 50074 "BC6_Item List Search CNE"
                 //     Visible = false;
                 //     ApplicationArea = All;
                 // }
-                field(Blocked; Blocked)
+                field(Blocked; Rec.Blocked)
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Last Date Modified"; "Last Date Modified")
+                field("Last Date Modified"; Rec."Last Date Modified")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Sales Unit of Measure"; "Sales Unit of Measure")
+                field("Sales Unit of Measure"; Rec."Sales Unit of Measure")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Replenishment System"; "Replenishment System")
+                field("Replenishment System"; Rec."Replenishment System")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Purch. Unit of Measure"; "Purch. Unit of Measure")
+                field("Purch. Unit of Measure"; Rec."Purch. Unit of Measure")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Lead Time Calculation"; "Lead Time Calculation")
+                field("Lead Time Calculation"; Rec."Lead Time Calculation")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Manufacturing Policy"; "Manufacturing Policy")
+                field("Manufacturing Policy"; Rec."Manufacturing Policy")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Flushing Method"; "Flushing Method")
+                field("Flushing Method"; Rec."Flushing Method")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Assembly Policy"; "Assembly Policy")
+                field("Assembly Policy"; Rec."Assembly Policy")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Item Tracking Code"; "Item Tracking Code")
+                field("Item Tracking Code"; Rec."Item Tracking Code")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Default Deferral Template Code"; "Default Deferral Template Code")
+                field("Default Deferral Template Code"; Rec."Default Deferral Template Code")
                 {
                     ApplicationArea = Suite;
                     Caption = 'Default Deferral Template', Comment = 'FRA="Modèle échelonnement par défaut"';
@@ -380,12 +380,12 @@ page 50074 "BC6_Item List Search CNE"
     begin
 
         CRMIsCoupledToRecord :=
-          CRMCouplingManagement.IsRecordCoupledToCRM(RECORDID) AND CRMIntegrationEnabled;
+          CRMCouplingManagement.IsRecordCoupledToCRM(Rec.RECORDID) AND CRMIntegrationEnabled;
 
-        OpenApprovalEntriesExist := ApprovalsMgmt.HasOpenApprovalEntries(RECORDID);
+        OpenApprovalEntriesExist := ApprovalsMgmt.HasOpenApprovalEntries(Rec.RECORDID);
 
-        CanCancelApprovalForRecord := ApprovalsMgmt.CanCancelApprovalForRecord(RECORDID);
-        CurrPage.ItemAttributesFactBox.PAGE.LoadItemAttributesData("No.");
+        CanCancelApprovalForRecord := ApprovalsMgmt.CanCancelApprovalForRecord(Rec.RECORDID);
+        CurrPage.ItemAttributesFactBox.PAGE.LoadItemAttributesData(Rec."No.");
         IsVisibleSearch := TRUE;
     end;
 
@@ -400,9 +400,7 @@ page 50074 "BC6_Item List Search CNE"
         CRMIntegrationManagement: Codeunit "CRM Integration Management";
     begin
         CRMIntegrationEnabled := CRMIntegrationManagement.IsCRMIntegrationEnabled();
-#pragma warning disable AL0432
         IsFoundationEnabled := ApplicationAreaSetup.IsFoundationEnabled();
-#pragma warning restore AL0432
         SetWorkflowManagementEnabledState();
         IsVisibleSearch := NOT (CURRENTCLIENTTYPE = CLIENTTYPE::Windows);
     end;
@@ -460,8 +458,8 @@ page 50074 "BC6_Item List Search CNE"
 
     local procedure EnableControls()
     begin
-        IsService := (Type = Type::Service);
-        InventoryItemEditable := Type = Type::Inventory;
+        IsService := (Rec.Type = Rec.Type::Service);
+        InventoryItemEditable := Rec.Type = Rec.Type::Inventory;
         IsVisibleSearch := TRUE;
     end;
 
@@ -481,8 +479,8 @@ page 50074 "BC6_Item List Search CNE"
         Item: Record Item;
         ItemReference: Record "Item Reference";
     begin
-        RESET();
-        DELETEALL();
+        Rec.RESET();
+        Rec.DELETEALL();
         CLEAR(Rec);
         IF SearchField <> '' THEN BEGIN
             ItemReference.SETRANGE("Reference Type", ItemReference."Reference Type"::"Bar Code");
@@ -491,7 +489,7 @@ page 50074 "BC6_Item List Search CNE"
                 REPEAT
                     Item.GET(ItemReference."Item No.");
                     Rec := Item;
-                    IF INSERT() THEN;
+                    IF Rec.INSERT() THEN;
                 UNTIL ItemReference.NEXT() = 0;
             END ELSE BEGIN
                 IF CONFIRM(ConfAddToItem, TRUE) THEN
@@ -502,14 +500,14 @@ page 50074 "BC6_Item List Search CNE"
                         ItemReference."Item No." := Item."No.";
                         ItemReference.INSERT();
                         Rec := Item;
-                        IF INSERT() THEN;
+                        IF Rec.INSERT() THEN;
                     END;
             END;
         END;
         LastSearchField := SearchField;
         SearchField := '';
         CurrPage.ScanZone.SetText(1, LastSearchField);  //TODO: Check param
-        IF ISEMPTY THEN
+        IF Rec.ISEMPTY THEN
             CurrPage.ScanZone.SetBgColor(1, 'red') //TODO: Check param
         ELSE
             CurrPage.ScanZone.SetBgColor(1, 'green'); //TODO: Check param

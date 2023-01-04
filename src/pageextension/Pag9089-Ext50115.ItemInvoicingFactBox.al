@@ -20,7 +20,7 @@ pageextension 50115 "BC6_ItemInvoicingFactBox" extends "Item Invoicing FactBox" 
         }
         addafter("Cost is Posted to G/L")
         {
-            field("BC6_Standard Cost"; "Standard Cost")
+            field("BC6_Standard Cost"; Rec."Standard Cost")
             {
                 Caption = 'Real standard Cost', Comment = 'FRA="Coût standard réel"';
                 Visible = ShowRealProfit;
@@ -30,7 +30,7 @@ pageextension 50115 "BC6_ItemInvoicingFactBox" extends "Item Invoicing FactBox" 
             {
                 Caption = 'Real Unit Cost', Comment = 'FRA="Coût standard"';
             }
-            field("BC6_Unit Cost"; "Unit Cost")
+            field("BC6_Unit Cost"; Rec."Unit Cost")
             {
                 Caption = 'Real Unit Cost', Comment = 'FRA="Coût unitaire réel"';
                 visible = ShowRealProfit;
@@ -44,7 +44,7 @@ pageextension 50115 "BC6_ItemInvoicingFactBox" extends "Item Invoicing FactBox" 
         }
         addafter("Indirect Cost %")
         {
-            field("BC6_Last Direct Cost"; "Last Direct Cost")
+            field("BC6_Last Direct Cost"; Rec."Last Direct Cost")
             {
 
                 caption = 'Real Last Direct Cost', Comment = 'FRA="Dernier coût direct réel"';
@@ -55,7 +55,7 @@ pageextension 50115 "BC6_ItemInvoicingFactBox" extends "Item Invoicing FactBox" 
             {
                 Caption = 'Last Direct Cost', Comment = 'FRA="Dernier coût direct"';
             }
-            field("BC6_Profit %"; "Profit %")
+            field("BC6_Profit %"; Rec."Profit %")
             {
                 caption = 'Real Profit %', Comment = 'FRA="% marge sur vente réel"';
                 visible = ShowRealProfit;
@@ -76,11 +76,11 @@ pageextension 50115 "BC6_ItemInvoicingFactBox" extends "Item Invoicing FactBox" 
 
     trigger OnAfterGetRecord()
     begin
-        IncrStandardCost := ROUND("Standard Cost" + ("Standard Cost" * "BC6_Cost Increase Coeff %" / 100));
-        IncrUnitCost := ROUND("Unit Cost" + ("Unit Cost" * "BC6_Cost Increase Coeff %" / 100));
-        IncrLastDirectCost := ROUND("Last Direct Cost" + ("Last Direct Cost" * "BC6_Cost Increase Coeff %" / 100));
-        IF "Unit Price" <> 0 THEN
-            IncrProfit := 100 * (1 - (IncrStandardCost / "Unit Price"))
+        IncrStandardCost := ROUND(Rec."Standard Cost" + (Rec."Standard Cost" * Rec."BC6_Cost Increase Coeff %" / 100));
+        IncrUnitCost := ROUND(Rec."Unit Cost" + (Rec."Unit Cost" * Rec."BC6_Cost Increase Coeff %" / 100));
+        IncrLastDirectCost := ROUND(Rec."Last Direct Cost" + (Rec."Last Direct Cost" * Rec."BC6_Cost Increase Coeff %" / 100));
+        IF Rec."Unit Price" <> 0 THEN
+            IncrProfit := 100 * (1 - (IncrStandardCost / Rec."Unit Price"))
         ELSE
             IncrProfit := 0;
     end;

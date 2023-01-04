@@ -13,15 +13,15 @@ page 50053 "BC6_Location List MiniForm"
         {
             repeater(Control1)
             {
-                field("Code"; Code)
+                field("Code"; Rec.Code)
                 {
                     ApplicationArea = All;
                 }
-                field("Bin Mandatory"; "Bin Mandatory")
+                field("Bin Mandatory"; Rec."Bin Mandatory")
                 {
                     ApplicationArea = All;
                 }
-                field(Name; Name)
+                field(Name; Rec.Name)
                 {
                     Visible = false;
                     ApplicationArea = All;

@@ -4,10 +4,10 @@ pageextension 50116 "BC6_VendorDetailsFactBox" extends "Vendor Details FactBox" 
     {
         addafter(Contact)
         {
-            field("BC6_Mini Amount"; "BC6_Mini Amount")
+            field("BC6_Mini Amount"; Rec."BC6_Mini Amount")
             {
             }
-            field("BC6_Freight Amount"; "BC6_Freight Amount")
+            field("BC6_Freight Amount"; Rec."BC6_Freight Amount")
             {
             }
             field(BC6_PurchasesLCY; PurchasesLCY)
@@ -33,9 +33,9 @@ pageextension 50116 "BC6_VendorDetailsFactBox" extends "Vendor Details FactBox" 
             DateFilterCalc.CreateFiscalYearFilter(VendDateFilter, VendDateName, CurrentDate, 0);
         END;
 
-        SETFILTER("Date Filter", VendDateFilter);
-        CALCFIELDS("Purchases (LCY)");
-        PurchasesLCY := "Purchases (LCY)";
+        Rec.SETFILTER("Date Filter", VendDateFilter);
+        Rec.CALCFIELDS("Purchases (LCY)");
+        PurchasesLCY := Rec."Purchases (LCY)";
     end;
 }
 

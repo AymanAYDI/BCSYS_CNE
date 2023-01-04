@@ -479,9 +479,7 @@ report 50032 "BC6_Order Confirmation CNE"
                             ItemReference.RESET();
                             ItemReference.SETRANGE("Item No.", TempSalesLine."No.");
                             ItemReference.SETRANGE("Reference Type", ItemReference."Reference Type"::"Bar Code");
-#pragma warning disable AL0432
                             ItemReference.SETRANGE("Discontinue Bar Code", FALSE);
-#pragma warning restore AL0432
                             TempGencod := '';
                             IF ItemReference.FIND('-') THEN
                                 TempGencod := ItemReference."Reference No.";

@@ -130,24 +130,22 @@ report 50055 "BC6_Whse. Get Inventory"
     var
         ItemJournalTempl: Record "Item Journal Template";
     begin
-        WITH ItemJournalLine DO BEGIN
-            INIT();
-            "Line No." := "Line No." + 10000;
-            VALIDATE("Entry Type", "Entry Type"::Transfer);
-            VALIDATE("Item No.", Item."No.");
-            VALIDATE("Posting Date", PostingDateF);
-            VALIDATE("Document No.", DocNoF);
-            VALIDATE("Location Code", LocationCode);
-            VALIDATE("New Location Code", NewLocationCodeF);
-            VALIDATE("Variant Code", '');
-            VALIDATE("Unit of Measure Code", Item."Base Unit of Measure");
-            VALIDATE("Bin Code", '');
-            VALIDATE("New Bin Code", NewBinCodeF);
-            VALIDATE(Quantity, QtyToEmpty);
-            ItemJournalTempl.GET("Journal Template Name");
-            "Source Code" := ItemJournalTempl."Source Code";
-            INSERT();
-        END;
+        ItemJournalLine.INIT();
+        ItemJournalLine."Line No." := ItemJournalLine."Line No." + 10000;
+        ItemJournalLine.VALIDATE("Entry Type", ItemJournalLine."Entry Type"::Transfer);
+        ItemJournalLine.VALIDATE("Item No.", Item."No.");
+        ItemJournalLine.VALIDATE("Posting Date", PostingDateF);
+        ItemJournalLine.VALIDATE("Document No.", DocNoF);
+        ItemJournalLine.VALIDATE("Location Code", LocationCode);
+        ItemJournalLine.VALIDATE("New Location Code", NewLocationCodeF);
+        ItemJournalLine.VALIDATE("Variant Code", '');
+        ItemJournalLine.VALIDATE("Unit of Measure Code", Item."Base Unit of Measure");
+        ItemJournalLine.VALIDATE("Bin Code", '');
+        ItemJournalLine.VALIDATE("New Bin Code", NewBinCodeF);
+        ItemJournalLine.VALIDATE(Quantity, QtyToEmpty);
+        ItemJournalTempl.GET(ItemJournalLine."Journal Template Name");
+        ItemJournalLine."Source Code" := ItemJournalTempl."Source Code";
+        ItemJournalLine.INSERT();
     end;
 }
 

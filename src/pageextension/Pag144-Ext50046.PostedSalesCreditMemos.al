@@ -4,10 +4,10 @@ pageextension 50046 "BC6_PostedSalesCreditMemos" extends "Posted Sales Credit Me
     {
         addafter("Document Exchange Status")
         {
-            field("BC6_Affair No."; "BC6_Affair No.")
+            field("BC6_Affair No."; Rec."BC6_Affair No.")
             {
             }
-            field("BC6_Return Order No."; "Return Order No.")
+            field("BC6_Return Order No."; Rec."Return Order No.")
             {
             }
         }
@@ -18,14 +18,14 @@ pageextension 50046 "BC6_PostedSalesCreditMemos" extends "Posted Sales Credit Me
 
     trigger OnOpenPage()
     begin
-        IF NOT FINDFIRST() THEN
-            INIT();
+        IF NOT Rec.FINDFIRST() THEN
+            Rec.INIT();
         IF NOT RecGUserSeup.GET(USERID) THEN
             RecGUserSeup.INIT();
         IF RecGUserSeup."BC6_Limited User" THEN BEGIN
-            FILTERGROUP(2);
-            SETFILTER("BC6_Salesperson Filter", '*' + RecGUserSeup."Salespers./Purch. Code" + '*');
-            FILTERGROUP(0);
+            Rec.FILTERGROUP(2);
+            Rec.SETFILTER("BC6_Salesperson Filter", '*' + RecGUserSeup."Salespers./Purch. Code" + '*');
+            Rec.FILTERGROUP(0);
         END;
 
     end;

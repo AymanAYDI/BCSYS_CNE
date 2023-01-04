@@ -16,44 +16,44 @@ page 50082 "BC6_Item Replanishment List"
             repeater(Item)
             {
                 Caption = 'Item', Comment = 'FRA="Article"';
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                     Editable = false;
                     ToolTip = 'Specifies the number of the item.', Comment = 'FRA="Spécifie le numéro de l''article."';
                 }
-                field("No. 2"; "No. 2")
+                field("No. 2"; Rec."No. 2")
                 {
                     ApplicationArea = All;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
                     Editable = false;
                     ToolTip = 'Specifies a description of the item.', Comment = 'FRA="Spécifie une description de l''élément."';
                 }
-                field("Reorder Quantity"; "Reorder Quantity")
+                field("Reorder Quantity"; Rec."Reorder Quantity")
                 {
                     ApplicationArea = All;
                 }
-                field("Safety Stock Quantity"; "Safety Stock Quantity")
+                field("Safety Stock Quantity"; Rec."Safety Stock Quantity")
                 {
                     ApplicationArea = All;
                 }
-                field("Order Multiple"; "Order Multiple")
+                field("Order Multiple"; Rec."Order Multiple")
                 {
                     ApplicationArea = All;
                 }
-                field("Reordering Policy"; "Reordering Policy")
+                field("Reordering Policy"; Rec."Reordering Policy")
                 {
                     ApplicationArea = All;
                 }
-                field(Blocked; Blocked)
+                field(Blocked; Rec.Blocked)
                 {
                     Editable = false;
                     ApplicationArea = All;
                 }
-                field("Search Description 2"; "Bc6_Search Description 2")
+                field("Search Description 2"; Rec."Bc6_Search Description 2")
                 {
                     ApplicationArea = All;
                 }
@@ -169,7 +169,7 @@ page 50082 "BC6_Item Replanishment List"
                     begin
                         PAGE.RUNMODAL(PAGE::"Item Attribute Value Editor", Rec);
                         CurrPage.SAVERECORD();
-                        CurrPage.ItemAttributesFactBox.PAGE.LoadItemAttributesData("No.");
+                        CurrPage.ItemAttributesFactBox.PAGE.LoadItemAttributesData(Rec."No.");
                     end;
                 }
                 action(FilterByAttributes)
@@ -204,13 +204,13 @@ page 50082 "BC6_Item Replanishment List"
                         FilterText := ItemAttributeManagement.GetItemNoFilterText(TempFilteredItem, ParameterCount);
 
                         IF ParameterCount < TypeHelper.GetMaxNumberOfParametersInSQLQuery() - 100 THEN BEGIN
-                            FILTERGROUP(0);
-                            MARKEDONLY(FALSE);
-                            SETFILTER("No.", FilterText);
+                            Rec.FILTERGROUP(0);
+                            Rec.MARKEDONLY(FALSE);
+                            Rec.SETFILTER("No.", FilterText);
                         END ELSE BEGIN
                             RunOnTempRec := TRUE;
-                            CLEARMARKS();
-                            RESET();
+                            Rec.CLEARMARKS();
+                            Rec.RESET();
                         END;
                     end;
                 }
@@ -227,15 +227,15 @@ page 50082 "BC6_Item Replanishment List"
 
                     trigger OnAction()
                     begin
-                        CLEARMARKS();
-                        MARKEDONLY(FALSE);
+                        Rec.CLEARMARKS();
+                        Rec.MARKEDONLY(FALSE);
                         TempFilterItemAttributesBuffer.RESET();
                         TempFilterItemAttributesBuffer.DELETEALL();
                         TempFilteredItem.RESET();
                         TempFilteredItem.DELETEALL();
                         RunOnTempRec := FALSE;
-                        FILTERGROUP(0);
-                        SETRANGE("No.");
+                        Rec.FILTERGROUP(0);
+                        Rec.SETRANGE("No.");
                     end;
                 }
                 action("Va&riants")
@@ -405,9 +405,7 @@ page 50082 "BC6_Item Replanishment List"
                     Image = Price;
                     Promoted = true;
                     //PromotedCategory = Category6;
-#pragma warning disable AL0432
                     RunObject = Page "Sales Prices";
-#pragma warning restore AL0432
                     RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
                     Scope = Repeater;
@@ -420,9 +418,7 @@ page 50082 "BC6_Item Replanishment List"
                     Image = LineDiscount;
                     Promoted = true;
                     //PromotedCategory = Category6;
-#pragma warning disable AL0432
                     RunObject = Page "Sales Line Discounts";
-#pragma warning restore AL0432
                     RunPageLink = Type = CONST(Item),
                                   Code = FIELD("No.");
                     RunPageView = SORTING(Type, Code);
@@ -440,9 +436,7 @@ page 50082 "BC6_Item Replanishment List"
 
                     trigger OnAction()
                     var
-#pragma warning disable AL0432
                         SalesPriceAndLineDiscounts: Page "Sales Price and Line Discounts";
-#pragma warning restore AL0432
                     begin
                         SalesPriceAndLineDiscounts.InitPage(TRUE);
                         SalesPriceAndLineDiscounts.LoadItem(Rec);
@@ -455,9 +449,7 @@ page 50082 "BC6_Item Replanishment List"
                     Image = PriceWorksheet;
                     Promoted = true;
                     //PromotedCategory = Category6;
-#pragma warning disable AL0432
                     RunObject = Page "Sales Price Worksheet";
-#pragma warning restore AL0432
                     ApplicationArea = All;
                 }
             }
@@ -592,7 +584,7 @@ page 50082 "BC6_Item Replanishment List"
                     var
                         Item: Record Item;
                     begin
-                        Item.SETRANGE("No.", "No.");
+                        Item.SETRANGE("No.", Rec."No.");
                         REPORT.RUNMODAL(REPORT::"Create Stockkeeping Unit", TRUE, FALSE, Item);
                     end;
                 }
@@ -780,9 +772,7 @@ page 50082 "BC6_Item Replanishment List"
                     Image = "Report";
                     Promoted = true;
                     PromotedCategory = Category9;
-#pragma warning disable AL0432
                     RunObject = Report "Price List";
-#pragma warning restore AL0432
                     ToolTip = 'View, print, or save a list of your items and their prices, for example, to send to customers. You can create the list for specific customers, campaigns, currencies, or other criteria.', Comment = 'FRA="Affichez, imprimez ou enregistrez une liste de vos articles ainsi que leur prix, par exemple, pour envoyer aux clients. Vous pouvez créer la liste pour des clients, des campagnes ou des devises spécifiques ou encore pour d''autres critères."';
                 }
                 action("Inventory Cost and Price List")
@@ -1001,7 +991,7 @@ page 50082 "BC6_Item Replanishment List"
 
                     trigger OnAction()
                     begin
-                        ApprovalsMgmt.OpenApprovalEntriesPage(RECORDID);
+                        ApprovalsMgmt.OpenApprovalEntriesPage(Rec.RECORDID);
                     end;
                 }
             }
@@ -1095,7 +1085,7 @@ page 50082 "BC6_Item Replanishment List"
 
                         trigger OnAction()
                         begin
-                            ShowTimelineFromItem(Rec);
+                            Rec.ShowTimelineFromItem(Rec);
                         end;
                     }
                 }
@@ -1115,7 +1105,7 @@ page 50082 "BC6_Item Replanishment List"
                     var
                         CRMIntegrationManagement: Codeunit "CRM Integration Management";
                     begin
-                        CRMIntegrationManagement.ShowCRMEntityFromRecordID(RECORDID);
+                        CRMIntegrationManagement.ShowCRMEntityFromRecordID(Rec.RECORDID);
                     end;
                 }
                 action(CRMSynchronizeNow)
@@ -1160,7 +1150,7 @@ page 50082 "BC6_Item Replanishment List"
                         var
                             CRMIntegrationManagement: Codeunit "CRM Integration Management";
                         begin
-                            CRMIntegrationManagement.DefineCoupling(RECORDID);
+                            CRMIntegrationManagement.DefineCoupling(Rec.RECORDID);
                         end;
                     }
                     action(DeleteCRMCoupling)
@@ -1176,7 +1166,7 @@ page 50082 "BC6_Item Replanishment List"
                         var
                             CRMCouplingManagement: Codeunit "CRM Coupling Management";
                         begin
-                            CRMCouplingManagement.RemoveCoupling(RECORDID);
+                            CRMCouplingManagement.RemoveCoupling(Rec.RECORDID);
                         end;
                     }
                 }
@@ -1244,7 +1234,7 @@ page 50082 "BC6_Item Replanishment List"
 
                         trigger OnAction()
                         begin
-                            CalculateStdCost.CalcItem("No.", TRUE);
+                            CalculateStdCost.CalcItem(Rec."No.", TRUE);
                         end;
                     }
                     action("Calc. Unit Price")
@@ -1256,7 +1246,7 @@ page 50082 "BC6_Item Replanishment List"
 
                         trigger OnAction()
                         begin
-                            CalculateStdCost.CalcAssemblyItemPrice("No.");
+                            CalculateStdCost.CalcAssemblyItemPrice(Rec."No.");
                         end;
                     }
                 }
@@ -1296,7 +1286,7 @@ page 50082 "BC6_Item Replanishment List"
 
                         trigger OnAction()
                         begin
-                            CalculateStdCost.CalcItem("No.", FALSE);
+                            CalculateStdCost.CalcItem(Rec."No.", FALSE);
                         end;
                     }
                     action("&Reservation Entries")
@@ -1328,7 +1318,7 @@ page 50082 "BC6_Item Replanishment List"
                         var
                             ItemTrackingDocMgt: Codeunit "Item Tracking Doc. Management";
                         begin
-                            ItemTrackingDocMgt.ShowItemTrackingForEntity(3, '', "No.", '', '');
+                            ItemTrackingDocMgt.ShowItemTrackingForEntity(3, '', Rec."No.", '', '');
                         end;
                     }
                     action("&Warehouse Entries")
@@ -1406,9 +1396,7 @@ page 50082 "BC6_Item Replanishment List"
                 {
                     Caption = 'Prices', Comment = 'FRA="Prix"';
                     Image = Price;
-#pragma warning disable AL0432
                     RunObject = Page "Sales Prices";
-#pragma warning restore AL0432
                     RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
                     ApplicationArea = All;
@@ -1417,9 +1405,7 @@ page 50082 "BC6_Item Replanishment List"
                 {
                     Caption = 'Line Discounts', Comment = 'FRA="Remises ligne"';
                     Image = LineDiscount;
-#pragma warning disable AL0432
                     RunObject = Page "Sales Line Discounts";
-#pragma warning restore AL0432
                     RunPageLink = Type = CONST(Item),
                                   Code = FIELD("No.");
                     RunPageView = SORTING(Type, Code);
@@ -1479,9 +1465,7 @@ page 50082 "BC6_Item Replanishment List"
                 {
                     Caption = 'Prices', Comment = 'FRA="Prix"';
                     Image = Price;
-#pragma warning disable AL0432
                     RunObject = Page "Purchase Prices";
-#pragma warning restore AL0432
                     RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
                     ApplicationArea = All;
@@ -1490,16 +1474,10 @@ page 50082 "BC6_Item Replanishment List"
                 {
                     Caption = 'Line Discounts', Comment = 'FRA="Remises ligne"';
                     Image = LineDiscount;
-#pragma warning disable AL0432
                     RunObject = Page "Purchase Line Discounts";
-#pragma warning restore AL0432
-#pragma warning disable AL0432
                     RunPageLink = BC6_Type = CONST(Item),
-#pragma warning restore AL0432
                                   "Item No." = FIELD("No.");
-#pragma warning disable AL0432
                     RunPageView = SORTING(BC6_Type, "Item No.", "Vendor No.", "Starting Date", "Currency Code", "Variant Code", "Unit of Measure Code", "Minimum Quantity");
-#pragma warning restore AL0432
                     ApplicationArea = All;
                 }
                 action("Prepa&yment Percentages2")
@@ -1629,7 +1607,7 @@ page 50082 "BC6_Item Replanishment List"
                             ResourceSkill: Record "Resource Skill";
                         begin
                             CLEAR(SkilledResourceList);
-                            SkilledResourceList.Initialize(ResourceSkill.Type::Item, "No.", Description);
+                            SkilledResourceList.Initialize(ResourceSkill.Type::Item, Rec."No.", Rec.Description);
                             SkilledResourceList.RUNMODAL();
                         end;
                     }
@@ -1652,7 +1630,7 @@ page 50082 "BC6_Item Replanishment List"
                 trigger OnAction()
                 begin
                     CLEAR(DistInt);
-                    FunctionMgt.CreateItemEAN13Code("No.", TRUE);
+                    FunctionMgt.CreateItemEAN13Code(Rec."No.", TRUE);
                 end;
             }
             action(PrintLabel)
@@ -1715,12 +1693,12 @@ page 50082 "BC6_Item Replanishment List"
     begin
 
         CRMIsCoupledToRecord :=
-          CRMCouplingManagement.IsRecordCoupledToCRM(RECORDID) AND CRMIntegrationEnabled;
+          CRMCouplingManagement.IsRecordCoupledToCRM(Rec.RECORDID) AND CRMIntegrationEnabled;
 
-        OpenApprovalEntriesExist := ApprovalsMgmt.HasOpenApprovalEntries(RECORDID);
+        OpenApprovalEntriesExist := ApprovalsMgmt.HasOpenApprovalEntries(Rec.RECORDID);
 
-        CanCancelApprovalForRecord := ApprovalsMgmt.CanCancelApprovalForRecord(RECORDID);
-        CurrPage.ItemAttributesFactBox.PAGE.LoadItemAttributesData("No.");
+        CanCancelApprovalForRecord := ApprovalsMgmt.CanCancelApprovalForRecord(Rec.RECORDID);
+        CurrPage.ItemAttributesFactBox.PAGE.LoadItemAttributesData(Rec."No.");
 
         SetWorkflowManagementEnabledState();
     end;
@@ -1731,7 +1709,7 @@ page 50082 "BC6_Item Replanishment List"
         "-MIGNAV2013-": Integer;
     begin
         EnableControls();
-        EAN13Code := FunctionsMgt.GetItemEAN13Code("No.");
+        EAN13Code := FunctionsMgt.GetItemEAN13Code(Rec."No.");
     end;
 
     trigger OnFindRecord(Which: Text): Boolean
@@ -1745,7 +1723,7 @@ page 50082 "BC6_Item Replanishment List"
                 Rec := TempFilteredItem;
             EXIT(Found);
         END;
-        EXIT(FIND(Which));
+        EXIT(Rec.FIND(Which));
     end;
 
     trigger OnInit()
@@ -1767,7 +1745,7 @@ page 50082 "BC6_Item Replanishment List"
                 Rec := TempFilteredItem;
             EXIT(ResultSteps);
         END;
-        EXIT(NEXT(Steps));
+        EXIT(Rec.NEXT(Steps));
     end;
 
     trigger OnOpenPage()
@@ -1777,7 +1755,7 @@ page 50082 "BC6_Item Replanishment List"
         CRMIntegrationEnabled := CRMIntegrationManagement.IsCRMIntegrationEnabled();
         IsFoundationEnabled := ApplicationAreaMgmtFacade.IsFoundationEnabled();
         SetWorkflowManagementEnabledState();
-        SETRANGE("Reordering Policy", "Reordering Policy"::"Fixed Reorder Qty.");
+        Rec.SETRANGE("Reordering Policy", Rec."Reordering Policy"::"Fixed Reorder Qty.");
     end;
 
     var
@@ -1833,8 +1811,8 @@ page 50082 "BC6_Item Replanishment List"
 
     local procedure EnableControls()
     begin
-        IsService := (Type = Type::Service);
-        InventoryItemEditable := Type = Type::Inventory;
+        IsService := (Rec.Type = Rec.Type::Service);
+        InventoryItemEditable := Rec.Type = Rec.Type::Inventory;
     end;
 
     local procedure SetWorkflowManagementEnabledState()

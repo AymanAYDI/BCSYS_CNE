@@ -20,13 +20,13 @@ page 50105 "BC6_Log Purch. Comment Lines"
         {
             repeater(Group)
             {
-                field(Comment; Comment)
+                field(Comment; Rec.Comment)
                 {
                 }
-                field("User ID"; "BC6_User ID")
+                field("User ID"; Rec."BC6_User ID")
                 {
                 }
-                field("Log Date"; "BC6_Log Date")
+                field("Log Date"; Rec."BC6_Log Date")
                 {
                 }
             }

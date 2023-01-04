@@ -1,4 +1,3 @@
-#pragma warning disable AL0432
 tableextension 50082 "BC6_PurchasePrice" extends "Purchase Price" //7012
 {
     keys
@@ -11,4 +10,3 @@ tableextension 50082 "BC6_PurchasePrice" extends "Purchase Price" //7012
         }
     }
 }
-#pragma warning restore AL0432

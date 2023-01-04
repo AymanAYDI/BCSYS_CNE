@@ -38,9 +38,7 @@ xmlport 50000 "BC6_Export Purchase Price"
                     //CurrFile.WRITE(Text1);
                 end;
             }
-#pragma warning disable AL0432
             tableelement("Purchase Price"; "Purchase Price")
-#pragma warning restore AL0432
             {
                 AutoSave = true;
                 AutoUpdate = true;
@@ -86,9 +84,7 @@ xmlport 50000 "BC6_Export Purchase Price"
                 begin
                     Description := '';
                     IF "Purchase Price"."Item No." <> '' THEN BEGIN
-#pragma warning disable AA0206
                         Trovato := GItem1.GET("Purchase Price"."Item No.");
-#pragma warning restore AA0206
                         Description := GItem1.Description;
                     END;
 
@@ -115,9 +111,7 @@ xmlport 50000 "BC6_Export Purchase Price"
 
     var
         GItem1: Record Item;
-#pragma warning disable AL0432
         PurchasePrice: Record "Purchase Price";
-#pragma warning restore AL0432
         Vendor: Record Vendor;
         Trovato: Boolean;
 }

@@ -18,189 +18,189 @@ page 50114 "BC6_SAV Sales Ret. Order List"
         {
             repeater(Control1)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ToolTip = 'Specifies the number of the sales document. The field can be filled automatically or manually and can be set up to be invisible.',
                      comment = 'FRA="Spécifie le numéro du document vente. Le champ peut étre rempli automatiquement ou manuellement et étre configurer pour étre invisible."';
                 }
-                field("Sell-to Customer No."; "Sell-to Customer No.")
+                field("Sell-to Customer No."; Rec."Sell-to Customer No.")
                 {
                     ToolTip = 'Specifies the customer number associated with the return order.',
                      comment = 'FRA="Spécifie le numéro client associé au retour vente."';
                 }
-                field("Sell-to Customer Name"; "Sell-to Customer Name")
+                field("Sell-to Customer Name"; Rec."Sell-to Customer Name")
                 {
                     ToolTip = 'Specifies the name of the customer who will receive the products and be billed by default.',
                      comment = 'FRA="Spécifie le nom du client qui recevra les produits et sera facturer par défaut."';
                 }
-                field("External Document No."; "External Document No.")
+                field("External Document No."; Rec."External Document No.")
                 {
                     ToolTip = 'Specifies the number that the customer uses in their own system to refer to this sales document.',
                      comment = 'FRA="Spécifie le numéro que le client doit utiliser dans son propre système pour faire référence … ce document vente."';
                 }
-                field("Sell-to Post Code"; "Sell-to Post Code")
+                field("Sell-to Post Code"; Rec."Sell-to Post Code")
                 {
                     ToolTip = 'Specifies the postal code.', comment = 'FRA="Spécifie le code postal."';
                     Visible = false;
                 }
-                field("Sell-to Country/Region Code"; "Sell-to Country/Region Code")
+                field("Sell-to Country/Region Code"; Rec."Sell-to Country/Region Code")
                 {
                     ToolTip = 'Specifies the country/region of the address.', comment = 'FRA="Spécifie le pays/la région de l''adresse."';
                     Visible = false;
                 }
-                field("Sell-to Contact"; "Sell-to Contact")
+                field("Sell-to Contact"; Rec."Sell-to Contact")
                 {
                     ToolTip = 'Specifies the name of the person to contact at the customer that the items were sold to.',
                     comment = 'FRA="Spécifie le nom de la personne … contacter chez le client à qui les articles ont ‚t‚ vendus."';
                     Visible = false;
                 }
-                field("Bill-to Customer No."; "Bill-to Customer No.")
+                field("Bill-to Customer No."; Rec."Bill-to Customer No.")
                 {
                     ToolTip = 'Specifies the number of the customer you sent the invoice for the shipment to.',
                      comment = 'FRA="Spécifie le numéro du client auquel la facture liée … l''expédition a été envoyé."';
                     Visible = false;
                 }
-                field("Bill-to Name"; "Bill-to Name")
+                field("Bill-to Name"; Rec."Bill-to Name")
                 {
                     ToolTip = 'Specifies the name of the customer that you sent the invoice to.',
                     comment = 'FRA="Spécifie le nom du client auquel la facture a été envoyé."';
                     Visible = false;
                 }
-                field("Bill-to Post Code"; "Bill-to Post Code")
+                field("Bill-to Post Code"; Rec."Bill-to Post Code")
                 {
                     ToolTip = 'Specifies the postal code.',
                      comment = 'FRA="Spécifie le code postal."';
                     Visible = false;
                 }
-                field("Bill-to Country/Region Code"; "Bill-to Country/Region Code")
+                field("Bill-to Country/Region Code"; Rec."Bill-to Country/Region Code")
                 {
                     ToolTip = 'Specifies the country/region of the address.',
                      comment = 'FRA="Spécifie le pays/la région de l''adresse."';
                     Visible = false;
                 }
-                field("Bill-to Contact"; "Bill-to Contact")
+                field("Bill-to Contact"; Rec."Bill-to Contact")
                 {
                     ToolTip = 'Specifies the name of the person you regularly contact when you communicate with the customer to whom you sent the invoice.',
                      comment = 'FRA="Spécifie le nom de la personne que vous contactez régulièrement lorsque vous communiquez avec le client auquel vous avez envoyé la facture."';
                     Visible = false;
                 }
-                field("Ship-to Code"; "Ship-to Code")
+                field("Ship-to Code"; Rec."Ship-to Code")
                 {
                     ToolTip = 'Specifies the code for the customers additional shipment address.',
                     comment = 'FRA="Spécifie le code de l''adresse complémentaire d''expédition du client."';
                     Visible = false;
                 }
-                field("Ship-to Name"; "Ship-to Name")
+                field("Ship-to Name"; Rec."Ship-to Name")
                 {
                     ToolTip = 'Specifies the name of the customer that the items were shipped to.',
                      comment = 'FRA="Spécifie le nom du client auquel les articles ont été expédiis."';
                     Visible = false;
                 }
-                field("Ship-to Post Code"; "Ship-to Post Code")
+                field("Ship-to Post Code"; Rec."Ship-to Post Code")
                 {
                     ToolTip = 'Specifies the postal code.',
                      comment = 'FRA="Spécifie le code postal."';
                     Visible = false;
                 }
-                field("Ship-to Country/Region Code"; "Ship-to Country/Region Code")
+                field("Ship-to Country/Region Code"; Rec."Ship-to Country/Region Code")
                 {
                     ToolTip = 'Specifies the country/region of the address.',
                      comment = 'FRA="Spécifie le pays/la région de l''adresse."';
                     Visible = false;
                 }
-                field("Ship-to Contact"; "Ship-to Contact")
+                field("Ship-to Contact"; Rec."Ship-to Contact")
                 {
                     ToolTip = 'Specifies the name of the person you regularly contact at the address that the items were shipped to.',
                      comment = 'FRA="Spécifie le nom de la personne que vous contactez régulièrement à l''adresse à laquelle  les articles ont été livrés."';
                     Visible = false;
                 }
-                field("Posting Date"; "Posting Date")
+                field("Posting Date"; Rec."Posting Date")
                 {
                     ToolTip = 'Specifies the date on which the shipment was posted.',
                      comment = 'FRA="Spécifie la date de validation de l''expédition."';
                     Visible = false;
                 }
-                field("Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
+                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
                     ToolTip = 'Specifies the code for Shortcut Dimension 1.',
                     comment = 'FRA="Spécifie le code pour Raccourci axe 1."';
                     Visible = false;
                 }
-                field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
                     ToolTip = 'Specifies the code for Shortcut Dimension 2.',
                     comment = 'FRA="Spécifie le code pour Raccourci axe 2"';
                     Visible = false;
                 }
-                field("Location Code"; "Location Code")
+                field("Location Code"; Rec."Location Code")
                 {
                     ToolTip = 'Specifies the location from which the items were shipped.',
                      comment = 'FRA="Spécifie le lieu … partir duquel les articles ont été expédis."';
                 }
-                field("Salesperson Code"; "Salesperson Code")
+                field("Salesperson Code"; Rec."Salesperson Code")
                 {
                     ToolTip = 'Specifies which salesperson is associated with the shipment.',
                      comment = 'FRA="Spécifie le nom du vendeur associé à l''expédition."';
                     Visible = false;
                 }
-                field("Assigned User ID"; "Assigned User ID")
+                field("Assigned User ID"; Rec."Assigned User ID")
                 {
                     ToolTip = 'Specifies the ID of the user who is responsible for the document.',
                     comment = 'FRA="Spécifie le code de l''utilisateur qui est responsable du document."';
                 }
-                field("Currency Code"; "Currency Code")
+                field("Currency Code"; Rec."Currency Code")
                 {
                     ToolTip = 'Specifies the currency of amounts on the sales document.',
                     comment = 'FRA="Spécifie la devise des montants sur le document vente."';
                     Visible = false;
                 }
-                field("Document Date"; "Document Date")
+                field("Document Date"; Rec."Document Date")
                 {
                     ToolTip = 'Specifies the date on which you created the sales document.',
                      comment = 'FRA="Spécifie la date à laquelle  vous avez crée le document vente."';
                     Visible = false;
                 }
-                field("Campaign No."; "Campaign No.")
+                field("Campaign No."; Rec."Campaign No.")
                 {
                     ToolTip = 'Specifies the number of the campaign that the document is linked to.',
                      comment = 'FRA="Spécifie le numéro de campagne auquel le document est liée."';
                     Visible = false;
                 }
-                field("Applies-to Doc. Type"; "Applies-to Doc. Type")
+                field("Applies-to Doc. Type"; Rec."Applies-to Doc. Type")
                 {
                     ToolTip = 'Specifies the type of the posted document that this document or journal line will be applied to when you post, for example to register payment.',
                      comment = 'FRA="Spécifie le type du document validé avec lequel ce document ou cette ligne feuille sera lettré lorsque vous validez, par exemple pour enregistrer un paiement."';
                     Visible = false;
                 }
-                field("Shipment Date"; "Shipment Date")
+                field("Shipment Date"; Rec."Shipment Date")
                 {
                     ToolTip = 'Specifies the date you expect to ship items on the sales document.',
                      comment = 'FRA="Spécifie la date à laquelle  vous pensez expédier les articles indiqués sur le document vente."';
                     Visible = false;
                 }
-                field("Job Queue Status"; "Job Queue Status")
+                field("Job Queue Status"; Rec."Job Queue Status")
                 {
                     ToolTip = 'Specifies the status of a job queue entry or task that handles the posting of sales orders.',
                      comment = 'FRA="Spécifie le statut d''une écriture file d''attente des travaux ou d''une tâche qui gére la validation des commandes vente."';
                     Visible = JobQueueActive;
                 }
-                field(ID; BC6_ID)
+                field(ID; Rec.BC6_ID)
                 {
                 }
-                field("Your Reference"; "Your Reference")
+                field("Your Reference"; Rec."Your Reference")
                 {
                 }
-                field("Affair No."; "BC6_Affair No.")
+                field("Affair No."; Rec."BC6_Affair No.")
                 {
                 }
-                field("Return Order Type"; "BC6_Return Order Type")
+                field("Return Order Type"; Rec."BC6_Return Order Type")
                 {
                 }
-                field("Purchase No. Order Lien"; "BC6_Purchase No. Order Lien")
+                field("Purchase No. Order Lien"; Rec."BC6_Purchase No. Order Lien")
                 {
                     Caption = 'Purchase No. Order Link', comment = 'FRA="No. Commande Achat Lien"';
                 }
-                field(Amount; Amount)
+                field(Amount; Rec.Amount)
                 {
                 }
             }
@@ -249,7 +249,7 @@ page 50114 "BC6_SAV Sales Ret. Order List"
 
                     trigger OnAction()
                     begin
-                        OpenSalesOrderStatistics();
+                        Rec.OpenSalesOrderStatistics();
                     end;
                 }
                 action(Dimensions)
@@ -266,7 +266,7 @@ page 50114 "BC6_SAV Sales Ret. Order List"
 
                     trigger OnAction()
                     begin
-                        ShowDocDim();
+                        Rec.ShowDocDim();
                     end;
                 }
                 action(Approvals)
@@ -281,7 +281,7 @@ page 50114 "BC6_SAV Sales Ret. Order List"
                     var
                         ApprovalEntries: Page "Approval Entries";
                     begin
-                        ApprovalEntries.SetRecordFilters(DATABASE::"Sales Header", "Document Type".AsInteger(), "No.");
+                        ApprovalEntries.SetRecordFilters(DATABASE::"Sales Header", "Document Type".AsInteger(), Rec."No.");
                         ApprovalEntries.RUN();
                     end;
                 }
@@ -361,12 +361,12 @@ page 50114 "BC6_SAV Sales Ret. Order List"
                 var
                     L_SalesHeader: Record "Sales Header";
                 begin
-                    IF "BC6_Return Order Type" = "BC6_Return Order Type"::Location THEN
+                    IF Rec."BC6_Return Order Type" = Rec."BC6_Return Order Type"::Location THEN
                         DocPrint.PrintSalesHeader(Rec)
                     ELSE BEGIN
                         L_SalesHeader.RESET();
-                        L_SalesHeader.SETRANGE("Document Type", "Document Type");
-                        L_SalesHeader.SETRANGE("No.", "No.");
+                        L_SalesHeader.SETRANGE("Document Type", Rec."Document Type");
+                        L_SalesHeader.SETRANGE("No.", Rec."No.");
                         REPORT.RUNMODAL(Report::"BC6_Return Order SAV Conf.", TRUE, FALSE, L_SalesHeader);
                     END;
                 end;
@@ -416,7 +416,7 @@ page 50114 "BC6_SAV Sales Ret. Order List"
 
                     trigger OnAction()
                     begin
-                        GetPstdDocLinesToRevere();
+                        Rec.GetPstdDocLinesToRevere();
                     end;
                 }
                 separator(Action1)
@@ -540,7 +540,7 @@ page 50114 "BC6_SAV Sales Ret. Order List"
 
                     trigger OnAction()
                     begin
-                        SendToPosting(CODEUNIT::"Sales-Post (Yes/No)");
+                        Rec.SendToPosting(CODEUNIT::"Sales-Post (Yes/No)");
                     end;
                 }
                 action("Preview Posting")
@@ -569,7 +569,7 @@ page 50114 "BC6_SAV Sales Ret. Order List"
 
                     trigger OnAction()
                     begin
-                        SendToPosting(CODEUNIT::"Sales-Post + Print");
+                        Rec.SendToPosting(CODEUNIT::"Sales-Post + Print");
                     end;
                 }
                 action("Post and Email")
@@ -607,7 +607,7 @@ page 50114 "BC6_SAV Sales Ret. Order List"
 
                     trigger OnAction()
                     begin
-                        CancelBackgroundPosting();
+                        Rec.CancelBackgroundPosting();
                     end;
                 }
             }
@@ -623,19 +623,19 @@ page 50114 "BC6_SAV Sales Ret. Order List"
     var
         SalesSetup: Record "Sales & Receivables Setup";
     begin
-        SetSecurityFilterOnRespCenter();
+        Rec.SetSecurityFilterOnRespCenter();
 
         IF NOT RecGUserSeup.GET(USERID) THEN
             RecGUserSeup.INIT();
         IF RecGUserSeup."BC6_Limited User" THEN BEGIN
-            FILTERGROUP(2);
-            SETFILTER("BC6_Salesperson Filter", '*' + RecGUserSeup."Salespers./Purch. Code" + '*');
-            FILTERGROUP(0);
+            Rec.FILTERGROUP(2);
+            Rec.SETFILTER("BC6_Salesperson Filter", '*' + RecGUserSeup."Salespers./Purch. Code" + '*');
+            Rec.FILTERGROUP(0);
         END;
 
         JobQueueActive := SalesSetup.JobQueueActive();
 
-        CopySellToCustomerFilter();
+        Rec.CopySellToCustomerFilter();
     end;
 
     var
@@ -651,9 +651,9 @@ page 50114 "BC6_SAV Sales Ret. Order List"
     var
         ApprovalsMgmt: Codeunit "Approvals Mgmt.";
     begin
-        OpenApprovalEntriesExist := ApprovalsMgmt.HasOpenApprovalEntries(RECORDID);
+        OpenApprovalEntriesExist := ApprovalsMgmt.HasOpenApprovalEntries(Rec.RECORDID);
 
-        CanCancelApprovalForRecord := ApprovalsMgmt.CanCancelApprovalForRecord(RECORDID);
+        CanCancelApprovalForRecord := ApprovalsMgmt.CanCancelApprovalForRecord(Rec.RECORDID);
     end;
 }
 

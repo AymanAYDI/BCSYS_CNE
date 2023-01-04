@@ -167,12 +167,12 @@ report 50004 "BC6_Combine Shipments"
                         ApplicationArea = Basic, Suite;
                         Caption = 'Posting Date', Comment = 'FRA="Date comptabilisation"';
                     }
-                    field(DocDateReq; DocDateReq)
+                    field(DocDateReqF; DocDateReq)
                     {
                         ApplicationArea = Basic, Suite;
                         Caption = 'Document Date', Comment = 'FRA="Date document"';
                     }
-                    field(CalcInvDisc; CalcInvDisc)
+                    field(CalcInvDiscF; CalcInvDisc)
                     {
                         ApplicationArea = Basic, Suite;
                         Caption = 'Calc. Inv. Discount', Comment = 'FRA="Calculer remise facture"';
@@ -182,17 +182,17 @@ report 50004 "BC6_Combine Shipments"
                             SalesSetup.TestField("Calc. Inv. Discount", false);
                         end;
                     }
-                    field(PostInv; PostInv)
+                    field(PostInvF; PostInv)
                     {
                         ApplicationArea = Basic, Suite;
                         Caption = 'Post Invoices', Comment = 'FRA="Validation des factures"';
                     }
-                    field(OnlyStdPmtTerms; OnlyStdPmtTerms)
+                    field(OnlyStdPmtTermsF; OnlyStdPmtTerms)
                     {
                         ApplicationArea = Basic, Suite;
                         Caption = 'Only Std. Payment Terms', Comment = 'FRA="Conditions paiement standard uniquement"';
                     }
-                    field(CopyTextLines; CopyTextLines)
+                    field(CopyTextLinesF; CopyTextLines)
                     {
                         ApplicationArea = Basic, Suite;
                         Caption = 'Copy Text Lines', Comment = 'FRA="Copier lignes texte"';
@@ -262,24 +262,22 @@ report 50004 "BC6_Combine Shipments"
         if HasError then
             NoOfSalesInvErrors += 1;
 
-        with SalesHeader do begin
-            if (not HasAmount) or HasError then begin
-                Delete(true);
-                exit;
-            end;
-            if CalcInvDisc then
-                SalesCalcDisc.Run(SalesLine);
-            Find();
-            Commit();
-            Clear(SalesCalcDisc);
+        if (not HasAmount) or HasError then begin
+            SalesHeader.Delete(true);
+            exit;
+        end;
+        if CalcInvDisc then
+            SalesCalcDisc.Run(SalesLine);
+        SalesHeader.Find();
+        Commit();
+        Clear(SalesCalcDisc);
+        Clear(SalesPost);
+        NoOfSalesInv := NoOfSalesInv + 1;
+        ShouldPostInv := PostInv;
+        if ShouldPostInv then begin
             Clear(SalesPost);
-            NoOfSalesInv := NoOfSalesInv + 1;
-            ShouldPostInv := PostInv;
-            if ShouldPostInv then begin
-                Clear(SalesPost);
-                if not SalesPost.Run(SalesHeader) then
-                    NoOfSalesInvErrors := NoOfSalesInvErrors + 1;
-            end;
+            if not SalesPost.Run(SalesHeader) then
+                NoOfSalesInvErrors := NoOfSalesInvErrors + 1;
         end;
     end;
 
@@ -287,36 +285,26 @@ report 50004 "BC6_Combine Shipments"
     begin
         GLSetup.Get();
         Clear(SalesHeader);
-        with SalesHeader do begin
-            Init();
-            "Document Type" := "Document Type"::Invoice;
-            "No." := '';
-            Insert(true);
-            ValidateCustomerNo(SalesHeader, SalesOrderHeader);
-            Validate("Posting Date", PostingDateReq);
-            Validate("Document Date", DocDateReq);
-            //RegroupementBL NSC1.01 SBH [018]
-            VALIDATE("External Document No.", ExtDocReq);
-            //Fin RegroupementBL NSC1.01 SBH [018]
-            //>> TDL 24/04/07
-            //>>TDL96:MICO 09/05/2007
-            //>>BC6 - MM 07/01/19
-            VALIDATE("Your Reference", SalesOrderHeader."Your Reference");
-            //<<BC6 - MM 07/01/19
-            //<<TDL96:MICO 09/05/2007
-            //<< TDL 24/04/07
-            Validate("Currency Code", SalesOrderHeader."Currency Code");
-            Validate("EU 3-Party Trade", SalesOrderHeader."EU 3-Party Trade");
-            if GLSetup."Journal Templ. Name Mandatory" then
-                Validate("Journal Templ. Name", SalesOrderHeader."Journal Templ. Name");
-            "Salesperson Code" := SalesOrderHeader."Salesperson Code";
-            "Shortcut Dimension 1 Code" := SalesOrderHeader."Shortcut Dimension 1 Code";
-            "Shortcut Dimension 2 Code" := SalesOrderHeader."Shortcut Dimension 2 Code";
-            "Dimension Set ID" := SalesOrderHeader."Dimension Set ID";
-            Modify();
-            Commit();
-            HasAmount := false;
-        end;
+        SalesHeader.Init();
+        SalesHeader."Document Type" := SalesHeader."Document Type"::Invoice;
+        SalesHeader."No." := '';
+        SalesHeader.Insert(true);
+        ValidateCustomerNo(SalesHeader, SalesOrderHeader);
+        SalesHeader.Validate("Posting Date", PostingDateReq);
+        SalesHeader.Validate("Document Date", DocDateReq);
+        SalesHeader.VALIDATE("External Document No.", ExtDocReq);
+        SalesHeader.VALIDATE("Your Reference", SalesOrderHeader."Your Reference");
+        SalesHeader.Validate("Currency Code", SalesOrderHeader."Currency Code");
+        SalesHeader.Validate("EU 3-Party Trade", SalesOrderHeader."EU 3-Party Trade");
+        if GLSetup."Journal Templ. Name Mandatory" then
+            SalesHeader.Validate("Journal Templ. Name", SalesOrderHeader."Journal Templ. Name");
+        SalesHeader."Salesperson Code" := SalesOrderHeader."Salesperson Code";
+        SalesHeader."Shortcut Dimension 1 Code" := SalesOrderHeader."Shortcut Dimension 1 Code";
+        SalesHeader."Shortcut Dimension 2 Code" := SalesOrderHeader."Shortcut Dimension 2 Code";
+        SalesHeader."Dimension Set ID" := SalesOrderHeader."Dimension Set ID";
+        SalesHeader.Modify();
+        Commit();
+        HasAmount := false;
     end;
 
     procedure InitializeRequest(NewPostingDate: Date; NewDocDate: Date; NewCalcInvDisc: Boolean; NewPostInv: Boolean; NewOnlyStdPmtTerms: Boolean; NewCopyTextLines: Boolean)

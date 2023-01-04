@@ -10,7 +10,7 @@ page 50077 "BC6_Test Scan List"
         {
             repeater(Group)
             {
-                field("Line No."; "Line No.")
+                field("Line No."; Rec."Line No.")
                 {
                     ApplicationArea = All;
                 }

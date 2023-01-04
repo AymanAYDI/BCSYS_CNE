@@ -4,7 +4,7 @@ pageextension 50006 "BC6_CustomerLedgerEntries" extends "Customer Ledger Entries
     {
         addafter("Customer No.")
         {
-            field("BC6_External Document No."; "External Document No.")
+            field("BC6_External Document No."; Rec."External Document No.")
             {
                 Editable = false;
                 Visible = false;

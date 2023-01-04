@@ -7,9 +7,7 @@ page 50022 "BC6_Sales Line Profit"
     SaveValues = true;
     ApplicationArea = All;
     UsageCategory = Lists;
-#pragma warning disable AL0432
     SourceTable = "Sales Line Discount";
-#pragma warning restore AL0432
     SourceTableView = SORTING(Code, "Sales Code", "Sales Type", Type, "Starting Date", "Ending Date", "BC6_Profit %")
                       ORDER(Ascending);
 
@@ -102,8 +100,8 @@ page 50022 "BC6_Sales Line Profit"
                         ItemDiscGrList: Page "Item Disc. Groups";
                         ItemList: Page "Item List";
                     begin
-                        CASE Type OF
-                            Type::Item:
+                        CASE Rec.Type OF
+                            Rec.Type::Item:
                                 BEGIN
                                     ItemList.LOOKUPMODE := TRUE;
                                     IF ItemList.RUNMODAL() = ACTION::LookupOK THEN
@@ -111,7 +109,7 @@ page 50022 "BC6_Sales Line Profit"
                                     ELSE
                                         EXIT(FALSE);
                                 END;
-                            Type::"Item Disc. Group":
+                            Rec.Type::"Item Disc. Group":
                                 BEGIN
                                     ItemDiscGrList.LOOKUPMODE := TRUE;
                                     IF ItemDiscGrList.RUNMODAL() = ACTION::LookupOK THEN
@@ -146,64 +144,58 @@ page 50022 "BC6_Sales Line Profit"
             }
             repeater(Control1)
             {
-                field("Sales Type"; "Sales Type")
+                field("Sales Type"; Rec."Sales Type")
                 {
                     ApplicationArea = All;
                 }
-                field("Sales Code"; "Sales Code")
+                field("Sales Code"; Rec."Sales Code")
                 {
                     Editable = "Sales CodeEditable";
                     ApplicationArea = All;
                 }
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                     ApplicationArea = All;
                 }
-                field("Code"; Code)
+                field("Code"; Rec.Code)
                 {
                     ApplicationArea = All;
                 }
-                field("Line Discount %"; "Line Discount %")
+                field("Line Discount %"; Rec."Line Discount %")
                 {
                     ApplicationArea = All;
                 }
-#pragma warning disable AL0432
                 field("Profit %"; Rec."BC6_Profit %")
-#pragma warning restore AL0432
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Currency Code"; "Currency Code")
+                field("Currency Code"; Rec."Currency Code")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Unit of Measure Code"; "Unit of Measure Code")
+                field("Unit of Measure Code"; Rec."Unit of Measure Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Minimum Quantity"; "Minimum Quantity")
+                field("Minimum Quantity"; Rec."Minimum Quantity")
                 {
                     ApplicationArea = All;
                 }
-#pragma warning disable AL0432
                 field("Dispensation No."; Rec."BC6_Dispensation No.")
-#pragma warning restore AL0432
                 {
                     ApplicationArea = All;
                 }
-#pragma warning disable AL0432
                 field("Added Discount %"; Rec."BC6_Added Discount %")
-#pragma warning restore AL0432
                 {
                     ApplicationArea = All;
                 }
-                field("Starting Date"; "Starting Date")
+                field("Starting Date"; Rec."Starting Date")
                 {
                     ApplicationArea = All;
                 }
-                field("Ending Date"; "Ending Date")
+                field("Ending Date"; Rec."Ending Date")
                 {
                     ApplicationArea = All;
                 }
@@ -274,7 +266,7 @@ page 50022 "BC6_Sales Line Profit"
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
         //DateDebutObli HJ 15/11/2006 NSC1.01 [24] Date Debut Doit Etre Obligatoire
-        IF ("Starting Date" = 0D) OR (FORMAT("Starting Date") = '') THEN ERROR(Text004);
+        IF (Rec."Starting Date" = 0D) OR (FORMAT(Rec."Starting Date") = '') THEN ERROR(Text004);
         //Fin DateDebutObli HJ 15/11/2006 NSC1.01 [24] Date Debut Doit Etre Obligatoire
     end;
 
@@ -314,21 +306,21 @@ page 50022 "BC6_Sales Line Profit"
 
     procedure GetRecFilters()
     begin
-        IF GETFILTERS <> '' THEN BEGIN
-            IF GETFILTER("Sales Type") <> '' THEN
-                SalesTypeFilter := "Sales Type"
+        IF Rec.GETFILTERS <> '' THEN BEGIN
+            IF Rec.GETFILTER("Sales Type") <> '' THEN
+                SalesTypeFilter := Rec."Sales Type"
             ELSE
                 SalesTypeFilter := SalesTypeFilter::None;
 
-            IF GETFILTER(Type) <> '' THEN
-                ItemTypeFilter := Type
+            IF Rec.GETFILTER(Type) <> '' THEN
+                ItemTypeFilter := Rec.Type
             ELSE
                 ItemTypeFilter := ItemTypeFilter::None;
 
-            SalesCodeFilter := GETFILTER("Sales Code");
-            CodeFilter := GETFILTER(Code);
-            CurrencyCodeFilter := GETFILTER("Currency Code");
-            EVALUATE(StartingDateFilter, GETFILTER("Starting Date"));
+            SalesCodeFilter := Rec.GETFILTER("Sales Code");
+            CodeFilter := Rec.GETFILTER(Code);
+            CurrencyCodeFilter := Rec.GETFILTER("Currency Code");
+            EVALUATE(StartingDateFilter, Rec.GETFILTER("Starting Date"));
         END;
     end;
 
@@ -339,9 +331,9 @@ page 50022 "BC6_Sales Line Profit"
         CodeFilterCtrlEnable := TRUE;
 
         IF SalesTypeFilter <> SalesTypeFilter::None THEN
-            SETRANGE("Sales Type", SalesTypeFilter)
+            Rec.SETRANGE("Sales Type", SalesTypeFilter)
         ELSE
-            SETRANGE("Sales Type");
+            Rec.SETRANGE("Sales Type");
 
         IF SalesTypeFilter IN [SalesTypeFilter::"All Customers", SalesTypeFilter::None] THEN BEGIN
             SalesCodeFilterCtrlEnable := FALSE;
@@ -349,14 +341,14 @@ page 50022 "BC6_Sales Line Profit"
         END;
 
         IF SalesCodeFilter <> '' THEN
-            SETFILTER("Sales Code", SalesCodeFilter)
+            Rec.SETFILTER("Sales Code", SalesCodeFilter)
         ELSE
-            SETRANGE("Sales Code");
+            Rec.SETRANGE("Sales Code");
 
         IF ItemTypeFilter <> ItemTypeFilter::None THEN
-            SETRANGE(Type, ItemTypeFilter)
+            Rec.SETRANGE(Type, ItemTypeFilter)
         ELSE
-            SETRANGE(Type);
+            Rec.SETRANGE(Type);
 
         IF ItemTypeFilter = ItemTypeFilter::None THEN BEGIN
             CodeFilterCtrlEnable := FALSE;
@@ -364,19 +356,19 @@ page 50022 "BC6_Sales Line Profit"
         END;
 
         IF CodeFilter <> '' THEN BEGIN
-            SETFILTER(Code, CodeFilter);
+            Rec.SETFILTER(Code, CodeFilter);
         END ELSE
-            SETRANGE(Code);
+            Rec.SETRANGE(Code);
 
         IF CurrencyCodeFilter <> '' THEN BEGIN
-            SETFILTER("Currency Code", CurrencyCodeFilter);
+            Rec.SETFILTER("Currency Code", CurrencyCodeFilter);
         END ELSE
-            SETRANGE("Currency Code");
+            Rec.SETRANGE("Currency Code");
 
         IF StartingDateFilter <> '' THEN
-            SETFILTER("Starting Date", StartingDateFilter)
+            Rec.SETFILTER("Starting Date", StartingDateFilter)
         ELSE
-            SETRANGE("Starting Date");
+            Rec.SETRANGE("Starting Date");
 
         CurrPage.UPDATE(FALSE);
     end;
@@ -389,7 +381,7 @@ page 50022 "BC6_Sales Line Profit"
         Description: Text[250];
     begin
         GetRecFilters();
-        "Sales CodeEditable" := "Sales Type" <> "Sales Type"::"All Customers";
+        "Sales CodeEditable" := Rec."Sales Type" <> Rec."Sales Type"::"All Customers";
 
         SourceTableName := '';
         CASE ItemTypeFilter OF
@@ -482,7 +474,7 @@ page 50022 "BC6_Sales Line Profit"
     local procedure OnAfterGetCurrRecord()
     begin
         xRec := Rec;
-        "Sales CodeEditable" := "Sales Type" <> "Sales Type"::"All Customers";
+        "Sales CodeEditable" := Rec."Sales Type" <> Rec."Sales Type"::"All Customers";
     end;
 }
 

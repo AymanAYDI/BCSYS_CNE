@@ -13,14 +13,14 @@ pageextension 50015 "BC6_SalesInvoice" extends "Sales Invoice" //43
         }
         addafter("Sell-to Contact No.")
         {
-            field("BC6_Sell-to Fax No."; "BC6_Sell-to Fax No.")
+            field("BC6_Sell-to Fax No."; Rec."BC6_Sell-to Fax No.")
             {
                 ApplicationArea = All;
             }
         }
         addafter("Assigned User ID")
         {
-            field("BC6_Reason Code"; "Reason Code")
+            field("BC6_Reason Code"; Rec."Reason Code")
             {
                 ApplicationArea = All;
 
@@ -29,14 +29,14 @@ pageextension 50015 "BC6_SalesInvoice" extends "Sales Invoice" //43
                     FnctGOnAvterValidateReasonCode();
                 end;
             }
-            field("BC6_Affair No."; "BC6_Affair No.")
+            field("BC6_Affair No."; Rec."BC6_Affair No.")
             {
                 ApplicationArea = All;
             }
         }
         addfirst(Control205)
         {
-            field("BC6_Bill-to Customer No."; "Bill-to Customer No.")
+            field("BC6_Bill-to Customer No."; Rec."Bill-to Customer No.")
             {
                 ApplicationArea = All;
             }
@@ -107,22 +107,23 @@ pageextension 50015 "BC6_SalesInvoice" extends "Sales Invoice" //43
 
     procedure EnvoiMail()
     begin
-        cust.SETRANGE(cust."No.", "Sell-to Customer No.");
+        cust.SETRANGE(cust."No.", Rec."Sell-to Customer No.");
         IF cust.FIND('-') THEN
             cust.TESTFIELD("E-Mail");
         OpenFile();
         IF nameF <> '' THEN BEGIN
-            Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + "No.", '', nameF, FALSE);
+            Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + Rec."No.", '', nameF, FALSE);
             ERASE(nameF);
         END ELSE BEGIN
             ERASE(SalesSetup.BC6_Repertoire + 'Envoi' + '\' + CurrPage.CAPTION);
             ERROR(Text001);
         END;
+        HistMail.Init();
         HistMail."No." := cust."No.";
         HistMail.Nom := cust.Name;
         HistMail."E-Mail" := cust."E-Mail";
         HistMail."Date d'envoi" := TODAY;
-        HistMail."Document envoyé" := CurrPage.CAPTION + ' ' + "No.";
+        HistMail."Document envoyé" := CurrPage.CAPTION + ' ' + Rec."No.";
         HistMail.INSERT(TRUE);
     end;
 

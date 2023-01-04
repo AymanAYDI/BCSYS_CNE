@@ -166,14 +166,14 @@ report 50026 "BC6_Create Ret.-Related Doc" //6697
 
     local procedure CreateReturnOrderRelation()
     begin
-        WITH G_ReturnOrderRelation DO
-            IF CreateSO OR CreatePRO OR CreatePO THEN
-                IF NOT G_ReturnOrderRelation.GET(SROSalesHeader."No.") THEN BEGIN
-                    G_ReturnOrderRelation."Sales Return Order" := SROSalesHeader."No.";
-                    G_ReturnOrderRelation.INSERT();
-                END ELSE
-                    IF ("Sales Order No." <> '') AND ("Purchase Return Order" <> '') AND ("Purchase Order No." <> '') THEN
-                        ERROR(STRSUBSTNO(ErrorAlreadyExist, "Purchase Return Order", "Purchase Order No.", "Sales Order No."));
+        G_ReturnOrderRelation.Init();
+        IF CreateSO OR CreatePRO OR CreatePO THEN
+            IF NOT G_ReturnOrderRelation.GET(SROSalesHeader."No.") THEN BEGIN
+                G_ReturnOrderRelation."Sales Return Order" := SROSalesHeader."No.";
+                G_ReturnOrderRelation.INSERT();
+            END ELSE
+                IF (G_ReturnOrderRelation."Sales Order No." <> '') AND (G_ReturnOrderRelation."Purchase Return Order" <> '') AND (G_ReturnOrderRelation."Purchase Order No." <> '') THEN
+                    ERROR(STRSUBSTNO(ErrorAlreadyExist, G_ReturnOrderRelation."Purchase Return Order", G_ReturnOrderRelation."Purchase Order No.", G_ReturnOrderRelation."Sales Order No."));
     end;
 }
 

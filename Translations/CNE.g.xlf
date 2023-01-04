@@ -14698,30 +14698,30 @@
           <note from="Developer" annotates="general" priority="2">FRA="Date fin"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calcul Plan - Req. Wksh. - Control EndingDate - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 971693637 - Control 1769251336 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 971693637 - Control 3570284646 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Exclude Forecast Before</source>
           <note from="Developer" annotates="general" priority="2">FRA="Exclure prévisions avant"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calcul Plan - Req. Wksh. - Control ExcludeForecastBefore - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calcul Plan - Req. Wksh. - Control ExcludeForecastBeforeF - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 971693637 - Control 2605241671 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 971693637 - Control 612634301 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies that planning lines triggered by safety stock will respect the following planning parameters: Reorder Point, Reorder Quantity, Reorder Point, and Maximum Inventory in addition to all order modifiers. If you do not select this check box, planning lines triggered by safety stock will only cover the exact demand quantity.</source>
           <note from="Developer" annotates="general" priority="2">FRA="Spécifie que les lignes de planning déclenchées par le stock de sécurité vont respecter les paramètres de planning suivants : Point de commande, Quantité de réappro, Point de commande et Stock maximum en plus de tous les modificateurs d'ordre. Si vous n'activez pas cette case à cocher, les lignes de planning déclenchées par le stock de sécurité vont uniquement couvrir la quantité exacte demandée."</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calcul Plan - Req. Wksh. - Control RespectPlanningParm - Property ToolTip</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calcul Plan - Req. Wksh. - Control RespectPlanningParmF - Property ToolTip</note>
         </trans-unit>
-        <trans-unit id="Report 971693637 - Control 2605241671 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 971693637 - Control 612634301 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Respect Planning Parameters for Supply Triggered by Safety Stock</source>
           <note from="Developer" annotates="general" priority="2">FRA="Respecter les paramètres de planning pour l'approvisionnement déclenché par le stock de sécurité"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calcul Plan - Req. Wksh. - Control RespectPlanningParm - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calcul Plan - Req. Wksh. - Control RespectPlanningParmF - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 971693637 - Control 543275552 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Starting Date</source>
           <note from="Developer" annotates="general" priority="2">FRA="Date début"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calcul Plan - Req. Wksh. - Control StartingDate - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 971693637 - Control 3393779052 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 971693637 - Control 152636578 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Use Forecast</source>
           <note from="Developer" annotates="general" priority="2">FRA="Utiliser prévisions"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calcul Plan - Req. Wksh. - Control UseForecast - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Calcul Plan - Req. Wksh. - Control UseForecastF - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 4095111458 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Calculate Inventory</source>
@@ -14883,35 +14883,35 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Combine Shipments - Control Options - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 1995640998 - Control 2780809675 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 1995640998 - Control 1892248985 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Calc. Inv. Discount</source>
           <note from="Developer" annotates="general" priority="2">FRA="Calculer remise facture"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Combine Shipments - Control CalcInvDisc - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Combine Shipments - Control CalcInvDiscF - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 1995640998 - Control 2699193159 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 1995640998 - Control 3456013501 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Copy Text Lines</source>
           <note from="Developer" annotates="general" priority="2">FRA="Copier lignes texte"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Combine Shipments - Control CopyTextLines - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Combine Shipments - Control CopyTextLinesF - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 1995640998 - Control 4040901854 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 1995640998 - Control 2278689984 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Document Date</source>
           <note from="Developer" annotates="general" priority="2">FRA="Date document"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Combine Shipments - Control DocDateReq - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Combine Shipments - Control DocDateReqF - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 1995640998 - Control 3954803709 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 1995640998 - Control 1867298423 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Only Std. Payment Terms</source>
           <note from="Developer" annotates="general" priority="2">FRA="Conditions paiement standard uniquement"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Combine Shipments - Control OnlyStdPmtTerms - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Combine Shipments - Control OnlyStdPmtTermsF - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 1995640998 - Control 3037438984 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Posting Date</source>
           <note from="Developer" annotates="general" priority="2">FRA="Date comptabilisation"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Combine Shipments - Control PostingDate - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 1995640998 - Control 3789019539 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 1995640998 - Control 1593469729 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Post Invoices</source>
           <note from="Developer" annotates="general" priority="2">FRA="Validation des factures"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Combine Shipments - Control PostInv - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Combine Shipments - Control PostInvF - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 2017460150 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Copy Sales Document</source>

@@ -17,36 +17,36 @@ page 50123 "BC6_Stock. Unit List METZ"
         {
             repeater(Action1)
             {
-                field("Location Code"; "Location Code")
+                field("Location Code"; Rec."Location Code")
                 {
                     Editable = false;
                     ApplicationArea = All;
                 }
-                field("Item No."; "Item No.")
+                field("Item No."; Rec."Item No.")
                 {
                     Editable = false;
                     ToolTip = 'Specifies the item number to which the SKU applies.', Comment = 'FRA="Spécifie le numéro de l''article auquel s''applique le point de stock."';
                     ApplicationArea = All;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     ToolTip = 'Specifies the description from the Item Card.', Comment = 'FRA="Spécifie la description de la fiche article."';
                     ApplicationArea = All;
                 }
-                field("Reorder Quantity"; "Reorder Quantity")
+                field("Reorder Quantity"; Rec."Reorder Quantity")
                 {
                     ToolTip = 'Specifies for the SKU, the same as the field does on the item card.', Comment = 'FRA="Spécifie le point de stock, le même que celui indiqué par le champ sur la feuille article."';
                     ApplicationArea = All;
                 }
-                field("Safety Stock Quantity"; "Safety Stock Quantity")
+                field("Safety Stock Quantity"; Rec."Safety Stock Quantity")
                 {
                     ApplicationArea = All;
                 }
-                field("Order Multiple"; "Order Multiple")
+                field("Order Multiple"; Rec."Order Multiple")
                 {
                     ApplicationArea = All;
                 }
-                field("Reordering Policy"; "Reordering Policy")
+                field("Reordering Policy"; Rec."Reordering Policy")
                 {
                     ApplicationArea = All;
                 }
@@ -201,13 +201,13 @@ page 50123 "BC6_Stock. Unit List METZ"
                         var
                             Item: Record Item;
                         begin
-                            Item.GET("Item No.");
-                            Item.SETRANGE("Location Filter", "Location Code");
-                            Item.SETRANGE("Variant Filter", "Variant Code");
-                            COPYFILTER("Date Filter", Item."Date Filter");
-                            COPYFILTER("Global Dimension 1 Filter", Item."Global Dimension 1 Filter");
-                            COPYFILTER("Global Dimension 2 Filter", Item."Global Dimension 2 Filter");
-                            COPYFILTER("Drop Shipment Filter", Item."Drop Shipment Filter");
+                            Item.GET(Rec."Item No.");
+                            Item.SETRANGE("Location Filter", Rec."Location Code");
+                            Item.SETRANGE("Variant Filter", Rec."Variant Code");
+                            Rec.COPYFILTER("Date Filter", Item."Date Filter");
+                            Rec.COPYFILTER("Global Dimension 1 Filter", Item."Global Dimension 1 Filter");
+                            Rec.COPYFILTER("Global Dimension 2 Filter", Item."Global Dimension 2 Filter");
+                            Rec.COPYFILTER("Drop Shipment Filter", Item."Drop Shipment Filter");
                             ItemAvailFormsMgt.ShowItemAvailFromItem(Item, ItemAvailFormsMgt.ByEvent());
                         end;
                     }
@@ -234,9 +234,9 @@ page 50123 "BC6_Stock. Unit List METZ"
                         var
                             Item: Record Item;
                         begin
-                            Item.GET("Item No.");
-                            Item.SETRANGE("Location Filter", "Location Code");
-                            Item.SETRANGE("Variant Filter", "Variant Code");
+                            Item.GET(Rec."Item No.");
+                            Item.SETRANGE("Location Filter", Rec."Location Code");
+                            Item.SETRANGE("Variant Filter", Rec."Variant Code");
                             ItemAvailFormsMgt.ShowItemAvailFromItem(Item, ItemAvailFormsMgt.ByBOM());
                         end;
                     }
@@ -248,7 +248,7 @@ page 50123 "BC6_Stock. Unit List METZ"
 
                         trigger OnAction()
                         begin
-                            ShowTimeline(Rec);
+                            Rec.ShowTimeline(Rec);
                         end;
                     }
                 }
@@ -343,7 +343,7 @@ page 50123 "BC6_Stock. Unit List METZ"
                         var
                             ItemTrackingDocMgt: Codeunit "Item Tracking Doc. Management";
                         begin
-                            ItemTrackingDocMgt.ShowItemTrackingForEntity(0, '', "Item No.", "Variant Code", "Location Code");
+                            ItemTrackingDocMgt.ShowItemTrackingForEntity(0, '', Rec."Item No.", Rec."Variant Code", Rec."Location Code");
                         end;
                     }
                 }
@@ -438,7 +438,7 @@ page 50123 "BC6_Stock. Unit List METZ"
 
     trigger OnOpenPage()
     begin
-        SETRANGE("Reordering Policy", "Reordering Policy"::"Fixed Reorder Qty.");
+        Rec.SETRANGE("Reordering Policy", Rec."Reordering Policy"::"Fixed Reorder Qty.");
     end;
 
     var

@@ -29,7 +29,7 @@ page 50029 "BC6_Purch His. By-From FactBox"
                     CLEAR(PagGPurchaseLinesSubform2);
                     RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::Quote);
                     RecGPurchLines.SETRANGE("Buy-from Vendor No.", RecGVendor."No.");
-                    RecGPurchLines.SETRANGE("No.", "No.");
+                    RecGPurchLines.SETRANGE("No.", Rec."No.");
                     PagGPurchaseLinesSubform2.SETTABLEVIEW(RecGPurchLines);
                     PagGPurchaseLinesSubform2.RUN();
                 end;
@@ -46,7 +46,7 @@ page 50029 "BC6_Purch His. By-From FactBox"
                     CLEAR(PagGPurchaseLinesSubform2);
                     RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::"Blanket Order");
                     RecGPurchLines.SETRANGE("Buy-from Vendor No.", RecGVendor."No.");
-                    RecGPurchLines.SETRANGE("No.", "No.");
+                    RecGPurchLines.SETRANGE("No.", Rec."No.");
                     PagGPurchaseLinesSubform2.SETTABLEVIEW(RecGPurchLines);
                     PagGPurchaseLinesSubform2.RUN();
                 end;
@@ -63,7 +63,7 @@ page 50029 "BC6_Purch His. By-From FactBox"
                     CLEAR(PagGPurchaseLinesSubform2);
                     RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::Order);
                     RecGPurchLines.SETRANGE("Buy-from Vendor No.", RecGVendor."No.");
-                    RecGPurchLines.SETRANGE("No.", "No.");
+                    RecGPurchLines.SETRANGE("No.", Rec."No.");
                     PagGPurchaseLinesSubform2.SETTABLEVIEW(RecGPurchLines);
                     PagGPurchaseLinesSubform2.RUN();
                 end;
@@ -80,7 +80,7 @@ page 50029 "BC6_Purch His. By-From FactBox"
                     CLEAR(PagGPurchaseLinesSubform2);
                     RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::Invoice);
                     RecGPurchLines.SETRANGE("Buy-from Vendor No.", RecGVendor."No.");
-                    RecGPurchLines.SETRANGE("No.", "No.");
+                    RecGPurchLines.SETRANGE("No.", Rec."No.");
                     PagGPurchaseLinesSubform2.SETTABLEVIEW(RecGPurchLines);
                     PagGPurchaseLinesSubform2.RUN();
                 end;
@@ -97,7 +97,7 @@ page 50029 "BC6_Purch His. By-From FactBox"
                     CLEAR(PagGPurchaseLinesSubform2);
                     RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::"Return Order");
                     RecGPurchLines.SETRANGE("Buy-from Vendor No.", RecGVendor."No.");
-                    RecGPurchLines.SETRANGE("No.", "No.");
+                    RecGPurchLines.SETRANGE("No.", Rec."No.");
                     PagGPurchaseLinesSubform2.SETTABLEVIEW(RecGPurchLines);
                     PagGPurchaseLinesSubform2.RUN();
                 end;
@@ -114,7 +114,7 @@ page 50029 "BC6_Purch His. By-From FactBox"
                     CLEAR(PagGPurchaseLinesSubform2);
                     RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::"Credit Memo");
                     RecGPurchLines.SETRANGE("Buy-from Vendor No.", RecGVendor."No.");
-                    RecGPurchLines.SETRANGE("No.", "No.");
+                    RecGPurchLines.SETRANGE("No.", Rec."No.");
                     PagGPurchaseLinesSubform2.SETTABLEVIEW(RecGPurchLines);
                     PagGPurchaseLinesSubform2.RUN();
                 end;
@@ -130,7 +130,7 @@ page 50029 "BC6_Purch His. By-From FactBox"
                     RecGPurchPostedRcpt.RESET();
                     CLEAR(PagGPurchRcpLinesSubform);
                     RecGPurchPostedRcpt.SETRANGE("Buy-from Vendor No.", RecGVendor."No.");
-                    RecGPurchPostedRcpt.SETRANGE("No.", "No.");
+                    RecGPurchPostedRcpt.SETRANGE("No.", Rec."No.");
                     PagGPurchRcpLinesSubform.SETTABLEVIEW(RecGPurchPostedRcpt);
                     PagGPurchRcpLinesSubform.RUN();
                 end;
@@ -146,7 +146,7 @@ page 50029 "BC6_Purch His. By-From FactBox"
                     RecGPurchPostedInvoice.RESET();
                     CLEAR(PagGPurchInvLineSubform);
                     RecGPurchPostedInvoice.SETRANGE("Buy-from Vendor No.", RecGVendor."No.");
-                    RecGPurchPostedInvoice.SETRANGE("No.", "No.");
+                    RecGPurchPostedInvoice.SETRANGE("No.", Rec."No.");
                     PagGPurchInvLineSubform.SETTABLEVIEW(RecGPurchPostedInvoice);
                     PagGPurchInvLineSubform.RUN();
                 end;
@@ -163,7 +163,7 @@ page 50029 "BC6_Purch His. By-From FactBox"
                     RecGPurchPostedReturnShipement.RESET();
                     CLEAR(PagGReturnShipmentLineSubform);
                     RecGPurchPostedReturnShipement.SETRANGE("Buy-from Vendor No.", RecGVendor."No.");
-                    RecGPurchPostedReturnShipement.SETRANGE("No.", "No.");
+                    RecGPurchPostedReturnShipement.SETRANGE("No.", Rec."No.");
                     PagGReturnShipmentLineSubform.SETTABLEVIEW(RecGPurchPostedReturnShipement);
                     PagGReturnShipmentLineSubform.RUN();
                 end;
@@ -180,7 +180,7 @@ page 50029 "BC6_Purch His. By-From FactBox"
                     RecGPurchPostedCrdMemo.RESET();
                     CLEAR(PagGPurchCrMemoLineSubform);
                     RecGPurchPostedCrdMemo.SETRANGE("Buy-from Vendor No.", RecGVendor."No.");
-                    RecGPurchPostedCrdMemo.SETRANGE("No.", "No.");
+                    RecGPurchPostedCrdMemo.SETRANGE("No.", Rec."No.");
                     PagGPurchCrMemoLineSubform.SETTABLEVIEW(RecGPurchPostedCrdMemo);
                     PagGPurchCrMemoLineSubform.RUN();
                 end;
@@ -190,7 +190,7 @@ page 50029 "BC6_Purch His. By-From FactBox"
 
     trigger OnAfterGetRecord()
     begin
-        IF NOT RecGVendor.GET("Buy-from Vendor No.") THEN
+        IF NOT RecGVendor.GET(Rec."Buy-from Vendor No.") THEN
             RecGVendor.INIT();
         CLEAR(CodGDocNo);
         NbrOfPurchQuote := 0;
@@ -204,16 +204,16 @@ page 50029 "BC6_Purch His. By-From FactBox"
         NbrOfPurchPostedReturnShipemen := 0;
         NbrOfPurchPostedCrdMemo := 0;
 
-        IF "No." = '' THEN
+        IF Rec."No." = '' THEN
             EXIT;
         CLEAR(CodGDocNo);
         RecGPurchLines.RESET();
         RecGPurchLines.SETCURRENTKEY("Document Type", "No.");
-        RecGPurchLines.SETFILTER("No.", "No.");
+        RecGPurchLines.SETFILTER("No.", Rec."No.");
         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::Quote);
 
         RecGPurchLines.SETCURRENTKEY(RecGPurchLines."Buy-from Vendor No.");
-        RecGPurchLines.SETFILTER("Buy-from Vendor No.", "Buy-from Vendor No.");
+        RecGPurchLines.SETFILTER("Buy-from Vendor No.", Rec."Buy-from Vendor No.");
         IF RecGPurchLines.FIND('-') THEN BEGIN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
@@ -225,11 +225,11 @@ page 50029 "BC6_Purch His. By-From FactBox"
         CLEAR(CodGDocNo);
         RecGPurchLines.RESET();
         RecGPurchLines.SETCURRENTKEY("Document Type", "No.");
-        RecGPurchLines.SETFILTER("No.", "No.");
+        RecGPurchLines.SETFILTER("No.", Rec."No.");
         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::"Blanket Order");
 
         RecGPurchLines.SETCURRENTKEY(RecGPurchLines."Buy-from Vendor No.");
-        RecGPurchLines.SETFILTER("Buy-from Vendor No.", "Buy-from Vendor No.");
+        RecGPurchLines.SETFILTER("Buy-from Vendor No.", Rec."Buy-from Vendor No.");
         IF RecGPurchLines.FIND('-') THEN BEGIN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
@@ -241,11 +241,11 @@ page 50029 "BC6_Purch His. By-From FactBox"
         CLEAR(CodGDocNo);
         RecGPurchLines.RESET();
         RecGPurchLines.SETCURRENTKEY("Document Type", "No.");
-        RecGPurchLines.SETFILTER("No.", "No.");
+        RecGPurchLines.SETFILTER("No.", Rec."No.");
         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::Order);
 
         RecGPurchLines.SETCURRENTKEY(RecGPurchLines."Buy-from Vendor No.");
-        RecGPurchLines.SETFILTER("Buy-from Vendor No.", "Buy-from Vendor No.");
+        RecGPurchLines.SETFILTER("Buy-from Vendor No.", Rec."Buy-from Vendor No.");
         IF RecGPurchLines.FIND('-') THEN BEGIN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
@@ -257,11 +257,11 @@ page 50029 "BC6_Purch His. By-From FactBox"
         CLEAR(CodGDocNo);
         RecGPurchLines.RESET();
         RecGPurchLines.SETCURRENTKEY("Document Type", "No.");
-        RecGPurchLines.SETFILTER("No.", "No.");
+        RecGPurchLines.SETFILTER("No.", Rec."No.");
         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::Invoice);
 
         RecGPurchLines.SETCURRENTKEY(RecGPurchLines."Buy-from Vendor No.");
-        RecGPurchLines.SETFILTER("Buy-from Vendor No.", "Buy-from Vendor No.");
+        RecGPurchLines.SETFILTER("Buy-from Vendor No.", Rec."Buy-from Vendor No.");
         IF RecGPurchLines.FIND('-') THEN BEGIN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
@@ -273,11 +273,11 @@ page 50029 "BC6_Purch His. By-From FactBox"
         CLEAR(CodGDocNo);
         RecGPurchLines.RESET();
         RecGPurchLines.SETCURRENTKEY("Document Type", "No.");
-        RecGPurchLines.SETFILTER("No.", "No.");
+        RecGPurchLines.SETFILTER("No.", Rec."No.");
         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::"Return Order");
 
         RecGPurchLines.SETCURRENTKEY(RecGPurchLines."Buy-from Vendor No.");
-        RecGPurchLines.SETFILTER("Buy-from Vendor No.", "Buy-from Vendor No.");
+        RecGPurchLines.SETFILTER("Buy-from Vendor No.", Rec."Buy-from Vendor No.");
         IF RecGPurchLines.FIND('-') THEN BEGIN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
@@ -289,11 +289,11 @@ page 50029 "BC6_Purch His. By-From FactBox"
         CLEAR(CodGDocNo);
         RecGPurchLines.RESET();
         RecGPurchLines.SETCURRENTKEY("Document Type", "No.");
-        RecGPurchLines.SETFILTER("No.", "No.");
+        RecGPurchLines.SETFILTER("No.", Rec."No.");
         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::"Credit Memo");
 
         RecGPurchLines.SETCURRENTKEY(RecGPurchLines."Buy-from Vendor No.");
-        RecGPurchLines.SETFILTER("Buy-from Vendor No.", "Buy-from Vendor No.");
+        RecGPurchLines.SETFILTER("Buy-from Vendor No.", Rec."Buy-from Vendor No.");
         IF RecGPurchLines.FIND('-') THEN BEGIN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
@@ -305,9 +305,9 @@ page 50029 "BC6_Purch His. By-From FactBox"
         CLEAR(CodGDocNo);
         RecGPurchPostedRcpt.RESET();
         RecGPurchPostedRcpt.SETCURRENTKEY("No.");
-        RecGPurchPostedRcpt.SETFILTER("No.", "No.");
+        RecGPurchPostedRcpt.SETFILTER("No.", Rec."No.");
         RecGPurchPostedRcpt.SETCURRENTKEY(RecGPurchPostedRcpt."Buy-from Vendor No.");
-        RecGPurchPostedRcpt.SETFILTER("Buy-from Vendor No.", "Buy-from Vendor No.");
+        RecGPurchPostedRcpt.SETFILTER("Buy-from Vendor No.", Rec."Buy-from Vendor No.");
 
         IF RecGPurchPostedRcpt.FIND('-') THEN BEGIN
             REPEAT
@@ -320,10 +320,10 @@ page 50029 "BC6_Purch His. By-From FactBox"
         CLEAR(CodGDocNo);
         RecGPurchPostedInvoice.RESET();
         RecGPurchPostedInvoice.SETCURRENTKEY("No.");
-        RecGPurchPostedInvoice.SETFILTER("No.", "No.");
+        RecGPurchPostedInvoice.SETFILTER("No.", Rec."No.");
 
         RecGPurchPostedInvoice.SETCURRENTKEY(RecGPurchPostedInvoice."Buy-from Vendor No.");
-        RecGPurchPostedInvoice.SETFILTER("Buy-from Vendor No.", "Buy-from Vendor No.");
+        RecGPurchPostedInvoice.SETFILTER("Buy-from Vendor No.", Rec."Buy-from Vendor No.");
 
         IF RecGPurchPostedInvoice.FIND('-') THEN BEGIN
             REPEAT
@@ -336,10 +336,10 @@ page 50029 "BC6_Purch His. By-From FactBox"
         CLEAR(CodGDocNo);
         RecGPurchPostedReturnShipement.RESET();
         RecGPurchPostedReturnShipement.SETCURRENTKEY("No.");
-        RecGPurchPostedReturnShipement.SETFILTER("No.", "No.");
+        RecGPurchPostedReturnShipement.SETFILTER("No.", Rec."No.");
 
         RecGPurchPostedReturnShipement.SETCURRENTKEY(RecGPurchPostedReturnShipement."Buy-from Vendor No.");
-        RecGPurchPostedReturnShipement.SETFILTER("Buy-from Vendor No.", "Buy-from Vendor No.");
+        RecGPurchPostedReturnShipement.SETFILTER("Buy-from Vendor No.", Rec."Buy-from Vendor No.");
 
         IF RecGPurchPostedReturnShipement.FIND('-') THEN BEGIN
             REPEAT
@@ -352,10 +352,10 @@ page 50029 "BC6_Purch His. By-From FactBox"
         CLEAR(CodGDocNo);
         RecGPurchPostedCrdMemo.RESET();
         RecGPurchPostedCrdMemo.SETCURRENTKEY("No.");
-        RecGPurchPostedCrdMemo.SETFILTER("No.", "No.");
+        RecGPurchPostedCrdMemo.SETFILTER("No.", Rec."No.");
 
         RecGPurchPostedCrdMemo.SETCURRENTKEY(RecGPurchPostedCrdMemo."Buy-from Vendor No.");
-        RecGPurchPostedCrdMemo.SETFILTER("Buy-from Vendor No.", "Buy-from Vendor No.");
+        RecGPurchPostedCrdMemo.SETFILTER("Buy-from Vendor No.", Rec."Buy-from Vendor No.");
 
         IF RecGPurchPostedCrdMemo.FIND('-') THEN BEGIN
             REPEAT

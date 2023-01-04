@@ -9,25 +9,21 @@ codeunit 50000 "BC6_PDF Mail Management"
 
     procedure GetSalesTag(RecSalesHeader: Record "Sales Header") TxtTag: Text[250]
     begin
-        WITH RecSalesHeader DO BEGIN
-            RecGSalesSetup.GET();
+        RecGSalesSetup.GET();
 
-            IF RecGContact.GET("Sell-to Contact No.") THEN
-                IF RecGContact."E-Mail" <> '' THEN
-                    TxtTag := RecGSalesSetup."BC6_PDF Mail Tag" + RecGContact."E-Mail";
-        END;
+        IF RecGContact.GET(RecSalesHeader."Sell-to Contact No.") THEN
+            IF RecGContact."E-Mail" <> '' THEN
+                TxtTag := RecGSalesSetup."BC6_PDF Mail Tag" + RecGContact."E-Mail";
     end;
 
     procedure GetPurchTag(RecPurchHeader: Record "Purchase Header") TxtTag: Text[250]
     begin
-        WITH RecPurchHeader DO BEGIN
-            //Search Contact info to create PDF document and e-mail it
-            RecGSalesSetup.GET();
+        //Search Contact info to create PDF document and e-mail it
+        RecGSalesSetup.GET();
 
-            IF RecGContact.GET("Pay-to Contact No.") THEN
-                IF RecGContact."E-Mail" <> '' THEN
-                    TxtTag := RecGSalesSetup."BC6_PDF Mail Tag" + RecGContact."E-Mail";
-        END;
+        IF RecGContact.GET(RecPurchHeader."Pay-to Contact No.") THEN
+            IF RecGContact."E-Mail" <> '' THEN
+                TxtTag := RecGSalesSetup."BC6_PDF Mail Tag" + RecGContact."E-Mail";
     end;
 
 }

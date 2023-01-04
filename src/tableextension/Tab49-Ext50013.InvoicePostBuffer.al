@@ -1,6 +1,4 @@
-#pragma warning disable AL0432
 tableextension 50013 "BC6_InvoicePostBuffer" extends "Invoice Post. Buffer" //49
-#pragma warning restore AL0432
 {
     fields
     {

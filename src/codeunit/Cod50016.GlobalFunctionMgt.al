@@ -256,31 +256,6 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
         SalesHeader.Copy(T77_SalesHeader, true);
     end;
 
-    //******** Page 5703************//
-    procedure SetNewReceiptBinCodeEnable(pNewReceiptBinCodeEnable: Boolean)
-    begin
-#pragma warning disable AA0206
-        NewReceiptBinCodeEnable := pNewReceiptBinCodeEnable;
-#pragma warning restore AA0206
-    end;
-    //------ end set
-    procedure SetNewShipmentBinCodeEnable(pNewShipmentBinCodeEnable: Boolean)
-    begin
-        NewShipmentBinCodeEnable := pNewShipmentBinCodeEnable;
-    end;
-
-    procedure GetNewShipmentBinCodeEnable(): Boolean
-    begin
-        exit(NewShipmentBinCodeEnable);
-    end;
-    //------ end  
-    procedure SetNewAssemblyShipmentBinCodeEnable(pNewAssemblyShipmentBinCodeEnable: Boolean)
-    begin
-#pragma warning disable AA0206
-        NewAssemblyShipmentBinCodeEnable := pNewAssemblyShipmentBinCodeEnable;
-#pragma warning restore AA0206
-    end;
-    //------ end set
 
 
 
@@ -354,9 +329,7 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
         BooGVendorNoStyle: Boolean;
         DeleteWhseActivity: Boolean;
         DeleteWhseActivityHeaderOk: Boolean;
-        NewAssemblyShipmentBinCodeEnable: Boolean;
-        NewReceiptBinCodeEnable: Boolean;
-        NewShipmentBinCodeEnable: Boolean;
+
         NewShowIncreaseCoeff: Boolean;
         SalesReservationFound: Boolean;
         EnableIncrPurchCost: Boolean;

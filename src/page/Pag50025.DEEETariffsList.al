@@ -12,19 +12,19 @@ page 50025 "BC6_DEEE Tariffs List"
         {
             repeater(Control1)
             {
-                field("DEEE Code"; "DEEE Code")
+                field("DEEE Code"; Rec."DEEE Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Eco Partner"; "Eco Partner")
+                field("Eco Partner"; Rec."Eco Partner")
                 {
                     ApplicationArea = All;
                 }
-                field("Date beginning"; "Date beginning")
+                field("Date beginning"; Rec."Date beginning")
                 {
                     ApplicationArea = All;
                 }
-                field("HT Unit Tax (LCY)"; "HT Unit Tax (LCY)")
+                field("HT Unit Tax (LCY)"; Rec."HT Unit Tax (LCY)")
                 {
                     ApplicationArea = All;
                 }

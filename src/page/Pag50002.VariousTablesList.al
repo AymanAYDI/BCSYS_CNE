@@ -11,10 +11,10 @@ page 50002 "BC6_Various Tables List"
             repeater(Control1)
             {
                 Editable = false;
-                field("Code"; Code)
+                field("Code"; Rec.Code)
                 {
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                 }
             }

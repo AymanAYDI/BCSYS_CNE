@@ -28,10 +28,8 @@ codeunit 50150 "BC6_PDW Trsf Articles Bourg"
     end;
 
     var
-#pragma warning disable AL0432
         PXAch_Cible: Record "Purchase Price";
         PXAch_Source: Record "Purchase Price";
-#pragma warning restore AL0432
         Dialog_D: Dialog;
         I: Integer;
 }

@@ -12,11 +12,11 @@ page 50021 "BC6_Item Sales Profit Group"
         {
             repeater(Control1)
             {
-                field("Code"; Code)
+                field("Code"; Rec.Code)
                 {
                     ApplicationArea = All;
                 }
-                field(Designation; Designation)
+                field(Designation; Rec.Designation)
                 {
                     ApplicationArea = All;
                 }

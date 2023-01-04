@@ -4,7 +4,7 @@ pageextension 50134 "BC6_PaymentSlipSubform" extends "Payment Slip Subform" //10
     {
         addfirst("Control1")
         {
-            field("BC6_Applies-to ID"; "Applies-to ID")
+            field("BC6_Applies-to ID"; Rec."Applies-to ID")
             {
             }
         }

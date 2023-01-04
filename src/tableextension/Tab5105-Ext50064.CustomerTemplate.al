@@ -1,4 +1,3 @@
-#pragma warning disable AL0432
 tableextension 50064 "BC6_CustomerTemplate" extends "Customer Template" //5105
 {
     fields
@@ -10,4 +9,3 @@ tableextension 50064 "BC6_CustomerTemplate" extends "Customer Template" //5105
         }
     }
 }
-#pragma warning restore AL0432

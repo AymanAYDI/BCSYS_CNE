@@ -40,7 +40,7 @@ table 50010 "BC6_Affair Steps"
             begin
                 RecLContact.RESET();
                 RecLContact.SETFILTER(RecLContact."No.", Contact);
-                IF RecLContact.FindFirst() THEN
+                if RecLContact.FindFirst() then
                     "Contact Name" := RecLContact.Name;
             end;
         }
@@ -57,7 +57,7 @@ table 50010 "BC6_Affair Steps"
         field(8; "Document No."; Code[20])
         {
             Caption = 'Document No.', comment = 'FRA="N° document"';
-            TableRelation = "Sales Header"."No." WHERE("Document Type" = FILTER("Order" | "Quote"));
+            TableRelation = "Sales Header"."No." where("Document Type" = filter("Order" | "Quote"));
             DataClassification = CustomerContent;
         }
         field(9; Terminated; Boolean)
@@ -103,7 +103,7 @@ table 50010 "BC6_Affair Steps"
         RecGJob: Record Job;
     begin
         RecGJob.SETFILTER(RecGJob."No.", "Affair No.");
-        IF RecGJob.FindFirst() THEN
+        if RecGJob.FindFirst() then
             "Affair Description" := RecGJob.Description;
     end;
 

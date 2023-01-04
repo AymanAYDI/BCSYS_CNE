@@ -4,7 +4,7 @@ pageextension 50095 "BC6_PostedReturnReceipt" extends "Posted Return Receipt" //
     {
         addafter("Bill-to Post Code")
         {
-            field("BC6_User ID"; "User ID")
+            field("BC6_User ID"; Rec."User ID")
             {
                 Editable = false;
                 ApplicationArea = All;
@@ -53,12 +53,12 @@ pageextension 50095 "BC6_PostedReturnReceipt" extends "Posted Return Receipt" //
 
     procedure EnvoiMail()
     begin
-        cust.SETRANGE(cust."No.", "Sell-to Customer No.");
+        cust.SETRANGE(cust."No.", Rec."Sell-to Customer No.");
         IF cust.FIND('-') THEN
             cust.TESTFIELD("E-Mail");
         OpenFile();
         IF nameF <> '' THEN BEGIN
-            Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + "No.", '', nameF, FALSE);
+            Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + Rec."No.", '', nameF, FALSE);
             ERASE(nameF);
         END ELSE BEGIN
             ERASE(SalesSetup.BC6_Repertoire + 'Envoi' + '\' + CurrPage.CAPTION);
@@ -69,7 +69,7 @@ pageextension 50095 "BC6_PostedReturnReceipt" extends "Posted Return Receipt" //
         HistMail.Nom := cust.Name;
         HistMail."E-Mail" := cust."E-Mail";
         HistMail."Date d'envoi" := TODAY;
-        HistMail."Document envoyé" := CurrPage.CAPTION + ' ' + "No.";
+        HistMail."Document envoyé" := CurrPage.CAPTION + ' ' + Rec."No.";
         HistMail.INSERT(TRUE);
     end;
 

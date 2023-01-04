@@ -182,12 +182,8 @@ table 50005 "BC6_Temporary import catalogue"
         GeneralLedgerSetup: Record "General Ledger Setup";
         recgItem: Record Item;
         RecGItemCrossRef: Record "Item Reference";
-#pragma warning disable AL0432
         RecGDiscount: Record "Purchase Line Discount";
-#pragma warning restore AL0432
-#pragma warning disable AL0432
         RecGPurchPrice: Record "Purchase Price";
-#pragma warning restore AL0432
         DistInt: codeunit "Dist. Integration";
         "---DEEE1.00---": Integer;
         Textg001: Label 'No DEEE category matching for item %1', comment = 'FRA="Aucun rapprochement de code tarif DEEE possible pour l''article %1"';
@@ -438,14 +434,8 @@ table 50005 "BC6_Temporary import catalogue"
     procedure InsertDiscount()
     begin
         RecGDiscount.RESET();
-#pragma warning disable AL0432
         RecGDiscount.SETCURRENTKEY("Item No.", "Vendor No.", "BC6_Type");
-#pragma warning restore AL0432
-#pragma warning disable AL0432
-#pragma warning disable AL0432
         RecGDiscount.SETFILTER("BC6_Type", '%1', RecGDiscount."BC6_Type"::Item);
-#pragma warning restore AL0432
-#pragma warning restore AL0432
         RecGDiscount.SETFILTER(RecGDiscount."Ending Date", FORMAT(0D));
         RecGDiscount.SETRANGE("Item No.", Ref_Interne);
         RecGDiscount.SETRANGE("Vendor No.", Vendor);
@@ -456,11 +446,7 @@ table 50005 "BC6_Temporary import catalogue"
                     RecGDiscount.MODIFY(TRUE);
                 UNTIL RecGDiscount.NEXT() = 0;
         RecGDiscount.INIT();
-#pragma warning disable AL0432
-#pragma warning disable AL0432
         RecGDiscount.VALIDATE("BC6_Type", RecGDiscount."BC6_Type"::Item);
-#pragma warning restore AL0432
-#pragma warning restore AL0432
         RecGDiscount.VALIDATE("Item No.", Ref_Interne);
         RecGDiscount.VALIDATE("Vendor No.", Vendor);
         RecGDiscount.VALIDATE("Line Discount %", remise);

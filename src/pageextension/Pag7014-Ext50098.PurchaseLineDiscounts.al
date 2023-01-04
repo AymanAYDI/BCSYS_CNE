@@ -1,4 +1,3 @@
-#pragma warning disable AL0432
 pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts" //7014
 {
     DataCaptionExpression = NewGetCaption();
@@ -29,8 +28,8 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
                     ItemDiscGrList: Page "Item Disc. Groups";
                     ItemList: Page "Item List";
                 begin
-                    CASE BC6_Type OF
-                        BC6_Type::Item:
+                    CASE Rec.BC6_Type OF
+                        Rec.BC6_Type::Item:
                             begin
                                 ItemList.LookupMode := true;
                                 if ItemList.RunModal() = ACTION::LookupOK then
@@ -39,7 +38,7 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
                                     exit(false);
                                 EXIT(FALSE);
                             END;
-                        BC6_Type::"Item Disc. Group":
+                        Rec.BC6_Type::"Item Disc. Group":
                             BEGIN
                                 ItemDiscGrList.LOOKUPMODE := TRUE;
                                 IF ItemDiscGrList.RUNMODAL() = ACTION::LookupOK THEN
@@ -86,7 +85,7 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
         }
         addfirst(Control1)
         {
-            field(BC6_Type; BC6_Type)
+            field(BC6_Type; Rec.BC6_Type)
             {
                 ApplicationArea = All;
             }
@@ -115,10 +114,10 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
 
     procedure GetRecFilters() //TODO: Check
     begin
-        if GetFilters <> '' then begin
-            VendNoFilter := GetFilter("Vendor No.");
-            ItemNoFilter := GetFilter("Item No.");
-            Evaluate(StartingDateFilter, GetFilter("Starting Date"));
+        if Rec.GetFilters <> '' then begin
+            VendNoFilter := Rec.GetFilter("Vendor No.");
+            ItemNoFilter := Rec.GetFilter("Item No.");
+            Evaluate(StartingDateFilter, Rec.GetFilter("Starting Date"));
         end;
     end;
 
@@ -134,9 +133,9 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
         BooGCodeFilterCtrl := TRUE;
 
         IF ItemTypeFilter <> ItemTypeFilter::None THEN
-            SetRange(BC6_Type, ItemTypeFilter.AsInteger())
+            Rec.SetRange(BC6_Type, ItemTypeFilter.AsInteger())
         ELSE
-            SetRange(BC6_Type);
+            Rec.SetRange(BC6_Type);
 
         IF (ItemTypeFilter = ItemTypeFilter::None) OR (ItemTypeFilter = ItemTypeFilter::"All Items") THEN BEGIN
             BooGCodeFilterCtrl := FALSE;
@@ -144,19 +143,19 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
         END;
 
         IF CodeFilter <> '' THEN
-            SetFilter("Item No.", CodeFilter)
+            Rec.SetFilter("Item No.", CodeFilter)
         ELSE
-            SetRange("Item No.");
+            Rec.SetRange("Item No.");
 
         if VendNoFilter <> '' then
-            SetFilter("Vendor No.", VendNoFilter)
+            Rec.SetFilter("Vendor No.", VendNoFilter)
         else
-            SetRange("Vendor No.");
+            Rec.SetRange("Vendor No.");
 
         if StartingDateFilter <> '' then
-            SetFilter("Starting Date", StartingDateFilter)
+            Rec.SetFilter("Starting Date", StartingDateFilter)
         else
-            SetRange("Starting Date");
+            Rec.SetRange("Starting Date");
 
         CurrPage.Update(false);
     end;
@@ -200,4 +199,3 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
 
     end;
 }
-#pragma warning restore AL0432

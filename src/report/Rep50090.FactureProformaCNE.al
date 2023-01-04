@@ -1672,9 +1672,7 @@ report 50090 "BC6_Facture Proforma CNE"
                 END ELSE BEGIN
                     RecGCustomerTemplate.RESET();
                     IF RecGCustomerTemplate.GET(SalesHeader."Sell-to Customer Templ. Code") THEN BEGIN
-#pragma warning disable AL0432
                         BooGSubmittedToDEEE := RecGCustomerTemplate."BC6_Submitted to DEEE";
-#pragma warning restore AL0432
                     END ELSE BEGIN
                         BooGSubmittedToDEEE := FALSE;
                     END;
@@ -1786,9 +1784,7 @@ report 50090 "BC6_Facture Proforma CNE"
         Client: Record Customer;
         Customer: Record Customer;
         RecGBillCustomer: Record Customer;
-#pragma warning disable AL0432
         RecGCustomerTemplate: Record "Customer Template";
-#pragma warning restore AL0432
         DimSetEntry1: Record "Dimension Set Entry";
         DimSetEntry2: Record "Dimension Set Entry";
         TempPrepmtDimSetEntry: Record "Dimension Set Entry" temporary;
@@ -1796,9 +1792,7 @@ report 50090 "BC6_Facture Proforma CNE"
         GLSetup: Record "General Ledger Setup";
         item: Record Item;
         RecGItem: Record Item;
-#pragma warning disable AL0432
         ItemCrossReference: Record "Item Cross Reference";
-#pragma warning restore AL0432
         PaymentMethod: Record "Payment Method";
         PaymentTerms: Record "Payment Terms";
         PrepmtPaymentTerms: Record "Payment Terms";
@@ -2042,97 +2036,95 @@ report 50090 "BC6_Facture Proforma CNE"
 
         VATAmountLine.DELETEALL();
 
-        WITH _SalesLine DO BEGIN
-            SETRANGE("Document Type", SalesHeader."Document Type");
-            SETRANGE("Document No.", SalesHeader."No.");
-            IF FINDSET() THEN
-                REPEAT
-                    IF NOT EmptyAmountLine(_SalesLine, QtyType) THEN BEGIN
-                        IF (Type = Type::"G/L Account") AND NOT "Prepayment Line" THEN
-                            RoundingLineInserted := ("No." = GetCPGInvRoundAcc(SalesHeader)) OR RoundingLineInserted;
-                        IF "VAT Calculation Type" IN
-                           ["VAT Calculation Type"::"Reverse Charge VAT", "VAT Calculation Type"::"Sales Tax"]
-                        THEN
-                            "VAT %" := 0;
-                        IF NOT VATAmountLine.GET(
-                             "VAT Identifier", "VAT Calculation Type", "Tax Group Code", FALSE, "Line Amount" >= 0)
-                        THEN
-                            VATAmountLine.InsertNewLine(
-                              "VAT Identifier", "VAT Calculation Type", "Tax Group Code", FALSE, "VAT %", "Line Amount" >= 0, FALSE);
+        _SalesLine.SETRANGE("Document Type", SalesHeader."Document Type");
+        _SalesLine.SETRANGE("Document No.", SalesHeader."No.");
+        IF _SalesLine.FINDSET() THEN
+            REPEAT
+                IF NOT EmptyAmountLine(_SalesLine, QtyType) THEN BEGIN
+                    IF (_SalesLine.Type = _SalesLine.Type::"G/L Account") AND NOT _SalesLine."Prepayment Line" THEN
+                        RoundingLineInserted := (_SalesLine."No." = _SalesLine.GetCPGInvRoundAcc(SalesHeader)) OR RoundingLineInserted;
+                    IF _SalesLine."VAT Calculation Type" IN
+                       [_SalesLine."VAT Calculation Type"::"Reverse Charge VAT", _SalesLine."VAT Calculation Type"::"Sales Tax"]
+                    THEN
+                        _SalesLine."VAT %" := 0;
+                    IF NOT VATAmountLine.GET(
+                         _SalesLine."VAT Identifier", _SalesLine."VAT Calculation Type", _SalesLine."Tax Group Code", FALSE, _SalesLine."Line Amount" >= 0)
+                    THEN
+                        VATAmountLine.InsertNewLine(
+                          _SalesLine."VAT Identifier", _SalesLine."VAT Calculation Type", _SalesLine."Tax Group Code", FALSE, _SalesLine."VAT %", _SalesLine."Line Amount" >= 0, FALSE);
 
-                        CASE QtyType OF
-                            QtyType::General:
-                                BEGIN
-                                    VATAmountLine.Quantity += "Quantity (Base)";
+                    CASE QtyType OF
+                        QtyType::General:
+                            BEGIN
+                                VATAmountLine.Quantity += _SalesLine."Quantity (Base)";
 
-                                    VATAmountLine."BC6_DEEE HT Amount" := VATAmountLine."BC6_DEEE HT Amount" + "BC6_DEEE HT Amount";
-                                    VATAmountLine."BC6_DEEE VAT Amount" := VATAmountLine."BC6_DEEE VAT Amount" + ROUND("BC6_DEEE VAT Amount"
-                                          , Currency."Amount Rounding Precision");
-                                    VATAmountLine."BC6_DEEE TTC Amount" := VATAmountLine."BC6_DEEE TTC Amount" + ROUND("BC6_DEEE TTC Amount"
-                                          , Currency."Amount Rounding Precision");
-                                    VATAmountLine."BC6_DEEE Amount (LCY) for Stat" := VATAmountLine."BC6_DEEE Amount (LCY) for Stat" +
-                                    "BC6_DEEE Amount (LCY) for Stat"; //ooo
+                                VATAmountLine."BC6_DEEE HT Amount" := VATAmountLine."BC6_DEEE HT Amount" + _SalesLine."BC6_DEEE HT Amount";
+                                VATAmountLine."BC6_DEEE VAT Amount" := VATAmountLine."BC6_DEEE VAT Amount" + ROUND(_SalesLine."BC6_DEEE VAT Amount"
+                                      , Currency."Amount Rounding Precision");
+                                VATAmountLine."BC6_DEEE TTC Amount" := VATAmountLine."BC6_DEEE TTC Amount" + ROUND(_SalesLine."BC6_DEEE TTC Amount"
+                                      , Currency."Amount Rounding Precision");
+                                VATAmountLine."BC6_DEEE Amount (LCY) for Stat" := VATAmountLine."BC6_DEEE Amount (LCY) for Stat" +
+                                _SalesLine."BC6_DEEE Amount (LCY) for Stat"; //ooo
 
 
-                                    VATAmountLine.SumLine(
-                                      "Line Amount", "Inv. Discount Amount", "VAT Difference", "Allow Invoice Disc.", "Prepayment Line");
-                                END;
-                            QtyType::Invoicing:
-                                BEGIN
-                                    CASE TRUE OF
-                                        ("Document Type" IN ["Document Type"::Order, "Document Type"::Invoice]) AND
-                                      (NOT SalesHeader.Ship) AND SalesHeader.Invoice AND (NOT "Prepayment Line"):
-                                            IF "Shipment No." = '' THEN BEGIN
-                                                QtyToHandle := GetAbsMin("Qty. to Invoice", "Qty. Shipped Not Invoiced");
-                                                VATAmountLine.Quantity += GetAbsMin("Qty. to Invoice (Base)", "Qty. Shipped Not Invd. (Base)");
-                                            END ELSE BEGIN
-                                                QtyToHandle := "Qty. to Invoice";
-                                                VATAmountLine.Quantity += "Qty. to Invoice (Base)";
-                                            END;
-                                        ("Document Type" IN ["Document Type"::"Return Order", "Document Type"::"Credit Memo"]) AND
-                                      (NOT SalesHeader.Receive) AND SalesHeader.Invoice:
-                                            IF "Return Receipt No." = '' THEN BEGIN
-                                                QtyToHandle := GetAbsMin("Qty. to Invoice", "Return Qty. Rcd. Not Invd.");
-                                                VATAmountLine.Quantity += GetAbsMin("Qty. to Invoice (Base)", "Ret. Qty. Rcd. Not Invd.(Base)");
-                                            END ELSE BEGIN
-                                                QtyToHandle := "Qty. to Invoice";
-                                                VATAmountLine.Quantity += "Qty. to Invoice (Base)";
-                                            END;
-                                        ELSE BEGIN
-                                            QtyToHandle := "Qty. to Invoice";
-                                            VATAmountLine.Quantity += "Qty. to Invoice (Base)";
+                                VATAmountLine.SumLine(
+                                  _SalesLine."Line Amount", _SalesLine."Inv. Discount Amount", _SalesLine."VAT Difference", _SalesLine."Allow Invoice Disc.", _SalesLine."Prepayment Line");
+                            END;
+                        QtyType::Invoicing:
+                            BEGIN
+                                CASE TRUE OF
+                                    (_SalesLine."Document Type" IN [_SalesLine."Document Type"::Order, _SalesLine."Document Type"::Invoice]) AND
+                                  (NOT SalesHeader.Ship) AND SalesHeader.Invoice AND (NOT _SalesLine."Prepayment Line"):
+                                        IF _SalesLine."Shipment No." = '' THEN BEGIN
+                                            QtyToHandle := GetAbsMin(_SalesLine."Qty. to Invoice", _SalesLine."Qty. Shipped Not Invoiced");
+                                            VATAmountLine.Quantity += GetAbsMin(_SalesLine."Qty. to Invoice (Base)", _SalesLine."Qty. Shipped Not Invd. (Base)");
+                                        END ELSE BEGIN
+                                            QtyToHandle := _SalesLine."Qty. to Invoice";
+                                            VATAmountLine.Quantity += _SalesLine."Qty. to Invoice (Base)";
                                         END;
+                                    (_SalesLine."Document Type" IN [_SalesLine."Document Type"::"Return Order", _SalesLine."Document Type"::"Credit Memo"]) AND
+                                  (NOT SalesHeader.Receive) AND SalesHeader.Invoice:
+                                        IF _SalesLine."Return Receipt No." = '' THEN BEGIN
+                                            QtyToHandle := GetAbsMin(_SalesLine."Qty. to Invoice", _SalesLine."Return Qty. Rcd. Not Invd.");
+                                            VATAmountLine.Quantity += GetAbsMin(_SalesLine."Qty. to Invoice (Base)", _SalesLine."Ret. Qty. Rcd. Not Invd.(Base)");
+                                        END ELSE BEGIN
+                                            QtyToHandle := _SalesLine."Qty. to Invoice";
+                                            VATAmountLine.Quantity += _SalesLine."Qty. to Invoice (Base)";
+                                        END;
+                                    ELSE BEGIN
+                                        QtyToHandle := _SalesLine."Qty. to Invoice";
+                                        VATAmountLine.Quantity += _SalesLine."Qty. to Invoice (Base)";
                                     END;
-                                    AmtToHandle := GetLineAmountToHandle(QtyToHandle);
-                                    IF SalesHeader."Invoice Discount Calculation" <> SalesHeader."Invoice Discount Calculation"::Amount THEN
-                                        VATAmountLine.SumLine(
-                                          AmtToHandle, ROUND("Inv. Discount Amount" * QtyToHandle / Quantity, Currency."Amount Rounding Precision"),
-                                          "VAT Difference", "Allow Invoice Disc.", "Prepayment Line")
-                                    ELSE
-                                        VATAmountLine.SumLine(
-                                          AmtToHandle, "Inv. Disc. Amount to Invoice", "VAT Difference", "Allow Invoice Disc.", "Prepayment Line");
                                 END;
-                            QtyType::Shipping:
-                                BEGIN
-                                    IF "Document Type" IN
-                                       ["Document Type"::"Return Order", "Document Type"::"Credit Memo"]
-                                    THEN BEGIN
-                                        QtyToHandle := "Return Qty. to Receive";
-                                        VATAmountLine.Quantity += "Return Qty. to Receive (Base)";
-                                    END ELSE BEGIN
-                                        QtyToHandle := "Qty. to Ship";
-                                        VATAmountLine.Quantity += "Qty. to Ship (Base)";
-                                    END;
-                                    AmtToHandle := GetLineAmountToHandle(QtyToHandle);
+                                AmtToHandle := _SalesLine.GetLineAmountToHandle(QtyToHandle);
+                                IF SalesHeader."Invoice Discount Calculation" <> SalesHeader."Invoice Discount Calculation"::Amount THEN
                                     VATAmountLine.SumLine(
-                                      AmtToHandle, ROUND("Inv. Discount Amount" * QtyToHandle / Quantity, Currency."Amount Rounding Precision"),
-                                      "VAT Difference", "Allow Invoice Disc.", "Prepayment Line");
+                                      AmtToHandle, ROUND(_SalesLine."Inv. Discount Amount" * QtyToHandle / _SalesLine.Quantity, Currency."Amount Rounding Precision"),
+                                      _SalesLine."VAT Difference", _SalesLine."Allow Invoice Disc.", _SalesLine."Prepayment Line")
+                                ELSE
+                                    VATAmountLine.SumLine(
+                                      AmtToHandle, _SalesLine."Inv. Disc. Amount to Invoice", _SalesLine."VAT Difference", _SalesLine."Allow Invoice Disc.", _SalesLine."Prepayment Line");
+                            END;
+                        QtyType::Shipping:
+                            BEGIN
+                                IF _SalesLine."Document Type" IN
+                                   [_SalesLine."Document Type"::"Return Order", _SalesLine."Document Type"::"Credit Memo"]
+                                THEN BEGIN
+                                    QtyToHandle := _SalesLine."Return Qty. to Receive";
+                                    VATAmountLine.Quantity += _SalesLine."Return Qty. to Receive (Base)";
+                                END ELSE BEGIN
+                                    QtyToHandle := _SalesLine."Qty. to Ship";
+                                    VATAmountLine.Quantity += _SalesLine."Qty. to Ship (Base)";
                                 END;
-                        END;
-                        TotalVATAmount += "Amount Including VAT" - Amount;
+                                AmtToHandle := _SalesLine.GetLineAmountToHandle(QtyToHandle);
+                                VATAmountLine.SumLine(
+                                  AmtToHandle, ROUND(_SalesLine."Inv. Discount Amount" * QtyToHandle / _SalesLine.Quantity, Currency."Amount Rounding Precision"),
+                                  _SalesLine."VAT Difference", _SalesLine."Allow Invoice Disc.", _SalesLine."Prepayment Line");
+                            END;
                     END;
-                UNTIL NEXT() = 0;
-        END;
+                    TotalVATAmount += _SalesLine."Amount Including VAT" - _SalesLine.Amount;
+                END;
+            UNTIL _SalesLine.NEXT() = 0;
 
         VATAmountLine.UpdateLines(
           TotalVATAmount, Currency, SalesHeader."Currency Factor", SalesHeader."Prices Including VAT",
@@ -2151,16 +2143,14 @@ report 50090 "BC6_Facture Proforma CNE"
 
     local procedure EmptyAmountLine(_SalesLine: Record "Sales Line"; QtyType: Option General,Invoicing,Shipping): Boolean
     begin
-        WITH _SalesLine DO BEGIN
-            IF Type = Type::" " THEN
+        IF _SalesLine.Type = _SalesLine.Type::" " THEN
+            EXIT(TRUE);
+        IF _SalesLine.Quantity = 0 THEN
+            EXIT(TRUE);
+        IF QtyType = QtyType::Invoicing THEN
+            IF _SalesLine."Qty. to Invoice" = 0 THEN
                 EXIT(TRUE);
-            IF Quantity = 0 THEN
-                EXIT(TRUE);
-            IF QtyType = QtyType::Invoicing THEN
-                IF "Qty. to Invoice" = 0 THEN
-                    EXIT(TRUE);
-            EXIT(FALSE);
-        END;
+        EXIT(FALSE);
     end;
 
     local procedure GetAbsMin(QtyToHandle: Decimal; QtyHandled: Decimal): Decimal

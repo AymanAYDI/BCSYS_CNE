@@ -6,12 +6,12 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
     {
         addafter("Sell-to Contact")
         {
-            field("BC6_Sell-to Fax No."; "BC6_Sell-to Fax No.")
+            field("BC6_Sell-to Fax No."; Rec."BC6_Sell-to Fax No.")
             {
                 Editable = false;
                 ApplicationArea = All;
             }
-            field("BC6_Sell-to E-Mail Address"; "BC6_Sell-to E-Mail Address")
+            field("BC6_Sell-to E-Mail Address"; Rec."BC6_Sell-to E-Mail Address")
             {
                 Editable = false;
                 ApplicationArea = All;
@@ -19,12 +19,12 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
         }
         addafter("External Document No.")
         {
-            field("BC6_User ID"; "User ID")
+            field("BC6_User ID"; Rec."User ID")
             {
                 Editable = false;
                 ApplicationArea = All;
             }
-            field("BC6_Affair No."; "BC6_Affair No.")
+            field("BC6_Affair No."; Rec."BC6_Affair No.")
             {
                 Editable = false;
                 ApplicationArea = All;
@@ -72,7 +72,7 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
                             '<br>' + '<br>' + recGCompanyInfo.Name + '<br>' + recGCompanyInfo.Address + ' ' + recGCompanyInfo."Post Code" + ' ' + recGCompanyInfo.City + '<br>' + 'Tél : ' + recGCompanyInfo."Phone No." +
                             ' ' + '- Fax : ' + recGCompanyInfo."Fax No.";
 
-                    cduMail.NewMessage("BC6_Sell-to E-Mail Address", '', '', Objet, Body, ToFile, TRUE);
+                    cduMail.NewMessage(Rec."BC6_Sell-to E-Mail Address", '', '', Objet, Body, ToFile, TRUE);
                     FILE.ERASE(FileName);
                 end;
             }
@@ -118,12 +118,12 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
     begin
         SalesSetup.GET();
         HistMail.Init();
-        cust.SETRANGE(cust."No.", "Sell-to Customer No.");
+        cust.SETRANGE(cust."No.", Rec."Sell-to Customer No.");
         IF cust.FIND('-') THEN
             cust.TESTFIELD("E-Mail");
         OpenFile();
         IF nameF <> '' THEN BEGIN
-            Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + "No.", '', nameF, FALSE);
+            Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + Rec."No.", '', nameF, FALSE);
             ERASE(nameF);
         END ELSE BEGIN
             ERASE(SalesSetup.BC6_Repertoire + 'Envoi' + '\' + CurrPage.CAPTION);
@@ -133,7 +133,7 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
         HistMail.Nom := cust.Name;
         HistMail."E-Mail" := cust."E-Mail";
         HistMail."Date d'envoi" := TODAY;
-        HistMail."Document envoyé" := CurrPage.CAPTION + ' ' + "No.";
+        HistMail."Document envoyé" := CurrPage.CAPTION + ' ' + Rec."No.";
         HistMail.INSERT(TRUE);
     end;
 

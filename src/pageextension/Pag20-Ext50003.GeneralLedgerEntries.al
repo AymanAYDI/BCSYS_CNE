@@ -4,7 +4,7 @@ pageextension 50003 "BC6_GeneralLedgerEntries" extends "General Ledger Entries" 
     {
         addafter("Posting Date")
         {
-            field("BC6_VAT Prod. Posting Group"; "VAT Prod. Posting Group")
+            field("BC6_VAT Prod. Posting Group"; Rec."VAT Prod. Posting Group")
             {
                 ApplicationArea = All;
             }

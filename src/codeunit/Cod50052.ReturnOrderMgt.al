@@ -15,37 +15,35 @@ codeunit 50052 "BC6_Return Order Mgt."
         L_SalesHeader: Record "Sales Header";
         Confirm: Boolean;
     begin
-        with P_SalesHeader do begin
-            if ("Document Type" = "Document Type"::"Return Order") and ("BC6_Return Order Type" = "BC6_Return Order Type"::SAV) then
-                if L_ReturnOrderRelation.GET("No.") then
-                    Confirm := DIALOG.CONFIRM(ComfirmDeleteAllRelatedDocuments, false);
-            if Confirm then begin
-                //Delete Related Sales Order
-                if L_ReturnOrderRelation."Sales Order No." <> '' then begin
-                    L_SalesHeader.RESET();
-                    L_SalesHeader.SETRANGE("Document Type", L_SalesHeader."Document Type"::Order);
-                    L_SalesHeader.SETRANGE("No.", L_ReturnOrderRelation."Sales Order No.");
-                    if L_SalesHeader.FINDFIRST() then begin
-                        L_SalesHeader.IsDeleteFromReturn(true);
-                        L_SalesHeader.DELETE(true);
-                    end;
+        if (P_SalesHeader."Document Type" = P_SalesHeader."Document Type"::"Return Order") and (P_SalesHeader."BC6_Return Order Type" = P_SalesHeader."BC6_Return Order Type"::SAV) then
+            if L_ReturnOrderRelation.GET(P_SalesHeader."No.") then
+                Confirm := DIALOG.CONFIRM(ComfirmDeleteAllRelatedDocuments, false);
+        if Confirm then begin
+            //Delete Related Sales Order
+            if L_ReturnOrderRelation."Sales Order No." <> '' then begin
+                L_SalesHeader.RESET();
+                L_SalesHeader.SETRANGE("Document Type", L_SalesHeader."Document Type"::Order);
+                L_SalesHeader.SETRANGE("No.", L_ReturnOrderRelation."Sales Order No.");
+                if L_SalesHeader.FINDFIRST() then begin
+                    L_SalesHeader.IsDeleteFromReturn(true);
+                    L_SalesHeader.DELETE(true);
                 end;
+            end;
 
-                if L_ReturnOrderRelation."Purchase Return Order" <> '' then begin
-                    L_RealedPurchReturn.RESET();
-                    L_RealedPurchReturn.SETRANGE("Document Type", L_RealedPurchReturn."Document Type"::"Return Order");
-                    L_RealedPurchReturn.SETRANGE("No.", L_ReturnOrderRelation."Purchase Return Order");
-                    if L_RealedPurchReturn.FINDFIRST() then
-                        L_RealedPurchReturn.DELETE(true);
-                end;
+            if L_ReturnOrderRelation."Purchase Return Order" <> '' then begin
+                L_RealedPurchReturn.RESET();
+                L_RealedPurchReturn.SETRANGE("Document Type", L_RealedPurchReturn."Document Type"::"Return Order");
+                L_RealedPurchReturn.SETRANGE("No.", L_ReturnOrderRelation."Purchase Return Order");
+                if L_RealedPurchReturn.FINDFIRST() then
+                    L_RealedPurchReturn.DELETE(true);
+            end;
 
-                if L_ReturnOrderRelation."Purchase Order No." <> '' then begin
-                    L_RelatedPurchOrder.RESET();
-                    L_RelatedPurchOrder.SETRANGE("Document Type", L_RelatedPurchOrder."Document Type"::Order);
-                    L_RelatedPurchOrder.SETRANGE("No.", L_ReturnOrderRelation."Purchase Order No.");
-                    if L_RelatedPurchOrder.FINDFIRST() then
-                        L_RelatedPurchOrder.DELETE(true);
-                end;
+            if L_ReturnOrderRelation."Purchase Order No." <> '' then begin
+                L_RelatedPurchOrder.RESET();
+                L_RelatedPurchOrder.SETRANGE("Document Type", L_RelatedPurchOrder."Document Type"::Order);
+                L_RelatedPurchOrder.SETRANGE("No.", L_ReturnOrderRelation."Purchase Order No.");
+                if L_RelatedPurchOrder.FINDFIRST() then
+                    L_RelatedPurchOrder.DELETE(true);
             end;
         end;
     end;
@@ -84,7 +82,6 @@ codeunit 50052 "BC6_Return Order Mgt."
         end;
     end;
 
-#pragma warning disable AA0228
     local procedure ExtractOrderNo(P_SalesInvoiceLine: Record "Sales Invoice Line"): Code[20]
     var
         ItemLedgEntry: Record "Item Ledger Entry";
@@ -118,45 +115,42 @@ codeunit 50052 "BC6_Return Order Mgt."
     var
         L_ReturnOrderRelation: Record "BC6_Return Order Relation";
     begin
-        with P_SalesHeader do
-            if ("Document Type" = "Document Type"::Order) then begin
-                L_ReturnOrderRelation.RESET();
-                L_ReturnOrderRelation.SETRANGE("Sales Order No.", P_SalesHeader."No.");
-                if L_ReturnOrderRelation.FINDFIRST() then begin
-                    L_ReturnOrderRelation."Sales Order No." := '';
-                    L_ReturnOrderRelation.MODIFY();
-                end;
+        if (P_SalesHeader."Document Type" = P_SalesHeader."Document Type"::Order) then begin
+            L_ReturnOrderRelation.RESET();
+            L_ReturnOrderRelation.SETRANGE("Sales Order No.", P_SalesHeader."No.");
+            if L_ReturnOrderRelation.FINDFIRST() then begin
+                L_ReturnOrderRelation."Sales Order No." := '';
+                L_ReturnOrderRelation.MODIFY();
             end;
+        end;
     end;
 
     procedure DeleteRelatedPurchOrderNo(var P_PurchaseHeader: Record "Purchase Header")
     var
         L_ReturnOrderRelation: Record "BC6_Return Order Relation";
     begin
-        with P_PurchaseHeader do
-            if ("Document Type" = "Document Type"::Order) then begin
-                L_ReturnOrderRelation.RESET();
-                L_ReturnOrderRelation.SETRANGE("Purchase Order No.", P_PurchaseHeader."No.");
-                if L_ReturnOrderRelation.FINDFIRST() then begin
-                    L_ReturnOrderRelation."Purchase Order No." := '';
-                    L_ReturnOrderRelation.MODIFY();
-                end;
+        if (P_PurchaseHeader."Document Type" = P_PurchaseHeader."Document Type"::Order) then begin
+            L_ReturnOrderRelation.RESET();
+            L_ReturnOrderRelation.SETRANGE("Purchase Order No.", P_PurchaseHeader."No.");
+            if L_ReturnOrderRelation.FINDFIRST() then begin
+                L_ReturnOrderRelation."Purchase Order No." := '';
+                L_ReturnOrderRelation.MODIFY();
             end;
+        end;
     end;
 
     procedure DeleteRelatedPurchReturnOrderNo(var P_PurchaseHeader: Record "Purchase Header")
     var
         L_ReturnOrderRelation: Record "BC6_Return Order Relation";
     begin
-        with P_PurchaseHeader do
-            if ("Document Type" = "Document Type"::"Return Order") then begin
-                L_ReturnOrderRelation.RESET();
-                L_ReturnOrderRelation.SETRANGE("Purchase Return Order", P_PurchaseHeader."No.");
-                if L_ReturnOrderRelation.FINDFIRST() then begin
-                    L_ReturnOrderRelation."Purchase Return Order" := '';
-                    L_ReturnOrderRelation.MODIFY();
-                end;
+        if (P_PurchaseHeader."Document Type" = P_PurchaseHeader."Document Type"::"Return Order") then begin
+            L_ReturnOrderRelation.RESET();
+            L_ReturnOrderRelation.SETRANGE("Purchase Return Order", P_PurchaseHeader."No.");
+            if L_ReturnOrderRelation.FINDFIRST() then begin
+                L_ReturnOrderRelation."Purchase Return Order" := '';
+                L_ReturnOrderRelation.MODIFY();
             end;
+        end;
     end;
 
 
@@ -168,22 +162,20 @@ codeunit 50052 "BC6_Return Order Mgt."
         L_SalesCrMemoHeader: Record "Sales Cr.Memo Header";
         TextError: Text;
     begin
-        with PurchaseHeader do begin
-            if "Document Type" <> "Document Type"::"Return Order" then
-                exit;
+        if PurchaseHeader."Document Type" <> PurchaseHeader."Document Type"::"Return Order" then
+            exit;
 
-            if "BC6_Return Order Type" <> "BC6_Return Order Type"::SAV then
-                exit;
+        if PurchaseHeader."BC6_Return Order Type" <> PurchaseHeader."BC6_Return Order Type"::SAV then
+            exit;
 
-            L_ReturnOrderRelation.RESET();
-            L_ReturnOrderRelation.SETRANGE("Purchase Return Order", "No.");
-            if L_ReturnOrderRelation.FINDFIRST() then begin
-                L_SalesCrMemoHeader.RESET();
-                L_SalesCrMemoHeader.SETRANGE("Return Order No.", L_ReturnOrderRelation."Sales Return Order");
-                if L_SalesCrMemoHeader.ISEMPTY then begin
-                    TextError := STRSUBSTNO(ErrValidateReturnPurchOrder, L_ReturnOrderRelation."Sales Return Order");
-                    ERROR(TextError);
-                end;
+        L_ReturnOrderRelation.RESET();
+        L_ReturnOrderRelation.SETRANGE("Purchase Return Order", PurchaseHeader."No.");
+        if L_ReturnOrderRelation.FINDFIRST() then begin
+            L_SalesCrMemoHeader.RESET();
+            L_SalesCrMemoHeader.SETRANGE("Return Order No.", L_ReturnOrderRelation."Sales Return Order");
+            if L_SalesCrMemoHeader.ISEMPTY then begin
+                TextError := STRSUBSTNO(ErrValidateReturnPurchOrder, L_ReturnOrderRelation."Sales Return Order");
+                ERROR(TextError);
             end;
         end;
     end;
@@ -196,16 +188,14 @@ codeunit 50052 "BC6_Return Order Mgt."
         RecLModifiedSalesHeader: Record "Sales Header";
         CduNoSeriesMgt: Codeunit NoSeriesManagement;
     begin
-        with Rec do begin
-            if "Document Type" <> "Document Type"::"Return Order" then
-                exit;
+        if Rec."Document Type" <> Rec."Document Type"::"Return Order" then
+            exit;
 
-            if ("BC6_Return Order Type" <> xRec."BC6_Return Order Type") and ("BC6_Return Order Type" = "BC6_Return Order Type"::Location) then begin
-                RecLSalesReceivablesSetup.GET();
-                RecLNoSeries.GET(RecLSalesReceivablesSetup."Return Order Nos.");
-                RecLModifiedSalesHeader.GET("Document Type", "No.");
-                RecLModifiedSalesHeader.RENAME("Document Type", CduNoSeriesMgt.GetNextNo(RecLNoSeries.Code, "Posting Date", true));
-            end;
+        if (Rec."BC6_Return Order Type" <> xRec."BC6_Return Order Type") and (Rec."BC6_Return Order Type" = Rec."BC6_Return Order Type"::Location) then begin
+            RecLSalesReceivablesSetup.GET();
+            RecLNoSeries.GET(RecLSalesReceivablesSetup."Return Order Nos.");
+            RecLModifiedSalesHeader.GET(Rec."Document Type", Rec."No.");
+            RecLModifiedSalesHeader.RENAME(Rec."Document Type", CduNoSeriesMgt.GetNextNo(RecLNoSeries.Code, Rec."Posting Date", true));
         end;
     end;
 }

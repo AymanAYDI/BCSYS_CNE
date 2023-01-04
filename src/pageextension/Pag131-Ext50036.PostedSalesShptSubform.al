@@ -4,7 +4,7 @@ pageextension 50036 "BC6_PostedSalesShptSubform" extends "Posted Sales Shpt. Sub
     {
         addafter("Location Code")
         {
-            field("BC6_Amount(LCY)"; "BC6_Amount(LCY)")
+            field("BC6_Amount(LCY)"; Rec."BC6_Amount(LCY)")
             {
                 ApplicationArea = All;
             }

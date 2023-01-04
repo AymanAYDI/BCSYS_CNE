@@ -4,7 +4,7 @@ pageextension 50052 "BC6_Std Vendor Pur. Codes" extends "Standard Vendor Purchas
     {
         addafter(Description)
         {
-            field(BC6_TextautoReport; "BC6_TextautoReport")
+            field(BC6_TextautoReport; Rec."BC6_TextautoReport")
             {
             }
 

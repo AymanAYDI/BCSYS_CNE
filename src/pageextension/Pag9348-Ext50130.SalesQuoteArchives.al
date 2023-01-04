@@ -8,7 +8,7 @@ pageextension 50130 "BC6_SalesQuoteArchives" extends "Sales Quote Archives" //93
         }
         addfirst(Control1)
         {
-            field(BC6_No; "No.")
+            field(BC6_No; Rec."No.")
             {
             }
         }

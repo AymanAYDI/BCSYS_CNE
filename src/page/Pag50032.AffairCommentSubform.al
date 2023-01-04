@@ -14,27 +14,27 @@ page 50032 "BC6_Affair Comment Sub-form"
         {
             repeater(Control1)
             {
-                field("Date"; Date)
+                field("Date"; Rec.Date)
                 {
                     ApplicationArea = All;
                 }
-                field(Comment; Comment)
+                field(Comment; Rec.Comment)
                 {
                     ApplicationArea = All;
                 }
-                field("Table Name"; "Table Name")
+                field("Table Name"; Rec."Table Name")
                 {
                     ApplicationArea = All;
                 }
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Line No."; "Line No.")
+                field("Line No."; Rec."Line No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Code"; Code)
+                field("Code"; Rec.Code)
                 {
                     ApplicationArea = All;
                 }
@@ -48,7 +48,7 @@ page 50032 "BC6_Affair Comment Sub-form"
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        SetUpNewLine();
+        Rec.SetUpNewLine();
     end;
 }
 

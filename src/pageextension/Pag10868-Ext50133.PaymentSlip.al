@@ -15,10 +15,10 @@ pageextension 50133 "BC6_PaymentSlip" extends "Payment Slip" //10868
                     Text001: label 'This payment class does not authorize vendor suggestions.', comment = 'FRA="Ce type de règlement n''autorise pas les propositions fournisseur."';
                     Text003: label 'You cannot suggest payments on a posted header.', comment = 'FRA="Vous n''êtes pas autorisé à faire des propositions de paiement sur un bordereau validé."';
                 begin
-                    IF "Status No." <> 0 THEN
+                    IF Rec."Status No." <> 0 THEN
                         MESSAGE(Text003)
                     ELSE
-                        IF PaymentClass.GET("Payment Class") THEN
+                        IF PaymentClass.GET(Rec."Payment Class") THEN
                             IF not (PaymentClass.Suggestions = PaymentClass.Suggestions::Vendor) THEN
                                 MESSAGE(Text001);
                 end;
@@ -41,10 +41,10 @@ pageextension 50133 "BC6_PaymentSlip" extends "Payment Slip" //10868
                     Text003: label 'You cannot suggest payments on a posted header.', comment = 'FRA="Vous n''êtes pas autorisé à faire des propositions de paiement sur un bordereau validé."';
 
                 begin
-                    IF "Status No." <> 0 THEN
+                    IF Rec."Status No." <> 0 THEN
                         MESSAGE(Text003)
                     ELSE
-                        IF PaymentClass.GET("Payment Class") THEN
+                        IF PaymentClass.GET(Rec."Payment Class") THEN
                             IF not (PaymentClass.Suggestions = PaymentClass.Suggestions::Customer) THEN
                                 MESSAGE(Text002);
                 end;
@@ -70,7 +70,7 @@ pageextension 50133 "BC6_PaymentSlip" extends "Payment Slip" //10868
                 begin
 
                     RecLPayLine.RESET();
-                    RecLPayLine.SETRANGE("No.", "No.");
+                    RecLPayLine.SETRANGE("No.", Rec."No.");
                     IF RecLPayLine.FINDSET(FALSE, FALSE) THEN BEGIN
                         IntLPos := STRPOS(RecLPayLine."Document No.", '/');
                         IF IntLPos > 0 THEN

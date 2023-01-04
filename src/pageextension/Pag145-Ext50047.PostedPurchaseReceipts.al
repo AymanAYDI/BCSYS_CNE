@@ -4,7 +4,7 @@ pageextension 50047 "BC6_PostedPurchaseReceipts" extends "Posted Purchase Receip
     {
         addafter("Shipment Method Code")
         {
-            field("BC6_Order No."; "Order No.")
+            field("BC6_Order No."; Rec."Order No.")
             {
             }
         }

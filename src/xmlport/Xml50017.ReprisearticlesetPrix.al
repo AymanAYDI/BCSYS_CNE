@@ -148,9 +148,7 @@ xmlport 50017 "BC6_Reprise articles et Prix"
                     END;
                 end;
             }
-#pragma warning disable AL0432
             tableelement("Purchase Price"; "Purchase Price")
-#pragma warning restore AL0432
             {
                 RequestFilterFields = "Starting Date", "Ending Date";
                 XmlName = 'PurchasePrice';
@@ -183,12 +181,8 @@ xmlport 50017 "BC6_Reprise articles et Prix"
         Art: Record Item;
         UniteArt: Record "Item Unit of Measure";
         Catalogue: Record "Item Vendor";
-#pragma warning disable AL0432
         Remise: Record "Purchase Line Discount";
-#pragma warning restore AL0432
-#pragma warning disable AL0432
         PrixUnit: Record "Purchase Price";
-#pragma warning restore AL0432
         CodeCat: Code[20];
         CodeFrs: Code[20];
 }

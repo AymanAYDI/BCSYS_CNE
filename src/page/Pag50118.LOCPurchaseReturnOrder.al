@@ -89,9 +89,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                          comment = 'FRA="Spécifie le numéro de votre contact au fournisseur."';
                     }
                 }
-#pragma warning disable AL0432
                 field(ID; Rec.ID)
-#pragma warning restore AL0432
                 {
                     ApplicationArea = All;
                 }
@@ -529,9 +527,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                         ApprovalEntries: Page "Approval Entries";
                     begin
 
-#pragma warning disable AL0432
                         ApprovalEntries.Setfilters(DATABASE::"Purchase Header", Rec."Document Type".AsInteger(), Rec."No.");
-#pragma warning restore AL0432
                         ApprovalEntries.RUN();
                     end;
                 }
@@ -1063,7 +1059,7 @@ page 50118 "BC6_LOC Purchase Return Order"
         IF (NOT DocNoVisible) AND (Rec."No." = '') THEN
             Rec.SetBuyFromVendorFromFilter();
 
-        "BC6_Return Order Type" := "BC6_Return Order Type"::Location;
+        Rec."BC6_Return Order Type" := Rec."BC6_Return Order Type"::Location;
     end;
 
     trigger OnOpenPage()
@@ -1169,7 +1165,7 @@ page 50118 "BC6_LOC Purchase Return Order"
         OpenApprovalEntriesExist := ApprovalsMgmt.HasOpenApprovalEntries(Rec.RECORDID);
         CanCancelApprovalForRecord := ApprovalsMgmt.CanCancelApprovalForRecord(Rec.RECORDID);
 
-        IF "BC6_Return Order Type" = "BC6_Return Order Type"::SAV THEN
+        IF Rec."BC6_Return Order Type" = Rec."BC6_Return Order Type"::SAV THEN
             BooGReminderDateVisible := TRUE;
     end;
 

@@ -1009,13 +1009,11 @@ report 50060 "BC6_Return Order SAV Conf."
 
     local procedure FormatDocumentFields(SalesHeader: Record "Sales Header")
     begin
-        WITH SalesHeader DO BEGIN
-            FormatDocument.SetTotalLabels("Currency Code", TotalText, TotalInclVATText, TotalExclVATText);
-            FormatDocument.SetSalesPerson(SalesPurchPerson, "Salesperson Code", SalesPersonText);
+        FormatDocument.SetTotalLabels(SalesHeader."Currency Code", TotalText, TotalInclVATText, TotalExclVATText);
+        FormatDocument.SetSalesPerson(SalesPurchPerson, SalesHeader."Salesperson Code", SalesPersonText);
 
-            ReferenceText := FormatDocument.SetText("Your Reference" <> '', FIELDCAPTION("Your Reference"));
-            VATNoText := FormatDocument.SetText("VAT Registration No." <> '', FIELDCAPTION("VAT Registration No."));
-        END;
+        ReferenceText := FormatDocument.SetText(SalesHeader."Your Reference" <> '', SalesHeader.FIELDCAPTION("Your Reference"));
+        VATNoText := FormatDocument.SetText(SalesHeader."VAT Registration No." <> '', SalesHeader.FIELDCAPTION("VAT Registration No."));
     end;
 }
 

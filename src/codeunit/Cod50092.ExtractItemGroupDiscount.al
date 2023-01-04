@@ -1,17 +1,13 @@
 codeunit 50092 "Extract Item Group Discount"
 {
-#pragma warning disable AL0432
     TableNo = "Sales Line Discount";
-#pragma warning restore AL0432
 
     trigger OnRun()
     var
         ItemDiscGroup: Record "Item Discount Group";
-#pragma warning disable AL0432
         FromSalesLineDiscount: Record "Sales Line Discount";
         SalesLineDiscount: Record "Sales Line Discount";
         ToSalesLineDiscount: Record "Sales Line Discount";
-#pragma warning restore AL0432
         ItemDiscGroupForm: Page "Item Disc. Groups";
     begin
 
@@ -55,13 +51,11 @@ codeunit 50092 "Extract Item Group Discount"
                 ToSalesLineDiscount."Variant Code" := FromSalesLineDiscount."Variant Code";
                 ToSalesLineDiscount."Unit of Measure Code" := FromSalesLineDiscount."Unit of Measure Code";
                 ToSalesLineDiscount."Minimum Quantity" := FromSalesLineDiscount."Minimum Quantity";
-#pragma warning disable AL0432
                 ToSalesLineDiscount."BC6_Profit %" := FromSalesLineDiscount."BC6_Profit %";
                 ToSalesLineDiscount."Line Discount %" := FromSalesLineDiscount."Line Discount %";
                 ToSalesLineDiscount."Ending Date" := FromSalesLineDiscount."Ending Date";
                 ToSalesLineDiscount."BC6_Dispensation No." := FromSalesLineDiscount."BC6_Dispensation No.";
                 ToSalesLineDiscount."BC6_Added Discount %" := FromSalesLineDiscount."BC6_Added Discount %";
-#pragma warning restore AL0432
                 ToSalesLineDiscount.INSERT();
 
             until ItemDiscGroup.NEXT() = 0;

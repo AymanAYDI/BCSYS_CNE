@@ -881,9 +881,7 @@ report 50009 "BC6_Sales Quote"
                 END ELSE BEGIN
                     RecGCustomerTemplate.RESET();
                     IF RecGCustomerTemplate.GET("Sales Header"."Sell-to Customer Templ. Code") THEN BEGIN
-#pragma warning disable AL0432
                         BooGSubmittedToDEEE := RecGCustomerTemplate."BC6_Submitted to DEEE";
-#pragma warning restore AL0432
                     END ELSE BEGIN
                         BooGSubmittedToDEEE := FALSE;
                     END;
@@ -1035,9 +1033,7 @@ report 50009 "BC6_Sales Quote"
         CurrExchRate: Record "Currency Exchange Rate";
         RecGBillCustomer: Record Customer;
         RecGCustomer: Record Customer;
-#pragma warning disable AL0432
         RecGCustomerTemplate: Record "Customer Template";
-#pragma warning restore AL0432
         GLSetup: Record "General Ledger Setup";
         RecGItem: Record Item;
         PaymentMethod: Record "Payment Method";

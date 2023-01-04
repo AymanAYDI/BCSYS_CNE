@@ -12,7 +12,7 @@ page 50004 "BC6_Special Extended Text"
         {
             group(Control1100267000)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     Caption = 'Item Code', comment = 'FRA="Code Article"';
                     Editable = false;
@@ -27,7 +27,7 @@ page 50004 "BC6_Special Extended Text"
             group(Control1100267001)
             {
                 Visible = true;
-                field("Code"; Code)
+                field("Code"; Rec.Code)
                 {
                     Caption = 'Code';
                     Lookup = true;
@@ -46,20 +46,20 @@ page 50004 "BC6_Special Extended Text"
             }
             repeater(Control1000000000)
             {
-                field("Table Name"; "Table Name")
+                field("Table Name"; Rec."Table Name")
                 {
                     Visible = false;
                 }
-                field(No2; "No.")
+                field(No2; Rec."No.")
                 {
                     Visible = false;
                 }
-                field("Line No."; "Line No.")
+                field("Line No."; Rec."Line No.")
                 {
                     Editable = false;
                     Visible = false;
                 }
-                field("Text"; Text)
+                field("Text"; Rec.Text)
                 {
                 }
             }
@@ -80,32 +80,32 @@ page 50004 "BC6_Special Extended Text"
 
                     SpecialExtendedTextLine2.RESET();
                     IF CurrentType = CurrentType::Customer THEN
-                        SpecialExtendedTextLine2.SETRANGE("Table Name", "Table Name"::Customer);
+                        SpecialExtendedTextLine2.SETRANGE("Table Name", Rec."Table Name"::Customer);
                     IF CurrentType = CurrentType::vendor THEN
-                        SpecialExtendedTextLine2.SETRANGE("Table Name", "Table Name"::Vendor);
-                    SpecialExtendedTextLine2.SETRANGE("Table Name", "Table Name");
-                    SpecialExtendedTextLine2.SETRANGE("No.", "No.");
+                        SpecialExtendedTextLine2.SETRANGE("Table Name", Rec."Table Name"::Vendor);
+                    SpecialExtendedTextLine2.SETRANGE("Table Name", Rec."Table Name");
+                    SpecialExtendedTextLine2.SETRANGE("No.", Rec."No.");
                     IF PAGE.RUNMODAL(PAGE::"BC6_Special Extended Text list", SpecialExtendedTextLine2) = ACTION::LookupOK THEN BEGIN
                         CurrPage.UPDATE(FALSE);
-                        Code := SpecialExtendedTextLine2.Code;
+                        Rec.Code := SpecialExtendedTextLine2.Code;
                         CurrentCode := SpecialExtendedTextLine2.Code;
                         // Lecture de la table Customer ou Vendor
-                        IF "Table Name" = "Table Name"::Customer THEN BEGIN
-                            IF TableCustomer.GET(Code) THEN
+                        IF Rec."Table Name" = Rec."Table Name"::Customer THEN BEGIN
+                            IF TableCustomer.GET(Rec.Code) THEN
                                 CustomerName := TableCustomer.Name;
-                            Code := TableCustomer."No.";
+                            Rec.Code := TableCustomer."No.";
                         END ELSE BEGIN
-                            IF TableVendor.GET(Code) THEN
+                            IF TableVendor.GET(Rec.Code) THEN
                                 CustomerName := TableVendor.Name;
-                            Code := TableVendor."No.";
+                            Rec.Code := TableVendor."No.";
                         END;
-                        CurrentCode := Code;
+                        CurrentCode := Rec.Code;
 
-                        RESET();
-                        SETRANGE("Table Name", "Table Name");
-                        SETRANGE("No.", "No.");
-                        SETRANGE(Code, CurrentCode);
-                        FIND();
+                        Rec.RESET();
+                        Rec.SETRANGE("Table Name", Rec."Table Name");
+                        Rec.SETRANGE("No.", Rec."No.");
+                        Rec.SETRANGE(Code, CurrentCode);
+                        Rec.FIND();
                     END;
                 end;
             }
@@ -116,24 +116,24 @@ page 50004 "BC6_Special Extended Text"
     begin
 
         CurrentCode := '';
-        RESET();
-        SETRANGE("Table Name", CurrentType);
-        SETRANGE("No.", CurrentNo);
-        SETRANGE(Code, Code);
-        IF (CurrentType <> "Table Name") OR (Code = '') THEN BEGIN
+        Rec.RESET();
+        Rec.SETRANGE("Table Name", CurrentType);
+        Rec.SETRANGE("No.", CurrentNo);
+        Rec.SETRANGE(Code, Rec.Code);
+        IF (CurrentType <> Rec."Table Name") OR (Rec.Code = '') THEN BEGIN
             CurrentCode := '';
-            Code := '';
-            RESET();
+            Rec.Code := '';
+            Rec.RESET();
             SpecialExtendedTextLine.RESET();
             SpecialExtendedTextLine.SETRANGE(SpecialExtendedTextLine."Table Name", CurrentType);
             SpecialExtendedTextLine.SETRANGE(SpecialExtendedTextLine."No.", CurrentNo);
             IF SpecialExtendedTextLine.FIND('-') THEN BEGIN
-                Code := SpecialExtendedTextLine.Code;
+                Rec.Code := SpecialExtendedTextLine.Code;
                 CurrentCode := SpecialExtendedTextLine.Code;
             END;
-            SETRANGE("Table Name", CurrentType);
-            SETRANGE("No.", CurrentNo);
-            SETRANGE(Code, Code);
+            Rec.SETRANGE("Table Name", CurrentType);
+            Rec.SETRANGE("No.", CurrentNo);
+            Rec.SETRANGE(Code, Rec.Code);
         END;
         OnActivateForm();
     end;
@@ -152,20 +152,20 @@ page 50004 "BC6_Special Extended Text"
 
     local procedure CodeOnAfterValidate()
     begin
-        IF "Table Name" = "Table Name"::Customer THEN BEGIN
-            IF TableCustomer.GET(Code) THEN
+        IF Rec."Table Name" = Rec."Table Name"::Customer THEN BEGIN
+            IF TableCustomer.GET(Rec.Code) THEN
                 CustomerName := TableCustomer.Name;
-            Code := TableCustomer."No.";
+            Rec.Code := TableCustomer."No.";
         END ELSE BEGIN
-            IF TableVendor.GET(Code) THEN
+            IF TableVendor.GET(Rec.Code) THEN
                 CustomerName := TableVendor.Name;
-            Code := TableVendor."No.";
+            Rec.Code := TableVendor."No.";
         END;
-        CurrentCode := Code;
-        RESET();
-        SETRANGE("Table Name", "Table Name");
-        SETRANGE("No.", "No.");
-        SETRANGE(Code, CurrentCode);
+        CurrentCode := Rec.Code;
+        Rec.RESET();
+        Rec.SETRANGE("Table Name", Rec."Table Name");
+        Rec.SETRANGE("No.", Rec."No.");
+        Rec.SETRANGE(Code, CurrentCode);
         CurrPage.UPDATE(FALSE);
     end;
 

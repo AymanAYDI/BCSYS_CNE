@@ -4,26 +4,26 @@ pageextension 50037 "BC6_PostedSalesInvoice" extends "Posted Sales Invoice" //13
     {
         addafter("Sell-to Contact")
         {
-            field("BC6_Sell-to Fax No."; "BC6_Sell-to Fax No.")
+            field("BC6_Sell-to Fax No."; Rec."BC6_Sell-to Fax No.")
             {
                 Enabled = false;
                 ApplicationArea = All;
             }
-            field("BC6_Sell-to E-Mail Address"; "BC6_Sell-to E-Mail Address")
+            field("BC6_Sell-to E-Mail Address"; Rec."BC6_Sell-to E-Mail Address")
             {
                 Caption = 'Sell-to Customer E-Mail', Comment = 'FRA="E-Mail donneur d''ordre"';
                 Editable = false;
                 ApplicationArea = All;
             }
-            field("BC6_Shipment Invoiced"; "BC6_Shipment Invoiced")
+            field("BC6_Shipment Invoiced"; Rec."BC6_Shipment Invoiced")
             {
                 ApplicationArea = All;
             }
-            field("BC6_User ID"; "User ID")
+            field("BC6_User ID"; Rec."User ID")
             {
                 ApplicationArea = All;
             }
-            field("BC6_Affair No."; "BC6_Affair No.")
+            field("BC6_Affair No."; Rec."BC6_Affair No.")
             {
                 ApplicationArea = All;
             }
@@ -64,7 +64,7 @@ pageextension 50037 "BC6_PostedSalesInvoice" extends "Posted Sales Invoice" //13
                             '<br>' + '<br>' + recGCompanyInfo.Name + '<br>' + recGCompanyInfo.Address + ' ' + recGCompanyInfo."Post Code" + ' ' + recGCompanyInfo.City + '<br>' + 'Tél : ' + recGCompanyInfo."Phone No." +
                             ' ' + '- Fax : ' + recGCompanyInfo."Fax No.";
 
-                    cduMail.NewMessage("BC6_Sell-to E-Mail Address", '', '', Objet, Body, ToFile, FALSE);
+                    cduMail.NewMessage(Rec."BC6_Sell-to E-Mail Address", '', '', Objet, Body, ToFile, FALSE);
                     FILE.ERASE(FileName);
                 end;
             }
@@ -103,12 +103,12 @@ pageextension 50037 "BC6_PostedSalesInvoice" extends "Posted Sales Invoice" //13
 
     procedure EnvoiMail()
     begin
-        cust.SETRANGE(cust."No.", "Sell-to Customer No.");
+        cust.SETRANGE(cust."No.", Rec."Sell-to Customer No.");
         IF cust.FIND('-') THEN
             cust.TESTFIELD("E-Mail");
         OpenFile();
         IF nameF <> '' THEN BEGIN
-            Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + "No.", '', nameF, FALSE);
+            Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + Rec."No.", '', nameF, FALSE);
             ERASE(nameF);
         END
         ELSE BEGIN
@@ -120,7 +120,7 @@ pageextension 50037 "BC6_PostedSalesInvoice" extends "Posted Sales Invoice" //13
         HistMail.Nom := cust.Name;
         HistMail."E-Mail" := cust."E-Mail";
         HistMail."Date d'envoi" := TODAY;
-        HistMail."Document envoyé" := CurrPage.CAPTION + ' ' + "No.";
+        HistMail."Document envoyé" := CurrPage.CAPTION + ' ' + Rec."No.";
         HistMail.INSERT(TRUE);
     end;
 

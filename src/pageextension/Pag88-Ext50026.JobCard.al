@@ -32,31 +32,31 @@ pageextension 50026 "BC6_JobCard" extends "Job Card" //88
 
         addafter("Bill-to Name")
         {
-            field(BC6_Address; "BC6_Address")
+            field(BC6_Address; Rec."BC6_Address")
             {
                 ApplicationArea = Jobs;
                 Importance = Additional;
                 ToolTip = 'Specifies the address of the Bill-to Customer, which you assigned to the current job, in the Bill-to Customer No. field. field.', Comment = 'FRA="Spécifie l''adresse du Client facturé que vous avez affecté au projet actif dans le champ N° client facturé."';
             }
-            field("BC6_Address 2"; "BC6_Address 2")
+            field("BC6_Address 2"; Rec."BC6_Address 2")
             {
                 ApplicationArea = Jobs;
                 Importance = Additional;
                 ToolTip = 'Specifies the additional address of the Bill-to Customer, which you assigned to the current job, in the Bill-to Customer No. field. field.', Comment = 'FRA="Spécifie le complément d''adresse du Client facturé que vous avez affecté au projet actif dans le champ N° client facturé."';
             }
-            field("BC6_Post Code"; "BC6_Post Code")
+            field("BC6_Post Code"; Rec."BC6_Post Code")
             {
                 ApplicationArea = Jobs;
                 Importance = Additional;
                 ToolTip = 'Specifies the post code of the Bill-to Customer, which you assigned to the current job, in the Bill-to Customer No. field. field.', Comment = 'FRA="Spécifie le code postal du Client facturé que vous avez affecté au projet actif dans le champ N° client facturé."';
             }
-            field(BC6_City; "BC6_City")
+            field(BC6_City; Rec."BC6_City")
             {
                 ApplicationArea = Jobs;
                 Importance = Additional;
                 ToolTip = 'Specifies the City of the Bill-to Customer, which you assigned to the current job, in the Bill-to Customer No. field. field.', Comment = 'FRA="Spécifie la ville du Client facturé que vous avez affecté au projet actif dans le champ N° client facturé."';
             }
-            field(BC6_Country; "BC6_Country")
+            field(BC6_Country; Rec."BC6_Country")
             {
             }
 
@@ -64,14 +64,14 @@ pageextension 50026 "BC6_JobCard" extends "Job Card" //88
 
         addafter("Description")
         {
-            field("BC6_Description 2"; "Description 2")
+            field("BC6_Description 2"; Rec."Description 2")
             {
                 Importance = Promoted;
             }
         }
         addafter("Last Date Modified")
         {
-            field("BC6_Affair Responsible"; "BC6_Affair Responsible")
+            field("BC6_Affair Responsible"; Rec."BC6_Affair Responsible")
             {
 
                 trigger OnLookup(var Text: Text): Boolean
@@ -79,13 +79,13 @@ pageextension 50026 "BC6_JobCard" extends "Job Card" //88
                     UserSetup: Record "User Setup";
                 begin
                     IF PAGE.RUNMODAL(PAGE::"User Setup", UserSetup) = ACTION::LookupOK THEN
-                        VALIDATE("BC6_Affair Responsible", PADSTR(UserSetup."User ID", 20));
+                        Rec.VALIDATE("BC6_Affair Responsible", PADSTR(UserSetup."User ID", 20));
                 end;
             }
-            field(BC6_Statut; "BC6_Statut")
+            field(BC6_Statut; Rec."BC6_Statut")
             {
             }
-            field(BC6_Status; Status)
+            field(BC6_Status; Rec.Status)
             {
                 ApplicationArea = Jobs;
                 Importance = Promoted;
@@ -93,8 +93,8 @@ pageextension 50026 "BC6_JobCard" extends "Job Card" //88
 
                 trigger OnValidate()
                 begin
-                    IF (Status = Status::Completed) AND Complete THEN BEGIN
-                        RecalculateJobWIP();
+                    IF (Rec.Status = Rec.Status::Completed) AND Rec.Complete THEN BEGIN
+                        Rec.RecalculateJobWIP();
                         CurrPage.UPDATE(FALSE);
                     END;
                 end;
@@ -103,7 +103,7 @@ pageextension 50026 "BC6_JobCard" extends "Job Card" //88
         }
         addafter("Creation Date")
         {
-            field("BC6_Bill-to Contact_BA"; "Bill-to Contact")
+            field("BC6_Bill-to Contact_BA"; Rec."Bill-to Contact")
             {
                 Caption = 'Budget Amount', comment = 'FRA="Montant projet"';
             }
@@ -157,12 +157,10 @@ pageextension 50026 "BC6_JobCard" extends "Job Card" //88
             }
 
         }
-#pragma warning disable AL0432
         modify("&Prices")
         {
             Visible = FALSE;
         }
-#pragma warning restore AL0432
         modify("Plan&ning")
         {
             Visible = FALSE;
@@ -185,7 +183,7 @@ pageextension 50026 "BC6_JobCard" extends "Job Card" //88
                         TableInformation: Record "Table Information";
                     begin
                         Doc.SETRANGE(Doc."Table No.", 167);
-                        Doc.SETRANGE(Doc."Reference No. 1", "No.");
+                        Doc.SETRANGE(Doc."Reference No. 1", Rec."No.");
                         TableInformation.SETRANGE(TableInformation."Table No.", 167);
                         IF TableInformation.FindFirst() THEN
                             Doc.SETRANGE(Doc."Table Name", TableInformation."Table Name");

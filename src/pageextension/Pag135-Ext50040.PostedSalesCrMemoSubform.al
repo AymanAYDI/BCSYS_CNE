@@ -4,7 +4,7 @@ pageextension 50040 "BC6_PostedSalesCrMemoSubform" extends "Posted Sales Cr. Mem
     {
         addafter("Unit of Measure Code")
         {
-            field("BC6_Purchase cost"; "BC6_Purchase cost")
+            field("BC6_Purchase cost"; Rec."BC6_Purchase cost")
             {
                 ApplicationArea = All;
             }

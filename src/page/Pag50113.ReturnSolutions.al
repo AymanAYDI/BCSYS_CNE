@@ -10,13 +10,13 @@ page 50113 "BC6_Return Solutions"
         {
             repeater(Group)
             {
-                field("Code"; Code)
+                field("Code"; Rec.Code)
                 {
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                 }
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                 }
             }

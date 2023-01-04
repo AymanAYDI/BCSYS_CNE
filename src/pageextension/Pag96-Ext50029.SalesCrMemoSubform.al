@@ -4,47 +4,47 @@ pageextension 50029 "BC6_SalesCrMemoSubform" extends "Sales Cr. Memo Subform" //
     {
         addafter("Item Reference No.")
         {
-            field("BC6_DEEE Category Code"; "BC6_DEEE Category Code")
+            field("BC6_DEEE Category Code"; Rec."BC6_DEEE Category Code")
             {
                 Visible = false;
             }
-            field("BC6_Eco partner DEEE"; "BC6_Eco partner DEEE")
+            field("BC6_Eco partner DEEE"; Rec."BC6_Eco partner DEEE")
             {
                 Visible = false;
             }
-            field("BC6_DEEE VAT Amount"; "BC6_DEEE VAT Amount")
+            field("BC6_DEEE VAT Amount"; Rec."BC6_DEEE VAT Amount")
             {
                 Visible = false;
             }
-            field("BC6_DEEE TTC Amount"; "BC6_DEEE TTC Amount")
+            field("BC6_DEEE TTC Amount"; Rec."BC6_DEEE TTC Amount")
             {
                 Visible = false;
             }
-            field("BC6_DEEE HT Amount (LCY)"; "BC6_DEEE HT Amount (LCY)")
+            field("BC6_DEEE HT Amount (LCY)"; Rec."BC6_DEEE HT Amount (LCY)")
             {
                 Visible = false;
             }
         }
         addafter(Description)
         {
-            field("BC6_Purchasing Code"; "Purchasing Code")
+            field("BC6_Purchasing Code"; Rec."Purchasing Code")
             {
             }
         }
         addafter("Unit of Measure")
         {
-            field("BC6_Purchase cost"; "BC6_Purchase cost")
+            field("BC6_Purchase cost"; Rec."BC6_Purchase cost")
             {
             }
         }
         addafter("Shortcut Dimension 2 Code")
         {
-            field("BC6_DEEE Unit Price"; "BC6_DEEE Unit Price")
+            field("BC6_DEEE Unit Price"; Rec."BC6_DEEE Unit Price")
             {
                 Style = StandardAccent;
                 StyleExpr = TRUE;
             }
-            field("BC6_DEEE HT Amount"; "BC6_DEEE HT Amount")
+            field("BC6_DEEE HT Amount"; Rec."BC6_DEEE HT Amount")
             {
                 Style = StandardAccent;
                 StyleExpr = TRUE;

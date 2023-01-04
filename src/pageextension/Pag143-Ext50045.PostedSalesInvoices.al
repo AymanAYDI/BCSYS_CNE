@@ -4,7 +4,7 @@ pageextension 50045 "BC6_PostedSalesInvoices" extends "Posted Sales Invoices" //
     {
         addafter("No.")
         {
-            field("BC6_User ID"; "User ID")
+            field("BC6_User ID"; Rec."User ID")
             {
                 Visible = BooGUserIDVisible;
             }
@@ -55,14 +55,14 @@ pageextension 50045 "BC6_PostedSalesInvoices" extends "Posted Sales Invoices" //
 
     trigger OnOpenPage()
     begin
-        IF NOT FINDFIRST() THEN
-            INIT();
+        IF NOT Rec.FINDFIRST() THEN
+            Rec.INIT();
         IF NOT RecGUserSeup.GET(USERID) THEN
             RecGUserSeup.INIT();
         IF RecGUserSeup."BC6_Limited User" THEN BEGIN
-            FILTERGROUP(2);
-            SETFILTER("BC6_Salesperson Filter", '*' + RecGUserSeup."Salespers./Purch. Code" + '*');
-            FILTERGROUP(0);
+            Rec.FILTERGROUP(2);
+            Rec.SETFILTER("BC6_Salesperson Filter", '*' + RecGUserSeup."Salespers./Purch. Code" + '*');
+            Rec.FILTERGROUP(0);
         END;
     end;
 
@@ -96,7 +96,7 @@ pageextension 50045 "BC6_PostedSalesInvoices" extends "Posted Sales Invoices" //
         DecGAmountHT := 0;
 
         RecGSalesInvLine.RESET();
-        RecGSalesInvLine.SETFILTER("Document No.", '%1', "No.");
+        RecGSalesInvLine.SETFILTER("Document No.", '%1', Rec."No.");
         IF RecGSalesInvLine.FindFirst() THEN
             REPEAT
                 DecGPurchCost += RecGSalesInvLine.Quantity * RecGSalesInvLine."BC6_Purchase Cost";

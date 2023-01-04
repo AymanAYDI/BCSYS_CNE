@@ -12,7 +12,7 @@ page 50040 "Return Rcpt Lines Subform 2"
         {
             repeater(Control1)
             {
-                field("Document No."; "Document No.")
+                field("Document No."; Rec."Document No.")
                 {
                     HideValue = "Document No.HideValue";
                     Lookup = false;
@@ -20,136 +20,136 @@ page 50040 "Return Rcpt Lines Subform 2"
                     StyleExpr = TRUE;
                     ApplicationArea = All;
                 }
-                field("Shipment Date"; "Shipment Date")
+                field("Shipment Date"; Rec."Shipment Date")
                 {
                     ApplicationArea = All;
                 }
-                field("Bill-to Customer No."; "Bill-to Customer No.")
-                {
-                    Visible = false;
-                    ApplicationArea = All;
-                }
-                field("Sell-to Customer No."; "Sell-to Customer No.")
+                field("Bill-to Customer No."; Rec."Bill-to Customer No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field(Type; Type)
-                {
-                    ApplicationArea = All;
-                }
-                field("Unit Price"; "Unit Price")
-                {
-                    ApplicationArea = All;
-                }
-                field("Public Price"; "BC6_Public Price")
-                {
-                    ApplicationArea = All;
-                }
-                field("No."; "No.")
-                {
-                    ApplicationArea = All;
-                }
-                field("Cross-Reference No."; "Item Reference No.")
+                field("Sell-to Customer No."; Rec."Sell-to Customer No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Variant Code"; "Variant Code")
+                field(Type; Rec.Type)
+                {
+                    ApplicationArea = All;
+                }
+                field("Unit Price"; Rec."Unit Price")
+                {
+                    ApplicationArea = All;
+                }
+                field("Public Price"; Rec."BC6_Public Price")
+                {
+                    ApplicationArea = All;
+                }
+                field("No."; Rec."No.")
+                {
+                    ApplicationArea = All;
+                }
+                field("Cross-Reference No."; Rec."Item Reference No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field(Nonstock; Nonstock)
+                field("Variant Code"; Rec."Variant Code")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field(Description; Description)
-                {
-                    ApplicationArea = All;
-                }
-                field("Return Reason Code"; "Return Reason Code")
+                field(Nonstock; Rec.Nonstock)
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Currency Code"; "Currency Code")
+                field(Description; Rec.Description)
+                {
+                    ApplicationArea = All;
+                }
+                field("Return Reason Code"; Rec."Return Reason Code")
+                {
+                    Visible = false;
+                    ApplicationArea = All;
+                }
+                field("Currency Code"; Rec."Currency Code")
                 {
                     DrillDown = false;
                     Lookup = false;
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Location Code"; "Location Code")
+                field("Location Code"; Rec."Location Code")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Bin Code"; "Bin Code")
+                field("Bin Code"; Rec."Bin Code")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
+                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Unit of Measure Code"; "Unit of Measure Code")
+                field("Unit of Measure Code"; Rec."Unit of Measure Code")
                 {
                     ApplicationArea = All;
                 }
-                field(Quantity; Quantity)
+                field(Quantity; Rec.Quantity)
                 {
                     ApplicationArea = All;
                 }
-                field("Unit of Measure"; "Unit of Measure")
-                {
-                    Visible = false;
-                    ApplicationArea = All;
-                }
-                field("Unit Cost (LCY)"; "Unit Cost (LCY)")
+                field("Unit of Measure"; Rec."Unit of Measure")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Line Discount %"; "Line Discount %")
+                field("Unit Cost (LCY)"; Rec."Unit Cost (LCY)")
+                {
+                    Visible = false;
+                    ApplicationArea = All;
+                }
+                field("Line Discount %"; Rec."Line Discount %")
                 {
                     BlankZero = true;
                     ApplicationArea = All;
                 }
-                field("Allow Invoice Disc."; "Allow Invoice Disc.")
+                field("Allow Invoice Disc."; Rec."Allow Invoice Disc.")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Job No."; "Job No.")
+                field("Job No."; Rec."Job No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Blanket Order No."; "Blanket Order No.")
+                field("Blanket Order No."; Rec."Blanket Order No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Blanket Order Line No."; "Blanket Order Line No.")
+                field("Blanket Order Line No."; Rec."Blanket Order Line No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Appl.-from Item Entry"; "Appl.-from Item Entry")
+                field("Appl.-from Item Entry"; Rec."Appl.-from Item Entry")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Appl.-to Item Entry"; "Appl.-to Item Entry")
+                field("Appl.-to Item Entry"; Rec."Appl.-to Item Entry")
                 {
                     Visible = false;
                     ApplicationArea = All;
@@ -172,7 +172,7 @@ page 50040 "Return Rcpt Lines Subform 2"
                 begin
                     //>>MIGRATION NAV 2013
                     //CurrForm.PurchRcptline.FORM.GETRECORD(RecGPurchPostedRcpt);
-                    IF NOT RecGReturnReceiptHeader.GET("Document No.") THEN
+                    IF NOT RecGReturnReceiptHeader.GET(Rec."Document No.") THEN
                         EXIT;
                     PAGE.RUN(PAGE::"Posted Return Receipt", RecGReturnReceiptHeader);
                     //<<MIGRATION NAV 2013
@@ -201,17 +201,15 @@ page 50040 "Return Rcpt Lines Subform 2"
     begin
         TempReturnRcptLine.RESET();
         TempReturnRcptLine.COPYFILTERS(Rec);
-        TempReturnRcptLine.SETRANGE("Document No.", "Document No.");
+        TempReturnRcptLine.SETRANGE("Document No.", Rec."Document No.");
         IF NOT TempReturnRcptLine.FIND('-') THEN BEGIN
             ReturnRcptLine.COPYFILTERS(Rec);
-            ReturnRcptLine.SETRANGE("Document No.", "Document No.");
-#pragma warning disable AA0181
+            ReturnRcptLine.SETRANGE("Document No.", Rec."Document No.");
             ReturnRcptLine.FindFirst();
-#pragma warning restore AA0181
             TempReturnRcptLine := ReturnRcptLine;
             TempReturnRcptLine.INSERT();
         END;
-        IF "Line No." = TempReturnRcptLine."Line No." THEN
+        IF Rec."Line No." = TempReturnRcptLine."Line No." THEN
             EXIT(TRUE);
     end;
 

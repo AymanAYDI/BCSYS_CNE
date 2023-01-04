@@ -12,23 +12,23 @@ page 50080 "BC6_Item Journal Pick List"
         {
             repeater(Group)
             {
-                field("Document No."; "Document No.")
+                field("Document No."; Rec."Document No.")
                 {
                     ApplicationArea = All;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
                 }
-                field("Item No."; "Item No.")
+                field("Item No."; Rec."Item No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Bin Code"; "Bin Code")
+                field("Bin Code"; Rec."Bin Code")
                 {
                     ApplicationArea = All;
                 }
-                field("New Bin Code"; "New Bin Code")
+                field("New Bin Code"; Rec."New Bin Code")
                 {
                     ApplicationArea = All;
                 }
@@ -64,7 +64,7 @@ page 50080 "BC6_Item Journal Pick List"
 
                 trigger OnAction()
                 begin
-                    DELETEALL(TRUE);
+                    Rec.DELETEALL(TRUE);
                 end;
             }
         }
@@ -93,24 +93,18 @@ page 50080 "BC6_Item Journal Pick List"
             ItemJnlTemplate.TESTFIELD(Type, ItemJnlTemplate.Type::Transfer);
             ItemBatchJnl.SETRANGE("Journal Template Name", ItemJnlTemplate.Name);
             ItemBatchJnl.SETRANGE("BC6_Assigned User ID", USERID);
-#pragma warning disable AA0181
             IF ItemBatchJnl.FindFirst() THEN BEGIN
-#pragma warning restore AA0181
-                FILTERGROUP := 2;
-                SETFILTER("Journal Template Name", ItemBatchJnl."Journal Template Name");
-                SETFILTER("Journal Batch Name", ItemBatchJnl.Name);
-                FILTERGROUP := 0;
+                Rec.FILTERGROUP := 2;
+                Rec.SETFILTER("Journal Template Name", ItemBatchJnl."Journal Template Name");
+                Rec.SETFILTER("Journal Batch Name", ItemBatchJnl.Name);
+                Rec.FILTERGROUP := 0;
             END ELSE BEGIN
                 ERROR(Text015, USERID);
-#pragma warning disable AA0136
                 exit(false);
-#pragma warning restore AA0136
             END;
         END ELSE BEGIN
             ERROR('');
-#pragma warning disable AA0136
             exit(false);
-#pragma warning restore AA0136
         END;
     end;
 

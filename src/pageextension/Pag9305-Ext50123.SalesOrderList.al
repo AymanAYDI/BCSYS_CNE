@@ -10,15 +10,15 @@ pageextension 50123 "BC6_SalesOrderList" extends "Sales Order List" //9305
             {
                 ApplicationArea = All;
             }
-            field("BC6_Your Reference"; "Your Reference")
+            field("BC6_Your Reference"; Rec."Your Reference")
             {
                 ApplicationArea = All;
             }
-            field("BC6_Affair No."; "BC6_Affair No.")
+            field("BC6_Affair No."; Rec."BC6_Affair No.")
             {
                 ApplicationArea = All;
             }
-            field(BC6_Amount; Amount)
+            field(BC6_Amount; Rec.Amount)
             {
                 ApplicationArea = All;
             }
@@ -30,11 +30,11 @@ pageextension 50123 "BC6_SalesOrderList" extends "Sales Order List" //9305
                 Visible = BooGVisible;
                 ApplicationArea = All;
             }
-            field("BC6_Completely Shipped"; "Completely Shipped")
+            field("BC6_Completely Shipped"; Rec."Completely Shipped")
             {
                 ApplicationArea = All;
             }
-            field("BC6_Bin Code"; "BC6_Bin Code")
+            field("BC6_Bin Code"; Rec."BC6_Bin Code")
             {
                 ApplicationArea = All;
             }
@@ -46,7 +46,7 @@ pageextension 50123 "BC6_SalesOrderList" extends "Sales Order List" //9305
                 Visible = BooGVisible;
                 ApplicationArea = All;
             }
-            field("BC6_Purchase No. Order Lien"; "BC6_Purchase No. Order Lien")
+            field("BC6_Purchase No. Order Lien"; Rec."BC6_Purchase No. Order Lien")
             {
                 Caption = 'Purchase No. Order Lien', Comment = 'FRA="n° Commande Achat Lien"';
                 ApplicationArea = All;
@@ -82,8 +82,8 @@ pageextension 50123 "BC6_SalesOrderList" extends "Sales Order List" //9305
                 begin
                     FunctionMgt.BC6_CreateInvtPutAwayPick_Sales(rec);
 
-                    if not Find('=><') then
-                        Init();
+                    if not Rec.Find('=><') then
+                        Rec.Init();
                 end;
             }
         }
@@ -134,15 +134,15 @@ pageextension 50123 "BC6_SalesOrderList" extends "Sales Order List" //9305
     begin
         IsProfitVisible();
 
-        IF NOT FINDFIRST() THEN
-            INIT();
+        IF NOT Rec.FINDFIRST() THEN
+            Rec.INIT();
 
         IF NOT RecGUserSeup.GET(USERID) THEN
             RecGUserSeup.INIT();
         IF RecGUserSeup."BC6_Limited User" THEN BEGIN
-            FILTERGROUP(2);
-            SETFILTER("BC6_Salesperson Filter", '*' + RecGUserSeup."Salespers./Purch. Code" + '*');
-            FILTERGROUP(0);
+            Rec.FILTERGROUP(2);
+            Rec.SETFILTER("BC6_Salesperson Filter", '*' + RecGUserSeup."Salespers./Purch. Code" + '*');
+            Rec.FILTERGROUP(0);
         END;
     end;
 
@@ -157,7 +157,7 @@ pageextension 50123 "BC6_SalesOrderList" extends "Sales Order List" //9305
     begin
         LinesInstructionMgt.SalesCheckAllLinesHaveQuantityAssigned(Rec);
 
-        SendToPosting(PostingCodeunitID);
+        Rec.SendToPosting(PostingCodeunitID);
 
         CurrPage.Update(false);
     end;
@@ -189,8 +189,8 @@ pageextension 50123 "BC6_SalesOrderList" extends "Sales Order List" //9305
             DecLAmount := 0;
 
             RecLSalesLine.RESET();
-            RecLSalesLine.SETRANGE("Document Type", "Document Type");
-            RecLSalesLine.SETRANGE("Document No.", "No.");
+            RecLSalesLine.SETRANGE("Document Type", Rec."Document Type");
+            RecLSalesLine.SETRANGE("Document No.", Rec."No.");
             IF RecLSalesLine.FINDSET() THEN
                 REPEAT
                     DecLPurchCost += RecLSalesLine.Quantity * RecLSalesLine."BC6_Purchase cost";
@@ -213,7 +213,7 @@ pageextension 50123 "BC6_SalesOrderList" extends "Sales Order List" //9305
     begin
         SalesSetup.GET();
         IF SalesSetup."BC6_Acti. Releas. Print. Order" THEN
-            IF Status <> Status::Released THEN
+            IF Rec.Status <> Rec.Status::Released THEN
                 IF CONFIRM(CstL0001) THEN BEGIN
                     CODEUNIT.RUN(Codeunit::"Release Sales Document", Rec);
                     COMMIT();

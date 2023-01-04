@@ -6,19 +6,19 @@ pageextension 50089 "BC6_SalesReturnOrder" extends "Sales Return Order" //6630
     {
         addafter("Sell-to")
         {
-            field(BC6_ID; BC6_ID)
+            field(BC6_ID; Rec.BC6_ID)
             {
             }
-            field("BC6_Sell-to Fax No."; "BC6_Sell-to Fax No.")
+            field("BC6_Sell-to Fax No."; Rec."BC6_Sell-to Fax No.")
             {
             }
-            field("BC6_Affair No."; "BC6_Affair No.")
+            field("BC6_Affair No."; Rec."BC6_Affair No.")
             {
             }
         }
         addafter("Job Queue Status")
         {
-            field("BC6_Return Order Type"; "BC6_Return Order Type")
+            field("BC6_Return Order Type"; Rec."BC6_Return Order Type")
             {
             }
         }
@@ -89,7 +89,7 @@ pageextension 50089 "BC6_SalesReturnOrder" extends "Sales Return Order" //6630
                 var
                     L_ReturnOrderMgt: Codeunit "BC6_Return Order Mgt.";
                 begin
-                    L_ReturnOrderMgt.DisableRelatedDocuments("No.");
+                    L_ReturnOrderMgt.DisableRelatedDocuments(Rec."No.");
                     CurrPage.UPDATE();
                 end;
             }
@@ -114,12 +114,12 @@ pageextension 50089 "BC6_SalesReturnOrder" extends "Sales Return Order" //6630
 
     procedure EnvoiMail()
     begin
-        cust.SETRANGE(cust."No.", "Sell-to Customer No.");
+        cust.SETRANGE(cust."No.", Rec."Sell-to Customer No.");
         IF cust.FindFirst() THEN
             cust.TESTFIELD("E-Mail");
         OpenFile();
         IF nameF <> '' THEN BEGIN
-            Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + "No.", '', nameF, FALSE);
+            Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + Rec."No.", '', nameF, FALSE);
             ERASE(nameF);
         END ELSE BEGIN
             ERASE(SalesSetup."BC6_Repertoire" + 'Envoi' + '\' + CurrPage.CAPTION);
@@ -130,7 +130,7 @@ pageextension 50089 "BC6_SalesReturnOrder" extends "Sales Return Order" //6630
         HistMail.Nom := cust.Name;
         HistMail."E-Mail" := cust."E-Mail";
         HistMail."Date d'envoi" := TODAY;
-        HistMail."Document envoyé" := CurrPage.CAPTION + ' ' + "No.";
+        HistMail."Document envoyé" := CurrPage.CAPTION + ' ' + Rec."No.";
         HistMail.INSERT(TRUE);
     end;
 

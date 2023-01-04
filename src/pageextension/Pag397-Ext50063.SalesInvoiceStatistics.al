@@ -31,7 +31,6 @@ pageextension 50063 "BC6_SalesInvoiceStatistics" extends "Sales Invoice Statisti
 
     procedure IncrementDecGMntTTCDEEE(_DecGMntTTCDEEE: Decimal)
     begin
-#pragma warning disable AA0206
         DecGMntTTCDEEE += _DecGMntTTCDEEE;
     end;
 

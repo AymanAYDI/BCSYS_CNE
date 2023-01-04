@@ -9,16 +9,16 @@ pageextension 50118 "BC6_SalesQuotes" extends "Sales Quotes" //9300
         }
         addafter("Status")
         {
-            field(BC6_ID; BC6_ID)
+            field(BC6_ID; Rec.BC6_ID)
             {
             }
-            field("BC6_Your Reference"; "Your Reference")
+            field("BC6_Your Reference"; Rec."Your Reference")
             {
             }
-            field("BC6_Affair No."; "BC6_Affair No.")
+            field("BC6_Affair No."; Rec."BC6_Affair No.")
             {
             }
-            field(BC6_Amount; Amount)
+            field(BC6_Amount; Rec.Amount)
             {
             }
             field(BC6_Profit; DecGProfit)
@@ -59,15 +59,15 @@ pageextension 50118 "BC6_SalesQuotes" extends "Sales Quotes" //9300
 
         rec.Ascending(false);
         IsProfitVisible();
-        IF NOT FINDFIRST() THEN
-            INIT();
+        IF NOT Rec.FINDFIRST() THEN
+            Rec.INIT();
 
         IF NOT RecGUserSeup.GET(USERID) THEN
             RecGUserSeup.INIT();
         IF RecGUserSeup."BC6_Limited User" THEN BEGIN
-            FILTERGROUP(2);
-            SETFILTER("BC6_Salesperson Filter", '*' + RecGUserSeup."Salespers./Purch. Code" + '*');
-            FILTERGROUP(0);
+            Rec.FILTERGROUP(2);
+            Rec.SETFILTER("BC6_Salesperson Filter", '*' + RecGUserSeup."Salespers./Purch. Code" + '*');
+            Rec.FILTERGROUP(0);
         END;
     end;
 
@@ -97,8 +97,8 @@ pageextension 50118 "BC6_SalesQuotes" extends "Sales Quotes" //9300
             DecLAmount := 0;
 
             RecLSalesLine.RESET();
-            RecLSalesLine.SETRANGE("Document Type", "Document Type");
-            RecLSalesLine.SETRANGE("Document No.", "No.");
+            RecLSalesLine.SETRANGE("Document Type", Rec."Document Type");
+            RecLSalesLine.SETRANGE("Document No.", Rec."No.");
             IF RecLSalesLine.FINDSET() THEN
                 REPEAT
                     DecLPurchCost += RecLSalesLine.Quantity * RecLSalesLine."BC6_Purchase cost";

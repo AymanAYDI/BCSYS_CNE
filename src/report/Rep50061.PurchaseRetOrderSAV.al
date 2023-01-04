@@ -95,9 +95,7 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
                     column(CompanyInfoEmail; CompanyInfo."E-Mail")
                     {
                     }
-#pragma warning disable AL0432
                     column("UserId"; PurchaseHeader.ID)
-#pragma warning restore AL0432
                     {
                     }
                     column(CompanyInfoName; CompanyInfo.Name)
@@ -372,9 +370,7 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
                         trigger OnAfterGetRecord()
                         begin
 
-#pragma warning disable AL0432
                             UserSetup.GET(PurchaseHeader.ID);
-#pragma warning restore AL0432
                         end;
 
                         trigger OnPreDataItem()
@@ -1007,13 +1003,11 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
 
     local procedure FormatDocumentFields(PurchaseHeader: Record "Purchase Header")
     begin
-        WITH PurchaseHeader DO BEGIN
-            FormatDocument.SetTotalLabels("Currency Code", TotalText, TotalInclVATText, TotalExclVATText);
-            FormatDocument.SetPurchaser(SalesPurchPerson, "Purchaser Code", PurchaserText);
+        FormatDocument.SetTotalLabels(PurchaseHeader."Currency Code", TotalText, TotalInclVATText, TotalExclVATText);
+        FormatDocument.SetPurchaser(SalesPurchPerson, PurchaseHeader."Purchaser Code", PurchaserText);
 
-            ReferenceText := FormatDocument.SetText("Your Reference" <> '', FIELDCAPTION("Your Reference"));
-            VATNoText := FormatDocument.SetText("VAT Registration No." <> '', FIELDCAPTION("VAT Registration No."));
-        END;
+        ReferenceText := FormatDocument.SetText(PurchaseHeader."Your Reference" <> '', PurchaseHeader.FIELDCAPTION("Your Reference"));
+        VATNoText := FormatDocument.SetText(PurchaseHeader."VAT Registration No." <> '', PurchaseHeader.FIELDCAPTION("VAT Registration No."));
     end;
 }
 

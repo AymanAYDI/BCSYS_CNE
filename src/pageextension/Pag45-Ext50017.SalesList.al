@@ -4,36 +4,36 @@ pageextension 50017 "BC6_SalesList" extends "Sales List" //45
     {
         addfirst(Control1)
         {
-            field("BC6_Order Date"; "Order Date")
+            field("BC6_Order Date"; Rec."Order Date")
             {
                 ApplicationArea = All;
             }
         }
         addafter("External Document No.")
         {
-            field("BC6_Your Reference"; "Your Reference")
+            field("BC6_Your Reference"; Rec."Your Reference")
             {
                 ApplicationArea = All;
             }
-            field("BC6_Requested Delivery Date"; "Requested Delivery Date")
+            field("BC6_Requested Delivery Date"; Rec."Requested Delivery Date")
             {
                 ApplicationArea = All;
             }
-            field("BC6_Promised Delivery Date"; "Promised Delivery Date")
+            field("BC6_Promised Delivery Date"; Rec."Promised Delivery Date")
             {
                 ApplicationArea = All;
             }
-            field(BC6_Ship; Ship)
+            field(BC6_Ship; Rec.Ship)
             {
                 Caption = 'Ship', Comment = 'FRA="Entièrement livrée"';
                 ApplicationArea = All;
             }
-            field(BC6_Invoice; Invoice)
+            field(BC6_Invoice; Rec.Invoice)
             {
                 Caption = 'Invoice', Comment = 'FRA="Entièrement facturée"';
                 ApplicationArea = All;
             }
-            field(BC6_ID; BC6_ID)
+            field(BC6_ID; Rec.BC6_ID)
             {
                 Visible = BooGID;
                 ApplicationArea = All;
@@ -41,7 +41,7 @@ pageextension 50017 "BC6_SalesList" extends "Sales List" //45
         }
         addafter("Location Code")
         {
-            field("BC6_Bin Code"; "BC6_Bin Code")
+            field("BC6_Bin Code"; Rec."BC6_Bin Code")
             {
                 ApplicationArea = All;
             }
@@ -69,7 +69,7 @@ pageextension 50017 "BC6_SalesList" extends "Sales List" //45
         }
         addafter("Document Date")
         {
-            field("BC6_Amount Including VAT"; "Amount Including VAT")
+            field("BC6_Amount Including VAT"; Rec."Amount Including VAT")
             {
                 ApplicationArea = All;
             }
@@ -126,9 +126,9 @@ pageextension 50017 "BC6_SalesList" extends "Sales List" //45
         DecGAmountHT := 0;
 
         RecGSalesLine.RESET();
-        RecGSalesLine.SETFILTER("Document Type", '%1', "Document Type");
-        RecGSalesLine.SETFILTER("Sell-to Customer No.", "Sell-to Customer No.");
-        RecGSalesLine.SETFILTER("Document No.", '%1', "No.");
+        RecGSalesLine.SETFILTER("Document Type", '%1', Rec."Document Type");
+        RecGSalesLine.SETFILTER("Sell-to Customer No.", Rec."Sell-to Customer No.");
+        RecGSalesLine.SETFILTER("Document No.", '%1', Rec."No.");
         IF RecGSalesLine.FIND('-') THEN
             REPEAT
                 DecGPurchCost += RecGSalesLine.Quantity * RecGSalesLine."BC6_Purchase cost";

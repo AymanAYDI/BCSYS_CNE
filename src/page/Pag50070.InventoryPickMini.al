@@ -14,27 +14,27 @@ page 50070 "BC6_Inventory Pick Mini"
             group(General)
             {
                 Caption = 'General', Comment = 'FRA="Général"';
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
 
                     trigger OnAssistEdit()
                     begin
-                        IF AssistEdit(xRec) THEN
+                        IF Rec.AssistEdit(xRec) THEN
                             CurrPage.UPDATE();
                     end;
                 }
-                field("Location Code"; "Location Code")
+                field("Location Code"; Rec."Location Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Source Document"; "Source Document")
+                field("Source Document"; Rec."Source Document")
                 {
                     DrillDown = false;
                     Lookup = false;
                     ApplicationArea = All;
                 }
-                field(SourceNoCtrl; "Source No.")
+                field(SourceNoCtrl; Rec."Source No.")
                 {
                     Editable = BooGSourceNoCtrl;
                     ApplicationArea = All;
@@ -56,20 +56,20 @@ page 50070 "BC6_Inventory Pick Mini"
                         SourceNoOnAfterValidate();
                     end;
                 }
-                field(DestinationNoCtrl; "Destination No.")
+                field(DestinationNoCtrl; Rec."Destination No.")
                 {
                     CaptionClass = FORMAT(WMSMgt.GetCaption("Destination Type".AsInteger(), "Source Document".AsInteger(), 0));
                     Editable = BooGDestinationNoCtrl;
                     ApplicationArea = All;
                 }
-                field(DestinationName; WMSMgt.GetDestinationEntityName("Destination Type", "Destination No."))
+                field(DestinationName; WMSMgt.GetDestinationEntityName(Rec."Destination Type", Rec."Destination No."))
                 {
                     CaptionClass = FORMAT(WMSMgt.GetCaption(Rec."Destination Type".AsInteger(), Rec."Source Document".AsInteger(), 1));
                     Caption = 'Name', Comment = 'FRA="Nom"';
                     Editable = false;
                     ApplicationArea = All;
                 }
-                field("Sales Counter"; "BC6_Sales Counter")
+                field("Sales Counter"; Rec."BC6_Sales Counter")
                 {
                     ApplicationArea = All;
 
@@ -78,42 +78,42 @@ page 50070 "BC6_Inventory Pick Mini"
                         CtrlEditable();
                     end;
                 }
-                field("No. Printed"; "No. Printed")
+                field("No. Printed"; Rec."No. Printed")
                 {
                     ApplicationArea = All;
                 }
-                field("Bin Code"; "BC6_Bin Code")
+                field("Bin Code"; Rec."BC6_Bin Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Your Reference"; "BC6_Your Reference")
+                field("Your Reference"; Rec."BC6_Your Reference")
                 {
                     ApplicationArea = All;
                 }
-                field("Destination Name"; "BC6_Destination Name")
-                {
-                    Editable = false;
-                    ApplicationArea = All;
-                }
-                field(Comments; BC6_Comments)
-                {
-                    ApplicationArea = All;
-                }
-                field("Posting Date"; "Posting Date")
-                {
-                    ApplicationArea = All;
-                }
-                field("Shipment Date"; "Shipment Date")
+                field("Destination Name"; Rec."BC6_Destination Name")
                 {
                     Editable = false;
                     ApplicationArea = All;
                 }
-                field("External Document No."; "External Document No.")
+                field(Comments; Rec.BC6_Comments)
+                {
+                    ApplicationArea = All;
+                }
+                field("Posting Date"; Rec."Posting Date")
+                {
+                    ApplicationArea = All;
+                }
+                field("Shipment Date"; Rec."Shipment Date")
+                {
+                    Editable = false;
+                    ApplicationArea = All;
+                }
+                field("External Document No."; Rec."External Document No.")
                 {
                     CaptionClass = FORMAT(WMSMgt.GetCaption(Rec."Destination Type".AsInteger(), Rec."Source Document".AsInteger(), 2));
                     ApplicationArea = All;
                 }
-                field("External Document No.2"; "External Document No.2")
+                field("External Document No.2"; Rec."External Document No.2")
                 {
                     CaptionClass = FORMAT(WMSMgt.GetCaption("Destination Type".AsInteger(), "Source Document".AsInteger(), 3));
                     ApplicationArea = All;
@@ -169,7 +169,7 @@ page 50070 "BC6_Inventory Pick Mini"
 
                     trigger OnAction()
                     begin
-                        LookupActivityHeader("Location Code", Rec);
+                        Rec.LookupActivityHeader(Rec."Location Code", Rec);
                     end;
                 }
                 action("Co&mments")
@@ -212,7 +212,7 @@ page 50070 "BC6_Inventory Pick Mini"
                     var
                         WMSMgt: Codeunit "WMS Management";
                     begin
-                        WMSMgt.ShowSourceDocCard("Source Type", "Source Subtype", "Source No.");
+                        WMSMgt.ShowSourceDocCard(Rec."Source Type", Rec."Source Subtype", Rec."Source No.");
                     end;
                 }
             }
@@ -354,30 +354,29 @@ page 50070 "BC6_Inventory Pick Mini"
 
     trigger OnFindRecord(Which: Text): Boolean
     begin
-        EXIT(FindFirstAllowedRec(CopyStr(Which, 1, 1024))); // 0 VOIR WHICH
+        EXIT(Rec.FindFirstAllowedRec(CopyStr(Which, 1, 1024))); // 0 VOIR WHICH
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        "Location Code" := GetUserLocation();
+        Rec."Location Code" := Rec.GetUserLocation();
     end;
 
     trigger OnNextRecord(Steps: Integer): Integer
     begin
-        EXIT(FindNextAllowedRec(Steps));
+        EXIT(Rec.FindNextAllowedRec(Steps));
     end;
 
     trigger OnOpenPage()
     var
         PermissionForm: Codeunit "BC6_Permission Form";
     begin
-        ErrorIfUserIsNotWhseEmployee();
+        Rec.ErrorIfUserIsNotWhseEmployee();
         CurrFormEditableOk := TRUE;
         IF NOT PermissionForm.HasEditablePermission(CopyStr(USERID, 1, 65), 8, 7377) THEN
             CurrPage.EDITABLE(FALSE);
         IF NOT PermissionForm.HasEditablePermission(CopyStr(USERID, 1, 65), 8, 7378) THEN
             CurrFormEditableOk := FALSE;
-#pragma warning disable AA0206
         BooGWhseActivityLines := CurrFormEditableOk;
     end;
 
@@ -421,9 +420,9 @@ page 50070 "BC6_Inventory Pick Mini"
 
     procedure CtrlEditable()
     begin
-        CtrlEditableOk := ("Source No." = '') AND ("BC6_Sales Counter");
+        CtrlEditableOk := (Rec."Source No." = '') AND (Rec."BC6_Sales Counter");
         BooGDestinationNoCtrl := CtrlEditableOk;
-        BooGSourceNoCtrl := NOT "BC6_Sales Counter";
+        BooGSourceNoCtrl := NOT Rec."BC6_Sales Counter";
     end;
 }
 

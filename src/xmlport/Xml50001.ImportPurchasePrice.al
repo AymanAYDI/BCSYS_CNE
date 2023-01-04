@@ -11,9 +11,7 @@ xmlport 50001 "BC6_Import Purchase Price"
     {
         textelement(Root)
         {
-#pragma warning disable AL0432
             tableelement("Purchase Price"; "Purchase Price")
-#pragma warning restore AL0432
             {
                 AutoSave = true;
                 AutoUpdate = true;
@@ -62,9 +60,7 @@ xmlport 50001 "BC6_Import Purchase Price"
                         Trovato := GItem1.GET("Purchase Price"."Item No.");
                         IF (NOT Trovato) THEN BEGIN
                             ERROR(Text001, "Purchase Price".FIELDCAPTION("Item No."), "Purchase Price"."Item No.");
-#pragma warning disable AA0136
                             currXMLport.QUIT();
-#pragma warning restore AA0136
                         END;
                     END;
 

@@ -12,7 +12,7 @@ pageextension 50030 "BC6_PurchaseQuoteSubform" extends "Purchase Quote Subform" 
         }
         addafter("Line Discount %")
         {
-            field("BC6_Discount Direct Unit Cost"; "BC6_Discount Direct Unit Cost")
+            field("BC6_Discount Direct Unit Cost"; Rec."BC6_Discount Direct Unit Cost")
             {
                 ApplicationArea = All;
             }
@@ -20,15 +20,15 @@ pageextension 50030 "BC6_PurchaseQuoteSubform" extends "Purchase Quote Subform" 
 
         addafter(ShortcutDimCode8)
         {
-            field("BC6_Sales Document Type"; "BC6_Sales Document Type")
+            field("BC6_Sales Document Type"; Rec."BC6_Sales Document Type")
             {
                 ApplicationArea = All;
             }
-            field("BC6_Sales No."; "BC6_Sales No.")
+            field("BC6_Sales No."; Rec."BC6_Sales No.")
             {
                 ApplicationArea = All;
             }
-            field("BC6_Sales Line No."; "BC6_Sales Line No.")
+            field("BC6_Sales Line No."; Rec."BC6_Sales Line No.")
             {
                 ApplicationArea = All;
             }

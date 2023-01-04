@@ -9,59 +9,57 @@ codeunit 50008 "BC6_VendEntry-Apply Posted SPE"
         EntriesToApply: Record "Vendor Ledger Entry";
         ApplicationDate: Date;
     begin
-        WITH Rec DO BEGIN
-            IF NOT PaymentToleranceMgt.PmtTolVend(Rec) THEN
-                EXIT;
-            GET("Entry No.");
+        IF NOT PaymentToleranceMgt.PmtTolVend(Rec) THEN
+            EXIT;
+        Rec.GET(Rec."Entry No.");
 
-            ApplicationDate := 0D;
-            EntriesToApply.SETCURRENTKEY("Vendor No.", "Applies-to ID");
-            EntriesToApply.SETRANGE("Vendor No.", "Vendor No.");
-            EntriesToApply.SETRANGE("Applies-to ID", "Applies-to ID");
-            EntriesToApply.FIND('-');
-            REPEAT
-                IF EntriesToApply."Posting Date" > ApplicationDate THEN
-                    ApplicationDate := EntriesToApply."Posting Date";
-            UNTIL EntriesToApply.NEXT() = 0;
+        ApplicationDate := 0D;
+        EntriesToApply.SETCURRENTKEY("Vendor No.", "Applies-to ID");
+        EntriesToApply.SETRANGE("Vendor No.", Rec."Vendor No.");
+        EntriesToApply.SETRANGE("Applies-to ID", Rec."Applies-to ID");
+        EntriesToApply.FIND('-');
+        REPEAT
+            IF EntriesToApply."Posting Date" > ApplicationDate THEN
+                ApplicationDate := EntriesToApply."Posting Date";
+        UNTIL EntriesToApply.NEXT() = 0;
 
-            GenJnlLine.INIT();
-            GenJnlLine."Document No." := "Document No.";
-            GenJnlLine."Posting Date" := "Posting Date";
-            IF GenJnlLine."Posting Date" < ApplicationDate
-               THEN
-                GenJnlLine."Posting Date" := ApplicationDate;
+        GenJnlLine.INIT();
+        GenJnlLine."Document No." := Rec."Document No.";
+        GenJnlLine."Posting Date" := Rec."Posting Date";
+        IF GenJnlLine."Posting Date" < ApplicationDate
+           THEN
+            GenJnlLine."Posting Date" := ApplicationDate;
 
-            IF GenJnlLine."Posting Date" < ApplicationDate THEN
-                ERROR(
-                  Text003,
-                  GenJnlLine.FIELDCAPTION("Posting Date"), FIELDCAPTION("Posting Date"), TABLECAPTION,
-                  GenJnlLine."Posting Date", ApplicationDate, "Applies-to ID");
+        IF GenJnlLine."Posting Date" < ApplicationDate THEN
+            ERROR(
+              Text003,
+              GenJnlLine.FIELDCAPTION("Posting Date"), Rec.FIELDCAPTION("Posting Date"), Rec.TABLECAPTION,
+              GenJnlLine."Posting Date", ApplicationDate, Rec."Applies-to ID");
 
-            SourceCodeSetup.GET();
+        SourceCodeSetup.GET();
 
-            GenJnlLine."Account Type" := GenJnlLine."Account Type"::Vendor;
-            GenJnlLine."Account No." := "Vendor No.";
-            CALCFIELDS("Debit Amount", "Credit Amount", "Debit Amount (LCY)", "Credit Amount (LCY)");
-            GenJnlLine.Correction :=
-              ("Debit Amount" < 0) OR ("Credit Amount" < 0) OR
-              ("Debit Amount (LCY)" < 0) OR ("Credit Amount (LCY)" < 0);
-            GenJnlLine."Document Type" := "Document Type";
-            GenJnlLine.Description := Description;
-            GenJnlLine."Shortcut Dimension 1 Code" := "Global Dimension 1 Code";
-            GenJnlLine."Shortcut Dimension 2 Code" := "Global Dimension 2 Code";
-            GenJnlLine."Posting Group" := "Vendor Posting Group";
-            GenJnlLine."Source Type" := GenJnlLine."Source Type"::Vendor;
-            GenJnlLine."Source No." := "Vendor No.";
-            GenJnlLine."Source Code" := SourceCodeSetup."Purchase Entry Application";
-            GenJnlLine."System-Created Entry" := TRUE;
+        GenJnlLine."Account Type" := GenJnlLine."Account Type"::Vendor;
+        GenJnlLine."Account No." := Rec."Vendor No.";
+        Rec.CALCFIELDS("Debit Amount", "Credit Amount", "Debit Amount (LCY)", "Credit Amount (LCY)");
+        GenJnlLine.Correction :=
+          (Rec."Debit Amount" < 0) OR (Rec."Credit Amount" < 0) OR
+          (Rec."Debit Amount (LCY)" < 0) OR (Rec."Credit Amount (LCY)" < 0);
+        GenJnlLine."Document Type" := Rec."Document Type";
+        GenJnlLine.Description := Rec.Description;
+        GenJnlLine."Shortcut Dimension 1 Code" := Rec."Global Dimension 1 Code";
+        GenJnlLine."Shortcut Dimension 2 Code" := Rec."Global Dimension 2 Code";
+        GenJnlLine."Posting Group" := Rec."Vendor Posting Group";
+        GenJnlLine."Source Type" := GenJnlLine."Source Type"::Vendor;
+        GenJnlLine."Source No." := Rec."Vendor No.";
+        GenJnlLine."Source Code" := SourceCodeSetup."Purchase Entry Application";
+        GenJnlLine."System-Created Entry" := TRUE;
 
-            EntryNoBeforeApplication := FindLastApplDtldVendLedgEntry();
+        EntryNoBeforeApplication := FindLastApplDtldVendLedgEntry();
 
-            GenJnlPostLine.VendPostApplyVendLedgEntry(GenJnlLine, Rec);
+        GenJnlPostLine.VendPostApplyVendLedgEntry(GenJnlLine, Rec);
 
-            IF EntryNoAfterApplication <> EntryNoBeforeApplication THEN BEGIN
-                COMMIT();
-            END;
+        IF EntryNoAfterApplication <> EntryNoBeforeApplication THEN BEGIN
+            COMMIT();
         END;
 
     end;
@@ -171,13 +169,11 @@ codeunit 50008 "BC6_VendEntry-Apply Posted SPE"
     var
         UnapplyVendEntries: Page "Unapply Vendor Entries";
     begin
-        WITH DtldVendLedgEntry DO BEGIN
-            TESTFIELD("Entry Type", "Entry Type"::Application);
-            TESTFIELD(Unapplied, FALSE);
-            UnapplyVendEntries.SetDtldVendLedgEntry("Entry No.");
-            UnapplyVendEntries.LOOKUPMODE(TRUE);
-            UnapplyVendEntries.RUNMODAL();
-        END;
+        DtldVendLedgEntry.TESTFIELD("Entry Type", DtldVendLedgEntry."Entry Type"::Application);
+        DtldVendLedgEntry.TESTFIELD(Unapplied, FALSE);
+        UnapplyVendEntries.SetDtldVendLedgEntry(DtldVendLedgEntry."Entry No.");
+        UnapplyVendEntries.LOOKUPMODE(TRUE);
+        UnapplyVendEntries.RUNMODAL();
     end;
 
     procedure PostUnApplyVendor(var DtldVendLedgEntryBuf: Record "Detailed Vendor Ledg. Entry"; DtldVendLedgEntry2: Record "Detailed Vendor Ledg. Entry"; var DocNo: Code[20]; var PostingDate: Date)
@@ -235,32 +231,30 @@ codeunit 50008 "BC6_VendEntry-Apply Posted SPE"
 
         DateComprReg.CheckMaxDateCompressed(MaxPostingDate, 0);
 
-        WITH DtldVendLedgEntry2 DO BEGIN
-            BC6_SourceCodeSetup.GET();
-            VendLedgEntry.GET("Vendor Ledger Entry No.");
-            BC6_GenJnlLine."Document No." := DocNo;
-            BC6_GenJnlLine."Posting Date" := PostingDate;
-            BC6_GenJnlLine."Account Type" := BC6_GenJnlLine."Account Type"::Vendor;
-            BC6_GenJnlLine."Account No." := "Vendor No.";
-            BC6_GenJnlLine.Correction := TRUE;
-            BC6_GenJnlLine."Document Type" := BC6_GenJnlLine."Document Type"::" ";
-            BC6_GenJnlLine.Description := VendLedgEntry.Description;
-            BC6_GenJnlLine."Shortcut Dimension 1 Code" := VendLedgEntry."Global Dimension 1 Code";
-            BC6_GenJnlLine."Shortcut Dimension 2 Code" := VendLedgEntry."Global Dimension 2 Code";
-            BC6_GenJnlLine."Posting Group" := VendLedgEntry."Vendor Posting Group";
-            BC6_GenJnlLine."Source Type" := BC6_GenJnlLine."Source Type"::Vendor;
-            BC6_GenJnlLine."Source No." := "Vendor No.";
-            BC6_GenJnlLine."Source Code" := BC6_SourceCodeSetup."Unapplied Purch. Entry Appln.";
-            BC6_GenJnlLine."System-Created Entry" := TRUE;
-            BC6_Window.OPEN(Text008);
-            BC6_GenJnlPostLine.UnapplyVendLedgEntry(BC6_GenJnlLine, DtldVendLedgEntry2);
-            DtldVendLedgEntryBuf.DELETEALL();
-            DocNo := '';
-            PostingDate := 0D;
-            COMMIT();
-            BC6_Window.CLOSE();
-            MESSAGE(Text009);
-        END;
+        BC6_SourceCodeSetup.GET();
+        VendLedgEntry.GET(DtldVendLedgEntry2."Vendor Ledger Entry No.");
+        BC6_GenJnlLine."Document No." := DocNo;
+        BC6_GenJnlLine."Posting Date" := PostingDate;
+        BC6_GenJnlLine."Account Type" := BC6_GenJnlLine."Account Type"::Vendor;
+        BC6_GenJnlLine."Account No." := DtldVendLedgEntry2."Vendor No.";
+        BC6_GenJnlLine.Correction := TRUE;
+        BC6_GenJnlLine."Document Type" := BC6_GenJnlLine."Document Type"::" ";
+        BC6_GenJnlLine.Description := VendLedgEntry.Description;
+        BC6_GenJnlLine."Shortcut Dimension 1 Code" := VendLedgEntry."Global Dimension 1 Code";
+        BC6_GenJnlLine."Shortcut Dimension 2 Code" := VendLedgEntry."Global Dimension 2 Code";
+        BC6_GenJnlLine."Posting Group" := VendLedgEntry."Vendor Posting Group";
+        BC6_GenJnlLine."Source Type" := BC6_GenJnlLine."Source Type"::Vendor;
+        BC6_GenJnlLine."Source No." := DtldVendLedgEntry2."Vendor No.";
+        BC6_GenJnlLine."Source Code" := BC6_SourceCodeSetup."Unapplied Purch. Entry Appln.";
+        BC6_GenJnlLine."System-Created Entry" := TRUE;
+        BC6_Window.OPEN(Text008);
+        BC6_GenJnlPostLine.UnapplyVendLedgEntry(BC6_GenJnlLine, DtldVendLedgEntry2);
+        DtldVendLedgEntryBuf.DELETEALL();
+        DocNo := '';
+        PostingDate := 0D;
+        COMMIT();
+        BC6_Window.CLOSE();
+        MESSAGE(Text009);
     end;
 
     local procedure CheckPostingDate(PostingDate: Date; Caption: Text[50]; EntryNo: Integer)

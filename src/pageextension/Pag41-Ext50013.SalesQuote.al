@@ -148,7 +148,7 @@ pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
                     RecLSalesHeader := Rec;
                     RecLSalesHeader.SETRECFILTER();
                     RptLSalesQuote.SETTABLEVIEW(RecLSalesHeader);
-                    RptLSalesQuote.DefineTagFax("BC6_Sell-to Fax No.");
+                    RptLSalesQuote.DefineTagFax(Rec."BC6_Sell-to Fax No.");
                     RptLSalesQuote.RUN();
                 end;
             }
@@ -193,7 +193,6 @@ pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
             BooGQuoteStatut := true
         else
             BooGQuoteStatut := false;
-#pragma warning disable AA0206
         BooGEditSalesperson := true;
         if not RecGUserSeup.GET(USERID) then
             RecGUserSeup.INIT();

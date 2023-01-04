@@ -13,19 +13,19 @@ page 50013 "Link purch. order - sale order"
         {
             repeater(Control1)
             {
-                field("Affect purchase order"; "BC6_Affect purchase order")
+                field("Affect purchase order"; Rec."BC6_Affect purchase order")
                 {
                     Editable = true;
 
                     trigger OnValidate()
                     begin
-                        IF "BC6_Affect purchase order" AND (Docstatus = RecLSalesHdr.Status::Released) THEN BEGIN
-                            "BC6_Affect purchase order" := FALSE;
+                        IF Rec."BC6_Affect purchase order" AND (Docstatus = RecLSalesHdr.Status::Released) THEN BEGIN
+                            Rec."BC6_Affect purchase order" := FALSE;
                             MESSAGE(textg001);
                         END;
                     end;
                 }
-                field("Document Type"; "Document Type")
+                field("Document Type"; Rec."Document Type")
                 {
                     Editable = false;
                 }
@@ -36,31 +36,31 @@ page 50013 "Link purch. order - sale order"
                     Editable = false;
                     Lookup = false;
                 }
-                field("Document No."; "Document No.")
+                field("Document No."; Rec."Document No.")
                 {
                     Editable = false;
                 }
-                field("Line No."; "Line No.")
+                field("Line No."; Rec."Line No.")
                 {
                     Editable = false;
                 }
-                field("Sell-to Customer No."; "Sell-to Customer No.")
+                field("Sell-to Customer No."; Rec."Sell-to Customer No.")
                 {
                     Editable = false;
                 }
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                     Editable = false;
                 }
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     Editable = false;
                 }
-                field(Quantity; Quantity)
+                field(Quantity; Rec.Quantity)
                 {
                     Editable = false;
                 }
-                field("Unit Price"; "Unit Price")
+                field("Unit Price"; Rec."Unit Price")
                 {
                     Editable = false;
                 }
@@ -74,7 +74,7 @@ page 50013 "Link purch. order - sale order"
 
     trigger OnAfterGetRecord()
     begin
-        IF RecLSalesHdr.GET("Document Type", "Document No.") THEN
+        IF RecLSalesHdr.GET(Rec."Document Type", Rec."Document No.") THEN
             Docstatus := RecLSalesHdr.Status
         ELSE
             // Docstatus := 0;

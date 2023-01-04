@@ -276,9 +276,7 @@ page 50120 "BC6_SAV Purch. Ret. Order List"
                         ApprovalEntries: Page "Approval Entries";
                     begin
 
-#pragma warning disable AL0432
                         ApprovalEntries.Setfilters(DATABASE::"Purchase Header", Rec."Document Type".AsInteger(), Rec."No.");
-#pragma warning restore AL0432
                         ApprovalEntries.RUN();
                     end;
                 }

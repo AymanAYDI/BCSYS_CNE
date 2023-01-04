@@ -13,16 +13,16 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
             group(General)
             {
                 Caption = 'General', comment = 'FRA="Général"';
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
 
                     trigger OnAssistEdit()
                     begin
-                        IF AssistEdit(xRec) THEN
+                        IF Rec.AssistEdit(xRec) THEN
                             CurrPage.UPDATE();
                     end;
                 }
-                field("Buy-from Vendor No."; "Buy-from Vendor No.")
+                field("Buy-from Vendor No."; Rec."Buy-from Vendor No.")
                 {
 
                     trigger OnValidate()
@@ -30,56 +30,56 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                         BuyfromVendorNoOnAfterValidate();
                     end;
                 }
-                field("Buy-from Contact No."; "Buy-from Contact No.")
+                field("Buy-from Contact No."; Rec."Buy-from Contact No.")
                 {
                 }
-                field("Buy-from Vendor Name"; "Buy-from Vendor Name")
+                field("Buy-from Vendor Name"; Rec."Buy-from Vendor Name")
                 {
                 }
-                field("Buy-from Address"; "Buy-from Address")
+                field("Buy-from Address"; Rec."Buy-from Address")
                 {
                 }
-                field("Buy-from Address 2"; "Buy-from Address 2")
+                field("Buy-from Address 2"; Rec."Buy-from Address 2")
                 {
                 }
-                field("Buy-from Post Code"; "Buy-from Post Code")
+                field("Buy-from Post Code"; Rec."Buy-from Post Code")
                 {
                     Caption = 'Buy-from Post Code/City', comment = 'FRA="CP/Ville preneur d''ordre"';
                 }
-                field("Buy-from City"; "Buy-from City")
+                field("Buy-from City"; Rec."Buy-from City")
                 {
                 }
-                field("Buy-from Contact"; "Buy-from Contact")
+                field("Buy-from Contact"; Rec."Buy-from Contact")
                 {
                 }
-                field("Buy-from Fax No."; "BC6_Buy-from Fax No.")
+                field("Buy-from Fax No."; Rec."BC6_Buy-from Fax No.")
                 {
                 }
-                field("Your Reference"; "Your Reference")
+                field("Your Reference"; Rec."Your Reference")
                 {
                 }
-                field("Posting Date"; "Posting Date")
+                field("Posting Date"; Rec."Posting Date")
                 {
                 }
-                field("Order Date"; "Order Date")
+                field("Order Date"; Rec."Order Date")
                 {
                 }
-                field("Document Date"; "Document Date")
+                field("Document Date"; Rec."Document Date")
                 {
                 }
-                field("Vendor Order No."; "Vendor Order No.")
+                field("Vendor Order No."; Rec."Vendor Order No.")
                 {
                 }
-                field("Vendor Shipment No."; "Vendor Shipment No.")
+                field("Vendor Shipment No."; Rec."Vendor Shipment No.")
                 {
                 }
-                field("Vendor Invoice No."; "Vendor Invoice No.")
+                field("Vendor Invoice No."; Rec."Vendor Invoice No.")
                 {
                 }
-                field("Order Address Code"; "Order Address Code")
+                field("Order Address Code"; Rec."Order Address Code")
                 {
                 }
-                field("Purchaser Code"; "Purchaser Code")
+                field("Purchaser Code"; Rec."Purchaser Code")
                 {
 
                     trigger OnValidate()
@@ -87,7 +87,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                         PurchaserCodeOnAfterValidate();
                     end;
                 }
-                field("No. of Archived Versions"; "No. of Archived Versions")
+                field("No. of Archived Versions"; Rec."No. of Archived Versions")
                 {
                 }
                 field(ID; Rec.BC6_ID)
@@ -95,7 +95,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                     Caption = 'User ID', comment = 'FRA="Code Utilisateur"';
                     Editable = false;
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                     Style = Standard;
                     StyleExpr = TRUE;
@@ -108,7 +108,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
             group(Invoicing)
             {
                 Caption = 'Invoicing', comment = 'FRA="Facturation"';
-                field("Pay-to Vendor No."; "Pay-to Vendor No.")
+                field("Pay-to Vendor No."; Rec."Pay-to Vendor No.")
                 {
 
                     trigger OnValidate()
@@ -116,29 +116,29 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                         PaytoVendorNoOnAfterValidate();
                     end;
                 }
-                field("Pay-to Contact No."; "Pay-to Contact No.")
+                field("Pay-to Contact No."; Rec."Pay-to Contact No.")
                 {
                 }
-                field("Pay-to Name"; "Pay-to Name")
+                field("Pay-to Name"; Rec."Pay-to Name")
                 {
                 }
-                field("Pay-to Address"; "Pay-to Address")
+                field("Pay-to Address"; Rec."Pay-to Address")
                 {
                 }
-                field("Pay-to Address 2"; "Pay-to Address 2")
+                field("Pay-to Address 2"; Rec."Pay-to Address 2")
                 {
                 }
-                field("Pay-to Post Code"; "Pay-to Post Code")
+                field("Pay-to Post Code"; Rec."Pay-to Post Code")
                 {
                     Caption = 'Pay-to Post Code/City', comment = 'FRA="CP/Ville"';
                 }
-                field("Pay-to City"; "Pay-to City")
+                field("Pay-to City"; Rec."Pay-to City")
                 {
                 }
-                field("Pay-to Contact"; "Pay-to Contact")
+                field("Pay-to Contact"; Rec."Pay-to Contact")
                 {
                 }
-                field("Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
+                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
 
                     trigger OnValidate()
@@ -146,7 +146,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                         ShortcutDimension1CodeOnAfterValidate();
                     end;
                 }
-                field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
 
                     trigger OnValidate()
@@ -154,25 +154,25 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                         ShortcutDimension2CodeOnAfterValidate();
                     end;
                 }
-                field("Payment Terms Code"; "Payment Terms Code")
+                field("Payment Terms Code"; Rec."Payment Terms Code")
                 {
                 }
-                field("Due Date"; "Due Date")
+                field("Due Date"; Rec."Due Date")
                 {
                 }
-                field("Payment Discount %"; "Payment Discount %")
+                field("Payment Discount %"; Rec."Payment Discount %")
                 {
                 }
-                field("Pmt. Discount Date"; "Pmt. Discount Date")
+                field("Pmt. Discount Date"; Rec."Pmt. Discount Date")
                 {
                 }
-                field("Payment Method Code"; "Payment Method Code")
+                field("Payment Method Code"; Rec."Payment Method Code")
                 {
                 }
-                field("On Hold"; "On Hold")
+                field("On Hold"; Rec."On Hold")
                 {
                 }
-                field("Prices Including VAT"; "Prices Including VAT")
+                field("Prices Including VAT"; Rec."Prices Including VAT")
                 {
 
                     trigger OnValidate()
@@ -180,90 +180,90 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                         PricesIncludingVATOnAfterValidate();
                     end;
                 }
-                field("VAT Bus. Posting Group"; "VAT Bus. Posting Group")
+                field("VAT Bus. Posting Group"; Rec."VAT Bus. Posting Group")
                 {
                 }
             }
             group(Shipping)
             {
                 Caption = 'Shipping', comment = 'FRA="Livraison"';
-                field("Ship-to Name"; "Ship-to Name")
+                field("Ship-to Name"; Rec."Ship-to Name")
                 {
                 }
-                field("Ship-to Address"; "Ship-to Address")
+                field("Ship-to Address"; Rec."Ship-to Address")
                 {
                 }
-                field("Ship-to Address 2"; "Ship-to Address 2")
+                field("Ship-to Address 2"; Rec."Ship-to Address 2")
                 {
                 }
-                field("Ship-to Post Code"; "Ship-to Post Code")
+                field("Ship-to Post Code"; Rec."Ship-to Post Code")
                 {
                     Caption = 'Ship-to Post Code/City', comment = 'FRA="CP/Ville destinataire"';
                 }
-                field("Ship-to City"; "Ship-to City")
+                field("Ship-to City"; Rec."Ship-to City")
                 {
                 }
-                field("Ship-to Contact"; "Ship-to Contact")
+                field("Ship-to Contact"; Rec."Ship-to Contact")
                 {
                 }
-                field("Location Code"; "Location Code")
+                field("Location Code"; Rec."Location Code")
                 {
                 }
-                field("Inbound Whse. Handling Time"; "Inbound Whse. Handling Time")
+                field("Inbound Whse. Handling Time"; Rec."Inbound Whse. Handling Time")
                 {
                 }
-                field("Shipment Method Code"; "Shipment Method Code")
+                field("Shipment Method Code"; Rec."Shipment Method Code")
                 {
                 }
-                field("Lead Time Calculation"; "Lead Time Calculation")
+                field("Lead Time Calculation"; Rec."Lead Time Calculation")
                 {
                 }
-                field("Requested Receipt Date"; "Requested Receipt Date")
+                field("Requested Receipt Date"; Rec."Requested Receipt Date")
                 {
                 }
-                field("Promised Receipt Date"; "Promised Receipt Date")
+                field("Promised Receipt Date"; Rec."Promised Receipt Date")
                 {
                 }
-                field("Expected Receipt Date"; "Expected Receipt Date")
+                field("Expected Receipt Date"; Rec."Expected Receipt Date")
                 {
                 }
-                field("Sell-to Customer No."; "Sell-to Customer No.")
+                field("Sell-to Customer No."; Rec."Sell-to Customer No.")
                 {
                 }
-                field("Ship-to Code"; "Ship-to Code")
+                field("Ship-to Code"; Rec."Ship-to Code")
                 {
                 }
             }
             group("Foreign Trade")
             {
                 Caption = 'Foreign Trade', comment = 'FRA="International"';
-                field("Currency Code"; "Currency Code")
+                field("Currency Code"; Rec."Currency Code")
                 {
 
                     trigger OnAssistEdit()
                     begin
                         CLEAR(ChangeExchangeRate);
-                        ChangeExchangeRate.SetParameter("Currency Code", "Currency Factor", "Posting Date");
+                        ChangeExchangeRate.SetParameter(Rec."Currency Code", Rec."Currency Factor", Rec."Posting Date");
                         IF ChangeExchangeRate.RUNMODAL() = ACTION::OK THEN BEGIN
-                            VALIDATE("Currency Factor", ChangeExchangeRate.GetParameter());
+                            Rec.VALIDATE("Currency Factor", ChangeExchangeRate.GetParameter());
                             CurrPage.UPDATE();
                         END;
                         CLEAR(ChangeExchangeRate);
                     end;
                 }
-                field("Transaction Type"; "Transaction Type")
+                field("Transaction Type"; Rec."Transaction Type")
                 {
                 }
-                field("Transaction Specification"; "Transaction Specification")
+                field("Transaction Specification"; Rec."Transaction Specification")
                 {
                 }
-                field("Transport Method"; "Transport Method")
+                field("Transport Method"; Rec."Transport Method")
                 {
                 }
-                field("Entry Point"; "Entry Point")
+                field("Entry Point"; Rec."Entry Point")
                 {
                 }
-                field("Area"; Area)
+                field("Area"; Rec.Area)
                 {
                 }
             }
@@ -419,7 +419,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
 
                 trigger OnAction()
                 begin
-                    IF NOT "BC6_From Sales Module" THEN
+                    IF NOT Rec."BC6_From Sales Module" THEN
                         CurrPage.PurchLines.PAGE.ChooseSalesLineOrderToAffect()
                     ELSE
                         MESSAGE(txtg001);
@@ -603,7 +603,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
 
                     trigger OnAction()
                     begin
-                        IF NOT ControleMinimMNTandQTE() THEN
+                        IF NOT Rec.ControleMinimMNTandQTE() THEN
                             ReportPrint.PrintPurchHeader(Rec);
                     end;
                 }
@@ -637,7 +637,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
 
                     trigger OnAction()
                     begin
-                        IF NOT ControleMinimMNTandQTE() THEN BEGIN
+                        IF NOT Rec.ControleMinimMNTandQTE() THEN BEGIN
                             REPORT.RUNMODAL(REPORT::"Batch Post Purchase Orders", TRUE, TRUE, Rec);
                             CurrPage.UPDATE(FALSE);
                         END;
@@ -654,7 +654,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
 
                 trigger OnAction()
                 begin
-                    IF ControleMinimMNTandQTE() THEN
+                    IF Rec.ControleMinimMNTandQTE() THEN
                         EXIT;
 
                     DocPrint.PrintPurchHeader(Rec);
@@ -686,20 +686,20 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
     trigger OnDeleteRecord(): Boolean
     begin
         CurrPage.SAVERECORD();
-        EXIT(ConfirmDeletion());
+        EXIT(Rec.ConfirmDeletion());
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        "Responsibility Center" := UserMgt.GetPurchasesFilter();
+        Rec."Responsibility Center" := UserMgt.GetPurchasesFilter();
     end;
 
     trigger OnOpenPage()
     begin
         IF UserMgt.GetPurchasesFilter() <> '' THEN BEGIN
-            FILTERGROUP(2);
-            SETRANGE("Responsibility Center", UserMgt.GetPurchasesFilter());
-            FILTERGROUP(0);
+            Rec.FILTERGROUP(2);
+            Rec.SETRANGE("Responsibility Center", UserMgt.GetPurchasesFilter());
+            Rec.FILTERGROUP(0);
         END;
     end;
 
@@ -730,12 +730,12 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
 
     procedure EnvoiMail()
     begin
-        cust.SETRANGE(cust."No.", "Sell-to Customer No.");
+        cust.SETRANGE(cust."No.", Rec."Sell-to Customer No.");
         IF cust.FindFirst() THEN
             cust.TESTFIELD("E-Mail");
         OpenFile();
         IF nameF <> '' THEN BEGIN
-            Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + "No.", '', nameF, FALSE);
+            Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + Rec."No.", '', nameF, FALSE);
             ERASE(nameF);
         END
         ELSE BEGIN
@@ -746,7 +746,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
         HistMail.Nom := cust.Name;
         HistMail."E-Mail" := cust."E-Mail";
         HistMail."Date d'envoi" := TODAY;
-        HistMail."Document envoyé" := CurrPage.CAPTION + ' ' + "No.";
+        HistMail."Document envoyé" := CurrPage.CAPTION + ' ' + Rec."No.";
         HistMail.INSERT(TRUE);
     end;
 

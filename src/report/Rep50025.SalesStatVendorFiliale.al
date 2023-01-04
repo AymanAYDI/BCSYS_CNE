@@ -187,9 +187,7 @@ report 50025 "BC6_Sales Stat/Vendor Filiale"
                 IF TempRecGPurchCrMemoLine.FindFirst() THEN
                     REPEAT
                         RecLPurchCrMemoHeader.SETFILTER("No.", TempRecGPurchCrMemoLine."Document No.");
-#pragma warning disable AA0181
                         IF RecLPurchCrMemoHeader.Findset() THEN
-#pragma warning restore AA0181
                             DecGCAAchat -= TempRecGPurchCrMemoLine.Amount;
                     UNTIL TempRecGPurchCrMemoLine.NEXT() = 0;
 

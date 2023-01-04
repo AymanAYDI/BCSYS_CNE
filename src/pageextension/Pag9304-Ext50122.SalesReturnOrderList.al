@@ -12,15 +12,15 @@ pageextension 50122 "BC6_SalesReturnOrderList" extends "Sales Return Order List"
             {
                 ApplicationArea = All;
             }
-            field("BC6_Your Reference"; "Your Reference")
+            field("BC6_Your Reference"; Rec."Your Reference")
             {
                 ApplicationArea = All;
             }
-            field("BC6_Affair No."; "BC6_Affair No.")
+            field("BC6_Affair No."; Rec."BC6_Affair No.")
             {
                 ApplicationArea = All;
             }
-            field(BC6_Amount; Amount)
+            field(BC6_Amount; Rec.Amount)
             {
                 ApplicationArea = All;
             }
@@ -64,9 +64,9 @@ pageextension 50122 "BC6_SalesReturnOrderList" extends "Sales Return Order List"
         IF NOT RecGUserSeup.GET(USERID) THEN
             RecGUserSeup.INIT();
         IF RecGUserSeup."BC6_Limited User" THEN BEGIN
-            FILTERGROUP(2);
-            SETFILTER("BC6_Salesperson Filter", '*' + RecGUserSeup."Salespers./Purch. Code" + '*');
-            FILTERGROUP(0);
+            Rec.FILTERGROUP(2);
+            Rec.SETFILTER("BC6_Salesperson Filter", '*' + RecGUserSeup."Salespers./Purch. Code" + '*');
+            Rec.FILTERGROUP(0);
         END;
     end;
 }

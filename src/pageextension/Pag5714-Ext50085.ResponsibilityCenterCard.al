@@ -4,7 +4,7 @@ pageextension 50085 "BC6_ResponsibilityCenterCard" extends "Responsibility Cente
     {
         addafter("Location Code")
         {
-            field(BC6_Picture; "BC6_Picture")
+            field(BC6_Picture; Rec."BC6_Picture")
             {
             }
         }
@@ -13,46 +13,46 @@ pageextension 50085 "BC6_ResponsibilityCenterCard" extends "Responsibility Cente
             group("BC6_Alt Centre de Gestion")
             {
                 Caption = 'Alt Centre de Gestion';
-                field("BC6_Alt Name"; "BC6_Alt Name")
+                field("BC6_Alt Name"; Rec."BC6_Alt Name")
                 {
                 }
-                field("BC6_Alt Name 2"; "BC6_Alt Name 2")
+                field("BC6_Alt Name 2"; Rec."BC6_Alt Name 2")
                 {
                 }
-                field("BC6_Alt Address"; "BC6_Alt Address")
+                field("BC6_Alt Address"; Rec."BC6_Alt Address")
                 {
                 }
-                field("BC6_Alt Address 2"; "BC6_Alt Address 2")
+                field("BC6_Alt Address 2"; Rec."BC6_Alt Address 2")
                 {
                 }
-                field("BC6_Alt City"; "BC6_Alt City")
+                field("BC6_Alt City"; Rec."BC6_Alt City")
                 {
                 }
-                field("BC6_Alt Phone No."; "BC6_Alt Phone No.")
+                field("BC6_Alt Phone No."; Rec."BC6_Alt Phone No.")
                 {
                 }
-                field("BC6_Alt Phone No. 2"; "BC6_Alt Phone No. 2")
+                field("BC6_Alt Phone No. 2"; Rec."BC6_Alt Phone No. 2")
                 {
                 }
-                field("BC6_Alt Telex No."; "BC6_Alt Telex No.")
+                field("BC6_Alt Telex No."; Rec."BC6_Alt Telex No.")
                 {
                 }
-                field("BC6_Alt Fax No."; "BC6_Alt Fax No.")
+                field("BC6_Alt Fax No."; Rec."BC6_Alt Fax No.")
                 {
                 }
-                field("BC6_Alt Post Code"; "BC6_Alt Post Code")
+                field("BC6_Alt Post Code"; Rec."BC6_Alt Post Code")
                 {
                 }
-                field("BC6_Alt E-Mail"; "BC6_Alt E-Mail")
+                field("BC6_Alt E-Mail"; Rec."BC6_Alt E-Mail")
                 {
                 }
-                field("BC6_Alt Country Code"; "BC6_Alt Country Code")
+                field("BC6_Alt Country Code"; Rec."BC6_Alt Country Code")
                 {
                 }
-                field("BC6_Alt Home Page"; "BC6_Alt Home Page")
+                field("BC6_Alt Home Page"; Rec."BC6_Alt Home Page")
                 {
                 }
-                field("BC6_Alt Picture"; "BC6_Alt Picture")
+                field("BC6_Alt Picture"; Rec."BC6_Alt Picture")
                 {
                 }
             }

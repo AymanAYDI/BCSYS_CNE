@@ -4,7 +4,7 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
     {
         addafter(Name)
         {
-            field("BC6_Name 2"; "Name 2")
+            field("BC6_Name 2"; Rec."Name 2")
             {
                 ApplicationArea = All;
             }
@@ -12,7 +12,7 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
 
         addafter("Last Date Modified")
         {
-            field("BC6_Creation Date"; "BC6_Creation Date")
+            field("BC6_Creation Date"; Rec."BC6_Creation Date")
             {
                 ApplicationArea = All;
             }
@@ -20,11 +20,11 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
 
         addafter("Responsibility Center")
         {
-            field("BC6_Blocked Prices"; "BC6_Blocked Prices")
+            field("BC6_Blocked Prices"; Rec."BC6_Blocked Prices")
             {
                 ApplicationArea = All;
             }
-            field("BC6_% Mini Margin"; "BC6_% Mini Margin")
+            field("BC6_% Mini Margin"; Rec."BC6_% Mini Margin")
             {
                 Visible = ShowMiniMargin;
                 ApplicationArea = All;
@@ -33,15 +33,15 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
 
         addafter(Invoicing)
         {
-            field("BC6_Mini Amount"; "BC6_Mini Amount")
+            field("BC6_Mini Amount"; Rec."BC6_Mini Amount")
             {
                 ApplicationArea = All;
             }
-            field("BC6_Freight Amount"; "BC6_Freight Amount")
+            field("BC6_Freight Amount"; Rec."BC6_Freight Amount")
             {
                 ApplicationArea = All;
             }
-            field("BC6_Posting DEEE"; "BC6_Posting DEEE")
+            field("BC6_Posting DEEE"; Rec."BC6_Posting DEEE")
             {
                 ApplicationArea = All;
             }
@@ -49,7 +49,7 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
 
         addafter("""Balance (LCY)"" - ""Payment in progress (LCY)""")
         {
-            field("BC6_Lead Time Calculation"; "Lead Time Calculation")
+            field("BC6_Lead Time Calculation"; Rec."Lead Time Calculation")
             {
                 Importance = Promoted;
                 ToolTip = 'Specifies a date formula for the time that it takes to replenish the item.', Comment = 'FRA="Spécifie une formule date pour le délai nécessaire au réapprovisionnement de l''article."';
@@ -62,7 +62,7 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
         {
             group(BC6_TransGroupe)
             {
-                field("BC6_Transaction Type"; "BC6_Transaction Type")
+                field("BC6_Transaction Type"; Rec."BC6_Transaction Type")
                 {
                     ApplicationArea = All;
                     trigger OnValidate()
@@ -78,7 +78,7 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
             }
             group(BC6_TransSpecGroupe)
             {
-                field("BC6_Transaction Specification"; "BC6_Transaction Specification")
+                field("BC6_Transaction Specification"; Rec."BC6_Transaction Specification")
                 {
                     ApplicationArea = All;
                     trigger OnValidate()
@@ -94,7 +94,7 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
             }
             group(BC6_TransMethGroupe)
             {
-                field("BC6_Transport Method"; "BC6_Transport Method")
+                field("BC6_Transport Method"; Rec."BC6_Transport Method")
                 {
                     ApplicationArea = All;
                     trigger OnValidate()
@@ -110,7 +110,7 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
             }
             group(BC6_EntryPointGroupe)
             {
-                field("BC6_Entry Point"; "BC6_Entry Point")
+                field("BC6_Entry Point"; Rec."BC6_Entry Point")
                 {
                     ApplicationArea = All;
                     trigger OnValidate()
@@ -126,7 +126,7 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
             }
             group(BC6_AreaGroupe)
             {
-                field(BC6_Area; BC6_Area)
+                field(BC6_Area; Rec.BC6_Area)
                 {
                     ApplicationArea = All;
                     trigger OnValidate()
@@ -162,7 +162,7 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
                     TableInformation: Record "Table Information";
                 begin
                     Doc.SETRANGE(Doc."Table No.", 23);
-                    Doc.SETRANGE(Doc."Reference No. 1", "No.");
+                    Doc.SETRANGE(Doc."Reference No. 1", Rec."No.");
                     TableInformation.SETRANGE(TableInformation."Table No.", 23);
                     IF TableInformation.FindFirst() THEN
                         Doc.SETRANGE(Doc."Table Name", TableInformation."Table Name");
@@ -217,27 +217,27 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
 
     procedure Incoterm()
     begin
-        IF RecGTransSpe.GET("BC6_Transaction Specification") THEN
+        IF RecGTransSpe.GET(Rec."BC6_Transaction Specification") THEN
             TxtGTransSpe := RecGTransSpe.Text
         ELSE
             TxtGTransSpe := '';
 
-        IF RecGTransType.GET("BC6_Transaction Type") THEN
+        IF RecGTransType.GET(Rec."BC6_Transaction Type") THEN
             TxtGTransType := RecGTransType.Description
         ELSE
             TxtGTransType := '';
 
-        IF RecGTransMeth.GET("BC6_Transport Method") THEN
+        IF RecGTransMeth.GET(Rec."BC6_Transport Method") THEN
             TxtGTransMeth := RecGTransMeth.Description
         ELSE
             TxtGTransMeth := '';
 
-        IF RecGTransESPoint.GET("BC6_Entry Point") THEN
+        IF RecGTransESPoint.GET(Rec."BC6_Entry Point") THEN
             TxtGESPoint := RecGTransESPoint.Description
         ELSE
             TxtGESPoint := '';
 
-        IF RecGArea.GET(BC6_Area) THEN
+        IF RecGArea.GET(Rec.BC6_Area) THEN
             TxtGArea := RecGArea.Text
         ELSE
             TxtGArea := '';

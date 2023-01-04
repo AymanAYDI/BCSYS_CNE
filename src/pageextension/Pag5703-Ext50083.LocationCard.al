@@ -66,5 +66,25 @@ pageextension 50083 "BC6_LocationCard" extends "Location Card" //5703
         NewShipmentBinCodeEnable := true;
         NewAssemblyShipmentBinCodeEnable := true;
     end;
+
+    procedure SetNewReceiptBinCodeEnable(pNewReceiptBinCodeEnable: Boolean)
+    begin
+        NewReceiptBinCodeEnable := pNewReceiptBinCodeEnable;
+    end;
+
+    procedure SetNewShipmentBinCodeEnable(pNewShipmentBinCodeEnable: Boolean)
+    begin
+        NewShipmentBinCodeEnable := pNewShipmentBinCodeEnable;
+    end;
+
+    procedure SetNewAssemblyShipmentBinCodeEnable(pNewAssemblyShipmentBinCodeEnable: Boolean)
+    begin
+        NewAssemblyShipmentBinCodeEnable := pNewAssemblyShipmentBinCodeEnable;
+    end;
+
+    procedure GetNewShipmentBinCodeEnable(): Boolean
+    begin
+        exit(NewShipmentBinCodeEnable);
+    end;
 }
 

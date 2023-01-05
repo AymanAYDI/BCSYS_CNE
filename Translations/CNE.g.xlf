@@ -23639,23 +23639,23 @@
           <note from="Xliff Generator" annotates="general" priority="3">XmlPort BC6_Update Bill-To-Customer - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1792303710 - Action 4612893 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2521211343">
-          <source>Statement avec traite</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <source>&amp;G/L Trial Balance</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Relevé client CNE avec traite"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_Account. Manag. RoleCenter - Action BC6_Statement avec traite - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1792303710 - Action 2754959319 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2521211343">
-          <source>Statement sans traite</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <source>&amp;G/L Trial Balance</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Relevé client CNE sans traite"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_Account. Manag. RoleCenter - Action BC6_Statement sans traite - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1792303710 - Action 2190661515 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2521211343">
-          <source>Statement sans traite V2</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <source>&amp;G/L Trial Balance</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Relevé client CNE sans traite V2"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_Account. Manag. RoleCenter - Action BC6_Statement sans traite V2 - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1792303710 - Action 3792813972 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2521211343">
-          <source>BC6_Liste des sessions</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <source>List of sessions</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Liste des sessions"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_Account. Manag. RoleCenter - Action BC6_Liste des sessions - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 140586262 - Control 3082465362 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 515652382">

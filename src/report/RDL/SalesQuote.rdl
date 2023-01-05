@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="DataSource">
@@ -7,6 +7,7 @@
         <DataProvider>SQL</DataProvider>
         <ConnectString />
       </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
       <rd:DataSourceID>a5d0a06d-f7ec-423d-b113-aa9dc1af6b1a</rd:DataSourceID>
     </DataSource>
   </DataSources>
@@ -51,7 +52,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=
+                                                    <Value>=
 Cstr(Fields!CustAddr_1_.Value) + Chr(177) + 
 Cstr(Fields!CustAddr_2_.Value) + Chr(177) + 
 Cstr(Fields!CustAddr_3_.Value) + Chr(177) + 
@@ -103,7 +104,7 @@ Cstr(Fields!version_No____Caption.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Code.IsNewPage(Fields!Sales_Header_Document_Type.Value,Fields!Sales_Header_No_.Value,Fields!OutputNo.Value)</Value>
+                                                    <Value>=Code.IsNewPage(Fields!Sales_Header_Document_Type.Value,Fields!Sales_Header_No_.Value,Fields!OutputNo.Value)</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -189,7 +190,7 @@ Cstr(Fields!version_No____Caption.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=last(fields!ReferenceCaption.Value)</Value>
+                                                    <Value>=last(fields!ReferenceCaption.Value)</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
@@ -243,7 +244,7 @@ Cstr(Fields!version_No____Caption.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=last(fields!DescriptionCaption.Value)</Value>
+                                                    <Value>=last(fields!DescriptionCaption.Value)</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
@@ -297,7 +298,7 @@ Cstr(Fields!version_No____Caption.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=iif(fields!Sales_Header_Prices_Incl_VAT.Value,fields!Unit_Price_Incl__VATCaption.Value,fields!Unit_Price_Excl__VATCaption.Value)</Value>
+                                                    <Value>=iif(fields!Sales_Header_Prices_Incl_VAT.Value,fields!Unit_Price_Incl__VATCaption.Value,fields!Unit_Price_Excl__VATCaption.Value)</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
@@ -349,7 +350,7 @@ Cstr(Fields!version_No____Caption.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=fields!QuantityCaption.Value</Value>
+                                                    <Value>=fields!QuantityCaption.Value</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
@@ -401,7 +402,7 @@ Cstr(Fields!version_No____Caption.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=fields!AmountCaption.Value</Value>
+                                                    <Value>=fields!AmountCaption.Value</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
@@ -458,7 +459,7 @@ Cstr(Fields!version_No____Caption.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=IIf(Fields!HideReference.Value=true,"",Fields!Sales_Line___No__.Value)</Value>
+                                                    <Value>=IIf(Fields!HideReference.Value=true,"",Fields!Sales_Line___No__.Value)</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
@@ -501,7 +502,7 @@ Cstr(Fields!version_No____Caption.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Sales_Line__Description.Value</Value>
+                                                    <Value>=Fields!Sales_Line__Description.Value</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
@@ -544,7 +545,7 @@ Cstr(Fields!version_No____Caption.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
@@ -583,7 +584,7 @@ Cstr(Fields!version_No____Caption.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
@@ -622,7 +623,7 @@ Cstr(Fields!version_No____Caption.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
@@ -666,7 +667,7 @@ Cstr(Fields!version_No____Caption.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=IIf(Fields!HideReference.Value=true,"",Fields!Sales_Line___No__.Value)</Value>
+                                                    <Value>=IIf(Fields!HideReference.Value=true,"",Fields!Sales_Line___No__.Value)</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
@@ -709,7 +710,7 @@ Cstr(Fields!version_No____Caption.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Sales_Line__Description.Value</Value>
+                                                    <Value>=Fields!Sales_Line__Description.Value</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
@@ -752,7 +753,7 @@ Cstr(Fields!version_No____Caption.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=fields!ROUND__Sales_Line___Discount_unit_price__.Value</Value>
+                                                    <Value>=fields!ROUND__Sales_Line___Discount_unit_price__.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
@@ -791,7 +792,7 @@ Cstr(Fields!version_No____Caption.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=fields!Sales_Line__Quantity.Value</Value>
+                                                    <Value>=fields!Sales_Line__Quantity.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
@@ -825,7 +826,7 @@ Cstr(Fields!version_No____Caption.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Code.BlankZero(fields!Sales_Line___Line_Amount_.value)</Value>
+                                                    <Value>=Code.BlankZero(fields!Sales_Line___Line_Amount_.value)</Value>
                                                     <Style>
                                                       <Format>=Fields!Sales_Line___Line_Amount_Format.Value</Format>
                                                     </Style>
@@ -867,7 +868,7 @@ Cstr(Fields!version_No____Caption.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=fields!DEEE_Contribution___Caption.Value</Value>
+                                                    <Value>=fields!DEEE_Contribution___Caption.Value</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
@@ -910,7 +911,7 @@ Cstr(Fields!version_No____Caption.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=fields!Sales_Line___DEEE_Category_Code_Caption.Value + "  " + 
+                                                    <Value>=fields!Sales_Line___DEEE_Category_Code_Caption.Value + "  " + 
 fields!Sales_Line___DEEE_Category_Code_.Value
 'fields!Sales_Line___No___Control1000000140Caption.Value + "  " +
 'fields!Sales_Line___No___Control1000000140.Value + "  " +</Value>
@@ -944,7 +945,6 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                             </Style>
                                           </Textbox>
                                           <ColSpan>2</ColSpan>
-                                          <rd:Selected>true</rd:Selected>
                                         </CellContents>
                                       </TablixCell>
                                       <TablixCell />
@@ -957,7 +957,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=fields!ROUND__Sales_Line___DEEE_Unit_Price__.Value</Value>
+                                                    <Value>=fields!ROUND__Sales_Line___DEEE_Unit_Price__.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
@@ -995,7 +995,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=fields!Sales_Line__Quantity_Control1000000195.Value</Value>
+                                                    <Value>=fields!Sales_Line__Quantity_Control1000000195.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
@@ -1033,7 +1033,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=fields!Sales_Line___DEEE_HT_Amount_.Value</Value>
+                                                    <Value>=fields!Sales_Line___DEEE_HT_Amount_.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
@@ -1081,7 +1081,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
@@ -1119,7 +1119,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
@@ -1155,7 +1155,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
@@ -1191,7 +1191,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
@@ -1225,7 +1225,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
@@ -1259,7 +1259,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
@@ -1368,7 +1368,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=last(fields!Text016.Value)</Value>
+                                                    <Value>=last(fields!Text016.Value)</Value>
                                                     <Style>
                                                       <FontSize>11pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
@@ -1408,7 +1408,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=last(fields!Text015.Value)</Value>
+                                                    <Value>=last(fields!Text015.Value)</Value>
                                                     <Style>
                                                       <FontSize>11pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
@@ -1489,7 +1489,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=fields!TxtGLblProjet.Value</Value>
+                                                    <Value>=fields!TxtGLblProjet.Value</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
@@ -1521,7 +1521,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=fields!TxtGNoProjet.Value</Value>
+                                                    <Value>=fields!TxtGNoProjet.Value</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
@@ -1552,7 +1552,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=fields!TxtGDesignation.Value</Value>
+                                                    <Value>=fields!TxtGDesignation.Value</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
@@ -1588,7 +1588,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=fields!Text011.Value</Value>
+                                                    <Value>=fields!Text011.Value</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
@@ -1627,7 +1627,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=fields!Text012.Value</Value>
+                                                    <Value>=fields!Text012.Value</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
@@ -1722,7 +1722,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
@@ -1761,7 +1761,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=iif(fields!Sales_Header_Prices_Incl_VAT.Value,
+                                                    <Value>=iif(fields!Sales_Header_Prices_Incl_VAT.Value,
      first(fields!TotalInclVATText.Value),
      first(fields!TotalExclVATText_Control77.Value))</Value>
                                                     <Style>
@@ -1804,7 +1804,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=iif(fields!Sales_Header_Prices_Incl_VAT.Value,
+                                                    <Value>=iif(fields!Sales_Header_Prices_Incl_VAT.Value,
      (fields!TotalAmountInclVAT_value.Value + SUM(fields!Sales_Line_DEEEHT_Amount.Value)),
      (SUM(fields!Sales_Line___Line_Amount_.Value)- SUM(fields!Sales_Line_Inv_Disc_Amount.Value)))</Value>
                                                     <Style>
@@ -1846,7 +1846,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
@@ -1882,7 +1882,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <Color>Red</Color>
@@ -1924,7 +1924,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
@@ -1958,7 +1958,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=iif(fields!Sales_Header_Prices_Incl_VAT.Value,
+                                                    <Value>=iif(fields!Sales_Header_Prices_Incl_VAT.Value,
  first(fields!VATAmountLine_VATAmountText.Value),
  first(fields!AmountEco_ConributionCaption_Control1000000162.Value))</Value>
                                                     <Style>
@@ -1996,7 +1996,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=iif(fields!Sales_Header_Prices_Incl_VAT.Value,
+                                                    <Value>=iif(fields!Sales_Header_Prices_Incl_VAT.Value,
      fields!VATAmount___DecGDEEEVatAmount_Control90.Value,
      SUM(fields!SalesLine__DEEE_HT_Amount_.Value)
 	)</Value>
@@ -2036,7 +2036,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
@@ -2067,7 +2067,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
@@ -2103,7 +2103,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
@@ -2137,7 +2137,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=iif(fields!Sales_Header_Prices_Incl_VAT.Value,
+                                                    <Value>=iif(fields!Sales_Header_Prices_Incl_VAT.Value,
  first(fields!Excl__VAT_Total_Incl_DEEECaption.Value),
  first(fields!Excl__VAT_Total_Incl_DEEECaption_Control1000000173.Value))</Value>
                                                     <Style>
@@ -2175,7 +2175,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">= SUM(fields!Sales_Line_Amount.Value) + SUM(fields!Sales_Line_DEEEHT_Amount.Value)</Value>
+                                                    <Value>= SUM(fields!Sales_Line_Amount.Value) + SUM(fields!Sales_Line_DEEEHT_Amount.Value)</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
@@ -2212,7 +2212,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
@@ -2243,7 +2243,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
@@ -2279,7 +2279,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
@@ -2313,7 +2313,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=iif(fields!Sales_Header_Prices_Incl_VAT.Value,
+                                                    <Value>=iif(fields!Sales_Header_Prices_Incl_VAT.Value,
  first(fields!AmountEco_ConributionCaption.Value),
  first(fields!VATAmountLine_VATAmountText_Control51.Value))</Value>
                                                     <Style>
@@ -2351,7 +2351,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=iif(fields!Sales_Header_Prices_Incl_VAT.Value,
+                                                    <Value>=iif(fields!Sales_Header_Prices_Incl_VAT.Value,
      SUM(fields!Sales_Line_DEEEHT_Amount.Value),
      sum(fields!vGTotal1_Value.Value)
 	)</Value>
@@ -2391,7 +2391,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
@@ -2422,7 +2422,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
@@ -2458,7 +2458,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
@@ -2492,7 +2492,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=iif(fields!Sales_Header_Prices_Incl_VAT.Value,
+                                                    <Value>=iif(fields!Sales_Header_Prices_Incl_VAT.Value,
  first(fields!TotalExclVATText.Value),
  first(fields!TotalInclVATText_Control76.Value))</Value>
                                                     <Style>
@@ -2530,7 +2530,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=iif(fields!Sales_Header_Prices_Incl_VAT.Value,
+                                                    <Value>=iif(fields!Sales_Header_Prices_Incl_VAT.Value,
      (SUM(fields!Sales_Line___Line_Amount_.Value) - SUM(fields!Sales_Line_Inv_Disc_Amount.Value) - fields!VATAmount_Value.Value),
      (SUM(fields!Sales_Line_Amount.Value) + SUM(fields!Sales_Line_DEEEHT_Amount.Value)+ sum(fields!vGTotal1_Value.Value))
 	)</Value>
@@ -2570,7 +2570,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
@@ -2601,7 +2601,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
@@ -2637,7 +2637,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                     </Style>
@@ -2675,7 +2675,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=iif(fields!Sales_Header_Prices_Incl_VAT.Value,
+                                                    <Value>=iif(fields!Sales_Header_Prices_Incl_VAT.Value,
  first(fields!PaymentMethod_Description___________PaymentTerms_DescriptionCaption.Value),
  first(fields!PaymentMethod_Description___________PaymentTerms_Description_Control1000000012Caption.Value))</Value>
                                                     <Style>
@@ -2717,7 +2717,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=iif(fields!Sales_Header_Prices_Incl_VAT.Value,
+                                                    <Value>=iif(fields!Sales_Header_Prices_Incl_VAT.Value,
      first(fields!PaymentMethod_Description___________PaymentTerms_Description.Value),
      first(fields!PaymentMethod_Description___________PaymentTerms_Description_Control1000000012.Value))</Value>
                                                     <Style>
@@ -2908,7 +2908,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(12,1)</Value>
+                      <Value>=Code.GetData(12,1)</Value>
                       <Style>
                         <FontSize>18pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -2935,7 +2935,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(13,1)</Value>
+                      <Value>=Code.GetData(13,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -2961,7 +2961,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(14,1)</Value>
+                      <Value>=Code.GetData(14,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -2986,7 +2986,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(9,1)</Value>
+                      <Value>=Code.GetData(9,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3010,7 +3010,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(10,1)</Value>
+                      <Value>=Code.GetData(10,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3036,7 +3036,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(11,1)</Value>
+                      <Value>=Code.GetData(11,1)</Value>
                       <Style>
                         <FontSize>7pt</FontSize>
                       </Style>
@@ -3060,7 +3060,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(18,1)</Value>
+                      <Value>=Code.GetData(18,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -3087,7 +3087,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(19,1)</Value>
+                      <Value>=Code.GetData(19,1)</Value>
                       <Style>
                         <FontSize>18pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -3114,7 +3114,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(20,1)</Value>
+                      <Value>=Code.GetData(20,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -3141,7 +3141,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(15,1)</Value>
+                      <Value>=Code.GetData(15,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -3166,7 +3166,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(16,1)</Value>
+                      <Value>=Code.GetData(16,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -3191,7 +3191,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(17,1)</Value>
+                      <Value>=Code.GetData(17,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -3216,7 +3216,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(8,1)</Value>
+                      <Value>=Code.GetData(8,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3227,7 +3227,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <Top>6.133cm</Top>
+              <Top>6.09772cm</Top>
               <Left>2.83502cm</Left>
               <Height>0.423cm</Height>
               <Width>3.78cm</Width>
@@ -3242,7 +3242,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(1,1)</Value>
+                      <Value>=Code.GetData(1,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3266,7 +3266,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">="Page" &amp; " " &amp; Code.GetGroupPageNumber(ReportItems!NewPage.Value,Globals!PageNumber)</Value>
+                      <Value>="Page" &amp; " " &amp; Code.GetGroupPageNumber(ReportItems!NewPage.Value,Globals!PageNumber)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3292,7 +3292,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(5,1)</Value>
+                      <Value>=Code.GetData(5,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3316,7 +3316,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(6,1)</Value>
+                      <Value>=Code.GetData(6,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3342,7 +3342,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(7,1)</Value>
+                      <Value>=Code.GetData(7,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3366,7 +3366,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(2,1)</Value>
+                      <Value>=Code.GetData(2,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3390,7 +3390,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(3,1)</Value>
+                      <Value>=Code.GetData(3,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3414,7 +3414,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(4,1)</Value>
+                      <Value>=Code.GetData(4,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3438,7 +3438,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto" />
+                      <Value />
                       <Style>
                         <Color>Red</Color>
                       </Style>
@@ -3495,7 +3495,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=First(Fields!CompanyAddr_1_.Value, "DataSet_Result")</Value>
+                      <Value>=First(Fields!CompanyAddr_1_.Value, "DataSet_Result")</Value>
                       <Style>
                         <FontSize>7pt</FontSize>
                       </Style>
@@ -3526,7 +3526,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=First(Fields!CompanyAddr_2______CompanyAddr_3______STRSUBSTNO___1__2__CompanyAddr_4__CompanyAddr_5__.Value, "DataSet_Result")</Value>
+                      <Value>=First(Fields!CompanyAddr_2______CompanyAddr_3______STRSUBSTNO___1__2__CompanyAddr_4__CompanyAddr_5__.Value, "DataSet_Result")</Value>
                       <Style>
                         <FontSize>7pt</FontSize>
                       </Style>
@@ -3558,7 +3558,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=First(Fields!STRSUBSTNO_Text066_TxtGPhone_TxtGFax_TxtGEmail_.Value, "DataSet_Result")</Value>
+                      <Value>=First(Fields!STRSUBSTNO_Text066_TxtGPhone_TxtGFax_TxtGEmail_.Value, "DataSet_Result")</Value>
                       <Style>
                         <FontSize>7pt</FontSize>
                       </Style>
@@ -3590,7 +3590,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=First(Fields!STRSUBSTNO_Text068_TxtGHomePage_.Value, "DataSet_Result")</Value>
+                      <Value>=First(Fields!STRSUBSTNO_Text068_TxtGHomePage_.Value, "DataSet_Result")</Value>
                       <Style>
                         <FontSize>7pt</FontSize>
                       </Style>
@@ -3622,7 +3622,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=First(Fields!TxtGAltName.Value, "DataSet_Result")</Value>
+                      <Value>=First(Fields!TxtGAltName.Value, "DataSet_Result")</Value>
                       <Style>
                         <FontSize>7pt</FontSize>
                       </Style>
@@ -3657,7 +3657,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=First(Fields!TxtGAltAdress______TxtGAltAdress2_____STRSUBSTNO___1__2__TxtGAltPostCode_TxtGAltCity_.Value, "DataSet_Result")</Value>
+                      <Value>=First(Fields!TxtGAltAdress______TxtGAltAdress2_____STRSUBSTNO___1__2__TxtGAltPostCode_TxtGAltCity_.Value, "DataSet_Result")</Value>
                       <Style>
                         <FontSize>7pt</FontSize>
                       </Style>
@@ -3692,7 +3692,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=First(Fields!STRSUBSTNO_Text066_TxtGAltPhone_TxtGAltFax_TxtGAltEmail_.Value, "DataSet_Result")</Value>
+                      <Value>=First(Fields!STRSUBSTNO_Text066_TxtGAltPhone_TxtGAltFax_TxtGAltEmail_.Value, "DataSet_Result")</Value>
                       <Style>
                         <FontSize>7pt</FontSize>
                       </Style>
@@ -3727,7 +3727,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=First(Fields!STRSUBSTNO_Text068_TxtGAltHomePage_.Value, "DataSet_Result")</Value>
+                      <Value>=First(Fields!STRSUBSTNO_Text068_TxtGAltHomePage_.Value, "DataSet_Result")</Value>
                       <Style>
                         <FontSize>7pt</FontSize>
                       </Style>
@@ -3762,7 +3762,7 @@ fields!Sales_Line___DEEE_Category_Code_.Value
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=First(Fields!STRSUBSTNO_Text067_CompanyInfo__Legal_Form__CompanyInfo__Stock_Capital__CompanyInfo__Trade_Register__CompanyInfo__EP_Code__CompanyInfo__VAT_Registration_No___.Value, "DataSet_Result")</Value>
+                      <Value>=First(Fields!DataItem1000000076.Value, "DataSet_Result")</Value>
                       <Style>
                         <FontSize>7pt</FontSize>
                       </Style>

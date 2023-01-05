@@ -8,14 +8,14 @@ page 55020 "BC6_Code Coverage 2"
     SourceTableTemporary = true;
     UsageCategory = Lists;
     ApplicationArea = All;
-
+    Caption = 'Code Coverage', Comment = 'FRA=" Code coverage"';
     layout
     {
         area(content)
         {
             repeater(Group)
             {
-                field(Line; Line)
+                field(Line; Rec.Line)
                 {
                     ApplicationArea = All;
                 }
@@ -87,7 +87,7 @@ page 55020 "BC6_Code Coverage 2"
 
     trigger OnAfterGetRecord()
     begin
-        HitRatio := "No. of Hits" / 100;
+        HitRatio := Rec."No. of Hits" / 100;
     end;
 
     trigger OnOpenPage()
@@ -125,15 +125,15 @@ page 55020 "BC6_Code Coverage 2"
                 AllHits := AllHits + CodeCoverage."No. of Hits";
             UNTIL CodeCoverage.NEXT() = 0;
 
-        RESET();
-        DELETEALL();
+        Rec.RESET();
+        Rec.DELETEALL();
 
         IF TempCodeCoverage.FINDSET() THEN
             REPEAT
                 TempCodeCoverage."No. of Hits" := (ROUND(TempCodeCoverage."No. of Hits" / AllHits * 100, 0.01) * 100);
                 TempCodeCoverage.MODIFY();
                 Rec := TempCodeCoverage;
-                INSERT();
+                Rec.INSERT();
             UNTIL TempCodeCoverage.NEXT() = 0;
     end;
 }

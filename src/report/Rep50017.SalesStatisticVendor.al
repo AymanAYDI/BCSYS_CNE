@@ -28,7 +28,7 @@ report 50017 "BC6_Sales Statistic/Vendor"
             column(DatGDateDebut; DatGDateDebut)
             {
             }
-            column(DatDateFin; DatDateFin)
+            column(DatDateFinF; DatDateFin)
             {
             }
             column(Vendor__No__; "No.")
@@ -140,7 +140,7 @@ report 50017 "BC6_Sales Statistic/Vendor"
                 IF RecLSalesInvLine.FindSet() THEN
                     REPEAT
                         RecLSalesInvHeader.SETFILTER("No.", RecLSalesInvLine."Document No.");
-                        IF RecLSalesInvHeader.Find() THEN BEGIN
+                        IF RecLSalesInvHeader.FindFirst() THEN BEGIN
                             DecGMontant += RecLSalesInvLine.Quantity * RecLSalesInvLine."BC6_Purchase Cost";
                             DecGCAVente += RecLSalesInvLine.Amount;
                         END;
@@ -153,7 +153,7 @@ report 50017 "BC6_Sales Statistic/Vendor"
                 IF RecLSalesCrMemoLine.FindSet() THEN
                     REPEAT
                         RecLSalesCrMemoHeader.SETFILTER("No.", RecLSalesCrMemoLine."Document No.");
-                        IF RecLSalesCrMemoHeader.Find() THEN BEGIN
+                        IF RecLSalesCrMemoHeader.FindFirst() THEN BEGIN
                             DecGMontant -= (RecLSalesCrMemoLine.Quantity * RecLSalesCrMemoLine."BC6_Purchase cost");
                             DecGCAVente -= RecLSalesCrMemoLine.Amount;
                         END;
@@ -194,7 +194,7 @@ report 50017 "BC6_Sales Statistic/Vendor"
                 IF RecLPurchCrMemoLine.Find() THEN
                     REPEAT
                         RecLPurchCrMemoHeader.SETFILTER("No.", RecLPurchCrMemoLine."Document No.");
-                        IF RecLPurchCrMemoHeader.Find() THEN
+                        IF RecLPurchCrMemoHeader.FindFirst() THEN
                             DecGCAAchat -= RecLPurchCrMemoLine.Amount;
                     UNTIL RecLPurchCrMemoLine.NEXT() = 0;
 
@@ -220,11 +220,11 @@ report 50017 "BC6_Sales Statistic/Vendor"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(DatGDateDebut; DatGDateDebut)
+                    field(DatGDateDebutF; DatGDateDebut)
                     {
                         Caption = 'Date début';
                     }
-                    field(DatDateFin; DatDateFin)
+                    field(DatDateFinF; DatDateFin)
                     {
                         Caption = 'Date fin';
                     }

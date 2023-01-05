@@ -28,8 +28,8 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
                     ItemDiscGrList: Page "Item Disc. Groups";
                     ItemList: Page "Item List";
                 begin
-                    CASE BC6_Type OF
-                        BC6_Type::Item:
+                    CASE Rec.BC6_Type OF
+                        Rec.BC6_Type::Item:
                             begin
                                 ItemList.LookupMode := true;
                                 if ItemList.RunModal() = ACTION::LookupOK then
@@ -38,7 +38,7 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
                                     exit(false);
                                 EXIT(FALSE);
                             END;
-                        BC6_Type::"Item Disc. Group":
+                        Rec.BC6_Type::"Item Disc. Group":
                             BEGIN
                                 ItemDiscGrList.LOOKUPMODE := TRUE;
                                 IF ItemDiscGrList.RUNMODAL() = ACTION::LookupOK THEN
@@ -85,7 +85,7 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
         }
         addfirst(Control1)
         {
-            field(BC6_Type; BC6_Type)
+            field(BC6_Type; Rec.BC6_Type)
             {
                 ApplicationArea = All;
             }
@@ -95,8 +95,6 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
     var
         Item: Record Item;
         ItemDiscGr: Record "Item Discount Group";
-        ItemDiscGrList: Page "Item Disc. Groups";
-        VendorList: Page "Vendor List";
         [InDataSet]
         BooGCodeFilterCtrl: Boolean;
         ItemTypeFilter: Enum "BC6_Item Type Filter";
@@ -116,10 +114,10 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
 
     procedure GetRecFilters() //TODO: Check
     begin
-        if GetFilters <> '' then begin
-            VendNoFilter := GetFilter("Vendor No.");
-            ItemNoFilter := GetFilter("Item No.");
-            Evaluate(StartingDateFilter, GetFilter("Starting Date"));
+        if Rec.GetFilters <> '' then begin
+            VendNoFilter := Rec.GetFilter("Vendor No.");
+            ItemNoFilter := Rec.GetFilter("Item No.");
+            Evaluate(StartingDateFilter, Rec.GetFilter("Starting Date"));
         end;
     end;
 
@@ -135,9 +133,9 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
         BooGCodeFilterCtrl := TRUE;
 
         IF ItemTypeFilter <> ItemTypeFilter::None THEN
-            SetRange(BC6_Type, ItemTypeFilter.AsInteger())
+            Rec.SetRange(BC6_Type, ItemTypeFilter.AsInteger())
         ELSE
-            SetRange(BC6_Type);
+            Rec.SetRange(BC6_Type);
 
         IF (ItemTypeFilter = ItemTypeFilter::None) OR (ItemTypeFilter = ItemTypeFilter::"All Items") THEN BEGIN
             BooGCodeFilterCtrl := FALSE;
@@ -145,19 +143,19 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
         END;
 
         IF CodeFilter <> '' THEN
-            SetFilter("Item No.", CodeFilter)
+            Rec.SetFilter("Item No.", CodeFilter)
         ELSE
-            SetRange("Item No.");
+            Rec.SetRange("Item No.");
 
         if VendNoFilter <> '' then
-            SetFilter("Vendor No.", VendNoFilter)
+            Rec.SetFilter("Vendor No.", VendNoFilter)
         else
-            SetRange("Vendor No.");
+            Rec.SetRange("Vendor No.");
 
         if StartingDateFilter <> '' then
-            SetFilter("Starting Date", StartingDateFilter)
+            Rec.SetFilter("Starting Date", StartingDateFilter)
         else
-            SetRange("Starting Date");
+            Rec.SetRange("Starting Date");
 
         CurrPage.Update(false);
     end;
@@ -181,12 +179,12 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
             ItemTypeFilter::Item:
                 BEGIN
                     SourceTableName := ObjTransl.TranslateObject(ObjTransl."Object Type"::Table, 27);
-                    Item."No." := CodeFilter;
+                    Item."No." := CopyStr(CodeFilter, 1, MaxStrLen(Item."No."));
                 END;
             ItemTypeFilter::"Item Discount Group":
                 BEGIN
                     SourceTableName := ObjTransl.TranslateObject(ObjTransl."Object Type"::Table, 341);
-                    ItemDiscGr.Code := CodeFilter;
+                    ItemDiscGr.Code := CopyStr(CodeFilter, 1, MaxStrLen(ItemDiscGr.Code));
                 END;
         END;
 
@@ -201,4 +199,3 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
 
     end;
 }
-

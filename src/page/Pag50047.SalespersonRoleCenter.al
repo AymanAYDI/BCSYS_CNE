@@ -2,7 +2,7 @@ page 50047 "BC6_Salesperson Role Center"
 {
     Caption = 'Role Center', Comment = 'FRA="Tableau de bord"';
     PageType = RoleCenter;
-
+    UsageCategory = None;
     layout
     {
         area(rolecenter)
@@ -255,8 +255,6 @@ page 50047 "BC6_Salesperson Role Center"
             {
                 Caption = 'Sales &Quote', Comment = 'FRA="&Devis"';
                 Image = Quote;
-                Promoted = true;
-                PromotedCategory = Process;
                 RunObject = Page "Sales Quote";
                 RunPageMode = Create;
                 ApplicationArea = All;
@@ -265,8 +263,6 @@ page 50047 "BC6_Salesperson Role Center"
             {
                 Caption = 'Sales &Invoice', Comment = 'FRA="Fac&ture vente"';
                 Image = Invoice;
-                Promoted = true;
-                PromotedCategory = Process;
                 RunObject = Page "Sales Invoice";
                 RunPageMode = Create;
                 ApplicationArea = All;
@@ -275,8 +271,6 @@ page 50047 "BC6_Salesperson Role Center"
             {
                 Caption = 'Sales &Order', Comment = 'FRA="&Commande vente"';
                 Image = Document;
-                Promoted = true;
-                PromotedCategory = Process;
                 RunObject = Page "Sales Order";
                 RunPageMode = Create;
                 ApplicationArea = All;
@@ -285,8 +279,6 @@ page 50047 "BC6_Salesperson Role Center"
             {
                 Caption = 'Sales &Return Order', Comment = 'FRA="&Retour vente"';
                 Image = ReturnOrder;
-                Promoted = true;
-                PromotedCategory = Process;
                 RunObject = Page "Sales Return Order";
                 RunPageMode = Create;
                 ApplicationArea = All;
@@ -295,8 +287,6 @@ page 50047 "BC6_Salesperson Role Center"
             {
                 Caption = 'Sales &Credit Memo', Comment = 'FRA="&Avoir vente"';
                 Image = CreditMemo;
-                Promoted = true;
-                PromotedCategory = Process;
                 RunObject = Page "Sales Credit Memo";
                 RunPageMode = Create;
                 ApplicationArea = All;

@@ -115,14 +115,9 @@ report 50025 "BC6_Sales Stat/Vendor Filiale"
             trigger OnAfterGetRecord()
             var
                 RecLPurchCrMemoHeader: Record "Purch. Cr. Memo Hdr.";
-                RecLPurchCrMemoLine: Record "Purch. Cr. Memo Line";
                 RecLPurchInvHeader: Record "Purch. Inv. Header";
-                RecLPurchInvLine: Record "Purch. Inv. Line";
-                RecLPurchLine: Record "Purchase Line";
                 RecLSalesCrMemoHeader: Record "Sales Cr.Memo Header";
-                RecLSalesCrMemoLine: Record "Sales Cr.Memo Line";
                 RecLSalesInvHeader: Record "Sales Invoice Header";
-                RecLSalesInvLine: Record "Sales Invoice Line";
             begin
                 // Init Var
                 DecGCAVente := 0;
@@ -136,29 +131,27 @@ report 50025 "BC6_Sales Stat/Vendor Filiale"
                 TempRecGSalesInvLine.SETCURRENTKEY("BC6_Buy-from Vendor No.");
                 TempRecGSalesInvLine.SETRANGE("BC6_Buy-from Vendor No.", "No.");
                 RecLSalesInvHeader.SETFILTER("Posting Date", '%1..%2', GDateDebut, DateFin);
-                IF TempRecGSalesInvLine.FindSet() THEN BEGIN
+                IF TempRecGSalesInvLine.FindSet() THEN
                     REPEAT
                         RecLSalesInvHeader.SETFILTER("No.", TempRecGSalesInvLine."Document No.");
-                        IF RecLSalesInvHeader.FindSet() THEN BEGIN
+                        IF RecLSalesInvHeader.FindFirst() THEN BEGIN
                             DecGMontant += TempRecGSalesInvLine.Quantity * TempRecGSalesInvLine."BC6_Purchase Cost";
                             DecGCAVente += TempRecGSalesInvLine.Amount;
                         END;
                     UNTIL TempRecGSalesInvLine.NEXT() = 0;
-                END;
 
                 // Sales Credit Memo Line
                 TempRecGSalesCrMemoLine.SETCURRENTKEY("BC6_Buy-from Vendor No.");
                 TempRecGSalesCrMemoLine.SETRANGE("BC6_Buy-from Vendor No.", "No.");
                 RecLSalesCrMemoHeader.SETFILTER("Posting Date", '%1..%2', GDateDebut, DateFin);
-                IF TempRecGSalesCrMemoLine.FindSet() THEN BEGIN
+                IF TempRecGSalesCrMemoLine.FindSet() THEN
                     REPEAT
                         RecLSalesCrMemoHeader.SETFILTER("No.", TempRecGSalesCrMemoLine."Document No.");
-                        IF RecLSalesCrMemoHeader.FIND('-') THEN BEGIN
+                        IF RecLSalesCrMemoHeader.FindFirst() THEN BEGIN
                             DecGMontant -= (TempRecGSalesCrMemoLine.Quantity * TempRecGSalesCrMemoLine."BC6_Purchase cost");
                             DecGCAVente -= TempRecGSalesCrMemoLine.Amount;
                         END;
                     UNTIL TempRecGSalesCrMemoLine.NEXT() = 0;
-                END;
 
 
                 // Purchase Line
@@ -167,39 +160,36 @@ report 50025 "BC6_Sales Stat/Vendor Filiale"
                 TempRecGPurchLine.SETRANGE(Type, TempRecGPurchLine.Type::Item);
                 TempRecGPurchLine.SETRANGE("Document Type", TempRecGPurchLine."Document Type"::Order);
                 TempRecGPurchLine.SETFILTER("Planned Receipt Date", '%1..%2', GDateDebut, DateFin);
-                IF TempRecGPurchLine.FindSet() THEN BEGIN
+                IF TempRecGPurchLine.FindSet() THEN
                     REPEAT
                         DecGCAAchatEnCmd := DecGCAAchatEnCmd + (TempRecGPurchLine.Quantity - TempRecGPurchLine."Quantity Invoiced")
                                             * TempRecGPurchLine."Direct Unit Cost"
                                             * (1 - TempRecGPurchLine."Line Discount %" / 100);
                     UNTIL TempRecGPurchLine.NEXT() = 0;
-                END;
 
                 // Purchase Invoice Line
                 TempRecGPurchInvLine.SETCURRENTKEY("Buy-from Vendor No.", TempRecGPurchInvLine.Type);
                 TempRecGPurchInvLine.SETRANGE("Buy-from Vendor No.", "No.");
                 TempRecGPurchInvLine.SETRANGE(Type, TempRecGPurchInvLine.Type::Item);
                 RecLPurchInvHeader.SETFILTER("Posting Date", '%1..%2', GDateDebut, DateFin);
-                IF TempRecGPurchInvLine.FindSet() THEN BEGIN
+                IF TempRecGPurchInvLine.FindSet() THEN
                     REPEAT
                         RecLPurchInvHeader.SETFILTER("No.", TempRecGPurchInvLine."Document No.");
-                        IF RecLPurchInvHeader.FindSet() THEN
+                        IF RecLPurchInvHeader.FindFirst() THEN
                             DecGCAAchat += TempRecGPurchInvLine.Amount;
                     UNTIL TempRecGPurchInvLine.NEXT() = 0;
-                END;
 
                 // Purchase Credit Memo Line
                 TempRecGPurchCrMemoLine.SETCURRENTKEY("Buy-from Vendor No.", Type);
                 TempRecGPurchCrMemoLine.SETRANGE("Buy-from Vendor No.", "No.");
                 TempRecGPurchCrMemoLine.SETRANGE(Type, TempRecGPurchCrMemoLine.Type::Item);
                 RecLPurchCrMemoHeader.SETFILTER("Posting Date", '%1..%2', GDateDebut, DateFin);
-                IF TempRecGPurchCrMemoLine.FindSet() THEN BEGIN
+                IF TempRecGPurchCrMemoLine.FindFirst() THEN
                     REPEAT
                         RecLPurchCrMemoHeader.SETFILTER("No.", TempRecGPurchCrMemoLine."Document No.");
-                        IF RecLPurchCrMemoHeader.FindSet() THEN
+                        IF RecLPurchCrMemoHeader.Findset() THEN
                             DecGCAAchat -= TempRecGPurchCrMemoLine.Amount;
                     UNTIL TempRecGPurchCrMemoLine.NEXT() = 0;
-                END;
 
                 DecGMontantMarge := DecGCAVente - DecGMontant;
                 IF DecGCAVente <> 0 THEN

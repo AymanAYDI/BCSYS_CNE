@@ -3,7 +3,7 @@ page 50019 "Purch. Cr. Memo Line Subform"
     Caption = 'Purch. Credit Memo Lines', comment = 'FRA="Lignes avoirs achat"';
     PageType = List;
     SourceTable = "Purch. Cr. Memo Line";
-
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -55,7 +55,7 @@ page 50019 "Purch. Cr. Memo Line Subform"
 
                 trigger OnAction()
                 begin
-                    IF NOT RecGPurchCrMemoHdr.GET("Document No.") THEN
+                    IF NOT RecGPurchCrMemoHdr.GET(Rec."Document No.") THEN
                         EXIT;
                     PAGE.RUN(PAGE::"Posted Purchase Credit Memo", RecGPurchCrMemoHdr);
                 end;
@@ -71,7 +71,7 @@ page 50019 "Purch. Cr. Memo Line Subform"
 
     trigger OnOpenPage()
     begin
-        SETCURRENTKEY("No.");
+        Rec.SETCURRENTKEY("No.");
     end;
 
     var
@@ -89,21 +89,21 @@ page 50019 "Purch. Cr. Memo Line Subform"
     begin
         TempPurchCrdMemo.RESET();
         TempPurchCrdMemo.COPYFILTERS(Rec);
-        TempPurchCrdMemo.SETRANGE("Document No.", "Document No.");
+        TempPurchCrdMemo.SETRANGE("Document No.", Rec."Document No.");
         IF NOT TempPurchCrdMemo.FindFirst() THEN BEGIN
             PurchCrdMemo.COPYFILTERS(Rec);
-            PurchCrdMemo.SETRANGE("Document No.", "Document No.");
+            PurchCrdMemo.SETRANGE("Document No.", Rec."Document No.");
             PurchCrdMemo.FindLast();
             TempPurchCrdMemo := PurchCrdMemo;
             TempPurchCrdMemo.INSERT();
         END;
-        IF "Line No." = TempPurchCrdMemo."Line No." THEN
+        IF Rec."Line No." = TempPurchCrdMemo."Line No." THEN
             EXIT(TRUE);
     end;
 
     local procedure DocumentNoOnFormat()
     begin
-        IF "Document No." <> '' THEN
+        IF Rec."Document No." <> '' THEN
             IF isFirstDocLine() THEN
                 "Document No.Emphasize" := TRUE
             ELSE

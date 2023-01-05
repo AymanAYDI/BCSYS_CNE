@@ -4,7 +4,7 @@ page 50017 "BC6_Purch. Rcpt. Lines Subform"
     PageType = List;
     SaveValues = true;
     SourceTable = "Purch. Rcpt. Line";
-
+    UsageCategory = None;
     layout
     {
         area(content)

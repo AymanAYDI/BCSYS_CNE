@@ -334,7 +334,7 @@ report 50018 "BC6_Sales Stat/Customer"
     var
         RecGCustEntry: Record "Cust. Ledger Entry";
         RecGSalesperson: Record "Salesperson/Purchaser";
-        CodGSalesperson: Code[10];
+        CodGSalesperson: Code[20]; //code [10]
         CodGCodeclt: Code[20];
         DatGDebut: array[4] of Date;
         DatGFin: array[4] of Date;
@@ -371,7 +371,7 @@ report 50018 "BC6_Sales Stat/Customer"
         variation_CACaptionLbl: Label '% variation CA';
         variation_margeCaptionLbl: Label '% variation marge';
         VendeurCaptionLbl: Label ' Vendeur';
-        TxtGClient: Text[50];
+        TxtGClient: Text[100]; //Text [50 to 100]
         TxtGSalesPerson: Text[50];
 }
 

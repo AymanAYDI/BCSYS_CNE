@@ -6,7 +6,7 @@ page 50034 "BC6_Affair Steps Tracking"
     PageType = List;
     ShowFilter = false;
     SourceTable = "BC6_Affair Steps";
-    UsageCategory = Lists;
+    UsageCategory = Tasks;
     ApplicationArea = All;
     layout
     {
@@ -40,45 +40,47 @@ page 50034 "BC6_Affair Steps Tracking"
                 }
                 field(DatLRminderDate; DatLRminderDate)
                 {
+                    Caption = 'DatLRminderDate', Comment = 'FRA=""';
                     ApplicationArea = All;
                 }
                 field(BooGFinichedfilter; BooGFinichedfilter)
                 {
+                    Caption = 'BooGFinichedfilter';
                     ApplicationArea = All;
                 }
             }
             repeater(Control2)
             {
-                field("Affair No."; "Affair No.")
+                field("Affair No."; Rec."Affair No.")
                 {
                     Editable = false;
                     ApplicationArea = All;
                 }
-                field("Affair Description"; "Affair Description")
+                field("Affair Description"; Rec."Affair Description")
                 {
                     Editable = false;
                     ApplicationArea = All;
                 }
-                field(Interlocutor; Interlocutor)
+                field(Interlocutor; Rec.Interlocutor)
                 {
                     Editable = false;
                     ApplicationArea = All;
                 }
-                field("Reminder Date"; "Reminder Date")
+                field("Reminder Date"; Rec."Reminder Date")
                 {
                     Editable = false;
                     ApplicationArea = All;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     Editable = false;
                     ApplicationArea = All;
                 }
-                field(Result; Result)
+                field(Result; Rec.Result)
                 {
                     ApplicationArea = All;
                 }
-                field(Terminated; Terminated)
+                field(Terminated; Rec.Terminated)
                 {
                     ApplicationArea = All;
                 }
@@ -115,7 +117,7 @@ page 50034 "BC6_Affair Steps Tracking"
 
     trigger OnOpenPage()
     begin
-        TxtGIntelocutor := USERID;
+        TxtGIntelocutor := CopyStr(USERID, 1, MaxStrLen(TxtGIntelocutor)); //à vérifier lors du test
         BooGFinichedfilter := FALSE;
         DatLRminderDate := WORKDATE();
 
@@ -144,7 +146,7 @@ page 50034 "BC6_Affair Steps Tracking"
         RecGStepsAffair.SETFILTER(RecGStepsAffair.Interlocutor, Interlocuteur);
         RecGStepsAffair.SETFILTER("Reminder Date", '..%1', ReminderDate);
         RecGStepsAffair.SETRANGE(RecGStepsAffair.Terminated, finish);
-        COPY(RecGStepsAffair);
+        Rec.COPY(RecGStepsAffair);
 
         //CurrForm.UPDATE(TRUE);
 

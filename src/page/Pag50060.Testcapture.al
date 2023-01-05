@@ -15,7 +15,7 @@ page 50060 "BC6_Test capture"
         {
             group(ScanDeviceHelper)
             {
-                field("Line No."; "Line No.")
+                field("Line No."; Rec."Line No.")
                 {
                     ApplicationArea = All;
                 }

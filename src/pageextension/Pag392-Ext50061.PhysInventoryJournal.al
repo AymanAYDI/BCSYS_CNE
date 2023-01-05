@@ -9,9 +9,10 @@ pageextension 50061 "BC6_PhysInventoryJournal" extends "Phys. Inventory Journal"
         }
         addafter("Qty. (Phys. Inventory)")
         {
-            field("BC6_Qty. Refreshed (Phys. Inv.)"; "BC6_Qty.(Phys. Inv.)")
+            field("BC6_Qty. Refreshed (Phys. Inv.)"; Rec."BC6_Qty.(Phys. Inv.)")
             {
                 ShowCaption = false;
+                ApplicationArea = All;
             }
         }
 
@@ -24,7 +25,7 @@ pageextension 50061 "BC6_PhysInventoryJournal" extends "Phys. Inventory Journal"
             action("BC6_Refresh Phys. Qty")
             {
                 Caption = 'Refresh Phys. Qty', Comment = 'FRA="Actualiser quantité &constatée"';
-
+                ApplicationArea = All;
                 trigger OnAction()
                 begin
                     RefreshPhysQty.SetItemJnlLine(Rec);

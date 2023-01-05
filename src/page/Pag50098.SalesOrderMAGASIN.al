@@ -5,7 +5,8 @@ page 50098 "BC6_Sales Order (MAGASIN)"
     RefreshOnActivate = true;
     SourceTable = "Sales Header";
     SourceTableView = WHERE("Document Type" = FILTER(Order));
-
+    ApplicationArea = All;
+    UsageCategory = Tasks;
 
     layout
     {
@@ -14,17 +15,17 @@ page 50098 "BC6_Sales Order (MAGASIN)"
             group(General)
             {
                 Caption = 'General', Comment = 'FRA="Général"';
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
 
                     trigger OnAssistEdit()
                     begin
-                        IF AssistEdit(xRec) THEN
+                        IF Rec.AssistEdit(xRec) THEN
                             CurrPage.UPDATE();
                     end;
                 }
-                field("Sell-to Customer No."; "Sell-to Customer No.")
+                field("Sell-to Customer No."; Rec."Sell-to Customer No.")
                 {
                     ApplicationArea = All;
 
@@ -33,69 +34,69 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                         _SelltoCustomerNoOnAfterValidate();
                     end;
                 }
-                field("Sell-to Contact No."; "Sell-to Contact No.")
+                field("Sell-to Contact No."; Rec."Sell-to Contact No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Sell-to Customer Name"; "Sell-to Customer Name")
+                field("Sell-to Customer Name"; Rec."Sell-to Customer Name")
                 {
                     ApplicationArea = All;
                 }
-                field("Sell-to Address"; "Sell-to Address")
+                field("Sell-to Address"; Rec."Sell-to Address")
                 {
                     ApplicationArea = All;
                 }
-                field("Sell-to Address 2"; "Sell-to Address 2")
+                field("Sell-to Address 2"; Rec."Sell-to Address 2")
                 {
                     ApplicationArea = All;
                 }
-                field("Sell-to Post Code"; "Sell-to Post Code")
+                field("Sell-to Post Code"; Rec."Sell-to Post Code")
                 {
                     Caption = 'Sell-to Post Code/City', Comment = 'FRA="CP/Ville donneur d''ordre"';
                     ApplicationArea = All;
                 }
-                field("Sell-to Contact"; "Sell-to Contact")
+                field("Sell-to Contact"; Rec."Sell-to Contact")
                 {
                     ApplicationArea = All;
                 }
-                field("Sell-to Fax No."; "BC6_Sell-to Fax No.")
+                field("Sell-to Fax No."; Rec."BC6_Sell-to Fax No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Sell-to City"; "Sell-to City")
+                field("Sell-to City"; Rec."Sell-to City")
                 {
                     ApplicationArea = All;
                 }
-                field("Your Reference"; "Your Reference")
+                field("Your Reference"; Rec."Your Reference")
                 {
                     Caption = 'Votre référence', Comment = 'FRA="Votre référence"';
                     ApplicationArea = All;
                 }
-                field("Posting Date"; "Posting Date")
+                field("Posting Date"; Rec."Posting Date")
                 {
                     ApplicationArea = All;
                 }
-                field("Order Date"; "Order Date")
+                field("Order Date"; Rec."Order Date")
                 {
                     ApplicationArea = All;
                 }
-                field("Document Date"; "Document Date")
+                field("Document Date"; Rec."Document Date")
                 {
                     ApplicationArea = All;
                 }
-                field("Requested Delivery Date"; "Requested Delivery Date")
+                field("Requested Delivery Date"; Rec."Requested Delivery Date")
                 {
                     ApplicationArea = All;
                 }
-                field("Promised Delivery Date"; "Promised Delivery Date")
+                field("Promised Delivery Date"; Rec."Promised Delivery Date")
                 {
                     ApplicationArea = All;
                 }
-                field("External Document No."; "External Document No.")
+                field("External Document No."; Rec."External Document No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Salesperson Code"; "Salesperson Code")
+                field("Salesperson Code"; Rec."Salesperson Code")
                 {
                     ApplicationArea = All;
 
@@ -104,17 +105,17 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                         SalespersonCodeOnAfterValidate();
                     end;
                 }
-                field("No. of Archived Versions"; "No. of Archived Versions")
+                field("No. of Archived Versions"; Rec."No. of Archived Versions")
                 {
                     ApplicationArea = All;
                 }
-                field(ID; ID)
+                field(ID; Rec.BC6_ID)
                 {
                     Caption = 'User ID', Comment = 'FRA="Code Utilisateur"';
                     Editable = false;
                     ApplicationArea = All;
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                     Style = Standard;
                     StyleExpr = TRUE;
@@ -129,7 +130,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
             group(Invoicing)
             {
                 Caption = 'Invoicing', Comment = 'FRA="Facturation"';
-                field("Bill-to Customer No."; "Bill-to Customer No.")
+                field("Bill-to Customer No."; Rec."Bill-to Customer No.")
                 {
                     ApplicationArea = All;
 
@@ -138,68 +139,68 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                         BilltoCustomerNoOnAfterValidate();
                     end;
                 }
-                field("Bill-to Contact No."; "Bill-to Contact No.")
+                field("Bill-to Contact No."; Rec."Bill-to Contact No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Bill-to Contact"; "Bill-to Contact")
+                field("Bill-to Contact"; Rec."Bill-to Contact")
                 {
                     ApplicationArea = All;
                 }
-                field("Bill-to Name"; "Bill-to Name")
+                field("Bill-to Name"; Rec."Bill-to Name")
                 {
                     ApplicationArea = All;
                 }
-                field("Bill-to Address"; "Bill-to Address")
+                field("Bill-to Address"; Rec."Bill-to Address")
                 {
                     ApplicationArea = All;
                 }
-                field("Bill-to Address 2"; "Bill-to Address 2")
+                field("Bill-to Address 2"; Rec."Bill-to Address 2")
                 {
                     ApplicationArea = All;
                 }
-                field("Bill-to Post Code"; "Bill-to Post Code")
+                field("Bill-to Post Code"; Rec."Bill-to Post Code")
                 {
                     Caption = 'Bill-to Post Code/City', Comment = 'FRA="CP/Ville"';
                     ApplicationArea = All;
                 }
-                field("Bill-to City"; "Bill-to City")
+                field("Bill-to City"; Rec."Bill-to City")
                 {
                     ApplicationArea = All;
                 }
-                field("Payment Terms Code"; "Payment Terms Code")
+                field("Payment Terms Code"; Rec."Payment Terms Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Due Date"; "Due Date")
+                field("Due Date"; Rec."Due Date")
                 {
                     ApplicationArea = All;
                 }
-                field("Payment Discount %"; "Payment Discount %")
+                field("Payment Discount %"; Rec."Payment Discount %")
                 {
                     ApplicationArea = All;
                 }
-                field("Pmt. Discount Date"; "Pmt. Discount Date")
+                field("Pmt. Discount Date"; Rec."Pmt. Discount Date")
                 {
                     ApplicationArea = All;
                 }
-                field("Payment Method Code"; "Payment Method Code")
+                field("Payment Method Code"; Rec."Payment Method Code")
                 {
                     ApplicationArea = All;
                 }
-                field("VAT Bus. Posting Group"; "VAT Bus. Posting Group")
+                field("VAT Bus. Posting Group"; Rec."VAT Bus. Posting Group")
                 {
                     ApplicationArea = All;
                 }
-                field("Advance Payment"; "BC6_Advance Payment")
+                field("Advance Payment"; Rec."BC6_Advance Payment")
                 {
                     ApplicationArea = All;
                 }
-                field("Combine Shipments"; "Combine Shipments")
+                field("Combine Shipments"; Rec."Combine Shipments")
                 {
                     ApplicationArea = All;
                 }
-                field("Combine Shipments by Order"; "BC6_Combine Shipments by Order")
+                field("Combine Shipments by Order"; Rec."BC6_Combine Shipments by Order")
                 {
                     ApplicationArea = All;
                 }
@@ -207,72 +208,72 @@ page 50098 "BC6_Sales Order (MAGASIN)"
             group(Shipping)
             {
                 Caption = 'Shipping', Comment = 'FRA="Livraison"';
-                field("Ship-to Code"; "Ship-to Code")
+                field("Ship-to Code"; Rec."Ship-to Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Ship-to Name"; "Ship-to Name")
+                field("Ship-to Name"; Rec."Ship-to Name")
                 {
                     ApplicationArea = All;
                 }
-                field("Ship-to Address"; "Ship-to Address")
+                field("Ship-to Address"; Rec."Ship-to Address")
                 {
                     ApplicationArea = All;
                 }
-                field("Ship-to Address 2"; "Ship-to Address 2")
+                field("Ship-to Address 2"; Rec."Ship-to Address 2")
                 {
                     ApplicationArea = All;
                 }
-                field("Ship-to Post Code"; "Ship-to Post Code")
+                field("Ship-to Post Code"; Rec."Ship-to Post Code")
                 {
                     Caption = 'Ship-to Post Code/City', Comment = 'FRA="CP/Ville destinataire"';
                     ApplicationArea = All;
                 }
-                field("Ship-to City"; "Ship-to City")
+                field("Ship-to City"; Rec."Ship-to City")
                 {
                     ApplicationArea = All;
                 }
-                field("Ship-to Contact"; "Ship-to Contact")
+                field("Ship-to Contact"; Rec."Ship-to Contact")
                 {
                     ApplicationArea = All;
                 }
-                field("Location Code"; "Location Code")
+                field("Location Code"; Rec."Location Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Outbound Whse. Handling Time"; "Outbound Whse. Handling Time")
+                field("Outbound Whse. Handling Time"; Rec."Outbound Whse. Handling Time")
                 {
                     ApplicationArea = All;
                 }
-                field("Shipment Method Code"; "Shipment Method Code")
+                field("Shipment Method Code"; Rec."Shipment Method Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Shipping Agent Code"; "Shipping Agent Code")
+                field("Shipping Agent Code"; Rec."Shipping Agent Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Shipping Agent Service Code"; "Shipping Agent Service Code")
+                field("Shipping Agent Service Code"; Rec."Shipping Agent Service Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Shipping Time"; "Shipping Time")
+                field("Shipping Time"; Rec."Shipping Time")
                 {
                     ApplicationArea = All;
                 }
-                field("Late Order Shipping"; "Late Order Shipping")
+                field("Late Order Shipping"; Rec."Late Order Shipping")
                 {
                     ApplicationArea = All;
                 }
-                field("Package Tracking No."; "Package Tracking No.")
+                field("Package Tracking No."; Rec."Package Tracking No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Shipment Date"; "Shipment Date")
+                field("Shipment Date"; Rec."Shipment Date")
                 {
                     ApplicationArea = All;
                 }
-                field("Shipping Advice"; "Shipping Advice")
+                field("Shipping Advice"; Rec."Shipping Advice")
                 {
                     ApplicationArea = All;
                 }
@@ -280,42 +281,42 @@ page 50098 "BC6_Sales Order (MAGASIN)"
             group("Foreign Trade")
             {
                 Caption = 'Foreign Trade', Comment = 'FRA="International"';
-                field("Currency Code"; "Currency Code")
+                field("Currency Code"; Rec."Currency Code")
                 {
                     ApplicationArea = All;
 
                     trigger OnAssistEdit()
                     begin
                         CLEAR(ChangeExchangeRate);
-                        ChangeExchangeRate.SetParameter("Currency Code", "Currency Factor", "Posting Date");
+                        ChangeExchangeRate.SetParameter(Rec."Currency Code", Rec."Currency Factor", Rec."Posting Date");
                         IF ChangeExchangeRate.RUNMODAL() = ACTION::OK THEN BEGIN
-                            VALIDATE("Currency Factor", ChangeExchangeRate.GetParameter());
+                            Rec.VALIDATE("Currency Factor", ChangeExchangeRate.GetParameter());
                             CurrPage.UPDATE();
                         END;
                         CLEAR(ChangeExchangeRate);
                     end;
                 }
-                field("EU 3-Party Trade"; "EU 3-Party Trade")
+                field("EU 3-Party Trade"; Rec."EU 3-Party Trade")
                 {
                     ApplicationArea = All;
                 }
-                field("Transaction Type"; "Transaction Type")
+                field("Transaction Type"; Rec."Transaction Type")
                 {
                     ApplicationArea = All;
                 }
-                field("Transaction Specification"; "Transaction Specification")
+                field("Transaction Specification"; Rec."Transaction Specification")
                 {
                     ApplicationArea = All;
                 }
-                field("Transport Method"; "Transport Method")
+                field("Transport Method"; Rec."Transport Method")
                 {
                     ApplicationArea = All;
                 }
-                field("Exit Point"; "Exit Point")
+                field("Exit Point"; Rec."Exit Point")
                 {
                     ApplicationArea = All;
                 }
-                field("Area"; Area)
+                field("Area"; Rec.Area)
                 {
                     ApplicationArea = All;
                 }
@@ -508,7 +509,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                     var
                         SalesPlanForm: Page "Sales Order Planning";
                     begin
-                        SalesPlanForm.SetSalesOrder("No.");
+                        SalesPlanForm.SetSalesOrder(Rec."No.");
                         SalesPlanForm.RUNMODAL();
                     end;
                 }
@@ -522,8 +523,8 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                     var
                         TempOrderPromisingLine: Record "Order Promising Line" temporary;
                     begin
-                        TempOrderPromisingLine.SETRANGE("Source Type", "Document Type");
-                        TempOrderPromisingLine.SETRANGE("Source ID", "No.");
+                        TempOrderPromisingLine.SETRANGE("Source Type", Rec."Document Type");
+                        TempOrderPromisingLine.SETRANGE("Source ID", Rec."No.");
                         PAGE.RUNMODAL(PAGE::"Order Promising Lines", TempOrderPromisingLine);
                     end;
                 }
@@ -884,8 +885,8 @@ page 50098 "BC6_Sales Order (MAGASIN)"
                         RecGSalesHeader: Record "Sales Header";
                     begin
                         RecGSalesHeader.RESET();
-                        RecGSalesHeader.SETRANGE(RecGSalesHeader."Document Type", "Document Type");
-                        RecGSalesHeader.SETRANGE(RecGSalesHeader."No.", "No.");
+                        RecGSalesHeader.SETRANGE(RecGSalesHeader."Document Type", Rec."Document Type");
+                        RecGSalesHeader.SETRANGE(RecGSalesHeader."No.", Rec."No.");
                         RecGSalesHeader.FIND('-');
 
                         REPORT.RUNMODAL(REPORT::"BC6_Preparation NAVIDIIGEST1", TRUE, TRUE, RecGSalesHeader);
@@ -903,7 +904,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
     trigger OnDeleteRecord(): Boolean
     begin
         CurrPage.SAVERECORD();
-        EXIT(ConfirmDeletion());
+        EXIT(Rec.ConfirmDeletion());
     end;
 
     trigger OnInit()
@@ -916,24 +917,24 @@ page 50098 "BC6_Sales Order (MAGASIN)"
 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
-        CheckCreditMaxBeforeInsert();
+        Rec.CheckCreditMaxBeforeInsert();
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        "Responsibility Center" := UserMgt.GetSalesFilter();
+        Rec."Responsibility Center" := UserMgt.GetSalesFilter();
         OnAfterGetCurrRecord();
     end;
 
     trigger OnOpenPage()
     begin
         IF UserMgt.GetSalesFilter() <> '' THEN BEGIN
-            FILTERGROUP(2);
-            SETRANGE("Responsibility Center", UserMgt.GetSalesFilter());
-            FILTERGROUP(0);
+            Rec.FILTERGROUP(2);
+            Rec.SETRANGE("Responsibility Center", UserMgt.GetSalesFilter());
+            Rec.FILTERGROUP(0);
         END;
 
-        SETRANGE("Date Filter", 0D, WORKDATE() - 1);
+        Rec.SETRANGE("Date Filter", 0D, WORKDATE() - 1);
     end;
 
     var
@@ -986,7 +987,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
     var
         DifferSellToBillTo: Boolean;
     begin
-        DifferSellToBillTo := "Sell-to Customer No." <> "Bill-to Customer No.";
+        DifferSellToBillTo := Rec."Sell-to Customer No." <> Rec."Bill-to Customer No.";
         SalesHistoryBtnVisible := DifferSellToBillTo;
         BillToCommentPictVisible := DifferSellToBillTo;
         BillToCommentBtnVisible := DifferSellToBillTo;
@@ -1003,12 +1004,12 @@ page 50098 "BC6_Sales Order (MAGASIN)"
 
     procedure EnvoiMail()
     begin
-        cust.SETRANGE(cust."No.", "Sell-to Customer No.");
+        cust.SETRANGE(cust."No.", Rec."Sell-to Customer No.");
         IF cust.FIND('-') THEN
             cust.TESTFIELD("E-Mail");
         OpenFile();
         IF nameF <> '' THEN BEGIN
-            Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + "No.", '', nameF, FALSE);
+            Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + Rec."No.", '', nameF, FALSE);
             ERASE(nameF);
         END ELSE BEGIN
             ERASE(SalesSetup.BC6_Repertoire + 'Envoi' + '\' + CurrPage.CAPTION);
@@ -1056,7 +1057,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
     local procedure OnAfterGetCurrRecord()
     begin
         xRec := Rec;
-        SETRANGE("Date Filter", 0D, WORKDATE() - 1);
+        Rec.SETRANGE("Date Filter", 0D, WORKDATE() - 1);
     end;
 }
 

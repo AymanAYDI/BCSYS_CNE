@@ -3,20 +3,20 @@ page 50113 "BC6_Return Solutions"
     Caption = 'Return Solutions', comment = 'FRA="Solutions retour"';
     PageType = List;
     SourceTable = "BC6_Return Solution";
-
+    UsageCategory = None;
     layout
     {
         area(content)
         {
             repeater(Group)
             {
-                field("Code"; Code)
+                field("Code"; Rec.Code)
                 {
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                 }
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                 }
             }

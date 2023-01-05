@@ -5,51 +5,51 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
     {
         addafter(Status)
         {
-            field(BC6_ID; BC6_ID)
+            field(BC6_ID; Rec.BC6_ID)
             {
                 Editable = false;
                 ApplicationArea = All;
                 Caption = 'User ID', Comment = 'FRA="Code utilisateur"';
             }
-            field("BC6_Your Reference"; "Your Reference")
+            field("BC6_Your Reference"; Rec."Your Reference")
             {
                 Importance = Promoted;
                 ApplicationArea = All;
                 Caption = 'Your Reference', Comment = 'FRA="Votre référence"';
             }
-            field("BC6_Sell-to Fax No."; "BC6_Sell-to Fax No.")
+            field("BC6_Sell-to Fax No."; Rec."BC6_Sell-to Fax No.")
             {
                 ApplicationArea = All;
                 Caption = 'Sell-to Fax No.', Comment = 'FRA="N° télécopie donneur d''ordre"';
             }
-            field("BC6_Purchaser Comments"; "BC6_Purchaser Comments")
+            field("BC6_Purchaser Comments"; Rec."BC6_Purchaser Comments")
             {
                 ApplicationArea = All;
                 Caption = 'Purchaser Comments', Comment = 'FRA="Commentaires acheteur"';
             }
-            field("BC6_Warehouse Comments"; "BC6_Warehouse Comments")
+            field("BC6_Warehouse Comments"; Rec."BC6_Warehouse Comments")
             {
                 ApplicationArea = All;
                 Caption = 'Warehouse Comments', Comment = 'FRA="Commentaires magasins"';
             }
-            field("BC6_Affair No."; "BC6_Affair No.")
+            field("BC6_Affair No."; Rec."BC6_Affair No.")
             {
                 ApplicationArea = All;
                 Caption = 'Affair No.', Comment = 'FRA="N° Affaire"';
             }
-            field("BC6_Shipment Method Code"; "Shipment Method Code")
+            field("BC6_Shipment Method Code"; Rec."Shipment Method Code")
             {
                 Importance = Promoted;
                 ApplicationArea = All;
                 Caption = 'Shipment Method Code';
             }
-            field("BC6_Bin Code"; "BC6_Bin Code")
+            field("BC6_Bin Code"; Rec."BC6_Bin Code")
             {
                 Importance = Promoted;
                 ApplicationArea = All;
                 Caption = 'Bin Code';
             }
-            field("BC6_Purchase No. Order Lien"; "BC6_Purchase No. Order Lien")
+            field("BC6_Purchase No. Order Lien"; Rec."BC6_Purchase No. Order Lien")
             {
                 ApplicationArea = All;
                 Caption = 'Purchase No. Order Lien', Comment = 'FRA="N° Commande Achat Lien"';
@@ -57,7 +57,7 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
         }
         addafter("Direct Debit Mandate ID")
         {
-            field("BC6_Reason Code"; "Reason Code")
+            field("BC6_Reason Code"; Rec."Reason Code")
             {
                 ApplicationArea = All;
                 Caption = 'Reason Code', Comment = 'FRA="Code motif"';
@@ -67,7 +67,7 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
                     CurrPage.UPDATE(TRUE);
                 end;
             }
-            field("BC6_Advance Payment"; "BC6_Advance Payment")
+            field("BC6_Advance Payment"; Rec."BC6_Advance Payment")
             {
                 ApplicationArea = All;
                 Caption = 'Advance Payment', Comment = 'FRA="Acompte payé"';
@@ -75,7 +75,7 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
         }
         addafter(BillToOptions)
         {
-            field("BC6_Bill-to Customer No."; "Bill-to Customer No.")
+            field("BC6_Bill-to Customer No."; Rec."Bill-to Customer No.")
             {
                 Caption = 'Bill-to Customer No.', Comment = 'FRA="N° client facturé"';
             }
@@ -111,7 +111,6 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
                 Image = CreateInventoryPickup;
                 Promoted = true;
                 PromotedCategory = Process;
-                ToolTip = 'Create an inventory put-away or inventory pick to handle items on the document according to a basic warehouse configuration that does not require warehouse receipt or shipment documents.', Comment = 'FRA=""';
 
                 trigger OnAction()
                 var
@@ -120,8 +119,8 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
                 begin
                     FunctionMgt.BC6_CreateInvtPutAwayPick_Sales(rec);
 
-                    if not Find('=><') then
-                        Init();
+                    if not Rec.Find('=><') then
+                        Rec.Init();
                 end;
             }
         }
@@ -135,7 +134,7 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
                 ApplicationArea = All;
                 trigger OnAction()
                 begin
-                    CreateInvtPutAwayPick();
+                    Rec.CreateInvtPutAwayPick();
                 end;
             }
             action("BC6_Creer demande de prix")
@@ -198,8 +197,8 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
                 begin
                     CheckIfReleased();
                     RecGSalesHeader.RESET();
-                    RecGSalesHeader.SETRANGE(RecGSalesHeader."Document Type", "Document Type");
-                    RecGSalesHeader.SETRANGE(RecGSalesHeader."No.", "No.");
+                    RecGSalesHeader.SETRANGE(RecGSalesHeader."Document Type", Rec."Document Type");
+                    RecGSalesHeader.SETRANGE(RecGSalesHeader."No.", Rec."No.");
                     RecGSalesHeader.FIND('-');
                     REPORT.RUNMODAL(REPORT::"BC6_Preparation NAVIDIIGEST", TRUE, FALSE, RecGSalesHeader);
                 end;
@@ -237,13 +236,13 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
     procedure CheckIfReleased()
     var
         SalesSetup: Record "Sales & Receivables Setup";
-        CstL0001: Label 'Your order isn''t released, Do You want release it ?';
-        CstL0002: Label 'Aborted Operation';
+        CstL0001: Label 'Your order isn''t released, Do You want release it ?', Comment = 'FRA="Votre commande n''est pas lancée, souhaitez-vous la lancer ?"';
+        CstL0002: Label 'Aborted Operation', Comment = 'FRA="Opération interrompue"';
 
     begin
         SalesSetup.GET();
         IF SalesSetup."BC6_Acti. Releas. Print. Order" THEN
-            IF Status <> Status::Released THEN
+            IF Rec.Status <> Rec.Status::Released THEN
                 IF CONFIRM(CstL0001) THEN BEGIN
                     CODEUNIT.RUN(Codeunit::"Release Sales Document", Rec);
                     COMMIT();

@@ -4,16 +4,16 @@ pageextension 50016 "BC6_SalesCreditMemo" extends "Sales Credit Memo" //44
     {
         addafter("No.")
         {
-            field(BC6_ID; ID)
+            field(BC6_ID; Rec.BC6_ID)
             {
                 Editable = false;
                 ApplicationArea = All;
             }
-            field("BC6_Sell-to Fax No."; "BC6_Sell-to Fax No.")
+            field("BC6_Sell-to Fax No."; Rec."BC6_Sell-to Fax No.")
             {
                 ApplicationArea = All;
             }
-            field("BC6_Reason Code"; "Reason Code")
+            field("BC6_Reason Code"; Rec."Reason Code")
             {
                 ApplicationArea = All;
 
@@ -22,11 +22,11 @@ pageextension 50016 "BC6_SalesCreditMemo" extends "Sales Credit Memo" //44
                     CurrPage.UPDATE(TRUE);
                 end;
             }
-            field("BC6_Affair No."; "BC6_Affair No.")
+            field("BC6_Affair No."; Rec."BC6_Affair No.")
             {
                 ApplicationArea = All;
             }
-            field("BC6_Sell-to Customer No."; "Sell-to Customer No.")
+            field("BC6_Sell-to Customer No."; Rec."Sell-to Customer No.")
             {
                 ApplicationArea = All;
             }
@@ -46,7 +46,7 @@ pageextension 50016 "BC6_SalesCreditMemo" extends "Sales Credit Memo" //44
                 ApplicationArea = Basic, Suite;
                 Caption = 'Test Report', Comment = 'FRA="Impression test"';
                 Ellipsis = true;
-                Enabled = "No." <> '';
+                Enabled = Rec."No." <> '';
                 Image = TestReport;
                 ToolTip = 'View a test report so that you can find and correct any errors before you perform the actual posting of the journal or document.';
 
@@ -71,12 +71,10 @@ pageextension 50016 "BC6_SalesCreditMemo" extends "Sales Credit Memo" //44
         cust: Record Customer;
         Salessetup: Record "Sales & Receivables Setup";
         Mail: Codeunit Mail;
-        Excel: Boolean;
         STR3: Label 'Imprimer lme document';
         STR4: Label 'Envoyer par Mail';
         STR5: Label 'Envoyer par Fax';
         Text001: Label '';
-        Text004: Label '';
         nameF: Text[250];
 
 
@@ -84,44 +82,28 @@ pageextension 50016 "BC6_SalesCreditMemo" extends "Sales Credit Memo" //44
     procedure EnvoiMail()
     begin
         Salessetup.GET();
-        cust.SETRANGE(cust."No.", "Sell-to Customer No.");
+        cust.SETRANGE(cust."No.", Rec."Sell-to Customer No.");
         IF cust.FIND('-') THEN
             cust.TESTFIELD("E-Mail");
         OpenFile();
         IF nameF <> '' THEN BEGIN
-            Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + "No.", '', nameF, FALSE);
+            Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + Rec."No.", '', nameF, FALSE);
             ERASE(nameF);
         END ELSE BEGIN
             ERASE(Salessetup.BC6_Repertoire + 'Envoi' + '\' + CurrPage.CAPTION);
             ERROR(Text001);
         END;
+        HistMail.Init();
         HistMail."No." := cust."No.";
         HistMail.Nom := cust.Name;
         HistMail."E-Mail" := cust."E-Mail";
         HistMail."Date d'envoi" := TODAY;
-        HistMail."Document envoyé" := CurrPage.CAPTION + ' ' + "No.";
+        HistMail."Document envoyé" := CurrPage.CAPTION + ' ' + Rec."No.";
         HistMail.INSERT(TRUE);
     end;
 
     procedure OpenFile()
     begin
-        /*//EMAIL NSC00.01 SBH [005] Envoi document
-        FileDialog.DialogTitle('Envoi'+' '+CurrForm.CAPTION);
-        FileDialog.Filter := Text004;
-        Salessetup.GET;
-        FileDialog.FileName := '';
-        FileDialog.InitDir(Salessetup.Repertoire);
-        FileDialog.Flags := 4096 + 2048; // vérification de l'existence du fichier, code qui suit inutile.
-        FileDialog.ShowOpen;
-        nameF:=FileDialog.FileName;
-        IF nameF='' THEN
-          BEGIN
-            Excel := FALSE;
-            EXIT;
-          END;
-        //Fin EMAIL NSC00.01 SBH [005] Envoi document
-        */
-
     end;
 
     procedure OpenFile1(WindowTitle: Text[50]; DefaultFileName: Text[250]; DefaultFileType: Option " ",Text,Excel,Word,Custom; FilterString: Text[250]; "Action": Option Open,Save): Text[260]

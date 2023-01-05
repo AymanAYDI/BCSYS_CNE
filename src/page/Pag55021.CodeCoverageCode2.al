@@ -7,19 +7,19 @@ page 55021 "BC6_Code Coverage Code 2"
     SourceTable = "Code Coverage";
     UsageCategory = Lists;
     ApplicationArea = All;
-
+    Caption = 'Code coverage';
     layout
     {
         area(content)
         {
             repeater(Group)
             {
-                field("Line No."; "Line No.")
+                field("Line No."; Rec."Line No.")
                 {
                     StyleExpr = LineStyle;
                     ApplicationArea = All;
                 }
-                field(Line; Line)
+                field(Line; Rec.Line)
                 {
                     StyleExpr = LineStyle;
                     ApplicationArea = All;
@@ -37,13 +37,13 @@ page 55021 "BC6_Code Coverage Code 2"
         LineStyle := 'None';
 
         CASE TRUE OF
-            "Line Type" = "Line Type"::Object:
+            Rec."Line Type" = Rec."Line Type"::Object:
                 LineStyle := 'Strong';
-            "Line Type" = "Line Type"::"Trigger/Function":
+            Rec."Line Type" = Rec."Line Type"::"Trigger/Function":
                 LineStyle := 'StrongAccent';
-            ("Line Type" = "Line Type"::Code) AND ("No. of Hits" = 0):
+            (Rec."Line Type" = Rec."Line Type"::Code) AND (Rec."No. of Hits" = 0):
                 LineStyle := 'Ambiguous';
-            ("Line Type" = "Line Type"::Empty):
+            (Rec."Line Type" = Rec."Line Type"::Empty):
                 LineStyle := 'Ambiguous';
         END;
     end;

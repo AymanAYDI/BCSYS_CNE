@@ -3,7 +3,7 @@ page 50054 "BC6_Bin Content List MiniForm"
     Caption = 'Bin Content List MiniForm', Comment = 'FRA="Contenu emplacement"';
     PageType = List;
     SourceTable = "Bin Content";
-
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -11,7 +11,7 @@ page 50054 "BC6_Bin Content List MiniForm"
             repeater(Control1)
             {
                 Editable = false;
-                field("Location Code"; "Location Code")
+                field("Location Code"; Rec."Location Code")
                 {
                     Visible = false;
                     ApplicationArea = All;
@@ -28,7 +28,7 @@ page 50054 "BC6_Bin Content List MiniForm"
                             LocationForm.GETRECORD(Location);
                     end;
                 }
-                field("Item No."; "Item No.")
+                field("Item No."; Rec."Item No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
@@ -45,7 +45,7 @@ page 50054 "BC6_Bin Content List MiniForm"
                             ItemForm.GETRECORD(Item);
                     end;
                 }
-                field("Bin Code"; "Bin Code")
+                field("Bin Code"; Rec."Bin Code")
                 {
                     ApplicationArea = All;
 
@@ -61,7 +61,7 @@ page 50054 "BC6_Bin Content List MiniForm"
                             BinForm.GETRECORD(Bin);
                     end;
                 }
-                field(Quantity; Quantity)
+                field(Quantity; Rec.Quantity)
                 {
                     ApplicationArea = All;
 
@@ -70,7 +70,7 @@ page 50054 "BC6_Bin Content List MiniForm"
                         EXIT;
                     end;
                 }
-                field("Pick Qty."; "Pick Qty.")
+                field("Pick Qty."; Rec."Pick Qty.")
                 {
                     Visible = false;
                     ApplicationArea = All;
@@ -81,7 +81,7 @@ page 50054 "BC6_Bin Content List MiniForm"
                     DecimalPlaces = 0 : 5;
                     ApplicationArea = All;
                 }
-                field("Unit of Measure Code"; "Unit of Measure Code")
+                field("Unit of Measure Code"; Rec."Unit of Measure Code")
                 {
                     Visible = false;
                     ApplicationArea = All;
@@ -105,7 +105,7 @@ page 50054 "BC6_Bin Content List MiniForm"
 
     procedure CalcAvailQty(): Decimal
     begin
-        EXIT(Quantity - "Pick Qty." - "Neg. Adjmt. Qty.");
+        EXIT(Rec.Quantity - Rec."Pick Qty." - Rec."Neg. Adjmt. Qty.");
     end;
 }
 

@@ -3,7 +3,7 @@ page 50003 "BC6_Tab. Diverses (Non Modif)"
     Caption = 'Tables Diverses (Non Modif)';
     PageType = List;
     SourceTable = "BC6_Various Tables";
-
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -11,110 +11,110 @@ page 50003 "BC6_Tab. Diverses (Non Modif)"
             repeater(Control1)
             {
                 Editable = false;
-                field("Code"; Code)
+                field("Code"; Rec.Code)
                 {
                     CaptionClass = CodeCaptionClass;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                 }
-                field(Text1; Text1)
+                field(Text1; Rec.Text1)
                 {
                     CaptionClass = Text1CaptionClass;
                     Visible = Text1Visible;
                 }
-                field(Text2; Text2)
+                field(Text2; Rec.Text2)
                 {
                     CaptionClass = Text2CaptionClass;
                     Visible = Text2Visible;
                 }
-                field(Text3; Text3)
+                field(Text3; Rec.Text3)
                 {
                     CaptionClass = Text3CaptionClass;
                     Visible = Text3Visible;
                 }
-                field(Number1; Number1)
+                field(Number1; Rec.Number1)
                 {
                     CaptionClass = Nombre1CaptionClass;
                     Visible = Number1Visible;
                 }
-                field(Number2; Number2)
+                field(Number2; Rec.Number2)
                 {
                     CaptionClass = Nombre2CaptionClass;
                     Visible = Number2Visible;
                 }
-                field(Number3; Number3)
+                field(Number3; Rec.Number3)
                 {
                     CaptionClass = Nombre3CaptionClass;
                     Visible = Number3Visible;
                 }
-                field(Date1; Date1)
+                field(Date1; Rec.Date1)
                 {
                     CaptionClass = Date1CaptionClass;
                     Visible = Date1Visible;
                 }
-                field(Date2; Date2)
+                field(Date2; Rec.Date2)
                 {
                     CaptionClass = Date2CaptionClass;
                     Visible = Date2Visible;
                 }
-                field(Date3; Date3)
+                field(Date3; Rec.Date3)
                 {
                     CaptionClass = Date3CaptionClass;
                     Visible = Date3Visible;
                 }
-                field("Top Logical1"; "Top Logical1")
+                field("Top Logical1"; Rec."Top Logical1")
                 {
                     CaptionClass = Bool1CaptionClass;
                     Visible = "Top Logical1Visible";
                 }
-                field("Top Logical2"; "Top Logical2")
+                field("Top Logical2"; Rec."Top Logical2")
                 {
                     CaptionClass = Bool2CaptionClass;
                     Visible = "Top Logical2Visible";
                 }
-                field("Top Logical3"; "Top Logical3")
+                field("Top Logical3"; Rec."Top Logical3")
                 {
                     CaptionClass = Bool3CaptionClass;
                     Visible = "Top Logical3Visible";
                 }
-                field("Radical Code1"; "Radical Code1")
+                field("Radical Code1"; Rec."Radical Code1")
                 {
                     CaptionClass = Rad1CaptionClass;
                     Visible = "Radical Code1Visible";
 
                     trigger OnLookup(var Text: Text): Boolean
                     begin
-                        Param.GET(Radical);
+                        Param.GET(Rec.Radical);
                         TableDiv.SETRANGE(Radical, Param."Radical Code1");
-                        IF PAGE.RUNMODAL(PAGE::"BC6_Various Tables", TableDiv) = ACTION::LookupOK THEN "Radical Code1" := TableDiv.Code;
+                        IF PAGE.RUNMODAL(PAGE::"BC6_Various Tables", TableDiv) = ACTION::LookupOK THEN Rec."Radical Code1" := TableDiv.Code;
                     end;
                 }
-                field("Radical Code2"; "Radical Code2")
+                field("Radical Code2"; Rec."Radical Code2")
                 {
                     CaptionClass = Rad2CaptionClass;
                     Visible = "Radical Code2Visible";
 
                     trigger OnLookup(var Text: Text): Boolean
                     begin
-                        Param.GET(Radical);
+                        Param.GET(Rec.Radical);
                         TableDiv.SETRANGE(Radical, Param."Radical Code2");
-                        IF PAGE.RUNMODAL(PAGE::"BC6_Various Tables", TableDiv) = ACTION::LookupOK THEN "Radical Code2" := TableDiv.Code;
+                        IF PAGE.RUNMODAL(PAGE::"BC6_Various Tables", TableDiv) = ACTION::LookupOK THEN Rec."Radical Code2" := TableDiv.Code;
                     end;
                 }
-                field("Radical Code3"; "Radical Code3")
+                field("Radical Code3"; Rec."Radical Code3")
                 {
                     CaptionClass = Rad3CaptionClass;
                     Visible = "Radical Code3Visible";
 
                     trigger OnLookup(var Text: Text): Boolean
                     begin
-                        Param.GET(Radical);
+                        Param.GET(Rec.Radical);
                         TableDiv.SETRANGE(Radical, Param."Radical Code3");
-                        IF PAGE.RUNMODAL(PAGE::"BC6_Various Tables", TableDiv) = ACTION::LookupOK THEN "Radical Code3" := TableDiv.Code;
+                        IF PAGE.RUNMODAL(PAGE::"BC6_Various Tables", TableDiv) = ACTION::LookupOK THEN Rec."Radical Code3" := TableDiv.Code;
                     end;
                 }
-                field(Comment; Comment)
+                field(Comment; Rec.Comment)
                 {
                     AssistEdit = true;
                     Visible = CommentVisible;
@@ -122,11 +122,11 @@ page 50003 "BC6_Tab. Diverses (Non Modif)"
                     trigger OnAssistEdit()
                     begin
                         CommentLine.SETRANGE("Table Name", CommentLine."Table Name"::"IC Partner");
-                        CommentLine.SETRANGE("No.", Radical + Code);
+                        CommentLine.SETRANGE("No.", Rec.Radical + Rec.Code);
                         IF PAGE.RUNMODAL(PAGE::"Comment Sheet", CommentLine) = ACTION::LookupOK THEN BEGIN
                             CommentLine.SETRANGE("Table Name", CommentLine."Table Name"::"IC Partner");
-                            CommentLine.SETRANGE("No.", Radical + Code);
-                            Comment := CommentLine.FIND('-');
+                            CommentLine.SETRANGE("No.", Rec.Radical + Rec.Code);
+                            Rec.Comment := CommentLine.FIND('-');
                         END;
                     end;
                 }
@@ -172,55 +172,55 @@ page 50003 "BC6_Tab. Diverses (Non Modif)"
         Rad1CaptionClass := '50000,Code radical 1';
         Rad2CaptionClass := '50000,Code radical 2';
         Rad3CaptionClass := '50000,Code radical 3';
-        IF GETFILTER(Radical) <> '' THEN
-            IF GETRANGEMIN(Radical) = GETRANGEMAX(Radical) THEN
-                IF DivTableParam_G.GET(GETRANGEMAX(Radical)) THEN BEGIN
+        IF Rec.GETFILTER(Radical) <> '' THEN
+            IF Rec.GETRANGEMIN(Radical) = Rec.GETRANGEMAX(Radical) THEN
+                IF DivTableParam_G.GET(Rec.GETRANGEMAX(Radical)) THEN BEGIN
 
                     IF DivTableParam_G.Description <> '' THEN
-                        CodeCaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G.Description);
+                        CodeCaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G.Description); //'50000,%1', DivTableParam_G.Description
 
                     IF (DivTableParam_G."Text1 Use") AND (DivTableParam_G."Text1 Description" <> '') THEN
-                        Text1CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Text1 Description");
+                        Text1CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Text1 Description");
                     IF (DivTableParam_G."Text2 Use") AND (DivTableParam_G."Text2 Description" <> '') THEN
-                        Text2CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Text2 Description");
+                        Text2CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Text2 Description");
                     IF (DivTableParam_G."Text3 Use") AND (DivTableParam_G."Text3 Description" <> '') THEN
-                        Text3CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Text3 Description");
+                        Text3CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Text3 Description");
 
                     IF (DivTableParam_G."Number1 Use") AND (DivTableParam_G."Number1 Description" <> '') THEN
-                        Nombre1CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Number1 Description");
+                        Nombre1CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Number1 Description");
                     IF (DivTableParam_G."Number2 Use") AND (DivTableParam_G."Number2 Description" <> '') THEN
-                        Nombre2CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Number2 Description");
+                        Nombre2CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Number2 Description");
                     IF (DivTableParam_G."Number3 Use") AND (DivTableParam_G."Number3 Description" <> '') THEN
-                        Nombre3CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Number3 Description");
+                        Nombre3CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Number3 Description");
 
                     IF (DivTableParam_G."Date1 Use") AND (DivTableParam_G."Date1 Description" <> '') THEN
-                        Date1CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Date1 Description");
+                        Date1CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Date1 Description");
                     IF (DivTableParam_G."Date2 Use") AND (DivTableParam_G."Date2 Description" <> '') THEN
-                        Date2CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Date2 Description");
+                        Date2CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Date2 Description");
                     IF (DivTableParam_G."Date3 Use") AND (DivTableParam_G."Date3 Description" <> '') THEN
-                        Date3CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Date3 Description");
+                        Date3CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Date3 Description");
 
                     IF (DivTableParam_G."Top Logical1 Use") AND (DivTableParam_G."Top Logical1 Description" <> '') THEN
-                        Bool1CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Top Logical1 Description");
+                        Bool1CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Top Logical1 Description");
                     IF (DivTableParam_G."Top Logical2 Use") AND (DivTableParam_G."Top Logical2 Description" <> '') THEN
-                        Bool2CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Top Logical2 Description");
+                        Bool2CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Top Logical2 Description");
                     IF (DivTableParam_G."Top Logical3 Use") AND (DivTableParam_G."Top Logical3 Description" <> '') THEN
-                        Bool3CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Top Logical3 Description");
+                        Bool3CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Top Logical3 Description");
 
                     IF (DivTableParam_G."Radical Code1 Use") THEN BEGIN
                         DivTableParam_G.CALCFIELDS("Radical Code1 Description");
                         IF DivTableParam_G."Radical Code1 Description" <> '' THEN
-                            Rad1CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Radical Code1 Description");
+                            Rad1CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Radical Code1 Description");
                     END;
                     IF (DivTableParam_G."Radical Code2 Use") THEN BEGIN
                         DivTableParam_G.CALCFIELDS("Radical Code2 Description");
                         IF DivTableParam_G."Radical Code2 Description" <> '' THEN
-                            Rad2CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Radical Code2 Description");
+                            Rad2CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Radical Code2 Description");
                     END;
                     IF (DivTableParam_G."Radical Code3 Use") THEN BEGIN
                         DivTableParam_G.CALCFIELDS("Radical Code3 Description");
                         IF DivTableParam_G."Radical Code3 Description" <> '' THEN
-                            Rad3CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Radical Code3 Description");
+                            Rad3CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Radical Code3 Description");
                     END;
                 END;
     end;
@@ -267,9 +267,6 @@ page 50003 "BC6_Tab. Diverses (Non Modif)"
         "Top Logical2Visible": Boolean;
         [InDataSet]
         "Top Logical3Visible": Boolean;
-        Text001: Label 'Ce champ ne doit pas être vide';
-        TitreTexte1: Text[30];
-        Descriptif: Text[50];
         Bool1CaptionClass: Text[80];
         Bool2CaptionClass: Text[80];
         Bool3CaptionClass: Text[80];
@@ -290,7 +287,7 @@ page 50003 "BC6_Tab. Diverses (Non Modif)"
     local procedure OnActivateForm()
     begin
 
-        IF Param.GET(Radical) THEN BEGIN
+        IF Param.GET(Rec.Radical) THEN BEGIN
 
             // Libelle du formulaire
             CurrPage.CAPTION := Param.Description;

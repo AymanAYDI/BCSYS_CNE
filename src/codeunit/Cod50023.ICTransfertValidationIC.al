@@ -15,6 +15,7 @@ codeunit 50023 "BC6_IC Transfert Validation IC"
 
         if RecGDocICIn.FINDSET(true, true) then
             repeat
+                RecGDocICOut.Init();
 
                 RecGDocICOut.RESET();
                 RecGDocICOut.CHANGECOMPANY(RecGDocICIn."Navision Company");
@@ -46,7 +47,7 @@ codeunit 50023 "BC6_IC Transfert Validation IC"
                                 RecGDocICOut.Validate := true;
                                 RecGDocICOut."Validate Date" := TODAY;
 
-                                RecGDocICOut.INSERT()
+                                RecGDocICOut.INSERT();
                             end else begin
                                 RecGDocICOut.Canceled := true;
                                 RecGDocICIn.Canceled := true;

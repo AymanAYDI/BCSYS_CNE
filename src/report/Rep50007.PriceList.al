@@ -442,8 +442,8 @@ report 50007 "BC6_Price List" //715
         GLSetup: Record "General Ledger Setup";
         TempSalesLineDisc: Record "Sales Line Discount" temporary;
         TempSalesPrice: Record "Sales Price" temporary;
-        FormatAddr: Codeunit "Format Address";
         SalesPriceCalcMgt: Codeunit "Sales Price Calc. Mgt.";
+        FormatAddr: Codeunit "Format Address";
         IsFirstSalesLineDisc: Boolean;
         IsFirstSalesPrice: Boolean;
         PricesInCurrency: Boolean;
@@ -525,24 +525,22 @@ report 50007 "BC6_Price List" //715
 
     local procedure PreparePrintSalesPrice(IsVariant: Boolean)
     begin
-        WITH TempSalesPrice DO BEGIN
-            IF PricesInCurrency THEN BEGIN
-                SETRANGE("Currency Code", Currency.Code);
-                IF FIND('-') THEN BEGIN
-                    SETRANGE("Currency Code", '');
-                    DELETEALL();
-                END;
-                SETRANGE("Currency Code");
+        IF PricesInCurrency THEN BEGIN
+            TempSalesPrice.SETRANGE("Currency Code", Currency.Code);
+            IF TempSalesPrice.FIND('-') THEN BEGIN
+                TempSalesPrice.SETRANGE("Currency Code", '');
+                TempSalesPrice.DELETEALL();
             END;
+            TempSalesPrice.SETRANGE("Currency Code");
+        END;
 
-            SETRANGE("Sales Type", SalesType);
-            SETRANGE("Sales Code", SalesCode);
+        TempSalesPrice.SETRANGE("Sales Type", SalesType);
+        TempSalesPrice.SETRANGE("Sales Code", SalesCode);
 
-            IF IsVariant THEN BEGIN
-                SETRANGE("Variant Code", '');
-                DELETEALL();
-                SETRANGE("Variant Code");
-            END;
+        IF IsVariant THEN BEGIN
+            TempSalesPrice.SETRANGE("Variant Code", '');
+            TempSalesPrice.DELETEALL();
+            TempSalesPrice.SETRANGE("Variant Code");
         END;
 
         IsFirstSalesPrice := TRUE;
@@ -550,56 +548,52 @@ report 50007 "BC6_Price List" //715
 
     local procedure PrintSalesPrice(IsVariant: Boolean)
     begin
-        WITH TempSalesPrice DO BEGIN
-            IF IsFirstSalesPrice THEN BEGIN
-                IsFirstSalesPrice := FALSE;
-                IF NOT FIND('-') THEN BEGIN
-                    IF NOT IsVariant THEN BEGIN
-                        IF SalesType = SalesType::Campaign THEN
-                            CurrReport.SKIP();
-
-                        "Currency Code" := '';
-                        "Price Includes VAT" := Item."Price Includes VAT";
-                        "Unit Price" := Item."Unit Price";
-                        "Unit of Measure Code" := Item."Base Unit of Measure";
-                        "Minimum Quantity" := 0;
-                    END ELSE
+        IF IsFirstSalesPrice THEN BEGIN
+            IsFirstSalesPrice := FALSE;
+            IF NOT TempSalesPrice.FIND('-') THEN BEGIN
+                IF NOT IsVariant THEN BEGIN
+                    IF SalesType = SalesType::Campaign THEN
                         CurrReport.SKIP();
-                END;
-            END ELSE
-                IF NEXT() = 0 THEN
-                    CurrReport.BREAK();
 
-            IF (SalesType = SalesType::Campaign) AND ("Sales Type" <> "Sales Type"::Campaign) THEN
-                CurrReport.SKIP();
+                    TempSalesPrice."Currency Code" := '';
+                    TempSalesPrice."Price Includes VAT" := Item."Price Includes VAT";
+                    TempSalesPrice."Unit Price" := Item."Unit Price";
+                    TempSalesPrice."Unit of Measure Code" := Item."Base Unit of Measure";
+                    TempSalesPrice."Minimum Quantity" := 0;
+                END ELSE
+                    CurrReport.SKIP();
+            END;
+        END ELSE
+            IF TempSalesPrice.NEXT() = 0 THEN
+                CurrReport.BREAK();
 
-            IF "Price Includes VAT" THEN
-                VATText := Text000
-            ELSE
-                VATText := Text001;
-            UnitOfMeasure := "Unit of Measure Code";
-            ConvertPricetoUoM(UnitOfMeasure, "Unit Price");
-            ConvertPriceLCYToFCY("Currency Code", "Unit Price");
-        END;
+        IF (SalesType = SalesType::Campaign) AND (TempSalesPrice."Sales Type" <> TempSalesPrice."Sales Type"::Campaign) THEN
+            CurrReport.SKIP();
+
+        IF TempSalesPrice."Price Includes VAT" THEN
+            VATText := Text000
+        ELSE
+            VATText := Text001;
+        UnitOfMeasure := TempSalesPrice."Unit of Measure Code";
+        ConvertPricetoUoM(UnitOfMeasure, TempSalesPrice."Unit Price");
+        ConvertPriceLCYToFCY(TempSalesPrice."Currency Code", TempSalesPrice."Unit Price");
     end;
 
     local procedure PreparePrintSalesDisc(IsVariant: Boolean)
     begin
-        WITH TempSalesLineDisc DO BEGIN
-            IF PricesInCurrency THEN BEGIN
-                SETRANGE("Currency Code", Currency.Code);
-                IF FIND('-') THEN BEGIN
-                    SETRANGE("Currency Code", '');
-                    DELETEALL();
-                END;
-                SETRANGE("Currency Code");
+        IF PricesInCurrency THEN BEGIN
+            TempSalesLineDisc.SETRANGE("Currency Code", Currency.Code);
+            IF TempSalesLineDisc.FIND('-') THEN BEGIN
+                TempSalesLineDisc.SETRANGE("Currency Code", '');
+                TempSalesLineDisc.DELETEALL();
             END;
+            TempSalesLineDisc.SETRANGE("Currency Code");
+        END;
 
-            IF IsVariant THEN BEGIN
-                SETRANGE("Variant Code", '');
-                DELETEALL();
-                SETRANGE("Variant Code");
-            END;
+        IF IsVariant THEN BEGIN
+            TempSalesLineDisc.SETRANGE("Variant Code", '');
+            TempSalesLineDisc.DELETEALL();
+            TempSalesLineDisc.SETRANGE("Variant Code");
         END;
 
         IsFirstSalesLineDisc := TRUE;
@@ -607,23 +601,21 @@ report 50007 "BC6_Price List" //715
 
     local procedure PrintSalesDisc()
     begin
-        WITH TempSalesLineDisc DO BEGIN
-            IF IsFirstSalesLineDisc THEN BEGIN
-                IsFirstSalesLineDisc := FALSE;
-                IF NOT FIND('-') THEN
-                    CurrReport.BREAK();
-            END ELSE
-                IF NEXT() = 0 THEN
-                    CurrReport.BREAK();
+        IF IsFirstSalesLineDisc THEN BEGIN
+            IsFirstSalesLineDisc := FALSE;
+            IF NOT TempSalesLineDisc.FIND('-') THEN
+                CurrReport.BREAK();
+        END ELSE
+            IF TempSalesLineDisc.NEXT() = 0 THEN
+                CurrReport.BREAK();
 
-            IF (SalesType = SalesType::Campaign) AND ("Sales Type" <> "Sales Type"::Campaign) THEN
-                CurrReport.SKIP();
+        IF (SalesType = SalesType::Campaign) AND (TempSalesLineDisc."Sales Type" <> TempSalesLineDisc."Sales Type"::Campaign) THEN
+            CurrReport.SKIP();
 
-            IF "Unit of Measure Code" = '' THEN
-                UnitOfMeasure := Item."Base Unit of Measure"
-            ELSE
-                UnitOfMeasure := "Unit of Measure Code";
-        END;
+        IF TempSalesLineDisc."Unit of Measure Code" = '' THEN
+            UnitOfMeasure := Item."Base Unit of Measure"
+        ELSE
+            UnitOfMeasure := TempSalesLineDisc."Unit of Measure Code";
     end;
 
     procedure InitializeRequest(NewDateReq: Date; NewSalesType: Option; NewSalesCode: Code[20]; NewCurrencyCode: Code[10])

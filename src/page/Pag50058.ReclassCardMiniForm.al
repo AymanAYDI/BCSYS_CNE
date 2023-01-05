@@ -12,6 +12,7 @@ page 50058 "BC6_Reclass. Card MiniForm"
     SourceTable = "Item Journal Line";
     SourceTableView = SORTING("Journal Template Name", "Journal Batch Name", "Line No.")
                       ORDER(Ascending);
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -193,19 +194,19 @@ page 50058 "BC6_Reclass. Card MiniForm"
                         //1 : Post
 
                         IF NOT SkipAssignValue THEN BEGIN
-                            IF ScanDeviceHelper.GetValueOfSubmition(1, data) <> "Bin Code" THEN BEGIN
+                            IF ScanDeviceHelper.GetValueOfSubmition(1, data) <> Rec."Bin Code" THEN BEGIN
                                 FromBinCode := ScanDeviceHelper.GetValueOfSubmition(1, data);
                                 AssignFromBinCode(FromBinCode);
                             END;
-                            IF ScanDeviceHelper.GetValueOfSubmition(2, data) <> "Item No." THEN BEGIN
+                            IF ScanDeviceHelper.GetValueOfSubmition(2, data) <> Rec."Item No." THEN BEGIN
                                 ItemNo := ScanDeviceHelper.GetValueOfSubmition(2, data);
                                 AssignItemNo(ItemNo);
                             END;
-                            IF ScanDeviceHelper.GetValueOfSubmition(3, data) <> FORMAT(Quantity) THEN BEGIN
+                            IF ScanDeviceHelper.GetValueOfSubmition(3, data) <> FORMAT(Rec.Quantity) THEN BEGIN
                                 Qty := ScanDeviceHelper.GetValueOfSubmition(3, data);
                                 AssignQty(Qty);
                             END;
-                            IF ScanDeviceHelper.GetValueOfSubmition(4, data) <> "New Bin Code" THEN BEGIN
+                            IF ScanDeviceHelper.GetValueOfSubmition(4, data) <> Rec."New Bin Code" THEN BEGIN
                                 ToBinCode := ScanDeviceHelper.GetValueOfSubmition(4, data);
                                 AssignBinCode(ToBinCode);
                             END;
@@ -220,20 +221,19 @@ page 50058 "BC6_Reclass. Card MiniForm"
 
                             1:
                                 BEGIN
-                                    IF NOT MODIFY(TRUE) THEN
-                                        INSERT(TRUE);
+                                    IF NOT Rec.MODIFY(TRUE) THEN
+                                        Rec.INSERT(TRUE);
 
                                     CurrPage.ScanZone.SetFocus(1);
                                     RefreshDataControlAddin();
                                     PostBatch();
 
                                     LastJnlLine.RESET();
-                                    LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
-                                    LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
-                                    IF LastJnlLine.FIND('+') THEN
+                                    LastJnlLine.SETRANGE("Journal Template Name", Rec."Journal Template Name");
+                                    LastJnlLine.SETRANGE("Journal Batch Name", Rec."Journal Batch Name");
+                                    IF LastJnlLine.FINDLast() THEN //find('+)
                                         Rec := LastJnlLine
                                     ELSE BEGIN
-                                        //NewLine(Rec);
                                         Rec := xRec;
                                         CurrPage.UPDATE(FALSE);
                                     END;
@@ -400,7 +400,7 @@ page 50058 "BC6_Reclass. Card MiniForm"
                         RefreshDataControlAddin()
                     end;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     Editable = false;
                     ApplicationArea = All;
@@ -539,12 +539,12 @@ page 50058 "BC6_Reclass. Card MiniForm"
                 begin
                     SkipClosePage := TRUE;
                     LastJnlLine := Rec;
-                    SETFILTER("Journal Template Name", "Journal Template Name");
-                    SETFILTER("Journal Batch Name", "Journal Batch Name");
-                    IF DELETE(TRUE) THEN
+                    Rec.SETFILTER("Journal Template Name", Rec."Journal Template Name");
+                    Rec.SETFILTER("Journal Batch Name", Rec."Journal Batch Name");
+                    IF Rec.DELETE(TRUE) THEN
                         COMMIT();
 
-                    IF ISEMPTY THEN BEGIN
+                    IF Rec.ISEMPTY THEN BEGIN
                         SkipClosePage := FALSE;
                         SkipUpdateData := TRUE;
                         CurrPage.CLOSE();
@@ -558,14 +558,14 @@ page 50058 "BC6_Reclass. Card MiniForm"
 
     trigger OnAfterGetRecord()
     begin
-        OnAfterGetCurrRecord();
+        ProcOnAfterGetCurrRecord();
     end;
 
     trigger OnFindRecord(Which: Text): Boolean
     var
         Found: Boolean;
     begin
-        Found := FIND(Which);
+        Found := Rec.FIND(Which);
         UpdateCurrForm();
         RefreshDataControlAddin();
         EXIT(Found);
@@ -585,14 +585,14 @@ page 50058 "BC6_Reclass. Card MiniForm"
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
         NewLine(Rec);
-        OnAfterGetCurrRecord();
+        ProcOnAfterGetCurrRecord();
     end;
 
     trigger OnNextRecord(Steps: Integer): Integer
     var
         Found: Integer;
     begin
-        Found := NEXT(Steps);
+        Found := Rec.NEXT(Steps);
         UpdateCurrForm();
         RefreshDataControlAddin();
         EXIT(Found);
@@ -605,7 +605,7 @@ page 50058 "BC6_Reclass. Card MiniForm"
         EditableCtrl := TRUE;
         //>>MIGRATION 2013
         //NewLine();
-        //OnAfterGetCurrRecord;
+        //ProcOnAfterGetCurrRecord;
         //<<MIGRATION 2013
     end;
 
@@ -706,35 +706,33 @@ page 50058 "BC6_Reclass. Card MiniForm"
 
         //CLEAR(LastJnlLine);
         LastJnlLine.RESET();
-        LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
-        LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
+        LastJnlLine.SETRANGE("Journal Template Name", Rec."Journal Template Name");
+        LastJnlLine.SETRANGE("Journal Batch Name", Rec."Journal Batch Name");
         IF LastJnlLine.ISEMPTY THEN BEGIN
             LastJnlLine.INIT();
-            LastJnlLine."Journal Template Name" := "Journal Template Name";
-            LastJnlLine."Journal Batch Name" := "Journal Batch Name";
-            "Line No." := 0;
+            LastJnlLine."Journal Template Name" := Rec."Journal Template Name";
+            LastJnlLine."Journal Batch Name" := Rec."Journal Batch Name";
+            Rec."Line No." := 0;
         END;
 
-        SetUpNewLine(LastJnlLine);
-        "Entry Type" := "Entry Type"::Transfer;
-        "Line No." := "Line No." + 10000;
-        VALIDATE("Posting Date", WORKDATE());
-        INSERT(TRUE);
+        Rec.SetUpNewLine(LastJnlLine);
+        Rec."Entry Type" := Rec."Entry Type"::Transfer;
+        Rec."Line No." := Rec."Line No." + 10000;
+        Rec.VALIDATE("Posting Date", WORKDATE());
+        Rec.INSERT(TRUE);
         IF LocationCode = '' THEN
             LocationCode := Location.Code;
 
         AssignLocationCode(LocationCode);
-        MODIFY(TRUE);
-        TESTFIELD("Location Code");
+        Rec.MODIFY(TRUE);
+        Rec.TESTFIELD("Location Code");
         RefreshDataControlAddin()
     end;
 
 
     procedure OpenWithWhseEmployee(): Boolean
     var
-        WhseEmployee: Record "Warehouse Employee";
         WmsManagement: Codeunit "WMS Management";
-        CurrentLocationCode: Code[10];
     begin
 
         InvSetup.GET();
@@ -750,7 +748,7 @@ page 50058 "BC6_Reclass. Card MiniForm"
                     LocationCode := WmsManagement.GetDefaultLocation();
                 IF NOT Location.GET(LocationCode) THEN
                     Location.INIT();
-                FILTERGROUP := 2;
+                Rec.FILTERGROUP := 2;
                 ItemJnlTemplate.GET(InvSetup."BC6_Item Jnl Template Name 2");
                 ItemJnlTemplate.TESTFIELD(Type, ItemJnlTemplate.Type::Transfer);
                 ItemBatchJnl.SETRANGE("Journal Template Name", ItemJnlTemplate.Name);
@@ -758,13 +756,13 @@ page 50058 "BC6_Reclass. Card MiniForm"
                 IF ItemBatchJnl.FIND('-') THEN BEGIN
                     ItemBatchJnl.TESTFIELD("No. Series");
                     BatchName := ItemBatchJnl.Name;
-                    SETFILTER("Journal Template Name", ItemBatchJnl."Journal Template Name");
-                    SETFILTER("Journal Batch Name", BatchName);
+                    Rec.SETFILTER("Journal Template Name", ItemBatchJnl."Journal Template Name");
+                    Rec.SETFILTER("Journal Batch Name", BatchName);
                 END ELSE BEGIN
                     ERROR(Text015, USERID);
                     EXIT(FALSE);
                 END;
-                FILTERGROUP := 0;
+                Rec.FILTERGROUP := 0;
                 PostingDate := WORKDATE();
                 IF Rec.FIND('+') THEN;
                 EXIT(TRUE);
@@ -788,10 +786,10 @@ page 50058 "BC6_Reclass. Card MiniForm"
         IF (LocationCode <> '') AND
            (STRLEN(LocationCode) < 20) THEN BEGIN
             IF Location.GET(LocationCode) THEN
-                "Location Code" := LocationCode;
+                Rec."Location Code" := LocationCode;
         END ELSE BEGIN
             LocationCode := '';
-            "Location Code" := LocationCode;
+            Rec."Location Code" := LocationCode;
             MESSAGE(Text004);
         END;
         RefreshDataControlAddin()
@@ -804,16 +802,16 @@ page 50058 "BC6_Reclass. Card MiniForm"
     begin
         IF (BinCode <> '') AND
            (STRLEN(BinCode) < 20) THEN BEGIN
-            IF (BinCode <> "New Bin Code") THEN
-                VALIDATE("New Location Code", "Location Code");
-            VALIDATE("New Bin Code", BinCode);
+            IF (BinCode <> Rec."New Bin Code") THEN
+                Rec.VALIDATE("New Location Code", Rec."Location Code");
+            Rec.VALIDATE("New Bin Code", BinCode);
             UpdateCurrForm();
             EXIT;
         END;
 
         MESSAGE(Text002, BinCode);
         BinCode := '';
-        "New Bin Code" := BinCode;
+        Rec."New Bin Code" := BinCode;
         RefreshDataControlAddin()
     end;
 
@@ -824,16 +822,16 @@ page 50058 "BC6_Reclass. Card MiniForm"
     begin
         IF (BinCode <> '') AND
            (STRLEN(BinCode) < 20) THEN BEGIN
-            IF (BinCode <> "Bin Code") THEN
+            IF (BinCode <> Rec."Bin Code") THEN
                 // VALIDATE("Bin Code",BinCode);
-                "Bin Code" := BinCode;
+                Rec."Bin Code" := BinCode;
             UpdateCurrForm();
             EXIT;
         END;
 
         MESSAGE(Text002, BinCode);
         BinCode := '';
-        "Bin Code" := BinCode;
+        Rec."Bin Code" := BinCode;
         RefreshDataControlAddin()
     end;
 
@@ -888,9 +886,9 @@ page 50058 "BC6_Reclass. Card MiniForm"
         IF ItemError THEN
             MESSAGE('%1', ErrorTxt)
         ELSE BEGIN
-            VALIDATE("Item No.", ItemNo);
-            VALIDATE("Bin Code", FromBinCode);
-            VALIDATE(Quantity, 0);
+            Rec.VALIDATE("Item No.", ItemNo);
+            Rec.VALIDATE("Bin Code", FromBinCode);
+            Rec.VALIDATE(Quantity, 0);
         END;
 
         UpdateCurrForm();
@@ -902,17 +900,17 @@ page 50058 "BC6_Reclass. Card MiniForm"
         Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
         IF (Qty <> '') THEN BEGIN
-            EVALUATE(Quantity, Qty);
-            VALIDATE(Quantity);
-            Qty := FORMAT(Quantity);
+            EVALUATE(Rec.Quantity, Qty);
+            Rec.VALIDATE(Quantity);
+            Qty := FORMAT(Rec.Quantity);
             EXIT;
         END;
 
         IF Qty <> '' THEN
             MESSAGE(Text006, Qty);
         Qty := '';
-        VALIDATE(Quantity, 0);
-        Qty := FORMAT(Quantity);
+        Rec.VALIDATE(Quantity, 0);
+        Qty := FORMAT(Rec.Quantity);
         RefreshDataControlAddin()
     end;
 
@@ -947,14 +945,14 @@ page 50058 "BC6_Reclass. Card MiniForm"
         i: Integer;
     begin
         BarCode := '';
-        LocationCode := "Location Code";
-        IF NOT Location.GET("Location Code") THEN
+        LocationCode := Rec."Location Code";
+        IF NOT Location.GET(Rec."Location Code") THEN
             Location.INIT();
-        FromBinCode := "Bin Code";
-        ToBinCode := "New Bin Code";
-        ItemNo := "Item No.";
-        Qty := FORMAT(Quantity);
-        EditableCtrl := ("Item No." <> '');
+        FromBinCode := Rec."Bin Code";
+        ToBinCode := Rec."New Bin Code";
+        ItemNo := Rec."Item No.";
+        Qty := FORMAT(Rec.Quantity);
+        EditableCtrl := (Rec."Item No." <> '');
         CtrlEnabled();
         IF IsReady THEN
             CASE OptionMode OF
@@ -1024,7 +1022,7 @@ page 50058 "BC6_Reclass. Card MiniForm"
         AssignQty(Qty);
     end;
 
-    local procedure OnAfterGetCurrRecord()
+    local procedure ProcOnAfterGetCurrRecord()
     begin
         xRec := Rec;
         UpdateCurrForm();
@@ -1035,22 +1033,22 @@ page 50058 "BC6_Reclass. Card MiniForm"
         LastJnlLine: Record "Item Journal Line";
         InvtPickCardMiniForm: Page "BC6_Invt. Pick Card MiniForm";
     begin
-        IF MODIFY(TRUE) THEN;
+        IF Rec.MODIFY(TRUE) THEN;
         LastJnlLine := Rec;
         LastJnlLine.RESET();
-        LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
-        LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
+        LastJnlLine.SETRANGE("Journal Template Name", Rec."Journal Template Name");
+        LastJnlLine.SETRANGE("Journal Batch Name", Rec."Journal Batch Name");
         IF LastJnlLine.FIND('+') THEN BEGIN
-            INIT();
-            "Journal Template Name" := LastJnlLine."Journal Template Name";
-            "Journal Batch Name" := LastJnlLine."Journal Batch Name";
-            "Line No." := LastJnlLine."Line No." + 10000;
-            VALIDATE("Entry Type", "Entry Type"::Transfer);
-            VALIDATE("Posting Date", WORKDATE());
-            "Document No." := LastJnlLine."Document No.";
-            "Location Code" := LastJnlLine."Location Code";
-            "Bin Code" := LastJnlLine."Bin Code";
-            INSERT(TRUE);
+            Rec.INIT();
+            Rec."Journal Template Name" := LastJnlLine."Journal Template Name";
+            Rec."Journal Batch Name" := LastJnlLine."Journal Batch Name";
+            Rec."Line No." := LastJnlLine."Line No." + 10000;
+            Rec.VALIDATE("Entry Type", Rec."Entry Type"::Transfer);
+            Rec.VALIDATE("Posting Date", WORKDATE());
+            Rec."Document No." := LastJnlLine."Document No.";
+            Rec."Location Code" := LastJnlLine."Location Code";
+            Rec."Bin Code" := LastJnlLine."Bin Code";
+            Rec.INSERT(TRUE);
         END;
 
         SetOptionMode(OptionMode::KeepPickAndBin);
@@ -1062,21 +1060,21 @@ page 50058 "BC6_Reclass. Card MiniForm"
         LastJnlLine: Record "Item Journal Line";
         InvtPickCardMiniForm: Page "BC6_Invt. Pick Card MiniForm";
     begin
-        IF MODIFY(TRUE) THEN;
+        IF Rec.MODIFY(TRUE) THEN;
         LastJnlLine := Rec;
         LastJnlLine.RESET();
-        LastJnlLine.SETRANGE("Journal Template Name", "Journal Template Name");
-        LastJnlLine.SETRANGE("Journal Batch Name", "Journal Batch Name");
+        LastJnlLine.SETRANGE("Journal Template Name", Rec."Journal Template Name");
+        LastJnlLine.SETRANGE("Journal Batch Name", Rec."Journal Batch Name");
         IF LastJnlLine.FIND('+') THEN BEGIN
-            INIT();
-            "Journal Template Name" := LastJnlLine."Journal Template Name";
-            "Journal Batch Name" := LastJnlLine."Journal Batch Name";
-            "Line No." := LastJnlLine."Line No." + 10000;
-            VALIDATE("Entry Type", "Entry Type"::Transfer);
-            VALIDATE("Posting Date", WORKDATE());
-            "Document No." := LastJnlLine."Document No.";
-            "Location Code" := LastJnlLine."Location Code";
-            INSERT(TRUE);
+            Rec.INIT();
+            Rec."Journal Template Name" := LastJnlLine."Journal Template Name";
+            Rec."Journal Batch Name" := LastJnlLine."Journal Batch Name";
+            Rec."Line No." := LastJnlLine."Line No." + 10000;
+            Rec.VALIDATE("Entry Type", Rec."Entry Type"::Transfer);
+            Rec.VALIDATE("Posting Date", WORKDATE());
+            Rec."Document No." := LastJnlLine."Document No.";
+            Rec."Location Code" := LastJnlLine."Location Code";
+            Rec.INSERT(TRUE);
         END;
 
         // CurrPage.CLOSE;
@@ -1101,12 +1099,12 @@ page 50058 "BC6_Reclass. Card MiniForm"
     begin
         CASE OptionMode OF
             OptionMode::KeepPick:
-                EXIT(STRSUBSTNO('%1 - %2 %3', FIELDCAPTION("BC6_Whse. Document No."), "BC6_Whse. Document No.", "Line No."));
+                EXIT(STRSUBSTNO('%1 - %2 %3', Rec.FIELDCAPTION("BC6_Whse. Document No."), Rec."BC6_Whse. Document No.", Rec."Line No."));
             OptionMode::KeepPickAndBin:
-                EXIT(STRSUBSTNO('%1 - %2 %3', FIELDCAPTION("Bin Code"), "Bin Code", "Line No."));
+                EXIT(STRSUBSTNO('%1 - %2 %3', Rec.FIELDCAPTION("Bin Code"), Rec."Bin Code", Rec."Line No."));
 
             ELSE
-                EXIT(STRSUBSTNO('%1 - %2 %3', TABLECAPTION, "BC6_Whse. Document No.", "Line No."));
+                EXIT(STRSUBSTNO('%1 - %2 %3', Rec.TABLECAPTION, Rec."BC6_Whse. Document No.", Rec."Line No."));
         END;
     end;
 

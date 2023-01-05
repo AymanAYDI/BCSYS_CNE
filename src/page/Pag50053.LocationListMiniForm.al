@@ -6,22 +6,22 @@ page 50053 "BC6_Location List MiniForm"
     SourceTable = Location;
     SourceTableView = SORTING(Code)
                       ORDER(Ascending);
-
+    UsageCategory = None;
     layout
     {
         area(content)
         {
             repeater(Control1)
             {
-                field("Code"; Code)
+                field("Code"; Rec.Code)
                 {
                     ApplicationArea = All;
                 }
-                field("Bin Mandatory"; "Bin Mandatory")
+                field("Bin Mandatory"; Rec."Bin Mandatory")
                 {
                     ApplicationArea = All;
                 }
-                field(Name; Name)
+                field(Name; Rec.Name)
                 {
                     Visible = false;
                     ApplicationArea = All;

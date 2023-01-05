@@ -29,12 +29,6 @@ page 50050 "BC6_Menu MiniForm"
                 ApplicationArea = All;
 
 
-                trigger OnAction()
-                begin
-                    //Page50057.RUN;
-                    //Page50057.NewLine;
-                end;
-
             }
             action(Inventory_2)
             {
@@ -70,7 +64,7 @@ page 50050 "BC6_Menu MiniForm"
             }
             action("Raccourci clavier terminaux")
             {
-                RunObject = Page "Raccourci clavier terminaux";
+                RunObject = Page "BC6_Racc. clavier terminaux";
                 ApplicationArea = All;
             }
             action(Commande)

@@ -397,7 +397,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                 }
                 field(BC6_Area; Rec.Area)
                 {
-                    ToolTip = 'Specifies the code for the area of the vendor''s address.', comment = 'FRA=""';
+                    ToolTip = 'Specifies the code for the area of the vendor''s address.', comment = 'FRA="Spécifie le code de la zone de l''adresse du fournisseur."';
                 }
             }
         }
@@ -1059,7 +1059,7 @@ page 50118 "BC6_LOC Purchase Return Order"
         IF (NOT DocNoVisible) AND (Rec."No." = '') THEN
             Rec.SetBuyFromVendorFromFilter();
 
-        "BC6_Return Order Type" := "BC6_Return Order Type"::Location;
+        Rec."BC6_Return Order Type" := Rec."BC6_Return Order Type"::Location;
     end;
 
     trigger OnOpenPage()
@@ -1165,7 +1165,7 @@ page 50118 "BC6_LOC Purchase Return Order"
         OpenApprovalEntriesExist := ApprovalsMgmt.HasOpenApprovalEntries(Rec.RECORDID);
         CanCancelApprovalForRecord := ApprovalsMgmt.CanCancelApprovalForRecord(Rec.RECORDID);
 
-        IF "BC6_Return Order Type" = "BC6_Return Order Type"::SAV THEN
+        IF Rec."BC6_Return Order Type" = Rec."BC6_Return Order Type"::SAV THEN
             BooGReminderDateVisible := TRUE;
     end;
 

@@ -30,69 +30,69 @@ pageextension 50023 "BC6_PurchaseOrderSubform" extends "Purchase Order Subform" 
 
         addafter("No.")
         {
-            field("BC6_Eco partner DEEE"; "BC6_Eco partner DEEE")
+            field("BC6_Eco partner DEEE"; Rec."BC6_Eco partner DEEE")
             {
                 Visible = false;
             }
         }
         addafter(Quantity)
         {
-            field("BC6_Outstanding Quantity"; "Outstanding Quantity")
+            field("BC6_Outstanding Quantity"; Rec."Outstanding Quantity")
             {
             }
-            field("BC6_Reserved Quantity"; "Reserved Quantity")
+            field("BC6_Reserved Quantity"; Rec."Reserved Quantity")
             {
                 BlankZero = true;
                 Visible = false;
             }
-            field("BC6_Sales Order Qty (Base)"; "BC6_Sales Order Qty (Base)")
+            field("BC6_Sales Order Qty (Base)"; Rec."BC6_Sales Order Qty (Base)")
             {
                 Visible = false;
             }
-            field("BC6_Location Code"; "Location Code")
+            field("BC6_Location Code"; Rec."Location Code")
             {
             }
-            field("BC6_Bin Code"; "Bin Code")
+            field("BC6_Bin Code"; Rec."Bin Code")
             {
                 Visible = false;
             }
         }
         addafter("Line Discount %")
         {
-            field("BC6_Discount Direct Unit Cost"; "BC6_Discount Direct Unit Cost")
+            field("BC6_Discount Direct Unit Cost"; Rec."BC6_Discount Direct Unit Cost")
             {
             }
         }
         addafter(ShortcutDimCode8)
         {
-            field("BC6_Sales Document Type"; "BC6_Sales Document Type")
+            field("BC6_Sales Document Type"; Rec."BC6_Sales Document Type")
             {
             }
-            field("BC6_Sales No."; "BC6_Sales No.")
+            field("BC6_Sales No."; Rec."BC6_Sales No.")
             {
             }
-            field("BC6_Sales Line No."; "BC6_Sales Line No.")
+            field("BC6_Sales Line No."; Rec."BC6_Sales Line No.")
             {
             }
-            field("BC6_DEEE Category Code"; "BC6_DEEE Category Code")
+            field("BC6_DEEE Category Code"; Rec."BC6_DEEE Category Code")
             {
             }
-            field("BC6_DEEE Unit Price"; "BC6_DEEE Unit Price")
+            field("BC6_DEEE Unit Price"; Rec."BC6_DEEE Unit Price")
             {
             }
-            field("BC6_DEEE HT Amount"; "BC6_DEEE HT Amount")
+            field("BC6_DEEE HT Amount"; Rec."BC6_DEEE HT Amount")
             {
             }
-            field("BC6_DEEE Unit Price (LCY)"; "BC6_DEEE Unit Price (LCY)")
+            field("BC6_DEEE Unit Price (LCY)"; Rec."BC6_DEEE Unit Price (LCY)")
             {
             }
-            field("BC6_DEEE VAT Amount"; "BC6_DEEE VAT Amount")
+            field("BC6_DEEE VAT Amount"; Rec."BC6_DEEE VAT Amount")
             {
             }
-            field("BC6_DEEE TTC Amount"; "BC6_DEEE TTC Amount")
+            field("BC6_DEEE TTC Amount"; Rec."BC6_DEEE TTC Amount")
             {
             }
-            field("BC6_DEEE HT Amount (LCY)"; "BC6_DEEE HT Amount (LCY)")
+            field("BC6_DEEE HT Amount (LCY)"; Rec."BC6_DEEE HT Amount (LCY)")
             {
             }
 
@@ -108,7 +108,8 @@ pageextension 50023 "BC6_PurchaseOrderSubform" extends "Purchase Order Subform" 
             }
             action("BC6_Affected Orders")
             {
-                Caption = 'Affected Orders';
+                Caption = 'Affected Orders', Comment = 'FRA="Commandes affectées"';
+                ;
                 RunObject = Page "BC6_Affected Orders";
                 RunPageLink = "BC6_Purch. Document Type" = CONST(Order),
                                   "BC6_Purch. Order No." = FIELD("Document No."),
@@ -124,7 +125,7 @@ pageextension 50023 "BC6_PurchaseOrderSubform" extends "Purchase Order Subform" 
                 var
                     RecLPurchaseHeader: Record "Purchase Header";
                 begin
-                    RecLPurchaseHeader.GET("Document Type", "Document No.");
+                    RecLPurchaseHeader.GET(Rec."Document Type", Rec."Document No.");
                     IF NOT RecLPurchaseHeader."BC6_From Sales Module" THEN
                         ChooseSalesLineOrderToAffect()
                     ELSE
@@ -139,7 +140,7 @@ pageextension 50023 "BC6_PurchaseOrderSubform" extends "Purchase Order Subform" 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
         IF ApplicationAreaSetup.IsFoundationEnabled() THEN
-            Type := Type::Item;
+            Rec.Type := Rec.Type::Item;
     end;
 
     var

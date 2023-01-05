@@ -4,17 +4,17 @@ pageextension 50022 "BC6_PurchaseList" extends "Purchase List" //53
     {
         addafter("Buy-from Vendor Name")
         {
-            field(BC6_ID; ID)
+            field(BC6_ID; Rec.BC6_ID)
             {
                 Visible = BooGID;
             }
         }
         addafter("Purchaser Code")
         {
-            field(BC6_Amount; Amount)
+            field(BC6_Amount; Rec.Amount)
             {
             }
-            field("BC6_Amount Including VAT"; "Amount Including VAT")
+            field("BC6_Amount Including VAT"; Rec."Amount Including VAT")
             {
             }
         }
@@ -39,7 +39,7 @@ pageextension 50022 "BC6_PurchaseList" extends "Purchase List" //53
         RecGsalesSetup.TESTFIELD("BC6_allow Profit% to");
         RecLAccessControl.SETRANGE("User Security ID", USERSECURITYID());
         RecLAccessControl.SETRANGE("Role ID", RecGsalesSetup."BC6_allow Profit% to");
-        IF RecLAccessControl.FINDFIRST() THEN
+        IF RecLAccessControl.FindFirst() THEN
             BooGID := TRUE
         ELSE
             BooGID := FALSE;

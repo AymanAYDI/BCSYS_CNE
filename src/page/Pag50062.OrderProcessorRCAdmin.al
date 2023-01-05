@@ -2,6 +2,7 @@ page 50062 "BC6_Order Processor RC Admin"
 {
     Caption = 'Role Center', Comment = 'FRA="Tableau de bord"';
     PageType = RoleCenter;
+    UsageCategory = None;
     layout
     {
         area(rolecenter)

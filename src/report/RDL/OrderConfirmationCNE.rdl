@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="DataSource">
@@ -7,6 +7,7 @@
         <DataProvider>SQL</DataProvider>
         <ConnectString />
       </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
       <rd:DataSourceID>0544a258-2b20-4493-a9e5-28b393e451be</rd:DataSourceID>
     </DataSource>
   </DataSources>
@@ -52,7 +53,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Cstr(Fields!TmpNamereport.Value) + Chr(177) +
+                                                    <Value>=Cstr(Fields!TmpNamereport.Value) + Chr(177) +
 Cstr(Fields!CustAddr_1_.Value) + Chr(177) + 
 Cstr(Fields!CustAddr_2_.Value) + Chr(177) + 
 Cstr(Fields!CustAddr_3_.Value) + Chr(177) + 
@@ -107,7 +108,7 @@ Cstr(Fields!TxtGTag.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <Color>Red</Color>
                                                     </Style>
@@ -153,7 +154,7 @@ Cstr(Fields!TxtGTag.Value)</Value>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value EvaluationMode="Auto">=IIF(Code.IsNewPage(Fields!DocType_SalesHeader.Value,Fields!No_SalesHeader.Value,Fields!OutputNo.Value),TRUE,FALSE)</Value>
+                                      <Value>=IIF(Code.IsNewPage(Fields!DocType_SalesHeader.Value,Fields!No_SalesHeader.Value,Fields!OutputNo.Value),TRUE,FALSE)</Value>
                                       <Style />
                                     </TextRun>
                                   </TextRuns>
@@ -205,7 +206,7 @@ Cstr(Fields!TxtGTag.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!ItemCaption.Value</Value>
+                                                    <Value>=Fields!ItemCaption.Value</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
@@ -261,7 +262,7 @@ Cstr(Fields!TxtGTag.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Sales_Line__Description_Control1000000120Caption.Value</Value>
+                                                    <Value>=Fields!Sales_Line__Description_Control1000000120Caption.Value</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
@@ -317,7 +318,7 @@ Cstr(Fields!TxtGTag.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Sales_Unit_of_MeasureCaption.Value</Value>
+                                                    <Value>=Fields!Sales_Unit_of_MeasureCaption.Value</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
@@ -373,7 +374,7 @@ Cstr(Fields!TxtGTag.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Prix_unitaire_HTCaption.Value</Value>
+                                                    <Value>=Fields!Prix_unitaire_HTCaption.Value</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
@@ -429,7 +430,7 @@ Cstr(Fields!TxtGTag.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!QuantityCaption.Value</Value>
+                                                    <Value>=Fields!QuantityCaption.Value</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
@@ -485,7 +486,7 @@ Cstr(Fields!TxtGTag.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!MontantCaption.Value</Value>
+                                                    <Value>=Fields!MontantCaption.Value</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
@@ -546,7 +547,7 @@ Cstr(Fields!TxtGTag.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -587,7 +588,7 @@ Cstr(Fields!TxtGTag.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Sales_Line__Description.Value</Value>
+                                                    <Value>=Fields!Sales_Line__Description.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -628,7 +629,7 @@ Cstr(Fields!TxtGTag.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -664,7 +665,7 @@ Cstr(Fields!TxtGTag.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -700,7 +701,7 @@ Cstr(Fields!TxtGTag.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -736,7 +737,7 @@ Cstr(Fields!TxtGTag.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -781,7 +782,7 @@ Cstr(Fields!TxtGTag.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=IIf(Fields!HideReference.Value=true,"",Fields!Sales_Line___No__.Value)</Value>
+                                                    <Value>=IIf(Fields!HideReference.Value=true,"",Fields!Sales_Line___No__.Value)</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -823,7 +824,7 @@ Cstr(Fields!TxtGTag.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Sales_Line__Description.Value</Value>
+                                                    <Value>=Fields!Sales_Line__Description.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -863,7 +864,7 @@ Cstr(Fields!TxtGTag.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Code.BlankZero(Fields!Sales_Line___Qty__per_Unit_of_Measure_.Value)</Value>
+                                                    <Value>=Code.BlankZero(Fields!Sales_Line___Qty__per_Unit_of_Measure_.Value)</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -905,7 +906,7 @@ Cstr(Fields!TxtGTag.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!FORMAT__Sales_Line___Discount_unit_price___0___precision_2_4__standard_format_1___.Value</Value>
+                                                    <Value>=Fields!FORMAT__Sales_Line___Discount_unit_price___0___precision_2_4__standard_format_1___.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -947,7 +948,7 @@ Cstr(Fields!TxtGTag.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Code.BlankZero(Fields!Sales_Line__Quantity.Value)</Value>
+                                                    <Value>=Code.BlankZero(Fields!Sales_Line__Quantity.Value)</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -989,7 +990,7 @@ Cstr(Fields!TxtGTag.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Code.BlankZero(Fields!SalesLine__Line_Amount_.Value)</Value>
+                                                    <Value>=Code.BlankZero(Fields!SalesLine__Line_Amount_.Value)</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -1042,7 +1043,7 @@ Cstr(Fields!TxtGTag.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!DEEE_Contribution___Caption.Value</Value>
+                                                    <Value>=Fields!DEEE_Contribution___Caption.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -1079,7 +1080,7 @@ Cstr(Fields!TxtGTag.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!Sales_Line___No___Control1000000219Caption.Value +
+                                                    <Value>=Fields!Sales_Line___No___Control1000000219Caption.Value +
 Fields!Sales_Line___No__.Value +
 Fields!Category_Caption.Value +
 Fields!Sales_Line___DEEE_Category_Code_.Value +
@@ -1118,7 +1119,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!DecGNumbeofUnitsDEEE.Value</Value>
+                                                    <Value>=Fields!DecGNumbeofUnitsDEEE.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -1156,7 +1157,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!DecGHTUnitTaxLCY.Value</Value>
+                                                    <Value>=Fields!DecGHTUnitTaxLCY.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -1194,7 +1195,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Code.BlankZero(Fields!Sales_Line__Quantity.Value)</Value>
+                                                    <Value>=Code.BlankZero(Fields!Sales_Line__Quantity.Value)</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -1236,7 +1237,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Code.BlankZero(Fields!Sales_Line__Quantity_DecGNumbeofUnitsDEEE_DecGHTUnitTaxLCY.Value)</Value>
+                                                    <Value>=Code.BlankZero(Fields!Sales_Line__Quantity_DecGNumbeofUnitsDEEE_DecGHTUnitTaxLCY.Value)</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -1284,7 +1285,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!CrossrefNo.Value</Value>
+                                                    <Value>=Fields!CrossrefNo.Value</Value>
                                                     <Style>
                                                       <FontStyle>Italic</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -1322,7 +1323,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!STRSUBSTNO___1__2__templibelledouanier_item__Tariff_No___.Value</Value>
+                                                    <Value>=Fields!STRSUBSTNO___1__2__templibelledouanier_item__Tariff_No___.Value</Value>
                                                     <Style>
                                                       <FontStyle>Italic</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -1359,7 +1360,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -1397,7 +1398,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -1435,7 +1436,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -1473,7 +1474,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -1521,7 +1522,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Italic</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -1565,7 +1566,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Italic</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -1607,7 +1608,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -1650,7 +1651,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -1693,7 +1694,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -1736,7 +1737,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -1862,7 +1863,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                               </Filters>
                               <Top>0.19577cm</Top>
                               <Left>0.05912cm</Left>
-                              <Height>2.69999cm</Height>
+                              <Height>2.7cm</Height>
                               <Width>7.3534in</Width>
                               <ZIndex>2</ZIndex>
                               <Style>
@@ -1902,7 +1903,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!SubtotalCaption.Value</Value>
+                                                    <Value>=Fields!SubtotalCaption.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -1957,7 +1958,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!NNCSalesLineLineAmt.Value)</Value>
+                                                    <Value>=Last(Fields!NNCSalesLineLineAmt.Value)</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -2016,7 +2017,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!SalesLine__Inv__Discount_Amount_Caption.Value</Value>
+                                                    <Value>=Fields!SalesLine__Inv__Discount_Amount_Caption.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -2070,7 +2071,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=-last(Fields!NNCSalesLineInvDiscAmt.Value)</Value>
+                                                    <Value>=-last(Fields!NNCSalesLineInvDiscAmt.Value)</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -2207,7 +2208,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2252,7 +2253,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2292,7 +2293,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2332,7 +2333,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!TotalInclVATText.Value)</Value>
+                                                    <Value>=Last(Fields!TotalInclVATText.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2373,7 +2374,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!TotalAmountInclVATDEE.Value)</Value>
+                                                    <Value>=Last(Fields!TotalAmountInclVATDEE.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2410,7 +2411,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2459,7 +2460,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2499,7 +2500,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2531,7 +2532,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2563,7 +2564,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!DOWN_PAYMENTCaption.Value)</Value>
+                                                    <Value>=Last(Fields!DOWN_PAYMENTCaption.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2600,7 +2601,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
+                                                    <Value>=Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2634,7 +2635,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2678,7 +2679,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2718,7 +2719,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2750,7 +2751,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2782,7 +2783,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!Excl__VAT_Total_Incl_DEEECaption.Value)</Value>
+                                                    <Value>=Last(Fields!Excl__VAT_Total_Incl_DEEECaption.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2818,7 +2819,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!TotalAmtHTDEEE.Value)</Value>
+                                                    <Value>=Last(Fields!TotalAmtHTDEEE.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2852,7 +2853,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2896,7 +2897,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2932,7 +2933,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2964,7 +2965,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -2995,7 +2996,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!AmountEco_ConributionCaption.Value)</Value>
+                                                    <Value>=Last(Fields!AmountEco_ConributionCaption.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -3031,7 +3032,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!TotalDEEEHTAmount.Value)</Value>
+                                                    <Value>=Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -3065,7 +3066,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -3109,7 +3110,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -3148,7 +3149,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -3180,7 +3181,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -3211,7 +3212,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!TotalExclVATText.Value)</Value>
+                                                    <Value>=Last(Fields!TotalExclVATText.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -3247,7 +3248,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!TotalAmount.Value)</Value>
+                                                    <Value>=Last(Fields!TotalAmount.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -3281,7 +3282,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -3324,7 +3325,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -3364,7 +3365,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -3399,7 +3400,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -3433,7 +3434,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!VATAmountLine_VATAmountText.Value)</Value>
+                                                    <Value>=Last(Fields!VATAmountLine_VATAmountText.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -3469,7 +3470,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!TotalAmountVATDEE.Value)</Value>
+                                                    <Value>=Last(Fields!TotalAmountVATDEE.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -3503,7 +3504,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -3547,7 +3548,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -3587,7 +3588,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -3622,7 +3623,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -3657,7 +3658,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!TOTAL_incl__VATCaption.Value)</Value>
+                                                    <Value>=Last(Fields!TOTAL_incl__VATCaption.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -3695,7 +3696,7 @@ Fields!Nb_Un__DEEECaption.Value</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!TotalAmountInclVATDEE.Value) - 
+                                                    <Value>=Last(Fields!TotalAmountInclVATDEE.Value) - 
 Last(Fields!Sales_Header___Advance_Payment_.Value) +
 Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                                     <Style>
@@ -3732,7 +3733,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!CodeGCurrency.Value)</Value>
+                                                    <Value>=Last(Fields!CodeGCurrency.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -3776,7 +3777,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -3821,7 +3822,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -3861,7 +3862,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!Terms_of_PaymentCaption.Value)</Value>
+                                                    <Value>=Last(Fields!Terms_of_PaymentCaption.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -3903,7 +3904,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -3942,7 +3943,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!PaymentTerms_Description.Value)</Value>
+                                                    <Value>=Last(Fields!PaymentTerms_Description.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -4062,7 +4063,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!VATAmtSpecCaption.Value</Value>
+                                                    <Value>=Fields!VATAmtSpecCaption.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -4109,7 +4110,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!VATIdentifierCaption.Value</Value>
+                                                    <Value>=Fields!VATIdentifierCaption.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -4145,7 +4146,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!VATPercentageCaption.Value</Value>
+                                                    <Value>=Fields!VATPercentageCaption.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -4181,7 +4182,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!LineAmtCaption.Value</Value>
+                                                    <Value>=Fields!LineAmtCaption.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -4216,7 +4217,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!InvDiscBaseAmtCaption.Value</Value>
+                                                    <Value>=Fields!InvDiscBaseAmtCaption.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -4251,7 +4252,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Replace(First(Fields!InvDiscAmtCaption.Value)," ",chr(10))</Value>
+                                                    <Value>=Replace(First(Fields!InvDiscAmtCaption.Value)," ",chr(10))</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -4286,7 +4287,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!VATBaseCaption.Value</Value>
+                                                    <Value>=Fields!VATBaseCaption.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -4321,7 +4322,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!VATAmtCaption.Value</Value>
+                                                    <Value>=Fields!VATAmtCaption.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -4361,7 +4362,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -4396,7 +4397,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -4433,7 +4434,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -4470,7 +4471,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -4507,7 +4508,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -4544,7 +4545,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -4581,7 +4582,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -4623,7 +4624,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -4651,7 +4652,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -4681,7 +4682,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -4711,7 +4712,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -4741,7 +4742,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -4771,7 +4772,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -4801,7 +4802,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -4835,7 +4836,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!VATAmtLineVATIdentifier.Value</Value>
+                                                    <Value>=Fields!VATAmtLineVATIdentifier.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -4869,7 +4870,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!VATAmtLineVATPercentage.Value</Value>
+                                                    <Value>=Fields!VATAmtLineVATPercentage.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -4905,7 +4906,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!VATAmtLineLineAmt.Value</Value>
+                                                    <Value>=Fields!VATAmtLineLineAmt.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -4941,7 +4942,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!VATAmtLineInvDiscBaseAmt.Value</Value>
+                                                    <Value>=Fields!VATAmtLineInvDiscBaseAmt.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -4976,7 +4977,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!VATAmtLineInvDiscAmt.Value</Value>
+                                                    <Value>=Fields!VATAmtLineInvDiscAmt.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -5011,7 +5012,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!VATAmountLineVATBase.Value</Value>
+                                                    <Value>=Fields!VATAmountLineVATBase.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -5047,7 +5048,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!VATAmtLineVATAmt.Value</Value>
+                                                    <Value>=Fields!VATAmtLineVATAmt.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -5086,7 +5087,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -5120,7 +5121,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -5153,7 +5154,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -5192,7 +5193,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -5231,7 +5232,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -5270,7 +5271,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -5309,7 +5310,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -5353,7 +5354,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -5385,7 +5386,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -5416,7 +5417,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -5456,7 +5457,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -5496,7 +5497,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -5536,7 +5537,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -5576,7 +5577,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -5621,7 +5622,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!TotalCaption.Value</Value>
+                                                    <Value>=Fields!TotalCaption.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -5658,7 +5659,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -5695,7 +5696,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Sum(Fields!VATAmtLineLineAmt.Value)</Value>
+                                                    <Value>=Sum(Fields!VATAmtLineLineAmt.Value)</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -5736,7 +5737,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Sum(Fields!VATAmtLineInvDiscBaseAmt.Value)</Value>
+                                                    <Value>=Sum(Fields!VATAmtLineInvDiscBaseAmt.Value)</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -5777,7 +5778,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Sum(Fields!VATAmtLineInvDiscAmt.Value)</Value>
+                                                    <Value>=Sum(Fields!VATAmtLineInvDiscAmt.Value)</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -5818,7 +5819,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Sum(Fields!VATAmountLineVATBase.Value)</Value>
+                                                    <Value>=Sum(Fields!VATAmountLineVATBase.Value)</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -5860,7 +5861,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Sum(Fields!VATAmtLineVATAmt.Value)</Value>
+                                                    <Value>=Sum(Fields!VATAmtLineVATAmt.Value)</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -5960,7 +5961,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                 </Filter>
                               </Filters>
                               <Top>7.04826cm</Top>
-                              <Height>0.635cm</Height>
+                              <Height>0.63504cm</Height>
                               <Width>7.30684in</Width>
                               <ZIndex>5</ZIndex>
                               <Visibility>
@@ -6000,7 +6001,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!VALSpecLCYHeader.Value</Value>
+                                                    <Value>=Fields!VALSpecLCYHeader.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -6042,7 +6043,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=First(Fields!VALExchRate.Value)</Value>
+                                                    <Value>=First(Fields!VALExchRate.Value)</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -6084,7 +6085,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!VATIdentifierCaption.Value</Value>
+                                                    <Value>=Fields!VATIdentifierCaption.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -6119,7 +6120,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!VATPercentageCaption.Value</Value>
+                                                    <Value>=Fields!VATPercentageCaption.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -6154,7 +6155,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!VATBaseCaption.Value</Value>
+                                                    <Value>=Fields!VATBaseCaption.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -6189,7 +6190,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!VATAmtCaption.Value</Value>
+                                                    <Value>=Fields!VATAmtCaption.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -6229,7 +6230,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -6264,7 +6265,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -6301,7 +6302,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -6338,7 +6339,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -6380,7 +6381,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -6408,7 +6409,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -6438,7 +6439,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -6468,7 +6469,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -6502,7 +6503,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!VATAmtLineVATIdentifier2.Value</Value>
+                                                    <Value>=Fields!VATAmtLineVATIdentifier2.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -6535,7 +6536,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!VATAmtLineVATPercentage2.Value</Value>
+                                                    <Value>=Fields!VATAmtLineVATPercentage2.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -6569,7 +6570,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!VALVATBaseLCY.Value</Value>
+                                                    <Value>=Fields!VALVATBaseLCY.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -6605,7 +6606,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!VALVATAmountLCY.Value</Value>
+                                                    <Value>=Fields!VALVATAmountLCY.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -6645,7 +6646,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -6677,7 +6678,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -6709,7 +6710,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -6749,7 +6750,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -6794,7 +6795,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -6826,7 +6827,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -6858,7 +6859,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -6894,7 +6895,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -6935,7 +6936,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Fields!TotalCaption.Value</Value>
+                                                    <Value>=Fields!TotalCaption.Value</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -6972,7 +6973,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -7009,7 +7010,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Sum(Fields!VALVATBaseLCY.Value)</Value>
+                                                    <Value>=Sum(Fields!VALVATBaseLCY.Value)</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -7051,7 +7052,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Sum(Fields!VALVATAmountLCY.Value)</Value>
+                                                    <Value>=Sum(Fields!VALVATAmountLCY.Value)</Value>
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -7098,7 +7099,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -7129,7 +7130,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -7160,7 +7161,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -7193,7 +7194,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontFamily>Segoe UI</FontFamily>
                                                       <FontSize>8pt</FontSize>
@@ -7285,7 +7286,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                 </Filter>
                               </Filters>
                               <Top>7.87905cm</Top>
-                              <Height>0.79375cm</Height>
+                              <Height>0.7938cm</Height>
                               <Width>10.47615cm</Width>
                               <ZIndex>6</ZIndex>
                               <Visibility>
@@ -7338,7 +7339,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -7383,7 +7384,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -7423,7 +7424,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -7462,7 +7463,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!TotalExclVATText.Value)</Value>
+                                                    <Value>=Last(Fields!TotalExclVATText.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -7503,7 +7504,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!TotalAmount.Value)</Value>
+                                                    <Value>=Last(Fields!TotalAmount.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -7542,7 +7543,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -7591,7 +7592,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -7631,7 +7632,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -7662,7 +7663,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -7697,7 +7698,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!AmountEco_ConributionCaption.Value)</Value>
+                                                    <Value>=Last(Fields!AmountEco_ConributionCaption.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -7733,7 +7734,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!TotalDEEEHTAmount.Value)</Value>
+                                                    <Value>=Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -7767,7 +7768,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -7811,7 +7812,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -7851,7 +7852,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -7886,7 +7887,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -7921,7 +7922,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!DOWN_PAYMENTCaption.Value)</Value>
+                                                    <Value>=Last(Fields!DOWN_PAYMENTCaption.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -7958,7 +7959,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
+                                                    <Value>=Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -7992,7 +7993,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -8036,7 +8037,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -8072,7 +8073,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -8107,7 +8108,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -8141,7 +8142,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!VATAmountLine_VATAmountText.Value)</Value>
+                                                    <Value>=Last(Fields!VATAmountLine_VATAmountText.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -8177,7 +8178,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!TotalAmountVATDEE.Value)</Value>
+                                                    <Value>=Last(Fields!TotalAmountVATDEE.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -8211,7 +8212,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -8254,7 +8255,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -8293,7 +8294,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -8327,7 +8328,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -8361,7 +8362,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!Excl__VAT_Total_Incl_DEEECaption.Value)</Value>
+                                                    <Value>=Last(Fields!Excl__VAT_Total_Incl_DEEECaption.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -8398,7 +8399,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!TotalAmtHTDEEE.Value)</Value>
+                                                    <Value>=Last(Fields!TotalAmtHTDEEE.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -8433,7 +8434,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -8477,7 +8478,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -8517,7 +8518,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -8552,7 +8553,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -8587,7 +8588,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!TotalInclVATText.Value)</Value>
+                                                    <Value>=Last(Fields!TotalInclVATText.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -8623,7 +8624,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!TotalAmountInclVATDEE.Value)</Value>
+                                                    <Value>=Last(Fields!TotalAmountInclVATDEE.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -8657,7 +8658,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -8701,7 +8702,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -8741,7 +8742,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -8776,7 +8777,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -8811,7 +8812,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!TOTAL_incl__VATCaption.Value)</Value>
+                                                    <Value>=Last(Fields!TOTAL_incl__VATCaption.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -8849,7 +8850,7 @@ Last(Fields!TotalDEEEHTAmount.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!TotalAmountInclVATDEE.Value) - 
+                                                    <Value>=Last(Fields!TotalAmountInclVATDEE.Value) - 
 Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
@@ -8885,7 +8886,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!CodeGCurrency.Value)</Value>
+                                                    <Value>=Last(Fields!CodeGCurrency.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -8929,7 +8930,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -8974,7 +8975,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -9014,7 +9015,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -9054,7 +9055,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!Terms_of_PaymentCaption.Value)</Value>
+                                                    <Value>=Last(Fields!Terms_of_PaymentCaption.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -9096,7 +9097,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!PaymentTerms_Description.Value)</Value>
+                                                    <Value>=Last(Fields!PaymentTerms_Description.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -9218,7 +9219,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!Without_your_agreement_by_return__we_regard_these_elements_as_accepted_from_your_part_Caption.Value)</Value>
+                                                    <Value>=Last(Fields!Without_your_agreement_by_return__we_regard_these_elements_as_accepted_from_your_part_Caption.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -9272,7 +9273,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -9308,7 +9309,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!DATE__Caption.Value)</Value>
+                                                    <Value>=Last(Fields!DATE__Caption.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -9339,7 +9340,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -9371,7 +9372,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -9405,7 +9406,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!SEAL__Caption.Value)</Value>
+                                                    <Value>=Last(Fields!SEAL__Caption.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -9439,7 +9440,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -9473,7 +9474,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto" />
+                                                    <Value />
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -9506,7 +9507,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value EvaluationMode="Auto">=Last(Fields!SIGNATURE__Caption.Value)</Value>
+                                                    <Value>=Last(Fields!SIGNATURE__Caption.Value)</Value>
                                                     <Style>
                                                       <FontStyle>Normal</FontStyle>
                                                       <FontFamily>Segoe UI</FontFamily>
@@ -9686,7 +9687,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(26,1)</Value>
+                      <Value>=Code.GetData(26,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -9712,7 +9713,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(24,1)</Value>
+                      <Value>=Code.GetData(24,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -9738,7 +9739,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(29,1)</Value>
+                      <Value>=Code.GetData(29,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -9762,7 +9763,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(30,1)</Value>
+                      <Value>=Code.GetData(30,1)</Value>
                       <Style>
                         <FontSize>7pt</FontSize>
                       </Style>
@@ -9786,7 +9787,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(16,1)</Value>
+                      <Value>=Code.GetData(16,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -9810,7 +9811,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(7,1)</Value>
+                      <Value>=Code.GetData(7,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -9834,7 +9835,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(22,1)</Value>
+                      <Value>=Code.GetData(22,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -9861,7 +9862,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(1,1)</Value>
+                      <Value>=Code.GetData(1,1)</Value>
                       <Style>
                         <FontSize>18pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -9887,7 +9888,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(28,1)</Value>
+                      <Value>=Code.GetData(28,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -9911,7 +9912,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(21,1)</Value>
+                      <Value>=Code.GetData(21,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -9936,7 +9937,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(17,1)</Value>
+                      <Value>=Code.GetData(17,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -9963,7 +9964,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(25,1)</Value>
+                      <Value>=Code.GetData(25,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -9990,7 +9991,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(23,1)</Value>
+                      <Value>=Code.GetData(23,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -10017,7 +10018,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(10,1)</Value>
+                      <Value>=Code.GetData(10,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -10044,7 +10045,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(27,1)</Value>
+                      <Value>=Code.GetData(27,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -10069,7 +10070,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(19,1)</Value>
+                      <Value>=Code.GetData(19,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -10096,7 +10097,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(8,1)</Value>
+                      <Value>=Code.GetData(8,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -10119,7 +10120,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(18,1)</Value>
+                      <Value>=Code.GetData(18,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -10145,7 +10146,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(11,1)</Value>
+                      <Value>=Code.GetData(11,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -10170,7 +10171,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(13,1)</Value>
+                      <Value>=Code.GetData(13,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -10194,7 +10195,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(12,1)</Value>
+                      <Value>=Code.GetData(12,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -10218,7 +10219,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">="Page" &amp; " " &amp; Code.GetGroupPageNumber(ReportItems!NewPage.Value,Globals!PageNumber)</Value>
+                      <Value>="Page" &amp; " " &amp; Code.GetGroupPageNumber(ReportItems!NewPage.Value,Globals!PageNumber)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -10244,7 +10245,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(14,1)</Value>
+                      <Value>=Code.GetData(14,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -10268,7 +10269,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(15,1)</Value>
+                      <Value>=Code.GetData(15,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -10292,7 +10293,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(2,1)</Value>
+                      <Value>=Code.GetData(2,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -10317,7 +10318,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(20,1)</Value>
+                      <Value>=Code.GetData(20,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -10343,7 +10344,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(9,1)</Value>
+                      <Value>=Code.GetData(9,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -10369,7 +10370,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(5,1)</Value>
+                      <Value>=Code.GetData(5,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -10393,7 +10394,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(6,1)</Value>
+                      <Value>=Code.GetData(6,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -10417,7 +10418,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(3,1)</Value>
+                      <Value>=Code.GetData(3,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -10441,7 +10442,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Code.GetData(4,1)</Value>
+                      <Value>=Code.GetData(4,1)</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -10465,7 +10466,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto" />
+                      <Value />
                       <Style>
                         <Color>Red</Color>
                       </Style>
@@ -10501,7 +10502,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Fields!CompanyAddr_1_.Value</Value>
+                      <Value>=Fields!CompanyAddr_1_.Value</Value>
                       <Style>
                         <FontSize>8pt</FontSize>
                       </Style>
@@ -10531,7 +10532,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Fields!CompanyAddr_2______CompanyAddr_3______STRSUBSTNO___1__2__CompanyAddr_4__CompanyAddr_5__.Value</Value>
+                      <Value>=Fields!CompanyAddr_2______CompanyAddr_3______STRSUBSTNO___1__2__CompanyAddr_4__CompanyAddr_5__.Value</Value>
                       <Style>
                         <FontSize>8pt</FontSize>
                       </Style>
@@ -10563,7 +10564,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Fields!STRSUBSTNO_Text066_TxtGPhone_TxtGFax_TxtGEmail_.Value</Value>
+                      <Value>=Fields!STRSUBSTNO_Text066_TxtGPhone_TxtGFax_TxtGEmail_.Value</Value>
                       <Style>
                         <FontSize>7pt</FontSize>
                       </Style>
@@ -10593,7 +10594,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Fields!STRSUBSTNO_Text067_CompanyInfo__Legal_Form__CompanyInfo__Stock_Capital__CompanyInfo__Trade_Register__CompanyInfo__APE_Code__CompanyInfo__VAT_Registration_No___.Value</Value>
+                      <Value>=Fields!DataItem1000000054.Value</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -10623,7 +10624,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Fields!TxtGAltName.Value</Value>
+                      <Value>=Fields!TxtGAltName.Value</Value>
                       <Style>
                         <FontSize>7pt</FontSize>
                       </Style>
@@ -10660,7 +10661,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Fields!TxtGAltAdress______TxtGAltAdress2_____STRSUBSTNO___1__2__TxtGAltPostCode_TxtGAltCity_.Value</Value>
+                      <Value>=Fields!TxtGAltAdress______TxtGAltAdress2_____STRSUBSTNO___1__2__TxtGAltPostCode_TxtGAltCity_.Value</Value>
                       <Style>
                         <FontSize>7pt</FontSize>
                       </Style>
@@ -10698,7 +10699,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Fields!STRSUBSTNO_Text066_TxtGAltPhone_TxtGAltFax_TxtGAltEmail_.Value</Value>
+                      <Value>=Fields!STRSUBSTNO_Text066_TxtGAltPhone_TxtGAltFax_TxtGAltEmail_.Value</Value>
                       <Style>
                         <FontSize>7pt</FontSize>
                       </Style>
@@ -10736,7 +10737,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Fields!TxtGHomePage.Value</Value>
+                      <Value>=Fields!TxtGHomePage.Value</Value>
                       <Style>
                         <FontSize>8pt</FontSize>
                       </Style>
@@ -10767,7 +10768,7 @@ Last(Fields!Sales_Header___Advance_Payment_.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value EvaluationMode="Auto">=Fields!STRSUBSTNO_Text068_TxtGAltHomePage_.Value</Value>
+                      <Value>=Fields!STRSUBSTNO_Text068_TxtGAltHomePage_.Value</Value>
                       <Style>
                         <FontSize>8pt</FontSize>
                       </Style>

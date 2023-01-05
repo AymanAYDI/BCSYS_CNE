@@ -3,7 +3,7 @@ page 50048 "Salespers Processor Activities"
     Caption = 'Activities', Comment = 'FRA="Activités"';
     PageType = CardPart;
     SourceTable = "Sales Cue";
-
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -11,12 +11,12 @@ page 50048 "Salespers Processor Activities"
             cuegroup("For Release")
             {
                 Caption = 'For Release', Comment = 'FRA="À lancer"';
-                field("Sales Quotes Salesperson-Open"; "BC6_Sales Quot.Sales/per-Open")
+                field("Sales Quotes Salesperson-Open"; Rec."BC6_Sales Quot.Sales/per-Open")
                 {
                     DrillDownPageID = "Sales Quotes";
                     ApplicationArea = All;
                 }
-                field("Sales Orders Salesperson- Open"; "BC6_Sales Ord Sales/per- Open")
+                field("Sales Orders Salesperson- Open"; Rec."BC6_Sales Ord Sales/per- Open")
                 {
                     DrillDownPageID = "Sales Order List";
                     ApplicationArea = All;
@@ -44,17 +44,17 @@ page 50048 "Salespers Processor Activities"
             cuegroup("Sales Orders Released Not Shipped")
             {
                 Caption = 'Sales Orders Released Not Shipped', Comment = 'FRA="Commandes vente lancées et non livrées"';
-                field("Ready to Ship Salesperson"; "BC6_Ready to Ship Salesperson")
+                field("Ready to Ship Salesperson"; Rec."BC6_Ready to Ship Salesperson")
                 {
                     DrillDownPageID = "Sales Order List";
                     ApplicationArea = All;
                 }
-                field("Partially Shipped Salesperson"; "BC6_Partially Ship. Sales/per")
+                field("Partially Shipped Salesperson"; Rec."BC6_Partially Ship. Sales/per")
                 {
                     DrillDownPageID = "Sales Order List";
                     ApplicationArea = All;
                 }
-                field("Delayed Salesperson"; "BC6_Delayed Salesperson")
+                field("Delayed Salesperson"; Rec."BC6_Delayed Salesperson")
                 {
                     DrillDownPageID = "Sales Order List";
                     ApplicationArea = All;
@@ -65,16 +65,16 @@ page 50048 "Salespers Processor Activities"
                     action(Navigate)
                     {
                         Caption = 'Navigate', Comment = 'FRA="Naviguer"';
+                        ApplicationArea = All;
                         Image = Navigate;
                         RunObject = Page Navigate;
-                        ApplicationArea = All;
                     }
                 }
             }
             cuegroup(Returns)
             {
                 Caption = 'Returns', Comment = 'FRA="Retours"';
-                field("Sales Return Orders Salesperso"; "BC6_Sales Ret. Ord. Sales/per")
+                field("Sales Return Orders Salesperso"; Rec."BC6_Sales Ret. Ord. Sales/per")
                 {
                     DrillDownPageID = "Sales Return Order List";
                     ApplicationArea = All;
@@ -100,20 +100,20 @@ page 50048 "Salespers Processor Activities"
 
     trigger OnOpenPage()
     begin
-        RESET();
-        IF NOT GET() THEN BEGIN
-            INIT();
-            INSERT();
+        Rec.RESET();
+        IF NOT Rec.GET() THEN BEGIN
+            Rec.INIT();
+            Rec.INSERT();
         END;
 
-        SetRespCenterFilter();
-        SETRANGE("Date Filter", 0D, WORKDATE() - 1);
-        SETFILTER("Date Filter2", '>=%1', WORKDATE());
+        Rec.SetRespCenterFilter();
+        Rec.SETRANGE("Date Filter", 0D, WORKDATE() - 1);
+        Rec.SETFILTER("Date Filter2", '>=%1', WORKDATE());
 
         IF NOT RecGUserSetup.GET(USERID) THEN
             RecGUserSetup.INIT();
         IF RecGUserSetup."BC6_Limited User" THEN
-            SETFILTER("BC6_Salesperson Filter", '*' + RecGUserSetup."Salespers./Purch. Code" + '*');
+            Rec.SETFILTER("BC6_Salesperson Filter", '*' + RecGUserSetup."Salespers./Purch. Code" + '*');
     end;
 
     var

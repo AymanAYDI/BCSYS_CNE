@@ -11,11 +11,11 @@ pageextension 50065 "BC6_PurchaseInvoiceStatistics" extends "Purchase Invoice St
             field(BC6_VATAmount2; NewVATAmount)
             {
                 ApplicationArea = Basic, Suite;
-                AutoFormatExpression = "Currency Code";
+                AutoFormatExpression = Rec."Currency Code";
                 AutoFormatType = 1;
                 CaptionClass = '3,' + Format(NewVATAmountText);
-                Caption = 'VAT Amount';
-                ToolTip = 'Specifies the total VAT amount that has been calculated for all the lines in the purchase document.';
+                Caption = 'VAT Amount', Comment = 'FRA="Montant TVA"';
+                ToolTip = 'Specifies the total VAT amount that has been calculated for all the lines in the purchase document.', Comment = 'FRA="Spécifie le montant total de la TVA qui a été calculée pour toutes les lignes du document achat."';
             }
         }
 
@@ -29,8 +29,8 @@ pageextension 50065 "BC6_PurchaseInvoiceStatistics" extends "Purchase Invoice St
             {
                 ApplicationArea = Basic, Suite;
                 AutoFormatType = 1;
-                Caption = 'Purchase (LCY)';
-                ToolTip = 'Specifies your total purchases.';
+                Caption = 'Purchase (LCY)', Comment = 'FRA="Achats DS"';
+                ToolTip = 'Specifies your total purchases.', Comment = 'FRA="Spécifie le total de vos achats."';
             }
         }
         addafter(VATAmount)
@@ -106,12 +106,12 @@ pageextension 50065 "BC6_PurchaseInvoiceStatistics" extends "Purchase Invoice St
         ELSE
             NewAmountLCY :=
               CurrExchRate.ExchangeAmtFCYToLCY(
-                WORKDATE(), Rec."Currency Code", NewVendAmount + DecGMntHTDEEE, "Currency Factor");
+                WORKDATE(), Rec."Currency Code", NewVendAmount + DecGMntHTDEEE, Rec."Currency Factor");
 
         VendLedgEntry.SETCURRENTKEY("Document No.");
-        VendLedgEntry.SETRANGE("Document No.", "No.");
+        VendLedgEntry.SETRANGE("Document No.", Rec."No.");
         VendLedgEntry.SETRANGE("Document Type", VendLedgEntry."Document Type"::"Credit Memo");
-        VendLedgEntry.SETRANGE("Vendor No.", "Pay-to Vendor No.");
+        VendLedgEntry.SETRANGE("Vendor No.", Rec."Pay-to Vendor No.");
         IF VendLedgEntry.FINDFIRST() THEN
             NewAmountLCY := VendLedgEntry."Purchase (LCY)";
 

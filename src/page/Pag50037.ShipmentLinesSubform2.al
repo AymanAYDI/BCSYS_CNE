@@ -15,145 +15,145 @@ page 50037 "BC6_Shipment Lines Subform 2"
         {
             repeater(Control1)
             {
-                field("Document No."; "Document No.")
+                field("Document No."; Rec."Document No.")
                 {
                     HideValue = "Document No.HideValue";
                     Lookup = false;
                     ApplicationArea = All;
                 }
-                field("Shipment Date"; "Shipment Date")
+                field("Shipment Date"; Rec."Shipment Date")
                 {
                     ApplicationArea = All;
                 }
-                field("Bill-to Customer No."; "Bill-to Customer No.")
-                {
-                    Visible = false;
-                    ApplicationArea = All;
-                }
-                field("Amount(LCY)"; "BC6_Amount(LCY)")
-                {
-                    ApplicationArea = All;
-                }
-                field("Purchase Cost"; "BC6_Purchase Cost")
-                {
-                    ApplicationArea = All;
-                }
-                field("Public Price"; "BC6_Public Price")
-                {
-                    ApplicationArea = All;
-                }
-                field("Discount Unit Price"; "BC6_Discount Unit Price")
-                {
-                    ApplicationArea = All;
-                }
-                field("Sell-to Customer No."; "Sell-to Customer No.")
+                field("Bill-to Customer No."; Rec."Bill-to Customer No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field(Type; Type)
+                field("Amount(LCY)"; Rec."BC6_Amount(LCY)")
                 {
                     ApplicationArea = All;
                 }
-                field("No."; "No.")
+                field("Purchase Cost"; Rec."BC6_Purchase Cost")
                 {
                     ApplicationArea = All;
                 }
-                field("Cross-Reference No."; "Cross-Reference No.")
+                field("Public Price"; Rec."BC6_Public Price")
                 {
-                    Visible = false;
                     ApplicationArea = All;
                 }
-                field("Variant Code"; "Variant Code")
+                field("Discount Unit Price"; Rec."BC6_Discount Unit Price")
                 {
-                    Visible = false;
                     ApplicationArea = All;
                 }
-                field(Nonstock; Nonstock)
+                field("Sell-to Customer No."; Rec."Sell-to Customer No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field(Description; Description)
+                field(Type; Rec.Type)
                 {
                     ApplicationArea = All;
                 }
-                field("Return Reason Code"; "Return Reason Code")
+                field("No."; Rec."No.")
+                {
+                    ApplicationArea = All;
+                }
+                field("Cross-Reference No."; Rec."Cross-Reference No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Currency Code"; "Currency Code")
+                field("Variant Code"; Rec."Variant Code")
+                {
+                    Visible = false;
+                    ApplicationArea = All;
+                }
+                field(Nonstock; Rec.Nonstock)
+                {
+                    Visible = false;
+                    ApplicationArea = All;
+                }
+                field(Description; Rec.Description)
+                {
+                    ApplicationArea = All;
+                }
+                field("Return Reason Code"; Rec."Return Reason Code")
+                {
+                    Visible = false;
+                    ApplicationArea = All;
+                }
+                field("Currency Code"; Rec."Currency Code")
                 {
                     DrillDown = false;
                     Lookup = false;
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Location Code"; "Location Code")
+                field("Location Code"; Rec."Location Code")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Bin Code"; "Bin Code")
+                field("Bin Code"; Rec."Bin Code")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
+                field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
+                field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Unit of Measure Code"; "Unit of Measure Code")
+                field("Unit of Measure Code"; Rec."Unit of Measure Code")
                 {
                     ApplicationArea = All;
                 }
-                field(Quantity; Quantity)
+                field(Quantity; Rec.Quantity)
                 {
                     ApplicationArea = All;
                 }
-                field("Unit of Measure"; "Unit of Measure")
-                {
-                    Visible = false;
-                    ApplicationArea = All;
-                }
-                field("Unit Cost (LCY)"; "Unit Cost (LCY)")
+                field("Unit of Measure"; Rec."Unit of Measure")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Line Discount %"; "Line Discount %")
+                field("Unit Cost (LCY)"; Rec."Unit Cost (LCY)")
+                {
+                    Visible = false;
+                    ApplicationArea = All;
+                }
+                field("Line Discount %"; Rec."Line Discount %")
                 {
                     BlankZero = true;
                     ApplicationArea = All;
                 }
-                field("Allow Invoice Disc."; "Allow Invoice Disc.")
+                field("Allow Invoice Disc."; Rec."Allow Invoice Disc.")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Job No."; "Job No.")
+                field("Job No."; Rec."Job No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Blanket Order No."; "Blanket Order No.")
+                field("Blanket Order No."; Rec."Blanket Order No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Blanket Order Line No."; "Blanket Order Line No.")
+                field("Blanket Order Line No."; Rec."Blanket Order Line No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Appl.-from Item Entry"; "Appl.-from Item Entry")
+                field("Appl.-from Item Entry"; Rec."Appl.-from Item Entry")
                 {
                     Visible = false;
                     ApplicationArea = All;
@@ -185,15 +185,15 @@ page 50037 "BC6_Shipment Lines Subform 2"
     begin
         TempSalesShptLine.RESET();
         TempSalesShptLine.COPYFILTERS(Rec);
-        TempSalesShptLine.SETRANGE("Document No.", "Document No.");
+        TempSalesShptLine.SETRANGE("Document No.", Rec."Document No.");
         IF NOT TempSalesShptLine.FIND('-') THEN BEGIN
             SalesShptLine.COPYFILTERS(Rec);
-            SalesShptLine.SETRANGE("Document No.", "Document No.");
+            SalesShptLine.SETRANGE("Document No.", Rec."Document No.");
             SalesShptLine.FindFirst();
             TempSalesShptLine := SalesShptLine;
             TempSalesShptLine.INSERT();
         END;
-        IF "Line No." = TempSalesShptLine."Line No." THEN
+        IF Rec."Line No." = TempSalesShptLine."Line No." THEN
             EXIT(TRUE);
     end;
 

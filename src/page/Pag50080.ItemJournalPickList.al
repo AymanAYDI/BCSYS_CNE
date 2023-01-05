@@ -5,30 +5,30 @@ page 50080 "BC6_Item Journal Pick List"
     Editable = false;
     PageType = List;
     SourceTable = "Item Journal Line";
-
+    UsageCategory = None;
     layout
     {
         area(content)
         {
             repeater(Group)
             {
-                field("Document No."; "Document No.")
+                field("Document No."; Rec."Document No.")
                 {
                     ApplicationArea = All;
                 }
-                field(Description; Description)
+                field(Description; Rec.Description)
                 {
                     ApplicationArea = All;
                 }
-                field("Item No."; "Item No.")
+                field("Item No."; Rec."Item No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Bin Code"; "Bin Code")
+                field("Bin Code"; Rec."Bin Code")
                 {
                     ApplicationArea = All;
                 }
-                field("New Bin Code"; "New Bin Code")
+                field("New Bin Code"; Rec."New Bin Code")
                 {
                     ApplicationArea = All;
                 }
@@ -64,7 +64,7 @@ page 50080 "BC6_Item Journal Pick List"
 
                 trigger OnAction()
                 begin
-                    DELETEALL(TRUE);
+                    Rec.DELETEALL(TRUE);
                 end;
             }
         }
@@ -93,11 +93,11 @@ page 50080 "BC6_Item Journal Pick List"
             ItemJnlTemplate.TESTFIELD(Type, ItemJnlTemplate.Type::Transfer);
             ItemBatchJnl.SETRANGE("Journal Template Name", ItemJnlTemplate.Name);
             ItemBatchJnl.SETRANGE("BC6_Assigned User ID", USERID);
-            IF ItemBatchJnl.FIND('-') THEN BEGIN
-                FILTERGROUP := 2;
-                SETFILTER("Journal Template Name", ItemBatchJnl."Journal Template Name");
-                SETFILTER("Journal Batch Name", ItemBatchJnl.Name);
-                FILTERGROUP := 0;
+            IF ItemBatchJnl.FindFirst() THEN BEGIN
+                Rec.FILTERGROUP := 2;
+                Rec.SETFILTER("Journal Template Name", ItemBatchJnl."Journal Template Name");
+                Rec.SETFILTER("Journal Batch Name", ItemBatchJnl.Name);
+                Rec.FILTERGROUP := 0;
             END ELSE BEGIN
                 ERROR(Text015, USERID);
                 exit(false);

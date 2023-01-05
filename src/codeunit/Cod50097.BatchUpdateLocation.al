@@ -18,7 +18,8 @@ codeunit 50097 "BC6_Batch.Update Location"
                     Text003 + '\' +
                     Text004 + '\' +
                     Text005);
-
+        TotalCounter2 := 0;
+        TotalCounter4 := 0;
         Window.UPDATE(2, TotalCounter);
         Window.UPDATE(4, TotalCounter2);
         Window.UPDATE(6, TotalCounter3);

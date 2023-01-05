@@ -6,7 +6,7 @@ page 50070 "BC6_Inventory Pick Mini"
     SaveValues = true;
     SourceTable = "Warehouse Activity Header";
     SourceTableView = WHERE(Type = CONST("Invt. Pick"));
-
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -14,27 +14,27 @@ page 50070 "BC6_Inventory Pick Mini"
             group(General)
             {
                 Caption = 'General', Comment = 'FRA="Général"';
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
 
                     trigger OnAssistEdit()
                     begin
-                        IF AssistEdit(xRec) THEN
+                        IF Rec.AssistEdit(xRec) THEN
                             CurrPage.UPDATE();
                     end;
                 }
-                field("Location Code"; "Location Code")
+                field("Location Code"; Rec."Location Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Source Document"; "Source Document")
+                field("Source Document"; Rec."Source Document")
                 {
                     DrillDown = false;
                     Lookup = false;
                     ApplicationArea = All;
                 }
-                field(SourceNoCtrl; "Source No.")
+                field(SourceNoCtrl; Rec."Source No.")
                 {
                     Editable = BooGSourceNoCtrl;
                     ApplicationArea = All;
@@ -45,9 +45,7 @@ page 50070 "BC6_Inventory Pick Mini"
                     begin
                         CreateInvtPick.RUN(Rec);
 
-                        //>>MIGRATION NAV 2013
                         CtrlEditable();
-                        //<<MIGRATION NAV 2013
 
                         CurrPage.UPDATE();
                         CurrPage.WhseActivityLines.PAGE.UpdateForm();
@@ -58,66 +56,64 @@ page 50070 "BC6_Inventory Pick Mini"
                         SourceNoOnAfterValidate();
                     end;
                 }
-                field(DestinationNoCtrl; "Destination No.")
+                field(DestinationNoCtrl; Rec."Destination No.")
                 {
                     CaptionClass = FORMAT(WMSMgt.GetCaption("Destination Type".AsInteger(), "Source Document".AsInteger(), 0));
                     Editable = BooGDestinationNoCtrl;
                     ApplicationArea = All;
                 }
-                field(DestinationName; WMSMgt.GetDestinationEntityName("Destination Type", "Destination No."))
+                field(DestinationName; WMSMgt.GetDestinationEntityName(Rec."Destination Type", Rec."Destination No."))
                 {
                     CaptionClass = FORMAT(WMSMgt.GetCaption(Rec."Destination Type".AsInteger(), Rec."Source Document".AsInteger(), 1));
                     Caption = 'Name', Comment = 'FRA="Nom"';
                     Editable = false;
                     ApplicationArea = All;
                 }
-                field("Sales Counter"; "BC6_Sales Counter")
+                field("Sales Counter"; Rec."BC6_Sales Counter")
                 {
                     ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
-                        //>>MIGRATION NAV 2013
                         CtrlEditable();
-                        //<<MIGRATION NAV 2013
                     end;
                 }
-                field("No. Printed"; "No. Printed")
+                field("No. Printed"; Rec."No. Printed")
                 {
                     ApplicationArea = All;
                 }
-                field("Bin Code"; "BC6_Bin Code")
+                field("Bin Code"; Rec."BC6_Bin Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Your Reference"; "BC6_Your Reference")
+                field("Your Reference"; Rec."BC6_Your Reference")
                 {
                     ApplicationArea = All;
                 }
-                field("Destination Name"; "BC6_Destination Name")
-                {
-                    Editable = false;
-                    ApplicationArea = All;
-                }
-                field(Comments; BC6_Comments)
-                {
-                    ApplicationArea = All;
-                }
-                field("Posting Date"; "Posting Date")
-                {
-                    ApplicationArea = All;
-                }
-                field("Shipment Date"; "Shipment Date")
+                field("Destination Name"; Rec."BC6_Destination Name")
                 {
                     Editable = false;
                     ApplicationArea = All;
                 }
-                field("External Document No."; "External Document No.")
+                field(Comments; Rec.BC6_Comments)
+                {
+                    ApplicationArea = All;
+                }
+                field("Posting Date"; Rec."Posting Date")
+                {
+                    ApplicationArea = All;
+                }
+                field("Shipment Date"; Rec."Shipment Date")
+                {
+                    Editable = false;
+                    ApplicationArea = All;
+                }
+                field("External Document No."; Rec."External Document No.")
                 {
                     CaptionClass = FORMAT(WMSMgt.GetCaption(Rec."Destination Type".AsInteger(), Rec."Source Document".AsInteger(), 2));
                     ApplicationArea = All;
                 }
-                field("External Document No.2"; "External Document No.2")
+                field("External Document No.2"; Rec."External Document No.2")
                 {
                     CaptionClass = FORMAT(WMSMgt.GetCaption("Destination Type".AsInteger(), "Source Document".AsInteger(), 3));
                     ApplicationArea = All;
@@ -173,7 +169,7 @@ page 50070 "BC6_Inventory Pick Mini"
 
                     trigger OnAction()
                     begin
-                        LookupActivityHeader("Location Code", Rec);
+                        Rec.LookupActivityHeader(Rec."Location Code", Rec);
                     end;
                 }
                 action("Co&mments")
@@ -216,7 +212,7 @@ page 50070 "BC6_Inventory Pick Mini"
                     var
                         WMSMgt: Codeunit "WMS Management";
                     begin
-                        WMSMgt.ShowSourceDocCard("Source Type", "Source Subtype", "Source No.");
+                        WMSMgt.ShowSourceDocCard(Rec."Source Type", Rec."Source Subtype", Rec."Source No.");
                     end;
                 }
             }
@@ -241,9 +237,7 @@ page 50070 "BC6_Inventory Pick Mini"
                     var
                         CreateInvtPick: Codeunit "Create Inventory Pick/Movement";
                     begin
-                        //>>MIGRATION NAV 2013
                         IF CurrFormEditableOk THEN
-                            //<<MIGRATION NAV 2013
                             CreateInvtPick.RUN(Rec);
                     end;
                 }
@@ -255,9 +249,7 @@ page 50070 "BC6_Inventory Pick Mini"
 
                     trigger OnAction()
                     begin
-                        //>>MIGRATION NAV 2013
                         IF CurrFormEditableOk THEN
-                            //<<MIGRATION NAV 2013
                             AutofillQtyToHandle();
                     end;
                 }
@@ -269,9 +261,7 @@ page 50070 "BC6_Inventory Pick Mini"
 
                     trigger OnAction()
                     begin
-                        //>>MIGRATION NAV 2013
                         IF CurrFormEditableOk THEN
-                            //<<MIGRATION NAV 2013
                             DeleteQtyToHandle();
                     end;
                 }
@@ -346,8 +336,6 @@ page 50070 "BC6_Inventory Pick Mini"
                 Caption = 'Picking List', Comment = 'FRA="Liste des prélèvements"';
                 Image = "Report";
                 Promoted = false;
-                //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
-                //PromotedCategory = "Report";
                 RunObject = Report "Picking List";
                 ApplicationArea = All;
             }
@@ -356,9 +344,7 @@ page 50070 "BC6_Inventory Pick Mini"
 
     trigger OnAfterGetRecord()
     begin
-        //>>MIGRATION NAV 2013
         CtrlEditable();
-        //<<MIGRATION NAV 2013
     end;
 
     trigger OnDeleteRecord(): Boolean
@@ -368,28 +354,28 @@ page 50070 "BC6_Inventory Pick Mini"
 
     trigger OnFindRecord(Which: Text): Boolean
     begin
-        EXIT(FindFirstAllowedRec(Which));
+        EXIT(Rec.FindFirstAllowedRec(CopyStr(Which, 1, 1024))); // 0 VOIR WHICH
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        "Location Code" := GetUserLocation();
+        Rec."Location Code" := Rec.GetUserLocation();
     end;
 
     trigger OnNextRecord(Steps: Integer): Integer
     begin
-        EXIT(FindNextAllowedRec(Steps));
+        EXIT(Rec.FindNextAllowedRec(Steps));
     end;
 
     trigger OnOpenPage()
     var
         PermissionForm: Codeunit "BC6_Permission Form";
     begin
-        ErrorIfUserIsNotWhseEmployee();
+        Rec.ErrorIfUserIsNotWhseEmployee();
         CurrFormEditableOk := TRUE;
-        IF NOT PermissionForm.HasEditablePermission(USERID, 8, 7377) THEN
+        IF NOT PermissionForm.HasEditablePermission(CopyStr(USERID, 1, 65), 8, 7377) THEN
             CurrPage.EDITABLE(FALSE);
-        IF NOT PermissionForm.HasEditablePermission(USERID, 8, 7378) THEN
+        IF NOT PermissionForm.HasEditablePermission(CopyStr(USERID, 1, 65), 8, 7378) THEN
             CurrFormEditableOk := FALSE;
         BooGWhseActivityLines := CurrFormEditableOk;
     end;
@@ -405,7 +391,6 @@ page 50070 "BC6_Inventory Pick Mini"
         BooGWhseActivityLines: Boolean;
         CtrlEditableOk: Boolean;
         CurrFormEditableOk: Boolean;
-        "- MIGNAV2013 -": Integer;
 
     local procedure AutofillQtyToHandle()
     begin
@@ -433,15 +418,11 @@ page 50070 "BC6_Inventory Pick Mini"
         CurrPage.WhseActivityLines.PAGE.UpdateForm();
     end;
 
-    procedure "--- MIGNAV2013 ---"()
-    begin
-    end;
-
     procedure CtrlEditable()
     begin
-        CtrlEditableOk := ("Source No." = '') AND ("BC6_Sales Counter");
+        CtrlEditableOk := (Rec."Source No." = '') AND (Rec."BC6_Sales Counter");
         BooGDestinationNoCtrl := CtrlEditableOk;
-        BooGSourceNoCtrl := NOT "BC6_Sales Counter";
+        BooGSourceNoCtrl := NOT Rec."BC6_Sales Counter";
     end;
 }
 

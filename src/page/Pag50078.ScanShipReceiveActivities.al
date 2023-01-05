@@ -4,7 +4,7 @@ page 50078 "Scan Ship & Receive Activities"
     PageType = CardPart;
     RefreshOnActivate = true;
     SourceTable = "Warehouse Basic Cue";
-
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -12,7 +12,7 @@ page 50078 "Scan Ship & Receive Activities"
             cuegroup("In Progress")
             {
                 Caption = 'In Progress', Comment = 'FRA="En cours"';
-                field("My Invt. Lines Until Today"; "BC6_My Invt. Lines Until Today")
+                field("My Invt. Lines Until Today"; Rec."BC6_My Invt. Lines Until Today")
                 {
                     Caption = 'My Inventory Picks Until Today', Comment = 'FRA="Mes lignes Prélèvements stock à ce jour"';
                     ToolTip = 'Specifies the number of inventory picks that are displayed in the Warehouse Basic Cue on the Role Center. The documents are filtered by today''s date.', Comment = 'FRA="Spécifie le nombre de prélèvements stock qui sont affichés dans la pile Base entrepôt du tableau de bord. Les documents sont filtrés à la date du jour."';
@@ -23,7 +23,7 @@ page 50078 "Scan Ship & Receive Activities"
                         PAGE.RUN(PAGE::"BC6_Invt. Pick Card MiniForm");
                     end;
                 }
-                field("My Reclass. Lines Until Today"; "BC6_My Rec.Lines Until Today")
+                field("My Reclass. Lines Until Today"; Rec."BC6_My Rec.Lines Until Today")
                 {
                     Caption = 'My Inventory reclassment Until Today', Comment = 'FRA="Mes lignes reclassement stock à ce jour"';
                     ToolTip = 'Specifies the number of inventory put-always that are displayed in the Warehouse Basic Cue on the Role Center. The documents are filtered by today''s date.', Comment = 'FRA="Spécifie le nombre de rangements stock qui sont affichés dans la pile Base entrepôt du tableau de bord. Les documents sont filtrés à la date du jour."';
@@ -38,22 +38,22 @@ page 50078 "Scan Ship & Receive Activities"
             cuegroup("Internal Documents")
             {
                 Caption = 'Internal Documents', Comment = 'FRA="Documents internes"';
-                field("Upcoming Orders"; "BC6_Upcoming Orders")
+                field("Upcoming Orders"; Rec."BC6_Upcoming Orders")
                 {
                     DrillDownPageID = "Purchase Order List";
                     ToolTip = 'Specifies the number of upcoming orders that are displayed in the Purchase Cue on the Role Center. The documents are filtered by today''s date.', Comment = 'FRA="Spécifie le nombre de commandes à venir qui sont affichées dans la pile Achat du tableau de bord. Les documents sont filtrés à la date du jour."';
                     ApplicationArea = All;
                 }
-                field("Invt. Picks Until Today"; "Invt. Picks Until Today")
+                field("Invt. Picks Until Today"; Rec."Invt. Picks Until Today")
                 {
-                    Caption = 'Inventory Picks Until Today', Comment = 'FRA=""';
+                    Caption = 'Inventory Picks Until Today', Comment = 'FRA="Prélèvements stock à ce jour"';
                     DrillDownPageID = "Inventory Picks";
                     ToolTip = 'Specifies the number of inventory picks that are displayed in the Warehouse Basic Cue on the Role Center. The documents are filtered by today''s date.', Comment = 'FRA="Spécifie le nombre de prélèvements stock qui sont affichés dans la pile Base entrepôt du tableau de bord. Les documents sont filtrés à la date du jour."';
                     ApplicationArea = All;
                 }
-                field("Invt. Put-aways Until Today"; "Invt. Put-aways Until Today")
+                field("Invt. Put-aways Until Today"; Rec."Invt. Put-aways Until Today")
                 {
-                    Caption = 'Inventory Put-aways Until Today', Comment = 'FRA=""';
+                    Caption = 'Inventory Put-aways Until Today', Comment = 'FRA="Rangements stock à ce jour"';
                     DrillDownPageID = "Inventory Put-aways";
                     ToolTip = 'Specifies the number of inventory put-always that are displayed in the Warehouse Basic Cue on the Role Center. The documents are filtered by today''s date.', Comment = 'FRA="Spécifie le nombre de rangements stock qui sont affichés dans la pile Base entrepôt du tableau de bord. Les documents sont filtrés à la date du jour."';
                     ApplicationArea = All;
@@ -93,17 +93,17 @@ page 50078 "Scan Ship & Receive Activities"
 
     trigger OnOpenPage()
     begin
-        RESET();
-        IF NOT GET() THEN BEGIN
-            INIT();
-            INSERT();
+        Rec.RESET();
+        IF NOT Rec.GET() THEN BEGIN
+            Rec.INIT();
+            Rec.INSERT();
         END;
 
-        SETRANGE("Date Filter", 0D, WORKDATE());
-        SETRANGE("Date Filter2", WORKDATE(), WORKDATE());
+        Rec.SETRANGE("Date Filter", 0D, WORKDATE());
+        Rec.SETRANGE("Date Filter2", WORKDATE(), WORKDATE());
 
-        LocationCode := WhseWMSCue.GetEmployeeLocation(USERID);
-        SETFILTER("Location Filter", LocationCode);
+        LocationCode := WhseWMSCue.GetEmployeeLocation(CopyStr(USERID, 1, 50));
+        Rec.SETFILTER("Location Filter", LocationCode);
 
         OpenWithWhseEmployeeFilter(0);
         OpenWithWhseEmployeeFilter(1);
@@ -126,30 +126,30 @@ page 50078 "Scan Ship & Receive Activities"
             WhichItemJnlLineList::Pick:
                 BEGIN
                     ItemJnlTemplate.GET(InvSetup."BC6_Item Jnl Template Name 1");
-                    SETFILTER("BC6_Jour. Template Name Fil. I", InvSetup."BC6_Item Jnl Template Name 1");
+                    Rec.SETFILTER("BC6_Jour. Template Name Fil. I", InvSetup."BC6_Item Jnl Template Name 1");
                 END;
 
             WhichItemJnlLineList::Reclass:
                 BEGIN
                     ItemJnlTemplate.GET(InvSetup."BC6_Item Jnl Template Name 2");
-                    SETFILTER("BC6_Jour. Template Name Fil. R", InvSetup."BC6_Item Jnl Template Name 2");
+                    Rec.SETFILTER("BC6_Jour. Template Name Fil. R", InvSetup."BC6_Item Jnl Template Name 2");
                 END;
         END;
 
         IF USERID <> '' THEN BEGIN
             WhseEmployee.SETRANGE("User ID", USERID);
-            IF WhseEmployee.FIND('-') THEN BEGIN
+            IF WhseEmployee.FindFirst() THEN BEGIN
                 ItemJnlTemplate.TESTFIELD(Type, ItemJnlTemplate.Type::Transfer);
                 ItemBatchJnl.SETRANGE("Journal Template Name", ItemJnlTemplate.Name);
                 ItemBatchJnl.SETRANGE("BC6_Assigned User ID", USERID);
-                IF ItemBatchJnl.FIND('-') THEN;
+                IF ItemBatchJnl.FindFirst() THEN;
             END;
         END;
         CASE WhichItemJnlLineList OF
             WhichItemJnlLineList::Pick:
-                SETFILTER("BC6_Journ. Batch Name Fil. Inv", ItemBatchJnl.Name);
+                Rec.SETFILTER("BC6_Journ. Batch Name Fil. Inv", ItemBatchJnl.Name);
             WhichItemJnlLineList::Reclass:
-                SETFILTER("BC6_Journ. Batch Name Fil. Rec", ItemBatchJnl.Name);
+                Rec.SETFILTER("BC6_Journ. Batch Name Fil. Rec", ItemBatchJnl.Name);
         END;
     end;
 }

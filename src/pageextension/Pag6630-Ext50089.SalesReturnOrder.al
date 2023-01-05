@@ -6,19 +6,19 @@ pageextension 50089 "BC6_SalesReturnOrder" extends "Sales Return Order" //6630
     {
         addafter("Sell-to")
         {
-            field(BC6_ID; ID)
+            field(BC6_ID; Rec.BC6_ID)
             {
             }
-            field("BC6_Sell-to Fax No."; "BC6_Sell-to Fax No.")
+            field("BC6_Sell-to Fax No."; Rec."BC6_Sell-to Fax No.")
             {
             }
-            field("BC6_Affair No."; "BC6_Affair No.")
+            field("BC6_Affair No."; Rec."BC6_Affair No.")
             {
             }
         }
         addafter("Job Queue Status")
         {
-            field("BC6_Return Order Type"; "BC6_Return Order Type")
+            field("BC6_Return Order Type"; Rec."BC6_Return Order Type")
             {
             }
         }
@@ -89,7 +89,7 @@ pageextension 50089 "BC6_SalesReturnOrder" extends "Sales Return Order" //6630
                 var
                     L_ReturnOrderMgt: Codeunit "BC6_Return Order Mgt.";
                 begin
-                    L_ReturnOrderMgt.DisableRelatedDocuments("No.");
+                    L_ReturnOrderMgt.DisableRelatedDocuments(Rec."No.");
                     CurrPage.UPDATE();
                 end;
             }
@@ -105,31 +105,32 @@ pageextension 50089 "BC6_SalesReturnOrder" extends "Sales Return Order" //6630
         Text001: Label '';
         nameF: Text[250];
 
-    trigger OnInsertRecord(BelowxRec: Boolean): Boolean
-    var
-        Error: Label 'you don''t have permission to add records', Comment = 'FRA="vous n''êtes pas autorisé à ajouter des enregistrements"';
-    begin
-        Error(Error); //TODO: Check Modify property InsertAllowed by Error
-    end;
+    // trigger OnInsertRecord(BelowxRec: Boolean): Boolean
+    // var
+    //     Error: Label 'you don''t have permission to add records', Comment = 'FRA="vous n''êtes pas autorisé à ajouter des enregistrements"';
+    // begin
+    //     Error(Error); //TODO: Check Modify property InsertAllowed by Error
+    // end;
 
     procedure EnvoiMail()
     begin
-        cust.SETRANGE(cust."No.", "Sell-to Customer No.");
+        cust.SETRANGE(cust."No.", Rec."Sell-to Customer No.");
         IF cust.FindFirst() THEN
             cust.TESTFIELD("E-Mail");
         OpenFile();
         IF nameF <> '' THEN BEGIN
-            Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + "No.", '', nameF, FALSE);
+            Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + Rec."No.", '', nameF, FALSE);
             ERASE(nameF);
         END ELSE BEGIN
             ERASE(SalesSetup."BC6_Repertoire" + 'Envoi' + '\' + CurrPage.CAPTION);
             ERROR(Text001);
         END;
+        HistMail.Init();
         HistMail."No." := cust."No.";
         HistMail.Nom := cust.Name;
         HistMail."E-Mail" := cust."E-Mail";
         HistMail."Date d'envoi" := TODAY;
-        HistMail."Document envoyé" := CurrPage.CAPTION + ' ' + "No.";
+        HistMail."Document envoyé" := CurrPage.CAPTION + ' ' + Rec."No.";
         HistMail.INSERT(TRUE);
     end;
 
@@ -149,11 +150,10 @@ pageextension 50089 "BC6_SalesReturnOrder" extends "Sales Return Order" //6630
         L_UserSetup: Record "User Setup";
         WorkflowStepArgument: Record "Workflow Step Argument";
         WorkflowStepInstance: Record "Workflow Step Instance";
-        notification: Notification;
     begin
         L_UserSetup.RESET();
         L_UserSetup.SETRANGE("BC6_SAV Admin", TRUE);
-        IF L_UserSetup.FINDFIRST() THEN begin
+        IF L_UserSetup.FindSet() THEN begin
             WorkflowStepInstance.Get();
             if WorkflowStepArgument.Get(WorkflowStepInstance.Argument) then
                 REPEAT

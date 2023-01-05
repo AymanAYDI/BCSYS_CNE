@@ -40,19 +40,17 @@ report 50050 "BC6_Refresh Phys. Qty"
 
                 trigger OnPostDataItem()
                 begin
-                    WITH TempQuantityOnHandBuffer DO BEGIN
-                        RESET();
-                        IF FIND('-') THEN BEGIN
-                            REPEAT
-                                GetLocation("Location Code");
+                    TempQuantityOnHandBuffer.RESET();
+                    IF TempQuantityOnHandBuffer.FIND('-') THEN BEGIN
+                        REPEAT
+                            GetLocation(TempQuantityOnHandBuffer."Location Code");
 
-                                InsertItemJnlLine(
-                                  "Item No.", "Variant Code", "Dimension Entry No.",
-                                  "Bin Code", Quantity, Quantity);
+                            InsertItemJnlLine(
+                              TempQuantityOnHandBuffer."Item No.", TempQuantityOnHandBuffer."Variant Code", TempQuantityOnHandBuffer."Dimension Entry No.",
+                              TempQuantityOnHandBuffer."Bin Code", TempQuantityOnHandBuffer.Quantity, TempQuantityOnHandBuffer.Quantity);
 
-                            UNTIL NEXT() = 0;
-                            DELETEALL();
-                        END;
+                        UNTIL TempQuantityOnHandBuffer.NEXT() = 0;
+                        TempQuantityOnHandBuffer.DELETEALL();
                     END;
                 end;
 
@@ -216,62 +214,60 @@ report 50050 "BC6_Refresh Phys. Qty"
         EntryType: Option "Negative Adjmt.","Positive Adjmt.";
     begin
         GLSetup.GET();
-        WITH ItemJnlLine DO BEGIN
-            IF NextLineNo = 0 THEN BEGIN
-                LOCKTABLE();
-                SETRANGE("Journal Template Name", "Journal Template Name");
-                SETRANGE("Journal Batch Name", "Journal Batch Name");
-                IF FIND('+') THEN
-                    NextLineNo := "Line No.";
-                SourceCodeSetup.GET();
-            END;
-            NextLineNo := NextLineNo + 10000;
+        IF NextLineNo = 0 THEN BEGIN
+            ItemJnlLine.LOCKTABLE();
+            ItemJnlLine.SETRANGE("Journal Template Name", ItemJnlLine."Journal Template Name");
+            ItemJnlLine.SETRANGE("Journal Batch Name", ItemJnlLine."Journal Batch Name");
+            IF ItemJnlLine.FIND('+') THEN
+                NextLineNo := ItemJnlLine."Line No.";
+            SourceCodeSetup.GET();
+        END;
+        NextLineNo := NextLineNo + 10000;
 
-            IF (Quantity2 <> 0) THEN BEGIN
-                IF (Quantity2 = 0) AND Location."Bin Mandatory" AND NOT Location."Directed Put-away and Pick"
-                THEN
-                    IF NOT Bin.GET(Location.Code, BinCode2) THEN
-                        NoBinExist := TRUE;
+        IF (Quantity2 <> 0) THEN BEGIN
+            IF (Quantity2 = 0) AND Location."Bin Mandatory" AND NOT Location."Directed Put-away and Pick"
+            THEN
+                IF NOT Bin.GET(Location.Code, BinCode2) THEN
+                    NoBinExist := TRUE;
 
-                SETRANGE("Item No.", ItemNo);
-                SETRANGE("Variant Code", VariantCode2);
-                SETRANGE("Location Code", Location.Code);
+            ItemJnlLine.SETRANGE("Item No.", ItemNo);
+            ItemJnlLine.SETRANGE("Variant Code", VariantCode2);
+            ItemJnlLine.SETRANGE("Location Code", Location.Code);
+            IF NOT NoBinExist THEN
+                ItemJnlLine.SETRANGE("Bin Code", BinCode2)
+            ELSE
+                ItemJnlLine.SETRANGE("Bin Code");
+            IF ItemJnlLine.FIND('-') THEN BEGIN
+                ItemJnlLine.VALIDATE("Qty. (Phys. Inventory)", PhysInvQuantity);
+                ItemJnlLine."BC6_Qty.(Phys. Inv.)" := TRUE;
+                ItemJnlLine.MODIFY(TRUE);
+            END ELSE BEGIN
+                ItemJnlLine.INIT();
+                ItemJnlLine."Line No." := NextLineNo;
+                ItemJnlLine.VALIDATE("Posting Date", PostingDate);
+                ItemJnlLine.VALIDATE("Entry Type", ItemJnlLine."Entry Type"::"Positive Adjmt.");
+                ItemJnlLine.VALIDATE("Document No.", NextDocNo);
+                ItemJnlLine.VALIDATE("Item No.", ItemNo);
+                ItemJnlLine.VALIDATE("Variant Code", VariantCode2);
+                ItemJnlLine.VALIDATE("Location Code", Location.Code);
                 IF NOT NoBinExist THEN
-                    SETRANGE("Bin Code", BinCode2)
+                    ItemJnlLine.VALIDATE("Bin Code", BinCode2)
                 ELSE
-                    SETRANGE("Bin Code");
-                IF FIND('-') THEN BEGIN
-                    VALIDATE("Qty. (Phys. Inventory)", PhysInvQuantity);
-                    "BC6_Qty.(Phys. Inv.)" := TRUE;
-                    MODIFY(TRUE);
-                END ELSE BEGIN
-                    INIT();
-                    "Line No." := NextLineNo;
-                    VALIDATE("Posting Date", PostingDate);
-                    VALIDATE("Entry Type", "Entry Type"::"Positive Adjmt.");
-                    VALIDATE("Document No.", NextDocNo);
-                    VALIDATE("Item No.", ItemNo);
-                    VALIDATE("Variant Code", VariantCode2);
-                    VALIDATE("Location Code", Location.Code);
-                    IF NOT NoBinExist THEN
-                        VALIDATE("Bin Code", BinCode2)
-                    ELSE
-                        VALIDATE("Bin Code", '');
-                    VALIDATE("Source Code", SourceCodeSetup."Phys. Inventory Journal");
-                    "Qty. (Phys. Inventory)" := PhysInvQuantity;
-                    "Phys. Inventory" := TRUE;
-                    VALIDATE("Qty. (Calculated)", 0);
-                    "Posting No. Series" := ItemJnlBatch."Posting No. Series";
-                    "Reason Code" := ItemJnlBatch."Reason Code";
-                    "Phys Invt Counting Period Code" := '';
-                    "Phys Invt Counting Period Type" := 0;
-                    "Last Item Ledger Entry No." := 0;
-                    "BC6_Qty.(Phys. Inv.)" := TRUE;
-                    INSERT(TRUE);
-
-                END;
+                    ItemJnlLine.VALIDATE("Bin Code", '');
+                ItemJnlLine.VALIDATE("Source Code", SourceCodeSetup."Phys. Inventory Journal");
+                ItemJnlLine."Qty. (Phys. Inventory)" := PhysInvQuantity;
+                ItemJnlLine."Phys. Inventory" := TRUE;
+                ItemJnlLine.VALIDATE("Qty. (Calculated)", 0);
+                ItemJnlLine."Posting No. Series" := ItemJnlBatch."Posting No. Series";
+                ItemJnlLine."Reason Code" := ItemJnlBatch."Reason Code";
+                ItemJnlLine."Phys Invt Counting Period Code" := '';
+                ItemJnlLine."Phys Invt Counting Period Type" := 0;
+                ItemJnlLine."Last Item Ledger Entry No." := 0;
+                ItemJnlLine."BC6_Qty.(Phys. Inv.)" := TRUE;
+                ItemJnlLine.INSERT(TRUE);
 
             END;
+
         END;
 
     end;
@@ -312,30 +308,26 @@ report 50050 "BC6_Refresh Phys. Qty"
     var
         DimEntryNo: Integer;
     begin
-        WITH TempQuantityOnHandBuffer DO BEGIN
-            IF NOT HasNewQuantity(NewQuantity) THEN
-                EXIT;
-            IF RetrieveBuffer(BinCode) THEN BEGIN
-                Quantity := Quantity + NewQuantity;
-                MODIFY();
-            END ELSE BEGIN
-                Quantity := NewQuantity;
-                INSERT();
-            END;
+        IF NOT HasNewQuantity(NewQuantity) THEN
+            EXIT;
+        IF RetrieveBuffer(BinCode) THEN BEGIN
+            TempQuantityOnHandBuffer.Quantity := TempQuantityOnHandBuffer.Quantity + NewQuantity;
+            TempQuantityOnHandBuffer.MODIFY();
+        END ELSE BEGIN
+            TempQuantityOnHandBuffer.Quantity := NewQuantity;
+            TempQuantityOnHandBuffer.INSERT();
         END;
     end;
 
 
     procedure RetrieveBuffer(BinCode: Code[20]): Boolean
     begin
-        WITH TempQuantityOnHandBuffer DO BEGIN
-            RESET();
-            "Item No." := ItemJournalLine."Item No.";
-            "Variant Code" := ItemJournalLine."Variant Code";
-            "Location Code" := ItemJournalLine."Location Code";
-            "Bin Code" := BinCode;
-            EXIT(FIND());
-        END;
+        TempQuantityOnHandBuffer.RESET();
+        TempQuantityOnHandBuffer."Item No." := ItemJournalLine."Item No.";
+        TempQuantityOnHandBuffer."Variant Code" := ItemJournalLine."Variant Code";
+        TempQuantityOnHandBuffer."Location Code" := ItemJournalLine."Location Code";
+        TempQuantityOnHandBuffer."Bin Code" := BinCode;
+        EXIT(TempQuantityOnHandBuffer.FIND());
     end;
 
 

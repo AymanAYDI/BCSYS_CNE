@@ -7,43 +7,43 @@ page 50055 "BC6_Invt Pick List MiniForm"
     SourceTableView = SORTING(Type, "No.")
                       ORDER(Ascending)
                       WHERE(Type = CONST("Invt. Pick"));
-
+    UsageCategory = None;
     layout
     {
         area(content)
         {
             repeater(Control1)
             {
-                field(Type; Type)
+                field(Type; Rec.Type)
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Source No."; "Source No.")
+                field("Source No."; Rec."Source No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Destination Type"; "Destination Type")
+                field("Destination Type"; Rec."Destination Type")
                 {
                     ApplicationArea = All;
                 }
-                field("Destination No."; "Destination No.")
+                field("Destination No."; Rec."Destination No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Sales Counter"; "BC6_Sales Counter")
+                field("Sales Counter"; Rec."BC6_Sales Counter")
                 {
                     ApplicationArea = All;
                 }
-                field("No. of Lines"; "No. of Lines")
+                field("No. of Lines"; Rec."No. of Lines")
                 {
                     ApplicationArea = All;
                 }
-                field("No. Printed"; "No. Printed")
+                field("No. Printed"; Rec."No. Printed")
                 {
                     ApplicationArea = All;
                 }

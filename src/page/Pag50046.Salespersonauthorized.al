@@ -7,23 +7,23 @@ page 50046 "BC6_Salesperson authorized"
     PageType = List;
     ShowFilter = false;
     SourceTable = "BC6_Salesperson authorized";
-
+    UsageCategory = None;
     layout
     {
         area(content)
         {
             repeater(Group)
             {
-                field("Customer No."; "Customer No.")
+                field("Customer No."; Rec."Customer No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Salesperson code"; "Salesperson code")
+                field("Salesperson code"; Rec."Salesperson code")
                 {
                     ApplicationArea = All;
                 }
-                field(authorized; authorized)
+                field(authorized; Rec.authorized)
                 {
                     ApplicationArea = All;
                 }
@@ -38,17 +38,17 @@ page 50046 "BC6_Salesperson authorized"
     trigger OnClosePage()
     begin
 
-        IF GETFILTER("Customer No.") <> '' THEN
-            IF RecGCustomer.GET(FORMAT(GETFILTER("Customer No."))) THEN BEGIN
+        IF Rec.GETFILTER("Customer No.") <> '' THEN
+            IF RecGCustomer.GET(FORMAT(Rec.GETFILTER("Customer No."))) THEN BEGIN
                 CLEAR(TxtGSalespersonFilter);
-                IF FINDFIRST() THEN
+                IF Rec.FINDFIRST() THEN
                     REPEAT
-                        IF authorized THEN
-                            TxtGSalespersonFilter += "Salesperson code" + '|';
-                    UNTIL NEXT() = 0;
+                        IF Rec.authorized THEN
+                            TxtGSalespersonFilter += Rec."Salesperson code" + '|';
+                    UNTIL Rec.NEXT() = 0;
 
                 IF TxtGSalespersonFilter <> '' THEN BEGIN
-                    TxtGSalespersonFilter := COPYSTR(TxtGSalespersonFilter, 1, STRLEN(TxtGSalespersonFilter) - 1);
+                    TxtGSalespersonFilter := CopyStr(COPYSTR(TxtGSalespersonFilter, 1, STRLEN(TxtGSalespersonFilter) - 1), 1, MaxStrLen(TxtGSalespersonFilter)); //TODO à Vérifier 
                     RecGCustomer.VALIDATE("BC6_Salesperson Filter", TxtGSalespersonFilter);
                     RecGCustomer.MODIFY();
                 END;
@@ -58,8 +58,8 @@ page 50046 "BC6_Salesperson authorized"
     trigger OnOpenPage()
     begin
 
-        IF GETFILTER("Customer No.") <> '' THEN
-            IF RecGCustomer.GET(FORMAT(GETFILTER("Customer No."))) THEN BEGIN
+        IF Rec.GETFILTER("Customer No.") <> '' THEN
+            IF RecGCustomer.GET(FORMAT(Rec.GETFILTER("Customer No."))) THEN BEGIN
                 IF RecGSalesperson.FINDFIRST() THEN
                     REPEAT
                         IF NOT RecGAuthorizdeSalesperson.GET(RecGCustomer."No.", RecGSalesperson.Code) THEN BEGIN
@@ -70,9 +70,9 @@ page 50046 "BC6_Salesperson authorized"
                             RecGAuthorizdeSalesperson.INSERT();
                         END;
                     UNTIL RecGSalesperson.NEXT() = 0;
-                FILTERGROUP(2);
-                SETRANGE("Customer No.", RecGCustomer."No.");
-                FILTERGROUP(0);
+                Rec.FILTERGROUP(2);
+                Rec.SETRANGE("Customer No.", RecGCustomer."No.");
+                Rec.FILTERGROUP(0);
             END;
     end;
 

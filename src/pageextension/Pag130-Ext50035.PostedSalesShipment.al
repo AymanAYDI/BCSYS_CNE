@@ -6,12 +6,12 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
     {
         addafter("Sell-to Contact")
         {
-            field("BC6_Sell-to Fax No."; "BC6_Sell-to Fax No.")
+            field("BC6_Sell-to Fax No."; Rec."BC6_Sell-to Fax No.")
             {
                 Editable = false;
                 ApplicationArea = All;
             }
-            field("BC6_Sell-to E-Mail Address"; "BC6_Sell-to E-Mail Address")
+            field("BC6_Sell-to E-Mail Address"; Rec."BC6_Sell-to E-Mail Address")
             {
                 Editable = false;
                 ApplicationArea = All;
@@ -19,12 +19,12 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
         }
         addafter("External Document No.")
         {
-            field("BC6_User ID"; "User ID")
+            field("BC6_User ID"; Rec."User ID")
             {
                 Editable = false;
                 ApplicationArea = All;
             }
-            field("BC6_Affair No."; "BC6_Affair No.")
+            field("BC6_Affair No."; Rec."BC6_Affair No.")
             {
                 Editable = false;
                 ApplicationArea = All;
@@ -50,7 +50,6 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
                 trigger OnAction()
                 var
                     RecLPostSalesShpt: Record "Sales Shipment Header";
-                    "-MIGNAV2013-": Integer;
                 begin
                     RecLPostSalesShpt := Rec;
                     RecLPostSalesShpt.SETRECFILTER();
@@ -73,7 +72,7 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
                             '<br>' + '<br>' + recGCompanyInfo.Name + '<br>' + recGCompanyInfo.Address + ' ' + recGCompanyInfo."Post Code" + ' ' + recGCompanyInfo.City + '<br>' + 'Tél : ' + recGCompanyInfo."Phone No." +
                             ' ' + '- Fax : ' + recGCompanyInfo."Fax No.";
 
-                    cduMail.NewMessage("BC6_Sell-to E-Mail Address", '', '', Objet, Body, ToFile, TRUE);
+                    cduMail.NewMessage(Rec."BC6_Sell-to E-Mail Address", '', '', Objet, Body, ToFile, TRUE);
                     FILE.ERASE(FileName);
                 end;
             }
@@ -85,7 +84,6 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
                 trigger OnAction()
                 var
                     RecLPostSalesShpt: Record "Sales Shipment Header";
-                    "-MIGNAV2013-": Integer;
                 begin
                     RecLPostSalesShpt := Rec;
                     RecLPostSalesShpt.SETRECFILTER();
@@ -107,9 +105,7 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
         ReportHelper: Codeunit BC6_ReportHelper;
         cduMail: Codeunit Mail;
         Mail: Codeunit Mail;
-        Excel: Boolean;
         Text001: Label '';
-        Text004: Label 'Fichiers Pdf (*.pdf)|*.pdf|Tous les fichiers (*.*)|*.*';
         FileName: Text[250];
         nameF: Text[250];
         Objet: Text[250];
@@ -121,12 +117,13 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
     procedure EnvoiMail()
     begin
         SalesSetup.GET();
-        cust.SETRANGE(cust."No.", "Sell-to Customer No.");
+        HistMail.Init();
+        cust.SETRANGE(cust."No.", Rec."Sell-to Customer No.");
         IF cust.FIND('-') THEN
             cust.TESTFIELD("E-Mail");
         OpenFile();
         IF nameF <> '' THEN BEGIN
-            Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + "No.", '', nameF, FALSE);
+            Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + Rec."No.", '', nameF, FALSE);
             ERASE(nameF);
         END ELSE BEGIN
             ERASE(SalesSetup.BC6_Repertoire + 'Envoi' + '\' + CurrPage.CAPTION);
@@ -136,31 +133,12 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
         HistMail.Nom := cust.Name;
         HistMail."E-Mail" := cust."E-Mail";
         HistMail."Date d'envoi" := TODAY;
-        HistMail."Document envoyé" := CurrPage.CAPTION + ' ' + "No.";
+        HistMail."Document envoyé" := CurrPage.CAPTION + ' ' + Rec."No.";
         HistMail.INSERT(TRUE);
     end;
 
     procedure OpenFile()
     begin
-        //>>MIGRATION NAV 2013
-
-        /*//EMAIL NSC00.01 SBH [005] Envoi document
-        FileDialog.DialogTitle('Envoi'+' '+CurrForm.CAPTION);
-        FileDialog.Filter := Text004;
-        SalesSetup.GET;
-        FileDialog.FileName := '';
-        FileDialog.InitDir(SalesSetup.Repertoire);
-        FileDialog.Flags := 4096 + 2048; // vérification de l'existence du fichier, code qui suit inutile.
-        FileDialog.ShowOpen;
-        nameF:=FileDialog.FileName;
-        IF nameF='' THEN
-          BEGIN
-            Excel := FALSE;
-            EXIT;
-          END;
-        //Fin EMAIL NSC00.01 SBH [005] Envoi document
-        */
-        //<<MIGRATION NAv 2013
     end;
 
 

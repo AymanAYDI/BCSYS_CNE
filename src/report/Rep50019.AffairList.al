@@ -189,10 +189,10 @@ report 50019 "BC6_Affair List"
                 begin
                     IF TxtGcontactfilter <> '' THEN
                         SETFILTER("Contact No.", TxtGcontactfilter);
-                    IF CodGCustomer <> '' THEN
-                        SETFILTER("No.", CodGCustomer);
-                    IF CodGVendor <> '' THEN
-                        SETFILTER("No.", CodGVendor);
+                    IF CodGCustomerF <> '' THEN
+                        SETFILTER("No.", CodGCustomerF);
+                    IF CodGVendorF <> '' THEN
+                        SETFILTER("No.", CodGVendorF);
                 end;
             }
             dataitem(SalesHeader; "Sales Header")
@@ -293,12 +293,10 @@ report 50019 "BC6_Affair List"
                     IF FORMAT(TxtGTerminatedFilter) <> '' THEN
                         SETRANGE(BC6_AffairSteps.Terminated, TxtGTerminatedFilter);
 
-                    //>FEP6-ACHAT-200706_18_A.001
-                    IF TxtGRemindDateFilter <> '' THEN
-                        BC6_AffairSteps.SETFILTER("Reminder Date", TxtGRemindDateFilter);
+                    IF TxtGRemindDateFilterF <> '' THEN
+                        BC6_AffairSteps.SETFILTER("Reminder Date", TxtGRemindDateFilterF);
                     IF TxtGInterlocutor <> '' THEN
                         BC6_AffairSteps.SETFILTER(Interlocutor, TxtGInterlocutor);
-                    //<FEP6-ACHAT-200706_18_A.001
                 end;
             }
             dataitem(Integer; Integer)
@@ -319,17 +317,17 @@ report 50019 "BC6_Affair List"
                     IF NOT RecGCntAffair.FIND('-') THEN CurrReport.SKIP();
                 END;
 
-                IF CodGCustomer <> '' THEN BEGIN
+                IF CodGCustomerF <> '' THEN BEGIN
                     RecGCntAffair.RESET();
                     RecGCntAffair.SETFILTER(RecGCntAffair."Affair No.", Job."No.");
-                    RecGCntAffair.SETFILTER(RecGCntAffair."No.", CodGCustomer);
+                    RecGCntAffair.SETFILTER(RecGCntAffair."No.", CodGCustomerF);
                     IF NOT RecGCntAffair.FIND('-') THEN CurrReport.SKIP();
                 END;
 
-                IF CodGVendor <> '' THEN BEGIN
+                IF CodGVendorF <> '' THEN BEGIN
                     RecGCntAffair.RESET();
                     RecGCntAffair.SETFILTER(RecGCntAffair."Affair No.", Job."No.");
-                    RecGCntAffair.SETFILTER(RecGCntAffair."No.", CodGVendor);
+                    RecGCntAffair.SETFILTER(RecGCntAffair."No.", CodGVendorF);
                     IF NOT RecGCntAffair.FIND('-') THEN CurrReport.SKIP();
                 END;
 
@@ -340,10 +338,10 @@ report 50019 "BC6_Affair List"
                     IF NOT RecGAffairSteps.FIND('-') THEN CurrReport.SKIP();
                 END;
 
-                IF TxtGRemindDateFilter <> '' THEN BEGIN
+                IF TxtGRemindDateFilterF <> '' THEN BEGIN
                     RecGAffairSteps.RESET();
                     RecGAffairSteps.SETFILTER(RecGAffairSteps."Affair No.", Job."No.");
-                    RecGAffairSteps.SETFILTER(RecGAffairSteps."Reminder Date", TxtGRemindDateFilter);
+                    RecGAffairSteps.SETFILTER(RecGAffairSteps."Reminder Date", TxtGRemindDateFilterF);
                 END;
 
                 RecGCntAffair.RESET();
@@ -369,8 +367,8 @@ report 50019 "BC6_Affair List"
 
             trigger OnPreDataItem()
             begin
-                IF FORMAT(TxtGStatutFilter) <> '' THEN
-                    SETRANGE(Job."BC6_Statut", TxtGStatutFilter);
+                IF FORMAT(TxtGStatutFilterF) <> '' THEN
+                    SETRANGE(Job."BC6_Statut", TxtGStatutFilterF);
             end;
         }
     }
@@ -384,45 +382,45 @@ report 50019 "BC6_Affair List"
             {
                 group(Options)
                 {
-                    Caption = 'Options';
-                    field(TxtGStatutFilter; TxtGStatutFilter)
+                    Caption = 'Options', Comment = 'FRA="Options"';
+                    field(TxtGStatutFilter; TxtGStatutFilterF)
                     {
-                        Caption = 'Status';
+                        Caption = 'Status', Comment = 'FRA="Statut"';
                         OptionCaption = ' ,Outstanding,Lost,Won';
                     }
-                    field(TxtGRemindDateFilter; TxtGRemindDateFilter)
+                    field(TxtGRemindDateFilter; TxtGRemindDateFilterF)
                     {
-                        Caption = 'Reminder Date';
+                        Caption = 'Reminder Date', Comment = 'FRA="Date relance"';
 
                         trigger OnValidate()
                         begin
 
-                            IF TxtGRemindDateFilter <> '' THEN BEGIN
-                                RecGJob.SETFILTER("Posting Date Filter", TxtGRemindDateFilter);
-                                EVALUATE(TxtGRemindDateFilter, RecGJob.GETFILTER("Posting Date Filter"));
+                            IF TxtGRemindDateFilterF <> '' THEN BEGIN
+                                RecGJob.SETFILTER("Posting Date Filter", TxtGRemindDateFilterF);
+                                EVALUATE(TxtGRemindDateFilterF, RecGJob.GETFILTER("Posting Date Filter"));
                             END;
                         end;
                     }
-                    field(TxtGTerminatedFilter; TxtGTerminatedFilter)
+                    field(TxtGTerminatedFilterF; TxtGTerminatedFilter)
                     {
-                        Caption = 'Terminer';
+                        Caption = 'Terminated', Comment = 'FRA="Terminer"';
                     }
-                    field(BooGShowQuote; BooGShowQuote)
+                    field(BooGShowQuoteF; BooGShowQuote)
                     {
-                        Caption = 'Show Quote Details';
+                        Caption = 'Show Quote Details', Comment = 'FRA="Afficher détail devis"';
                     }
-                    field(BooGShowSteps; BooGShowSteps)
+                    field(BooGShowStepsF; BooGShowSteps)
                     {
-                        Caption = 'Show Steps';
+                        Caption = 'Show Steps', Comment = 'FRA="Afficher étapes"';
                     }
-                    field(CodGCustomer; CodGCustomer)
+                    field(CodGCustomer; CodGCustomerF)
                     {
-                        Caption = 'Customer Code';
+                        Caption = 'Customer Code', Comment = 'FRA="Code client"';
                         TableRelation = Customer;
                     }
-                    field(CodGVendor; CodGVendor)
+                    field(CodGVendor; CodGVendorF)
                     {
-                        Caption = 'Vendor Code';
+                        Caption = 'Vendor Code', Comment = 'FRA="Code fournisseur"';
                         TableRelation = Vendor;
                     }
                 }
@@ -443,7 +441,7 @@ report 50019 "BC6_Affair List"
         TextGDate: Text[30];
     begin
         TextGDate := '..' + FORMAT(CALCDATE('<CM>'));
-        EVALUATE(TxtGRemindDateFilter, TextGDate);
+        EVALUATE(TxtGRemindDateFilterF, TextGDate);
     end;
 
     trigger OnPreReport()
@@ -463,8 +461,8 @@ report 50019 "BC6_Affair List"
         BooGShowQuote: Boolean;
         BooGShowSteps: Boolean;
         TxtGTerminatedFilter: Boolean;
-        CodGCustomer: Code[20];
-        CodGVendor: Code[20];
+        CodGCustomerF: Code[20];
+        CodGVendorF: Code[20];
         DecGAmount: Decimal;
         DecGCost: Decimal;
         DecGProfitLCY: Decimal;
@@ -475,8 +473,8 @@ report 50019 "BC6_Affair List"
         Awa_Caption_Control1000000109Lbl: Label 'Awa.', comment = 'FRA="Adj."';
         Awa_CaptionLbl: Label 'Awa.', comment = 'FRA="Adj."';
         Business_ListCaptionLbl: Label 'Business List', comment = 'FRA="Liste des affaires"';
-        Contact_TypeCaptionLbl: Label 'Contact Type', comment = 'FRA=""';
-        ContactCaption_Control1000000021Lbl: Label 'Contact', comment = 'FRA=""';
+        Contact_TypeCaptionLbl: Label 'Contact Type', comment = 'FRA="Type Contact"';
+        ContactCaption_Control1000000021Lbl: Label 'Contact', comment = 'FRA="Contact"';
         ContactCaptionLbl: Label 'Contact';
         CurrReport_PAGENOCaptionLbl: Label 'Page';
         Customer_Or_VendorCaptionLbl: Label 'Customer Or Vendor', comment = 'FRA="Client ou fournisseur"';
@@ -489,19 +487,16 @@ report 50019 "BC6_Affair List"
         QuoteCaptionLbl: Label 'Quote', comment = 'FRA="Devis"';
         Reminder_DateCaptionLbl: Label 'Reminder Date', comment = 'FRA="Date relance"';
         StepCaptionLbl: Label 'Step', comment = 'FRA="Etape"';
-        TxtGStatutFilter: Option;
+        TxtGStatutFilterF: Option;
         TxtGcontactfilter: Text[30];
         TxtGContactPhone: Text[30];
         TxtGContactTiers: Text[30];
         TxtGContactType: Text[30];
         TxtGDateReminder: Text[30];
         TxtGInterlocutor: Text[30];
-        TxtGRemindDateFilter: Text[30];
+        TxtGRemindDateFilterF: Text[30];
         TxtHInterlocutor: Text[30];
         TxtGContact: Text[100];
 
-    procedure getContactInfo("contactNo.": Code[20])
-    begin
-    end;
 }
 

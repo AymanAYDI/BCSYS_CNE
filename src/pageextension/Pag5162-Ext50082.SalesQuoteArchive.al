@@ -208,265 +208,265 @@ pageextension 50082 "BC6_SalesQuoteArchive" extends "Sales Quote Archive" //5162
         }
         addfirst("General")
         {
-            field("BC6_No."; "No.")
+            field("BC6_No."; Rec."No.")
             {
                 Importance = Promoted;
             }
-            field("BC6_Sell-to Customer No."; "Sell-to Customer No.")
+            field("BC6_Sell-to Customer No."; Rec."Sell-to Customer No.")
             {
                 Enabled = true; //"Sell-to Customer No.Enable"
                 Importance = Promoted;
             }
-            field("BC6_Sell-to Contact No."; "Sell-to Contact No.")
+            field("BC6_Sell-to Contact No."; Rec."Sell-to Contact No.")
             {
                 QuickEntry = false;
             }
-            field("BC6_Sell-to Customer Template Code"; "Sell-to Customer Templ. Code")
+            field("BC6_Sell-to Customer Template Code"; Rec."Sell-to Customer Templ. Code")
             {
                 Enabled = true; //SelltoCustomerTemplateCodeEnab
                 Importance = Additional;
             }
-            field("BC6_Sell-to Customer Name"; "Sell-to Customer Name")
+            field("BC6_Sell-to Customer Name"; Rec."Sell-to Customer Name")
             {
                 Importance = Promoted;
                 QuickEntry = false;
             }
-            field("BC6_Sell-to Address"; "Sell-to Address")
+            field("BC6_Sell-to Address"; Rec."Sell-to Address")
             {
                 Importance = Additional;
             }
-            field("BC6_Sell-to Address 2"; "Sell-to Address 2")
+            field("BC6_Sell-to Address 2"; Rec."Sell-to Address 2")
             {
                 Importance = Additional;
             }
-            field("BC6_Sell-to Post Code"; "Sell-to Post Code")
+            field("BC6_Sell-to Post Code"; Rec."Sell-to Post Code")
             {
                 Importance = Additional;
             }
-            field("BC6_Sell-to City"; "Sell-to City")
+            field("BC6_Sell-to City"; Rec."Sell-to City")
             {
                 QuickEntry = false;
             }
-            field("BC6_Sell-to Contact"; "Sell-to Contact")
+            field("BC6_Sell-to Contact"; Rec."Sell-to Contact")
             {
                 Importance = Additional;
                 Visible = false;
             }
-            field("BC6_Bill-to Contact"; "Bill-to Contact")
+            field("BC6_Bill-to Contact"; Rec."Bill-to Contact")
             {
                 Importance = Additional;
             }
-            field("BC6_Sell-to E-Mail Address"; "BC6_Sell-to E-Mail Address")
+            field("BC6_Sell-to E-Mail Address"; Rec."BC6_Sell-to E-Mail Address")
             {
             }
-            field("BC6_Sell-to Fax No."; "BC6_Sell-to Fax No.")
+            field("BC6_Sell-to Fax No."; Rec."BC6_Sell-to Fax No.")
             {
             }
-            field("BC6_Your Reference"; "Your Reference")
+            field("BC6_Your Reference"; Rec."Your Reference")
             {
                 Importance = Promoted;
             }
-            field("BC6_Responsibility Center"; "Responsibility Center")
+            field("BC6_Responsibility Center"; Rec."Responsibility Center")
             {
                 Importance = Additional;
                 Visible = false;
             }
-            field("BC6_No. of Archived Versions"; "No. of Archived Versions")
+            field("BC6_No. of Archived Versions"; Rec."No. of Archived Versions")
             {
                 Importance = Additional;
             }
-            field("BC6_Order Date"; "Order Date")
+            field("BC6_Order Date"; Rec."Order Date")
             {
                 Importance = Promoted;
                 QuickEntry = false;
             }
-            field("BC6_Document Date"; "Document Date")
+            field("BC6_Document Date"; Rec."Document Date")
             {
                 QuickEntry = false;
             }
-            field("BC6_Requested Delivery Date"; "Requested Delivery Date")
+            field("BC6_Requested Delivery Date"; Rec."Requested Delivery Date")
             {
             }
-            field("BC6_Posting Date"; "Posting Date")
+            field("BC6_Posting Date"; Rec."Posting Date")
             {
             }
-            field("BC6_Salesperson Code"; "Salesperson Code")
+            field("BC6_Salesperson Code"; Rec."Salesperson Code")
             {
                 QuickEntry = false;
             }
-            field("BC6_Campaign No."; "Campaign No.")
+            field("BC6_Campaign No."; Rec."Campaign No.")
             {
                 QuickEntry = false;
                 Visible = false;
             }
-            field("BC6_Opportunity No."; "Opportunity No.")
+            field("BC6_Opportunity No."; Rec."Opportunity No.")
             {
                 QuickEntry = false;
             }
-            field("BC6_Assigned User ID"; "Assigned User ID")
+            field("BC6_Assigned User ID"; Rec."Assigned User ID")
             {
                 Importance = Additional;
             }
-            field(BC6_Status; Status)
+            field(BC6_Status; Rec.Status)
             {
                 Importance = Promoted;
                 QuickEntry = false;
             }
-            field(BC6_ID; "BC6_ID")
+            field(BC6_ID; Rec."BC6_ID")
             {
                 Editable = false;
             }
-            field("BC6_Prod. Version No."; "BC6_Prod. Version No.")
+            field("BC6_Prod. Version No."; Rec."BC6_Prod. Version No.")
             {
             }
-            field("BC6_Quote statut"; "BC6_Quote statut")
+            field("BC6_Quote statut"; Rec."BC6_Quote statut")
             {
                 Editable = BooGQuoteStatut;
             }
-            field("BC6_Affair No."; "BC6_Affair No.")
+            field("BC6_Affair No."; Rec."BC6_Affair No.")
             {
             }
         }
         addfirst("Invoicing")
         {
-            field("BC6_Bill-to Customer No."; "Bill-to Customer No.")
+            field("BC6_Bill-to Customer No."; Rec."Bill-to Customer No.")
             {
                 Enabled = true; //"Bill-to Customer No.Enable"
                 Importance = Promoted;
             }
-            field("BC6_Bill-to Contact No."; "Bill-to Contact No.")
+            field("BC6_Bill-to Contact No."; Rec."Bill-to Contact No.")
             {
             }
-            field("BC6_Bill-to Customer Template Code"; "Bill-to Customer Template Code")
+            field("BC6_Bill-to Customer Template Code"; Rec."Bill-to Customer Template Code")
             {
                 Enabled = true; //BilltoCustomerTemplateCodeEnab
                 Importance = Additional;
             }
-            field("BC6_Bill-to Name"; "Bill-to Name")
+            field("BC6_Bill-to Name"; Rec."Bill-to Name")
             {
             }
-            field("BC6_Bill-to Address"; "Bill-to Address")
-            {
-                Importance = Additional;
-            }
-            field("BC6_Bill-to Address 2"; "Bill-to Address 2")
+            field("BC6_Bill-to Address"; Rec."Bill-to Address")
             {
                 Importance = Additional;
             }
-            field("BC6_Bill-to Post Code"; "Bill-to Post Code")
+            field("BC6_Bill-to Address 2"; Rec."Bill-to Address 2")
             {
                 Importance = Additional;
             }
-            field("BC6_Bill-to City"; "Bill-to City")
+            field("BC6_Bill-to Post Code"; Rec."Bill-to Post Code")
+            {
+                Importance = Additional;
+            }
+            field("BC6_Bill-to City"; Rec."Bill-to City")
             {
             }
-            field("BC6_Shortcut Dimension 1 Code"; "Shortcut Dimension 1 Code")
+            field("BC6_Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
             {
                 Visible = false;
             }
-            field("BC6_Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
+            field("BC6_Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
             {
                 Visible = false;
             }
-            field("BC6_Payment Terms Code"; "Payment Terms Code")
+            field("BC6_Payment Terms Code"; Rec."Payment Terms Code")
             {
                 Importance = Promoted;
             }
-            field("BC6_Due Date"; "Due Date")
+            field("BC6_Due Date"; Rec."Due Date")
             {
                 Importance = Promoted;
             }
-            field("BC6_Payment Discount %"; "Payment Discount %")
+            field("BC6_Payment Discount %"; Rec."Payment Discount %")
             {
             }
-            field("BC6_Pmt. Discount Date"; "Pmt. Discount Date")
+            field("BC6_Pmt. Discount Date"; Rec."Pmt. Discount Date")
             {
                 Importance = Additional;
             }
-            field("BC6_Payment Method Code"; "Payment Method Code")
+            field("BC6_Payment Method Code"; Rec."Payment Method Code")
             {
             }
-            field("BC6_Prices Including VAT"; "Prices Including VAT")
+            field("BC6_Prices Including VAT"; Rec."Prices Including VAT")
             {
                 Visible = false;
             }
-            field("BC6_VAT Bus. Posting Group"; "VAT Bus. Posting Group")
+            field("BC6_VAT Bus. Posting Group"; Rec."VAT Bus. Posting Group")
             {
             }
-            field("BC6_Combine Shipments"; "Combine Shipments")
+            field("BC6_Combine Shipments"; Rec."Combine Shipments")
             {
             }
-            field("BC6_Combine Shipments by Order"; "BC6_Combine Shipments by Order")
+            field("BC6_Combine Shipments by Order"; Rec."BC6_Combine Shipments by Order")
             {
             }
         }
         addfirst("Shipping")
         {
-            field("BC6_Ship-to Code"; "Ship-to Code")
+            field("BC6_Ship-to Code"; Rec."Ship-to Code")
             {
                 Importance = Promoted;
             }
-            field("BC6_Ship-to Name"; "Ship-to Name")
+            field("BC6_Ship-to Name"; Rec."Ship-to Name")
             {
             }
-            field("BC6_Ship-to Address"; "Ship-to Address")
-            {
-                Importance = Additional;
-            }
-            field("BC6_Ship-to Address 2"; "Ship-to Address 2")
+            field("BC6_Ship-to Address"; Rec."Ship-to Address")
             {
                 Importance = Additional;
             }
-            field("BC6_Ship-to Post Code"; "Ship-to Post Code")
+            field("BC6_Ship-to Address 2"; Rec."Ship-to Address 2")
             {
                 Importance = Additional;
             }
-            field("BC6_Ship-to City"; "Ship-to City")
-            {
-            }
-            field("BC6_Ship-to Contact"; "Ship-to Contact")
+            field("BC6_Ship-to Post Code"; Rec."Ship-to Post Code")
             {
                 Importance = Additional;
             }
-            field("BC6_Location Code"; "Location Code")
+            field("BC6_Ship-to City"; Rec."Ship-to City")
+            {
+            }
+            field("BC6_Ship-to Contact"; Rec."Ship-to Contact")
+            {
+                Importance = Additional;
+            }
+            field("BC6_Location Code"; Rec."Location Code")
             {
                 Importance = Promoted;
             }
-            field("BC6_Bin Code"; "BC6_Bin Code")
+            field("BC6_Bin Code"; Rec."BC6_Bin Code")
             {
                 Importance = Promoted;
             }
-            field("BC6_Shipment Method Code"; "Shipment Method Code")
+            field("BC6_Shipment Method Code"; Rec."Shipment Method Code")
             {
                 Importance = Promoted;
             }
-            field("BC6_Shipment Date"; "Shipment Date")
+            field("BC6_Shipment Date"; Rec."Shipment Date")
             {
                 Importance = Promoted;
             }
         }
         addfirst("Foreign Trade")
         {
-            field("BC6_Currency Code"; "Currency Code")
+            field("BC6_Currency Code"; Rec."Currency Code")
             {
                 Importance = Promoted;
             }
-            field("BC6_EU 3-Party Trade"; "EU 3-Party Trade")
+            field("BC6_EU 3-Party Trade"; Rec."EU 3-Party Trade")
             {
             }
-            field("BC6_Transaction Type"; "Transaction Type")
+            field("BC6_Transaction Type"; Rec."Transaction Type")
             {
             }
-            field("BC6_Transaction Specification"; "Transaction Specification")
+            field("BC6_Transaction Specification"; Rec."Transaction Specification")
             {
             }
-            field("BC6_Transport Method"; "Transport Method")
+            field("BC6_Transport Method"; Rec."Transport Method")
             {
             }
-            field("BC6_Exit Point"; "Exit Point")
+            field("BC6_Exit Point"; Rec."Exit Point")
             {
             }
-            field(BC6_Area; Area)
+            field(BC6_Area; Rec.Area)
             {
             }
         }

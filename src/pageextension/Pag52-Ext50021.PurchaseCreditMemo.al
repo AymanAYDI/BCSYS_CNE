@@ -4,15 +4,15 @@ pageextension 50021 "BC6_PurchaseCreditMemo" extends "Purchase Credit Memo" //52
     {
         addafter("Buy-from Vendor Name")
         {
-            field(BC6_ID; ID)
+            field(BC6_ID; Rec.BC6_ID)
             {
                 Caption = 'User ID', comment = 'FRA="Code Utilisateur"';
                 Editable = false;
             }
-            field("BC6_Buy-from Fax No."; "BC6_Buy-from Fax No.")
+            field("BC6_Buy-from Fax No."; Rec."BC6_Buy-from Fax No.")
             {
             }
-            field("BC6_Reason Code"; "Reason Code")
+            field("BC6_Reason Code"; Rec."Reason Code")
             {
                 trigger OnValidate()
                 begin

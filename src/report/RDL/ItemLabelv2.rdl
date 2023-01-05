@@ -11,37 +11,6 @@
       <rd:DataSourceID>35f4d0fa-9cb9-4bcd-9bb3-2ddb639d944b</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="Item__No__">
-          <DataField>Item__No__</DataField>
-        </Field>
-        <Field Name="ItemDescription">
-          <DataField>ItemDescription</DataField>
-        </Field>
-        <Field Name="EAN13BarTxt">
-          <DataField>EAN13BarTxt</DataField>
-        </Field>
-        <Field Name="EAN13BarTxt_Control1000000003">
-          <DataField>EAN13BarTxt_Control1000000003</DataField>
-        </Field>
-        <Field Name="UnitPriceIncVATTxt">
-          <DataField>UnitPriceIncVATTxt</DataField>
-        </Field>
-        <Field Name="UnitPriceTxt">
-          <DataField>UnitPriceTxt</DataField>
-        </Field>
-        <Field Name="CopyLoop_Number">
-          <DataField>CopyLoop_Number</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -293,12 +262,6 @@
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -338,4 +301,35 @@ End Function
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>cc8356e7-d351-46d5-a619-794eeacbb7a2</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="Item__No__">
+          <DataField>Item__No__</DataField>
+        </Field>
+        <Field Name="ItemDescription">
+          <DataField>ItemDescription</DataField>
+        </Field>
+        <Field Name="EAN13BarTxt">
+          <DataField>EAN13BarTxt</DataField>
+        </Field>
+        <Field Name="EAN13BarTxt_Control1000000003">
+          <DataField>EAN13BarTxt_Control1000000003</DataField>
+        </Field>
+        <Field Name="UnitPriceIncVATTxt">
+          <DataField>UnitPriceIncVATTxt</DataField>
+        </Field>
+        <Field Name="UnitPriceTxt">
+          <DataField>UnitPriceTxt</DataField>
+        </Field>
+        <Field Name="CopyLoop_Number">
+          <DataField>CopyLoop_Number</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

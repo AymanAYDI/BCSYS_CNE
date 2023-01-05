@@ -9,20 +9,20 @@ pageextension 50104 "BC6_InvtPickSubform" extends "Invt. Pick Subform" //7378
         }
         addfirst(Control1)
         {
-            field("BC6_Line No."; "Line No.") { }
+            field("BC6_Line No."; Rec."Line No.") { }
         }
         addafter("Source Document")
         {
-            field("BC6_Source No."; "Source No.")
+            field("BC6_Source No."; Rec."Source No.")
             {
                 Visible = True;
             }
-            field("BC6_Source Line No."; "Source Line No.") { }
+            field("BC6_Source Line No."; Rec."Source Line No.") { }
 
         }
         addafter("Qty. per Unit of Measure")
         {
-            field("BC6_Qty. Picked"; "BC6_Qty. Picked") { }
+            field("BC6_Qty. Picked"; Rec."BC6_Qty. Picked") { }
         }
     }
 }

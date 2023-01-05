@@ -36,67 +36,65 @@ codeunit 50013 "BC6_Create SalesDoc Directory"
 
     procedure "Code"()
     begin
-        WITH SalesHeader DO BEGIN
-            IF NOT ("Document Type" IN ["Document Type"::Quote, "Document Type"::Order]) THEN
-                TESTFIELD("Document Type", "Document Type"::Order);
-            TESTFIELD("No.");
+        IF NOT (SalesHeader."Document Type" IN [SalesHeader."Document Type"::Quote, SalesHeader."Document Type"::Order]) THEN
+            SalesHeader.TESTFIELD("Document Type", SalesHeader."Document Type"::Order);
+        SalesHeader.TESTFIELD("No.");
 
-            SalesSetup.GET();
-            SalesSetup.TESTFIELD("BC6_Technicals Directory Path");
+        SalesSetup.GET();
+        SalesSetup.TESTFIELD("BC6_Technicals Directory Path");
 
-            SalesLine.RESET();
-            SalesLine.SETRANGE("Document Type", "Document Type");
-            SalesLine.SETRANGE("Document No.", "No.");
-            SalesLine.SETRANGE(Type, SalesLine.Type::Item);
-            IF NOT SalesLine.FINDFIRST() THEN
-                ERROR(Text010);
+        SalesLine.RESET();
+        SalesLine.SETRANGE("Document Type", SalesHeader."Document Type");
+        SalesLine.SETRANGE("Document No.", SalesHeader."No.");
+        SalesLine.SETRANGE(Type, SalesLine.Type::Item);
+        IF NOT SalesLine.FINDFIRST() THEN
+            ERROR(Text010);
 
-            Window.OPEN(STRSUBSTNO(Text001, "No.") + '\' +
-                        Text002 + '\' +
-                        Text003);
+        Window.OPEN(STRSUBSTNO(Text001, SalesHeader."No.") + '\' +
+                    Text002 + '\' +
+                    Text003);
 
-            CLEAR(FileMngt);
+        CLEAR(FileMngt);
 
 
-            TargetDirectoryPath := SalesSetup."BC6_Technicals Directory Path";
-            TargetNewSubDirectory := "No.";
-            TargetDirectoryName := '';
-            REPEAT
+        TargetDirectoryPath := SalesSetup."BC6_Technicals Directory Path";
+        TargetNewSubDirectory := SalesHeader."No.";
+        TargetDirectoryName := '';
+        REPEAT
 
-                ItemExist := Item.GET(SalesLine."No.");
-                ItemRecRef.GETTABLE(Item);
-                ItemRecID := ItemRecRef.RECORDID;
+            ItemExist := Item.GET(SalesLine."No.");
+            ItemRecRef.GETTABLE(Item);
+            ItemRecID := ItemRecRef.RECORDID;
 
-                RecLink.SETRANGE(Type, RecLink.Type::Link);
-                RecLink.SETRANGE("Record ID", ItemRecID);
-                IF RecLink.FINDSET() THEN
-                    REPEAT
+            RecLink.SETRANGE(Type, RecLink.Type::Link);
+            RecLink.SETRANGE("Record ID", ItemRecID);
+            IF RecLink.FINDSET() THEN
+                REPEAT
 
-                        CLEAR(FileMngt);
-                        CLEAR(TargetFileName);
+                    CLEAR(FileMngt);
+                    CLEAR(TargetFileName);
 
-                        Window.UPDATE(1, RecLink.Description);
+                    Window.UPDATE(1, RecLink.Description);
 
-                        SourceFilePath := RecLink.URL1;
-                        // TargetFileName := FileMngt.CopyAndRenameClientFile(SourceFilePath, TargetDirectoryPath, TargetNewSubDirectory);
-                        IF TargetFileName <> '' THEN BEGIN
-                            FileCounter += 1;
-                            Window.UPDATE(2, FileCounter);
-                            LastTargetFileName := TargetFileName;
-                            IF TargetDirectoryName = '' THEN
-                                TargetDirectoryName := FileMngt.GetDirectoryName(TargetFileName);
-                            IF NOT (COPYSTR(TargetDirectoryName, STRLEN(TargetDirectoryName)) = '\') THEN
-                                TargetDirectoryName := TargetDirectoryName + '\';
-                        END;
+                    SourceFilePath := RecLink.URL1;
+                    // TargetFileName := FileMngt.CopyAndRenameClientFile(SourceFilePath, TargetDirectoryPath, TargetNewSubDirectory);
+                    IF TargetFileName <> '' THEN BEGIN
+                        FileCounter += 1;
+                        Window.UPDATE(2, FileCounter);
+                        LastTargetFileName := TargetFileName;
+                        IF TargetDirectoryName = '' THEN
+                            TargetDirectoryName := FileMngt.GetDirectoryName(TargetFileName);
+                        IF NOT (COPYSTR(TargetDirectoryName, STRLEN(TargetDirectoryName)) = '\') THEN
+                            TargetDirectoryName := TargetDirectoryName + '\';
+                    END;
 
-                    UNTIL RecLink.NEXT() = 0;
-            UNTIL SalesLine.NEXT() = 0;
-            //LORSQU'on Ajoute la proc CopyAndRenameClientFile
-            //    IF FileMngt.ClientDirectoryExists(TargetDirectoryName) THEN //TODO
-            //         SalesHeader.ADDLINK(TargetDirectoryName, STRSUBSTNO(Text011, FileCounter))
-            //     ELSE
-            //         ERROR(Text012);
-        END;
+                UNTIL RecLink.NEXT() = 0;
+        UNTIL SalesLine.NEXT() = 0;
+        //LORSQU'on Ajoute la proc CopyAndRenameClientFile
+        //    IF FileMngt.ClientDirectoryExists(TargetDirectoryName) THEN //TODO
+        //         SalesHeader.ADDLINK(TargetDirectoryName, STRSUBSTNO(Text011, FileCounter))
+        //     ELSE
+        //         ERROR(Text012);
         SLEEP(500);
         Window.CLOSE();
     end;

@@ -51,7 +51,7 @@ tableextension 50045 "BC6_SalesReceivablesSetup" extends "Sales & Receivables Se
             Caption = 'Requested Delivery Date', comment = 'FRA="Date Livraison Demandée"';
             DataClassification = CustomerContent;
         }
-        field(60004; "Période"; DateFormula)
+        field(60004; "BC6_Période"; DateFormula)
         {
             Caption = 'Period', comment = 'FRA="Période"';
             DataClassification = CustomerContent;
@@ -78,7 +78,7 @@ tableextension 50045 "BC6_SalesReceivablesSetup" extends "Sales & Receivables Se
 
             DataClassification = CustomerContent;
         }
-        field(60009; "Contact's Address on sales doc"; Boolean)
+        field(60009; "BC6_Contact's Address on sales doc"; Boolean)
         {
             Caption = 'Contact''s Address on sales doc', comment = 'FRA="Adresse du contact sur doc de vente"';
             DataClassification = CustomerContent;

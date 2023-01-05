@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="DataSource">
@@ -19,30 +19,30 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.37144in</Width>
+                  <Width>3.48346cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.55982in</Width>
+                  <Width>6.50194cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.82884in</Width>
+                  <Width>2.10525cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.79438in</Width>
+                  <Width>2.01773cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.59278in</Width>
+                  <Width>1.50566cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.74259in</Width>
+                  <Width>1.88618cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.66294in</Width>
+                  <Width>1.68387cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.23622in</Height>
+                  <Height>0.6cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -87,7 +87,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.1874in</Height>
+                  <Height>0.476cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -338,7 +338,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.17677in</Height>
+                  <Height>0.449cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -630,7 +630,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.22568in</Height>
+                  <Height>0.57323cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -638,15 +638,15 @@
                           <TablixBody>
                             <TablixColumns>
                               <TablixColumn>
-                                <Width>0.14767in</Width>
+                                <Width>0.37508cm</Width>
                               </TablixColumn>
                               <TablixColumn>
-                                <Width>1.22377in</Width>
+                                <Width>3.10838cm</Width>
                               </TablixColumn>
                             </TablixColumns>
                             <TablixRows>
                               <TablixRow>
-                                <Height>0.22568in</Height>
+                                <Height>0.57323cm</Height>
                                 <TablixCells>
                                   <TablixCell>
                                     <CellContents>
@@ -705,10 +705,10 @@ Cstr(Fields!CompanyInfo_Name.Value) + Chr(177) +
 Cstr(Fields!CompanyInfo_Address______CompanyInfo__Address_2______STRSUBSTNO___1__2__CompanyInfo__Post_Code__CompanyInfo_City_.Value) + Chr(177) +
 Cstr(Fields!STRSUBSTNO_Text006_CompanyInfo__Phone_No___CompanyInfo__Fax_No___CompanyInfo__E_Mail__.Value) + Chr(177) +
 Cstr(Fields!CompanyInfo__Alt_Name_.Value) + Chr(177) +
-Cstr(Fields!CompanyInfo__Alt_Address_______CompanyInfo__Alt_Address_2______STRSUBSTNO___1__2__CompanyInfo__Alt_Post_Code__CompanyInfo__Alt_City__.Value) + Chr(177) +
+Cstr(Fields!DataItem1000000036.Value) + Chr(177) +
 Cstr(Fields!STRSUBSTNO_Text006_CompanyInfo__Alt_Phone_No___CompanyInfo__Alt_Fax_No___CompanyInfo__Alt_E_Mail__.Value) + Chr(177) +
-Cstr(Fields!STRSUBSTNO_Text032_CompanyInfo__Legal_Form__CompanyInfo__Stock_Capital__CompanyInfo__Trade_Register__CompanyInfo__EP_Code__CompanyInfo__VAT_Registration_No___.Value) + Chr(177) +
-Cstr(Fields!STRSUBSTNO_Text032_CompanyInfo__Legal_Form__CompanyInfo__Stock_Capital__CompanyInfo__Trade_Register__CompanyInfo__EP_Code__CompanyInfo__VAT_Registration_No___.Value) + Chr(177) +
+Cstr(Fields!DataItem1000000036.Value) + Chr(177) +
+Cstr(Fields!DataItem1000000036.Value) + Chr(177) +
 Cstr(Fields!PageLoop_Number.Value) + Chr(177) +
 Cstr(Fields!PageCaption.Value)</Value>
                                                 <Style>
@@ -1066,7 +1066,7 @@ Cstr(Fields!PageCaption.Value)</Value>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.16654in</Height>
+                  <Height>0.42301cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1332,7 +1332,7 @@ Cstr(Fields!PageCaption.Value)</Value>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.23622in</Height>
+                  <Height>0.6cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1613,7 +1613,7 @@ Cstr(Fields!PageCaption.Value)</Value>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.16654in</Height>
+                  <Height>0.42301cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1883,7 +1883,7 @@ Cstr(Fields!PageCaption.Value)</Value>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.16654in</Height>
+                  <Height>0.42301cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -2149,7 +2149,7 @@ Cstr(Fields!PageCaption.Value)</Value>
         <Height>4.06455cm</Height>
         <Style />
       </Body>
-      <Width>19.31703cm</Width>
+      <Width>24.37586cm</Width>
       <Page>
         <PageHeader>
           <Height>14.805cm</Height>
@@ -2421,7 +2421,7 @@ Cstr(Fields!PageCaption.Value)</Value>
                 </Paragraph>
               </Paragraphs>
               <Top>4.024cm</Top>
-              <Left>12.456cm</Left>
+              <Left>12.487cm</Left>
               <Height>0.423cm</Height>
               <Width>6.3cm</Width>
               <ZIndex>2</ZIndex>
@@ -3780,7 +3780,6 @@ Cstr(Fields!PageCaption.Value)</Value>
         <PageWidth>21cm</PageWidth>
         <LeftMargin>1cm</LeftMargin>
         <RightMargin>0.2cm</RightMargin>
-        <TopMargin>0cm</TopMargin>
         <BottomMargin>1cm</BottomMargin>
         <Style />
       </Page>

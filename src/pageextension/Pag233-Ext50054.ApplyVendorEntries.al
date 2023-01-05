@@ -4,12 +4,12 @@ pageextension 50054 "BC6_ApplyVendorEntries" extends "Apply Vendor Entries" //23
     {
         addafter("External Document No.")
         {
-            field(BC6_PayToVend; "BC6_Pay-to Vend. No.")
+            field(BC6_PayToVend; Rec."BC6_Pay-to Vend. No.")
             {
             }
-            field(BC6_GetPayToVenNo; getVendorName("BC6_Pay-to Vend. No."))
+            field(BC6_GetPayToVenNo; Rec.getVendorName(Rec."BC6_Pay-to Vend. No."))
             {
-                Caption = 'Pay-to Vend. No.';
+                Caption = 'Pay-to Vend. No.', Comment = 'FRA="Tiers payeur"';
             }
         }
         modify("Vendor No.")
@@ -20,7 +20,7 @@ pageextension 50054 "BC6_ApplyVendorEntries" extends "Apply Vendor Entries" //23
             var
                 GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
             begin
-                IF "Vendor No." = "BC6_Pay-to Vend. No." THEN
+                IF Rec."Vendor No." = Rec."BC6_Pay-to Vend. No." THEN
                     GlobalFunctionMgt.setBooGVendorNoStyle(true)
                 ELSE
                     GlobalFunctionMgt.setBooGVendorNoStyle(false);
@@ -28,7 +28,7 @@ pageextension 50054 "BC6_ApplyVendorEntries" extends "Apply Vendor Entries" //23
         }
         addafter("Vendor No.")
         {
-            field(BC6_VendorNO; getVendorName("Vendor No."))
+            field(BC6_VendorNO; Rec.getVendorName(Rec."Vendor No."))
             {
                 trigger OnValidate()
                 var
@@ -36,7 +36,7 @@ pageextension 50054 "BC6_ApplyVendorEntries" extends "Apply Vendor Entries" //23
 
                 begin
                     //Mise en couleur dynamique lorsque le n° Tiers payeur =  n° fournisseur
-                    IF "Vendor No." = "BC6_Pay-to Vend. No." THEN
+                    IF Rec."Vendor No." = Rec."BC6_Pay-to Vend. No." THEN
                         GlobalFunctionMgt.setBooGVendorNoStyle(TRUE)
                     ELSE
                         GlobalFunctionMgt.setBooGVendorNoStyle(FALSE);

@@ -6,23 +6,23 @@ page 50052 "BC6_Bin List MiniForm"
     SourceTable = Bin;
     SourceTableView = SORTING("Location Code", Code)
                       ORDER(Ascending);
-
+    UsageCategory = None;
     layout
     {
         area(content)
         {
             repeater(Control1)
             {
-                field("Location Code"; "Location Code")
+                field("Location Code"; Rec."Location Code")
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Code"; Code)
+                field("Code"; Rec.Code)
                 {
                     ApplicationArea = All;
                 }
-                field(Empty; Empty)
+                field(Empty; Rec.Empty)
                 {
                     ApplicationArea = All;
                 }

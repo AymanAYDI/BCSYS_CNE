@@ -4,10 +4,9 @@ pageextension 50080 "BC6_CustomerTemplateCard" extends "Customer Template Card" 
     {
         addafter("Shipment Method Code")
         {
-            field("BC6_Submitted to DEEE"; "BC6_Submitted to DEEE")
+            field("BC6_Submitted to DEEE"; Rec."BC6_Submitted to DEEE")
             {
             }
         }
     }
 }
-

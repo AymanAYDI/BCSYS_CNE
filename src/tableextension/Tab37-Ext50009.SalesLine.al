@@ -399,76 +399,33 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
     }
     keys
     {
-        // key(Key21; "Document Type", "Buy-from Vendor No.")
-        // {
-        // }
-        // key(Key22; "Document Type", "Document No.", "Sell-to Customer No.", "No.")
-        // {
-        // }
-        // key(Key23; "Buy-from Vendor No.", "Qty. To Order", "To Order")
-        // {
-        // }
-        // key(Key24; "Document Type", "No.")
-        // {
-        // }
-        // key(Key25; "Document Type", "Sell-to Customer No.", "No.")
-        // {
-        // }
-        // key(Key26; "Document Date", "Document Type", "No.")
-        // {
-        // }
-        // key(Key27; "Buy-from Vendor No.", "Shipment Date")
-        // {
-        // }
-        // key(Key28; "Buy-from Vendor No.", "No.", "Shipment Date")
-        // {
-        // }
-        // key(Key29; "Document Type", "Document No.", "No.", "Document Date")
-        // {
-        // }
-        // key(Key30; "Purch. Document Type", "Purch. Order No.", "Purch. Line No.")
-        // {
-        //     SumIndexFields = "Quantity (Base)";
-        // }
-        // key(Key31; "To Order", "Buy-from Vendor No.", "No.", "Purchase cost", "Qty. To Order")
-        // {
-        // }
-        // key(Key32; "To Order", "Buy-from Vendor No.", "Document No.", "Line No.", "Qty. To Order")
-        // {
-        // }
-        // key(Key33; "Shipment Date", "Document Type", "Sell-to Customer No.", "Document No.", "Line No.")
-        // {
-        // }
-        // key(Key34; "Document Type", Type, "Outstanding Quantity", "Purchasing Code")
-        // {
-        // }
-        // key(Key35; "Document Type", Type, "Outstanding Quantity", "Purchasing Code", "Drop Shipment")
-        // {
-        // }
-        // key(Key36; "Document Type", Type, "Outstanding Quantity", "Purchasing Code", "Buy-from Vendor No.", "Shipment Date")
-        // {
-        // }
-        // key(Key37; "Document Type", Type, "Outstanding Quantity", "Purchasing Code", "Drop Shipment", "Buy-from Vendor No.", "Shipment Date")
-        // {
-        // }
-        // key(Key38; "Document Type", Type, "Outstanding Quantity", "Purchasing Code", "Buy-from Vendor No.", "No.", "Shipment Date")
-        // {
-        // }
-        // key(Key39; "Document Type", Type, "Outstanding Quantity", "Purchasing Code", "Drop Shipment", "Buy-from Vendor No.", "No.", "Shipment Date")
-        // {
-        // }
-        // key(Key40; Type, "No.")
-        // {
-        // }
-        // key(Key41; "Document Type", "Document No.", "Completely Shipped")
-        // {
-        // }
-        // key(Key42; "Document Type", "Document No.", Type)
-        // {
-        // }
-        // key(Key43; "Bill-to Customer No.", "Document Type", "Document No.", "Line No.")
-        // {
-        // }
+        key(Key21; "Document Type", "Document No.", "Sell-to Customer No.", "No.")
+        {
+        }
+        key(Key22; "Document Type", "Sell-to Customer No.", "No.")
+        {
+        }
+        key(Key23; "Shipment Date", "Document Type", "Sell-to Customer No.", "Document No.", "Line No.")
+        {
+        }
+        key(Key24; "Document Type", Type, "Outstanding Quantity", "Purchasing Code")
+        {
+        }
+        key(Key25; "Document Type", Type, "Outstanding Quantity", "Purchasing Code", "Drop Shipment")
+        {
+        }
+        key(Key26; Type, "No.")
+        {
+        }
+        key(Key27; "Document Type", "Document No.", "Completely Shipped")
+        {
+        }
+        key(Key28; "Document Type", "Document No.", Type)
+        {
+        }
+        key(Key29; "Bill-to Customer No.", "Document Type", "Document No.", "Line No.")
+        {
+        }
     }
 
     procedure TestStatusLocked()
@@ -770,6 +727,7 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
             "BC6_Discount unit price" := getUnitpriceHT() - (getUnitpriceHT() * "Line Discount %" / 100);
         END;
     end;
+
 
     procedure FctGCalcLineDiscountIncreased()
     var

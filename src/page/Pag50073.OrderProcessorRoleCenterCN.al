@@ -2,7 +2,7 @@ page 50073 "Order Processor Role Center CN"
 {
     Caption = 'Role Center', Comment = 'FRA="Tableau de bord"';
     PageType = RoleCenter;
-
+    UsageCategory = None;
     layout
     {
         area(rolecenter)
@@ -254,9 +254,6 @@ page 50073 "Order Processor Role Center CN"
             {
                 Caption = 'Sales &Quote', Comment = 'FRA="&Devis"';
                 Image = Quote;
-                Promoted = false;
-                //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
-                //PromotedCategory = Process;
                 RunObject = Page "Sales Quote";
                 RunPageMode = Create;
                 ApplicationArea = All;
@@ -265,9 +262,6 @@ page 50073 "Order Processor Role Center CN"
             {
                 Caption = 'Sales &Invoice', Comment = 'FRA="Fac&ture vente"';
                 Image = Invoice;
-                Promoted = false;
-                //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
-                //PromotedCategory = Process;
                 RunObject = Page "Sales Invoice";
                 RunPageMode = Create;
                 ApplicationArea = All;
@@ -276,9 +270,6 @@ page 50073 "Order Processor Role Center CN"
             {
                 Caption = 'Sales &Order', Comment = 'FRA="&Commande vente"';
                 Image = Document;
-                Promoted = false;
-                //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
-                //PromotedCategory = Process;
                 RunObject = Page "Sales Order";
                 RunPageMode = Create;
                 ApplicationArea = All;
@@ -287,9 +278,6 @@ page 50073 "Order Processor Role Center CN"
             {
                 Caption = 'Sales &Return Order', Comment = 'FRA="&Retour vente"';
                 Image = ReturnOrder;
-                Promoted = false;
-                //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
-                //PromotedCategory = Process;
                 RunObject = Page "Sales Return Order";
                 RunPageMode = Create;
                 ApplicationArea = All;
@@ -298,9 +286,6 @@ page 50073 "Order Processor Role Center CN"
             {
                 Caption = 'Sales &Credit Memo', Comment = 'FRA="&Avoir vente"';
                 Image = CreditMemo;
-                Promoted = false;
-                //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
-                //PromotedCategory = Process;
                 RunObject = Page "Sales Credit Memo";
                 RunPageMode = Create;
                 ApplicationArea = All;

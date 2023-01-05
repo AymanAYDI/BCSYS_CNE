@@ -71,7 +71,7 @@ pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
             field("BC6_Bin Code"; Rec."BC6_Bin Code")
             {
                 ApplicationArea = All;
-                Caption = 'Bin Code', Comment = 'FRA=""';
+                Caption = 'Bin Code';
             }
         }
         addafter(Control1907234507)
@@ -148,7 +148,7 @@ pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
                     RecLSalesHeader := Rec;
                     RecLSalesHeader.SETRECFILTER();
                     RptLSalesQuote.SETTABLEVIEW(RecLSalesHeader);
-                    RptLSalesQuote.DefineTagFax("BC6_Sell-to Fax No.");
+                    RptLSalesQuote.DefineTagFax(Rec."BC6_Sell-to Fax No.");
                     RptLSalesQuote.RUN();
                 end;
             }

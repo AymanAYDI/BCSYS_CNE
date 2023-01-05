@@ -1,5 +1,5 @@
 
-codeunit 50203 "BC6_PagesEvents"
+codeunit 50031 "BC6_PagesEvents"
 {
 
     //PAGE 95
@@ -30,12 +30,12 @@ codeunit 50203 "BC6_PagesEvents"
     [EventSubscriber(ObjectType::Page, Page::"Location Card", 'OnAfterUpdateEnabled', '', false, false)]
     local procedure P5703_OnAfterUpdateEnabled(Location: Record Location)
     var
-        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
+        LocationCard: Page "Location Card";
     begin
 
-        GlobalFunctionMgt.SetNewReceiptBinCodeEnable((Location."Bin Mandatory" AND Location."Require Receive") OR Location."Directed Put-away and Pick");  //NewReceiptBinCodeEnable
-        GlobalFunctionMgt.SetNewShipmentBinCodeEnable((Location."Bin Mandatory" AND Location."Require Shipment") OR Location."Directed Put-away and Pick"); //NewShipmentBinCodeEnable
-        GlobalFunctionMgt.SetNewAssemblyShipmentBinCodeEnable(Location."Bin Mandatory" and not GlobalFunctionMgt.GetNewShipmentBinCodeEnable());
+        LocationCard.SetNewReceiptBinCodeEnable((Location."Bin Mandatory" AND Location."Require Receive") OR Location."Directed Put-away and Pick");  //NewReceiptBinCodeEnable
+        LocationCard.SetNewShipmentBinCodeEnable((Location."Bin Mandatory" AND Location."Require Shipment") OR Location."Directed Put-away and Pick"); //NewShipmentBinCodeEnable
+        LocationCard.SetNewAssemblyShipmentBinCodeEnable(Location."Bin Mandatory" and not LocationCard.GetNewShipmentBinCodeEnable());
     end;
     //Page 6630
     [EventSubscriber(ObjectType::Page, Page::"Sales Return Order", 'OnBeforeStatisticsAction', '', false, false)]
@@ -97,7 +97,7 @@ codeunit 50203 "BC6_PagesEvents"
     [EventSubscriber(ObjectType::Page, Page::"Apply Customer Entries", 'OnBeforeSetApplyingCustLedgEntry', '', false, false)]
     local procedure P232_OnBeforeSetApplyingCustLedgEntry(var ApplyingCustLedgEntry: Record "Cust. Ledger Entry"; GenJournalLine: Record "Gen. Journal Line"; SalesHeader: Record "Sales Header"; var CalcType: Enum "Customer Apply Calculation Type"; ServHeader: Record "Service Header")
     var
-        TotalSalesLine: Record "Sales Line";
+    // TotalSalesLine: Record "Sales Line";
     begin
         // //TODO: changed in cdu 90 SalesPost.SumSalesLines(
         // //   SalesHeader, 0, TotalSalesLine, TotalSalesLineLCY,
@@ -179,9 +179,8 @@ codeunit 50203 "BC6_PagesEvents"
         TextGestTierPayeur001: Label 'There is no ledger entries.', comment = 'FRA="Il n''y a pas d''écitures."';
     begin
         Vend.GET(VendorLedgerEntry."Entry No."); //CHECK THE GET()
-        if CalcType = CalcType::Direct then begin
+        if CalcType = CalcType::Direct then
             IF NOT Vend.GET(VendorLedgerEntry."Vendor No.") AND NOT Vend.GET(Vend."BC6_Pay-to Vend. No.") THEN ERROR(TextGestTierPayeur001);
-        end;
     end;
 
 
@@ -238,20 +237,17 @@ codeunit 50203 "BC6_PagesEvents"
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch. Post Invoice Events", 'OnPostLedgerEntryOnAfterGenJnlPostLine', '', false, false)]
-
     local procedure COD90_OnPostLedgerEntryOnAfterGenJnlPostLine(var GenJnlLine: Record "Gen. Journal Line"; var PurchHeader: Record "Purchase Header"; var TotalPurchLine: Record "Purchase Line"; var TotalPurchLineLCY: Record "Purchase Line"; PreviewMode: Boolean; SuppressCommit: Boolean; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line")
     var
         GlobalFunction: Codeunit "BC6_GlobalFunctionMgt";
-        _DEEECategoryCode: code[10];
-        _EcoPartnerDEEE: Code[10];
     begin
 
         GenJnlLine."BC6_DEEE HT Amount" := TotalPurchLine."BC6_DEEE HT Amount";
         GenJnlLine."BC6_DEEE VAT Amount" := TotalPurchLine."BC6_DEEE VAT Amount";
         GenJnlLine."BC6_DEEE TTC Amount" := TotalPurchLine."BC6_DEEE TTC Amount";
         GenJnlLine."BC6_DEEE HT Amount (LCY)" := TotalPurchLine."BC6_DEEE HT Amount (LCY)";
-        GenJnlLine."BC6_Eco partner DEEE" := _EcoPartnerDEEE;
-        GenJnlLine."BC6_DEEE Category Code" := _DEEECategoryCode;
+        GenJnlLine."BC6_Eco partner DEEE" := GlobalFunction.Get_EcoPartnerDEEE();
+        GenJnlLine."BC6_DEEE Category Code" := GlobalFunction.Get_DEEECategoryCode();
 
         GenJnlLine.Amount := GenJnlLine.Amount - GlobalFunction.GetGDecMntTTCDEEE();
         GenJnlLine."Source Currency Amount" := GenJnlLine."Source Currency Amount" - GlobalFunction.GetGDecMntTTCDEEE();
@@ -317,9 +313,6 @@ codeunit 50203 "BC6_PagesEvents"
         GenJnlLine.Amount := GenJnlLine.Amount - GlobalFunction.Get_PurchGDecMntTTCDEEE();
         GenJnlLine."Source Currency Amount" := GenJnlLine."Source Currency Amount" - GlobalFunction.Get_PurchGDecMntTTCDEEE();
         GenJnlLine."Amount (LCY)" := GenJnlLine."Amount (LCY)" - GlobalFunction.Get_PurchGDecMntTTCDEEE();
-        //>>DEEE1.00 : DEEE amount management
-
-        //>>REGLEMENT STLA 01.08.2006 COR001 [13] Mise ´ jour du champ Mode de r²glement de la feuille de saisie
         GenJnlLine."Payment Method Code" := GenJnlLine."Payment Method Code";
 
     end;
@@ -335,12 +328,11 @@ codeunit 50203 "BC6_PagesEvents"
 
     end;
 
+
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post (Yes/No)", 'OnBeforeConfirmPostProcedure', '', false, false)]
     local procedure COD91_OnBeforeConfirmPostProcedure(var PurchaseHeader: Record "Purchase Header"; var DefaultOption: Integer; var Result: Boolean; var IsHandled: Boolean)
     begin
-        WITH PurchaseHeader DO BEGIN
-            TESTFIELD(Status, Status::Released);
-        end;
+        PurchaseHeader.TESTFIELD(Status, PurchaseHeader.Status::Released);
     end;
     //COD 93 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Quote to Order (Yes/No)", 'OnBeforePurchQuoteToOrder', '', false, false)]
@@ -443,11 +435,10 @@ codeunit 50203 "BC6_PagesEvents"
 
         if not CustCheckCreditLimit.SalesHeaderShowWarningAndGetCause(SalesHeader, AdditionalContextId) then
             SalesHeader.CustomerCreditLimitNotExceeded()
-        else begin
+        else
 
             //TODO: à voir l'inside de else begin
             CustCheckCrLimit.ShowNotificationDetails(LastNotification);
-        end;
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Cust-Check Cr. Limit", 'OnBeforeCreateAndSendNotification', '', false, false)]
@@ -488,7 +479,7 @@ codeunit 50203 "BC6_PagesEvents"
         RecLPurchLine2.RESET();
         RecLPurchLine2.SETRANGE(RecLPurchLine2."Document Type", PurchaseHeader."Document Type");
         RecLPurchLine2.SETRANGE(RecLPurchLine2."Document No.", PurchaseHeader."No.");
-        IF RecLPurchLine2.FindFirst() THEN BEGIN
+        IF RecLPurchLine2.FindFirst() THEN
             REPEAT
                 IF (RecLPurchLine2."BC6_Sales No." <> '') AND (RecLPurchLine2."BC6_Sales Line No." <> 0) THEN BEGIN
                     RecLSalesLine.RESET();
@@ -504,7 +495,6 @@ codeunit 50203 "BC6_PagesEvents"
                     END;
                 END;
             UNTIL RecLPurchLine2.NEXT() = 0;
-        END;
         PurchaseLine.Modify(true);
         //////
         Commit();

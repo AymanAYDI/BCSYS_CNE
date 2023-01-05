@@ -2,7 +2,7 @@ page 50079 "Salesperson Role Center SCENEO"
 {
     Caption = 'Role Center', Comment = 'FRA="Tableau de bord"';
     PageType = RoleCenter;
-
+    UsageCategory = None;
     layout
     {
         area(rolecenter)

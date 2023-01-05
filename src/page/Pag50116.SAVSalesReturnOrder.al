@@ -6,7 +6,7 @@ page 50116 "BC6_SAV Sales Return Order"
     RefreshOnActivate = true;
     SourceTable = "Sales Header";
     SourceTableView = WHERE("Document Type" = FILTER("Return Order"));
-
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -43,6 +43,11 @@ page 50116 "BC6_SAV Sales Return Order"
                                 Rec.SETRANGE("Sell-to Customer No.");
 
                         CurrPage.UPDATE();
+                    end;
+
+                    trigger OnLookup(var Text: Text): Boolean
+                    begin
+                        exit(Rec.LookupSellToCustomerName(Text));
                     end;
                 }
                 group("Sell-to")
@@ -252,7 +257,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 {
                     Importance = Promoted;
                     ToolTip = 'Specifies the number of the posted document that this document or journal line will be applied to when you post, for example to register payment.'
-                    , comment = 'FRA=""';
+                    , comment = 'FRA="Spécifie le numéro du document validé avec lequel ce document ou cette ligne feuille sera lettré lorsque vous validez, par exemple pour enregistrer un paiement."';
                 }
                 field("Applies-to ID"; Rec."Applies-to ID")
                 {
@@ -324,7 +329,7 @@ page 50116 "BC6_SAV Sales Return Order"
                     field("Ship-to Contact"; Rec."Ship-to Contact")
                     {
                         Caption = 'Contact', comment = 'FRA="Contact"';
-                        ToolTip = 'Specifies the name of the contact person at the address that products on the sales document will be shipped to.', comment = 'FRA=""';
+                        ToolTip = 'Specifies the name of the contact person at the address that products on the sales document will be shipped to.', comment = 'FRA="Spécifie le nom de la personne de contact à l''adresse d''expédition des produits figurant sur le document vente."';
                     }
                 }
                 group("Bill-to")
@@ -850,7 +855,7 @@ page 50116 "BC6_SAV Sales Return Order"
 
                     trigger OnAction()
                     begin
-                        GetPstdDocLinesToRevere();
+                        Rec.GetPstdDocLinesToRevere();
                     end;
                 }
                 action("Archive Document")
@@ -890,7 +895,7 @@ page 50116 "BC6_SAV Sales Return Order"
                     var
                         L_ReturnOrderMgt: Codeunit "BC6_Return Order Mgt.";
                     begin
-                        L_ReturnOrderMgt.DisableRelatedDocuments("No.");
+                        L_ReturnOrderMgt.DisableRelatedDocuments(Rec."No.");
                         CurrPage.UPDATE();
                     end;
                 }
@@ -1100,7 +1105,7 @@ page 50116 "BC6_SAV Sales Return Order"
         Rec."Responsibility Center" := UserMgt.GetSalesFilter();
         IF (NOT DocNoVisible) AND (Rec."No." = '') THEN
             Rec.SetSellToCustomerFromFilter();
-        "BC6_Return Order Type" := "BC6_Return Order Type"::SAV;
+        Rec."BC6_Return Order Type" := Rec."BC6_Return Order Type"::SAV;
     end;
 
     trigger OnOpenPage()

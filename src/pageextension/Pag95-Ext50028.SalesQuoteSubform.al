@@ -6,38 +6,38 @@ pageextension 50028 "BC6_SalesQuoteSubform" extends "Sales Quote Subform" //95
 
         addafter("Location Code")
         {
-            field("BC6_Bin Code"; "Bin Code")
+            field("BC6_Bin Code"; Rec."Bin Code")
             {
             }
         }
         addafter("Unit of Measure")
         {
-            field("BC6_Item Disc. Group"; "BC6_Item Disc. Group")
+            field("BC6_Item Disc. Group"; Rec."BC6_Item Disc. Group")
             {
                 Editable = false;
             }
-            field("BC6_Dispensation No."; "BC6_Dispensation No.")
+            field("BC6_Dispensation No."; Rec."BC6_Dispensation No.")
             {
                 Editable = false;
             }
-            field("BC6_Additional Discount %"; "BC6_Additional Discount %")
+            field("BC6_Additional Discount %"; Rec."BC6_Additional Discount %")
             {
                 Editable = false;
             }
-            field("BC6_Dispensed Purchase Cost"; "BC6_Dispensed Purchase Cost")
+            field("BC6_Dispensed Purchase Cost"; Rec."BC6_Dispensed Purchase Cost")
             {
                 Editable = false;
             }
-            field("BC6_Standard Net Price"; "BC6_Standard Net Price")
+            field("BC6_Standard Net Price"; Rec."BC6_Standard Net Price")
             {
                 Editable = false;
             }
         }
         addafter("Unit Cost (LCY)")
         {
-            field("BC6_Purchase cost"; "BC6_Purchase cost")
+            field("BC6_Purchase cost"; Rec."BC6_Purchase cost")
             {
-                Caption = 'Real purchase cost';
+                Caption = 'Real purchase cost', Comment = 'FRA="Coût d''achat réel"';
                 Visible = ShowRealProfit;
 
                 trigger OnValidate()
@@ -51,26 +51,26 @@ pageextension 50028 "BC6_SalesQuoteSubform" extends "Sales Quote Subform" //95
 
                 trigger OnValidate()
                 begin
-                    ValidateIncreasePurchCost(IncrPurchCost);
+                    Rec.ValidateIncreasePurchCost(IncrPurchCost);
                     UpdateIncreasedFields();
                 end;
             }
         }
         addafter(PriceExists)
         {
-            field("BC6_Public Price"; "BC6_Public Price")
+            field("BC6_Public Price"; Rec."BC6_Public Price")
             {
             }
         }
         addafter("Line Discount %")
         {
-            field("BC6_Discount unit price"; "BC6_Discount unit price")
+            field("BC6_Discount unit price"; Rec."BC6_Discount unit price")
             {
             }
         }
         addafter("Line Discount Amount")
         {
-            field("BC6_Profit %"; "Profit %")
+            field("BC6_Profit %"; Rec."Profit %")
             {
                 Caption = 'Real profit %', comment = 'FRA="% marge sur vente réel"';
                 Visible = ShowRealProfit;
@@ -86,38 +86,38 @@ pageextension 50028 "BC6_SalesQuoteSubform" extends "Sales Quote Subform" //95
 
                 trigger OnValidate()
                 begin
-                    ValidateIncreaseProfit(IncrProfit, IncrPurchCost);
+                    Rec.ValidateIncreaseProfit(IncrProfit, IncrPurchCost);
                     UpdateIncreasedFields();
                 end;
             }
         }
         addafter("Allow Item Charge Assignment")
         {
-            field("BC6_Purchasing Code"; "Purchasing Code")
+            field("BC6_Purchasing Code"; Rec."Purchasing Code")
             {
             }
         }
         addafter("ShortcutDimCode8")
         {
-            field("BC6_DEEE Unit Price"; "BC6_DEEE Unit Price")
+            field("BC6_DEEE Unit Price"; Rec."BC6_DEEE Unit Price")
             {
             }
-            field("BC6_DEEE HT Amount"; "BC6_DEEE HT Amount")
+            field("BC6_DEEE HT Amount"; Rec."BC6_DEEE HT Amount")
             {
             }
-            field("BC6_DEEE Unit Price (LCY)"; "BC6_DEEE Unit Price (LCY)")
+            field("BC6_DEEE Unit Price (LCY)"; Rec."BC6_DEEE Unit Price (LCY)")
             {
             }
-            field("BC6_DEEE VAT Amount"; "BC6_DEEE VAT Amount")
+            field("BC6_DEEE VAT Amount"; Rec."BC6_DEEE VAT Amount")
             {
             }
-            field("BC6_DEEE TTC Amount"; "BC6_DEEE TTC Amount")
+            field("BC6_DEEE TTC Amount"; Rec."BC6_DEEE TTC Amount")
             {
             }
-            field("BC6_DEEE HT Amount (LCY)"; "BC6_DEEE HT Amount (LCY)")
+            field("BC6_DEEE HT Amount (LCY)"; Rec."BC6_DEEE HT Amount (LCY)")
             {
             }
-            field("BC6_Eco partner DEEE"; "BC6_Eco partner DEEE")
+            field("BC6_Eco partner DEEE"; Rec."BC6_Eco partner DEEE")
             {
             }
         }
@@ -153,9 +153,9 @@ pageextension 50028 "BC6_SalesQuoteSubform" extends "Sales Quote Subform" //95
 
     procedure UpdateIncreasedFields()
     begin
-        IF Type = Type::Item THEN BEGIN
-            CalcIncreasePurchCost(IncrPurchCost);
-            CalcIncreaseProfit(IncrProfit, IncrPurchCost);
+        IF Rec.Type = Rec.Type::Item THEN BEGIN
+            Rec.CalcIncreasePurchCost(IncrPurchCost);
+            Rec.CalcIncreaseProfit(IncrProfit, IncrPurchCost);
         END ELSE BEGIN
             IncrPurchCost := 0;
             IncrProfit := 0;

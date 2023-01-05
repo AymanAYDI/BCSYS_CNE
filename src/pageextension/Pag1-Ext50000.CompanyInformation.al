@@ -4,11 +4,11 @@ pageextension 50000 "BC6_CompanyInformation" extends "Company Information" //1
     {
         addafter("IC Inbox Details")
         {
-            field("BC6_Branch Company"; "BC6_Branch Company")
+            field("BC6_Branch Company"; Rec."BC6_Branch Company")
             {
                 ApplicationArea = All;
             }
-            field("BC6_Purchaser E-Mail"; "BC6_Purchaser E-Mail")
+            field("BC6_Purchaser E-Mail"; Rec."BC6_Purchaser E-Mail")
             {
                 ApplicationArea = All;
             }
@@ -18,59 +18,59 @@ pageextension 50000 "BC6_CompanyInformation" extends "Company Information" //1
             group("BC6_Alt Company")
             {
                 Caption = 'Alt Company', Comment = 'FRA="Alt Société"';
-                field("BC6_Alt Name"; "BC6_Alt Name")
+                field("BC6_Alt Name"; Rec."BC6_Alt Name")
                 {
                     ApplicationArea = All;
                 }
-                field("BC6_Alt Name 2"; "BC6_Alt Name 2")
+                field("BC6_Alt Name 2"; Rec."BC6_Alt Name 2")
                 {
                     ApplicationArea = All;
                 }
-                field("BC6_Alt Address"; "BC6_Alt Address")
+                field("BC6_Alt Address"; Rec."BC6_Alt Address")
                 {
                     ApplicationArea = All;
                 }
-                field("BC6_Alt Address 2"; "BC6_Alt Address 2")
+                field("BC6_Alt Address 2"; Rec."BC6_Alt Address 2")
                 {
                     ApplicationArea = All;
                 }
-                field("BC6_Alt City"; "BC6_Alt City")
+                field("BC6_Alt City"; Rec."BC6_Alt City")
                 {
                     ApplicationArea = All;
                 }
-                field("BC6_Alt Phone No."; "BC6_Alt Phone No.")
+                field("BC6_Alt Phone No."; Rec."BC6_Alt Phone No.")
                 {
                     ApplicationArea = All;
                 }
-                field("BC6_Alt Phone No. 2"; "BC6_Alt Phone No. 2")
+                field("BC6_Alt Phone No. 2"; Rec."BC6_Alt Phone No. 2")
                 {
                     ApplicationArea = All;
                 }
-                field("BC6_Alt Telex No."; "BC6_Alt Telex No.")
+                field("BC6_Alt Telex No."; Rec."BC6_Alt Telex No.")
                 {
                     ApplicationArea = All;
                 }
-                field("BC6_Alt Fax No."; "BC6_Alt Fax No.")
+                field("BC6_Alt Fax No."; Rec."BC6_Alt Fax No.")
                 {
                     ApplicationArea = All;
                 }
-                field("BC6_Alt Post Code"; "BC6_Alt Post Code")
+                field("BC6_Alt Post Code"; Rec."BC6_Alt Post Code")
                 {
                     ApplicationArea = All;
                 }
-                field("BC6_Alt E-Mail"; "BC6_Alt E-Mail")
+                field("BC6_Alt E-Mail"; Rec."BC6_Alt E-Mail")
                 {
                     ApplicationArea = All;
                 }
-                field("BC6_Alt Country Code"; "BC6_Alt Country Code")
+                field("BC6_Alt Country Code"; Rec."BC6_Alt Country Code")
                 {
                     ApplicationArea = All;
                 }
-                field("BC6_Alt Home Page"; "BC6_Alt Home Page")
+                field("BC6_Alt Home Page"; Rec."BC6_Alt Home Page")
                 {
                     ApplicationArea = All;
                 }
-                field("BC6_Alt Picture"; "BC6_Alt Picture")
+                field("BC6_Alt Picture"; Rec."BC6_Alt Picture")
                 {
                     ApplicationArea = All;
                 }
@@ -78,19 +78,19 @@ pageextension 50000 "BC6_CompanyInformation" extends "Company Information" //1
             group("BC6_Alt2 Company")
             {
                 Caption = 'Alt2 Company', Comment = 'FRA="Alt2 Société"';
-                field("BC6_Alt2 Name"; "BC6_Alt2 Name")
+                field("BC6_Alt2 Name"; Rec."BC6_Alt2 Name")
                 {
                     ApplicationArea = All;
                 }
-                field("BC6_Alt2 Phone No."; "BC6_Alt2 Phone No.")
+                field("BC6_Alt2 Phone No."; Rec."BC6_Alt2 Phone No.")
                 {
                     ApplicationArea = All;
                 }
-                field("BC6_Alt2 Fax No."; "BC6_Alt2 Fax No.")
+                field("BC6_Alt2 Fax No."; Rec."BC6_Alt2 Fax No.")
                 {
                     ApplicationArea = All;
                 }
-                field("BC6_Alt2 E-Mail"; "BC6_Alt2 E-Mail")
+                field("BC6_Alt2 E-Mail"; Rec."BC6_Alt2 E-Mail")
                 {
                     ApplicationArea = All;
                 }

@@ -1202,7 +1202,7 @@ page 50119 "BC6_SAV Purchase Return Order"
         OpenApprovalEntriesExist := ApprovalsMgmt.HasOpenApprovalEntries(Rec.RECORDID);
         CanCancelApprovalForRecord := ApprovalsMgmt.CanCancelApprovalForRecord(Rec.RECORDID);
 
-        IF "BC6_Return Order Type" = "BC6_Return Order Type"::SAV THEN
+        IF Rec."BC6_Return Order Type" = Rec."BC6_Return Order Type"::SAV THEN
             BooGReminderDateVisible := TRUE;
     end;
 

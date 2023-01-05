@@ -1,3 +1,4 @@
+
 report 50008 "BC6_Purchase Order"
 {
     DefaultLayout = RDLC;
@@ -1146,7 +1147,7 @@ report 50008 "BC6_Purchase Order"
                     PaymentMethod.GET("Payment Method Code");
 
                 RecG_User.RESET();
-                RecG_User.SETRANGE("User Name", ID);
+                RecG_User.SETRANGE("User Name", BC6_ID);
                 IF RecG_User.FINDFIRST() THEN
                     TexG_User_Name := RecG_User."User Name"
                 ELSE
@@ -1197,7 +1198,7 @@ report 50008 "BC6_Purchase Order"
             {
                 group(Options)
                 {
-                    Caption = 'Options', Comment = 'FRA=""';
+                    Caption = 'Options', Comment = 'FRA="Options"';
                     field(NoOfCopies; NoOfCopies)
                     {
                         Caption = 'No. of Copies', Comment = 'FRA="Nombre de copies"';

@@ -143,7 +143,7 @@ page 50056 "BC6_Item Invt."
             {
                 Caption = 'Bin Contents', Comment = 'FRA="Contenus emplacements"';
                 Editable = false;
-                field("Location Code"; "Location Code")
+                field("Location Code"; Rec."Location Code")
                 {
                     Visible = false;
                     ApplicationArea = All;
@@ -159,7 +159,7 @@ page 50056 "BC6_Item Invt."
                         IF LocationForm.RUNMODAL() = ACTION::LookupOK THEN;
                     end;
                 }
-                field("Bin Code"; "Bin Code")
+                field("Bin Code"; Rec."Bin Code")
                 {
                     Importance = Promoted;
                     Style = StrongAccent;
@@ -178,7 +178,7 @@ page 50056 "BC6_Item Invt."
                         IF BinForm.RUNMODAL() = ACTION::LookupOK THEN;
                     end;
                 }
-                field(Quantity; Quantity)
+                field(Quantity; Rec.Quantity)
                 {
                     Style = StrongAccent;
                     StyleExpr = TRUE;
@@ -186,11 +186,11 @@ page 50056 "BC6_Item Invt."
 
                     trigger OnDrillDown()
                     begin
-                        MESSAGE(FIELDCAPTION(Quantity));
+                        MESSAGE(Rec.FIELDCAPTION(Quantity));
                         EXIT;
                     end;
                 }
-                field("Pick Qty."; "Pick Qty.")
+                field("Pick Qty."; Rec."Pick Qty.")
                 {
                     Visible = false;
                     ApplicationArea = All;
@@ -203,19 +203,19 @@ page 50056 "BC6_Item Invt."
                     StyleExpr = TRUE;
                     ApplicationArea = All;
                 }
-                field(Default; Default)
+                field(Default; Rec.Default)
                 {
                     Image = "None";
                     Importance = Additional;
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field(Fixed; Fixed)
+                field(Fixed; Rec.Fixed)
                 {
                     Visible = false;
                     ApplicationArea = All;
                 }
-                field("Unit of Measure Code"; "Unit of Measure Code")
+                field("Unit of Measure Code"; Rec."Unit of Measure Code")
                 {
                     Visible = false;
                     ApplicationArea = All;
@@ -225,7 +225,7 @@ page 50056 "BC6_Item Invt."
                         EXIT;
                     end;
                 }
-                field("Item No."; "Item No.")
+                field("Item No."; Rec."Item No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
@@ -315,12 +315,12 @@ page 50056 "BC6_Item Invt."
     begin
         ItemNo := Item."No.";
         ItemDescription := Item.Description;
-        RESET();
-        SETRANGE("Item No.", Item."No.");
+        Rec.RESET();
+        Rec.SETRANGE("Item No.", Item."No.");
         IF LocationCode <> '' THEN
-            SETRANGE("Location Code", LocationCode);
-        SETFILTER(Quantity, '<>%1', 0);
-        IF FIND('-') THEN BEGIN
+            Rec.SETRANGE("Location Code", LocationCode);
+        Rec.SETFILTER(Quantity, '<>%1', 0);
+        IF Rec.FIND('-') THEN BEGIN
             CurrPage.UPDATE(FALSE);
             EXIT;
         END;
@@ -330,8 +330,8 @@ page 50056 "BC6_Item Invt."
 
     procedure ClearFilters()
     begin
-        RESET();
-        SETRANGE("Min. Qty.", 111111111111111.0);
+        Rec.RESET();
+        Rec.SETRANGE("Min. Qty.", 111111111111111.0);
         CurrPage.UPDATE(FALSE);
     end;
 
@@ -361,7 +361,7 @@ page 50056 "BC6_Item Invt."
 
     procedure CalcAvailQty(): Decimal
     begin
-        EXIT(Quantity - "Pick Qty." - "Neg. Adjmt. Qty.");
+        EXIT(Rec.Quantity - Rec."Pick Qty." - Rec."Neg. Adjmt. Qty.");
     end;
 
     local procedure ItemNoOnAfterValidate()

@@ -5,93 +5,94 @@ page 50023 "BC6_Intégration article"
     SourceTable = "BC6_Temporary import catalogue";
     UsageCategory = Tasks;
     ApplicationArea = All;
+    Caption = 'Intégration article';
     layout
     {
         area(content)
         {
             repeater(Control1)
             {
-                field(Ref_externe; Ref_externe)
+                field(Ref_externe; Rec.Ref_externe)
                 {
                     ApplicationArea = All;
                 }
-                field(Ref_Interne; Ref_Interne)
+                field(Ref_Interne; Rec.Ref_Interne)
                 {
                     ApplicationArea = All;
                 }
-                field(designation; designation)
+                field(designation; Rec.designation)
                 {
                     ApplicationArea = All;
                 }
-                field(Prix_public; Prix_public)
+                field(Prix_public; Rec.Prix_public)
                 {
                     ApplicationArea = All;
                 }
-                field(famille; famille)
+                field(famille; Rec.famille)
                 {
                     ApplicationArea = All;
                 }
-                field(remise; remise)
+                field(remise; Rec.remise)
                 {
                     ApplicationArea = All;
                 }
-                field(prix_net; prix_net)
+                field(prix_net; Rec.prix_net)
                 {
                     ApplicationArea = All;
                 }
-                field("date debut"; "date debut")
+                field("date debut"; Rec."date debut")
                 {
                     ApplicationArea = All;
                 }
-                field("date fin"; "date fin")
+                field("date fin"; Rec."date fin")
                 {
                     ApplicationArea = All;
                 }
-                field(Vendor; Vendor)
+                field(Vendor; Rec.Vendor)
                 {
                     ApplicationArea = All;
                 }
-                field("Item Category Code"; "Item Category Code")
+                field("Item Category Code"; Rec."Item Category Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Product Group Code"; "Product Group Code")
+                field("Product Group Code"; Rec."Product Group Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Net Weight"; "Net Weight")
+                field("Net Weight"; Rec."Net Weight")
                 {
                     ApplicationArea = All;
                 }
-                field("Item BarCode"; "Item BarCode")
+                field("Item BarCode"; Rec."Item BarCode")
                 {
                     ApplicationArea = All;
                 }
-                field(BarCode; BarCode)
+                field(BarCode; Rec.BarCode)
                 {
                     ApplicationArea = All;
                 }
-                field("Replace Item BarCode"; "Replace Item BarCode")
+                field("Replace Item BarCode"; Rec."Replace Item BarCode")
                 {
                     ApplicationArea = All;
                 }
-                field("DEEE Category Code"; "DEEE Category Code")
+                field("DEEE Category Code"; Rec."DEEE Category Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Number of Units DEEE"; "Number of Units DEEE")
+                field("Number of Units DEEE"; Rec."Number of Units DEEE")
                 {
                     ApplicationArea = All;
                 }
-                field("DEEE Unit Amount"; "DEEE Unit Amount")
+                field("DEEE Unit Amount"; Rec."DEEE Unit Amount")
                 {
                     ApplicationArea = All;
                 }
-                field("Emplacement par défaut"; "Emplacement par défaut")
+                field("Emplacement par défaut"; Rec."Emplacement par défaut")
                 {
                     ApplicationArea = All;
                 }
-                field(Stocks; Stocks)
+                field(Stocks; Rec.Stocks)
                 {
                     ApplicationArea = All;
                 }
@@ -113,18 +114,18 @@ page 50023 "BC6_Intégration article"
 
                 trigger OnAction()
                 begin
-                    IF FIND('-') THEN
+                    IF Rec.FIND('-') THEN
                         IF CONFIRM(textg002, FALSE) THEN BEGIN
-                            RESET();
-                            DELETEALL();
+                            Rec.RESET();
+                            Rec.DELETEALL();
                         END;
 
                     COMMIT();
 
                     XMLPORT.RUN(XmlPort::"BC6_Intégration catalogue", TRUE, TRUE);
-                    RESET();
+                    Rec.RESET();
                     CurrPage.UPDATE(TRUE);
-                    IF NOT FIND('-') THEN;
+                    IF NOT Rec.FIND('-') THEN;
                 end;
             }
             action("Update")
@@ -137,11 +138,11 @@ page 50023 "BC6_Intégration article"
 
                 trigger OnAction()
                 begin
-                    RESET();
-                    IF FIND('-') THEN
+                    Rec.RESET();
+                    IF Rec.FIND('-') THEN
                         IF CONFIRM(textg001, FALSE) THEN BEGIN
-                            importdata();
-                            DELETEALL();
+                            Rec.importdata();
+                            Rec.DELETEALL();
                         END;
                 end;
             }
@@ -164,7 +165,6 @@ page 50023 "BC6_Intégration article"
     }
 
     var
-        TestG004: Label 'You can not insert line', Comment = 'FRA="vous ne pouvez pas insérer de ligne"';
         textg001: Label 'do you want integrate this data ?', Comment = 'FRA="Voulez vous intégrer ces données ?"';
         textg002: Label 'Empty Integration form ?', Comment = 'FRA="Remettre à zéro le formulaire d''intégration ? "';
         textG005: Label 'Mise à jour terminée.', Comment = 'FRA="Mise à jour terminée."';

@@ -4,7 +4,7 @@ pageextension 50051 "BC6_StandardCustomerSalesCodes" extends "Standard Customer 
     {
         addafter(Blocked)
         {
-            field(BC6_TextautoReport; "BC6_TextautoReport")
+            field(BC6_TextautoReport; Rec."BC6_TextautoReport")
             {
             }
 

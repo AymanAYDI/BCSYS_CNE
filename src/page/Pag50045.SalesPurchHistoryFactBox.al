@@ -3,7 +3,7 @@ page 50045 "Sales/Purch. History FactBox"
     Caption = 'Item Sales/Purchase History', Comment = 'FRA="Historique vente/achat article"';
     PageType = CardPart;
     SourceTable = Item;
-
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -21,7 +21,7 @@ page 50045 "Sales/Purch. History FactBox"
                         RecGSalesLine.RESET();
                         CLEAR(PagGSalesLinesSubform3);
                         RecGSalesLine.SETRANGE("Document Type", RecGSalesLines."Document Type"::Quote);
-                        RecGSalesLine.SETRANGE("No.", "No.");
+                        RecGSalesLine.SETRANGE("No.", Rec."No.");
                         PagGSalesLinesSubform3.SETTABLEVIEW(RecGSalesLine);
                         PagGSalesLinesSubform3.RUN();
                     end;
@@ -38,7 +38,7 @@ page 50045 "Sales/Purch. History FactBox"
                         RecGSalesLine.RESET();
                         CLEAR(PagGSalesLinesSubform3);
                         RecGSalesLine.SETRANGE("Document Type", RecGSalesLines."Document Type"::"Blanket Order");
-                        RecGSalesLine.SETRANGE("No.", "No.");
+                        RecGSalesLine.SETRANGE("No.", Rec."No.");
                         PagGSalesLinesSubform3.SETTABLEVIEW(RecGSalesLine);
                         PagGSalesLinesSubform3.RUN();
                     end;
@@ -54,7 +54,7 @@ page 50045 "Sales/Purch. History FactBox"
                         RecGSalesLine.RESET();
                         CLEAR(PagGSalesLinesSubform3);
                         RecGSalesLine.SETRANGE("Document Type", RecGSalesLines."Document Type"::Order);
-                        RecGSalesLine.SETRANGE("No.", "No.");
+                        RecGSalesLine.SETRANGE("No.", Rec."No.");
                         PagGSalesLinesSubform3.SETTABLEVIEW(RecGSalesLine);
                         PagGSalesLinesSubform3.RUN();
                     end;
@@ -71,7 +71,7 @@ page 50045 "Sales/Purch. History FactBox"
                         RecGSalesLine.RESET();
                         CLEAR(PagGSalesLinesSubform3);
                         RecGSalesLine.SETRANGE("Document Type", RecGSalesLines."Document Type"::Invoice);
-                        RecGSalesLine.SETRANGE("No.", "No.");
+                        RecGSalesLine.SETRANGE("No.", Rec."No.");
                         PagGSalesLinesSubform3.SETTABLEVIEW(RecGSalesLine);
                         PagGSalesLinesSubform3.RUN();
                     end;
@@ -87,7 +87,7 @@ page 50045 "Sales/Purch. History FactBox"
                         RecGSalesLine.RESET();
                         CLEAR(PagGSalesLinesSubform3);
                         RecGSalesLine.SETRANGE("Document Type", RecGSalesLines."Document Type"::"Return Order");
-                        RecGSalesLine.SETRANGE("No.", "No.");
+                        RecGSalesLine.SETRANGE("No.", Rec."No.");
                         PagGSalesLinesSubform3.SETTABLEVIEW(RecGSalesLine);
                         PagGSalesLinesSubform3.RUN();
                     end;
@@ -104,7 +104,7 @@ page 50045 "Sales/Purch. History FactBox"
                         RecGSalesLine.RESET();
                         CLEAR(PagGSalesLinesSubform3);
                         RecGSalesLine.SETRANGE("Document Type", RecGSalesLines."Document Type"::"Credit Memo");
-                        RecGSalesLine.SETRANGE("No.", "No.");
+                        RecGSalesLine.SETRANGE("No.", Rec."No.");
                         PagGSalesLinesSubform3.SETTABLEVIEW(RecGSalesLine);
                         PagGSalesLinesSubform3.RUN();
                     end;
@@ -119,7 +119,7 @@ page 50045 "Sales/Purch. History FactBox"
                     begin
                         RecGSalesShipmentLine.RESET();
                         CLEAR(PagGShipmentLinesSubform3);
-                        RecGSalesShipmentLine.SETRANGE("No.", "No.");
+                        RecGSalesShipmentLine.SETRANGE("No.", Rec."No.");
                         PagGShipmentLinesSubform3.SETTABLEVIEW(RecGSalesShipmentLine);
                         PagGShipmentLinesSubform3.RUN();
                     end;
@@ -134,7 +134,7 @@ page 50045 "Sales/Purch. History FactBox"
                     begin
                         RecGSalesInvoiceLine.RESET();
                         CLEAR(PagGInvoiceLinesSubform3);
-                        RecGSalesInvoiceLine.SETRANGE("No.", "No.");
+                        RecGSalesInvoiceLine.SETRANGE("No.", Rec."No.");
                         PagGInvoiceLinesSubform3.SETTABLEVIEW(RecGSalesInvoiceLine);
                         PagGInvoiceLinesSubform3.RUN();
                     end;
@@ -149,7 +149,7 @@ page 50045 "Sales/Purch. History FactBox"
                     begin
                         RecGReturnReceiptLine.RESET();
                         CLEAR(PagGGReturnRcptLinesSubform2);
-                        RecGReturnReceiptLine.SETRANGE("No.", "No.");
+                        RecGReturnReceiptLine.SETRANGE("No.", Rec."No.");
                         PagGGReturnRcptLinesSubform2.SETTABLEVIEW(RecGReturnReceiptLine);
                         PagGGReturnRcptLinesSubform2.RUN();
                     end;
@@ -164,7 +164,7 @@ page 50045 "Sales/Purch. History FactBox"
                     begin
                         RecGSalesCrMemoLine.RESET();
                         CLEAR(PagGCreditMemoLinesSubform2);
-                        RecGSalesCrMemoLine.SETRANGE("No.", "No.");
+                        RecGSalesCrMemoLine.SETRANGE("No.", Rec."No.");
                         PagGCreditMemoLinesSubform2.SETTABLEVIEW(RecGSalesCrMemoLine);
                         PagGCreditMemoLinesSubform2.RUN();
                     end;
@@ -184,7 +184,7 @@ page 50045 "Sales/Purch. History FactBox"
                         RecGPurchLines.RESET();
                         CLEAR(PagGPurchaseLinesSubform2);
                         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::Quote);
-                        RecGPurchLines.SETRANGE("No.", "No.");
+                        RecGPurchLines.SETRANGE("No.", Rec."No.");
                         PagGPurchaseLinesSubform2.SETTABLEVIEW(RecGPurchLines);
                         PagGPurchaseLinesSubform2.RUN();
                     end;
@@ -201,7 +201,7 @@ page 50045 "Sales/Purch. History FactBox"
                         RecGPurchLines.RESET();
                         CLEAR(PagGPurchaseLinesSubform2);
                         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::"Blanket Order");
-                        RecGPurchLines.SETRANGE("No.", "No.");
+                        RecGPurchLines.SETRANGE("No.", Rec."No.");
                         PagGPurchaseLinesSubform2.SETTABLEVIEW(RecGPurchLines);
                         PagGPurchaseLinesSubform2.RUN();
                     end;
@@ -217,7 +217,7 @@ page 50045 "Sales/Purch. History FactBox"
                         RecGPurchLines.RESET();
                         CLEAR(PagGPurchaseLinesSubform2);
                         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::Order);
-                        RecGPurchLines.SETRANGE("No.", "No.");
+                        RecGPurchLines.SETRANGE("No.", Rec."No.");
                         PagGPurchaseLinesSubform2.SETTABLEVIEW(RecGPurchLines);
                         PagGPurchaseLinesSubform2.RUN();
                     end;
@@ -233,7 +233,7 @@ page 50045 "Sales/Purch. History FactBox"
                         RecGPurchLines.RESET();
                         CLEAR(PagGPurchaseLinesSubform2);
                         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::Invoice);
-                        RecGPurchLines.SETRANGE("No.", "No.");
+                        RecGPurchLines.SETRANGE("No.", Rec."No.");
                         PagGPurchaseLinesSubform2.SETTABLEVIEW(RecGPurchLines);
                         PagGPurchaseLinesSubform2.RUN();
                     end;
@@ -249,7 +249,7 @@ page 50045 "Sales/Purch. History FactBox"
                         RecGPurchLines.RESET();
                         CLEAR(PagGPurchaseLinesSubform2);
                         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::"Return Order");
-                        RecGPurchLines.SETRANGE("No.", "No.");
+                        RecGPurchLines.SETRANGE("No.", Rec."No.");
                         PagGPurchaseLinesSubform2.SETTABLEVIEW(RecGPurchLines);
                         PagGPurchaseLinesSubform2.RUN();
                     end;
@@ -265,7 +265,7 @@ page 50045 "Sales/Purch. History FactBox"
                         RecGPurchLines.RESET();
                         CLEAR(PagGPurchaseLinesSubform2);
                         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::"Credit Memo");
-                        RecGPurchLines.SETRANGE("No.", "No.");
+                        RecGPurchLines.SETRANGE("No.", Rec."No.");
                         PagGPurchaseLinesSubform2.SETTABLEVIEW(RecGPurchLines);
                         PagGPurchaseLinesSubform2.RUN();
                     end;
@@ -280,7 +280,7 @@ page 50045 "Sales/Purch. History FactBox"
                     begin
                         RecGPurchPostedRcpt.RESET();
                         CLEAR(PagGPurchRcpLinesSubform);
-                        RecGPurchPostedRcpt.SETRANGE("No.", "No.");
+                        RecGPurchPostedRcpt.SETRANGE("No.", Rec."No.");
                         PagGPurchRcpLinesSubform.SETTABLEVIEW(RecGPurchPostedRcpt);
                         PagGPurchRcpLinesSubform.RUN();
                     end;
@@ -295,7 +295,7 @@ page 50045 "Sales/Purch. History FactBox"
                     begin
                         RecGPurchPostedInvoice.RESET();
                         CLEAR(PagGPurchInvLineSubform);
-                        RecGPurchPostedInvoice.SETRANGE("No.", "No.");
+                        RecGPurchPostedInvoice.SETRANGE("No.", Rec."No.");
                         PagGPurchInvLineSubform.SETTABLEVIEW(RecGPurchPostedInvoice);
                         PagGPurchInvLineSubform.RUN();
                     end;
@@ -311,7 +311,7 @@ page 50045 "Sales/Purch. History FactBox"
 
                         RecGPurchPostedReturnShipement.RESET();
                         CLEAR(PagGReturnShipmentLineSubform);
-                        RecGPurchPostedReturnShipement.SETRANGE("No.", "No.");
+                        RecGPurchPostedReturnShipement.SETRANGE("No.", Rec."No.");
                         PagGReturnShipmentLineSubform.SETTABLEVIEW(RecGPurchPostedReturnShipement);
                         PagGReturnShipmentLineSubform.RUN();
                     end;
@@ -327,7 +327,7 @@ page 50045 "Sales/Purch. History FactBox"
 
                         RecGPurchPostedCrdMemo.RESET();
                         CLEAR(PagGPurchCrMemoLineSubform);
-                        RecGPurchPostedCrdMemo.SETRANGE("No.", "No.");
+                        RecGPurchPostedCrdMemo.SETRANGE("No.", Rec."No.");
                         PagGPurchCrMemoLineSubform.SETTABLEVIEW(RecGPurchPostedCrdMemo);
                         PagGPurchCrMemoLineSubform.RUN();
                     end;
@@ -371,7 +371,7 @@ page 50045 "Sales/Purch. History FactBox"
         RecGSalesLine.RESET();
         RecGSalesLine.SETCURRENTKEY("Document Type", RecGSalesLine."No.");
         RecGSalesLine.SETRANGE("Document Type", RecGSalesLine."Document Type"::Quote);
-        RecGSalesLine.SETFILTER("No.", "No.");
+        RecGSalesLine.SETFILTER("No.", Rec."No.");
 
 
         IF RecGSalesLine.FIND('-') THEN BEGIN
@@ -405,7 +405,7 @@ page 50045 "Sales/Purch. History FactBox"
         RecGSalesLine.RESET();
         RecGSalesLine.SETCURRENTKEY("Document Type", RecGSalesLine."No.");
         RecGSalesLine.SETRANGE("Document Type", RecGSalesLine."Document Type"::Order);
-        RecGSalesLine.SETFILTER("No.", "No.");
+        RecGSalesLine.SETFILTER("No.", Rec."No.");
 
         IF RecGSalesLine.FIND('-') THEN BEGIN
             REPEAT
@@ -439,7 +439,7 @@ page 50045 "Sales/Purch. History FactBox"
         RecGSalesLine.RESET();
         RecGSalesLine.SETCURRENTKEY("Document Type", RecGSalesLine."No.");
         RecGSalesLine.SETRANGE("Document Type", RecGSalesLine."Document Type"::"Return Order");
-        RecGSalesLine.SETFILTER("No.", "No.");
+        RecGSalesLine.SETFILTER("No.", Rec."No.");
         IF RecGSalesLine.FIND('-') THEN BEGIN
             REPEAT
                 IF CodGDocNo <> RecGSalesLine."Document No." THEN
@@ -469,7 +469,7 @@ page 50045 "Sales/Purch. History FactBox"
         CLEAR(CodGDocNo);
         RecGSalesShipementLine.RESET();
         RecGSalesShipementLine.SETCURRENTKEY("No.");
-        RecGSalesShipementLine.SETFILTER("No.", "No.");
+        RecGSalesShipementLine.SETFILTER("No.", Rec."No.");
 
         IF RecGSalesShipementLine.FIND('-') THEN BEGIN
             REPEAT
@@ -483,7 +483,7 @@ page 50045 "Sales/Purch. History FactBox"
         CLEAR(CodGDocNo);
         RecGPostdSalesInvoices.RESET();
         RecGPostdSalesInvoices.SETCURRENTKEY("No.");
-        RecGPostdSalesInvoices.SETFILTER("No.", "No.");
+        RecGPostdSalesInvoices.SETFILTER("No.", Rec."No.");
 
         IF RecGPostdSalesInvoices.FIND('-') THEN BEGIN
             REPEAT
@@ -497,7 +497,7 @@ page 50045 "Sales/Purch. History FactBox"
         CLEAR(CodGDocNo);
         RecGPostdReturnSales.RESET();
         RecGPostdReturnSales.SETCURRENTKEY("No.");
-        RecGPostdReturnSales.SETFILTER("No.", "No.");
+        RecGPostdReturnSales.SETFILTER("No.", Rec."No.");
 
         IF RecGPostdReturnSales.FIND('-') THEN BEGIN
             REPEAT
@@ -511,7 +511,7 @@ page 50045 "Sales/Purch. History FactBox"
         CLEAR(CodGDocNo);
         RecGPostdCrdMemo.RESET();
         RecGPostdCrdMemo.SETCURRENTKEY("No.");
-        RecGPostdCrdMemo.SETFILTER("No.", "No.");
+        RecGPostdCrdMemo.SETFILTER("No.", Rec."No.");
 
         IF RecGPostdCrdMemo.FIND('-') THEN BEGIN
             REPEAT
@@ -525,7 +525,7 @@ page 50045 "Sales/Purch. History FactBox"
         CLEAR(CodGDocNo);
         RecGPurchLines.RESET();
         RecGPurchLines.SETCURRENTKEY("Document Type", "No.");
-        RecGPurchLines.SETFILTER("No.", "No.");
+        RecGPurchLines.SETFILTER("No.", Rec."No.");
         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::Quote);
 
         IF RecGPurchLines.FIND('-') THEN BEGIN
@@ -557,7 +557,7 @@ page 50045 "Sales/Purch. History FactBox"
         CLEAR(CodGDocNo);
         RecGPurchLines.RESET();
         RecGPurchLines.SETCURRENTKEY("Document Type", "No.");
-        RecGPurchLines.SETFILTER("No.", "No.");
+        RecGPurchLines.SETFILTER("No.", Rec."No.");
         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::Order);
 
         IF RecGPurchLines.FIND('-') THEN BEGIN
@@ -572,7 +572,7 @@ page 50045 "Sales/Purch. History FactBox"
         CLEAR(CodGDocNo);
         RecGPurchLines.RESET();
         RecGPurchLines.SETCURRENTKEY("Document Type", "No.");
-        RecGPurchLines.SETFILTER("No.", "No.");
+        RecGPurchLines.SETFILTER("No.", Rec."No.");
         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::Invoice);
 
         IF RecGPurchLines.FIND('-') THEN BEGIN
@@ -587,7 +587,7 @@ page 50045 "Sales/Purch. History FactBox"
         CLEAR(CodGDocNo);
         RecGPurchLines.RESET();
         RecGPurchLines.SETCURRENTKEY("Document Type", "No.");
-        RecGPurchLines.SETFILTER("No.", "No.");
+        RecGPurchLines.SETFILTER("No.", Rec."No.");
         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::"Return Order");
 
         IF RecGPurchLines.FIND('-') THEN BEGIN
@@ -602,7 +602,7 @@ page 50045 "Sales/Purch. History FactBox"
         CLEAR(CodGDocNo);
         RecGPurchLines.RESET();
         RecGPurchLines.SETCURRENTKEY("Document Type", "No.");
-        RecGPurchLines.SETFILTER("No.", "No.");
+        RecGPurchLines.SETFILTER("No.", Rec."No.");
         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::"Credit Memo");
 
         IF RecGPurchLines.FIND('-') THEN BEGIN
@@ -617,7 +617,7 @@ page 50045 "Sales/Purch. History FactBox"
         CLEAR(CodGDocNo);
         RecGPurchPostedRcpt.RESET();
         RecGPurchPostedRcpt.SETCURRENTKEY("No.");
-        RecGPurchPostedRcpt.SETFILTER("No.", "No.");
+        RecGPurchPostedRcpt.SETFILTER("No.", Rec."No.");
 
         IF RecGPurchPostedRcpt.FIND('-') THEN BEGIN
             REPEAT
@@ -631,7 +631,7 @@ page 50045 "Sales/Purch. History FactBox"
         CLEAR(CodGDocNo);
         RecGPurchPostedInvoice.RESET();
         RecGPurchPostedInvoice.SETCURRENTKEY("No.");
-        RecGPurchPostedInvoice.SETFILTER("No.", "No.");
+        RecGPurchPostedInvoice.SETFILTER("No.", Rec."No.");
 
         IF RecGPurchPostedInvoice.FIND('-') THEN BEGIN
             REPEAT
@@ -645,7 +645,7 @@ page 50045 "Sales/Purch. History FactBox"
         CLEAR(CodGDocNo);
         RecGPurchPostedReturnShipement.RESET();
         RecGPurchPostedReturnShipement.SETCURRENTKEY("No.");
-        RecGPurchPostedReturnShipement.SETFILTER("No.", "No.");
+        RecGPurchPostedReturnShipement.SETFILTER("No.", Rec."No.");
 
         IF RecGPurchPostedReturnShipement.FIND('-') THEN BEGIN
             REPEAT
@@ -659,7 +659,7 @@ page 50045 "Sales/Purch. History FactBox"
         CLEAR(CodGDocNo);
         RecGPurchPostedCrdMemo.RESET();
         RecGPurchPostedCrdMemo.SETCURRENTKEY("No.");
-        RecGPurchPostedCrdMemo.SETFILTER("No.", "No.");
+        RecGPurchPostedCrdMemo.SETFILTER("No.", Rec."No.");
 
         IF RecGPurchPostedCrdMemo.FIND('-') THEN BEGIN
             REPEAT

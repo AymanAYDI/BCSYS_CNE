@@ -1,6 +1,6 @@
 page 50033 "BC6_Affair Steps Sub-form"
 {
-    Caption = 'Affair Steps Sub-form', Comment = 'FRA=""';
+    Caption = 'Affair Steps Sub-form';
     PageType = ListPart;
     SourceTable = "BC6_Affair Steps";
 

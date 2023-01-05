@@ -467,7 +467,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
         Text012: Label 'Item %1 with tracking', Comment = 'FRA="%1 article avec traçabilité"';
         Text013: Label 'Item No. %1 Incorrect', Comment = 'FRA="%1 n° article erroné"';
         Text014: Label 'Item %1 blocked', Comment = 'FRA="%1 article bloqué"';
-        Text015: Label 'User %1 model sheet does not exist', Comment = 'FRA=""';
+        Text015: Label 'User %1 model sheet does not exist', Comment = 'FRA="Pas de nom de feuille article utilisateur %1"';
         Text016: Label 'Item %1 not exit on Invt. Pick', Comment = 'FRA="Pas de nom de feuille article utilisateur %1"';
         txt003: Label 'You cannot delete the entry', Comment = 'FRA="Vous ne pouvez pas supprimer la saisie."';
         ErrorTxt: Text[250];

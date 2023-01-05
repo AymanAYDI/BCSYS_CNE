@@ -1,6 +1,6 @@
 page 50039 "BC6_Cred. Memo Lines Subform 2"
 {
-    Caption = 'Credit Memo Purachase Lines', Comment = 'FRA=""';
+    Caption = 'Credit Memo Purachase Lines', Comment = 'FRA="Lignes avoir vente"';
     Editable = false;
     PageType = List;
     SourceTable = "Sales Cr.Memo Line";
@@ -172,18 +172,15 @@ page 50039 "BC6_Cred. Memo Lines Subform 2"
         {
             action(Show)
             {
-                Caption = '&Show', Comment = 'FRA=""';
+                Caption = '&Show', Comment = 'FRA="Affic&her"';
                 Image = Document;
                 ApplicationArea = All;
 
                 trigger OnAction()
                 begin
-                    //>>MIGRATION NAV 2013
-                    //CurrForm.PurchRcptline.FORM.GETRECORD(RecGPurchPostedRcpt);
                     IF NOT RecGSalesCrMemoHeader.GET("Document No.") THEN
                         EXIT;
                     PAGE.RUN(PAGE::"Posted Sales Credit Memo", RecGSalesCrMemoHeader);
-                    //<<MIGRATION NAV 2013
                 end;
             }
         }

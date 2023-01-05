@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="DataSource">
@@ -19,39 +19,39 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.94474in</Width>
+                  <Width>2.39964cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.91069in</Width>
+                  <Width>2.31315cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.59055in</Width>
+                  <Width>1.5cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.95471in</Width>
+                  <Width>2.42496cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.6843in</Width>
+                  <Width>1.73812cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.59055in</Width>
+                  <Width>1.5cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.83392in</Width>
+                  <Width>2.11816cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.69841in</Width>
+                  <Width>1.77396cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.74974in</Width>
+                  <Width>1.90434cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.64641in</Width>
+                  <Width>1.64188cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.16654in</Height>
+                  <Height>0.42301cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -295,7 +295,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.1664in</Height>
+                  <Height>0.42266cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -616,7 +616,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.19765in</Height>
+                  <Height>0.50203cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -793,7 +793,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=First(Fields!Sales_Shipment_Line___Qty__Shipped_Not_Invoiced_____RecGSaleLine__Discount_unit_price____RecGSaleLine__Purchase_cost__Caption.Value)</Value>
+                                  <Value>=First(Fields!DataItem1100267009.Value)</Value>
                                   <Style>
                                     <FontSize>7pt</FontSize>
                                   </Style>
@@ -882,7 +882,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.16654in</Height>
+                  <Height>0.42301cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1190,7 +1190,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.16654in</Height>
+                  <Height>0.42301cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1458,7 +1458,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.19348in</Height>
+                  <Height>0.49144cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1869,12 +1869,12 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.50197in</Width>
+                  <Width>1.275cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.09722in</Height>
+                  <Height>0.24694cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1938,39 +1938,39 @@ Cstr(Fields!CurrReport_PAGENOCaption.Value)</Value>
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.94472in</Width>
+                  <Width>2.39959cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.91069in</Width>
+                  <Width>2.31315cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.59055in</Width>
+                  <Width>1.5cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.95472in</Width>
+                  <Width>2.42499cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.68431in</Width>
+                  <Width>1.73815cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.59055in</Width>
+                  <Width>1.5cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.83393in</Width>
+                  <Width>2.11818cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.69841in</Width>
+                  <Width>1.77396cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.74974in</Width>
+                  <Width>1.90434cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.6464in</Width>
+                  <Width>1.64186cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.21862in</Height>
+                  <Height>0.55529cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -2214,7 +2214,7 @@ Cstr(Fields!CurrReport_PAGENOCaption.Value)</Value>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.15599in</Height>
+                  <Height>0.39621cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -2534,7 +2534,7 @@ Cstr(Fields!CurrReport_PAGENOCaption.Value)</Value>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.15599in</Height>
+                  <Height>0.39621cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -2802,7 +2802,7 @@ Cstr(Fields!CurrReport_PAGENOCaption.Value)</Value>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.16654in</Height>
+                  <Height>0.42301cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -3116,7 +3116,7 @@ Cstr(Fields!CurrReport_PAGENOCaption.Value)</Value>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.16654in</Height>
+                  <Height>0.42301cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -3386,7 +3386,7 @@ Cstr(Fields!CurrReport_PAGENOCaption.Value)</Value>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.18737in</Height>
+                  <Height>0.47592cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -3805,39 +3805,39 @@ Cstr(Fields!CurrReport_PAGENOCaption.Value)</Value>
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.94474in</Width>
+                  <Width>2.39964cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.91071in</Width>
+                  <Width>2.3132cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.59055in</Width>
+                  <Width>1.5cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.95471in</Width>
+                  <Width>2.42496cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.68426in</Width>
+                  <Width>1.73802cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.59055in</Width>
+                  <Width>1.5cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.83393in</Width>
+                  <Width>2.11818cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.69841in</Width>
+                  <Width>1.77396cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.74974in</Width>
+                  <Width>1.90434cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.64641in</Width>
+                  <Width>1.64188cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.16654in</Height>
+                  <Height>0.42301cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -4210,7 +4210,7 @@ Cstr(Fields!CurrReport_PAGENOCaption.Value)</Value>
             <Top>5.89359cm</Top>
             <Left>0.00003cm</Left>
             <Height>0.42301cm</Height>
-            <Width>19.31418cm</Width>
+            <Width>19.31419cm</Width>
             <ZIndex>3</ZIndex>
             <Style />
           </Tablix>
@@ -4218,39 +4218,39 @@ Cstr(Fields!CurrReport_PAGENOCaption.Value)</Value>
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.94474in</Width>
+                  <Width>2.39964cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.91069in</Width>
+                  <Width>2.31315cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.59055in</Width>
+                  <Width>1.5cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.95471in</Width>
+                  <Width>2.42496cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.68428in</Width>
+                  <Width>1.73807cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.59055in</Width>
+                  <Width>1.5cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.83393in</Width>
+                  <Width>2.11818cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.69841in</Width>
+                  <Width>1.77396cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.74974in</Width>
+                  <Width>1.90434cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.64641in</Width>
+                  <Width>1.64188cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.19387in</Height>
+                  <Height>0.49243cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -4874,7 +4874,6 @@ Cstr(Fields!CurrReport_PAGENOCaption.Value)</Value>
         <InteractiveHeight>29.7cm</InteractiveHeight>
         <InteractiveWidth>21cm</InteractiveWidth>
         <LeftMargin>1cm</LeftMargin>
-        <RightMargin>0cm</RightMargin>
         <TopMargin>2cm</TopMargin>
         <BottomMargin>2cm</BottomMargin>
         <Style />

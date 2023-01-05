@@ -421,10 +421,10 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
         IF NOT RecLAccessControl.FINDFIRST() AND ("Document Type" = "Document Type"::Quote) THEN begin
             SalesSetup.GET();
             SalesSetup.TESTFIELD(BC6_Nbr_Devis);
-            SalesSetup.TESTFIELD(Période);
+            SalesSetup.TESTFIELD("BC6_Période");
             RecLQuotehdr.SETRANGE("Document Type", RecLQuotehdr."Document Type"::Quote);
             RecLQuotehdr.SETFILTER("Sell-to Customer No.", "Sell-to Customer No.");
-            RecLQuotehdr.SETRANGE("Document Date", CALCDATE('-' + FORMAT(SalesSetup.Période), WORKDATE()), WORKDATE());
+            RecLQuotehdr.SETRANGE("Document Date", CALCDATE('-' + FORMAT(SalesSetup."BC6_Période"), WORKDATE()), WORKDATE());
             IF (RecLQuotehdr.COUNT <= SalesSetup.BC6_Nbr_Devis) OR ("BC6_Quote statut" = "BC6_Quote statut"::approved) THEN
                 EXIT(TRUE)
             ELSE BEGIN

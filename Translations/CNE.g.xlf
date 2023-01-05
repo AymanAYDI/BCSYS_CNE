@@ -11788,6 +11788,11 @@
           <note from="Developer" annotates="general" priority="2">FRA="Paramètrage Tables Diverses"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Setup Various Tables - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 2743599097 - Control 1976356074 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source></source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Setup Various Tables - Control Control1 - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 2743599097 - Action 2713276947 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Gestion Tables Diverses</source>
           <note from="Developer" annotates="general" priority="2"></note>

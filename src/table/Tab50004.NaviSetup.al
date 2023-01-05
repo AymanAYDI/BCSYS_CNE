@@ -57,42 +57,42 @@ table 50004 "BC6_Navi+ Setup"
         }
         field(11; "Used Post-it"; Code[10])
         {
-            Caption = 'Utilisé Post-it', comment = 'FRA="=Utilisé Post-it"';
+            Caption = 'Utilisé Post-it', comment = 'FRA="Utilisé Post-it"';
             DataClassification = CustomerContent;
         }
         field(12; "Affichage du N° BL"; Boolean)
         {
-            Caption = 'Affichage du N° BL', comment = 'FRA="=Affichage du N° BL"';
+            Caption = 'Affichage du N° BL', comment = 'FRA="Affichage du N° BL"';
             DataClassification = CustomerContent;
         }
         field(13; "Affichage du N° BR"; Boolean)
         {
-            Caption = 'Affichage du N° BR', comment = 'FRA="=Affichage du N° BR"';
+            Caption = 'Affichage du N° BR', comment = 'FRA="Affichage du N° BR"';
             DataClassification = CustomerContent;
         }
         field(14; "Four: Date jour en Fact/recept"; Boolean)
         {
-            Caption = 'Four: Date jour en Fact/recept', comment = 'FRA="=Four: Date jour en Fact/recept"';
+            Caption = 'Four: Date jour en Fact/recept', comment = 'FRA="Four: Date jour en Fact/recept"';
             DataClassification = CustomerContent;
         }
         field(15; "Affichage N° facture Ventes"; Boolean)
         {
-            Caption = 'Affichage N° facture Ventes', comment = 'FRA="=Affichage N° facture Ventes"';
+            Caption = 'Affichage N° facture Ventes', comment = 'FRA="Affichage N° facture Ventes"';
             DataClassification = CustomerContent;
         }
         field(16; "Affichage N° facture Achat"; Boolean)
         {
-            Caption = 'Affichage N° facture Achat', comment = 'FRA="=Affichage N° facture Achat"';
+            Caption = 'Affichage N° facture Achat', comment = 'FRA="Affichage N° facture Achat"';
             DataClassification = CustomerContent;
         }
         field(17; "Date jour ds date facture Acha"; Boolean)
         {
-            Caption = 'Date jour ds date facture Acha', comment = 'FRA="=Date jour ds date facture Acha"';
+            Caption = 'Date jour ds date facture Acha', comment = 'FRA="Date jour ds date facture Acha"';
             DataClassification = CustomerContent;
         }
         field(101; "Base Unit of Measure"; Code[10])
         {
-            Caption = 'Base Unit of Measure', comment = 'FRA="Base Unit of Measure"';
+            Caption = 'Base Unit of Measure', comment = 'FRA="Unité de base"';
             TableRelation = "Unit of Measure";
             DataClassification = CustomerContent;
         }
@@ -283,13 +283,13 @@ table 50004 "BC6_Navi+ Setup"
         }
         field(315; "Customer Location Code"; Code[10])
         {
-            Caption = 'Code magasin client', comment = 'FRA="Code magasin client"';
+            Caption = 'Customer Location Code', comment = 'FRA="Code magasin client"';
             TableRelation = Location.Code;
             DataClassification = CustomerContent;
         }
         field(316; "Vendor Location Code"; Code[10])
         {
-            Caption = 'Code magasin fournisseur', comment = 'FRA="Code magasin fournisseur"';
+            Caption = 'Vendor Location Code', comment = 'FRA="Code magasin fournisseur"';
             TableRelation = Location.Code;
             DataClassification = CustomerContent;
         }

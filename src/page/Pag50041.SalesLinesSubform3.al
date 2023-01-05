@@ -59,7 +59,7 @@ page 50041 "BC6_Sales Lines Subform 3"
                 {
                     ApplicationArea = All;
                 }
-                field("Cross-Reference No."; Rec."Cross-Reference No.")
+                field("Cross-Reference No."; Rec."Item Reference No.")
                 {
                     Visible = false;
                     ApplicationArea = All;
@@ -234,8 +234,6 @@ page 50041 "BC6_Sales Lines Subform 3"
 
                 trigger OnAction()
                 begin
-                    //>>MIGRATION NAV 2013
-                    //CurrForm.PurchRcptline.FORM.GETRECORD(RecGPurchPostedRcpt);
                     IF NOT RecGSalesHeader.GET(Rec."Document Type", Rec."Document No.") THEN
                         EXIT;
                     IF Rec."Document Type" = Rec."Document Type"::"Credit Memo" THEN
@@ -254,7 +252,6 @@ page 50041 "BC6_Sales Lines Subform 3"
                     IF Rec."Document Type" = Rec."Document Type"::"Return Order" THEN
                         PAGE.RUN(PAGE::"Sales Return Order", RecGSalesHeader);
 
-                    //<<MIGRATION NAV 2013
                 end;
             }
         }
@@ -296,7 +293,7 @@ page 50041 "BC6_Sales Lines Subform 3"
             SalesLine.COPYFILTERS(Rec);
             SalesLine.SETRANGE("Document Type", Rec."Document Type");
             SalesLine.SETRANGE("Document No.", Rec."Document No.");
-            SalesLine.FIND('-');
+            SalesLine.FindFirst();
             TempSalesLine := SalesLine;
             TempSalesLine.INSERT();
         END;

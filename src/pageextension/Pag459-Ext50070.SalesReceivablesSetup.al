@@ -22,7 +22,7 @@ pageextension 50070 "BC6_SalesReceivablesSetup" extends "Sales & Receivables Set
                 Caption = 'Blocage devis si nb dépasse ';
                 ApplicationArea = All;
             }
-            field(Période; Rec.Période)
+            field(BC6_Période; Rec."BC6_Période")
             {
                 Caption = 'Blocage devis sur période';
                 ApplicationArea = All;
@@ -44,7 +44,7 @@ pageextension 50070 "BC6_SalesReceivablesSetup" extends "Sales & Receivables Set
 
                 ApplicationArea = All;
             }
-            field("Contact's Address on sales doc"; Rec."Contact's Address on sales doc")
+            field("Contact's Address on sales doc"; Rec."BC6_Contact's Address on sales doc")
             {
                 ApplicationArea = All;
             }

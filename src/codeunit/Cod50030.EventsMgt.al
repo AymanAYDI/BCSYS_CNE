@@ -561,7 +561,7 @@ codeunit 50030 "BC6_Events Mgt"
     begin
         SalesSetup.Get();
         if (SalesHeader."Document Type" = SalesHeader."Document Type"::Quote)
-           or ((SalesHeader."Document Type" = SalesHeader."Document Type"::Order) and SalesSetup."Contact's Address on sales doc") then begin
+           or ((SalesHeader."Document Type" = SalesHeader."Document Type"::Order) and SalesSetup."BC6_Contact's Address on sales doc") then begin
             if Customer.Get(SalesHeader."Sell-to Customer No.") or Customer.Get(ContBusinessRelation."No.") then begin
                 if Customer."Copy Sell-to Addr. to Qte From" = Customer."Copy Sell-to Addr. to Qte From"::Company then
                     FonctionMgt.GetContactAsCompany2(Conact, Conact);

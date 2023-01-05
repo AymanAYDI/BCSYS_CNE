@@ -10,6 +10,8 @@ page 50008 "BC6_SFAC Client"
         {
             group(Control1)
             {
+                Caption = '';
+
                 field("No."; Rec."No.")
                 {
                     Editable = false;

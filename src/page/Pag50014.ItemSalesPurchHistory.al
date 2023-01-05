@@ -19,7 +19,7 @@ page 50014 "BC6_Item Sales/Purch. History"
             }
             group("Sales History")
             {
-                Caption = 'Sales History', comment = 'FRA="Historique achat"';
+                Caption = 'Sales History', comment = 'FRA="Historique Vente"';
                 field(QuotesBtn; CurrentMenuTypeOpt)
                 {
                     OptionCaption = 'Quotes,Blanket Orders,Orders,Invoices,Return Orders,Credit Memos,Posted Shipments,Posted Invoices,Posted Return Receipts,Posted Cr. Memos';
@@ -103,7 +103,7 @@ page 50014 "BC6_Item Sales/Purch. History"
             }
             group("Purchase History")
             {
-                Caption = 'Purchase History', comment = 'FRA="Historique achat"';
+                Caption = 'Purchase History', comment = 'FRA="Historique Achat"';
                 field(PurchLineBtn; CurrentMenuTypeOpt)
                 {
 
@@ -247,7 +247,6 @@ page 50014 "BC6_Item Sales/Purch. History"
                     SalesLine: Record "Sales Line";
                     SalesShptHeader: Record "Sales Shipment Header";
                     SalesShptLine: Record "Sales Shipment Line";
-                    "--FEP-ADVE-200706_18_B--": Integer;
                 begin
                     CASE CurrentMenuType OF
                         0 .. 5:
@@ -854,7 +853,6 @@ page 50014 "BC6_Item Sales/Purch. History"
         CodGCustNo: Code[20];
         CodGDocNo: Code[20];
         CurrentMenuTypeOpt: Enum BC6_CurrentMenuTypeOpt;
-        "--FEP-ADVE-200706_18_B--": Integer;
         CurrentMenuType: Integer;
         NbrOfPurchBlanketOrder: Integer;
         NbrOfPurchCrdMemo: Integer;

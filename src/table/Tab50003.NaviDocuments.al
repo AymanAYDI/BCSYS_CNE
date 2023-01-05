@@ -79,7 +79,7 @@ table 50003 "BC6_Navi+ Documents"
         }
         field(15; "In Use By"; Code[20])
         {
-            Caption = 'In Use By', comment = 'FRA="utilisé par"';
+            Caption = 'In Use By', comment = 'FRA="Utilisé par"';
             Editable = true;
             TableRelation = User."User Security ID";
             ValidateTableRelation = false;

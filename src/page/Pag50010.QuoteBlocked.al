@@ -80,14 +80,14 @@ page 50010 "BC6_Quote Blocked"
     begin
         SalesSetup.GET();
         SalesSetup.TESTFIELD(BC6_Nbr_Devis);
-        SalesSetup.TESTFIELD(Période);
+        SalesSetup.TESTFIELD("BC6_Période");
         recgSalesHdr.RESET();
         recgSalesHdr.SETRANGE("Document Type", Rec."Document Type");
         recgSalesHdr.SETFILTER("Sell-to Customer No.", Rec."Sell-to Customer No.");
-        recgSalesHdr.SETRANGE("Document Date", CALCDATE('-' + FORMAT(SalesSetup.Période), WORKDATE()), WORKDATE());
+        recgSalesHdr.SETRANGE("Document Date", CALCDATE('-' + FORMAT(SalesSetup."BC6_Période"), WORKDATE()), WORKDATE());
 
         TxtGMessage := STRSUBSTNO(TxtG007, recgSalesHdr.COUNT,
-                       CALCDATE('-' + FORMAT(SalesSetup.Période), WORKDATE()), WORKDATE()) + TxtG008 + TxtG009;
+                       CALCDATE('-' + FORMAT(SalesSetup."BC6_Période"), WORKDATE()), WORKDATE()) + TxtG008 + TxtG009;
     end;
 
     var

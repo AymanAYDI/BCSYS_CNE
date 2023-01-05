@@ -95,7 +95,7 @@ page 50006 "BC6_Documents Managment"
                     end ELSE
                         IF RecGNaviSetup.FindFirst() THEN
                             IF RecGNaviSetup."Default Directory" <> '' THEN
-                                Rec."Path and file" := CduGFileManagement.UploadFile(STRSUBSTNO(TxtG001), RecGNaviSetup."Default Directory" + '\' + Text004)
+                                Rec."Path and file" := CopyStr(CduGFileManagement.UploadFile(STRSUBSTNO(TxtG001), RecGNaviSetup."Default Directory" + '\' + Text004), 1, MaxStrLen(Rec."Path and file"))
                             //TODO:CHECKME "Path and file" := CduGFileManagement.OpenFileDialog(STRSUBSTNO(TxtG001), RecGNaviSetup."Default Directory" + '\' + Text004, '*.*|*.*')
                             // UPLOADINTOSTREAM(STRSUBSTNO(TxtG001), '', '(*.*)|*.*', RecGNaviSetup."Default Directory", InStr)
 

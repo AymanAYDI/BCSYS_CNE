@@ -11,6 +11,7 @@ page 50000 "BC6_Setup Various Tables"
         {
             group(Control1)
             {
+                Caption = '';
                 field("Code"; Rec.Code)
                 {
                 }
@@ -20,8 +21,12 @@ page 50000 "BC6_Setup Various Tables"
             }
             grid(Control1100267002)
             {
+                Caption = '';
+
                 group(Control1100267000)
                 {
+                    Caption = '';
+
                     field("Text1 Use"; Rec."Text1 Use")
                     {
                         trigger OnValidate()
@@ -88,8 +93,12 @@ page 50000 "BC6_Setup Various Tables"
                 }
                 grid(Control1100267011)
                 {
+                    Caption = '';
+
                     group(Control1100267012)
                     {
+                        Caption = '';
+
                         field("Text1 Description"; Rec."Text1 Description")
                         {
                             Enabled = "Text1 DescriptionEnable";
@@ -138,6 +147,8 @@ page 50000 "BC6_Setup Various Tables"
                     }
                     group(Control1100267010)
                     {
+                        Caption = '';
+
                         field("Obligatory Text1"; Rec."Obligatory Text1")
                         {
                             Enabled = "Obligatory Text1Enable";
@@ -179,6 +190,8 @@ page 50000 "BC6_Setup Various Tables"
             }
             group(Control1100267004)
             {
+                Caption = '';
+
                 field("Top Logical1 Use"; Rec."Top Logical1 Use")
                 {
                     trigger OnValidate()
@@ -215,8 +228,11 @@ page 50000 "BC6_Setup Various Tables"
             }
             grid(Control1100267003)
             {
+                Caption = '';
+
                 group(Control1100267006)
                 {
+                    Caption = '';
                     field("Radical Code1 Use"; Rec."Radical Code1 Use")
                     {
                         trigger OnValidate()
@@ -241,8 +257,12 @@ page 50000 "BC6_Setup Various Tables"
                 }
                 grid(Control1100267009)
                 {
+                    Caption = '';
+
                     group(Control1100267007)
                     {
+                        Caption = '';
+
                         field("Radical Code1"; Rec."Radical Code1")
                         {
                             Enabled = "Radical Code1Enable";
@@ -270,6 +290,8 @@ page 50000 "BC6_Setup Various Tables"
                     }
                     group(Control1100267008)
                     {
+                        Caption = '';
+
                         field("Radical Code1 Description"; Rec."Radical Code1 Description")
                         {
                             Enabled = RadicalCode1DescriptionEnable;
@@ -287,6 +309,8 @@ page 50000 "BC6_Setup Various Tables"
             }
             group(Control1100267005)
             {
+                Caption = '';
+
                 field("Comment Use"; Rec."Comment Use")
                 {
                 }
@@ -355,7 +379,6 @@ page 50000 "BC6_Setup Various Tables"
 
     var
         TableDiv: Record "BC6_Various Tables";
-        "Object": Record Object;
         [InDataSet]
         "Date1 DescriptionEnable": Boolean;
         [InDataSet]

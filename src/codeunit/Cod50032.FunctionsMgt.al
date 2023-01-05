@@ -1,4 +1,4 @@
-codeunit 50202 "BC6_Functions Mgt"
+codeunit 50032 "BC6_Functions Mgt"
 {
     Permissions = TableData "Sales Invoice Header" = imd;
     //--CU7010--

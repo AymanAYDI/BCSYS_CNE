@@ -9,7 +9,6 @@ page 50056 "BC6_Item Invt."
     ShowFilter = false;
     SourceTable = "Bin Content";
     UsageCategory = Administration;
-    ApplicationArea = all;
     layout
     {
         area(content)
@@ -59,9 +58,7 @@ page 50056 "BC6_Item Invt."
                             BEGIN
                                 CLEAR(ItemForm);
                                 Item.RESET();
-                                //>>TI318739
                                 Item.SETRANGE(Blocked, FALSE);
-                                //<<TI318739
                                 ItemForm.SETTABLEVIEW(Item);
                                 ItemForm.LOOKUPMODE(TRUE);
                                 IF ItemNo <> '' THEN
@@ -79,17 +76,6 @@ page 50056 "BC6_Item Invt."
                     END;
                 end;
 
-                trigger Focused(index: Integer; data: Text)
-                begin
-                end;
-
-                trigger FocusLost(index: Integer; data: Text)
-                begin
-                end;
-
-                trigger DataSubmited(index: Integer; data: Text)
-                begin
-                end;
             }
             field(ItemNo; ItemNo)
             {
@@ -104,9 +90,7 @@ page 50056 "BC6_Item Invt."
                 begin
                     CLEAR(ItemForm);
                     Item.RESET();
-                    //>>TI318739
                     Item.SETRANGE(Blocked, FALSE);
-                    //<<TI318739
                     ItemForm.SETTABLEVIEW(Item);
                     ItemForm.LOOKUPMODE(TRUE);
                     IF ItemNo <> '' THEN
@@ -327,21 +311,17 @@ page 50056 "BC6_Item Invt."
         CLEAR(DistInt);
         CLEAR(Item);
         CLEAR(ItemNo2);
-        IF (FromItemNo <> '') THEN BEGIN
+        IF (FromItemNo <> '') THEN
             IF (STRLEN(FromItemNo) = 13) OR
                (STRLEN(FromItemNo) = 14) THEN BEGIN
                 ItemNo2 := FunctionsMgt.GetItem(FromItemNo);
                 IF Item.GET(ItemNo2) THEN;
             END ELSE BEGIN
-                //>>TI318739
-                //IF Item.GET(FromItemNo) THEN;
                 Item.RESET();
                 Item.SETRANGE("No.", FromItemNo);
                 Item.SETRANGE(Blocked, FALSE);
                 IF Item.FINDFIRST() THEN;
-                //<<TI318739
             END;
-        END;
         SetRecFilters();
     end;
 

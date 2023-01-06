@@ -3,7 +3,7 @@ page 50016 "BC6_Purchase Lines Subform2"
     Caption = 'Purchase Lines', comment = 'FRA="Lignes Achat"';
     Editable = false;
     MultipleNewLines = true;
-    PageType = List;
+    PageType = ListPart;
     SaveValues = true;
     SourceTable = "Purchase Line";
     SourceTableView = SORTING("BC6_Document Date", "Document Type", "No.");

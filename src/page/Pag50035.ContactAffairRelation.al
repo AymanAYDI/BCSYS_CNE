@@ -4,8 +4,7 @@ page 50035 "BC6_Contact Affair Relation"
     Editable = false;
     PageType = List;
     SourceTable = "Contact Business Relation";
-    UsageCategory = Lists;
-    ApplicationArea = All;
+    UsageCategory = None;
 
     layout
     {

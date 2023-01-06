@@ -13,7 +13,7 @@ page 50005 "BC6_Special Extended Text list"
         {
             group(Control1100267000)
             {
-                Caption = '';
+                ShowCaption = false;
 
                 field("No."; Rec."No.")
                 {

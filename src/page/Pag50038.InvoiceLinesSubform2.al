@@ -6,7 +6,6 @@ page 50038 "BC6_Invoice Lines Subform 2"
     SourceTable = "Sales Invoice Line";
     SourceTableView = SORTING("Bill-to Customer No.");
     UsageCategory = Lists;
-    ApplicationArea = All;
 
     layout
     {
@@ -58,7 +57,7 @@ page 50038 "BC6_Invoice Lines Subform 2"
                 {
                     ApplicationArea = All;
                 }
-                field("Cross-Reference No."; Rec."Cross-Reference No.")
+                field("Cross-Reference No."; Rec."Item Reference No.")
                 {
                     Visible = false;
                     ApplicationArea = All;

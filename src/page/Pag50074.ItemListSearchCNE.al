@@ -455,7 +455,7 @@ page 50074 "BC6_Item List Search CNE"
 
     local procedure OnAfterValidate()
     var
-        Item: Record Item;
+        LItem: Record Item;
         ItemReference: Record "Item Reference";
     begin
         Rec.RESET();
@@ -466,22 +466,21 @@ page 50074 "BC6_Item List Search CNE"
             ItemReference.SETRANGE("Reference No.", SearchField);
             IF ItemReference.FINDSET() THEN
                 REPEAT
-                    Item.GET(ItemReference."Item No.");
-                    Rec := Item;
+                    LItem.GET(ItemReference."Item No.");
+                    Rec := LItem;
                     IF Rec.INSERT() THEN;
                 UNTIL ItemReference.NEXT() = 0
             ELSE
                 IF CONFIRM(ConfAddToItem, TRUE) THEN
-                    IF ACTION::LookupOK = PAGE.RUNMODAL(PAGE::"Item List", Item) THEN BEGIN
+                    IF ACTION::LookupOK = PAGE.RUNMODAL(PAGE::"Item List", LItem) THEN BEGIN
                         ItemReference.INIT();
                         ItemReference."Reference Type" := ItemReference."Reference Type"::"Bar Code";
                         ItemReference."Reference No." := SearchField;
-                        ItemReference."Item No." := Item."No.";
+                        ItemReference."Item No." := LItem."No.";
                         ItemReference.INSERT();
-                        Rec := Item;
+                        Rec := LItem;
                         IF Rec.INSERT() THEN;
                     END;
-
         END;
         LastSearchField := SearchField;
         SearchField := '';

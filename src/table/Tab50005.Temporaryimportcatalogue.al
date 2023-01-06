@@ -185,7 +185,6 @@ table 50005 "BC6_Temporary import catalogue"
         RecGDiscount: Record "Purchase Line Discount";
         RecGPurchPrice: Record "Purchase Price";
         DistInt: codeunit "Dist. Integration";
-        "---DEEE1.00---": Integer;
         Textg001: Label 'No DEEE category matching for item %1', comment = 'FRA="Aucun rapprochement de code tarif DEEE possible pour l''article %1"';
         Textg002: Label '%1 %2 created.', comment = 'FRA="%1 %2  créé."';
         Txt001: Label 'The fields external Reference and Public price should not be empty ', comment = 'FRA="Les champs Réfèrence externe et Prix public ne doivent pas être vides"';
@@ -323,7 +322,6 @@ table 50005 "BC6_Temporary import catalogue"
     var
         RecLExtTextHeader: Record "Extended Text Header";
         RecLExtTextLine: Record "Extended Text Line";
-        "--point55": Integer;
         intlLineno: Integer;
         intLstartpos: Integer;
         TxtLExtendedtext: Text[250];

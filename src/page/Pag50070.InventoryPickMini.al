@@ -250,7 +250,7 @@ page 50070 "BC6_Inventory Pick Mini"
                     trigger OnAction()
                     begin
                         IF CurrFormEditableOk THEN
-                            AutofillQtyToHandle();
+                            ProcAutofillQtyToHandle();
                     end;
                 }
                 action("Delete Qty. to Handle")
@@ -389,7 +389,7 @@ page 50070 "BC6_Inventory Pick Mini"
         CtrlEditableOk: Boolean;
         CurrFormEditableOk: Boolean;
 
-    local procedure AutofillQtyToHandle()
+    local procedure ProcAutofillQtyToHandle()
     begin
         CurrPage.WhseActivityLines.PAGE.AutofillQtyToHandle();
     end;

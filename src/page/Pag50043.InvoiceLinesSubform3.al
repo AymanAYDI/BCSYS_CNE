@@ -2,7 +2,7 @@ page 50043 "BC6_Invoice Lines Subform 3"
 {
     Caption = 'Sales Invoice Lines', Comment = 'FRA="Lignes facture vente"';
     Editable = false;
-    PageType = List;
+    PageType = ListPart;
     SourceTable = "Sales Invoice Line";
     SourceTableView = SORTING("No.");
     UsageCategory = None;
@@ -186,11 +186,9 @@ page 50043 "BC6_Invoice Lines Subform 3"
                 trigger OnAction()
                 begin
 
-                    //>>MIGRATION NAV 2013
                     IF NOT RecGSalesInvoiceHeader.GET(Rec."Document No.") THEN
                         EXIT;
                     PAGE.RUN(PAGE::"Posted Sales Invoice", RecGSalesInvoiceHeader);
-                    //<<MIGRATION NAV 2013
                 end;
             }
         }
@@ -225,13 +223,6 @@ page 50043 "BC6_Invoice Lines Subform 3"
             TempSalesInvLine.INSERT();
         END;
         EXIT(Rec."Line No." = TempSalesInvLine."Line No.");
-    end;
-
-
-    procedure GetSelectedLine(var FromSalesInvLine: Record "Sales Invoice Line")
-    begin
-        FromSalesInvLine.COPY(Rec);
-        CurrPage.SETSELECTIONFILTER(FromSalesInvLine);
     end;
 
     local procedure DocumentNoOnFormat()

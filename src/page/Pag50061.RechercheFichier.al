@@ -2,7 +2,6 @@ page 50061 "BC6_Recherche Fichier"
 {
     PageType = Card;
     UsageCategory = Administration;
-    ApplicationArea = All;
     Caption = 'Recherche fichier';
     layout
     {

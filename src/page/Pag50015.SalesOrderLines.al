@@ -267,7 +267,6 @@ page 50015 "BC6_Sales Order Lines"
                         CodLItemNo: Code[20];
                         CodLVendorNo: Code[20];
                         DecLQuantity: Decimal;
-                        "<<<PRODWARE>>>": Integer;
                         IntLLineNo: Integer;
                     begin
                         // Apply Filters

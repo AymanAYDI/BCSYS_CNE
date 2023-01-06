@@ -219,7 +219,6 @@ page 50001 "BC6_Various Tables"
         "Top Logical2Visible": Boolean;
         [InDataSet]
         "Top Logical3Visible": Boolean;
-        Descriptif: Text[50];
         Bool1CaptionClass: Text[80];
         Bool2CaptionClass: Text[80];
         Bool3CaptionClass: Text[80];
@@ -237,23 +236,6 @@ page 50001 "BC6_Various Tables"
         Text2CaptionClass: Text[80];
         Text3CaptionClass: Text[80];
 
-    local procedure TopLogical1OnActivate()
-    begin
-        Descriptif := Param."Top Logical1 Description";
-        CurrPage.UPDATE();
-    end;
-
-    local procedure TopLogical2OnActivate()
-    begin
-        Descriptif := Param."Top Logical2 Description";
-        CurrPage.UPDATE();
-    end;
-
-    local procedure TopLogical3OnActivate()
-    begin
-        Descriptif := Param."Top Logical3 Description";
-        CurrPage.UPDATE();
-    end;
 
     local procedure OnActivateForm()
     begin
@@ -265,50 +247,50 @@ page 50001 "BC6_Various Tables"
                     IF DivTableParam_G.GET(Rec.GETRANGEMAX(Radical)) THEN BEGIN
 
                         IF DivTableParam_G.Description <> '' THEN
-                            CodeCaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G.Description);
+                            CodeCaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G.Description);
 
                         IF (DivTableParam_G."Text1 Use") AND (DivTableParam_G."Text1 Description" <> '') THEN
-                            Text1CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Text1 Description");
+                            Text1CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Text1 Description");
                         IF (DivTableParam_G."Text2 Use") AND (DivTableParam_G."Text2 Description" <> '') THEN
-                            Text2CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Text2 Description");
+                            Text2CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Text2 Description");
                         IF (DivTableParam_G."Text3 Use") AND (DivTableParam_G."Text3 Description" <> '') THEN
-                            Text3CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Text3 Description");
+                            Text3CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Text3 Description");
 
                         IF (DivTableParam_G."Number1 Use") AND (DivTableParam_G."Number1 Description" <> '') THEN
-                            Nombre1CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Number1 Description");
+                            Nombre1CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Number1 Description");
                         IF (DivTableParam_G."Number2 Use") AND (DivTableParam_G."Number2 Description" <> '') THEN
-                            Nombre2CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Number2 Description");
+                            Nombre2CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Number2 Description");
                         IF (DivTableParam_G."Number3 Use") AND (DivTableParam_G."Number3 Description" <> '') THEN
-                            Nombre3CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Number3 Description");
+                            Nombre3CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Number3 Description");
 
                         IF (DivTableParam_G."Date1 Use") AND (DivTableParam_G."Date1 Description" <> '') THEN
-                            Date1CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Date1 Description");
+                            Date1CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Date1 Description");
                         IF (DivTableParam_G."Date2 Use") AND (DivTableParam_G."Date2 Description" <> '') THEN
-                            Date2CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Date2 Description");
+                            Date2CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Date2 Description");
                         IF (DivTableParam_G."Date3 Use") AND (DivTableParam_G."Date3 Description" <> '') THEN
-                            Date3CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Date3 Description");
+                            Date3CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Date3 Description");
 
                         IF (DivTableParam_G."Top Logical1 Use") AND (DivTableParam_G."Top Logical1 Description" <> '') THEN
-                            Bool1CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Top Logical1 Description");
+                            Bool1CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Top Logical1 Description");
                         IF (DivTableParam_G."Top Logical2 Use") AND (DivTableParam_G."Top Logical2 Description" <> '') THEN
-                            Bool2CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Top Logical2 Description");
+                            Bool2CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Top Logical2 Description");
                         IF (DivTableParam_G."Top Logical3 Use") AND (DivTableParam_G."Top Logical3 Description" <> '') THEN
-                            Bool3CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Top Logical3 Description");
+                            Bool3CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Top Logical3 Description");
 
                         IF (DivTableParam_G."Radical Code1 Use") THEN BEGIN
                             DivTableParam_G.CALCFIELDS("Radical Code1 Description");
                             IF DivTableParam_G."Radical Code1 Description" <> '' THEN
-                                Rad1CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Radical Code1 Description");
+                                Rad1CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Radical Code1 Description");
                         END;
                         IF (DivTableParam_G."Radical Code2 Use") THEN BEGIN
                             DivTableParam_G.CALCFIELDS("Radical Code2 Description");
                             IF DivTableParam_G."Radical Code2 Description" <> '' THEN
-                                Rad2CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Radical Code2 Description");
+                                Rad2CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Radical Code2 Description");
                         END;
                         IF (DivTableParam_G."Radical Code3 Use") THEN BEGIN
                             DivTableParam_G.CALCFIELDS("Radical Code3 Description");
                             IF DivTableParam_G."Radical Code3 Description" <> '' THEN
-                                Rad3CaptionClass := STRSUBSTNO('50000,%1', DivTableParam_G."Radical Code3 Description");
+                                Rad3CaptionClass := STRSUBSTNO(CopyStr('50000,%1', 1), DivTableParam_G."Radical Code3 Description");
                         END;
                     END;
 

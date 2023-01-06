@@ -11,7 +11,6 @@ page 50063 "Invt. Pick Card MiniForm F2"
     SourceTableView = SORTING("Journal Template Name", "Journal Batch Name", "Line No.")
                       ORDER(Ascending);
     UsageCategory = Administration;
-    ApplicationArea = All;
 
     layout
     {
@@ -301,11 +300,6 @@ page 50063 "Invt. Pick Card MiniForm F2"
                         Rec."Document No." := LastJnlLine."Document No.";
                         AssignPickNo(PickNo);
                         Rec."Location Code" := LastJnlLine."Location Code";
-                        //SOBI
-                        //"Item No." := LastJnlLine."Item No.";
-                        //Description := LastJnlLine.Description;
-                        //AssignItemNo(LastJnlLine."Item No.");
-                        //SOBI
 
                         Rec.INSERT(TRUE);
                     END;
@@ -329,13 +323,6 @@ page 50063 "Invt. Pick Card MiniForm F2"
                 var
                     page50059: Page "BC6_Invt. Pick Card MiniForm";
                 begin
-                    /*
-                   IF ISCLEAR(WshShell) THEN
-                     CREATE(WshShell,FALSE ,TRUE);
-
-                   BoolWait := FALSE;
-                   WshShell.SendKeys('{TAB}', BoolWait);
-                     */
                     PostBatch();
 
                     CurrPage.CLOSE();
@@ -382,7 +369,6 @@ page 50063 "Invt. Pick Card MiniForm F2"
     trigger OnInit()
     begin
 
-        //VisibleTestBool := TRUE;
 
         QtyCtrlEditable := TRUE;
         ToBinCodeCtrlEditable := TRUE;
@@ -735,9 +721,7 @@ page 50063 "Invt. Pick Card MiniForm F2"
     begin
         PickNoCtrlVisible := ShowCtrl;
         PickNoLibCtrlVisible := ShowCtrl;
-        // CurrForm.FromBinCodeCtrl.EDITABLE(EditableCtrl);
         FromBinCodeCtrlVisible := ShowCtrl;
-        //CurrForm.ToBinCodeCtrl.EDITABLE(EditableCtrl);
         ToBinCodeCtrlEditable := FALSE;
         ToBinCodeCtrlVisible := ShowCtrl;
         ToBinCodeCtrlVisible := VisibleTestBool;

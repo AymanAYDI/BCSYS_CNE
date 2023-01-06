@@ -798,21 +798,13 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
         CurrExchRate: Record "Currency Exchange Rate";
         RecGCustomer: Record Customer;
         RecGCustTemplate: Record "Customer Template";
-        GLSetup: Record "General Ledger Setup";
         SalesHeader: Record "Sales Header";
         BooGsubmittedtodeee: Boolean;
         SkipPurchCostVerif: Boolean;
-        "---BC6---": Integer;
-        "--- TDL94.001---": Integer;
-        "--NSC1.01--": Integer;
-        TextDate: Label '0D', Comment = 'FRA="0J"';
         TextG001: Label 'Quote Locked', Comment = 'FRA="Devis Bloqué"';
-        textg002: Label 'You will lost link between Sales document No %1 line %2 \ and purchase document of type %3, No %4 ,  line %5 \ Are you sure?', Comment = 'FRA="Vous allez perdre le lien entre le document vente n° %1 ligne %2 \ et le document d''achat de type %3 , n° %4 , ligne %5 \ êtes vous sûr ? "';
         TextG003: Label 'Document %1, No %2 line %3 not found', Comment = 'FRA="Le document %1, n° %2 ligne %3 n''a pas été trouvé"';
         TextG004: Label 'Profit % %1 notpossible with %2 as Unit price (excluding VAT) ', Comment = 'FRA="Marge %1 non réalisable avec %2 comme Prix Unitaire HT"';
         TextG005: Label 'There is a Purchase Order existing for this Line. Do you want to continue ?', Comment = 'FRA="Il existe déjà une commande d''achat pour cettte ligne. Voulez-vous continuer ?"';
         TextG006: Label 'Vous devez supprimer la ligne de commande d''achat pour cette ligne. ', Comment = 'FRA="Vous devez supprimer la ligne de commande d''achat pour cette ligne. "';
-        UpdateProfitErr: Label '%1 cannot be less than %2 in %3 %4', Comment = 'FRA="%1 ne peut pas être inférieur à %2 dans %3 %4 "';
         UpdatePurchCostErr: Label 'Unable to modify %1', Comment = 'FRA="Impossible de modifier %1"';
-        "--COR001--": Text;
 }

@@ -3,8 +3,7 @@ page 50020 "BC6_Customer Profit"
     Caption = 'Customer Profit', Comment = 'FRA="Marge Client"';
     PageType = List;
     SourceTable = "Customer Sales Profit Group";
-    UsageCategory = Lists;
-    ApplicationArea = All;
+    UsageCategory = None;
 
     layout
     {

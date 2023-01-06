@@ -5,8 +5,7 @@ page 50021 "BC6_Item Sales Profit Group"
 
     PageType = List;
     SourceTable = "BC6_Item Sales Profit Group";
-    UsageCategory = Lists;
-    ApplicationArea = All;
+    UsageCategory = None;
 
     layout
     {

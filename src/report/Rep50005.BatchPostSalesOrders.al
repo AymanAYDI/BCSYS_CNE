@@ -1,4 +1,4 @@
-report 50005 "BC6_Batch Post Sales Orders"
+report 50005 "BC6_Batch Post Sales Orders" //296
 {
     Caption = 'Batch Post Sales Orders', Comment = 'FRA="TPL valider commandes vente"';
     ProcessingOnly = true;

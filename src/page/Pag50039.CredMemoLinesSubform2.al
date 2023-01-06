@@ -2,11 +2,10 @@ page 50039 "BC6_Cred. Memo Lines Subform 2"
 {
     Caption = 'Credit Memo Purachase Lines', Comment = 'FRA="Lignes avoir vente"';
     Editable = false;
-    PageType = List;
+    PageType = ListPart;
     SourceTable = "Sales Cr.Memo Line";
     SourceTableView = SORTING("Bill-to Customer No.");
-    UsageCategory = Lists;
-    ApplicationArea = All;
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -210,7 +209,9 @@ page 50039 "BC6_Cred. Memo Lines Subform 2"
         IF NOT TempSalesCrMemoLine.FindSet() THEN BEGIN
             SalesCrMemoLine.COPYFILTERS(Rec);
             SalesCrMemoLine.SETRANGE("Document No.", Rec."Document No.");
-            SalesCrMemoLine.Find('-');
+
+            SalesCrMemoLine.FindFirst();
+
             TempSalesCrMemoLine := SalesCrMemoLine;
             TempSalesCrMemoLine.INSERT();
         END;

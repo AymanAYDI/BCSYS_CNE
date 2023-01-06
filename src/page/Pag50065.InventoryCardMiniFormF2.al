@@ -10,7 +10,6 @@ page 50065 "BC6_Inventory Card MiniForm F2"
     SourceTableView = SORTING("Journal Template Name", "Journal Batch Name", "Line No.")
                       ORDER(Ascending);
     UsageCategory = Administration;
-    ApplicationArea = All;
 
     layout
     {
@@ -146,7 +145,7 @@ page 50065 "BC6_Inventory Card MiniForm F2"
     {
         area(processing)
         {
-            action(Item)
+            action("&Item")
             {
                 Caption = 'Item', Comment = 'FRA="N°&art."';
                 Image = Item;
@@ -222,7 +221,7 @@ page 50065 "BC6_Inventory Card MiniForm F2"
             action("&Quit")
             {
                 Caption = '&Quit', Comment = 'FRA="&Quitter"';
-                Image = cancel;
+                Image = Cancel;
                 Promoted = true;
                 PromotedCategory = Process;
                 ApplicationArea = All;
@@ -364,20 +363,20 @@ page 50065 "BC6_Inventory Card MiniForm F2"
 
     procedure OpenWithWhseEmployee(): Boolean
     var
-        WhseEmployee: Record "Warehouse Employee";
+        LWhseEmployee: Record "Warehouse Employee";
         WmsManagement: Codeunit "WMS Management";
-        CurrentLocationCode: Code[10];
+        LCurrentLocationCode: Code[10];
     begin
         CurrPage.CAPTION := Text011;
 
         InvSetup.GET();
         InvSetup.TESTFIELD("BC6_Item Jnl Template Name 3");
         IF USERID <> '' THEN BEGIN
-            WhseEmployee.SETRANGE("User ID", USERID);
-            IF WhseEmployee.FIND('-') THEN BEGIN
-                WhseEmployee.SETRANGE(Default, TRUE);
-                IF WhseEmployee.FIND('-') THEN
-                    LocationCode := WhseEmployee."Location Code"
+            LWhseEmployee.SETRANGE("User ID", USERID);
+            IF LWhseEmployee.FIND('-') THEN BEGIN
+                LWhseEmployee.SETRANGE(Default, TRUE);
+                IF LWhseEmployee.FIND('-') THEN
+                    LocationCode := LWhseEmployee."Location Code"
                 ELSE
                     LocationCode := WmsManagement.GetDefaultLocation();
                 IF NOT Location.GET(LocationCode) THEN

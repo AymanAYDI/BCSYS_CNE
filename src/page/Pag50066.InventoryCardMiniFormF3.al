@@ -149,7 +149,7 @@ page 50066 "BC6_Inventory Card MiniForm F3"
     {
         area(processing)
         {
-            action(Item)
+            action("&Item")
             {
                 Caption = 'Item', Comment = 'FRA="N°&art."';
                 Image = Item;

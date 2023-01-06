@@ -29,10 +29,6 @@ pageextension 50063 "BC6_SalesInvoiceStatistics" extends "Sales Invoice Statisti
     {
     }
 
-    procedure IncrementDecGMntTTCDEEE(_DecGMntTTCDEEE: Decimal)
-    begin
-        DecGMntTTCDEEE += _DecGMntTTCDEEE;
-    end;
 
     procedure IncrementDecGMntHTDEEE(_DecGMntHTDEEE: Decimal)
     begin
@@ -46,6 +42,5 @@ pageextension 50063 "BC6_SalesInvoiceStatistics" extends "Sales Invoice Statisti
 
     var
         DecGMntHTDEEE: Decimal;
-        DecGMntTTCDEEE: Decimal;
         NewCustAmount: Decimal;
 }

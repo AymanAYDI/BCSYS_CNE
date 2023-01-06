@@ -746,7 +746,7 @@ report 50010 "BC6_Sales - Invoice CNE"
                 rrrrrrrrrrrr := FORMAT("Sales Invoice Header"."BC6_Shipment Invoiced");
                 //message ( 'longueur : ' + format(strlen ("Sales Invoice Header"."Shipment Invoiced")));
 
-                CurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
+                CurrReport.LANGUAGE := Language.GetLanguageIdOrDefault("Language Code");
 
                 FormatAddr.SalesInvBillTo(CustAddr, "Sales Invoice Header");
 

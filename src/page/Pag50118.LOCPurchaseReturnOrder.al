@@ -6,8 +6,7 @@ page 50118 "BC6_LOC Purchase Return Order"
     RefreshOnActivate = true;
     SourceTable = "Purchase Header";
     SourceTableView = WHERE("Document Type" = FILTER("Return Order"));
-    UsageCategory = Administration;
-    ApplicationArea = All;
+    UsageCategory = None;
 
     layout
     {
@@ -92,6 +91,8 @@ page 50118 "BC6_LOC Purchase Return Order"
                 field(ID; Rec.ID)
                 {
                     ApplicationArea = All;
+                    Caption = 'ID', Comment = 'FRA="Code utilisateur"';
+
                 }
                 field("Buy-from Fax No."; Rec."BC6_Buy-from Fax No.")
                 {

@@ -214,13 +214,12 @@ page 50029 "BC6_Purch His. By-From FactBox"
 
         RecGPurchLines.SETCURRENTKEY(RecGPurchLines."Buy-from Vendor No.");
         RecGPurchLines.SETFILTER("Buy-from Vendor No.", Rec."Buy-from Vendor No.");
-        IF RecGPurchLines.FIND('-') THEN BEGIN
+        IF RecGPurchLines.FindSet() THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
                     NbrOfPurchQuote := NbrOfPurchQuote + 1;
                 CodGDocNo := RecGPurchLines."Document No.";
             UNTIL RecGPurchLines.NEXT() = 0;
-        END;
 
         CLEAR(CodGDocNo);
         RecGPurchLines.RESET();
@@ -230,13 +229,12 @@ page 50029 "BC6_Purch His. By-From FactBox"
 
         RecGPurchLines.SETCURRENTKEY(RecGPurchLines."Buy-from Vendor No.");
         RecGPurchLines.SETFILTER("Buy-from Vendor No.", Rec."Buy-from Vendor No.");
-        IF RecGPurchLines.FIND('-') THEN BEGIN
+        IF RecGPurchLines.FIND('-') THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
                     NbrOfPurchBlanketOrder := NbrOfPurchBlanketOrder + 1;
                 CodGDocNo := RecGPurchLines."Document No.";
             UNTIL RecGPurchLines.NEXT() = 0;
-        END;
 
         CLEAR(CodGDocNo);
         RecGPurchLines.RESET();
@@ -246,13 +244,12 @@ page 50029 "BC6_Purch His. By-From FactBox"
 
         RecGPurchLines.SETCURRENTKEY(RecGPurchLines."Buy-from Vendor No.");
         RecGPurchLines.SETFILTER("Buy-from Vendor No.", Rec."Buy-from Vendor No.");
-        IF RecGPurchLines.FIND('-') THEN BEGIN
+        IF RecGPurchLines.FIND('-') THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
                     NbrOfPurchOrder := NbrOfPurchOrder + 1;
                 CodGDocNo := RecGPurchLines."Document No.";
             UNTIL RecGPurchLines.NEXT() = 0;
-        END;
 
         CLEAR(CodGDocNo);
         RecGPurchLines.RESET();
@@ -262,13 +259,12 @@ page 50029 "BC6_Purch His. By-From FactBox"
 
         RecGPurchLines.SETCURRENTKEY(RecGPurchLines."Buy-from Vendor No.");
         RecGPurchLines.SETFILTER("Buy-from Vendor No.", Rec."Buy-from Vendor No.");
-        IF RecGPurchLines.FIND('-') THEN BEGIN
+        IF RecGPurchLines.FIND('-') THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
                     NbrOfPurchInvoice := NbrOfPurchInvoice + 1;
                 CodGDocNo := RecGPurchLines."Document No.";
             UNTIL RecGPurchLines.NEXT() = 0;
-        END;
 
         CLEAR(CodGDocNo);
         RecGPurchLines.RESET();
@@ -278,13 +274,12 @@ page 50029 "BC6_Purch His. By-From FactBox"
 
         RecGPurchLines.SETCURRENTKEY(RecGPurchLines."Buy-from Vendor No.");
         RecGPurchLines.SETFILTER("Buy-from Vendor No.", Rec."Buy-from Vendor No.");
-        IF RecGPurchLines.FIND('-') THEN BEGIN
+        IF RecGPurchLines.FIND('-') THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
                     NbrOfPurchReturn := NbrOfPurchReturn + 1;
                 CodGDocNo := RecGPurchLines."Document No.";
             UNTIL RecGPurchLines.NEXT() = 0;
-        END;
 
         CLEAR(CodGDocNo);
         RecGPurchLines.RESET();
@@ -294,13 +289,12 @@ page 50029 "BC6_Purch His. By-From FactBox"
 
         RecGPurchLines.SETCURRENTKEY(RecGPurchLines."Buy-from Vendor No.");
         RecGPurchLines.SETFILTER("Buy-from Vendor No.", Rec."Buy-from Vendor No.");
-        IF RecGPurchLines.FIND('-') THEN BEGIN
+        IF RecGPurchLines.FIND('-') THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
                     NbrOfPurchCrdMemo := NbrOfPurchCrdMemo + 1;
                 CodGDocNo := RecGPurchLines."Document No.";
             UNTIL RecGPurchLines.NEXT() = 0;
-        END;
 
         CLEAR(CodGDocNo);
         RecGPurchPostedRcpt.RESET();
@@ -309,13 +303,12 @@ page 50029 "BC6_Purch His. By-From FactBox"
         RecGPurchPostedRcpt.SETCURRENTKEY(RecGPurchPostedRcpt."Buy-from Vendor No.");
         RecGPurchPostedRcpt.SETFILTER("Buy-from Vendor No.", Rec."Buy-from Vendor No.");
 
-        IF RecGPurchPostedRcpt.FIND('-') THEN BEGIN
+        IF RecGPurchPostedRcpt.FIND('-') THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchPostedRcpt."Document No." THEN
                     NbrOfPurchPostedRcpt := NbrOfPurchPostedRcpt + 1;
                 CodGDocNo := RecGPurchPostedRcpt."Document No.";
             UNTIL RecGPurchPostedRcpt.NEXT() = 0;
-        END;
 
         CLEAR(CodGDocNo);
         RecGPurchPostedInvoice.RESET();
@@ -325,13 +318,12 @@ page 50029 "BC6_Purch His. By-From FactBox"
         RecGPurchPostedInvoice.SETCURRENTKEY(RecGPurchPostedInvoice."Buy-from Vendor No.");
         RecGPurchPostedInvoice.SETFILTER("Buy-from Vendor No.", Rec."Buy-from Vendor No.");
 
-        IF RecGPurchPostedInvoice.FIND('-') THEN BEGIN
+        IF RecGPurchPostedInvoice.FIND('-') THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchPostedInvoice."Document No." THEN
                     NbrOfPurchPostedInvoice := NbrOfPurchPostedInvoice + 1;
                 CodGDocNo := RecGPurchPostedInvoice."Document No.";
             UNTIL RecGPurchPostedInvoice.NEXT() = 0;
-        END;
 
         CLEAR(CodGDocNo);
         RecGPurchPostedReturnShipement.RESET();
@@ -341,13 +333,12 @@ page 50029 "BC6_Purch His. By-From FactBox"
         RecGPurchPostedReturnShipement.SETCURRENTKEY(RecGPurchPostedReturnShipement."Buy-from Vendor No.");
         RecGPurchPostedReturnShipement.SETFILTER("Buy-from Vendor No.", Rec."Buy-from Vendor No.");
 
-        IF RecGPurchPostedReturnShipement.FIND('-') THEN BEGIN
+        IF RecGPurchPostedReturnShipement.FIND('-') THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchPostedReturnShipement."Document No." THEN
                     NbrOfPurchPostedReturnShipemen := NbrOfPurchPostedReturnShipemen + 1;
                 CodGDocNo := RecGPurchPostedReturnShipement."Document No.";
             UNTIL RecGPurchPostedReturnShipement.NEXT() = 0;
-        END;
 
         CLEAR(CodGDocNo);
         RecGPurchPostedCrdMemo.RESET();
@@ -357,13 +348,12 @@ page 50029 "BC6_Purch His. By-From FactBox"
         RecGPurchPostedCrdMemo.SETCURRENTKEY(RecGPurchPostedCrdMemo."Buy-from Vendor No.");
         RecGPurchPostedCrdMemo.SETFILTER("Buy-from Vendor No.", Rec."Buy-from Vendor No.");
 
-        IF RecGPurchPostedCrdMemo.FIND('-') THEN BEGIN
+        IF RecGPurchPostedCrdMemo.FIND('-') THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchPostedCrdMemo."Document No." THEN
                     NbrOfPurchPostedCrdMemo := NbrOfPurchPostedCrdMemo + 1;
                 CodGDocNo := RecGPurchPostedCrdMemo."Document No.";
             UNTIL RecGPurchPostedCrdMemo.NEXT() = 0;
-        END;
     end;
 
     var

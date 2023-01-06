@@ -1,7 +1,7 @@
 page 50017 "BC6_Purch. Rcpt. Lines Subform"
 {
     Caption = 'Purch. Rcpt. Line', comment = 'FRA="Reception lignes achats"';
-    PageType = List;
+    PageType = ListPart;
     SaveValues = true;
     SourceTable = "Purch. Rcpt. Line";
     UsageCategory = None;

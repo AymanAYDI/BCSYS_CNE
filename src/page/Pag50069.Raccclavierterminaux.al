@@ -3,7 +3,6 @@ page 50069 "BC6_Racc. clavier terminaux"
     PageType = Card;
     SourceTable = Integer;
     UsageCategory = Administration;
-    ApplicationArea = All;
     Caption = 'Raccourci clavier terminaux';
     layout
     {

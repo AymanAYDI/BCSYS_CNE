@@ -3,7 +3,7 @@ page 50041 "BC6_Sales Lines Subform 3"
     Caption = 'Sales Lines', Comment = 'FRA="Lignes vente"';
     Editable = false;
     MultipleNewLines = true;
-    PageType = List;
+    PageType = ListPart;
     SourceTable = "Sales Line";
     SourceTableView = SORTING("Shipment Date", "Document Type", "Sell-to Customer No.", "Document No.", "Line No.");
     UsageCategory = None;

@@ -869,7 +869,7 @@ table 99008 "BC6_Vendor Test"
     var
         CommentLine: Record "Comment Line";
         GenBusPostingGrp: Record "Gen. Business Posting Group";
-        ItemCrossReference: Record "Item Cross Reference";
+        ItemCrossReference: Record "Item Reference"; //cross ref
         RMSetup: Record "Marketing Setup";
         OrderAddr: Record "Order Address";
         PostCode: Record "Post Code";

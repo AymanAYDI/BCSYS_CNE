@@ -12,7 +12,7 @@ report 50099 "Update Item Cost Incr. Coeff."
             trigger OnAfterGetRecord()
             begin
                 Window.UPDATE(1, ROUND((i / Item.COUNT) * 10000, 1));
-                Window.UPDATE(2, STRSUBSTNO('%1 / %2', i, Item.COUNT));
+                Window.UPDATE(2, STRSUBSTNO(windowdialog, i, Item.COUNT));
 
                 Item."BC6_Cost Increase Coeff %" := NewCoeff;
                 Item.MODIFY();
@@ -32,7 +32,7 @@ report 50099 "Update Item Cost Incr. Coeff."
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(NewCoeff; NewCoeff)
+                    field(NewCoeffF; NewCoeff)
                     {
                         Caption = 'New Coefficient (%)', Comment = 'FRA="Nouveau coefficient (%)"';
                         MaxValue = 100;
@@ -76,5 +76,6 @@ report 50099 "Update Item Cost Incr. Coeff."
         DlgMsg: Label 'Processing items :\@@1@@@@@@@@@@@@@@@@@@@@@@\##2######################', Comment = 'FRA="Traitement des articles en cours :\@@1@@@@@@@@@@@@@@@@@@@@@@\##2######################"';
         ErrFilters: Label 'Filters on Items cannot be empty.', Comment = 'FRA="Au moins un filtre est requis sur la liste des articles."';
         MsgCompleted: Label 'Process completed.', Comment = 'FRA="Traitement terminé."';
+        windowdialog: Label '%1 / %2';
 }
 

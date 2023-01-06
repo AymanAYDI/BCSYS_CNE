@@ -3701,22 +3701,11 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Affair Steps Tracking - NamedType Text19022765</note>
           <target>Terminer</target>
         </trans-unit>
-        <trans-unit id="Page 3794855111 - Control 4157999113 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>BooGFinichedfilter</source>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Affair Steps Tracking - Control BooGFinichedfilter - Property Caption</note>
-        </trans-unit>
         <trans-unit id="Page 3794855111 - Control 3901381194 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Date rappel</source>
           <note from="Developer" annotates="general" priority="2">FRA="Date rappel"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Affair Steps Tracking - Control Date rappel - Property Caption</note>
           <target>Date rappel</target>
-        </trans-unit>
-        <trans-unit id="Page 3794855111 - Control 945608694 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>DatLRminderDate</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Affair Steps Tracking - Control DatLRminderDate - Property Caption</note>
-          <target/>
         </trans-unit>
         <trans-unit id="Page 3794855111 - Control 293070022 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Finished</source>
@@ -3741,6 +3730,24 @@
           <note from="Developer" annotates="general" priority="2">FRA="Commandes affectées"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Affected Orders - Property Caption</note>
           <target>Commandes affectées</target>
+        </trans-unit>
+        <trans-unit id="Page 1490191729 - Control 1171137197 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Customer Name</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Nom client"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Affected Orders - Control Customer Name - Property Caption</note>
+          <target>Nom client</target>
+        </trans-unit>
+        <trans-unit id="Page 1490191729 - Control 3461834954 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Description</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Désignation article"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Affected Orders - Control Description - Property Caption</note>
+          <target>Désignation article</target>
+        </trans-unit>
+        <trans-unit id="Page 1490191729 - Control 1225278069 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Customer No</source>
+          <note from="Developer" annotates="general" priority="2">FRA="N° client"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Affected Orders - Control Sell-to Customer No. - Property Caption</note>
+          <target>N° client</target>
         </trans-unit>
         <trans-unit id="Page 1490191729 - Action 669134469 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Imprimer bon préparation</source>
@@ -3773,10 +3780,10 @@
           <target>Liste emplacements</target>
         </trans-unit>
         <trans-unit id="Page 1091864779 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Code Coverage</source>
-          <note from="Developer" annotates="general" priority="2">FRA=" Code coverage"</note>
+          <source>Code Coverage 2</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Code coverage 2"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Code Coverage 2 - Property Caption</note>
-          <target> Code coverage</target>
+          <target>Code coverage 2</target>
         </trans-unit>
         <trans-unit id="Page 1091864779 - Control 1117771840 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Hit Ratio %</source>
@@ -4048,35 +4055,11 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Inventory Card MiniForm - NamedType Text011</note>
           <target>Inventaire article</target>
         </trans-unit>
-        <trans-unit id="Page 241972365 - NamedType 2301836569" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Bar code incorrect \ %1</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Code barres erroné \ %1"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Inventory Card MiniForm - NamedType Text013</note>
-          <target>Code barres erroné \ %1</target>
-        </trans-unit>
-        <trans-unit id="Page 241972365 - NamedType 4214926420" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Item %1 blocked</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Article %1 bloqué"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Inventory Card MiniForm - NamedType Text014</note>
-          <target>Article %1 bloqué</target>
-        </trans-unit>
         <trans-unit id="Page 241972365 - NamedType 3577229803" size-unit="char" translate="yes" xml:space="preserve">
           <source>User %1 model sheet does not exist</source>
           <note from="Developer" annotates="general" priority="2">FRA="Pas de nom de feuille article utilisateur %1"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Inventory Card MiniForm - NamedType Text015</note>
           <target>Pas de nom de feuille article utilisateur %1</target>
-        </trans-unit>
-        <trans-unit id="Page 241972365 - NamedType 786271317" size-unit="char" translate="yes" xml:space="preserve">
-          <source>You cannot delete the entry</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Vous ne pouvez pas supprimer la saisie."</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Inventory Card MiniForm - NamedType txt003</note>
-          <target>Vous ne pouvez pas supprimer la saisie.</target>
-        </trans-unit>
-        <trans-unit id="Page 241972365 - Method 4193497931 - NamedType 732759939" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Bar code incorrect</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Code barres eronné."</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Inventory Card MiniForm - Method AssignBinCode - NamedType Text004</note>
-          <target>Code barres eronné.</target>
         </trans-unit>
         <trans-unit id="Page 241972365 - Method 4227651745 - NamedType 732759939" size-unit="char" translate="yes" xml:space="preserve">
           <source>Bar code incorrect</source>
@@ -8882,9 +8865,9 @@
         </trans-unit>
         <trans-unit id="Page 10747570 - Action 3092092583 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Customer - &amp;Order Summary</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Clients : &amp;Liste des commandes"</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Clients: &amp;Liste des commandes"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Order Processor RC Admin - Action Customer - &amp;Order Summary - Property Caption</note>
-          <target>Clients : &amp;Liste des commandes</target>
+          <target>Clients: &amp;Liste des commandes</target>
         </trans-unit>
         <trans-unit id="Page 10747570 - Action 3179456745 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>View which customers purchase the most or owe the most in a selected period. Only customers that have either purchases during the period or a balance at the end of the period will be included.</source>
@@ -8894,9 +8877,9 @@
         </trans-unit>
         <trans-unit id="Page 10747570 - Action 3179456745 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Customer - &amp;Top 10 List</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Clien&amp;ts : Palmarès"</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Clien&amp;ts: Palmarès"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Order Processor RC Admin - Action Customer - &amp;Top 10 List - Property Caption</note>
-          <target>Clien&amp;ts : Palmarès</target>
+          <target>Clien&amp;ts: Palmarès</target>
         </trans-unit>
         <trans-unit id="Page 10747570 - Action 3209082316 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>View a list of item sales for each customer during a selected time period. The report contains information on quantity, sales amount, profit, and possible discounts. It can be used, for example, to analyze a company's customer groups.</source>
@@ -8918,15 +8901,15 @@
         </trans-unit>
         <trans-unit id="Page 10747570 - Action 1309467033 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>View a list with the order lines whose shipment date has been exceeded. The following information is shown for the individual orders for each item: number, customer name, customer's telephone number, shipment date, order quantity and quantity on back order. The report also shows whether there are other items for the customer on back order.</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Affichez une liste qui comprend les lignes commande dont la date d'expédition est dépassée. Les informations suivantes sont données pour chaque article d'une commande : numéro, nom du client, numéro de téléphone du client, date d'expédition, quantité commandée et quantité sur commande en attente. L'état indique aussi s'il y a d'autres articles en commande en attente pour le client."</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Affichez une liste qui comprend les lignes commande dont la date d'expédition est dépassée. Les informations suivantes sont données pour chaque article d'une commande: numéro, nom du client, numéro de téléphone du client, date d'expédition, quantité commandée et quantité sur commande en attente. L'état indique aussi s'il y a d'autres articles en commande en attente pour le client."</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Order Processor RC Admin - Action Inventory - Sales &amp;Back Orders - Property ToolTip</note>
-          <target>Affichez une liste qui comprend les lignes commande dont la date d'expédition est dépassée. Les informations suivantes sont données pour chaque article d'une commande : numéro, nom du client, numéro de téléphone du client, date d'expédition, quantité commandée et quantité sur commande en attente. L'état indique aussi s'il y a d'autres articles en commande en attente pour le client.</target>
+          <target>Affichez une liste qui comprend les lignes commande dont la date d'expédition est dépassée. Les informations suivantes sont données pour chaque article d'une commande: numéro, nom du client, numéro de téléphone du client, date d'expédition, quantité commandée et quantité sur commande en attente. L'état indique aussi s'il y a d'autres articles en commande en attente pour le client.</target>
         </trans-unit>
         <trans-unit id="Page 10747570 - Action 1309467033 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Inventory - Sales &amp;Back Orders</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Stocks : Commandes &amp;à livrer"</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Stocks: Commandes &amp;à livrer"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Order Processor RC Admin - Action Inventory - Sales &amp;Back Orders - Property Caption</note>
-          <target>Stocks : Commandes &amp;à livrer</target>
+          <target>Stocks: Commandes &amp;à livrer</target>
         </trans-unit>
         <trans-unit id="Page 10747570 - Action 3751545307 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>View a list of your items and their prices, for example, to send to customers. You can create the list for specific customers, campaigns, currencies, or other criteria.</source>
@@ -8948,9 +8931,9 @@
         </trans-unit>
         <trans-unit id="Page 10747570 - Action 810681621 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Salesperson - Sales &amp;Statistics</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Vendeurs : &amp;Statistiques ventes"</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Vendeurs: &amp;Statistiques ventes"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Order Processor RC Admin - Action Salesperson - Sales &amp;Statistics - Property Caption</note>
-          <target>Vendeurs : &amp;Statistiques ventes</target>
+          <target>Vendeurs: &amp;Statistiques ventes</target>
         </trans-unit>
         <trans-unit id="Page 10747570 - Action 1406942772 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Sales</source>
@@ -14472,12 +14455,6 @@
           <note from="Developer" annotates="general" priority="2">FRA="Tables Diverses"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Various Tables - Property Caption</note>
           <target>Tables Diverses</target>
-        </trans-unit>
-        <trans-unit id="Page 3658319532 - NamedType 3114637384" size-unit="char" translate="yes" xml:space="preserve">
-          <source>This field cannot be empty.</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Ce champ ne doit pas être vide."</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Various Tables - NamedType Text001</note>
-          <target>Ce champ ne doit pas être vide.</target>
         </trans-unit>
         <trans-unit id="Page 4223555262 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Various Tables List</source>

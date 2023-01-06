@@ -11,7 +11,6 @@ page 50063 "Invt. Pick Card MiniForm F2"
     SourceTableView = SORTING("Journal Template Name", "Journal Batch Name", "Line No.")
                       ORDER(Ascending);
     UsageCategory = Administration;
-    ApplicationArea = All;
 
     layout
     {
@@ -240,7 +239,7 @@ page 50063 "Invt. Pick Card MiniForm F2"
             action("&Item")
             {
                 Caption = '&Item', Comment = 'FRA="&Art."';
-                Image = item;
+                Image = Item;
                 Promoted = true;
                 PromotedCategory = Process;
                 ShortCutKey = 'F2';
@@ -301,11 +300,6 @@ page 50063 "Invt. Pick Card MiniForm F2"
                         Rec."Document No." := LastJnlLine."Document No.";
                         AssignPickNo(PickNo);
                         Rec."Location Code" := LastJnlLine."Location Code";
-                        //SOBI
-                        //"Item No." := LastJnlLine."Item No.";
-                        //Description := LastJnlLine.Description;
-                        //AssignItemNo(LastJnlLine."Item No.");
-                        //SOBI
 
                         Rec.INSERT(TRUE);
                     END;
@@ -445,7 +439,6 @@ page 50063 "Invt. Pick Card MiniForm F2"
         VisibleTestBool: Boolean;
         Qty: Code[10];
         BatchName: Code[20];
-        CurrentLocationCode: Code[20];
         DefaultLocationCode: Code[20];
         DocNo: Code[20];
         FromBinCode: Code[20];
@@ -508,7 +501,6 @@ page 50063 "Invt. Pick Card MiniForm F2"
     var
         WhseEmployee: Record "Warehouse Employee";
         WmsManagement: Codeunit "WMS Management";
-        CurrentLocationCode: Code[10];
     begin
 
         InvSetup.GET();
@@ -725,9 +717,7 @@ page 50063 "Invt. Pick Card MiniForm F2"
     begin
         PickNoCtrlVisible := ShowCtrl;
         PickNoLibCtrlVisible := ShowCtrl;
-        // CurrForm.FromBinCodeCtrl.EDITABLE(EditableCtrl);
         FromBinCodeCtrlVisible := ShowCtrl;
-        //CurrForm.ToBinCodeCtrl.EDITABLE(EditableCtrl);
         ToBinCodeCtrlEditable := FALSE;
         ToBinCodeCtrlVisible := ShowCtrl;
         ToBinCodeCtrlVisible := VisibleTestBool;

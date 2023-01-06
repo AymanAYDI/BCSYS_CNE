@@ -11,7 +11,7 @@ page 50000 "BC6_Setup Various Tables"
         {
             group(Control1)
             {
-                Caption = '';
+                ShowCaption = false;
                 field("Code"; Rec.Code)
                 {
                 }
@@ -21,11 +21,11 @@ page 50000 "BC6_Setup Various Tables"
             }
             grid(Control1100267002)
             {
-                Caption = '';
+                ShowCaption = false;
 
                 group(Control1100267000)
                 {
-                    Caption = '';
+                    ShowCaption = false;
 
                     field("Text1 Use"; Rec."Text1 Use")
                     {
@@ -93,11 +93,11 @@ page 50000 "BC6_Setup Various Tables"
                 }
                 grid(Control1100267011)
                 {
-                    Caption = '';
+                    ShowCaption = false;
 
                     group(Control1100267012)
                     {
-                        Caption = '';
+                        ShowCaption = false;
 
                         field("Text1 Description"; Rec."Text1 Description")
                         {
@@ -147,7 +147,7 @@ page 50000 "BC6_Setup Various Tables"
                     }
                     group(Control1100267010)
                     {
-                        Caption = '';
+                        ShowCaption = false;
 
                         field("Obligatory Text1"; Rec."Obligatory Text1")
                         {
@@ -190,7 +190,7 @@ page 50000 "BC6_Setup Various Tables"
             }
             group(Control1100267004)
             {
-                Caption = '';
+                ShowCaption = false;
 
                 field("Top Logical1 Use"; Rec."Top Logical1 Use")
                 {
@@ -228,11 +228,11 @@ page 50000 "BC6_Setup Various Tables"
             }
             grid(Control1100267003)
             {
-                Caption = '';
+                ShowCaption = false;
 
                 group(Control1100267006)
                 {
-                    Caption = '';
+                    ShowCaption = false;
                     field("Radical Code1 Use"; Rec."Radical Code1 Use")
                     {
                         trigger OnValidate()
@@ -257,11 +257,11 @@ page 50000 "BC6_Setup Various Tables"
                 }
                 grid(Control1100267009)
                 {
-                    Caption = '';
+                    ShowCaption = false;
 
                     group(Control1100267007)
                     {
-                        Caption = '';
+                        ShowCaption = false;
 
                         field("Radical Code1"; Rec."Radical Code1")
                         {
@@ -290,7 +290,7 @@ page 50000 "BC6_Setup Various Tables"
                     }
                     group(Control1100267008)
                     {
-                        Caption = '';
+                        ShowCaption = false;
 
                         field("Radical Code1 Description"; Rec."Radical Code1 Description")
                         {
@@ -309,7 +309,7 @@ page 50000 "BC6_Setup Various Tables"
             }
             group(Control1100267005)
             {
-                Caption = '';
+                ShowCaption = false;
 
                 field("Comment Use"; Rec."Comment Use")
                 {

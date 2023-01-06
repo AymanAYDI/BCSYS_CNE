@@ -285,14 +285,6 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
                     PostBatch();
 
                     CurrPage.CLOSE();
-                    /*
-                    IF ISCLEAR(WshShell) THEN
-                      CREATE(WshShell,FALSE ,TRUE);
-                    
-                    
-                    BoolWait := FALSE;
-                    WshShell.SendKeys('{F2}', BoolWait);
-                    */
 
                 end;
             }
@@ -330,7 +322,7 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
 
     trigger OnAfterGetRecord()
     begin
-        OnAfterGetCurrRecord();
+        ProcOnAfterGetCurrRecord();
     end;
 
     trigger OnInit()
@@ -346,7 +338,7 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        OnAfterGetCurrRecord();
+        ProcOnAfterGetCurrRecord();
     end;
 
     trigger OnOpenPage()
@@ -703,7 +695,7 @@ page 50067 "BC6_Reclass. Card MiniForm F2"
         AssignQty(Qty);
     end;
 
-    local procedure OnAfterGetCurrRecord()
+    local procedure ProcOnAfterGetCurrRecord()
     begin
         xRec := Rec;
         UpdateCurrForm();

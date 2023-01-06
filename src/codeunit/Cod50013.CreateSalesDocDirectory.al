@@ -20,7 +20,6 @@ codeunit 50013 "BC6_Create SalesDoc Directory"
         FileMngt: Codeunit "File Management";
         ItemRecID: RecordID;
         ItemRecRef: RecordRef;
-        ItemExist: Boolean;
         Window: Dialog;
         FileCounter: Integer;
         Text001: Label 'Création dossier %1 ...';
@@ -62,7 +61,6 @@ codeunit 50013 "BC6_Create SalesDoc Directory"
         TargetDirectoryName := '';
         REPEAT
 
-            ItemExist := Item.GET(SalesLine."No.");
             ItemRecRef.GETTABLE(Item);
             ItemRecID := ItemRecRef.RECORDID;
 

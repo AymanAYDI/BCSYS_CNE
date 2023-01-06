@@ -3,8 +3,7 @@ page 50025 "BC6_DEEE Tariffs List"
     Caption = 'DEEE Tariffs List', Comment = 'FRA="Liste des catégories d''articles"';
     PageType = List;
     SourceTable = "BC6_DEEE Tariffs";
-    UsageCategory = Lists;
-    ApplicationArea = All;
+    UsageCategory = None;
 
     layout
     {

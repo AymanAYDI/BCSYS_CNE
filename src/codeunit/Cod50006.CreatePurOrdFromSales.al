@@ -87,7 +87,7 @@ codeunit 50006 "BC6_Create Pur. Ord From Sales"
         Window.CLOSE();
     end;
 
-    procedure InsertPurchHeader(var FromPurchHeader: Record "Purchase Header"; var FromVendorNo: Code[20])
+    procedure InsertPurchHeader(var FromPurchHeader: Record "Purchase Header"; FromVendorNo: Code[20])
     begin
         // Insert Purchase Header
         FromPurchHeader.INIT();

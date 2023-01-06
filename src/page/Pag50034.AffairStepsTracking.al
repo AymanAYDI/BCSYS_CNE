@@ -14,6 +14,7 @@ page 50034 "BC6_Affair Steps Tracking"
         {
             group(Control1)
             {
+                ShowCaption = false;
                 label(Interlocuteur)
                 {
                     CaptionClass = Text19001151;
@@ -37,15 +38,17 @@ page 50034 "BC6_Affair Steps Tracking"
                     Lookup = true;
                     TableRelation = "User Setup";
                     ApplicationArea = All;
+                    ShowCaption = false;
                 }
                 field(DatLRminderDate; DatLRminderDate)
                 {
-                    Caption = 'DatLRminderDate', Comment = 'FRA=""';
+                    ShowCaption = false;
                     ApplicationArea = All;
+
                 }
                 field(BooGFinichedfilter; BooGFinichedfilter)
                 {
-                    Caption = 'BooGFinichedfilter';
+                    ShowCaption = false;
                     ApplicationArea = All;
                 }
             }
@@ -122,7 +125,7 @@ page 50034 "BC6_Affair Steps Tracking"
         BooGFinichedfilter := FALSE;
         DatLRminderDate := WORKDATE();
 
-        SearchAffairSteps(FALSE, USERID, WORKDATE());
+        SearchAffairSteps(FALSE, CopyStr(USERID, 0, 50), WORKDATE());
     end;
 
     var
@@ -137,20 +140,17 @@ page 50034 "BC6_Affair Steps Tracking"
         TxtGIntelocutor: Text[30];
 
 
-    procedure SearchAffairSteps(finish: Boolean; Interlocuteur: Text[30]; ReminderDate: Date)
+    procedure SearchAffairSteps(finish: Boolean; pInterlocuteur: Text[50]; ReminderDate: Date)
     begin
         DiaGWindow.OPEN(Text001);
 
         RecGStepsAffair.RESET();
         RecGStepsAffair.SETCURRENTKEY(RecGStepsAffair.Interlocutor, RecGStepsAffair."Reminder Date", RecGStepsAffair.Terminated);
 
-        RecGStepsAffair.SETFILTER(RecGStepsAffair.Interlocutor, Interlocuteur);
+        RecGStepsAffair.SETFILTER(RecGStepsAffair.Interlocutor, pInterlocuteur);
         RecGStepsAffair.SETFILTER("Reminder Date", '..%1', ReminderDate);
         RecGStepsAffair.SETRANGE(RecGStepsAffair.Terminated, finish);
         Rec.COPY(RecGStepsAffair);
-
-        //CurrForm.UPDATE(TRUE);
-
         DiaGWindow.CLOSE();
     end;
 }

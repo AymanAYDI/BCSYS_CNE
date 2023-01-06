@@ -2,7 +2,8 @@ report 50098 "BC6_Batch Archive Quote Delete"
 {
     Caption = 'Batch Archive Quote Delete', Comment = 'FRA="Archivage et Suppression Devis"';
     ProcessingOnly = true;
-
+    ApplicationArea = All;
+    UsageCategory = ReportsAndAnalysis;
     dataset
     {
         dataitem("Sales Header"; "Sales Header")

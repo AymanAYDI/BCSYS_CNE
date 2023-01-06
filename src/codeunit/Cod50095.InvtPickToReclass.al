@@ -21,7 +21,6 @@ codeunit 50095 "BC6_Invt. Pick To Reclass."
         TempWhseActivLine: Record "Warehouse Activity Line" temporary;
         WhseActivLine: Record "Warehouse Activity Line";
         WhseJnlLine: Record "Warehouse Journal Line";
-        LineCreated: Boolean;
         LineCreatedOk: Boolean;
         SalesOrderCreatedOk: Boolean;
         DueDate: Date;
@@ -251,7 +250,6 @@ codeunit 50095 "BC6_Invt. Pick To Reclass."
 
             NewWhseActivityLine.INSERT();
 
-            LineCreated := true;
         end;
     end;
 

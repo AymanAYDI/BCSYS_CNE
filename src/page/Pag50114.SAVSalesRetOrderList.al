@@ -289,8 +289,6 @@ page 50114 "BC6_SAV Sales Ret. Order List"
                      comment = 'FRA="Co&mmentaires"';
                     Image = ViewComments;
                     Promoted = false;
-                    //The property 'PromotedIsBig' can only be set if the property 'Promoted' is set to 'true'
-                    //PromotedIsBig = false;
                     RunObject = Page "Sales Comment Sheet";
                     RunPageLink = "Document Type" = CONST("Return Order"),
                                   "No." = FIELD("No."),

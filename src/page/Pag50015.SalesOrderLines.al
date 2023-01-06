@@ -127,7 +127,7 @@ page 50015 "BC6_Sales Order Lines"
                     Caption = 'Requested Receipt Date', comment = 'FRA="Date réception demandée"';
                     Editable = false;
                 }
-                field("RecGSalesHeader.ID"; RecGSalesHeader.ID)
+                field("RecGSalesHeader.ID"; RecGSalesHeader.BC6_ID)
                 {
                     Caption = 'CNE Spokesman Name', comment = 'FRA="Nom interlocuteur CNE"';
                     Editable = false;
@@ -267,7 +267,6 @@ page 50015 "BC6_Sales Order Lines"
                         CodLItemNo: Code[20];
                         CodLVendorNo: Code[20];
                         DecLQuantity: Decimal;
-                        "<<<PRODWARE>>>": Integer;
                         IntLLineNo: Integer;
                     begin
                         // Apply Filters

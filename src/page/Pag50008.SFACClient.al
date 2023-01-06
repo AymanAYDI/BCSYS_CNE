@@ -10,7 +10,7 @@ page 50008 "BC6_SFAC Client"
         {
             group(Control1)
             {
-                Caption = '';
+                ShowCaption = false;
 
                 field("No."; Rec."No.")
                 {

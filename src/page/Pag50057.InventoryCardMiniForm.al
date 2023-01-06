@@ -77,27 +77,6 @@ page 50057 "BC6_Inventory Card MiniForm"
                     CASE index OF
                         1:
                             BEGIN
-                                /*IF ItemNo <> '' THEN
-                                  BEGIN
-                                    CLEAR(BinContentForm);
-                                    BinContent.RESET;
-                                    IF LocationCode <> '' THEN
-                                      BinContent.SETRANGE("Location Code",LocationCode);
-                                    IF ItemNo <> '' THEN
-                                      BinContent.SETRANGE("Item No.",ItemNo);
-                                    BinContent.SETFILTER(Quantity,'>%1',0);
-                                    IF BinContent.FIND('-') THEN
-                                      BinContentForm.SETRECORD(BinContent);
-                                    BinContentForm.SETTABLEVIEW(BinContent);
-                                    BinContentForm.LOOKUPMODE(TRUE);
-                                    IF BinContent.FIND('-') THEN
-                                      BinContentForm.SETRECORD(BinContent);
-                                    IF BinContentForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
-                                      BinContentForm.GETRECORD(BinContent);
-                                      FromBinCode := BinContent."Bin Code";
-                                      AssignFromBinCode(FromBinCode);
-                                    END;
-                                END ELSE BEGIN*/
                                 CLEAR(BinForm);
                                 Bin.RESET();
                                 IF LocationCode <> '' THEN
@@ -114,7 +93,6 @@ page 50057 "BC6_Inventory Card MiniForm"
                                     CurrPage.ScanZone.SetHide(2, FALSE);
                                     AssignFromBinCode(FromBinCode);
                                 END;
-                                //END;
                             END;
 
                         2:
@@ -141,13 +119,6 @@ page 50057 "BC6_Inventory Card MiniForm"
 
                 end;
 
-                trigger Focused(index: Integer; data: Text)
-                begin
-                end;
-
-                trigger FocusLost(index: Integer; data: Text)
-                begin
-                end;
 
                 trigger DataSubmited(index: Integer; data: Text)
                 begin
@@ -203,27 +174,6 @@ page 50057 "BC6_Inventory Card MiniForm"
                 var
                     Bin: Record Bin;
                 begin
-                    /*IF ItemNo <> '' THEN
-                      BEGIN
-                        CLEAR(BinContentForm);
-                        BinContent.RESET;
-                        IF LocationCode <> '' THEN
-                          BinContent.SETRANGE("Location Code",LocationCode);
-                        IF ItemNo <> '' THEN
-                          BinContent.SETRANGE("Item No.",ItemNo);
-                        BinContent.SETFILTER(Quantity,'>%1',0);
-                        IF BinContent.FIND('-') THEN
-                          BinContentForm.SETRECORD(BinContent);
-                        BinContentForm.SETTABLEVIEW(BinContent);
-                        BinContentForm.LOOKUPMODE(TRUE);
-                        IF BinContent.FIND('-') THEN
-                          BinContentForm.SETRECORD(BinContent);
-                        IF BinContentForm.RUNMODAL = ACTION::LookupOK THEN BEGIN
-                          BinContentForm.GETRECORD(BinContent);
-                          FromBinCode := BinContent."Bin Code";
-                          AssignFromBinCode(FromBinCode);
-                        END;
-                    END ELSE BEGIN*/
                     CLEAR(BinForm);
                     Bin.RESET();
                     IF LocationCode <> '' THEN
@@ -238,7 +188,6 @@ page 50057 "BC6_Inventory Card MiniForm"
                         FromBinCode := Bin.Code;
                         AssignFromBinCode(FromBinCode);
                     END;
-                    //END;
 
                 end;
 
@@ -469,10 +418,6 @@ page 50057 "BC6_Inventory Card MiniForm"
         ShowCtrl := TRUE;
         EditableCtrl := TRUE;
 
-        //>>MIGRATION 2013
-        //NewLine();
-        //ProcOnAfterGetCurrRecord;
-        //<<MIGRATION 2013
     end;
 
     trigger OnQueryClosePage(CloseAction: Action): Boolean
@@ -489,25 +434,17 @@ page 50057 "BC6_Inventory Card MiniForm"
 
     var
         Bin: Record Bin;
-        BinContent: Record "Bin Content";
         InvSetup: Record "Inventory Setup";
         Item: Record Item;
         ItemBatchJnl: Record "Item Journal Batch";
-        LastJnlLine: Record "Item Journal Line";
         ItemJnlTemplate: Record "Item Journal Template";
         Location: Record Location;
         FunctionsMgt: Codeunit "BC6_Functions Mgt";
         ScanDeviceHelper: Codeunit BC6_ScanDeviceHelper;
-        DistInt: Codeunit "Dist. Integration";
-        JnlPostBatch: Codeunit "Item Jnl.-Post Batch";
         BinForm: Page "BC6_Bin List MiniForm";
         ItemForm: Page "BC6_Item List MiniForm";
         LocationForm: Page "BC6_Location List MiniForm";
-        BoolWait: Boolean;
         EditableCtrl: Boolean;
-        EditableFromBinCtrl: Boolean;
-        EditableLotCtrl: Boolean;
-        FirstLine: Boolean;
         [InDataSet]
         FromBinCodeCtrlVisible: Boolean;
         IsReady: Boolean;
@@ -515,7 +452,6 @@ page 50057 "BC6_Inventory Card MiniForm"
         ItemNoCtrlVisible: Boolean;
         [InDataSet]
         ItemNoLibCtrlVisible: Boolean;
-        PalletBarCode: Boolean;
         [InDataSet]
         QtyCtrlEditable: Boolean;
         [InDataSet]
@@ -532,8 +468,6 @@ page 50057 "BC6_Inventory Card MiniForm"
         LocationCode: Code[20];
         ToBinCode: Code[20];
         PostingDate: Date;
-        "---": Integer;
-        EntryNo: Integer;
         FromBinCaption: Label 'Bin Code', Comment = 'FRA="De empl."';
         ItemNoCaption: Label 'Item nr', Comment = 'FRA="N° article"';
         QuantityCaption: Label 'Quantity', Comment = 'FRA="Quantité"';
@@ -541,13 +475,9 @@ page 50057 "BC6_Inventory Card MiniForm"
         Text002: Label 'Location %1 incorrect', Comment = 'FRA="Emplacement (%1) erroné"';
         Text006: Label 'Palette nr (%1) incorrect', Comment = 'FRA="Quantité (%1) erronée"';
         Text011: Label 'Inventory Item', Comment = 'FRA="Inventaire article"';
-        Text013: Label 'Bar code incorrect \ %1', Comment = 'FRA="Code barres erroné \ %1"';
-        Text014: Label 'Item %1 blocked', Comment = 'FRA="Article %1 bloqué"';
         Text015: Label 'User %1 model sheet does not exist', Comment = 'FRA="Pas de nom de feuille article utilisateur %1"';
-        txt003: Label 'You cannot delete the entry', Comment = 'FRA="Vous ne pouvez pas supprimer la saisie."';
         OptionMode: Option New,Edit,KeepPick,KeepPickAndBin;
         _BinCode: Text;
-        BarTxt: Text[30];
 
 
     procedure NewLine(pLastJnlLine: Record "Item Journal Line")
@@ -649,25 +579,6 @@ page 50057 "BC6_Inventory Card MiniForm"
     end;
 
 
-    procedure AssignBinCode(var BinCode: Code[20])
-    var
-        Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
-    begin
-        IF (BinCode <> '') AND
-           (STRLEN(BinCode) < 20) THEN BEGIN
-            IF (BinCode <> Rec."Bin Code") THEN
-                Rec.VALIDATE("New Location Code", Rec."Location Code");
-            Rec.VALIDATE("New Bin Code", BinCode);
-            UpdateCurrForm();
-            EXIT;
-        END;
-
-        MESSAGE(Text002, BinCode);
-        BinCode := '';
-        Rec."New Bin Code" := BinCode;
-    end;
-
-
     procedure AssignFromBinCode(var BinCode: Code[20])
     var
         Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
@@ -675,7 +586,6 @@ page 50057 "BC6_Inventory Card MiniForm"
         IF (BinCode <> '') AND
            (STRLEN(BinCode) < 20) THEN BEGIN
             IF (BinCode <> Rec."Bin Code") THEN
-                // VALIDATE("Bin Code",BinCode);
                 Rec."Bin Code" := BinCode;
             UpdateCurrForm();
             EXIT;
@@ -733,18 +643,6 @@ page 50057 "BC6_Inventory Card MiniForm"
         pQty := '';
         Rec.VALIDATE(Quantity, 0);
         pQty := FORMAT(Rec.Quantity);
-    end;
-
-
-    procedure PostBatch()
-    begin
-        CLEAR(JnlPostBatch);
-        JnlPostBatch.RUN(Rec);
-    end;
-
-
-    procedure InitForm(Picking: Boolean)
-    begin
     end;
 
 
@@ -846,27 +744,6 @@ page 50057 "BC6_Inventory Card MiniForm"
         UpdateCurrForm();
     end;
 
-    local procedure SaveValues()
-    begin
-        IF IsReady THEN BEGIN
-            CurrPage.ScanZone.GetText(1);
-            IF _BinCode <> Rec."Bin Code" THEN BEGIN
-                FromBinCode := _BinCode;
-                AssignFromBinCode(FromBinCode);
-            END;
-            CurrPage.ScanZone.GetText(2);
-            IF _BinCode <> Rec."Item No." THEN BEGIN
-                ItemNo := _BinCode;
-                AssignItemNo(ItemNo);
-            END;
-            CurrPage.ScanZone.GetText(3);
-            IF _BinCode <> FORMAT(Rec.Quantity) THEN BEGIN
-                Qty := _BinCode;
-                AssignQty(Qty);
-            END;
-        END;
-    end;
-
     local procedure CloseAndOpenCurrentPickAndBin()
     var
         _LastJnlLine: Record "Item Journal Line";
@@ -916,14 +793,6 @@ page 50057 "BC6_Inventory Card MiniForm"
             Rec.INSERT(TRUE);
         END;
 
-        // CurrPage.CLOSE;
-
-        //MIG 2017
-
-        //
-        // InvtPickCardMiniForm.SETTABLEVIEW(Rec);
-        // InvtPickCardMiniForm.SetOptionMode(OptionMode::KeepBin);
-        // InvtPickCardMiniForm.RUN();
         SetOptionMode(OptionMode::KeepPick);
         CurrPage.UPDATE(FALSE);
     end;
@@ -932,19 +801,6 @@ page 50057 "BC6_Inventory Card MiniForm"
     procedure SetOptionMode(NewOptionMode: Option New,Edit,KeepPick,KeepPickAndBin)
     begin
         OptionMode := NewOptionMode;
-    end;
-
-    local procedure GetCaptionClass(): Text
-    begin
-        CASE OptionMode OF
-            OptionMode::KeepPick:
-                EXIT(STRSUBSTNO('%1 - %2 %3', Rec.FIELDCAPTION("BC6_Whse. Document No."), Rec."BC6_Whse. Document No.", Rec."Line No."));
-            OptionMode::KeepPickAndBin:
-                EXIT(STRSUBSTNO('%1 - %2 %3', Rec.FIELDCAPTION("Bin Code"), Rec."Bin Code", Rec."Line No."));
-
-            ELSE
-                EXIT(STRSUBSTNO('%1 - %2 %3', Rec.TABLECAPTION, Rec."BC6_Whse. Document No.", Rec."Line No."));
-        END;
     end;
 
     local procedure RefreshDataControlAddin()

@@ -13,6 +13,7 @@ page 50077 "BC6_Test Scan List"
                 field("Line No."; Rec."Line No.")
                 {
                     ApplicationArea = All;
+                    Caption = 'Line No.', Comment = 'FRA="N° ligne"';
                 }
             }
         }

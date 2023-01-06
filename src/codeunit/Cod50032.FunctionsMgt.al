@@ -164,7 +164,7 @@ codeunit 50032 "BC6_Functions Mgt"
         VATRateChangeConversion: Record "VAT Rate Change Conversion";
         VATRateChangeLogEntry: Record "VAT Rate Change Log Entry";
         VATRateChangeSetup: record "VAT Rate Change Setup";
-        FieldRef: FieldRef;
+        _FieldRef: FieldRef;
         GenProdPostingGroupConverted: Boolean;
         IsHandled: Boolean;
         VATProdPostingGroupConverted: Boolean;
@@ -179,36 +179,36 @@ codeunit 50032 "BC6_Functions Mgt"
         Field.SetRange(Type, Field.Type::Code);
         if Field.Find('+') then
             repeat
-                FieldRef := RecRef.Field(Field."No.");
+                _FieldRef := RecRef.Field(Field."No.");
                 GenProdPostingGroupConverted := false;
                 if ConvertGenProdPostingGroup then
-                    if VATRateChangeConversion.Get(VATRateChangeConversion.Type::"Gen. Prod. Posting Group", FieldRef.Value) then begin
-                        VATRateChangeLogEntry."Old Gen. Prod. Posting Group" := FieldRef.Value;
-                        FieldRef.Validate(VATRateChangeConversion."To Code");
-                        VATRateChangeLogEntry."New Gen. Prod. Posting Group" := FieldRef.Value;
+                    if VATRateChangeConversion.Get(VATRateChangeConversion.Type::"Gen. Prod. Posting Group", _FieldRef.Value) then begin
+                        VATRateChangeLogEntry."Old Gen. Prod. Posting Group" := _FieldRef.Value;
+                        _FieldRef.Validate(VATRateChangeConversion."To Code");
+                        VATRateChangeLogEntry."New Gen. Prod. Posting Group" := _FieldRef.Value;
                         GenProdPostingGroupConverted := true;
                     end;
                 if not GenProdPostingGroupConverted then begin
-                    VATRateChangeLogEntry."Old Gen. Prod. Posting Group" := FieldRef.Value;
-                    VATRateChangeLogEntry."New Gen. Prod. Posting Group" := FieldRef.Value;
+                    VATRateChangeLogEntry."Old Gen. Prod. Posting Group" := _FieldRef.Value;
+                    VATRateChangeLogEntry."New Gen. Prod. Posting Group" := _FieldRef.Value;
                 end;
             until Field.Next(-1) = 0;
 
         Field.SetRange(RelationTableNo, DATABASE::"VAT Product Posting Group");
         if Field.Find('+') then
             repeat
-                FieldRef := RecRef.Field(Field."No.");
+                _FieldRef := RecRef.Field(Field."No.");
                 VATProdPostingGroupConverted := false;
                 if ConvertVATProdPostingGroup then
-                    if VATRateChangeConversion.Get(VATRateChangeConversion.Type::"VAT Prod. Posting Group", FieldRef.Value) then begin
-                        VATRateChangeLogEntry."Old VAT Prod. Posting Group" := FieldRef.Value;
-                        FieldRef.Validate(VATRateChangeConversion."To Code");
-                        VATRateChangeLogEntry."New VAT Prod. Posting Group" := FieldRef.Value;
+                    if VATRateChangeConversion.Get(VATRateChangeConversion.Type::"VAT Prod. Posting Group", _FieldRef.Value) then begin
+                        VATRateChangeLogEntry."Old VAT Prod. Posting Group" := _FieldRef.Value;
+                        _FieldRef.Validate(VATRateChangeConversion."To Code");
+                        VATRateChangeLogEntry."New VAT Prod. Posting Group" := _FieldRef.Value;
                         VATProdPostingGroupConverted := true;
                     end;
                 if not VATProdPostingGroupConverted then begin
-                    VATRateChangeLogEntry."Old VAT Prod. Posting Group" := FieldRef.Value;
-                    VATRateChangeLogEntry."New VAT Prod. Posting Group" := FieldRef.Value;
+                    VATRateChangeLogEntry."Old VAT Prod. Posting Group" := _FieldRef.Value;
+                    VATRateChangeLogEntry."New VAT Prod. Posting Group" := _FieldRef.Value;
                 end;
             until Field.Next(-1) = 0;
         VATRateChangeSetup.get();
@@ -1104,18 +1104,23 @@ then begin
     procedure MntDivisionDEEE(DecPQtyPurchLine: Decimal; var PurchLine: Record "Purchase Line"); //COD90
     var
         GLSetup: Record "General Ledger Setup";
+        Text001: Label 'quantity must be different of 0', Comment = 'FRA="la quantité doit être différente de 0"';
     begin
         GLSetup.get();
-        PurchLine."BC6_DEEE HT Amount" := ROUND(PurchLine."BC6_DEEE HT Amount" * DecPQtyPurchLine / PurchLine.Quantity, 0.01);
-        if (PurchLine."VAT Calculation Type" = PurchLine."VAT Calculation Type"::"Sales Tax") and
-           (PurchLine.Quantity <> PurchLine."Qty. to Invoice") and
-           GLSetup."BC6_Sales Tax Recalcul"
-        then
-            PurchLine."BC6_DEEE TTC Amount" :=
-              PurchLine."BC6_DEEE HT Amount" + 0
-        else
-            PurchLine."BC6_DEEE TTC Amount" := ROUND(PurchLine."BC6_DEEE TTC Amount" * DecPQtyPurchLine / PurchLine.Quantity);
-        PurchLine."BC6_DEEE VAT Amount" := PurchLine."BC6_DEEE TTC Amount" - PurchLine."BC6_DEEE HT Amount";
+        if PurchLine.Quantity = 0 then
+            Error(Text001)
+        else begin
+            PurchLine."BC6_DEEE HT Amount" := ROUND(PurchLine."BC6_DEEE HT Amount" * DecPQtyPurchLine / PurchLine.Quantity, 0.01);
+            if (PurchLine."VAT Calculation Type" = PurchLine."VAT Calculation Type"::"Sales Tax") and
+               (PurchLine.Quantity <> PurchLine."Qty. to Invoice") and
+               GLSetup."BC6_Sales Tax Recalcul"
+            then
+                PurchLine."BC6_DEEE TTC Amount" :=
+                  PurchLine."BC6_DEEE HT Amount" + 0
+            else
+                PurchLine."BC6_DEEE TTC Amount" := ROUND(PurchLine."BC6_DEEE TTC Amount" * DecPQtyPurchLine / PurchLine.Quantity);
+            PurchLine."BC6_DEEE VAT Amount" := PurchLine."BC6_DEEE TTC Amount" - PurchLine."BC6_DEEE HT Amount";
+        end;
     end;
 
     //COD80
@@ -1123,25 +1128,27 @@ then begin
     var
         GLSetup: Record "General Ledger Setup";
         CalculateSalesTax: Codeunit "Sales Tax Calculate";
+        Text001: Label 'quantity must be different of 0', Comment = 'FRA="la quantité doit être différente de 0"';
     BEGIN
         GLSetup.get();
-        SalesLine."BC6_DEEE HT Amount" := ROUND(SalesLine."BC6_DEEE HT Amount" * DecLQtySalesLine / SalesLine.Quantity, 0.01);
-        IF (SalesLine."VAT Calculation Type" = SalesLine."VAT Calculation Type"::"Sales Tax") AND
-           (SalesLine.Quantity <> SalesLine."Qty. to Invoice") AND
-           GLSetup."BC6_Sales Tax Recalcul"
-        THEN
-            SalesLine."BC6_DEEE TTC Amount" :=
-              SalesLine."BC6_DEEE HT Amount" +
-                    CalculateSalesTax.CalculateTax(
-                      SalesLine."Tax Area Code", SalesLine."Tax Group Code", SalesLine."Tax Liable",
-                     SalesHeader."Posting Date", SalesLine."BC6_DEEE HT Amount", DecLQtySalesLine, SalesHeader."Currency Factor")
+        IF SalesLine.Quantity <> 0 Then begin
+            SalesLine."BC6_DEEE HT Amount" := ROUND(SalesLine."BC6_DEEE HT Amount" * DecLQtySalesLine / SalesLine.Quantity, 0.01);
+            IF (SalesLine."VAT Calculation Type" = SalesLine."VAT Calculation Type"::"Sales Tax") AND
+               (SalesLine.Quantity <> SalesLine."Qty. to Invoice") AND
+               GLSetup."BC6_Sales Tax Recalcul"
+            THEN
+                SalesLine."BC6_DEEE TTC Amount" :=
+                  SalesLine."BC6_DEEE HT Amount" +
+                        CalculateSalesTax.CalculateTax(
+                          SalesLine."Tax Area Code", SalesLine."Tax Group Code", SalesLine."Tax Liable",
+                         SalesHeader."Posting Date", SalesLine."BC6_DEEE HT Amount", DecLQtySalesLine, SalesHeader."Currency Factor")
 
-        ELSE
-            SalesLine."BC6_DEEE TTC Amount" := ROUND(SalesLine."BC6_DEEE TTC Amount" * DecLQtySalesLine / SalesLine.Quantity);
+            ELSE
+                SalesLine."BC6_DEEE TTC Amount" := ROUND(SalesLine."BC6_DEEE TTC Amount" * DecLQtySalesLine / SalesLine.Quantity);
 
-        SalesLine."BC6_DEEE VAT Amount" := SalesLine."BC6_DEEE TTC Amount" - SalesLine."BC6_DEEE HT Amount";
-    END;
-
+            SalesLine."BC6_DEEE VAT Amount" := SalesLine."BC6_DEEE TTC Amount" - SalesLine."BC6_DEEE HT Amount";
+        END;
+    end;
     //COD6620
     procedure RecalculateSalesLineAmounts2(FromSalesLine: Record "Sales Line"; var ToSalesLine: Record "Sales Line"; Currency: Record Currency)
     var

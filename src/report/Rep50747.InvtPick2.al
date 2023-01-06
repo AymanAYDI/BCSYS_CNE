@@ -350,20 +350,14 @@ report 50747 "BC6_Invt. Pick2"
                             CLEAR(QtyToPick);
                             CLEAR(Item);
                             Item.GET("Item No.");
-                            // UnitCode := Item."Base Unit of Measure";
                             UnitCode := "Unit of Measure Code";
-                            // QtyToPick := "Qty. (Base)";
                             QtyToPick := Quantity;
-                            // QtyToHandle := "Qty. to Handle (Base)";
                             QtyToHandle := "Qty. to Handle";
-                            // NetWeight := Item."Net Weight" * "Qty. (Base)";
-                            // GrossWeight := Item."Gross Weight" * "Qty. (Base)";
                             CLEAR(Bin);
                             CLEAR(BinDescription);
                             IF Bin.GET("Location Code", "Bin Code") THEN
                                 BinDescription := Bin.Description;
 
-                            //>> 19.03.2012 PT17
                             GetLocation("Location Code");
                             IF ("Bin Code" = Location."Receipt Bin Code") THEN BEGIN
                                 CLEAR(BarcodeMngt);
@@ -398,7 +392,6 @@ report 50747 "BC6_Invt. Pick2"
                                         // Transfer Line
                                         TransferLine.GET(WhseActLine."Source No.", WhseActLine."Source Line No.");
                                         "Due Date" := TransferLine."Shipment Date";
-                                        // RemainingQty := TransferLine."Outstanding Qty. (Base)";
                                         RemainingQty := TransferLine."Outstanding Quantity";
                                         NetWeight := TransferLine."Net Weight" * QtyToPick;
                                         GrossWeight := TransferLine."Gross Weight" * QtyToPick;
@@ -407,8 +400,6 @@ report 50747 "BC6_Invt. Pick2"
                                     BEGIN
                                         // Return Line
                                         ReturnLine.GET(WhseActLine."Source Subtype", WhseActLine."Source No.", WhseActLine."Source Line No.");
-                                        // "Due Date" := ReturnLine."Shipment Date";
-                                        // RemainingQty := ReturnLine."Outstanding Qty. (Base)";
                                         RemainingQty := ReturnLine."Outstanding Quantity";
                                         NetWeight := ReturnLine."Net Weight" * QtyToPick;
                                         GrossWeight := ReturnLine."Gross Weight" * QtyToPick;
@@ -542,7 +533,6 @@ report 50747 "BC6_Invt. Pick2"
                                 IF WhseActLine3.FINDFIRST() THEN
                                     //  REPEAT
                                     WhseActivityHeaderNo := WhseActLine3."No.";
-                                // UNTIL WhseActLine3.NEXT = 0;
                                 IF WhseActivityHeader."Location Code" <> '' THEN
                                     Item.SETRANGE("Location Filter", WhseActivityHeader."Location Code");
                                 AvailableQty := Item.CalcQtyAvailToPick(0);
@@ -595,9 +585,6 @@ report 50747 "BC6_Invt. Pick2"
                        THEN
                     CurrReport.SKIP();
 
-                // IF (WhseActivityHeader."Source Document" = WhseActivityHeader."Source Document"::"Sales Order") AND
-                //   (WhseActivityHeader."Source No." = '') THEN
-                //     CurrReport.SKIP;
 
                 CLEAR(ExtDocNo);
                 CLEAR(YourRef);
@@ -647,7 +634,6 @@ report 50747 "BC6_Invt. Pick2"
                             END;
 
 
-                            // FormatAddr.Company(CompanyAddr,CompanyInfo);
 
                             OrderDate := SalesHeader."Order Date";
                             DeliveryDate := SalesHeader."Requested Delivery Date";
@@ -677,7 +663,6 @@ report 50747 "BC6_Invt. Pick2"
                     WhseActivityHeader."Source Document"::"Purchase Return Order":
                         BEGIN
                             ReturnHeader.GET(ReturnHeader."Document Type"::"Return Order", WhseActivityHeader."Source No.");
-                            // ExtDocNo := ReturnHeader."External Document No.";
                             FormatAddr.PurchHeaderShipTo(ShipToAddr, ReturnHeader);
                         END;
                 END;
@@ -690,12 +675,6 @@ report 50747 "BC6_Invt. Pick2"
             end;
         }
     }
-    trigger OnInitReport()
-    begin
-        // SortingMethod := SortingMethod::Bin;
-        // BinDetailed := FALSE;
-        // ShowOutStock := TRUE;
-    end;
 
     var
         Bin: Record Bin;

@@ -105,21 +105,6 @@ page 50006 "BC6_Documents Managment"
                     CurrPage.UPDATE(TRUE);
                 end;
             }
-            action(View)
-            {
-                Caption = 'View', comment = 'FRA="Vue"';
-                Image = View;
-                Promoted = true;
-                PromotedCategory = Process;
-
-                trigger OnAction()
-                begin
-                    IF Rec."Path and file" <> '' THEN
-                        ExplorerFolder(Rec."Path and file")
-                    ELSE
-                        MESSAGE(TxtG002);
-                end;
-            }
         }
     }
 
@@ -128,17 +113,6 @@ page 50006 "BC6_Documents Managment"
         Text003: Label 'You must define a default directory', comment = 'FRA="Veuillez configurer un répertoire par defaut "';
         Text004: Label 'fichier';
         TxtG001: Label 'Select a document', comment = 'FRA="Choisir un document"';
-        TxtG002: Label 'The field "Path and file" must not be empty to have the view', comment = 'FRA="Le champ "chemin et fichier" doit être renseigné pour afficher le document"';
 
-    procedure ExplorerFolder(var FolderName: Text[250])
-    var
-    // //TODO WindowsShell: Automation;
-    // // CduLFileManagement: Codeunit "File Management";
-    // // FolderName2: Text[250];
-    begin
-        //     // IF ISCLEAR(WindowsShell) THEN
-        //     //  CREATE(WindowsShell);
 
-        //     // WindowsShell.Open(FolderName);
-    end;
 }

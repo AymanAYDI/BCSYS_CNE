@@ -239,7 +239,7 @@ page 50063 "Invt. Pick Card MiniForm F2"
             action("&Item")
             {
                 Caption = '&Item', Comment = 'FRA="&Art."';
-                Image = item;
+                Image = Item;
                 Promoted = true;
                 PromotedCategory = Process;
                 ShortCutKey = 'F2';
@@ -332,7 +332,7 @@ page 50063 "Invt. Pick Card MiniForm F2"
             action("&Quit")
             {
                 Caption = '&Quit', Comment = 'FRA="&Quitter"';
-                Image = cancel;
+                Image = Cancel;
                 Promoted = true;
                 PromotedCategory = Process;
                 ApplicationArea = All;
@@ -441,7 +441,6 @@ page 50063 "Invt. Pick Card MiniForm F2"
         VisibleTestBool: Boolean;
         Qty: Code[10];
         BatchName: Code[20];
-        CurrentLocationCode: Code[20];
         DefaultLocationCode: Code[20];
         DocNo: Code[20];
         FromBinCode: Code[20];
@@ -504,7 +503,6 @@ page 50063 "Invt. Pick Card MiniForm F2"
     var
         WhseEmployee: Record "Warehouse Employee";
         WmsManagement: Codeunit "WMS Management";
-        CurrentLocationCode: Code[10];
     begin
 
         InvSetup.GET();

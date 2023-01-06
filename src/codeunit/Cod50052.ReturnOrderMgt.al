@@ -82,25 +82,7 @@ codeunit 50052 "BC6_Return Order Mgt."
         end;
     end;
 
-    local procedure ExtractOrderNo(P_SalesInvoiceLine: Record "Sales Invoice Line"): Code[20]
-    var
-        ItemLedgEntry: Record "Item Ledger Entry";
-        SalesShptHeader: Record "Sales Shipment Header";
-        SalesShptLine: Record "Sales Shipment Line";
-        ValueEntry: Record "Value Entry";
-    begin
-        if P_SalesInvoiceLine.Type <> P_SalesInvoiceLine.Type::Item then
-            exit;
 
-        FilterPstdDocLineValueEntries(P_SalesInvoiceLine, ValueEntry);
-        if ValueEntry.FINDFIRST() then begin
-            ItemLedgEntry.GET(ValueEntry."Item Ledger Entry No.");
-            if ItemLedgEntry."Document Type" = ItemLedgEntry."Document Type"::"Sales Shipment" then
-                if SalesShptLine.GET(ItemLedgEntry."Document No.", ItemLedgEntry."Document Line No.") then
-                    if SalesShptHeader.GET(SalesShptLine."No.") then;
-        end;
-        exit(SalesShptHeader."Order No.");
-    end;
 
     procedure FilterPstdDocLineValueEntries(P_SalesInvoiceLine: Record "Sales Invoice Line"; var ValueEntry: Record "Value Entry")
     begin

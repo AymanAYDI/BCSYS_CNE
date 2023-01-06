@@ -35,7 +35,6 @@ page 50072 "BC6_Douchettes Role Center"
                 Caption = 'Activity', Comment = 'FRA="Activité"';
                 action(Customers)
                 {
-                    Promoted = true;
                     RunObject = Page "Customer List";
                     Visible = false;
                     ApplicationArea = All;
@@ -68,8 +67,6 @@ page 50072 "BC6_Douchettes Role Center"
                 {
                     Caption = 'Item Invt.', Comment = 'FRA="Stock article"';
                     Image = ItemLines;
-                    Promoted = true;
-                    PromotedCategory = Process;
                     RunObject = Page "BC6_Item Invt.";
                     RunPageMode = Edit;
                     Visible = true;
@@ -79,8 +76,6 @@ page 50072 "BC6_Douchettes Role Center"
                 {
                     Caption = 'Inventory', Comment = 'FRA="Inventaire"';
                     Image = InventoryJournal;
-                    Promoted = true;
-                    PromotedCategory = Process;
                     RunObject = Page "BC6_Inventory Card MiniForm";
                     ApplicationArea = All;
                 }
@@ -88,8 +83,6 @@ page 50072 "BC6_Douchettes Role Center"
                 {
                     Caption = 'Reclass. Item', Comment = 'FRA="Reclassement article"';
                     Image = TransferReceipt;
-                    Promoted = true;
-                    PromotedCategory = Process;
                     RunObject = Page "BC6_Reclass. Card MiniForm";
                     RunPageMode = Edit;
                     ShortCutKey = 'F2';
@@ -99,8 +92,6 @@ page 50072 "BC6_Douchettes Role Center"
                 {
                     Caption = 'Invt. Pick', Comment = 'FRA="Prélèvement stock"';
                     Image = PickLines;
-                    Promoted = true;
-                    PromotedCategory = Process;
                     RunObject = Page "BC6_Invt. Pick Card MiniForm";
                     RunPageMode = Edit;
                     ShortCutKey = 'F3';

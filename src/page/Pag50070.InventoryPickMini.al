@@ -202,7 +202,7 @@ page 50070 "BC6_Inventory Pick Mini"
                                   WHERE("BC6_Whse. Document Type 2" = CONST("Invt. Pick"));
                     ApplicationArea = All;
                 }
-                action("Source Document")
+                action("&Source Document")
                 {
                     Caption = 'Source Document', Comment = 'FRA="Document origine"';
                     Image = "Order";
@@ -286,13 +286,14 @@ page 50070 "BC6_Inventory Pick Mini"
                         PostPickYesNo();
                     end;
                 }
-                action(PostAndPrint)
+                action("&PostAndPrint")
                 {
                     Caption = 'Post and &Print', Comment = 'FRA="Valider et i&mprimer"';
                     Ellipsis = true;
                     Image = PostPrint;
                     Promoted = true;
                     PromotedCategory = Process;
+                    PromotedOnly = true;
                     PromotedIsBig = true;
                     ShortCutKey = 'Shift+F9';
                     ApplicationArea = All;

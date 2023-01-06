@@ -421,7 +421,6 @@ page 50074 "BC6_Item List Search CNE"
 
     procedure GetSelectionFilter(): Text
     var
-        Item: Record Item;
         SelectionFilterManagement: Codeunit SelectionFilterManagement;
     begin
         CurrPage.SETSELECTIONFILTER(Item);

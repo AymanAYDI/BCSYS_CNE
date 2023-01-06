@@ -124,7 +124,7 @@ page 50034 "BC6_Affair Steps Tracking"
         BooGFinichedfilter := FALSE;
         DatLRminderDate := WORKDATE();
 
-        SearchAffairSteps(FALSE, USERID, WORKDATE());
+        SearchAffairSteps(FALSE, CopyStr(USERID, 0, 50), WORKDATE());
     end;
 
     var
@@ -139,14 +139,14 @@ page 50034 "BC6_Affair Steps Tracking"
         TxtGIntelocutor: Text[30];
 
 
-    procedure SearchAffairSteps(finish: Boolean; Interlocuteur: Text[30]; ReminderDate: Date)
+    procedure SearchAffairSteps(finish: Boolean; pInterlocuteur: Text[50]; ReminderDate: Date)
     begin
         DiaGWindow.OPEN(Text001);
 
         RecGStepsAffair.RESET();
         RecGStepsAffair.SETCURRENTKEY(RecGStepsAffair.Interlocutor, RecGStepsAffair."Reminder Date", RecGStepsAffair.Terminated);
 
-        RecGStepsAffair.SETFILTER(RecGStepsAffair.Interlocutor, Interlocuteur);
+        RecGStepsAffair.SETFILTER(RecGStepsAffair.Interlocutor, pInterlocuteur);
         RecGStepsAffair.SETFILTER("Reminder Date", '..%1', ReminderDate);
         RecGStepsAffair.SETRANGE(RecGStepsAffair.Terminated, finish);
         Rec.COPY(RecGStepsAffair);

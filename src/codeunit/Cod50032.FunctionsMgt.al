@@ -164,7 +164,7 @@ codeunit 50032 "BC6_Functions Mgt"
         VATRateChangeConversion: Record "VAT Rate Change Conversion";
         VATRateChangeLogEntry: Record "VAT Rate Change Log Entry";
         VATRateChangeSetup: record "VAT Rate Change Setup";
-        FieldRef: FieldRef;
+        _FieldRef: FieldRef;
         GenProdPostingGroupConverted: Boolean;
         IsHandled: Boolean;
         VATProdPostingGroupConverted: Boolean;
@@ -179,36 +179,36 @@ codeunit 50032 "BC6_Functions Mgt"
         Field.SetRange(Type, Field.Type::Code);
         if Field.Find('+') then
             repeat
-                FieldRef := RecRef.Field(Field."No.");
+                _FieldRef := RecRef.Field(Field."No.");
                 GenProdPostingGroupConverted := false;
                 if ConvertGenProdPostingGroup then
-                    if VATRateChangeConversion.Get(VATRateChangeConversion.Type::"Gen. Prod. Posting Group", FieldRef.Value) then begin
-                        VATRateChangeLogEntry."Old Gen. Prod. Posting Group" := FieldRef.Value;
-                        FieldRef.Validate(VATRateChangeConversion."To Code");
-                        VATRateChangeLogEntry."New Gen. Prod. Posting Group" := FieldRef.Value;
+                    if VATRateChangeConversion.Get(VATRateChangeConversion.Type::"Gen. Prod. Posting Group", _FieldRef.Value) then begin
+                        VATRateChangeLogEntry."Old Gen. Prod. Posting Group" := _FieldRef.Value;
+                        _FieldRef.Validate(VATRateChangeConversion."To Code");
+                        VATRateChangeLogEntry."New Gen. Prod. Posting Group" := _FieldRef.Value;
                         GenProdPostingGroupConverted := true;
                     end;
                 if not GenProdPostingGroupConverted then begin
-                    VATRateChangeLogEntry."Old Gen. Prod. Posting Group" := FieldRef.Value;
-                    VATRateChangeLogEntry."New Gen. Prod. Posting Group" := FieldRef.Value;
+                    VATRateChangeLogEntry."Old Gen. Prod. Posting Group" := _FieldRef.Value;
+                    VATRateChangeLogEntry."New Gen. Prod. Posting Group" := _FieldRef.Value;
                 end;
             until Field.Next(-1) = 0;
 
         Field.SetRange(RelationTableNo, DATABASE::"VAT Product Posting Group");
         if Field.Find('+') then
             repeat
-                FieldRef := RecRef.Field(Field."No.");
+                _FieldRef := RecRef.Field(Field."No.");
                 VATProdPostingGroupConverted := false;
                 if ConvertVATProdPostingGroup then
-                    if VATRateChangeConversion.Get(VATRateChangeConversion.Type::"VAT Prod. Posting Group", FieldRef.Value) then begin
-                        VATRateChangeLogEntry."Old VAT Prod. Posting Group" := FieldRef.Value;
-                        FieldRef.Validate(VATRateChangeConversion."To Code");
-                        VATRateChangeLogEntry."New VAT Prod. Posting Group" := FieldRef.Value;
+                    if VATRateChangeConversion.Get(VATRateChangeConversion.Type::"VAT Prod. Posting Group", _FieldRef.Value) then begin
+                        VATRateChangeLogEntry."Old VAT Prod. Posting Group" := _FieldRef.Value;
+                        _FieldRef.Validate(VATRateChangeConversion."To Code");
+                        VATRateChangeLogEntry."New VAT Prod. Posting Group" := _FieldRef.Value;
                         VATProdPostingGroupConverted := true;
                     end;
                 if not VATProdPostingGroupConverted then begin
-                    VATRateChangeLogEntry."Old VAT Prod. Posting Group" := FieldRef.Value;
-                    VATRateChangeLogEntry."New VAT Prod. Posting Group" := FieldRef.Value;
+                    VATRateChangeLogEntry."Old VAT Prod. Posting Group" := _FieldRef.Value;
+                    VATRateChangeLogEntry."New VAT Prod. Posting Group" := _FieldRef.Value;
                 end;
             until Field.Next(-1) = 0;
         VATRateChangeSetup.get();

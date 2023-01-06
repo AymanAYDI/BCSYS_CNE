@@ -22,7 +22,7 @@ page 50014 "BC6_Item Sales/Purch. History"
                 Caption = 'Sales History', comment = 'FRA="Historique Vente"';
                 field(QuotesBtn; CurrentMenuTypeOpt)
                 {
-                    OptionCaption = 'Quotes,Blanket Orders,Orders,Invoices,Return Orders,Credit Memos,Posted Shipments,Posted Invoices,Posted Return Receipts,Posted Cr. Memos';
+                    Caption = 'QuotesBtn', Comment = 'FRA="QuotesBtn"';
                     trigger OnValidate()
                     begin
                         IF CurrentMenuTypeOpt = CurrentMenuTypeOpt::x9 THEN
@@ -229,6 +229,7 @@ page 50014 "BC6_Item Sales/Purch. History"
                 Image = View;
                 Promoted = true;
                 PromotedCategory = Process;
+                PromotedOnly = true;
 
                 trigger OnAction()
                 var

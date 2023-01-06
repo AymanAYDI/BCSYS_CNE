@@ -8,7 +8,7 @@ page 50056 "BC6_Item Invt."
     RefreshOnActivate = true;
     ShowFilter = false;
     SourceTable = "Bin Content";
-    UsageCategory = Administration;
+    UsageCategory = None;
     layout
     {
         area(content)
@@ -241,6 +241,7 @@ page 50056 "BC6_Item Invt."
                     Promoted = true;
                     PromotedCategory = Process;
                     PromotedIsBig = true;
+                    PromotedOnly = true;
                     ApplicationArea = All;
 
                     trigger OnAction()

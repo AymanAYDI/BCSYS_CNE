@@ -778,18 +778,18 @@ page 50058 "BC6_Reclass. Card MiniForm"
     end;
 
 
-    procedure AssignLocationCode(var LocationCode: Code[20])
+    procedure AssignLocationCode(var pLocationCode: Code[20])
     var
         Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
         CLEAR(Location);
-        IF (LocationCode <> '') AND
-           (STRLEN(LocationCode) < 20) THEN BEGIN
-            IF Location.GET(LocationCode) THEN
-                Rec."Location Code" := LocationCode;
+        IF (pLocationCode <> '') AND
+           (STRLEN(pLocationCode) < 20) THEN BEGIN
+            IF Location.GET(pLocationCode) THEN
+                Rec."Location Code" := pLocationCode;
         END ELSE BEGIN
-            LocationCode := '';
-            Rec."Location Code" := LocationCode;
+            pLocationCode := '';
+            Rec."Location Code" := pLocationCode;
             MESSAGE(Text004);
         END;
         RefreshDataControlAddin()
@@ -835,33 +835,33 @@ page 50058 "BC6_Reclass. Card MiniForm"
         RefreshDataControlAddin()
     end;
 
-    procedure AssignItemNo(var ItemNo: Code[20])
+    procedure AssignItemNo(var pItemNo: Code[20])
     var
         Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
         ItemError := FALSE;
         ErrorTxt := '';
 
-        IF (ItemNo <> '') THEN BEGIN
-            IF CodeEANOk(ItemNo) THEN BEGIN
-                ItemNo2 := FunctionsMgt.GetItem(ItemNo);
+        IF (pItemNo <> '') THEN BEGIN
+            IF CodeEANOk(pItemNo) THEN BEGIN
+                ItemNo2 := FunctionsMgt.GetItem(pItemNo);
                 IF Item.GET(ItemNo2) THEN
-                    ItemNo := Item."No."
+                    pItemNo := Item."No."
                 ELSE BEGIN
                     ItemError := TRUE;
-                    ErrorTxt := STRSUBSTNO(Text013, ItemNo);
+                    ErrorTxt := STRSUBSTNO(Text013, pItemNo);
                 END;
             END ELSE BEGIN
                 //>>TI318739
-                //IF NOT Item.GET(ItemNo) THEN
+                //IF NOT Item.GET(pItemNo) THEN
                 Item.RESET();
-                Item.SETRANGE("No.", ItemNo);
+                Item.SETRANGE("No.", pItemNo);
                 Item.SETRANGE(Blocked, FALSE);
                 IF NOT Item.FINDFIRST() THEN
                 //<<TI318739
                   BEGIN
                     ItemError := TRUE;
-                    ErrorTxt := STRSUBSTNO(Text013, ItemNo);
+                    ErrorTxt := STRSUBSTNO(Text013, pItemNo);
                 END;
             END;
 
@@ -886,7 +886,7 @@ page 50058 "BC6_Reclass. Card MiniForm"
         IF ItemError THEN
             MESSAGE('%1', ErrorTxt)
         ELSE BEGIN
-            Rec.VALIDATE("Item No.", ItemNo);
+            Rec.VALIDATE("Item No.", pItemNo);
             Rec.VALIDATE("Bin Code", FromBinCode);
             Rec.VALIDATE(Quantity, 0);
         END;
@@ -895,22 +895,22 @@ page 50058 "BC6_Reclass. Card MiniForm"
         RefreshDataControlAddin()
     end;
 
-    procedure AssignQty(var Qty: Code[20])
+    procedure AssignQty(var pQty: Code[20])
     var
         Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
-        IF (Qty <> '') THEN BEGIN
-            EVALUATE(Rec.Quantity, Qty);
+        IF (pQty <> '') THEN BEGIN
+            EVALUATE(Rec.Quantity, pQty);
             Rec.VALIDATE(Quantity);
-            Qty := FORMAT(Rec.Quantity);
+            pQty := FORMAT(Rec.Quantity);
             EXIT;
         END;
 
-        IF Qty <> '' THEN
-            MESSAGE(Text006, Qty);
-        Qty := '';
+        IF pQty <> '' THEN
+            MESSAGE(Text006, pQty);
+        pQty := '';
         Rec.VALIDATE(Quantity, 0);
-        Qty := FORMAT(Rec.Quantity);
+        pQty := FORMAT(Rec.Quantity);
         RefreshDataControlAddin()
     end;
 

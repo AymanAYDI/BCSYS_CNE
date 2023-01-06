@@ -65,6 +65,7 @@ page 50078 "Scan Ship & Receive Activities"
                     {
                         Caption = 'New Inventory Pick', Comment = 'FRA="Nouveau prélèvement stock"';
                         RunObject = Page "Inventory Pick";
+                        Image = CreateInventoryPick;
                         RunPageMode = Create;
                         ApplicationArea = All;
                     }
@@ -72,6 +73,7 @@ page 50078 "Scan Ship & Receive Activities"
                     {
                         Caption = 'New Inventory Put-away', Comment = 'FRA="Nouveau rangement stock"';
                         RunObject = Page "Inventory Put-away";
+                        Image = Inventory;
                         RunPageMode = Create;
                         ApplicationArea = All;
                     }

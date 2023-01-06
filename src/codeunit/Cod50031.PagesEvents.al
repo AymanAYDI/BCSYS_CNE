@@ -217,8 +217,6 @@ codeunit 50031 "BC6_PagesEvents"
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnAfterPostVendorEntry', '', false, false)]
     local procedure COD90_OnAfterPostVendorEntry(var GenJnlLine: Record "Gen. Journal Line"; var PurchHeader: Record "Purchase Header"; var TotalPurchLine: Record "Purchase Line"; var TotalPurchLineLCY: Record "Purchase Line"; CommitIsSupressed: Boolean; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line")
     var
-        _EcoPartnerDEEE: Code[10];
-        _DEEECategoryCode: code[10];
         GlobalFunction: Codeunit "BC6_GlobalFunctionMgt";
     begin
 
@@ -226,8 +224,8 @@ codeunit 50031 "BC6_PagesEvents"
         GenJnlLine."BC6_DEEE VAT Amount" := TotalPurchLine."BC6_DEEE VAT Amount";
         GenJnlLine."BC6_DEEE TTC Amount" := TotalPurchLine."BC6_DEEE TTC Amount";
         GenJnlLine."BC6_DEEE HT Amount (LCY)" := TotalPurchLine."BC6_DEEE HT Amount (LCY)";
-        GenJnlLine."BC6_Eco partner DEEE" := _EcoPartnerDEEE;
-        GenJnlLine."BC6_DEEE Category Code" := _DEEECategoryCode;
+        GenJnlLine."BC6_Eco partner DEEE" := GlobalFunction.Get_EcoPartnerDEEE();
+        GenJnlLine."BC6_DEEE Category Code" := GlobalFunction.Get_DEEECategoryCode();
 
         GenJnlLine.Amount := GenJnlLine.Amount - GlobalFunction.GetGDecMntTTCDEEE();
         GenJnlLine."Source Currency Amount" := GenJnlLine."Source Currency Amount" - GlobalFunction.GetGDecMntTTCDEEE();
@@ -371,7 +369,8 @@ codeunit 50031 "BC6_PagesEvents"
         EmailSubjectPluralCapTxt: Label '%1 - %2';
         YourReference: Text;
         Subject: Text[250];
-
+        text00: Label '%1 - %2';
+        str: Text[250];
     begin
         if PostedDocNo = '' then
             Subject := CopyStr(
@@ -379,8 +378,11 @@ codeunit 50031 "BC6_PagesEvents"
         else
             Subject := CopyStr(
                 StrSubstNo(EmailSubjectCapTxt, CompanyInformation.Name, EmailDocumentName, PostedDocNo), 1, MaxStrLen(Subject));
-        IF YourReference <> '' THEN
-            Subject := COPYSTR(STRSUBSTNO('%1 - %2', Subject, YourReference), 1, MAXSTRLEN(Subject));
+        IF YourReference <> '' THEN begin
+            str := text00;
+            str := STRSUBSTNO(str, Subject, YourReference);
+            Subject := str;
+        end;
 
     END;
 
@@ -421,7 +423,7 @@ codeunit 50031 "BC6_PagesEvents"
     end;
     //COD 312 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Cust-Check Cr. Limit", 'OnNewCheckRemoveCustomerNotifications', '', false, false)]
-    procedure COD312_OnNewCheckRemoveCustomerNotifications(RecId: RecordID; RecallCreditOverdueNotif: Boolean)
+    local procedure COD312_OnNewCheckRemoveCustomerNotifications(RecId: RecordID; RecallCreditOverdueNotif: Boolean)
     var
         SalesHeader: Record "Sales Header";
         CustCheckCrLimit: codeunit "Cust-Check Cr. Limit";

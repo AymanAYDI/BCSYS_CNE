@@ -78,6 +78,7 @@ page 50006 "BC6_Documents Managment"
                 Image = SelectChart;
                 Promoted = true;
                 PromotedCategory = Process;
+                PromotedOnly = true;
 
                 trigger OnAction()
                 var

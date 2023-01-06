@@ -73,6 +73,7 @@ page 50004 "BC6_Special Extended Text"
             action(List)
             {
                 Caption = 'List', Comment = 'FRA="Liste"';
+                Image = List;
                 RunPageOnRec = true;
 
                 trigger OnAction()

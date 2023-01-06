@@ -145,7 +145,7 @@ page 50065 "BC6_Inventory Card MiniForm F2"
     {
         area(processing)
         {
-            action(Item)
+            action("&Item")
             {
                 Caption = 'Item', Comment = 'FRA="N°&art."';
                 Image = Item;
@@ -221,7 +221,7 @@ page 50065 "BC6_Inventory Card MiniForm F2"
             action("&Quit")
             {
                 Caption = '&Quit', Comment = 'FRA="&Quitter"';
-                Image = cancel;
+                Image = Cancel;
                 Promoted = true;
                 PromotedCategory = Process;
                 ApplicationArea = All;

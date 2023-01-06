@@ -13,7 +13,7 @@ tableextension 50020 "BC6_GenJournalLine" extends "Gen. Journal Line" //81
             Caption = 'Pay-to No.', comment = 'FRA="Tiers payeur"';
             DataClassification = CustomerContent;
         }
-        field(80800; "BC6_DEEE Category Code"; Code[10])
+        field(80800; "BC6_DEEE Category Code"; Code[20])
         {
             Caption = 'DEEE Category Code', comment = 'FRA="Code Catégorie DEEE"';
             TableRelation = "BC6_Categories of item".Category;

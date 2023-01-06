@@ -492,6 +492,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
+                PromotedOnly = true;
                 ShortCutKey = 'F2';
                 ApplicationArea = All;
 
@@ -703,7 +704,6 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         VisibleTestBool: Boolean;
         Qty: Code[10];
         BatchName: Code[20];
-        CurrentLocationCode: Code[20];
         DefaultLocationCode: Code[20];
         DocNo: Code[20];
         FromBinCode: Code[20];
@@ -772,9 +772,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
 
     procedure OpenWithWhseEmployee(): Boolean
     var
-        WhseEmployee: Record "Warehouse Employee";
         WmsManagement: Codeunit "WMS Management";
-        CurrentLocationCode: Code[10];
     begin
 
         InvSetup.GET();
@@ -826,11 +824,11 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
     end;
 
 
-    procedure AssignPickNo(var PickNo: Code[20])
+    procedure AssignPickNo(var pPickNo: Code[20])
     begin
-        IF InvtPick.GET(InvtPick.Type::"Invt. Pick", PickNo) THEN BEGIN
+        IF InvtPick.GET(InvtPick.Type::"Invt. Pick", pPickNo) THEN BEGIN
             Rec."BC6_Whse. Document Type" := Rec."BC6_Whse. Document Type"::"Invt. Pick";
-            Rec.VALIDATE("BC6_Whse. Document No.", PickNo);
+            Rec.VALIDATE("BC6_Whse. Document No.", pPickNo);
         END ELSE BEGIN
             Rec."BC6_Whse. Document Type" := Rec."BC6_Whse. Document Type"::" ";
             Rec.VALIDATE("BC6_Whse. Document No.", '');
@@ -841,21 +839,21 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
     end;
 
 
-    procedure AssignLocationCode(var LocationCode: Code[20])
+    procedure AssignLocationCode(var pLocationCode: Code[20])
     var
         Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
         CLEAR(Location);
-        IF (LocationCode <> '') AND
-           (STRLEN(LocationCode) < 20) THEN BEGIN
-            IF Location.GET(LocationCode) THEN BEGIN
-                Rec."Location Code" := LocationCode;
+        IF (pLocationCode <> '') AND
+           (STRLEN(pLocationCode) < 20) THEN BEGIN
+            IF Location.GET(pLocationCode) THEN BEGIN
+                Rec."Location Code" := pLocationCode;
                 ShipBinCode := Location."Shipment Bin Code";
             END;
         END ELSE BEGIN
             ShipBinCode := '';
-            LocationCode := '';
-            Rec."Location Code" := LocationCode;
+            pLocationCode := '';
+            Rec."Location Code" := pLocationCode;
         END;
     end;
 
@@ -900,7 +898,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         Rec."Bin Code" := BinCode;
     end;
 
-    procedure AssignItemNo(var ItemNo: Code[20])
+    procedure AssignItemNo(var pItemNo: Code[20])
     var
         ItemError: Boolean;
     begin
@@ -908,27 +906,27 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         ItemError := FALSE;
         ErrorTxt := '';
 
-        IF (ItemNo <> '') THEN BEGIN
+        IF (pItemNo <> '') THEN BEGIN
             Rec.TESTFIELD("BC6_Whse. Document No.");
-            IF CodeEANOk(ItemNo) THEN BEGIN
-                ItemNo2 := FunctionsMgt.GetItem(ItemNo);
+            IF CodeEANOk(pItemNo) THEN BEGIN
+                ItemNo2 := FunctionsMgt.GetItem(pItemNo);
                 IF Item.GET(ItemNo2) THEN
-                    ItemNo := Item."No."
+                    pItemNo := Item."No."
                 ELSE BEGIN
                     ItemError := TRUE;
-                    ErrorTxt := STRSUBSTNO(Text013, ItemNo);
+                    ErrorTxt := STRSUBSTNO(Text013, pItemNo);
                 END;
             END ELSE BEGIN
                 //>>TI318739
-                //IF NOT Item.GET(ItemNo) THEN
+                //IF NOT Item.GET(pItemNo) THEN
                 Item.RESET();
-                Item.SETRANGE("No.", ItemNo);
+                Item.SETRANGE("No.", pItemNo);
                 Item.SETRANGE(Blocked, FALSE);
                 IF NOT Item.FINDFIRST() THEN
                 //<<TI318739
                   BEGIN
                     ItemError := TRUE;
-                    ErrorTxt := STRSUBSTNO(Text013, ItemNo);
+                    ErrorTxt := STRSUBSTNO(Text013, pItemNo);
                 END;
             END;
 
@@ -948,9 +946,9 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                 ItemError := TRUE;
             END;
 
-            IF NOT ItemExistOnInvtPick(ItemNo, '') THEN BEGIN
+            IF NOT ItemExistOnInvtPick(pItemNo, '') THEN BEGIN
                 IF NOT ItemError THEN
-                    ErrorTxt := STRSUBSTNO(Text016, ItemNo, Rec."BC6_Whse. Document No.");
+                    ErrorTxt := STRSUBSTNO(Text016, pItemNo, Rec."BC6_Whse. Document No.");
                 ItemError := TRUE;
             END;
         END;
@@ -958,7 +956,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         IF ItemError THEN
             MESSAGE('%1', ErrorTxt)
         ELSE BEGIN
-            Rec.VALIDATE("Item No.", ItemNo);
+            Rec.VALIDATE("Item No.", pItemNo);
             Rec.VALIDATE("Bin Code", FromBinCode);
             IF ShipBinCode <> '' THEN BEGIN
                 ToBinCode := ShipBinCode;
@@ -970,23 +968,23 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
     end;
 
 
-    procedure AssignQty(var Qty: Code[20])
+    procedure AssignQty(var pQty: Code[20])
     var
         Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
     begin
-        IF (Qty <> '') THEN BEGIN
-            EVALUATE(Rec.Quantity, Qty);
+        IF (pQty <> '') THEN BEGIN
+            EVALUATE(Rec.Quantity, pQty);
             Rec.VALIDATE(Quantity);
             AssignBinCode(ToBinCode);
             UpdateCurrForm();
             EXIT;
         END;
 
-        IF Qty <> '' THEN
-            MESSAGE(Text006, Qty);
-        Qty := '';
+        IF pQty <> '' THEN
+            MESSAGE(Text006, pQty);
+        pQty := '';
         Rec.VALIDATE(Quantity, 0);
-        Qty := FORMAT(Rec.Quantity);
+        pQty := FORMAT(Rec.Quantity);
     end;
 
 
@@ -1074,7 +1072,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
     end;
 
 
-    procedure ItemExistOnInvtPick(ItemNo: Code[20]; BinCode: Code[20]): Boolean
+    procedure ItemExistOnInvtPick(pItemNo: Code[20]; BinCode: Code[20]): Boolean
     var
         SalesLine: Record "Sales Line";
     begin
@@ -1089,7 +1087,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
             InvtPickLine.RESET();
             InvtPickLine.SETRANGE("Activity Type", InvtPickLine."Activity Type"::"Invt. Pick");
             InvtPickLine.SETRANGE("No.", Rec."BC6_Whse. Document No.");
-            InvtPickLine.SETRANGE("Item No.", ItemNo);
+            InvtPickLine.SETRANGE("Item No.", pItemNo);
             IF BinCode <> '' THEN
                 InvtPickLine.SETRANGE("Bin Code", BinCode);
             InvtPickLine.SETFILTER(Quantity, '<>%1', 0);
@@ -1151,11 +1149,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         AssignPickNo(PickNo);
     end;
 
-    local procedure OnAfterGetCurrRecord()
-    begin
-        xRec := Rec;
-        UpdateCurrForm();
-    end;
+
 
     local procedure CloseAndOpenCurrentPickAndBin()
     var

@@ -256,7 +256,6 @@ page 50062 "BC6_Order Processor RC Admin"
                 ApplicationArea = Basic, Suite;
                 Caption = 'Sales &Quote', Comment = 'FRA="&Devis"';
                 Image = NewSalesQuote;
-                Promoted = false;
                 RunObject = Page "Sales Quote";
                 RunPageMode = Create;
                 ToolTip = 'Offer items or services to a customer.', Comment = 'FRA="Proposez des articles ou des services à un client."';
@@ -266,8 +265,6 @@ page 50062 "BC6_Order Processor RC Admin"
                 ApplicationArea = Basic, Suite;
                 Caption = 'Sales &Invoice', Comment = 'FRA="Fac&ture vente"';
                 Image = NewSalesInvoice;
-                Promoted = true;
-                PromotedCategory = Process;
                 RunObject = Page "Sales Invoice";
                 RunPageMode = Create;
                 ToolTip = 'Create a new invoice for items or services. Invoice quantities cannot be posted partially.', Comment = 'FRA="Créez une facture pour des articles ou des services. Il est impossible de valider partiellement les quantités facturées."';
@@ -277,8 +274,6 @@ page 50062 "BC6_Order Processor RC Admin"
                 ApplicationArea = Basic, Suite;
                 Caption = 'Sales &Order', Comment = 'FRA="&Commande vente"';
                 Image = Document;
-                Promoted = true;
-                PromotedCategory = Process;
                 RunObject = Page "Sales Order";
                 RunPageMode = Create;
                 ToolTip = 'Create a new sales order for items or services that require partial posting.', Comment = 'FRA="Créez une commande vente pour les articles ou les services nécessitant une validation partielle."';
@@ -287,8 +282,6 @@ page 50062 "BC6_Order Processor RC Admin"
             {
                 Caption = 'Sales &Return Order', Comment = 'FRA="&Retour vente"';
                 Image = ReturnOrder;
-                Promoted = true;
-                PromotedCategory = Process;
                 RunObject = Page "Sales Return Order";
                 RunPageMode = Create;
                 ApplicationArea = All;
@@ -298,8 +291,6 @@ page 50062 "BC6_Order Processor RC Admin"
                 ApplicationArea = Basic, Suite;
                 Caption = 'Sales &Credit Memo', Comment = 'FRA="&Avoir vente"';
                 Image = CreditMemo;
-                Promoted = true;
-                PromotedCategory = Process;
                 RunObject = Page "Sales Credit Memo";
                 RunPageMode = Create;
                 ToolTip = 'Create a new sales credit memo to revert a posted sales invoice.', Comment = 'FRA="Créez un avoir vente pour annuler une facture vente validée."';

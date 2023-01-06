@@ -39,14 +39,12 @@ xmlport 50022 "BC6_Intégration catalogue2"
                 begin
 
                     "BC6_Temporary import catalogue".DELETEALL();
-                    clef := 0;
                 end;
 
                 trigger OnAfterInitRecord()
                 begin
 
                     "BC6_Temporary import catalogue".INIT();
-                    clef += 1;
                 end;
             }
         }
@@ -147,9 +145,7 @@ xmlport 50022 "BC6_Intégration catalogue2"
         Num: Code[10];
         TextGabbreviation: Code[10];
         DateDeb: Date;
-        // Common_Dlg: OCX;
         DateFin: Date;
-        clef: Integer;
         textG001: Label 'Import File', Comment = 'FRA="Importer le fichier"';
         TextG002: Label 'Please fill up start date and Vendor No', Comment = 'FRA="Veuillez valoriser les champs date de début et N° de fournisseur"';
         FileName: Text[250];

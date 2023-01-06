@@ -5,8 +5,7 @@ page 50022 "BC6_Sales Line Profit"
     DelayedInsert = true;
     PageType = List;
     SaveValues = true;
-    ApplicationArea = All;
-    UsageCategory = Lists;
+    UsageCategory = None;
     SourceTable = "Sales Line Discount";
     SourceTableView = SORTING(Code, "Sales Code", "Sales Type", Type, "Starting Date", "Ending Date", "BC6_Profit %")
                       ORDER(Ascending);
@@ -253,7 +252,7 @@ page 50022 "BC6_Sales Line Profit"
 
     trigger OnAfterGetRecord()
     begin
-        OnAfterGetCurrRecord();
+        ProcOnAfterGetCurrRecord();
     end;
 
     trigger OnInit()
@@ -272,7 +271,7 @@ page 50022 "BC6_Sales Line Profit"
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        OnAfterGetCurrRecord();
+        ProcOnAfterGetCurrRecord();
     end;
 
     trigger OnOpenPage()
@@ -471,7 +470,7 @@ page 50022 "BC6_Sales Line Profit"
         SetRecFilters();
     end;
 
-    local procedure OnAfterGetCurrRecord()
+    local procedure ProcOnAfterGetCurrRecord()
     begin
         xRec := Rec;
         "Sales CodeEditable" := Rec."Sales Type" <> Rec."Sales Type"::"All Customers";

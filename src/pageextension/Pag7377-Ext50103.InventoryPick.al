@@ -137,7 +137,6 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
         WMSMgt: Codeunit "WMS Management";
         BooGDestinationNoCtrl: Boolean;
         BooGSourceNoCtrl: Boolean;
-        BooGWhseActivityLines: Boolean;
         CtrlEditableOk: Boolean;
         CurrFormEditableOk: Boolean;
 
@@ -162,6 +161,5 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
             CurrPage.EDITABLE(FALSE);
         IF NOT PermissionForm.HasEditablePermission(CopyStr(USERID, 1, 65), 8, 7378) THEN
             CurrFormEditableOk := FALSE;
-        BooGWhseActivityLines := CurrFormEditableOk;
     end;
 }

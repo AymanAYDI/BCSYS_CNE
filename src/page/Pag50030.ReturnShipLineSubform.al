@@ -1,10 +1,9 @@
 page 50030 "BC6_Return Ship. Line Subform"
 {
     Caption = 'Return Shipment Lines', Comment = 'FRA="Lignes éxpidition retour"';
-    PageType = List;
+    PageType = ListPart;
     SourceTable = "Return Shipment Line";
     UsageCategory = Lists;
-    ApplicationArea = All;
 
     layout
     {
@@ -84,7 +83,6 @@ page 50030 "BC6_Return Ship. Line Subform"
 
     var
         RecGReturnShipmentHeader: Record "Return Shipment Header";
-        PurchShipement: Record "Return Shipment Line";
         [InDataSet]
         "Document No.Emphasize": Boolean;
         [InDataSet]

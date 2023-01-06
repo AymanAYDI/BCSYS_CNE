@@ -1104,18 +1104,23 @@ then begin
     procedure MntDivisionDEEE(DecPQtyPurchLine: Decimal; var PurchLine: Record "Purchase Line"); //COD90
     var
         GLSetup: Record "General Ledger Setup";
+        Text001: Label 'quantity must be different of 0', Comment = 'FRA="la quantité doit être différente de 0"';
     begin
         GLSetup.get();
-        PurchLine."BC6_DEEE HT Amount" := ROUND(PurchLine."BC6_DEEE HT Amount" * DecPQtyPurchLine / PurchLine.Quantity, 0.01);
-        if (PurchLine."VAT Calculation Type" = PurchLine."VAT Calculation Type"::"Sales Tax") and
-           (PurchLine.Quantity <> PurchLine."Qty. to Invoice") and
-           GLSetup."BC6_Sales Tax Recalcul"
-        then
-            PurchLine."BC6_DEEE TTC Amount" :=
-              PurchLine."BC6_DEEE HT Amount" + 0
-        else
-            PurchLine."BC6_DEEE TTC Amount" := ROUND(PurchLine."BC6_DEEE TTC Amount" * DecPQtyPurchLine / PurchLine.Quantity);
-        PurchLine."BC6_DEEE VAT Amount" := PurchLine."BC6_DEEE TTC Amount" - PurchLine."BC6_DEEE HT Amount";
+        if PurchLine.Quantity = 0 then
+            Error(Text001)
+        else begin
+            PurchLine."BC6_DEEE HT Amount" := ROUND(PurchLine."BC6_DEEE HT Amount" * DecPQtyPurchLine / PurchLine.Quantity, 0.01);
+            if (PurchLine."VAT Calculation Type" = PurchLine."VAT Calculation Type"::"Sales Tax") and
+               (PurchLine.Quantity <> PurchLine."Qty. to Invoice") and
+               GLSetup."BC6_Sales Tax Recalcul"
+            then
+                PurchLine."BC6_DEEE TTC Amount" :=
+                  PurchLine."BC6_DEEE HT Amount" + 0
+            else
+                PurchLine."BC6_DEEE TTC Amount" := ROUND(PurchLine."BC6_DEEE TTC Amount" * DecPQtyPurchLine / PurchLine.Quantity);
+            PurchLine."BC6_DEEE VAT Amount" := PurchLine."BC6_DEEE TTC Amount" - PurchLine."BC6_DEEE HT Amount";
+        end;
     end;
 
     //COD80
@@ -1123,6 +1128,7 @@ then begin
     var
         GLSetup: Record "General Ledger Setup";
         CalculateSalesTax: Codeunit "Sales Tax Calculate";
+        Text001: Label 'quantity must be different of 0', Comment = 'FRA="la quantité doit être différente de 0"';
     BEGIN
         GLSetup.get();
         IF SalesLine.Quantity <> 0 Then begin

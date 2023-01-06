@@ -1,7 +1,7 @@
 page 50019 "Purch. Cr. Memo Line Subform"
 {
     Caption = 'Purch. Credit Memo Lines', comment = 'FRA="Lignes avoirs achat"';
-    PageType = List;
+    PageType = ListPart;
     SourceTable = "Purch. Cr. Memo Line";
     UsageCategory = None;
     layout

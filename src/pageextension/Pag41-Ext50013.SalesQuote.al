@@ -183,7 +183,6 @@ pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
     var
         RecLAccessControl: Record "Access Control";
         RecGUserSeup: Record "User Setup";
-        BooGEditSalesperson: Boolean;
 
     begin
         RecLAccessControl.RESET();
@@ -193,11 +192,8 @@ pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
             BooGQuoteStatut := true
         else
             BooGQuoteStatut := false;
-        BooGEditSalesperson := true;
         if not RecGUserSeup.GET(USERID) then
             RecGUserSeup.INIT();
-        if RecGUserSeup."BC6_Limited User" then
-            BooGEditSalesperson := false;
 
     end;
 

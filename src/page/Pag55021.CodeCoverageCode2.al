@@ -6,7 +6,6 @@ page 55021 "BC6_Code Coverage Code 2"
     PageType = List;
     SourceTable = "Code Coverage";
     UsageCategory = Lists;
-    ApplicationArea = All;
     Caption = 'Code coverage';
     layout
     {

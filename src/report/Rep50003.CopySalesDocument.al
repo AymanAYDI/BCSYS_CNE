@@ -1,4 +1,4 @@
-report 50003 "BC6_Copy Sales Document"
+report 50003 "BC6_Copy Sales Document" //292
 {
     Caption = 'Copy Sales Document', Comment = 'FRA="Extraire document vente"';
     ProcessingOnly = true;

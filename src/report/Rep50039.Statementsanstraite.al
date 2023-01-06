@@ -4,7 +4,8 @@ report 50039 "BC6_Statement sans traite"
     RDLCLayout = './src/report/RDL/Statementsanstraite.rdl';
 
     Caption = 'Statement', Comment = 'FRA="Relevé client"';
-
+    ApplicationArea = All;
+    UsageCategory = ReportsAndAnalysis;
     dataset
     {
         dataitem(Customer; Customer)

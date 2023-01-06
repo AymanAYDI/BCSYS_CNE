@@ -258,8 +258,6 @@ page 50114 "BC6_SAV Sales Ret. Order List"
                     Caption = 'Dimensions', comment = 'FRA="Axes analytiques"';
                     Image = Dimensions;
                     Promoted = false;
-                    //The property 'PromotedIsBig' can only be set if the property 'Promoted' is set to 'true'
-                    //PromotedIsBig = false;
                     ShortCutKey = 'Shift+Ctrl+D';
                     ToolTip = 'View or edit dimensions, such as area, project, or department, that you can assign to sales and purchase documents to distribute costs and analyze transaction history.',
                      comment = 'FRA="Affichez ou modifiez les axes analytiques, tels que la zone, le projet ou le département que vous pouvez affecter aux documents vente et achat afin de distribuer les coûts et analyser l''historique des transactions."';
@@ -291,8 +289,6 @@ page 50114 "BC6_SAV Sales Ret. Order List"
                      comment = 'FRA="Co&mmentaires"';
                     Image = ViewComments;
                     Promoted = false;
-                    //The property 'PromotedIsBig' can only be set if the property 'Promoted' is set to 'true'
-                    //PromotedIsBig = false;
                     RunObject = Page "Sales Comment Sheet";
                     RunPageLink = "Document Type" = CONST("Return Order"),
                                   "No." = FIELD("No."),

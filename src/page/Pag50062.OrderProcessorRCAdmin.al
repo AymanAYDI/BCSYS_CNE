@@ -389,7 +389,7 @@ page 50062 "BC6_Order Processor RC Admin"
                     action("Customer - &Order Summary")
                     {
                         ApplicationArea = Basic, Suite;
-                        Caption = 'Customer - &Order Summary', Comment = 'FRA="Clients : &Liste des commandes"';
+                        Caption = 'Customer - &Order Summary', Comment = 'FRA="Clients: &Liste des commandes"';
                         Image = "Report";
                         RunObject = Report "Customer - Order Summary";
                         ToolTip = 'View the quantity not yet shipped for each customer in three periods of 30 days each, starting from a selected date. There are also columns with orders to be shipped before and after the three periods and a column with the total order detail for each customer. The report can be used to analyze a company''s expected sales volume.', Comment = 'FRA="Affichez la quantité pas encore expédiée pour chaque client sur 3 périodes de 30 jours, chacune commençant à une date sélectionnée. Il contient également des colonnes avec les commandes à livrer avant et après les 3 périodes et une colonne avec le détail de la commande totale de chaque client. Cet état sert à analyser le volume de vente attendu d''une société."';
@@ -397,7 +397,7 @@ page 50062 "BC6_Order Processor RC Admin"
                     action("Customer - &Top 10 List")
                     {
                         ApplicationArea = Basic, Suite;
-                        Caption = 'Customer - &Top 10 List', Comment = 'FRA="Clien&ts : Palmarès"';
+                        Caption = 'Customer - &Top 10 List', Comment = 'FRA="Clien&ts: Palmarès"';
                         Image = "Report";
                         RunObject = Report "Customer - Top 10 List";
                         ToolTip = 'View which customers purchase the most or owe the most in a selected period. Only customers that have either purchases during the period or a balance at the end of the period will be included.', Comment = 'FRA="Affichez les clients qui achètent le plus ou qui doivent le plus d''argent au cours d''une période sélectionnée. Seuls les clients qui ont des achats pour cette période ou un solde à la fin de la période seront inclus."';
@@ -418,7 +418,7 @@ page 50062 "BC6_Order Processor RC Admin"
                     action("Salesperson - Sales &Statistics")
                     {
                         ApplicationArea = Suite;
-                        Caption = 'Salesperson - Sales &Statistics', Comment = 'FRA="Vendeurs : &Statistiques ventes"';
+                        Caption = 'Salesperson - Sales &Statistics', Comment = 'FRA="Vendeurs: &Statistiques ventes"';
                         Image = "Report";
                         RunObject = Report "Salesperson - Sales Statistics";
                         ToolTip = 'View amounts for sales, profit, invoice discount, and payment discount, as well as profit percentage, for each salesperson for a selected period. The report also shows the adjusted profit and adjusted profit percentage, which reflect any changes to the original costs of the items in the sales.', Comment = 'FRA="Affichez les montants des ventes, de la marge, de la remise facture et de l''escompte, ainsi que le pourcentage marge sur vente, pour chaque vendeur et pour la période sélectionnée. L''état indique également le profit ajusté et le pourcentage marge ajustée, qui reflètent tous les changements des coûts d''origine des articles des ventes."';
@@ -434,10 +434,10 @@ page 50062 "BC6_Order Processor RC Admin"
                     action("Inventory - Sales &Back Orders")
                     {
                         ApplicationArea = Basic, Suite;
-                        Caption = 'Inventory - Sales &Back Orders', Comment = 'FRA="Stocks : Commandes &à livrer"';
+                        Caption = 'Inventory - Sales &Back Orders', Comment = 'FRA="Stocks: Commandes &à livrer"';
                         Image = "Report";
                         RunObject = Report "Inventory - Sales Back Orders";
-                        ToolTip = 'View a list with the order lines whose shipment date has been exceeded. The following information is shown for the individual orders for each item: number, customer name, customer''s telephone number, shipment date, order quantity and quantity on back order. The report also shows whether there are other items for the customer on back order.', Comment = 'FRA="Affichez une liste qui comprend les lignes commande dont la date d''expédition est dépassée. Les informations suivantes sont données pour chaque article d''une commande : numéro, nom du client, numéro de téléphone du client, date d''expédition, quantité commandée et quantité sur commande en attente. L''état indique aussi s''il y a d''autres articles en commande en attente pour le client."';
+                        ToolTip = 'View a list with the order lines whose shipment date has been exceeded. The following information is shown for the individual orders for each item: number, customer name, customer''s telephone number, shipment date, order quantity and quantity on back order. The report also shows whether there are other items for the customer on back order.', Comment = 'FRA="Affichez une liste qui comprend les lignes commande dont la date d''expédition est dépassée. Les informations suivantes sont données pour chaque article d''une commande: numéro, nom du client, numéro de téléphone du client, date d''expédition, quantité commandée et quantité sur commande en attente. L''état indique aussi s''il y a d''autres articles en commande en attente pour le client."';
                     }
                 }
             }

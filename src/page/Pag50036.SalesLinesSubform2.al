@@ -7,7 +7,6 @@ page 50036 "BC6_Sales Lines Subform 2"
     SourceTable = "Sales Line";
     SourceTableView = SORTING("Document Type", "Bill-to Customer No.", "Currency Code");
     UsageCategory = Administration;
-    ApplicationArea = All;
 
     layout
     {
@@ -59,7 +58,7 @@ page 50036 "BC6_Sales Lines Subform 2"
                 {
                     ApplicationArea = All;
                 }
-                field("Cross-Reference No."; Rec."Cross-Reference No.")
+                field("Cross-Reference No."; Rec."Item Reference No.")
                 {
                     Visible = false;
                     ApplicationArea = All;

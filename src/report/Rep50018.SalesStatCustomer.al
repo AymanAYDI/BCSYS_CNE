@@ -283,7 +283,6 @@ report 50018 "BC6_Sales Stat/Customer"
 
             trigger OnPreDataItem()
             begin
-                LastFieldNo := FIELDNO("Customer No.");
                 CurrReport.CREATETOTALS(
                   DecGMontant[1], DecGMarge[1], DecGMontant[2], DecGMarge[2], DecGMontant[3], DecGMarge[3], DecGMontant[4], DecGMarge[4]);
 
@@ -349,7 +348,6 @@ report 50018 "BC6_Sales Stat/Customer"
         DecGVar: Decimal;
         DecGvarmarge: Decimal;
         IntGI: Integer;
-        LastFieldNo: Integer;
         "CA_CumuléCaptionLbl": Label 'CA Cumulé';
         "CA_N_1_CumuléCaptionLbl": Label 'CA N-1 Cumulé';
         CA_periodeCaptionLbl: Label 'CA periode';

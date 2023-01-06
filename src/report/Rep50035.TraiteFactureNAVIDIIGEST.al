@@ -3,7 +3,8 @@ report 50035 "BC6_Traite/Facture NAVIDIIGEST"
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/TraiteFactureNAVIDIIGEST.rdl';
     Caption = 'Bill', Comment = 'FRA="Lettre de change"';
-
+    ApplicationArea = All;
+    UsageCategory = ReportsAndAnalysis;
     dataset
     {
         dataitem(SalesInvHeader; "Sales Invoice Header")

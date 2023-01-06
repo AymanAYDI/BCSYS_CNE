@@ -1,4 +1,4 @@
-report 50004 "BC6_Combine Shipments"
+report 50004 "BC6_Combine Shipments" //295
 {
     Caption = 'Combine Shipments', Comment = 'FRA="Regrouper les B.L."';
     ProcessingOnly = true;
@@ -39,7 +39,7 @@ report 50004 "BC6_Combine Shipments"
                             then
                                 Cust.Get("Bill-to Customer No.");
                             if not (Cust.Blocked in [Cust.Blocked::All, Cust.Blocked::Invoice]) then begin
-                                if ShouldFinalizeSalesInvHeader(SalesOrderHeader, SalesHeader, "Sales Shipment Line") OR BooGNewOrderHdr then begin
+                                if ShouldFinalizeSalesInvHeader(SalesOrderHeader, SalesHeader) OR BooGNewOrderHdr then begin
                                     if SalesHeader."No." <> '' then
                                         FinalizeSalesInvHeader();
                                     InsertSalesInvHeader();
@@ -348,7 +348,7 @@ report 50004 "BC6_Combine Shipments"
                 Message(Text008);
     end;
 
-    local procedure ShouldFinalizeSalesInvHeader(SalesOrderHeader: Record "Sales Header"; SalesHead: Record "Sales Header"; SalesShipmentLine: Record "Sales Shipment Line") Finalize: Boolean
+    local procedure ShouldFinalizeSalesInvHeader(SalesOrderHeader: Record "Sales Header"; SalesHead: Record "Sales Header") Finalize: Boolean
     begin
         Finalize :=
           (SalesOrderHeader."Sell-to Customer No." <> SalesHead."Sell-to Customer No.") or

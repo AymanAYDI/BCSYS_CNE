@@ -6,8 +6,7 @@ page 50037 "BC6_Shipment Lines Subform 2"
     SaveValues = true;
     SourceTable = "Sales Shipment Line";
     SourceTableView = SORTING("Bill-to Customer No.");
-    UsageCategory = Lists;
-    ApplicationArea = All;
+    UsageCategory = None;
 
     layout
     {
@@ -59,7 +58,7 @@ page 50037 "BC6_Shipment Lines Subform 2"
                 {
                     ApplicationArea = All;
                 }
-                field("Cross-Reference No."; Rec."Cross-Reference No.")
+                field("Cross-Reference No."; Rec."Item Reference No.")
                 {
                     Visible = false;
                     ApplicationArea = All;

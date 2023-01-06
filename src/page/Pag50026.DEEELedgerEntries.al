@@ -4,8 +4,7 @@ page 50026 "BC6_DEEE Ledger Entries"
     Editable = false;
     PageType = List;
     SourceTable = "BC6_DEEE Ledger Entry";
-    UsageCategory = Lists;
-    ApplicationArea = All;
+    UsageCategory = None;
 
     layout
     {

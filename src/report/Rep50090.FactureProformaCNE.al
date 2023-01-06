@@ -4,7 +4,8 @@ report 50090 "BC6_Facture Proforma CNE"
     RDLCLayout = './src/Report/RDL/FactureProformaCNE.rdl';
 
     Caption = 'Order Confirmation', comment = 'FRA="Facture Proforma (idem conf. de cde)"';
-
+    ApplicationArea = All;
+    UsageCategory = ReportsAndAnalysis;
     dataset
     {
         dataitem(SalesHeader; "Sales Header")
@@ -1703,14 +1704,17 @@ report 50090 "BC6_Facture Proforma CNE"
                     field(NoOfCopies; NoOfCopies)
                     {
                         Caption = 'No. of Copies';
+                        ApplicationArea = All;
                     }
                     field(ShowInternalInfo; ShowInternalInfo)
                     {
                         Caption = 'Show Internal Information';
+                        ApplicationArea = All;
                     }
                     field(ArchiveDocument; ArchiveDocument)
                     {
                         Caption = 'Archive Document';
+                        ApplicationArea = All;
 
                         trigger OnValidate()
                         begin
@@ -1722,6 +1726,7 @@ report 50090 "BC6_Facture Proforma CNE"
                     {
                         Caption = 'Log Interaction';
                         Enabled = LogInteractionEnable;
+                        ApplicationArea = All;
 
                         trigger OnValidate()
                         begin
@@ -1732,6 +1737,7 @@ report 50090 "BC6_Facture Proforma CNE"
                     field(ShowAssemblyComponents; DisplayAssemblyInformation)
                     {
                         Caption = 'Show Assembly Components';
+                        ApplicationArea = All;
                     }
                 }
             }

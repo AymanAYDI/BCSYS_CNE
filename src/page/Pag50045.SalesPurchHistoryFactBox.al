@@ -30,7 +30,6 @@ page 50045 "Sales/Purch. History FactBox"
                 {
                     Caption = '&Blanket Orders', Comment = 'FRA="&Commandes ouvertes"';
                     Editable = false;
-                    Visible = false;
                     ApplicationArea = All;
 
                     trigger OnDrillDown()
@@ -63,7 +62,6 @@ page 50045 "Sales/Purch. History FactBox"
                 {
                     Caption = '&Invoices', Comment = 'FRA="&Factures"';
                     Editable = false;
-                    Visible = false;
                     ApplicationArea = All;
 
                     trigger OnDrillDown()
@@ -96,7 +94,6 @@ page 50045 "Sales/Purch. History FactBox"
                 {
                     Caption = 'Cre&dit Memos', Comment = 'FRA="A&voirs"';
                     Editable = false;
-                    Visible = false;
                     ApplicationArea = All;
 
                     trigger OnDrillDown()
@@ -193,7 +190,6 @@ page 50045 "Sales/Purch. History FactBox"
                 {
                     Caption = 'Blanket Order Purchas ', Comment = 'FRA="Commandes achat ouvertes"';
                     Editable = false;
-                    Visible = false;
                     ApplicationArea = All;
 
                     trigger OnDrillDown()
@@ -382,23 +378,6 @@ page 50045 "Sales/Purch. History FactBox"
             UNTIL RecGSalesLine.NEXT() = 0;
         END;
 
-        /*
-        //Blanket Order
-        CLEAR(CodGDocNo);
-        RecGSalesLine.RESET;
-        RecGSalesLine.SETCURRENTKEY("Document Type",RecGSalesLine."No.");
-        RecGSalesLine.SETRANGE("Document Type",RecGSalesLine."Document Type"::"Blanket Order");
-        RecGSalesLine.SETFILTER("No.","No.");
-        
-        
-        IF RecGSalesLine.FIND('-') THEN BEGIN
-          REPEAT
-            IF  CodGDocNo <> RecGSalesLine."Document No." THEN
-              NoOfBlanketOrders := NoOfBlanketOrders + 1;
-            CodGDocNo := RecGSalesLine."Document No.";
-          UNTIL RecGSalesLine.NEXT =0;
-        END;
-        */
 
         //Order
         CLEAR(CodGDocNo);
@@ -416,23 +395,6 @@ page 50045 "Sales/Purch. History FactBox"
         END;
 
 
-        /*
-        //Invoices
-        CLEAR(CodGDocNo);
-        RecGSalesLine.RESET;
-        RecGSalesLine.SETCURRENTKEY("Document Type",RecGSalesLine."No.");
-        RecGSalesLine.SETRANGE("Document Type",RecGSalesLine."Document Type"::Invoice);
-        RecGSalesLine.SETFILTER("No.","No.");
-        
-        
-        IF RecGSalesLine.FIND('-') THEN BEGIN
-          REPEAT
-            IF  CodGDocNo <> RecGSalesLine."Document No." THEN
-              NoofInvoices := NoofInvoices + 1;
-            CodGDocNo := RecGSalesLine."Document No.";
-          UNTIL RecGSalesLine.NEXT =0;
-        END;
-        */
 
         //Return Order
         CLEAR(CodGDocNo);
@@ -448,22 +410,6 @@ page 50045 "Sales/Purch. History FactBox"
             UNTIL RecGSalesLine.NEXT() = 0;
         END;
 
-        /*
-        //Credit Memo
-        CLEAR(CodGDocNo);
-        RecGSalesLine.RESET;
-        RecGSalesLine.SETCURRENTKEY("Document Type",RecGSalesLine."No.");
-        RecGSalesLine.SETRANGE("Document Type",RecGSalesLine."Document Type"::"Credit Memo");
-        RecGSalesLine.SETFILTER("No.","No.");
-        
-        IF RecGSalesLine.FIND('-') THEN BEGIN
-          REPEAT
-            IF  CodGDocNo <> RecGSalesLine."Document No." THEN
-              NoOfCreditMemos := NoOfCreditMemos + 1;
-            CodGDocNo := RecGSalesLine."Document No.";
-          UNTIL RecGSalesLine.NEXT =0;
-        END;
-        */
 
         //Posted SHipements
         CLEAR(CodGDocNo);
@@ -536,22 +482,6 @@ page 50045 "Sales/Purch. History FactBox"
             UNTIL RecGPurchLines.NEXT() = 0;
         END;
 
-        /*
-        //Purchase blanket order
-        CLEAR(CodGDocNo);
-        RecGPurchLines.RESET;
-        RecGPurchLines.SETCURRENTKEY("Document Type","No.");
-        RecGPurchLines.SETFILTER("No.","No.");
-        RecGPurchLines.SETRANGE("Document Type",RecGPurchLines."Document Type"::"Blanket Order");
-        
-        IF RecGPurchLines.FIND('-') THEN BEGIN
-          REPEAT
-            IF  CodGDocNo <> RecGPurchLines."Document No." THEN
-              NbrOfPurchBlanketOrder := NbrOfPurchBlanketOrder +1;
-            CodGDocNo := RecGPurchLines."Document No.";
-          UNTIL RecGPurchLines.NEXT = 0;
-        END;
-        */
 
         //Purchase order
         CLEAR(CodGDocNo);
@@ -671,11 +601,6 @@ page 50045 "Sales/Purch. History FactBox"
 
     end;
 
-    trigger OnOpenPage()
-    begin
-
-        //Quote
-    end;
 
     var
         RecGPurchPostedCrdMemo: Record "Purch. Cr. Memo Line";
@@ -704,7 +629,6 @@ page 50045 "Sales/Purch. History FactBox"
         PagGPurchCrMemoLineSubform: Page "Purch. Cr. Memo Line Subform";
         PagGGReturnRcptLinesSubform2: Page "Return Rcpt Lines Subform 2";
         CodGDocNo: Code[20];
-        "---------": Integer;
         NbrOfPurchBlanketOrder: Integer;
         NbrOfPurchCrdMemo: Integer;
         NbrOfPurchInvoice: Integer;

@@ -729,7 +729,7 @@ report 50041 "BC6_Sales - Credit Memo CNE V2"
 
             trigger OnAfterGetRecord()
             begin
-                CurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
+                CurrReport.LANGUAGE := Language.GetLanguageIdOrDefault("Language Code");
 
                 FormatAddr.SalesCrMemoBillTo(CustAddr, "Sales Cr.Memo Header");
 

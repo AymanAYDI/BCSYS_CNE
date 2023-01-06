@@ -219,8 +219,6 @@ page 50001 "BC6_Various Tables"
         "Top Logical2Visible": Boolean;
         [InDataSet]
         "Top Logical3Visible": Boolean;
-        Text001: Label 'This field cannot be empty.', comment = 'FRA="Ce champ ne doit pas être vide."';
-        TitreTexte1: Text[30];
         Descriptif: Text[50];
         Bool1CaptionClass: Text[80];
         Bool2CaptionClass: Text[80];

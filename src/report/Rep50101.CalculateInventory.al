@@ -2,7 +2,8 @@ report 50101 "BC6_Calculate Inventory"
 {
     Caption = 'Calculate Inventory', Comment = 'FRA="Calculer Inventaire"';
     ProcessingOnly = true;
-
+    ApplicationArea = All;
+    UsageCategory = ReportsAndAnalysis;
     dataset
     {
         dataitem(Item; Item)
@@ -20,7 +21,6 @@ report 50101 "BC6_Calculate Inventory"
                     ByBin: Boolean;
                     ExecuteLoop: Boolean;
                     InsertTempSKU: Boolean;
-                    IsHandled: Boolean;
                 begin
                     if not GetLocation("Location Code") then
                         CurrReport.Skip();
@@ -34,7 +34,7 @@ report 50101 "BC6_Calculate Inventory"
                     if not "Drop Shipment" then
                         ByBin := Location."Bin Mandatory" and not Location."Directed Put-away and Pick";
 
-                    IsHandled := false;
+
 
                     if not SkipCycleSKU("Location Code", "Item No.", "Variant Code") then
                         if ByBin then begin
@@ -64,7 +64,7 @@ report 50101 "BC6_Calculate Inventory"
                                             WhseEntry.SetRange("Bin Code", WhseEntry."Bin Code");
                                             if not ItemBinLocationIsCalculated(WhseEntry."Bin Code") then begin
                                                 WhseEntry.CalcSums("Qty. (Base)");
-                                                UpdateBuffer(WhseEntry."Bin Code", WhseEntry."Qty. (Base)", false);
+                                                UpdateBuffer(WhseEntry."Bin Code", WhseEntry."Qty. (Base)");
                                             end;
                                             WhseEntry.Find('+');
                                             Item.CopyFilter("Bin Filter", WhseEntry."Bin Code");
@@ -72,7 +72,7 @@ report 50101 "BC6_Calculate Inventory"
                                     end;
                             end;
                         end else
-                            UpdateBuffer('', Quantity, true);
+                            UpdateBuffer('', Quantity);
                 end;
 
                 trigger OnPreDataItem()
@@ -661,7 +661,7 @@ report 50101 "BC6_Calculate Inventory"
         exit(true);
     end;
 
-    local procedure UpdateBuffer(BinCode: Code[20]; NewQuantity: Decimal; CalledFromItemLedgerEntry: Boolean)
+    local procedure UpdateBuffer(BinCode: Code[20]; NewQuantity: Decimal)
     var
         DimEntryNo: Integer;
     begin

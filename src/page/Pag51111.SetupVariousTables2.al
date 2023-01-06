@@ -381,7 +381,6 @@ page 51111 "BC6_Setup Various Tables2"
 
     var
         TableDiv: Record "BC6_Various Tables";
-        "Object": Record Object;
         [InDataSet]
         "Date1 DescriptionEnable": Boolean;
         [InDataSet]

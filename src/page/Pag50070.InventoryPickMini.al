@@ -377,7 +377,6 @@ page 50070 "BC6_Inventory Pick Mini"
             CurrPage.EDITABLE(FALSE);
         IF NOT PermissionForm.HasEditablePermission(CopyStr(USERID, 1, 65), 8, 7378) THEN
             CurrFormEditableOk := FALSE;
-        BooGWhseActivityLines := CurrFormEditableOk;
     end;
 
     var
@@ -387,8 +386,6 @@ page 50070 "BC6_Inventory Pick Mini"
         BooGDestinationNoCtrl: Boolean;
         [InDataSet]
         BooGSourceNoCtrl: Boolean;
-        [InDataSet]
-        BooGWhseActivityLines: Boolean;
         CtrlEditableOk: Boolean;
         CurrFormEditableOk: Boolean;
 

@@ -267,12 +267,12 @@ report 50015 "BC6_Prices Request"
                         begin
                             TempVATAmountLine.GetLine(Number);
 
-                            VALVATBaseLCY := ROUND(CurrExchRate.ExchangeAmtFCYToLCY(
-                                               PurchaseHeader."Posting Date", PurchaseHeader."Currency Code",
-                                               TempVATAmountLine."VAT Base", PurchaseHeader."Currency Factor"));
-                            VALVATAmountLCY := ROUND(CurrExchRate.ExchangeAmtFCYToLCY(
-                                                 PurchaseHeader."Posting Date", PurchaseHeader."Currency Code",
-                                                 TempVATAmountLine."VAT Amount", PurchaseHeader."Currency Factor"));
+                            // VALVATBaseLCY := ROUND(CurrExchRate.ExchangeAmtFCYToLCY( TODO:: check
+                            //                    PurchaseHeader."Posting Date", PurchaseHeader."Currency Code",
+                            //                    TempVATAmountLine."VAT Base", PurchaseHeader."Currency Factor"));
+                            // VALVATAmountLCY := ROUND(CurrExchRate.ExchangeAmtFCYToLCY(
+                            //                      PurchaseHeader."Posting Date", PurchaseHeader."Currency Code",
+                            //                      TempVATAmountLine."VAT Amount", PurchaseHeader."Currency Factor"));
                         end;
 
                     }
@@ -373,11 +373,10 @@ report 50015 "BC6_Prices Request"
                     PurchPost.GetPurchLines(PurchaseHeader, TempPurchLine, 0);
                     TempPurchLine.CalcVATAmountLines(0, PurchaseHeader, TempPurchLine, TempVATAmountLine);
                     TempPurchLine.UpdateVATOnLines(0, PurchaseHeader, TempPurchLine, TempVATAmountLine);
-                    VATAmount := TempVATAmountLine.GetTotalVATAmount();
-                    VATBaseAmount := TempVATAmountLine.GetTotalVATBase();
-                    VATDiscountAmount :=
-                      TempVATAmountLine.GetTotalVATDiscount(PurchaseHeader."Currency Code", PurchaseHeader."Prices Including VAT");
-                    TotalAmountInclVAT := TempVATAmountLine.GetTotalAmountInclVAT();
+                    TempVATAmountLine.GetTotalVATAmount();
+                    TempVATAmountLine.GetTotalVATBase();
+                    TempVATAmountLine.GetTotalVATDiscount(PurchaseHeader."Currency Code", PurchaseHeader."Prices Including VAT");
+                    TempVATAmountLine.GetTotalAmountInclVAT();
 
                     if Number > 1 then
                         CopyText := Text003;
@@ -432,7 +431,7 @@ report 50015 "BC6_Prices Request"
                 IF "Your Reference" = '' THEN
                     ReferenceText := ''
                 ELSE
-                    ReferenceText := FIELDCAPTION("Your Reference");
+                    ReferenceText := CopyStr(FIELDCAPTION("Your Reference"), 1, MaxStrLen(ReferenceText));
 
                 FormatAddr.PurchHeaderBuyFrom(BuyFromAddr, PurchaseHeader);
                 IF (PurchaseHeader."Buy-from Vendor No." <> PurchaseHeader."Pay-to Vendor No.") THEN
@@ -581,12 +580,8 @@ report 50015 "BC6_Prices Request"
         LogInteractionEnable: Boolean;
         ShowInternalInfo: Boolean;
         CodGRespCenterF: Code[10];
-        TotalAmountInclVAT: Decimal;
         VALVATAmountLCY: Decimal;
         VALVATBaseLCY: Decimal;
-        VATAmount: Decimal;
-        VATBaseAmount: Decimal;
-        VATDiscountAmount: Decimal;
         NoOfCopiesF: Integer;
         NoOfLoops: Integer;
         OutputNo: Integer;

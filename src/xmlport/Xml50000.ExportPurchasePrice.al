@@ -84,7 +84,7 @@ xmlport 50000 "BC6_Export Purchase Price"
                 begin
                     Description := '';
                     IF "Purchase Price"."Item No." <> '' THEN BEGIN
-                        Trovato := GItem1.GET("Purchase Price"."Item No.");
+                        GItem1.GET("Purchase Price"."Item No.");
                         Description := GItem1.Description;
                     END;
 
@@ -113,6 +113,5 @@ xmlport 50000 "BC6_Export Purchase Price"
         GItem1: Record Item;
         PurchasePrice: Record "Purchase Price";
         Vendor: Record Vendor;
-        Trovato: Boolean;
 }
 

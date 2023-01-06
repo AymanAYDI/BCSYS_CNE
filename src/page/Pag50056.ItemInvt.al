@@ -274,19 +274,8 @@ page 50056 "BC6_Item Invt."
     end;
 
     trigger OnOpenPage()
-    var
-        BinContent: Record "Bin Content";
     begin
         ClearFilters();
-        IsVisibleSearch := NOT (CURRENTCLIENTTYPE = CLIENTTYPE::Windows);
-        //Not Compatible with Phone device
-        // IF ISCLEAR(WshShell) THEN
-        //  CREATE(WshShell,FALSE ,TRUE);
-        //
-        //
-        // BoolWait := FALSE;
-        // WshShell.SendKeys('{TAB}', BoolWait);
-        // WshShell.SendKeys('{TAB}', BoolWait);
     end;
 
     var
@@ -299,11 +288,9 @@ page 50056 "BC6_Item Invt."
         BinForm: Page "BC6_Bin List MiniForm";
         ItemForm: Page "BC6_Item List MiniForm";
         LocationForm: Page "BC6_Location List MiniForm";
-        BoolWait: Boolean;
         [InDataSet]
         IsChangeBinEnabled: Boolean;
         [InDataSet]
-        IsVisibleSearch: Boolean;
         ItemNo: Code[20];
         ItemNo2: Code[20];
         LocationCode: Code[20];

@@ -373,21 +373,7 @@ pageextension 50005 "BC6_CustomerList" extends "Customer List" //22
     }
 
     trigger OnOpenPage()
-    var
-        RecLAccessControl: Record "Access Control";
     begin
-
-        RecLAccessControl.RESET();
-        RecLAccessControl.SETRANGE("User Security ID", USERSECURITYID());
-        RecLAccessControl.SETRANGE("Role ID", 'SUPER');
-        IF RecLAccessControl.FINDFIRST() THEN BEGIN
-            BooGinvisibleList := FALSE;
-            BooGvisibleList := TRUE;
-        END ELSE BEGIN
-            BooGinvisibleList := TRUE;
-            BooGvisibleList := FALSE;
-        END;
-
         IF NOT RecGUserSeup.GET(USERID) THEN
             RecGUserSeup.INIT();
         IF RecGUserSeup."BC6_Limited User" THEN BEGIN
@@ -399,8 +385,4 @@ pageextension 50005 "BC6_CustomerList" extends "Customer List" //22
 
     var
         RecGUserSeup: Record "User Setup";
-        [InDataSet]
-        BooGinvisibleList: Boolean;
-        [InDataSet]
-        BooGvisibleList: Boolean;
 }

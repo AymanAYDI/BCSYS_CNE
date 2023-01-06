@@ -4,7 +4,8 @@ report 50025 "BC6_Sales Stat/Vendor Filiale"
     RDLCLayout = './src/report/RDL/SalesStatisticVendorFiliale.rdl';
 
     Caption = 'Sales Statistic/Vendor', comment = 'FRA="Statistique vente/fournisseur"';
-
+    ApplicationArea = All;
+    UsageCategory = ReportsAndAnalysis;
     dataset
     {
         dataitem(Vendor; Vendor)

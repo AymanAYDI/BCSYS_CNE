@@ -84,7 +84,6 @@ page 50030 "BC6_Return Ship. Line Subform"
 
     var
         RecGReturnShipmentHeader: Record "Return Shipment Header";
-        PurchShipement: Record "Return Shipment Line";
         [InDataSet]
         "Document No.Emphasize": Boolean;
         [InDataSet]

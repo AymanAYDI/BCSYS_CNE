@@ -288,7 +288,7 @@ report 50037 "BC6_BC6_Relance  CNE"
                     AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
                     AutoFormatType = 1;
                 }
-                column(STRSUBSTNO___1_n____Document_Type__; STRSUBSTNO('%1 n°', "Document Type"))
+                column(STRSUBSTNO___1_n____Document_Type__; STRSUBSTNO(DocType, "Document Type"))
                 {
                 }
                 column(Issued_Reminder_Line_Description; Description)
@@ -600,6 +600,7 @@ report 50037 "BC6_BC6_Relance  CNE"
         BooGIRTxtBody3: Boolean;
         Continue: Boolean;
         LogInteraction: Boolean;
+        DocType: label '%1 n°';
         [InDataSet]
         LogInteractionEnable: Boolean;
         ShowInternalInfo: Boolean;

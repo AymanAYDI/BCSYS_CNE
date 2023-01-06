@@ -380,7 +380,7 @@ codeunit 50031 "BC6_PagesEvents"
             Subject := CopyStr(
                 StrSubstNo(EmailSubjectCapTxt, CompanyInformation.Name, EmailDocumentName, PostedDocNo), 1, MaxStrLen(Subject));
         IF YourReference <> '' THEN
-            Subject := COPYSTR(STRSUBSTNO('%1 - %2', Subject, YourReference), 1, MAXSTRLEN(Subject));
+            Subject := COPYSTR(STRSUBSTNO(EmailSubjectPluralCapTxt, Subject, YourReference), 1, MAXSTRLEN(Subject));
 
     END;
 

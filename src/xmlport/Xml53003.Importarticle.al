@@ -180,9 +180,9 @@ xmlport 53003 "BC6_Import article"
                         //item cross reference
                         recCross.INIT();
                         recCross.VALIDATE("Item No.", refcne);
-                        recCross.VALIDATE("Cross-Reference Type", recCross."Cross-Reference Type"::Vendor);
-                        recCross.VALIDATE("Cross-Reference Type No.", four);
-                        recCross.VALIDATE("Cross-Reference No.", ref);
+                        recCross.VALIDATE("Reference Type", recCross."Reference Type"::Vendor);
+                        recCross.VALIDATE("Reference Type No.", four);
+                        recCross.VALIDATE("Reference No.", ref);
                         recCross.INSERT(TRUE);
 
                         recArticle.VALIDATE("Vendor Item No.", four);
@@ -194,9 +194,8 @@ xmlport 53003 "BC6_Import article"
                         //item cross reference
                         recCross.INIT();
                         recCross.VALIDATE("Item No.", refcne);
-                        recCross.VALIDATE("Cross-Reference Type", recCross."Cross-Reference Type"::"Bar Code");
-                        //recCross.VALIDATE("Cross-Reference Type No.",'');
-                        recCross.VALIDATE("Cross-Reference No.", ean);
+                        recCross.VALIDATE("Reference Type", recCross."Reference Type"::"Bar Code");
+                        recCross.VALIDATE("Reference No.", ean);
                         recCross.INSERT(TRUE);
 
 
@@ -235,7 +234,6 @@ xmlport 53003 "BC6_Import article"
                         END;
 
                         //Purchase Price
-                        //Field, Item No., Vendor No., Starting Date, Currency Code, Variant Code, Unit of Measure Code, Minimum Quantity
                         recPPx.INIT();
                         recPPx.VALIDATE("Item No.", refcne);
                         recPPx.VALIDATE("Vendor No.", four);
@@ -267,7 +265,6 @@ xmlport 53003 "BC6_Import article"
 
                         END;
                         //Purchase Price
-                        //Field, Item No., Vendor No., Starting Date, Currency Code, Variant Code, Unit of Measure Code, Minimum Quantity
                         recPPx.INIT();
                         recPPx.VALIDATE("Item No.", refcne);
                         recPPx.VALIDATE("Vendor No.", four);
@@ -440,7 +437,7 @@ xmlport 53003 "BC6_Import article"
         recText: Record "Extended Text Line";
         recArticle: Record Item;
         recItemCatCode: Record "Item Category";
-        recCross: Record "Item Cross Reference";
+        recCross: Record "Item Reference"; //cross ref
         recIDicGroup: Record "Item Discount Group";
         recUv: Record "Item Unit of Measure";
         recPPx: Record "Purchase Price";

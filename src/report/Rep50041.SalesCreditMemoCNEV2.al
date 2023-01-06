@@ -99,7 +99,7 @@ report 50041 "BC6_Sales - Credit Memo CNE V2"
                     column(CompanyInfo_City_____le__; CompanyInfo.City + ' le ')
                     {
                     }
-                    column(STRSUBSTNO__Page__1__FORMAT_CurrReport_PAGENO__; STRSUBSTNO('Page %1', FORMAT(CurrReport.PAGENO())))
+                    column(STRSUBSTNO__Page__1__FORMAT_CurrReport_PAGENO__; STRSUBSTNO(Text006, FORMAT(CurrReport.PAGENO())))
                     {
                     }
                     column(TexG_User_Name; TexG_User_Name)

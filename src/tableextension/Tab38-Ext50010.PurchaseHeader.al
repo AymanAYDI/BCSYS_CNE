@@ -212,14 +212,15 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
         PurchSetup: Record "Purchases & Payables Setup";
     begin
         if PurchLinesExist() then
-            repeat
-                if (PurchLine.Type = PurchSetup.BC6_Type)
-                  and (PurchLine."No." = PurchSetup."BC6_No.")
-                  and (PurchLine."Line Amount" <> 0) then
-                    exit(true);
-            until PurchLine.NEXT() = 0
-        else
-            exit(false);
+            IF PurchLine.FindSet() THEN
+                repeat
+                    if (PurchLine.Type = PurchSetup.BC6_Type)
+                      and (PurchLine."No." = PurchSetup."BC6_No.")
+                      and (PurchLine."Line Amount" <> 0) then
+                        exit(true);
+                until PurchLine.NEXT() = 0
+            else
+                exit(false);
     end;
 
     procedure UpdateBuyFromFax(CodContactNo: Code[20])
@@ -248,12 +249,13 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
         PurchSetup: Record "Purchases & Payables Setup";
     begin
         if PurchLinesExist() then
-            repeat
-                if (PurchLine.Type = PurchSetup.BC6_Type) and (PurchLine."No." = PurchSetup."BC6_No.") then
-                    exit(true);
-            until PurchLine.NEXT() = 0
-        else
-            exit(false);
+            if PurchLine.FindSet() then
+                repeat
+                    if (PurchLine.Type = PurchSetup.BC6_Type) and (PurchLine."No." = PurchSetup."BC6_No.") then
+                        exit(true);
+                until PurchLine.NEXT() = 0
+            else
+                exit(false);
     end;
 
     procedure AddLogComment(_Qty: Decimal; _ReceiptType: Enum BC6_ReceiptType)

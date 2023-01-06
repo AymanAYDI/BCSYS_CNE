@@ -229,7 +229,7 @@ page 50014 "BC6_Item Sales/Purch. History"
                 Image = View;
                 Promoted = true;
                 PromotedCategory = Process;
-
+                PromotedOnly = true;
                 trigger OnAction()
                 var
                     RecLPurchPostedCrdMemoHeader: Record "Purch. Cr. Memo Hdr.";

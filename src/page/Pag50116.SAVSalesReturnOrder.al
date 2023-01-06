@@ -619,6 +619,7 @@ page 50116 "BC6_SAV Sales Return Order"
                     Promoted = true;
                     PromotedCategory = Category4;
                     PromotedIsBig = true;
+                    PromotedOnly = true;
                     ToolTip = 'Approve the requested changes.', comment = 'FRA="Approuvez les modifications demandées."';
                     Visible = OpenApprovalEntriesExistForCurrUser;
 
@@ -634,6 +635,7 @@ page 50116 "BC6_SAV Sales Return Order"
                     Caption = 'Reject', comment = 'FRA="Rejeter"';
                     Image = Reject;
                     Promoted = true;
+                    PromotedOnly = true;
                     PromotedCategory = Category4;
                     PromotedIsBig = true;
                     ToolTip = 'Reject the approval request.', comment = 'FRA="Rejetez la demande d''approbation."';
@@ -686,6 +688,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 Ellipsis = true;
                 Image = Print;
                 Promoted = true;
+                PromotedOnly = true;
                 PromotedCategory = Process;
 
                 trigger OnAction()

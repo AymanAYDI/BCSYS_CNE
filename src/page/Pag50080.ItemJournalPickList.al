@@ -40,13 +40,14 @@ page 50080 "BC6_Item Journal Pick List"
     {
         area(processing)
         {
-            action("<Action1000000007>")
+            action("Post1000000007")
             {
                 Caption = '&Post', Comment = 'FRA="&Valider"';
                 Image = Post;
                 Promoted = true;
                 PromotedCategory = Process;
                 ShortCutKey = 'F8';
+                PromotedOnly = true;
                 ApplicationArea = All;
 
                 trigger OnAction()

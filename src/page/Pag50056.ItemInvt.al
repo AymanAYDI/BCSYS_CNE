@@ -8,8 +8,8 @@ page 50056 "BC6_Item Invt."
     RefreshOnActivate = true;
     ShowFilter = false;
     SourceTable = "Bin Content";
-    UsageCategory = Administration;
-    ApplicationArea = all;
+    UsageCategory = None;
+
     layout
     {
         area(content)
@@ -249,6 +249,7 @@ page 50056 "BC6_Item Invt."
         {
             group(Action1)
             {
+
                 action(ChangeDefBin)
                 {
                     Caption = 'Change Def. Bin content', Comment = 'FRA="Modifier emp. par déf."';
@@ -258,6 +259,7 @@ page 50056 "BC6_Item Invt."
                     PromotedCategory = Process;
                     PromotedIsBig = true;
                     ApplicationArea = All;
+                    PromotedOnly = true;
 
                     trigger OnAction()
                     begin

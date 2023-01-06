@@ -402,6 +402,7 @@ page 50085 "BC6_Sales Order Lines Test"
                 Caption = 'RAZ', Comment = 'FRA="RAZ"';
                 Promoted = true;
                 PromotedCategory = Process;
+                PromotedOnly = true;
                 ApplicationArea = All;
 
                 trigger OnAction()

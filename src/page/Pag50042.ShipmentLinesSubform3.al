@@ -178,13 +178,9 @@ page 50042 "BC6_Shipment Lines Subform 3"
 
                 trigger OnAction()
                 begin
-
-                    //>>MIGRATION NAV 2013
-                    //CurrForm.PurchRcptline.FORM.GETRECORD(RecGPurchPostedRcpt);
                     IF NOT RecGSalesShipmentHeader.GET(Rec."Document No.") THEN
                         EXIT;
                     PAGE.RUN(PAGE::"Posted Sales Shipment", RecGSalesShipmentHeader);
-                    //<<MIGRATION NAV 2013
                 end;
             }
         }

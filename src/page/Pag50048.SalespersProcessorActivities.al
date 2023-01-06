@@ -38,6 +38,7 @@ page 50048 "Salespers Processor Activities"
                         RunObject = Page "Sales Order";
                         RunPageMode = Create;
                         ApplicationArea = All;
+                        Image = order;
                     }
                 }
             }

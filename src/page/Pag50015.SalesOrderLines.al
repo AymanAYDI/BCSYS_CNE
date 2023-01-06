@@ -255,7 +255,7 @@ page 50015 "BC6_Sales Order Lines"
                 action("Create Purchase Orders")
                 {
                     Caption = 'Create Purchase Orders', comment = 'FRA="Créer commandes achat"';
-
+                    Image = Purchasing;
                     trigger OnAction()
                     var
                         RecLPurchHeader: Record "Purchase Header";
@@ -408,7 +408,8 @@ page 50015 "BC6_Sales Order Lines"
                 Caption = 'RAZ', comment = 'FRA="RAZ"';
                 Promoted = true;
                 PromotedCategory = Process;
-
+                image = UpdateDescription;
+                PromotedOnly = true;
                 trigger OnAction()
                 begin
                     IF Rec.FIND('-') THEN BEGIN

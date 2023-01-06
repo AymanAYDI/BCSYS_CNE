@@ -53,6 +53,7 @@ page 50027 "BC6_Affected Orders"
                 Caption = 'Open Document', Comment = 'FRA="Ouvrir Document"';
                 Image = OpenWorksheet;
                 Promoted = true;
+                PromotedOnly = true;
                 PromotedCategory = Process;
                 RunPageOnRec = true;
                 ApplicationArea = All;

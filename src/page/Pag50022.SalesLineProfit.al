@@ -242,9 +242,10 @@ page 50022 "BC6_Sales Line Profit"
                 Promoted = true;
                 PromotedCategory = Process;
                 ApplicationArea = All;
+                PromotedOnly = true;
+
                 trigger OnAction()
                 begin
-                    //>> 29.03.2012 Extract Discount
                     CODEUNIT.RUN(CODEUNIT::"Extract Item Group Discount", Rec);
                 end;
             }

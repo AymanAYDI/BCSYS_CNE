@@ -21,7 +21,7 @@ pageextension 50043 "BC6_PostedPurchaseCreditMemo" extends "Posted Purchase Cred
             action("BC6_&Envoyer/Imprimer")
             {
                 Caption = '&Envoyer/Imprimer', comment = 'FRA="&Envoyer/Imprimer"';
-
+                image = SendToMultiple;
                 trigger OnAction()
                 begin
                     CASE STRMENU(STR3 + ',' + STR4 + ',' + STR5) OF

@@ -224,17 +224,15 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                                 BEGIN
                                     IF NOT Rec.MODIFY(TRUE) THEN
                                         Rec.INSERT(TRUE);
-
-
                                     CurrPage.ScanZone.SetFocus(1);
                                     RefreshDataControlAddin();
                                     PostBatch();
                                     LastJnlLine.RESET();
                                     LastJnlLine.SETRANGE("Journal Template Name", Rec."Journal Template Name");
                                     LastJnlLine.SETRANGE("Journal Batch Name", Rec."Journal Batch Name");
-                                    IF LastJnlLine.FIND('+') THEN BEGIN
+                                    IF LastJnlLine.FIND('+') THEN 
                                         Rec := LastJnlLine
-                                    END ELSE BEGIN
+                                  ELSE BEGIN
                                         Rec := xRec;
                                         CurrPage.UPDATE(FALSE);
                                     END;
@@ -496,10 +494,12 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                 Caption = '&Item', Comment = 'FRA="&Article"';
                 Image = Item;
                 Promoted = true;
+                PromotedOnly = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ShortCutKey = 'F2';
                 ApplicationArea = All;
+
 
                 trigger OnAction()
                 var

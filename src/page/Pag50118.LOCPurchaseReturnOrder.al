@@ -607,6 +607,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Caption = 'Approve', comment = 'FRA="Approuver"';
                     Image = Approve;
                     Promoted = true;
+                    PromotedOnly = true;
                     PromotedCategory = Category4;
                     PromotedIsBig = true;
                     ToolTip = 'Approve the requested changes.', comment = 'FRA="Approuvez les modifications demandées."';
@@ -680,6 +681,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                 Ellipsis = true;
                 Image = Print;
                 Promoted = true;
+                PromotedOnly = true;
                 PromotedCategory = Process;
                 ApplicationArea = All;
 
@@ -707,6 +709,7 @@ page 50118 "BC6_LOC Purchase Return Order"
                     Image = ReleaseDoc;
                     Promoted = true;
                     PromotedCategory = Process;
+                    PromotedOnly = true;
                     ShortCutKey = 'Ctrl+F9';
                     ApplicationArea = All;
 

@@ -352,6 +352,7 @@ page 50121 "LOC Purch. Return Order List"
                 Ellipsis = true;
                 Image = Print;
                 Promoted = true;
+                PromotedOnly = true;
                 PromotedCategory = Process;
                 ApplicationArea = All;
 

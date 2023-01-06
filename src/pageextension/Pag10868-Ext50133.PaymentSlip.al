@@ -8,7 +8,7 @@ pageextension 50133 "BC6_PaymentSlip" extends "Payment Slip" //10868
             {
                 Caption = 'Propose Pay-to vendor payments';
                 ApplicationArea = All;
-
+                image = Payroll;
                 trigger OnAction()
                 var
                     PaymentClass: Record "Payment Class";
@@ -33,7 +33,7 @@ pageextension 50133 "BC6_PaymentSlip" extends "Payment Slip" //10868
             {
                 Caption = 'Propose Pay-to customer payments';
                 ApplicationArea = All;
-
+                image = Payroll;
                 trigger OnAction()
                 var
                     PaymentClass: Record "Payment Class";

@@ -179,7 +179,6 @@ report 50025 "BC6_Sales Stat/Vendor Filiale"
                             DecGCAAchat += TempRecGPurchInvLine.Amount;
                     UNTIL TempRecGPurchInvLine.NEXT() = 0;
 
-                // Purchase Credit Memo Line
                 TempRecGPurchCrMemoLine.SETCURRENTKEY("Buy-from Vendor No.", Type);
                 TempRecGPurchCrMemoLine.SETRANGE("Buy-from Vendor No.", "No.");
                 TempRecGPurchCrMemoLine.SETRANGE(Type, TempRecGPurchCrMemoLine.Type::Item);
@@ -187,7 +186,7 @@ report 50025 "BC6_Sales Stat/Vendor Filiale"
                 IF TempRecGPurchCrMemoLine.FindFirst() THEN
                     REPEAT
                         RecLPurchCrMemoHeader.SETFILTER("No.", TempRecGPurchCrMemoLine."Document No.");
-                        IF RecLPurchCrMemoHeader.Findset() THEN
+                        IF RecLPurchCrMemoHeader.FindFirst() THEN
                             DecGCAAchat -= TempRecGPurchCrMemoLine.Amount;
                     UNTIL TempRecGPurchCrMemoLine.NEXT() = 0;
 

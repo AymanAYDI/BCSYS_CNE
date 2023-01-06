@@ -458,6 +458,7 @@ page 50058 "BC6_Reclass. Card MiniForm"
                 PromotedIsBig = true;
                 ShortCutKey = 'F2';
                 ApplicationArea = All;
+                PromotedOnly = true;
 
                 trigger OnAction()
                 var

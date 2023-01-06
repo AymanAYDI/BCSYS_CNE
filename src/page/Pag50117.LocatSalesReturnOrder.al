@@ -595,6 +595,7 @@ page 50117 "BC6_Locat. Sales Return Order"
                     Caption = 'Approve', Comment = 'FRA="Approuver"';
                     Image = Approve;
                     Promoted = true;
+                    PromotedOnly = true;
                     PromotedCategory = Category4;
                     PromotedIsBig = true;
                     ToolTip = 'Approve the requested changes.', Comment = 'FRA="Approuvez les modifications demandées."';
@@ -663,6 +664,7 @@ page 50117 "BC6_Locat. Sales Return Order"
                 Ellipsis = true;
                 Image = Print;
                 Promoted = true;
+                PromotedOnly = true;
                 PromotedCategory = Process;
 
                 trigger OnAction()

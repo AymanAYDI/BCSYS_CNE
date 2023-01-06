@@ -3254,7 +3254,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Cred. Memo Lines Subform 2 - Action Show - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2121096678 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Marge Client</source>
+          <source>Customer Profit</source>
           <note from="Developer" annotates="general" priority="2">FRA="Marge Client"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Customer Profit - Property Caption</note>
         </trans-unit>
@@ -4063,10 +4063,10 @@
           <note from="Developer" annotates="general" priority="2">FRA="Pas de nom de feuille article utilisateur %1"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Item Journal Pick List - NamedType Text015</note>
         </trans-unit>
-        <trans-unit id="Page 1476380009 - Action 982300470 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Page 1476380009 - Action 704969802 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>&amp;Post</source>
           <note from="Developer" annotates="general" priority="2">FRA="&amp;Valider"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Item Journal Pick List - Action &lt;Action1000000007&gt; - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Item Journal Pick List - Action Post1000000007 - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1001441982 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Item List</source>
@@ -5204,7 +5204,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Item Replanishment List - Action Inventory Purchase Orders - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 3971299488 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Groupe Marge Vente Article</source>
+          <source>Item Sales Profit Group</source>
           <note from="Developer" annotates="general" priority="2">FRA="Groupe Marge Vente Article"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Item Sales Profit Group - Property Caption</note>
         </trans-unit>
@@ -7868,11 +7868,6 @@
           <note from="Developer" annotates="general" priority="2">FRA="Ex&amp;traire commande vente"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Purchase Order (MAGASIN) - Action BC6_Get &amp;Sales Order - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 3430093598 - Action 727329444 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Sales &amp;Order</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Commande &amp;vente"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Purchase Order (MAGASIN) - Action BC6_Sales &amp;Order - Property Caption</note>
-        </trans-unit>
         <trans-unit id="Page 3430093598 - Action 626952520 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>In&amp;vt. Put-away/Pick Lines</source>
           <note from="Developer" annotates="general" priority="2">FRA="Lignes prélévement/rangement stock"</note>
@@ -7897,11 +7892,6 @@
           <source>Get &amp;Sales Order</source>
           <note from="Developer" annotates="general" priority="2">FRA="Ex&amp;traire commande vente"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Purchase Order (MAGASIN) - Action Get &amp;Sales Order - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 3430093598 - Action 1333397436 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Sales &amp;Order</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Commande &amp;vente"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Purchase Order (MAGASIN) - Action Sales &amp;Order - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 3430093598 - Action 84074407 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Statistics</source>
@@ -7958,20 +7948,10 @@
           <note from="Developer" annotates="general" priority="2">FRA="Créer prélév./rangement stoc&amp;k"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Purchase Order (MAGASIN) - Action Create Inventor&amp;y Put-away / Pick - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 3430093598 - Action 4271580451 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>E&amp;xplode BOM</source>
-          <note from="Developer" annotates="general" priority="2">FRA="&amp;Eclater nomenclature"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Purchase Order (MAGASIN) - Action E&amp;xplode BOM - Property Caption</note>
-        </trans-unit>
         <trans-unit id="Page 3430093598 - Action 1942389625 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Get St&amp;d. Vend. Purchase Codes</source>
           <note from="Developer" annotates="general" priority="2">FRA="Extraire codes &amp;achat fourn. std"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Purchase Order (MAGASIN) - Action Get St&amp;d. Vend. Purchase Codes - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Page 3430093598 - Action 2302070540 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Insert &amp;Ext. Texts</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Insérer te&amp;xtes étendus"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Purchase Order (MAGASIN) - Action Insert &amp;Ext. Texts - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 3430093598 - Action 3483824129 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Move Negative Lines</source>
@@ -11910,7 +11890,7 @@
         </trans-unit>
         <trans-unit id="Page 2346303421 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Special Extended Text</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA=""</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Special Extended Text - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2346303421 - Control 3015522478 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
@@ -24972,11 +24952,6 @@
           <source>Work Order</source>
           <note from="Developer" annotates="general" priority="2">FRA="Edition Bon Prépa"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesOrder - Action BC6_Work Order - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="PageExtension 1199972306 - Action 3463508404 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
-          <source>Envoyer par Fax</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesOrder - Action BC6_Envoyer par Fax - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1199972306 - Action 715036439 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
           <source>Print</source>

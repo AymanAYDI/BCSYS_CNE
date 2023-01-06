@@ -276,6 +276,7 @@ page 50070 "BC6_Inventory Pick Mini"
                     Ellipsis = true;
                     Image = PostOrder;
                     Promoted = true;
+                    PromotedOnly = true;
                     PromotedCategory = Process;
                     PromotedIsBig = true;
                     ShortCutKey = 'F9';

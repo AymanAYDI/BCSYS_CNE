@@ -372,7 +372,8 @@ page 50082 "BC6_Item Replanishment List"
                         Caption = 'Ledger E&ntries', Comment = 'FRA="É&critures comptables"';
                         Image = ItemLedger;
                         Promoted = true;
-                        //PromotedCategory = Category5;
+                        PromotedCategory = Category5;
+                        PromotedOnly = true;
                         RunObject = Page "Item Ledger Entries";
                         RunPageLink = "Item No." = FIELD("No.");
                         RunPageView = SORTING("Item No.")
@@ -404,7 +405,8 @@ page 50082 "BC6_Item Replanishment List"
                     Caption = 'Special Prices', Comment = 'FRA="Prix spéciaux"';
                     Image = Price;
                     Promoted = true;
-                    //PromotedCategory = Category6;
+                    PromotedOnly = true;
+                    PromotedCategory = Category6;
                     RunObject = Page "Sales Prices";
                     RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
@@ -417,7 +419,8 @@ page 50082 "BC6_Item Replanishment List"
                     Caption = 'Special Discounts', Comment = 'FRA="Remises spéciales"';
                     Image = LineDiscount;
                     Promoted = true;
-                    //PromotedCategory = Category6;
+                    PromotedOnly = true;
+                    PromotedCategory = Category6;
                     RunObject = Page "Sales Line Discounts";
                     RunPageLink = Type = CONST(Item),
                                   Code = FIELD("No.");
@@ -432,7 +435,8 @@ page 50082 "BC6_Item Replanishment List"
                     Image = PriceWorksheet;
                     ApplicationArea = All;
                     Promoted = true;
-                    //PromotedCategory = Category6;
+                    PromotedOnly = true;
+                    PromotedCategory = Category6;
 
                     trigger OnAction()
                     var
@@ -448,7 +452,8 @@ page 50082 "BC6_Item Replanishment List"
                     Caption = 'Sales Price Worksheet', Comment = 'FRA="Feuille prix vente"';
                     Image = PriceWorksheet;
                     Promoted = true;
-                    //PromotedCategory = Category6;
+                    PromotedCategory = Category6;
+                    PromotedOnly = true;
                     RunObject = Page "Sales Price Worksheet";
                     ApplicationArea = All;
                 }
@@ -462,7 +467,8 @@ page 50082 "BC6_Item Replanishment List"
                     Caption = 'Adjust Cost - Item Entries', Comment = 'FRA="Ajuster coûts : Écr. article"';
                     Image = AdjustEntries;
                     Promoted = true;
-                    //PromotedCategory = Category8;
+                    PromotedOnly = true;
+                    PromotedCategory = Category8;
                     RunObject = Report "Adjust Cost - Item Entries";
                     ToolTip = 'Adjust inventory values in value entries so that you use the correct adjusted cost for updating the general ledger and so that sales and profit statistics are up to date.', Comment = 'FRA="Ajustez les valeurs de stocks des écritures valeur afin que vous utilisiez le coût ajusté correct pour la mise à jour de la comptabilité et que les statistiques vente et profit soient à jour."';
                 }
@@ -472,7 +478,8 @@ page 50082 "BC6_Item Replanishment List"
                     Caption = 'Post Inventory Cost to G/L', Comment = 'FRA="Valider coûts ajustés"';
                     Image = PostInventoryToGL;
                     Promoted = true;
-                    //PromotedCategory = Category8;
+                    PromotedOnly = true;
+                    PromotedCategory = Category8;
                     RunObject = Report "Post Inventory Cost to G/L";
                     ToolTip = 'Post the quantity and value changes to the inventory in the item ledger entries and the value entries when you post inventory transactions, such as sales shipments or purchase receipts.', Comment = 'FRA="Validez les changements de quantité et de valeur en stock dans les écritures comptables article et les écritures valeur lorsque vous validez des mouvements de stocks, tels que des expéditions vente ou des réceptions achat."';
                 }
@@ -482,7 +489,8 @@ page 50082 "BC6_Item Replanishment List"
                     Caption = 'Physical Inventory Journal', Comment = 'FRA="Feuille inventaire phys."';
                     Image = PhysicalInventory;
                     Promoted = true;
-                    //PromotedCategory = Category8;
+                    PromotedOnly = true;
+                    PromotedCategory = Category8;
                     RunObject = Page "Phys. Inventory Journal";
                     ToolTip = 'Select how you want to maintain an up-to-date record of your inventory at different locations.', Comment = 'FRA="Sélectionnez comment vous souhaitez conserver un enregistrement mis à jour du stock dans différents magasins."';
                 }
@@ -492,7 +500,8 @@ page 50082 "BC6_Item Replanishment List"
                     Caption = 'Revaluation Journal', Comment = 'FRA="Feuille réévaluation"';
                     Image = Journal;
                     Promoted = true;
-                    //PromotedCategory = Category8;
+                    PromotedOnly = true;
+                    PromotedCategory = Category8;
                     RunObject = Page "Revaluation Journal";
                     ToolTip = 'View or edit the inventory value of items, which you can change, such as after doing a physical inventory.', Comment = 'FRA="Affichez ou modifiez la valeur stock des articles, que vous pouvez modifier, par exemple, après avoir effectué un inventaire."';
                 }
@@ -506,6 +515,7 @@ page 50082 "BC6_Item Replanishment List"
                     Caption = 'Send A&pproval Request', Comment = 'FRA="Envoyer demande d''a&pprobation"';
                     Enabled = (NOT OpenApprovalEntriesExist) AND EnabledApprovalWorkflowsExist;
                     Image = SendApprovalRequest;
+                    PromotedOnly = true;
                     Promoted = true;
                     PromotedCategory = Category7;
                     ToolTip = 'Send an approval request.', Comment = 'FRA="Envoyez une demande d''approbation."';

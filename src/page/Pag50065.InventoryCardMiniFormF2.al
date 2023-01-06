@@ -237,7 +237,7 @@ page 50065 "BC6_Inventory Card MiniForm F2"
                 Caption = '&Delete', Comment = 'FRA="&Delete"';
                 ShortCutKey = 'F9';
                 ApplicationArea = All;
-
+                Image = Delete;
                 trigger OnAction()
                 var
                     page50065: Page "BC6_Inventory Card MiniForm F2";

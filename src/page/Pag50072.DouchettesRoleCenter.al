@@ -36,6 +36,8 @@ page 50072 "BC6_Douchettes Role Center"
                 action(Customers)
                 {
                     Promoted = true;
+                    PromotedOnly = true;
+                    Image = Customer;
                     RunObject = Page "Customer List";
                     Visible = false;
                     ApplicationArea = All;

@@ -17,6 +17,7 @@ pageextension 50134 "BC6_PaymentSlipSubform" extends "Payment Slip Subform" //10
             {
                 Caption = 'Application Pay-to', Comment = 'FRA="Lettrer Tiers payeur"';
                 ShortCutKey = 'Ctrl+F9';
+                image = ApplicationWorksheet;
 
                 trigger OnAction()
                 begin

@@ -1079,7 +1079,6 @@ report 50010 "BC6_Sales - Invoice CNE"
         DimText: Text[120];
         rrrrrrrrrrrr: Text[250];
 
-
     procedure InitLogInteraction()
     begin
         LogInteraction := SegManagement.FindInteractTmplCode(4) <> '';
@@ -1087,7 +1086,6 @@ report 50010 "BC6_Sales - Invoice CNE"
 
     procedure DefineTagFax(TxtLTag: Text[50])
     begin
-        //>>FE005 MICO LE 15.02.2007
         RecGParamVente.GET();
         TxtGTag := RecGParamVente."BC6_RTE Fax Tag" + TxtLTag + '@cne.fax';
     end;

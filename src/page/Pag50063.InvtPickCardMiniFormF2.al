@@ -329,13 +329,6 @@ page 50063 "Invt. Pick Card MiniForm F2"
                 var
                     page50059: Page "BC6_Invt. Pick Card MiniForm";
                 begin
-                    /*
-                   IF ISCLEAR(WshShell) THEN
-                     CREATE(WshShell,FALSE ,TRUE);
-
-                   BoolWait := FALSE;
-                   WshShell.SendKeys('{TAB}', BoolWait);
-                     */
                     PostBatch();
 
                     CurrPage.CLOSE();
@@ -345,7 +338,7 @@ page 50063 "Invt. Pick Card MiniForm F2"
             action("&Quit")
             {
                 Caption = '&Quit', Comment = 'FRA="&Quitter"';
-                Image = cancel;
+                Image = Cancel;
                 Promoted = true;
                 PromotedCategory = Process;
                 ApplicationArea = All;
@@ -360,7 +353,7 @@ page 50063 "Invt. Pick Card MiniForm F2"
                 Caption = '&Delete', Comment = 'FRA="&Delete"';
                 ShortCutKey = 'F9';
                 ApplicationArea = All;
-
+                Image = Delete;
                 trigger OnAction()
                 var
                     page50063: Page "Invt. Pick Card MiniForm F2";
@@ -381,9 +374,6 @@ page 50063 "Invt. Pick Card MiniForm F2"
 
     trigger OnInit()
     begin
-
-        //VisibleTestBool := TRUE;
-
         QtyCtrlEditable := TRUE;
         ToBinCodeCtrlEditable := TRUE;
         QtyCtrlVisible := TRUE;

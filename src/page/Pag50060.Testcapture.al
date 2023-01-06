@@ -6,8 +6,7 @@ page 50060 "BC6_Test capture"
     RefreshOnActivate = true;
     ShowFilter = false;
     SourceTable = "Item Journal Line";
-    UsageCategory = Lists;
-    ApplicationArea = All;
+    UsageCategory = None;
 
     layout
     {
@@ -111,7 +110,7 @@ page 50060 "BC6_Test capture"
                 action(GetText)
                 {
                     ApplicationArea = All;
-
+                    image = Text;
                     trigger OnAction()
                     begin
                         CurrPage.ScanZone.SubmitAllData(1);

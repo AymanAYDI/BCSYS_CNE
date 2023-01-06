@@ -151,6 +151,7 @@ page 50073 "Order Processor Role Center CN"
             }
             action("Sales Credit Memos")
             {
+                Image = CreditMemo;
                 Caption = 'Sales Credit Memos', Comment = 'FRA="Avoirs vente"';
                 RunObject = Page "Sales Credit Memos";
                 ApplicationArea = All;
@@ -172,6 +173,7 @@ page 50073 "Order Processor Role Center CN"
             action("Item Journals")
             {
                 Caption = 'Item Journals', Comment = 'FRA="Feuilles article"';
+                Image = Journal;
                 RunObject = Page "Item Journal Batches";
                 RunPageView = WHERE("Template Type" = CONST(Item),
                                     Recurring = CONST(false));
@@ -180,6 +182,7 @@ page 50073 "Order Processor Role Center CN"
             action("Sales Journals")
             {
                 Caption = 'Sales Journals', Comment = 'FRA="Feuilles vente"';
+                Image = Journals;
                 RunObject = Page "General Journal Batches";
                 RunPageView = WHERE("Template Type" = CONST(Sales),
                                     Recurring = CONST(false));
@@ -197,6 +200,7 @@ page 50073 "Order Processor Role Center CN"
             action("Liste des sessions")
             {
                 RunObject = Page "Concurrent Session List"; //TODO:  check
+                image = sessions;
                 ApplicationArea = All;
             }
         }
@@ -238,11 +242,13 @@ page 50073 "Order Processor Role Center CN"
                 {
                     Caption = 'Posted Purchase Receipts', Comment = 'FRA="Réceptions achat enregistrées"';
                     RunObject = Page "Posted Purchase Receipts";
+                    Image = Receipt;
                     ApplicationArea = All;
                 }
                 action("Posted Purchase Invoices")
                 {
                     Caption = 'Posted Purchase Invoices', Comment = 'FRA="Factures achat enregistrées"';
+                    Image = Invoice;
                     RunObject = Page "Posted Purchase Invoices";
                     ApplicationArea = All;
                 }

@@ -351,7 +351,7 @@ page 50057 "BC6_Inventory Card MiniForm"
                 PromotedIsBig = true;
                 ShortCutKey = 'F2';
                 ApplicationArea = All;
-
+                PromotedOnly = true;
                 trigger OnAction()
                 var
                     PgeLInventoryItemSelection: Page "BC6_Inventory Card MiniForm F2";

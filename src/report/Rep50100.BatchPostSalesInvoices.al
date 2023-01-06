@@ -49,12 +49,10 @@ report 50100 "BC6_Batch Post Sales Invoices" //297
                 CounterTotal := COUNT;
                 Window.OPEN(Text001);
 
-                //>>FE018
                 IF BooGExcludeShipment THEN BEGIN
                     "Sales Header".SETFILTER("BC6_Combine Shipments by Order", '%1', FALSE);
                     "Sales Header".SETFILTER("Combine Shipments", '%1', FALSE);
                 END;
-                //<<FE018
             end;
         }
     }
@@ -75,7 +73,7 @@ report 50100 "BC6_Batch Post Sales Invoices" //297
                         ApplicationArea = Basic, Suite;
                         Caption = 'Posting Date', Comment = 'FRA="Date comptabilisation"';
                     }
-                    field(ReplacePostingDate; ReplacePostingDate)
+                    field(ReplacePostingDateF; ReplacePostingDate)
                     {
                         ApplicationArea = Basic, Suite;
                         Caption = 'Replace Posting Date', Comment = 'FRA="Remplacer date comptabilisation"';
@@ -86,13 +84,13 @@ report 50100 "BC6_Batch Post Sales Invoices" //297
                                 Message(Text003);
                         end;
                     }
-                    field(ReplaceDocumentDate; ReplaceDocumentDate)
+                    field(ReplaceDocumentDateF; ReplaceDocumentDate)
                     {
                         ApplicationArea = Basic, Suite;
                         Caption = 'Replace Document Date', Comment = 'FRA="Remplacer date document"';
                         ToolTip = 'Specifies if the new document date will be applied.', Comment = 'FRA="Spécifie si la nouvelle date comptabilisation sera appliquée."';
                     }
-                    field(CalcInvDisc; CalcInvDisc)
+                    field(CalcInvDiscF; CalcInvDisc)
                     {
                         ApplicationArea = Basic, Suite;
                         Caption = 'Calc. Inv. Discount', Comment = 'FRA="Calculer remise facture"';
@@ -104,7 +102,7 @@ report 50100 "BC6_Batch Post Sales Invoices" //297
                             SalesReceivablesSetup.TestField("Calc. Inv. Discount", false);
                         end;
                     }
-                    Field(BooGExcludeShipment; BooGExcludeShipment)
+                    Field(BooGExcludeShipmentF; BooGExcludeShipment)
                     {
                         Caption = 'Exclure BL à regrouper';
                     }

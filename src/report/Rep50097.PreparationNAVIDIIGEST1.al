@@ -609,7 +609,7 @@ report 50097 "BC6_Preparation NAVIDIIGEST1"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(NoOfCopies; NoOfCopies)
+                    field(NoOfCopiesF; NoOfCopies)
                     {
                         Caption = 'No. of Copies', Comment = 'FRA="Nombre de copies"';
                     }
@@ -617,11 +617,11 @@ report 50097 "BC6_Preparation NAVIDIIGEST1"
                     {
                         Caption = 'Respect Lines To Prepare', Comment = 'FRA="Respecter lignes à préparer"';
                     }
-                    field(ShowInternalInfo; ShowInternalInfo)
+                    field(ShowInternalInfoF; ShowInternalInfo)
                     {
                         Caption = 'Show Internal Information', Comment = 'FRA="Afficher info. internes"';
                     }
-                    field(ArchiveDocument; ArchiveDocument)
+                    field(ArchiveDocumentF; ArchiveDocument)
                     {
                         Caption = 'Archive Document', Comment = 'FRA="Archiver document"';
 
@@ -631,7 +631,7 @@ report 50097 "BC6_Preparation NAVIDIIGEST1"
                                 LogInteraction := FALSE;
                         end;
                     }
-                    field(LogInteraction; LogInteraction)
+                    field(LogInteractionF; LogInteraction)
                     {
                         Caption = 'Log Interaction', Comment = 'FRA="Journal interaction"';
                     }
@@ -706,10 +706,6 @@ report 50097 "BC6_Preparation NAVIDIIGEST1"
         VATAmount: Decimal;
         VATBaseAmount: Decimal;
         VATDiscountAmount: Decimal;
-        "--NSC1.01--": Integer;
-        "--NSC1.10--": Integer;
-        "--NSC1.11--": Integer;
-        "-FEP-ACHAT-200706_18_A -": Integer;
         CompteurDeLigne: Integer;
         i: Integer;
         NoOfCopies: Integer;

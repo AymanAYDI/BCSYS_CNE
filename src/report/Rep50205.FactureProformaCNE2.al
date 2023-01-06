@@ -780,10 +780,6 @@ report 50205 "BC6_Facture Proforma CNE 2"
                                (TempSalesLine."VAT Calculation Type" = TempSalesLine."VAT Calculation Type"::"Full VAT")
                             THEN
                                 TempSalesLine."Line Amount" := 0;
-                            //>>MIGRATION NAV 2013
-                            //F (SalesLine.Type = SalesLine.Type::"G/L Account") AND (NOT ShowInternalInfo) THEN
-                            //"Sales Line"."No." := '';
-                            //<<MIGRATION NAV 2013
                             //                           PRM debut affichage des references externes      //
                             ItemCrossReference.RESET();
                             ItemCrossReference.SETRANGE("Item No.", TempSalesLine."No.");
@@ -801,29 +797,20 @@ report 50205 "BC6_Facture Proforma CNE 2"
                             TempGencod := '';
                             IF ItemCrossReference.FIND('-') THEN
                                 TempGencod := ItemCrossReference."Cross-Reference No.";
-                            //                  PRM Fin recuperation du code barre (gencod)
-                            //                  PRM debut recuperation du code nomenclature douaniére
 
-                            //PAYS_ORIGINE SL 14/09/06 NSC1.05 Ajout du libellé Pays Origine sur BL Export
                             Countrylibelle := '';
-                            //Fin PAYS_ORIGINE SL 14/09/06 NSC1.05 Ajout du libellé Pays Origine sur BL Export
 
-                            //DESIGN SL 04/10/06 NSC1.10  Afficher la nomenclature douaniére une seule fois par article
                             item."Tariff No." := '';
-                            //Fin DESIGN SL 04/10/06 NSC1.10  Afficher la nomenclature douaniére une seule fois par article
 
 
                             item.RESET();
                             IF item.GET(TempSalesLine."No.") AND (TempSalesLine.Type = TempSalesLine.Type::Item) THEN BEGIN
                                 IF "Sales Header"."Sell-to Country/Region Code" <> CompanyInfo."Country/Region Code" THEN BEGIN
                                     TempNomenclaturedouaniere := item."Tariff No.";
-                                    //PAYS_ORIGINE SL 14/09/06 NSC1.05 Ajout du libellé Pays Origine sur BL Export
                                     IF Country.GET(item."Country/Region of Origin Code") THEN
                                         Countrylibelle := Country.Name;
-                                    //Fin PAYS_ORIGINE SL 14/09/06 NSC1.05 Ajout du libellé Pays Origine sur BL Export
                                 END;
                             END;
-                            //                  PRM fin recuperation du code nomenclature douaniére
 
                             NNCSalesLineLineAmt += TempSalesLine."Line Amount";
                             NNCSalesLineInvDiscAmt += TempSalesLine."Inv. Discount Amount";
@@ -868,22 +855,15 @@ report 50205 "BC6_Facture Proforma CNE 2"
                             IF item."Tariff No." <> '' THEN
                                 templibelledouanier := item.FIELDCAPTION("Tariff No.");
 
-                            //PAYSART SM 30/08/06 NSC1.03 []
                             IF PaysArt.GET(item."Country/Region of Origin Code") THEN
                                 PaysArtTex := PaysArt.Name
                             ELSE
                                 PaysArtTex := '';
-                            //FIN PAYSART SM 30/08/06 NSC1.03 []
 
-                            //<<MIGRATION NAV 2013
-                            //>>MIGRATION NAV 2013
                             IF TempSalesLine."Inv. Discount Amount" <> 0 THEN
                                 TempPourcent := TempSalesLine."Inv. Discount Amount" / TempSalesLine."Line Amount" * 100
                             ELSE
                                 TempPourcent := 0;
-                            //NetaPayer:=TotalAmountInclVAT-"Sales Header"."Advance Payment";
-
-                            //<<MIGRATION NAV 2013
                         end;
 
                         trigger OnPostDataItem()
@@ -1088,32 +1068,18 @@ report 50205 "BC6_Facture Proforma CNE 2"
 
                         trigger OnAfterGetRecord()
                         begin
-                            //<<MIGRATION NAV 2013
                             NetaPayer := TotalAmountInclVAT - "Sales Header"."BC6_Advance Payment";
-                            //<<MIGRATION NAV 2013
 
                             TempVATAmountLine.GetLine(Number);
 
-                            //                           PRM debut stockage de 3 lignes de TVA maxi
-                            //>>TDL:MICO 19/04/2007
-                            //TmpVATBase[Number] :=VATAmountLine."VAT Base"
 
                             TmpVATBase[Number] := TempVATAmountLine."VAT Base" + TempVATAmountLine."BC6_DEEE HT Amount";
-                            //<<TDL:MICO 19/04/2007
                             TmpVATRate[Number] := TempVATAmountLine."VAT %";
-                            //>>TDL:MICO 17/04/2007
-                            //TmpVATAmount[Number] :=VATAmountLine."VAT Amount";
                             TmpVATAmount[Number] := TempVATAmountLine."VAT Amount" + TempVATAmountLine."BC6_DEEE VAT Amount";
-                            //<<TDL:MICO 17/04/2007
-                            //                                  PRM fin TVA
                         end;
 
                         trigger OnPreDataItem()
                         begin
-                            //<<MIGRATION NAV 2013
-
-                            //IF VATAmount = 0 THEN
-                            //  CurrReport.BREAK;
                             SETRANGE(Number, 1, TempVATAmountLine.COUNT);
                             //                           PRM debut stockage de 3 lignes de TVA maxi
                             TmpVATBase[1] := 0;
@@ -1230,10 +1196,8 @@ report 50205 "BC6_Facture Proforma CNE 2"
                             IF NOT BooGDEEEFind THEN
                                 CurrReport.BREAK();
 
-                            //>>COMPTA_DEEE FG 01/03/07
                             IF NOT RecGBillCustomer."BC6_Submitted to DEEE" THEN
                                 CurrReport.BREAK();
-                            //<<COMPTA_DEEE FG 01/03/07
                         end;
                     }
                     dataitem(Total2; Integer)
@@ -1494,29 +1458,17 @@ report 50205 "BC6_Facture Proforma CNE 2"
                     CLEAR(SalesPost);
                     CLEAR(TempSalesLineDisc);
                     TempVATAmountLine.DELETEALL();
-                    //>>MIGRATION NAV 2013
-                    //SalesLine.DELETEALL;
-                    //<<MIGRATION NAV 2013
                     TempSalesLineDisc.DELETEALL();
                     SalesPost.GetSalesLines("Sales Header", TempSalesLine, 0);
                     TempSalesLine.CalcVATAmountLines(0, "Sales Header", TempSalesLine, TempVATAmountLine);
                     TempSalesLine.UpdateVATOnLines(0, "Sales Header", TempSalesLine, TempVATAmountLine);
 
-                    //SalesPost.GetSalesLines("Sales Header",TempSalesLineDisc,1);
-
-
-                    /*TempSalesLineDisc.CalcVATAmountLines(1,"Sales Header",TempSalesLineDisc,VATAmountLine);
-                    TempSalesLineDisc.UpdateVATOnLines(1,"Sales Header",TempSalesLineDisc,VATAmountLine);
-                    SalesLine."Inv. Discount Amount" := VATAmountLine."Invoice Discount Amount";*/
                     VATAmount := TempVATAmountLine.GetTotalVATAmount();
                     VATBaseAmount := TempVATAmountLine.GetTotalVATBase();
                     VATDiscountAmount :=
                       TempVATAmountLine.GetTotalVATDiscount("Sales Header"."Currency Code", "Sales Header"."Prices Including VAT");
 
-                    //>>TDL:MICO 17/04/2007
-                    //TotalAmountInclVAT := VATAmountLine.GetTotalAmountInclVAT
                     TotalAmountInclVAT := TempVATAmountLine.GetTotalAmountInclVAT() + TempVATAmountLine.GetTotalAmountDEEEInclVAT();
-                    //<<TDL:MICO 17/04/2007
 
                     PrepmtInvBuf.DELETEALL();
                     SalesPostPrepmt.GetSalesLines("Sales Header", 0, TempPrepmtSalesLine);
@@ -1579,22 +1531,7 @@ report 50205 "BC6_Facture Proforma CNE 2"
 
                 trigger OnPreDataItem()
                 begin
-                    //>>MIGRATION NAV 2013
-                    //NoOfLoops := ABS(NoOfCopies) + 1;
-                    //CopyText := '';
-                    //SETRANGE(Number,1,NoOfLoops);
-                    //<<MIGRATION NAV 2013
                     OutputNo := 1;
-                    //TECSO 10/12/03 CST : Récupération du Nbre de copie dans la table diverses TYPECDE
-                    // CST Suppr
-                    //NoOfLoops := ABS(NoOfCopies) + 1;
-                    //CopyText := '';
-                    //SETRANGE(Nombre,1,NoOfLoops);
-
-                    //CST Remplacé  par
-                    //**IF TableDiv.GET('TYPECDE',"Sales Header"."Type commande") THEN
-                    //**NoOfLoops := TableDiv.Nombre1
-                    //**ELSE
                     NoOfLoops := 0;
 
                     //CST Si Nbre de Copies est renseigner, on écrase le Nbre de copies du type de commande.
@@ -1616,11 +1553,8 @@ report 50205 "BC6_Facture Proforma CNE 2"
             begin
                 CompanyInfo.GET();
                 CurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
-                //PRM debut pour avoir les infos société
-                //MODIFICATION SM 30/06/06 NSC1.02 [M0344] modification des reports en fonction du Client Worms
                 CompanyInfo.CALCFIELDS(CompanyInfo."BC6_Alt Picture");
                 CompanyInfo.CALCFIELDS(CompanyInfo.Picture);
-                //FIN MODIFICATION SM 30/06/06 NSC1.02 [M0344] modification des reports en fonction du Client Worms
 
                 // PRM
                 IF Country.GET(CompanyInfo."Country/Region Code") THEN
@@ -1636,19 +1570,6 @@ report 50205 "BC6_Facture Proforma CNE 2"
 
                 DimSetEntry1.SETRANGE("Dimension Set ID", "Dimension Set ID");
 
-                //NATURE_COMMANDE SL 14/09/06 NSC1.05  Ajout de l'interlocuteur principal basé sur axe analytique 1
-                //>>MIGRATION NAV 2013
-                //Adaptation
-                //PrincipalContact := '';
-                //IF DocDimension.GET(DATABASE::"Sales Header","Document Type","No.",0,GLSetup."Global Dimension 1 Code") THEN BEGIN
-                //PrincipalContact := DocDimension."Dimension Value Code";
-                //IF DimensionValue.GET(DocDimension."Dimension Code",DocDimension."Dimension Value Code") THEN
-                //PrincContactName := DimensionValue.Name;
-                //END;
-                //<<MIGRATION NAV 2013
-                //Fin NATURE_COMMANDE SL 14/09/06 NSC1.05  Ajout de l'interlocuteur principal basé sur axe analytique 1
-
-
                 // PRM chargement du titre
                 TmpNamereport := Text200 + ' ' + "Sales Header"."No.";
                 //TECSO 08/12/03 CST : Lecture des mode de réglement (Payment Methode)
@@ -1662,8 +1583,6 @@ report 50205 "BC6_Facture Proforma CNE 2"
                     SalesPersonText := '';
                 END ELSE BEGIN
                     SalesPurchPerson.GET("Salesperson Code");
-                    //>>MIGRATION NAV 2013
-                    //SalesPersonText := Text000;
                     SalesPersonText := '';
                     SalesPersonText := Text100 + ' ' + SalesPurchPerson.Name;
                     IF SalesPurchPerson."Phone No." <> '' THEN
@@ -1674,14 +1593,6 @@ report 50205 "BC6_Facture Proforma CNE 2"
 
 
                 END;
-                //>>MIGRATION NAV 2013
-                /*
-                IF "Your Reference" = '' THEN
-                  ReferenceText := ''
-                ELSE
-                  ReferenceText := FIELDCAPTION("Your Reference");
-                */
-                //TECSO 09/12/03 CST : Ajout du n° de Document externe dans le libellé de "Votre reference"
                 IF ("Your Reference" = '') AND ("External Document No." = '') THEN BEGIN
                     //ReferenceText := '';
                     VotreRef := '';
@@ -1689,7 +1600,6 @@ report 50205 "BC6_Facture Proforma CNE 2"
                 ELSE BEGIN
                     VotreRef := "External Document No." + '  ' + "Your Reference";
                 END;
-                //<<MIGRATION NAV 2013
                 IF "VAT Registration No." = '' THEN
                     VATNoText := ''
                 ELSE
@@ -1712,8 +1622,6 @@ report 50205 "BC6_Facture Proforma CNE 2"
                     //PRM Fin devise
 
                 END;
-                //TECSO 06/01/2004 CST : Adresse à imprimer = adresse de commande et non pas adresse de Facturation
-                //FormatAddr.SalesHeaderBillTo(CustAddr,"Sales Header");
                 FormatAddr.SalesHeaderSellTo(CustAddr, "Sales Header");
                 //Fin
 
@@ -1747,13 +1655,6 @@ report 50205 "BC6_Facture Proforma CNE 2"
                 FOR i := 1 TO ARRAYLEN(ShipToAddr) DO
                     IF ShipToAddr[i] <> CustAddr[i] THEN
                         ShowShippingAddr := TRUE;
-                //>>TDL0114:JORE 04/12/2006 - Remove archive management
-                /*
-                IF Print THEN BEGIN
-                  IF ArchiveDocument THEN
-                    ArchiveManagement.StoreSalesDocument("Sales Header",LogInteraction);
-                */
-                //<<TDL0114:JORE 04/12/2006 - Remove archive management
 
                 IF LogInteraction THEN BEGIN
                     CALCFIELDS("No. of Archived Versions");
@@ -1785,11 +1686,8 @@ report 50205 "BC6_Facture Proforma CNE 2"
                 IF ShippingAgent.GET("Sales Header"."Shipping Agent Code") THEN
                     ModeTransport := ShippingAgent.Name;
 
-                //>>TDL96:MICO 19/04/2007
-                //>>COMPTA_DEEE FG 01/03/07
                 RecGBillCustomer.RESET();
                 RecGBillCustomer.GET("Sales Header"."Bill-to Customer No.");
-                //<<COMPTA_DEEE FG 01/03/07
 
                 IF "Sales Header"."Bill-to Customer No." <> '' THEN BEGIN
                     RecGBillCustomer.RESET();
@@ -1803,7 +1701,6 @@ report 50205 "BC6_Facture Proforma CNE 2"
                         BooGSubmittedToDEEE := FALSE;
                     END;
                 END;
-                //<<TDL96:MICO 19/04/2007
 
             end;
 
@@ -1811,9 +1708,7 @@ report 50205 "BC6_Facture Proforma CNE 2"
             begin
                 Print := Print OR NOT CurrReport.PREVIEW;
                 AsmInfoExistsForLine := FALSE;
-                //>>MIGRATION NAV 2013
                 CompteurDeLigne := 31;
-                //<<MIGRATION NAV 2013
             end;
         }
     }
@@ -1891,34 +1786,9 @@ report 50205 "BC6_Facture Proforma CNE 2"
     trigger OnInitReport()
     begin
         GLSetup.GET();
-        //>>MIGRATION NAV 2013
-        /*
-        SalesSetup.GET;
-        
-        CASE SalesSetup."Logo Position on Documents" OF
-          SalesSetup."Logo Position on Documents"::"No Logo":
-            ;
-          SalesSetup."Logo Position on Documents"::Left:
-            BEGIN
-              CompanyInfo3.GET;
-              CompanyInfo3.CALCFIELDS(Picture);
-            END;
-          SalesSetup."Logo Position on Documents"::Center:
-            BEGIN
-              CompanyInfo1.GET;
-              CompanyInfo1.CALCFIELDS(Picture);
-            END;
-          SalesSetup."Logo Position on Documents"::Right:
-            BEGIN
-              CompanyInfo2.GET;
-              CompanyInfo2.CALCFIELDS(Picture);
-            END;
-        END;
-        */
         CompanyInfo.GET();
         CompanyInfo.CALCFIELDS(CompanyInfo."BC6_Alt Picture");
         CompanyInfo.CALCFIELDS(CompanyInfo.Picture);
-        //<<MIGRATION NAV 2013
 
     end;
 

@@ -839,7 +839,7 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
                     {
                         Caption = 'Show Internal Information', Comment = 'FRA="Afficher info. internes"';
                     }
-                    field(ArchiveDocument; ArchiveDocument)
+                    field(ArchiveDocumentF; ArchiveDocument)
                     {
                         Caption = 'Archive Document', Comment = 'FRA="Archiver document"';
                         Enabled = BooGEnableArchiveDocument;

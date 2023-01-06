@@ -978,7 +978,7 @@ report 50032 "BC6_Order Confirmation CNE"
 
             trigger OnAfterGetRecord()
             begin
-                CurrReport.LANGUAGE := Language2.GetLanguageID("Language Code");
+                CurrReport.LANGUAGE := Language2.GetLanguageIdOrDefault("Language Code");
                 IF BoolGRespCenter THEN BEGIN
                     TxtGPhone := RespCenter."Phone No.";
                     TxtGFax := RespCenter."Fax No.";

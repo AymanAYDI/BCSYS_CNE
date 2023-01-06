@@ -31,7 +31,7 @@ report 50038 "BC6_Statement avec traite"
                 column(STRSUBSTNO_Text000_FORMAT_CurrReport_PAGENO__; STRSUBSTNO(Text000, FORMAT(CurrReport.PAGENO())))
                 {
                 }
-                column(STRSUBSTNO_1_2_3_4_Text105_StartDate_Text101_EndDate_; STRSUBSTNO('%1 %2 %3 %4', Text105, StartDate, Text101, EndDate))
+                column(STRSUBSTNO_1_2_3_4_Text105_StartDate_Text101_EndDate_; STRSUBSTNO(TEXT_ENDdate, Text105, StartDate, Text101, EndDate))
                 {
                 }
                 column(STRSUBSTNO___1__2__Text103_Customer__Last_Statement_No___; STRSUBSTNO(txtlbl12, Text103, Customer."Last Statement No."))
@@ -998,6 +998,7 @@ report 50038 "BC6_Statement avec traite"
         DUE_DATECaptionLbl: Label 'DUE DATE', comment = 'FRA="ECHEANCE"';
         etab_CaptionLbl: Label 'etab.', comment = 'FRA="etab."';
         guichetCaptionLbl: Label 'guichet', comment = 'FRA="guichet"';
+        TEXT_ENDdate: label '%1 %2 %3 %4';
         L_C_R__onlyCaptionLbl: Label 'L.C.R. only', comment = 'FRA="L.C.R. seulement"';
         n__compteCaptionLbl: Label 'n° compte', comment = 'FRA="n° compte"';
         NAME_andCaptionLbl: Label 'NAME and', comment = 'FRA="NOM et"';

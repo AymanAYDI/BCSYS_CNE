@@ -13,7 +13,7 @@ page 50061 "BC6_Recherche Fichier"
                 {
                     Enabled = true;
                     ApplicationArea = All;
-                    Caption = 'Init_Dir';
+                    Caption = 'Repértoire Initiale';
                 }
                 field(Filtre; Filtre)
                 {
@@ -25,7 +25,7 @@ page 50061 "BC6_Recherche Fichier"
                 {
                     Enabled = true;
                     ApplicationArea = All;
-                    Caption = 'File_Name';
+                    Caption = 'Fichier';
                 }
             }
         }

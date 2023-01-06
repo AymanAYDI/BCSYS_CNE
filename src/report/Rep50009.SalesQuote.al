@@ -788,7 +788,7 @@ report 50009 "BC6_Sales Quote"
             var
                 "Sell-to Country": Text[50];
             begin
-                CurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
+                CurrReport.LANGUAGE := Language.GetLanguageIdOrDefault("Language Code");
                 "Sales Header".CALCFIELDS("Sales Header"."No. of Archived Versions");
                 IF BoolGRespCenter THEN BEGIN
                     FormatAddr.RespCenter(CompanyAddr, RespCenter);

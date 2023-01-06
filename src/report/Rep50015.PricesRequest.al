@@ -470,7 +470,7 @@ report 50015 "BC6_Prices Request"
 
             trigger OnAfterGetRecord()
             begin
-                CurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
+                CurrReport.LANGUAGE := Language.GetLanguageIdOrDefault("Language Code");
 
                 CompanyInfo.GET;
 

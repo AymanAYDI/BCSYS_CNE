@@ -83,7 +83,6 @@ codeunit 50052 "BC6_Return Order Mgt."
     end;
 
 
-
     procedure FilterPstdDocLineValueEntries(P_SalesInvoiceLine: Record "Sales Invoice Line"; var ValueEntry: Record "Value Entry")
     begin
         ValueEntry.RESET();

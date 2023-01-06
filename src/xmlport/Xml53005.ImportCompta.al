@@ -152,15 +152,15 @@ xmlport 53005 "BC6_Import Compta"
         {
             area(content)
             {
-                field(CodGJnlTemplName; CodGJnlTemplName)
+                field(CodGJnlTemplNameF; CodGJnlTemplName)
                 {
                     Caption = 'Journal Template Name';
                 }
-                field(CodGJnlBatchName; CodGJnlBatchName)
+                field(CodGJnlBatchNameF; CodGJnlBatchName)
                 {
                     Caption = 'Journal Batch Name';
                 }
-                field(TxtGFileName; TxtGFileName)
+                field(TxtGFileNameF; TxtGFileName)
                 {
                     Caption = 'File Name';
 

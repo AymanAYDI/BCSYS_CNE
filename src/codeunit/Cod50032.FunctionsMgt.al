@@ -1131,9 +1131,7 @@ then begin
         Text001: Label 'quantity must be different of 0', Comment = 'FRA="la quantité doit être différente de 0"';
     BEGIN
         GLSetup.get();
-        if SalesLine.Quantity = 0 then
-            Error(Text001)
-        else begin
+        IF SalesLine.Quantity <> 0 Then begin
             SalesLine."BC6_DEEE HT Amount" := ROUND(SalesLine."BC6_DEEE HT Amount" * DecLQtySalesLine / SalesLine.Quantity, 0.01);
             IF (SalesLine."VAT Calculation Type" = SalesLine."VAT Calculation Type"::"Sales Tax") AND
                (SalesLine.Quantity <> SalesLine."Qty. to Invoice") AND
@@ -1149,9 +1147,8 @@ then begin
                 SalesLine."BC6_DEEE TTC Amount" := ROUND(SalesLine."BC6_DEEE TTC Amount" * DecLQtySalesLine / SalesLine.Quantity);
 
             SalesLine."BC6_DEEE VAT Amount" := SalesLine."BC6_DEEE TTC Amount" - SalesLine."BC6_DEEE HT Amount";
-        end;
-    END;
-
+        END;
+    end;
     //COD6620
     procedure RecalculateSalesLineAmounts2(FromSalesLine: Record "Sales Line"; var ToSalesLine: Record "Sales Line"; Currency: Record Currency)
     var

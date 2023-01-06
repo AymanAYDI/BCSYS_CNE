@@ -18,7 +18,7 @@ page 50117 "BC6_Locat. Sales Return Order"
                 field("No."; Rec."No.")
                 {
                     Importance = Additional;
-                    ToolTip = 'Specifies the number of the sales document. The field can be filled automatically or manually and can be set up to be invisible.';
+                    ToolTip = 'Specifies the number of the sales document. The field can be filled automatically or manually and can be set up to be invisible.', Comment = 'FRA="Spécifie le numéro du document vente. Le champ peut être rempli automatiquement ou manuellement et être configuré pour être invisible."';
                     Visible = DocNoVisible;
 
                     trigger OnAssistEdit()
@@ -33,7 +33,7 @@ page 50117 "BC6_Locat. Sales Return Order"
                     Importance = Promoted;
                     QuickEntry = false;
                     ShowMandatory = true;
-                    ToolTip = 'Specifies the name of the customer who will receive the products and be billed by default.';
+                    ToolTip = 'Specifies the name of the customer who will receive the products and be billed by default.', Comment = 'FRA="Spécifie le nom du client qui recevra les produits et sera facturé par défaut."';
 
                     trigger OnValidate()
                     begin
@@ -93,6 +93,8 @@ page 50117 "BC6_Locat. Sales Return Order"
                 }
                 field(ID; Rec.ID)
                 {
+                    Caption = 'ID', Comment = 'FRA="Code utilisateur"';
+
                 }
                 field("Sell-to Fax No."; Rec."BC6_Sell-to Fax No.")
                 {

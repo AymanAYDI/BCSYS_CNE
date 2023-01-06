@@ -193,7 +193,7 @@ report 50039 "BC6_Statement sans traite"
                 column(Customer_PaymentMethodCode_; Customer."Payment Method Code")
                 {
                 }
-                column(STRSUBSTNO_1_2_3_4Text105_Start_Date_Text101_EndDate; STRSUBSTNO('%1 %2 %3 %4', Text105, StartDate, Text101, EndDate))
+                column(STRSUBSTNO_1_2_3_4Text105_Start_Date_Text101_EndDate; STRSUBSTNO(Text101_EndDate, Text105, StartDate, Text101, EndDate))
                 {
                 }
                 column(STRSUBSTNO_2_Text102_Customer_No; STRSUBSTNO(txtlbl12, Text102, Customer."No."))
@@ -848,6 +848,7 @@ report 50039 "BC6_Statement sans traite"
         Total_CaptionLbl: Label 'Total', Comment = 'FRA="Total"';
         VATRegNo_CompanyInfoCaptionLbl: Label 'VAT Registration No.', Comment = 'FRA="N° identif. intracomm."';
         txtlbl12: label '%1 %2';
+        Text101_EndDate: Label '%1 %2 %3 %4';
         DateChoice: Option "Due Date","Posting Date";
         CompanyAddr: array[8] of Text[50];
         CustAddr: array[8] of Text[50];

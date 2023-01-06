@@ -410,7 +410,6 @@ report 50013 "BC6_Sales - Credit Memo CNE"
 
                             //>>FE005:DARI 22/02/2007
                             //CurrReport.CREATETOTALS("Line Amount",Amount,"Amount Including VAT","Inv. Discount Amount");
-                            CurrReport.CREATETOTALS("Line Amount", Amount, "Amount Including VAT", "Inv. Discount Amount", "BC6_DEEE HT Amount", "BC6_DEEE VAT Amount");
                             //MICO DEEE1.00
 
                             DecGVATTotalAmount := 0;
@@ -482,9 +481,6 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                             IF TempVATAmountLine.GetTotalVATAmount() = 0 THEN
                                 CurrReport.BREAK();
                             SETRANGE(Number, 1, TempVATAmountLine.COUNT);
-                            CurrReport.CREATETOTALS(
-                              TempVATAmountLine."Line Amount", TempVATAmountLine."Inv. Disc. Base Amount",
-                              TempVATAmountLine."Invoice Discount Amount", TempVATAmountLine."VAT Base", TempVATAmountLine."VAT Amount");
                         end;
                     }
                     dataitem("BC6_DEEE Tariffs"; "BC6_DEEE Tariffs")
@@ -620,7 +616,6 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                                 CurrReport.BREAK();
 
                             SETRANGE(Number, 1, TempVATAmountLine.COUNT);
-                            CurrReport.CREATETOTALS(VALVATBaseLCY, VALVATAmountLCY);
 
                             IF GLSetup."LCY Code" = '' THEN
                                 VALSpecLCYHeader := Text008 + Text009
@@ -735,7 +730,7 @@ report 50013 "BC6_Sales - Credit Memo CNE"
 
             trigger OnAfterGetRecord()
             begin
-                CurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
+                CurrReport.LANGUAGE := Language.GetLanguageIdOrDefault("Language Code");
 
                 FormatAddr.SalesCrMemoBillTo(CustAddr, "Sales Cr.Memo Header");
 

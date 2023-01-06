@@ -902,7 +902,6 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
     var
         ItemError: Boolean;
     begin
-        // TESTFIELD("Whse. Document No.");
         ItemError := FALSE;
         ErrorTxt := '';
 

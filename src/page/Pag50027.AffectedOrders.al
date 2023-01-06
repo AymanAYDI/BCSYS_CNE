@@ -3,8 +3,7 @@ page 50027 "BC6_Affected Orders"
     Caption = 'Affected Orders', Comment = 'FRA="Commandes affectées"';
     PageType = List;
     SourceTable = "Sales Line";
-    UsageCategory = Lists;
-    ApplicationArea = All;
+    UsageCategory = None;
 
     layout
     {
@@ -18,10 +17,13 @@ page 50027 "BC6_Affected Orders"
                 }
                 field("Sell-to Customer No."; Rec."Sell-to Customer No.")
                 {
+                    Caption = 'Customer No', comment = 'FRA="N° client"';
                     ApplicationArea = All;
                 }
                 field("Customer Name"; RecGCustomer.Name)
                 {
+                    Caption = 'Customer Name', comment = 'FRA="Nom client"';
+
                     ApplicationArea = All;
                 }
                 field("No."; Rec."No.")
@@ -30,6 +32,8 @@ page 50027 "BC6_Affected Orders"
                 }
                 field(Description; Rec.Description)
                 {
+                    Caption = 'Description', comment = 'FRA="Désignation article"';
+
                     ApplicationArea = All;
                 }
                 field("Outstanding Quantity"; Rec."Outstanding Quantity")

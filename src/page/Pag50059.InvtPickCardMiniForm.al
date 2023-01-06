@@ -108,44 +108,43 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                                 END;
 
                             2:
-                                BEGIN
-                                    IF ItemNo <> '' THEN BEGIN
-                                        CLEAR(BinContentForm);
-                                        BinContent.RESET();
-                                        IF LocationCode <> '' THEN
-                                            BinContent.SETRANGE("Location Code", LocationCode);
-                                        IF ItemNo <> '' THEN
-                                            BinContent.SETRANGE("Item No.", ItemNo);
-                                        BinContent.SETFILTER(Quantity, '>%1', 0);
-                                        IF BinContent.FIND('-') THEN
-                                            BinContentForm.SETRECORD(BinContent);
-                                        BinContentForm.SETTABLEVIEW(BinContent);
-                                        BinContentForm.LOOKUPMODE(TRUE);
-                                        IF BinContent.FIND('-') THEN
-                                            BinContentForm.SETRECORD(BinContent);
-                                        IF BinContentForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
-                                            BinContentForm.GETRECORD(BinContent);
-                                            FromBinCode := BinContent."Bin Code";
-                                            CurrPage.ScanZone.SetText(2, FromBinCode);
-                                            CurrPage.ScanZone.SetHide(3, FALSE);
-                                            AssignFromBinCode(FromBinCode);
-                                        END;
-                                    END ELSE BEGIN
-                                        CLEAR(BinForm);
-                                        Bin.RESET();
-                                        IF LocationCode <> '' THEN
-                                            Bin.SETRANGE("Location Code", LocationCode);
-                                        BinForm.SETTABLEVIEW(Bin);
-                                        BinForm.LOOKUPMODE(TRUE);
-                                        IF Bin.FIND('-') THEN
-                                            BinForm.SETRECORD(Bin);
-                                        IF BinForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
-                                            BinForm.GETRECORD(Bin);
-                                            FromBinCode := Bin.Code;
-                                            CurrPage.ScanZone.SetText(2, FromBinCode);
-                                            CurrPage.ScanZone.SetHide(3, FALSE);
-                                            AssignFromBinCode(FromBinCode);
-                                        END;
+
+                                IF ItemNo <> '' THEN BEGIN
+                                    CLEAR(BinContentForm);
+                                    BinContent.RESET();
+                                    IF LocationCode <> '' THEN
+                                        BinContent.SETRANGE("Location Code", LocationCode);
+                                    IF ItemNo <> '' THEN
+                                        BinContent.SETRANGE("Item No.", ItemNo);
+                                    BinContent.SETFILTER(Quantity, '>%1', 0);
+                                    IF BinContent.FIND('-') THEN
+                                        BinContentForm.SETRECORD(BinContent);
+                                    BinContentForm.SETTABLEVIEW(BinContent);
+                                    BinContentForm.LOOKUPMODE(TRUE);
+                                    IF BinContent.FIND('-') THEN
+                                        BinContentForm.SETRECORD(BinContent);
+                                    IF BinContentForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
+                                        BinContentForm.GETRECORD(BinContent);
+                                        FromBinCode := BinContent."Bin Code";
+                                        CurrPage.ScanZone.SetText(2, FromBinCode);
+                                        CurrPage.ScanZone.SetHide(3, FALSE);
+                                        AssignFromBinCode(FromBinCode);
+                                    END;
+                                END ELSE BEGIN
+                                    CLEAR(BinForm);
+                                    Bin.RESET();
+                                    IF LocationCode <> '' THEN
+                                        Bin.SETRANGE("Location Code", LocationCode);
+                                    BinForm.SETTABLEVIEW(Bin);
+                                    BinForm.LOOKUPMODE(TRUE);
+                                    IF Bin.FIND('-') THEN
+                                        BinForm.SETRECORD(Bin);
+                                    IF BinForm.RUNMODAL() = ACTION::LookupOK THEN BEGIN
+                                        BinForm.GETRECORD(Bin);
+                                        FromBinCode := Bin.Code;
+                                        CurrPage.ScanZone.SetText(2, FromBinCode);
+                                        CurrPage.ScanZone.SetHide(3, FALSE);
+                                        AssignFromBinCode(FromBinCode);
                                     END;
                                 END;
 
@@ -171,9 +170,8 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                                 END;
 
                             4:
-                                BEGIN
+                                ;
 
-                                END;
                         END;
                     end;
 
@@ -189,10 +187,6 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                     var
                         LastJnlLine: Record "Item Journal Line";
                     begin
-                        //index values :
-                        //0 = Close Page
-                        //1 = Post
-                        // Close and Open with same Item
 
                         IF NOT SkipAssignValue THEN BEGIN
                             IF ScanDeviceHelper.GetValueOfSubmition(1, data) <> Rec."BC6_Whse. Document No." THEN BEGIN
@@ -232,9 +226,9 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                                     LastJnlLine.RESET();
                                     LastJnlLine.SETRANGE("Journal Template Name", Rec."Journal Template Name");
                                     LastJnlLine.SETRANGE("Journal Batch Name", Rec."Journal Batch Name");
-                                    IF LastJnlLine.FIND('+') THEN BEGIN
+                                    IF LastJnlLine.FIND('+') THEN
                                         Rec := LastJnlLine
-                                    END ELSE BEGIN
+                                    ELSE BEGIN
                                         Rec := xRec;
                                         CurrPage.UPDATE(FALSE);
                                     END;
@@ -539,13 +533,6 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                 var
                     page50059: Page "BC6_Invt. Pick Card MiniForm";
                 begin
-                    /*IF ISCLEAR(WshShell) THEN
-                      CREATE(WshShell,FALSE ,TRUE);
-                    
-                    BoolWait := FALSE;
-                    WshShell.SendKeys('{TAB}', BoolWait);
-                    */
-                    //QtyOnAfterValidate;
 
                     IF IsReady THEN
                         CurrPage.ScanZone.SubmitAllData(1);
@@ -968,9 +955,9 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
             END;
         END;
 
-        IF ItemError THEN BEGIN
-            MESSAGE('%1', ErrorTxt);
-        END ELSE BEGIN
+        IF ItemError THEN
+            MESSAGE('%1', ErrorTxt)
+        ELSE BEGIN
             Rec.VALIDATE("Item No.", ItemNo);
             Rec.VALIDATE("Bin Code", FromBinCode);
             IF ShipBinCode <> '' THEN BEGIN
@@ -1048,14 +1035,12 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         Qty := FORMAT(Rec.Quantity);
         EditableCtrl := (Rec."Item No." <> '');
         CtrlEnabled();
-        IF IsReady THEN BEGIN
+        IF IsReady THEN
             CASE OptionMode OF
                 OptionMode::Edit:
-                    BEGIN
-                        FOR i := 1 TO 4 DO BEGIN
-                            CurrPage.ScanZone.SetHide(i, FALSE);
-                        END;
-                    END;
+
+                    FOR i := 1 TO 4 DO
+                        CurrPage.ScanZone.SetHide(i, FALSE);
 
                 OptionMode::KeepPick:
                     BEGIN
@@ -1086,8 +1071,6 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                         CurrPage.ScanZone.SetHide(4, FALSE);
                 END;
             END;
-
-        END;
     end;
 
 
@@ -1129,12 +1112,11 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
     begin
         IF (STRLEN(Code) = 13) THEN BEGIN
             CodeOk := TRUE;
-            FOR i := 1 TO STRLEN(Code) DO BEGIN
+            FOR i := 1 TO STRLEN(Code) DO
                 IF NOT (Code[i] IN ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']) THEN BEGIN
                     CodeOk := FALSE;
                     EXIT(CodeOk);
                 END;
-            END;
         END ELSE
             CodeOk := FALSE;
     end;

@@ -2,7 +2,7 @@ page 50012 "BC6_Sales Quote Arch. Sub. Cde"
 {
     Caption = 'Sales Quote Arch. Sub. Cde', comment = 'FRA="Sous-form. archives devis Cde"';
     Editable = false;
-    PageType = List;
+    PageType = ListPart;
     SourceTable = "Sales Line Archive";
     SourceTableView = WHERE("Document Type" = CONST(Quote));
     UsageCategory = None;
@@ -112,7 +112,7 @@ page 50012 "BC6_Sales Quote Arch. Sub. Cde"
 
     actions
     {
-        area(navigation)
+        area(Processing)
         {
             group("&Line")
             {

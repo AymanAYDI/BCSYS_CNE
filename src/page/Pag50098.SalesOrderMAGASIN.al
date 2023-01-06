@@ -898,7 +898,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
 
     trigger OnAfterGetRecord()
     begin
-        OnAfterGetCurrRecord();
+        PROCOnAfterGetCurrRecord();
     end;
 
     trigger OnDeleteRecord(): Boolean
@@ -923,7 +923,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
         Rec."Responsibility Center" := UserMgt.GetSalesFilter();
-        OnAfterGetCurrRecord();
+        PROCOnAfterGetCurrRecord();
     end;
 
     trigger OnOpenPage()
@@ -1020,23 +1020,6 @@ page 50098 "BC6_Sales Order (MAGASIN)"
 
     procedure OpenFile()
     begin
-        /*//EMAIL NSC00.01 SBH [005] Envoi document
-        FileDialog.DialogTitle('Envoi'+' '+CurrForm.CAPTION);
-        FileDialog.Filter := Text004;
-        SalesSetup.GET;
-        FileDialog.FileName := '';
-        FileDialog.InitDir(SalesSetup.Repertoire);
-        FileDialog.Flags := 4096 + 2048; // vérification de l'existence du fichier, code qui suit inutile.
-        FileDialog.ShowOpen;
-        nameF:=FileDialog.FileName;
-        IF nameF='' THEN
-          BEGIN
-            Excel := FALSE;
-            EXIT;
-          END;
-          //Fin EMAIL NSC00.01 SBH [005] Envoi document
-        */
-
     end;
 
     local procedure _SelltoCustomerNoOnAfterValidate()
@@ -1054,7 +1037,7 @@ page 50098 "BC6_Sales Order (MAGASIN)"
         CurrPage.UPDATE();
     end;
 
-    local procedure OnAfterGetCurrRecord()
+    local procedure PROCOnAfterGetCurrRecord()
     begin
         xRec := Rec;
         Rec.SETRANGE("Date Filter", 0D, WORKDATE() - 1);

@@ -2,7 +2,7 @@ page 50040 "Return Rcpt Lines Subform 2"
 {
     Caption = 'Return Rcpt Lines', Comment = 'FRA="Lignes réception retour"';
     Editable = false;
-    PageType = List;
+    PageType = ListPart;
     SourceTable = "Return Receipt Line";
     SourceTableView = SORTING("Sell-to Customer No.");
     UsageCategory = Lists;
@@ -170,12 +170,9 @@ page 50040 "Return Rcpt Lines Subform 2"
 
                 trigger OnAction()
                 begin
-                    //>>MIGRATION NAV 2013
-                    //CurrForm.PurchRcptline.FORM.GETRECORD(RecGPurchPostedRcpt);
                     IF NOT RecGReturnReceiptHeader.GET(Rec."Document No.") THEN
                         EXIT;
                     PAGE.RUN(PAGE::"Posted Return Receipt", RecGReturnReceiptHeader);
-                    //<<MIGRATION NAV 2013
                 end;
             }
         }
@@ -213,12 +210,6 @@ page 50040 "Return Rcpt Lines Subform 2"
             EXIT(TRUE);
     end;
 
-
-    procedure GetSelectedLine(var FromReturnRcptLine: Record "Return Receipt Line")
-    begin
-        FromReturnRcptLine.COPY(Rec);
-        CurrPage.SETSELECTIONFILTER(FromReturnRcptLine);
-    end;
 
     local procedure DocumentNoOnFormat()
     begin

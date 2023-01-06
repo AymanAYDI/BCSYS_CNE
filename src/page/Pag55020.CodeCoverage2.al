@@ -6,9 +6,8 @@ page 55020 "BC6_Code Coverage 2"
     PageType = List;
     SourceTable = "Code Coverage";
     SourceTableTemporary = true;
-    UsageCategory = Lists;
-    ApplicationArea = All;
-    Caption = 'Code Coverage', Comment = 'FRA=" Code coverage"';
+    UsageCategory = None;
+    Caption = 'Code Coverage 2', Comment = 'FRA="Code coverage 2"';
     layout
     {
         area(content)

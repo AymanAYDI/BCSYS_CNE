@@ -5,7 +5,8 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
     RefreshOnActivate = true;
     SourceTable = "Purchase Header";
     SourceTableView = WHERE("Document Type" = FILTER(Order));
-    UsageCategory = None;
+    UsageCategory = Tasks;
+    ApplicationArea = all;
     layout
     {
         area(content)

@@ -2,7 +2,7 @@ page 50042 "BC6_Shipment Lines Subform 3"
 {
     Caption = 'Shipment Lines', Comment = 'FRA="Lignes expédition"';
     Editable = false;
-    PageType = List;
+    PageType = ListPart;
     SaveValues = true;
     SourceTable = "Sales Shipment Line";
     SourceTableView = SORTING("No.");
@@ -179,12 +179,9 @@ page 50042 "BC6_Shipment Lines Subform 3"
                 trigger OnAction()
                 begin
 
-                    //>>MIGRATION NAV 2013
-                    //CurrForm.PurchRcptline.FORM.GETRECORD(RecGPurchPostedRcpt);
                     IF NOT RecGSalesShipmentHeader.GET(Rec."Document No.") THEN
                         EXIT;
                     PAGE.RUN(PAGE::"Posted Sales Shipment", RecGSalesShipmentHeader);
-                    //<<MIGRATION NAV 2013
                 end;
             }
         }
@@ -221,13 +218,6 @@ page 50042 "BC6_Shipment Lines Subform 3"
         END;
         IF Rec."Line No." = TempSalesShptLine."Line No." THEN
             EXIT(TRUE);
-    end;
-
-
-    procedure GetSelectedLine(var FromSalesShptLine: Record "Sales Shipment Line")
-    begin
-        FromSalesShptLine.COPY(Rec);
-        CurrPage.SETSELECTIONFILTER(FromSalesShptLine);
     end;
 
     local procedure DocumentNoOnFormat()

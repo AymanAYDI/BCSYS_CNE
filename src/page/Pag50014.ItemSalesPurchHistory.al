@@ -106,7 +106,7 @@ page 50014 "BC6_Item Sales/Purch. History"
                 Caption = 'Purchase History', comment = 'FRA="Historique Achat"';
                 field(PurchLineBtn; CurrentMenuTypeOpt)
                 {
-
+                    ShowCaption = false;
                 }
                 field("Purch Quote"; STRSUBSTNO(txtlbl1, NbrOfPurchQuote))
                 {
@@ -1143,19 +1143,9 @@ page 50014 "BC6_Item Sales/Purch. History"
         ChangeSubMenu(10);
     end;
 
-    local procedure x10CurrentMenuTypeOptOnValidat()
-    begin
-        x10CurrentMenuTypeOptOnPush();
-    end;
-
     local procedure x14CurrentMenuTypeOptOnPush()
     begin
         ChangeSubMenu(14);
-    end;
-
-    local procedure x14CurrentMenuTypeOptOnValidat()
-    begin
-        x14CurrentMenuTypeOptOnPush();
     end;
 
     local procedure x11CurrentMenuTypeOptOnPush()
@@ -1163,19 +1153,9 @@ page 50014 "BC6_Item Sales/Purch. History"
         ChangeSubMenu(11);
     end;
 
-    local procedure x11CurrentMenuTypeOptOnValidat()
-    begin
-        x11CurrentMenuTypeOptOnPush();
-    end;
-
     local procedure x12CurrentMenuTypeOptOnPush()
     begin
         ChangeSubMenu(12);
-    end;
-
-    local procedure x12CurrentMenuTypeOptOnValidat()
-    begin
-        x12CurrentMenuTypeOptOnPush();
     end;
 
     local procedure x15CurrentMenuTypeOptOnPush()
@@ -1183,19 +1163,9 @@ page 50014 "BC6_Item Sales/Purch. History"
         ChangeSubMenu(15);
     end;
 
-    local procedure x15CurrentMenuTypeOptOnValidat()
-    begin
-        x15CurrentMenuTypeOptOnPush();
-    end;
-
     local procedure x13CurrentMenuTypeOptOnPush()
     begin
         ChangeSubMenu(13);
-    end;
-
-    local procedure x13CurrentMenuTypeOptOnValidat()
-    begin
-        x13CurrentMenuTypeOptOnPush();
     end;
 
     local procedure x16CurrentMenuTypeOptOnPush()
@@ -1203,19 +1173,9 @@ page 50014 "BC6_Item Sales/Purch. History"
         ChangeSubMenu(16);
     end;
 
-    local procedure x16CurrentMenuTypeOptOnValidat()
-    begin
-        x16CurrentMenuTypeOptOnPush();
-    end;
-
     local procedure x17CurrentMenuTypeOptOnPush()
     begin
         ChangeSubMenu(17);
-    end;
-
-    local procedure x17CurrentMenuTypeOptOnValidat()
-    begin
-        x17CurrentMenuTypeOptOnPush();
     end;
 
     local procedure x18CurrentMenuTypeOptOnPush()
@@ -1223,19 +1183,10 @@ page 50014 "BC6_Item Sales/Purch. History"
         ChangeSubMenu(18);
     end;
 
-    local procedure x18CurrentMenuTypeOptOnValidat()
-    begin
-        x18CurrentMenuTypeOptOnPush();
-    end;
-
     local procedure x19CurrentMenuTypeOptOnPush()
     begin
         ChangeSubMenu(19);
     end;
 
-    local procedure x19CurrentMenuTypeOptOnValidat()
-    begin
-        x19CurrentMenuTypeOptOnPush();
-    end;
 }
 

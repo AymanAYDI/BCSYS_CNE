@@ -14,6 +14,7 @@ page 50034 "BC6_Affair Steps Tracking"
         {
             group(Control1)
             {
+                ShowCaption = false;
                 label(Interlocuteur)
                 {
                     CaptionClass = Text19001151;
@@ -37,15 +38,17 @@ page 50034 "BC6_Affair Steps Tracking"
                     Lookup = true;
                     TableRelation = "User Setup";
                     ApplicationArea = All;
+                    ShowCaption = false;
                 }
                 field(DatLRminderDate; DatLRminderDate)
                 {
-                    Caption = 'DatLRminderDate', Comment = 'FRA=""';
+                    ShowCaption = false;
                     ApplicationArea = All;
+
                 }
                 field(BooGFinichedfilter; BooGFinichedfilter)
                 {
-                    Caption = 'BooGFinichedfilter';
+                    ShowCaption = false;
                     ApplicationArea = All;
                 }
             }
@@ -147,9 +150,6 @@ page 50034 "BC6_Affair Steps Tracking"
         RecGStepsAffair.SETFILTER("Reminder Date", '..%1', ReminderDate);
         RecGStepsAffair.SETRANGE(RecGStepsAffair.Terminated, finish);
         Rec.COPY(RecGStepsAffair);
-
-        //CurrForm.UPDATE(TRUE);
-
         DiaGWindow.CLOSE();
     end;
 }

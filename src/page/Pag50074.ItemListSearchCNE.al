@@ -407,12 +407,8 @@ page 50074 "BC6_Item List Search CNE"
 
     var
         ApplicationAreaSetup: Record "Application Area Setup";
-        TempFilterItemAttributesBuffer: Record "Filter Item Attributes Buffer" temporary;
         Item: Record Item;
         ApprovalsMgmt: Codeunit "Approvals Mgmt.";
-        CalculateStdCost: Codeunit "Calculate Standard Cost";
-        ItemAvailFormsMgt: Codeunit "Item Availability Forms Mgt";
-        SkilledResourceList: Page "Skilled Resource List";
         CanCancelApprovalForRecord: Boolean;
         CRMIntegrationEnabled: Boolean;
         CRMIsCoupledToRecord: Boolean;
@@ -426,11 +422,6 @@ page 50074 "BC6_Item List Search CNE"
         IsVisibleSearch: Boolean;
         OpenApprovalEntriesExist: Boolean;
         [InDataSet]
-
-
-        SocialListeningSetupVisible: Boolean;
-        [InDataSet]
-        SocialListeningVisible: Boolean;
         LastSearchField: Code[20];
         SearchField: Code[20];
         ConfAddToItem: Label 'Add to an existing Item ?', Comment = 'FRA="Ajouter à un article existant ?"';
@@ -476,7 +467,7 @@ page 50074 "BC6_Item List Search CNE"
 
     local procedure OnAfterValidate()
     var
-        Item: Record Item;
+        LItem: Record Item;
         ItemReference: Record "Item Reference";
     begin
         Rec.RESET();
@@ -485,24 +476,23 @@ page 50074 "BC6_Item List Search CNE"
         IF SearchField <> '' THEN BEGIN
             ItemReference.SETRANGE("Reference Type", ItemReference."Reference Type"::"Bar Code");
             ItemReference.SETRANGE("Reference No.", SearchField);
-            IF ItemReference.FINDSET() THEN BEGIN
+            IF ItemReference.FINDSET() THEN
                 REPEAT
-                    Item.GET(ItemReference."Item No.");
-                    Rec := Item;
+                    LItem.GET(ItemReference."Item No.");
+                    Rec := LItem;
                     IF Rec.INSERT() THEN;
-                UNTIL ItemReference.NEXT() = 0;
-            END ELSE BEGIN
+                UNTIL ItemReference.NEXT() = 0
+            ELSE
                 IF CONFIRM(ConfAddToItem, TRUE) THEN
-                    IF ACTION::LookupOK = PAGE.RUNMODAL(PAGE::"Item List", Item) THEN BEGIN
+                    IF ACTION::LookupOK = PAGE.RUNMODAL(PAGE::"Item List", LItem) THEN BEGIN
                         ItemReference.INIT();
                         ItemReference."Reference Type" := ItemReference."Reference Type"::"Bar Code";
                         ItemReference."Reference No." := SearchField;
-                        ItemReference."Item No." := Item."No.";
+                        ItemReference."Item No." := LItem."No.";
                         ItemReference.INSERT();
-                        Rec := Item;
+                        Rec := LItem;
                         IF Rec.INSERT() THEN;
                     END;
-            END;
         END;
         LastSearchField := SearchField;
         SearchField := '';

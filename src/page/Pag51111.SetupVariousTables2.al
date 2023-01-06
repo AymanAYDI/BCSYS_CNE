@@ -3,8 +3,7 @@ page 51111 "BC6_Setup Various Tables2"
     Caption = 'Setup Various Tables', Comment = 'FRA="Parametrage Tables Diverses"';
     PageType = Card;
     SourceTable = "BC6_Setup Various Tables";
-    UsageCategory = Administration;
-    ApplicationArea = All;
+    UsageCategory = None;
 
     layout
     {
@@ -381,7 +380,6 @@ page 51111 "BC6_Setup Various Tables2"
 
     var
         TableDiv: Record "BC6_Various Tables";
-        "Object": Record Object;
         [InDataSet]
         "Date1 DescriptionEnable": Boolean;
         [InDataSet]

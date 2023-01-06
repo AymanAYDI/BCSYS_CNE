@@ -102,7 +102,7 @@ page 50071 "BC6_Contact Affair List"
 
     trigger OnAfterGetRecord()
     begin
-        OnAfterGetCurrRecord();
+        ProcOnAfterGetCurrRecord();
         AffairNoOnFormat();
         ContactNoOnFormat();
         ContactNameOnFormat();
@@ -116,15 +116,13 @@ page 50071 "BC6_Contact Affair List"
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        OnAfterGetCurrRecord();
+        ProcOnAfterGetCurrRecord();
     end;
 
-    local procedure OnAfterGetCurrRecord()
+    local procedure ProcOnAfterGetCurrRecord()
     begin
         xRec := Rec;
-        //>>CNE2.05
         Rec.CALCFIELDS("Company No.", Type);
-        //<<CNE2.05
     end;
 
     local procedure AffairNoOnFormat()

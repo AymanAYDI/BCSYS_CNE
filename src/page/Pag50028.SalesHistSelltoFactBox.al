@@ -301,9 +301,6 @@ page 50028 "BC6_Sales Hist. Sellto FactBox"
             UNTIL RecGPostdCrdMemo.NEXT() = 0;
     end;
 
-    trigger OnOpenPage()
-    begin
-    end;
 
     var
         RecGCustomer: Record Customer;

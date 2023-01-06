@@ -35,7 +35,7 @@ report 50076 "BC6_Traite fourn. sur bord"
             column(Du____STRSUBSTNO___1__FORMAT_PaymtHeader__Document_Date__0_4__; 'Du ' + STRSUBSTNO(txtlbl1, FORMAT(PaymtHeader."Document Date", 0, 4)))
             {
             }
-            column(STRSUBSTNO__Page__1__FORMAT_CurrReport_PAGENO__; STRSUBSTNO('Page %1', FORMAT(CurrReport.PAGENO())))
+            column(STRSUBSTNO__Page__1__FORMAT_CurrReport_PAGENO__; STRSUBSTNO(PAGENO__, FORMAT(CurrReport.PAGENO())))
             {
             }
             column(CustAdr_2_; CustAdr[2])
@@ -598,8 +598,8 @@ report 50076 "BC6_Traite fourn. sur bord"
         NSCAmount: Decimal;
         PrintAmount: Decimal;
         ReportAmount: Decimal;
-        "--NSC1.02--": Integer;
         A_payerCaptionLbl: Label 'A payer';
+        PAGENO__: Label 'Page %1';
         ACCEPTANCE_or_ENDORSMENTCaptionLbl: Label 'ACCEPTANCE or ENDORSMENT', comment = 'FRA="ACCEPTATION ou AVAL"';
         ADDRESSCaptionLbl: Label 'ADDRESS', comment = 'FRA="ADDRESSE"';
         Against_this_BILLCaptionLbl: Label 'Against this BILL', comment = 'FRA="Contre cette LETTRE DE CHANGE"';

@@ -115,7 +115,7 @@ report 50040 "BC6_Sales - Invoice CNE V2"
                     column(CompanyInfo_City_____le__; CompanyInfo.City + ' le ')
                     {
                     }
-                    column(STRSUBSTNO__Page__1__FORMAT_CurrReport_PAGENO__; STRSUBSTNO('Page %1', FORMAT(CurrReport.PAGENO())))
+                    column(STRSUBSTNO__Page__1__FORMAT_CurrReport_PAGENO__; STRSUBSTNO(Text005, FORMAT(CurrReport.PAGENO())))
                     {
                     }
                     column(Sales_Invoice_Header___Due_Date_; "Sales Invoice Header"."Due Date")
@@ -961,10 +961,6 @@ report 50040 "BC6_Sales - Invoice CNE V2"
         TotalDEEEHTAmount: Decimal;
         VALVATAmountLCY: Decimal;
         VALVATBaseLCY: Decimal;
-        "--FEP-ADVE-200706_18_A--": Integer;
-        "-- TDL 100--": Integer;
-        "-DEEE1.00-": Integer;
-        "- MIGNAV2013 -": Integer;
         FirstValueEntryNo: Integer;
         i: Integer;
         IntGCpt: Integer;

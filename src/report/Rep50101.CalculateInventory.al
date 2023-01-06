@@ -537,7 +537,7 @@ report 50101 "BC6_Calculate Inventory"
     local procedure CalcWhseQty(AdjmtBin: Code[20]; var PosQuantity: Decimal; var NegQuantity: Decimal)
     var
         WhseItemTrackingSetup: Record "Item Tracking Setup";
-        WhseEntry: Record "Warehouse Entry";
+        LWhseEntry: Record "Warehouse Entry";
         WhseEntry2: Record "Warehouse Entry";
         ItemTrackingMgt: Codeunit "Item Tracking Management";
         NoWhseEntry: Boolean;
@@ -547,51 +547,51 @@ report 50101 "BC6_Calculate Inventory"
         AdjustPosQty := false;
         ItemTrackingMgt.GetWhseItemTrkgSetup(TempQuantityOnHandBuffer."Item No.", WhseItemTrackingSetup);
         ItemTrackingSplit := WhseItemTrackingSetup.TrackingRequired();
-        WhseEntry.SetCurrentKey(
+        LWhseEntry.SetCurrentKey(
           "Item No.", "Bin Code", "Location Code", "Variant Code", "Unit of Measure Code",
           "Lot No.", "Serial No.", "Entry Type");
 
-        WhseEntry.SetRange("Item No.", TempQuantityOnHandBuffer."Item No.");
-        WhseEntry.SetRange("Location Code", TempQuantityOnHandBuffer."Location Code");
-        WhseEntry.SetRange("Variant Code", TempQuantityOnHandBuffer."Variant Code");
-        WhseEntry.CalcSums("Qty. (Base)");
-        WhseQuantity := WhseEntry."Qty. (Base)";
-        WhseEntry.SetRange("Bin Code", AdjmtBin);
+        LWhseEntry.SetRange("Item No.", TempQuantityOnHandBuffer."Item No.");
+        LWhseEntry.SetRange("Location Code", TempQuantityOnHandBuffer."Location Code");
+        LWhseEntry.SetRange("Variant Code", TempQuantityOnHandBuffer."Variant Code");
+        LWhseEntry.CalcSums("Qty. (Base)");
+        WhseQuantity := LWhseEntry."Qty. (Base)";
+        LWhseEntry.SetRange("Bin Code", AdjmtBin);
 
         if WhseItemTrackingSetup."Serial No. Required" then begin
-            WhseEntry.SetRange("Entry Type", WhseEntry."Entry Type"::"Positive Adjmt.");
-            WhseEntry.CalcSums("Qty. (Base)");
-            PosQuantity := WhseQuantity - WhseEntry."Qty. (Base)";
-            WhseEntry.SetRange("Entry Type", WhseEntry."Entry Type"::"Negative Adjmt.");
-            WhseEntry.CalcSums("Qty. (Base)");
-            NegQuantity := WhseQuantity - WhseEntry."Qty. (Base)";
-            WhseEntry.SetRange("Entry Type", WhseEntry."Entry Type"::Movement);
-            WhseEntry.CalcSums("Qty. (Base)");
-            if WhseEntry."Qty. (Base)" <> 0 then
-                if WhseEntry."Qty. (Base)" > 0 then
-                    PosQuantity := PosQuantity + WhseQuantity - WhseEntry."Qty. (Base)"
+            LWhseEntry.SetRange("Entry Type", LWhseEntry."Entry Type"::"Positive Adjmt.");
+            LWhseEntry.CalcSums("Qty. (Base)");
+            PosQuantity := WhseQuantity - LWhseEntry."Qty. (Base)";
+            LWhseEntry.SetRange("Entry Type", LWhseEntry."Entry Type"::"Negative Adjmt.");
+            LWhseEntry.CalcSums("Qty. (Base)");
+            NegQuantity := WhseQuantity - LWhseEntry."Qty. (Base)";
+            LWhseEntry.SetRange("Entry Type", LWhseEntry."Entry Type"::Movement);
+            LWhseEntry.CalcSums("Qty. (Base)");
+            if LWhseEntry."Qty. (Base)" <> 0 then
+                if LWhseEntry."Qty. (Base)" > 0 then
+                    PosQuantity := PosQuantity + WhseQuantity - LWhseEntry."Qty. (Base)"
                 else
-                    NegQuantity := NegQuantity - WhseQuantity - WhseEntry."Qty. (Base)";
+                    NegQuantity := NegQuantity - WhseQuantity - LWhseEntry."Qty. (Base)";
 
 
-            WhseEntry.SetRange("Entry Type", WhseEntry."Entry Type"::"Positive Adjmt.");
-            if WhseEntry.Find('-') then
+            LWhseEntry.SetRange("Entry Type", LWhseEntry."Entry Type"::"Positive Adjmt.");
+            if LWhseEntry.Find('-') then
                 repeat
-                    WhseEntry.SetRange("Serial No.", WhseEntry."Serial No.");
+                    LWhseEntry.SetRange("Serial No.", LWhseEntry."Serial No.");
 
                     WhseEntry2.Reset();
                     WhseEntry2.SetCurrentKey(
                       "Item No.", "Bin Code", "Location Code", "Variant Code",
                       "Unit of Measure Code", "Lot No.", "Serial No.", "Entry Type");
 
-                    WhseEntry2.CopyFilters(WhseEntry);
+                    WhseEntry2.CopyFilters(LWhseEntry);
                     WhseEntry2.SetRange("Entry Type", WhseEntry2."Entry Type"::"Negative Adjmt.");
-                    WhseEntry2.SetRange("Serial No.", WhseEntry."Serial No.");
+                    WhseEntry2.SetRange("Serial No.", LWhseEntry."Serial No.");
                     if WhseEntry2.Find('-') then
                         repeat
                             PosQuantity := PosQuantity + 1;
                             NegQuantity := NegQuantity - 1;
-                            NoWhseEntry := WhseEntry.Next() = 0;
+                            NoWhseEntry := LWhseEntry.Next() = 0;
                             NoWhseEntry2 := WhseEntry2.Next() = 0;
                         until NoWhseEntry2 or NoWhseEntry
                     else
@@ -600,24 +600,24 @@ report 50101 "BC6_Calculate Inventory"
                     if not NoWhseEntry and NoWhseEntry2 then
                         AdjustPosQty := true;
 
-                    WhseEntry.Find('+');
-                    WhseEntry.SetRange("Serial No.");
-                until WhseEntry.Next() = 0;
+                    LWhseEntry.Find('+');
+                    LWhseEntry.SetRange("Serial No.");
+                until LWhseEntry.Next() = 0;
 
         end else begin
-            if WhseEntry.Find('-') then
+            if LWhseEntry.Find('-') then
                 repeat
-                    WhseEntry.SetRange("Lot No.", WhseEntry."Lot No.");
-                    WhseEntry.CalcSums("Qty. (Base)");
-                    if WhseEntry."Qty. (Base)" <> 0 then
-                        if WhseEntry."Qty. (Base)" > 0 then
-                            NegQuantity := NegQuantity - WhseEntry."Qty. (Base)"
+                    LWhseEntry.SetRange("Lot No.", LWhseEntry."Lot No.");
+                    LWhseEntry.CalcSums("Qty. (Base)");
+                    if LWhseEntry."Qty. (Base)" <> 0 then
+                        if LWhseEntry."Qty. (Base)" > 0 then
+                            NegQuantity := NegQuantity - LWhseEntry."Qty. (Base)"
                         else
-                            PosQuantity := PosQuantity + WhseEntry."Qty. (Base)";
+                            PosQuantity := PosQuantity + LWhseEntry."Qty. (Base)";
 
-                    WhseEntry.Find('+');
-                    WhseEntry.SetRange("Lot No.");
-                until WhseEntry.Next() = 0;
+                    LWhseEntry.Find('+');
+                    LWhseEntry.SetRange("Lot No.");
+                until LWhseEntry.Next() = 0;
             if PosQuantity <> WhseQuantity then
                 PosQuantity := WhseQuantity - PosQuantity;
             if NegQuantity <> -WhseQuantity then
@@ -717,21 +717,21 @@ report 50101 "BC6_Calculate Inventory"
     local procedure UpdateQuantityOnHandBuffer(ItemNo: Code[20])
     var
         ItemVariant: Record "Item Variant";
-        Location: Record Location;
+        LLocation: Record Location;
     begin
         ItemVariant.SetRange("Item No.", Item."No.");
         Item.CopyFilter("Variant Filter", ItemVariant.Code);
-        Item.CopyFilter("Location Filter", Location.Code);
-        Location.SetRange("Use As In-Transit", false);
-        if (Item.GetFilter("Location Filter") <> '') and Location.FindSet() then
+        Item.CopyFilter("Location Filter", LLocation.Code);
+        LLocation.SetRange("Use As In-Transit", false);
+        if (Item.GetFilter("Location Filter") <> '') and LLocation.FindSet() then
             repeat
                 if (Item.GetFilter("Variant Filter") <> '') and ItemVariant.FindSet() then
                     repeat
-                        InsertQuantityOnHandBuffer(ItemNo, Location.Code, ItemVariant.Code);
+                        InsertQuantityOnHandBuffer(ItemNo, LLocation.Code, ItemVariant.Code);
                     until ItemVariant.Next() = 0
                 else
-                    InsertQuantityOnHandBuffer(ItemNo, Location.Code, '');
-            until Location.Next() = 0
+                    InsertQuantityOnHandBuffer(ItemNo, LLocation.Code, '');
+            until LLocation.Next() = 0
         else
             if (Item.GetFilter("Variant Filter") <> '') and ItemVariant.FindSet() then
                 repeat

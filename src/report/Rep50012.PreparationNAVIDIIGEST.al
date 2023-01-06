@@ -438,7 +438,6 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
                             END;
                             //                                     PRM
 
-                            //STOCK SL 06/10/06 Ajout de la colonne stock
                             ItemInventory := 0;
                             item.RESET();
                             IF item.GET("No.") THEN BEGIN
@@ -446,12 +445,9 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
                                 item.CALCFIELDS(Inventory);
                                 ItemInventory := item.Inventory;
                             END;
-                            //Fin STOCK SL 06/10/06 Ajout de la colonne stock
 
-                            //>>FEP-ACHAT-200706_18_A.001
                             IF (BooGRespectLinesPrep) AND NOT ("Sales Line"."BC6_To Prepare") THEN
                                 CurrReport.SKIP();
-                            //<<FEP-ACHAT-200706_18_A.001
 
                             CASE Type OF
                                 Type::Item:
@@ -487,8 +483,6 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
 
                     MoreLines := TempSalesLine.FIND('+');
 
-                    //QUANTITE SL 14/09/06 NSC1.05
-                    //WHILE MoreLines AND (SalesLine."Qty. to Ship" = 0)
                     WHILE MoreLines AND (TempSalesLine."Outstanding Quantity" = 0)
                     //Fin QUANTITE SL 14/09/06 NSC1.05
                     DO
@@ -532,14 +526,10 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
 
             trigger OnAfterGetRecord()
             begin
-                //                 PRM l'édition ne doit pas se faire dans la langue du client....
-                //CurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
-                //PRM debut pour avoir les infos société
                 CompanyInfo.GET();
                 IF Country.GET(CompanyInfo."Country/Region Code") THEN
                     Pays := Country.Name;
 
-                //PRM fin
 
 
                 IF RespCenter.GET("Responsibility Center") THEN BEGIN
@@ -551,18 +541,8 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
                 END;
 
-                //NATURE_COMMANDE SL 14/09/06 NSC1.05  Ajout de l'interlocuteur principal basé sur axe analytique 1
                 GLSetup.GET();
                 PrincipalContact := '';
-                //>>MIGRATION NAV 2013
-                /*
-                IF DocDimension.GET(DATABASE::"Sales Header","Document Type","No.",0,GLSetup."Global Dimension 1 Code") THEN BEGIN
-                  PrincipalContact := DocDimension."Dimension Value Code";
-                  IF DimensionValue.GET(DocDimension."Dimension Code",DocDimension."Dimension Value Code") THEN
-                    PrincContactName := DimensionValue.Name;
-                END;
-                */
-                //<<MIGRATION NAV 2013
 
                 ShipmentDate := 0D;
                 IF "Promised Delivery Date" <> 0D THEN
@@ -570,11 +550,9 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
                 ELSE
                     IF "Requested Delivery Date" <> 0D THEN
                         ShipmentDate := "Requested Delivery Date";
-                //Fin NATURE_COMMANDE SL 14/09/06 NSC1.05  Ajout de l'interlocuteur principal basé sur axe analytique 1
 
 
 
-                //TECSO 08/12/03 CST : Lecture des mode de règlement (Payment Methode)
                 ModeDePayment := '';
                 IF PaymentMethod.GET("Sales Header"."Payment Method Code") THEN
                     ModeDePayment := PaymentMethod.Description;
@@ -586,14 +564,9 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
                     SalesPersonText := Text000;
 
                 END;
-                //TECSO 09/12/03 CST : Ajout du N° de Document externe dans le libellé de "Votre reference"
                 IF ("Your Reference" = '') AND ("External Document No." = '') THEN
-                    //ReferenceText := ''
                     VotreRef := ''
                 ELSE BEGIN
-                    //TECSO CST S ReferenceText := FIELDCAPTION("Your Reference");
-                    //ReferenceText := 'Votre Référence :';
-                    //TECSO CST A Ajout de concaténation du N° de document externe avec le "Your reference"
                     VotreRef := "External Document No." + '  ' + "Your Reference";
                 END;
 
@@ -649,29 +622,6 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
 
                 // IF NOT CurrReport.PREVIEW THEN BEGIN
 
-                //     //ARCHIVAGE SL 06/10/06 Ne pas archiver la commande
-                //     /*
-                //     IF ArchiveDocument THEN
-                //       ArchiveManagement.StoreSalesDocument("Sales Header",LogInteraction);
-
-                //     IF LogInteraction THEN BEGIN
-                //       CALCFIELDS("No. of Archived Versions");
-                //       IF "Bill-to Contact No." <> '' THEN
-                //         SegManagement.LogDocument(
-                //           3,"No.","Doc. No. Occurrence",
-                //           "No. of Archived Versions",DATABASE::Contact,"Bill-to Contact No."
-                //           ,"Salesperson Code","Campaign No.","Posting Description","Opportunity No.")
-                //       ELSE
-                //         SegManagement.LogDocument(
-                //           3,"No.","Doc. No. Occurrence",
-                //           "No. of Archived Versions",DATABASE::Customer,"Bill-to Customer No.",
-                //           "Salesperson Code","Campaign No.","Posting Description","Opportunity No.");
-                //     END;
-                //     */
-                //     //Fin ARCHIVAGE SL 06/10/06 Ne pas archiver la commande
-                // END;
-
-                //>>FEP-ACHAT-200706_18_A.001
                 RecGSalesLine.RESET();
                 RecGSalesLine.SETCURRENTKEY("Document Type", "Document No.", "Line No.");
                 RecGSalesLine.SETRANGE(RecGSalesLine."Document Type", "Sales Header"."Document Type");
@@ -679,7 +629,6 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
                 RecGSalesLine.SETRANGE(RecGSalesLine."BC6_To Prepare", TRUE);
                 IF NOT RecGSalesLine.FIND('-') THEN
                     CurrReport.SKIP();
-                //<<FEP-ACHAT-200706_18_A.001
 
             end;
         }

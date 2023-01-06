@@ -31,7 +31,7 @@ report 50042 "BC6_Statement sans traite V2"
                 column(STRSUBSTNO_Text000_FORMAT_CurrReport_PAGENO__; STRSUBSTNO(Text000, FORMAT(CurrReport.PAGENO())))
                 {
                 }
-                column(STRSUBSTNO_1_2_3_4_Text105_StartDate_Text101_EndDate_; STRSUBSTNO('%1 %2 %3 %4', Text105, StartDate, Text101, EndDate))
+                column(STRSUBSTNO_1_2_3_4_Text105_StartDate_Text101_EndDate_; STRSUBSTNO(Text101_EndDate_, Text105, StartDate, Text101, EndDate))
                 {
                 }
                 column(STRSUBSTNO___1__2__Text103_Customer__Last_Statement_No___; STRSUBSTNO(txtlbl12, Text103, Customer."Last Statement No."))
@@ -831,6 +831,7 @@ report 50042 "BC6_Statement sans traite V2"
         Text067: Label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5', Comment = 'FRA="%1 au capital de  %2   - %3  -  APE %4 - N°TVA : %5"';
         Text100: Label 'From', Comment = 'FRA="Du "';
         Text101: Label 'to', Comment = 'FRA="au"';
+        Text101_EndDate_: Label '%1 %2 %3 %4';
         Text102: Label 'Customer No.', Comment = 'FRA="N° Client"';
         Text103: Label 'Statement No.', Comment = 'FRA="N° relevé"';
         Text104: Label 'of', Comment = 'FRA="du"';

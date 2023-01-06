@@ -2,7 +2,8 @@ report 50089 "BC6_MAJ ITEM"
 {
     ProcessingOnly = true;
     UseRequestPage = false;
-
+    ApplicationArea = All;
+    UsageCategory = ReportsAndAnalysis;
     dataset
     {
         dataitem(Item; Item)

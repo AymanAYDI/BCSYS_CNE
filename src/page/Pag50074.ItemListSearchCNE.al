@@ -103,7 +103,7 @@ page 50074 "BC6_Item List Search CNE"
                 field(Inventory; Rec.Inventory)
                 {
                     ApplicationArea = Basic, Suite;
-                    // HideValue = IsService;
+                    HideValue = IsService;
                     ToolTip = 'Specifies how many units, such as pieces, boxes, or cans, of the item are in inventory.', Comment = 'FRA="Spécifie le nombre d''unités (par exemple des pièces, des boîtes ou des palettes) en stock."';
                 }
                 field("Created From Nonstock Item"; Rec."Created From Nonstock Item")
@@ -378,13 +378,11 @@ page 50074 "BC6_Item List Search CNE"
     var
         CRMCouplingManagement: Codeunit "CRM Coupling Management";
     begin
+        CRMCouplingManagement.IsRecordCoupledToCRM(Rec.RECORDID);
 
-        CRMIsCoupledToRecord :=
-          CRMCouplingManagement.IsRecordCoupledToCRM(Rec.RECORDID) AND CRMIntegrationEnabled;
+        ApprovalsMgmt.HasOpenApprovalEntries(Rec.RECORDID);
 
-        OpenApprovalEntriesExist := ApprovalsMgmt.HasOpenApprovalEntries(Rec.RECORDID);
-
-        CanCancelApprovalForRecord := ApprovalsMgmt.CanCancelApprovalForRecord(Rec.RECORDID);
+        ApprovalsMgmt.CanCancelApprovalForRecord(Rec.RECORDID);
         CurrPage.ItemAttributesFactBox.PAGE.LoadItemAttributesData(Rec."No.");
         IsVisibleSearch := TRUE;
     end;
@@ -399,8 +397,8 @@ page 50074 "BC6_Item List Search CNE"
     var
         CRMIntegrationManagement: Codeunit "CRM Integration Management";
     begin
-        CRMIntegrationEnabled := CRMIntegrationManagement.IsCRMIntegrationEnabled();
-        IsFoundationEnabled := ApplicationAreaSetup.IsFoundationEnabled();
+        CRMIntegrationManagement.IsCRMIntegrationEnabled();
+        ApplicationAreaSetup.IsFoundationEnabled();
         SetWorkflowManagementEnabledState();
         IsVisibleSearch := NOT (CURRENTCLIENTTYPE = CLIENTTYPE::Windows);
     end;
@@ -409,19 +407,10 @@ page 50074 "BC6_Item List Search CNE"
         ApplicationAreaSetup: Record "Application Area Setup";
         Item: Record Item;
         ApprovalsMgmt: Codeunit "Approvals Mgmt.";
-        CanCancelApprovalForRecord: Boolean;
-        CRMIntegrationEnabled: Boolean;
-        CRMIsCoupledToRecord: Boolean;
-        EnabledApprovalWorkflowsExist: Boolean;
-        [InDataSet]
-        InventoryItemEditable: Boolean;
-        IsFoundationEnabled: Boolean;
         [InDataSet]
         IsService: Boolean;
         [InDataSet]
         IsVisibleSearch: Boolean;
-        OpenApprovalEntriesExist: Boolean;
-        [InDataSet]
         LastSearchField: Code[20];
         SearchField: Code[20];
         ConfAddToItem: Label 'Add to an existing Item ?', Comment = 'FRA="Ajouter à un article existant ?"';
@@ -450,7 +439,6 @@ page 50074 "BC6_Item List Search CNE"
     local procedure EnableControls()
     begin
         IsService := (Rec.Type = Rec.Type::Service);
-        InventoryItemEditable := Rec.Type = Rec.Type::Inventory;
         IsVisibleSearch := TRUE;
     end;
 
@@ -462,7 +450,7 @@ page 50074 "BC6_Item List Search CNE"
         EventFilter := WorkflowEventHandling.RunWorkflowOnSendItemForApprovalCode() + '|' +
           WorkflowEventHandling.RunWorkflowOnItemChangedCode();
 
-        EnabledApprovalWorkflowsExist := WorkflowManagement.EnabledWorkflowExist(DATABASE::Item, EventFilter);
+        WorkflowManagement.EnabledWorkflowExist(DATABASE::Item, EventFilter);
     end;
 
     local procedure OnAfterValidate()

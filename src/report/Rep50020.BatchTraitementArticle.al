@@ -1,7 +1,8 @@
 report 50020 "BC6_Batch Traitement Article"
 {
     ProcessingOnly = true;
-
+    ApplicationArea = All;
+    UsageCategory = ReportsAndAnalysis;
     dataset
     {
         dataitem(Item; Item)

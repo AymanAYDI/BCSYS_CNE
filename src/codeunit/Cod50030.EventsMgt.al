@@ -3015,7 +3015,6 @@ SalesHeader."Dimension Set ID", SalesHeader."Reason Code");
         PurchInvStat: Page "Purchase Invoice Statistics";
     begin
         PurchInvStat.IncrementDecGMntHTDEEE(PurchInvLine."BC6_DEEE HT Amount");
-        PurchInvStat.IncrementDecGMntTTCDEEE(PurchInvLine."BC6_DEEE TTC Amount");
         AmountInclVAT := AmountInclVAT + PurchInvLine."BC6_DEEE TTC Amount";
 
         PurchInvStat.SetNewVendAmount(VendAmount);
@@ -3091,7 +3090,6 @@ SalesHeader."Dimension Set ID", SalesHeader."Reason Code");
                 CustAmount += SalesInvLine.Amount;
                 AmountInclVAT += SalesInvLine."Amount Including VAT";
                 //<<DEEE1.00 : Update DEEE amount (F9 without clic)
-                SalesInvStat.IncrementDecGMntTTCDEEE(SalesInvLine."BC6_DEEE TTC Amount");
                 SalesInvStat.IncrementDecGMntHTDEEE(SalesInvLine."BC6_DEEE HT Amount");
                 AmountInclVAT := AmountInclVAT + SalesInvLine."BC6_DEEE TTC Amount";
                 //>>DEEE1.00 : Update DEEE amount (F9 without clic)

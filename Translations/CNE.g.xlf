@@ -3303,11 +3303,6 @@
           <note from="Developer" annotates="general" priority="2">FRA="Choisir un document"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Documents Managment - Action Choose a document - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Page 3462765486 - Action 176562519 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>View</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Vue"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Documents Managment - Action View - Property Caption</note>
-        </trans-unit>
         <trans-unit id="Page 3833910379 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Role Center</source>
           <note from="Developer" annotates="general" priority="2">FRA="Tableau de bord"</note>
@@ -11808,6 +11803,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_SFAC Client - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Page 4240633810 - Control 1976356074 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source></source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_SFAC Client - Control Control1 - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Page 4267542791 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Shipment Lines Subform</source>
           <note from="Developer" annotates="general" priority="2">FRA="Sous-formulaire lignes expédition"</note>
@@ -11862,6 +11862,11 @@
           <source>Name</source>
           <note from="Developer" annotates="general" priority="2">FRA="Nom"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Special Extended Text list - Control Name - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3601846579 - Control 1913868600 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source></source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Special Extended Text list - Control Control1100267000 - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1729999088 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Stockkeeping Unit List METZ</source>
@@ -18947,6 +18952,11 @@
           <source>           #2#####|#3#####</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Re Blocked Items - NamedType Text004</note>
+        </trans-unit>
+        <trans-unit id="Report 1255972931 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Receptions non facturées</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Receptions non facturées - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 1255972931 - NamedType 1987762555" size-unit="char" translate="yes" xml:space="preserve">
           <source>Page</source>

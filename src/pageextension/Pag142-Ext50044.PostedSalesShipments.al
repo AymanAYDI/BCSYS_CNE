@@ -21,7 +21,7 @@ pageextension 50044 "BC6_PostedSalesShipments" extends "Posted Sales Shipments" 
             {
 
             }
-            field(BC6_GRespAffair; "GRespAffair")
+            field(BC6_GRespAffair; GRespAffair)
             {
                 Caption = 'Chargé d''affaire';
             }
@@ -103,7 +103,6 @@ pageextension 50044 "BC6_PostedSalesShipments" extends "Posted Sales Shipments" 
 
     trigger OnAfterGetRecord()
     begin
-        GRespAffair := '';
         IF RecAffair.GET(Rec."BC6_Affair No.") THEN
             GRespAffair := RecAffair."BC6_Affair Responsible";
         hideuser();
@@ -115,8 +114,6 @@ pageextension 50044 "BC6_PostedSalesShipments" extends "Posted Sales Shipments" 
         RecGSalesSetup: Record "Sales & Receivables Setup";
         RecGShipline: Record "Sales Shipment Line";
         RecGUserSeup: Record "User Setup";
-        [InDataSet]
-        BooGAmount: Boolean;
         [InDataSet]
         BooGID: Boolean;
         BooGProfitamount: Boolean;
@@ -140,14 +137,12 @@ pageextension 50044 "BC6_PostedSalesShipments" extends "Posted Sales Shipments" 
         RecLAccessControl.SETRANGE("Role ID", RecGSalesSetup."BC6_allow Profit% to");
         IF RecLAccessControl.FINDFIRST() THEN BEGIN
             BooGID := TRUE;
-            BooGAmount := TRUE;
             BooGPurchcost := TRUE;
             BooGProfitamount := TRUE;
             BooGProfitpct := TRUE;
         END
         ELSE BEGIN
             BooGID := FALSE;
-            BooGAmount := FALSE;
             BooGPurchcost := FALSE;
             BooGProfitamount := FALSE;
             BooGProfitpct := FALSE;

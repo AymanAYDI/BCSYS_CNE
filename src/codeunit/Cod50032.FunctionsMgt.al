@@ -1104,18 +1104,23 @@ then begin
     procedure MntDivisionDEEE(DecPQtyPurchLine: Decimal; var PurchLine: Record "Purchase Line"); //COD90
     var
         GLSetup: Record "General Ledger Setup";
+        Text001: Label 'quantity must be different of 0', Comment = 'FRA="la quantité doit être différente de 0"';
     begin
         GLSetup.get();
-        PurchLine."BC6_DEEE HT Amount" := ROUND(PurchLine."BC6_DEEE HT Amount" * DecPQtyPurchLine / PurchLine.Quantity, 0.01);
-        if (PurchLine."VAT Calculation Type" = PurchLine."VAT Calculation Type"::"Sales Tax") and
-           (PurchLine.Quantity <> PurchLine."Qty. to Invoice") and
-           GLSetup."BC6_Sales Tax Recalcul"
-        then
-            PurchLine."BC6_DEEE TTC Amount" :=
-              PurchLine."BC6_DEEE HT Amount" + 0
-        else
-            PurchLine."BC6_DEEE TTC Amount" := ROUND(PurchLine."BC6_DEEE TTC Amount" * DecPQtyPurchLine / PurchLine.Quantity);
-        PurchLine."BC6_DEEE VAT Amount" := PurchLine."BC6_DEEE TTC Amount" - PurchLine."BC6_DEEE HT Amount";
+        if PurchLine.Quantity = 0 then
+            Error(Text001)
+        else begin
+            PurchLine."BC6_DEEE HT Amount" := ROUND(PurchLine."BC6_DEEE HT Amount" * DecPQtyPurchLine / PurchLine.Quantity, 0.01);
+            if (PurchLine."VAT Calculation Type" = PurchLine."VAT Calculation Type"::"Sales Tax") and
+               (PurchLine.Quantity <> PurchLine."Qty. to Invoice") and
+               GLSetup."BC6_Sales Tax Recalcul"
+            then
+                PurchLine."BC6_DEEE TTC Amount" :=
+                  PurchLine."BC6_DEEE HT Amount" + 0
+            else
+                PurchLine."BC6_DEEE TTC Amount" := ROUND(PurchLine."BC6_DEEE TTC Amount" * DecPQtyPurchLine / PurchLine.Quantity);
+            PurchLine."BC6_DEEE VAT Amount" := PurchLine."BC6_DEEE TTC Amount" - PurchLine."BC6_DEEE HT Amount";
+        end;
     end;
 
     //COD80
@@ -1123,25 +1128,27 @@ then begin
     var
         GLSetup: Record "General Ledger Setup";
         CalculateSalesTax: Codeunit "Sales Tax Calculate";
+        Text001: Label 'quantity must be different of 0', Comment = 'FRA="la quantité doit être différente de 0"';
     BEGIN
         GLSetup.get();
-        SalesLine."BC6_DEEE HT Amount" := ROUND(SalesLine."BC6_DEEE HT Amount" * DecLQtySalesLine / SalesLine.Quantity, 0.01);
-        IF (SalesLine."VAT Calculation Type" = SalesLine."VAT Calculation Type"::"Sales Tax") AND
-           (SalesLine.Quantity <> SalesLine."Qty. to Invoice") AND
-           GLSetup."BC6_Sales Tax Recalcul"
-        THEN
-            SalesLine."BC6_DEEE TTC Amount" :=
-              SalesLine."BC6_DEEE HT Amount" +
-                    CalculateSalesTax.CalculateTax(
-                      SalesLine."Tax Area Code", SalesLine."Tax Group Code", SalesLine."Tax Liable",
-                     SalesHeader."Posting Date", SalesLine."BC6_DEEE HT Amount", DecLQtySalesLine, SalesHeader."Currency Factor")
+        IF SalesLine.Quantity <> 0 Then begin
+            SalesLine."BC6_DEEE HT Amount" := ROUND(SalesLine."BC6_DEEE HT Amount" * DecLQtySalesLine / SalesLine.Quantity, 0.01);
+            IF (SalesLine."VAT Calculation Type" = SalesLine."VAT Calculation Type"::"Sales Tax") AND
+               (SalesLine.Quantity <> SalesLine."Qty. to Invoice") AND
+               GLSetup."BC6_Sales Tax Recalcul"
+            THEN
+                SalesLine."BC6_DEEE TTC Amount" :=
+                  SalesLine."BC6_DEEE HT Amount" +
+                        CalculateSalesTax.CalculateTax(
+                          SalesLine."Tax Area Code", SalesLine."Tax Group Code", SalesLine."Tax Liable",
+                         SalesHeader."Posting Date", SalesLine."BC6_DEEE HT Amount", DecLQtySalesLine, SalesHeader."Currency Factor")
 
-        ELSE
-            SalesLine."BC6_DEEE TTC Amount" := ROUND(SalesLine."BC6_DEEE TTC Amount" * DecLQtySalesLine / SalesLine.Quantity);
+            ELSE
+                SalesLine."BC6_DEEE TTC Amount" := ROUND(SalesLine."BC6_DEEE TTC Amount" * DecLQtySalesLine / SalesLine.Quantity);
 
-        SalesLine."BC6_DEEE VAT Amount" := SalesLine."BC6_DEEE TTC Amount" - SalesLine."BC6_DEEE HT Amount";
-    END;
-
+            SalesLine."BC6_DEEE VAT Amount" := SalesLine."BC6_DEEE TTC Amount" - SalesLine."BC6_DEEE HT Amount";
+        END;
+    end;
     //COD6620
     procedure RecalculateSalesLineAmounts2(FromSalesLine: Record "Sales Line"; var ToSalesLine: Record "Sales Line"; Currency: Record Currency)
     var

@@ -3,6 +3,8 @@ report 50021 "BC6_Dispensed Sales"
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/DispensedSales.rdl';
     Caption = 'Dispensed Sales', Comment = 'FRA="Ventes dérogatoires"';
+    ApplicationArea = All;
+    UsageCategory = ReportsAndAnalysis;
     dataset
     {
         dataitem(Vendor; Vendor)

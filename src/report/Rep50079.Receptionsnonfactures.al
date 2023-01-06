@@ -1,8 +1,10 @@
 report 50079 "BC6_Receptions non facturées"
 {
+    Caption = 'Receptions non facturées';
     DefaultLayout = RDLC;
     RDLCLayout = './src/Report/RDL/Receptionsnonfacturées.rdl';
-
+    ApplicationArea = All;
+    UsageCategory = ReportsAndAnalysis;
 
     dataset
     {
@@ -170,7 +172,6 @@ report 50079 "BC6_Receptions non facturées"
 
             trigger OnPreDataItem()
             begin
-                LastFieldNo := FIELDNO("Document No.");
                 CurrReport.CREATETOTALS(MtHT, MtHtFAR, MtTVAFAR, MtTTCFAR);
                 SETFILTER("Qty. Rcd. Not Invoiced", '<>0');
                 Filtre := GETFILTERS;
@@ -204,7 +205,6 @@ report 50079 "BC6_Receptions non facturées"
         MtHtFAR: Decimal;
         MtTTCFAR: Decimal;
         MtTVAFAR: Decimal;
-        LastFieldNo: Integer;
         CurrReport_PAGENOCaptionLbl: Label 'Page';
         "Date_RéceptionCaptionLbl": Label 'Date Réception', comment = 'FRA="Réceptions non facturées"';
         MtHTCaptionLbl: Label 'Amount Excl. VAT', comment = 'FRA="Prix unitaire DS"';

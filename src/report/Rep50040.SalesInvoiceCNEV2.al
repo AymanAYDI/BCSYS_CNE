@@ -737,7 +737,7 @@ report 50040 "BC6_Sales - Invoice CNE V2"
             trigger OnAfterGetRecord()
             begin
                 rrrrrrrrrrrr := FORMAT("Sales Invoice Header"."BC6_Shipment Invoiced");
-                CurrReport.LANGUAGE := Language.GetLanguageID("Language Code");
+                CurrReport.LANGUAGE := Language.GetLanguageIdOrDefault("Language Code");
 
                 FormatAddr.SalesInvBillTo(CustAddr, "Sales Invoice Header");
 

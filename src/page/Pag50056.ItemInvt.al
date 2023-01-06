@@ -258,10 +258,8 @@ page 50056 "BC6_Item Invt."
     end;
 
     trigger OnOpenPage()
-    var
     begin
         ClearFilters();
-        IsVisibleSearch := NOT (CURRENTCLIENTTYPE = CLIENTTYPE::Windows);
     end;
 
     var
@@ -277,7 +275,6 @@ page 50056 "BC6_Item Invt."
         [InDataSet]
         IsChangeBinEnabled: Boolean;
         [InDataSet]
-        IsVisibleSearch: Boolean;
         ItemNo: Code[20];
         ItemNo2: Code[20];
         LocationCode: Code[20];

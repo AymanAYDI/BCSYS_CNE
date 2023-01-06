@@ -66,21 +66,25 @@ page 50060 "BC6_Test capture"
                 }
                 field("ArrayValue[1]"; ArrayValue[1])
                 {
+                    ShowCaption = false;
                     Editable = false;
                     QuickEntry = false;
                 }
                 field("ArrayValue[2]"; ArrayValue[2])
                 {
+                    ShowCaption = false;
                     Editable = false;
                     QuickEntry = false;
                 }
                 field("ArrayValue[3]"; ArrayValue[3])
                 {
+                    ShowCaption = false;
                     Editable = false;
                     QuickEntry = false;
                 }
                 field("ArrayValue[4]"; ArrayValue[4])
                 {
+                    ShowCaption = false;
                     Editable = false;
                     QuickEntry = false;
                 }

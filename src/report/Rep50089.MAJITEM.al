@@ -4,6 +4,7 @@ report 50089 "BC6_MAJ ITEM"
     UseRequestPage = false;
     ApplicationArea = All;
     UsageCategory = ReportsAndAnalysis;
+    Caption = 'MAJ ITEM';
     dataset
     {
         dataitem(Item; Item)

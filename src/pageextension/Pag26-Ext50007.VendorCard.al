@@ -161,7 +161,6 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
                     Editable = false;
                     ApplicationArea = All;
                     showcaption = false;
-
                 }
             }
         }

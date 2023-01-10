@@ -26,6 +26,7 @@ pageextension 50061 "BC6_PhysInventoryJournal" extends "Phys. Inventory Journal"
             {
                 Caption = 'Refresh Phys. Qty', Comment = 'FRA="Actualiser quantité &constatée"';
                 ApplicationArea = All;
+                image = Refresh;
                 trigger OnAction()
                 begin
                     RefreshPhysQty.SetItemJnlLine(Rec);

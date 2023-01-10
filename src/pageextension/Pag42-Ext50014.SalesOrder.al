@@ -41,7 +41,7 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
             {
                 Importance = Promoted;
                 ApplicationArea = All;
-                Caption = 'Shipment Method Code';
+                Caption = 'Shipment Method Code', Comment = 'FRA="Code condition livraison"';
             }
             field("BC6_Bin Code"; Rec."BC6_Bin Code")
             {
@@ -140,6 +140,7 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
             action("BC6_Creer demande de prix")
             {
                 ApplicationArea = All;
+                Image = Price;
                 Caption = 'Créer demande de prix';
                 trigger OnAction()
                 var
@@ -217,12 +218,7 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
                     DocPrint.PrintSalesHeader(Rec);
                 end;
             }
-            action("BC6_Envoyer par Fax")
-            {
-                Caption = 'Envoyer par Fax';
-                Image = SendTo;
-                ApplicationArea = All;
-            }
+
         }
 
 

@@ -27,6 +27,7 @@ page 50077 "BC6_Test Scan List"
             {
                 Gesture = LeftSwipe;
                 Promoted = true;
+                PromotedOnly = true;
                 ApplicationArea = All;
 
                 trigger OnAction()

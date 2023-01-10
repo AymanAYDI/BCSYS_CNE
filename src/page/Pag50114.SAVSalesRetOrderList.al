@@ -352,6 +352,8 @@ page 50114 "BC6_SAV Sales Ret. Order List"
                 Image = Print;
                 Promoted = true;
                 PromotedCategory = Process;
+                PromotedOnly = true;
+
 
                 trigger OnAction()
                 var

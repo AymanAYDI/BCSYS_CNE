@@ -79,7 +79,6 @@ page 50006 "BC6_Documents Managment"
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedOnly = true;
-
                 trigger OnAction()
                 var
                     RecGNaviSetup: Record "BC6_Navi+ Setup";
@@ -88,11 +87,12 @@ page 50006 "BC6_Documents Managment"
                 begin
 
                     IF Rec."Table No." <> 167 THEN begin
+                        Rec."Path and file" := CduGFileManagement.UploadFile(STRSUBSTNO(TxtG001), rec."Path and file");
                         //TODO:CHEKME "Path and file" := CduGFileManagement.OpenFileDialog(STRSUBSTNO(TxtG001), "Path and file", '*.*|*.*')
-                        UPLOADINTOSTREAM(STRSUBSTNO(TxtG001), '', '(*.*)|*.*', Rec."Path and file", InStr);
+                        // UPLOADINTOSTREAM(STRSUBSTNO(TxtG001), '', '(*.*)|*.*', Rec."Path and file", InStr);
 
                         _text := CduGFileManagement.GetDirectoryName(Rec."Path and file");
-                        Message('path: %', _text);
+                        Message('path: %1', _text);
                     end ELSE
                         IF RecGNaviSetup.FindFirst() THEN
                             IF RecGNaviSetup."Default Directory" <> '' THEN

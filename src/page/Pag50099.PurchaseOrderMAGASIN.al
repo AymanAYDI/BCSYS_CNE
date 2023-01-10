@@ -373,13 +373,8 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                         Image = GetLines;
                         RunObject = Codeunit "Purch.-Get Drop Shpt.";
                     }
-                    action("BC6_Sales &Order")
-                    {
-                        Caption = 'Sales &Order', comment = 'FRA="Commande &vente"';
-                        Image = Document;
-                        Visible = false;
 
-                    }
+
                 }
                 group("Speci&al Order")
                 {
@@ -400,12 +395,8 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                             Rec := PurchHeader;
                         end;
                     }
-                    action("Sales &Order")
-                    {
-                        Caption = 'Sales &Order', comment = 'FRA="Commande &vente"';
-                        Image = Document;
-                        Visible = false;
-                    }
+
+
                 }
             }
         }
@@ -416,6 +407,7 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                 Caption = 'Affecter commande', comment = 'FRA="Affecter commande"';
                 Image = OrderReminder;
                 Promoted = true;
+                PromotedOnly = true;
                 PromotedCategory = Process;
 
                 trigger OnAction()
@@ -441,20 +433,6 @@ page 50099 "BC6_Purchase Order (MAGASIN)"
                 }
                 separator(Action190)
                 {
-                }
-                action("E&xplode BOM")
-                {
-                    Caption = 'E&xplode BOM', comment = 'FRA="&Eclater nomenclature"';
-                    Image = ExplodeBOM;
-                    Visible = false;
-
-                }
-                action("Insert &Ext. Texts")
-                {
-                    Caption = 'Insert &Ext. Texts', comment = 'FRA="Insérer te&xtes étendus"';
-                    Image = Text;
-                    Visible = false;
-
                 }
                 separator(Action152)
                 {

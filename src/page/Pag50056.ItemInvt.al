@@ -233,6 +233,7 @@ page 50056 "BC6_Item Invt."
         {
             group(Action1)
             {
+
                 action(ChangeDefBin)
                 {
                     Caption = 'Change Def. Bin content', Comment = 'FRA="Modifier emp. par déf."';
@@ -243,6 +244,7 @@ page 50056 "BC6_Item Invt."
                     PromotedIsBig = true;
                     PromotedOnly = true;
                     ApplicationArea = All;
+
 
                     trigger OnAction()
                     begin

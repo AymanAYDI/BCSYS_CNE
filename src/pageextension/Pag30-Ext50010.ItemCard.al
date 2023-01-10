@@ -16,6 +16,40 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
                 Caption = 'No. 2', Comment = 'FRA="N° 2"';
             }
         }
+        addafter("Qty. on Sales Order")
+        {
+            field("BC6_Inventory ACTI"; "BC6_Inventory ACTI")
+            {
+                ApplicationArea = All;
+
+            }
+            field("BC6_Inventory METZ"; "BC6_Inventory METZ")
+            {
+                ApplicationArea = All;
+
+            }
+            field("BC6_Qty. on Purch. Order ACTI"; "BC6_Qty. on Purch. Order ACTI")
+            {
+                ApplicationArea = All;
+
+            }
+            field("BC6_Qty. on Purch. Order METZ"; "BC6_Qty. on Purch. Order METZ")
+            {
+                ApplicationArea = All;
+
+            }
+            field("BC6_Qty. on Sales Order ACTI"; "BC6_Qty. on Sales Order ACTI")
+            {
+                ApplicationArea = All;
+
+            }
+            field("BC6_Qty. on Sales Order METZ"; "BC6_Qty. on Sales Order METZ")
+            {
+                ApplicationArea = All;
+
+            }
+
+        }
         addafter("Automatic Ext. Texts")
         {
             field(BC6_EAN13Code; EAN13Code)

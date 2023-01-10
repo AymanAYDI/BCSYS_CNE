@@ -51,8 +51,9 @@ page 50024 "BC6_Item Category List"
             {
                 Caption = '&Tariffs', Comment = 'FRA="&Tarifs"';
                 Promoted = true;
+                Image = Discount;
                 PromotedCategory = Process;
-
+                PromotedOnly = true;
                 RunPageLink = "DEEE Code" = FIELD(Category),
                               "Eco Partner" = FIELD("Eco Partner");
                 RunObject = Page "BC6_DEEE Tariffs List";

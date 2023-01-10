@@ -347,7 +347,7 @@ page 50063 "Invt. Pick Card MiniForm F2"
                 Caption = '&Delete', Comment = 'FRA="&Delete"';
                 ShortCutKey = 'F9';
                 ApplicationArea = All;
-
+                Image = Delete;
                 trigger OnAction()
                 var
                     page50063: Page "Invt. Pick Card MiniForm F2";
@@ -368,8 +368,6 @@ page 50063 "Invt. Pick Card MiniForm F2"
 
     trigger OnInit()
     begin
-
-
         QtyCtrlEditable := TRUE;
         ToBinCodeCtrlEditable := TRUE;
         QtyCtrlVisible := TRUE;

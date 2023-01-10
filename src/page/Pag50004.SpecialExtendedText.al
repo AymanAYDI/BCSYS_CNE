@@ -5,7 +5,7 @@ page 50004 "BC6_Special Extended Text"
     RefreshOnActivate = true;
     SourceTable = "BC6_Special Extended Text Line";
     UsageCategory = None;
-    Caption = 'Special Extended Text';
+    Caption = 'Special Extended Text', comment = 'FRA=""';
     layout
     {
         area(content)
@@ -75,7 +75,7 @@ page 50004 "BC6_Special Extended Text"
                 Caption = 'List', Comment = 'FRA="Liste"';
                 Image = List;
                 RunPageOnRec = true;
-
+                //Image = List;
                 trigger OnAction()
                 begin
 

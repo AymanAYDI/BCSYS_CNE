@@ -101,6 +101,7 @@ page 50047 "BC6_Salesperson Role Center"
             {
                 Caption = 'Pro Forma', Comment = 'FRA="Pro Forma"';
                 ApplicationArea = All;
+                Image = "Report";
                 RunObject = Report "BC6_Facture Proforma CNE";
             }
         }
@@ -116,6 +117,7 @@ page 50047 "BC6_Salesperson Role Center"
             action("Shipped Not Invoiced")
             {
                 Caption = 'Shipped Not Invoiced', Comment = 'FRA="Livré non facturé"';
+                Image = Shipment;
                 RunObject = Page "Sales Order List";
                 RunPageView = WHERE("Shipped Not Invoiced" = CONST(true));
                 ApplicationArea = All;
@@ -124,6 +126,7 @@ page 50047 "BC6_Salesperson Role Center"
             {
                 Caption = 'Completely Shipped Not Invoiced', Comment = 'FRA="Complètement livré non facturé"';
                 RunObject = Page "Sales Order List";
+                Image = Shipment;
                 RunPageView = WHERE("Completely Shipped" = CONST(true),
                                     Invoice = CONST(false));
                 ApplicationArea = All;
@@ -140,6 +143,7 @@ page 50047 "BC6_Salesperson Role Center"
                 Caption = 'Blanket Sales Orders', Comment = 'FRA="Commandes ouvertes vente"';
                 RunObject = Page "Blanket Sales Orders";
                 ApplicationArea = All;
+                Image = Order;
             }
             action("Sales Invoices")
             {
@@ -160,6 +164,7 @@ page 50047 "BC6_Salesperson Role Center"
                 Caption = 'Sales Credit Memos', Comment = 'FRA="Avoirs vente"';
                 RunObject = Page "Sales Credit Memos";
                 ApplicationArea = All;
+                Image = CreditMemo;
             }
             action(Items)
             {
@@ -182,6 +187,7 @@ page 50047 "BC6_Salesperson Role Center"
                 RunPageView = WHERE("Template Type" = CONST(Item),
                                     Recurring = CONST(false));
                 ApplicationArea = All;
+                Image = Journals;
             }
             action("Sales Journals")
             {
@@ -190,6 +196,7 @@ page 50047 "BC6_Salesperson Role Center"
                 RunPageView = WHERE("Template Type" = CONST(Sales),
                                     Recurring = CONST(false));
                 ApplicationArea = All;
+                Image = Journals;
             }
             action("Cash Receipt Journals")
             {
@@ -240,12 +247,14 @@ page 50047 "BC6_Salesperson Role Center"
                     Caption = 'Posted Purchase Receipts', Comment = 'FRA="Réceptions achat enregistrées"';
                     RunObject = Page "Posted Purchase Receipts";
                     ApplicationArea = All;
+                    Image = Receipt;
                 }
                 action("Posted Purchase Invoices")
                 {
                     Caption = 'Posted Purchase Invoices', Comment = 'FRA="Factures achat enregistrées"';
                     RunObject = Page "Posted Purchase Invoices";
                     ApplicationArea = All;
+                    Image = Invoice;
                 }
             }
         }

@@ -102,7 +102,7 @@ page 50034 "BC6_Affair Steps Tracking"
                 Promoted = true;
                 PromotedCategory = Process;
                 ApplicationArea = All;
-
+                PromotedOnly = true;
                 trigger OnAction()
                 begin
                     SearchAffairSteps(BooGFinichedfilter, TxtGIntelocutor, DatLRminderDate);
@@ -111,6 +111,7 @@ page 50034 "BC6_Affair Steps Tracking"
             action("Fiche affaire")
             {
                 Promoted = true;
+                Image = CheckList;
                 RunObject = Page "Job Card";
                 RunPageLink = "No." = FIELD("Affair No.");
                 ApplicationArea = All;

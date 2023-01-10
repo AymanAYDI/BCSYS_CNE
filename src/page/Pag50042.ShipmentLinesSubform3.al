@@ -178,7 +178,6 @@ page 50042 "BC6_Shipment Lines Subform 3"
 
                 trigger OnAction()
                 begin
-
                     IF NOT RecGSalesShipmentHeader.GET(Rec."Document No.") THEN
                         EXIT;
                     PAGE.RUN(PAGE::"Posted Sales Shipment", RecGSalesShipmentHeader);

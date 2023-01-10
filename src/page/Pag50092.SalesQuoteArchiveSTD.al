@@ -340,6 +340,7 @@ page 50092 "BC6_Sales Quote Archive STD"
                 Ellipsis = true;
                 Image = Restore;
                 Promoted = true;
+                PromotedOnly = true;
                 PromotedCategory = Process;
                 ApplicationArea = All;
 

@@ -361,6 +361,7 @@ page 51111 "BC6_Setup Various Tables2"
             {
                 Caption = 'Gestion Tables Diverses', Comment = 'FRA="Gestion Tables Diverses"';
                 Promoted = true;
+                PromotedOnly = true;
                 PromotedCategory = Process;
                 ApplicationArea = All;
 

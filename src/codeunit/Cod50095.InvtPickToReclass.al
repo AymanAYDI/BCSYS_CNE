@@ -272,7 +272,7 @@ codeunit 50095 "BC6_Invt. Pick To Reclass."
     begin
         WhseActivLine2 := FromWhseActivLine;
         WhseActivLine2.SETRANGE("No.", FromWhseActivLine."No.");
-        if WhseActivLine2.FIND('>') then
+        if WhseActivLine2.Find('>') then
             LineSpacing := (WhseActivLine2."Line No." - FromWhseActivLine."Line No.") div 2
         else
             LineSpacing := 10000;

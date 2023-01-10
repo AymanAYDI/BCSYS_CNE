@@ -301,11 +301,6 @@ page 50064 "Invt. Pick Card MiniForm F3"
                         Rec."Document No." := LastJnlLine."Document No.";
                         AssignPickNo(PickNo);
                         Rec."Location Code" := LastJnlLine."Location Code";
-                        //SOBI
-                        //"Item No." := LastJnlLine."Item No.";
-                        //Description := LastJnlLine.Description;
-                        //AssignItemNo(LastJnlLine."Item No.");
-                        //SOBI
 
                         Rec.INSERT(TRUE);
                     END;
@@ -329,13 +324,6 @@ page 50064 "Invt. Pick Card MiniForm F3"
                 var
                     page50059: Page "BC6_Invt. Pick Card MiniForm";
                 begin
-                    /*
-                    IF ISCLEAR(WshShell) THEN
-                      CREATE(WshShell,FALSE ,TRUE);
-                    
-                    BoolWait := FALSE;
-                    WshShell.SendKeys('{TAB}', BoolWait);
-                             */
                     PostBatch();
 
                     CurrPage.CLOSE();
@@ -360,7 +348,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
                 Caption = '&Delete', Comment = 'FRA="&Delete"';
                 ShortCutKey = 'F9';
                 ApplicationArea = All;
-
+                Image = Delete;
                 trigger OnAction()
                 var
                     page50064: Page "Invt. Pick Card MiniForm F3";

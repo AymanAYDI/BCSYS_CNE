@@ -328,7 +328,7 @@ page 50000 "BC6_Setup Various Tables"
                 Image = "Table";
                 Promoted = true;
                 PromotedCategory = Process;
-
+                PromotedOnly = true;
                 trigger OnAction()
                 begin
                     TableDiv.SETRANGE(Radical, Rec.Code);

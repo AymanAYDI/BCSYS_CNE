@@ -37,6 +37,7 @@ page 55020 "BC6_Code Coverage 2"
                 Enabled = NOT CodeCoverageActive;
                 Image = Start;
                 Promoted = true;
+                PromotedOnly = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ApplicationArea = All;
@@ -51,6 +52,7 @@ page 55020 "BC6_Code Coverage 2"
                 Caption = 'Stop Code Coverage';
                 Enabled = CodeCoverageActive;
                 Image = Stop;
+                PromotedOnly = true;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;

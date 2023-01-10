@@ -352,6 +352,7 @@ page 50120 "BC6_SAV Purch. Ret. Order List"
                 Caption = '&Print', Comment = 'FRA="&Imprimer"';
                 Ellipsis = true;
                 Image = Print;
+                PromotedOnly = true;
                 Promoted = true;
                 PromotedCategory = Process;
                 ApplicationArea = All;

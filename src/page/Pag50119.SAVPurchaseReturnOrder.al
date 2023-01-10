@@ -642,6 +642,7 @@ page 50119 "BC6_SAV Purchase Return Order"
                     Image = Approve;
                     Promoted = true;
                     PromotedCategory = Category4;
+                    PromotedOnly = true;
                     PromotedIsBig = true;
                     ToolTip = 'Approve the requested changes.', Comment = 'FRA="Approuvez les modifications demandées."';
                     Visible = OpenApprovalEntriesExistForCurrUser;
@@ -713,6 +714,7 @@ page 50119 "BC6_SAV Purchase Return Order"
                 Ellipsis = true;
                 Image = Print;
                 Promoted = true;
+                PromotedOnly = true;
                 PromotedCategory = Process;
                 ApplicationArea = All;
 
@@ -741,6 +743,7 @@ page 50119 "BC6_SAV Purchase Return Order"
                     Image = ReleaseDoc;
                     Promoted = true;
                     PromotedCategory = Process;
+                    PromotedOnly = true;
                     ShortCutKey = 'Ctrl+F9';
                     ApplicationArea = All;
 

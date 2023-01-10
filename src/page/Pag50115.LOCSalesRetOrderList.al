@@ -360,6 +360,7 @@ page 50115 "BC6_LOC Sales Ret. Order List"
                 Image = Print;
                 Promoted = true;
                 PromotedCategory = Process;
+                PromotedOnly = true;
 
                 trigger OnAction()
                 var

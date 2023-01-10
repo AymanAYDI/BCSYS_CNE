@@ -3,6 +3,7 @@ report 50000 "BC6_Item rere"
     ProcessingOnly = true;
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = all;
+    Caption = 'Item rere';
     dataset
     {
         dataitem(Item; Item)

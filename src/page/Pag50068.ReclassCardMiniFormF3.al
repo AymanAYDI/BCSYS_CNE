@@ -305,6 +305,7 @@ page 50068 "BC6_Reclass. Card MiniForm F3"
                 Caption = '&Delete', Comment = 'FRA="&Delete"';
                 ShortCutKey = 'F9';
                 ApplicationArea = All;
+                Image = Delete;
 
                 trigger OnAction()
                 var

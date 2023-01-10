@@ -360,6 +360,7 @@ page 50122 "Stockkeeping Unit List ACTI"
                 Image = "Report";
                 Promoted = true;
                 PromotedCategory = "Report";
+                PromotedOnly = true;
                 RunObject = Report "Inventory - List";
                 ApplicationArea = All;
             }
@@ -402,6 +403,7 @@ page 50122 "Stockkeeping Unit List ACTI"
                     Caption = 'New Item', Comment = 'FRA="Nouvel article"';
                     Image = NewItem;
                     Promoted = true;
+                    PromotedOnly = true;
                     PromotedCategory = New;
                     RunObject = Page "Item Card";
                     RunPageMode = Create;

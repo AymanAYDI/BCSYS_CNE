@@ -113,7 +113,7 @@ page 50060 "BC6_Test capture"
                 action(GetText)
                 {
                     ApplicationArea = All;
-
+                    image = Text;
                     trigger OnAction()
                     begin
                         CurrPage.ScanZone.SubmitAllData(1);

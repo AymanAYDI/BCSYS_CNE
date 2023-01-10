@@ -78,6 +78,7 @@ page 50062 "BC6_Order Processor RC Admin"
             action(SalesOrdersShptNotInv)
             {
                 ApplicationArea = Basic, Suite;
+                image = Shipment;
                 Caption = 'Shipped Not Invoiced', Comment = 'FRA="Livré non facturé"';
                 RunObject = Page "Sales Order List";
                 RunPageView = WHERE("Shipped Not Invoiced" = CONST(true));
@@ -88,6 +89,7 @@ page 50062 "BC6_Order Processor RC Admin"
                 ApplicationArea = Basic, Suite;
                 Caption = 'Completely Shipped Not Invoiced', Comment = 'FRA="Complètement livré non facturé"';
                 RunObject = Page "Sales Order List";
+                Image = Shipment;
                 RunPageView = WHERE("Completely Shipped" = CONST(true),
                                     Invoice = CONST(false));
                 ToolTip = 'View sales documents that are fully shipped but not fully invoiced.', Comment = 'FRA="Affichez les documents vente qui sont intégralement expédiés, mais pas totalement facturés."';
@@ -97,6 +99,7 @@ page 50062 "BC6_Order Processor RC Admin"
                 ApplicationArea = Suite;
                 Caption = 'Dynamics CRM Sales Orders', Comment = 'FRA="Commandes vente Dynamics CRM"';
                 RunObject = Page "CRM Sales Order List";
+                Image = Sales;
                 RunPageView = WHERE(StateCode = FILTER(Submitted),
                                     LastBackofficeSubmit = FILTER(''));
                 ToolTip = 'View sales orders in Dynamics CRM that are coupled with sales orders in Dynamics NAV.', Comment = 'FRA="Affichez les commandes vente dans Dynamics CRM qui sont couplées avec les commandes vente dans Dynamics NAV."';
@@ -113,6 +116,7 @@ page 50062 "BC6_Order Processor RC Admin"
             {
                 Caption = 'Blanket Sales Orders', Comment = 'FRA="Commandes ouvertes vente"';
                 RunObject = Page "Blanket Sales Orders";
+                Image = BlanketOrder;
                 ApplicationArea = All;
             }
             action("Sales Invoices")
@@ -135,6 +139,7 @@ page 50062 "BC6_Order Processor RC Admin"
                 ApplicationArea = Basic, Suite;
                 Caption = 'Sales Credit Memos', Comment = 'FRA="Avoirs vente"';
                 RunObject = Page "Sales Credit Memos";
+                Image = CreditMemo;
                 ToolTip = 'Open the list of sales credit memos where you can revert posted sales invoices.', Comment = 'FRA="Ouvrez la liste des avoirs vente où vous pouvez annuler les factures vente validées."';
             }
             action(Items)
@@ -158,6 +163,7 @@ page 50062 "BC6_Order Processor RC Admin"
                 ApplicationArea = Basic, Suite;
                 Caption = 'Item Journals', Comment = 'FRA="Feuilles article"';
                 RunObject = Page "Item Journal Batches";
+                image = Journal;
                 RunPageView = WHERE("Template Type" = CONST(Item),
                                     Recurring = CONST(false));
                 ToolTip = 'Open a list of journals where you can adjust the physical quantity of items on inventory.', Comment = 'FRA="Ouvrez une liste de feuilles où vous pouvez ajuster la quantité physique des articles en stock."';
@@ -167,6 +173,7 @@ page 50062 "BC6_Order Processor RC Admin"
                 ApplicationArea = Basic, Suite;
                 Caption = 'Sales Journals', Comment = 'FRA="Feuilles vente"';
                 RunObject = Page "General Journal Batches";
+                image = PaymentJournal;
                 RunPageView = WHERE("Template Type" = CONST(Sales),
                                     Recurring = CONST(false));
                 ToolTip = 'Open the list of sales journals where you can batch post sales transactions to G/L, bank, customer, vendor and fixed assets accounts.', Comment = 'FRA="Ouvrez la liste des feuilles vente où vous pouvez valider par groupe les transactions vente vers les comptes généraux, bancaires, client, fournisseur et immobilisations."';
@@ -225,12 +232,14 @@ page 50062 "BC6_Order Processor RC Admin"
                     Caption = 'Posted Purchase Receipts', Comment = 'FRA="Réceptions achat enregistrées"';
                     RunObject = Page "Posted Purchase Receipts";
                     ApplicationArea = All;
+                    Image = Receipt;
                 }
                 action("Posted Purchase Invoices")
                 {
                     ApplicationArea = Basic, Suite;
                     Caption = 'Posted Purchase Invoices', Comment = 'FRA="Factures achat enregistrées"';
                     RunObject = Page "Posted Purchase Invoices";
+                    Image = InventoryPick;
                     ToolTip = 'View the posted purchase invoices.', Comment = 'FRA="Affichez les factures achat enregistrées."';
                 }
             }

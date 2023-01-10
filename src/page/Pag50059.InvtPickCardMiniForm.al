@@ -218,8 +218,6 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                                 BEGIN
                                     IF NOT Rec.MODIFY(TRUE) THEN
                                         Rec.INSERT(TRUE);
-
-
                                     CurrPage.ScanZone.SetFocus(1);
                                     RefreshDataControlAddin();
                                     PostBatch();
@@ -490,11 +488,12 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                 Caption = '&Item', Comment = 'FRA="&Article"';
                 Image = Item;
                 Promoted = true;
+                PromotedOnly = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                PromotedOnly = true;
                 ShortCutKey = 'F2';
                 ApplicationArea = All;
+
 
                 trigger OnAction()
                 var
@@ -675,6 +674,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         EditableCtrl: Boolean;
         EditableFromBinCtrl: Boolean;
         [InDataSet]
+
         FromBinCodeCtrlVisible: Boolean;
         [InDataSet]
         IsReady: Boolean;

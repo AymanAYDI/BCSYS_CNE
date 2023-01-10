@@ -480,7 +480,7 @@ codeunit 50031 "BC6_PagesEvents"
         RecLPurchLine2.RESET();
         RecLPurchLine2.SETRANGE(RecLPurchLine2."Document Type", PurchaseHeader."Document Type");
         RecLPurchLine2.SETRANGE(RecLPurchLine2."Document No.", PurchaseHeader."No.");
-        IF RecLPurchLine2.FindFirst() THEN
+        IF RecLPurchLine2.FindSet() THEN
             REPEAT
                 IF (RecLPurchLine2."BC6_Sales No." <> '') AND (RecLPurchLine2."BC6_Sales Line No." <> 0) THEN BEGIN
                     RecLSalesLine.RESET();
@@ -488,16 +488,13 @@ codeunit 50031 "BC6_PagesEvents"
                     RecLSalesLine.SETRANGE(RecLSalesLine."Document No.", RecLPurchLine2."BC6_Sales No.");
                     RecLSalesLine.SETRANGE(RecLSalesLine."Line No.", RecLPurchLine2."BC6_Sales Line No.");
                     IF RecLSalesLine.FindFirst() THEN BEGIN
-                        //>>PDW : le 04/08/15
                         RecLSalesLine.SuspendStatusCheck(TRUE);
-                        //<<PDW : le 04/08/15
                         RecLSalesLine.VALIDATE("BC6_Purchase cost", RecLPurchLine2."BC6_Discount Direct Unit Cost");
                         RecLSalesLine.MODIFY();
                     END;
                 END;
             UNTIL RecLPurchLine2.NEXT() = 0;
         PurchaseLine.Modify(true);
-        //////
         Commit();
     end;
 

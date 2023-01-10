@@ -209,7 +209,9 @@ page 50039 "BC6_Cred. Memo Lines Subform 2"
         IF NOT TempSalesCrMemoLine.FindSet() THEN BEGIN
             SalesCrMemoLine.COPYFILTERS(Rec);
             SalesCrMemoLine.SETRANGE("Document No.", Rec."Document No.");
+
             SalesCrMemoLine.FindFirst();
+
             TempSalesCrMemoLine := SalesCrMemoLine;
             TempSalesCrMemoLine.INSERT();
         END;

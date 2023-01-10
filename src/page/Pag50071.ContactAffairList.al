@@ -93,6 +93,7 @@ page 50071 "BC6_Contact Affair List"
             action("Fiche affaire")
             {
                 Promoted = true;
+                PromotedOnly = true;
                 RunObject = Page "Job Card";
                 RunPageLink = "No." = FIELD("Affair No.");
                 ApplicationArea = All;

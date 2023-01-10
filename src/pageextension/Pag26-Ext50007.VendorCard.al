@@ -7,6 +7,7 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
             field("BC6_Name 2"; Rec."Name 2")
             {
                 ApplicationArea = All;
+                Caption = 'Name 2';
             }
         }
 
@@ -15,6 +16,7 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
             field("BC6_Creation Date"; Rec."BC6_Creation Date")
             {
                 ApplicationArea = All;
+                Caption = 'Creation Date', Comment = 'FRA="Date de création"';
             }
         }
 
@@ -23,11 +25,13 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
             field("BC6_Blocked Prices"; Rec."BC6_Blocked Prices")
             {
                 ApplicationArea = All;
+                Caption = 'Blocked Prices', Comment = 'FRA="Prix bloqués"';
             }
             field("BC6_% Mini Margin"; Rec."BC6_% Mini Margin")
             {
                 Visible = ShowMiniMargin;
                 ApplicationArea = All;
+                Caption = '% Mini Margin', Comment = 'FRA="% marge mini"';
             }
         }
 
@@ -36,14 +40,17 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
             field("BC6_Mini Amount"; Rec."BC6_Mini Amount")
             {
                 ApplicationArea = All;
+                Caption = 'Montant mini franco ', Comment = 'FRA="Montant mini franco "';
             }
             field("BC6_Freight Amount"; Rec."BC6_Freight Amount")
             {
                 ApplicationArea = All;
+                Caption = 'Freight Amount', Comment = 'FRA="montant port si franco non atteint"';
             }
             field("BC6_Posting DEEE"; Rec."BC6_Posting DEEE")
             {
                 ApplicationArea = All;
+                Caption = 'Posting DEEE', Comment = 'FRA="Comptabilisation DEEE"';
             }
         }
 
@@ -55,6 +62,7 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
                 ToolTip = 'Specifies a date formula for the time that it takes to replenish the item.', Comment = 'FRA="Spécifie une formule date pour le délai nécessaire au réapprovisionnement de l''article."';
                 Visible = false;
                 ApplicationArea = All;
+                Caption = 'Lead Time Calculation';
             }
         }
 
@@ -62,9 +70,11 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
         {
             group(BC6_TransGroupe)
             {
+                showcaption = false;
                 field("BC6_Transaction Type"; Rec."BC6_Transaction Type")
                 {
                     ApplicationArea = All;
+                    Caption = 'Transaction Type', Comment = 'FRA="Nature Transaction"';
                     trigger OnValidate()
                     begin
                         Incoterm();
@@ -74,13 +84,16 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
                 {
                     Editable = false;
                     ApplicationArea = All;
+                    showcaption = false;
                 }
             }
             group(BC6_TransSpecGroupe)
             {
+                showcaption = false;
                 field("BC6_Transaction Specification"; Rec."BC6_Transaction Specification")
                 {
                     ApplicationArea = All;
+                    Caption = 'Transaction Specification', Comment = 'FRA="Régime"';
                     trigger OnValidate()
                     begin
                         Incoterm();
@@ -90,13 +103,16 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
                 {
                     Editable = false;
                     ApplicationArea = All;
+                    showcaption = false;
                 }
             }
             group(BC6_TransMethGroupe)
             {
+                showcaption = false;
                 field("BC6_Transport Method"; Rec."BC6_Transport Method")
                 {
                     ApplicationArea = All;
+                    Caption = 'Transport Method', Comment = 'FRA="Mode transport"';
                     trigger OnValidate()
                     begin
                         Incoterm();
@@ -106,13 +122,16 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
                 {
                     Editable = false;
                     ApplicationArea = All;
+                    showcaption = false;
                 }
             }
             group(BC6_EntryPointGroupe)
             {
+                showcaption = false;
                 field("BC6_Entry Point"; Rec."BC6_Entry Point")
                 {
                     ApplicationArea = All;
+                    Caption = 'Entry  Point', Comment = 'FRA="Pays Provenance"';
                     trigger OnValidate()
                     begin
                         Incoterm();
@@ -122,13 +141,16 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
                 {
                     Editable = false;
                     ApplicationArea = All;
+                    showcaption = false;
                 }
             }
             group(BC6_AreaGroupe)
             {
+                showcaption = false;
                 field(BC6_Area; Rec.BC6_Area)
                 {
                     ApplicationArea = All;
+                    Caption = 'Area', Comment = 'FRA="Departement Destination"';
                     trigger OnValidate()
                     begin
                         Incoterm();
@@ -138,6 +160,8 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
                 {
                     Editable = false;
                     ApplicationArea = All;
+                    showcaption = false;
+
                 }
             }
         }
@@ -186,6 +210,7 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
                 RunObject = Page "BC6_Sales Order Lines Test";
                 RunPageLink = "BC6_Buy-from Vendor No." = FIELD("No.");
                 ShortCutKey = 'Ctrl+K';
+                Image = ItemGroup;
                 ApplicationArea = All;
             }
         }

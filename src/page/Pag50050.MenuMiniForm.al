@@ -71,6 +71,7 @@ page 50050 "BC6_Menu MiniForm"
             {
                 RunObject = Page "Inventory Pick";
                 ApplicationArea = All;
+                Image = Order;
             }
         }
     }

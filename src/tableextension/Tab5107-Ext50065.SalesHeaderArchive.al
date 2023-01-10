@@ -118,7 +118,7 @@ tableextension 50065 "BC6_SalesHeaderArchive" extends "Sales Header Archive" //5
         }
         field(50080; "BC6_Purchase No. Order Lien"; Code[20])
         {
-            Caption = 'Purchase No. Order Lien', Comment = 'FRA="° Commande Achat Lien"';
+            Caption = 'Purchase No. Order Lien', Comment = 'FRA="N° Commande Achat Lien"';
             DataClassification = CustomerContent;
         }
         field(50403; "BC6_Bin Code"; Code[20])

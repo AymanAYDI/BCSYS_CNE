@@ -41,7 +41,7 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
             {
                 Importance = Promoted;
                 ApplicationArea = All;
-                Caption = 'Shipment Method Code';
+                Caption = 'Shipment Method Code', Comment = 'FRA="Code condition livraison"';
             }
             field("BC6_Bin Code"; Rec."BC6_Bin Code")
             {

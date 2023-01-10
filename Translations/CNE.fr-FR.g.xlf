@@ -29916,11 +29916,87 @@
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_VendorCard - Action BC6_Pay-to Vend. No. - Property Caption</note>
           <target>Tiers payeur</target>
         </trans-unit>
+        <trans-unit id="PageExtension 114164764 - Control 2669980615 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4055858012">
+          <source>Name 2</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_VendorCard - Control BC6_Name 2 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 114164764 - Control 2859997375 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4055858012">
+          <source>Creation Date</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Date de création"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_VendorCard - Control BC6_Creation Date - Property Caption</note>
+          <target>Date de création</target>
+        </trans-unit>
+        <trans-unit id="PageExtension 114164764 - Control 447926988 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4055858012">
+          <source>% Mini Margin</source>
+          <note from="Developer" annotates="general" priority="2">FRA="% marge mini"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_VendorCard - Control BC6_% Mini Margin - Property Caption</note>
+          <target>% marge mini</target>
+        </trans-unit>
+        <trans-unit id="PageExtension 114164764 - Control 3966498986 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4055858012">
+          <source>Blocked Prices</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Prix bloqués"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_VendorCard - Control BC6_Blocked Prices - Property Caption</note>
+          <target>Prix bloqués</target>
+        </trans-unit>
+        <trans-unit id="PageExtension 114164764 - Control 1202947033 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4055858012">
+          <source>Freight Amount</source>
+          <note from="Developer" annotates="general" priority="2">FRA="montant port si franco non atteint"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_VendorCard - Control BC6_Freight Amount - Property Caption</note>
+          <target>montant port si franco non atteint</target>
+        </trans-unit>
+        <trans-unit id="PageExtension 114164764 - Control 3805554401 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4055858012">
+          <source>Montant mini franco </source>
+          <note from="Developer" annotates="general" priority="2">FRA="Montant mini franco "</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_VendorCard - Control BC6_Mini Amount - Property Caption</note>
+          <target>Montant mini franco </target>
+        </trans-unit>
+        <trans-unit id="PageExtension 114164764 - Control 3709505019 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4055858012">
+          <source>Posting DEEE</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Comptabilisation DEEE"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_VendorCard - Control BC6_Posting DEEE - Property Caption</note>
+          <target>Comptabilisation DEEE</target>
+        </trans-unit>
         <trans-unit id="PageExtension 114164764 - Control 3845547804 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4055858012">
           <source>Specifies a date formula for the time that it takes to replenish the item.</source>
           <note from="Developer" annotates="general" priority="2">FRA="Spécifie une formule date pour le délai nécessaire au réapprovisionnement de l'article."</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_VendorCard - Control BC6_Lead Time Calculation - Property ToolTip</note>
           <target>Spécifie une formule date pour le délai nécessaire au réapprovisionnement de l'article.</target>
+        </trans-unit>
+        <trans-unit id="PageExtension 114164764 - Control 3845547804 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4055858012">
+          <source>Lead Time Calculation</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_VendorCard - Control BC6_Lead Time Calculation - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 114164764 - Control 3681623761 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4055858012">
+          <source>Area</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Departement Destination"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_VendorCard - Control BC6_Area - Property Caption</note>
+          <target>Departement Destination</target>
+        </trans-unit>
+        <trans-unit id="PageExtension 114164764 - Control 2319024548 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4055858012">
+          <source>Entry  Point</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Pays Provenance"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_VendorCard - Control BC6_Entry Point - Property Caption</note>
+          <target>Pays Provenance</target>
+        </trans-unit>
+        <trans-unit id="PageExtension 114164764 - Control 4271468832 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4055858012">
+          <source>Transaction Type</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Nature Transaction"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_VendorCard - Control BC6_Transaction Type - Property Caption</note>
+          <target>Nature Transaction</target>
+        </trans-unit>
+        <trans-unit id="PageExtension 114164764 - Control 1883151224 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4055858012">
+          <source>Transport Method</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Mode transport"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_VendorCard - Control BC6_Transport Method - Property Caption</note>
+          <target>Mode transport</target>
+        </trans-unit>
+        <trans-unit id="PageExtension 114164764 - Control 1706962411 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4055858012">
+          <source>Transaction Specification</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Régime"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_VendorCard - Control BC6_Transaction Specification - Property Caption</note>
+          <target>Régime</target>
         </trans-unit>
         <trans-unit id="PageExtension 814503229 - Control 3567462170 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 817468885">
           <source>Purchases (LCY)</source>

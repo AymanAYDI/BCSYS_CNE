@@ -246,7 +246,19 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
         FunctionMgt: Codeunit "BC6_Functions Mgt";
     begin
         EAN13Code := FunctionMgt.GetItemEAN13Code(Rec."No.");
-        ShowIncreaseCoeff := GlobalFct.getShowIncreaseCoeff()
+
+    end;
+
+    trigger OnOpenPage()
+    var
+        UserSetup: Record "User Setup";
+    begin
+        IF UserSetup.GET(USERID) AND UserSetup."BC6_Aut. Real Sales Profit %" THEN begin
+            ShowIncreaseCoeff := true;
+            CurrPage.Update();
+        end ELSE
+            ShowIncreaseCoeff := false
+
     end;
 
 

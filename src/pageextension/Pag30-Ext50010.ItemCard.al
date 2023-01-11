@@ -230,7 +230,6 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
 
 
     var
-        GlobalFct: Codeunit BC6_GlobalFunctionMgt;
         DistInt: Codeunit "Dist. Integration";
         BooGBlocked: Boolean;
         ShowIncreaseCoeff: Boolean;

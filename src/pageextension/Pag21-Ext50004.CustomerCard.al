@@ -12,7 +12,6 @@ pageextension 50004 "BC6_CustomerCard" extends "Customer Card" //21
             field("BC6_Territory Code"; Rec."Territory Code")
             {
                 ApplicationArea = All;
-                Caption = 'Territory Code';
             }
             field("BC6_Copy Sell-to Address"; Rec."BC6_Copy Sell-to Address")
             {
@@ -31,7 +30,7 @@ pageextension 50004 "BC6_CustomerCard" extends "Customer Card" //21
             field("BC6_Customer Sales Profit Group"; Rec."BC6_Custom. Sales Profit Group")
             {
                 ApplicationArea = All;
-                Caption = 'Goupe Marge Vente Client', Comment = 'FRA="Goupe Marge Vente Client"';
+                Caption = 'Customer Sales Profit Group', Comment = 'FRA="Goupe Marge Vente Client"';
             }
             field("BC6_Submitted to DEEE"; Rec."BC6_Submitted to DEEE")
             {
@@ -50,7 +49,6 @@ pageextension 50004 "BC6_CustomerCard" extends "Customer Card" //21
             field("BC6_Shipping Advice"; Rec."Shipping Advice")
             {
                 ApplicationArea = All;
-                Caption = 'Shipping Advice';
             }
         }
         addafter("Customized Calendar")

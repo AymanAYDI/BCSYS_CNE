@@ -27,7 +27,7 @@ pageextension 50026 "BC6_JobCard" extends "Job Card" //88
         }
         modify(Status)
         {
-            Caption = 'Status_';
+            Caption = 'Statut';
         }
 
         addafter("Bill-to Name")
@@ -128,7 +128,7 @@ pageextension 50026 "BC6_JobCard" extends "Job Card" //88
 
             group(BC6_Comment)
             {
-                Caption = 'Comment';
+                Caption = 'Commentaire';
                 part(AffairCommentSub; "BC6_Affair Comment Sub-form")
                 {
                     SubPageLink = "Table Name" = FILTER(Job),

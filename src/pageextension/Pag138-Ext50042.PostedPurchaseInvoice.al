@@ -19,8 +19,10 @@ pageextension 50042 "BC6_PostedPurchaseInvoice" extends "Posted Purchase Invoice
     {
         addafter("&Navigate")
         {
-            group("BC6_&Print_group")
+            group(BC6_Print)
             {
+                Caption = 'Print group', Comment = 'FRA="&Imprimer"';
+
                 action("BC6_&Print")
                 {
                     Caption = '&Print', Comment = 'FRA="&Imprimer"';

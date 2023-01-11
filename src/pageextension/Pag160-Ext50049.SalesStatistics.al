@@ -12,7 +12,7 @@ pageextension 50049 "BC6_SalesStatistics" extends "Sales Statistics" //160
         modify(AdjProfitPct)
         {
             Visible = ShowRealProfit;
-            Caption = 'Total DEEE', comment = 'FRA="% Marge relle DS"';
+            Caption = 'Total DEEE', comment = 'FRA="% marge relle"';
         }
         modify(TotalAdjCostLCY)
         {
@@ -37,6 +37,7 @@ pageextension 50049 "BC6_SalesStatistics" extends "Sales Statistics" //160
             field(BC6_Montant_DEEE; TotalSalesLineLCY."BC6_DEEE HT Amount (LCY)")
             {
                 Caption = 'Montant DEEE (DS)';
+                Editable = false;
             }
         }
         addafter(TotalAmount1)

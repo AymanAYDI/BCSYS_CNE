@@ -3211,20 +3211,6 @@ SalesHeader."Dimension Set ID", SalesHeader."Reason Code");
         end;
     end;
 
-    [EventSubscriber(ObjectType::Page, Page::"Vendor Card", 'OnBeforeActivateFields', '', false, false)]
-    local procedure OnBeforeActivateFields(var IsCountyVisible: Boolean; var FormatAddress: Codeunit "Format Address"; var IsHandled: Boolean)
-    var
-        UserSetup: Record "User Setup";
-        VendorCard: Page "Vendor Card";
-    begin
-        if UserSetup.GET(USERID) and UserSetup."BC6_Aut. Real Sales Profit %" then
-            VendorCard.SetShowMiniMargin(true)
-        else
-            VendorCard.SetShowMiniMargin(false);
-    end;
-
-
-
 
     //////////////////////////////////// page42
 
@@ -4390,18 +4376,18 @@ SalesCrMemoHeader."Bill-to City", SalesCrMemoHeader."Bill-to Post Code", SalesCr
         end;
     end;
     // page30
-    [EventSubscriber(ObjectType::Page, Page::"Item Card", 'OnAfterEnablePlanningControls', '', false, false)]
-    local procedure OnAfterEnablePlanningControls(var PlanningParameters: Record "Planning Parameters")
-    var
-        UserSetup: Record "User Setup";
-        GlobalFct: Codeunit BC6_GlobalFunctionMgt;
-    begin
-        IF UserSetup.GET(USERID) AND UserSetup."BC6_Aut. Real Sales Profit %" THEN
-            GlobalFct.SetShowIncreaseCoeff(true)
-        ELSE
-            GlobalFct.SetShowIncreaseCoeff(false);
+    // [EventSubscriber(ObjectType::Page, Page::"Item Card", 'OnAfterEnablePlanningControls', '', false, false)]
+    // local procedure OnAfterEnablePlanningControls(var PlanningParameters: Record "Planning Parameters")
+    // var
+    //     UserSetup: Record "User Setup";
+    //     GlobalFct: Codeunit BC6_GlobalFunctionMgt;
+    // begin
+    //     IF UserSetup.GET(USERID) AND UserSetup."BC6_Aut. Real Sales Profit %" THEN
+    //         GlobalFct.SetShowIncreaseCoeff(true)
+    //     ELSE
+    //         GlobalFct.SetShowIncreaseCoeff(false);
 
-    end;
+    // end;
 
 
 }

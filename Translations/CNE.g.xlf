@@ -25330,7 +25330,7 @@
         </trans-unit>
         <trans-unit id="PageExtension 1633739919 - Change 587210538 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2134475871">
           <source>Total DEEE</source>
-          <note from="Developer" annotates="general" priority="2">FRA="% Marge relle DS"</note>
+          <note from="Developer" annotates="general" priority="2">FRA="% marge relle"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesStatistics - Change AdjProfitPct - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1633739919 - Control 1937621745 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2134475871">

@@ -40,7 +40,7 @@ pageextension 50114 "BC6_SalesLineFactBox" extends "Sales Line FactBox"  //9087
                 field("Item Availability ACTI"; FunctionMgt.CalcAvailabilityCNE(Rec, GR_ItemCNE))
                 {
                     ApplicationArea = Basic, Suite;
-                    Caption = 'Item Availability ACTI', Comment = 'FRA=Disponibilité article ACTI"';
+                    Caption = 'Item Availability ACTI', Comment = 'FRA=Disponibilité article ACTI';
                     DecimalPlaces = 0 : 5;
                     DrillDown = false;
                     ToolTip = 'Specifies how may units of the item on the sales line are available, in inventory or incoming before the shipment date.', Comment = 'FRA="Spécifie combien d''unités de l''article de la ligne vente sont disponibles, en stock ou entrantes avant la date d''expédition."';

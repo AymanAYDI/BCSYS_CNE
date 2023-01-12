@@ -3,7 +3,7 @@ report 50025 "BC6_Sales Stat/Vendor Filiale"
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/SalesStatisticVendorFiliale.rdl';
 
-    Caption = 'Sales Statistic/Vendor', comment = 'FRA="Statistique vente/fournisseur"';
+    Caption = 'Sales Statistic/Vendor Subsidiary', comment = 'FRA="Statistique vente/fournisseur Filiale"';
     ApplicationArea = All;
     UsageCategory = ReportsAndAnalysis;
     dataset

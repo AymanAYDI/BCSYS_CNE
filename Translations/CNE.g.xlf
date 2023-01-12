@@ -27645,7 +27645,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 2914171223 - Field 1783616720 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1948788855">
           <source>Purchase No. Order Lien</source>
-          <note from="Developer" annotates="general" priority="2">FRA="° Commande Achat Lien"</note>
+          <note from="Developer" annotates="general" priority="2">FRA="N° Commande Achat Lien"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesHeaderArchive - Field BC6_Purchase No. Order Lien - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 2914171223 - Field 3663224779 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1948788855">

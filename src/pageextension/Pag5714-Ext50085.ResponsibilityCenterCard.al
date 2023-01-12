@@ -6,6 +6,8 @@ pageextension 50085 "BC6_ResponsibilityCenterCard" extends "Responsibility Cente
         {
             field(BC6_Picture; Rec."BC6_Picture")
             {
+                Caption = 'Picture', Comment = 'FRA="Image"';
+
             }
         }
         addafter("Communication")

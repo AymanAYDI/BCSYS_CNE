@@ -2,6 +2,7 @@ report 50020 "BC6_Batch Traitement Article"
 {
     ProcessingOnly = true;
     ApplicationArea = All;
+    Caption = 'Batch Traitement Article';
     UsageCategory = ReportsAndAnalysis;
     dataset
     {

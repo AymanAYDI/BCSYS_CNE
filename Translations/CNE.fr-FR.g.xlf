@@ -19574,10 +19574,20 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Item Label v3 - NamedType Text1100267003</note>
         </trans-unit>
+        <trans-unit id="Report 1423708255 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Item rere</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Item rere - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Report 1384072264 - NamedType 3802638270" size-unit="char" translate="yes" xml:space="preserve">
           <source>Traitement des articles @1@@@@@@@@@</source>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Maj cout standard article - NamedType CstG001</note>
+        </trans-unit>
+        <trans-unit id="Report 604792061 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>MAJ ITEM</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_MAJ ITEM - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 3885841018 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Order NAVIDIIGEST</source>
@@ -29468,8 +29478,9 @@
         </trans-unit>
         <trans-unit id="PageExtension 1199972306 - Control 3416997414 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
           <source>Shipment Method Code</source>
-          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Developer" annotates="general" priority="2">FRA="Code condition livraison"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesOrder - Control BC6_Shipment Method Code - Property Caption</note>
+          <target>Code condition livraison</target>
         </trans-unit>
         <trans-unit id="PageExtension 1199972306 - Control 2808238063 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
           <source>Warehouse Comments</source>
@@ -32601,9 +32612,9 @@
         </trans-unit>
         <trans-unit id="TableExtension 2914171223 - Field 1783616720 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1948788855">
           <source>Purchase No. Order Lien</source>
-          <note from="Developer" annotates="general" priority="2">FRA="° Commande Achat Lien"</note>
+          <note from="Developer" annotates="general" priority="2">FRA="N° Commande Achat Lien"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesHeaderArchive - Field BC6_Purchase No. Order Lien - Property Caption</note>
-          <target>° Commande Achat Lien</target>
+          <target>N° Commande Achat Lien</target>
         </trans-unit>
         <trans-unit id="TableExtension 2914171223 - Field 3663224779 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1948788855">
           <source>Purchaser Comments</source>

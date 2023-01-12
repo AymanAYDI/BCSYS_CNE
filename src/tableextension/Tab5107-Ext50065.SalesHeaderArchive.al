@@ -15,7 +15,6 @@ tableextension 50065 "BC6_SalesHeaderArchive" extends "Sales Header Archive" //5
         field(50002; "BC6_Warehouse Comments"; Text[50])
         {
             Caption = 'Warehouse Comments', Comment = 'FRA="Commentaires magasins"';
-            Description = 'CNE1.00';
             DataClassification = CustomerContent;
         }
         field(50003; "BC6_Pay-to Customer No."; Code[20])

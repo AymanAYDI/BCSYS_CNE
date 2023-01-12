@@ -75,7 +75,7 @@ tableextension 50005 "BC6_Vendor" extends Vendor //23
         }
         field(50014; "BC6_Freight Amount"; Decimal)
         {
-            Caption = 'Freight Amount', Comment = 'FRA="montant port si franco non atteint"';
+            Caption = 'Freight Amount', Comment = 'FRA="Montant port si franco non atteint"';
             DataClassification = CustomerContent;
         }
         field(50015; "BC6_Blocked Prices"; Boolean)
@@ -105,10 +105,6 @@ tableextension 50005 "BC6_Vendor" extends Vendor //23
         {
         }
     }
-
-    PROCEDURE "---NSC1.00---"()
-    BEGIN
-    END;
 
     PROCEDURE updateLedgerEntries(CodLVendNo: Code[20]; CodLPayToNo: Code[20]);
     VAR

@@ -3211,7 +3211,7 @@ SalesHeader."Dimension Set ID", SalesHeader."Reason Code");
         end;
     end;
 
-   
+
     //////////////////////////////////// page42
 
     [EventSubscriber(ObjectType::Page, Page::"Sales Order", 'OnBeforeActionEvent', 'Print Confirmation', false, false)]

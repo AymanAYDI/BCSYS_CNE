@@ -16,7 +16,6 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
                 Caption = 'No. 2', Comment = 'FRA="N° 2"';
             }
         }
-
         addafter("Automatic Ext. Texts")
         {
             field(BC6_EAN13Code; EAN13Code)
@@ -231,7 +230,6 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
 
 
     var
-        GlobalFct: Codeunit BC6_GlobalFunctionMgt;
         DistInt: Codeunit "Dist. Integration";
         BooGBlocked: Boolean;
         ShowIncreaseCoeff: Boolean;

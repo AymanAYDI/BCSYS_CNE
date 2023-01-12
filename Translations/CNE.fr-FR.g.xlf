@@ -28239,24 +28239,6 @@
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_ItemCard - Control BC6_No. 2 - Property Caption</note>
           <target>N° 2</target>
         </trans-unit>
-        <trans-unit id="PageExtension 4207384843 - Control 2476830880 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1434786627">
-          <source>DEEE Category Code </source>
-          <note from="Developer" annotates="general" priority="2">FRA="DEEE Code catégorie"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_ItemCard - Control BC6_DEEE Category Code - Property Caption</note>
-          <target>DEEE Code catégorie</target>
-        </trans-unit>
-        <trans-unit id="PageExtension 4207384843 - Control 1139207906 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1434786627">
-          <source>Eco partner DEEE</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Eco partenaire DEEE"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_ItemCard - Control BC6_Eco partner DEEE - Property Caption</note>
-          <target>Eco partenaire DEEE</target>
-        </trans-unit>
-        <trans-unit id="PageExtension 4207384843 - Control 135462850 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1434786627">
-          <source>Number of Units DEEE</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Nombre d'unités DEEE"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_ItemCard - Control BC6_Number of Units DEEE - Property Caption</note>
-          <target>Nombre d'unités DEEE</target>
-        </trans-unit>
         <trans-unit id="PageExtension 4207384843 - Control 240954413 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1434786627">
           <source>Cost Increase Coeff (%)</source>
           <note from="Developer" annotates="general" priority="2">FRA="Coeff majoration du coût (%)"</note>
@@ -28315,6 +28297,24 @@
           <note from="Developer" annotates="general" priority="2">FRA="Prix Public TTC"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_ItemCard - Control BC6_Unit Price Includes VAT - Property Caption</note>
           <target>Prix Public TTC</target>
+        </trans-unit>
+        <trans-unit id="PageExtension 4207384843 - Control 2476830880 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1434786627">
+          <source>DEEE Category Code </source>
+          <note from="Developer" annotates="general" priority="2">FRA="DEEE Code catégorie"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_ItemCard - Control BC6_DEEE Category Code - Property Caption</note>
+          <target>DEEE Code catégorie</target>
+        </trans-unit>
+        <trans-unit id="PageExtension 4207384843 - Control 1139207906 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1434786627">
+          <source>Eco partner DEEE</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Eco partenaire DEEE"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_ItemCard - Control BC6_Eco partner DEEE - Property Caption</note>
+          <target>Eco partenaire DEEE</target>
+        </trans-unit>
+        <trans-unit id="PageExtension 4207384843 - Control 135462850 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1434786627">
+          <source>Number of Units DEEE</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Nombre d'unités DEEE"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_ItemCard - Control BC6_Number of Units DEEE - Property Caption</note>
+          <target>Nombre d'unités DEEE</target>
         </trans-unit>
         <trans-unit id="PageExtension 558507464 - Control 3140949626 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 831615072">
           <source>Real Unit Cost</source>
@@ -29854,9 +29854,9 @@
         </trans-unit>
         <trans-unit id="PageExtension 1633739919 - Change 587210538 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2134475871">
           <source>Total DEEE</source>
-          <note from="Developer" annotates="general" priority="2">FRA="% Marge relle DS"</note>
+          <note from="Developer" annotates="general" priority="2">FRA="% marge relle"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesStatistics - Change AdjProfitPct - Property Caption</note>
-          <target>% Marge relle DS</target>
+          <target>% marge relle</target>
         </trans-unit>
         <trans-unit id="PageExtension 1633739919 - Control 1937621745 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 2134475871">
           <source>Purchase Cost (LCY)</source>

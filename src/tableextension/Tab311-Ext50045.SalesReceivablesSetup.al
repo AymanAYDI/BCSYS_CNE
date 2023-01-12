@@ -38,7 +38,7 @@ tableextension 50045 "BC6_SalesReceivablesSetup" extends "Sales & Receivables Se
         }
         field(60001; "BC6_E-Mail Administrateur"; Text[250])
         {
-            Caption = 'E-Mail Administrateur', comment = 'FRA="-Mail Administrateur"';
+            Caption = 'E-Mail Administrator', comment = 'FRA="E-Mail Administrateur"';
             DataClassification = CustomerContent;
         }
         field(60002; "BC6_Promised Delivery Date"; Boolean)

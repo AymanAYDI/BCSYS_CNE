@@ -51,7 +51,7 @@ page 50114 "BC6_SAV Sales Ret. Order List"
                 field("Sell-to Contact"; Rec."Sell-to Contact")
                 {
                     ToolTip = 'Specifies the name of the person to contact at the customer that the items were sold to.',
-                    comment = 'FRA="Spécifie le nom de la personne … contacter chez le client à qui les articles ont ‚t‚ vendus."';
+                    comment = 'FRA="Spécifie le nom de la personne … contacter chez le client à qui les articles ont été vendus."';
                     Visible = false;
                 }
                 field("Bill-to Customer No."; Rec."Bill-to Customer No.")

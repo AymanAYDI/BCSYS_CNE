@@ -35,7 +35,7 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
             }
         }
 
-        addafter(Invoicing)
+        addfirst(Invoicing)
         {
             field("BC6_Mini Amount"; Rec."BC6_Mini Amount")
             {
@@ -161,7 +161,6 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
                     Editable = false;
                     ApplicationArea = All;
                     showcaption = false;
-
                 }
             }
         }

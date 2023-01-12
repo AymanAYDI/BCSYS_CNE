@@ -16478,10 +16478,20 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Item Label v3 - NamedType Text1100267003</note>
         </trans-unit>
+        <trans-unit id="Report 1423708255 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Item rere</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Item rere - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Report 1384072264 - NamedType 3802638270" size-unit="char" translate="yes" xml:space="preserve">
           <source>Traitement des articles @1@@@@@@@@@</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Maj cout standard article - NamedType CstG001</note>
+        </trans-unit>
+        <trans-unit id="Report 604792061 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>MAJ ITEM</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_MAJ ITEM - Property Caption</note>
         </trans-unit>
         <trans-unit id="Report 3885841018 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Order NAVIDIIGEST</source>
@@ -23693,11 +23703,6 @@
           <note from="Developer" annotates="general" priority="2">FRA="Filtre vendeur"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_CustomerCard - Control BC6_Salesperson Filter - Property Caption</note>
         </trans-unit>
-        <trans-unit id="PageExtension 862663540 - Control 929465551 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 523354100">
-          <source>Territory Code</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_CustomerCard - Control BC6_Territory Code - Property Caption</note>
-        </trans-unit>
         <trans-unit id="PageExtension 862663540 - Control 3331688415 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 523354100">
           <source>Goupe Marge Vente Client</source>
           <note from="Developer" annotates="general" priority="2">FRA="Goupe Marge Vente Client"</note>
@@ -23712,11 +23717,6 @@
           <source>Pay-to Customer No.</source>
           <note from="Developer" annotates="general" priority="2">FRA="Tiers payeur"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_CustomerCard - Control BC6_Pay-to Customer No. - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="PageExtension 862663540 - Control 453186890 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 523354100">
-          <source>Shipping Advice</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_CustomerCard - Control BC6_Shipping Advice - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 862663540 - Control 119626473 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 523354100">
           <source>Combine Shipments by Order</source>
@@ -24990,7 +24990,7 @@
         </trans-unit>
         <trans-unit id="PageExtension 1199972306 - Control 3416997414 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">
           <source>Shipment Method Code</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA="Code condition livraison"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesOrder - Control BC6_Shipment Method Code - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1199972306 - Control 2808238063 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1673401186">

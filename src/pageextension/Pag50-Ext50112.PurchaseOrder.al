@@ -1,4 +1,4 @@
-pageextension 50112 "BC6_PurchaseOrder" extends "Purchase Order"
+pageextension 50112 "BC6_PurchaseOrder" extends "Purchase Order" //50
 {
     layout
     {

@@ -30,7 +30,7 @@ pageextension 50004 "BC6_CustomerCard" extends "Customer Card" //21
             field("BC6_Customer Sales Profit Group"; Rec."BC6_Custom. Sales Profit Group")
             {
                 ApplicationArea = All;
-                Caption = 'Goupe Marge Vente Client', Comment = 'FRA="Goupe Marge Vente Client"';
+                Caption = 'Customer Sales Profit Group', Comment = 'FRA="Goupe Marge Vente Client"';
             }
             field("BC6_Submitted to DEEE"; Rec."BC6_Submitted to DEEE")
             {

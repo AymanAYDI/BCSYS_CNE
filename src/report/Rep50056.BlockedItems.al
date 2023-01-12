@@ -2,7 +2,7 @@ report 50056 "BC6_Blocked Items"
 {
     Caption = 'Item Blocked, Negative Inv. ?', comment = 'FRA="Articles débloquer, stock négatif ?"';
     ProcessingOnly = true;
-
+    UsageCategory = None;
     dataset
     {
         dataitem(Item; Item)

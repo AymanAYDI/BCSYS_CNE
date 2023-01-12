@@ -131,7 +131,6 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
             action("Créer code-barres interne")
             {
                 Caption = 'Create Internal BarCodes', Comment = 'FRA="Créer code-barres interne"';
-                Description = 'MIGNAV2013';
                 Image = BarCode;
                 ApplicationArea = All;
 
@@ -166,7 +165,6 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
             action(BC6_UpdateUnitPriceIncVAT)
             {
                 Caption = 'Update Item Prices Inc VAT', Comment = 'FRA="Mise à jour prix public TTC"';
-                Description = 'MIGNAV2013';
                 Ellipsis = true;
                 Image = Price;
                 ApplicationArea = All;

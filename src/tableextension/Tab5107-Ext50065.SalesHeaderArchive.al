@@ -15,7 +15,6 @@ tableextension 50065 "BC6_SalesHeaderArchive" extends "Sales Header Archive" //5
         field(50002; "BC6_Warehouse Comments"; Text[50])
         {
             Caption = 'Warehouse Comments', Comment = 'FRA="Commentaires magasins"';
-            Description = 'CNE1.00';
             DataClassification = CustomerContent;
         }
         field(50003; "BC6_Pay-to Customer No."; Code[20])
@@ -118,7 +117,7 @@ tableextension 50065 "BC6_SalesHeaderArchive" extends "Sales Header Archive" //5
         }
         field(50080; "BC6_Purchase No. Order Lien"; Code[20])
         {
-            Caption = 'Purchase No. Order Lien', Comment = 'FRA="° Commande Achat Lien"';
+            Caption = 'Purchase No. Order Lien', Comment = 'FRA="N° Commande Achat Lien"';
             DataClassification = CustomerContent;
         }
         field(50403; "BC6_Bin Code"; Code[20])

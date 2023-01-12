@@ -7,7 +7,6 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
             field("BC6_Name 2"; Rec."Name 2")
             {
                 ApplicationArea = All;
-                Caption = 'Name 2';
             }
         }
 
@@ -62,7 +61,7 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
                 ToolTip = 'Specifies a date formula for the time that it takes to replenish the item.', Comment = 'FRA="Spécifie une formule date pour le délai nécessaire au réapprovisionnement de l''article."';
                 Visible = false;
                 ApplicationArea = All;
-                Caption = 'Lead Time Calculation';
+                Caption = 'Lead Time Calculation', Comment = 'FRA="Délai de réappro."';
             }
         }
 
@@ -220,6 +219,20 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
         Incoterm();
     end;
 
+    trigger OnOpenPage()
+    var
+        UserSetup: Record "User Setup";
+    begin
+        if UserSetup.GET(USERID) and UserSetup."BC6_Aut. Real Sales Profit %" then begin
+            ShowMiniMargin := true;
+            CurrPage.Update();
+        end else
+            ShowMiniMargin := false;
+    end;
+
+
+
+
     var
 
         RecGArea: Record "Area";
@@ -234,10 +247,7 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
         TxtGTransSpe: Text[100];
         TxtGTransType: Text[100];
 
-    procedure SetShowMiniMargin(_ShowMiniMargin: Boolean)
-    begin
-        ShowMiniMargin := _ShowMiniMargin;
-    end;
+
 
     procedure Incoterm()
     begin

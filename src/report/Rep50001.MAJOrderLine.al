@@ -1,7 +1,7 @@
 report 50001 "BC6_MAJ Order Line"
 {
     ProcessingOnly = true;
-
+    Caption = 'MAJ Order Line';
     dataset
     {
         dataitem(DataItem1100267001; "Sales Header")

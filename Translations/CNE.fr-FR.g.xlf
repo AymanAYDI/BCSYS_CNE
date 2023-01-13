@@ -12729,9 +12729,9 @@
         </trans-unit>
         <trans-unit id="Page 1707019103 - Control 1006519668 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the name of the person to contact at the customer that the items were sold to.</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Spécifie le nom de la personne … contacter chez le client à qui les articles ont ‚t‚ vendus."</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Spécifie le nom de la personne … contacter chez le client à qui les articles ont été vendus."</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_SAV Sales Ret. Order List - Control Sell-to Contact - Property ToolTip</note>
-          <target>Spécifie le nom de la personne … contacter chez le client à qui les articles ont ‚t‚ vendus.</target>
+          <target>Spécifie le nom de la personne … contacter chez le client à qui les articles ont été vendus.</target>
         </trans-unit>
         <trans-unit id="Page 1707019103 - Control 3434865006 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the country/region of the address.</source>
@@ -14055,9 +14055,8 @@
         </trans-unit>
         <trans-unit id="Page 2346303421 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Special Extended Text</source>
-          <note from="Developer" annotates="general" priority="2">FRA=""</note>
+          <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_Special Extended Text - Property Caption</note>
-          <target/>
         </trans-unit>
         <trans-unit id="Page 2346303421 - Control 3015522478 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Item Name</source>
@@ -16728,6 +16727,11 @@
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Batch Post Sales Orders - Control Ship - Property Caption</note>
           <target>Expédier</target>
         </trans-unit>
+        <trans-unit id="Report 3620319063 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Batch Traitement Article</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Batch Traitement Article - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Report 3620319063 - NamedType 3802638270" size-unit="char" translate="yes" xml:space="preserve">
           <source>Traitement des articles @1@@@@@@@@@</source>
           <note from="Developer" annotates="general" priority="2"/>
@@ -16747,286 +16751,6 @@
           <source>Traitement de l'article : #1##############</source>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Batch VAT on Items - NamedType CstG001</note>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Reminder CNE</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Relance CNE"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - Property Caption</note>
-          <target>Relance CNE</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 2248914289" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Amount Including VAT</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Montant TTC"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType AmountIncVATCaptionLbl</note>
-          <target>Montant TTC</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 4137192940" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Continued</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Suite"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType ContinuedCaption1Lbl</note>
-          <target>Suite</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 4036938315" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Continued</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Suite"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType ContinuedCaptionLbl</note>
-          <target>Suite</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 3819526884" size-unit="char" translate="yes" xml:space="preserve">
-          <source>%1 n°</source>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType DocType</note>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 1085409740" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Document Date</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Date document"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType Document_DateCaptionLbl</note>
-          <target>Date document</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 1844139747" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Due Date</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Date d'échéance"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType Issued_Reminder_Line__Due_Date_CaptionLbl</note>
-          <target>Date d'échéance</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 942163595" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Continued</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Report"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType Issued_Reminder_Line__Remaining_Amount_CaptionLbl</note>
-          <target>Report</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 1815245817" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Continued</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Report"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType Issued_Reminder_Line__Remaining_Amount__Control42CaptionLbl</note>
-          <target>Report</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 496970219" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Lettre de Rappel</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Lettre de Rappel"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType Lettre_de_RappelCaptionLbl</note>
-          <target>Lettre de Rappel</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 1536524479" size-unit="char" translate="yes" xml:space="preserve">
-          <source>N° client : %1</source>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType NumClientLbl</note>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 1274781676" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Relance n° : %1</source>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType RelanceLbl</note>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 1999376220" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Interest Amount</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Montant intérêts"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType ReminderInterestAmountCaptionLbl</note>
-          <target>Montant intérêts</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 2299318333" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Reminder level</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Niveau de relance "</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType Reminder_levelCaptionLbl</note>
-          <target>Niveau de relance </target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 2476940767" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Total %1</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Total %1"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType Text000</note>
-          <target>Total %1</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 3114637384" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Total %1 Incl. VAT</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Total %1 TTC"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType Text001</note>
-          <target>Total %1 TTC</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 3752334001" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Page %1</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Page %1"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType Text002</note>
-          <target>Page %1</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 1148659762" size-unit="char" translate="yes" xml:space="preserve">
-          <source>%1 - %2 %3</source>
-          <note from="Developer" annotates="general" priority="2">FRA="%1 - %2 %3"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType Text030</note>
-          <target>%1 - %2 %3</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 510963145" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Tel. :  %1 - Fax :  %2</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Tel. :  %1 - Fax :  %2"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType Text031</note>
-          <target>Tel. :  %1 - Fax :  %2</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 4168233824" size-unit="char" translate="yes" xml:space="preserve">
-          <source>%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5</source>
-          <note from="Developer" annotates="general" priority="2">FRA="%1 AU CAPITAL DE %2  · %3  · SIRET %4 ·  APE %5 · TVA %6"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType Text032</note>
-          <target>%1 AU CAPITAL DE %2  · %3  · SIRET %4 ·  APE %5 · TVA %6</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 3530537207" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Fax :  %1</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Fax :  %1"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType Text033</note>
-          <target>Fax :  %1</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 1357711087" size-unit="char" translate="yes" xml:space="preserve">
-          <source>TEL : %1 FAX : %2 / email : %3</source>
-          <note from="Developer" annotates="general" priority="2">FRA="TEL : %1 FAX : %2 / email : %3"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType Text066</note>
-          <target>TEL : %1 FAX : %2 / email : %3</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 1995407704" size-unit="char" translate="yes" xml:space="preserve">
-          <source>%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5</source>
-          <note from="Developer" annotates="general" priority="2">FRA="%1 au capital de  %2   - %3  -  APE %4 - N°TVA : %5"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType Text067</note>
-          <target>%1 au capital de  %2   - %3  -  APE %4 - N°TVA : %5</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 3669593336" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Salesperson : </source>
-          <note from="Developer" annotates="general" priority="2">FRA="Notre interlocuteur commercial :"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType Text100</note>
-          <target>Notre interlocuteur commercial :</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 3031896719" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Phone :</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Tel :"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType Text101</note>
-          <target>Tel :</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 1583171122" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Total</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Total"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType TotalCaptionLbl</note>
-          <target>Total</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 2246868760" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Header Dimensions</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Analytique en-tête"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType TxtGHdrDimsCaption</note>
-          <target>Analytique en-tête</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 3830895614" size-unit="char" translate="yes" xml:space="preserve">
-          <source>%1, le %2</source>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType txtLBL</note>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 927345629" size-unit="char" translate="yes" xml:space="preserve">
-          <source>du %1</source>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType txtlbl1</note>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 2089712587" size-unit="char" translate="yes" xml:space="preserve">
-          <source>%1 %2</source>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType txtlbl12</note>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 2120627252" size-unit="char" translate="yes" xml:space="preserve">
-          <source>%1 le %2</source>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType txtLbl1le2</note>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 2623163512" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Type document</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Type document"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType Type_documentCaptionLbl</note>
-          <target>Type document</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 3913295325" size-unit="char" translate="yes" xml:space="preserve">
-          <source>VAT Amount</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Montant TVA"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType VATAmountCaptionLbl</note>
-          <target>Montant TVA</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 3857752469" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Amount Including VAT</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Montant TTC"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType VATAmountLine__Amount_Including_VAT__Control70CaptionLbl</note>
-          <target>Montant TTC</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 4208694336" size-unit="char" translate="yes" xml:space="preserve">
-          <source>VAT Amount</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Montant TVA"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType VATAmountLine__VAT_Amount__Control71CaptionLbl</note>
-          <target>Montant TVA</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 1206547837" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Continued</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Report"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType VATAmountLine__VAT_Base_CaptionLbl</note>
-          <target>Report</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 1975655898" size-unit="char" translate="yes" xml:space="preserve">
-          <source>VAT Base</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Base TVA"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType VATAmountLine__VAT_Base__Control72CaptionLbl</note>
-          <target>Base TVA</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 2633160821" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Continued</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Report"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType VATAmountLine__VAT_Base__Control80CaptionLbl</note>
-          <target>Report</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 3619844860" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Total</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Total"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType VATAmountLine__VAT_Base__Control83CaptionLbl</note>
-          <target>Total</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 1646491659" size-unit="char" translate="yes" xml:space="preserve">
-          <source>VAT %</source>
-          <note from="Developer" annotates="general" priority="2">FRA="% TVA"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType VATAmountLine__VAT___CaptionLbl</note>
-          <target>% TVA</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 1396908878" size-unit="char" translate="yes" xml:space="preserve">
-          <source>VAT Amount Specification</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Détail montant TVA"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType VATAmtSpecCaptionLbl</note>
-          <target>Détail montant TVA</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 1303359398" size-unit="char" translate="yes" xml:space="preserve">
-          <source>VAT Base</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Base TVA"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType VATBaseCaptionLbl</note>
-          <target>Base TVA</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 969467040" size-unit="char" translate="yes" xml:space="preserve">
-          <source>VAT %</source>
-          <note from="Developer" annotates="general" priority="2">FRA="% TVA"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType VATPercentCaptionLbl</note>
-          <target>% TVA</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - NamedType 3936256794" size-unit="char" translate="yes" xml:space="preserve">
-          <source>VAT Amount Specification</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Détail TVA"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - NamedType VAT_Amount_SpecificationCaptionLbl</note>
-          <target>Détail TVA</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - ReportDataItem 1617702496 - Property 1806354803" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Reminder</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Relance"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - ReportDataItem IssuedReminderHeader - Property RequestFilterHeading</note>
-          <target>Relance</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - Control 2346885236 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Options</source>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - Control Options - Property Caption</note>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - Control 816368762 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Log Interaction</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Journal interaction"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - Control LogInteraction - Property Caption</note>
-          <target>Journal interaction</target>
-        </trans-unit>
-        <trans-unit id="Report 4027606950 - Control 3662524380 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Show Internal Information</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Afficher info. internes"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_BC6_Relance  CNE - Control ShowInternalInformation - Property Caption</note>
-          <target>Afficher info. internes</target>
         </trans-unit>
         <trans-unit id="Report 2703772864 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>BIBLE</source>
@@ -19589,6 +19313,11 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_MAJ ITEM - Property Caption</note>
         </trans-unit>
+        <trans-unit id="Report 3083129050 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>MAJ Order Line</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_MAJ Order Line - Property Caption</note>
+        </trans-unit>
         <trans-unit id="Report 3885841018 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Order NAVIDIIGEST</source>
           <note from="Developer" annotates="general" priority="2">FRA="Commande fournisseur NAVIDIIGEST"</note>
@@ -21403,28 +21132,28 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Prices Request - Control Options - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 3246983809 - Control 3255118903 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 3246983809 - Control 407849901 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Archive Document</source>
           <note from="Developer" annotates="general" priority="2">FRA="Archiver document"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Prices Request - Control ArchiveDocument - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Prices Request - Control ArchiveDocumentF - Property Caption</note>
           <target>Archiver document</target>
         </trans-unit>
-        <trans-unit id="Report 3246983809 - Control 3801578516 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 3246983809 - Control 1812433930 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Print Characteristics Agency:</source>
           <note from="Developer" annotates="general" priority="2">FRA="Imprimer Caractéristiques Agence:"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Prices Request - Control CodGRespCenter - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Prices Request - Control CodGRespCenterF - Property Caption</note>
           <target>Imprimer Caractéristiques Agence:</target>
         </trans-unit>
-        <trans-unit id="Report 3246983809 - Control 816368762 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 3246983809 - Control 218814212 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Log Interaction</source>
           <note from="Developer" annotates="general" priority="2">FRA="Journal interaction"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Prices Request - Control LogInteraction - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Prices Request - Control LogInteractionF - Property Caption</note>
           <target>Journal interaction</target>
         </trans-unit>
-        <trans-unit id="Report 3246983809 - Control 3192306909 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 3246983809 - Control 3390294615 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>No. of Copies</source>
           <note from="Developer" annotates="general" priority="2">FRA="Nombre de copies"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Prices Request - Control NoofCopies - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Prices Request - Control NoofCopiesF - Property Caption</note>
           <target>Nombre de copies</target>
         </trans-unit>
         <trans-unit id="Report 3246983809 - Control 3662524380 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
@@ -22655,6 +22384,286 @@
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Refresh Phys. Qty - Control PostingDate - Property Caption</note>
           <target>Date comptabilisation</target>
         </trans-unit>
+        <trans-unit id="Report 3398861534 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Reminder CNE</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Relance CNE"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - Property Caption</note>
+          <target>Relance CNE</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 2248914289" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Amount Including VAT</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Montant TTC"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType AmountIncVATCaptionLbl</note>
+          <target>Montant TTC</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 4137192940" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Continued</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Suite"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType ContinuedCaption1Lbl</note>
+          <target>Suite</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 4036938315" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Continued</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Suite"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType ContinuedCaptionLbl</note>
+          <target>Suite</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 3819526884" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%1 n°</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType DocType</note>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 1085409740" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Document Date</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Date document"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType Document_DateCaptionLbl</note>
+          <target>Date document</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 1844139747" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Due Date</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Date d'échéance"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType Issued_Reminder_Line__Due_Date_CaptionLbl</note>
+          <target>Date d'échéance</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 942163595" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Continued</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Report"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType Issued_Reminder_Line__Remaining_Amount_CaptionLbl</note>
+          <target>Report</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 1815245817" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Continued</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Report"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType Issued_Reminder_Line__Remaining_Amount__Control42CaptionLbl</note>
+          <target>Report</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 496970219" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Lettre de Rappel</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Lettre de Rappel"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType Lettre_de_RappelCaptionLbl</note>
+          <target>Lettre de Rappel</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 1536524479" size-unit="char" translate="yes" xml:space="preserve">
+          <source>N° client : %1</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType NumClientLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 1274781676" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Relance n° : %1</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType RelanceLbl</note>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 1999376220" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Interest Amount</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Montant intérêts"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType ReminderInterestAmountCaptionLbl</note>
+          <target>Montant intérêts</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 2299318333" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Reminder level</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Niveau de relance "</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType Reminder_levelCaptionLbl</note>
+          <target>Niveau de relance </target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 2476940767" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Total %1</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Total %1"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType Text000</note>
+          <target>Total %1</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 3114637384" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Total %1 Incl. VAT</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Total %1 TTC"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType Text001</note>
+          <target>Total %1 TTC</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 3752334001" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Page %1</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Page %1"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType Text002</note>
+          <target>Page %1</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 1148659762" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%1 - %2 %3</source>
+          <note from="Developer" annotates="general" priority="2">FRA="%1 - %2 %3"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType Text030</note>
+          <target>%1 - %2 %3</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 510963145" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Tel. :  %1 - Fax :  %2</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Tel. :  %1 - Fax :  %2"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType Text031</note>
+          <target>Tel. :  %1 - Fax :  %2</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 4168233824" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5</source>
+          <note from="Developer" annotates="general" priority="2">FRA="%1 AU CAPITAL DE %2  · %3  · SIRET %4 ·  APE %5 · TVA %6"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType Text032</note>
+          <target>%1 AU CAPITAL DE %2  · %3  · SIRET %4 ·  APE %5 · TVA %6</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 3530537207" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Fax :  %1</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Fax :  %1"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType Text033</note>
+          <target>Fax :  %1</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 1357711087" size-unit="char" translate="yes" xml:space="preserve">
+          <source>TEL : %1 FAX : %2 / email : %3</source>
+          <note from="Developer" annotates="general" priority="2">FRA="TEL : %1 FAX : %2 / email : %3"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType Text066</note>
+          <target>TEL : %1 FAX : %2 / email : %3</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 1995407704" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5</source>
+          <note from="Developer" annotates="general" priority="2">FRA="%1 au capital de  %2   - %3  -  APE %4 - N°TVA : %5"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType Text067</note>
+          <target>%1 au capital de  %2   - %3  -  APE %4 - N°TVA : %5</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 3669593336" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Salesperson : </source>
+          <note from="Developer" annotates="general" priority="2">FRA="Notre interlocuteur commercial :"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType Text100</note>
+          <target>Notre interlocuteur commercial :</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 3031896719" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Phone :</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Tel :"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType Text101</note>
+          <target>Tel :</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 1583171122" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Total</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Total"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType TotalCaptionLbl</note>
+          <target>Total</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 2246868760" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Header Dimensions</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Analytique en-tête"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType TxtGHdrDimsCaption</note>
+          <target>Analytique en-tête</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 3830895614" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%1, le %2</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType txtLBL</note>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 927345629" size-unit="char" translate="yes" xml:space="preserve">
+          <source>du %1</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType txtlbl1</note>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 2089712587" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%1 %2</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType txtlbl12</note>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 2120627252" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%1 le %2</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType txtLbl1le2</note>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 2623163512" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Type document</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Type document"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType Type_documentCaptionLbl</note>
+          <target>Type document</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 3913295325" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT Amount</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Montant TVA"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType VATAmountCaptionLbl</note>
+          <target>Montant TVA</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 3857752469" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Amount Including VAT</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Montant TTC"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType VATAmountLine__Amount_Including_VAT__Control70CaptionLbl</note>
+          <target>Montant TTC</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 4208694336" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT Amount</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Montant TVA"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType VATAmountLine__VAT_Amount__Control71CaptionLbl</note>
+          <target>Montant TVA</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 1206547837" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Continued</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Report"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType VATAmountLine__VAT_Base_CaptionLbl</note>
+          <target>Report</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 1975655898" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT Base</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Base TVA"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType VATAmountLine__VAT_Base__Control72CaptionLbl</note>
+          <target>Base TVA</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 2633160821" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Continued</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Report"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType VATAmountLine__VAT_Base__Control80CaptionLbl</note>
+          <target>Report</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 3619844860" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Total</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Total"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType VATAmountLine__VAT_Base__Control83CaptionLbl</note>
+          <target>Total</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 1646491659" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT %</source>
+          <note from="Developer" annotates="general" priority="2">FRA="% TVA"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType VATAmountLine__VAT___CaptionLbl</note>
+          <target>% TVA</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 1396908878" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT Amount Specification</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Détail montant TVA"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType VATAmtSpecCaptionLbl</note>
+          <target>Détail montant TVA</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 1303359398" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT Base</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Base TVA"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType VATBaseCaptionLbl</note>
+          <target>Base TVA</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 969467040" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT %</source>
+          <note from="Developer" annotates="general" priority="2">FRA="% TVA"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType VATPercentCaptionLbl</note>
+          <target>% TVA</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - NamedType 3936256794" size-unit="char" translate="yes" xml:space="preserve">
+          <source>VAT Amount Specification</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Détail TVA"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - NamedType VAT_Amount_SpecificationCaptionLbl</note>
+          <target>Détail TVA</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - ReportDataItem 1617702496 - Property 1806354803" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Reminder</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Relance"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - ReportDataItem IssuedReminderHeader - Property RequestFilterHeading</note>
+          <target>Relance</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - Control 2346885236 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Options</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - Control Options - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - Control 816368762 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Log Interaction</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Journal interaction"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - Control LogInteraction - Property Caption</note>
+          <target>Journal interaction</target>
+        </trans-unit>
+        <trans-unit id="Report 3398861534 - Control 3662524380 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Show Internal Information</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Afficher info. internes"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Relance  CNE - Control ShowInternalInformation - Property Caption</note>
+          <target>Afficher info. internes</target>
+        </trans-unit>
         <trans-unit id="Report 2861083918 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Return Order Confirmation</source>
           <note from="Developer" annotates="general" priority="2">FRA="Confirmation de retour"</note>
@@ -23136,18 +23145,6 @@
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales - Credit Memo CNE - NamedType Text003</note>
           <target>(Doc. lettrage %1 %2)</target>
         </trans-unit>
-        <trans-unit id="Report 1868348574 - NamedType 732759939" size-unit="char" translate="yes" xml:space="preserve">
-          <source>COPY</source>
-          <note from="Developer" annotates="general" priority="2">FRA="COPIE"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales - Credit Memo CNE - NamedType Text004</note>
-          <target>COPIE</target>
-        </trans-unit>
-        <trans-unit id="Report 1868348574 - NamedType 1370456556" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Sales - Credit Memo %1</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Ventes : Avoir %1"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales - Credit Memo CNE - NamedType Text005</note>
-          <target>Ventes : Avoir %1</target>
-        </trans-unit>
         <trans-unit id="Report 1868348574 - NamedType 2008153173" size-unit="char" translate="yes" xml:space="preserve">
           <source>Page %1</source>
           <note from="Developer" annotates="general" priority="2">FRA="Page %1"</note>
@@ -23208,30 +23205,6 @@
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales - Credit Memo CNE - NamedType UnitCaptionLbl</note>
           <target>UV</target>
         </trans-unit>
-        <trans-unit id="Report 1868348574 - NamedType 2054461549" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Invoice Discount Amount</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Montant remise facture"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales - Credit Memo CNE - NamedType VATAmountLine__Invoice_Discount_Amount__Control1000000022CaptionLbl</note>
-          <target>Montant remise facture</target>
-        </trans-unit>
-        <trans-unit id="Report 1868348574 - NamedType 381575830" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Inv. Disc. Base Amount</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Montant base remise facture"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales - Credit Memo CNE - NamedType VATAmountLine__Inv__Disc__Base_Amount__Control1000000021CaptionLbl</note>
-          <target>Montant base remise facture</target>
-        </trans-unit>
-        <trans-unit id="Report 1868348574 - NamedType 3680130846" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Line Amount</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Montant ligne"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales - Credit Memo CNE - NamedType VATAmountLine__Line_Amount__Control140CaptionLbl</note>
-          <target>Montant ligne</target>
-        </trans-unit>
-        <trans-unit id="Report 1868348574 - NamedType 1206547837" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Continued</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Report"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales - Credit Memo CNE - NamedType VATAmountLine__VAT_Base_CaptionLbl</note>
-          <target>Report</target>
-        </trans-unit>
         <trans-unit id="Report 1868348574 - NamedType 3729099473" size-unit="char" translate="yes" xml:space="preserve">
           <source>Invoice Discount Base Amount</source>
           <note from="Developer" annotates="general" priority="2">FRA="Montant base remise facture"</note>
@@ -23280,12 +23253,6 @@
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales - Credit Memo CNE - NamedType VATAmtSpecificationCptnLbl</note>
           <target>Détail montant TVA</target>
         </trans-unit>
-        <trans-unit id="Report 1868348574 - NamedType 3936256794" size-unit="char" translate="yes" xml:space="preserve">
-          <source>VAT Amount Specification</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Détail TVA"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales - Credit Memo CNE - NamedType VAT_Amount_SpecificationCaptionLbl</note>
-          <target>Détail TVA</target>
-        </trans-unit>
         <trans-unit id="Report 1868348574 - NamedType 1499165109" size-unit="char" translate="yes" xml:space="preserve">
           <source>w. Tax Net  U . P.  </source>
           <note from="Developer" annotates="general" priority="2">FRA="P. U. Net HT"</note>
@@ -23309,28 +23276,28 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales - Credit Memo CNE - Control Options - Property Caption</note>
         </trans-unit>
-        <trans-unit id="Report 1868348574 - Control 2991839654 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 1868348574 - Control 872126280 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Inlude Shipment No.</source>
           <note from="Developer" annotates="general" priority="2">FRA="Inclure expéditions"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales - Credit Memo CNE - Control IncludeShptNo - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales - Credit Memo CNE - Control IncludeShptNoF - Property Caption</note>
           <target>Inclure expéditions</target>
         </trans-unit>
-        <trans-unit id="Report 1868348574 - Control 816368762 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 1868348574 - Control 218814212 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Log Interaction</source>
           <note from="Developer" annotates="general" priority="2">FRA="Journal interaction"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales - Credit Memo CNE - Control LogInteraction - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales - Credit Memo CNE - Control LogInteractionF - Property Caption</note>
           <target>Journal interaction</target>
         </trans-unit>
-        <trans-unit id="Report 1868348574 - Control 2578066365 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 1868348574 - Control 1202731191 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>No. of Copies</source>
           <note from="Developer" annotates="general" priority="2">FRA="Nombre de copies"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales - Credit Memo CNE - Control NoOfCopies - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales - Credit Memo CNE - Control NoOfCopiesF - Property Caption</note>
           <target>Nombre de copies</target>
         </trans-unit>
-        <trans-unit id="Report 1868348574 - Control 316520822 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+        <trans-unit id="Report 1868348574 - Control 529813272 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Show Internal Information</source>
           <note from="Developer" annotates="general" priority="2">FRA="Afficher info. internes"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales - Credit Memo CNE - Control ShowInternalInfo - Property Caption</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales - Credit Memo CNE - Control ShowInternalInfoF - Property Caption</note>
           <target>Afficher info. internes</target>
         </trans-unit>
         <trans-unit id="Report 2008743250 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
@@ -25361,10 +25328,10 @@
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales Stat/Customer - NamedType VendeurCaptionLbl</note>
         </trans-unit>
         <trans-unit id="Report 3411430229 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>Sales Statistic/Vendor</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Statistique vente/fournisseur"</note>
+          <source>Sales Statistic/Vendor Subsidiary</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Statistique vente/fournisseur Filiale"</note>
           <note from="Xliff Generator" annotates="general" priority="3">Report BC6_Sales Stat/Vendor Filiale - Property Caption</note>
-          <target>Statistique vente/fournisseur</target>
+          <target>Statistique vente/fournisseur Filiale</target>
         </trans-unit>
         <trans-unit id="Report 3411430229 - NamedType 3046037764" size-unit="char" translate="yes" xml:space="preserve">
           <source>Au</source>
@@ -28012,13 +27979,8 @@
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_CustomerCard - Control BC6_Salesperson Filter - Property Caption</note>
           <target>Filtre vendeur</target>
         </trans-unit>
-        <trans-unit id="PageExtension 862663540 - Control 929465551 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 523354100">
-          <source>Territory Code</source>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_CustomerCard - Control BC6_Territory Code - Property Caption</note>
-        </trans-unit>
         <trans-unit id="PageExtension 862663540 - Control 3331688415 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 523354100">
-          <source>Goupe Marge Vente Client</source>
+          <source>Customer Sales Profit Group</source>
           <note from="Developer" annotates="general" priority="2">FRA="Goupe Marge Vente Client"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_CustomerCard - Control BC6_Customer Sales Profit Group - Property Caption</note>
           <target>Goupe Marge Vente Client</target>
@@ -28034,11 +27996,6 @@
           <note from="Developer" annotates="general" priority="2">FRA="Tiers payeur"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_CustomerCard - Control BC6_Pay-to Customer No. - Property Caption</note>
           <target>Tiers payeur</target>
-        </trans-unit>
-        <trans-unit id="PageExtension 862663540 - Control 453186890 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 523354100">
-          <source>Shipping Advice</source>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_CustomerCard - Control BC6_Shipping Advice - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 862663540 - Control 119626473 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 523354100">
           <source>Combine Shipments by Order</source>
@@ -28490,7 +28447,7 @@
           <target>Document Associé</target>
         </trans-unit>
         <trans-unit id="PageExtension 2447992509 - Control 504917821 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4010542053">
-          <source>Comment</source>
+          <source>Commentaire</source>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_JobCard - Control BC6_Comment - Property Caption</note>
         </trans-unit>
@@ -28536,7 +28493,7 @@
           <target>Montant projet</target>
         </trans-unit>
         <trans-unit id="PageExtension 2447992509 - Change 513339096 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4010542053">
-          <source>Status_</source>
+          <source>Statut</source>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_JobCard - Change Status - Property Caption</note>
         </trans-unit>
@@ -28665,6 +28622,12 @@
           <source/>
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_PostedPurchaseInvoice - NamedType Text001</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 108162917 - Action 3031433547 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4048657685">
+          <source>Print group</source>
+          <note from="Developer" annotates="general" priority="2">FRA="&amp;Imprimer"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_PostedPurchaseInvoice - Action BC6_Print - Property Caption</note>
+          <target>&amp;Imprimer</target>
         </trans-unit>
         <trans-unit id="PageExtension 108162917 - Action 2610232337 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4048657685">
           <source>&amp;Print</source>
@@ -29035,6 +28998,39 @@
           <note from="Developer" annotates="general" priority="2"/>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_PurchaseOrderSubform - Action BC6_Affecter commande - Property Caption</note>
         </trans-unit>
+        <trans-unit id="PageExtension 2192841907 - NamedType 3114637384" size-unit="char" translate="yes" xml:space="preserve" al-object-target="PageExtension 2192841907">
+          <source/>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_PurchaseQuote - NamedType Text001</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2192841907 - NamedType 1112697198" size-unit="char" translate="yes" xml:space="preserve" al-object-target="PageExtension 2192841907">
+          <source>There are no items with cross reference: %1</source>
+          <note from="Developer" annotates="general" priority="2">"FRA=Il n'existe aucun article avec la référence externe %1."</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_PurchaseQuote - NamedType TextDEMANDE_PRIX001</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2192841907 - Action 3031433547 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3321822267">
+          <source>Print</source>
+          <note from="Developer" annotates="general" priority="2">FRA="E&amp;nvoyer/Imprimer"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_PurchaseQuote - Action BC6_Print - Property Caption</note>
+          <target>E&amp;nvoyer/Imprimer</target>
+        </trans-unit>
+        <trans-unit id="PageExtension 2192841907 - Action 3790279162 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3321822267">
+          <source>Post Print</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Envoyer par E-Mail"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_PurchaseQuote - Action BC6_Envoyer par E-Mail - Property Caption</note>
+          <target>Envoyer par E-Mail</target>
+        </trans-unit>
+        <trans-unit id="PageExtension 2192841907 - Action 3463508404 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3321822267">
+          <source>Envoyer par Fax</source>
+          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_PurchaseQuote - Action BC6_Envoyer par Fax - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 2192841907 - Action 715036439 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3321822267">
+          <source>Post Print</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Imprimer"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_PurchaseQuote - Action BC6_Imprimer - Property Caption</note>
+          <target>Imprimer</target>
+        </trans-unit>
         <trans-unit id="PageExtension 3147282345 - Action 2290264351 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 1555938241">
           <source>Prepare to print the document. The report request window for the document opens where you can specify what to include on the print-out.</source>
           <note from="Developer" annotates="general" priority="2"/>
@@ -29178,6 +29174,12 @@
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_PurchInvoiceSubform - Control BC6_Eco partner DEEE - Property Caption</note>
           <target>Eco partenaire DEEE</target>
         </trans-unit>
+        <trans-unit id="PageExtension 3318504517 - Control 1339002304 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4255274469">
+          <source>Picture</source>
+          <note from="Developer" annotates="general" priority="2">FRA="Image"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_ResponsibilityCenterCard - Control BC6_Picture - Property Caption</note>
+          <target>Image</target>
+        </trans-unit>
         <trans-unit id="PageExtension 3318504517 - Control 642067210 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4255274469">
           <source>Alt Centre de Gestion</source>
           <note from="Developer" annotates="general" priority="2"/>
@@ -29296,9 +29298,9 @@
         </trans-unit>
         <trans-unit id="PageExtension 410691253 - Control 3139326037 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3573230301">
           <source>Item Availability ACTI</source>
-          <note from="Developer" annotates="general" priority="2">FRA=Disponibilité article ACTI"</note>
+          <note from="Developer" annotates="general" priority="2">FRA=Disponibilité article ACTI</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_SalesLineFactBox - Control Item Availability ACTI - Property Caption</note>
-          <target>Disponibilité article ACTI"</target>
+          <target>Disponibilité article ACTI</target>
         </trans-unit>
         <trans-unit id="PageExtension 410691253 - Control 2066042578 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 3573230301">
           <source>METZ</source>
@@ -29927,11 +29929,6 @@
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_VendorCard - Action BC6_Pay-to Vend. No. - Property Caption</note>
           <target>Tiers payeur</target>
         </trans-unit>
-        <trans-unit id="PageExtension 114164764 - Control 2669980615 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4055858012">
-          <source>Name 2</source>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_VendorCard - Control BC6_Name 2 - Property Caption</note>
-        </trans-unit>
         <trans-unit id="PageExtension 114164764 - Control 2859997375 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4055858012">
           <source>Creation Date</source>
           <note from="Developer" annotates="general" priority="2">FRA="Date de création"</note>
@@ -29976,8 +29973,9 @@
         </trans-unit>
         <trans-unit id="PageExtension 114164764 - Control 3845547804 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4055858012">
           <source>Lead Time Calculation</source>
-          <note from="Developer" annotates="general" priority="2"/>
+          <note from="Developer" annotates="general" priority="2">FRA="Délai de réappro."</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_VendorCard - Control BC6_Lead Time Calculation - Property Caption</note>
+          <target>Délai de réappro.</target>
         </trans-unit>
         <trans-unit id="PageExtension 114164764 - Control 3681623761 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4055858012">
           <source>Area</source>
@@ -30654,18 +30652,6 @@
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_Item - Field BC6_Eco partner DEEE - Property Caption</note>
           <target>Eco partenaire DEEE</target>
         </trans-unit>
-        <trans-unit id="TableExtension 2494207247 - Field 3833638079 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3276313895">
-          <source>Inventory ACTI</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Stocks ACTI"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_Item - Field BC6_Inventory ACTI - Property Caption</note>
-          <target>Stocks ACTI</target>
-        </trans-unit>
-        <trans-unit id="TableExtension 2494207247 - Field 1210001984 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3276313895">
-          <source>Inventory METZ</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Stocks METZ"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_Item - Field BC6_Inventory METZ - Property Caption</note>
-          <target>Stocks METZ</target>
-        </trans-unit>
         <trans-unit id="TableExtension 2494207247 - Field 3971299488 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3276313895">
           <source>Item Sales Profit Group</source>
           <note from="Developer" annotates="general" priority="2">FRA="Goupe Marge Vente Article"</note>
@@ -30689,30 +30675,6 @@
           <note from="Developer" annotates="general" priority="2">FRA="Imprimer Prix Public TTC sur étiquette"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_Item - Field BC6_Print Unit Price Incl. VAT - Property Caption</note>
           <target>Imprimer Prix Public TTC sur étiquette</target>
-        </trans-unit>
-        <trans-unit id="TableExtension 2494207247 - Field 4143215388 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3276313895">
-          <source>Qty. on Purch. Order ACTI</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Qté sur commande achat ACTI"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_Item - Field BC6_Qty. on Purch. Order ACTI - Property Caption</note>
-          <target>Qté sur commande achat ACTI</target>
-        </trans-unit>
-        <trans-unit id="TableExtension 2494207247 - Field 2904610459 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3276313895">
-          <source>Qty. on Purch. Order METZ</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Qté sur commande achat METZ"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_Item - Field BC6_Qty. on Purch. Order METZ - Property Caption</note>
-          <target>Qté sur commande achat METZ</target>
-        </trans-unit>
-        <trans-unit id="TableExtension 2494207247 - Field 2380452454 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3276313895">
-          <source>Qty. on Sales Order ACTI</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Qté sur commande vente ACTI"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_Item - Field BC6_Qty. on Sales Order ACTI - Property Caption</note>
-          <target>Qté sur commande vente ACTI</target>
-        </trans-unit>
-        <trans-unit id="TableExtension 2494207247 - Field 2855025621 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3276313895">
-          <source>Qty. on Sales Order METZ</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Qté sur commande vente METZ"</note>
-          <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_Item - Field BC6_Qty. on Sales Order METZ - Property Caption</note>
-          <target>Qté sur commande vente METZ</target>
         </trans-unit>
         <trans-unit id="TableExtension 2494207247 - Field 3747460870 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 3276313895">
           <source> Qty. Return Order SAV</source>
@@ -33586,10 +33548,10 @@
           <target>Gestion DEEE</target>
         </trans-unit>
         <trans-unit id="TableExtension 3587710892 - Field 3256449319 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 4145206282">
-          <source>E-Mail Administrateur</source>
-          <note from="Developer" annotates="general" priority="2">FRA="-Mail Administrateur"</note>
+          <source>E-Mail Administrator</source>
+          <note from="Developer" annotates="general" priority="2">FRA="E-Mail Administrateur"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesReceivablesSetup - Field BC6_E-Mail Administrateur - Property Caption</note>
-          <target>-Mail Administrateur</target>
+          <target>E-Mail Administrateur</target>
         </trans-unit>
         <trans-unit id="TableExtension 3587710892 - Field 2077383344 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 4145206282">
           <source>Sales Qote</source>
@@ -34048,9 +34010,9 @@
         </trans-unit>
         <trans-unit id="TableExtension 3450627152 - Field 1202947033 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1936001480">
           <source>Freight Amount</source>
-          <note from="Developer" annotates="general" priority="2">FRA="montant port si franco non atteint"</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Montant port si franco non atteint"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_Vendor - Field BC6_Freight Amount - Property Caption</note>
-          <target>montant port si franco non atteint</target>
+          <target>Montant port si franco non atteint</target>
         </trans-unit>
         <trans-unit id="TableExtension 3450627152 - Field 964869591 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1936001480">
           <source>MinFranco</source>

@@ -43,6 +43,16 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
     begin
         exit(BooGAutoTextSpe);
     end;
+    //----------TAB 36 
+    procedure SetBoolReclose(pBoolReclose: Boolean)
+    begin
+        BoolReclose := pBoolReclose;
+    end;
+
+    procedure GetBoolReclose(): Boolean
+    begin
+        exit(BoolReclose);
+    end;
 
     procedure SetPostingDate(pPostingDate: Date)
     begin
@@ -353,5 +363,5 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
         IntLSignFactor: Integer;
         YourReference: Text;
 
-
+        BoolReclose: Boolean;
 }

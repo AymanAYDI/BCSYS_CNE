@@ -1265,7 +1265,7 @@ page 50117 "BC6_Locat. Sales Return Order"
     end;
 
 
-    local procedure FctSendNotification() // TODO: check changement de la function create notification
+    local procedure FctSendNotification()
     var
         NotificationEntry: Record "Notification Entry";
         L_UserSetup: Record "User Setup";
@@ -1276,13 +1276,15 @@ page 50117 "BC6_Locat. Sales Return Order"
         L_UserSetup.RESET();
         L_UserSetup.SETRANGE("BC6_SAV Admin", TRUE);
         IF L_UserSetup.FINDFIRST() THEN begin
-            WorkflowStepInstance.Get();
-            if WorkflowStepArgument.Get(WorkflowStepInstance.Argument) then
-                REPEAT
-                    NotificationEntry.CreateNotificationEntry(NotificationEntry.Type::"New Record", L_UserSetup."User ID", Rec, WorkflowStepArgument."Link Target Page",
-                                                 WorkflowStepArgument."Custom Link", CopyStr(UserId(), 1, 50));
+            //TODO  WorkflowStepInstance.Get();
+            // if WorkflowStepArgument.Get(WorkflowStepInstance.Argument) then
+            REPEAT
+                NotificationEntry.CreateNotificationEntry(
+                    WorkflowStepArgument."Notification Entry Type",
+                    L_UserSetup."User ID", Rec, WorkflowStepArgument."Link Target Page",
+                    WorkflowStepArgument."Custom Link", UserID);
 
-                UNTIL L_UserSetup.NEXT() = 0;
+            UNTIL L_UserSetup.NEXT() = 0;
         end;
     end;
 }

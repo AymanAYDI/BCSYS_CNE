@@ -149,18 +149,19 @@ pageextension 50089 "BC6_SalesReturnOrder" extends "Sales Return Order" //6630
         NotificationEntry: Record "Notification Entry";
         L_UserSetup: Record "User Setup";
         WorkflowStepArgument: Record "Workflow Step Argument";
-        WorkflowStepInstance: Record "Workflow Step Instance";
+    // WorkflowStepInstance: Record "Workflow Step Instance";
     begin
         L_UserSetup.RESET();
         L_UserSetup.SETRANGE("BC6_SAV Admin", TRUE);
-        IF L_UserSetup.FindSet() THEN begin
-            WorkflowStepInstance.Get();
-            if WorkflowStepArgument.Get(WorkflowStepInstance.Argument) then
-                REPEAT
-                    NotificationEntry.CreateNotificationEntry(NotificationEntry.Type::"New Record", L_UserSetup."User ID", Rec, WorkflowStepArgument."Link Target Page",
-                                        WorkflowStepArgument."Custom Link", CopyStr(UserId(), 1, 50));
-                UNTIL L_UserSetup.NEXT() = 0;
-        end;
+        IF L_UserSetup.FindSet() THEN
+            // WorkflowStepInstance.Get();
+            // if WorkflowStepArgument.Get(WorkflowStepInstance.Argument) then
+            REPEAT
+                NotificationEntry.CreateNotificationEntry(
+                    WorkflowStepArgument."Notification Entry Type",
+                    L_UserSetup."User ID", Rec, WorkflowStepArgument."Link Target Page",
+                    WorkflowStepArgument."Custom Link", CopyStr(UserID, 1, 50));
+            UNTIL L_UserSetup.NEXT() = 0;
     end;
 }
 

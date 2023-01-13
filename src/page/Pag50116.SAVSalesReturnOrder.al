@@ -1291,14 +1291,14 @@ page 50116 "BC6_SAV Sales Return Order"
         L_UserSetup.SETRANGE("BC6_SAV Admin", TRUE);
 
         IF L_UserSetup.FINDFIRST() THEN begin
-            WorkflowStepInstance.Get();
-            if WorkflowStepArgument.Get(WorkflowStepInstance.Argument) then
-                REPEAT
-
-                    NotificationEntry.CreateNotificationEntry(NotificationEntry.Type::"New Record", L_UserSetup."User ID", Rec, WorkflowStepArgument."Link Target Page",
-                                      WorkflowStepArgument."Custom Link", CopyStr(UserId(), 1, 50));
-
-                UNTIL L_UserSetup.NEXT() = 0;
+            // WorkflowStepInstance.Get(); //TODO
+            // if WorkflowStepArgument.Get(WorkflowStepInstance.Argument) then
+            REPEAT
+                NotificationEntry.CreateNotificationEntry(
+                    WorkflowStepArgument."Notification Entry Type",
+                    L_UserSetup."User ID", Rec, WorkflowStepArgument."Link Target Page",
+                    WorkflowStepArgument."Custom Link", UserID);
+            UNTIL L_UserSetup.NEXT() = 0;
         end;
     end;
 }

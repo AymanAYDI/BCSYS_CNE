@@ -446,12 +446,15 @@ codeunit 50030 "BC6_Events Mgt"
     procedure T36_OnBeforeValidateEvent_ShippAgentCode(var Rec: Record "Sales Header"; var xRec: Record "Sales Header"; CurrFieldNo: Integer)
     var
         CDUReleaseDoc: Codeunit "Release Sales Document";
-        BoolReclose: Boolean;
+        // BoolReclose: Boolean;
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
+
     begin
         if (Rec.Status <> Rec.Status::Open) and (xRec."Shipping Agent Code" <> Rec."Shipping Agent Code") and (Rec."Document Type" = Rec."Document Type"::Order)
         then begin
             CDUReleaseDoc.Reopen(Rec);
-            BoolReclose := true;
+            GlobalFunctionMgt.SetBoolReclose(true);
+            // BoolReclose := true;
         end;
     end;
 
@@ -459,11 +462,14 @@ codeunit 50030 "BC6_Events Mgt"
     procedure T36_OnAfterValidateEvent_ShippAgentCode(var Rec: Record "Sales Header"; var xRec: Record "Sales Header"; CurrFieldNo: Integer)
     var
         CDUReleaseDoc: Codeunit "Release Sales Document";
-        BoolReclose: Boolean;
+        //BoolReclose: Boolean;
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
+
     begin
-        if BoolReclose then begin   //TODO: je Dois récuperé la valeur
+        if GlobalFunctionMgt.GetBoolReclose() then begin
             CDUReleaseDoc.RUN(Rec);
-            BoolReclose := false;
+            GlobalFunctionMgt.SetBoolReclose(false);
+            //BoolReclose := false;
         end;
     end;
 
@@ -471,13 +477,17 @@ codeunit 50030 "BC6_Events Mgt"
     procedure T36_OnBeforeValidateEvent_ShippAgentServCode(var Rec: Record "Sales Header"; var xRec: Record "Sales Header"; CurrFieldNo: Integer)
     var
         CDUReleaseDoc: Codeunit "Release Sales Document";
-        BoolReclose: Boolean;
+        // BoolReclose: Boolean;
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
+
     begin
         if (Rec.Status <> Rec.Status::Open) and (xRec."Shipping Agent Service Code" <> Rec."Shipping Agent Service Code")
         and (Rec."Document Type" = Rec."Document Type"::Order)
         then begin
             CDUReleaseDoc.Reopen(Rec);
-            BoolReclose := true;
+            // BoolReclose := true;
+            GlobalFunctionMgt.SetBoolReclose(true);
+
         end;
     end;
 
@@ -485,11 +495,15 @@ codeunit 50030 "BC6_Events Mgt"
     procedure T36_OnAfterValidateEvent_ShippAgentServCode(var Rec: Record "Sales Header"; var xRec: Record "Sales Header"; CurrFieldNo: Integer)
     var
         CDUReleaseDoc: Codeunit "Release Sales Document";
-        BoolReclose: Boolean;
+        // BoolReclose: Boolean;
+        GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
+
     begin
-        if BoolReclose then begin
+        if GlobalFunctionMgt.GetBoolReclose() then begin
             CDUReleaseDoc.RUN(Rec);
-            BoolReclose := false;
+            GlobalFunctionMgt.SetBoolReclose(false);
+
+            // BoolReclose := false;
         end;
     end;
 

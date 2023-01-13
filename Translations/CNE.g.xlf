@@ -23704,7 +23704,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_CustomerCard - Control BC6_Salesperson Filter - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 862663540 - Control 3331688415 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 523354100">
-          <source>Goupe Marge Vente Client</source>
+          <source>Customer Sales Profit Group</source>
           <note from="Developer" annotates="general" priority="2">FRA="Goupe Marge Vente Client"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_CustomerCard - Control BC6_Customer Sales Profit Group - Property Caption</note>
         </trans-unit>
@@ -24104,7 +24104,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_JobCard - Action BC6_AssociatedDocument - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 2447992509 - Control 504917821 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4010542053">
-          <source>Comment</source>
+          <source>Commentaire</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_JobCard - Control BC6_Comment - Property Caption</note>
         </trans-unit>
@@ -24144,7 +24144,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_JobCard - Control BC6_Bill-to Contact_BA - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 2447992509 - Change 513339096 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4010542053">
-          <source>Status_</source>
+          <source>Statut</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_JobCard - Change Status - Property Caption</note>
         </trans-unit>
@@ -24262,6 +24262,11 @@
           <source></source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_PostedPurchaseInvoice - NamedType Text001</note>
+        </trans-unit>
+        <trans-unit id="PageExtension 108162917 - Action 3031433547 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4048657685">
+          <source>Print group</source>
+          <note from="Developer" annotates="general" priority="2">FRA="&amp;Imprimer"</note>
+          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_PostedPurchaseInvoice - Action BC6_Print - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 108162917 - Action 2610232337 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4048657685">
           <source>&amp;Print</source>
@@ -25383,11 +25388,6 @@
           <note from="Developer" annotates="general" priority="2">FRA="Tiers payeur"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_VendorCard - Action BC6_Pay-to Vend. No. - Property Caption</note>
         </trans-unit>
-        <trans-unit id="PageExtension 114164764 - Control 2669980615 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4055858012">
-          <source>Name 2</source>
-          <note from="Developer" annotates="general" priority="2"></note>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_VendorCard - Control BC6_Name 2 - Property Caption</note>
-        </trans-unit>
         <trans-unit id="PageExtension 114164764 - Control 2859997375 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4055858012">
           <source>Creation Date</source>
           <note from="Developer" annotates="general" priority="2">FRA="Date de création"</note>
@@ -25425,7 +25425,7 @@
         </trans-unit>
         <trans-unit id="PageExtension 114164764 - Control 3845547804 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4055858012">
           <source>Lead Time Calculation</source>
-          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Developer" annotates="general" priority="2">FRA="Délai de réappro."</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_VendorCard - Control BC6_Lead Time Calculation - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 114164764 - Control 3681623761 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 4055858012">
@@ -28449,8 +28449,8 @@
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesReceivablesSetup - Field BC6_DEEE Management - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 3587710892 - Field 3256449319 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 4145206282">
-          <source>E-Mail Administrateur</source>
-          <note from="Developer" annotates="general" priority="2">FRA="-Mail Administrateur"</note>
+          <source>E-Mail Administrator</source>
+          <note from="Developer" annotates="general" priority="2">FRA="E-Mail Administrateur"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_SalesReceivablesSetup - Field BC6_E-Mail Administrateur - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 3587710892 - Field 2077383344 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 4145206282">
@@ -28835,7 +28835,7 @@
         </trans-unit>
         <trans-unit id="TableExtension 3450627152 - Field 1202947033 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1936001480">
           <source>Freight Amount</source>
-          <note from="Developer" annotates="general" priority="2">FRA="montant port si franco non atteint"</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Montant port si franco non atteint"</note>
           <note from="Xliff Generator" annotates="general" priority="3">TableExtension BC6_Vendor - Field BC6_Freight Amount - Property Caption</note>
         </trans-unit>
         <trans-unit id="TableExtension 3450627152 - Field 964869591 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Table 1936001480">

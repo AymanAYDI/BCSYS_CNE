@@ -4,6 +4,7 @@ report 50747 "BC6_Invt. Pick2"
     DefaultLayout = RDLC;
     RDLCLayout = './src/Report/RDL/InvtPick2.rdl';
     Caption = 'Picking List', Comment = 'FRA="Prélèvement stock"';
+    UsageCategory = None;
 
     dataset
     {

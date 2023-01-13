@@ -4,7 +4,7 @@ report 50097 "BC6_Preparation NAVIDIIGEST1"
     RDLCLayout = './src/report/RDL/PreparationNAVIDIIGEST1.rdl';
 
     Caption = 'Preparation', Comment = 'FRA="Préparation (orig 205)"';
-
+    UsageCategory = None;
     dataset
     {
         dataitem("Sales Header"; "Sales Header")

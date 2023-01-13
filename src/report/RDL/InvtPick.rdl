@@ -11,388 +11,6 @@
       <rd:DataSourceID>f09434cf-923d-475f-a6eb-8aa9341e2824</rd:DataSourceID>
     </DataSource>
   </DataSources>
-  <DataSets>
-    <DataSet Name="DataSet_Result">
-      <Query>
-        <DataSourceName>DataSource</DataSourceName>
-        <CommandText />
-      </Query>
-      <Fields>
-        <Field Name="WhseActivityHeader_Type">
-          <DataField>WhseActivityHeader_Type</DataField>
-        </Field>
-        <Field Name="WhseActivityHeader_No_">
-          <DataField>WhseActivityHeader_No_</DataField>
-        </Field>
-        <Field Name="CompanyInfo__Alt_Picture_">
-          <DataField>CompanyInfo__Alt_Picture_</DataField>
-        </Field>
-        <Field Name="CompanyInfo_Picture">
-          <DataField>CompanyInfo_Picture</DataField>
-        </Field>
-        <Field Name="ShipToAddr_4_">
-          <DataField>ShipToAddr_4_</DataField>
-        </Field>
-        <Field Name="BillToAddr_4_">
-          <DataField>BillToAddr_4_</DataField>
-        </Field>
-        <Field Name="ShipToAddr_3_">
-          <DataField>ShipToAddr_3_</DataField>
-        </Field>
-        <Field Name="BillToAddr_3_">
-          <DataField>BillToAddr_3_</DataField>
-        </Field>
-        <Field Name="ShipToAddr_2_">
-          <DataField>ShipToAddr_2_</DataField>
-        </Field>
-        <Field Name="BillToAddr_2_">
-          <DataField>BillToAddr_2_</DataField>
-        </Field>
-        <Field Name="ShipToAddr_1_">
-          <DataField>ShipToAddr_1_</DataField>
-        </Field>
-        <Field Name="BillToAddr_1_">
-          <DataField>BillToAddr_1_</DataField>
-        </Field>
-        <Field Name="WhseActivityHeader__No__">
-          <DataField>WhseActivityHeader__No__</DataField>
-        </Field>
-        <Field Name="BarCodeNo">
-          <DataField>BarCodeNo</DataField>
-        </Field>
-        <Field Name="InvtPickCheckTxt">
-          <DataField>InvtPickCheckTxt</DataField>
-        </Field>
-        <Field Name="WhseActivityHeader__Destination_No__">
-          <DataField>WhseActivityHeader__Destination_No__</DataField>
-        </Field>
-        <Field Name="YourRef">
-          <DataField>YourRef</DataField>
-        </Field>
-        <Field Name="WhseActivityHeader__Destination_Type_">
-          <DataField>WhseActivityHeader__Destination_Type_</DataField>
-        </Field>
-        <Field Name="WhseActivityHeader__Source_No__">
-          <DataField>WhseActivityHeader__Source_No__</DataField>
-        </Field>
-        <Field Name="FORMAT_WhseActivityHeader__Source_Document__">
-          <DataField>FORMAT_WhseActivityHeader__Source_Document__</DataField>
-        </Field>
-        <Field Name="ShipmentMethodTxt">
-          <DataField>ShipmentMethodTxt</DataField>
-        </Field>
-        <Field Name="WhseActivityHeader__Location_Code_">
-          <DataField>WhseActivityHeader__Location_Code_</DataField>
-        </Field>
-        <Field Name="ShippingAgentTxt">
-          <DataField>ShippingAgentTxt</DataField>
-        </Field>
-        <Field Name="FORMAT_TODAY_0_">
-          <DataField>FORMAT_TODAY_0_</DataField>
-        </Field>
-        <Field Name="USERID">
-          <DataField>USERID</DataField>
-        </Field>
-        <Field Name="OutputNo">
-          <DataField>OutputNo</DataField>
-        </Field>
-        <Field Name="DeliveryDate">
-          <DataField>DeliveryDate</DataField>
-        </Field>
-        <Field Name="OrderDate">
-          <DataField>OrderDate</DataField>
-        </Field>
-        <Field Name="SalesPersonName">
-          <DataField>SalesPersonName</DataField>
-        </Field>
-        <Field Name="CurrReport_PAGENO">
-          <DataField>CurrReport_PAGENO</DataField>
-        </Field>
-        <Field Name="WhseActivityHeader__Sales_Counter_">
-          <DataField>WhseActivityHeader__Sales_Counter_</DataField>
-        </Field>
-        <Field Name="WhseActivityHeader__Bin_Code_">
-          <DataField>WhseActivityHeader__Bin_Code_</DataField>
-        </Field>
-        <Field Name="WhseActivityHeader__Destination_Name_">
-          <DataField>WhseActivityHeader__Destination_Name_</DataField>
-        </Field>
-        <Field Name="WhseActivityHeader_Comments">
-          <DataField>WhseActivityHeader_Comments</DataField>
-        </Field>
-        <Field Name="DataItem1000000002">
-          <DataField>DataItem1000000002</DataField>
-        </Field>
-        <Field Name="STRSUBSTNO_Text006_CompanyInfo__Alt_Phone_No___CompanyInfo__Alt_Fax_No___CompanyInfo__Alt_E_Mail__">
-          <DataField>STRSUBSTNO_Text006_CompanyInfo__Alt_Phone_No___CompanyInfo__Alt_Fax_No___CompanyInfo__Alt_E_Mail__</DataField>
-        </Field>
-        <Field Name="DataItem1000000007">
-          <DataField>DataItem1000000007</DataField>
-        </Field>
-        <Field Name="STRSUBSTNO_Text006_CompanyInfo__Phone_No___CompanyInfo__Fax_No___CompanyInfo__E_Mail__">
-          <DataField>STRSUBSTNO_Text006_CompanyInfo__Phone_No___CompanyInfo__Fax_No___CompanyInfo__E_Mail__</DataField>
-        </Field>
-        <Field Name="CompanyInfo_Address______CompanyInfo__Address_2______STRSUBSTNO___1__2__CompanyInfo__Post_Code__CompanyInfo_City_">
-          <DataField>CompanyInfo_Address______CompanyInfo__Address_2______STRSUBSTNO___1__2__CompanyInfo__Post_Code__CompanyInfo_City_</DataField>
-        </Field>
-        <Field Name="CompanyInfo__Alt_Name_">
-          <DataField>CompanyInfo__Alt_Name_</DataField>
-        </Field>
-        <Field Name="CompanyInfo_Name">
-          <DataField>CompanyInfo_Name</DataField>
-        </Field>
-        <Field Name="Inv__PickingCaption">
-          <DataField>Inv__PickingCaption</DataField>
-        </Field>
-        <Field Name="Ship_To_AdressCaption">
-          <DataField>Ship_To_AdressCaption</DataField>
-        </Field>
-        <Field Name="Bill_To_AdressCaption">
-          <DataField>Bill_To_AdressCaption</DataField>
-        </Field>
-        <Field Name="WhseActivityHeader__No__Caption">
-          <DataField>WhseActivityHeader__No__Caption</DataField>
-        </Field>
-        <Field Name="YourRefCaption">
-          <DataField>YourRefCaption</DataField>
-        </Field>
-        <Field Name="WhseActivityHeader__Location_Code_Caption">
-          <DataField>WhseActivityHeader__Location_Code_Caption</DataField>
-        </Field>
-        <Field Name="FORMAT_TODAY_0_Caption">
-          <DataField>FORMAT_TODAY_0_Caption</DataField>
-        </Field>
-        <Field Name="USERIDCaption">
-          <DataField>USERIDCaption</DataField>
-        </Field>
-        <Field Name="OrderDateCaption">
-          <DataField>OrderDateCaption</DataField>
-        </Field>
-        <Field Name="DeliveryDateCaption">
-          <DataField>DeliveryDateCaption</DataField>
-        </Field>
-        <Field Name="ShipmentMethodTxtCaption">
-          <DataField>ShipmentMethodTxtCaption</DataField>
-        </Field>
-        <Field Name="ShippingAgentTxtCaption">
-          <DataField>ShippingAgentTxtCaption</DataField>
-        </Field>
-        <Field Name="SalesPersonNameCaption">
-          <DataField>SalesPersonNameCaption</DataField>
-        </Field>
-        <Field Name="CurrReport_PAGENOCaption">
-          <DataField>CurrReport_PAGENOCaption</DataField>
-        </Field>
-        <Field Name="WhseActivityHeader__Sales_Counter_Caption">
-          <DataField>WhseActivityHeader__Sales_Counter_Caption</DataField>
-        </Field>
-        <Field Name="WhseActivityHeader__Bin_Code_Caption">
-          <DataField>WhseActivityHeader__Bin_Code_Caption</DataField>
-        </Field>
-        <Field Name="WhseActivityHeader__Destination_Name_Caption">
-          <DataField>WhseActivityHeader__Destination_Name_Caption</DataField>
-        </Field>
-        <Field Name="WhseActivityHeader_CommentsCaption">
-          <DataField>WhseActivityHeader_CommentsCaption</DataField>
-        </Field>
-        <Field Name="PageLoop_Number">
-          <DataField>PageLoop_Number</DataField>
-        </Field>
-        <Field Name="WhseActLine__Bin_Code_">
-          <DataField>WhseActLine__Bin_Code_</DataField>
-        </Field>
-        <Field Name="BinDescription">
-          <DataField>BinDescription</DataField>
-        </Field>
-        <Field Name="WhseActLine__Item_No__">
-          <DataField>WhseActLine__Item_No__</DataField>
-        </Field>
-        <Field Name="WhseActLine_Description">
-          <DataField>WhseActLine_Description</DataField>
-        </Field>
-        <Field Name="QtyToPick">
-          <DataField>QtyToPick</DataField>
-        </Field>
-        <Field Name="QtyToPickFormat">
-          <DataField>QtyToPickFormat</DataField>
-        </Field>
-        <Field Name="WhseActLine__Bin_Code__Control1000000008">
-          <DataField>WhseActLine__Bin_Code__Control1000000008</DataField>
-        </Field>
-        <Field Name="QtyToHandle">
-          <DataField>QtyToHandle</DataField>
-        </Field>
-        <Field Name="QtyToHandleFormat">
-          <DataField>QtyToHandleFormat</DataField>
-        </Field>
-        <Field Name="QtyToHandle_Control1000000039">
-          <DataField>QtyToHandle_Control1000000039</DataField>
-        </Field>
-        <Field Name="QtyToHandle_Control1000000039Format">
-          <DataField>QtyToHandle_Control1000000039Format</DataField>
-        </Field>
-        <Field Name="QtyToPick_Control1000000055">
-          <DataField>QtyToPick_Control1000000055</DataField>
-        </Field>
-        <Field Name="QtyToPick_Control1000000055Format">
-          <DataField>QtyToPick_Control1000000055Format</DataField>
-        </Field>
-        <Field Name="WhseActLine__Item_No___Control1000000057">
-          <DataField>WhseActLine__Item_No___Control1000000057</DataField>
-        </Field>
-        <Field Name="WhseActLine_Description_Control1000000058">
-          <DataField>WhseActLine_Description_Control1000000058</DataField>
-        </Field>
-        <Field Name="GrossWeight">
-          <DataField>GrossWeight</DataField>
-        </Field>
-        <Field Name="GrossWeightFormat">
-          <DataField>GrossWeightFormat</DataField>
-        </Field>
-        <Field Name="EAN13BarTxt">
-          <DataField>EAN13BarTxt</DataField>
-        </Field>
-        <Field Name="EAN13Txt">
-          <DataField>EAN13Txt</DataField>
-        </Field>
-        <Field Name="WhseActLine_Description_Control1000000064">
-          <DataField>WhseActLine_Description_Control1000000064</DataField>
-        </Field>
-        <Field Name="QtyToPick_Control1000000033">
-          <DataField>QtyToPick_Control1000000033</DataField>
-        </Field>
-        <Field Name="QtyToPick_Control1000000033Format">
-          <DataField>QtyToPick_Control1000000033Format</DataField>
-        </Field>
-        <Field Name="RemainingQty">
-          <DataField>RemainingQty</DataField>
-        </Field>
-        <Field Name="RemainingQtyFormat">
-          <DataField>RemainingQtyFormat</DataField>
-        </Field>
-        <Field Name="QtyToHandle_Control1000000042">
-          <DataField>QtyToHandle_Control1000000042</DataField>
-        </Field>
-        <Field Name="QtyToHandle_Control1000000042Format">
-          <DataField>QtyToHandle_Control1000000042Format</DataField>
-        </Field>
-        <Field Name="GrossWeight_Control1000000020">
-          <DataField>GrossWeight_Control1000000020</DataField>
-        </Field>
-        <Field Name="GrossWeight_Control1000000020Format">
-          <DataField>GrossWeight_Control1000000020Format</DataField>
-        </Field>
-        <Field Name="WhseActLine__Item_No___Control1000000065">
-          <DataField>WhseActLine__Item_No___Control1000000065</DataField>
-        </Field>
-        <Field Name="RemainingQty_Control1000000047">
-          <DataField>RemainingQty_Control1000000047</DataField>
-        </Field>
-        <Field Name="RemainingQty_Control1000000047Format">
-          <DataField>RemainingQty_Control1000000047Format</DataField>
-        </Field>
-        <Field Name="QtyToHandle_Control1000000050">
-          <DataField>QtyToHandle_Control1000000050</DataField>
-        </Field>
-        <Field Name="QtyToHandle_Control1000000050Format">
-          <DataField>QtyToHandle_Control1000000050Format</DataField>
-        </Field>
-        <Field Name="QtyToPick_Control1000000051">
-          <DataField>QtyToPick_Control1000000051</DataField>
-        </Field>
-        <Field Name="QtyToPick_Control1000000051Format">
-          <DataField>QtyToPick_Control1000000051Format</DataField>
-        </Field>
-        <Field Name="GrossWeight_Control1000000052">
-          <DataField>GrossWeight_Control1000000052</DataField>
-        </Field>
-        <Field Name="GrossWeight_Control1000000052Format">
-          <DataField>GrossWeight_Control1000000052Format</DataField>
-        </Field>
-        <Field Name="RemainingQtyCaption">
-          <DataField>RemainingQtyCaption</DataField>
-        </Field>
-        <Field Name="WhseActLine_DescriptionCaption">
-          <DataField>WhseActLine_DescriptionCaption</DataField>
-        </Field>
-        <Field Name="WhseActLine__Item_No__Caption">
-          <DataField>WhseActLine__Item_No__Caption</DataField>
-        </Field>
-        <Field Name="QtyToPickCaption">
-          <DataField>QtyToPickCaption</DataField>
-        </Field>
-        <Field Name="WhseActLine__Bin_Code__Control1000000008Caption">
-          <DataField>WhseActLine__Bin_Code__Control1000000008Caption</DataField>
-        </Field>
-        <Field Name="QtyToHandleCaption">
-          <DataField>QtyToHandleCaption</DataField>
-        </Field>
-        <Field Name="Gross_WeightCaption">
-          <DataField>Gross_WeightCaption</DataField>
-        </Field>
-        <Field Name="Items_To_PickCaption">
-          <DataField>Items_To_PickCaption</DataField>
-        </Field>
-        <Field Name="TOTALCaption">
-          <DataField>TOTALCaption</DataField>
-        </Field>
-        <Field Name="WhseActLine_Activity_Type">
-          <DataField>WhseActLine_Activity_Type</DataField>
-        </Field>
-        <Field Name="WhseActLine_No_">
-          <DataField>WhseActLine_No_</DataField>
-        </Field>
-        <Field Name="WhseActLine_Line_No_">
-          <DataField>WhseActLine_Line_No_</DataField>
-        </Field>
-        <Field Name="BooGBinItemVisible">
-          <DataField>BooGBinItemVisible</DataField>
-        </Field>
-        <Field Name="BinDetailed">
-          <DataField>BinDetailed</DataField>
-        </Field>
-        <Field Name="ShowOutStock">
-          <DataField>ShowOutStock</DataField>
-        </Field>
-        <Field Name="EmptyLine_Number">
-          <DataField>EmptyLine_Number</DataField>
-        </Field>
-        <Field Name="WhseActivityHeaderNo">
-          <DataField>WhseActivityHeaderNo</DataField>
-        </Field>
-        <Field Name="TmpSalesLine2_Description">
-          <DataField>TmpSalesLine2_Description</DataField>
-        </Field>
-        <Field Name="TmpSalesLine2__No__">
-          <DataField>TmpSalesLine2__No__</DataField>
-        </Field>
-        <Field Name="RemainingQty_Control1000000113">
-          <DataField>RemainingQty_Control1000000113</DataField>
-        </Field>
-        <Field Name="RemainingQty_Control1000000113Format">
-          <DataField>RemainingQty_Control1000000113Format</DataField>
-        </Field>
-        <Field Name="AvailableQty">
-          <DataField>AvailableQty</DataField>
-        </Field>
-        <Field Name="AvailableQtyFormat">
-          <DataField>AvailableQtyFormat</DataField>
-        </Field>
-        <Field Name="Out_StockCaption">
-          <DataField>Out_StockCaption</DataField>
-        </Field>
-        <Field Name="Pick_NoCaption">
-          <DataField>Pick_NoCaption</DataField>
-        </Field>
-        <Field Name="Available_QtyCaption">
-          <DataField>Available_QtyCaption</DataField>
-        </Field>
-        <Field Name="OutStockLoop_Number">
-          <DataField>OutStockLoop_Number</DataField>
-        </Field>
-      </Fields>
-    </DataSet>
-  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -5580,12 +5198,6 @@ Cstr(Fields!FORMAT_TODAY_0_.Value)</Value>
       </Page>
     </ReportSection>
   </ReportSections>
-  <ReportParametersLayout>
-    <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
-    </GridLayoutDefinition>
-  </ReportParametersLayout>
   <Code>Public Function BlankZero(ByVal Value As Decimal)
     if Value = 0 then
         Return ""
@@ -5704,4 +5316,386 @@ End Function</Code>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>f0a58cae-59ff-4dc2-94dd-02aceb281e4f</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="WhseActivityHeader_Type">
+          <DataField>WhseActivityHeader_Type</DataField>
+        </Field>
+        <Field Name="WhseActivityHeader_No_">
+          <DataField>WhseActivityHeader_No_</DataField>
+        </Field>
+        <Field Name="CompanyInfo__Alt_Picture_">
+          <DataField>CompanyInfo__Alt_Picture_</DataField>
+        </Field>
+        <Field Name="CompanyInfo_Picture">
+          <DataField>CompanyInfo_Picture</DataField>
+        </Field>
+        <Field Name="ShipToAddr_4_">
+          <DataField>ShipToAddr_4_</DataField>
+        </Field>
+        <Field Name="BillToAddr_4_">
+          <DataField>BillToAddr_4_</DataField>
+        </Field>
+        <Field Name="ShipToAddr_3_">
+          <DataField>ShipToAddr_3_</DataField>
+        </Field>
+        <Field Name="BillToAddr_3_">
+          <DataField>BillToAddr_3_</DataField>
+        </Field>
+        <Field Name="ShipToAddr_2_">
+          <DataField>ShipToAddr_2_</DataField>
+        </Field>
+        <Field Name="BillToAddr_2_">
+          <DataField>BillToAddr_2_</DataField>
+        </Field>
+        <Field Name="ShipToAddr_1_">
+          <DataField>ShipToAddr_1_</DataField>
+        </Field>
+        <Field Name="BillToAddr_1_">
+          <DataField>BillToAddr_1_</DataField>
+        </Field>
+        <Field Name="WhseActivityHeader__No__">
+          <DataField>WhseActivityHeader__No__</DataField>
+        </Field>
+        <Field Name="BarCodeNo">
+          <DataField>BarCodeNo</DataField>
+        </Field>
+        <Field Name="InvtPickCheckTxt">
+          <DataField>InvtPickCheckTxt</DataField>
+        </Field>
+        <Field Name="WhseActivityHeader__Destination_No__">
+          <DataField>WhseActivityHeader__Destination_No__</DataField>
+        </Field>
+        <Field Name="YourRef">
+          <DataField>YourRef</DataField>
+        </Field>
+        <Field Name="WhseActivityHeader__Destination_Type_">
+          <DataField>WhseActivityHeader__Destination_Type_</DataField>
+        </Field>
+        <Field Name="WhseActivityHeader__Source_No__">
+          <DataField>WhseActivityHeader__Source_No__</DataField>
+        </Field>
+        <Field Name="FORMAT_WhseActivityHeader__Source_Document__">
+          <DataField>FORMAT_WhseActivityHeader__Source_Document__</DataField>
+        </Field>
+        <Field Name="ShipmentMethodTxt">
+          <DataField>ShipmentMethodTxt</DataField>
+        </Field>
+        <Field Name="WhseActivityHeader__Location_Code_">
+          <DataField>WhseActivityHeader__Location_Code_</DataField>
+        </Field>
+        <Field Name="ShippingAgentTxt">
+          <DataField>ShippingAgentTxt</DataField>
+        </Field>
+        <Field Name="FORMAT_TODAY_0_">
+          <DataField>FORMAT_TODAY_0_</DataField>
+        </Field>
+        <Field Name="USERID">
+          <DataField>USERID</DataField>
+        </Field>
+        <Field Name="OutputNo">
+          <DataField>OutputNo</DataField>
+        </Field>
+        <Field Name="DeliveryDate">
+          <DataField>DeliveryDate</DataField>
+        </Field>
+        <Field Name="OrderDate">
+          <DataField>OrderDate</DataField>
+        </Field>
+        <Field Name="SalesPersonName">
+          <DataField>SalesPersonName</DataField>
+        </Field>
+        <Field Name="CurrReport_PAGENO">
+          <DataField>CurrReport_PAGENO</DataField>
+        </Field>
+        <Field Name="WhseActivityHeader__Sales_Counter_">
+          <DataField>WhseActivityHeader__Sales_Counter_</DataField>
+        </Field>
+        <Field Name="WhseActivityHeader__Bin_Code_">
+          <DataField>WhseActivityHeader__Bin_Code_</DataField>
+        </Field>
+        <Field Name="WhseActivityHeader__Destination_Name_">
+          <DataField>WhseActivityHeader__Destination_Name_</DataField>
+        </Field>
+        <Field Name="WhseActivityHeader_Comments">
+          <DataField>WhseActivityHeader_Comments</DataField>
+        </Field>
+        <Field Name="DataItem1000000002">
+          <DataField>DataItem1000000002</DataField>
+        </Field>
+        <Field Name="STRSUBSTNO_Text006_CompanyInfo__Alt_Phone_No___CompanyInfo__Alt_Fax_No___CompanyInfo__Alt_E_Mail__">
+          <DataField>STRSUBSTNO_Text006_CompanyInfo__Alt_Phone_No___CompanyInfo__Alt_Fax_No___CompanyInfo__Alt_E_Mail__</DataField>
+        </Field>
+        <Field Name="DataItem1000000007">
+          <DataField>DataItem1000000007</DataField>
+        </Field>
+        <Field Name="STRSUBSTNO_Text006_CompanyInfo__Phone_No___CompanyInfo__Fax_No___CompanyInfo__E_Mail__">
+          <DataField>STRSUBSTNO_Text006_CompanyInfo__Phone_No___CompanyInfo__Fax_No___CompanyInfo__E_Mail__</DataField>
+        </Field>
+        <Field Name="CompanyInfo_Address______CompanyInfo__Address_2______STRSUBSTNO___1__2__CompanyInfo__Post_Code__CompanyInfo_City_">
+          <DataField>CompanyInfo_Address______CompanyInfo__Address_2______STRSUBSTNO___1__2__CompanyInfo__Post_Code__CompanyInfo_City_</DataField>
+        </Field>
+        <Field Name="CompanyInfo__Alt_Name_">
+          <DataField>CompanyInfo__Alt_Name_</DataField>
+        </Field>
+        <Field Name="CompanyInfo_Name">
+          <DataField>CompanyInfo_Name</DataField>
+        </Field>
+        <Field Name="Inv__PickingCaption">
+          <DataField>Inv__PickingCaption</DataField>
+        </Field>
+        <Field Name="Ship_To_AdressCaption">
+          <DataField>Ship_To_AdressCaption</DataField>
+        </Field>
+        <Field Name="Bill_To_AdressCaption">
+          <DataField>Bill_To_AdressCaption</DataField>
+        </Field>
+        <Field Name="WhseActivityHeader__No__Caption">
+          <DataField>WhseActivityHeader__No__Caption</DataField>
+        </Field>
+        <Field Name="YourRefCaption">
+          <DataField>YourRefCaption</DataField>
+        </Field>
+        <Field Name="WhseActivityHeader__Location_Code_Caption">
+          <DataField>WhseActivityHeader__Location_Code_Caption</DataField>
+        </Field>
+        <Field Name="FORMAT_TODAY_0_Caption">
+          <DataField>FORMAT_TODAY_0_Caption</DataField>
+        </Field>
+        <Field Name="USERIDCaption">
+          <DataField>USERIDCaption</DataField>
+        </Field>
+        <Field Name="OrderDateCaption">
+          <DataField>OrderDateCaption</DataField>
+        </Field>
+        <Field Name="DeliveryDateCaption">
+          <DataField>DeliveryDateCaption</DataField>
+        </Field>
+        <Field Name="ShipmentMethodTxtCaption">
+          <DataField>ShipmentMethodTxtCaption</DataField>
+        </Field>
+        <Field Name="ShippingAgentTxtCaption">
+          <DataField>ShippingAgentTxtCaption</DataField>
+        </Field>
+        <Field Name="SalesPersonNameCaption">
+          <DataField>SalesPersonNameCaption</DataField>
+        </Field>
+        <Field Name="CurrReport_PAGENOCaption">
+          <DataField>CurrReport_PAGENOCaption</DataField>
+        </Field>
+        <Field Name="WhseActivityHeader__Sales_Counter_Caption">
+          <DataField>WhseActivityHeader__Sales_Counter_Caption</DataField>
+        </Field>
+        <Field Name="WhseActivityHeader__Bin_Code_Caption">
+          <DataField>WhseActivityHeader__Bin_Code_Caption</DataField>
+        </Field>
+        <Field Name="WhseActivityHeader__Destination_Name_Caption">
+          <DataField>WhseActivityHeader__Destination_Name_Caption</DataField>
+        </Field>
+        <Field Name="WhseActivityHeader_CommentsCaption">
+          <DataField>WhseActivityHeader_CommentsCaption</DataField>
+        </Field>
+        <Field Name="PageLoop_Number">
+          <DataField>PageLoop_Number</DataField>
+        </Field>
+        <Field Name="WhseActLine__Bin_Code_">
+          <DataField>WhseActLine__Bin_Code_</DataField>
+        </Field>
+        <Field Name="BinDescription">
+          <DataField>BinDescription</DataField>
+        </Field>
+        <Field Name="WhseActLine__Item_No__">
+          <DataField>WhseActLine__Item_No__</DataField>
+        </Field>
+        <Field Name="WhseActLine_Description">
+          <DataField>WhseActLine_Description</DataField>
+        </Field>
+        <Field Name="QtyToPick">
+          <DataField>QtyToPick</DataField>
+        </Field>
+        <Field Name="QtyToPickFormat">
+          <DataField>QtyToPickFormat</DataField>
+        </Field>
+        <Field Name="WhseActLine__Bin_Code__Control1000000008">
+          <DataField>WhseActLine__Bin_Code__Control1000000008</DataField>
+        </Field>
+        <Field Name="QtyToHandle">
+          <DataField>QtyToHandle</DataField>
+        </Field>
+        <Field Name="QtyToHandleFormat">
+          <DataField>QtyToHandleFormat</DataField>
+        </Field>
+        <Field Name="QtyToHandle_Control1000000039">
+          <DataField>QtyToHandle_Control1000000039</DataField>
+        </Field>
+        <Field Name="QtyToHandle_Control1000000039Format">
+          <DataField>QtyToHandle_Control1000000039Format</DataField>
+        </Field>
+        <Field Name="QtyToPick_Control1000000055">
+          <DataField>QtyToPick_Control1000000055</DataField>
+        </Field>
+        <Field Name="QtyToPick_Control1000000055Format">
+          <DataField>QtyToPick_Control1000000055Format</DataField>
+        </Field>
+        <Field Name="WhseActLine__Item_No___Control1000000057">
+          <DataField>WhseActLine__Item_No___Control1000000057</DataField>
+        </Field>
+        <Field Name="WhseActLine_Description_Control1000000058">
+          <DataField>WhseActLine_Description_Control1000000058</DataField>
+        </Field>
+        <Field Name="GrossWeight">
+          <DataField>GrossWeight</DataField>
+        </Field>
+        <Field Name="GrossWeightFormat">
+          <DataField>GrossWeightFormat</DataField>
+        </Field>
+        <Field Name="EAN13BarTxt">
+          <DataField>EAN13BarTxt</DataField>
+        </Field>
+        <Field Name="EAN13Txt">
+          <DataField>EAN13Txt</DataField>
+        </Field>
+        <Field Name="WhseActLine_Description_Control1000000064">
+          <DataField>WhseActLine_Description_Control1000000064</DataField>
+        </Field>
+        <Field Name="QtyToPick_Control1000000033">
+          <DataField>QtyToPick_Control1000000033</DataField>
+        </Field>
+        <Field Name="QtyToPick_Control1000000033Format">
+          <DataField>QtyToPick_Control1000000033Format</DataField>
+        </Field>
+        <Field Name="RemainingQty">
+          <DataField>RemainingQty</DataField>
+        </Field>
+        <Field Name="RemainingQtyFormat">
+          <DataField>RemainingQtyFormat</DataField>
+        </Field>
+        <Field Name="QtyToHandle_Control1000000042">
+          <DataField>QtyToHandle_Control1000000042</DataField>
+        </Field>
+        <Field Name="QtyToHandle_Control1000000042Format">
+          <DataField>QtyToHandle_Control1000000042Format</DataField>
+        </Field>
+        <Field Name="GrossWeight_Control1000000020">
+          <DataField>GrossWeight_Control1000000020</DataField>
+        </Field>
+        <Field Name="GrossWeight_Control1000000020Format">
+          <DataField>GrossWeight_Control1000000020Format</DataField>
+        </Field>
+        <Field Name="WhseActLine__Item_No___Control1000000065">
+          <DataField>WhseActLine__Item_No___Control1000000065</DataField>
+        </Field>
+        <Field Name="RemainingQty_Control1000000047">
+          <DataField>RemainingQty_Control1000000047</DataField>
+        </Field>
+        <Field Name="RemainingQty_Control1000000047Format">
+          <DataField>RemainingQty_Control1000000047Format</DataField>
+        </Field>
+        <Field Name="QtyToHandle_Control1000000050">
+          <DataField>QtyToHandle_Control1000000050</DataField>
+        </Field>
+        <Field Name="QtyToHandle_Control1000000050Format">
+          <DataField>QtyToHandle_Control1000000050Format</DataField>
+        </Field>
+        <Field Name="QtyToPick_Control1000000051">
+          <DataField>QtyToPick_Control1000000051</DataField>
+        </Field>
+        <Field Name="QtyToPick_Control1000000051Format">
+          <DataField>QtyToPick_Control1000000051Format</DataField>
+        </Field>
+        <Field Name="GrossWeight_Control1000000052">
+          <DataField>GrossWeight_Control1000000052</DataField>
+        </Field>
+        <Field Name="GrossWeight_Control1000000052Format">
+          <DataField>GrossWeight_Control1000000052Format</DataField>
+        </Field>
+        <Field Name="RemainingQtyCaption">
+          <DataField>RemainingQtyCaption</DataField>
+        </Field>
+        <Field Name="WhseActLine_DescriptionCaption">
+          <DataField>WhseActLine_DescriptionCaption</DataField>
+        </Field>
+        <Field Name="WhseActLine__Item_No__Caption">
+          <DataField>WhseActLine__Item_No__Caption</DataField>
+        </Field>
+        <Field Name="QtyToPickCaption">
+          <DataField>QtyToPickCaption</DataField>
+        </Field>
+        <Field Name="WhseActLine__Bin_Code__Control1000000008Caption">
+          <DataField>WhseActLine__Bin_Code__Control1000000008Caption</DataField>
+        </Field>
+        <Field Name="QtyToHandleCaption">
+          <DataField>QtyToHandleCaption</DataField>
+        </Field>
+        <Field Name="Gross_WeightCaption">
+          <DataField>Gross_WeightCaption</DataField>
+        </Field>
+        <Field Name="Items_To_PickCaption">
+          <DataField>Items_To_PickCaption</DataField>
+        </Field>
+        <Field Name="TOTALCaption">
+          <DataField>TOTALCaption</DataField>
+        </Field>
+        <Field Name="WhseActLine_Activity_Type">
+          <DataField>WhseActLine_Activity_Type</DataField>
+        </Field>
+        <Field Name="WhseActLine_No_">
+          <DataField>WhseActLine_No_</DataField>
+        </Field>
+        <Field Name="WhseActLine_Line_No_">
+          <DataField>WhseActLine_Line_No_</DataField>
+        </Field>
+        <Field Name="BooGBinItemVisible">
+          <DataField>BooGBinItemVisible</DataField>
+        </Field>
+        <Field Name="BinDetailed">
+          <DataField>BinDetailed</DataField>
+        </Field>
+        <Field Name="ShowOutStock">
+          <DataField>ShowOutStock</DataField>
+        </Field>
+        <Field Name="EmptyLine_Number">
+          <DataField>EmptyLine_Number</DataField>
+        </Field>
+        <Field Name="WhseActivityHeaderNo">
+          <DataField>WhseActivityHeaderNo</DataField>
+        </Field>
+        <Field Name="TmpSalesLine2_Description">
+          <DataField>TmpSalesLine2_Description</DataField>
+        </Field>
+        <Field Name="TmpSalesLine2__No__">
+          <DataField>TmpSalesLine2__No__</DataField>
+        </Field>
+        <Field Name="RemainingQty_Control1000000113">
+          <DataField>RemainingQty_Control1000000113</DataField>
+        </Field>
+        <Field Name="RemainingQty_Control1000000113Format">
+          <DataField>RemainingQty_Control1000000113Format</DataField>
+        </Field>
+        <Field Name="AvailableQty">
+          <DataField>AvailableQty</DataField>
+        </Field>
+        <Field Name="AvailableQtyFormat">
+          <DataField>AvailableQtyFormat</DataField>
+        </Field>
+        <Field Name="Out_StockCaption">
+          <DataField>Out_StockCaption</DataField>
+        </Field>
+        <Field Name="Pick_NoCaption">
+          <DataField>Pick_NoCaption</DataField>
+        </Field>
+        <Field Name="Available_QtyCaption">
+          <DataField>Available_QtyCaption</DataField>
+        </Field>
+        <Field Name="OutStockLoop_Number">
+          <DataField>OutStockLoop_Number</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
 </Report>

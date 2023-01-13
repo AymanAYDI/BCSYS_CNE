@@ -2,9 +2,8 @@ report 50076 "BC6_Traite fourn. sur bord"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './src/Report/RDL/Traitefournisseursurbord.rdl';
-
     Caption = 'Bill WORMS', comment = 'FRA="Lettre de change WORMS"';
-
+    UsageCategory = None;
     dataset
     {
         dataitem(PaymentLine; "Payment Line")

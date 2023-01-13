@@ -2,9 +2,8 @@ report 50059 "BC6_Item Label v3"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './src/Report/RDL/ItemLabelv3.rdl';
-
     Caption = 'Item Label 108x35', comment = 'FRA="Etiquette article 108x35"';
-
+    UsageCategory = None;
     dataset
     {
         dataitem(Item; Item)

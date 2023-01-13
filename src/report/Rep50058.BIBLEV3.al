@@ -1,8 +1,9 @@
 report 50058 "BC6_BIBLE V3"
 {
     DefaultLayout = RDLC;
+    Caption = 'BIBLE V3';
     RDLCLayout = './src/Report/RDL/BIBLEV3.rdl';
-
+    UsageCategory = None;
 
     dataset
     {

@@ -2,7 +2,7 @@ report 50099 "Update Item Cost Incr. Coeff."
 {
     Caption = 'Update Item Cost Incr. Coeff.', Comment = 'FRA="Mise à jour coeff de majoration du côut"';
     ProcessingOnly = true;
-
+    UsageCategory = None;
     dataset
     {
         dataitem(Item; Item)

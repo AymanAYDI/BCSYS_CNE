@@ -4,7 +4,7 @@ report 50037 "BC6_Relance  CNE"
     RDLCLayout = './src/report/RDL/RelanceCNE.rdl';
 
     Caption = 'Reminder CNE', Comment = 'FRA="Relance CNE"';
-
+    UsageCategory = None;
     dataset
     {
         dataitem(IssuedReminderHeader; "Issued Reminder Header")

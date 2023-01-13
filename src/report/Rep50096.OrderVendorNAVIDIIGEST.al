@@ -4,7 +4,7 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
     RDLCLayout = './src/report/RDL/OrderVendorNAVIDIIGEST.rdl';
 
     Caption = 'Order NAVIDIIGEST', Comment = 'FRA="Commande fournisseur NAVIDIIGEST"';
-
+    UsageCategory = None;
     dataset
     {
         dataitem("Purchase Header"; "Purchase Header")

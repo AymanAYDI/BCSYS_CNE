@@ -4,7 +4,7 @@ report 50078 "BC6_Purchase - Receipt CNE"
     RDLCLayout = './src/Report/RDL/PurchaseReceiptCNE.rdl';
 
     Caption = 'Purchase - Receipt', comment = 'FRA="Achats : Bon de réception"';
-
+    UsageCategory = None;
     dataset
     {
         dataitem(PurchRcptHeader; "Purch. Rcpt. Header")

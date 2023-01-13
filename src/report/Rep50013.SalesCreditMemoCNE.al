@@ -329,7 +329,6 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                             ELSE
                                 BooGAfficheTrait := FALSE;
 
-                            //<<FE005:DARI 20/02/2007
                             IF (("Sales Cr.Memo Line"."BC6_DEEE Category Code" <> '') AND ("Sales Cr.Memo Line".Quantity <> 0)
                             AND ("Sales Cr.Memo Line"."BC6_Eco partner DEEE" <> '')) THEN BEGIN
                                 IF RecGItem.GET("Sales Cr.Memo Line"."No.") THEN
@@ -350,7 +349,6 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                             TempVATAmountLine."BC6_DEEE VAT Amount" := "Sales Cr.Memo Line"."BC6_DEEE VAT Amount";
                             TempVATAmountLine.InsertLine();
 
-                            //MICO DEEE1.00
                             DecGVATTotalAmount += TempVATAmountLine."VAT Amount" + TempVATAmountLine."BC6_DEEE VAT Amount";
                             DecGTTCTotalAmount += "Sales Cr.Memo Line"."Amount Including VAT" + "Sales Cr.Memo Line"."BC6_DEEE TTC Amount";
 
@@ -365,9 +363,7 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                                 TempRecGCalcul."HT Unit Tax (LCY)" := "Sales Cr.Memo Line"."BC6_DEEE HT Amount";
                                 TempRecGCalcul.INSERT();
                             END;
-                            //>>FE005:DARI 20/02/2007
 
-                            //>>MIGRATION NAV 2013
                             NNC_TotalLineAmount += "Line Amount";
                             NNC_TotalInvDiscAmount += "Inv. Discount Amount";
                             NNC_TotalAmount += Amount;
@@ -380,19 +376,16 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                             TotalAmount += Amount;
 
 
-                            //>>COMPTA_DEEE FG 01/03/07
                             IF RecGBillCustomer."BC6_Submitted to DEEE" THEN BEGIN
                                 BooGVisible := ("BC6_DEEE Category Code" <> '') AND (Quantity <> 0) AND ("BC6_Eco partner DEEE" <> '');
                             END ELSE BEGIN
                                 BooGVisible := FALSE;
                             END;
-                            //<<COMPTA_DEEE FG 01/03/07
 
                             BooGTotalVisible := "Sales Cr.Memo Header"."Prices Including VAT" AND ("Amount Including VAT" <> Amount);
                             BooGVATVisible := (TempVATAmountLine.COUNT > 1) AND ("Amount Including VAT" <> Amount);
                             BooGTotalVisible2 := (TempVATAmountLine.COUNT > 1) OR ((TempVATAmountLine.COUNT = 1) AND ("Amount Including VAT" = Amount));
 
-                            //<<MIGRATION NAV 2013
                         end;
 
                         trigger OnPreDataItem()
@@ -408,13 +401,9 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                                 CurrReport.BREAK();
                             SETRANGE("Line No.", 0, "Line No.");
 
-                            //>>FE005:DARI 22/02/2007
-                            //CurrReport.CREATETOTALS("Line Amount",Amount,"Amount Including VAT","Inv. Discount Amount");
-                            //MICO DEEE1.00
 
                             DecGVATTotalAmount := 0;
                             DecGTTCTotalAmount := 0;
-                            //<<FE005:DARI 22/02/2007
 
 
 
@@ -521,7 +510,6 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                         var
                             RecLCrMemoLine: Record "Sales Cr.Memo Line";
                         begin
-                            //>>FE005 DARI 21/02/2007
                             BooGDEEEFind := FALSE;
                             RecLCrMemoLine.RESET();
                             RecLCrMemoLine.SETRANGE("Document No.", "Sales Cr.Memo Header"."No.");
@@ -550,12 +538,10 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                         var
                             RecLCrMemoLine: Record "Sales Cr.Memo Line";
                         begin
-                            //>>FE005 DARI
                             BooGDEEEFind := FALSE;
                             RecLCrMemoLine.RESET();
 
                             RecLCrMemoLine.SETFILTER(RecLCrMemoLine."Document No.", "Sales Cr.Memo Header"."No.");
-                            //RecLCrMemoLine.SETFILTER(RecLCrMemoLine."Document Type",'%1',RecLCrMemoLine."Document Type"::Order);
                             IF RecLCrMemoLine.FIND('-') THEN
                                 REPEAT
                                     BooGDEEEFind := ((RecLCrMemoLine."BC6_DEEE Category Code" <> '') AND (RecLCrMemoLine.Quantity <> 0));
@@ -563,12 +549,9 @@ report 50013 "BC6_Sales - Credit Memo CNE"
 
                             IF BooGDEEEFind = FALSE THEN
                                 CurrReport.BREAK();
-                            //<<DARI
 
-                            //>>COMPTA_DEEE FG 01/03/07
                             IF NOT RecGBillCustomer."BC6_Submitted to DEEE" THEN
                                 CurrReport.BREAK();
-                            //<<COMPTA_DEEE FG 01/03/07
 
                             //Ne pas afficher tableau récap DEEE SEDU 02/03/2007
                             CurrReport.BREAK();
@@ -695,7 +678,6 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                     END;
                     CurrReport.PAGENO := 1;
 
-                    //>>MIGRATION NAV 2013
                     NNC_TotalInvDiscAmount := 0;
                     NNC_TotalAmount := 0;
                     NNC_TotalAmountInclVat := 0;
@@ -708,7 +690,6 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                     TotalAmountVATDEE := 0;
                     TotalAmountInclVATDEE := 0;
 
-                    //<<MIGRATION NAV 2013
                 end;
 
                 trigger OnPostDataItem()
@@ -771,14 +752,12 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                 FormatAddr.SalesCrMemoBillTo(CustAddr, "Sales Cr.Memo Header");
                 Cust.GET("Bill-to Customer No.");
 
-                //>>MIGRATION NAV 2013
                 RecG_User.RESET();
                 RecG_User.SETRANGE("User Name", "User ID");
                 IF RecG_User.FINDFIRST() THEN
                     TexG_User_Name := RecG_User."Full Name"
                 ELSE
                     TexG_User_Name := '';
-                //<<MIGRATION NAV 2013
 
                 IF "Payment Terms Code" = '' THEN
                     PaymentTerms.INIT()
@@ -807,10 +786,8 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                               "Campaign No.", "Posting Description", '');
                     END;
 
-                //>>COMPTA_DEEE FG 01/03/07
                 RecGBillCustomer.RESET();
                 RecGBillCustomer.GET("Sales Cr.Memo Header"."Bill-to Customer No.");
-                //<<COMPTA_DEEE FG 01/03/07
             end;
         }
     }
@@ -826,20 +803,20 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(NoOfCopies; NoOfCopies)
+                    field(NoOfCopiesF; NoOfCopies)
                     {
                         Caption = 'No. of Copies', Comment = 'FRA="Nombre de copies"';
                     }
-                    field(ShowInternalInfo; ShowInternalInfo)
+                    field(ShowInternalInfoF; ShowInternalInfo)
                     {
                         Caption = 'Show Internal Information', Comment = 'FRA="Afficher info. internes"';
                     }
-                    field(LogInteraction; LogInteraction)
+                    field(LogInteractionF; LogInteraction)
                     {
                         Caption = 'Log Interaction', Comment = 'FRA="Journal interaction"';
                         Enabled = LogInteractionEnable;
                     }
-                    field(IncludeShptNo; IncludeShptNo)
+                    field(IncludeShptNoF; IncludeShptNo)
                     {
                         Caption = 'Inlude Shipment No.', Comment = 'FRA="Inclure expéditions"';
                     }
@@ -961,12 +938,6 @@ report 50013 "BC6_Sales - Credit Memo CNE"
         TotalDEEEHTAmount: Decimal;
         VALVATAmountLCY: Decimal;
         VALVATBaseLCY: Decimal;
-        VATAmount: Decimal;
-        VATBaseAmount: Decimal;
-        "--FEP-ADVE-200706_18_A.--": Integer;
-        "--FG--": Integer;
-        "-DEEE1.00-": Integer;
-        "- MIGNAV2013 -": Integer;
         FirstValueEntryNo: Integer;
         i: Integer;
         IntGCpt: Integer;
@@ -1003,8 +974,6 @@ report 50013 "BC6_Sales - Credit Memo CNE"
         Text001: Label 'Total %1', Comment = 'FRA="Total %1"';
         Text002: Label 'Total %1 Incl. VAT', Comment = 'FRA="Total %1 TTC"';
         Text003: Label '(Applies to %1 %2)', Comment = 'FRA="(Doc. lettrage %1 %2)"';
-        Text004: Label 'COPY', Comment = 'FRA="COPIE"';
-        Text005: Label 'Sales - Credit Memo %1', Comment = 'FRA="Ventes : Avoir %1"';
         Text006: Label 'Page %1', Comment = 'FRA="Page %1"';
         Text007: Label 'Total %1 Excl. VAT', Comment = 'FRA="Total %1 HT"';
         Text008: Label 'VAT Amount Specification in ', Comment = 'FRA="Détail TVA dans "';
@@ -1015,11 +984,6 @@ report 50013 "BC6_Sales - Credit Memo CNE"
         Text10800: Label 'ShipmentNo', Comment = 'FRA="NoExpédition"';
         TotalCptnLbl: Label 'Total', Comment = 'FRA="Total"';
         UnitCaptionLbl: Label 'Unit', Comment = 'FRA="UV"';
-        VAT_Amount_SpecificationCaptionLbl: Label 'VAT Amount Specification', Comment = 'FRA="Détail TVA"';
-        VATAmountLine__Inv__Disc__Base_Amount__Control1000000021CaptionLbl: Label 'Inv. Disc. Base Amount', Comment = 'FRA="Montant base remise facture"';
-        VATAmountLine__Invoice_Discount_Amount__Control1000000022CaptionLbl: Label 'Invoice Discount Amount', Comment = 'FRA="Montant remise facture"';
-        VATAmountLine__Line_Amount__Control140CaptionLbl: Label 'Line Amount', Comment = 'FRA="Montant ligne"';
-        VATAmountLine__VAT_Base_CaptionLbl: Label 'Continued', Comment = 'FRA="Report"';
         VATAmtLineInvDiscBaseAmtCptnLbl: Label 'Invoice Discount Base Amount', Comment = 'FRA="Montant base remise facture"';
         VATAmtLineInvoiceDiscAmtCptnLbl: Label 'Invoice Discount Amount', Comment = 'FRA="Montant remise facture"';
         VATAmtLineLineAmtCptnLbl: Label 'Line Amount', Comment = 'FRA="Montant ligne"';
@@ -1031,8 +995,6 @@ report 50013 "BC6_Sales - Credit Memo CNE"
         w__Tax_Net__U___P___CaptionLbl: Label 'w. Tax Net  U . P.  ', Comment = 'FRA="P. U. Net HT"';
         NoShipmentDatas: array[3] of Text[20];
         CopyText: Text[30];
-        NoShipmentText: Text[30];
-        OrderNoText: Text[30];
         ReferenceText: Text[30];
         SalesPersonText: Text[30];
         TexG_User_Name: Text[30];
@@ -1048,9 +1010,7 @@ report 50013 "BC6_Sales - Credit Memo CNE"
         TxtGDesignation: Text[50];
         TxtGTag: Text[50];
         VALExchRate: Text[50];
-        OldDimText: Text[75];
         VALSpecLCYHeader: Text[80];
-        DimText: Text[120];
 
     procedure InitLogInteraction()
     begin
@@ -1060,7 +1020,6 @@ report 50013 "BC6_Sales - Credit Memo CNE"
 
     procedure DefineTagFax(TxtLTag: Text[50])
     begin
-        //>>FE005 MICO LE 15.02.2007
         RecGParamVente.GET();
         TxtGTag := RecGParamVente."BC6_RTE Fax Tag" + TxtLTag + '@cne.fax';
     end;

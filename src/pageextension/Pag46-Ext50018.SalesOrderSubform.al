@@ -263,7 +263,7 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
 
     procedure UpdateIncreasedFields()
     begin
-        //BC6>>
+
         IF Rec.Type = Rec.Type::Item THEN BEGIN
             Rec.CalcIncreasePurchCost(IncrPurchCost);
             Rec.CalcIncreaseProfit(IncrProfit, IncrPurchCost);

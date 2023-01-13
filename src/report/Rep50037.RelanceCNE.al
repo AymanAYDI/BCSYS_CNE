@@ -1,4 +1,4 @@
-report 50037 "BC6_BC6_Relance  CNE"
+report 50037 "BC6_Relance  CNE"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/RelanceCNE.rdl';

@@ -3,7 +3,7 @@ report 50058 "BC6_BIBLE V3"
     DefaultLayout = RDLC;
     RDLCLayout = './src/Report/RDL/BIBLEV3.rdl';
 
-
+    UsageCategory = None;
     dataset
     {
         dataitem(Integer; Integer)

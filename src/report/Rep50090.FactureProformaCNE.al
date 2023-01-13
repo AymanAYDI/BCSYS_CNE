@@ -1189,7 +1189,7 @@ report 50090 "BC6_Facture Proforma CNE"
 
                         trigger OnPreDataItem()
                         var
-                            RecLSalesLine: Record 37;
+                            RecLSalesLine: Record "Sales Line";
                         begin
 
                             BooGDEEEFind := FALSE;
@@ -1456,10 +1456,10 @@ report 50090 "BC6_Facture Proforma CNE"
 
                 trigger OnAfterGetRecord()
                 var
-                    PrepmtSalesLine: Record 37 temporary;
-                    SalesPost: Codeunit 80;
-                    TempSalesLine: Record 37 temporary;
-                    TempSalesLineDisc: Record 37 temporary;
+                    PrepmtSalesLine: Record "Sales Line" temporary;
+                    SalesPost: Codeunit "Sales-Post";
+                    TempSalesLine: Record "Sales Line" temporary;
+                    TempSalesLineDisc: Record "Sales Line" temporary;
                 begin
                     CLEAR(SalesLine);
                     CLEAR(SalesPost);
@@ -2039,7 +2039,7 @@ report 50090 "BC6_Facture Proforma CNE"
 
     procedure GetUnitOfMeasureDescr(UOMCode: Code[10]): Text[10]
     var
-        UnitOfMeasure: Record 204;
+        UnitOfMeasure: Record "Unit of Measure";
     begin
         IF NOT UnitOfMeasure.GET(UOMCode) THEN
             EXIT(UOMCode);
@@ -2053,13 +2053,13 @@ report 50090 "BC6_Facture Proforma CNE"
     end;
 
 
-    procedure CalcVATAmountLines(QtyType: Option General,Invoicing,Shipping; var SalesHeader: Record 36; var _SalesLine: Record 37; var VATAmountLine: Record 290)
+    procedure CalcVATAmountLines(QtyType: Option General,Invoicing,Shipping; var SalesHeader: Record "Sales Header"; var _SalesLine: Record "Sales Line"; var VATAmountLine: Record "VAT Amount Line")
     var
         TotalVATAmount: Decimal;
         QtyToHandle: Decimal;
         AmtToHandle: Decimal;
         RoundingLineInserted: Boolean;
-        Currency: Record 4;
+        Currency: Record Currency;
     begin
         Currency.Initialize(SalesHeader."Currency Code");
 
@@ -2172,7 +2172,7 @@ report 50090 "BC6_Facture Proforma CNE"
             END;
     end;
 
-    local procedure EmptyAmountLine(_SalesLine: Record 37; QtyType: Option General,Invoicing,Shipping): Boolean
+    local procedure EmptyAmountLine(_SalesLine: Record "Sales Line"; QtyType: Option General,Invoicing,Shipping): Boolean
     begin
         WITH _SalesLine DO BEGIN
             IF Type = Type::" " THEN

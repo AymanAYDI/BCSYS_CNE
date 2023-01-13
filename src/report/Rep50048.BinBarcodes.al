@@ -3,7 +3,7 @@ report 50048 "BC6_Bin Barcodes"
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/BinBarcodes.rdl';
 
-    Caption = 'Bin Barcodes', Comment = 'FRA="Code barre emplacement"';
+    Caption = 'Bin Barcodes', Comment = 'FRA="Etiquettes emplacement"';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = all;
 

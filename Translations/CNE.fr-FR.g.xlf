@@ -12729,9 +12729,9 @@
         </trans-unit>
         <trans-unit id="Page 1707019103 - Control 1006519668 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the name of the person to contact at the customer that the items were sold to.</source>
-          <note from="Developer" annotates="general" priority="2">FRA="Spécifie le nom de la personne … contacter chez le client à qui les articles ont ‚t‚ vendus."</note>
+          <note from="Developer" annotates="general" priority="2">FRA="Spécifie le nom de la personne … contacter chez le client à qui les articles ont été vendus."</note>
           <note from="Xliff Generator" annotates="general" priority="3">Page BC6_SAV Sales Ret. Order List - Control Sell-to Contact - Property ToolTip</note>
-          <target>Spécifie le nom de la personne … contacter chez le client à qui les articles ont ‚t‚ vendus.</target>
+          <target>Spécifie le nom de la personne … contacter chez le client à qui les articles ont été vendus.</target>
         </trans-unit>
         <trans-unit id="Page 1707019103 - Control 3434865006 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
           <source>Specifies the country/region of the address.</source>
@@ -28012,11 +28012,6 @@
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_CustomerCard - Control BC6_Salesperson Filter - Property Caption</note>
           <target>Filtre vendeur</target>
         </trans-unit>
-        <trans-unit id="PageExtension 862663540 - Control 929465551 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 523354100">
-          <source>Territory Code</source>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_CustomerCard - Control BC6_Territory Code - Property Caption</note>
-        </trans-unit>
         <trans-unit id="PageExtension 862663540 - Control 3331688415 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 523354100">
           <source>Goupe Marge Vente Client</source>
           <note from="Developer" annotates="general" priority="2">FRA="Goupe Marge Vente Client"</note>
@@ -28034,11 +28029,6 @@
           <note from="Developer" annotates="general" priority="2">FRA="Tiers payeur"</note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_CustomerCard - Control BC6_Pay-to Customer No. - Property Caption</note>
           <target>Tiers payeur</target>
-        </trans-unit>
-        <trans-unit id="PageExtension 862663540 - Control 453186890 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 523354100">
-          <source>Shipping Advice</source>
-          <note from="Developer" annotates="general" priority="2"/>
-          <note from="Xliff Generator" annotates="general" priority="3">PageExtension BC6_CustomerCard - Control BC6_Shipping Advice - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 862663540 - Control 119626473 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve" al-object-target="Page 523354100">
           <source>Combine Shipments by Order</source>

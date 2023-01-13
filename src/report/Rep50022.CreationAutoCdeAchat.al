@@ -3,7 +3,7 @@ report 50022 "BC6_Creation Auto Cde Achat"
 
     Caption = 'Creation Auto Cde Achat', Comment = 'FRA="Creation Auto Cde Achat"';
     ProcessingOnly = true;
-    UsageCategory = ReportsAndAnalysis;
+    UsageCategory = Tasks;
     ApplicationArea = all;
 
     dataset

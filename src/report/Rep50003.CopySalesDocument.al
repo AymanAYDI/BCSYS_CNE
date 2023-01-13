@@ -170,9 +170,7 @@ report 50003 "BC6_Copy Sales Document" //292
         CopyDocMgt.SetProperties(
           IncludeHeader, RecalculateLines, false, false, false, ExactCostReversingMandatory, false);
         CopyDocMgt.SetArchDocVal(FromDocNoOccurrence, FromDocVersionNo);
-        //>>FE-VENTE-COPIER-DEVIS
         FunctionsMgt.Fct_SetProperties(BoolGCopyLinesExactly);
-        //<<FE-VENTE-COPIER-DEVIS
         CopyDocMgt.CopySalesDoc(FromDocType, FromDocNo, SalesHeader);
     end;
 
@@ -419,10 +417,8 @@ report 50003 "BC6_Copy Sales Document" //292
     begin
         RecalculateLines :=
           (FromDocType in [FromDocType::"Posted Shipment", FromDocType::"Posted Return Receipt"]) or not IncludeHeader;
-        //>>FE-VENTE-COPIER-DEVIS
         IF BoolGCopyLinesExactly THEN
             RecalculateLines := FALSE;
-        //<<FE-VENTE-COPIER-DEVIS
     end;
 
     procedure SetParameters(NewFromDocType: Enum "Sales Document Type From"; NewFromDocNo: Code[20]; NewIncludeHeader: Boolean; NewRecalcLines: Boolean)

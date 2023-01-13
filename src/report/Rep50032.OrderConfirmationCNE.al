@@ -1222,7 +1222,6 @@ report 50032 "BC6_Order Confirmation CNE"
 
     trigger OnPreReport()
     begin
-        //>>MIGRATION NAV 2013
         IF RespCenter.GET(CodGRespCenter) THEN
             BoolGRespCenter := TRUE
         ELSE
@@ -1232,7 +1231,6 @@ report 50032 "BC6_Order Confirmation CNE"
             RespCenter.CALCFIELDS("BC6_Picture", "BC6_Alt Picture")
         ELSE
             CompanyInfo.CALCFIELDS(Picture, "BC6_Alt Picture");
-        //<<MIGRATION NAV 2013
     end;
 
     var

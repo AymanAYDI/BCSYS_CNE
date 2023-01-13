@@ -112,7 +112,7 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
         NewSetRecFilters();
     end;
 
-    procedure GetRecFilters() //TODO: Check
+    procedure GetRecFilters() 
     begin
         if Rec.GetFilters <> '' then begin
             VendNoFilter := Rec.GetFilter("Vendor No.");

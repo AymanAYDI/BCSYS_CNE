@@ -2,7 +2,7 @@ report 50044 "Conditions of Sales - Invoice"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/ConditionsofSalesInvoice.rdl';
-
+    UsageCategory = None;
 
     dataset
     {

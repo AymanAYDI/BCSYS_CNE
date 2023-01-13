@@ -87,6 +87,7 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
         {
             action("BC6_Posted Mouvement")
             {
+                Caption = 'Posted Mouvement', Comment = 'FRA="Mouvements enregistrés"';
                 RunObject = Page "Warehouse Entries";
                 RunPageView = SORTING("BC6_Whse. Document Type 2", "BC6_Whse. Document No. 2")
                                   ORDER(Ascending)

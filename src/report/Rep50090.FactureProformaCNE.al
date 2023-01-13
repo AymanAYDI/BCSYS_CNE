@@ -1703,17 +1703,17 @@ report 50090 "BC6_Facture Proforma CNE"
                     Caption = 'Options';
                     field(NoOfCopies; NoOfCopies)
                     {
-                        Caption = 'No. of Copies';
+                        Caption = 'No. of Copies', Comment = 'FRA="Nombre de copies"';
                         ApplicationArea = All;
                     }
                     field(ShowInternalInfo; ShowInternalInfo)
                     {
-                        Caption = 'Show Internal Information';
+                        Caption = 'Show Internal Information', Comment = 'FRA="Afficher info. internes"';
                         ApplicationArea = All;
                     }
                     field(ArchiveDocument; ArchiveDocument)
                     {
-                        Caption = 'Archive Document';
+                        Caption = 'Archive Document', Comment = 'FRA="Archiver document"';
                         ApplicationArea = All;
 
                         trigger OnValidate()
@@ -1724,7 +1724,7 @@ report 50090 "BC6_Facture Proforma CNE"
                     }
                     field(LogInteraction; LogInteraction)
                     {
-                        Caption = 'Log Interaction';
+                        Caption = 'Log Interaction', Comment = 'FRA="Journal interaction"';
                         Enabled = LogInteractionEnable;
                         ApplicationArea = All;
 
@@ -1736,7 +1736,7 @@ report 50090 "BC6_Facture Proforma CNE"
                     }
                     field(ShowAssemblyComponents; DisplayAssemblyInformation)
                     {
-                        Caption = 'Show Assembly Components';
+                        Caption = 'Show Assembly Components', Comment = 'FRA="Afficher composants d''assemblage"';
                         ApplicationArea = All;
                     }
                 }
@@ -1896,9 +1896,9 @@ report 50090 "BC6_Facture Proforma CNE"
         CstG005: Label 'Is the total amount is not payed at the due date', comment = 'FRA="Dans le cas où le paiement intégral n''interviendrait pas à la date prévue par les parties,"';
         CstG006: Label 'We will get back the delivered items', comment = 'FRA="le vendeur se réserve le droit de reprendre le matériel livré."';
         CstG007: Label 'Late payment : 1,5 legal rate', comment = 'FRA="Retard de paiement : pénalités de 1% par mois."';
-        CstGTxt001: Label 'Shipment departement', comment = 'FRA="Adresse de livraiso"';
+        CstGTxt001: Label 'Shipment departement', comment = 'FRA="Adresse de livraison"';
         CstGTxt002: Label 'Invoice departement', comment = 'FRA="Adresse de facturation"';
-        CstGTxt003: Label 'VAT No.', comment = 'FRA="n° TVA :"';
+        CstGTxt003: Label 'VAT No.', comment = 'FRA="N° TVA :"';
         CstGTxt004: Label 'Invoice Number', comment = 'FRA="n° de Facture"';
         CstGTxt005: Label 'Date';
         CstGTxt006: Label 'Customer Number', comment = 'FRA="Code Client"';

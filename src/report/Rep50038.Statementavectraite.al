@@ -3,7 +3,7 @@ report 50038 "BC6_Statement avec traite"
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/Statementavectraite.rdl';
 
-    Caption = 'Statement', Comment = 'FRA="Relevé client CNE"';
+    Caption = 'Relevé client CNE avec traite', Comment = 'FRA="Relevé client CNE avec traite"';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = all;
 

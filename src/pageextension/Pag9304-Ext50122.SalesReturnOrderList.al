@@ -1,7 +1,5 @@
 pageextension 50122 "BC6_SalesReturnOrderList" extends "Sales Return Order List" //9304
 {
-    //Unsupported feature: Property Insertion (InsertAllowed) on ""Sales Return Order List"(Page 9304)". TODO:
-    //Unsupported feature: Property Insertion (DelayedInsert) on ""Sales Return Order List"(Page 9304)". TODO:
 
     layout
     {

@@ -564,7 +564,6 @@ report 50076 "BC6_Traite fourn. sur bord"
     trigger OnInitReport()
     begin
         CompanyInfo.GET();
-        //pour afficher les logos
         CompanyInfo.CALCFIELDS(Picture);
     end;
 

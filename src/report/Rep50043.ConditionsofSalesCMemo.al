@@ -2,7 +2,7 @@ report 50043 "Conditions of Sales - C.Memo"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/ConditionsofSalesCMemo.rdl';
-
+    UsageCategory = None;
 
     dataset
     {

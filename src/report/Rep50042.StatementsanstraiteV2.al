@@ -3,7 +3,7 @@ report 50042 "BC6_Statement sans traite V2"
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/StatementsanstraiteV2.rdl';
 
-    Caption = 'Statement', Comment = 'FRA="Relevé client CNE"';
+    Caption = 'Relevé client CNE sans Traite V2]', Comment = 'FRA="Relevé client CNE sans Traite V2"';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = all;
 

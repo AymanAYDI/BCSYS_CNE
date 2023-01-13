@@ -204,7 +204,7 @@ page 50022 "BC6_Sales Line Profit"
                 Caption = 'Options';
                 field(SalesCodeFilterCtrl2; CurrencyCodeFilter)
                 {
-                    Caption = 'Currency Code Filter';
+                    Caption = 'Currency Code Filter', Comment = 'FRA="Filtre code devise"';
                     ApplicationArea = All;
 
                     trigger OnLookup(var Text: Text): Boolean
@@ -235,7 +235,7 @@ page 50022 "BC6_Sales Line Profit"
         {
             action("Extract Discount Item Group")
             {
-                Caption = 'Extract Discount Item Group';
+                Caption = 'Extract Discount Item Group', Comment = 'FRA="Extraire groupes remise article"';
                 Ellipsis = true;
                 Image = Group;
                 Promoted = true;
@@ -265,9 +265,7 @@ page 50022 "BC6_Sales Line Profit"
 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
-        //DateDebutObli HJ 15/11/2006 NSC1.01 [24] Date Debut Doit Etre Obligatoire
         IF (Rec."Starting Date" = 0D) OR (FORMAT(Rec."Starting Date") = '') THEN ERROR(Text004);
-        //Fin DateDebutObli HJ 15/11/2006 NSC1.01 [24] Date Debut Doit Etre Obligatoire
     end;
 
     trigger OnNewRecord(BelowxRec: Boolean)
@@ -279,7 +277,6 @@ page 50022 "BC6_Sales Line Profit"
     begin
         GetRecFilters();
         SetRecFilters();
-        //SETCURRENTKEY(Code,"Sales Code","Sales Type",Type,"Starting Date","Ending Date","Profit %")
     end;
 
     var

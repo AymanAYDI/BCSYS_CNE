@@ -54,7 +54,6 @@ pageextension 50118 "BC6_SalesQuotes" extends "Sales Quotes" //9300
     trigger OnOpenPage()
     var
     begin
-        //TODO: CHECKME when testing-----------
         rec.SetCurrentKey("Document Type", "Order Date", "No.");
 
         rec.Ascending(false);

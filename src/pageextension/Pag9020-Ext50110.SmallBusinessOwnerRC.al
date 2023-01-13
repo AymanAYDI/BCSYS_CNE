@@ -2,8 +2,6 @@ pageextension 50110 "BC6_SmallBusinessOwnerRC" extends "Small Business Owner RC"
 {
     actions
     {
-
-
         addafter("Extended Texts")
         {
             action(BC6_Bible)

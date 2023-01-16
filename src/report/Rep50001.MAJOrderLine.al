@@ -1,6 +1,7 @@
 report 50001 "BC6_MAJ Order Line"
 {
     ProcessingOnly = true;
+    UsageCategory = None;
     Caption = 'MAJ Order Line';
     dataset
     {

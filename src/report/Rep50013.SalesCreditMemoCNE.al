@@ -5,7 +5,7 @@ report 50013 "BC6_Sales - Credit Memo CNE"
 
     Caption = 'Sales - Credit Memo', Comment = 'FRA="Ventes : Avoir"';
     Permissions = TableData "Sales Shipment Buffer" = rimd;
-
+    UsageCategory = None;
     dataset
     {
         dataitem("Sales Cr.Memo Header"; "Sales Cr.Memo Header")

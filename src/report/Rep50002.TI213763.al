@@ -2,7 +2,7 @@ report 50002 "BC6_TI213763"
 {
     ProcessingOnly = true;
     UseRequestPage = false;
-
+    UsageCategory = None;
     dataset
     {
         dataitem(Item; Item)

@@ -1,7 +1,5 @@
 codeunit 50009 "BC6_Item History Management"
 {
-
-
     var
         RecGItem: Record Item;
         RecGItemHistory: Page "BC6_Item Sales/Purch. History";
@@ -45,4 +43,3 @@ codeunit 50009 "BC6_Item History Management"
         CLEAR(RecGItemHistory);
     end;
 }
-

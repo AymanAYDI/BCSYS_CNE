@@ -8,8 +8,8 @@ table 50010 "BC6_Affair Steps"
         field(1; "Affair No."; Code[20])
         {
             Caption = 'Affair No.', comment = 'FRA="N° Affaire"';
-            TableRelation = Job."No.";
             DataClassification = CustomerContent;
+            TableRelation = Job."No.";
         }
         field(2; "No."; Integer)
         {
@@ -25,14 +25,14 @@ table 50010 "BC6_Affair Steps"
         field(4; Interlocutor; Text[50])
         {
             Caption = 'Interlocutor', comment = 'FRA="Interlocuteur"';
-            TableRelation = "User Setup";
             DataClassification = CustomerContent;
+            TableRelation = "User Setup";
         }
         field(5; Contact; Code[20])
         {
             Caption = 'Contact', comment = 'FRA="Contact"';
-            TableRelation = Contact."No.";
             DataClassification = CustomerContent;
+            TableRelation = Contact."No.";
 
             trigger OnValidate()
             var
@@ -57,8 +57,8 @@ table 50010 "BC6_Affair Steps"
         field(8; "Document No."; Code[20])
         {
             Caption = 'Document No.', comment = 'FRA="N° document"';
-            TableRelation = "Sales Header"."No." where("Document Type" = filter("Order" | "Quote"));
             DataClassification = CustomerContent;
+            TableRelation = "Sales Header"."No." where("Document Type" = filter("Order" | "Quote"));
         }
         field(9; Terminated; Boolean)
         {
@@ -73,8 +73,8 @@ table 50010 "BC6_Affair Steps"
         field(11; "Affair Description"; Text[100])
         {
             Caption = 'Affair Description', comment = 'FRA="Nom Affaire"';
-            TableRelation = Job."No.";
             DataClassification = CustomerContent;
+            TableRelation = Job."No.";
         }
         field(12; "Contact Name"; Text[100])
         {

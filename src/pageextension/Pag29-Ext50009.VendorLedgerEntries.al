@@ -6,6 +6,7 @@ pageextension 50009 "BC6_VendorLedgerEntries" extends "Vendor Ledger Entries" //
         {
             action("BC6_Apply Entries Pay-to Vendor No.")
             {
+                ApplicationArea = All;
                 Caption = 'Apply Entries Pay-to Vendor No.', Comment = 'FRA="Ecritures ouvertes Tiers payeur"';
                 Image = Approve;
                 RunObject = Page "Apply Vendor Entries";
@@ -17,4 +18,3 @@ pageextension 50009 "BC6_VendorLedgerEntries" extends "Vendor Ledger Entries" //
         }
     }
 }
-

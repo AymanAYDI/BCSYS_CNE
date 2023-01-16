@@ -5,20 +5,20 @@ tableextension 50067 "BC6_PurchaseHeaderArchive" extends "Purchase Header Archiv
         field(50003; "BC6_Pay-to Vend. No."; Code[20])
         {
             Caption = 'Pay-to Vend. No.', Comment = 'FRA="Tiers payeur"';
-            TableRelation = Vendor;
             DataClassification = CustomerContent;
+            TableRelation = Vendor;
         }
         field(50010; BC6_ID; Code[20])
         {
-            TableRelation = User;
-            DataClassification = CustomerContent;
             Caption = 'ID';
+            DataClassification = CustomerContent;
+            TableRelation = User;
         }
         field(50020; "BC6_From Sales Module"; Boolean)
         {
             Caption = 'From Sales Module', Comment = 'FRA="Depuis Module Vente"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50021; "BC6_Buy-from Fax No."; Text[30])
         {

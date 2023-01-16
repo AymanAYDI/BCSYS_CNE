@@ -51,4 +51,3 @@ page 50032 "BC6_Affair Comment Sub-form"
         Rec.SetUpNewLine();
     end;
 }
-

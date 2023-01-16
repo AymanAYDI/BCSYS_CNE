@@ -1,10 +1,10 @@
 xmlport 50011 "BC6_Import Fiches Clients"
 {
+    Caption = 'Import Fiches Clients';
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = ';';
     Format = VariableText;
-    Caption = 'Import Fiches Clients';
 
     schema
     {
@@ -160,7 +160,6 @@ xmlport 50011 "BC6_Import Fiches Clients"
 
     requestpage
     {
-
         layout
         {
         }
@@ -170,4 +169,3 @@ xmlport 50011 "BC6_Import Fiches Clients"
         }
     }
 }
-

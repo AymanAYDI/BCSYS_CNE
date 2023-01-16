@@ -42,13 +42,13 @@ page 50080 "BC6_Item Journal Pick List"
         {
             action("Post1000000007")
             {
+                ApplicationArea = All;
                 Caption = '&Post', Comment = 'FRA="&Valider"';
                 Image = Post;
                 Promoted = true;
                 PromotedCategory = Process;
-                ShortCutKey = 'F8';
                 PromotedOnly = true;
-                ApplicationArea = All;
+                ShortCutKey = 'F8';
 
                 trigger OnAction()
                 begin
@@ -58,10 +58,10 @@ page 50080 "BC6_Item Journal Pick List"
             }
             action(ClearAll)
             {
+                ApplicationArea = All;
                 Image = Delete;
                 Promoted = true;
                 PromotedCategory = Process;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -116,4 +116,3 @@ page 50080 "BC6_Item Journal Pick List"
         JnlPostBatch.RUN(Rec);
     end;
 }
-

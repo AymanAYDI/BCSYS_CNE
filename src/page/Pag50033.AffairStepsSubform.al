@@ -28,8 +28,8 @@ page 50033 "BC6_Affair Steps Sub-form"
                 }
                 field("Contact Name"; Rec."Contact Name")
                 {
-                    Editable = false;
                     ApplicationArea = All;
+                    Editable = false;
                 }
                 field(Description; Rec.Description)
                 {
@@ -139,4 +139,3 @@ page 50033 "BC6_Affair Steps Sub-form"
             IF RecGContactProjectRelation.Awarder = TRUE THEN;
     end;
 }
-

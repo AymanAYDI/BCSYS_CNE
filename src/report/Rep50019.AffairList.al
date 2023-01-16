@@ -1,17 +1,15 @@
 report 50019 "BC6_Affair List"
 {
-    DefaultLayout = RDLC;
-    RDLCLayout = './src/report/RDL/AffairList.rdl';
-
-    Caption = 'Affair List', Comment = 'FRA="Liste affaire"';
-    Permissions = TableData "BC6_Affair Steps" = rimd;
     ApplicationArea = All;
+    Caption = 'Affair List', Comment = 'FRA="Liste affaire"';
+    DefaultLayout = RDLC;
+    Permissions = TableData "BC6_Affair Steps" = rimd;
+    RDLCLayout = './src/report/RDL/AffairList.rdl';
     UsageCategory = ReportsAndAnalysis;
     dataset
     {
         dataitem(Job; Job)
         {
-
             DataItemTableView = SORTING("No.")
                                 ORDER(Ascending);
             RequestFilterFields = "No.", "BC6_Affair Responsible";
@@ -173,7 +171,6 @@ report 50019 "BC6_Affair List"
                         TxtGContactType := FORMAT(RecGContact.Type);
                         TxtGContactPhone := FORMAT(RecGContact."Phone No.");
 
-
                         RecGCntBusiness.RESET();
                         RecGCntBusiness.SETFILTER("Contact No.", RecGContact."Company No.");
 
@@ -239,7 +236,6 @@ report 50019 "BC6_Affair List"
                     CLEAR(DecGAmount);
                     CLEAR(DecGCost);
 
-
                     RecLSalesLine.RESET();
                     RecLSalesLine.SETFILTER("Document Type", '%1', SalesHeader."Document Type");
                     RecLSalesLine.SETFILTER("Document No.", SalesHeader."No.");
@@ -250,15 +246,12 @@ report 50019 "BC6_Affair List"
                             DecGCost += RecLSalesLine."BC6_Purchase cost" * RecLSalesLine.Quantity;
                         UNTIL RecLSalesLine.NEXT() = 0;
 
-
                     DecGProfitLCY := DecGAmount - DecGCost;
-
 
                     BooGAwarder := FALSE;
                     IF RecGContactProjectRelation.GET(SalesHeader."Bill-to Contact No.", SalesHeader."BC6_Affair No.") THEN
                         IF RecGContactProjectRelation.Awarder = TRUE THEN
                             BooGAwarder := TRUE;
-
                 end;
             }
             dataitem(BC6_AffairSteps; "BC6_Affair Steps")
@@ -348,7 +341,7 @@ report 50019 "BC6_Affair List"
                 RecGCntAffair.RESET();
                 RecGCntAffair.SETFILTER(RecGCntAffair."Affair No.", Job."No.");
 
-                IF RecGCntAffair.FINDFIRST() THEN BEGIN
+                IF RecGCntAffair.FINDFIRST() THEN
                     IF RecGContact.GET(RecGCntAffair."Contact No.") THEN BEGIN
                         TxtGContact := RecGContact."No." + ' ' + RecGContact.Name;
                         TxtGContactType := FORMAT(RecGContact.Type);
@@ -363,7 +356,6 @@ report 50019 "BC6_Affair List"
                         IF RecGCntBusiness.FindSet() THEN
                             TxtGContactTiers := RecGCntBusiness."No."
                     END;
-                END;
             end;
 
             trigger OnPreDataItem()
@@ -376,7 +368,6 @@ report 50019 "BC6_Affair List"
 
     requestpage
     {
-
         layout
         {
             area(content)
@@ -386,11 +377,13 @@ report 50019 "BC6_Affair List"
                     Caption = 'Options', Comment = 'FRA="Options"';
                     field(TxtGStatutFilter; TxtGStatutFilterF)
                     {
+                        ApplicationArea = All;
                         Caption = 'Status', Comment = 'FRA="Statut"';
                         OptionCaption = ' ,Outstanding,Lost,Won';
                     }
                     field(TxtGRemindDateFilter; TxtGRemindDateFilterF)
                     {
+                        ApplicationArea = All;
                         Caption = 'Reminder Date', Comment = 'FRA="Date relance"';
 
                         trigger OnValidate()
@@ -404,23 +397,28 @@ report 50019 "BC6_Affair List"
                     }
                     field(TxtGTerminatedFilterF; TxtGTerminatedFilter)
                     {
+                        ApplicationArea = All;
                         Caption = 'Terminated', Comment = 'FRA="Terminer"';
                     }
                     field(BooGShowQuoteF; BooGShowQuote)
                     {
+                        ApplicationArea = All;
                         Caption = 'Show Quote Details', Comment = 'FRA="Afficher détail devis"';
                     }
                     field(BooGShowStepsF; BooGShowSteps)
                     {
+                        ApplicationArea = All;
                         Caption = 'Show Steps', Comment = 'FRA="Afficher étapes"';
                     }
                     field(CodGCustomer; CodGCustomerF)
                     {
+                        ApplicationArea = All;
                         Caption = 'Customer Code', Comment = 'FRA="Code client"';
                         TableRelation = Customer;
                     }
                     field(CodGVendor; CodGVendorF)
                     {
+                        ApplicationArea = All;
                         Caption = 'Vendor Code', Comment = 'FRA="Code fournisseur"';
                         TableRelation = Vendor;
                     }
@@ -498,6 +496,4 @@ report 50019 "BC6_Affair List"
         TxtGRemindDateFilterF: Text[30];
         TxtHInterlocutor: Text[30];
         TxtGContact: Text[100];
-
 }
-

@@ -5,8 +5,8 @@ tableextension 50069 "BC6_ResponsibilityCenter" extends "Responsibility Center" 
         field(50000; BC6_Picture; BLOB)
         {
             Caption = 'Picture', Comment = 'FRA="Image"';
-            SubType = Bitmap;
             DataClassification = CustomerContent;
+            SubType = Bitmap;
         }
         field(50001; "BC6_Alt Name"; Text[50])
         {
@@ -31,10 +31,10 @@ tableextension 50069 "BC6_ResponsibilityCenter" extends "Responsibility Center" 
         field(50005; "BC6_Alt City"; Text[30])
         {
             Caption = 'City', Comment = 'FRA="Alt Ville"';
+            DataClassification = CustomerContent;
             TableRelation = IF ("BC6_Alt Country Code" = CONST()) "Post Code".City
             ELSE
             IF ("BC6_Alt Country Code" = FILTER(<> '')) "Post Code".City WHERE("Country/Region Code" = FIELD("BC6_Alt Country Code"));
-            DataClassification = CustomerContent;
             trigger OnValidate()
             var
                 TxtLCounty: Text[30];
@@ -65,12 +65,11 @@ tableextension 50069 "BC6_ResponsibilityCenter" extends "Responsibility Center" 
         field(50010; "BC6_Alt Post Code"; Code[20])
         {
             Caption = 'Post Code', Comment = 'FRA="Alt Code postal"';
+            DataClassification = CustomerContent;
             TableRelation = IF ("BC6_Alt Country Code" = CONST()) "Post Code"
             ELSE
             IF ("BC6_Alt Country Code" = FILTER(<> '')) "Post Code" WHERE("Country/Region Code" = FIELD("BC6_Alt Country Code"));
             ValidateTableRelation = false;
-            DataClassification = CustomerContent;
-
 
             trigger OnValidate()
             var
@@ -87,8 +86,8 @@ tableextension 50069 "BC6_ResponsibilityCenter" extends "Responsibility Center" 
         field(50012; "BC6_Alt Country Code"; Code[10])
         {
             Caption = 'Alt Code Pays', Comment = 'FRA="Alt Code Pays"';
-            TableRelation = "Country/Region".Code;
             DataClassification = CustomerContent;
+            TableRelation = "Country/Region".Code;
         }
         field(50013; "BC6_Alt Home Page"; Text[80])
         {
@@ -98,8 +97,8 @@ tableextension 50069 "BC6_ResponsibilityCenter" extends "Responsibility Center" 
         field(50014; "BC6_Alt Picture"; BLOB)
         {
             Caption = 'Alt Picture', Comment = 'FRA="Alt Image"';
-            SubType = Bitmap;
             DataClassification = CustomerContent;
+            SubType = Bitmap;
         }
     }
 

@@ -36,26 +36,25 @@ pageextension 50068 "BC6_PurchaseOrderStatistics" extends "Purchase Order Statis
         {
             field(DEEE_HT_Amount; TotalPurchLine[1]."BC6_DEEE HT Amount")
             {
-                Caption = 'Total DEEE';
                 ApplicationArea = All;
+                Caption = 'Total DEEE';
             }
             field("Total_HT_DEEE_Incluse"; TotalAmount1[1] + TotalPurchLine[1]."BC6_DEEE HT Amount")
             {
+                ApplicationArea = All;
                 Caption = 'Total HT DEEE Incluse';
                 Editable = false;
                 Style = Strong;
                 StyleExpr = TRUE;
-                ApplicationArea = All;
             }
         }
         addafter("NoOfVATLines_General")
         {
             field(Montant_DEEE_DS; TotalPurchLineLCY[1]."BC6_DEEE HT Amount (LCY)")
             {
-                Caption = 'Montant DEEE (DS)';
                 ApplicationArea = All;
+                Caption = 'Montant DEEE (DS)';
             }
         }
     }
-
 }

@@ -1,4 +1,4 @@
-page 50013 "Link purch. order - sale order"
+page 50013 "BC6_Link purchorder-saleorder"
 {
     Caption = 'Link purch. order - sale order', comment = 'FRA="Lien commande achat - commande vente"';
     DeleteAllowed = false;
@@ -15,6 +15,7 @@ page 50013 "Link purch. order - sale order"
             {
                 field("Affect purchase order"; Rec."BC6_Affect purchase order")
                 {
+                    ApplicationArea = All;
                     Editable = true;
 
                     trigger OnValidate()
@@ -27,10 +28,12 @@ page 50013 "Link purch. order - sale order"
                 }
                 field("Document Type"; Rec."Document Type")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("document status"; RecLSalesHdr.Status)
                 {
+                    ApplicationArea = All;
                     BlankZero = false;
                     Caption = 'Document status', comment = 'FRA="Statut Document"';
                     Editable = false;
@@ -38,30 +41,37 @@ page 50013 "Link purch. order - sale order"
                 }
                 field("Document No."; Rec."Document No.")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Line No."; Rec."Line No.")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Sell-to Customer No."; Rec."Sell-to Customer No.")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field(Type; Rec.Type)
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field(Quantity; Rec.Quantity)
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Unit Price"; Rec."Unit Price")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
             }
@@ -86,4 +96,3 @@ page 50013 "Link purch. order - sale order"
         Docstatus: Enum "Sales Document Status";
         textg001: Label 'Order isn''t modifiable', comment = 'FRA="Commande non modifiable"';
 }
-

@@ -6,6 +6,7 @@ pageextension 50022 "BC6_PurchaseList" extends "Purchase List" //53
         {
             field(BC6_ID; Rec.BC6_ID)
             {
+                ApplicationArea = All;
                 Visible = BooGID;
             }
         }
@@ -13,9 +14,11 @@ pageextension 50022 "BC6_PurchaseList" extends "Purchase List" //53
         {
             field(BC6_Amount; Rec.Amount)
             {
+                ApplicationArea = All;
             }
             field("BC6_Amount Including VAT"; Rec."Amount Including VAT")
             {
+                ApplicationArea = All;
             }
         }
     }
@@ -43,7 +46,5 @@ pageextension 50022 "BC6_PurchaseList" extends "Purchase List" //53
             BooGID := TRUE
         ELSE
             BooGID := FALSE;
-
     end;
 }
-

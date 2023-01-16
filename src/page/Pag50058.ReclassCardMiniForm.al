@@ -21,8 +21,8 @@ page 50058 "BC6_Reclass. Card MiniForm"
             {
                 usercontrol(ScanZone; "BC6_ControlAddinScanCapture")
                 {
-                    Visible = true;
                     ApplicationArea = All;
+                    Visible = true;
 
                     trigger ControlAddInReady()
                     begin
@@ -250,20 +250,19 @@ page 50058 "BC6_Reclass. Card MiniForm"
 
                             3:
                                 CloseAndOpenCurrentPick();
-
                         END;
                         RefreshDataControlAddin();
                     end;
                 }
                 field(FromBinCodeCtrl; FromBinCode)
                 {
+                    ApplicationArea = All;
                     Caption = 'Bin Code', Comment = 'FRA="De empl."';
                     Editable = true;
                     Style = Standard;
                     StyleExpr = TRUE;
                     TableRelation = Bin.Code;
                     Visible = false;
-                    ApplicationArea = All;
 
                     trigger OnLookup(var Text: Text): Boolean
                     var
@@ -313,12 +312,12 @@ page 50058 "BC6_Reclass. Card MiniForm"
                 }
                 field(ItemNoCtrl; ItemNo)
                 {
+                    ApplicationArea = All;
                     Caption = 'Item nr', Comment = 'FRA="N° article"';
                     NotBlank = false;
                     Style = Standard;
                     StyleExpr = TRUE;
                     Visible = false;
-                    ApplicationArea = All;
 
                     trigger OnLookup(var Text: Text): Boolean
                     var
@@ -350,12 +349,12 @@ page 50058 "BC6_Reclass. Card MiniForm"
                 }
                 field(QtyCtrl; Qty)
                 {
+                    ApplicationArea = All;
                     Caption = 'Quantity', Comment = 'FRA="Quantité"';
                     Editable = QtyCtrlEditable;
                     Style = Standard;
                     StyleExpr = TRUE;
                     Visible = false;
-                    ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
@@ -365,13 +364,13 @@ page 50058 "BC6_Reclass. Card MiniForm"
                 }
                 field(ToBinCodeCtrl; ToBinCode)
                 {
+                    ApplicationArea = All;
                     Caption = 'Bin Code', Comment = 'FRA="Vers emp."';
                     Editable = ToBinCodeCtrlEditable;
                     Style = Standard;
                     StyleExpr = TRUE;
                     TableRelation = Bin.Code;
                     Visible = false;
-                    ApplicationArea = All;
 
                     trigger OnLookup(var Text: Text): Boolean
                     var
@@ -402,18 +401,18 @@ page 50058 "BC6_Reclass. Card MiniForm"
                 }
                 field(Description; Rec.Description)
                 {
-                    Editable = false;
                     ApplicationArea = All;
+                    Editable = false;
                 }
                 field(LocationCodeCtrl; LocationCode)
                 {
+                    ApplicationArea = All;
                     Caption = 'Location', Comment = 'FRA="Magasin"';
                     Editable = false;
                     Numeric = false;
                     Style = Standard;
                     StyleExpr = TRUE;
                     TableRelation = Location;
-                    ApplicationArea = All;
 
                     trigger OnLookup(var Text: Text): Boolean
                     var
@@ -451,14 +450,14 @@ page 50058 "BC6_Reclass. Card MiniForm"
         {
             action(ItemButton)
             {
+                ApplicationArea = All;
                 Caption = '&Item', Comment = 'FRA="&Article"';
                 Image = Item;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                ShortCutKey = 'F2';
-                ApplicationArea = All;
                 PromotedOnly = true;
+                ShortCutKey = 'F2';
 
                 trigger OnAction()
                 var
@@ -469,13 +468,13 @@ page 50058 "BC6_Reclass. Card MiniForm"
             }
             action(BinButton)
             {
+                ApplicationArea = All;
                 Caption = '&Bin', Comment = 'FRA="&Emp."';
                 Image = Bin;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ShortCutKey = 'F3';
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -486,13 +485,13 @@ page 50058 "BC6_Reclass. Card MiniForm"
             }
             action(PostButton)
             {
+                ApplicationArea = All;
                 Caption = '&Post', Comment = 'FRA="&Valider"';
                 Image = Post;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ShortCutKey = 'F8';
-                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -502,22 +501,20 @@ page 50058 "BC6_Reclass. Card MiniForm"
                     /*
                     IF ISCLEAR(WshShell) THEN
                       CREATE(WshShell,FALSE ,TRUE);
-                    
-                    
+
                     BoolWait := FALSE;
                     WshShell.SendKeys('{F2}', BoolWait);
                     */
-
                 end;
             }
             action(QuitButton)
             {
+                ApplicationArea = All;
                 Caption = '&Quit', Comment = 'FRA="&Quitter"';
                 Image = Close;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -526,13 +523,13 @@ page 50058 "BC6_Reclass. Card MiniForm"
             }
             action(DeleteButton)
             {
+                ApplicationArea = All;
                 Caption = '&Delete', Comment = 'FRA="&Supprimer"';
                 Image = Delete;
                 Promoted = true;
                 PromotedCategory = "Report";
                 PromotedIsBig = true;
                 ShortCutKey = 'F9';
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -694,7 +691,6 @@ page 50058 "BC6_Reclass. Card MiniForm"
         BarTxt: Text[30];
         ErrorTxt: Text[250];
 
-
     procedure NewLine(LastJnlLine: Record "Item Journal Line")
     begin
         BarCode := '';
@@ -729,7 +725,6 @@ page 50058 "BC6_Reclass. Card MiniForm"
         Rec.TESTFIELD("Location Code");
         RefreshDataControlAddin()
     end;
-
 
     procedure OpenWithWhseEmployee(): Boolean
     var
@@ -778,7 +773,6 @@ page 50058 "BC6_Reclass. Card MiniForm"
         RefreshDataControlAddin()
     end;
 
-
     procedure AssignLocationCode(var pLocationCode: Code[20])
     var
         Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
@@ -795,7 +789,6 @@ page 50058 "BC6_Reclass. Card MiniForm"
         END;
         RefreshDataControlAddin()
     end;
-
 
     procedure AssignBinCode(var BinCode: Code[20])
     var
@@ -815,7 +808,6 @@ page 50058 "BC6_Reclass. Card MiniForm"
         Rec."New Bin Code" := BinCode;
         RefreshDataControlAddin()
     end;
-
 
     procedure AssignFromBinCode(var BinCode: Code[20])
     var
@@ -881,7 +873,6 @@ page 50058 "BC6_Reclass. Card MiniForm"
                     ErrorTxt := STRSUBSTNO(Text012, Item."No.");
                 ItemError := TRUE;
             END;
-
         END;
 
         IF ItemError THEN
@@ -915,18 +906,15 @@ page 50058 "BC6_Reclass. Card MiniForm"
         RefreshDataControlAddin()
     end;
 
-
     procedure PostBatch()
     begin
         CLEAR(JnlPostBatch);
         JnlPostBatch.RUN(Rec);
     end;
 
-
     procedure InitForm(Picking: Boolean)
     begin
     end;
-
 
     procedure CtrlEnabled()
     begin
@@ -939,7 +927,6 @@ page 50058 "BC6_Reclass. Card MiniForm"
         QtyCtrlVisible := ShowCtrl;
         QtyCtrlEditable := EditableCtrl;
     end;
-
 
     procedure UpdateCurrForm()
     var
@@ -978,10 +965,8 @@ page 50058 "BC6_Reclass. Card MiniForm"
 
                 ELSE
                     ;
-
             END;
     end;
-
 
     procedure CodeEANOk("Code": Code[20]) CodeOk: Boolean
     var
@@ -1090,7 +1075,6 @@ page 50058 "BC6_Reclass. Card MiniForm"
         CurrPage.UPDATE(FALSE);
     end;
 
-
     procedure SetOptionMode(NewOptionMode: Option New,Edit,KeepPick,KeepPickAndBin)
     begin
         OptionMode := NewOptionMode;
@@ -1119,4 +1103,3 @@ page 50058 "BC6_Reclass. Card MiniForm"
         CurrPage.ScanZone.SetText(4, ToBinCode);
     end;
 }
-

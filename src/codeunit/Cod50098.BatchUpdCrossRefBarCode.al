@@ -1,6 +1,5 @@
 codeunit 50098 "Batch Upd. Cross Ref. Bar Code"
 {
-
     trigger OnRun()
     begin
 
@@ -29,10 +28,8 @@ codeunit 50098 "Batch Upd. Cross Ref. Bar Code"
                         ItemReference.Description := Item.Description;
                         ItemReference.MODIFY(FALSE);
                     END;
-
             UNTIL (ItemReference.NEXT() = 0) OR (Counter > 2000000);
         Window.CLOSE();
-
     end;
 
     var
@@ -45,4 +42,3 @@ codeunit 50098 "Batch Upd. Cross Ref. Bar Code"
         Text002: Label '#1#####';
         Text003: Label 'Update Cross. Ref. Bar Code...', comment = 'FRA="Mise à jour magasin..."';
 }
-

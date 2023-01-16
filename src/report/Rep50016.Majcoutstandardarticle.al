@@ -10,13 +10,12 @@ report 50016 "BC6_Maj cout standard article"
 
             trigger OnAfterGetRecord()
             var
-                CduPurchPricemgt: Codeunit "Purch. Price Calc. Mgt.";
-
+                FunctionsMgt: Codeunit "BC6_Functions Mgt";
             begin
                 IntGCounter += 1;
                 DlgGWin.UPDATE(1, ROUND(IntGCounter / IntGTotal * 10000, 1));
 
-                //  TODO:   Item.VALIDATE("Standard Cost", CduPurchPricemgt.Findbestpurchprice(Item."No."));
+                Item.VALIDATE("Standard Cost", FunctionsMgt.Findbestpurchprice(Item."No."));
                 Item.MODIFY(TRUE);
             end;
 
@@ -36,7 +35,6 @@ report 50016 "BC6_Maj cout standard article"
 
     requestpage
     {
-
         layout
         {
         }
@@ -56,4 +54,3 @@ report 50016 "BC6_Maj cout standard article"
         IntGTotal: Integer;
         CstG001: Label 'Traitement des articles @1@@@@@@@@@';
 }
-

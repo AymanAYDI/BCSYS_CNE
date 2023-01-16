@@ -1,8 +1,5 @@
 codeunit 50020 "BC6_Tsf Trf Ach CNE ==> Bourg"
 {
-
-
-
     var
         Item_Cible: Record Item;
         Item_Source: Record Item;
@@ -52,7 +49,6 @@ codeunit 50020 "BC6_Tsf Trf Ach CNE ==> Bourg"
                                 IF ItemU_Cible.INSERT(false) THEN;
                             END;
                         UNTIL ItemU_Source.NEXT() <= 0;
-
                 END
                 ELSE BEGIN
                     Item_Cible.Blocked := Item_Source.Blocked;
@@ -60,7 +56,6 @@ codeunit 50020 "BC6_Tsf Trf Ach CNE ==> Bourg"
                     Item_Cible.MODIFY();
                 END;
             UNTIL Item_Source.NEXT() <= 0;
-
 
         PurchPrice_Source.RESET();
         PurchPrice_Source.SETRANGE("Vendor No.", CodeFourn);
@@ -86,4 +81,3 @@ codeunit 50020 "BC6_Tsf Trf Ach CNE ==> Bourg"
         Dialog_D.CLOSE();
     end;
 }
-

@@ -104,6 +104,7 @@ report 50100 "BC6_Batch Post Sales Invoices" //297
                     }
                     Field(BooGExcludeShipmentF; BooGExcludeShipment)
                     {
+                        ApplicationArea = All;
                         Caption = 'Exclure BL à regrouper';
                     }
                 }
@@ -113,8 +114,6 @@ report 50100 "BC6_Batch Post Sales Invoices" //297
         actions
         {
         }
-
-
     }
 
     labels
@@ -152,6 +151,4 @@ report 50100 "BC6_Batch Post Sales Invoices" //297
                 COMMIT();
             END;
     end;
-
 }
-

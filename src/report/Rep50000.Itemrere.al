@@ -1,14 +1,13 @@
 report 50000 "BC6_Item rere"
 {
-    ProcessingOnly = true;
-    UsageCategory = ReportsAndAnalysis;
     ApplicationArea = all;
     Caption = 'Item rere';
+    ProcessingOnly = true;
+    UsageCategory = ReportsAndAnalysis;
     dataset
     {
         dataitem(Item; Item)
         {
-
             DataItemTableView = WHERE(Description = CONST('COLLIER EN INOX DE LIAISON'));
 
             trigger OnAfterGetRecord()
@@ -21,7 +20,6 @@ report 50000 "BC6_Item rere"
 
     requestpage
     {
-
         layout
         {
         }
@@ -35,4 +33,3 @@ report 50000 "BC6_Item rere"
     {
     }
 }
-

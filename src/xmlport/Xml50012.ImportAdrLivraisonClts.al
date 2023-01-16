@@ -1,11 +1,10 @@
 xmlport 50012 "BC6_Import Adr. Livraison Clts"
 {
-
+    Caption = 'Import Adr. Livraison Clts';
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = '<TAB>';
     Format = VariableText;
-    Caption = 'Import Adr. Livraison Clts';
 
     schema
     {
@@ -19,28 +18,28 @@ xmlport 50012 "BC6_Import Adr. Livraison Clts"
                 XmlName = 'ShipToAddress';
                 textelement(vcode)
                 {
-                    XmlName = 'vcode';
                     Width = 10;
+                    XmlName = 'vcode';
                 }
                 textelement(vcustomer)
                 {
-                    XmlName = 'vcustomer';
                     Width = 20;
+                    XmlName = 'vcustomer';
                 }
                 textelement(vname)
                 {
-                    XmlName = 'vname';
                     Width = 30;
+                    XmlName = 'vname';
                 }
                 textelement(vad)
                 {
-                    XmlName = 'vad';
                     Width = 30;
+                    XmlName = 'vad';
                 }
                 textelement(vad2)
                 {
-                    XmlName = 'vad2';
                     Width = 30;
+                    XmlName = 'vad2';
                 }
                 textelement(vad3)
                 {
@@ -48,18 +47,18 @@ xmlport 50012 "BC6_Import Adr. Livraison Clts"
                 }
                 textelement(vpostcode)
                 {
-                    XmlName = 'vpostcode';
                     Width = 30;
+                    XmlName = 'vpostcode';
                 }
                 textelement(vcity)
                 {
-                    XmlName = 'vcity';
                     Width = 30;
+                    XmlName = 'vcity';
                 }
                 textelement(vcountry)
                 {
-                    XmlName = 'vcountry';
                     Width = 10;
+                    XmlName = 'vcountry';
                 }
 
                 trigger OnAfterInitRecord()
@@ -86,7 +85,6 @@ xmlport 50012 "BC6_Import Adr. Livraison Clts"
                     recShipTo.VALIDATE(Code, vcode);
                     recShipTo.VALIDATE("Customer No.", vcode);
 
-
                     recShipTo.INSERT(TRUE);
 
                     IF vname <> '' THEN
@@ -109,7 +107,6 @@ xmlport 50012 "BC6_Import Adr. Livraison Clts"
                             CPLength := STRLEN(vpostcode);
                             FOR i := 1 TO 5 - CPLength DO
                                 vpostcode := '0' + vpostcode;
-
                         END;
 
                         recPostCode.RESET();
@@ -130,13 +127,10 @@ xmlport 50012 "BC6_Import Adr. Livraison Clts"
 
                         recShipTo."Post Code" := vpostcode;
                         recShipTo.City := vcity;
-
                     END;
 
                     IF vcountry <> '' THEN
                         recShipTo.VALIDATE("Country/Region Code", vcountry);
-
-
 
                     recShipTo.MODIFY(TRUE);
                 end;
@@ -146,7 +140,6 @@ xmlport 50012 "BC6_Import Adr. Livraison Clts"
 
     requestpage
     {
-
         layout
         {
         }
@@ -161,4 +154,3 @@ xmlport 50012 "BC6_Import Adr. Livraison Clts"
         recShipTo: Record "Ship-to Address";
         vname2: Text[30];
 }
-

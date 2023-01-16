@@ -6,13 +6,14 @@ pageextension 50111 "BC6_SOProcessorActivities" extends "SO Processor Activities
         {
             field("BC6_Sales Return - Location"; Rec."BC6_Sales Return - Location")
             {
+                ApplicationArea = All;
                 DrillDownPageID = "BC6_LOC Sales Ret. Order List";
             }
             field("BC6_Sales Return - SAV"; Rec."BC6_Sales Return - SAV")
             {
+                ApplicationArea = All;
                 DrillDownPageID = "BC6_SAV Sales Ret. Order List";
             }
         }
     }
 }
-

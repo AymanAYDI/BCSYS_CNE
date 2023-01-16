@@ -1,33 +1,31 @@
 pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //130
 {
-
-
     layout
     {
         addafter("Sell-to Contact")
         {
             field("BC6_Sell-to Fax No."; Rec."BC6_Sell-to Fax No.")
             {
-                Editable = false;
                 ApplicationArea = All;
+                Editable = false;
             }
             field("BC6_Sell-to E-Mail Address"; Rec."BC6_Sell-to E-Mail Address")
             {
-                Editable = false;
                 ApplicationArea = All;
+                Editable = false;
             }
         }
         addafter("External Document No.")
         {
             field("BC6_User ID"; Rec."User ID")
             {
-                Editable = false;
                 ApplicationArea = All;
+                Editable = false;
             }
             field("BC6_Affair No."; Rec."BC6_Affair No.")
             {
-                Editable = false;
                 ApplicationArea = All;
+                Editable = false;
             }
         }
     }
@@ -37,57 +35,56 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
         {
             group("BC6_E&nvoyer/Imprimer")
             {
-                Caption = 'E&nvoyer/Imprimer';
-            }
-        }
-        addfirst("BC6_E&nvoyer/Imprimer")
-        {
-            action("BC6_Envoyer par E-Mail")
-            {
-                Caption = 'Envoyer par E-Mail';
-                ApplicationArea = All;
+                Caption = 'Envoyer/Imprimer';
+                action("BC6_Envoyer par E-Mail")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Envoyer par E-Mail';
+                    Image = SendEmailPDF;
 
-                trigger OnAction()
-                var
-                    RecLPostSalesShpt: Record "Sales Shipment Header";
-                begin
-                    RecLPostSalesShpt := Rec;
-                    RecLPostSalesShpt.SETRECFILTER();
-                    CLEAR(cduMail);
-                    recGCompanyInfo.GET();
+                    trigger OnAction()
+                    var
+                        RecLPostSalesShpt: Record "Sales Shipment Header";
+                    begin
+                        RecLPostSalesShpt := Rec;
+                        RecLPostSalesShpt.SETRECFILTER();
+                        CLEAR(cduMail);
+                        recGCompanyInfo.GET();
 
-                    RecLPostSalesShpt := Rec;
-                    RecLPostSalesShpt.SETRECFILTER();
-                    ToFile := 'BON DE LIVRAISON CNE N° ' + DELCHR((RecLPostSalesShpt."No."), '=', '/\:.,') + '.pdf';
-                    FileName := TEMPORARYPATH + ToFile;
-                    REPORT.SAVEASPDF(REPORT::"BC6_Sales - Shipment CNE", FileName, RecLPostSalesShpt);
-                    ToFile := ReportHelper.DownloadToClientFileName(FileName, ToFile);
+                        RecLPostSalesShpt := Rec;
+                        RecLPostSalesShpt.SETRECFILTER();
+                        ToFile := 'BON DE LIVRAISON CNE N° ' + DELCHR((RecLPostSalesShpt."No."), '=', '/\:.,') + '.pdf';
+                        FileName := TEMPORARYPATH + ToFile;
+                        REPORT.SAVEASPDF(REPORT::"BC6_Sales - Shipment CNE", FileName, RecLPostSalesShpt);
+                        ToFile := ReportHelper.DownloadToClientFileName(FileName, ToFile);
 
-                    IF RecLPostSalesShpt."Your Reference" <> '' THEN
-                        Objet := 'BON DE LIVRAISON CNE N° ' + DELCHR((RecLPostSalesShpt."No."), '=', '/\:.,') + ' - ' + DELCHR((RecLPostSalesShpt."Your Reference"), '=', '/\:.,')
-                    ELSE
-                        Objet := 'BON DE LIVRAISON CNE N° ' + DELCHR((RecLPostSalesShpt."No."), '=', '/\:.,');
+                        IF RecLPostSalesShpt."Your Reference" <> '' THEN
+                            Objet := 'BON DE LIVRAISON CNE N° ' + DELCHR((RecLPostSalesShpt."No."), '=', '/\:.,') + ' - ' + DELCHR((RecLPostSalesShpt."Your Reference"), '=', '/\:.,')
+                        ELSE
+                            Objet := 'BON DE LIVRAISON CNE N° ' + DELCHR((RecLPostSalesShpt."No."), '=', '/\:.,');
 
-                    Body := 'Chère Cliente, Cher Client' + '<br>' + '<br>' + 'Veuillez trouver ci-joint votre bon de livraison.' + '<br>' + '<br>' + 'Sincères salutations,' +
-                            '<br>' + '<br>' + recGCompanyInfo.Name + '<br>' + recGCompanyInfo.Address + ' ' + recGCompanyInfo."Post Code" + ' ' + recGCompanyInfo.City + '<br>' + 'Tél : ' + recGCompanyInfo."Phone No." +
-                            ' ' + '- Fax : ' + recGCompanyInfo."Fax No.";
+                        Body := 'Chère Cliente, Cher Client' + '<br>' + '<br>' + 'Veuillez trouver ci-joint votre bon de livraison.' + '<br>' + '<br>' + 'Sincères salutations,' +
+                                '<br>' + '<br>' + recGCompanyInfo.Name + '<br>' + recGCompanyInfo.Address + ' ' + recGCompanyInfo."Post Code" + ' ' + recGCompanyInfo.City + '<br>' + 'Tél : ' + recGCompanyInfo."Phone No." +
+                                ' ' + '- Fax : ' + recGCompanyInfo."Fax No.";
 
-                    cduMail.NewMessage(Rec."BC6_Sell-to E-Mail Address", '', '', Objet, Body, ToFile, TRUE);
-                    FILE.ERASE(FileName);
-                end;
-            }
-            action("BC6_Envoyer par Fax")
-            {
-                Caption = 'Envoyer par Fax';
-                ApplicationArea = All;
+                        cduMail.NewMessage(Rec."BC6_Sell-to E-Mail Address", '', '', Objet, Body, ToFile, TRUE);
+                        FILE.ERASE(FileName);
+                    end;
+                }
+                action("BC6_Envoyer par Fax")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Envoyer par Fax';
+                    Image = SendTo;
 
-                trigger OnAction()
-                var
-                    RecLPostSalesShpt: Record "Sales Shipment Header";
-                begin
-                    RecLPostSalesShpt := Rec;
-                    RecLPostSalesShpt.SETRECFILTER();
-                end;
+                    trigger OnAction()
+                    var
+                        RecLPostSalesShpt: Record "Sales Shipment Header";
+                    begin
+                        RecLPostSalesShpt := Rec;
+                        RecLPostSalesShpt.SETRECFILTER();
+                    end;
+                }
             }
         }
     }
@@ -111,8 +108,6 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
         Objet: Text[250];
         ToFile: Text[250];
         Body: Text[1024];
-
-
 
     procedure EnvoiMail()
     begin
@@ -140,7 +135,4 @@ pageextension 50035 "BC6_PostedSalesShipment" extends "Posted Sales Shipment" //
     procedure OpenFile()
     begin
     end;
-
-
-
 }

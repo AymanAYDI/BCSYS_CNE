@@ -1,6 +1,5 @@
 pageextension 50118 "BC6_SalesQuotes" extends "Sales Quotes" //9300
 {
-
     layout
     {
         modify("Amount")
@@ -11,18 +10,23 @@ pageextension 50118 "BC6_SalesQuotes" extends "Sales Quotes" //9300
         {
             field(BC6_ID; Rec.BC6_ID)
             {
+                ApplicationArea = All;
             }
             field("BC6_Your Reference"; Rec."Your Reference")
             {
+                ApplicationArea = All;
             }
             field("BC6_Affair No."; Rec."BC6_Affair No.")
             {
+                ApplicationArea = All;
             }
             field(BC6_Amount; Rec.Amount)
             {
+                ApplicationArea = All;
             }
             field(BC6_Profit; DecGProfit)
             {
+                ApplicationArea = All;
                 Caption = 'Profit', comment = 'FRA="Montant marge"';
                 Editable = false;
                 Enabled = BooGVisible;
@@ -30,6 +34,7 @@ pageextension 50118 "BC6_SalesQuotes" extends "Sales Quotes" //9300
             }
             field(BC6_ProfitPct; DecGProfitPct)
             {
+                ApplicationArea = All;
                 Caption = 'ProfitPct', comment = 'FRA="%age marge"';
                 Editable = false;
                 Enabled = BooGVisible;

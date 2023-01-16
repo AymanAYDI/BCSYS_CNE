@@ -1,5 +1,6 @@
-page 50122 "Stockkeeping Unit List ACTI"
+page 50122 "BC6_Stock Unit List ACTI"
 {
+    ApplicationArea = All;
     Caption = 'Stockkeeping Unit List ACTI', Comment = 'FRA="Liste des points de stock ACTI"';
     DeleteAllowed = false;
     Editable = true;
@@ -9,7 +10,6 @@ page 50122 "Stockkeeping Unit List ACTI"
     SourceTable = "Stockkeeping Unit";
     SourceTableView = WHERE("Location Code" = CONST('ACTI'));
     UsageCategory = Tasks;
-    ApplicationArea = All;
 
     layout
     {
@@ -19,24 +19,24 @@ page 50122 "Stockkeeping Unit List ACTI"
             {
                 field("Location Code"; Rec."Location Code")
                 {
-                    Editable = false;
                     ApplicationArea = All;
+                    Editable = false;
                 }
                 field("Item No."; Rec."Item No.")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                     ToolTip = 'Specifies the item number to which the SKU applies.', Comment = 'FRA="Spécifie le numéro de l''article auquel s''applique le point de stock."';
-                    ApplicationArea = All;
                 }
                 field(Description; Rec.Description)
                 {
-                    ToolTip = 'Specifies the description from the Item Card.', Comment = 'FRA="Spécifie la description de la fiche article."';
                     ApplicationArea = All;
+                    ToolTip = 'Specifies the description from the Item Card.', Comment = 'FRA="Spécifie la description de la fiche article."';
                 }
                 field("Reorder Quantity"; Rec."Reorder Quantity")
                 {
-                    ToolTip = 'Specifies for the SKU, the same as the field does on the item card.', Comment = 'FRA="Spécifie le point de stock, le même que celui indiqué par le champ sur la feuille article."';
                     ApplicationArea = All;
+                    ToolTip = 'Specifies for the SKU, the same as the field does on the item card.', Comment = 'FRA="Spécifie le point de stock, le même que celui indiqué par le champ sur la feuille article."';
                 }
                 field("Safety Stock Quantity"; Rec."Safety Stock Quantity")
                 {
@@ -56,13 +56,13 @@ page 50122 "Stockkeeping Unit List ACTI"
         {
             systempart(Links; Links)
             {
-                Visible = false;
                 ApplicationArea = All;
+                Visible = false;
             }
             systempart(Notes; Notes)
             {
-                Visible = true;
                 ApplicationArea = All;
+                Visible = true;
             }
         }
     }
@@ -77,6 +77,7 @@ page 50122 "Stockkeeping Unit List ACTI"
                 Image = Item;
                 action(Dimensions)
                 {
+                    ApplicationArea = All;
                     Caption = 'Dimensions', Comment = 'FRA="Axes analytiques"';
                     Image = Dimensions;
                     RunObject = Page "Default Dimensions";
@@ -84,10 +85,10 @@ page 50122 "Stockkeeping Unit List ACTI"
                                   "No." = FIELD("Item No.");
                     ShortCutKey = 'Shift+Ctrl+D';
                     ToolTip = 'View or edit dimensions, such as area, project, or department, that you can assign to sales and purchase documents to distribute costs and analyze transaction history.', Comment = 'FRA="Affichez ou modifiez les axes analytiques, tels que la zone, le projet ou le département que vous pouvez affecter aux documents vente et achat afin de distribuer les coûts et analyser l''historique des transactions."';
-                    ApplicationArea = All;
                 }
                 action("&Picture")
                 {
+                    ApplicationArea = All;
                     Caption = '&Picture', Comment = 'FRA="&Image"';
                     Image = Picture;
                     RunObject = Page "Item Picture";
@@ -98,57 +99,56 @@ page 50122 "Stockkeeping Unit List ACTI"
                                   "Global Dimension 2 Filter" = FIELD("Location Code"),
                                   "Drop Shipment Filter" = FIELD("Drop Shipment Filter"),
                                   "Variant Filter" = FIELD("Variant Code");
-                    ApplicationArea = All;
                 }
                 separator("Action1102601007")
                 {
                 }
                 action("&Units of Measure")
                 {
+                    ApplicationArea = All;
                     Caption = '&Units of Measure', Comment = 'FRA="&Unités"';
                     Image = UnitOfMeasure;
                     RunObject = Page "Item Units of Measure";
                     RunPageLink = "Item No." = FIELD("Item No.");
-                    ApplicationArea = All;
                 }
                 action("Va&riants")
                 {
+                    ApplicationArea = All;
                     Caption = 'Va&riants', Comment = 'FRA="&Variantes"';
                     Image = ItemVariant;
                     RunObject = Page "Item Variants";
                     RunPageLink = "Item No." = FIELD("Item No.");
-                    ApplicationArea = All;
                 }
                 separator("Action1102601010")
                 {
                 }
                 action(Translations)
                 {
+                    ApplicationArea = All;
                     Caption = 'Translations', Comment = 'FRA="Traductions"';
                     Image = Translations;
                     RunObject = Page "Item Translations";
                     RunPageLink = "Item No." = FIELD("Item No."),
                                   "Variant Code" = FIELD(FILTER("Variant Code"));
-                    ApplicationArea = All;
                 }
                 action("Co&mments1")
                 {
+                    ApplicationArea = All;
                     Caption = 'Co&mments', Comment = 'FRA="Co&mmentaires"';
                     Image = ViewComments;
                     RunObject = Page "Comment Sheet";
                     RunPageLink = "Table Name" = CONST(Item),
                                   "No." = FIELD("Item No.");
-                    ApplicationArea = All;
                 }
                 action("E&xtended Texts")
                 {
+                    ApplicationArea = All;
                     Caption = 'E&xtended Texts', Comment = 'FRA="&Textes étendus"';
                     Image = Text;
                     RunObject = Page "Extended Text List";
                     RunPageLink = "Table Name" = CONST(Item),
                                   "No." = FIELD("Item No.");
                     RunPageView = SORTING("Table Name", "No.", "Language Code", "All Language Codes", "Starting Date", "Ending Date");
-                    ApplicationArea = All;
                 }
             }
             group("&SKU")
@@ -161,6 +161,7 @@ page 50122 "Stockkeeping Unit List ACTI"
                     Image = Statistics;
                     action("Entry Statistics")
                     {
+                        ApplicationArea = All;
                         Caption = 'Entry Statistics', Comment = 'FRA="Statistiques écritures"';
                         Image = EntryStatistics;
                         RunObject = Page "Item Entry Statistics";
@@ -171,10 +172,10 @@ page 50122 "Stockkeeping Unit List ACTI"
                                       "Global Dimension 2 Filter" = FIELD("Location Code"),
                                       "Drop Shipment Filter" = FIELD("Drop Shipment Filter"),
                                       "Variant Filter" = FIELD("Variant Code");
-                        ApplicationArea = All;
                     }
                     action("T&urnover")
                     {
+                        ApplicationArea = All;
                         Caption = 'T&urnover', Comment = 'FRA="&Rotation"';
                         Image = Turnover;
                         RunObject = Page "Item Turnover";
@@ -184,7 +185,6 @@ page 50122 "Stockkeeping Unit List ACTI"
                                       "Global Dimension 2 Filter" = FIELD("Location Code"),
                                       "Drop Shipment Filter" = FIELD("Drop Shipment Filter"),
                                       "Variant Filter" = FIELD("Variant Code");
-                        ApplicationArea = All;
                     }
                 }
                 group("&Item Availability By")
@@ -193,9 +193,9 @@ page 50122 "Stockkeeping Unit List ACTI"
                     Image = ItemAvailability;
                     action("<Action5>")
                     {
+                        ApplicationArea = All;
                         Caption = 'Event', Comment = 'FRA="Événement"';
                         Image = "Event";
-                        ApplicationArea = All;
 
                         trigger OnAction()
                         var
@@ -213,6 +213,7 @@ page 50122 "Stockkeeping Unit List ACTI"
                     }
                     action(Period)
                     {
+                        ApplicationArea = All;
                         Caption = 'Period', Comment = 'FRA="Période"';
                         Image = Period;
                         RunObject = Page "Item Availability by Periods";
@@ -222,13 +223,12 @@ page 50122 "Stockkeeping Unit List ACTI"
                                       "Global Dimension 2 Filter" = FIELD("Location Code"),
                                       "Drop Shipment Filter" = FIELD("Drop Shipment Filter"),
                                       "Variant Filter" = FIELD("Variant Code");
-                        ApplicationArea = All;
                     }
                     action("Bill of Material")
                     {
+                        ApplicationArea = All;
                         Caption = 'Bill of Material', Comment = 'FRA="Nomenclature"';
                         Image = BOM;
-                        ApplicationArea = All;
 
                         trigger OnAction()
                         var
@@ -242,9 +242,9 @@ page 50122 "Stockkeeping Unit List ACTI"
                     }
                     action(Timeline)
                     {
+                        ApplicationArea = All;
                         Caption = 'Timeline', Comment = 'FRA="Chronologie"';
                         Image = Timeline;
-                        ApplicationArea = All;
 
                         trigger OnAction()
                         begin
@@ -254,13 +254,13 @@ page 50122 "Stockkeeping Unit List ACTI"
                 }
                 action("Co&mments2")
                 {
+                    ApplicationArea = All;
                     Caption = 'Co&mments', Comment = 'FRA="Co&mmentaires"';
                     Image = ViewComments;
                     RunObject = Page "Stock. Unit Comment Sheet";
                     RunPageLink = "Item No." = FIELD("Item No."),
                                   "Variant Code" = FIELD("Variant Code"),
                                   "Location Code" = FIELD("Location Code");
-                    ApplicationArea = All;
                 }
             }
             group(Warehouse)
@@ -269,6 +269,7 @@ page 50122 "Stockkeeping Unit List ACTI"
                 Image = Warehouse;
                 action("&Bin Contents")
                 {
+                    ApplicationArea = All;
                     Caption = '&Bin Contents', Comment = 'FRA="C&ontenu emplacement"';
                     Image = BinContent;
                     RunObject = Page "Bin Contents List";
@@ -276,7 +277,6 @@ page 50122 "Stockkeeping Unit List ACTI"
                                   "Item No." = FIELD("Item No."),
                                   "Variant Code" = FIELD("Variant Code");
                     RunPageView = SORTING("Location Code", "Item No.", "Variant Code");
-                    ApplicationArea = All;
                 }
             }
             group(History)
@@ -289,6 +289,7 @@ page 50122 "Stockkeeping Unit List ACTI"
                     Image = Entries;
                     action("Ledger E&ntries")
                     {
+                        ApplicationArea = All;
                         Caption = 'Ledger E&ntries', Comment = 'FRA="É&critures comptables"';
                         Image = CustomerLedger;
                         RunObject = Page "Item Ledger Entries";
@@ -297,10 +298,10 @@ page 50122 "Stockkeeping Unit List ACTI"
                                       "Variant Code" = FIELD("Variant Code");
                         RunPageView = SORTING("Item No.", Open, "Variant Code");
                         ShortCutKey = 'Ctrl+F7';
-                        ApplicationArea = All;
                     }
                     action("&Reservation Entries")
                     {
+                        ApplicationArea = All;
                         Caption = '&Reservation Entries', Comment = 'FRA="Écritures &réservation"';
                         Image = ReservationLedger;
                         RunObject = Page "Reservation Entries";
@@ -309,10 +310,10 @@ page 50122 "Stockkeeping Unit List ACTI"
                                       "Variant Code" = FIELD("Variant Code"),
                                       "Reservation Status" = CONST(Reservation);
                         RunPageView = SORTING("Item No.", "Variant Code", "Location Code", "Reservation Status");
-                        ApplicationArea = All;
                     }
                     action("&Phys. Inventory Ledger Entries")
                     {
+                        ApplicationArea = All;
                         Caption = '&Phys. Inventory Ledger Entries', Comment = 'FRA="Écritures comptables &inventaire"';
                         Image = PhysicalInventoryLedger;
                         RunObject = Page "Phys. Inventory Ledger Entries";
@@ -320,10 +321,10 @@ page 50122 "Stockkeeping Unit List ACTI"
                                       "Location Code" = FIELD("Location Code"),
                                       "Variant Code" = FIELD("Variant Code");
                         RunPageView = SORTING("Item No.", "Variant Code");
-                        ApplicationArea = All;
                     }
                     action("&Value Entries")
                     {
+                        ApplicationArea = All;
                         Caption = '&Value Entries', Comment = 'FRA="Écritures &valeur"';
                         Image = ValueLedger;
                         RunObject = Page "Value Entries";
@@ -331,13 +332,12 @@ page 50122 "Stockkeeping Unit List ACTI"
                                       "Location Code" = FIELD("Location Code"),
                                       "Variant Code" = FIELD("Variant Code");
                         RunPageView = SORTING("Item No.", "Valuation Date", "Location Code", "Variant Code");
-                        ApplicationArea = All;
                     }
                     action("Item &Tracking Entries")
                     {
+                        ApplicationArea = All;
                         Caption = 'Item &Tracking Entries', Comment = 'FRA="Écritures &traçabilité"';
                         Image = ItemTrackingLedger;
-                        ApplicationArea = All;
 
                         trigger OnAction()
                         var
@@ -356,40 +356,40 @@ page 50122 "Stockkeeping Unit List ACTI"
         {
             action("Inventory - List")
             {
+                ApplicationArea = All;
                 Caption = 'Inventory - List', Comment = 'FRA="Stocks : Liste des articles"';
                 Image = "Report";
                 Promoted = true;
                 PromotedCategory = "Report";
                 PromotedOnly = true;
                 RunObject = Report "Inventory - List";
-                ApplicationArea = All;
             }
             action("Inventory Availability")
             {
+                ApplicationArea = All;
                 Caption = 'Inventory Availability', Comment = 'FRA="Disponibilité articles"';
                 Image = "Report";
                 Promoted = true;
                 PromotedCategory = "Report";
                 RunObject = Report "Inventory Availability";
-                ApplicationArea = All;
             }
             action("Inventory - Availability Plan")
             {
+                ApplicationArea = All;
                 Caption = 'Inventory - Availability Plan', Comment = 'FRA="Stocks : Échéancier des dispo."';
                 Image = ItemAvailability;
                 Promoted = true;
                 PromotedCategory = "Report";
                 RunObject = Report "Inventory - Availability Plan";
-                ApplicationArea = All;
             }
             action("Item/Vendor Catalog")
             {
+                ApplicationArea = All;
                 Caption = 'Item/Vendor Catalog', Comment = 'FRA="Articles : Catalogue fourn."';
                 Image = "Report";
                 Promoted = true;
                 PromotedCategory = "Report";
                 RunObject = Report "Item/Vendor Catalog";
-                ApplicationArea = All;
             }
         }
         area(processing)
@@ -400,14 +400,14 @@ page 50122 "Stockkeeping Unit List ACTI"
                 Image = NewItem;
                 action("New Item")
                 {
+                    ApplicationArea = All;
                     Caption = 'New Item', Comment = 'FRA="Nouvel article"';
                     Image = NewItem;
                     Promoted = true;
-                    PromotedOnly = true;
                     PromotedCategory = New;
+                    PromotedOnly = true;
                     RunObject = Page "Item Card";
                     RunPageMode = Create;
-                    ApplicationArea = All;
                 }
             }
             group("F&unctions")
@@ -416,9 +416,9 @@ page 50122 "Stockkeeping Unit List ACTI"
                 Image = "Action";
                 action("C&alculate Counting Period")
                 {
+                    ApplicationArea = All;
                     Caption = 'C&alculate Counting Period', Comment = 'FRA="C&alculer période d''inventaire"';
                     Image = CalculateCalendar;
-                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -441,4 +441,3 @@ page 50122 "Stockkeeping Unit List ACTI"
     var
         ItemAvailFormsMgt: Codeunit "Item Availability Forms Mgt";
 }
-

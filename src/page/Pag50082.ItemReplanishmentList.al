@@ -1,5 +1,6 @@
 page 50082 "BC6_Item Replanishment List"
 {
+    ApplicationArea = All;
     Caption = 'Item Replanishment List', Comment = 'FRA="Liste réapprovisonnement articles"';
     DeleteAllowed = false;
     InsertAllowed = false;
@@ -7,7 +8,6 @@ page 50082 "BC6_Item Replanishment List"
     PromotedActionCategories = 'New,Process,Report,Item,History,Special Prices & Discounts,Request Approval,Periodic Activities,Inventory,Attributes', Comment = 'FRA="Nouveau,Traiter,Déclarer,Historique,Prix et remises spéciaux,Demander une approbation,Traitements,Inventaire,Attributs"';
     RefreshOnActivate = true;
     SourceTable = Item;
-    ApplicationArea = All;
     UsageCategory = Tasks;
     layout
     {
@@ -50,8 +50,8 @@ page 50082 "BC6_Item Replanishment List"
                 }
                 field(Blocked; Rec.Blocked)
                 {
-                    Editable = false;
                     ApplicationArea = All;
+                    Editable = false;
                 }
                 field("Search Description 2"; Rec."Bc6_Search Description 2")
                 {
@@ -63,6 +63,7 @@ page 50082 "BC6_Item Replanishment List"
         {
             part("Item Invoicing FactBox"; "Item Invoicing FactBox")
             {
+                ApplicationArea = All;
                 SubPageLink = "No." = FIELD("No."),
                               "Date Filter" = FIELD("Date Filter"),
                               "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"),
@@ -73,10 +74,10 @@ page 50082 "BC6_Item Replanishment List"
                               "Variant Filter" = FIELD("Variant Filter"),
                               "Lot No. Filter" = FIELD("Lot No. Filter"),
                               "Serial No. Filter" = FIELD("Serial No. Filter");
-                ApplicationArea = All;
             }
             part("Item Replenishment FactBox"; "Item Replenishment FactBox")
             {
+                ApplicationArea = All;
                 SubPageLink = "No." = FIELD("No."),
                               "Date Filter" = FIELD("Date Filter"),
                               "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"),
@@ -88,10 +89,10 @@ page 50082 "BC6_Item Replanishment List"
                               "Lot No. Filter" = FIELD("Lot No. Filter"),
                               "Serial No. Filter" = FIELD("Serial No. Filter");
                 Visible = false;
-                ApplicationArea = All;
             }
             part("Item Planning FactBox"; "Item Planning FactBox")
             {
+                ApplicationArea = All;
                 SubPageLink = "No." = FIELD("No."),
                               "Date Filter" = FIELD("Date Filter"),
                               "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"),
@@ -102,10 +103,10 @@ page 50082 "BC6_Item Replanishment List"
                               "Variant Filter" = FIELD("Variant Filter"),
                               "Lot No. Filter" = FIELD("Lot No. Filter"),
                               "Serial No. Filter" = FIELD("Serial No. Filter");
-                ApplicationArea = All;
             }
             part("Item Warehouse FactBox"; "Item Warehouse FactBox")
             {
+                ApplicationArea = All;
                 SubPageLink = "No." = FIELD("No."),
                               "Date Filter" = FIELD("Date Filter"),
                               "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"),
@@ -117,7 +118,6 @@ page 50082 "BC6_Item Replanishment List"
                               "Lot No. Filter" = FIELD("Lot No. Filter"),
                               "Serial No. Filter" = FIELD("Serial No. Filter");
                 Visible = false;
-                ApplicationArea = All;
             }
             part(ItemAttributesFactBox; "Item Attributes Factbox")
             {
@@ -144,6 +144,7 @@ page 50082 "BC6_Item Replanishment List"
                 Image = DataEntry;
                 action("&Units of Measure")
                 {
+                    ApplicationArea = All;
                     Caption = '&Units of Measure', Comment = 'FRA="&Unités"';
                     Image = UnitOfMeasure;
                     Promoted = true;
@@ -152,18 +153,17 @@ page 50082 "BC6_Item Replanishment List"
                     RunPageLink = "Item No." = FIELD("No.");
                     Scope = Repeater;
                     ToolTip = 'Set up the different units that the selected item can be traded in, such as piece, box, or hour.', Comment = 'FRA="Configurez les différentes unités dans lesquelles l''article sélectionné peut être négocié, par exemple pièce, boîte ou heure."';
-                    ApplicationArea = All;
                 }
                 action(Attributes)
                 {
                     AccessByPermission = TableData "Item Attribute" = R;
+                    ApplicationArea = All;
                     Caption = 'Attributes', Comment = 'FRA="Attributs"';
                     Image = Category;
                     Promoted = true;
                     PromotedCategory = Category4;
                     Scope = Repeater;
                     ToolTip = 'View or edit the item''s attributes, such as color, size, or other characteristics that help to describe the item.', Comment = 'FRA="Affichez ou modifiez les attributs de l''article, tels que la couleur, la taille ou d''autres caractéristiques permettant de le décrire."';
-                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -240,11 +240,11 @@ page 50082 "BC6_Item Replanishment List"
                 }
                 action("Va&riants")
                 {
+                    ApplicationArea = All;
                     Caption = 'Va&riants', Comment = 'FRA="&Variantes"';
                     Image = ItemVariant;
                     RunObject = Page "Item Variants";
                     RunPageLink = "Item No." = FIELD("No.");
-                    ApplicationArea = All;
                 }
                 action("Substituti&ons")
                 {
@@ -257,12 +257,12 @@ page 50082 "BC6_Item Replanishment List"
                 }
                 action(Identifiers)
                 {
+                    ApplicationArea = All;
                     Caption = 'Identifiers', Comment = 'FRA="Identifiants"';
                     Image = BarCode;
                     RunObject = Page "Item Identifiers";
                     RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.", "Variant Code", "Unit of Measure Code");
-                    ApplicationArea = All;
                 }
                 action("Cross Re&ferences")
                 {
@@ -279,6 +279,7 @@ page 50082 "BC6_Item Replanishment List"
                 }
                 action("E&xtended Texts")
                 {
+                    ApplicationArea = All;
                     Caption = 'E&xtended Texts', Comment = 'FRA="Te&xtes étendus"';
                     Image = Text;
                     RunObject = Page "Extended Text List";
@@ -287,10 +288,10 @@ page 50082 "BC6_Item Replanishment List"
                     RunPageView = SORTING("Table Name", "No.", "Language Code", "All Language Codes", "Starting Date", "Ending Date");
                     Scope = Repeater;
                     ToolTip = 'Set up additional text for the description of the selected item. Extended text can be inserted under the Description field on document lines for the item.', Comment = 'FRA="Définissez un texte supplémentaire pour la description de l''article sélectionné. Un texte plus long peut être inséré sous le champ Description sur les lignes document de l''article."';
-                    ApplicationArea = All;
                 }
                 action(Translations)
                 {
+                    ApplicationArea = All;
                     Caption = 'Translations', Comment = 'FRA="Traductions"';
                     Image = Translations;
                     Promoted = true;
@@ -300,11 +301,10 @@ page 50082 "BC6_Item Replanishment List"
                                   "Variant Code" = CONST();
                     Scope = Repeater;
                     ToolTip = 'Set up translated item descriptions for the selected item. Translated item descriptions are automatically inserted on documents according to the language code.', Comment = 'FRA="Configurez des descriptions traduites pour l''article sélectionné. Les descriptions d''articles traduites sont automatiquement insérées dans les documents en fonction du code de langue."';
-                    ApplicationArea = All;
                 }
                 group(Action145)
                 {
-                    Visible = false;
+                    Visible = false; //it is unvisible , why ?
                     action(AdjustInventory)
                     {
                         ApplicationArea = Basic, Suite;
@@ -369,6 +369,7 @@ page 50082 "BC6_Item Replanishment List"
                     Image = Entries;
                     action("Ledger E&ntries")
                     {
+                        ApplicationArea = All;
                         Caption = 'Ledger E&ntries', Comment = 'FRA="É&critures comptables"';
                         Image = ItemLedger;
                         Promoted = true;
@@ -381,10 +382,10 @@ page 50082 "BC6_Item Replanishment List"
                         Scope = Repeater;
                         ShortCutKey = 'Ctrl+F7';
                         ToolTip = 'View the history of positive and negative inventory changes that reflect transactions with the selected item.', Comment = 'FRA="Affichez l''historique des modifications de stock positives et négatives qui reflètent les transactions avec l''article sélectionné."';
-                        ApplicationArea = All;
                     }
                     action("&Phys. Inventory Ledger Entries")
                     {
+                        ApplicationArea = All;
                         Caption = '&Phys. Inventory Ledger Entries', Comment = 'FRA="Écritures comptables &inventaire"';
                         Image = PhysicalInventoryLedger;
                         Promoted = true;
@@ -393,7 +394,6 @@ page 50082 "BC6_Item Replanishment List"
                         RunPageLink = "Item No." = FIELD("No.");
                         RunPageView = SORTING("Item No.");
                         Scope = Repeater;
-                        ApplicationArea = All;
                     }
                 }
             }
@@ -402,41 +402,41 @@ page 50082 "BC6_Item Replanishment List"
                 Caption = 'Prices and Discounts', Comment = 'FRA="Prix et remises"';
                 action(Prices_Prices)
                 {
+                    ApplicationArea = All;
                     Caption = 'Special Prices', Comment = 'FRA="Prix spéciaux"';
                     Image = Price;
                     Promoted = true;
-                    PromotedOnly = true;
                     PromotedCategory = Category6;
+                    PromotedOnly = true;
                     RunObject = Page "Sales Prices";
                     RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
                     Scope = Repeater;
                     ToolTip = 'Set up different prices for the selected item. An item price is automatically used on invoice lines when the specified criteria are met, such as customer, quantity, or ending date.', Comment = 'FRA="Configurez des prix différents pour l''article sélectionné. Un prix article est automatiquement utilisé sur les lignes facture lorsque les critères spécifiés sont satisfaits, par exemple le client, la quantité ou la date de fin."';
-                    ApplicationArea = All;
                 }
                 action(Prices_LineDiscounts)
                 {
+                    ApplicationArea = All;
                     Caption = 'Special Discounts', Comment = 'FRA="Remises spéciales"';
                     Image = LineDiscount;
                     Promoted = true;
-                    PromotedOnly = true;
                     PromotedCategory = Category6;
+                    PromotedOnly = true;
                     RunObject = Page "Sales Line Discounts";
                     RunPageLink = Type = CONST(Item),
                                   Code = FIELD("No.");
                     RunPageView = SORTING(Type, Code);
                     Scope = Repeater;
                     ToolTip = 'Set up different discounts for the selected item. An item discount is automatically granted on invoice lines when the specified criteria are met, such as customer, quantity, or ending date.', Comment = 'FRA="Configurez des remises différentes pour l''article sélectionné. Une remise article est automatiquement affectée sur les lignes facture lorsque les critères spécifiés sont satisfaits, par exemple le client, la quantité ou la date de fin."';
-                    ApplicationArea = All;
                 }
                 action(PricesDiscountsOverview)
                 {
+                    ApplicationArea = All;
                     Caption = 'Special Prices & Discounts Overview', Comment = 'FRA="Aperçu des prix et remises spéciaux"';
                     Image = PriceWorksheet;
-                    ApplicationArea = All;
                     Promoted = true;
-                    PromotedOnly = true;
                     PromotedCategory = Category6;
+                    PromotedOnly = true;
 
                     trigger OnAction()
                     var
@@ -449,13 +449,13 @@ page 50082 "BC6_Item Replanishment List"
                 }
                 action("Sales Price Worksheet")
                 {
+                    ApplicationArea = All;
                     Caption = 'Sales Price Worksheet', Comment = 'FRA="Feuille prix vente"';
                     Image = PriceWorksheet;
                     Promoted = true;
                     PromotedCategory = Category6;
                     PromotedOnly = true;
                     RunObject = Page "Sales Price Worksheet";
-                    ApplicationArea = All;
                 }
             }
             group("Periodic Activities")
@@ -467,8 +467,8 @@ page 50082 "BC6_Item Replanishment List"
                     Caption = 'Adjust Cost - Item Entries', Comment = 'FRA="Ajuster coûts : Écr. article"';
                     Image = AdjustEntries;
                     Promoted = true;
-                    PromotedOnly = true;
                     PromotedCategory = Category8;
+                    PromotedOnly = true;
                     RunObject = Report "Adjust Cost - Item Entries";
                     ToolTip = 'Adjust inventory values in value entries so that you use the correct adjusted cost for updating the general ledger and so that sales and profit statistics are up to date.', Comment = 'FRA="Ajustez les valeurs de stocks des écritures valeur afin que vous utilisiez le coût ajusté correct pour la mise à jour de la comptabilité et que les statistiques vente et profit soient à jour."';
                 }
@@ -478,8 +478,8 @@ page 50082 "BC6_Item Replanishment List"
                     Caption = 'Post Inventory Cost to G/L', Comment = 'FRA="Valider coûts ajustés"';
                     Image = PostInventoryToGL;
                     Promoted = true;
-                    PromotedOnly = true;
                     PromotedCategory = Category8;
+                    PromotedOnly = true;
                     RunObject = Report "Post Inventory Cost to G/L";
                     ToolTip = 'Post the quantity and value changes to the inventory in the item ledger entries and the value entries when you post inventory transactions, such as sales shipments or purchase receipts.', Comment = 'FRA="Validez les changements de quantité et de valeur en stock dans les écritures comptables article et les écritures valeur lorsque vous validez des mouvements de stocks, tels que des expéditions vente ou des réceptions achat."';
                 }
@@ -489,8 +489,8 @@ page 50082 "BC6_Item Replanishment List"
                     Caption = 'Physical Inventory Journal', Comment = 'FRA="Feuille inventaire phys."';
                     Image = PhysicalInventory;
                     Promoted = true;
-                    PromotedOnly = true;
                     PromotedCategory = Category8;
+                    PromotedOnly = true;
                     RunObject = Page "Phys. Inventory Journal";
                     ToolTip = 'Select how you want to maintain an up-to-date record of your inventory at different locations.', Comment = 'FRA="Sélectionnez comment vous souhaitez conserver un enregistrement mis à jour du stock dans différents magasins."';
                 }
@@ -500,8 +500,8 @@ page 50082 "BC6_Item Replanishment List"
                     Caption = 'Revaluation Journal', Comment = 'FRA="Feuille réévaluation"';
                     Image = Journal;
                     Promoted = true;
-                    PromotedOnly = true;
                     PromotedCategory = Category8;
+                    PromotedOnly = true;
                     RunObject = Page "Revaluation Journal";
                     ToolTip = 'View or edit the inventory value of items, which you can change, such as after doing a physical inventory.', Comment = 'FRA="Affichez ou modifiez la valeur stock des articles, que vous pouvez modifier, par exemple, après avoir effectué un inventaire."';
                 }
@@ -512,14 +512,14 @@ page 50082 "BC6_Item Replanishment List"
                 Image = SendApprovalRequest;
                 action(SendApprovalRequest)
                 {
+                    ApplicationArea = All;
                     Caption = 'Send A&pproval Request', Comment = 'FRA="Envoyer demande d''a&pprobation"';
                     Enabled = (NOT OpenApprovalEntriesExist) AND EnabledApprovalWorkflowsExist;
                     Image = SendApprovalRequest;
-                    PromotedOnly = true;
                     Promoted = true;
                     PromotedCategory = Category7;
+                    PromotedOnly = true;
                     ToolTip = 'Send an approval request.', Comment = 'FRA="Envoyez une demande d''approbation."';
-                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -531,13 +531,13 @@ page 50082 "BC6_Item Replanishment List"
                 }
                 action(CancelApprovalRequest)
                 {
+                    ApplicationArea = All;
                     Caption = 'Cancel Approval Re&quest', Comment = 'FRA="Annuler demande d''appro&bation"';
                     Enabled = CanCancelApprovalForRecord;
                     Image = CancelApprovalRequest;
                     Promoted = true;
                     PromotedCategory = Category7;
                     ToolTip = 'Cancel the approval request.', Comment = 'FRA="Annulez la demande d''approbation."';
-                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -586,9 +586,9 @@ page 50082 "BC6_Item Replanishment List"
                 action("&Create Stockkeeping Unit")
                 {
                     AccessByPermission = TableData "Stockkeeping Unit" = R;
+                    ApplicationArea = All;
                     Caption = '&Create Stockkeeping Unit', Comment = 'FRA="&Créer point de stock"';
                     Image = CreateSKU;
-                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -601,9 +601,9 @@ page 50082 "BC6_Item Replanishment List"
                 action("C&alculate Counting Period")
                 {
                     AccessByPermission = TableData "Phys. Invt. Item Selection" = R;
+                    ApplicationArea = All;
                     Caption = 'C&alculate Counting Period', Comment = 'FRA="C&alculer période d''inventaire"';
                     Image = CalculateCalendar;
-                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -616,50 +616,50 @@ page 50082 "BC6_Item Replanishment List"
                 }
                 action(UpdateCostIncreaseCoeff)
                 {
+                    ApplicationArea = All;
                     Caption = 'Update Cost Incr. Coeff.', Comment = 'FRA="Modifier coeff majoration du coût"';
                     Image = CalculateCost;
-                    RunObject = Report "Update Item Cost Incr. Coeff.";
-                    ApplicationArea = All;
+                    RunObject = Report "BC6_Upd Item Cost Incr. Coeff.";
                 }
             }
             action("Requisition Worksheet")
             {
+                ApplicationArea = All;
                 Caption = 'Requisition Worksheet', Comment = 'FRA="Demande achat"';
                 Image = Worksheet;
                 RunObject = Page "Req. Worksheet";
-                ApplicationArea = All;
             }
             action("Item Journal")
             {
+                ApplicationArea = All;
                 Caption = 'Item Journal', Comment = 'FRA="Feuille article"';
                 Image = Journals;
                 Promoted = true;
                 PromotedCategory = Process;
                 RunObject = Page "Item Journal";
-                ApplicationArea = All;
             }
             action("Item Reclassification Journal")
             {
+                ApplicationArea = All;
                 Caption = 'Item Reclassification Journal', Comment = 'FRA="Feuille reclassement article"';
                 Image = Journals;
                 Promoted = true;
                 PromotedCategory = Process;
                 RunObject = Page "Item Reclass. Journal";
-                ApplicationArea = All;
             }
             action("Item Tracing")
             {
+                ApplicationArea = All;
                 Caption = 'Item Tracing', Comment = 'FRA="Traçabilité"';
                 Image = ItemTracing;
                 RunObject = Page "Item Tracing";
-                ApplicationArea = All;
             }
             action("Adjust Item Cost/Price")
             {
+                ApplicationArea = All;
                 Caption = 'Adjust Item Cost/Price', Comment = 'FRA="Ajuster coût et prix article"';
                 Image = AdjustItemCost;
                 RunObject = Report "Adjust Item Costs/Prices";
-                ApplicationArea = All;
             }
         }
         area(reporting)
@@ -669,24 +669,24 @@ page 50082 "BC6_Item Replanishment List"
                 Caption = 'Assembly/Production', Comment = 'FRA="Assemblage/Production"';
                 action("Assemble to Order - Sales")
                 {
+                    ApplicationArea = All;
                     Caption = 'Assemble to Order - Sales', Comment = 'FRA="Assembler pour commande - Ventes"';
                     Image = "Report";
                     RunObject = Report "Assemble to Order - Sales";
-                    ApplicationArea = All;
                 }
                 action("Where-Used (Top Level)")
                 {
+                    ApplicationArea = All;
                     Caption = 'Where-Used (Top Level)', Comment = 'FRA="Cas d''emploi (multi-niveau)"';
                     Image = "Report";
                     RunObject = Report "Where-Used (Top Level)";
-                    ApplicationArea = All;
                 }
                 action("Quantity Explosion of BOM")
                 {
+                    ApplicationArea = All;
                     Caption = 'Quantity Explosion of BOM', Comment = 'FRA="Nomenclature multi-niveau"';
                     Image = "Report";
                     RunObject = Report "Quantity Explosion of BOM";
-                    ApplicationArea = All;
                 }
                 group(Costing_reporting)
                 {
@@ -694,38 +694,38 @@ page 50082 "BC6_Item Replanishment List"
                     Image = ItemCosts;
                     action("Inventory Valuation - WIP")
                     {
+                        ApplicationArea = All;
                         Caption = 'Inventory Valuation - WIP', Comment = 'FRA="Évaluation du stock d''en-cours"';
                         Image = "Report";
                         RunObject = Report "Inventory Valuation - WIP";
-                        ApplicationArea = All;
                     }
                     action("Cost Shares Breakdown")
                     {
+                        ApplicationArea = All;
                         Caption = 'Cost Shares Breakdown', Comment = 'FRA="Analyse des coûts"';
                         Image = "Report";
                         RunObject = Report "Cost Shares Breakdown";
-                        ApplicationArea = All;
                     }
                     action("Detailed Calculation")
                     {
+                        ApplicationArea = All;
                         Caption = 'Detailed Calculation', Comment = 'FRA="Coût détaillé"';
                         Image = "Report";
                         RunObject = Report "Detailed Calculation";
-                        ApplicationArea = All;
                     }
                     action("Rolled-up Cost Shares")
                     {
+                        ApplicationArea = All;
                         Caption = 'Rolled-up Cost Shares', Comment = 'FRA="Coût multi-niveau détaillé"';
                         Image = "Report";
                         RunObject = Report "Rolled-up Cost Shares";
-                        ApplicationArea = All;
                     }
                     action("Single-Level Cost Shares")
                     {
+                        ApplicationArea = All;
                         Caption = 'Single-Level Cost Shares', Comment = 'FRA="Coût mono-niveau détaillé"';
                         Image = "Report";
                         RunObject = Report "Single-level Cost Shares";
-                        ApplicationArea = All;
                     }
                 }
             }
@@ -734,38 +734,38 @@ page 50082 "BC6_Item Replanishment List"
                 Caption = 'Inventory', Comment = 'FRA="Stocks"';
                 action("Inventory - List")
                 {
+                    ApplicationArea = All;
                     Caption = 'Inventory - List', Comment = 'FRA="Stocks : Liste des articles"';
                     Image = "Report";
                     RunObject = Report "Inventory - List";
-                    ApplicationArea = All;
                 }
                 action("Inventory - Availability Plan")
                 {
+                    ApplicationArea = All;
                     Caption = 'Inventory - Availability Plan', Comment = 'FRA="Stocks : Échéancier des dispo."';
                     Image = ItemAvailability;
                     RunObject = Report "Inventory - Availability Plan";
-                    ApplicationArea = All;
                 }
                 action("Item/Vendor Catalog")
                 {
+                    ApplicationArea = All;
                     Caption = 'Item/Vendor Catalog', Comment = 'FRA="Articles : Catalogue fourn."';
                     Image = "Report";
                     RunObject = Report "Item/Vendor Catalog";
-                    ApplicationArea = All;
                 }
                 action("Phys. Inventory List")
                 {
+                    ApplicationArea = All;
                     Caption = 'Phys. Inventory List', Comment = 'FRA="Liste d''inventaire"';
                     Image = "Report";
                     RunObject = Report "Phys. Inventory List";
-                    ApplicationArea = All;
                 }
                 action("Nonstock Item Sales")
                 {
+                    ApplicationArea = All;
                     Caption = 'Nonstock Item Sales', Comment = 'FRA="Ventes d''articles non stockés"';
                     Image = "Report";
                     RunObject = Report "Catalog Item Sales";
-                    ApplicationArea = All;
                 }
                 action("Item Substitutions")
                 {
@@ -787,19 +787,19 @@ page 50082 "BC6_Item Replanishment List"
                 }
                 action("Inventory Cost and Price List")
                 {
+                    ApplicationArea = All;
                     Caption = 'Inventory Cost and Price List', Comment = 'FRA="Prix et coûts article"';
                     Image = "Report";
                     RunObject = Report "Inventory Cost and Price List";
                     ToolTip = 'View, print, or save a list of your items and their price and cost information. The report specifies direct unit cost, last direct cost, unit price, profit percentage, and profit.', Comment = 'FRA="Affichez, imprimez ou enregistrez une liste de vos articles, ainsi que leur prix et des informations sur leur coût. L''état spécifie le coût unitaire direct, le dernier coût direct, le prix unitaire, le pourcentage de marge et la marge."';
-                    ApplicationArea = All;
                 }
                 action("Inventory Availability")
                 {
+                    ApplicationArea = All;
                     Caption = 'Inventory Availability', Comment = 'FRA="Disponibilité articles"';
                     Image = "Report";
                     RunObject = Report "Inventory Availability";
                     ToolTip = 'View, print, or save a summary of historical inventory transactions with selected items, for example, to decide when to purchase the items. The report specifies quantity on sales order, quantity on purchase order, back orders from vendors, minimum inventory, and whether there are reorders.', Comment = 'FRA="Affichez, imprimez ou enregistrez un résumé des mouvements de stock historiques avec les articles sélectionnés, par exemple, pour décider quand acheter les articles. L''état spécifie la quantité sur commande vente, la quantité sur commande achat, les commandes à livrer des fournisseurs, le stock minimal et la présence éventuelle de réapprovisionnements."';
-                    ApplicationArea = All;
                 }
                 group("Item Register")
                 {
@@ -807,17 +807,17 @@ page 50082 "BC6_Item Replanishment List"
                     Image = ItemRegisters;
                     action("Item Register - Quantity")
                     {
+                        ApplicationArea = All;
                         Caption = 'Item Register - Quantity', Comment = 'FRA="Hist trans article - Qté"';
                         Image = "Report";
                         RunObject = Report "Item Register - Quantity";
-                        ApplicationArea = All;
                     }
                     action("Item Register - Value")
                     {
+                        ApplicationArea = All;
                         Caption = 'Item Register - Value', Comment = 'FRA="Transactions article : Valeur"';
                         Image = "Report";
                         RunObject = Report "Item Register - Value";
-                        ApplicationArea = All;
                     }
                 }
                 group(Costing_Inventory)
@@ -826,24 +826,24 @@ page 50082 "BC6_Item Replanishment List"
                     Image = ItemCosts;
                     action("Inventory - Cost Variance")
                     {
+                        ApplicationArea = All;
                         Caption = 'Inventory - Cost Variance', Comment = 'FRA="Stocks : Évolution des coûts"';
                         Image = ItemCosts;
                         RunObject = Report "Inventory - Cost Variance";
-                        ApplicationArea = All;
                     }
                     action("Invt. Valuation - Cost Spec.")
                     {
+                        ApplicationArea = All;
                         Caption = 'Invt. Valuation - Cost Spec.', Comment = 'FRA="Éval. stock : Composante coût"';
                         Image = "Report";
                         RunObject = Report "Invt. Valuation - Cost Spec.";
-                        ApplicationArea = All;
                     }
                     action("Compare List")
                     {
+                        ApplicationArea = All;
                         Caption = 'Compare List', Comment = 'FRA="Liste de comparaison"';
                         Image = "Report";
                         RunObject = Report "Compare List";
-                        ApplicationArea = All;
                     }
                 }
                 group("Inventory Details")
@@ -852,17 +852,17 @@ page 50082 "BC6_Item Replanishment List"
                     Image = "Report";
                     action("Inventory - Transaction Detail")
                     {
+                        ApplicationArea = All;
                         Caption = 'Inventory - Transaction Detail', Comment = 'FRA="Stocks : Liste des mouvements"';
                         Image = "Report";
                         RunObject = Report "Inventory - Transaction Detail";
-                        ApplicationArea = All;
                     }
                     action("Item Charges - Specification")
                     {
+                        ApplicationArea = All;
                         Caption = 'Item Charges - Specification', Comment = 'FRA="Frais annexes : Composante"';
                         Image = "Report";
                         RunObject = Report "Item Charges - Specification";
-                        ApplicationArea = All;
                     }
                     action("Item Age Composition - Qty.")
                     {
@@ -874,10 +874,10 @@ page 50082 "BC6_Item Replanishment List"
                     }
                     action("Item Expiration - Quantity")
                     {
+                        ApplicationArea = All;
                         Caption = 'Item Expiration - Quantity', Comment = 'FRA="Péremption article - Quantité"';
                         Image = "Report";
                         RunObject = Report "Item Expiration - Quantity";
-                        ApplicationArea = All;
                     }
                 }
                 group(Reports)
@@ -931,11 +931,11 @@ page 50082 "BC6_Item Replanishment List"
                     }
                     action("Item Age Composition - Value")
                     {
+                        ApplicationArea = All;
                         Caption = 'Item Age Composition - Value', Comment = 'FRA="Ancienneté stock : Valeur"';
                         Image = "Report";
                         RunObject = Report "Item Age Composition - Value";
                         ToolTip = 'View, print, or save an overview of the current age composition of selected items in your inventory.', Comment = 'FRA="Affichez, imprimez ou enregistrez un aperçu de l''ancienneté des articles sélectionnés dans votre stock."';
-                        ApplicationArea = All;
                     }
                 }
             }
@@ -944,42 +944,42 @@ page 50082 "BC6_Item Replanishment List"
                 Caption = 'Orders', Comment = 'FRA="Commandes"';
                 action("Inventory Order Details")
                 {
+                    ApplicationArea = All;
                     Caption = 'Inventory Order Details', Comment = 'FRA="Commandes vente en cours"';
                     Image = "Report";
                     RunObject = Report "Inventory Order Details";
-                    ApplicationArea = All;
                 }
                 action("Inventory Purchase Orders")
                 {
+                    ApplicationArea = All;
                     Caption = 'Inventory Purchase Orders', Comment = 'FRA="Commandes achat en cours"';
                     Image = "Report";
                     RunObject = Report "Inventory Purchase Orders";
-                    ApplicationArea = All;
                 }
                 action("Inventory - Vendor Purchases")
                 {
+                    ApplicationArea = All;
                     Caption = 'Inventory - Vendor Purchases', Comment = 'FRA="Stocks : Achats par fourn."';
                     Image = "Report";
                     RunObject = Report "Inventory - Vendor Purchases";
-                    ApplicationArea = All;
                 }
                 action("Inventory - Reorders")
                 {
+                    ApplicationArea = All;
                     Caption = 'Inventory - Reorders', Comment = 'FRA="Stocks : Réappro. à effectuer"';
                     Image = "Report";
                     Promoted = true;
                     PromotedCategory = "Report";
                     RunObject = Report "Inventory - Reorders";
-                    ApplicationArea = All;
                 }
                 action("Inventory - Sales Back Orders")
                 {
+                    ApplicationArea = All;
                     Caption = 'Inventory - Sales Back Orders', Comment = 'FRA="Stocks : Commandes à livrer"';
                     Image = "Report";
                     Promoted = true;
                     PromotedCategory = "Report";
                     RunObject = Report "Inventory - Sales Back Orders";
-                    ApplicationArea = All;
                 }
             }
         }
@@ -1012,10 +1012,10 @@ page 50082 "BC6_Item Replanishment List"
                 action("Items b&y Location")
                 {
                     AccessByPermission = TableData Location = R;
+                    ApplicationArea = All;
                     Caption = 'Items b&y Location', Comment = 'FRA="Articles &par magasin"';
                     Image = ItemAvailbyLoc;
                     ToolTip = 'Show a list of items grouped by location.', Comment = 'FRA="Affichez la liste des articles regroupés par emplacement."';
-                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -1028,9 +1028,9 @@ page 50082 "BC6_Item Replanishment List"
                     Image = ItemAvailability;
                     action("<Action5>")
                     {
+                        ApplicationArea = All;
                         Caption = 'Event', Comment = 'FRA="Événement"';
                         Image = "Event";
-                        ApplicationArea = All;
 
                         trigger OnAction()
                         begin
@@ -1039,6 +1039,7 @@ page 50082 "BC6_Item Replanishment List"
                     }
                     action(Period)
                     {
+                        ApplicationArea = All;
                         Caption = 'Period', Comment = 'FRA="Période"';
                         Image = Period;
                         RunObject = Page "Item Availability by Periods";
@@ -1048,10 +1049,10 @@ page 50082 "BC6_Item Replanishment List"
                                       "Location Filter" = FIELD("Location Filter"),
                                       "Drop Shipment Filter" = FIELD("Drop Shipment Filter"),
                                       "Variant Filter" = FIELD("Variant Filter");
-                        ApplicationArea = All;
                     }
                     action("Variant")
                     {
+                        ApplicationArea = All;
                         Caption = 'Variant', Comment = 'FRA="Variante"';
                         Image = ItemVariant;
                         RunObject = Page "Item Availability by Variant";
@@ -1061,10 +1062,10 @@ page 50082 "BC6_Item Replanishment List"
                                       "Location Filter" = FIELD("Location Filter"),
                                       "Drop Shipment Filter" = FIELD("Drop Shipment Filter"),
                                       "Variant Filter" = FIELD("Variant Filter");
-                        ApplicationArea = All;
                     }
                     action(Location)
                     {
+                        ApplicationArea = All;
                         Caption = 'Location', Comment = 'FRA="Magasin"';
                         Image = Warehouse;
                         RunObject = Page "Item Availability by Location";
@@ -1074,13 +1075,12 @@ page 50082 "BC6_Item Replanishment List"
                                       "Location Filter" = FIELD("Location Filter"),
                                       "Drop Shipment Filter" = FIELD("Drop Shipment Filter"),
                                       "Variant Filter" = FIELD("Variant Filter");
-                        ApplicationArea = All;
                     }
                     action("BOM Level")
                     {
+                        ApplicationArea = All;
                         Caption = 'BOM Level', Comment = 'FRA="Niveau nomenclature"';
                         Image = BOMLevel;
-                        ApplicationArea = All;
 
                         trigger OnAction()
                         begin
@@ -1089,9 +1089,9 @@ page 50082 "BC6_Item Replanishment List"
                     }
                     action(Timeline)
                     {
+                        ApplicationArea = All;
                         Caption = 'Timeline', Comment = 'FRA="Chronologie"';
                         Image = Timeline;
-                        ApplicationArea = All;
 
                         trigger OnAction()
                         begin
@@ -1187,9 +1187,9 @@ page 50082 "BC6_Item Replanishment List"
                 Image = Production;
                 action(Structure)
                 {
+                    ApplicationArea = All;
                     Caption = 'Structure', Comment = 'FRA="Structure"';
                     Image = Hierarchy;
-                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -1201,9 +1201,9 @@ page 50082 "BC6_Item Replanishment List"
                 }
                 action("Cost Shares")
                 {
+                    ApplicationArea = All;
                     Caption = 'Cost Shares', Comment = 'FRA="Coûts totaux"';
                     Image = CostBudget;
-                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -1219,28 +1219,28 @@ page 50082 "BC6_Item Replanishment List"
                     Image = AssemblyBOM;
                     action("<Action32>")
                     {
+                        ApplicationArea = All;
                         Caption = 'Assembly BOM', Comment = 'FRA="Nomenclature d''élément d''assemblage"';
                         Image = BOM;
                         RunObject = Page "Assembly BOM";
                         RunPageLink = "Parent Item No." = FIELD("No.");
-                        ApplicationArea = All;
                     }
                     action("Where-Used1")
                     {
+                        ApplicationArea = All;
                         Caption = 'Where-Used', Comment = 'FRA="Cas d''emploi"';
                         Image = Track;
                         RunObject = Page "Where-Used List";
                         RunPageLink = Type = CONST(Item),
                                       "No." = FIELD("No.");
                         RunPageView = SORTING(Type, "No.");
-                        ApplicationArea = All;
                     }
                     action("Calc. Stan&dard Cost1")
                     {
                         AccessByPermission = TableData "BOM Component" = R;
+                        ApplicationArea = All;
                         Caption = 'Calc. Stan&dard Cost', Comment = 'FRA="Calculer coût stan&dard"';
                         Image = CalculateCost;
-                        ApplicationArea = All;
 
                         trigger OnAction()
                         begin
@@ -1250,9 +1250,9 @@ page 50082 "BC6_Item Replanishment List"
                     action("Calc. Unit Price")
                     {
                         AccessByPermission = TableData "BOM Component" = R;
+                        ApplicationArea = All;
                         Caption = 'Calc. Unit Price', Comment = 'FRA="Calculer prix unitaire"';
                         Image = SuggestItemPrice;
-                        ApplicationArea = All;
 
                         trigger OnAction()
                         begin
@@ -1266,18 +1266,18 @@ page 50082 "BC6_Item Replanishment List"
                     Image = Production;
                     action("Production BOM")
                     {
+                        ApplicationArea = All;
                         Caption = 'Production BOM', Comment = 'FRA="Nomenclature de production"';
                         Image = BOM;
                         RunObject = Page "Production BOM";
                         RunPageLink = "No." = FIELD("Production BOM No.");
-                        ApplicationArea = All;
                     }
                     action("Where-Used2")
                     {
                         AccessByPermission = TableData "BOM Component" = R;
+                        ApplicationArea = All;
                         Caption = 'Where-Used', Comment = 'FRA="Cas d''emploi"';
                         Image = "Where-Used";
-                        ApplicationArea = All;
 
                         trigger OnAction()
                         var
@@ -1290,9 +1290,9 @@ page 50082 "BC6_Item Replanishment List"
                     action("Calc. Stan&dard Cost2")
                     {
                         AccessByPermission = TableData "Production BOM Header" = R;
+                        ApplicationArea = All;
                         Caption = 'Calc. Stan&dard Cost', Comment = 'FRA="Calculer coût stan&dard"';
                         Image = CalculateCost;
-                        ApplicationArea = All;
 
                         trigger OnAction()
                         begin
@@ -1301,28 +1301,28 @@ page 50082 "BC6_Item Replanishment List"
                     }
                     action("&Reservation Entries")
                     {
+                        ApplicationArea = All;
                         Caption = '&Reservation Entries', Comment = 'FRA="Écritures &réservation"';
                         Image = ReservationLedger;
                         RunObject = Page "Reservation Entries";
                         RunPageLink = "Reservation Status" = CONST(Reservation),
                                       "Item No." = FIELD("No.");
                         RunPageView = SORTING("Item No.", "Variant Code", "Location Code", "Reservation Status");
-                        ApplicationArea = All;
                     }
                     action("&Value Entries")
                     {
+                        ApplicationArea = All;
                         Caption = '&Value Entries', Comment = 'FRA="Écritures &valeur"';
                         Image = ValueLedger;
                         RunObject = Page "Value Entries";
                         RunPageLink = "Item No." = FIELD("No.");
                         RunPageView = SORTING("Item No.");
-                        ApplicationArea = All;
                     }
                     action("Item &Tracking Entries")
                     {
+                        ApplicationArea = All;
                         Caption = 'Item &Tracking Entries', Comment = 'FRA="&Ecritures traçabilité"';
                         Image = ItemTrackingLedger;
-                        ApplicationArea = All;
 
                         trigger OnAction()
                         var
@@ -1333,12 +1333,12 @@ page 50082 "BC6_Item Replanishment List"
                     }
                     action("&Warehouse Entries")
                     {
+                        ApplicationArea = All;
                         Caption = '&Warehouse Entries', Comment = 'FRA="É&critures entrepôt"';
                         Image = BinLedger;
                         RunObject = Page "Warehouse Entries";
                         RunPageLink = "Item No." = FIELD("No.");
                         RunPageView = SORTING("Item No.", "Bin Code", "Location Code", "Variant Code", "Unit of Measure Code", "Lot No.", "Serial No.", "Entry Type", Dedicated);
-                        ApplicationArea = All;
                     }
                 }
                 group(Statistics_group)
@@ -1347,10 +1347,10 @@ page 50082 "BC6_Item Replanishment List"
                     Image = Statistics;
                     action(Statistics_action)
                     {
+                        ApplicationArea = All;
                         Caption = 'Statistics', Comment = 'FRA="Statistiques"';
                         Image = Statistics;
                         ShortCutKey = 'F7';
-                        ApplicationArea = All;
 
                         trigger OnAction()
                         var
@@ -1362,6 +1362,7 @@ page 50082 "BC6_Item Replanishment List"
                     }
                     action("Entry Statistics")
                     {
+                        ApplicationArea = All;
                         Caption = 'Entry Statistics', Comment = 'FRA="Statistiques écritures"';
                         Image = EntryStatistics;
                         RunObject = Page "Item Entry Statistics";
@@ -1372,10 +1373,10 @@ page 50082 "BC6_Item Replanishment List"
                                       "Location Filter" = FIELD("Location Filter"),
                                       "Drop Shipment Filter" = FIELD("Drop Shipment Filter"),
                                       "Variant Filter" = FIELD("Variant Filter");
-                        ApplicationArea = All;
                     }
                     action("T&urnover")
                     {
+                        ApplicationArea = All;
                         Caption = 'T&urnover', Comment = 'FRA="&Rotation"';
                         Image = Turnover;
                         RunObject = Page "Item Turnover";
@@ -1385,17 +1386,16 @@ page 50082 "BC6_Item Replanishment List"
                                       "Location Filter" = FIELD("Location Filter"),
                                       "Drop Shipment Filter" = FIELD("Drop Shipment Filter"),
                                       "Variant Filter" = FIELD("Variant Filter");
-                        ApplicationArea = All;
                     }
                 }
                 action("Co&mments")
                 {
+                    ApplicationArea = All;
                     Caption = 'Co&mments', Comment = 'FRA="Co&mmentaires"';
                     Image = ViewComments;
                     RunObject = Page "Comment Sheet";
                     RunPageLink = "Table Name" = CONST(Item),
                                   "No." = FIELD("No.");
-                    ApplicationArea = All;
                 }
             }
             group("S&ales")
@@ -1404,58 +1404,59 @@ page 50082 "BC6_Item Replanishment List"
                 Image = Sales;
                 action(Sales_Prices)
                 {
+                    ApplicationArea = All;
                     Caption = 'Prices', Comment = 'FRA="Prix"';
                     Image = Price;
                     RunObject = Page "Sales Prices";
                     RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
-                    ApplicationArea = All;
                 }
                 action(Sales_LineDiscounts)
                 {
+                    ApplicationArea = All;
                     Caption = 'Line Discounts', Comment = 'FRA="Remises ligne"';
                     Image = LineDiscount;
                     RunObject = Page "Sales Line Discounts";
                     RunPageLink = Type = CONST(Item),
                                   Code = FIELD("No.");
                     RunPageView = SORTING(Type, Code);
-                    ApplicationArea = All;
                 }
                 action("Marge Vente")
                 {
+                    ApplicationArea = All;
                     Caption = 'Marge Vente', Comment = 'FRA="Marge Vente"';
+                    Image = Sales;
                     RunObject = Page "BC6_Item Sales Profit Group";
                     RunPageLink = Code = FIELD("BC6_Item Sales Profit Group");
                     RunPageView = SORTING(Code);
-                    ApplicationArea = All;
                 }
                 action("Prepa&yment Percentages1")
                 {
+                    ApplicationArea = All;
                     Caption = 'Prepa&yment Percentages', Comment = 'FRA="Pourcentages acom&pte"';
                     Image = PrepaymentPercentages;
                     RunObject = Page "Sales Prepayment Percentages";
                     RunPageLink = "Item No." = FIELD("No.");
-                    ApplicationArea = All;
                 }
                 action(Orders1)
                 {
+                    ApplicationArea = All;
                     Caption = 'Orders', Comment = 'FRA="Commandes"';
                     Image = Document;
                     RunObject = Page "Sales Orders";
                     RunPageLink = Type = CONST(Item),
                                   "No." = FIELD("No.");
                     RunPageView = SORTING("Document Type", Type, "No.");
-                    ApplicationArea = All;
                 }
                 action("Returns Orders")
                 {
+                    ApplicationArea = All;
                     Caption = 'Returns Orders', Comment = 'FRA="Retours"';
                     Image = ReturnOrder;
                     RunObject = Page "Sales Return Orders";
                     RunPageLink = Type = CONST(Item),
                                   "No." = FIELD("No.");
                     RunPageView = SORTING("Document Type", Type, "No.");
-                    ApplicationArea = All;
                 }
             }
             group("&Purchases")
@@ -1464,39 +1465,39 @@ page 50082 "BC6_Item Replanishment List"
                 Image = Purchasing;
                 action("Ven&dors")
                 {
+                    ApplicationArea = All;
                     Caption = 'Ven&dors', Comment = 'FRA="&Fournisseurs"';
                     Image = Vendor;
                     RunObject = Page "Item Vendor Catalog";
                     RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
-                    ApplicationArea = All;
                 }
                 action(Prices)
                 {
+                    ApplicationArea = All;
                     Caption = 'Prices', Comment = 'FRA="Prix"';
                     Image = Price;
                     RunObject = Page "Purchase Prices";
                     RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
-                    ApplicationArea = All;
                 }
                 action("Line Discounts")
                 {
+                    ApplicationArea = All;
                     Caption = 'Line Discounts', Comment = 'FRA="Remises ligne"';
                     Image = LineDiscount;
                     RunObject = Page "Purchase Line Discounts";
                     RunPageLink = BC6_Type = CONST(Item),
                                   "Item No." = FIELD("No.");
                     RunPageView = SORTING(BC6_Type, "Item No.", "Vendor No.", "Starting Date", "Currency Code", "Variant Code", "Unit of Measure Code", "Minimum Quantity");
-                    ApplicationArea = All;
                 }
                 action("Prepa&yment Percentages2")
                 {
+                    ApplicationArea = All;
                     Caption = 'Prepa&yment Percentages', Comment = 'FRA="Pourcentages acom&pte"';
                     Image = PrepaymentPercentages;
                     RunObject = Page "Purchase Prepmt. Percentages";
                     RunPageLink = "Item No." = FIELD("No.");
-                    ApplicationArea = All;
                 }
                 action(Orders2)
                 {
@@ -1510,13 +1511,13 @@ page 50082 "BC6_Item Replanishment List"
                 }
                 action("Return Orders")
                 {
+                    ApplicationArea = All;
                     Caption = 'Return Orders', Comment = 'FRA="Retours"';
                     Image = ReturnOrder;
                     RunObject = Page "Purchase Return Orders";
                     RunPageLink = Type = CONST(Item),
                                   "No." = FIELD("No.");
                     RunPageView = SORTING("Document Type", Type, "No.");
-                    ApplicationArea = All;
                 }
                 action("Nonstoc&k Items")
                 {
@@ -1532,21 +1533,21 @@ page 50082 "BC6_Item Replanishment List"
                 Image = Warehouse;
                 action("&Bin Contents1")
                 {
+                    ApplicationArea = All;
                     Caption = '&Bin Contents', Comment = 'FRA="C&ontenu emplacement"';
                     Image = BinContent;
                     RunObject = Page "Item Bin Contents";
                     RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
-                    ApplicationArea = All;
                 }
                 action("Stockkeepin&g Units")
                 {
+                    ApplicationArea = All;
                     Caption = 'Stockkeepin&g Units', Comment = 'FRA="Point de stoc&k"';
                     Image = SKU;
                     RunObject = Page "Stockkeeping Unit List";
                     RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
-                    ApplicationArea = All;
                 }
             }
             group(Service)
@@ -1555,19 +1556,19 @@ page 50082 "BC6_Item Replanishment List"
                 Image = ServiceItem;
                 action("Ser&vice Items")
                 {
+                    ApplicationArea = All;
                     Caption = 'Ser&vice Items', Comment = 'FRA="&Articles de service"';
                     Image = ServiceItem;
                     RunObject = Page "Service Items";
                     RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
-                    ApplicationArea = All;
                 }
                 action(Troubleshooting)
                 {
                     AccessByPermission = TableData "Service Header" = R;
+                    ApplicationArea = All;
                     Caption = 'Troubleshooting', Comment = 'FRA="Incident"';
                     Image = Troubleshoot;
-                    ApplicationArea = All;
 
                     trigger OnAction()
                     var
@@ -1578,12 +1579,12 @@ page 50082 "BC6_Item Replanishment List"
                 }
                 action("Troubleshooting Setup")
                 {
+                    ApplicationArea = All;
                     Caption = 'Troubleshooting Setup', Comment = 'FRA="Paramètres incidents"';
                     Image = Troubleshoot;
                     RunObject = Page "Troubleshooting Setup";
                     RunPageLink = Type = CONST(Item),
                                   "No." = FIELD("No.");
-                    ApplicationArea = All;
                 }
             }
             group(Resources)
@@ -1624,18 +1625,18 @@ page 50082 "BC6_Item Replanishment List"
                 }
                 action(UpdateICPartnerItems)
                 {
+                    ApplicationArea = All;
                     Caption = 'Update IC Partner Items', Comment = 'FRA="Màj articles partenaires"';
                     Enabled = UpdateICPartnerItemsEnabled;
                     Image = UpdateDescription;
                     RunObject = Codeunit "BC6_Update IC Partner Items";
-                    ApplicationArea = All;
                 }
             }
             action("Créer code-barres interne")
             {
+                ApplicationArea = All;
                 Caption = 'Create Internal BarCodes', Comment = 'FRA="Créer code-barres interne"';
                 Image = BarCode;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -1645,10 +1646,10 @@ page 50082 "BC6_Item Replanishment List"
             }
             action(PrintLabel)
             {
+                ApplicationArea = All;
                 Caption = 'Print Label', Comment = 'FRA="Imprimer étiquette"';
                 Ellipsis = true;
                 Image = BarCode;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -1664,10 +1665,10 @@ page 50082 "BC6_Item Replanishment List"
             }
             action(UpdateUnitPriceIncVAT)
             {
+                ApplicationArea = All;
                 Caption = 'Update Item Prices Inc VAT', Comment = 'FRA="Mise à jour prix public TTC"';
                 Ellipsis = true;
                 Image = Price;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -1686,12 +1687,12 @@ page 50082 "BC6_Item Replanishment List"
                 Caption = '&Bin Contents', Comment = 'FRA="C&ontenu emplacement"';
                 action("&Bin Contents2")
                 {
+                    ApplicationArea = All;
                     Caption = '&Bin Contents', Comment = 'FRA="C&ontenu emplacement"';
                     Image = BinContent;
                     RunObject = Page "Item Bin Contents";
                     RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
-                    ApplicationArea = All;
                 }
             }
         }
@@ -1716,7 +1717,6 @@ page 50082 "BC6_Item Replanishment List"
     trigger OnAfterGetRecord()
     var
         FunctionsMgt: Codeunit "BC6_Functions Mgt";
-        "-MIGNAV2013-": Integer;
     begin
         EnableControls();
         EAN13Code := FunctionsMgt.GetItemEAN13Code(Rec."No.");
@@ -1800,23 +1800,23 @@ page 50082 "BC6_Item Replanishment List"
         SocialListeningVisible: Boolean;
         UpdateICPartnerItemsEnabled: Boolean;
         EAN13Code: Code[20];
-        "--NSC1.01--": Integer;
         "-CNEIC-": Integer;
         "-MIGNAV2013-": Integer;
+        "--NSC1.01--": Integer;
         EventFilter: Text;
 
     procedure GetSelectionFilter(): Text
     var
-        Item: Record Item;
+        ItemVar: Record Item;
         SelectionFilterManagement: Codeunit SelectionFilterManagement;
     begin
-        CurrPage.SETSELECTIONFILTER(Item);
-        EXIT(SelectionFilterManagement.GetSelectionFilterForItem(Item));
+        CurrPage.SETSELECTIONFILTER(ItemVar);
+        EXIT(SelectionFilterManagement.GetSelectionFilterForItem(ItemVar));
     end;
 
-    procedure SetSelection(var Item: Record Item)
+    procedure SetSelection(var ItemP: Record Item)
     begin
-        CurrPage.SETSELECTIONFILTER(Item);
+        CurrPage.SETSELECTIONFILTER(ItemP);
     end;
 
     local procedure EnableControls()
@@ -1836,4 +1836,3 @@ page 50082 "BC6_Item Replanishment List"
         EnabledApprovalWorkflowsExist := WorkflowManagement.EnabledWorkflowExist(DATABASE::Item, EventFilter);
     end;
 }
-

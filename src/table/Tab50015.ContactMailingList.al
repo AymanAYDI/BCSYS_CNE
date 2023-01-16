@@ -1,19 +1,21 @@
 table 50015 "BC6_Contact Mailing List"
 {
     Caption = 'Contact Mailing Group';
+    DataClassification = CustomerContent;
     DrillDownPageID = "Contact Mailing Groups";
-
     fields
     {
         field(1; "Contact No."; Code[20])
         {
             Caption = 'Contact No.', comment = 'FRA="N° contact"';
+            DataClassification = CustomerContent;
             NotBlank = true;
             TableRelation = Contact;
         }
         field(2; "Mailing List Code"; Code[10])
         {
             Caption = 'Mailing Group Code', comment = 'FRA="Code groupe de distribution"';
+            DataClassification = CustomerContent;
             NotBlank = true;
             TableRelation = "Mailing Group";
         }
@@ -34,6 +36,7 @@ table 50015 "BC6_Contact Mailing List"
         field(5; "Mailing Group Description"; Text[50])
         {
             Caption = 'Mailing Group Description', comment = 'FRA="Description gpe de distrib."';
+            DataClassification = CustomerContent;
             Editable = false;
         }
     }

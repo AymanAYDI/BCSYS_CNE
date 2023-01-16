@@ -20,8 +20,8 @@ tableextension 50065 "BC6_SalesHeaderArchive" extends "Sales Header Archive" //5
         field(50003; "BC6_Pay-to Customer No."; Code[20])
         {
             Caption = 'Pay-to Customer No.', Comment = 'FRA="Tiers payeur"';
-            TableRelation = Customer;
             DataClassification = CustomerContent;
+            TableRelation = Customer;
         }
         field(50004; "BC6_Advance Payment"; Decimal)
         {
@@ -32,20 +32,20 @@ tableextension 50065 "BC6_SalesHeaderArchive" extends "Sales Header Archive" //5
         field(50005; "BC6_Affair No."; Code[20])
         {
             Caption = 'Affair No.', Comment = 'FRA="N° Affaire"';
-            TableRelation = Job."No.";
             DataClassification = CustomerContent;
+            TableRelation = Job."No.";
         }
         field(50010; BC6_ID; Code[50])
         {
-            TableRelation = User;
-            DataClassification = CustomerContent;
             Caption = 'ID';
+            DataClassification = CustomerContent;
+            TableRelation = User;
         }
         field(50020; "BC6_Cust. Sales Profit Group"; Code[10])
         {
             Caption = 'Goupe Marge Vente Client', Comment = 'FRA="Goupe Marge Vente Client"';
-            TableRelation = "Customer Sales Profit Group";
             DataClassification = CustomerContent;
+            TableRelation = "Customer Sales Profit Group";
         }
         field(50025; "BC6_Combine Shipments by Order"; Boolean)
         {
@@ -54,10 +54,10 @@ tableextension 50065 "BC6_SalesHeaderArchive" extends "Sales Header Archive" //5
         }
         field(50026; "BC6_Purchase cost"; Decimal)
         {
-            FieldClass = FlowField;
             CalcFormula = Sum("Sales Line"."BC6_Purchase cost" WHERE("Document Type" = FIELD("Document Type"), "Document No." = FIELD("No.")));
             Caption = 'Purchase Cost', Comment = 'FRA="Coût d''achat"';
             Editable = false;
+            FieldClass = FlowField;
         }
         field(50029; "BC6_Copy Sell-to Address"; Boolean)
         {
@@ -72,8 +72,8 @@ tableextension 50065 "BC6_SalesHeaderArchive" extends "Sales Header Archive" //5
         field(50031; "BC6_Profit LCY"; Decimal)
         {
             Caption = 'Marge DS', Comment = 'FRA="Marge DS"';
-            Editable = true;
             DataClassification = CustomerContent;
+            Editable = true;
         }
         field(50032; "BC6_% Profit"; Decimal)
         {
@@ -122,8 +122,8 @@ tableextension 50065 "BC6_SalesHeaderArchive" extends "Sales Header Archive" //5
         }
         field(50403; "BC6_Bin Code"; Code[20])
         {
-            DataClassification = CustomerContent;
             Caption = 'Bin Code';
+            DataClassification = CustomerContent;
         }
     }
 }

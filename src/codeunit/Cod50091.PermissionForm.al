@@ -1,7 +1,5 @@
 codeunit 50091 "BC6_Permission Form"
 {
-
-
     procedure HasEditablePermission(UserID2: Text; ObjectType: Integer; ObjectID: Integer): Boolean
     var
         WinAccControl: Record "Access Control";
@@ -11,11 +9,7 @@ codeunit 50091 "BC6_Permission Form"
         IF NOT HasPermission THEN
             HasPermission := HasWinPermission(CopyStr(UserID2, 1, 65), ObjectType, ObjectID);
         EXIT(HasPermission);
-
     end;
-
-
-
 
     procedure HasWinPermission(UserID2: Text[65]; ObjectType: Integer; ObjectID: Integer): Boolean
     var
@@ -52,9 +46,7 @@ codeunit 50091 "BC6_Permission Form"
                     HasPermission := WinAccessControl.GET(WinLogin."User Security ID", Permission."Role ID", '');
             UNTIL HasPermission OR (Permission.NEXT() = 0);
         EXIT(HasPermission);
-
     end;
-
 
     procedure ShortUserID(UserID: Text[100]): Code[20]
     begin
@@ -67,4 +59,3 @@ codeunit 50091 "BC6_Permission Form"
             EXIT(COPYSTR(UserID, STRPOS(UserID, '\') + 1, 20));
     end;
 }
-

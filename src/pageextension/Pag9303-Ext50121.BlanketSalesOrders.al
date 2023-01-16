@@ -23,4 +23,3 @@ pageextension 50121 "BC6_BlanketSalesOrders" extends "Blanket Sales Orders" //93
         }
     }
 }
-

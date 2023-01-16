@@ -5,14 +5,14 @@ tableextension 50077 "BC6_ReturnShipmentLine" extends "Return Shipment Line" //6
         field(50000; "BC6_Sales No."; Code[20])
         {
             Caption = 'Sales Order No.', Comment = 'FRA="N° commande vente"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50001; "BC6_Sales Line No."; Integer)
         {
             Caption = 'Sales Order Line No.', Comment = 'FRA="N° ligne commande vente"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50002; "BC6_Sales Document Type"; Enum "Sales Document Type")
         {
@@ -29,8 +29,8 @@ tableextension 50077 "BC6_ReturnShipmentLine" extends "Return Shipment Line" //6
             AutoFormatExpression = "Currency Code";
             AutoFormatType = 2;
             Caption = 'Discount Direct Unit Cost excluding VAT', Comment = 'FRA="Coût unitaire direct remisé HT"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
 
             trigger OnValidate()
             begin

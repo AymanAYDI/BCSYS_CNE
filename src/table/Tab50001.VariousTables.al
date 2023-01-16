@@ -9,14 +9,14 @@ table 50001 "BC6_Various Tables"
         field(1; Radical; Code[10])
         {
             Caption = 'Radical', comment = 'FRA="Radical"';
-            NotBlank = true;
             DataClassification = CustomerContent;
+            NotBlank = true;
         }
         field(2; "Code"; Code[10])
         {
             Caption = 'Code', comment = 'FRA="Code"';
-            NotBlank = true;
             DataClassification = CustomerContent;
+            NotBlank = true;
 
             trigger OnValidate()
             begin
@@ -46,20 +46,20 @@ table 50001 "BC6_Various Tables"
         field(7; Number1; Decimal)
         {
             Caption = 'Number1', comment = 'FRA="Nombre1"';
-            DecimalPlaces = 0 : 5;
             DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 5;
         }
         field(8; Number2; Decimal)
         {
             Caption = 'Number2', comment = 'FRA="Nombre2"';
-            DecimalPlaces = 0 : 5;
             DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 5;
         }
         field(9; Number3; Decimal)
         {
             Caption = 'Number3', comment = 'FRA="Nombre3"';
-            DecimalPlaces = 0 : 5;
             DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 5;
         }
         field(10; Date1; Date)
         {
@@ -109,8 +109,8 @@ table 50001 "BC6_Various Tables"
         field(19; Comment; Boolean)
         {
             Caption = 'Comment', comment = 'FRA="Comment"';
-            InitValue = false;
             DataClassification = CustomerContent;
+            InitValue = false;
         }
         field(20; "Radical Code"; Code[20])
         {

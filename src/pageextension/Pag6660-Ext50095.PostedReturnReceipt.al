@@ -6,8 +6,8 @@ pageextension 50095 "BC6_PostedReturnReceipt" extends "Posted Return Receipt" //
         {
             field("BC6_User ID"; Rec."User ID")
             {
-                Editable = false;
                 ApplicationArea = All;
+                Editable = false;
             }
         }
     }
@@ -15,11 +15,11 @@ pageextension 50095 "BC6_PostedReturnReceipt" extends "Posted Return Receipt" //
     {
         addafter("Update Document")
         {
-            action("BC6_&Print")
+            action(BC6_Print)
             {
-                Caption = '&Print', Comment = 'FRA="&Envoyer/Imprimer"';
-                Image = PostPrint;
                 ApplicationArea = All;
+                Caption = 'Print', Comment = 'FRA="Envoyer/Imprimer"';
+                Image = PostPrint;
 
                 trigger OnAction()
                 begin
@@ -50,7 +50,6 @@ pageextension 50095 "BC6_PostedReturnReceipt" extends "Posted Return Receipt" //
         Text001: Label '';
         nameF: Text[250];
 
-
     procedure EnvoiMail()
     begin
         cust.SETRANGE(cust."No.", Rec."Sell-to Customer No.");
@@ -77,4 +76,3 @@ pageextension 50095 "BC6_PostedReturnReceipt" extends "Posted Return Receipt" //
     begin
     end;
 }
-

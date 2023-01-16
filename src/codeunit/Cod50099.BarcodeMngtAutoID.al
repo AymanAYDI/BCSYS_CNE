@@ -41,7 +41,6 @@ codeunit 50099 "BC6_Barcode Mngt AutoID"
         END;
         EAN13Bar += FORMAT(DigitValueArrayF14[1]);
         EXIT(EAN13Bar);
-
     end;
 
     procedure LoadEncoding()
@@ -133,7 +132,6 @@ codeunit 50099 "BC6_Barcode Mngt AutoID"
         DigitValueArrayF13[13, 2] := ' ';
         DigitValueArrayF13[14, 2] := ' ';
         DigitValueArrayF13[15, 2] := ' ';
-
 
         DigitValueArrayF14[1] := '(';
         DigitValueArrayF14[2] := '*';
@@ -236,4 +234,3 @@ codeunit 50099 "BC6_Barcode Mngt AutoID"
         EXIT(FALSE);
     end;
 }
-

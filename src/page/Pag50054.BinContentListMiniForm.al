@@ -13,8 +13,8 @@ page 50054 "BC6_Bin Content List MiniForm"
                 Editable = false;
                 field("Location Code"; Rec."Location Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
 
                     trigger OnLookup(var Text: Text): Boolean
                     begin
@@ -30,8 +30,8 @@ page 50054 "BC6_Bin Content List MiniForm"
                 }
                 field("Item No."; Rec."Item No.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
 
                     trigger OnLookup(var Text: Text): Boolean
                     begin
@@ -72,19 +72,19 @@ page 50054 "BC6_Bin Content List MiniForm"
                 }
                 field("Pick Qty."; Rec."Pick Qty.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Available Qty. to Take"; CalcAvailQty())
                 {
+                    ApplicationArea = All;
                     Caption = 'Available Qty. to Take', Comment = 'FRA="Qté disponible pour prélèv."';
                     DecimalPlaces = 0 : 5;
-                    ApplicationArea = All;
                 }
                 field("Unit of Measure Code"; Rec."Unit of Measure Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
             }
         }
@@ -102,10 +102,8 @@ page 50054 "BC6_Bin Content List MiniForm"
         ItemForm: Page "BC6_Item List MiniForm";
         LocationForm: Page "BC6_Location List MiniForm";
 
-
     procedure CalcAvailQty(): Decimal
     begin
         EXIT(Rec.Quantity - Rec."Pick Qty." - Rec."Neg. Adjmt. Qty.");
     end;
 }
-

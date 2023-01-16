@@ -1,10 +1,7 @@
 pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
 {
-
-
     layout
     {
-
         modify("Qty. to Assign")
         {
             Visible = false;
@@ -17,49 +14,44 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
         {
             field("BC6_Dispensation No."; Rec."BC6_Dispensation No.")
             {
-                Editable = false;
                 ApplicationArea = All;
+                Editable = false;
             }
             field("BC6_Additional Discount %"; Rec."BC6_Additional Discount %")
             {
-                Editable = false;
                 ApplicationArea = All;
+                Editable = false;
             }
             field("BC6_Dispensed Purchase Cost"; Rec."BC6_Dispensed Purchase Cost")
             {
-                Editable = false;
                 ApplicationArea = All;
+                Editable = false;
             }
             field("BC6_Standard Net Price"; Rec."BC6_Standard Net Price")
             {
-                Editable = false;
                 ApplicationArea = All;
+                Editable = false;
             }
             field("BC6_Item Disc. Group"; Rec."BC6_Item Disc. Group")
             {
-                Editable = false;
                 ApplicationArea = All;
+                Editable = false;
             }
             field("BC6_Purchasing Code"; Rec."Purchasing Code")
             {
+                ApplicationArea = All;
                 ToolTip = 'Specifies the purchasing code for the item.', Comment = 'FRA="Spécifie le code achat pour l''article."';
                 Visible = false;
-                ApplicationArea = All;
             }
         }
-
-
-
-
-
 
         addafter("Unit of Measure Code")
         {
             field("BC6_Purchase cost"; Rec."BC6_Purchase cost")
             {
+                ApplicationArea = All;
                 Caption = 'Real purchase cost', Comment = 'FRA="Coût d''achat réel"';
                 Visible = ShowRealProfit;
-                ApplicationArea = All;
 
                 trigger OnValidate()
                 begin
@@ -68,8 +60,8 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
             }
             field("BC6_Increase Purchase cost"; IncrPurchCost)
             {
-                Caption = 'Purchase cost', Comment = 'FRA="Coût d''achat"';
                 ApplicationArea = All;
+                Caption = 'Purchase cost', Comment = 'FRA="Coût d''achat"';
 
                 trigger OnValidate()
                 begin
@@ -83,13 +75,13 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
             }
             field("BC6_DEEE Category Code"; Rec."BC6_DEEE Category Code")
             {
-                Visible = false;
                 ApplicationArea = All;
+                Visible = false;
             }
             field("BC6_Eco partner DEEE"; Rec."BC6_Eco partner DEEE")
             {
-                Visible = false;
                 ApplicationArea = All;
+                Visible = false;
             }
             field("BC6_DEEE Unit Price"; Rec."BC6_DEEE Unit Price")
             {
@@ -101,29 +93,28 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
             }
             field("BC6_DEEE VAT Amount"; Rec."BC6_DEEE VAT Amount")
             {
-                Visible = false;
                 ApplicationArea = All;
+                Visible = false;
             }
             field("BC6_DEEE TTC Amount"; Rec."BC6_DEEE TTC Amount")
             {
-                Visible = false;
                 ApplicationArea = All;
+                Visible = false;
             }
             field("BC6_DEEE HT Amount (LCY)"; Rec."BC6_DEEE HT Amount (LCY)")
             {
-                Visible = false;
                 ApplicationArea = All;
+                Visible = false;
             }
         }
-
 
         addafter("Line Amount")
         {
             field("BC6_Profit %"; Rec."Profit %")
             {
+                ApplicationArea = All;
                 Caption = 'Real profit %', Comment = 'FRA="% marge sur vente réel"';
                 Visible = ShowRealProfit;
-                ApplicationArea = All;
 
                 trigger OnValidate()
                 begin
@@ -132,8 +123,8 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
             }
             field("BC6_Increase Profit %"; IncrProfit)
             {
-                Caption = 'Profit %', Comment = 'FRA="% marge sur vente"';
                 ApplicationArea = All;
+                Caption = 'Profit %', Comment = 'FRA="% marge sur vente"';
 
                 trigger OnValidate()
                 begin
@@ -141,13 +132,7 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
                     UpdateIncreasedFields();
                 end;
             }
-
         }
-
-
-
-
-
 
         addafter("Line Discount %")
         {
@@ -157,10 +142,6 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
             }
         }
 
-
-
-
-
         addafter("Qty. to Ship")
         {
             field("BC6_Pick Qty."; Rec."BC6_Pick Qty.")
@@ -169,26 +150,19 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
             }
         }
 
-
-
         addafter("Qty. Assigned")
         {
             field("BC6_Purchase Receipt Date"; Rec."BC6_Purchase Receipt Date")
             {
-                Editable = false;
                 ApplicationArea = All;
+                Editable = false;
             }
             field("BC6_Promised Purchase Receipt Date"; Rec."BC6_Prom. Purch. Receipt Date")
             {
-                Editable = false;
                 ApplicationArea = All;
+                Editable = false;
             }
-
         }
-
-
-
-
 
         addafter("Shipment Date")
         {
@@ -198,20 +172,14 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
             }
         }
 
-
-
         addafter("Shortcut Dimension 2 Code")
         {
             field("BC6_To Prepare"; Rec."BC6_To Prepare")
             {
-                ShowCaption = false;
                 ApplicationArea = All;
+                ShowCaption = false;
             }
         }
-
-
-
-
 
         addafter(ShortcutDimCode8)
         {
@@ -228,8 +196,6 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
                 ApplicationArea = All;
             }
         }
-
-
     }
 
     trigger OnAfterGetRecord()
@@ -253,13 +219,11 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
         UpdateIncreasedFields()
     end;
 
-
     var
         UserSetup: Record "User Setup";
         ShowRealProfit: Boolean;
         IncrProfit: Decimal;
         IncrPurchCost: Decimal;
-
 
     procedure UpdateIncreasedFields()
     begin
@@ -273,4 +237,3 @@ pageextension 50018 "BC6_SalesOrderSubform" extends "Sales Order Subform" //46
         END;
     end;
 }
-

@@ -13,73 +13,88 @@ page 50003 "BC6_Tab. Diverses (Non Modif)"
                 Editable = false;
                 field("Code"; Rec.Code)
                 {
+                    ApplicationArea = All;
                     CaptionClass = CodeCaptionClass;
                 }
                 field(Description; Rec.Description)
                 {
+                    ApplicationArea = All;
                 }
                 field(Text1; Rec.Text1)
                 {
+                    ApplicationArea = All;
                     CaptionClass = Text1CaptionClass;
                     Visible = Text1Visible;
                 }
                 field(Text2; Rec.Text2)
                 {
+                    ApplicationArea = All;
                     CaptionClass = Text2CaptionClass;
                     Visible = Text2Visible;
                 }
                 field(Text3; Rec.Text3)
                 {
+                    ApplicationArea = All;
                     CaptionClass = Text3CaptionClass;
                     Visible = Text3Visible;
                 }
                 field(Number1; Rec.Number1)
                 {
+                    ApplicationArea = All;
                     CaptionClass = Nombre1CaptionClass;
                     Visible = Number1Visible;
                 }
                 field(Number2; Rec.Number2)
                 {
+                    ApplicationArea = All;
                     CaptionClass = Nombre2CaptionClass;
                     Visible = Number2Visible;
                 }
                 field(Number3; Rec.Number3)
                 {
+                    ApplicationArea = All;
                     CaptionClass = Nombre3CaptionClass;
                     Visible = Number3Visible;
                 }
                 field(Date1; Rec.Date1)
                 {
+                    ApplicationArea = All;
                     CaptionClass = Date1CaptionClass;
                     Visible = Date1Visible;
                 }
                 field(Date2; Rec.Date2)
                 {
+                    ApplicationArea = All;
                     CaptionClass = Date2CaptionClass;
                     Visible = Date2Visible;
                 }
                 field(Date3; Rec.Date3)
                 {
+                    ApplicationArea = All;
                     CaptionClass = Date3CaptionClass;
                     Visible = Date3Visible;
                 }
                 field("Top Logical1"; Rec."Top Logical1")
                 {
+                    ApplicationArea = All;
                     CaptionClass = Bool1CaptionClass;
                     Visible = "Top Logical1Visible";
                 }
                 field("Top Logical2"; Rec."Top Logical2")
                 {
+                    ApplicationArea = All;
                     CaptionClass = Bool2CaptionClass;
                     Visible = "Top Logical2Visible";
                 }
                 field("Top Logical3"; Rec."Top Logical3")
                 {
+                    ApplicationArea = All;
                     CaptionClass = Bool3CaptionClass;
                     Visible = "Top Logical3Visible";
                 }
                 field("Radical Code1"; Rec."Radical Code1")
                 {
+                    ApplicationArea = All;
                     CaptionClass = Rad1CaptionClass;
                     Visible = "Radical Code1Visible";
 
@@ -92,6 +107,7 @@ page 50003 "BC6_Tab. Diverses (Non Modif)"
                 }
                 field("Radical Code2"; Rec."Radical Code2")
                 {
+                    ApplicationArea = All;
                     CaptionClass = Rad2CaptionClass;
                     Visible = "Radical Code2Visible";
 
@@ -104,6 +120,7 @@ page 50003 "BC6_Tab. Diverses (Non Modif)"
                 }
                 field("Radical Code3"; Rec."Radical Code3")
                 {
+                    ApplicationArea = All;
                     CaptionClass = Rad3CaptionClass;
                     Visible = "Radical Code3Visible";
 
@@ -116,6 +133,7 @@ page 50003 "BC6_Tab. Diverses (Non Modif)"
                 }
                 field(Comment; Rec.Comment)
                 {
+                    ApplicationArea = All;
                     AssistEdit = true;
                     Visible = CommentVisible;
 

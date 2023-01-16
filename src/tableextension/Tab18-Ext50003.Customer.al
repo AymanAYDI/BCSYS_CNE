@@ -5,45 +5,45 @@ tableextension 50003 "BC6_Customer" extends Customer //18
         field(50000; "BC6_Creation Date"; Date)
         {
             Caption = 'Creation Date', Comment = 'FRA="Date de création"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50001; BC6_User; Code[20])
         {
             Caption = 'User', Comment = 'FRA="Utilisateur"';
+            DataClassification = CustomerContent;
             Editable = false;
             TableRelation = User;
-            DataClassification = CustomerContent;
         }
         field(50002; "BC6_Transaction Type"; Code[10])
         {
             Caption = 'Transaction Type', Comment = 'FRA="Nature Transaction"';
-            TableRelation = "Transaction Type";
             DataClassification = CustomerContent;
+            TableRelation = "Transaction Type";
         }
         field(50003; "BC6_Transaction Specification"; Code[10])
         {
             Caption = 'Transaction Specification', Comment = 'FRA="Régime"';
-            TableRelation = "Transaction Specification";
             DataClassification = CustomerContent;
+            TableRelation = "Transaction Specification";
         }
         field(50004; "BC6_Transport Method"; Code[10])
         {
             Caption = 'Transport Method', Comment = 'FRA="Mode transport"';
-            TableRelation = "Transport Method";
             DataClassification = CustomerContent;
+            TableRelation = "Transport Method";
         }
         field(50005; "BC6_Exit Point"; Code[10])
         {
             Caption = 'Exit Point', Comment = 'FRA="Pays Destination"';
-            TableRelation = "Entry/Exit Point";
             DataClassification = CustomerContent;
+            TableRelation = "Entry/Exit Point";
         }
         field(50006; BC6_Area; Code[10])
         {
             Caption = 'Area', Comment = 'FRA="Departement Destination"';
-            TableRelation = Area;
             DataClassification = CustomerContent;
+            TableRelation = Area;
         }
         field(50007; "BC6_SFAC Contract Date"; Date)
         {
@@ -58,8 +58,8 @@ tableextension 50003 "BC6_Customer" extends Customer //18
         field(50009; "BC6_Pay-to Customer No."; Code[20])
         {
             Caption = 'Pay-to Customer No.', Comment = 'FRA="Tiers payeur"';
-            TableRelation = Customer;
             DataClassification = CustomerContent;
+            TableRelation = Customer;
 
             trigger OnValidate()
             begin
@@ -70,8 +70,8 @@ tableextension 50003 "BC6_Customer" extends Customer //18
         field(50010; "BC6_Salesperson Filter"; Text[250])
         {
             Caption = 'Salesperson Filter', Comment = 'FRA="Filtre vendeur"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
 
             trigger OnValidate()
             var
@@ -101,13 +101,13 @@ tableextension 50003 "BC6_Customer" extends Customer //18
         field(50020; "BC6_Custom. Sales Profit Group"; Code[10])
         {
             Caption = 'Goupe Marge Vente Client', Comment = 'FRA="Goupe Marge Vente Client"';
-            TableRelation = "Customer Sales Profit Group";
             DataClassification = CustomerContent;
+            TableRelation = "Customer Sales Profit Group";
         }
         field(50024; "BC6_Code SIREN"; Code[14])
         {
-            DataClassification = CustomerContent;
             Caption = 'Code SIREN';
+            DataClassification = CustomerContent;
         }
         field(50025; "BC6_Combine Shipments by Order"; Boolean)
         {

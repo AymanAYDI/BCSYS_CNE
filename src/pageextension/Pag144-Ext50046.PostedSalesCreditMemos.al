@@ -6,9 +6,11 @@ pageextension 50046 "BC6_PostedSalesCreditMemos" extends "Posted Sales Credit Me
         {
             field("BC6_Affair No."; Rec."BC6_Affair No.")
             {
+                ApplicationArea = All;
             }
             field("BC6_Return Order No."; Rec."Return Order No.")
             {
+                ApplicationArea = All;
             }
         }
     }
@@ -27,7 +29,5 @@ pageextension 50046 "BC6_PostedSalesCreditMemos" extends "Posted Sales Credit Me
             Rec.SETFILTER("BC6_Salesperson Filter", '*' + RecGUserSeup."Salespers./Purch. Code" + '*');
             Rec.FILTERGROUP(0);
         END;
-
     end;
 }
-

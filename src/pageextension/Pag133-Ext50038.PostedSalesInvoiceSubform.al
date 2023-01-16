@@ -6,10 +6,10 @@ pageextension 50038 "BC6_PostedSalesInvoiceSubform" extends "Posted Sales Invoic
         {
             field("BC6_DEEE Category Code"; Rec."BC6_DEEE Category Code")
             {
+                ApplicationArea = All;
                 Style = Strong;
                 StyleExpr = TRUE;
                 Visible = false;
-                ApplicationArea = All;
             }
             field("BC6_Eco partner DEEE"; Rec."BC6_Eco partner DEEE")
             {
@@ -17,10 +17,10 @@ pageextension 50038 "BC6_PostedSalesInvoiceSubform" extends "Posted Sales Invoic
             }
             field("BC6_DEEE TTC Amount"; Rec."BC6_DEEE TTC Amount")
             {
+                ApplicationArea = All;
                 Style = Strong;
                 StyleExpr = TRUE;
                 Visible = false;
-                ApplicationArea = All;
             }
             field("BC6_DEEE HT Amount (LCY)"; Rec."BC6_DEEE HT Amount (LCY)")
             {
@@ -38,17 +38,16 @@ pageextension 50038 "BC6_PostedSalesInvoiceSubform" extends "Posted Sales Invoic
         {
             field("BC6_DEEE Unit Price"; Rec."BC6_DEEE Unit Price")
             {
+                ApplicationArea = All;
                 Style = Strong;
                 StyleExpr = TRUE;
-                ApplicationArea = All;
             }
             field("BC6_DEEE HT Amount"; Rec."BC6_DEEE HT Amount")
             {
+                ApplicationArea = All;
                 Style = Strong;
                 StyleExpr = TRUE;
-                ApplicationArea = All;
             }
         }
     }
 }
-

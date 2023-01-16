@@ -20,6 +20,7 @@ page 50060 "BC6_Test capture"
                 }
                 usercontrol(ScanZone; "BC6_ControlAddinScanCapture")
                 {
+                    ApplicationArea = All;
 
                     trigger ControlAddInReady()
                     var
@@ -66,27 +67,31 @@ page 50060 "BC6_Test capture"
                 }
                 field("ArrayValue[1]"; ArrayValue[1])
                 {
-                    ShowCaption = false;
+                    ApplicationArea = All;
                     Editable = false;
                     QuickEntry = false;
+                    ShowCaption = false;
                 }
                 field("ArrayValue[2]"; ArrayValue[2])
                 {
-                    ShowCaption = false;
+                    ApplicationArea = All;
                     Editable = false;
                     QuickEntry = false;
+                    ShowCaption = false;
                 }
                 field("ArrayValue[3]"; ArrayValue[3])
                 {
-                    ShowCaption = false;
+                    ApplicationArea = All;
                     Editable = false;
                     QuickEntry = false;
+                    ShowCaption = false;
                 }
                 field("ArrayValue[4]"; ArrayValue[4])
                 {
-                    ShowCaption = false;
+                    ApplicationArea = All;
                     Editable = false;
                     QuickEntry = false;
+                    ShowCaption = false;
                 }
             }
         }
@@ -100,10 +105,10 @@ page 50060 "BC6_Test capture"
             {
                 action(Button1)
                 {
+                    ApplicationArea = All;
                     Gesture = RightSwipe;
                     Promoted = true;
                     PromotedIsBig = true;
-                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -136,6 +141,4 @@ page 50060 "BC6_Test capture"
         TextCst: Label 'Field %1', Comment = 'FRA="Champ %1"';
         ArrayCaption: array[4] of Text;
         ArrayValue: array[4] of Text;
-
 }
-

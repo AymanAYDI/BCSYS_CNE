@@ -22,9 +22,9 @@ pageextension 50062 "BC6_ItemReclassJournal" extends "Item Reclass. Journal" //3
         {
             action("BC6_Get Location Content")
             {
+                ApplicationArea = All;
                 Caption = 'Get Location Content', Comment = 'FRA="Extraire contenu magasin"';
                 Ellipsis = true;
-                ApplicationArea = All;
                 image = Addresses;
                 trigger OnAction()
                 var

@@ -1,4 +1,4 @@
-page 50079 "Salesperson Role Center SCENEO"
+page 50079 "BC6_Sales Role Center SCENEO"
 {
     Caption = 'Role Center', Comment = 'FRA="Tableau de bord"';
     PageType = RoleCenter;
@@ -9,7 +9,7 @@ page 50079 "Salesperson Role Center SCENEO"
         {
             group(Control1)
             {
-                part("Salespers Processor Activities"; "Salespers Processor Activities")
+                part("Salespers Processor Activities"; "BC6_Salespers Proc Activities")
                 {
                     ApplicationArea = All;
                 }
@@ -26,8 +26,8 @@ page 50079 "Salesperson Role Center SCENEO"
                 }
                 part("My Job Queue"; "My Job Queue")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 part("My Customers"; "My Customers")
                 {
@@ -51,56 +51,56 @@ page 50079 "Salesperson Role Center SCENEO"
         {
             action("Customer - &Order Summary")
             {
+                ApplicationArea = All;
                 Caption = 'Customer - &Order Summary', Comment = 'FRA="Clients : Liste des c&ommandes"';
                 Image = "Report";
                 RunObject = Report "Customer - Order Summary";
-                ApplicationArea = All;
             }
             action("Customer - &Top 10 List")
             {
+                ApplicationArea = All;
                 Caption = 'Customer - &Top 10 List', Comment = 'FRA="Clien&ts : Palmarès"';
                 Image = "Report";
                 RunObject = Report "Customer - Top 10 List";
-                ApplicationArea = All;
             }
             action("Customer/&Item Sales")
             {
+                ApplicationArea = All;
                 Caption = 'Customer/&Item Sales', Comment = 'FRA="Client/Ventes d''art&icles"';
                 Image = "Report";
                 RunObject = Report "Customer/Item Sales";
-                ApplicationArea = All;
             }
             separator(Action17)
             {
             }
             action("Salesperson - Sales &Statistics")
             {
+                ApplicationArea = All;
                 Caption = 'Salesperson - Sales &Statistics', Comment = 'FRA="Vendeurs : &Statistiques ventes"';
                 Image = "Report";
                 RunObject = Report "Salesperson - Sales Statistics";
-                ApplicationArea = All;
             }
             action("Price &List")
             {
+                ApplicationArea = All;
                 Caption = 'Price &List', Comment = 'FRA="&Liste des prix"';
                 Image = "Report";
                 RunObject = Report "Price List";
-                ApplicationArea = All;
             }
             separator(Action22)
             {
             }
             action("Inventory - Sales &Back Orders")
             {
+                ApplicationArea = All;
                 Caption = 'Inventory - Sales &Back Orders', Comment = 'FRA="Stoc&ks : Commandes à livrer"';
                 Image = "Report";
                 RunObject = Report "Inventory - Sales Back Orders";
-                ApplicationArea = All;
             }
             action("Pro Forma")
             {
-                Caption = 'Pro Forma', Comment = 'FRA="Pro Forma"';
                 ApplicationArea = All;
+                Caption = 'Pro Forma', Comment = 'FRA="Pro Forma"';
                 RunObject = Report "BC6_Facture Proforma CNE";
             }
         }
@@ -108,97 +108,97 @@ page 50079 "Salesperson Role Center SCENEO"
         {
             action("Sales Orders")
             {
+                ApplicationArea = All;
                 Caption = 'Sales Orders', Comment = 'FRA="Commandes vente"';
                 Image = "Order";
                 RunObject = Page "Sales Order List";
-                ApplicationArea = All;
             }
             action("Shipped Not Invoiced")
             {
+                ApplicationArea = All;
                 Caption = 'Shipped Not Invoiced', Comment = 'FRA="Livré non facturé"';
                 RunObject = Page "Sales Order List";
                 RunPageView = WHERE("Shipped Not Invoiced" = CONST(true));
-                ApplicationArea = All;
             }
             action("Completely Shipped Not Invoiced")
             {
+                ApplicationArea = All;
                 Caption = 'Completely Shipped Not Invoiced', Comment = 'FRA="Complètement livré non facturé"';
                 RunObject = Page "Sales Order List";
                 RunPageView = WHERE("Completely Shipped" = CONST(true),
                                     Invoice = CONST(false));
-                ApplicationArea = All;
             }
             action("Sales Quotes")
             {
+                ApplicationArea = All;
                 Caption = 'Sales Quotes', Comment = 'FRA="Devis"';
                 Image = Quote;
                 RunObject = Page "Sales Quotes";
-                ApplicationArea = All;
             }
             action("Blanket Sales Orders")
             {
+                ApplicationArea = All;
                 Caption = 'Blanket Sales Orders', Comment = 'FRA="Commandes ouvertes vente"';
                 RunObject = Page "Blanket Sales Orders";
-                ApplicationArea = All;
             }
             action("Sales Invoices")
             {
+                ApplicationArea = All;
                 Caption = 'Sales Invoices', Comment = 'FRA="Factures vente"';
                 Image = Invoice;
                 RunObject = Page "Sales Invoice List";
-                ApplicationArea = All;
             }
             action("Sales Return Orders")
             {
+                ApplicationArea = All;
                 Caption = 'Sales Return Orders', Comment = 'FRA="Retours vente"';
                 Image = ReturnOrder;
                 RunObject = Page "Sales Return Order List";
-                ApplicationArea = All;
             }
             action("Sales Credit Memos")
             {
+                ApplicationArea = All;
                 Caption = 'Sales Credit Memos', Comment = 'FRA="Avoirs vente"';
                 RunObject = Page "Sales Credit Memos";
-                ApplicationArea = All;
             }
             action(Items)
             {
+                ApplicationArea = All;
                 Caption = 'Items', Comment = 'FRA="Articles"';
                 Image = Item;
                 RunObject = Page "Item List";
-                ApplicationArea = All;
             }
             action(Customers)
             {
+                ApplicationArea = All;
                 Caption = 'Customers', Comment = 'FRA="Clients"';
                 Image = Customer;
                 RunObject = Page "Customer List";
-                ApplicationArea = All;
             }
             action("Item Journals")
             {
+                ApplicationArea = All;
                 Caption = 'Item Journals', Comment = 'FRA="Feuilles article"';
                 RunObject = Page "Item Journal Batches";
                 RunPageView = WHERE("Template Type" = CONST(Item),
                                     Recurring = CONST(false));
-                ApplicationArea = All;
             }
             action("Sales Journals")
             {
+                ApplicationArea = All;
                 Caption = 'Sales Journals', Comment = 'FRA="Feuilles vente"';
                 RunObject = Page "General Journal Batches";
                 RunPageView = WHERE("Template Type" = CONST(Sales),
                                     Recurring = CONST(false));
-                ApplicationArea = All;
             }
             action("Cash Receipt Journals")
             {
+                ApplicationArea = All;
                 Caption = 'Cash Receipt Journals', Comment = 'FRA="Feuilles règlement"';
                 Image = Journals;
                 RunObject = Page "General Journal Batches";
                 RunPageView = WHERE("Template Type" = CONST("Cash Receipts"),
                                     Recurring = CONST(false));
-                ApplicationArea = All;
             }
         }
         area(sections)
@@ -209,43 +209,43 @@ page 50079 "Salesperson Role Center SCENEO"
                 Image = FiledPosted;
                 action("Posted Sales Shipments")
                 {
+                    ApplicationArea = All;
                     Caption = 'Posted Sales Shipments', Comment = 'FRA="Expéditions vente enregistrées"';
                     Image = PostedShipment;
                     RunObject = Page "Posted Sales Shipments";
-                    ApplicationArea = All;
                 }
                 action("Posted Sales Invoices")
                 {
+                    ApplicationArea = All;
                     Caption = 'Posted Sales Invoices', Comment = 'FRA="Factures vente enregistrées"';
                     Image = PostedOrder;
                     RunObject = Page "Posted Sales Invoices";
-                    ApplicationArea = All;
                 }
                 action("Posted Return Receipts")
                 {
+                    ApplicationArea = All;
                     Caption = 'Posted Return Receipts', Comment = 'FRA="Réceptions retour enregistrées"';
                     Image = PostedReturnReceipt;
                     RunObject = Page "Posted Return Receipts";
-                    ApplicationArea = All;
                 }
                 action("Posted Sales Credit Memos")
                 {
+                    ApplicationArea = All;
                     Caption = 'Posted Sales Credit Memos', Comment = 'FRA="Avoirs vente enregistrés"';
                     Image = PostedOrder;
                     RunObject = Page "Posted Sales Credit Memos";
-                    ApplicationArea = All;
                 }
                 action("Posted Purchase Receipts")
                 {
+                    ApplicationArea = All;
                     Caption = 'Posted Purchase Receipts', Comment = 'FRA="Réceptions achat enregistrées"';
                     RunObject = Page "Posted Purchase Receipts";
-                    ApplicationArea = All;
                 }
                 action("Posted Purchase Invoices")
                 {
+                    ApplicationArea = All;
                     Caption = 'Posted Purchase Invoices', Comment = 'FRA="Factures achat enregistrées"';
                     RunObject = Page "Posted Purchase Invoices";
-                    ApplicationArea = All;
                 }
             }
         }
@@ -253,43 +253,43 @@ page 50079 "Salesperson Role Center SCENEO"
         {
             action("Sales &Quote")
             {
+                ApplicationArea = All;
                 Caption = 'Sales &Quote', Comment = 'FRA="&Devis"';
                 Image = Quote;
                 RunObject = Page "Sales Quote";
                 RunPageMode = Create;
-                ApplicationArea = All;
             }
             action("Sales &Invoice")
             {
+                ApplicationArea = All;
                 Caption = 'Sales &Invoice', Comment = 'FRA="Fac&ture vente"';
                 Image = Invoice;
                 RunObject = Page "Sales Invoice";
                 RunPageMode = Create;
-                ApplicationArea = All;
             }
             action("Sales &Order")
             {
+                ApplicationArea = All;
                 Caption = 'Sales &Order', Comment = 'FRA="&Commande vente"';
                 Image = Document;
                 RunObject = Page "Sales Order";
                 RunPageMode = Create;
-                ApplicationArea = All;
             }
             action("Sales &Return Order")
             {
+                ApplicationArea = All;
                 Caption = 'Sales &Return Order', Comment = 'FRA="&Retour vente"';
                 Image = ReturnOrder;
                 RunObject = Page "Sales Return Order";
                 RunPageMode = Create;
-                ApplicationArea = All;
             }
             action("Sales &Credit Memo")
             {
+                ApplicationArea = All;
                 Caption = 'Sales &Credit Memo', Comment = 'FRA="&Avoir vente"';
                 Image = CreditMemo;
                 RunObject = Page "Sales Credit Memo";
                 RunPageMode = Create;
-                ApplicationArea = All;
             }
         }
         area(processing)
@@ -301,34 +301,34 @@ page 50079 "Salesperson Role Center SCENEO"
             }
             action("Sales &Journal")
             {
+                ApplicationArea = All;
                 Caption = 'Sales &Journal', Comment = 'FRA="Feuille ven&te"';
                 Image = Journals;
                 RunObject = Page "Sales Journal";
-                ApplicationArea = All;
             }
             action("Sales Price &Worksheet")
             {
+                ApplicationArea = All;
                 Caption = 'Sales Price &Worksheet', Comment = 'FRA="Feuille pri&x vente"';
                 Image = PriceWorksheet;
                 RunObject = Page "Sales Price Worksheet";
-                ApplicationArea = All;
             }
             separator(action42)
             {
             }
             action("Sales &Prices")
             {
+                ApplicationArea = All;
                 Caption = 'Sales &Prices', Comment = 'FRA="&Prix vente"';
                 Image = SalesPrices;
                 RunObject = Page "Sales Prices";
-                ApplicationArea = All;
             }
             action("Sales &Line Discounts")
             {
+                ApplicationArea = All;
                 Caption = 'Sales &Line Discounts', Comment = 'FRA="Re&mises ligne vente"';
                 Image = SalesLineDisc;
                 RunObject = Page "Sales Line Discounts";
-                ApplicationArea = All;
             }
             separator(History)
             {
@@ -337,34 +337,34 @@ page 50079 "Salesperson Role Center SCENEO"
             }
             action("Navi&gate")
             {
+                ApplicationArea = All;
                 Caption = 'Navi&gate', Comment = 'FRA="Navi&guer"';
                 Image = Navigate;
                 RunObject = Page Navigate;
-                ApplicationArea = All;
             }
             separator(Action72)
             {
             }
             action(InsertNewPurcOrders)
             {
+                ApplicationArea = All;
                 Caption = 'Creation Auto Cde Achat', Comment = 'FRA="Creation Auto Cde Achat"';
                 Image = Import;
-                ApplicationArea = All;
                 RunObject = Report "BC6_Creation Auto Cde Achat";
             }
             action(ICPostingRecept)
             {
+                ApplicationArea = All;
                 Caption = 'Validation Réception IC', Comment = 'FRA="Validation Réception IC"';
                 Image = PostBatch;
-                ApplicationArea = All;
                 RunObject = Codeunit "BC6_IC Validation IC Doc lien";
             }
             action(ICOutboxTransac)
             {
+                ApplicationArea = All;
                 Caption = 'IC Outbox Transactions', Comment = 'FRA="Transactions boîte d''envoi IC"';
                 Image = Email;
                 RunObject = Page "IC Outbox Transactions";
-                ApplicationArea = All;
             }
         }
     }

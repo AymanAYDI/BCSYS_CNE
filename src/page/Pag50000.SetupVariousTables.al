@@ -1,9 +1,9 @@
 page 50000 "BC6_Setup Various Tables"
 {
+    ApplicationArea = all;
     Caption = 'Setup Various Tables', comment = 'FRA="Paramètrage Tables Diverses"';
     PageType = Card;
     SourceTable = "BC6_Setup Various Tables";
-    ApplicationArea = all;
     UsageCategory = Tasks;
     layout
     {
@@ -14,9 +14,11 @@ page 50000 "BC6_Setup Various Tables"
                 ShowCaption = false;
                 field("Code"; Rec.Code)
                 {
+                    ApplicationArea = All;
                 }
                 field(Description; Rec.Description)
                 {
+                    ApplicationArea = All;
                 }
             }
             grid(Control1100267002)
@@ -29,6 +31,7 @@ page 50000 "BC6_Setup Various Tables"
 
                     field("Text1 Use"; Rec."Text1 Use")
                     {
+                        ApplicationArea = All;
                         trigger OnValidate()
                         begin
                             Text1UseOnAfterValidate();
@@ -36,6 +39,7 @@ page 50000 "BC6_Setup Various Tables"
                     }
                     field("Text2 Use"; Rec."Text2 Use")
                     {
+                        ApplicationArea = All;
                         trigger OnValidate()
                         begin
                             Text2UseOnAfterValidate();
@@ -43,6 +47,7 @@ page 50000 "BC6_Setup Various Tables"
                     }
                     field("Text3 Use"; Rec."Text3 Use")
                     {
+                        ApplicationArea = All;
                         trigger OnValidate()
                         begin
                             Text3UseOnAfterValidate();
@@ -50,6 +55,7 @@ page 50000 "BC6_Setup Various Tables"
                     }
                     field("Number1 Use"; Rec."Number1 Use")
                     {
+                        ApplicationArea = All;
                         trigger OnValidate()
                         begin
                             Number1UseOnAfterValidate();
@@ -57,6 +63,7 @@ page 50000 "BC6_Setup Various Tables"
                     }
                     field("Number2 Use"; Rec."Number2 Use")
                     {
+                        ApplicationArea = All;
                         trigger OnValidate()
                         begin
                             Number2UseOnAfterValidate();
@@ -64,6 +71,7 @@ page 50000 "BC6_Setup Various Tables"
                     }
                     field("Number3 Use"; Rec."Number3 Use")
                     {
+                        ApplicationArea = All;
                         trigger OnValidate()
                         begin
                             Number3UseOnAfterValidate();
@@ -71,6 +79,7 @@ page 50000 "BC6_Setup Various Tables"
                     }
                     field("Date1 Use"; Rec."Date1 Use")
                     {
+                        ApplicationArea = All;
                         trigger OnValidate()
                         begin
                             Date1UseOnAfterValidate();
@@ -78,6 +87,7 @@ page 50000 "BC6_Setup Various Tables"
                     }
                     field("Date2 Use"; Rec."Date2 Use")
                     {
+                        ApplicationArea = All;
                         trigger OnValidate()
                         begin
                             Date2UseOnAfterValidate();
@@ -85,6 +95,7 @@ page 50000 "BC6_Setup Various Tables"
                     }
                     field("Date3 Use"; Rec."Date3 Use")
                     {
+                        ApplicationArea = All;
                         trigger OnValidate()
                         begin
                             Date3UseOnAfterValidate();
@@ -101,46 +112,55 @@ page 50000 "BC6_Setup Various Tables"
 
                         field("Text1 Description"; Rec."Text1 Description")
                         {
+                            ApplicationArea = All;
                             Enabled = "Text1 DescriptionEnable";
                             ShowCaption = true;
                         }
                         field("Text2 Description"; Rec."Text2 Description")
                         {
+                            ApplicationArea = All;
                             Enabled = "Text2 DescriptionEnable";
                             ShowCaption = true;
                         }
                         field("Text3 Description"; Rec."Text3 Description")
                         {
+                            ApplicationArea = All;
                             Enabled = "Text3 DescriptionEnable";
                             ShowCaption = true;
                         }
                         field("Number1 Description"; Rec."Number1 Description")
                         {
+                            ApplicationArea = All;
                             Enabled = "Number1 DescriptionEnable";
                             ShowCaption = true;
                         }
                         field("Number2 Description"; Rec."Number2 Description")
                         {
+                            ApplicationArea = All;
                             Enabled = "Number2 DescriptionEnable";
                             ShowCaption = true;
                         }
                         field("Number3 Description"; Rec."Number3 Description")
                         {
+                            ApplicationArea = All;
                             Enabled = "Number3 DescriptionEnable";
                             ShowCaption = true;
                         }
                         field("Date1 Description"; Rec."Date1 Description")
                         {
+                            ApplicationArea = All;
                             Enabled = "Date1 DescriptionEnable";
                             ShowCaption = true;
                         }
                         field("Date2 Description"; Rec."Date2 Description")
                         {
+                            ApplicationArea = All;
                             Enabled = "Date2 DescriptionEnable";
                             ShowCaption = true;
                         }
                         field("Date3 Description"; Rec."Date3 Description")
                         {
+                            ApplicationArea = All;
                             Enabled = "Date3 DescriptionEnable";
                             ShowCaption = true;
                         }
@@ -151,38 +171,47 @@ page 50000 "BC6_Setup Various Tables"
 
                         field("Obligatory Text1"; Rec."Obligatory Text1")
                         {
+                            ApplicationArea = All;
                             Enabled = "Obligatory Text1Enable";
                         }
                         field("Obligatory Text2"; Rec."Obligatory Text2")
                         {
+                            ApplicationArea = All;
                             Enabled = "Obligatory Text2Enable";
                         }
                         field("Obligatory Text3"; Rec."Obligatory Text3")
                         {
+                            ApplicationArea = All;
                             Enabled = "Obligatory Text3Enable";
                         }
                         field("Obligatory Number1"; Rec."Obligatory Number1")
                         {
+                            ApplicationArea = All;
                             Enabled = "Obligatory Number1Enable";
                         }
                         field("Obligatory Number2"; Rec."Obligatory Number2")
                         {
+                            ApplicationArea = All;
                             Enabled = "Obligatory Number2Enable";
                         }
                         field("Obligatory Number3"; Rec."Obligatory Number3")
                         {
+                            ApplicationArea = All;
                             Enabled = "Obligatory Number3Enable";
                         }
                         field("Obligatory Date1"; Rec."Obligatory Date1")
                         {
+                            ApplicationArea = All;
                             Enabled = "Obligatory Date1Enable";
                         }
                         field("Obligatory Date2"; Rec."Obligatory Date2")
                         {
+                            ApplicationArea = All;
                             Enabled = "Obligatory Date2Enable";
                         }
                         field("Obligatory Date3"; Rec."Obligatory Date3")
                         {
+                            ApplicationArea = All;
                             Enabled = "Obligatory Date3Enable";
                         }
                     }
@@ -194,6 +223,7 @@ page 50000 "BC6_Setup Various Tables"
 
                 field("Top Logical1 Use"; Rec."Top Logical1 Use")
                 {
+                    ApplicationArea = All;
                     trigger OnValidate()
                     begin
                         TopLogical1UseOnAfterValidate();
@@ -201,6 +231,7 @@ page 50000 "BC6_Setup Various Tables"
                 }
                 field("Top Logical2 Use"; Rec."Top Logical2 Use")
                 {
+                    ApplicationArea = All;
                     trigger OnValidate()
                     begin
                         TopLogical2UseOnAfterValidate();
@@ -208,6 +239,7 @@ page 50000 "BC6_Setup Various Tables"
                 }
                 field("Top Logical3 Use"; Rec."Top Logical3 Use")
                 {
+                    ApplicationArea = All;
                     trigger OnValidate()
                     begin
                         TopLogical3UseOnAfterValidate();
@@ -215,14 +247,17 @@ page 50000 "BC6_Setup Various Tables"
                 }
                 field("Top Logical1 Description"; Rec."Top Logical1 Description")
                 {
+                    ApplicationArea = All;
                     Enabled = "Top Logical1 DescriptionEnable";
                 }
                 field("Top Logical2 Description"; Rec."Top Logical2 Description")
                 {
+                    ApplicationArea = All;
                     Enabled = "Top Logical2 DescriptionEnable";
                 }
                 field("Top Logical3 Description"; Rec."Top Logical3 Description")
                 {
+                    ApplicationArea = All;
                     Enabled = "Top Logical3 DescriptionEnable";
                 }
             }
@@ -235,6 +270,7 @@ page 50000 "BC6_Setup Various Tables"
                     ShowCaption = false;
                     field("Radical Code1 Use"; Rec."Radical Code1 Use")
                     {
+                        ApplicationArea = All;
                         trigger OnValidate()
                         begin
                             RadicalCode1UseOnAfterValidate();
@@ -242,6 +278,7 @@ page 50000 "BC6_Setup Various Tables"
                     }
                     field("Radical Code2 Use"; Rec."Radical Code2 Use")
                     {
+                        ApplicationArea = All;
                         trigger OnValidate()
                         begin
                             RadicalCode2UseOnAfterValidate();
@@ -249,6 +286,7 @@ page 50000 "BC6_Setup Various Tables"
                     }
                     field("Radical Code3 Use"; Rec."Radical Code3 Use")
                     {
+                        ApplicationArea = All;
                         trigger OnValidate()
                         begin
                             RadicalCode3UseOnAfterValidate();
@@ -265,26 +303,32 @@ page 50000 "BC6_Setup Various Tables"
 
                         field("Radical Code1"; Rec."Radical Code1")
                         {
+                            ApplicationArea = All;
                             Enabled = "Radical Code1Enable";
                         }
                         field("Obligatory Radical Code1"; Rec."Obligatory Radical Code1")
                         {
+                            ApplicationArea = All;
                             Enabled = "Obligatory Radical Code1Enable";
                         }
                         field("Radical Code2"; Rec."Radical Code2")
                         {
+                            ApplicationArea = All;
                             Enabled = "Radical Code2Enable";
                         }
                         field("Obligatory Radical Code2"; Rec."Obligatory Radical Code2")
                         {
+                            ApplicationArea = All;
                             Enabled = "Obligatory Radical Code2Enable";
                         }
                         field("Radical Code3"; Rec."Radical Code3")
                         {
+                            ApplicationArea = All;
                             Enabled = "Radical Code3Enable";
                         }
                         field("Obligatory Radical Code3"; Rec."Obligatory Radical Code3")
                         {
+                            ApplicationArea = All;
                             Enabled = "Obligatory Radical Code3Enable";
                         }
                     }
@@ -294,14 +338,17 @@ page 50000 "BC6_Setup Various Tables"
 
                         field("Radical Code1 Description"; Rec."Radical Code1 Description")
                         {
+                            ApplicationArea = All;
                             Enabled = RadicalCode1DescriptionEnable;
                         }
                         field("Radical Code2 Description"; Rec."Radical Code2 Description")
                         {
+                            ApplicationArea = All;
                             Enabled = RadicalCode2DescriptionEnable;
                         }
                         field("Radical Code3 Description"; Rec."Radical Code3 Description")
                         {
+                            ApplicationArea = All;
                             Enabled = RadicalCode3DescriptionEnable;
                         }
                     }
@@ -313,6 +360,7 @@ page 50000 "BC6_Setup Various Tables"
 
                 field("Comment Use"; Rec."Comment Use")
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -324,6 +372,7 @@ page 50000 "BC6_Setup Various Tables"
         {
             action("Gestion Tables Diverses")
             {
+                ApplicationArea = All;
                 Caption = 'Gestion Tables Diverses';
                 Image = "Table";
                 Promoted = true;

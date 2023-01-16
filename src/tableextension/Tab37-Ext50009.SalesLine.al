@@ -1,6 +1,5 @@
 tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
 {
-
     fields
     {
         modify("Return Reason Code")
@@ -16,6 +15,7 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
             CalcFormula = Lookup("Sales Header"."Document Date" WHERE("No." = FIELD("Document No."),
                                                                        "Document Type" = FIELD("Document Type")));
             Caption = 'Document Date', Comment = 'FRA="Date document"';
+            Editable = false;
             FieldClass = FlowField;
         }
         field(50001; "BC6_To Prepare"; Boolean)
@@ -35,14 +35,14 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
         }
         field(50004; "BC6_Document Date"; Date)
         {
-            DataClassification = CustomerContent;
             Caption = 'Document Date';
+            DataClassification = CustomerContent;
         }
         field(50005; "BC6_Forecast Inventory"; Integer)
         {
             Caption = 'Forecast Inventory', Comment = 'FRA="Stock prévisionnel"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50007; "BC6_To Order"; Boolean)
         {
@@ -51,10 +51,9 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
 
             trigger OnValidate()
             begin
-                IF "BC6_Purch. Order No." <> '' THEN BEGIN
+                IF "BC6_Purch. Order No." <> '' THEN
                     IF NOT CONFIRM(TextG005) THEN
                         ERROR('');
-                END;
             end;
         }
         field(50008; "BC6_Prom. Purch. Receipt Date"; Boolean)
@@ -65,22 +64,22 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
         field(50020; "BC6_Cust. Sales Profit Group"; Code[10])
         {
             Caption = 'Goupe Marge Vente Client', Comment = 'FRA="Goupe Marge Vente Client"';
-            TableRelation = "Customer Sales Profit Group";
             DataClassification = CustomerContent;
+            TableRelation = "Customer Sales Profit Group";
         }
         field(50021; "BC6_Item Sales Profit Group"; Code[10])
         {
             Caption = 'Goupe Marge Vente Article', Comment = 'FRA="Goupe Marge Vente Article"';
-            TableRelation = "BC6_Item Sales Profit Group";
             DataClassification = CustomerContent;
+            TableRelation = "BC6_Item Sales Profit Group";
         }
         field(50022; "BC6_Public Price"; Decimal)
         {
             AutoFormatType = 2;
             Caption = 'Tarif Public', Comment = 'FRA="Tarif Public"';
+            DataClassification = CustomerContent;
             DecimalPlaces = 2 : 5;
             Editable = false;
-            DataClassification = CustomerContent;
         }
         field(50023; "BC6_External Document No."; Code[35])
         {
@@ -95,14 +94,14 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
         field(50025; "BC6_Buy-from Vendor No."; Code[20])
         {
             Caption = 'Buy-from Vendor No.', Comment = 'FRA="N° preneur d''ordre"';
-            TableRelation = Vendor;
             DataClassification = CustomerContent;
+            TableRelation = Vendor;
         }
         field(50026; "BC6_Purch. Order No."; Code[20])
         {
             Caption = 'Purchase Order No.', Comment = 'FRA="N° commande achat"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
 
             trigger OnLookup()
             var
@@ -121,14 +120,14 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
         field(50027; "BC6_Purch. Line No."; Integer)
         {
             Caption = 'Purch. Order Line No.', Comment = 'FRA="N° ligne commande achat"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50028; "BC6_Purch. Document Type"; Enum "Purchase Document Type")
         {
             Caption = 'Purch. Document Type', Comment = 'FRA="Type document achat"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50029; "BC6_Ordered Quantity"; Decimal)
         {
@@ -138,15 +137,15 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
         field(50030; "BC6_Qty Shipped"; Decimal)
         {
             Caption = 'Delivered Quantity', Comment = 'FRA="Quantité livrée"';
-            Enabled = false;
             DataClassification = CustomerContent;
+            Enabled = false;
         }
         field(50031; "BC6_Discount unit price"; Decimal)
         {
             AutoFormatType = 2;
             Caption = 'Discount unit price excluding VAT', Comment = 'FRA="Prix unitaire remisé HT"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50032; "BC6_Availability Item"; Decimal)
         {
@@ -156,8 +155,8 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
         field(50033; "BC6_Outstanding qty"; Decimal)
         {
             Caption = 'Outstanding Quantity', Comment = 'FRA="quantité restante"';
-            Enabled = false;
             DataClassification = CustomerContent;
+            Enabled = false;
         }
         field(50040; "BC6_Pick Qty."; Decimal)
         {
@@ -176,8 +175,8 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
         {
             AutoFormatType = 2;
             Caption = 'Purchase cost', Comment = 'FRA="Coût d''achat"';
-            DecimalPlaces = 2 : 5;
             DataClassification = CustomerContent;
+            DecimalPlaces = 2 : 5;
 
             trigger OnValidate()
             var
@@ -190,7 +189,7 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
                    NOT SkipPurchCostVerif AND
                    (xRec."BC6_Purchase cost" <> Rec."BC6_Purchase cost") THEN BEGIN
                     ShowErrorMsg := FALSE;
-                    IF L_UserSetup.GET(USERID) AND L_UserSetup."BC6_Activ. Mini Margin Control" THEN BEGIN
+                    IF L_UserSetup.GET(USERID) AND L_UserSetup."BC6_Activ. Mini Margin Control" THEN
                         IF Type = Type::Item THEN BEGIN
                             L_Item.GET("No.");
                             ShowErrorMsg := (L_Item."BC6_Cost Increase Coeff %" <> 0);
@@ -198,7 +197,6 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
                                 IF L_Vendor.GET(L_Item."Vendor No.") THEN
                                     ShowErrorMsg := L_Vendor."BC6_Blocked Prices";
                         END;
-                    END;
                     IF ShowErrorMsg THEN
                         ERROR(UpdatePurchCostErr, FIELDCAPTION("BC6_Purchase cost"));
                 END;
@@ -206,9 +204,8 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
                 CalcProfit();
 
                 RecGCompanyInfo.FINDFIRST();
-                IF (RecGCompanyInfo."BC6_Branch Company" = FALSE) AND (SalesHeader."Sell-to IC Partner Code" <> '') THEN BEGIN
+                IF (RecGCompanyInfo."BC6_Branch Company" = FALSE) AND (SalesHeader."Sell-to IC Partner Code" <> '') THEN
                     VALIDATE("Unit Price", ROUND("BC6_Purchase cost", 0.01));
-                END;
             end;
         }
         field(50042; "BC6_Invoiced Date (Expected)"; Date)
@@ -224,8 +221,8 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
         field(50052; "BC6_Order purchase affected"; Boolean)
         {
             Caption = 'Order purchase affected', Comment = 'FRA="Commande achat affectée"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50060; "BC6_Purchase No. Order Lien"; Code[20])
         {
@@ -240,8 +237,8 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
         field(50100; "BC6_Item Disc. Group"; Code[10])
         {
             Caption = 'Groupe remise article', Comment = 'FRA="Groupe remise article"';
-            TableRelation = "Item Discount Group";
             DataClassification = CustomerContent;
+            TableRelation = "Item Discount Group";
         }
         field(50101; "BC6_Dispensation No."; Code[20])
         {
@@ -271,13 +268,13 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
         field(50121; "BC6_Solution Code"; Code[10])
         {
             Caption = 'Solution Code', Comment = 'FRA="Code solution"';
+            DataClassification = CustomerContent;
             Description = 'BCSYS';
             TableRelation = IF ("Document Type" = FILTER("Return Order"),
                                 "BC6_Return Order Type" = FILTER(Location)) "BC6_Return Solution" WHERE(Type = FILTER(Location))
             ELSE
             IF ("Document Type" = FILTER("Return Order"),
                                          "BC6_Return Order Type" = FILTER(SAV)) "BC6_Return Solution" WHERE(Type = FILTER(SAV));
-            DataClassification = CustomerContent;
         }
         field(50122; "BC6_Return Comment"; Text[50])
         {
@@ -297,8 +294,8 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
         field(80800; "BC6_DEEE Category Code"; Code[10])
         {
             Caption = 'DEEE Category Code', Comment = 'FRA="Code Catégorie DEEE"';
-            TableRelation = "BC6_Categories of item".Category;
             DataClassification = CustomerContent;
+            TableRelation = "BC6_Categories of item".Category;
 
             trigger OnValidate()
             begin
@@ -331,15 +328,14 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
                 "BC6_DEEE VAT Amount" := ROUND("BC6_DEEE HT Amount" * "VAT %" / 100, Currency."Amount Rounding Precision");
                 "BC6_DEEE TTC Amount" := "BC6_DEEE HT Amount" + "BC6_DEEE VAT Amount";
                 "BC6_DEEE Amount (LCY) for Stat" := "Quantity (Base)" * "BC6_DEEE Unit Price (LCY)";
-
             end;
         }
         field(80802; "BC6_DEEE HT Amount"; Decimal)
         {
             Caption = 'DEEE HT Amount', Comment = 'FRA="Montant HT DEEE"';
+            DataClassification = CustomerContent;
             Description = 'DEEE1.00';
             Editable = false;
-            DataClassification = CustomerContent;
 
             trigger OnValidate()
             var
@@ -357,39 +353,38 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
                 ELSE
                     "BC6_DEEE HT Amount (LCY)" :=
                       ROUND("BC6_DEEE HT Amount", Currency2."Amount Rounding Precision");
-
             end;
         }
         field(80803; "BC6_DEEE Unit Price (LCY)"; Decimal)
         {
             Caption = 'DEEE Unit Price (LCY)', Comment = 'FRA="Prix Unitaire DEEE (DS)"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80804; "BC6_DEEE VAT Amount"; Decimal)
         {
             Caption = 'DEEE VAT Amount', Comment = 'FRA="Montant TVA DEEE"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80805; "BC6_DEEE TTC Amount"; Decimal)
         {
             Caption = 'DEEE TTC Amount', Comment = 'FRA="Montant TTC DEEE"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80806; "BC6_DEEE HT Amount (LCY)"; Decimal)
         {
             Caption = 'DEEE HT Amount (LCY)', Comment = 'FRA="Montant Unitaire DEEE (DS)"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80807; "BC6_Eco partner DEEE"; Code[20])
         {
             Caption = 'Eco partner DEEE', Comment = 'FRA="Eco partenaire DEEE"';
+            DataClassification = CustomerContent;
             Editable = false;
             TableRelation = Vendor;
-            DataClassification = CustomerContent;
         }
         field(80808; "BC6_DEEE Amount (LCY) for Stat"; Decimal)
         {
@@ -440,12 +435,11 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
         reclPurchLine: Record "Purchase Line";
     begin
         GetSalesHeader();
-        IF (Type = Type::Item) AND ("BC6_Discount unit price" <> 0) THEN BEGIN
+        IF (Type = Type::Item) AND ("BC6_Discount unit price" <> 0) THEN
             IF (("BC6_Purchase cost" <> "BC6_Dispensed Purchase Cost") AND ("BC6_Dispensed Purchase Cost" <> 0)) THEN
                 "Profit %" := 100 * (1 - ("BC6_Dispensed Purchase Cost" / "BC6_Discount unit price"))
             ELSE
                 "Profit %" := 100 * (1 - ("BC6_Purchase cost" / "BC6_Discount unit price"));
-        END;
     end;
 
     procedure CalcDiscount()
@@ -460,18 +454,16 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
 
         FctGCalcLineDiscount();
 
-        IF "Line Discount %" < 0 THEN BEGIN
+        IF "Line Discount %" < 0 THEN
             MESSAGE(TextG004, "Profit %", getUnitpriceHT());
-        END;
     end;
 
     procedure CalcDiscountUnitPrice()
     begin
         GetSalesHeader();
-        IF Type = Type::Item THEN BEGIN
+        IF Type = Type::Item THEN
             "BC6_Discount unit price" :=
               getUnitpriceHT() - (getUnitpriceHT() * "Line Discount %" / 100);
-        END;
     end;
 
     procedure CalcLineDiscountAmount_asuppri()
@@ -526,12 +518,9 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
             RecLCustomer.GET(SalesHeader."Sell-to Customer No.");
             BooGsubmittedtodeee := RecLCustomer."BC6_Submitted to DEEE";
         END
-        ELSE BEGIN
-            IF RecGCustTemplate.GET(SalesHeader."Sell-to Customer Templ. Code") THEN BEGIN
+        ELSE
+            IF RecGCustTemplate.GET(SalesHeader."Sell-to Customer Templ. Code") THEN
                 BooGsubmittedtodeee := RecGCustTemplate."BC6_Submitted to DEEE";
-            END;
-        END;
-
 
         IF CodPNewReasonCode <> '' THEN
             SalesHeader."Reason Code" := CodPNewReasonCode;
@@ -540,7 +529,6 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
             RecLReasonCode."BC6_Disable DEEE" := FALSE;
 
         IntLGenerate := 0;
-
 
         IF RecLSalesSetup."BC6_DEEE Management" THEN BEGIN
             RecLItem.GET("No.");
@@ -553,7 +541,6 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
                     IntLGenerate := 0;
             END;
         END;
-
 
         IF IntLGenerate = 0 THEN BEGIN
             "BC6_DEEE Unit Price" := 0;
@@ -572,9 +559,8 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
             RecLDEEETariffs.SETFILTER("Date beginning", '<=%1', SalesHeader."Posting Date")
         ELSE
             RecLDEEETariffs.SETFILTER("Date beginning", '<=%1', SalesHeader."Document Date");
-        IF NOT RecLDEEETariffs.FIND('+') THEN BEGIN
+        IF NOT RecLDEEETariffs.FIND('+') THEN
             ERROR('Paramétrage incorrect pour les filtres %1', RecLDEEETariffs.GETFILTERS);
-        END;
 
         VALIDATE("BC6_DEEE Unit Price", RecLDEEETariffs."HT Unit Tax (LCY)" * RecLItem."BC6_Number of Units DEEE");
         "BC6_Eco partner DEEE" := RecLItem."BC6_Eco partner DEEE";
@@ -589,7 +575,6 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
         "BC6_DEEE VAT Amount" := ROUND("BC6_DEEE HT Amount" * "VAT %" / 100, Currency."Amount Rounding Precision");
         "BC6_DEEE TTC Amount" := "BC6_DEEE HT Amount" + "BC6_DEEE VAT Amount";
         "BC6_DEEE Amount (LCY) for Stat" := "Quantity (Base)" * "BC6_DEEE Unit Price (LCY)";
-
     end;
 
     procedure FctGCalcLineDiscount()
@@ -620,18 +605,16 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
                     IF ((RecLSalesLineDiscount."Ending Date" <> 0D) AND (RecLSalesLineDiscount."Ending Date" <
                     recLSalesheader."Order Date")) THEN
                         BooLCalc := FALSE;
-                    IF BooLCalc = TRUE THEN BEGIN
+                    IF BooLCalc = TRUE THEN
                         IF RecLSalesLineDiscount."BC6_Added Discount %" > DecLDiscountAdded THEN BEGIN
                             DecLDiscountAdded := RecLSalesLineDiscount."BC6_Added Discount %";
                             "BC6_Dispensation No." := RecLSalesLineDiscount."BC6_Dispensation No.";
                             "BC6_Additional Discount %" := RecLSalesLineDiscount."BC6_Added Discount %";
                         END;
-                    END;
                 UNTIL RecLSalesLineDiscount.NEXT() = 0;
 
-            IF DecLDiscountAdded <> 0 THEN BEGIN
+            IF DecLDiscountAdded <> 0 THEN
                 "BC6_Dispensed Purchase Cost" := ("BC6_Purchase cost" * (1 - DecLDiscountAdded / 100));
-            END;
         END;
     end;
 
@@ -640,9 +623,9 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
         PurchLine: Record "Purchase Line";
     begin
         TESTFIELD("Document Type", "Document Type"::Order);
-        IF PurchLine.GET("BC6_Purch. Document Type", "BC6_Purch. Order No.", "BC6_Purch. Line No.") THEN BEGIN
-            ERROR(TextG006);
-        END ELSE BEGIN
+        IF PurchLine.GET("BC6_Purch. Document Type", "BC6_Purch. Order No.", "BC6_Purch. Line No.") THEN
+            ERROR(TextG006)
+        ELSE BEGIN
             "BC6_Purch. Document Type" := PurchLine."Document Type"::Quote;
             "BC6_Purch. Order No." := '';
             "BC6_Purch. Line No." := 0;
@@ -688,10 +671,9 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
     var
         L_Item: Record Item;
     begin
-        IF Type = Type::Item THEN BEGIN
+        IF Type = Type::Item THEN
             IF L_Item.GET("No.") THEN
                 _IncrPurchCost := ROUND(_IncrPurchCost / (1 + (L_Item."BC6_Cost Increase Coeff %" / 100)), 0.01);
-        END;
     end;
 
     procedure ValidateIncreaseProfit(var _IncrProfit: Decimal; var _IncrPurchCost: Decimal)
@@ -715,19 +697,16 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
                 "Line Discount %" := 0;
 
         FctGCalcLineDiscountIncreased();
-        IF "Line Discount %" < 0 THEN BEGIN
+        IF "Line Discount %" < 0 THEN
             MESSAGE(TextG004, IncreasedProfit, getUnitpriceHT());
-        END;
     end;
 
     procedure CalcDiscountUnitPriceIncreased()
     begin
         GetSalesHeader();
-        IF Type = Type::Item THEN BEGIN
+        IF Type = Type::Item THEN
             "BC6_Discount unit price" := getUnitpriceHT() - (getUnitpriceHT() * "Line Discount %" / 100);
-        END;
     end;
-
 
     procedure FctGCalcLineDiscountIncreased()
     var
@@ -757,18 +736,16 @@ tableextension 50009 "BC6_SalesLine" extends "Sales Line" //37
                     IF ((RecLSalesLineDiscount."Ending Date" <> 0D) AND (RecLSalesLineDiscount."Ending Date" <
                     recLSalesheader."Order Date")) THEN
                         BooLCalc := FALSE;
-                    IF BooLCalc = TRUE THEN BEGIN
+                    IF BooLCalc = TRUE THEN
                         IF RecLSalesLineDiscount."BC6_Added Discount %" > DecLDiscountAdded THEN BEGIN
                             DecLDiscountAdded := RecLSalesLineDiscount."BC6_Added Discount %";
                             "BC6_Dispensation No." := RecLSalesLineDiscount."BC6_Dispensation No.";
                             "BC6_Additional Discount %" := RecLSalesLineDiscount."BC6_Added Discount %";
                         END;
-                    END;
                 UNTIL RecLSalesLineDiscount.NEXT() = 0;
 
-            IF DecLDiscountAdded <> 0 THEN BEGIN
+            IF DecLDiscountAdded <> 0 THEN
                 "BC6_Dispensed Purchase Cost" := ("BC6_Purchase cost" * (1 - DecLDiscountAdded / 100));
-            END;
         END;
     end;
 

@@ -6,27 +6,27 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
         field(50000; "BC6_Affair No."; Code[20])
         {
             Caption = 'Affair No.', comment = 'FRA="N° Affaire"';
-            TableRelation = Job."No.";
             DataClassification = CustomerContent;
+            TableRelation = Job."No.";
         }
         field(50003; "BC6_Pay-to Vend. No."; Code[20])
         {
             Caption = 'Pay-to Vend. No.', comment = 'FRA="Tiers payeur"';
-            TableRelation = Vendor;
             DataClassification = CustomerContent;
+            TableRelation = Vendor;
         }
         field(50010; BC6_ID; Code[50])
         {
-            Editable = false;
-            DataClassification = CustomerContent;
             Caption = 'ID';
+            DataClassification = CustomerContent;
+            Editable = false;
             TableRelation = User."User Name";
         }
         field(50020; "BC6_From Sales Module"; Boolean)
         {
             Caption = 'From Sales Module', comment = 'FRA="Depuis Module Vente"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50021; "BC6_Buy-from Fax No."; Text[30])
         {
@@ -35,8 +35,8 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
         }
         field(50022; "BC6_Buy-from E-Mail Address"; Text[50])
         {
-            DataClassification = CustomerContent;
             Caption = 'Buy-from E-Mail Address';
+            DataClassification = CustomerContent;
         }
         field(50080; "BC6_Sales No. Order Lien"; Code[20])
         {
@@ -49,13 +49,14 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
                                                                       "No." = field("No."),
                                                                       "BC6_Is Log" = const(true)));
             Caption = 'Last Related Info Date', comment = 'FRA="Date dernière info connexe"';
+            Editable = false;
             FieldClass = FlowField;
         }
         field(50100; "BC6_Return Order Type"; enum "BC6_Type Location")
         {
             Caption = 'Return Order Type', comment = 'FRA="Type  retour achat"';
-            Description = 'BC6';
             DataClassification = CustomerContent;
+            Description = 'BC6';
 
             trigger OnValidate()
             begin
@@ -69,10 +70,10 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
         }
         field(50102; "BC6_Related Sales Return Order"; Code[20])
         {
-            FieldClass = FlowField;
             CalcFormula = lookup("BC6_Return Order Relation"."Sales Return Order" where("Purchase Order No." = field("No.")));
             Caption = 'Related Sales Return Order', comment = 'FRA="N° retour vente associé"';
             Editable = false;
+            FieldClass = FlowField;
         }
     }
     keys
@@ -81,8 +82,6 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
         {
         }
     }
-
-
 
     procedure UpdateIncoterm()
     begin
@@ -94,7 +93,6 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
             Area := RecGVendor.BC6_Area;
         end;
     end;
-
 
     procedure ControleMinimMNTandQTE(): Boolean
     var
@@ -161,7 +159,6 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
                         MESSAGE(TextG002, PurchSetup.BC6_Type, PurchSetup."BC6_No.");
                     exit(true);
                 end;
-
 
         exit(false);
     end;
@@ -280,8 +277,6 @@ tableextension 50010 "BC6_PurchaseHeader" extends "Purchase Header" //38
 
         L_PurchCommentLine.INSERT(true);
     end;
-
-
 
     local procedure UpdateSalesLineReturnType()
     var

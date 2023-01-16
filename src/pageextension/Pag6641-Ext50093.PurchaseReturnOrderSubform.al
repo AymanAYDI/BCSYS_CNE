@@ -10,8 +10,8 @@ pageextension 50093 "BC6_PurchaseReturnOrderSubform" extends "Purchase Return Or
             }
             field("BC6_Return Comment"; Rec."BC6_Return Comment")
             {
-                Visible = BooGSAVVisible;
                 ApplicationArea = All;
+                Visible = BooGSAVVisible;
             }
         }
         addafter("Appl.-to Item Entry")
@@ -45,6 +45,4 @@ pageextension 50093 "BC6_PurchaseReturnOrderSubform" extends "Purchase Return Or
     begin
         BooGSAVVisible := _BooGSAVVisible;
     end;
-
 }
-

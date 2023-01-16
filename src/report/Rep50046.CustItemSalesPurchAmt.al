@@ -1,10 +1,10 @@
-report 50046 "Cust/Item Sales (Purch.Amount)"
+report 50046 "BC6_Cust/Item Sales Purch.Amt"
 {
+    ApplicationArea = all;
+    Caption = 'Cust/Item Sales (Purch.Amount)', Comment = 'FRA="Ventes d''articles par client (Montant Achat)"';
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/CustItemSalesPurchAmount.rdl';
-    Caption = 'Cust/Item Sales (Purch.Amount)', Comment = 'FRA="Ventes d''articles par client (Montant Achat)"';
     UsageCategory = ReportsAndAnalysis;
-    ApplicationArea = all;
 
     dataset
     {
@@ -241,7 +241,7 @@ report 50046 "Cust/Item Sales (Purch.Amount)"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(PrintOnlyOnePerPage; PrintOnlyOnePerPage)
+                    field(PrintOnlyOnePerPageF; PrintOnlyOnePerPage)
                     {
                         ApplicationArea = Basic, Suite;
                         Caption = 'New Page per Customer', Comment = 'FRA="Nouvelle page par client"';
@@ -293,10 +293,8 @@ report 50046 "Cust/Item Sales (Purch.Amount)"
         PeriodText: Text;
         ValueEntryFilter: Text;
 
-
     procedure InitializeRequest(NewPagePerCustomer: Boolean)
     begin
         PrintOnlyOnePerPage := NewPagePerCustomer;
     end;
 }
-

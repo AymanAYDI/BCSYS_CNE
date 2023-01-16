@@ -2,7 +2,6 @@ pageextension 50114 "BC6_SalesLineFactBox" extends "Sales Line FactBox"  //9087
 {
     layout
     {
-
         modify("Item Availability")
         {
             Visible = ShowCNEInfo;
@@ -45,7 +44,6 @@ pageextension 50114 "BC6_SalesLineFactBox" extends "Sales Line FactBox"  //9087
                     DrillDown = false;
                     ToolTip = 'Specifies how may units of the item on the sales line are available, in inventory or incoming before the shipment date.', Comment = 'FRA="Spécifie combien d''unités de l''article de la ligne vente sont disponibles, en stock ou entrantes avant la date d''expédition."';
                     Visible = ShowAvaibility;
-
                 }
             }
             group(BC6_METZ)
@@ -68,32 +66,30 @@ pageextension 50114 "BC6_SalesLineFactBox" extends "Sales Line FactBox"  //9087
                     DrillDown = false;
                     ToolTip = 'Specifies how may units of the item on the sales line are available, in inventory or incoming before the shipment date.', Comment = 'FRA="Spécifie combien d''unités de l''article de la ligne vente sont disponibles, en stock ou entrantes avant la date d''expédition."';
                     Visible = ShowAvaibility;
-
                 }
             }
-
         }
         addafter("Reserved Requirements")
         {
             field("BC6_CNE Inventory"; FunctionMgt.CalcCNEInventory(Rec))
             {
+                ApplicationArea = All;
                 Caption = 'CNE Inventory', Comment = 'FRA="Stocks CNE"';
                 Visible = ShowCNEInfo;
-                ApplicationArea = All;
             }
             field("BC6_CNE Qty. on Purch. Order"; FunctionMgt.CalcCNEQtyOnPurchOrder(Rec))
             {
+                ApplicationArea = All;
                 Caption = 'CNE Qty. on Purch. Order', Comment = 'FRA="Qté sur commande achat CNE"';
                 Visible = ShowCNEInfo;
-                ApplicationArea = All;
             }
         }
         addafter(Item)
         {
             field(AvailabilityToPick; STRSUBSTNO(txtlbl1, FunctionMgt.CalcQtyAvailToPick(Rec)))
             {
-                Caption = 'Availa&bility To Pick', Comment = 'FRA="Disp&o. prélèv."';
                 ApplicationArea = All;
+                Caption = 'Availa&bility To Pick', Comment = 'FRA="Disp&o. prélèv."';
 
                 trigger OnDrillDown()
                 begin
@@ -102,8 +98,8 @@ pageextension 50114 "BC6_SalesLineFactBox" extends "Sales Line FactBox"  //9087
             }
             field(QtyOnPurchOrder; STRSUBSTNO(txtlbl1, FunctionMgt.CalcQtyOnPurchOrder(Rec)))
             {
-                Caption = 'Qty. on Purch. Order', Comment = 'FRA="Qté sur commande achat"';
                 ApplicationArea = All;
+                Caption = 'Qty. on Purch. Order', Comment = 'FRA="Qté sur commande achat"';
 
                 trigger OnDrillDown()
                 begin
@@ -120,10 +116,6 @@ pageextension 50114 "BC6_SalesLineFactBox" extends "Sales Line FactBox"  //9087
         ShowAvaibility: Boolean;
         ShowCNEInfo: Boolean;
         txtlbl1: label '%1';
-
-
-
-
 
     trigger OnOpenPage()
     begin
@@ -151,4 +143,3 @@ pageextension 50114 "BC6_SalesLineFactBox" extends "Sales Line FactBox"  //9087
         GR_ItemMETZ.SETRANGE("Location Filter", 'METZ');
     end;
 }
-

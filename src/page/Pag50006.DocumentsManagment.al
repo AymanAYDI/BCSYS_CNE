@@ -15,53 +15,67 @@ page 50006 "BC6_Documents Managment"
             {
                 field("Table Name"; Rec."Table Name")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Reference No. 1"; Rec."Reference No. 1")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Reference No. 2"; Rec."Reference No. 2")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Reference No. 3"; Rec."Reference No. 3")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Document No."; Rec."Document No.")
                 {
+                    ApplicationArea = All;
                     Editable = true;
                 }
                 field(Description; Rec.Description)
                 {
+                    ApplicationArea = All;
                 }
                 field("Path and file"; Rec."Path and file")
                 {
+                    ApplicationArea = All;
                 }
                 field("Description 2"; Rec."Description 2")
                 {
+                    ApplicationArea = All;
                 }
                 field("In Use By"; Rec."In Use By")
                 {
+                    ApplicationArea = All;
                 }
                 field(Special; Rec.Special)
                 {
+                    ApplicationArea = All;
                 }
                 field("Created Date"; Rec."Created Date")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Modified Date"; Rec."Modified Date")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
                 field("Modified By"; Rec."Modified By")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
             }
@@ -74,6 +88,7 @@ page 50006 "BC6_Documents Managment"
         {
             action("Choose a document")
             {
+                ApplicationArea = All;
                 Caption = 'Choose a document', comment = 'FRA="Choisir un document"';
                 Image = SelectChart;
                 Promoted = true;
@@ -82,12 +97,11 @@ page 50006 "BC6_Documents Managment"
                 trigger OnAction()
                 var
                     RecGNaviSetup: Record "BC6_Navi+ Setup";
-                    InStr: InStream;
                     _text: Text;
                 begin
 
                     IF Rec."Table No." <> 167 THEN begin
-                        Rec."Path and file" := CduGFileManagement.UploadFile(STRSUBSTNO(TxtG001), rec."Path and file");
+                        Rec."Path and file" := CopyStr(CduGFileManagement.UploadFile(STRSUBSTNO(TxtG001), rec."Path and file"), 1, MaxStrLen(Rec."Path and file"));
                         //TODO:CHEKME "Path and file" := CduGFileManagement.OpenFileDialog(STRSUBSTNO(TxtG001), "Path and file", '*.*|*.*')
                         // UPLOADINTOSTREAM(STRSUBSTNO(TxtG001), '', '(*.*)|*.*', Rec."Path and file", InStr);
 
@@ -113,6 +127,4 @@ page 50006 "BC6_Documents Managment"
         Text003: Label 'You must define a default directory', comment = 'FRA="Veuillez configurer un répertoire par defaut "';
         Text004: Label 'fichier';
         TxtG001: Label 'Select a document', comment = 'FRA="Choisir un document"';
-
-
 }

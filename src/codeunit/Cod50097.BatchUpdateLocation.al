@@ -1,6 +1,5 @@
 codeunit 50097 "BC6_Batch.Update Location"
 {
-
     trigger OnRun()
     begin
         OLDLocation.GET('CNE');
@@ -44,7 +43,6 @@ codeunit 50097 "BC6_Batch.Update Location"
 
         SLEEP(1000);
         Window.CLOSE();
-
     end;
 
     var
@@ -64,4 +62,3 @@ codeunit 50097 "BC6_Batch.Update Location"
         Text004: Label 'Fournisseurs    #5### / #6###';
         Text005: Label 'Commandes achat #7### / #8###';
 }
-

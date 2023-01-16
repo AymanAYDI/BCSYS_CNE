@@ -1,9 +1,9 @@
 page 50071 "BC6_Contact Affair List"
 {
+    ApplicationArea = All;
     Caption = 'Contact Affair Subform', Comment = 'FRA="Contact affaire"';
     PageType = List;
     SourceTable = "BC6_Contact Project Relation";
-    ApplicationArea = All;
     UsageCategory = Lists;
     layout
     {
@@ -37,8 +37,8 @@ page 50071 "BC6_Contact Affair List"
                 }
                 field("Contact Name"; Rec."Contact Name")
                 {
-                    Editable = false;
                     ApplicationArea = All;
+                    Editable = false;
                 }
                 field("Contact City"; Rec."Contact City")
                 {
@@ -58,29 +58,29 @@ page 50071 "BC6_Contact Affair List"
                 }
                 field("Relation Description"; Rec."Relation Description")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                     Enabled = true;
-                    ApplicationArea = All;
                 }
                 field("Phone No."; Rec."Phone No.")
                 {
-                    Editable = false;
                     ApplicationArea = All;
+                    Editable = false;
                 }
                 field("No."; Rec."No.")
                 {
-                    Editable = false;
                     ApplicationArea = All;
+                    Editable = false;
                 }
                 field("Company No."; Rec."Company No.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field(Type; Rec.Type)
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
             }
         }
@@ -92,11 +92,11 @@ page 50071 "BC6_Contact Affair List"
         {
             action("Fiche affaire")
             {
+                ApplicationArea = All;
                 Promoted = true;
                 PromotedOnly = true;
                 RunObject = Page "Job Card";
                 RunPageLink = "No." = FIELD("Affair No.");
-                ApplicationArea = All;
             }
         }
     }
@@ -171,4 +171,3 @@ page 50071 "BC6_Contact Affair List"
         IF Rec.Awarder = TRUE THEN;
     end;
 }
-

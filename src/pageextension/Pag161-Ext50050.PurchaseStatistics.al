@@ -21,33 +21,28 @@ pageextension 50050 "BC6_PurchaseStatistics" extends "Purchase Statistics" //161
         {
             field("BC6_DEEE HT Amount (LCY)"; TotalPurchLineLCY."BC6_DEEE HT Amount (LCY)")
             {
+                ApplicationArea = Basic, Suite;
                 Editable = false;
                 Style = StrongAccent;
                 StyleExpr = TRUE;
                 Visible = false;
-                ApplicationArea = Basic, Suite;
-
             }
             field("BC6_DEEE HT Amount"; TotalPurchLine."BC6_DEEE HT Amount")
             {
+                ApplicationArea = Basic, Suite;
                 Caption = 'Total DEEE';
                 Editable = false;
                 Style = StrongAccent;
                 StyleExpr = TRUE;
-                ApplicationArea = Basic, Suite;
-
             }
             field("DEEE.HT.Amount"; TotalAmount1 + TotalPurchLine."BC6_DEEE HT Amount")
             {
+                ApplicationArea = Basic, Suite;
                 Caption = 'Total HT DEEE Incluse';
                 Editable = false;
-                ApplicationArea = Basic, Suite;
-
             }
         }
     }
-
-
 
     //Unsupported feature: Code Modification on "UpdateHeaderInfo(PROCEDURE 5)".
 
@@ -113,7 +108,6 @@ pageextension 50050 "BC6_PurchaseStatistics" extends "Purchase Statistics" //161
 
       //<<MIGRATION NAV 2013
 
-
     #11..26
 
     //>>MIGRATION NAV 2013
@@ -129,4 +123,3 @@ pageextension 50050 "BC6_PurchaseStatistics" extends "Purchase Statistics" //161
     */
     //end;
 }
-

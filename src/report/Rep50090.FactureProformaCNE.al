@@ -1,9 +1,8 @@
 report 50090 "BC6_Facture Proforma CNE"
 {
+    Caption = 'Order Confirmation', comment = 'FRA="Facture Proforma (idem conf. de cde)"';
     DefaultLayout = RDLC;
     RDLCLayout = './src/Report/RDL/FactureProformaCNE.rdl';
-
-    Caption = 'Order Confirmation', comment = 'FRA="Facture Proforma (idem conf. de cde)"';
 
     dataset
     {
@@ -441,10 +440,10 @@ report 50090 "BC6_Facture Proforma CNE"
                         begin
                             IF Number = 1 THEN BEGIN
                                 IF NOT DimSetEntry1.FIND('-') THEN
-                                    CurrReport.BREAK;
+                                    CurrReport.BREAK();
                             END ELSE
                                 IF NOT Continue THEN
-                                    CurrReport.BREAK;
+                                    CurrReport.BREAK();
 
                             CLEAR(DimText);
                             Continue := FALSE;
@@ -462,12 +461,12 @@ report 50090 "BC6_Facture Proforma CNE"
                                     Continue := TRUE;
                                     EXIT;
                                 END;
-                            UNTIL DimSetEntry1.NEXT = 0;
+                            UNTIL DimSetEntry1.NEXT() = 0;
                         end;
 
                         trigger OnPreDataItem()
                         begin
-                            CurrReport.BREAK;
+                            CurrReport.BREAK();
                         end;
                     }
                     dataitem(SalesLine; "Sales Line")
@@ -617,7 +616,7 @@ report 50090 "BC6_Facture Proforma CNE"
                         column(TotalExclVATText; TotalExclVATText)
                         {
                         }
-                        column(VATAmtLineVATAmtText3; TempVATAmountLine.VATAmountText)
+                        column(VATAmtLineVATAmtText3; TempVATAmountLine.VATAmountText())
                         {
                         }
                         column(TotalInclVATText; TotalInclVATText)
@@ -707,11 +706,11 @@ report 50090 "BC6_Facture Proforma CNE"
                             trigger OnAfterGetRecord()
                             begin
                                 IF Number = 1 THEN BEGIN
-                                    IF NOT DimSetEntry2.FINDSET THEN
-                                        CurrReport.BREAK;
+                                    IF NOT DimSetEntry2.FINDSET() THEN
+                                        CurrReport.BREAK();
                                 END ELSE
                                     IF NOT Continue THEN
-                                        CurrReport.BREAK;
+                                        CurrReport.BREAK();
 
                                 CLEAR(DimText);
                                 Continue := FALSE;
@@ -729,15 +728,15 @@ report 50090 "BC6_Facture Proforma CNE"
                                         Continue := TRUE;
                                         EXIT;
                                     END;
-                                UNTIL DimSetEntry2.NEXT = 0;
+                                UNTIL DimSetEntry2.NEXT() = 0;
                             end;
 
                             trigger OnPreDataItem()
                             begin
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
 
                                 IF NOT ShowInternalInfo THEN
-                                    CurrReport.BREAK;
+                                    CurrReport.BREAK();
 
                                 DimSetEntry2.SETRANGE("Dimension Set ID", SalesLine."Dimension Set ID");
                             end;
@@ -748,22 +747,22 @@ report 50090 "BC6_Facture Proforma CNE"
                             IF Number = 1 THEN
                                 SalesLine.FIND('-')
                             ELSE
-                                SalesLine.NEXT;
+                                SalesLine.NEXT();
                             "SalesLine" := SalesLine;
-                            DEEETariffs.RESET;
+                            DEEETariffs.RESET();
                             DEEETariffs.SETFILTER("Eco Partner", SalesLine."BC6_Eco partner DEEE");
                             DEEETariffs.SETFILTER("DEEE Code", SalesLine."BC6_DEEE Category Code");
                             IF NOT DEEETariffs.FIND('-') THEN BEGIN
-                                RecGDEEE.RESET;
+                                RecGDEEE.RESET();
                                 RecGDEEE.SETFILTER(RecGDEEE."DEEE Code", SalesLine."BC6_DEEE Category Code");
                                 RecGDEEE.SETFILTER("Eco Partner", SalesLine."BC6_Eco partner DEEE");
                                 RecGDEEE.SETFILTER(RecGDEEE."Date beginning", '<=%1', "SalesHeader"."Posting Date");
                                 IF RecGDEEE.FIND('+') THEN BEGIN
-                                    DEEETariffs.INIT;
+                                    DEEETariffs.INIT();
                                     DEEETariffs."Eco Partner" := RecGDEEE."Eco Partner";
                                     DEEETariffs."DEEE Code" := RecGDEEE."DEEE Code";
                                     DEEETariffs."Date beginning" := RecGDEEE."Date beginning";
-                                    DEEETariffs.INSERT;
+                                    DEEETariffs.INSERT();
                                 END;
                             END;
 
@@ -774,14 +773,14 @@ report 50090 "BC6_Facture Proforma CNE"
                                (SalesLine."VAT Calculation Type" = SalesLine."VAT Calculation Type"::"Full VAT")
                             THEN
                                 SalesLine."Line Amount" := 0;
-                            ItemCrossReference.RESET;
+                            ItemCrossReference.RESET();
                             ItemCrossReference.SETRANGE("Item No.", SalesLine."No.");
                             ItemCrossReference.SETRANGE("Cross-Reference Type", ItemCrossReference."Cross-Reference Type"::Customer);
                             ItemCrossReference.SETRANGE("Cross-Reference Type No.", "SalesHeader"."Sell-to Customer No.");
                             CrossrefNo := '';
                             IF ItemCrossReference.FIND('-') THEN
                                 CrossrefNo := ItemCrossReference."Cross-Reference No.";
-                            ItemCrossReference.RESET;
+                            ItemCrossReference.RESET();
                             ItemCrossReference.SETRANGE("Item No.", SalesLine."No.");
                             ItemCrossReference.SETRANGE("Cross-Reference Type", ItemCrossReference."Cross-Reference Type"::"Bar Code");
                             ItemCrossReference.SETRANGE("Discontinue Bar Code", FALSE);
@@ -791,14 +790,13 @@ report 50090 "BC6_Facture Proforma CNE"
                             Countrylibelle := '';
                             item."Tariff No." := '';
 
-                            item.RESET;
-                            IF item.GET(SalesLine."No.") AND (SalesLine.Type = SalesLine.Type::Item) THEN BEGIN
+                            item.RESET();
+                            IF item.GET(SalesLine."No.") AND (SalesLine.Type = SalesLine.Type::Item) THEN
                                 IF "SalesHeader"."Sell-to Country/Region Code" <> CompanyInfo."Country/Region Code" THEN BEGIN
                                     TempNomenclaturedouaniere := item."Tariff No.";
                                     IF Country.GET(item."Country/Region of Origin Code") THEN
                                         Countrylibelle := Country.Name;
                                 END;
-                            END;
 
                             NNCSalesLineLineAmt += SalesLine."Line Amount";
                             NNCSalesLineInvDiscAmt += SalesLine."Inv. Discount Amount";
@@ -839,14 +837,12 @@ report 50090 "BC6_Facture Proforma CNE"
 
                             BooGRoundLoopB4 := (SalesLine.Type > 0);
                             //>>COMPTA_DEEE FG 01/03/07
-                            IF RecGBillCustomer."BC6_Submitted to DEEE" THEN BEGIN
+                            IF RecGBillCustomer."BC6_Submitted to DEEE" THEN
                                 BooGRoundLoopB5 := (SalesLine."BC6_DEEE Category Code" <> '') AND
                                                           (SalesLine.Quantity <> 0) AND
-                                                            (SalesLine."BC6_Eco partner DEEE" <> '');
-                            END ELSE BEGIN
+                                                            (SalesLine."BC6_Eco partner DEEE" <> '')
+                            ELSE
                                 BooGRoundLoopB5 := FALSE;
-                            END;
-
 
                             //<<COMPTA_DEEE FG 01/03/07
                             ///
@@ -880,14 +876,14 @@ report 50090 "BC6_Facture Proforma CNE"
                         trigger OnPostDataItem()
                         begin
 
-                            SalesLine.DELETEALL;
+                            SalesLine.DELETEALL();
                         end;
 
                         trigger OnPreDataItem()
                         begin
                             //MICO
-                            DEEETariffs.RESET;
-                            DEEETariffs.DELETEALL;
+                            DEEETariffs.RESET();
+                            DEEETariffs.DELETEALL();
 
                             MoreLines := SalesLine.FIND('+');
                             WHILE MoreLines AND (SalesLine.Description = '') AND (SalesLine."Description 2" = '') AND
@@ -896,7 +892,7 @@ report 50090 "BC6_Facture Proforma CNE"
                             DO
                                 MoreLines := SalesLine.NEXT(-1) <> 0;
                             IF NOT MoreLines THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                             SalesLine.SETRANGE("Line No.", 0, SalesLine."Line No.");
                             SETRANGE(Number, 1, SalesLine.COUNT);
                             CurrReport.CREATETOTALS(SalesLine."Line Amount", SalesLine."Inv. Discount Amount");
@@ -920,27 +916,25 @@ report 50090 "BC6_Facture Proforma CNE"
                             trigger OnAfterGetRecord()
                             begin
                                 BooGTexteClientB1 := Edition;
-                                IF Edition2 THEN BEGIN
+                                IF Edition2 THEN
                                     IF Number = 1 THEN
                                         StandardSalesLine.FIND('-')
-                                    ELSE BEGIN
-                                        StandardSalesLine.NEXT;
-                                    END;
-                                END;
+                                    ELSE
+                                        StandardSalesLine.NEXT();
                             end;
 
                             trigger OnPreDataItem()
                             begin
 
-                                IF NOT Edition THEN CurrReport.BREAK;
-                                StandardSalesLine.RESET;
+                                IF NOT Edition THEN CurrReport.BREAK();
+                                StandardSalesLine.RESET();
                                 StandardSalesLine.SETRANGE(StandardSalesLine."Standard Sales Code", StandardCustomerSalesCode.Code);
                                 Edition2 := TRUE;
                                 IF StandardSalesLine.COUNT <> 0 THEN
                                     TexteClient.SETRANGE(Number, 1, StandardSalesLine.COUNT)
                                 ELSE
                                     Edition2 := FALSE;
-                                IF NOT Edition2 THEN CurrReport.BREAK;
+                                IF NOT Edition2 THEN CurrReport.BREAK();
                             end;
                         }
                         dataitem(AsmLoop; Integer)
@@ -949,10 +943,10 @@ report 50090 "BC6_Facture Proforma CNE"
                             column(AsmLineType; AsmLine.Type)
                             {
                             }
-                            column(AsmLineNo; BlanksForIndent + AsmLine."No.")
+                            column(AsmLineNo; BlanksForIndent() + AsmLine."No.")
                             {
                             }
-                            column(AsmLineDescription; BlanksForIndent + AsmLine.Description)
+                            column(AsmLineDescription; BlanksForIndent() + AsmLine.Description)
                             {
                             }
                             column(AsmLineQuantity; AsmLine.Quantity)
@@ -965,17 +959,17 @@ report 50090 "BC6_Facture Proforma CNE"
                             trigger OnAfterGetRecord()
                             begin
                                 IF Number = 1 THEN
-                                    AsmLine.FINDSET
+                                    AsmLine.FINDSET()
                                 ELSE
-                                    AsmLine.NEXT;
+                                    AsmLine.NEXT();
                             end;
 
                             trigger OnPreDataItem()
                             begin
                                 IF NOT DisplayAssemblyInformation THEN
-                                    CurrReport.BREAK;
+                                    CurrReport.BREAK();
                                 IF NOT AsmInfoExistsForLine THEN
-                                    CurrReport.BREAK;
+                                    CurrReport.BREAK();
                                 AsmLine.SETRANGE("Document Type", AsmHeader."Document Type");
                                 AsmLine.SETRANGE("Document No.", AsmHeader."No.");
                                 SETRANGE(Number, 1, AsmLine.COUNT);
@@ -985,17 +979,17 @@ report 50090 "BC6_Facture Proforma CNE"
                         trigger OnAfterGetRecord()
                         begin
 
-                            IF NOT Edition THEN CurrReport.BREAK;
+                            IF NOT Edition THEN CurrReport.BREAK();
                             IF Number = 1 THEN
                                 StandardCustomerSalesCode.FIND('-')
                             ELSE
-                                StandardCustomerSalesCode.NEXT;
+                                StandardCustomerSalesCode.NEXT();
                         end;
 
                         trigger OnPreDataItem()
                         begin
 
-                            StandardCustomerSalesCode.RESET;
+                            StandardCustomerSalesCode.RESET();
                             StandardCustomerSalesCode.SETRANGE(StandardCustomerSalesCode.BC6_TextautoReport, TRUE);
                             StandardCustomerSalesCode.SETRANGE(StandardCustomerSalesCode."Customer No.", "SalesHeader"."Sell-to Customer No.");
                             Edition := TRUE;
@@ -1105,8 +1099,8 @@ report 50090 "BC6_Facture Proforma CNE"
                             //                                  PRM fin TVA
 
                             IF TempVATAmountLine.COUNT > 3 THEN BEGIN
-                                ERROR(STRSUBSTNO(Text020, TempVATAmountLine.COUNT));
-                                CurrReport.QUIT;
+                                ERROR(Text020, TempVATAmountLine.COUNT);
+                                CurrReport.QUIT();
                             END;
                             //                                  PRM fin TVA
                             CurrReport.CREATETOTALS(
@@ -1156,9 +1150,9 @@ report 50090 "BC6_Facture Proforma CNE"
 
                             IF (NOT GLSetup."Print VAT specification in LCY") OR
                                ("SalesHeader"."Currency Code" = '') OR
-                               (TempVATAmountLine.GetTotalVATAmount = 0)
+                               (TempVATAmountLine.GetTotalVATAmount() = 0)
                             THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
 
                             SETRANGE(Number, 1, TempVATAmountLine.COUNT);
                             CurrReport.CREATETOTALS(VALVATBaseLCY, VALVATAmountLCY);
@@ -1180,11 +1174,11 @@ report 50090 "BC6_Facture Proforma CNE"
                         begin
 
                             IF NOT DEEETariffs.GET("Eco Partner", "DEEE Code", "Date beginning") THEN
-                                CurrReport.SKIP;
+                                CurrReport.SKIP();
 
-                            RecGItemCtg.RESET;
+                            RecGItemCtg.RESET();
                             IF NOT RecGItemCtg.GET("DEEETariffs"."DEEE Code", "DEEETariffs"."Eco Partner") THEN
-                                RecGItemCtg.INIT;
+                                RecGItemCtg.INIT();
                         end;
 
                         trigger OnPreDataItem()
@@ -1193,20 +1187,20 @@ report 50090 "BC6_Facture Proforma CNE"
                         begin
 
                             BooGDEEEFind := FALSE;
-                            RecLSalesLine.RESET;
+                            RecLSalesLine.RESET();
 
                             RecLSalesLine.SETFILTER("Document No.", "SalesHeader"."No.");
                             RecLSalesLine.SETFILTER("Document Type", '%1', RecLSalesLine."Document Type"::Order);
                             IF RecLSalesLine.FIND('-') THEN
                                 REPEAT
                                     BooGDEEEFind := ((RecLSalesLine."BC6_DEEE Category Code" <> '') AND (RecLSalesLine.Quantity <> 0));
-                                UNTIL ((BooGDEEEFind = TRUE) OR (RecLSalesLine.NEXT = 0));
+                                UNTIL ((BooGDEEEFind = TRUE) OR (RecLSalesLine.NEXT() = 0));
 
                             IF NOT BooGDEEEFind THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
 
                             IF NOT RecGBillCustomer."BC6_Submitted to DEEE" THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                         end;
                     }
                     dataitem(Total2; Integer)
@@ -1250,7 +1244,7 @@ report 50090 "BC6_Facture Proforma CNE"
                         trigger OnPreDataItem()
                         begin
                             IF NOT ShowShippingAddr THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                         end;
                     }
                     dataitem(PrepmtLoop; Integer)
@@ -1271,7 +1265,7 @@ report 50090 "BC6_Facture Proforma CNE"
                         column(TotalExclVATText2; TotalExclVATText)
                         {
                         }
-                        column(PrepmtVATAmtLineVATAmtTxt; TempPrepmtVATAmountLine.VATAmountText)
+                        column(PrepmtVATAmtLineVATAmtTxt; TempPrepmtVATAmountLine.VATAmountText())
                         {
                         }
                         column(TotalInclVATText2; TotalInclVATText)
@@ -1292,7 +1286,7 @@ report 50090 "BC6_Facture Proforma CNE"
                             AutoFormatExpression = SalesHeader."Currency Code";
                             AutoFormatType = 1;
                         }
-                        column(VATAmtLineVATAmtText2; TempVATAmountLine.VATAmountText)
+                        column(VATAmtLineVATAmtText2; TempVATAmountLine.VATAmountText())
                         {
                         }
                         column(PrepmtTotalAmountInclVAT; PrepmtTotalAmountInclVAT)
@@ -1329,10 +1323,10 @@ report 50090 "BC6_Facture Proforma CNE"
                             begin
                                 IF Number = 1 THEN BEGIN
                                     IF NOT TempPrepmtDimSetEntry.FIND('-') THEN
-                                        CurrReport.BREAK;
+                                        CurrReport.BREAK();
                                 END ELSE
                                     IF NOT Continue THEN
-                                        CurrReport.BREAK;
+                                        CurrReport.BREAK();
 
                                 CLEAR(DimText);
                                 Continue := FALSE;
@@ -1351,7 +1345,7 @@ report 50090 "BC6_Facture Proforma CNE"
                                         Continue := TRUE;
                                         EXIT;
                                     END;
-                                UNTIL TempPrepmtDimSetEntry.NEXT = 0;
+                                UNTIL TempPrepmtDimSetEntry.NEXT() = 0;
                             end;
                         }
 
@@ -1359,10 +1353,10 @@ report 50090 "BC6_Facture Proforma CNE"
                         begin
                             IF Number = 1 THEN BEGIN
                                 IF NOT TempPrepmtInvBuf.FIND('-') THEN
-                                    CurrReport.BREAK;
+                                    CurrReport.BREAK();
                             END ELSE
-                                IF TempPrepmtInvBuf.NEXT = 0 THEN
-                                    CurrReport.BREAK;
+                                IF TempPrepmtInvBuf.NEXT() = 0 THEN
+                                    CurrReport.BREAK();
 
                             IF ShowInternalInfo THEN
                                 DimMgt.GetDimensionSet(TempPrepmtDimSetEntry, TempPrepmtInvBuf."Dimension Set ID");
@@ -1438,7 +1432,7 @@ report 50090 "BC6_Facture Proforma CNE"
                         trigger OnPreDataItem()
                         begin
                             IF NOT TempPrepmtInvBuf.FIND('-') THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                         end;
                     }
 
@@ -1457,26 +1451,26 @@ report 50090 "BC6_Facture Proforma CNE"
                 trigger OnAfterGetRecord()
                 var
                     PrepmtSalesLine: Record "Sales Line" temporary;
-                    SalesPost: Codeunit "Sales-Post";
                     TempSalesLine: Record "Sales Line" temporary;
                     TempSalesLineDisc: Record "Sales Line" temporary;
+                    SalesPost: Codeunit "Sales-Post";
                 begin
                     CLEAR(SalesLine);
                     CLEAR(SalesPost);
                     CLEAR(TempSalesLineDisc);
-                    TempVATAmountLine.DELETEALL;
-                    TempSalesLineDisc.DELETEALL;
+                    TempVATAmountLine.DELETEALL();
+                    TempSalesLineDisc.DELETEALL();
                     SalesPost.GetSalesLines("SalesHeader", SalesLine, 0);
                     CalcVATAmountLines(0, "SalesHeader", SalesLine, TempVATAmountLine);
                     SalesLine.UpdateVATOnLines(0, "SalesHeader", SalesLine, TempVATAmountLine);
-                    VATAmount := TempVATAmountLine.GetTotalVATAmount;
-                    VATBaseAmount := TempVATAmountLine.GetTotalVATBase;
+                    VATAmount := TempVATAmountLine.GetTotalVATAmount();
+                    VATBaseAmount := TempVATAmountLine.GetTotalVATBase();
                     VATDiscountAmount :=
                       TempVATAmountLine.GetTotalVATDiscount("SalesHeader"."Currency Code", "SalesHeader"."Prices Including VAT");
 
-                    TotalAmountInclVAT := TempVATAmountLine.GetTotalAmountInclVAT + TempVATAmountLine.GetTotalAmountDEEEInclVAT;
+                    TotalAmountInclVAT := TempVATAmountLine.GetTotalAmountInclVAT() + TempVATAmountLine.GetTotalAmountDEEEInclVAT();
 
-                    TempPrepmtInvBuf.DELETEALL;
+                    TempPrepmtInvBuf.DELETEALL();
                     SalesPostPrepmt.GetSalesLines("SalesHeader", 0, PrepmtSalesLine);
 
                     IF NOT PrepmtSalesLine.ISEMPTY THEN BEGIN
@@ -1485,10 +1479,10 @@ report 50090 "BC6_Facture Proforma CNE"
                             SalesPostPrepmt.CalcVATAmountLines("SalesHeader", TempSalesLine, TempPrepmtVATAmountLineDeduct, 1);
                     END;
                     SalesPostPrepmt.CalcVATAmountLines(SalesHeader, PrepmtSalesLine, TempPrepmtVATAmountLine, 0);
-                    IF TempPrepmtVATAmountLine.FINDSET THEN
+                    IF TempPrepmtVATAmountLine.FINDSET() THEN
                         REPEAT
                             TempPrepmtVATAmountLineDeduct := TempPrepmtVATAmountLine;
-                            IF TempPrepmtVATAmountLineDeduct.FIND THEN BEGIN
+                            IF TempPrepmtVATAmountLineDeduct.FIND() THEN BEGIN
                                 TempPrepmtVATAmountLine."VAT Base" := TempPrepmtVATAmountLine."VAT Base" - TempPrepmtVATAmountLineDeduct."VAT Base";
                                 TempPrepmtVATAmountLine."VAT Amount" := TempPrepmtVATAmountLine."VAT Amount" - TempPrepmtVATAmountLineDeduct."VAT Amount";
                                 TempPrepmtVATAmountLine."Amount Including VAT" := TempPrepmtVATAmountLine."Amount Including VAT" -
@@ -1500,15 +1494,15 @@ report 50090 "BC6_Facture Proforma CNE"
                                   TempPrepmtVATAmountLineDeduct."Invoice Discount Amount";
                                 TempPrepmtVATAmountLine."Calculated VAT Amount" := TempPrepmtVATAmountLine."Calculated VAT Amount" -
                                   TempPrepmtVATAmountLineDeduct."Calculated VAT Amount";
-                                TempPrepmtVATAmountLine.MODIFY;
+                                TempPrepmtVATAmountLine.MODIFY();
                             END;
-                        UNTIL TempPrepmtVATAmountLine.NEXT = 0;
+                        UNTIL TempPrepmtVATAmountLine.NEXT() = 0;
 
                     SalesPostPrepmt.UpdateVATOnLines(SalesHeader, PrepmtSalesLine, TempPrepmtVATAmountLine, 0);
                     SalesPostPrepmt.BuildInvLineBuffer(SalesHeader, PrepmtSalesLine, 0, TempPrepmtInvBuf);
-                    PrepmtVATAmount := TempPrepmtVATAmountLine.GetTotalVATAmount;
-                    PrepmtVATBaseAmount := TempPrepmtVATAmountLine.GetTotalVATBase;
-                    PrepmtTotalAmountInclVAT := TempPrepmtVATAmountLine.GetTotalAmountInclVAT;
+                    PrepmtVATAmount := TempPrepmtVATAmountLine.GetTotalVATAmount();
+                    PrepmtVATBaseAmount := TempPrepmtVATAmountLine.GetTotalVATBase();
+                    PrepmtTotalAmountInclVAT := TempPrepmtVATAmountLine.GetTotalAmountInclVAT();
 
                     IF Number > 1 THEN BEGIN
                         CopyText := Text003;
@@ -1526,7 +1520,6 @@ report 50090 "BC6_Facture Proforma CNE"
                     NNCTotalExclVAT2 := 0;
                     NNCSalesLineLineAmt := 0;
                     NNCSalesLineInvDiscAmt := 0;
-
                 end;
 
                 trigger OnPostDataItem()
@@ -1548,14 +1541,12 @@ report 50090 "BC6_Facture Proforma CNE"
                         SETRANGE(Number, 1, NoOfLoops)
                     ELSE
                         SETRANGE(Number, 0, 0);
-
-
                 end;
             }
 
             trigger OnAfterGetRecord()
             begin
-                CompanyInfo.GET;
+                CompanyInfo.GET();
                 CurrReport.LANGUAGE := Language2.GetLanguageID("Language Code");
                 CompanyInfo.CALCFIELDS(CompanyInfo."BC6_Alt Picture");
                 CompanyInfo.CALCFIELDS(CompanyInfo.Picture);
@@ -1591,16 +1582,12 @@ report 50090 "BC6_Facture Proforma CNE"
                         SalesPersonText := SalesPersonText + ' ' + '   ' + '' + Text101 + ' ' + SalesPurchPerson."Phone No.";
                     IF SalesPurchPerson."E-Mail" <> '' THEN
                         SalesPersonText := SalesPersonText + ' ' + '   ' + ' ' + SalesPurchPerson.FIELDCAPTION("E-Mail") + ' ' + SalesPurchPerson."E-Mail";
-
-
                 END;
-                IF ("Your Reference" = '') AND ("External Document No." = '') THEN BEGIN
+                IF ("Your Reference" = '') AND ("External Document No." = '') THEN
                     //ReferenceText := '';
-                    VotreRef := '';
-                END
-                ELSE BEGIN
+                    VotreRef := ''
+                ELSE
                     VotreRef := "External Document No." + '  ' + "Your Reference";
-                END;
                 IF "VAT Registration No." = '' THEN
                     VATNoText := ''
                 ELSE
@@ -1617,31 +1604,29 @@ report 50090 "BC6_Facture Proforma CNE"
                     TotalInclVATText := STRSUBSTNO(Text002, "Currency Code");
                     TotalExclVATText := STRSUBSTNO(Text006, "Currency Code");
                     Currency := "Currency Code";
-
                 END;
                 FormatAddr.SalesHeaderSellTo(CustAddr, "SalesHeader");
 
-
                 IF "Payment Terms Code" = '' THEN
-                    PaymentTerms.INIT
+                    PaymentTerms.INIT()
                 ELSE BEGIN
                     PaymentTerms.GET("Payment Terms Code");
                     PaymentTerms.TranslateDescription(PaymentTerms, "Language Code");
                 END;
                 IF "Prepmt. Payment Terms Code" = '' THEN
-                    PrepmtPaymentTerms.INIT
+                    PrepmtPaymentTerms.INIT()
                 ELSE BEGIN
                     PrepmtPaymentTerms.GET("Prepmt. Payment Terms Code");
                     PrepmtPaymentTerms.TranslateDescription(PrepmtPaymentTerms, "Language Code");
                 END;
                 IF "Prepmt. Payment Terms Code" = '' THEN
-                    PrepmtPaymentTerms.INIT
+                    PrepmtPaymentTerms.INIT()
                 ELSE BEGIN
                     PrepmtPaymentTerms.GET("Prepmt. Payment Terms Code");
                     PrepmtPaymentTerms.TranslateDescription(PrepmtPaymentTerms, "Language Code");
                 END;
                 IF "Shipment Method Code" = '' THEN
-                    ShipmentMethod.INIT
+                    ShipmentMethod.INIT()
                 ELSE BEGIN
                     ShipmentMethod.GET("Shipment Method Code");
                     ShipmentMethod.TranslateDescription(ShipmentMethod, "Language Code");
@@ -1682,22 +1667,20 @@ report 50090 "BC6_Facture Proforma CNE"
                 IF ShippingAgent.GET(SalesHeader."Shipping Agent Code") THEN
                     ModeTransport := ShippingAgent.Name;
 
-                RecGBillCustomer.RESET;
+                RecGBillCustomer.RESET();
                 RecGBillCustomer.GET(SalesHeader."Bill-to Customer No.");
 
                 IF SalesHeader."Bill-to Customer No." <> '' THEN BEGIN
-                    RecGBillCustomer.RESET;
+                    RecGBillCustomer.RESET();
                     RecGBillCustomer.GET(SalesHeader."Bill-to Customer No.");
                     BooGSubmittedToDEEE := RecGBillCustomer."BC6_Submitted to DEEE";
                 END ELSE BEGIN
-                    RecGCustomerTemplate.RESET;
-                    IF RecGCustomerTemplate.GET(SalesHeader."Sell-to Customer Template Code") THEN BEGIN
-                        BooGSubmittedToDEEE := RecGCustomerTemplate."BC6_Submitted to DEEE";
-                    END ELSE BEGIN
+                    RecGCustomerTemplate.RESET();
+                    IF RecGCustomerTemplate.GET(SalesHeader."Sell-to Customer Template Code") THEN
+                        BooGSubmittedToDEEE := RecGCustomerTemplate."BC6_Submitted to DEEE"
+                    ELSE
                         BooGSubmittedToDEEE := FALSE;
-                    END;
                 END;
-
             end;
 
             trigger OnPreDataItem()
@@ -1720,20 +1703,20 @@ report 50090 "BC6_Facture Proforma CNE"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(NoOfCopies; NoOfCopies)
+                    field(NoOfCopiesF; NoOfCopies)
                     {
+                        ApplicationArea = All;
                         Caption = 'No. of Copies', Comment = 'FRA="Nombre de copies"';
-                        ApplicationArea = All;
                     }
-                    field(ShowInternalInfo; ShowInternalInfo)
+                    field(ShowInternalInfoF; ShowInternalInfo)
                     {
+                        ApplicationArea = All;
                         Caption = 'Show Internal Information', Comment = 'FRA="Afficher info. internes"';
-                        ApplicationArea = All;
                     }
-                    field(ArchiveDocument; ArchiveDocument)
+                    field(ArchiveDocumentF; ArchiveDocument)
                     {
-                        Caption = 'Archive Document', Comment = 'FRA="Archiver document"';
                         ApplicationArea = All;
+                        Caption = 'Archive Document', Comment = 'FRA="Archiver document"';
 
                         trigger OnValidate()
                         begin
@@ -1741,11 +1724,11 @@ report 50090 "BC6_Facture Proforma CNE"
                                 LogInteraction := FALSE;
                         end;
                     }
-                    field(LogInteraction; LogInteraction)
+                    field(LogInteractionF; LogInteraction)
                     {
+                        ApplicationArea = All;
                         Caption = 'Log Interaction', Comment = 'FRA="Journal interaction"';
                         Enabled = LogInteractionEnable;
-                        ApplicationArea = All;
 
                         trigger OnValidate()
                         begin
@@ -1753,10 +1736,10 @@ report 50090 "BC6_Facture Proforma CNE"
                                 ArchiveDocument := ArchiveDocumentEnable;
                         end;
                     }
-                    field(ShowAssemblyComponents; DisplayAssemblyInformation)
+                    field(ShowAssemblyComponentsF; DisplayAssemblyInformation)
                     {
-                        Caption = 'Show Assembly Components', Comment = 'FRA="Afficher composants d''assemblage"';
                         ApplicationArea = All;
+                        Caption = 'Show Assembly Components', Comment = 'FRA="Afficher composants d''assemblage"';
                     }
                 }
             }
@@ -1786,11 +1769,10 @@ report 50090 "BC6_Facture Proforma CNE"
 
     trigger OnInitReport()
     begin
-        GLSetup.GET;
-        CompanyInfo.GET;
+        GLSetup.GET();
+        CompanyInfo.GET();
         CompanyInfo.CALCFIELDS(CompanyInfo."BC6_Alt Picture");
         CompanyInfo.CALCFIELDS(CompanyInfo.Picture);
-
     end;
 
     var
@@ -1818,6 +1800,7 @@ report 50090 "BC6_Facture Proforma CNE"
         item: Record Item;
         RecGItem: Record Item;
         ItemCrossReference: Record "Item Cross Reference";
+        Language: Record "Language";
         PaymentMethod: Record "Payment Method";
         PaymentTerms: Record "Payment Terms";
         PrepmtPaymentTerms: Record "Payment Terms";
@@ -1836,7 +1819,6 @@ report 50090 "BC6_Facture Proforma CNE"
         ArchiveManagement: Codeunit "ArchiveManagement";
         DimMgt: Codeunit "DimensionManagement";
         FormatAddr: Codeunit "Format Address";
-        Language: Record "Language";
         Language2: Codeunit Language;
         SalesPostPrepmt: Codeunit "Sales-Post Prepayments";
         SalesCountPrinted: Codeunit "Sales-Printed";
@@ -1895,14 +1877,14 @@ report 50090 "BC6_Facture Proforma CNE"
         VATAmount: Decimal;
         VATBaseAmount: Decimal;
         VATDiscountAmount: Decimal;
-        "--NSC1.03--": Integer;
-        "--NSC1.05--": Integer;
-        "-MICO-": Integer;
-        "-MIGNAV2013-": Integer;
         CompteurDeLigne: Integer;
         i: Integer;
+        "-MICO-": Integer;
+        "-MIGNAV2013-": Integer;
         NoOfCopies: Integer;
         NoOfLoops: Integer;
+        "--NSC1.03--": Integer;
+        "--NSC1.05--": Integer;
         OutputNo: Integer;
         AccountNoCaptionLbl: Label 'Account No.', comment = 'FRA="n° compte"';
         AllowInvDiscCaptionLbl: Label 'Allow Invoice Discount', comment = 'FRA="Autoriser remise facture"';
@@ -1984,6 +1966,7 @@ report 50090 "BC6_Facture Proforma CNE"
         Text101: Label 'Phone :', comment = 'FRA="Tel: "';
         Text200: Label 'Proforma Invoice No. ', comment = 'FRA="Facture Proforma n°"';
         TotalCaptionLbl: Label 'Total', comment = 'FRA="Total"';
+        txtlbl12: label '%1 %2';
         UnitPriceCaptionLbl: Label 'Unit Price', comment = 'FRA="Prix unitaire"';
         VATAmtCaptionLbl: Label 'VAT Amount', comment = 'FRA="Montant TVA"';
         VATAmtSpecCaptionLbl: Label 'VAT Amount Specification', comment = 'FRA="Détail montant TVA"';
@@ -1991,7 +1974,6 @@ report 50090 "BC6_Facture Proforma CNE"
         VATIdentifierCaptionLbl: Label 'VAT Identifier', comment = 'FRA="Identifiant TVA"';
         VATPercentageCaptionLbl: Label 'VAT %', comment = 'FRA="% TVA"';
         VATRegNoCaptionLbl: Label 'VAT Registration No.', comment = 'FRA="n° identif. intracomm."';
-        txtlbl12: label '%1 %2';
         Asterisque: Text[1];
         Currency: Text[10];
         CrossrefNo: Text[20];
@@ -2004,12 +1986,9 @@ report 50090 "BC6_Facture Proforma CNE"
         TempGencod: Text[30];
         templibelledouanier: Text[30];
         TempNomenclaturedouaniere: Text[30];
-        CompanyAddr: array[8] of Text[50];
         CondDePayment: Text[50];
         Countrylibelle: Text[50];
-        CustAddr: array[8] of Text[50];
         PrincContactName: Text[50];
-        ShipToAddr: array[8] of Text[50];
         surReleve: Text[50];
         TotalExclVATText: Text[50];
         TotalInclVATText: Text[50];
@@ -2020,11 +1999,13 @@ report 50090 "BC6_Facture Proforma CNE"
         ReferenceText: Text[80];
         VALSpecLCYHeader: Text[80];
         VATNoText: Text[80];
+        CompanyAddr: array[8] of Text[100];
+        CustAddr: array[8] of Text[100];
+        ShipToAddr: array[8] of Text[100];
         TmpNamereport: Text[100];
         DimText: Text[120];
         VotreRef: Text[200];
         SalesPersonText: Text[250];
-
 
     procedure InitializeRequest(NoOfCopiesFrom: Integer; ShowInternalInfoFrom: Boolean; ArchiveDocumentFrom: Boolean; LogInteractionFrom: Boolean; PrintFrom: Boolean; DisplayAsmInfo: Boolean)
     begin
@@ -2036,7 +2017,6 @@ report 50090 "BC6_Facture Proforma CNE"
         DisplayAssemblyInformation := DisplayAsmInfo;
     end;
 
-
     procedure GetUnitOfMeasureDescr(UOMCode: Code[10]): Text[10]
     var
         UnitOfMeasure: Record "Unit of Measure";
@@ -2046,116 +2026,111 @@ report 50090 "BC6_Facture Proforma CNE"
         EXIT(UnitOfMeasure.Description);
     end;
 
-
     procedure BlanksForIndent(): Text[10]
     begin
         EXIT(PADSTR('', 2, ' '));
     end;
 
-
     procedure CalcVATAmountLines(QtyType: Option General,Invoicing,Shipping; var SalesHeader: Record "Sales Header"; var _SalesLine: Record "Sales Line"; var VATAmountLine: Record "VAT Amount Line")
     var
-        TotalVATAmount: Decimal;
-        QtyToHandle: Decimal;
-        AmtToHandle: Decimal;
-        RoundingLineInserted: Boolean;
         Currency: Record Currency;
+        RoundingLineInserted: Boolean;
+        AmtToHandle: Decimal;
+        QtyToHandle: Decimal;
+        TotalVATAmount: Decimal;
     begin
         Currency.Initialize(SalesHeader."Currency Code");
 
-        VATAmountLine.DELETEALL;
+        VATAmountLine.DELETEALL();
 
-        WITH _SalesLine DO BEGIN
-            SETRANGE("Document Type", SalesHeader."Document Type");
-            SETRANGE("Document No.", SalesHeader."No.");
-            IF FINDSET THEN
-                REPEAT
-                    IF NOT EmptyAmountLine(_SalesLine, QtyType) THEN BEGIN
-                        IF (Type = Type::"G/L Account") AND NOT "Prepayment Line" THEN
-                            RoundingLineInserted := ("No." = GetCPGInvRoundAcc(SalesHeader)) OR RoundingLineInserted;
-                        IF "VAT Calculation Type" IN
-                           ["VAT Calculation Type"::"Reverse Charge VAT", "VAT Calculation Type"::"Sales Tax"]
-                        THEN
-                            "VAT %" := 0;
-                        IF NOT VATAmountLine.GET(
-                             "VAT Identifier", "VAT Calculation Type", "Tax Group Code", FALSE, "Line Amount" >= 0)
-                        THEN
-                            VATAmountLine.InsertNewLine(
-                              "VAT Identifier", "VAT Calculation Type", "Tax Group Code", FALSE, "VAT %", "Line Amount" >= 0, FALSE);
+        _SalesLine.SETRANGE("Document Type", SalesHeader."Document Type");
+        _SalesLine.SETRANGE("Document No.", SalesHeader."No.");
+        IF _SalesLine.FINDSET() THEN
+            REPEAT
+                IF NOT EmptyAmountLine(_SalesLine, QtyType) THEN BEGIN
+                    IF (_SalesLine.Type = _SalesLine.Type::"G/L Account") AND NOT _SalesLine."Prepayment Line" THEN
+                        RoundingLineInserted := (_SalesLine."No." = _SalesLine.GetCPGInvRoundAcc(SalesHeader)) OR RoundingLineInserted;
+                    IF _SalesLine."VAT Calculation Type" IN
+                       [_SalesLine."VAT Calculation Type"::"Reverse Charge VAT", _SalesLine."VAT Calculation Type"::"Sales Tax"]
+                    THEN
+                        _SalesLine."VAT %" := 0;
+                    IF NOT VATAmountLine.GET(
+                         _SalesLine."VAT Identifier", _SalesLine."VAT Calculation Type", _SalesLine."Tax Group Code", FALSE, _SalesLine."Line Amount" >= 0)
+                    THEN
+                        VATAmountLine.InsertNewLine(
+                          _SalesLine."VAT Identifier", _SalesLine."VAT Calculation Type", _SalesLine."Tax Group Code", FALSE, _SalesLine."VAT %", _SalesLine."Line Amount" >= 0, FALSE);
 
-                        CASE QtyType OF
-                            QtyType::General:
-                                BEGIN
-                                    VATAmountLine.Quantity += "Quantity (Base)";
+                    CASE QtyType OF
+                        QtyType::General:
+                            BEGIN
+                                VATAmountLine.Quantity += _SalesLine."Quantity (Base)";
 
-                                    VATAmountLine."BC6_DEEE HT Amount" := VATAmountLine."BC6_DEEE HT Amount" + "BC6_DEEE HT Amount";
-                                    VATAmountLine."BC6_DEEE VAT Amount" := VATAmountLine."BC6_DEEE VAT Amount" + ROUND("BC6_DEEE VAT Amount"
-                                          , Currency."Amount Rounding Precision");
-                                    VATAmountLine."BC6_DEEE TTC Amount" := VATAmountLine."BC6_DEEE TTC Amount" + ROUND("BC6_DEEE TTC Amount"
-                                          , Currency."Amount Rounding Precision");
-                                    VATAmountLine."BC6_DEEE Amount (LCY) for Stat" := VATAmountLine."BC6_DEEE Amount (LCY) for Stat" +
-                                    "BC6_DEEE Amount (LCY) for Stat"; //ooo
+                                VATAmountLine."BC6_DEEE HT Amount" := VATAmountLine."BC6_DEEE HT Amount" + _SalesLine."BC6_DEEE HT Amount";
+                                VATAmountLine."BC6_DEEE VAT Amount" := VATAmountLine."BC6_DEEE VAT Amount" + ROUND(_SalesLine."BC6_DEEE VAT Amount"
+                                      , Currency."Amount Rounding Precision");
+                                VATAmountLine."BC6_DEEE TTC Amount" := VATAmountLine."BC6_DEEE TTC Amount" + ROUND(_SalesLine."BC6_DEEE TTC Amount"
+                                      , Currency."Amount Rounding Precision");
+                                VATAmountLine."BC6_DEEE Amount (LCY) for Stat" := VATAmountLine."BC6_DEEE Amount (LCY) for Stat" +
+                                _SalesLine."BC6_DEEE Amount (LCY) for Stat"; //ooo
 
-
-                                    VATAmountLine.SumLine(
-                                      "Line Amount", "Inv. Discount Amount", "VAT Difference", "Allow Invoice Disc.", "Prepayment Line");
-                                END;
-                            QtyType::Invoicing:
-                                BEGIN
-                                    CASE TRUE OF
-                                        ("Document Type" IN ["Document Type"::Order, "Document Type"::Invoice]) AND
-                                      (NOT SalesHeader.Ship) AND SalesHeader.Invoice AND (NOT "Prepayment Line"):
-                                            IF "Shipment No." = '' THEN BEGIN
-                                                QtyToHandle := GetAbsMin("Qty. to Invoice", "Qty. Shipped Not Invoiced");
-                                                VATAmountLine.Quantity += GetAbsMin("Qty. to Invoice (Base)", "Qty. Shipped Not Invd. (Base)");
-                                            END ELSE BEGIN
-                                                QtyToHandle := "Qty. to Invoice";
-                                                VATAmountLine.Quantity += "Qty. to Invoice (Base)";
-                                            END;
-                                        ("Document Type" IN ["Document Type"::"Return Order", "Document Type"::"Credit Memo"]) AND
-                                      (NOT SalesHeader.Receive) AND SalesHeader.Invoice:
-                                            IF "Return Receipt No." = '' THEN BEGIN
-                                                QtyToHandle := GetAbsMin("Qty. to Invoice", "Return Qty. Rcd. Not Invd.");
-                                                VATAmountLine.Quantity += GetAbsMin("Qty. to Invoice (Base)", "Ret. Qty. Rcd. Not Invd.(Base)");
-                                            END ELSE BEGIN
-                                                QtyToHandle := "Qty. to Invoice";
-                                                VATAmountLine.Quantity += "Qty. to Invoice (Base)";
-                                            END;
-                                        ELSE BEGIN
-                                            QtyToHandle := "Qty. to Invoice";
-                                            VATAmountLine.Quantity += "Qty. to Invoice (Base)";
+                                VATAmountLine.SumLine(
+                                  _SalesLine."Line Amount", _SalesLine."Inv. Discount Amount", _SalesLine."VAT Difference", _SalesLine."Allow Invoice Disc.", _SalesLine."Prepayment Line");
+                            END;
+                        QtyType::Invoicing:
+                            BEGIN
+                                CASE TRUE OF
+                                    (_SalesLine."Document Type" IN [_SalesLine."Document Type"::Order, _SalesLine."Document Type"::Invoice]) AND
+                                  (NOT SalesHeader.Ship) AND SalesHeader.Invoice AND (NOT _SalesLine."Prepayment Line"):
+                                        IF _SalesLine."Shipment No." = '' THEN BEGIN
+                                            QtyToHandle := GetAbsMin(_SalesLine."Qty. to Invoice", _SalesLine."Qty. Shipped Not Invoiced");
+                                            VATAmountLine.Quantity += GetAbsMin(_SalesLine."Qty. to Invoice (Base)", _SalesLine."Qty. Shipped Not Invd. (Base)");
+                                        END ELSE BEGIN
+                                            QtyToHandle := _SalesLine."Qty. to Invoice";
+                                            VATAmountLine.Quantity += _SalesLine."Qty. to Invoice (Base)";
                                         END;
+                                    (_SalesLine."Document Type" IN [_SalesLine."Document Type"::"Return Order", _SalesLine."Document Type"::"Credit Memo"]) AND
+                                  (NOT SalesHeader.Receive) AND SalesHeader.Invoice:
+                                        IF _SalesLine."Return Receipt No." = '' THEN BEGIN
+                                            QtyToHandle := GetAbsMin(_SalesLine."Qty. to Invoice", _SalesLine."Return Qty. Rcd. Not Invd.");
+                                            VATAmountLine.Quantity += GetAbsMin(_SalesLine."Qty. to Invoice (Base)", _SalesLine."Ret. Qty. Rcd. Not Invd.(Base)");
+                                        END ELSE BEGIN
+                                            QtyToHandle := _SalesLine."Qty. to Invoice";
+                                            VATAmountLine.Quantity += _SalesLine."Qty. to Invoice (Base)";
+                                        END;
+                                    ELSE BEGIN
+                                        QtyToHandle := _SalesLine."Qty. to Invoice";
+                                        VATAmountLine.Quantity += _SalesLine."Qty. to Invoice (Base)";
                                     END;
-                                    AmtToHandle := GetLineAmountToHandle(QtyToHandle);
-                                    IF SalesHeader."Invoice Discount Calculation" <> SalesHeader."Invoice Discount Calculation"::Amount THEN
-                                        VATAmountLine.SumLine(
-                                          AmtToHandle, ROUND("Inv. Discount Amount" * QtyToHandle / Quantity, Currency."Amount Rounding Precision"),
-                                          "VAT Difference", "Allow Invoice Disc.", "Prepayment Line")
-                                    ELSE
-                                        VATAmountLine.SumLine(
-                                          AmtToHandle, "Inv. Disc. Amount to Invoice", "VAT Difference", "Allow Invoice Disc.", "Prepayment Line");
                                 END;
-                            QtyType::Shipping:
-                                BEGIN
-                                    IF "Document Type" IN
-                                       ["Document Type"::"Return Order", "Document Type"::"Credit Memo"]
-                                    THEN BEGIN
-                                        QtyToHandle := "Return Qty. to Receive";
-                                        VATAmountLine.Quantity += "Return Qty. to Receive (Base)";
-                                    END ELSE BEGIN
-                                        QtyToHandle := "Qty. to Ship";
-                                        VATAmountLine.Quantity += "Qty. to Ship (Base)";
-                                    END;
-                                    AmtToHandle := GetLineAmountToHandle(QtyToHandle);
+                                AmtToHandle := _SalesLine.GetLineAmountToHandle(QtyToHandle);
+                                IF SalesHeader."Invoice Discount Calculation" <> SalesHeader."Invoice Discount Calculation"::Amount THEN
                                     VATAmountLine.SumLine(
-                                      AmtToHandle, ROUND("Inv. Discount Amount" * QtyToHandle / Quantity, Currency."Amount Rounding Precision"),
-                                      "VAT Difference", "Allow Invoice Disc.", "Prepayment Line");
+                                      AmtToHandle, ROUND(_SalesLine."Inv. Discount Amount" * QtyToHandle / _SalesLine.Quantity, Currency."Amount Rounding Precision"),
+                                      _SalesLine."VAT Difference", _SalesLine."Allow Invoice Disc.", _SalesLine."Prepayment Line")
+                                ELSE
+                                    VATAmountLine.SumLine(
+                                      AmtToHandle, _SalesLine."Inv. Disc. Amount to Invoice", _SalesLine."VAT Difference", _SalesLine."Allow Invoice Disc.", _SalesLine."Prepayment Line");
+                            END;
+                        QtyType::Shipping:
+                            BEGIN
+                                IF _SalesLine."Document Type" IN
+                                   [_SalesLine."Document Type"::"Return Order", _SalesLine."Document Type"::"Credit Memo"]
+                                THEN BEGIN
+                                    QtyToHandle := _SalesLine."Return Qty. to Receive";
+                                    VATAmountLine.Quantity += _SalesLine."Return Qty. to Receive (Base)";
+                                END ELSE BEGIN
+                                    QtyToHandle := _SalesLine."Qty. to Ship";
+                                    VATAmountLine.Quantity += _SalesLine."Qty. to Ship (Base)";
                                 END;
-                        END;
-                        TotalVATAmount += "Amount Including VAT" - Amount;
+                                AmtToHandle := _SalesLine.GetLineAmountToHandle(QtyToHandle);
+                                VATAmountLine.SumLine(
+                                  AmtToHandle, ROUND(_SalesLine."Inv. Discount Amount" * QtyToHandle / _SalesLine.Quantity, Currency."Amount Rounding Precision"),
+                                  _SalesLine."VAT Difference", _SalesLine."Allow Invoice Disc.", _SalesLine."Prepayment Line");
+                            END;
                     END;
-                UNTIL NEXT = 0;
-        END;
+                    TotalVATAmount += _SalesLine."Amount Including VAT" - _SalesLine.Amount;
+                END;
+            UNTIL _SalesLine.NEXT() = 0;
 
         VATAmountLine.UpdateLines(
           TotalVATAmount, Currency, SalesHeader."Currency Factor", SalesHeader."Prices Including VAT",
@@ -2168,22 +2143,20 @@ report 50090 "BC6_Facture Proforma CNE"
                 VATAmountLine."VAT Amount" += TotalVATAmount;
                 VATAmountLine."Amount Including VAT" += TotalVATAmount;
                 VATAmountLine."Calculated VAT Amount" += TotalVATAmount;
-                VATAmountLine.MODIFY;
+                VATAmountLine.MODIFY();
             END;
     end;
 
     local procedure EmptyAmountLine(_SalesLine: Record "Sales Line"; QtyType: Option General,Invoicing,Shipping): Boolean
     begin
-        WITH _SalesLine DO BEGIN
-            IF Type = Type::" " THEN
+        IF _SalesLine.Type = _SalesLine.Type::" " THEN
+            EXIT(TRUE);
+        IF _SalesLine.Quantity = 0 THEN
+            EXIT(TRUE);
+        IF QtyType = QtyType::Invoicing THEN
+            IF _SalesLine."Qty. to Invoice" = 0 THEN
                 EXIT(TRUE);
-            IF Quantity = 0 THEN
-                EXIT(TRUE);
-            IF QtyType = QtyType::Invoicing THEN
-                IF "Qty. to Invoice" = 0 THEN
-                    EXIT(TRUE);
-            EXIT(FALSE);
-        END;
+        EXIT(FALSE);
     end;
 
     local procedure GetAbsMin(QtyToHandle: Decimal; QtyHandled: Decimal): Decimal
@@ -2194,4 +2167,3 @@ report 50090 "BC6_Facture Proforma CNE"
         EXIT(QtyToHandle);
     end;
 }
-

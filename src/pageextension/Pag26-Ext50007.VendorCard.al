@@ -28,9 +28,9 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
             }
             field("BC6_% Mini Margin"; Rec."BC6_% Mini Margin")
             {
-                Visible = ShowMiniMargin;
                 ApplicationArea = All;
                 Caption = '% Mini Margin', Comment = 'FRA="% marge mini"';
+                Visible = ShowMiniMargin;
             }
         }
 
@@ -57,11 +57,11 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
         {
             field("BC6_Lead Time Calculation"; Rec."Lead Time Calculation")
             {
+                ApplicationArea = All;
+                Caption = 'Lead Time Calculation', Comment = 'FRA="Délai de réappro."';
                 Importance = Promoted;
                 ToolTip = 'Specifies a date formula for the time that it takes to replenish the item.', Comment = 'FRA="Spécifie une formule date pour le délai nécessaire au réapprovisionnement de l''article."';
                 Visible = false;
-                ApplicationArea = All;
-                Caption = 'Lead Time Calculation', Comment = 'FRA="Délai de réappro."';
             }
         }
 
@@ -81,8 +81,8 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
                 }
                 field(BC6_TxtGTransType; TxtGTransType)
                 {
-                    Editable = false;
                     ApplicationArea = All;
+                    Editable = false;
                     showcaption = false;
                 }
             }
@@ -100,8 +100,8 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
                 }
                 field(BC6_TxtGTransSpe; TxtGTransSpe)
                 {
-                    Editable = false;
                     ApplicationArea = All;
+                    Editable = false;
                     showcaption = false;
                 }
             }
@@ -119,8 +119,8 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
                 }
                 field(BC6_TxtGTransMeth; TxtGTransMeth)
                 {
-                    Editable = false;
                     ApplicationArea = All;
+                    Editable = false;
                     showcaption = false;
                 }
             }
@@ -138,8 +138,8 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
                 }
                 field(BC6_TxtGESPoint; TxtGESPoint)
                 {
-                    Editable = false;
                     ApplicationArea = All;
+                    Editable = false;
                     showcaption = false;
                 }
             }
@@ -157,8 +157,8 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
                 }
                 field(BC6_TxtGArea; TxtGArea)
                 {
-                    Editable = false;
                     ApplicationArea = All;
+                    Editable = false;
                     showcaption = false;
                 }
             }
@@ -174,9 +174,9 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
             }
             action("BC6_Associated Document")
             {
+                ApplicationArea = All;
                 Caption = 'Associated Document', Comment = 'FRA="Document Associé"';
                 Image = Document;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -196,20 +196,20 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
         {
             action("BC6_Pay-to Vend. No.")
             {
+                ApplicationArea = All;
                 Caption = 'Pay-to Vend. No.', Comment = 'FRA="Tiers payeur"';
                 Image = Vendor;
                 RunObject = Page "Vendor List";
                 RunPageLink = "BC6_Pay-to Vend. No." = FIELD("No.");
-                ApplicationArea = All;
             }
             action("Achats Groupés")
             {
+                ApplicationArea = All;
                 Caption = 'Achats Groupés', Comment = 'FRA="Achats Groupés"';
+                Image = ItemGroup;
                 RunObject = Page "BC6_Sales Order Lines Test";
                 RunPageLink = "BC6_Buy-from Vendor No." = FIELD("No.");
                 ShortCutKey = 'Ctrl+K';
-                Image = ItemGroup;
-                ApplicationArea = All;
             }
         }
     }
@@ -230,9 +230,6 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
             ShowMiniMargin := false;
     end;
 
-
-
-
     var
 
         RecGArea: Record "Area";
@@ -246,8 +243,6 @@ pageextension 50007 "BC6_VendorCard" extends "Vendor Card" //26
         TxtGTransMeth: Text[100];
         TxtGTransSpe: Text[100];
         TxtGTransType: Text[100];
-
-
 
     procedure Incoterm()
     begin

@@ -1,11 +1,10 @@
 report 50041 "BC6_Sales - Credit Memo CNE V2"
 {
-    DefaultLayout = RDLC;
-    RDLCLayout = './src/report/RDL/SalesCreditMemoCNEV2.rdl';
-
     Caption = 'Sales - Credit Memo', Comment = 'FRA="Ventes : Avoir"';
+    DefaultLayout = RDLC;
     Permissions = TableData "Sales Shipment Buffer" = rimd;
     PreviewMode = PrintLayout;
+    RDLCLayout = './src/report/RDL/SalesCreditMemoCNEV2.rdl';
 
     dataset
     {
@@ -393,17 +392,14 @@ report 50041 "BC6_Sales - Credit Memo CNE V2"
                             TotalAmountInclVATDEE += "Amount Including VAT" + "BC6_DEEE HT Amount" + "BC6_DEEE VAT Amount";
                             TotalAmount += Amount;
 
-
-                            IF RecGBillCustomer."BC6_Submitted to DEEE" THEN BEGIN
-                                BooGVisible := ("BC6_DEEE Category Code" <> '') AND (Quantity <> 0) AND ("BC6_Eco partner DEEE" <> '');
-                            END ELSE BEGIN
+                            IF RecGBillCustomer."BC6_Submitted to DEEE" THEN
+                                BooGVisible := ("BC6_DEEE Category Code" <> '') AND (Quantity <> 0) AND ("BC6_Eco partner DEEE" <> '')
+                            ELSE
                                 BooGVisible := FALSE;
-                            END;
 
                             BooGTotalVisible := "Sales Cr.Memo Header"."Prices Including VAT" AND ("Amount Including VAT" <> Amount);
                             BooGVATVisible := (TempVATAmountLine.COUNT > 1) AND ("Amount Including VAT" <> Amount);
                             BooGTotalVisible2 := (TempVATAmountLine.COUNT > 1) OR ((TempVATAmountLine.COUNT = 1) AND ("Amount Including VAT" = Amount));
-
                         end;
 
                         trigger OnPreDataItem()
@@ -422,8 +418,6 @@ report 50041 "BC6_Sales - Credit Memo CNE V2"
                             CurrReport.CREATETOTALS("Line Amount", Amount, "Amount Including VAT", "Inv. Discount Amount", "BC6_DEEE HT Amount", "BC6_DEEE VAT Amount");
                             DecGVATTotalAmount := 0;
                             DecGTTCTotalAmount := 0;
-
-
 
                             //FG
                             IntGNbLigFac := "Sales Cr.Memo Line".COUNT;
@@ -542,10 +536,9 @@ report 50041 "BC6_Sales - Credit Memo CNE V2"
                             RecGDEEE.RESET();
                             RecGDEEE.SETFILTER(RecGDEEE."DEEE Code", "BC6_DEEE Tariffs"."DEEE Code");
                             RecGDEEE.SETFILTER(RecGDEEE."Date beginning", '<=%1', "Sales Cr.Memo Header"."Posting Date");
-                            IF RecGDEEE.FIND('+') THEN BEGIN
+                            IF RecGDEEE.FIND('+') THEN
                                 IF RecGDEEE."Date beginning" <> "BC6_DEEE Tariffs"."Date beginning" THEN
                                     BooGDEEEFind := FALSE;
-                            END;
 
                             RecGItemCtg.RESET();
                             IF NOT RecGItemCtg.GET("BC6_DEEE Tariffs"."DEEE Code", "BC6_DEEE Tariffs"."Eco Partner") THEN
@@ -707,7 +700,6 @@ report 50041 "BC6_Sales - Credit Memo CNE V2"
                     TotalAmtHTDEEE := 0;
                     TotalAmountVATDEE := 0;
                     TotalAmountInclVATDEE := 0;
-
                 end;
 
                 trigger OnPostDataItem()
@@ -733,14 +725,12 @@ report 50041 "BC6_Sales - Credit Memo CNE V2"
 
                 FormatAddr.SalesCrMemoBillTo(CustAddr, "Sales Cr.Memo Header");
 
-
                 IF RespCenter.GET("Responsibility Center") THEN BEGIN
                     FormatAddr.RespCenter(CompanyAddr, RespCenter);
                     CompanyInfo."Phone No." := RespCenter."Phone No.";
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
-                END ELSE BEGIN
+                END ELSE
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
-                END;
 
                 FormatReportFooterAddress.FormatAddrFooter(FooterCompAddr, CompanyInfo);
 
@@ -795,7 +785,7 @@ report 50041 "BC6_Sales - Credit Memo CNE V2"
                         ShowShippingAddr := TRUE;
 
                 IF LogInteraction THEN
-                    IF NOT CurrReport.PREVIEW THEN BEGIN
+                    IF NOT CurrReport.PREVIEW THEN
                         IF "Bill-to Contact No." <> '' THEN
                             SegManagement.LogDocument(
                               4, "No.", 0, 0, DATABASE::Contact, "Bill-to Contact No.", "Salesperson Code",
@@ -804,7 +794,6 @@ report 50041 "BC6_Sales - Credit Memo CNE V2"
                             SegManagement.LogDocument(
                               4, "No.", 0, 0, DATABASE::Customer, "Bill-to Customer No.", "Salesperson Code",
                               "Campaign No.", "Posting Description", '');
-                    END;
 
                 RecGBillCustomer.RESET();
                 RecGBillCustomer.GET("Sales Cr.Memo Header"."Bill-to Customer No.");
@@ -823,21 +812,25 @@ report 50041 "BC6_Sales - Credit Memo CNE V2"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(NoOfCopies; NoOfCopies)
+                    field(NoOfCopiesF; NoOfCopies)
                     {
+                        ApplicationArea = All;
                         Caption = 'No. of Copies', Comment = 'FRA="Nombre de copies"';
                     }
-                    field(ShowInternalInfo; ShowInternalInfo)
+                    field(ShowInternalInfoF; ShowInternalInfo)
                     {
+                        ApplicationArea = All;
                         Caption = 'Show Internal Information', Comment = 'FRA="Afficher info. internes"';
                     }
-                    field(LogInteraction; LogInteraction)
+                    field(LogInteractionF; LogInteraction)
                     {
+                        ApplicationArea = All;
                         Caption = 'Log Interaction', Comment = 'FRA="Journal interaction"';
                         Enabled = LogInteractionEnable;
                     }
-                    field(IncludeShptNo; IncludeShptNo)
+                    field(IncludeShptNoF; IncludeShptNo)
                     {
+                        ApplicationArea = All;
                         Caption = 'Inlude Shipment No.', Comment = 'FRA="Journal interaction"';
                     }
                 }
@@ -870,9 +863,7 @@ report 50041 "BC6_Sales - Credit Memo CNE V2"
         CompanyInfo.GET();
         SalesSetup.GET();
         CompanyInfo.CALCFIELDS(Picture, "BC6_Alt Picture");
-
     end;
-
 
     trigger OnPreReport()
     begin
@@ -945,14 +936,14 @@ report 50041 "BC6_Sales - Credit Memo CNE V2"
         VALVATBaseLCY: Decimal;
         VATAmount: Decimal;
         VATBaseAmount: Decimal;
+        "-DEEE1.00-": Integer;
         "--FEP-ADVE-200706_18_A.--": Integer;
         "--FG--": Integer;
-        "-DEEE1.00-": Integer;
-        "- MIGNAV2013 -": Integer;
         FirstValueEntryNo: Integer;
         i: Integer;
         IntGCpt: Integer;
         IntGNbLigFac: Integer;
+        "- MIGNAV2013 -": Integer;
         NextEntryNo: Integer;
         NoOfCopies: Integer;
         NoOfLoops: Integer;
@@ -1023,9 +1014,6 @@ report 50041 "BC6_Sales - Credit Memo CNE V2"
         TxtGLblProjet: Text[30];
         TxtGNoProjet: Text[30];
         VATNoText: Text[30];
-        CompanyAddr: array[8] of Text[50];
-        CustAddr: array[8] of Text[50];
-        ShipToAddr: array[8] of Text[50];
         TotalExclVATText: Text[50];
         TotalInclVATText: Text[50];
         TotalText: Text[50];
@@ -1034,15 +1022,16 @@ report 50041 "BC6_Sales - Credit Memo CNE V2"
         VALExchRate: Text[50];
         OldDimText: Text[75];
         VALSpecLCYHeader: Text[80];
+        CompanyAddr: array[8] of Text[100];
+        CustAddr: array[8] of Text[100];
+        ShipToAddr: array[8] of Text[100];
         DimText: Text[120];
         FooterCompAddr: array[5] of Text[400];
-
 
     procedure InitLogInteraction()
     begin
         LogInteraction := SegManagement.FindInteractTmplCode(6) <> '';
     end;
-
 
     procedure DefineTagFax(TxtLTag: Text[50])
     begin
@@ -1050,11 +1039,9 @@ report 50041 "BC6_Sales - Credit Memo CNE V2"
         TxtGTag := RecGParamVente."BC6_RTE Fax Tag" + TxtLTag + '@cne.fax';
     end;
 
-
     procedure DefineTagMail(TxtLTag: Text[50])
     begin
         RecGParamVente.GET();
         TxtGTag := RecGParamVente."BC6_PDF Mail Tag" + TxtLTag;
     end;
 }
-

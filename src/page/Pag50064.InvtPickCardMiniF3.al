@@ -1,4 +1,4 @@
-page 50064 "Invt. Pick Card MiniForm F3"
+page 50064 "BC6_Invt. Pick Card MiniF3"
 {
     AutoSplitKey = false;
     Caption = 'Invt Pick Card', Comment = 'FRA="Prélèvement stock"';
@@ -17,6 +17,7 @@ page 50064 "Invt. Pick Card MiniForm F3"
         {
             field(LocationCodeCtrl; LocationCode)
             {
+                ApplicationArea = All;
                 Caption = 'Location', Comment = 'FRA="Magasin"';
                 Editable = false;
                 Numeric = false;
@@ -24,7 +25,6 @@ page 50064 "Invt. Pick Card MiniForm F3"
                 StyleExpr = TRUE;
                 TableRelation = Location;
                 Visible = LocationCodeVisible;
-                ApplicationArea = All;
 
                 trigger OnLookup(var Text: Text): Boolean
                 var
@@ -52,13 +52,13 @@ page 50064 "Invt. Pick Card MiniForm F3"
             }
             field(FromBinCodeCtrl; FromBinCode)
             {
+                ApplicationArea = All;
                 Caption = 'Bin Code', Comment = 'FRA="De empl."';
                 Editable = true;
                 Style = Standard;
                 StyleExpr = TRUE;
                 TableRelation = Bin.Code;
                 Visible = FromBinCodeCtrlVisible;
-                ApplicationArea = All;
 
                 trigger OnLookup(var Text: Text): Boolean
                 var
@@ -107,12 +107,12 @@ page 50064 "Invt. Pick Card MiniForm F3"
             }
             field(ItemNoCtrl; ItemNo)
             {
+                ApplicationArea = All;
                 Caption = 'Item nr', Comment = 'FRA="N° article"';
                 NotBlank = false;
                 Style = Standard;
                 StyleExpr = TRUE;
                 Visible = ItemNoCtrlVisible;
-                ApplicationArea = All;
 
                 trigger OnLookup(var Text: Text): Boolean
                 var
@@ -139,17 +139,17 @@ page 50064 "Invt. Pick Card MiniForm F3"
             }
             field(Description; Rec.Description)
             {
-                Editable = false;
                 ApplicationArea = All;
+                Editable = false;
             }
             field(QtyCtrl; Qty)
             {
+                ApplicationArea = All;
                 Caption = 'Quantity', Comment = 'FRA="Quantité"';
                 Editable = QtyCtrlEditable;
                 Style = Standard;
                 StyleExpr = TRUE;
                 Visible = QtyCtrlVisible;
-                ApplicationArea = All;
 
                 trigger OnValidate()
                 begin
@@ -158,13 +158,13 @@ page 50064 "Invt. Pick Card MiniForm F3"
             }
             field(ToBinCodeCtrl; ToBinCode)
             {
+                ApplicationArea = All;
                 Caption = 'Bin Code', Comment = 'FRA="Vers emp."';
                 Editable = ToBinCodeCtrlEditable;
                 Style = Standard;
                 StyleExpr = TRUE;
                 TableRelation = Bin.Code;
                 Visible = ToBinCodeCtrlVisible;
-                ApplicationArea = All;
 
                 trigger OnLookup(var Text: Text): Boolean
                 var
@@ -195,13 +195,13 @@ page 50064 "Invt. Pick Card MiniForm F3"
             }
             field(PickNoCtrl; PickNo)
             {
+                ApplicationArea = All;
                 Caption = 'Pick No.', Comment = 'FRA="N° prélèvement"';
                 Editable = false;
                 Numeric = false;
                 Style = Standard;
                 StyleExpr = TRUE;
                 Visible = PickNoCtrlVisible;
-                ApplicationArea = All;
 
                 trigger OnLookup(var Text: Text): Boolean
                 var
@@ -236,16 +236,16 @@ page 50064 "Invt. Pick Card MiniForm F3"
         {
             action("&Item")
             {
+                ApplicationArea = All;
                 Caption = '&Item', Comment = 'FRA="&Art."';
                 Image = Item;
                 Promoted = true;
                 PromotedCategory = Process;
                 ShortCutKey = 'F2';
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
-                    page50063: Page "Invt. Pick Card MiniForm F2";
+                    page50063: Page "BC6_Invt. Pick Card MiniF2";
                 begin
                     CLEAR(LastJnlLine);
 
@@ -276,16 +276,16 @@ page 50064 "Invt. Pick Card MiniForm F3"
             }
             action("&Bin")
             {
+                ApplicationArea = All;
                 Caption = '&Bin', Comment = 'FRA="&Emp."';
                 Image = Bin;
                 Promoted = true;
                 PromotedCategory = Process;
                 ShortCutKey = 'F3';
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
-                    page50064: Page "Invt. Pick Card MiniForm F3";
+                    page50064: Page "BC6_Invt. Pick Card MiniF3";
                 begin
                     CLEAR(LastJnlLine);
                     LastJnlLine.RESET();
@@ -312,13 +312,13 @@ page 50064 "Invt. Pick Card MiniForm F3"
             }
             action("&Post")
             {
+                ApplicationArea = All;
                 Caption = '&Post', Comment = 'FRA="&Valider"';
                 Image = Post;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ShortCutKey = 'F8';
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -327,16 +327,15 @@ page 50064 "Invt. Pick Card MiniForm F3"
                     PostBatch();
 
                     CurrPage.CLOSE();
-
                 end;
             }
             action("&Quit")
             {
+                ApplicationArea = All;
                 Caption = '&Quit', Comment = 'FRA="&Quitter"';
                 Image = Cancel;
                 Promoted = true;
                 PromotedCategory = Process;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -345,13 +344,13 @@ page 50064 "Invt. Pick Card MiniForm F3"
             }
             action("&Delete")
             {
-                Caption = '&Delete', Comment = 'FRA="&Delete"';
-                ShortCutKey = 'F9';
                 ApplicationArea = All;
+                Caption = '&Delete', Comment = 'FRA="&Delete"';
                 Image = Delete;
+                ShortCutKey = 'F9';
                 trigger OnAction()
                 var
-                    page50064: Page "Invt. Pick Card MiniForm F3";
+                    page50064: Page "BC6_Invt. Pick Card MiniF3";
                 begin
                     Rec.DELETE(TRUE);
 
@@ -550,7 +549,6 @@ page 50064 "Invt. Pick Card MiniForm F3"
         END ELSE BEGIN
             Rec."BC6_Whse. Document Type" := Rec."BC6_Whse. Document Type"::" ";
             Rec.VALIDATE("BC6_Whse. Document No.", '');
-
         END;
 
         UpdateCurrForm();
@@ -592,7 +590,6 @@ page 50064 "Invt. Pick Card MiniForm F3"
         Rec."New Bin Code" := BinCode;
     end;
 
-
     procedure AssignFromBinCode(var BinCode: Code[20])
     var
         Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
@@ -612,7 +609,6 @@ page 50064 "Invt. Pick Card MiniForm F3"
         Rec."Bin Code" := BinCode;
     end;
 
-
     procedure AssignItemNo(var ItemNum: Code[20])
     var
         FunctionMgt: Codeunit "BC6_Functions Mgt";
@@ -631,12 +627,11 @@ page 50064 "Invt. Pick Card MiniForm F3"
                     ItemError := TRUE;
                     ErrorTxt := STRSUBSTNO(Text013, ItemNum);
                 END;
-            END ELSE BEGIN
+            END ELSE
                 IF NOT Item.GET(ItemNum) THEN BEGIN
                     ItemError := TRUE;
                     ErrorTxt := STRSUBSTNO(Text013, ItemNum);
                 END;
-            END;
 
             IF Item.Blocked THEN BEGIN
                 IF NOT ItemError THEN
@@ -661,9 +656,9 @@ page 50064 "Invt. Pick Card MiniForm F3"
             END;
         END;
 
-        IF ItemError THEN BEGIN
-            MESSAGE('%1', ErrorTxt);
-        END ELSE BEGIN
+        IF ItemError THEN
+            MESSAGE('%1', ErrorTxt)
+        ELSE BEGIN
             Rec.VALIDATE("Item No.", ItemNum);
             Rec.VALIDATE("Bin Code", FromBinCode);
             Rec.VALIDATE(Quantity, 1);
@@ -735,7 +730,6 @@ page 50064 "Invt. Pick Card MiniForm F3"
         CtrlEnabled();
     end;
 
-
     procedure ItemExistOnInvtPick("ItemNo.": Code[20]; BinCode: Code[20]): Boolean
     var
         SalesLine: Record "Sales Line";
@@ -745,7 +739,6 @@ page 50064 "Invt. Pick Card MiniForm F3"
                 IF Location.GET(Rec."Location Code") THEN
                     ShipBinCode := Location."Shipment Bin Code";
             EXIT(true);
-
 
             InvtPickLine.RESET();
             InvtPickLine.SETRANGE("Activity Type", InvtPickLine."Activity Type"::"Invt. Pick");
@@ -766,19 +759,17 @@ page 50064 "Invt. Pick Card MiniForm F3"
         END;
     end;
 
-
     procedure CodeEANOk("Code": Code[20]) CodeOk: Boolean
     var
         i: Integer;
     begin
         IF (STRLEN(Code) = 13) THEN BEGIN
             CodeOk := TRUE;
-            FOR i := 1 TO STRLEN(Code) DO BEGIN
+            FOR i := 1 TO STRLEN(Code) DO
                 IF NOT (Code[i] IN ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']) THEN BEGIN
                     CodeOk := FALSE;
                     EXIT(CodeOk);
                 END;
-            END;
         END ELSE
             CodeOk := FALSE;
     end;
@@ -820,4 +811,3 @@ page 50064 "Invt. Pick Card MiniForm F3"
         ToBinCodeCtrlVisible := FALSE;
     end;
 }
-

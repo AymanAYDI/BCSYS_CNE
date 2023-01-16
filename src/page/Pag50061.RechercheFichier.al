@@ -1,8 +1,9 @@
 page 50061 "BC6_Recherche Fichier"
 {
+    ApplicationArea = All;
+    Caption = 'Recherche fichier';
     PageType = Card;
     UsageCategory = Administration;
-    Caption = 'Recherche fichier';
     layout
     {
         area(content)
@@ -11,21 +12,21 @@ page 50061 "BC6_Recherche Fichier"
             {
                 field(Init_Dir; Init_Dir)
                 {
-                    Enabled = true;
                     ApplicationArea = All;
                     Caption = 'Repértoire Initiale';
+                    Enabled = true;
                 }
                 field(Filtre; Filtre)
                 {
-                    Enabled = true;
                     ApplicationArea = All;
                     Caption = 'Filtre';
+                    Enabled = true;
                 }
                 field(File_Name; File_Name)
                 {
-                    Enabled = true;
                     ApplicationArea = All;
                     Caption = 'Fichier';
+                    Enabled = true;
                 }
             }
         }
@@ -46,4 +47,3 @@ page 50061 "BC6_Recherche Fichier"
         File_Name: Text[100];
         Init_Dir: Text[100];
 }
-

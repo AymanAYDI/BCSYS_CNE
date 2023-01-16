@@ -6,21 +6,21 @@ pageextension 50078 "BC6_VATSpecificationSubform" extends "VAT Specification Sub
         {
             field("BC6_DEEE HT Amount"; Rec."BC6_DEEE HT Amount")
             {
+                ApplicationArea = All;
                 Style = Strong;
                 StyleExpr = TRUE;
-                ApplicationArea = All;
             }
             field("BC6_DEEE VAT Amount"; Rec."BC6_DEEE VAT Amount")
             {
+                ApplicationArea = All;
                 Style = Strong;
                 StyleExpr = TRUE;
-                ApplicationArea = All;
             }
             field("BC6_DEEE TTC Amount"; Rec."BC6_DEEE TTC Amount")
             {
+                ApplicationArea = All;
                 Style = Strong;
                 StyleExpr = TRUE;
-                ApplicationArea = All;
             }
             field("BC6_DEEE HT Amount (LCY)"; Rec."BC6_DEEE HT Amount (LCY)")
             {
@@ -33,4 +33,3 @@ pageextension 50078 "BC6_VATSpecificationSubform" extends "VAT Specification Sub
         }
     }
 }
-

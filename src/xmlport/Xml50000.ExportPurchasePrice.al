@@ -13,9 +13,9 @@ xmlport 50000 "BC6_Export Purchase Price"
             XmlName = 'Root';
             tableelement(Table2000000026; Integer)
             {
-                XmlName = 'Integer';
                 SourceTableView = SORTING(Number)
                                   WHERE(Number = CONST(1));
+                XmlName = 'Integer';
                 textelement(text1)
                 {
                     XmlName = 'Text1';
@@ -99,7 +99,6 @@ xmlport 50000 "BC6_Export Purchase Price"
 
     requestpage
     {
-
         layout
         {
         }
@@ -114,4 +113,3 @@ xmlport 50000 "BC6_Export Purchase Price"
         PurchasePrice: Record "Purchase Price";
         Vendor: Record Vendor;
 }
-

@@ -6,6 +6,7 @@ pageextension 50045 "BC6_PostedSalesInvoices" extends "Posted Sales Invoices" //
         {
             field("BC6_User ID"; Rec."User ID")
             {
+                ApplicationArea = All;
                 Visible = BooGUserIDVisible;
             }
         }
@@ -13,16 +14,19 @@ pageextension 50045 "BC6_PostedSalesInvoices" extends "Posted Sales Invoices" //
         {
             field("BC6_DecGProfit%"; "DecGProfit%")
             {
+                ApplicationArea = All;
                 Caption = 'profit %', comment = 'FRA="% Marge"';
                 Visible = BooGProfitpctVisible;
             }
             field(BC6_DecGPurchCost; DecGPurchCost)
             {
+                ApplicationArea = All;
                 Caption = 'Purchase Cost', comment = 'FRA="Coût d''achat"';
                 Visible = BooGpurchasecostVisible;
             }
             field(BC6_DecGProfitAmount; DecGProfitAmount)
             {
+                ApplicationArea = All;
                 Caption = 'Profit Amount', comment = 'FRA="Montant Marge"';
                 Visible = BooGProfitAmountVisible;
             }

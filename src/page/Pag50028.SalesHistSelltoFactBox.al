@@ -10,23 +10,23 @@ page 50028 "BC6_Sales Hist. Sellto FactBox"
         {
             field(LastPrice; LastPrice)
             {
-                Caption = 'DP';
                 ApplicationArea = All;
+                Caption = 'DP';
             }
             field(LastMarge; LastMarge)
             {
-                Caption = 'DM';
                 ApplicationArea = All;
+                Caption = 'DM';
             }
             field(LastRemise; LastRemise)
             {
-                Caption = 'DR';
                 ApplicationArea = All;
+                Caption = 'DR';
             }
             field("Customer No."; RecGCustomer."No.")
             {
-                Caption = 'Customer No.', Comment = 'FRA="N° client"';
                 ApplicationArea = All;
+                Caption = 'Customer No.', Comment = 'FRA="N° client"';
 
                 trigger OnDrillDown()
                 begin
@@ -35,8 +35,8 @@ page 50028 "BC6_Sales Hist. Sellto FactBox"
             }
             field("&Quotes"; STRSUBSTNO(Txt1, NoOfQuotes))
             {
-                Caption = '&Quotes', Comment = 'FRA="&Devis"';
                 ApplicationArea = All;
+                Caption = '&Quotes', Comment = 'FRA="&Devis"';
 
                 trigger OnDrillDown()
                 begin
@@ -51,9 +51,9 @@ page 50028 "BC6_Sales Hist. Sellto FactBox"
             }
             field("&Blanket Orders"; STRSUBSTNO(Txt1, NoOfBlanketOrders))
             {
+                ApplicationArea = All;
                 Caption = '&Blanket Orders', Comment = 'FRA="&Commandes ouvertes"';
                 Visible = false;
-                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -68,9 +68,9 @@ page 50028 "BC6_Sales Hist. Sellto FactBox"
             }
             field("&Orders"; STRSUBSTNO(Txt1, NoOfOrders))
             {
+                ApplicationArea = All;
                 Caption = '&Orders', Comment = 'FRA="C&ommandes"';
                 Editable = false;
-                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -85,10 +85,10 @@ page 50028 "BC6_Sales Hist. Sellto FactBox"
             }
             field("&Invoices"; STRSUBSTNO(Txt1, NoofInvoices))
             {
+                ApplicationArea = All;
                 Caption = '&Invoices', Comment = 'FRA="&Factures"';
                 Editable = false;
                 Visible = false;
-                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -103,10 +103,10 @@ page 50028 "BC6_Sales Hist. Sellto FactBox"
             }
             field("&Return Orders"; STRSUBSTNO(Txt1, NoOfReturnOrders))
             {
+                ApplicationArea = All;
                 Caption = '&Return Orders', Comment = 'FRA="&Retours"';
                 Editable = false;
                 Visible = false;
-                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -121,10 +121,10 @@ page 50028 "BC6_Sales Hist. Sellto FactBox"
             }
             field("Cre&dit Memos"; STRSUBSTNO(Txt1, NoOfCreditMemos))
             {
+                ApplicationArea = All;
                 Caption = 'Cre&dit Memos', Comment = 'FRA="A&voirs"';
                 Editable = false;
                 Visible = false;
-                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -139,10 +139,10 @@ page 50028 "BC6_Sales Hist. Sellto FactBox"
             }
             field("&Posted Shipments"; STRSUBSTNO(Txt1, NoOfPstdShipments))
             {
+                ApplicationArea = All;
                 Caption = '&Posted Shipments', Comment = 'FRA="Ex&péditions enregistrées"';
                 Editable = false;
                 Visible = false;
-                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -156,9 +156,9 @@ page 50028 "BC6_Sales Hist. Sellto FactBox"
             }
             field("Posted I&nvoices"; STRSUBSTNO(Txt1, NoOfPstdInvoices))
             {
+                ApplicationArea = All;
                 Caption = 'Posted I&nvoices', Comment = 'FRA="Factures e&nregistrées"';
                 Editable = false;
-                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -172,10 +172,10 @@ page 50028 "BC6_Sales Hist. Sellto FactBox"
             }
             field("Posted Ret&urn Receipts"; STRSUBSTNO(Txt1, NoOfPstdReturnReceipts))
             {
+                ApplicationArea = All;
                 Caption = 'Posted Ret&urn Receipts', Comment = 'FRA="Réceptions reto&ur enregistrées"';
                 Editable = false;
                 Visible = false;
-                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -189,9 +189,9 @@ page 50028 "BC6_Sales Hist. Sellto FactBox"
             }
             field("Posted Cr. &Memos"; STRSUBSTNO(Txt1, NoOfPstdCreditMemos))
             {
+                ApplicationArea = All;
                 Caption = 'Posted Cr. &Memos', Comment = 'FRA="&Avoirs enregistrés"';
                 Editable = false;
-                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -257,7 +257,6 @@ page 50028 "BC6_Sales Hist. Sellto FactBox"
                 CodGDocNo := RecGSalesLine."Document No.";
             UNTIL RecGSalesLine.NEXT() = 0;
 
-
         RecGSalesLine2.RESET();
         RecGSalesLine2.SETCURRENTKEY("Shipment Date", "Document Type", "Sell-to Customer No.", "Document No.", "Line No.");
         RecGSalesLine2.SETRANGE("Document Type", RecGSalesLine2."Document Type"::Order);
@@ -301,7 +300,6 @@ page 50028 "BC6_Sales Hist. Sellto FactBox"
             UNTIL RecGPostdCrdMemo.NEXT() = 0;
     end;
 
-
     var
         RecGCustomer: Record Customer;
         RecGReturnReceiptLine: Record "Return Receipt Line";
@@ -316,7 +314,7 @@ page 50028 "BC6_Sales Hist. Sellto FactBox"
         PagGInvoiceLinesSubform3: Page "BC6_Invoice Lines Subform 3";
         PagGSalesLinesSubform3: Page "BC6_Sales Lines Subform 3";
         PagGShipmentLinesSubform3: page "BC6_Shipment Lines Subform 3";
-        PagGGReturnRcptLinesSubform2: Page "Return Rcpt Lines Subform 2";
+        PagGGReturnRcptLinesSubform2: Page "BC6_Return Rcpt Lines Sub2";
         CodGDocNo: Code[20];
         LastMarge: Decimal;
         LastPrice: Decimal;

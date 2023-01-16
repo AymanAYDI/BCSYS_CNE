@@ -19,8 +19,8 @@ page 50074 "BC6_Item List Search CNE"
                 Caption = 'Search', Comment = 'FRA="Chercher"';
                 usercontrol(ScanZone; "BC6_ControlAddinScanCapture")
                 {
-                    Visible = IsVisibleSearch;
                     ApplicationArea = All;
+                    Visible = IsVisibleSearch;
 
                     trigger ControlAddInReady()
                     begin
@@ -43,9 +43,9 @@ page 50074 "BC6_Item List Search CNE"
                 }
                 field(SearchField; SearchField)
                 {
+                    ApplicationArea = All;
                     Caption = 'Search', Comment = 'FRA="Rechercher"';
                     Visible = NOT (IsVisibleSearch);
-                    ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
@@ -54,10 +54,10 @@ page 50074 "BC6_Item List Search CNE"
                 }
                 field(LastSearchField; LastSearchField)
                 {
+                    ApplicationArea = All;
                     Caption = 'Last Search', Comment = 'FRA="Dernière recherche"';
                     Editable = false;
                     QuickEntry = false;
-                    ApplicationArea = All;
 
                     trigger OnValidate()
                     var
@@ -108,8 +108,8 @@ page 50074 "BC6_Item List Search CNE"
                 }
                 field("Created From Nonstock Item"; Rec."Created From Nonstock Item")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Substitutes Exist"; Rec."Substitutes Exist")
                 {
@@ -118,8 +118,8 @@ page 50074 "BC6_Item List Search CNE"
                 }
                 field("Stockkeeping Unit Exists"; Rec."Stockkeeping Unit Exists")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Assembly BOM"; Rec."Assembly BOM")
                 {
@@ -140,13 +140,13 @@ page 50074 "BC6_Item List Search CNE"
                 }
                 field("Shelf No."; Rec."Shelf No.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Costing Method"; Rec."Costing Method")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Cost is Adjusted"; Rec."Cost is Adjusted")
                 {
@@ -154,8 +154,8 @@ page 50074 "BC6_Item List Search CNE"
                 }
                 field("Standard Cost"; Rec."Standard Cost")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Unit Cost"; Rec."Unit Cost")
                 {
@@ -164,18 +164,18 @@ page 50074 "BC6_Item List Search CNE"
                 }
                 field("Last Direct Cost"; Rec."Last Direct Cost")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Price/Profit Calculation"; Rec."Price/Profit Calculation")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Profit %"; Rec."Profit %")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Unit Price"; Rec."Unit Price")
                 {
@@ -184,23 +184,23 @@ page 50074 "BC6_Item List Search CNE"
                 }
                 field("Inventory Posting Group"; Rec."Inventory Posting Group")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Gen. Prod. Posting Group"; Rec."Gen. Prod. Posting Group")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("VAT Prod. Posting Group"; Rec."VAT Prod. Posting Group")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Item Disc. Group"; Rec."Item Disc. Group")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Vendor No."; Rec."Vendor No.")
                 {
@@ -208,8 +208,8 @@ page 50074 "BC6_Item List Search CNE"
                 }
                 field("Vendor Item No."; Rec."Vendor Item No.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Tariff No."; Rec."Tariff No.")
                 {
@@ -223,18 +223,18 @@ page 50074 "BC6_Item List Search CNE"
                 }
                 field("Overhead Rate"; Rec."Overhead Rate")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Indirect Cost %"; Rec."Indirect Cost %")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Item Category Code"; Rec."Item Category Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 // field("Product Group Code"; "Product Group Code") TODO:
                 // {
@@ -243,53 +243,53 @@ page 50074 "BC6_Item List Search CNE"
                 // }
                 field(Blocked; Rec.Blocked)
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Last Date Modified"; Rec."Last Date Modified")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Sales Unit of Measure"; Rec."Sales Unit of Measure")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Replenishment System"; Rec."Replenishment System")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Purch. Unit of Measure"; Rec."Purch. Unit of Measure")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Lead Time Calculation"; Rec."Lead Time Calculation")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Manufacturing Policy"; Rec."Manufacturing Policy")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Flushing Method"; Rec."Flushing Method")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Assembly Policy"; Rec."Assembly Policy")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Item Tracking Code"; Rec."Item Tracking Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Default Deferral Template Code"; Rec."Default Deferral Template Code")
                 {
@@ -304,6 +304,7 @@ page 50074 "BC6_Item List Search CNE"
         {
             part("Item Invoicing FactBox"; "Item Invoicing FactBox")
             {
+                ApplicationArea = All;
                 SubPageLink = "No." = FIELD("No."),
                               "Date Filter" = FIELD("Date Filter"),
                               "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"),
@@ -314,10 +315,10 @@ page 50074 "BC6_Item List Search CNE"
                               "Variant Filter" = FIELD("Variant Filter"),
                               "Lot No. Filter" = FIELD("Lot No. Filter"),
                               "Serial No. Filter" = FIELD("Serial No. Filter");
-                ApplicationArea = All;
             }
             part("Item Replenishment FactBox"; "Item Replenishment FactBox")
             {
+                ApplicationArea = All;
                 SubPageLink = "No." = FIELD("No."),
                               "Date Filter" = FIELD("Date Filter"),
                               "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"),
@@ -332,6 +333,7 @@ page 50074 "BC6_Item List Search CNE"
             }
             part("Item Planning FactBox"; "Item Planning FactBox")
             {
+                ApplicationArea = All;
                 SubPageLink = "No." = FIELD("No."),
                               "Date Filter" = FIELD("Date Filter"),
                               "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"),
@@ -345,6 +347,7 @@ page 50074 "BC6_Item List Search CNE"
             }
             part("Item Warehouse FactBox"; "Item Warehouse FactBox")
             {
+                ApplicationArea = All;
                 SubPageLink = "No." = FIELD("No."),
                               "Date Filter" = FIELD("Date Filter"),
                               "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"),
@@ -363,9 +366,11 @@ page 50074 "BC6_Item List Search CNE"
             }
             systempart(Links; Links)
             {
+                ApplicationArea = All;
             }
             systempart(Notes; Notes)
             {
+                ApplicationArea = All;
             }
         }
     }
@@ -418,7 +423,6 @@ page 50074 "BC6_Item List Search CNE"
         ConvertTo: Label '1234567890';
         EventFilter: Text;
 
-
     procedure GetSelectionFilter(): Text
     var
         SelectionFilterManagement: Codeunit SelectionFilterManagement;
@@ -427,13 +431,10 @@ page 50074 "BC6_Item List Search CNE"
         EXIT(SelectionFilterManagement.GetSelectionFilterForItem(Item));
     end;
 
-
     procedure SetSelection(var Items: Record Item)
     begin
         CurrPage.SETSELECTIONFILTER(Items);
     end;
-
-
 
     local procedure EnableControls()
     begin
@@ -492,4 +493,3 @@ page 50074 "BC6_Item List Search CNE"
         CurrPage.UPDATE(FALSE);
     end;
 }
-

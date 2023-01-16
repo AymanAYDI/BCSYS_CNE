@@ -13,8 +13,8 @@ tableextension 50011 "BC6_PurchaseLine" extends "Purchase Line" //39
         field(50000; "BC6_Sales No."; Code[20])
         {
             Caption = 'Sales Order No.', comment = 'FRA="No commande vente"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
 
             trigger OnLookup()
             var
@@ -28,20 +28,21 @@ tableextension 50011 "BC6_PurchaseLine" extends "Purchase Line" //39
         field(50001; "BC6_Sales Line No."; Integer)
         {
             Caption = 'Sales Order Line No.', comment = 'FRA="No ligne commande vente"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50002; "BC6_Sales Document Type"; Enum "Sales Document Type")
         {
             Caption = 'Document Type', comment = 'FRA="Type document"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50003; "BC6_Document Date flow"; Date)
         {
-            Caption = 'Document Date', comment = 'FRA="Date document"';
-            FieldClass = FlowField;
             CalcFormula = Lookup("Purchase Header"."Document Date" WHERE("No." = FIELD("Document No.")));
+            Caption = 'Document Date', comment = 'FRA="Date document"';
+            Editable = false;
+            FieldClass = FlowField;
         }
         field(50004; "BC6_Document Date"; Date)
         {
@@ -69,8 +70,8 @@ tableextension 50011 "BC6_PurchaseLine" extends "Purchase Line" //39
             AutoFormatExpression = "Currency Code";
             AutoFormatType = 2;
             Caption = 'Discount Direct Unit Cost excluding VAT', comment = 'FRA="Coût unitaire direct remisé HT"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
 
             trigger OnValidate()
             begin
@@ -95,12 +96,12 @@ tableextension 50011 "BC6_PurchaseLine" extends "Purchase Line" //39
         field(50121; "BC6_Solution Code"; Code[10])
         {
             Caption = 'Solution Code', comment = 'FRA="Code Solution"';
+            DataClassification = CustomerContent;
             TableRelation = IF ("Document Type" = FILTER("Return Order"),
                                 "BC6_Return Order Type" = FILTER(Location)) "BC6_Return Solution" WHERE(Type = FILTER(Location))
             ELSE
             IF ("Document Type" = FILTER("Return Order"),
                                          "BC6_Return Order Type" = FILTER(SAV)) "BC6_Return Solution" WHERE(Type = FILTER(SAV));
-            DataClassification = CustomerContent;
         }
         field(50122; "BC6_Return Comment"; Text[50])
         {
@@ -120,8 +121,8 @@ tableextension 50011 "BC6_PurchaseLine" extends "Purchase Line" //39
         field(80800; "BC6_DEEE Category Code"; Code[10])
         {
             Caption = 'DEEE Category Code', comment = 'FRA="Code Catégorie DEEE"';
-            TableRelation = "BC6_Categories of item".Category;
             DataClassification = CustomerContent;
+            TableRelation = "BC6_Categories of item".Category;
 
             trigger OnValidate()
             begin
@@ -159,8 +160,8 @@ tableextension 50011 "BC6_PurchaseLine" extends "Purchase Line" //39
         field(80802; "BC6_DEEE HT Amount"; Decimal)
         {
             Caption = 'DEEE HT Amount', comment = 'FRA="Montant HT DEEE"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
 
             trigger OnValidate()
             var
@@ -183,39 +184,38 @@ tableextension 50011 "BC6_PurchaseLine" extends "Purchase Line" //39
         field(80803; "BC6_DEEE Unit Price (LCY)"; Decimal)
         {
             Caption = 'DEEE Unit Price (LCY)', comment = 'FRA="Prix Unitaire DEEE (DS)"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80804; "BC6_DEEE VAT Amount"; Decimal)
         {
             Caption = 'DEEE VAT Amount', comment = 'FRA="Montant TVA DEEE"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80805; "BC6_DEEE TTC Amount"; Decimal)
         {
             Caption = 'DEEE TTC Amount', comment = 'FRA="Montant TTC DEEE"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80806; "BC6_DEEE HT Amount (LCY)"; Decimal)
         {
             Caption = 'DEEE HT Amount (LCY)', comment = 'FRA="Montant Unitaire DEEE (DS)"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80807; "BC6_Eco partner DEEE"; Code[20])
         {
             Caption = 'Eco partner DEEE', comment = 'FRA="Eco partenaire DEEE"';
-            TableRelation = Vendor;
             DataClassification = CustomerContent;
+            TableRelation = Vendor;
         }
         field(80808; "BC6_DEEE Amount (LCY) for Stat"; Decimal)
         {
             Caption = 'DEEE Amount (LCY) for Stat', comment = 'FRA="Montant pour (DS)"';
             DataClassification = CustomerContent;
         }
-
     }
     keys
     {
@@ -230,16 +230,15 @@ tableextension 50011 "BC6_PurchaseLine" extends "Purchase Line" //39
             "BC6_Discount Direct Unit Cost" :=
               ROUND("Direct Unit Cost" - ("Direct Unit Cost" * "Line Discount %" / 100), Currency."Amount Rounding Precision");
 
-            IF PurchHeader."Prices Including VAT" THEN BEGIN
+            IF PurchHeader."Prices Including VAT" THEN
                 "BC6_Discount Direct Unit Cost" := "BC6_Discount Direct Unit Cost" / (1 + "VAT %" / 100);
-            END;
             //BCSYS 200618 remis le IF commenté
             IF ("BC6_Sales No." <> '') AND ("BC6_Sales Line No." <> 0) THEN BEGIN
                 RecLSalesLine.SETCURRENTKEY("BC6_Purch. Document Type", "BC6_Purch. Order No.", "BC6_Purch. Line No.");
                 RecLSalesLine.SETFILTER("BC6_Purch. Document Type", '%1', "Document Type");
                 RecLSalesLine.SETFILTER("BC6_Purch. Order No.", "Document No.");
                 RecLSalesLine.SETFILTER("BC6_Purch. Line No.", '%1', "Line No.");
-                IF RecLSalesLine.FIND('-') THEN BEGIN
+                IF RecLSalesLine.FIND('-') THEN
                     REPEAT
                         //>>PDW : le 03/08/2015 : Même si la commande est lancée.
                         RecLSalesLine.SuspendStatusCheck(TRUE);
@@ -247,7 +246,6 @@ tableextension 50011 "BC6_PurchaseLine" extends "Purchase Line" //39
                         RecLSalesLine.VALIDATE("BC6_Purchase cost", "BC6_Discount Direct Unit Cost");
                         RecLSalesLine.MODIFY();
                     UNTIL RecLSalesLine.NEXT() = 0;
-                END;
             END;
         END;
     end;
@@ -301,9 +299,8 @@ tableextension 50011 "BC6_PurchaseLine" extends "Purchase Line" //39
         RecLDEEETariffs.SETRANGE("DEEE Code", "BC6_DEEE Category Code");
         RecLDEEETariffs.SETRANGE("Eco Partner", RecLItem."BC6_Eco partner DEEE");
         RecLDEEETariffs.SETFILTER("Date beginning", '<=%1', PurchHeader."Posting Date");
-        IF NOT RecLDEEETariffs.FIND('+') THEN BEGIN
+        IF NOT RecLDEEETariffs.FIND('+') THEN
             ERROR('Paramétrage incorrect pour les filtres %1', RecLDEEETariffs.GETFILTERS);
-        END;
 
         VALIDATE("BC6_DEEE Unit Price", RecLDEEETariffs."HT Unit Tax (LCY)" * RecLItem."BC6_Number of Units DEEE");
         VALIDATE("BC6_DEEE HT Amount", "BC6_DEEE Unit Price" * "Quantity (Base)");

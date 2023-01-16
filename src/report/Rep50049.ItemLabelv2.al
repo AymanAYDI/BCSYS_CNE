@@ -1,12 +1,10 @@
 report 50049 "BC6_Item Label v2"
 {
-
+    ApplicationArea = all;
+    Caption = 'Item Label', Comment = 'FRA="Etiquette article"';
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/ItemLabelv2.rdl';
-
-    Caption = 'Item Label', Comment = 'FRA="Etiquette article"';
     UsageCategory = ReportsAndAnalysis;
-    ApplicationArea = all;
 
     dataset
     {
@@ -38,7 +36,6 @@ report 50049 "BC6_Item Label v2"
                 column(CopyLoop_Number; Number)
                 {
                 }
-
 
                 trigger OnPreDataItem()
                 begin
@@ -78,8 +75,8 @@ report 50049 "BC6_Item Label v2"
             var
                 FunctionMgt: Codeunit "BC6_Functions Mgt";
                 BarcodeSymbology: Enum "Barcode Symbology";
-                BarcodeString: Text;
                 BarcodeFontProvider: Interface "Barcode Font Provider";
+                BarcodeString: Text;
             begin
                 EAN13Txt := FunctionMgt.GetItemEAN13Code("No.");
                 BarcodeFontProvider := Enum::"Barcode Font Provider"::IDAutomation1D;
@@ -103,4 +100,3 @@ report 50049 "BC6_Item Label v2"
         UnitPriceIncVATTxt: Text[120];
         UnitPriceTxt: Text[120];
 }
-

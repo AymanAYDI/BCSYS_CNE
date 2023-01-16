@@ -6,8 +6,8 @@ pageextension 50133 "BC6_PaymentSlip" extends "Payment Slip" //10868
         {
             action("BC6_Propose Pay-to vendor payments")
             {
-                Caption = 'Propose Pay-to vendor payments';
                 ApplicationArea = All;
+                Caption = 'Propose Pay-to vendor payments';
                 image = Payroll;
                 trigger OnAction()
                 var
@@ -31,8 +31,8 @@ pageextension 50133 "BC6_PaymentSlip" extends "Payment Slip" //10868
         {
             action("BC6_Propose Pay-to customer payments")
             {
-                Caption = 'Propose Pay-to customer payments';
                 ApplicationArea = All;
+                Caption = 'Propose Pay-to customer payments';
                 image = Payroll;
                 trigger OnAction()
                 var
@@ -54,8 +54,8 @@ pageextension 50133 "BC6_PaymentSlip" extends "Payment Slip" //10868
         {
             action(BC6_Lettrer)
             {
-                Caption = 'Lettrer';
                 ApplicationArea = All;
+                Caption = 'Lettrer';
 
                 trigger OnAction()
                 var

@@ -6,14 +6,14 @@ pageextension 50037 "BC6_PostedSalesInvoice" extends "Posted Sales Invoice" //13
         {
             field("BC6_Sell-to Fax No."; Rec."BC6_Sell-to Fax No.")
             {
-                Enabled = false;
                 ApplicationArea = All;
+                Enabled = false;
             }
             field("BC6_Sell-to E-Mail Address"; Rec."BC6_Sell-to E-Mail Address")
             {
+                ApplicationArea = All;
                 Caption = 'Sell-to Customer E-Mail', Comment = 'FRA="E-Mail donneur d''ordre"';
                 Editable = false;
-                ApplicationArea = All;
             }
             field("BC6_Shipment Invoiced"; Rec."BC6_Shipment Invoiced")
             {
@@ -35,9 +35,9 @@ pageextension 50037 "BC6_PostedSalesInvoice" extends "Posted Sales Invoice" //13
         {
             action("BC6_Envoyer par E-Mail")
             {
+                ApplicationArea = All;
                 Caption = 'Envoyer par E-Mail';
                 Image = SendMail;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -70,9 +70,9 @@ pageextension 50037 "BC6_PostedSalesInvoice" extends "Posted Sales Invoice" //13
             }
             action("BC6_Envoyer par Fax")
             {
+                ApplicationArea = All;
                 Caption = 'Envoyer par Fax';
                 Image = SendElectronicDocument;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -99,7 +99,6 @@ pageextension 50037 "BC6_PostedSalesInvoice" extends "Posted Sales Invoice" //13
         Objet: Text[250];
         ToFile: Text[250];
         Body: Text[1024];
-
 
     procedure EnvoiMail()
     begin

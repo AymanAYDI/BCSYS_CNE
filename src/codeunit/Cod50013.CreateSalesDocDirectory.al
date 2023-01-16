@@ -1,6 +1,5 @@
 codeunit 50013 "BC6_Create SalesDoc Directory"
 {
-
     TableNo = "Sales Header";
 
     trigger OnRun()
@@ -55,7 +54,6 @@ codeunit 50013 "BC6_Create SalesDoc Directory"
 
         CLEAR(FileMngt);
 
-
         TargetDirectoryPath := SalesSetup."BC6_Technicals Directory Path";
         TargetNewSubDirectory := SalesHeader."No.";
         TargetDirectoryName := '';
@@ -85,7 +83,6 @@ codeunit 50013 "BC6_Create SalesDoc Directory"
                         IF NOT (COPYSTR(TargetDirectoryName, STRLEN(TargetDirectoryName)) = '\') THEN
                             TargetDirectoryName := TargetDirectoryName + '\';
                     END;
-
                 UNTIL RecLink.NEXT() = 0;
         UNTIL SalesLine.NEXT() = 0;
         //LORSQU'on Ajoute la proc CopyAndRenameClientFile
@@ -97,4 +94,3 @@ codeunit 50013 "BC6_Create SalesDoc Directory"
         Window.CLOSE();
     end;
 }
-

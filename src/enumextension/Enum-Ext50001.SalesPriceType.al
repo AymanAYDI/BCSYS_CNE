@@ -8,5 +8,4 @@ enumextension 50001 "BC6_SalesPriceType" extends "Sales Price Type"
     {
         Caption = 'None';
     }
-
 }

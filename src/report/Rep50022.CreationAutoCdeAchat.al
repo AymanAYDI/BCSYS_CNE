@@ -1,10 +1,9 @@
 report 50022 "BC6_Creation Auto Cde Achat"
 {
-
+    ApplicationArea = all;
     Caption = 'Creation Auto Cde Achat', Comment = 'FRA="Creation Auto Cde Achat"';
     ProcessingOnly = true;
     UsageCategory = Tasks;
-    ApplicationArea = all;
 
     dataset
     {
@@ -12,7 +11,6 @@ report 50022 "BC6_Creation Auto Cde Achat"
 
     requestpage
     {
-
         layout
         {
         }
@@ -42,4 +40,3 @@ report 50022 "BC6_Creation Auto Cde Achat"
         RecGInfoSoc: Record "Company Information";
         Text001: Label 'You are not in a branch company', comment = 'FRA="Vous n''êtes pas dans une société filiale"';
 }
-

@@ -11,4 +11,3 @@ pageextension 50036 "BC6_PostedSalesShptSubform" extends "Posted Sales Shpt. Sub
         }
     }
 }
-

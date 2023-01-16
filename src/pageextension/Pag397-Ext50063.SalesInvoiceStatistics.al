@@ -11,16 +11,16 @@ pageextension 50063 "BC6_SalesInvoiceStatistics" extends "Sales Invoice Statisti
         {
             field(BC6_DecGMntHTDEEE; DecGMntHTDEEE)
             {
+                ApplicationArea = All;
                 Caption = 'Total DEEE';
                 Style = StandardAccent;
                 StyleExpr = TRUE;
-                ApplicationArea = All;
             }
             field("CustAmount+DecGMntHTDEEE"; NewCustAmount + DecGMntHTDEEE)
             {
+                ApplicationArea = All;
                 Caption = 'Total HT DEEE Incluse';
                 Enabled = false;
-                ApplicationArea = All;
             }
         }
     }
@@ -28,7 +28,6 @@ pageextension 50063 "BC6_SalesInvoiceStatistics" extends "Sales Invoice Statisti
     actions
     {
     }
-
 
     procedure IncrementDecGMntHTDEEE(_DecGMntHTDEEE: Decimal)
     begin

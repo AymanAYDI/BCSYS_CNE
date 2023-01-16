@@ -1,8 +1,6 @@
 page 50021 "BC6_Item Sales Profit Group"
 {
-
     Caption = 'Item Sales Profit Group', Comment = 'FRA="Groupe Marge Vente Article"';
-
     PageType = List;
     SourceTable = "BC6_Item Sales Profit Group";
     UsageCategory = None;
@@ -25,4 +23,3 @@ page 50021 "BC6_Item Sales Profit Group"
         }
     }
 }
-

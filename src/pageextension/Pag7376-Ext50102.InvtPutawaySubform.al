@@ -18,10 +18,9 @@ pageextension 50102 "BC6_InvtPutawaySubform" extends "Invt. Put-away Subform" //
             }
             field("BC6_Warehouse Comment"; Rec."BC6_Warehouse Comment")
             {
-                Editable = false;
                 ApplicationArea = All;
+                Editable = false;
             }
         }
     }
 }
-

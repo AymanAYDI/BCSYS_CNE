@@ -14,6 +14,7 @@ page 50014 "BC6_Item Sales/Purch. History"
         {
             field(CurrentMenuTypeValue; CurrentMenuType)
             {
+                ApplicationArea = All;
                 Caption = 'Current Menu Type Value', Comment = 'FRA="Valeur actuelle du type de Menu"';
                 Visible = false;
             }
@@ -22,6 +23,7 @@ page 50014 "BC6_Item Sales/Purch. History"
                 Caption = 'Sales History', comment = 'FRA="Historique Vente"';
                 field(QuotesBtn; CurrentMenuTypeOpt)
                 {
+                    ApplicationArea = All;
                     Caption = 'QuotesBtn', Comment = 'FRA="QuotesBtn"';
                     trigger OnValidate()
                     begin
@@ -46,57 +48,64 @@ page 50014 "BC6_Item Sales/Purch. History"
                         IF CurrentMenuTypeOpt = CurrentMenuTypeOpt::x0 THEN
                             x0CurrentMenuTypeOptOnValidate();
                     end;
-
-
                 }
-
                 field(Quotes; STRSUBSTNO(txtlbl1, NoOfQuotes))
                 {
+                    ApplicationArea = All;
                     Caption = '&Quotes', comment = 'FRA="&Devis"';
                     Editable = false;
                 }
                 field("Blanket Orders"; STRSUBSTNO(txtlbl1, NoOfBlanketOrders))
                 {
+                    ApplicationArea = All;
                     Caption = '&Blanket Orders', comment = 'FRA="&Commandes ouvertes"';
                     Editable = false;
                 }
                 field(Orders; STRSUBSTNO(txtlbl1, NoOfOrders))
                 {
+                    ApplicationArea = All;
                     Caption = '&Orders', comment = 'FRA="C&ommandes"';
                     Editable = false;
                 }
                 field(Invoices; STRSUBSTNO(txtlbl1, NoofInvoices))
                 {
+                    ApplicationArea = All;
                     Caption = '&Invoices', comment = 'FRA="&Factures"';
                     Editable = false;
                 }
                 field("Return Orders"; STRSUBSTNO(txtlbl1, NoOfReturnOrders))
                 {
+                    ApplicationArea = All;
                     Caption = '&Return Orders', comment = 'FRA="&Retours"';
                     Editable = false;
                 }
                 field("Cre&dit Memos"; STRSUBSTNO(txtlbl1, NoOfCreditMemos))
                 {
+                    ApplicationArea = All;
                     Caption = 'Cre&dit Memos', comment = 'FRA="A&voirs"';
                     Editable = false;
                 }
                 field("&Posted Shipments"; STRSUBSTNO(txtlbl1, NoOfPstdShipments))
                 {
+                    ApplicationArea = All;
                     Caption = '&Posted Shipments', comment = 'FRA="Ex&péditions enregistrées"';
                     Editable = false;
                 }
                 field("Posted I&nvoices"; STRSUBSTNO(txtlbl1, NoOfPstdInvoices))
                 {
+                    ApplicationArea = All;
                     Caption = 'Posted I&nvoices', comment = 'FRA="Factures e&nregistrées"';
                     Editable = false;
                 }
                 field("Posted Ret&urn Receipts"; STRSUBSTNO(txtlbl1, NoOfPstdReturnReceipts))
                 {
+                    ApplicationArea = All;
                     Caption = 'Posted Ret&urn Receipts', comment = 'FRA="Réceptions reto&ur enregistrées"';
                     Editable = false;
                 }
                 field("Posted Cr. &Memos"; STRSUBSTNO(txtlbl1, NoOfPstdCreditMemos))
                 {
+                    ApplicationArea = All;
                     Caption = 'Posted Cr. &Memos', comment = 'FRA="&Avoirs enregistrés"';
                     Editable = false;
                 }
@@ -106,110 +115,131 @@ page 50014 "BC6_Item Sales/Purch. History"
                 Caption = 'Purchase History', comment = 'FRA="Historique Achat"';
                 field(PurchLineBtn; CurrentMenuTypeOpt)
                 {
+                    ApplicationArea = All;
                     ShowCaption = false;
                 }
                 field("Purch Quote"; STRSUBSTNO(txtlbl1, NbrOfPurchQuote))
                 {
+                    ApplicationArea = All;
                     Caption = 'Purch Quote', comment = 'FRA="Demandes de prix"';
                     Editable = false;
                 }
                 field("Blanket Order Purchas"; STRSUBSTNO(txtlbl1, NbrOfPurchBlanketOrder))
                 {
+                    ApplicationArea = All;
                     Caption = 'Blanket Order Purchas ', comment = 'FRA="Commandes achat ouvertes"';
                     Editable = false;
                 }
                 field("Purchase Order"; STRSUBSTNO(txtlbl1, NbrOfPurchOrder))
                 {
+                    ApplicationArea = All;
                     Caption = 'Purchase Order', comment = 'FRA="Commandes achat"';
                     Editable = false;
                 }
                 field("Purchase Invoice"; STRSUBSTNO(txtlbl1, NbrOfPurchInvoice))
                 {
+                    ApplicationArea = All;
                     Caption = 'Purchase Invoice', comment = 'FRA="Factures achat"';
                     Editable = false;
                 }
                 field("Purchase Return"; STRSUBSTNO(txtlbl1, NbrOfPurchReturn))
                 {
+                    ApplicationArea = All;
                     Caption = 'Purchase Return', comment = 'FRA="Retours achat"';
                     Editable = false;
                 }
                 field("Purchase Credit Memo"; STRSUBSTNO(txtlbl1, NbrOfPurchCrdMemo))
                 {
+                    ApplicationArea = All;
                     Caption = 'Purchase Credit Memo', comment = 'FRA="Avoirs achat"';
                     Editable = false;
                 }
                 field("Posted Purchase Receipt"; STRSUBSTNO(txtlbl1, NbrOfPurchPostedRcpt))
                 {
+                    ApplicationArea = All;
                     Caption = 'Posted Purchase Receipt', comment = 'FRA="Réceptions achat enregistrées"';
                     Editable = false;
                 }
                 field("Posted Purchase Invoice"; STRSUBSTNO(txtlbl1, NbrOfPurchPostedInvoice))
                 {
+                    ApplicationArea = All;
                     Caption = 'Posted Purchase Invoice', comment = 'FRA="Factures achat enregistrées"';
                     Editable = false;
                 }
                 field("Posted Purchase Return Shipement"; STRSUBSTNO(txtlbl1, NbrOfPurchPostedReturnShipemen))
                 {
+                    ApplicationArea = All;
                     Caption = 'Posted Purchase Return Shipement', comment = 'FRA="Expéditions retour achat"';
                     Editable = false;
                 }
                 field("Posted Purchase Credit Memo"; STRSUBSTNO(txtlbl1, NbrOfPurchPostedCrdMemo))
                 {
+                    ApplicationArea = All;
                     Caption = 'Posted Purchase Credit Memo', comment = 'FRA="Avoirs achat enregistrés"';
                     Editable = false;
                 }
             }
             part(PurchReturnShipement; "BC6_Return Ship. Line Subform")
             {
+                ApplicationArea = All;
                 SubPageLink = "No." = FIELD("No.");
                 Visible = PurchReturnShipementVisible;
             }
-            part(PurchCrMemoLine; "Purch. Cr. Memo Line Subform")
+            part(PurchCrMemoLine; "BC6_Purch. Cr. Memo Line Sub")
             {
+                ApplicationArea = All;
                 SubPageLink = "No." = FIELD("No.");
                 Visible = PurchCrMemoLineVisible;
             }
-            part(PostedReturnRcpts; "Return Rcpt Lines Subform 2")
+            part(PostedReturnRcpts; "BC6_Return Rcpt Lines Sub2")
             {
+                ApplicationArea = All;
                 SubPageLink = "No." = FIELD("No.");
                 SubPageView = SORTING("No.");
                 Visible = PostedReturnRcptsVisible;
             }
             part(PostedCrMemos; "BC6_Cred. Memo Lines Subform 2")
             {
+                ApplicationArea = All;
                 SubPageLink = "No." = FIELD("No.");
                 SubPageView = SORTING("No.");
                 Visible = PostedCrMemosVisible;
             }
             part(SalesLines; "BC6_Sales Lines Subform 3")
             {
+                ApplicationArea = All;
                 SubPageLink = "No." = FIELD("No.");
                 Visible = SalesLinesVisible;
             }
             part(PostedShpts; "BC6_Shipment Lines Subform 3")
             {
+                ApplicationArea = All;
                 SubPageLink = "No." = FIELD("No.");
                 SubPageView = SORTING("No.");
                 Visible = PostedShptsVisible;
             }
             part(PostedInvoices; "BC6_Invoice Lines Subform 3")
             {
+                ApplicationArea = All;
                 SubPageLink = "No." = FIELD("No.");
                 SubPageView = SORTING("No.");
                 Visible = PostedInvoicesVisible;
             }
             part(PurchInvLine; "BC6_Purch. Inv. Line Subform")
             {
+                ApplicationArea = All;
                 SubPageLink = "No." = FIELD("No.");
                 Visible = PurchInvLineVisible;
             }
             part(PurchRcptline; "BC6_Purch. Rcpt. Lines Subform")
             {
+                ApplicationArea = All;
                 SubPageLink = "No." = FIELD("No.");
                 Visible = PurchRcptlineVisible;
             }
             part(PurchLine; "BC6_Purchase Lines Subform2")
             {
+                ApplicationArea = All;
                 SubPageLink = "No." = FIELD("No.");
                 Visible = PurchLineVisible;
             }
@@ -225,6 +255,7 @@ page 50014 "BC6_Item Sales/Purch. History"
         {
             action("&Show")
             {
+                ApplicationArea = All;
                 Caption = '&Show', comment = 'FRA="Affic&her"';
                 Image = View;
                 Promoted = true;
@@ -388,13 +419,12 @@ page 50014 "BC6_Item Sales/Purch. History"
             RecGSalesLine.SETFILTER("Sell-to Customer No.", CodGCustNo);
         END;
 
-        IF RecGSalesLine.FindFirst() THEN BEGIN
+        IF RecGSalesLine.FindFirst() THEN
             REPEAT
                 IF CodGDocNo <> RecGSalesLine."Document No." THEN
                     NoOfQuotes := NoOfQuotes + 1;
                 CodGDocNo := RecGSalesLine."Document No.";
             UNTIL RecGSalesLine.NEXT() = 0;
-        END;
 
         //Blanket Order
         CLEAR(CodGDocNo);
@@ -408,14 +438,12 @@ page 50014 "BC6_Item Sales/Purch. History"
             RecGSalesLine.SETFILTER("Sell-to Customer No.", CodGCustNo);
         END;
 
-
-        IF RecGSalesLine.FindFirst() THEN BEGIN
+        IF RecGSalesLine.FindFirst() THEN
             REPEAT
                 IF CodGDocNo <> RecGSalesLine."Document No." THEN
                     NoOfBlanketOrders := NoOfBlanketOrders + 1;
                 CodGDocNo := RecGSalesLine."Document No.";
             UNTIL RecGSalesLine.NEXT() = 0;
-        END;
 
         //Order
         CLEAR(CodGDocNo);
@@ -429,13 +457,12 @@ page 50014 "BC6_Item Sales/Purch. History"
             RecGSalesLine.SETFILTER("Sell-to Customer No.", CodGCustNo);
         END;
 
-        IF RecGSalesLine.FindFirst() THEN BEGIN
+        IF RecGSalesLine.FindFirst() THEN
             REPEAT
                 IF CodGDocNo <> RecGSalesLine."Document No." THEN
                     NoOfOrders := NoOfOrders + 1;
                 CodGDocNo := RecGSalesLine."Document No.";
             UNTIL RecGSalesLine.NEXT() = 0;
-        END;
 
         //Invoices
         CLEAR(CodGDocNo);
@@ -449,13 +476,12 @@ page 50014 "BC6_Item Sales/Purch. History"
             RecGSalesLine.SETFILTER("Sell-to Customer No.", CodGCustNo);
         END;
 
-        IF RecGSalesLine.FindFirst() THEN BEGIN
+        IF RecGSalesLine.FindFirst() THEN
             REPEAT
                 IF CodGDocNo <> RecGSalesLine."Document No." THEN
                     NoofInvoices := NoofInvoices + 1;
                 CodGDocNo := RecGSalesLine."Document No.";
             UNTIL RecGSalesLine.NEXT() = 0;
-        END;
 
         //Return Order
         CLEAR(CodGDocNo);
@@ -469,13 +495,12 @@ page 50014 "BC6_Item Sales/Purch. History"
             RecGSalesLine.SETFILTER("Sell-to Customer No.", CodGCustNo);
         END;
 
-        IF RecGSalesLine.FindFirst() THEN BEGIN
+        IF RecGSalesLine.FindFirst() THEN
             REPEAT
                 IF CodGDocNo <> RecGSalesLine."Document No." THEN
                     NoOfReturnOrders := NoOfReturnOrders + 1;
                 CodGDocNo := RecGSalesLine."Document No.";
             UNTIL RecGSalesLine.NEXT() = 0;
-        END;
 
         //Credit Memo
         CLEAR(CodGDocNo);
@@ -489,13 +514,12 @@ page 50014 "BC6_Item Sales/Purch. History"
             RecGSalesLine.SETFILTER("Sell-to Customer No.", CodGCustNo);
         END;
 
-        IF RecGSalesLine.FindFirst() THEN BEGIN
+        IF RecGSalesLine.FindFirst() THEN
             REPEAT
                 IF CodGDocNo <> RecGSalesLine."Document No." THEN
                     NoOfCreditMemos := NoOfCreditMemos + 1;
                 CodGDocNo := RecGSalesLine."Document No.";
             UNTIL RecGSalesLine.NEXT() = 0;
-        END;
 
         //Posted SHipements
         CLEAR(CodGDocNo);
@@ -508,13 +532,12 @@ page 50014 "BC6_Item Sales/Purch. History"
             RecGSalesShipementLine.SETFILTER("Sell-to Customer No.", CodGCustNo);
         END;
 
-        IF RecGSalesShipementLine.FindFirst() THEN BEGIN
+        IF RecGSalesShipementLine.FindFirst() THEN
             REPEAT
                 IF CodGDocNo <> RecGSalesShipementLine."Document No." THEN
                     NoOfPstdShipments := NoOfPstdShipments + 1;
                 CodGDocNo := RecGSalesShipementLine."Document No.";
             UNTIL RecGSalesShipementLine.NEXT() = 0;
-        END;
 
         // Posted Invoices
         CLEAR(CodGDocNo);
@@ -527,13 +550,12 @@ page 50014 "BC6_Item Sales/Purch. History"
             RecGPostdSalesInvoices.SETFILTER("Sell-to Customer No.", CodGCustNo);
         END;
 
-        IF RecGPostdSalesInvoices.FindFirst() THEN BEGIN
+        IF RecGPostdSalesInvoices.FindFirst() THEN
             REPEAT
                 IF CodGDocNo <> RecGPostdSalesInvoices."Document No." THEN
                     NoOfPstdInvoices := NoOfPstdInvoices + 1;
                 CodGDocNo := RecGPostdSalesInvoices."Document No.";
             UNTIL RecGPostdSalesInvoices.NEXT() = 0;
-        END;
 
         // Posted Return Receipts
         CLEAR(CodGDocNo);
@@ -546,13 +568,12 @@ page 50014 "BC6_Item Sales/Purch. History"
             RecGPostdReturnSales.SETFILTER("Sell-to Customer No.", CodGCustNo);
         END;
 
-        IF RecGPostdReturnSales.FindFirst() THEN BEGIN
+        IF RecGPostdReturnSales.FindFirst() THEN
             REPEAT
                 IF CodGDocNo <> RecGPostdReturnSales."Document No." THEN
                     NoOfPstdReturnReceipts := NoOfPstdReturnReceipts + 1;
                 CodGDocNo := RecGPostdReturnSales."Document No.";
             UNTIL RecGPostdReturnSales.NEXT() = 0;
-        END;
 
         // Posted Credit Memo
         CLEAR(CodGDocNo);
@@ -565,13 +586,12 @@ page 50014 "BC6_Item Sales/Purch. History"
             RecGPostdCrdMemo.SETFILTER("Sell-to Customer No.", CodGCustNo);
         END;
 
-        IF RecGPostdCrdMemo.FindFirst() THEN BEGIN
+        IF RecGPostdCrdMemo.FindFirst() THEN
             REPEAT
                 IF CodGDocNo <> RecGPostdCrdMemo."Document No." THEN
                     NoOfPstdCreditMemos := NoOfPstdCreditMemos + 1;
                 CodGDocNo := RecGPostdCrdMemo."Document No.";
             UNTIL RecGPostdCrdMemo.NEXT() = 0;
-        END;
 
         //Purchase quote
         CLEAR(CodGDocNo);
@@ -584,13 +604,12 @@ page 50014 "BC6_Item Sales/Purch. History"
             RecGPurchLines.SETCURRENTKEY(RecGPurchLines."Buy-from Vendor No.");
             RecGPurchLines.SETFILTER("Buy-from Vendor No.", CodGCustNo);
         END;
-        IF RecGPurchLines.FindFirst() THEN BEGIN
+        IF RecGPurchLines.FindFirst() THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
                     NbrOfPurchQuote := NbrOfPurchQuote + 1;
                 CodGDocNo := RecGPurchLines."Document No.";
             UNTIL RecGPurchLines.NEXT() = 0;
-        END;
 
         //Purchase blanket order
         CLEAR(CodGDocNo);
@@ -603,13 +622,12 @@ page 50014 "BC6_Item Sales/Purch. History"
             RecGPurchLines.SETCURRENTKEY(RecGPurchLines."Buy-from Vendor No.");
             RecGPurchLines.SETFILTER("Buy-from Vendor No.", CodGCustNo);
         END;
-        IF RecGPurchLines.FindFirst() THEN BEGIN
+        IF RecGPurchLines.FindFirst() THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
                     NbrOfPurchBlanketOrder := NbrOfPurchBlanketOrder + 1;
                 CodGDocNo := RecGPurchLines."Document No.";
             UNTIL RecGPurchLines.NEXT() = 0;
-        END;
 
         //Purchase order
         CLEAR(CodGDocNo);
@@ -622,13 +640,12 @@ page 50014 "BC6_Item Sales/Purch. History"
             RecGPurchLines.SETCURRENTKEY(RecGPurchLines."Buy-from Vendor No.");
             RecGPurchLines.SETFILTER("Buy-from Vendor No.", CodGCustNo);
         END;
-        IF RecGPurchLines.FindFirst() THEN BEGIN
+        IF RecGPurchLines.FindFirst() THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
                     NbrOfPurchOrder := NbrOfPurchOrder + 1;
                 CodGDocNo := RecGPurchLines."Document No.";
             UNTIL RecGPurchLines.NEXT() = 0;
-        END;
 
         //Purchase invoice
         CLEAR(CodGDocNo);
@@ -641,13 +658,12 @@ page 50014 "BC6_Item Sales/Purch. History"
             RecGPurchLines.SETCURRENTKEY(RecGPurchLines."Buy-from Vendor No.");
             RecGPurchLines.SETFILTER("Buy-from Vendor No.", CodGCustNo);
         END;
-        IF RecGPurchLines.FindFirst() THEN BEGIN
+        IF RecGPurchLines.FindFirst() THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
                     NbrOfPurchInvoice := NbrOfPurchInvoice + 1;
                 CodGDocNo := RecGPurchLines."Document No.";
             UNTIL RecGPurchLines.NEXT() = 0;
-        END;
 
         //Purchase return
         CLEAR(CodGDocNo);
@@ -660,13 +676,12 @@ page 50014 "BC6_Item Sales/Purch. History"
             RecGPurchLines.SETCURRENTKEY(RecGPurchLines."Buy-from Vendor No.");
             RecGPurchLines.SETFILTER("Buy-from Vendor No.", CodGCustNo);
         END;
-        IF RecGPurchLines.FIND('-') THEN BEGIN
+        IF RecGPurchLines.FIND('-') THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
                     NbrOfPurchReturn := NbrOfPurchReturn + 1;
                 CodGDocNo := RecGPurchLines."Document No.";
             UNTIL RecGPurchLines.NEXT() = 0;
-        END;
 
         //Purchase credit memo
         CLEAR(CodGDocNo);
@@ -679,13 +694,12 @@ page 50014 "BC6_Item Sales/Purch. History"
             RecGPurchLines.SETCURRENTKEY(RecGPurchLines."Buy-from Vendor No.");
             RecGPurchLines.SETFILTER("Buy-from Vendor No.", CodGCustNo);
         END;
-        IF RecGPurchLines.FindFirst() THEN BEGIN
+        IF RecGPurchLines.FindFirst() THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
                     NbrOfPurchCrdMemo := NbrOfPurchCrdMemo + 1;
                 CodGDocNo := RecGPurchLines."Document No.";
             UNTIL RecGPurchLines.NEXT() = 0;
-        END;
 
         // Posted Purchase Receipt
         CLEAR(CodGDocNo);
@@ -698,13 +712,12 @@ page 50014 "BC6_Item Sales/Purch. History"
             RecGPurchPostedRcpt.SETFILTER("Buy-from Vendor No.", CodGCustNo);
         END;
 
-        IF RecGPurchPostedRcpt.FindFirst() THEN BEGIN
+        IF RecGPurchPostedRcpt.FindFirst() THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchPostedRcpt."Document No." THEN
                     NbrOfPurchPostedRcpt := NbrOfPurchPostedRcpt + 1;
                 CodGDocNo := RecGPurchPostedRcpt."Document No.";
             UNTIL RecGPurchPostedRcpt.NEXT() = 0;
-        END;
 
         // Posted Purchase invoice
         CLEAR(CodGDocNo);
@@ -717,13 +730,12 @@ page 50014 "BC6_Item Sales/Purch. History"
             RecGPurchPostedInvoice.SETFILTER("Buy-from Vendor No.", CodGCustNo);
         END;
 
-        IF RecGPurchPostedInvoice.FindFirst() THEN BEGIN
+        IF RecGPurchPostedInvoice.FindFirst() THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchPostedInvoice."Document No." THEN
                     NbrOfPurchPostedInvoice := NbrOfPurchPostedInvoice + 1;
                 CodGDocNo := RecGPurchPostedInvoice."Document No.";
             UNTIL RecGPurchPostedInvoice.NEXT() = 0;
-        END;
 
         // Posted Purchase Return Shipement
         CLEAR(CodGDocNo);
@@ -736,13 +748,12 @@ page 50014 "BC6_Item Sales/Purch. History"
             RecGPurchPostedReturnShipement.SETFILTER("Buy-from Vendor No.", CodGCustNo);
         END;
 
-        IF RecGPurchPostedReturnShipement.FindFirst() THEN BEGIN
+        IF RecGPurchPostedReturnShipement.FindFirst() THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchPostedReturnShipement."Document No." THEN
                     NbrOfPurchPostedReturnShipemen := NbrOfPurchPostedReturnShipemen + 1;
                 CodGDocNo := RecGPurchPostedReturnShipement."Document No.";
             UNTIL RecGPurchPostedReturnShipement.NEXT() = 0;
-        END;
 
         // Posted Credit Memo
         CLEAR(CodGDocNo);
@@ -755,13 +766,12 @@ page 50014 "BC6_Item Sales/Purch. History"
             RecGPurchPostedCrdMemo.SETFILTER("Buy-from Vendor No.", CodGCustNo);
         END;
 
-        IF RecGPurchPostedCrdMemo.FindFirst() THEN BEGIN
+        IF RecGPurchPostedCrdMemo.FindFirst() THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchPostedCrdMemo."Document No." THEN
                     NbrOfPurchPostedCrdMemo := NbrOfPurchPostedCrdMemo + 1;
                 CodGDocNo := RecGPurchPostedCrdMemo."Document No.";
             UNTIL RecGPurchPostedCrdMemo.NEXT() = 0;
-        END;
         CurrentMenuTypeOpt := CurrentMenuType;
         CurrentMenuTypeOpt := CurrentMenuType;
     end;
@@ -909,52 +919,47 @@ page 50014 "BC6_Item Sales/Purch. History"
                 END;
             6:
                 BEGIN
-                    IF Visible THEN BEGIN
+                    IF Visible THEN
                         IF BooGFilterCust THEN BEGIN
                             RecGSalesShipementLine.RESET();
                             RecGSalesShipementLine.SETCURRENTKEY("Sell-to Customer No.");
                             RecGSalesShipementLine.SETFILTER(RecGSalesShipementLine."Sell-to Customer No.", CodGCustNo);
                             CurrPage.PostedShpts.PAGE.SETTABLEVIEW(RecGSalesShipementLine);
                         END;
-                    END;
                     PostedShptsVisible := Visible;
                 END;
             7:
                 BEGIN
-                    IF Visible THEN BEGIN
-
+                    IF Visible THEN
                         IF BooGFilterCust THEN BEGIN
                             RecGPostdSalesInvoices.RESET();
                             RecGPostdSalesInvoices.SETCURRENTKEY("Sell-to Customer No.");
                             RecGPostdSalesInvoices.SETFILTER(RecGPostdSalesInvoices."Sell-to Customer No.", CodGCustNo);
                             CurrPage.PostedInvoices.PAGE.SETTABLEVIEW(RecGPostdSalesInvoices);
                         END;
-                    END;
                     PostedInvoicesVisible := Visible;
                 END;
             8:
                 BEGIN
-                    IF Visible THEN BEGIN
+                    IF Visible THEN
                         IF BooGFilterCust THEN BEGIN
                             RecGPostdReturnSales.RESET();
                             RecGPostdReturnSales.SETCURRENTKEY("Sell-to Customer No.");
                             RecGPostdReturnSales.SETFILTER(RecGPostdReturnSales."Sell-to Customer No.", CodGCustNo);
                             CurrPage.PostedReturnRcpts.PAGE.SETTABLEVIEW(RecGPostdReturnSales);
                         END;
-                    END;
 
                     PostedReturnRcptsVisible := Visible;
                 END;
             9:
                 BEGIN
-                    IF Visible THEN BEGIN
+                    IF Visible THEN
                         IF BooGFilterCust THEN BEGIN
                             RecGPostdCrdMemo.RESET();
                             RecGPostdCrdMemo.SETCURRENTKEY("Sell-to Customer No.");
                             RecGPostdCrdMemo.SETFILTER(RecGPostdCrdMemo."Sell-to Customer No.", CodGCustNo);
                             CurrPage.PostedCrMemos.PAGE.SETTABLEVIEW(RecGPostdCrdMemo);
                         END;
-                    END;
                     PostedCrMemosVisible := Visible;
                 END;
             10 .. 15:
@@ -973,56 +978,50 @@ page 50014 "BC6_Item Sales/Purch. History"
                 END;
             16:
                 BEGIN
-                    IF Visible THEN BEGIN
+                    IF Visible THEN
                         IF BooGFilterCust THEN BEGIN
                             RecGPurchPostedRcpt.RESET();
                             RecGPurchPostedRcpt.SETCURRENTKEY("Buy-from Vendor No.");
                             RecGPurchPostedRcpt.SETFILTER("Buy-from Vendor No.", CodGCustNo);
                             CurrPage.PurchRcptline.PAGE.SETTABLEVIEW(RecGPurchPostedRcpt);
                         END;
-                    END;
                     PurchRcptlineVisible := Visible;
                 END;
             17:
                 BEGIN
-                    IF Visible THEN BEGIN
+                    IF Visible THEN
                         IF BooGFilterCust THEN BEGIN
                             RecGPurchPostedInvoice.RESET();
                             RecGPurchPostedInvoice.SETCURRENTKEY("Buy-from Vendor No.");
                             RecGPurchPostedInvoice.SETFILTER("Buy-from Vendor No.", CodGCustNo);
                             CurrPage.PurchInvLine.PAGE.SETTABLEVIEW(RecGPurchPostedInvoice);
                         END;
-                    END;
                     PurchInvLineVisible := Visible;
                 END;
             18:
                 BEGIN
-                    IF Visible THEN BEGIN
+                    IF Visible THEN
                         IF BooGFilterCust THEN BEGIN
                             RecGPurchPostedReturnShipement.RESET();
                             RecGPurchPostedReturnShipement.SETCURRENTKEY("Buy-from Vendor No.");
                             RecGPurchPostedReturnShipement.SETFILTER("Buy-from Vendor No.", CodGCustNo);
                             CurrPage.PurchReturnShipement.PAGE.SETTABLEVIEW(RecGPurchPostedReturnShipement);
                         END;
-                    END;
                     PurchReturnShipementVisible := Visible;
                 END;
             19:
                 BEGIN
-                    IF Visible THEN BEGIN
+                    IF Visible THEN
                         IF BooGFilterCust THEN BEGIN
                             RecGPurchPostedCrdMemo.RESET();
                             RecGPurchPostedCrdMemo.SETCURRENTKEY("Buy-from Vendor No.");
                             RecGPurchPostedCrdMemo.SETFILTER("Buy-from Vendor No.", CodGCustNo);
                             CurrPage.PurchCrMemoLine.PAGE.SETTABLEVIEW(RecGPurchPostedCrdMemo);
                         END;
-                    END;
                     PurchCrMemoLineVisible := Visible;
                 END;
-
         END;
     end;
-
 
     procedure SetToSalesHeader(NewToSalesLines: Record "Sales Line"; FilterCust: Boolean)
     var
@@ -1188,6 +1187,4 @@ page 50014 "BC6_Item Sales/Purch. History"
     begin
         ChangeSubMenu(19);
     end;
-
 }
-

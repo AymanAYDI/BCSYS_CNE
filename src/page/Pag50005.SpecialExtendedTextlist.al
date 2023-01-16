@@ -1,12 +1,12 @@
 page 50005 "BC6_Special Extended Text list"
 {
+    Caption = 'Special Extended Text list';
     DeleteAllowed = false;
     InsertAllowed = false;
     ModifyAllowed = false;
     PageType = ListPart;
     SourceTable = "BC6_Special Extended Text Line";
     UsageCategory = None;
-    Caption = 'Special Extended Text list';
     layout
     {
         area(content)
@@ -17,6 +17,7 @@ page 50005 "BC6_Special Extended Text list"
 
                 field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                 }
             }
@@ -24,9 +25,11 @@ page 50005 "BC6_Special Extended Text list"
             {
                 field("Code"; Rec.Code)
                 {
+                    ApplicationArea = All;
                 }
                 field(Name; Name)
                 {
+                    ApplicationArea = All;
                     Caption = 'Name', comment = 'FRA="Nom"';
                 }
             }
@@ -73,6 +76,4 @@ page 50005 "BC6_Special Extended Text list"
         Vendor: Record Vendor;
         SaveCode: Code[20];
         Name: Text[100];
-
 }
-

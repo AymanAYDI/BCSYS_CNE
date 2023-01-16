@@ -1,10 +1,10 @@
 xmlport 50010 "BC6_Import Plan Comptable"
 {
+    Caption = 'Import Plan Comptable';
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = ';';
     Format = VariableText;
-    Caption = 'Import Plan Comptable';
 
     schema
     {
@@ -56,7 +56,6 @@ xmlport 50010 "BC6_Import Plan Comptable"
 
     requestpage
     {
-
         layout
         {
         }
@@ -66,4 +65,3 @@ xmlport 50010 "BC6_Import Plan Comptable"
         }
     }
 }
-

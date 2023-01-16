@@ -19,42 +19,50 @@ pageextension 50044 "BC6_PostedSalesShipments" extends "Posted Sales Shipments" 
         {
             field("BC6_Affair No."; Rec."BC6_Affair No.")
             {
-
+                ApplicationArea = All;
             }
             field(BC6_GRespAffair; GRespAffair)
             {
+                ApplicationArea = All;
                 Caption = 'Chargé d''affaire';
             }
             field("BC6_Posting Date"; Rec."Posting Date")
             {
+                ApplicationArea = All;
             }
         }
         addafter("No.")
         {
             field("BC6_Order No."; Rec."Order No.")
             {
+                ApplicationArea = All;
             }
         }
         addafter("Sell-to Customer Name")
         {
             field("BC6_Shipping Agent Code"; Rec."Shipping Agent Code")
             {
+                ApplicationArea = All;
             }
             field("BC6_Package Tracking No."; Rec."Package Tracking No.")
             {
+                ApplicationArea = All;
             }
             field("BC6_Your Reference"; Rec."Your Reference")
             {
+                ApplicationArea = All;
             }
         }
         addafter("Sell-to Contact")
         {
             field("BC6_User ID"; Rec."User ID")
             {
+                ApplicationArea = All;
                 Visible = BooGID;
             }
             field("BC6_Assigned User ID"; Rec."BC6_Assigned User ID")
             {
+                ApplicationArea = All;
                 Visible = BooGID;
             }
         }
@@ -62,26 +70,31 @@ pageextension 50044 "BC6_PostedSalesShipments" extends "Posted Sales Shipments" 
         {
             field("BC6_External Document No."; Rec."External Document No.")
             {
+                ApplicationArea = All;
             }
         }
         addafter("Location Code")
         {
             field(BC6_amount; DecGAmount)
             {
+                ApplicationArea = All;
                 Caption = 'Amount', comment = 'FRA="Montant"';
             }
             field(BC6_profitamount; DecGProfitAmount)
             {
+                ApplicationArea = All;
                 Caption = 'Profit Amount', comment = 'FRA="Montant Marge"';
                 Visible = BooGProfitamount;
             }
             field(BC6_purchcost; DecGPurchCost)
             {
+                ApplicationArea = All;
                 Caption = 'Purchase Cost', comment = 'FRA="Coût d''achat"';
                 Editable = BooGPurchcost;
             }
             field("BC6_DecGProfit%"; "DecGProfit%")
             {
+                ApplicationArea = All;
                 Caption = 'profit %', comment = 'FRA="% Marge"';
                 Visible = BooGProfitpct;
             }

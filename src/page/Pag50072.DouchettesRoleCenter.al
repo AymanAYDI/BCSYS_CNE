@@ -7,10 +7,10 @@ page 50072 "BC6_Douchettes Role Center"
     {
         area(rolecenter)
         {
-            part("Whse Ship & Receive Activities"; "Scan Ship & Receive Activities")
+            part("Whse Ship & Receive Activities"; "BC6_Scan Ship Rece Activities")
             {
-                Caption = 'Whse Ship & Receive Activities', Comment = 'FRA="Activités magasin"';
                 ApplicationArea = All;
+                Caption = 'Whse Ship & Receive Activities', Comment = 'FRA="Activités magasin"';
             }
         }
     }
@@ -21,11 +21,11 @@ page 50072 "BC6_Douchettes Role Center"
         {
             action(ReclassPickList)
             {
+                ApplicationArea = All;
                 Caption = 'Picking Liste', Comment = 'FRA="Prélèvements"';
                 Image = PickLines;
                 RunObject = Page "BC6_Item Journal Pick List";
                 Visible = false;
-                ApplicationArea = All;
             }
         }
         area(processing)
@@ -35,73 +35,70 @@ page 50072 "BC6_Douchettes Role Center"
                 Caption = 'Activity', Comment = 'FRA="Activité"';
                 action(Customers)
                 {
-                    Promoted = true;
-                    PromotedOnly = true;
+                    ApplicationArea = All;
                     Image = Customer;
                     RunObject = Page "Customer List";
                     Visible = false;
-                    ApplicationArea = All;
                 }
                 action(TestCapture)
                 {
+                    ApplicationArea = All;
                     Caption = 'Capture Test', Comment = 'FRA="Teste Capture"';
                     Image = BarCode;
                     RunObject = Page "BC6_Test capture";
                     Visible = false;
-                    ApplicationArea = All;
                 }
                 action(TestCapture2)
                 {
+                    ApplicationArea = All;
                     Caption = 'Capture Test', Comment = 'FRA="Teste Capture"';
                     Image = Bin;
                     RunObject = Page BC6_ScanDeviceButtons;
                     Visible = false;
-                    ApplicationArea = All;
                 }
                 action(SearchBarCode)
                 {
+                    ApplicationArea = All;
                     Caption = 'Search Bar Code', Comment = 'FRA="Rechercher code barre"';
                     Image = Find;
                     RunObject = Page "BC6_Item List Search CNE";
                     Visible = false;
-                    ApplicationArea = All;
                 }
                 action(Inventory2)
                 {
+                    ApplicationArea = All;
                     Caption = 'Item Invt.', Comment = 'FRA="Stock article"';
                     Image = ItemLines;
                     RunObject = Page "BC6_Item Invt.";
                     RunPageMode = Edit;
                     Visible = true;
-                    ApplicationArea = All;
                 }
                 action(Inventory_2)
                 {
+                    ApplicationArea = All;
                     Caption = 'Inventory', Comment = 'FRA="Inventaire"';
                     Image = InventoryJournal;
                     RunObject = Page "BC6_Inventory Card MiniForm";
-                    ApplicationArea = All;
                 }
                 action(PalletReclass)
                 {
+                    ApplicationArea = All;
                     Caption = 'Reclass. Item', Comment = 'FRA="Reclassement article"';
                     Image = TransferReceipt;
                     RunObject = Page "BC6_Reclass. Card MiniForm";
                     RunPageMode = Edit;
                     ShortCutKey = 'F2';
-                    ApplicationArea = All;
                 }
                 action(PalletReclass2)
                 {
+                    ApplicationArea = All;
                     Caption = 'Invt. Pick', Comment = 'FRA="Prélèvement stock"';
                     Image = PickLines;
                     RunObject = Page "BC6_Invt. Pick Card MiniForm";
                     RunPageMode = Edit;
                     ShortCutKey = 'F3';
-                    ApplicationArea = All;
                 }
             }
         }
     }
 }
-

@@ -1,6 +1,5 @@
 codeunit 50023 "BC6_IC Transfert Validation IC"
 {
-
     Permissions = tabledata "BC6_IC Table Validate" = rimd;
 
     trigger OnRun()
@@ -58,14 +57,11 @@ codeunit 50023 "BC6_IC Transfert Validation IC"
 
                         end else
                             RecGDocICOut.INSERT();
-
-
                     until RecGSalesShipment.NEXT() <= 0;
 
                 RecGDocICIn.Validate := true;
                 RecGDocICIn."Validate Date" := TODAY;
                 RecGDocICIn.MODIFY();
-
             until RecGDocICIn.NEXT() <= 0;
 
         if GUIALLOWED then
@@ -79,4 +75,3 @@ codeunit 50023 "BC6_IC Transfert Validation IC"
         RecGSalesShipment: Record "Sales Shipment Line";
         Text001: Label 'Treatment Completed', Comment = 'FRA="Traitement Terminé"';
 }
-

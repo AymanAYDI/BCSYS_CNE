@@ -29,8 +29,8 @@ pageextension 50092 "BC6_PurchaseReturnOrder" extends "Purchase Return Order" //
             }
             field("BC6_Reminder Date"; Rec."BC6_Reminder Date")
             {
-                Editable = BooGReminderDateVisible;
                 ApplicationArea = All;
+                Editable = BooGReminderDateVisible;
             }
         }
     }
@@ -72,7 +72,6 @@ pageextension 50092 "BC6_PurchaseReturnOrder" extends "Purchase Return Order" //
                     END;
                 END;
             }
-
         }
         addafter("Create &Warehouse Shipment")
         {
@@ -90,7 +89,6 @@ pageextension 50092 "BC6_PurchaseReturnOrder" extends "Purchase Return Order" //
                 begin
                     FunctionsMgt.BC6_CreateInvtPutAwayPick_Purchase(rec);
                 end;
-
             }
         }
     }

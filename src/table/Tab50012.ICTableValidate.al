@@ -41,16 +41,16 @@ table 50012 "BC6_IC Table Validate"
         field(15; "Qty. to Receive"; Decimal)
         {
             Caption = 'Qty. to Receive', comment = 'FRA="Qté à recevoir"';
-            DecimalPlaces = 0 : 5;
             DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 5;
         }
         field(16; "Purchase cost"; Decimal)
         {
             AutoFormatType = 2;
             Caption = 'Purchase cost', comment = 'FRA="Coût d''achat"';
+            DataClassification = CustomerContent;
             DecimalPlaces = 2 : 5;
             Description = 'hors taxe';
-            DataClassification = CustomerContent;
         }
         field(20; "Validate"; Boolean)
         {

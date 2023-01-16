@@ -1,9 +1,8 @@
 report 50096 "BC6_Order - Vendor NAVIDIIGEST"
 {
+    Caption = 'Order NAVIDIIGEST', Comment = 'FRA="Commande fournisseur NAVIDIIGEST"';
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/OrderVendorNAVIDIIGEST.rdl';
-
-    Caption = 'Order NAVIDIIGEST', Comment = 'FRA="Commande fournisseur NAVIDIIGEST"';
     UsageCategory = None;
     dataset
     {
@@ -297,13 +296,11 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
 
                             trigger OnAfterGetRecord()
                             begin
-                                IF Edition2 THEN BEGIN
+                                IF Edition2 THEN
                                     IF Number = 1 THEN
                                         StandardPurchaseLine.FIND('-')
-                                    ELSE BEGIN
+                                    ELSE
                                         StandardPurchaseLine.NEXT();
-                                    END;
-                                END;
                             end;
 
                             trigger OnPreDataItem()
@@ -504,7 +501,6 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
                             begin
                                 IF NOT ShowInternalInfo THEN
                                     CurrReport.BREAK();
-
                             end;
                         }
 
@@ -553,7 +549,6 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
                             BooGVisibleBody4 := (TempPurchaseLine.Type.AsInteger() > 0) AND (ShowAmount = TRUE)
                                                  AND (COPYSTR(TempPurchaseLine.Description, 29, 22) <> '');
                             BooGVisibleBody5 := (TempPurchaseLine.Type.AsInteger() > 0) AND (ShowAmount = FALSE);
-
                         end;
 
                         trigger OnPostDataItem()
@@ -694,7 +689,6 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
                 IF country.GET(CompanyInfo."Country/Region Code") THEN
                     pays := country.Name;
 
-
                 IF RespCenter.GET("Responsibility Center") THEN BEGIN
                     FormatAddr.RespCenter(CompanyAddr, RespCenter);
                     CompanyInfo."Phone No." := RespCenter."Phone No.";
@@ -714,9 +708,9 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
                 END ELSE BEGIN
                     Langue := 'FRA';
                     LangueLig01 := Langue + '' + '01';
-                    IF TablesDiverses.GET(ListeTable, LangueLig01) THEN BEGIN
-                        TmpNamereport := TablesDiverses.Description + '' + "Purchase Header"."No.";
-                    END ELSE
+                    IF TablesDiverses.GET(ListeTable, LangueLig01) THEN
+                        TmpNamereport := TablesDiverses.Description + '' + "Purchase Header"."No."
+                    ELSE
                         TmpNamereport := Text300 + ' ' + "Purchase Header"."No.";
                 END;
 
@@ -752,16 +746,14 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
                         PurchaserText := PurchaserText + ' ' + '   ' + '' + Text101 + ' ' + SalesPurchPerson."Phone No.";
                     IF SalesPurchPerson."E-Mail" <> '' THEN
                         PurchaserText := PurchaserText + ' ' + '   ' + ' ' + SalesPurchPerson.FIELDCAPTION("E-Mail") + ' ' + SalesPurchPerson."E-Mail";
-
                 END;
 
                 //Ajout du N° de Document externe dans le libellé de "Votre reference"
                 IF ("Your Reference" = '') AND ("Vendor Invoice No." = '') THEN
                     VotreRef := ''
-                ELSE BEGIN
+                ELSE
                     //Ajout de concaténation du N° de document externe avec le "Your reference"
                     VotreRef := "Vendor Invoice No." + '  ' + "Your Reference";
-                END;
                 IF "Your Reference" = '' THEN
                     ReferenceText := ''
                 ELSE
@@ -817,40 +809,43 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
                 ModeTransport := '';
                 IF ShippingAgent.GET("Purchase Header"."Shipment Method Code") THEN
                     ModeTransport := ShippingAgent.Name;
-
             end;
         }
     }
 
     requestpage
     {
-
         layout
         {
             area(content)
             {
                 group(Options)
                 {
-                    field(NoOfCopies; NoOfCopies)
+                    field(NoOfCopiesF; NoOfCopies)
                     {
+                        ApplicationArea = All;
                         Caption = 'No. of Copies', Comment = 'FRA="Nombre de copies"';
                     }
-                    field(ShowInternalInfo; ShowInternalInfo)
+                    field(ShowInternalInfoF; ShowInternalInfo)
                     {
+                        ApplicationArea = All;
                         Caption = 'Show Internal Information', Comment = 'FRA="Afficher info. internes"';
                     }
                     field(ArchiveDocumentF; ArchiveDocument)
                     {
+                        ApplicationArea = All;
                         Caption = 'Archive Document', Comment = 'FRA="Archiver document"';
                         Enabled = BooGEnableArchiveDocument;
                     }
-                    field(LogInteraction; LogInteraction)
+                    field(LogInteractionF; LogInteraction)
                     {
+                        ApplicationArea = All;
                         Caption = 'Log Interaction', Comment = 'FRA="Journal interaction"';
                         Enabled = BooGEnableLogInteraction;
                     }
-                    field(ShowAmount; ShowAmount)
+                    field(ShowAmountF; ShowAmount)
                     {
+                        ApplicationArea = All;
                         Caption = 'Show Amount', Comment = 'FRA="Afficher Montants"';
                     }
                 }
@@ -869,7 +864,6 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
 
             BooGEnableLogInteraction := LogInteraction;
             BooGEnableArchiveDocument := ArchiveDocument;
-
         end;
     }
 
@@ -881,7 +875,6 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
     begin
         GLSetup.GET();
         ShowAmount := TRUE;
-
 
         CompanyInfo1.GET();
         CompanyInfo1.CALCFIELDS(Picture);
@@ -913,8 +906,8 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
         ArchiveManagement: Codeunit ArchiveManagement;
         FormatAddr: Codeunit "Format Address";
         LanguageC: Codeunit Language;
-        PurchPost: Codeunit "Purch.-Post";
         PurchCountPrinted: Codeunit "Purch.Header-Printed";
+        PurchPost: Codeunit "Purch.-Post";
         SegManagement: Codeunit SegManagement;
         ArchiveDocument: Boolean;
         [InDataSet]
@@ -989,10 +982,10 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
         Text204T: Label ' vente. En cas de litige, seul sera compétent le Tribunal de Commerce de Provins.';
         Text300: Label 'Vendor Order No.', Comment = 'FRA="Commande fournisseur N°"';
         To_be_continuedCaptionLbl: Label 'To be continued', Comment = 'FRA="A Suivre"';
+        txtlbl12: label '%1 %2';
         Unit_PriceCaptionLbl: Label 'Unit Price', Comment = 'FRA="Prix unitaire HT"';
         VAT_Registration_No__CaptionLbl: Label '<VAT Registration No.>', Comment = 'FRA="N° TVA :"';
         Vendor_NumberCaptionLbl: Label 'Vendor Number', Comment = 'FRA="Code Fournisseur"';
-        txtlbl12: label '%1 %2';
         Asterisque: Text[1];
         Langue: Text[10];
         LangueLig01: Text[10];
@@ -1013,16 +1006,16 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
         templibelledouanier: Text[30];
         Text60: Text[30];
         VATNoText: Text[30];
-        BuyFromAddr: array[8] of Text[50];
-        CompanyAddr: array[8] of Text[50];
-        ShipToAddr: array[8] of Text[50];
         TempNomenclaturedouaniere: Text[50];
         TotalExclVATText: Text[50];
         TotalInclVATText: Text[50];
         TotalText: Text[50];
-        VendAddr: array[8] of Text[50];
         TempDesc: Text[60];
         OldDimText: Text[75];
+        BuyFromAddr: array[8] of Text[100];
+        CompanyAddr: array[8] of Text[100];
+        ShipToAddr: array[8] of Text[100];
+        VendAddr: array[8] of Text[100];
         DimText: Text[120];
         PurchaserText: Text[200];
         Text10: Text[200];
@@ -1038,4 +1031,3 @@ report 50096 "BC6_Order - Vendor NAVIDIIGEST"
         VotreRef: Text[200];
         TmpNamereport: Text[500];
 }
-

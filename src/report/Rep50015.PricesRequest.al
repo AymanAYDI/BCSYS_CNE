@@ -1,8 +1,8 @@
 report 50015 "BC6_Prices Request"
 {
+    Caption = 'Prices Request', Comment = 'FRA="Demande de prix"';
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/PricesRequest.rdl';
-    Caption = 'Prices Request', Comment = 'FRA="Demande de prix"';
 
     dataset
     {
@@ -25,7 +25,7 @@ report 50015 "BC6_Prices Request"
                 {
                     DataItemTableView = SORTING(Number)
                                         WHERE(Number = CONST(1));
-                    column(CurrReport_PAGENO__; STRSUBSTNO(Text005, FORMAT(CurrReport.PAGENO)))
+                    column(CurrReport_PAGENO__; STRSUBSTNO(Text005, FORMAT(CurrReport.PAGENO())))
                     {
                     }
                     column(Text012_Purchase_Header___No__; Text012 + ' ' + "Purchase Header"."No.")
@@ -193,7 +193,7 @@ report 50015 "BC6_Prices Request"
 
                         trigger OnPreDataItem()
                         begin
-                            CurrReport.BREAK;
+                            CurrReport.BREAK();
                         end;
                     }
                     dataitem(RoundLoop; Integer)
@@ -229,7 +229,7 @@ report 50015 "BC6_Prices Request"
                             IF Number = 1 THEN
                                 TempPurchLine.FIND('-')
                             ELSE
-                                TempPurchLine.NEXT;
+                                TempPurchLine.NEXT();
                             "Purchase Line" := TempPurchLine;
 
                             IF NOT "Purchase Header"."Prices Including VAT" AND
@@ -243,7 +243,7 @@ report 50015 "BC6_Prices Request"
 
                         trigger OnPostDataItem()
                         begin
-                            TempPurchLine.DELETEALL;
+                            TempPurchLine.DELETEALL();
                         end;
 
                         trigger OnPreDataItem()
@@ -254,7 +254,7 @@ report 50015 "BC6_Prices Request"
                                   (TempPurchLine.Amount = 0) DO
                                 MoreLines := TempPurchLine.NEXT(-1) <> 0;
                             IF NOT MoreLines THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                             TempPurchLine.SETRANGE("Line No.", 0, TempPurchLine."Line No.");
                             SETRANGE(Number, 1, TempPurchLine.COUNT);
                             CurrReport.CREATETOTALS(TempPurchLine."Line Amount", TempPurchLine."Inv. Discount Amount");
@@ -272,8 +272,7 @@ report 50015 "BC6_Prices Request"
                         trigger OnPreDataItem()
                         begin
 
-                            CurrReport.BREAK;
-
+                            CurrReport.BREAK();
                         end;
                     }
                     dataitem(VATCounterLCY; Integer)
@@ -295,8 +294,7 @@ report 50015 "BC6_Prices Request"
                         trigger OnPreDataItem()
                         begin
 
-                            CurrReport.BREAK;
-
+                            CurrReport.BREAK();
                         end;
                     }
                     dataitem(Total; Integer)
@@ -312,11 +310,10 @@ report 50015 "BC6_Prices Request"
                         trigger OnPreDataItem()
                         begin
 
-                            CurrReport.BREAK;
+                            CurrReport.BREAK();
 
                             IF "Purchase Header"."Buy-from Vendor No." = "Purchase Header"."Pay-to Vendor No." THEN
-                                CurrReport.BREAK;
-
+                                CurrReport.BREAK();
                         end;
                     }
                     dataitem(Total3; Integer)
@@ -327,17 +324,17 @@ report 50015 "BC6_Prices Request"
                         trigger OnPreDataItem()
                         begin
 
-                            CurrReport.BREAK;
+                            CurrReport.BREAK();
 
                             IF ("Purchase Header"."Sell-to Customer No." = '') AND (ShipToAddr[1] = '') THEN
-                                CurrReport.BREAK;
+                                CurrReport.BREAK();
                         end;
                     }
 
                     trigger OnAfterGetRecord()
                     begin
                         recLBuyVendor.SETFILTER("No.", "Purchase Header"."Buy-from Vendor No.");
-                        IF recLBuyVendor.FINDFIRST THEN;
+                        IF recLBuyVendor.FINDFIRST() THEN;
                     end;
 
                     trigger OnPreDataItem()
@@ -391,16 +388,16 @@ report 50015 "BC6_Prices Request"
                 begin
                     CLEAR(TempPurchLine);
                     CLEAR(PurchPost);
-                    TempPurchLine.DELETEALL;
-                    TempVATAmountLine.DELETEALL;
+                    TempPurchLine.DELETEALL();
+                    TempVATAmountLine.DELETEALL();
                     PurchPost.GetPurchLines("Purchase Header", TempPurchLine, 0);
                     TempPurchLine.CalcVATAmountLines(0, "Purchase Header", TempPurchLine, TempVATAmountLine);
                     TempPurchLine.UpdateVATOnLines(0, "Purchase Header", TempPurchLine, TempVATAmountLine);
-                    VATAmount := TempVATAmountLine.GetTotalVATAmount;
-                    VATBaseAmount := TempVATAmountLine.GetTotalVATBase;
+                    VATAmount := TempVATAmountLine.GetTotalVATAmount();
+                    VATBaseAmount := TempVATAmountLine.GetTotalVATBase();
                     VATDiscountAmount :=
                       TempVATAmountLine.GetTotalVATDiscount("Purchase Header"."Currency Code", "Purchase Header"."Prices Including VAT");
-                    TotalAmountInclVAT := TempVATAmountLine.GetTotalAmountInclVAT;
+                    TotalAmountInclVAT := TempVATAmountLine.GetTotalAmountInclVAT();
 
                     IF Number > 1 THEN
                         CopyText := Text003;
@@ -429,16 +426,12 @@ report 50015 "BC6_Prices Request"
             begin
                 CurrReport.LANGUAGE := Language.GetLanguageIdOrDefault("Language Code");
 
-                CompanyInfo.GET;
-
+                CompanyInfo.GET();
 
                 IF BoolGRespCenter THEN
                     RespCenter.CALCFIELDS(RespCenter.BC6_Picture, RespCenter."BC6_Alt Picture")
                 ELSE
                     CompanyInfo.CALCFIELDS(CompanyInfo.Picture, CompanyInfo."BC6_Alt Picture");
-
-
-
 
                 IF RespCenter.GET(CodGRespCenter) THEN BEGIN
                     FormatAddr.RespCenter(CompanyAddr, RespCenter);
@@ -452,7 +445,7 @@ report 50015 "BC6_Prices Request"
                 END;
 
                 IF "Purchaser Code" = '' THEN BEGIN
-                    SalesPurchPerson.INIT;
+                    SalesPurchPerson.INIT();
                     PurchaserText := '';
                 END ELSE BEGIN
                     SalesPurchPerson.GET("Purchaser Code");
@@ -467,17 +460,17 @@ report 50015 "BC6_Prices Request"
                 IF ("Purchase Header"."Buy-from Vendor No." <> "Purchase Header"."Pay-to Vendor No.") THEN
                     FormatAddr.PurchHeaderPayTo(VendAddr, "Purchase Header");
                 IF "Payment Terms Code" = '' THEN
-                    PaymentTerms.INIT
+                    PaymentTerms.INIT()
                 ELSE
                     PaymentTerms.GET("Payment Terms Code");
 
                 IF "Payment Method Code" = '' THEN
-                    PaymentMethod.INIT
+                    PaymentMethod.INIT()
                 ELSE
                     PaymentMethod.GET("Payment Method Code");
 
                 IF "Shipment Method Code" = '' THEN
-                    ShipmentMethod.INIT
+                    ShipmentMethod.INIT()
                 ELSE
                     ShipmentMethod.GET("Shipment Method Code");
 
@@ -497,7 +490,6 @@ report 50015 "BC6_Prices Request"
                 RecGUser.SETRANGE("User Name", ID);
                 IF RecGUser.FIND('-') THEN
                     TexG_User_Name := RecGUser."User Name";
-
             end;
 
             trigger OnPreDataItem()
@@ -508,7 +500,6 @@ report 50015 "BC6_Prices Request"
 
     requestpage
     {
-
         layout
         {
             area(content)
@@ -518,14 +509,17 @@ report 50015 "BC6_Prices Request"
                     Caption = 'Options';
                     field(NoofCopiesF; NoOfCopies)
                     {
+                        ApplicationArea = All;
                         Caption = 'No. of Copies', Comment = 'FRA="Nombre de copies"';
                     }
                     field(ShowInternalInformation; ShowInternalInfo)
                     {
+                        ApplicationArea = All;
                         Caption = 'Show Internal Information', Comment = 'FRA="Afficher info. internes"';
                     }
                     field(ArchiveDocumentF; ArchiveDocument)
                     {
+                        ApplicationArea = All;
                         Caption = 'Archive Document', Comment = 'FRA="Archiver document"';
 
                         trigger OnValidate()
@@ -536,6 +530,7 @@ report 50015 "BC6_Prices Request"
                     }
                     field(LogInteractionF; LogInteraction)
                     {
+                        ApplicationArea = All;
                         Caption = 'Log Interaction', Comment = 'FRA="Journal interaction"';
                         Enabled = LogInteractionEnable;
 
@@ -547,6 +542,7 @@ report 50015 "BC6_Prices Request"
                     }
                     field(CodGRespCenterF; CodGRespCenter)
                     {
+                        ApplicationArea = All;
                         Caption = 'Print Characteristics Agency:', Comment = 'FRA="Imprimer Caractéristiques Agence:"';
                         TableRelation = "Responsibility Center";
                     }
@@ -580,7 +576,7 @@ report 50015 "BC6_Prices Request"
 
     trigger OnInitReport()
     begin
-        GLSetup.GET;
+        GLSetup.GET();
     end;
 
     var
@@ -601,8 +597,8 @@ report 50015 "BC6_Prices Request"
         ArchiveManagement: Codeunit ArchiveManagement;
         FormatAddr: Codeunit "Format Address";
         Language: Codeunit Language;
-        PurchPost: Codeunit "Purch.-Post";
         PurchCountPrinted: Codeunit "Purch.Header-Printed";
+        PurchPost: Codeunit "Purch.-Post";
         SegManagement: Codeunit SegManagement;
         ArchiveDocument: Boolean;
         [InDataSet]
@@ -672,9 +668,6 @@ report 50015 "BC6_Prices Request"
         TxtGLblProjet: Text[30];
         TxtGNoProjet: Text[30];
         VATNoText: Text[30];
-        BuyFromAddr: array[8] of Text[50];
-        CompanyAddr: array[8] of Text[50];
-        ShipToAddr: array[8] of Text[50];
         TotalExclVATText: Text[50];
         TotalInclVATText: Text[50];
         TotalText: Text[50];
@@ -684,27 +677,29 @@ report 50015 "BC6_Prices Request"
         TxtGDesignation: Text[50];
         TxtGTag: Text[50];
         VALExchRate: Text[50];
-        VendAddr: array[8] of Text[50];
         OldDimText: Text[75];
         TxtGAltEmail: Text[80];
         TxtGAltHomePage: Text[80];
         TxtGEmail: Text[80];
         TxtGHomePage: Text[80];
         VALSpecLCYHeader: Text[80];
+        BuyFromAddr: array[8] of Text[100];
+        CompanyAddr: array[8] of Text[100];
+        ShipToAddr: array[8] of Text[100];
+        VendAddr: array[8] of Text[100];
         DimText: Text[120];
 
     procedure DefineTagFax(TxtLTag: Text[50])
     begin
-        RecGParamVente.GET;
+        RecGParamVente.GET();
         TxtGTag := RecGParamVente."BC6_RTE Fax Tag" + TxtLTag + '@cne.fax';
     end;
 
     procedure DefineTagMail(TxtLTag: Text[50])
     begin
-        RecGParamVente.GET;
+        RecGParamVente.GET();
         TxtGTag := RecGParamVente."BC6_PDF Mail Tag" + TxtLTag;
     end;
-
 
     procedure InitializeRequest(NewNoOfCopies: Integer; NewShowInternalInfo: Boolean; NewArchiveDocument: Boolean; NewLogInteraction: Boolean)
     begin
@@ -714,4 +709,3 @@ report 50015 "BC6_Prices Request"
         LogInteraction := NewLogInteraction;
     end;
 }
-

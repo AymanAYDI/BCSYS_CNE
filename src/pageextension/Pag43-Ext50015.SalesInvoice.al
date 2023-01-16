@@ -2,13 +2,12 @@ pageextension 50015 "BC6_SalesInvoice" extends "Sales Invoice" //43
 {
     layout
     {
-
         addafter("Sell-to Contact No.")
         {
             field(BC6_ID; Rec.BC6_ID)
             {
-                Editable = false;
                 ApplicationArea = All;
+                Editable = false;
             }
         }
         addafter("Sell-to Contact No.")
@@ -45,12 +44,12 @@ pageextension 50015 "BC6_SalesInvoice" extends "Sales Invoice" //43
         {
             part("BC6_Sales Hist. Sellto FactBox"; "BC6_Sales Hist. Sellto FactBox")
             {
+                ApplicationArea = All;
                 Provider = SalesLines;
                 SubPageLink = "Document Type" = FIELD("Document Type"),
                               "Document No." = FIELD("Document No."),
                               "Line No." = FIELD("Line No.");
                 Visible = false;
-                ApplicationArea = All;
             }
         }
     }
@@ -60,7 +59,6 @@ pageextension 50015 "BC6_SalesInvoice" extends "Sales Invoice" //43
         {
             Visible = false;
         }
-
         addafter(PostAndNew)
         {
             action(BC6_PostAndNew2)
@@ -84,7 +82,6 @@ pageextension 50015 "BC6_SalesInvoice" extends "Sales Invoice" //43
                 end;
             }
         }
-
     }
 
     var
@@ -97,8 +94,6 @@ pageextension 50015 "BC6_SalesInvoice" extends "Sales Invoice" //43
         STR5: Label 'Envoyer par Fax';
         Text001: Label '';
         nameF: Text[250];
-
-
 
     procedure FnctGOnAvterValidateReasonCode()
     begin
@@ -135,4 +130,3 @@ pageextension 50015 "BC6_SalesInvoice" extends "Sales Invoice" //43
     begin
     end;
 }
-

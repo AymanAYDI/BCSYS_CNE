@@ -1,9 +1,9 @@
 report 50079 "BC6_Receptions non facturées"
 {
+    ApplicationArea = All;
     Caption = 'Receptions non facturées';
     DefaultLayout = RDLC;
     RDLCLayout = './src/Report/RDL/Receptionsnonfacturées.rdl';
-    ApplicationArea = All;
     UsageCategory = ReportsAndAnalysis;
 
     dataset
@@ -181,7 +181,6 @@ report 50079 "BC6_Receptions non facturées"
 
     requestpage
     {
-
         layout
         {
         }
@@ -217,4 +216,3 @@ report 50079 "BC6_Receptions non facturées"
         Unit_Price___LCY_CaptionLbl: Label ' Unit Price ( LCY)', comment = 'FRA="Prix unitaire DS"';
         Filtre: Text;
 }
-

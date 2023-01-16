@@ -1,15 +1,13 @@
-
 report 50008 "BC6_Purchase Order"
 {
+    Caption = 'Purchase Order', Comment = 'FRA="Commande achat"';
     DefaultLayout = RDLC;
     RDLCLayout = './src/Report/RDL/PurchaseOrder.rdl';
-    Caption = 'Purchase Order', Comment = 'FRA="Commande achat"';
 
     dataset
     {
         dataitem("Purchase Header"; "Purchase Header")
         {
-
             DataItemTableView = SORTING("Document Type", "No.")
                                 WHERE("Document Type" = CONST(Order));
             RequestFilterFields = "No.", "Buy-from Vendor No.", "No. Printed";
@@ -463,15 +461,13 @@ report 50008 "BC6_Purchase Order"
                                                         TempPurchLine."BC6_DEEE HT Amount" + TempPurchLine."BC6_DEEE VAT Amount";
                             //<<MIGRATION NAV 2013
 
-
                             //>>COMPTA_DEEE FG 01/03/07
-                            IF RecGPayVendor."BC6_Posting DEEE" THEN BEGIN
+                            IF RecGPayVendor."BC6_Posting DEEE" THEN
                                 BooGPostingDEEE := (("Purchase Line"."BC6_DEEE Category Code" <> '') AND
                                                         ("Purchase Line".Quantity <> 0) AND
-                                                          ("Purchase Line"."BC6_Eco partner DEEE" <> ''));
-                            END ELSE BEGIN
+                                                          ("Purchase Line"."BC6_Eco partner DEEE" <> ''))
+                            ELSE
                                 BooGPostingDEEE := FALSE;
-                            END;
                             //<<COMPTA_DEEE FG 01/03/07
                         end;
 
@@ -813,10 +809,9 @@ report 50008 "BC6_Purchase Order"
                             RecGDEEE.RESET();
                             RecGDEEE.SETFILTER(RecGDEEE."DEEE Code", "DEEE Tariffs"."DEEE Code");
                             RecGDEEE.SETFILTER(RecGDEEE."Date beginning", '<=%1', "Purchase Header"."Posting Date");
-                            IF RecGDEEE.FIND('+') THEN BEGIN
+                            IF RecGDEEE.FIND('+') THEN
                                 IF RecGDEEE."Date beginning" <> "DEEE Tariffs"."Date beginning" THEN
                                     BooGDEEEFind := FALSE;
-                            END;
 
                             RecGItemCtg.RESET();
                             IF NOT RecGItemCtg.GET("DEEE Tariffs"."DEEE Code", "DEEE Tariffs"."Eco Partner") THEN
@@ -979,7 +974,6 @@ report 50008 "BC6_Purchase Order"
                     begin
                         recLBuyVendor.SETFILTER("No.", "Purchase Header"."Buy-from Vendor No.");
                         IF recLBuyVendor.FINDFIRST() THEN;
-
 
                         //>>FED_ADV_ 20091005_CENTRE GESTION STANDARD: OR 29/01/2010
                         IF BoolGRespCenter THEN BEGIN
@@ -1191,7 +1185,6 @@ report 50008 "BC6_Purchase Order"
 
     requestpage
     {
-
         layout
         {
             area(content)
@@ -1199,32 +1192,34 @@ report 50008 "BC6_Purchase Order"
                 group(Options)
                 {
                     Caption = 'Options', Comment = 'FRA="Options"';
-                    field(NoOfCopies; NoOfCopies)
+                    field(NoOfCopiesF; NoOfCopies)
                     {
+                        ApplicationArea = All;
                         Caption = 'No. of Copies', Comment = 'FRA="Nombre de copies"';
                         ;
                     }
-                    field(ShowInternalInfo; ShowInternalInfo)
+                    field(ShowInternalInfoF; ShowInternalInfo)
                     {
+                        ApplicationArea = All;
                         Caption = 'Show Internal Information', Comment = 'FRA="Afficher info. internes"';
                         ;
                     }
-                    field(ArchiveDocument; ArchiveDocument)
+                    field(ArchiveDocumentF; ArchiveDocument)
                     {
+                        ApplicationArea = All;
                         Caption = 'Archive Document', Comment = 'FRA="Archiver document"';
-                        ;
                         Enabled = ArchiveDocumentEnable;
                     }
-                    field(LogInteraction; LogInteraction)
+                    field(LogInteractionF; LogInteraction)
                     {
+                        ApplicationArea = All;
                         Caption = 'Log Interaction', Comment = 'FRA="Journal interaction"';
-                        ;
                         Enabled = LogInteractionEnable;
                     }
-                    field(CodGRespCenter; CodGRespCenter)
+                    field(CodGRespCenterF; CodGRespCenter)
                     {
+                        ApplicationArea = All;
                         Caption = 'Print Characteristics Agency:', Comment = 'FRA="Imprimer Caractéristiques Agence:"';
-                        ;
                         TableRelation = "Responsibility Center";
                     }
                 }
@@ -1248,7 +1243,6 @@ report 50008 "BC6_Purchase Order"
             LogInteraction := SegManagement.FindInteractTmplCode(13) <> '';
             LogInteractionEnable := LogInteraction;
             ArchiveDocumentEnable := ArchiveDocument;
-
 
             //RequestOptionsPage.ArchiveDocument.ENABLED(ArchiveDocument);
             //RequestOptionsPage.LogInteraction.ENABLED(LogInteraction);
@@ -1296,8 +1290,8 @@ report 50008 "BC6_Purchase Order"
         ArchiveManagement: Codeunit ArchiveManagement;
         FormatAddr: Codeunit "Format Address";
         Language: Codeunit Language;
-        PurchPost: Codeunit "Purch.-Post";
         PurchCountPrinted: Codeunit "Purch.Header-Printed";
+        PurchPost: Codeunit "Purch.-Post";
         SegManagement: Codeunit SegManagement;
         ArchiveDocument: Boolean;
         [InDataSet]
@@ -1337,11 +1331,11 @@ report 50008 "BC6_Purchase Order"
         VATBaseAmount: Decimal;
         VATDiscountAmount: Decimal;
         "--CNE3.02--": Integer;
-        "--FEP-ADVE-200706_18_A.--": Integer;
         "-DEEE1.00-": Integer;
-        "-NSC-": Integer;
+        "--FEP-ADVE-200706_18_A.--": Integer;
         NoOfCopies: Integer;
         NoOfLoops: Integer;
+        "-NSC-": Integer;
         OutputNo: Integer;
         AmountCaption_Control45Lbl: Label 'Amount', Comment = 'FRA="Montant"';
         AmountCaptionLbl: Label 'Amount', Comment = 'FRA="Montant"';
@@ -1414,13 +1408,13 @@ report 50008 "BC6_Purchase Order"
         TotalCaptionLbl: Label 'Total', Comment = 'FRA="Total"';
         TVACaption_Control1000000114Lbl: Label '% TVA', Comment = 'FRA="% TVA"';
         TVACaptionLbl: Label '% TVA', Comment = 'FRA="% TVA"';
+        txtlbl12: label '%1 %2';
         Unit_PriceCaption_Control43Lbl: Label 'Unit Price', Comment = 'FRA="Prix Unitaire net HT"';
         Unit_PriceCaptionLbl: Label 'Unit Price', Comment = 'FRA="Prix Unitaire net HT"';
         VALVATBaseLCY_Control1000000125CaptionLbl: Label 'Continued', Comment = 'FRA="Report"';
         VALVATBaseLCY_Control1000000128CaptionLbl: Label 'Total', Comment = 'FRA="Total"';
         VAT_Amount_SpecificationCaptionLbl: Label 'VAT Amount Specification', Comment = 'FRA="Détail TVA"';
         Vendor_No___CaptionLbl: Label 'Vendor No :.', Comment = 'FRA="N° fournisseur :"';
-        txtlbl12: label '%1 %2';
         TxtGAltFax: Text[20];
         TxtGAltPhone: Text[20];
         TxtGAltPostCode: Text[20];
@@ -1436,9 +1430,6 @@ report 50008 "BC6_Purchase Order"
         TxtGLblProjet: Text[30];
         TxtGNoProjet: Text[30];
         VATNoText: Text[30];
-        BuyFromAddr: array[8] of Text[50];
-        CompanyAddr: array[8] of Text[50];
-        ShipToAddr: array[8] of Text[50];
         TotalExclVATText: Text[50];
         TotalInclVATText: Text[50];
         TotalText: Text[50];
@@ -1447,7 +1438,6 @@ report 50008 "BC6_Purchase Order"
         TxtGAltName: Text[50];
         TxtGDesignation: Text[50];
         VALExchRate: Text[50];
-        VendAddr: array[8] of Text[50];
         TxtGTag: Text[70];
         OldDimText: Text[75];
         TxtGAltEmail: Text[80];
@@ -1455,6 +1445,10 @@ report 50008 "BC6_Purchase Order"
         TxtGEmail: Text[80];
         TxtGHomePage: Text[80];
         VALSpecLCYHeader: Text[80];
+        BuyFromAddr: array[8] of Text[100];
+        CompanyAddr: array[8] of Text[100];
+        ShipToAddr: array[8] of Text[100];
+        VendAddr: array[8] of Text[100];
         DimText: Text[120];
 
     procedure DefineTagFax(TxtLTag: Text[50])
@@ -1478,4 +1472,3 @@ report 50008 "BC6_Purchase Order"
         LogInteraction := NewLogInteraction;
     end;
 }
-

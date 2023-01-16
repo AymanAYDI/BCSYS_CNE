@@ -5,51 +5,51 @@ tableextension 50005 "BC6_Vendor" extends Vendor //23
         field(50000; "BC6_Creation Date"; Date)
         {
             Caption = 'Creation Date', Comment = 'FRA="Date de création"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50001; BC6_User; Code[20])
         {
             Caption = 'User', Comment = 'FRA="Utilisateur"';
+            DataClassification = CustomerContent;
             Editable = false;
             TableRelation = User;
-            DataClassification = CustomerContent;
         }
         field(50002; "BC6_Transaction Type"; Code[10])
         {
             Caption = 'Transaction Type', Comment = 'FRA="Nature Transaction"';
-            TableRelation = "Transaction Type";
             DataClassification = CustomerContent;
+            TableRelation = "Transaction Type";
         }
         field(50003; "BC6_Transaction Specification"; Code[10])
         {
             Caption = 'Transaction Specification', Comment = 'FRA="Régime"';
-            TableRelation = "Transaction Specification";
             DataClassification = CustomerContent;
+            TableRelation = "Transaction Specification";
         }
         field(50004; "BC6_Transport Method"; Code[10])
         {
             Caption = 'Transport Method', Comment = 'FRA="Mode transport"';
-            TableRelation = "Transport Method";
             DataClassification = CustomerContent;
+            TableRelation = "Transport Method";
         }
         field(50005; "BC6_Entry Point"; Code[10])
         {
             Caption = 'Entry  Point', Comment = 'FRA="Pays Provenance"';
-            TableRelation = "Entry/Exit Point";
             DataClassification = CustomerContent;
+            TableRelation = "Entry/Exit Point";
         }
         field(50006; BC6_Area; Code[10])
         {
             Caption = 'Area', Comment = 'FRA="Departement Destination"';
-            TableRelation = Area;
             DataClassification = CustomerContent;
+            TableRelation = Area;
         }
         field(50007; "BC6_Pay-to Vend. No."; Code[20])
         {
             Caption = 'Pay-to Vend. No.', Comment = 'FRA="Tiers payeur"';
-            TableRelation = Vendor;
             DataClassification = CustomerContent;
+            TableRelation = Vendor;
 
             trigger OnValidate()
             begin
@@ -64,9 +64,9 @@ tableextension 50005 "BC6_Vendor" extends Vendor //23
         }
         field(50012; BC6_MinFranco; Decimal)
         {
-            Enabled = false;
-            DataClassification = CustomerContent;
             Caption = 'MinFranco';
+            DataClassification = CustomerContent;
+            Enabled = false;
         }
         field(50013; "BC6_Order Minimum"; Decimal)
         {
@@ -86,9 +86,9 @@ tableextension 50005 "BC6_Vendor" extends Vendor //23
         field(50016; "BC6_% Mini Margin"; Decimal)
         {
             Caption = '% Mini Margin', Comment = 'FRA="% marge mini"';
+            DataClassification = CustomerContent;
             MaxValue = 100;
             MinValue = 0;
-            DataClassification = CustomerContent;
         }
         field(80800; "BC6_Posting DEEE"; Boolean)
         {

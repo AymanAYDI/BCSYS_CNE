@@ -5,12 +5,10 @@ codeunit 50090 "BC6_ScanDeviceHelper"
         ConvertFrom: label '&é"''(-è_çà';
         ConvertTo: label '1234567890';
 
-
     procedure ConvertScanData(_TextToConvert: Text): Text
     begin
         exit(CONVERTSTR(_TextToConvert, ConvertFrom, ConvertTo));
     end;
-
 
     procedure ChangeDefaultBinContent(ItemNo: Code[20]; VariantCode: Code[10])
     var
@@ -32,11 +30,8 @@ codeunit 50090 "BC6_ScanDeviceHelper"
                     BinContent2.VALIDATE(Default, true);
                     BinContent2.MODIFY(true);
                 end;
-
-
         end;
     end;
-
 
     procedure GetDefaultBinContent(ItemNo: Code[20]; VariantCode: Code[10]): Code[20]
     var
@@ -49,10 +44,9 @@ codeunit 50090 "BC6_ScanDeviceHelper"
             exit(BinContent."Bin Code");
     end;
 
-
     procedure GetValueOfSubmition(ControlID: Integer; _Xml: Text): Text
     var
-    //TODO: DotNet 
+    //TODO: DotNet
     // dotXmlDocument: DotNet XmlDocument;
     // dotXmlElement: DotNet XmlElement;
     // dotXmlCDATA: DotNet XmlCDataSection;
@@ -65,4 +59,3 @@ codeunit 50090 "BC6_ScanDeviceHelper"
         // EXIT(dotXmlElement.InnerText);
     end;
 }
-

@@ -16,9 +16,9 @@ pageextension 50041 "BC6_PostedPurchaseReceipt" extends "Posted Purchase Receipt
         {
             action("BC6_Sent/Print")
             {
+                ApplicationArea = All;
                 Caption = '&Print', Comment = 'FRA="&Imprimer"';
                 Image = SendMail;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -81,4 +81,3 @@ pageextension 50041 "BC6_PostedPurchaseReceipt" extends "Posted Purchase Receipt
     begin
     end;
 }
-

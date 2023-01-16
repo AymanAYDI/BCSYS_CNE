@@ -1,9 +1,9 @@
 xmlport 50026 "BC6_Import Av. Orders"
 {
+    Caption = 'Import Av. Orders';
     FieldDelimiter = '<None>';
     FieldSeparator = ';';
     Format = VariableText;
-    Caption = 'Import Av. Orders';
 
     schema
     {
@@ -11,9 +11,9 @@ xmlport 50026 "BC6_Import Av. Orders"
         {
             tableelement(Integer; Integer)
             {
-                XmlName = 'Integers';
                 SourceTableView = SORTING(Number)
                                   ORDER(Ascending);
+                XmlName = 'Integers';
                 textelement(OrderNo)
                 {
                 }
@@ -81,7 +81,6 @@ xmlport 50026 "BC6_Import Av. Orders"
                             CLEAR(ReleaseSalesDoc);
                             ReleaseSalesDoc.RUN(SalesOrder);
                         END;
-
                     END;
                 end;
             }
@@ -90,7 +89,6 @@ xmlport 50026 "BC6_Import Av. Orders"
 
     requestpage
     {
-
         layout
         {
         }
@@ -117,4 +115,3 @@ xmlport 50026 "BC6_Import Av. Orders"
         TotalCounter: Integer;
         Text001: Label '%1 commandes à jour %2.', Comment = 'FRA="%1 commandes à jour %2."';
 }
-

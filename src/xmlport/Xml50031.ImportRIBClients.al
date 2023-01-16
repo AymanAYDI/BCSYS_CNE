@@ -1,10 +1,10 @@
 xmlport 50031 "BC6_Import R.I.BClients"
 {
+    Caption = 'Import R.I.BClients';
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = ';';
     Format = VariableText;
-    Caption = 'Import R.I.BClients';
 
     schema
     {
@@ -43,7 +43,6 @@ xmlport 50031 "BC6_Import R.I.BClients"
 
     requestpage
     {
-
         layout
         {
         }
@@ -53,4 +52,3 @@ xmlport 50031 "BC6_Import R.I.BClients"
         }
     }
 }
-

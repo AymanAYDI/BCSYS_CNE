@@ -1,10 +1,10 @@
 xmlport 50023 "BC6_Intégration catalogue"
 {
+    Caption = 'Intégration catalogue';
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = '<TAB>';
     Format = VariableText;
-    Caption = 'Intégration catalogue';
 
     schema
     {
@@ -12,8 +12,8 @@ xmlport 50023 "BC6_Intégration catalogue"
         {
             tableelement("BC6_Temporary import catalogue"; "BC6_Temporary import catalogue")
             {
-                XmlName = 'Temporaryimportcatalogue';
                 SourceTableView = SORTING("key");
+                XmlName = 'Temporaryimportcatalogue';
                 textelement(ref_ext)
                 {
                 }
@@ -208,6 +208,7 @@ xmlport 50023 "BC6_Intégration catalogue"
             {
                 field(FileNameF; FileName)
                 {
+                    ApplicationArea = All;
                     Caption = 'Open File', Comment = 'FRA="Ouvrir Fichier"';
                     Visible = false;
 
@@ -219,15 +220,16 @@ xmlport 50023 "BC6_Intégration catalogue"
                         RecGNavisetup.GET();
                         //TODO  CHECKME !    // FileName := cduFileMngt.OpenFileDialog(textG001, RecGNavisetup."Catalog import Path", '');
                         FileName := cduFileMngt.UploadFile(STRSUBSTNO(textG001), RecGNavisetup."Catalog import Path")
-
                     end;
                 }
                 field(DateDebF; DateDeb)
                 {
+                    ApplicationArea = All;
                     Caption = 'Date début';
                 }
                 field(DateFinF; DateFin)
                 {
+                    ApplicationArea = All;
                     Caption = 'Date fin';
 
                     trigger OnValidate()
@@ -239,6 +241,7 @@ xmlport 50023 "BC6_Intégration catalogue"
                 }
                 field(NumF; Num)
                 {
+                    ApplicationArea = All;
                     Caption = 'Fournisseur';
                     TableRelation = Vendor;
 
@@ -251,10 +254,12 @@ xmlport 50023 "BC6_Intégration catalogue"
                 }
                 field(TextGabbreviationF; TextGabbreviation)
                 {
+                    ApplicationArea = All;
                     Caption = 'Vendor abbreviation', Comment = 'FRA="Abréviation fournisseur"';
                 }
                 field(CatF; Cat)
                 {
+                    ApplicationArea = All;
                     Caption = 'Catégorie Article';
 
                     trigger OnValidate()
@@ -266,6 +271,7 @@ xmlport 50023 "BC6_Intégration catalogue"
                 }
                 field(GRPProduitF; GRPProduit)
                 {
+                    ApplicationArea = All;
                     Caption = 'Product Group', Comment = 'FRA="Groupe Produit Article"';
                     //TODO
                     // trigger OnLookup(var Text: Text): Boolean
@@ -339,4 +345,3 @@ xmlport 50023 "BC6_Intégration catalogue"
         Textg004: Label '%1 %2 doesn''t exist, \ please create it.', Comment = 'FRA="%1 %2 n''existe pas, \ merci de le créer."';
         FileName: Text;
 }
-

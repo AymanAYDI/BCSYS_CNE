@@ -1,22 +1,22 @@
 table 50013 "BC6_Salesperson authorized"
 {
+    DataClassification = CustomerContent;
     DrillDownPageID = "BC6_Salesperson authorized";
     LookupPageID = "BC6_Salesperson authorized";
-    DataClassification = CustomerContent;
 
     fields
     {
         field(1; "Customer No."; Code[20])
         {
             Caption = 'Customer No.', comment = 'FRA="N° client"';
-            TableRelation = Customer;
             DataClassification = CustomerContent;
+            TableRelation = Customer;
         }
         field(2; "Salesperson code"; Code[20])
         {
             Caption = 'Salesperson code', comment = 'FRA="Code vendeur"';
-            TableRelation = "Salesperson/Purchaser";
             DataClassification = CustomerContent;
+            TableRelation = "Salesperson/Purchaser";
         }
         field(3; authorized; Boolean)
         {

@@ -16,13 +16,13 @@ page 50068 "BC6_Reclass. Card MiniForm F3"
         {
             field(FromBinCodeCtrl; FromBinCode)
             {
+                ApplicationArea = All;
                 Caption = 'Bin Code', Comment = 'FRA="De empl."';
                 Editable = true;
                 Style = Standard;
                 StyleExpr = TRUE;
                 TableRelation = Bin.Code;
                 Visible = FromBinCodeCtrlVisible;
-                ApplicationArea = All;
 
                 trigger OnLookup(var Text: Text): Boolean
                 var
@@ -71,12 +71,12 @@ page 50068 "BC6_Reclass. Card MiniForm F3"
             }
             field(ItemNoCtrl; ItemNo)
             {
+                ApplicationArea = All;
                 Caption = 'Item nr', Comment = 'FRA="N° article"';
                 NotBlank = false;
                 Style = Standard;
                 StyleExpr = TRUE;
                 Visible = ItemNoCtrlVisible;
-                ApplicationArea = All;
 
                 trigger OnLookup(var Text: Text): Boolean
                 var
@@ -103,18 +103,18 @@ page 50068 "BC6_Reclass. Card MiniForm F3"
             }
             field(Description; Rec.Description)
             {
-                Editable = false;
-                Caption = 'Description';
                 ApplicationArea = All;
+                Caption = 'Description';
+                Editable = false;
             }
             field(QtyCtrl; Qty)
             {
+                ApplicationArea = All;
                 Caption = 'Quantity', Comment = 'FRA="Quantité"';
                 Editable = QtyCtrlEditable;
                 Style = Standard;
                 StyleExpr = TRUE;
                 Visible = QtyCtrlVisible;
-                ApplicationArea = All;
 
                 trigger OnValidate()
                 begin
@@ -123,13 +123,13 @@ page 50068 "BC6_Reclass. Card MiniForm F3"
             }
             field(ToBinCodeCtrl; ToBinCode)
             {
+                ApplicationArea = All;
                 Caption = 'Bin Code', Comment = 'FRA="Vers emp."';
                 Editable = ToBinCodeCtrlEditable;
                 Style = Standard;
                 StyleExpr = TRUE;
                 TableRelation = Bin.Code;
                 Visible = ToBinCodeCtrlVisible;
-                ApplicationArea = All;
 
                 trigger OnLookup(var Text: Text): Boolean
                 var
@@ -158,13 +158,13 @@ page 50068 "BC6_Reclass. Card MiniForm F3"
             }
             field(LocationCodeCtrl; LocationCode)
             {
+                ApplicationArea = All;
                 Caption = 'Location', Comment = 'FRA="Magasin"';
                 Editable = false;
                 Numeric = false;
                 Style = Standard;
                 StyleExpr = TRUE;
                 TableRelation = Location;
-                ApplicationArea = All;
 
                 trigger OnLookup(var Text: Text): Boolean
                 var
@@ -199,12 +199,12 @@ page 50068 "BC6_Reclass. Card MiniForm F3"
         {
             action("&Item")
             {
+                ApplicationArea = All;
                 Caption = '&Item', Comment = 'FRA="&Art."';
                 Image = Item;
                 Promoted = true;
                 PromotedCategory = Process;
                 ShortCutKey = 'F2';
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -229,18 +229,17 @@ page 50068 "BC6_Reclass. Card MiniForm F3"
                         CurrPage.CLOSE();
                         PgeLReclassItemSelection.SETTABLEVIEW(Rec);
                         PgeLReclassItemSelection.RUN();
-
                     END;
                 end;
             }
             action("&Bin")
             {
+                ApplicationArea = All;
                 Caption = '&Bin', Comment = 'FRA="&Emp."';
                 Image = Bin;
                 Promoted = true;
                 PromotedCategory = Process;
                 ShortCutKey = 'F3';
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -264,19 +263,18 @@ page 50068 "BC6_Reclass. Card MiniForm F3"
                         CurrPage.CLOSE();
                         PgeLReclassBinSelection.SETTABLEVIEW(Rec);
                         PgeLReclassBinSelection.RUN();
-
                     END;
                 end;
             }
             action("&Post")
             {
+                ApplicationArea = All;
                 Caption = '&Post', Comment = 'FRA="&Valider"';
                 Image = Post;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ShortCutKey = 'F8';
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -285,15 +283,14 @@ page 50068 "BC6_Reclass. Card MiniForm F3"
                     PostBatch();
 
                     CurrPage.CLOSE();
-
                 end;
             }
             action("&Quit")
             {
+                ApplicationArea = All;
                 Caption = '&Quit', Comment = 'FRA="&Quitter"';
                 Promoted = true;
                 PromotedCategory = Process;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -302,10 +299,10 @@ page 50068 "BC6_Reclass. Card MiniForm F3"
             }
             action("&Delete")
             {
-                Caption = '&Delete', Comment = 'FRA="&Delete"';
-                ShortCutKey = 'F9';
                 ApplicationArea = All;
+                Caption = '&Delete', Comment = 'FRA="&Delete"';
                 Image = Delete;
+                ShortCutKey = 'F9';
 
                 trigger OnAction()
                 var
@@ -562,12 +559,11 @@ page 50068 "BC6_Reclass. Card MiniForm F3"
                     ItemError := TRUE;
                     ErrorTxt := STRSUBSTNO(Text013, "ItemNo.");
                 END;
-            END ELSE BEGIN
+            END ELSE
                 IF NOT Item.GET("ItemNo.") THEN BEGIN
                     ItemError := TRUE;
                     ErrorTxt := STRSUBSTNO(Text013, "ItemNo.");
                 END;
-            END;
 
             IF Item.Blocked THEN BEGIN
                 IF NOT ItemError THEN
@@ -584,12 +580,11 @@ page 50068 "BC6_Reclass. Card MiniForm F3"
                     ErrorTxt := STRSUBSTNO(Text012, Item."No.");
                 ItemError := TRUE;
             END;
-
         END;
 
-        IF ItemError THEN BEGIN
-            MESSAGE('%1', ErrorTxt);
-        END ELSE BEGIN
+        IF ItemError THEN
+            MESSAGE('%1', ErrorTxt)
+        ELSE BEGIN
             Rec.VALIDATE("Item No.", "ItemNo.");
             Rec.VALIDATE("Bin Code", FromBinCode);
             Rec.VALIDATE(Quantity, 1);
@@ -657,12 +652,11 @@ page 50068 "BC6_Reclass. Card MiniForm F3"
     begin
         IF (STRLEN(Code) = 13) THEN BEGIN
             CodeOk := TRUE;
-            FOR i := 1 TO STRLEN(Code) DO BEGIN
+            FOR i := 1 TO STRLEN(Code) DO
                 IF NOT (Code[i] IN ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']) THEN BEGIN
                     CodeOk := FALSE;
                     EXIT(CodeOk);
                 END;
-            END;
         END ELSE
             CodeOk := FALSE;
     end;
@@ -698,4 +692,3 @@ page 50068 "BC6_Reclass. Card MiniForm F3"
         UpdateCurrForm();
     end;
 }
-

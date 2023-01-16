@@ -1,6 +1,5 @@
 pageextension 50023 "BC6_PurchaseOrderSubform" extends "Purchase Order Subform" //54
 {
-
     layout
     {
         modify("Bin Code")
@@ -32,6 +31,7 @@ pageextension 50023 "BC6_PurchaseOrderSubform" extends "Purchase Order Subform" 
         {
             field("BC6_Eco partner DEEE"; Rec."BC6_Eco partner DEEE")
             {
+                ApplicationArea = All;
                 Visible = false;
             }
         }
@@ -39,21 +39,26 @@ pageextension 50023 "BC6_PurchaseOrderSubform" extends "Purchase Order Subform" 
         {
             field("BC6_Outstanding Quantity"; Rec."Outstanding Quantity")
             {
+                ApplicationArea = All;
             }
             field("BC6_Reserved Quantity"; Rec."Reserved Quantity")
             {
+                ApplicationArea = All;
                 BlankZero = true;
                 Visible = false;
             }
             field("BC6_Sales Order Qty (Base)"; Rec."BC6_Sales Order Qty (Base)")
             {
+                ApplicationArea = All;
                 Visible = false;
             }
             field("BC6_Location Code"; Rec."Location Code")
             {
+                ApplicationArea = All;
             }
             field("BC6_Bin Code"; Rec."Bin Code")
             {
+                ApplicationArea = All;
                 Visible = false;
             }
         }
@@ -61,41 +66,51 @@ pageextension 50023 "BC6_PurchaseOrderSubform" extends "Purchase Order Subform" 
         {
             field("BC6_Discount Direct Unit Cost"; Rec."BC6_Discount Direct Unit Cost")
             {
+                ApplicationArea = All;
             }
         }
         addafter(ShortcutDimCode8)
         {
             field("BC6_Sales Document Type"; Rec."BC6_Sales Document Type")
             {
+                ApplicationArea = All;
             }
             field("BC6_Sales No."; Rec."BC6_Sales No.")
             {
+                ApplicationArea = All;
             }
             field("BC6_Sales Line No."; Rec."BC6_Sales Line No.")
             {
+                ApplicationArea = All;
             }
             field("BC6_DEEE Category Code"; Rec."BC6_DEEE Category Code")
             {
+                ApplicationArea = All;
             }
             field("BC6_DEEE Unit Price"; Rec."BC6_DEEE Unit Price")
             {
+                ApplicationArea = All;
             }
             field("BC6_DEEE HT Amount"; Rec."BC6_DEEE HT Amount")
             {
+                ApplicationArea = All;
             }
             field("BC6_DEEE Unit Price (LCY)"; Rec."BC6_DEEE Unit Price (LCY)")
             {
+                ApplicationArea = All;
             }
             field("BC6_DEEE VAT Amount"; Rec."BC6_DEEE VAT Amount")
             {
+                ApplicationArea = All;
             }
             field("BC6_DEEE TTC Amount"; Rec."BC6_DEEE TTC Amount")
             {
+                ApplicationArea = All;
             }
             field("BC6_DEEE HT Amount (LCY)"; Rec."BC6_DEEE HT Amount (LCY)")
             {
+                ApplicationArea = All;
             }
-
         }
     }
 
@@ -108,7 +123,9 @@ pageextension 50023 "BC6_PurchaseOrderSubform" extends "Purchase Order Subform" 
             }
             action("BC6_Affected Orders")
             {
+                ApplicationArea = All;
                 Caption = 'Affected Orders', Comment = 'FRA="Commandes affectées"';
+                Image = Order;
                 RunObject = Page "BC6_Affected Orders";
                 RunPageLink = "BC6_Purch. Document Type" = CONST(Order),
                                   "BC6_Purch. Order No." = FIELD("Document No."),
@@ -118,8 +135,9 @@ pageextension 50023 "BC6_PurchaseOrderSubform" extends "Purchase Order Subform" 
             }
             action("BC6_Affecter commande")
             {
+                ApplicationArea = All;
                 Caption = 'Affecter commande';
-
+                image = ValidateEmailLoggingSetup;
                 trigger OnAction()
                 var
                     RecLPurchaseHeader: Record "Purchase Header";
@@ -132,9 +150,7 @@ pageextension 50023 "BC6_PurchaseOrderSubform" extends "Purchase Order Subform" 
                 end;
             }
         }
-
     }
-
 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
@@ -150,6 +166,4 @@ pageextension 50023 "BC6_PurchaseOrderSubform" extends "Purchase Order Subform" 
     begin
         ChooseSalesLineOrderToAffect();
     end;
-
 }
-

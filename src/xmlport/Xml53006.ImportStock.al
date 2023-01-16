@@ -42,7 +42,6 @@ xmlport 53006 "BC6_Import Stock"
                         "Item Journal Line".VALIDATE(Quantity, DecGQte);
 
                         "Item Journal Line".INSERT();
-
                     END;
                 end;
 
@@ -63,7 +62,6 @@ xmlport 53006 "BC6_Import Stock"
 
     requestpage
     {
-
         layout
         {
         }
@@ -78,4 +76,3 @@ xmlport 53006 "BC6_Import Stock"
         DecGQte: Decimal;
         IntGLineNo: Integer;
 }
-

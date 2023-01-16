@@ -1,14 +1,14 @@
 page 50081 "BC6_OneShot"
 {
-    Caption = 'Tools One Shot', Comment = 'FRA="Outils One-Shot"';
     ApplicationArea = All;
-    PageType = NavigatePage;
-    UsageCategory = Administration;
+    Caption = 'Tools One Shot', Comment = 'FRA="Outils One-Shot"';
+    DeleteAllowed = false;
     Editable = false;
     InsertAllowed = false;
-    ModifyAllowed = false;
-    DeleteAllowed = false;
     LinksAllowed = false;
+    ModifyAllowed = false;
+    PageType = NavigatePage;
+    UsageCategory = Administration;
     layout
     {
         area(content)
@@ -23,8 +23,8 @@ page 50081 "BC6_OneShot"
                         ShowCaption = false;
                         field("Export Purchase Price"; 'Export Purchase Price')
                         {
-                            Caption = 'Export Purchase Price', Comment = 'FRA="Export Tarifs fournisseurs"';
                             ApplicationArea = All;
+                            Caption = 'Export Purchase Price', Comment = 'FRA="Export Tarifs fournisseurs"';
                             Editable = false;
                             ShowCaption = false;
                             Style = StrongAccent;
@@ -36,8 +36,8 @@ page 50081 "BC6_OneShot"
                         }
                         field("Import Purchase Price"; 'Import Purchase Price')
                         {
-                            Caption = 'Import Purchase Price', Comment = 'FRA="Import Tarifs fournisseurs"';
                             ApplicationArea = All;
+                            Caption = 'Import Purchase Price', Comment = 'FRA="Import Tarifs fournisseurs"';
                             Editable = false;
                             ShowCaption = false;
                             Style = StrongAccent;
@@ -193,8 +193,8 @@ page 50081 "BC6_OneShot"
                         }
                         field("Import Bins"; 'Import Bins')
                         {
-                            Caption = 'Import Bins', Comment = 'FRA="Import emplacements"';
                             ApplicationArea = All;
+                            Caption = 'Import Bins', Comment = 'FRA="Import emplacements"';
                             Editable = false;
                             ShowCaption = false;
                             Style = StrongAccent;
@@ -206,8 +206,8 @@ page 50081 "BC6_OneShot"
                         }
                         field("Import Bin Contents"; 'Import Bin Contents')
                         {
-                            Caption = 'Import Bin Contents', Comment = 'FRA="Import contenus emplacements"';
                             ApplicationArea = All;
+                            Caption = 'Import Bin Contents', Comment = 'FRA="Import contenus emplacements"';
                             Editable = false;
                             ShowCaption = false;
                             Style = StrongAccent;
@@ -373,14 +373,9 @@ page 50081 "BC6_OneShot"
                                 Xmlport.Run(xmlport::"BC6_Import/Export Source Code");
                             end;
                         }
-
-
-
-
                     }
                 }
             }
         }
-
     }
 }

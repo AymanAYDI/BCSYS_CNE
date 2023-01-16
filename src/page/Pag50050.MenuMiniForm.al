@@ -1,10 +1,10 @@
 page 50050 "BC6_Menu MiniForm"
 {
+    ApplicationArea = all;
     Caption = 'Whse Menu', Comment = 'FRA="Menu magasin"';
     LinksAllowed = false;
     PageType = Card;
     ShowFilter = false;
-    ApplicationArea = all;
     UsageCategory = Tasks;
 
     layout
@@ -20,28 +20,27 @@ page 50050 "BC6_Menu MiniForm"
         {
             action(Inventory2)
             {
+                ApplicationArea = All;
                 Caption = 'Item Invt.', Comment = 'FRA="Stock article"';
                 Image = ItemLines;
                 Promoted = true;
                 PromotedCategory = Process;
                 RunObject = Page "BC6_Item Invt.";
                 Visible = true;
-                ApplicationArea = All;
-
-
             }
             action(Inventory_2)
             {
+                ApplicationArea = All;
                 Caption = 'Inventory', Comment = 'FRA="Inventaire"';
                 Image = InventoryJournal;
                 Promoted = true;
                 PromotedCategory = Process;
                 RunObject = Page "BC6_Inventory Card MiniForm";
                 RunPageMode = Create;
-                ApplicationArea = All;
             }
             action(PalletReclass)
             {
+                ApplicationArea = All;
                 Caption = 'Reclass. Item', Comment = 'FRA="Reclassement article"';
                 Image = TransferReceipt;
                 Promoted = true;
@@ -49,10 +48,10 @@ page 50050 "BC6_Menu MiniForm"
                 RunObject = Page "BC6_Reclass. Card MiniForm";
                 RunPageMode = Create;
                 ShortCutKey = 'F2';
-                ApplicationArea = All;
             }
             action(PalletReclass2)
             {
+                ApplicationArea = All;
                 Caption = 'Invt. Pick', Comment = 'FRA="Prélèvement stock"';
                 Image = PickLines;
                 Promoted = true;
@@ -60,18 +59,17 @@ page 50050 "BC6_Menu MiniForm"
                 RunObject = Page "BC6_Invt. Pick Card MiniForm";
                 RunPageMode = Create;
                 ShortCutKey = 'F3';
-                ApplicationArea = All;
             }
             action("Raccourci clavier terminaux")
             {
-                RunObject = Page "BC6_Racc. clavier terminaux";
                 ApplicationArea = All;
+                RunObject = Page "BC6_Racc. clavier terminaux";
             }
             action(Commande)
             {
-                RunObject = Page "Inventory Pick";
                 ApplicationArea = All;
                 Image = Order;
+                RunObject = Page "Inventory Pick";
             }
         }
     }
@@ -87,4 +85,3 @@ page 50050 "BC6_Menu MiniForm"
         Text001: Label 'COMPANY %1', Comment = 'FRA="SOCIETE %1"';
         WhseMenuTxt: Text[120];
 }
-

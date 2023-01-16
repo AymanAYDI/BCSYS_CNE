@@ -13,10 +13,12 @@ page 50112 "BC6_Purchase Return Order Cue"
                 Caption = 'Purchase Returns Order', comment = 'FRA="Retours achat"';
                 field("Purchase Return - Location"; Rec."BC6_Purchase Return - Location")
                 {
-                    DrillDownPageID = "LOC Purch. Return Order List";
+                    ApplicationArea = All;
+                    DrillDownPageID = "BC6_LOC Purchase Return Order";
                 }
                 field("Purchase Return - SAV"; Rec."BC6_Purchase Return - SAV")
                 {
+                    ApplicationArea = All;
                     DrillDownPageID = "BC6_SAV Purch. Ret. Order List";
                 }
             }
@@ -38,4 +40,3 @@ page 50112 "BC6_Purchase Return Order Cue"
         Rec.SetRespCenterFilter();
     end;
 }
-

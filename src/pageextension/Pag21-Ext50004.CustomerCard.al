@@ -20,9 +20,9 @@ pageextension 50004 "BC6_CustomerCard" extends "Customer Card" //21
             }
             field("BC6_Salesperson Filter"; Rec."BC6_Salesperson Filter")
             {
-                Importance = Additional;
                 ApplicationArea = All;
                 Caption = 'Salesperson Filter', Comment = 'FRA="Filtre vendeur"';
+                Importance = Additional;
             }
         }
         addafter("Copy Sell-to Addr. to Qte From")
@@ -42,9 +42,9 @@ pageextension 50004 "BC6_CustomerCard" extends "Customer Card" //21
         {
             field("BC6_Pay-to Customer No."; Rec."BC6_Pay-to Customer No.")
             {
-                Editable = false;
                 ApplicationArea = All;
                 Caption = 'Pay-to Customer No.', Comment = 'FRA="Tiers payeur"';
+                Editable = false;
             }
             field("BC6_Shipping Advice"; Rec."Shipping Advice")
             {
@@ -86,9 +86,9 @@ pageextension 50004 "BC6_CustomerCard" extends "Customer Card" //21
                 }
                 field(BC6_TxtGTransType; TxtGTransType)
                 {
-                    Editable = false;
                     ApplicationArea = All;
                     Caption = 'TxtGTransType';
+                    Editable = false;
                 }
             }
             group(BC6_Group2)
@@ -106,9 +106,9 @@ pageextension 50004 "BC6_CustomerCard" extends "Customer Card" //21
                 }
                 field(BC6_TxtGTransSpe; TxtGTransSpe)
                 {
-                    Editable = false;
                     ApplicationArea = All;
                     Caption = 'TxtGTransSpe';
+                    Editable = false;
                 }
             }
             group(BC6_Group3)
@@ -126,9 +126,9 @@ pageextension 50004 "BC6_CustomerCard" extends "Customer Card" //21
                 }
                 field(BC6_TxtGTransMeth; TxtGTransMeth)
                 {
-                    Editable = false;
                     ApplicationArea = All;
                     Caption = 'TxtGTransMeth';
+                    Editable = false;
                 }
             }
             group(BC6_Group4)
@@ -146,9 +146,9 @@ pageextension 50004 "BC6_CustomerCard" extends "Customer Card" //21
                 }
                 field(BC6_TxtGESPoint; TxtGESPoint)
                 {
-                    Editable = false;
                     ApplicationArea = All;
                     Caption = 'TxtGESPoint';
+                    Editable = false;
                 }
             }
             group(BC6_Group5)
@@ -166,16 +166,15 @@ pageextension 50004 "BC6_CustomerCard" extends "Customer Card" //21
                 }
                 field(BC6_TxtGArea; TxtGArea)
                 {
-                    Editable = false;
                     ApplicationArea = All;
                     Caption = 'TxtGArea';
+                    Editable = false;
                 }
             }
         }
     }
     actions
     {
-
         addafter(Contact)
         {
             separator(Sep)
@@ -183,29 +182,29 @@ pageextension 50004 "BC6_CustomerCard" extends "Customer Card" //21
             }
             action("BC6_Pay-to Custom. No.")
             {
+                ApplicationArea = All;
                 Caption = 'Pay-to Customer No.', Comment = 'FRA="Tiers payeur"';
                 Image = Vendor;
                 RunObject = Page "Customer List";
                 RunPageLink = "BC6_Pay-to Customer No." = FIELD("No.");
-                ApplicationArea = All;
             }
             action(BC6_SFAC)
             {
+                ApplicationArea = All;
                 Caption = 'SFAC';
                 Image = Customer;
                 RunObject = Page "BC6_SFAC Client";
-                ApplicationArea = All;
             }
         }
         addafter("Co&mments")
         {
             action("BC6_Salesperson authorized")
             {
+                ApplicationArea = All;
                 Caption = 'Salesperson authorized', Comment = 'FRA="Vendeurs Autorisés"';
                 Image = SalesPerson;
                 RunObject = Page "BC6_Salesperson authorized";
                 RunPageLink = "Customer No." = FIELD("No.");
-                ApplicationArea = All;
             }
         }
         addafter(NewSalesReturnOrder)
@@ -215,9 +214,9 @@ pageextension 50004 "BC6_CustomerCard" extends "Customer Card" //21
             }
             action("BC6_Associated Document")
             {
+                ApplicationArea = All;
                 Caption = 'Associated Document', Comment = 'FRA="Document Associé"';
                 Image = Document;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -259,24 +258,20 @@ pageextension 50004 "BC6_CustomerCard" extends "Customer Card" //21
         ELSE
             TxtGTransSpe := '';
 
-
         IF RecGTransType.GET(Rec."BC6_Transaction Type") THEN
             TxtGTransType := RecGTransType.Description
         ELSE
             TxtGTransType := '';
-
 
         IF RecGTransMeth.GET(Rec."BC6_Transport Method") THEN
             TxtGTransMeth := RecGTransMeth.Description
         ELSE
             TxtGTransMeth := '';
 
-
         IF RecGTransESPoint.GET(Rec."BC6_Exit Point") THEN
             TxtGESPoint := RecGTransESPoint.Description
         ELSE
             TxtGESPoint := '';
-
 
         IF RecGArea.GET(Rec.BC6_Area) THEN
             TxtGArea := RecGArea.Text
@@ -284,4 +279,3 @@ pageextension 50004 "BC6_CustomerCard" extends "Customer Card" //21
             TxtGArea := '';
     end;
 }
-

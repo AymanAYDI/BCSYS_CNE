@@ -5,8 +5,8 @@ pageextension 50005 "BC6_CustomerList" extends "Customer List" //22
         modify(Control1)
         {
             Caption = 'visibleList';
-            Visible = TRUE;
             Editable = TRUE;
+            Visible = TRUE;
         }
         modify("No.")
         {
@@ -18,8 +18,8 @@ pageextension 50005 "BC6_CustomerList" extends "Customer List" //22
         {
             field(BC6_Blocked; Rec.Blocked)
             {
-                Visible = true;
                 ApplicationArea = All;
+                Visible = true;
             }
         }
 
@@ -32,23 +32,23 @@ pageextension 50005 "BC6_CustomerList" extends "Customer List" //22
         {
             field(BC6_Address; Rec.Address)
             {
-                Editable = false;
                 ApplicationArea = All;
+                Editable = false;
             }
             field("BC6_Address 2"; Rec."Address 2")
             {
-                Editable = false;
                 ApplicationArea = All;
+                Editable = false;
             }
             field(BC6_City; Rec.City)
             {
-                Editable = false;
                 ApplicationArea = All;
+                Editable = false;
             }
             field("BC6_Submitted to DEEE"; Rec."BC6_Submitted to DEEE")
             {
-                Editable = false;
                 ApplicationArea = All;
+                Editable = false;
             }
         }
 
@@ -195,13 +195,13 @@ pageextension 50005 "BC6_CustomerList" extends "Customer List" //22
         {
             field("BC6_Outstanding Orders (LCY)"; Rec."Outstanding Orders (LCY)")
             {
-                Visible = false;
                 ApplicationArea = All;
+                Visible = false;
             }
             field("BC6_Shipped Not Invoiced (LCY)"; Rec."Shipped Not Invoiced (LCY)")
             {
-                Visible = false;
                 ApplicationArea = All;
+                Visible = false;
             }
             field("BC6_VAT Registration No."; Rec."VAT Registration No.")
             {
@@ -351,23 +351,23 @@ pageextension 50005 "BC6_CustomerList" extends "Customer List" //22
         {
             action("BC6_Salesperson authorized")
             {
+                ApplicationArea = All;
                 Caption = 'Salesperson authorized', Comment = 'FRA="Vendeurs Autorisés"';
                 Image = SalesPerson;
                 RunObject = Page "BC6_Salesperson authorized";
                 RunPageLink = "Customer No." = FIELD("No.");
-                ApplicationArea = All;
             }
         }
         addafter("Recurring Sales Lines")
         {
             action("BC6_Customer Profit")
             {
+                ApplicationArea = All;
                 Caption = 'Customer Profit', Comment = 'FRA="Marge Vente"';
                 Image = SalesPrices;
                 RunObject = Page "BC6_Customer Profit";
                 RunPageLink = Code = FIELD("BC6_Custom. Sales Profit Group");
                 RunPageView = SORTING(Code);
-                ApplicationArea = All;
             }
         }
     }

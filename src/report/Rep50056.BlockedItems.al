@@ -45,7 +45,6 @@ report 50056 "BC6_Blocked Items"
 
     requestpage
     {
-
         layout
         {
         }
@@ -68,4 +67,3 @@ report 50056 "BC6_Blocked Items"
         Text003: Label 'Item No. #1#############', comment = 'FRA="article n° #1#############"';
         Text004: Label '           #2#####|#3#####';
 }
-

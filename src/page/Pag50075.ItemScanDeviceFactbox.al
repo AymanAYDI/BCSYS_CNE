@@ -10,6 +10,7 @@ page 50075 "BC6_Item ScanDevice Factbox"
         {
             field(ChangeDefaultBinCode; ScanDeviceInfoPaneMgt.GetDefaultBinContent(Rec."No.", ''))
             {
+                ApplicationArea = All;
                 Caption = 'Default Bin Code', Comment = 'FRA="Code empl. par déf."';
 
                 trigger OnDrillDown()
@@ -19,6 +20,7 @@ page 50075 "BC6_Item ScanDevice Factbox"
             }
             field("Qty. on Purch. Order"; Rec."Qty. on Purch. Order")
             {
+                ApplicationArea = All;
             }
         }
     }
@@ -30,10 +32,8 @@ page 50075 "BC6_Item ScanDevice Factbox"
     var
         ScanDeviceInfoPaneMgt: Codeunit BC6_ScanDeviceHelper;
 
-
     procedure ChangeDefaultBinContent()
     begin
         ScanDeviceInfoPaneMgt.ChangeDefaultBinContent(Rec."No.", '');
     end;
 }
-

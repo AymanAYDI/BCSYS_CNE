@@ -14,16 +14,16 @@ table 50002 "BC6_Special Extended Text Line"
         field(2; "Code"; Code[20])
         {
             Caption = 'Code', comment = 'FRA="Code"';
+            DataClassification = CustomerContent;
             TableRelation = IF ("Table Name" = CONST(Customer)) Customer."No."
             ELSE
             IF ("Table Name" = CONST(Vendor)) Vendor."No.";
-            DataClassification = CustomerContent;
         }
         field(3; "No."; Code[20])
         {
             Caption = 'No.', comment = 'FRA="N°"';
-            TableRelation = Item."No.";
             DataClassification = CustomerContent;
+            TableRelation = Item."No.";
         }
         field(4; "Line No."; Integer)
         {

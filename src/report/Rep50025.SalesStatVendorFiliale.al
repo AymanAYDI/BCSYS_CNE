@@ -1,16 +1,14 @@
 report 50025 "BC6_Sales Stat/Vendor Filiale"
 {
+    ApplicationArea = All;
+    Caption = 'Sales Statistic/Vendor Subsidiary', comment = 'FRA="Statistique vente/fournisseur Filiale"';
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/SalesStatisticVendorFiliale.rdl';
-
-    Caption = 'Sales Statistic/Vendor Subsidiary', comment = 'FRA="Statistique vente/fournisseur Filiale"';
-    ApplicationArea = All;
     UsageCategory = ReportsAndAnalysis;
     dataset
     {
         dataitem(Vendor; Vendor)
         {
-
             DataItemTableView = SORTING("No.");
             RequestFilterFields = "No.";
             column(FORMAT_TODAY_0_4_; FORMAT(TODAY, 0, 4))
@@ -154,7 +152,6 @@ report 50025 "BC6_Sales Stat/Vendor Filiale"
                         END;
                     UNTIL TempRecGSalesCrMemoLine.NEXT() = 0;
 
-
                 // Purchase Line
                 TempRecGPurchLine.SETCURRENTKEY("Buy-from Vendor No.", Type, "Document Type", "Planned Receipt Date");
                 TempRecGPurchLine.SETRANGE("Buy-from Vendor No.", "No.");
@@ -205,7 +202,6 @@ report 50025 "BC6_Sales Stat/Vendor Filiale"
 
     requestpage
     {
-
         layout
         {
             area(content)
@@ -215,10 +211,12 @@ report 50025 "BC6_Sales Stat/Vendor Filiale"
                     Caption = 'Options';
                     field(DatGDateDebut; GDateDebut)
                     {
+                        ApplicationArea = All;
                         Caption = 'Date début';
                     }
                     field(DatDateFin; DateFin)
                     {
+                        ApplicationArea = All;
                         Caption = 'Date fin';
                     }
                 }
@@ -263,7 +261,6 @@ report 50025 "BC6_Sales Stat/Vendor Filiale"
                     TempRecGSalesCrMemoLine.INSERT();
                 END;
             UNTIL RecGSalesCrMemoLine.NEXT() <= 0;
-
 
         RecGPurchLine.SETFILTER("Planned Receipt Date", '%1..%2', GDateDebut, DateFin);
         IF RecGPurchLine.FindSet() THEN
@@ -328,4 +325,3 @@ report 50025 "BC6_Sales Stat/Vendor Filiale"
         Statistics_Sales_by_VendorCaptionLbl: Label 'Statistics Sales by Vendor', comment = 'FRA="Statistiques ventes par fournisseur"';
         TotalCaptionLbl: Label 'Total';
 }
-

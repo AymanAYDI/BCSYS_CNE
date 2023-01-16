@@ -16,8 +16,8 @@ page 50062 "BC6_Order Processor RC Admin"
                 }
                 part("Purchase Return Order Cue"; "BC6_Purchase Return Order Cue")
                 {
-                    Description = 'BCSYS';
                     ApplicationArea = All;
+                    Description = 'BCSYS';
                 }
                 part("Team Member Activities"; "Team Member Activities")
                 {
@@ -41,8 +41,8 @@ page 50062 "BC6_Order Processor RC Admin"
                 }
                 part("My Job Queue"; "My Job Queue")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 part("My Items"; "My Items")
                 {
@@ -78,8 +78,8 @@ page 50062 "BC6_Order Processor RC Admin"
             action(SalesOrdersShptNotInv)
             {
                 ApplicationArea = Basic, Suite;
-                image = Shipment;
                 Caption = 'Shipped Not Invoiced', Comment = 'FRA="Livré non facturé"';
+                image = Shipment;
                 RunObject = Page "Sales Order List";
                 RunPageView = WHERE("Shipped Not Invoiced" = CONST(true));
                 ToolTip = 'View sales that are shipped but not yet invoiced.', Comment = 'FRA="Affichez les ventes qui sont expédiées, mais pas encore facturées."';
@@ -88,8 +88,8 @@ page 50062 "BC6_Order Processor RC Admin"
             {
                 ApplicationArea = Basic, Suite;
                 Caption = 'Completely Shipped Not Invoiced', Comment = 'FRA="Complètement livré non facturé"';
-                RunObject = Page "Sales Order List";
                 Image = Shipment;
+                RunObject = Page "Sales Order List";
                 RunPageView = WHERE("Completely Shipped" = CONST(true),
                                     Invoice = CONST(false));
                 ToolTip = 'View sales documents that are fully shipped but not fully invoiced.', Comment = 'FRA="Affichez les documents vente qui sont intégralement expédiés, mais pas totalement facturés."';
@@ -98,8 +98,8 @@ page 50062 "BC6_Order Processor RC Admin"
             {
                 ApplicationArea = Suite;
                 Caption = 'Dynamics CRM Sales Orders', Comment = 'FRA="Commandes vente Dynamics CRM"';
-                RunObject = Page "CRM Sales Order List";
                 Image = Sales;
+                RunObject = Page "CRM Sales Order List";
                 RunPageView = WHERE(StateCode = FILTER(Submitted),
                                     LastBackofficeSubmit = FILTER(''));
                 ToolTip = 'View sales orders in Dynamics CRM that are coupled with sales orders in Dynamics NAV.', Comment = 'FRA="Affichez les commandes vente dans Dynamics CRM qui sont couplées avec les commandes vente dans Dynamics NAV."';
@@ -114,10 +114,10 @@ page 50062 "BC6_Order Processor RC Admin"
             }
             action("Blanket Sales Orders")
             {
-                Caption = 'Blanket Sales Orders', Comment = 'FRA="Commandes ouvertes vente"';
-                RunObject = Page "Blanket Sales Orders";
-                Image = BlanketOrder;
                 ApplicationArea = All;
+                Caption = 'Blanket Sales Orders', Comment = 'FRA="Commandes ouvertes vente"';
+                Image = BlanketOrder;
+                RunObject = Page "Blanket Sales Orders";
             }
             action("Sales Invoices")
             {
@@ -129,17 +129,17 @@ page 50062 "BC6_Order Processor RC Admin"
             }
             action("Sales Return Orders")
             {
+                ApplicationArea = All;
                 Caption = 'Sales Return Orders', Comment = 'FRA="Retours vente"';
                 Image = ReturnOrder;
                 RunObject = Page "Sales Return Order List";
-                ApplicationArea = All;
             }
             action("Sales Credit Memos")
             {
                 ApplicationArea = Basic, Suite;
                 Caption = 'Sales Credit Memos', Comment = 'FRA="Avoirs vente"';
-                RunObject = Page "Sales Credit Memos";
                 Image = CreditMemo;
+                RunObject = Page "Sales Credit Memos";
                 ToolTip = 'Open the list of sales credit memos where you can revert posted sales invoices.', Comment = 'FRA="Ouvrez la liste des avoirs vente où vous pouvez annuler les factures vente validées."';
             }
             action(Items)
@@ -162,8 +162,8 @@ page 50062 "BC6_Order Processor RC Admin"
             {
                 ApplicationArea = Basic, Suite;
                 Caption = 'Item Journals', Comment = 'FRA="Feuilles article"';
-                RunObject = Page "Item Journal Batches";
                 image = Journal;
+                RunObject = Page "Item Journal Batches";
                 RunPageView = WHERE("Template Type" = CONST(Item),
                                     Recurring = CONST(false));
                 ToolTip = 'Open a list of journals where you can adjust the physical quantity of items on inventory.', Comment = 'FRA="Ouvrez une liste de feuilles où vous pouvez ajuster la quantité physique des articles en stock."';
@@ -172,8 +172,8 @@ page 50062 "BC6_Order Processor RC Admin"
             {
                 ApplicationArea = Basic, Suite;
                 Caption = 'Sales Journals', Comment = 'FRA="Feuilles vente"';
-                RunObject = Page "General Journal Batches";
                 image = PaymentJournal;
+                RunObject = Page "General Journal Batches";
                 RunPageView = WHERE("Template Type" = CONST(Sales),
                                     Recurring = CONST(false));
                 ToolTip = 'Open the list of sales journals where you can batch post sales transactions to G/L, bank, customer, vendor and fixed assets accounts.', Comment = 'FRA="Ouvrez la liste des feuilles vente où vous pouvez valider par groupe les transactions vente vers les comptes généraux, bancaires, client, fournisseur et immobilisations."';
@@ -214,10 +214,10 @@ page 50062 "BC6_Order Processor RC Admin"
                 }
                 action("Posted Return Receipts")
                 {
+                    ApplicationArea = All;
                     Caption = 'Posted Return Receipts', Comment = 'FRA="Réceptions retour enregistrées"';
                     Image = PostedReturnReceipt;
                     RunObject = Page "Posted Return Receipts";
-                    ApplicationArea = All;
                 }
                 action("Posted Sales Credit Memos")
                 {
@@ -229,17 +229,17 @@ page 50062 "BC6_Order Processor RC Admin"
                 }
                 action("Posted Purchase Receipts")
                 {
-                    Caption = 'Posted Purchase Receipts', Comment = 'FRA="Réceptions achat enregistrées"';
-                    RunObject = Page "Posted Purchase Receipts";
                     ApplicationArea = All;
+                    Caption = 'Posted Purchase Receipts', Comment = 'FRA="Réceptions achat enregistrées"';
                     Image = Receipt;
+                    RunObject = Page "Posted Purchase Receipts";
                 }
                 action("Posted Purchase Invoices")
                 {
                     ApplicationArea = Basic, Suite;
                     Caption = 'Posted Purchase Invoices', Comment = 'FRA="Factures achat enregistrées"';
-                    RunObject = Page "Posted Purchase Invoices";
                     Image = InventoryPick;
+                    RunObject = Page "Posted Purchase Invoices";
                     ToolTip = 'View the posted purchase invoices.', Comment = 'FRA="Affichez les factures achat enregistrées."';
                 }
             }
@@ -289,11 +289,11 @@ page 50062 "BC6_Order Processor RC Admin"
             }
             action("Sales &Return Order")
             {
+                ApplicationArea = All;
                 Caption = 'Sales &Return Order', Comment = 'FRA="&Retour vente"';
                 Image = ReturnOrder;
                 RunObject = Page "Sales Return Order";
                 RunPageMode = Create;
-                ApplicationArea = All;
             }
             action("Sales &Credit Memo")
             {
@@ -313,30 +313,30 @@ page 50062 "BC6_Order Processor RC Admin"
                 Image = Administration;
                 action(IntItem)
                 {
+                    ApplicationArea = All;
                     Caption = 'Item intégration', Comment = 'FRA="Intégration article"';
                     Image = ImportCodes;
                     RunObject = Page "BC6_Intégration article";
-                    ApplicationArea = All;
                 }
                 action(UpdatePartner)
                 {
+                    ApplicationArea = All;
                     Caption = 'Update IC Partner Purch. Price', Comment = 'FRA="Màj tarif fournisseur partnaire"';
                     Image = UpdateUnitCost;
-                    ApplicationArea = All;
                     RunObject = Report "BC6_Update IC Par Purch. Price";
                 }
                 action(ExportTarif)
                 {
+                    ApplicationArea = All;
                     Caption = 'Export Purchase Price', Comment = 'FRA="Export tarif fournisseur"';
                     Image = Export;
-                    ApplicationArea = All;
                     RunObject = XMLport "BC6_Export Purchase Price";
                 }
                 action(BlockItem)
                 {
+                    ApplicationArea = All;
                     Caption = 'Batch Traitement Article', Comment = 'FRA="Traitement blocage article"';
                     Image = Reject;
-                    ApplicationArea = All;
                     RunObject = Report "BC6_Batch Traitement Article";
                 }
             }
@@ -353,10 +353,10 @@ page 50062 "BC6_Order Processor RC Admin"
                 }
                 action("Sales Price &Worksheet")
                 {
+                    ApplicationArea = All;
                     Caption = 'Sales Price &Worksheet', Comment = 'FRA="Feuille pri&x vente"';
                     Image = PriceWorksheet;
                     RunObject = Page "Sales Price Worksheet";
-                    ApplicationArea = All;
                 }
             }
             group(Sales)

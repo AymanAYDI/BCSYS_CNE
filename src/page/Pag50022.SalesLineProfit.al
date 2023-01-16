@@ -5,10 +5,10 @@ page 50022 "BC6_Sales Line Profit"
     DelayedInsert = true;
     PageType = List;
     SaveValues = true;
-    UsageCategory = None;
     SourceTable = "Sales Line Discount";
     SourceTableView = SORTING(Code, "Sales Code", "Sales Type", Type, "Starting Date", "Ending Date", "BC6_Profit %")
                       ORDER(Ascending);
+    UsageCategory = None;
 
     layout
     {
@@ -19,8 +19,8 @@ page 50022 "BC6_Sales Line Profit"
                 Caption = 'General', Comment = 'FRA="Général"';
                 field(SalesTypeFilter; SalesTypeFilter)
                 {
-                    Caption = 'Sales Type Filter', Comment = 'FRA="Filtre type vente"';
                     ApplicationArea = All;
+                    Caption = 'Sales Type Filter', Comment = 'FRA="Filtre type vente"';
 
                     trigger OnValidate()
                     begin
@@ -29,9 +29,9 @@ page 50022 "BC6_Sales Line Profit"
                 }
                 field(SalesCodeFilterCtrl; SalesCodeFilter)
                 {
+                    ApplicationArea = All;
                     Caption = 'Sales Code Filter', Comment = 'FRA="Filtre code vente"';
                     Enabled = SalesCodeFilterCtrlEnable;
-                    ApplicationArea = All;
 
                     trigger OnLookup(var Text: Text): Boolean
                     var
@@ -80,8 +80,8 @@ page 50022 "BC6_Sales Line Profit"
                 }
                 field(ItemTypeFilter; ItemTypeFilter)
                 {
-                    Caption = 'Type Filter', Comment = 'FRA="Filtre type"';
                     ApplicationArea = All;
+                    Caption = 'Type Filter', Comment = 'FRA="Filtre type"';
 
                     trigger OnValidate()
                     begin
@@ -90,9 +90,9 @@ page 50022 "BC6_Sales Line Profit"
                 }
                 field(CodeFilterCtrl; CodeFilter)
                 {
+                    ApplicationArea = All;
                     Caption = 'Code Filter', Comment = 'FRA="Filtre code"';
                     Enabled = CodeFilterCtrlEnable;
-                    ApplicationArea = All;
 
                     trigger OnLookup(var Text: Text): Boolean
                     var
@@ -128,8 +128,8 @@ page 50022 "BC6_Sales Line Profit"
                 }
                 field(StartingDateFilter; StartingDateFilter)
                 {
-                    Caption = 'Starting Date Filter', Comment = 'FRA="Filtre date début"';
                     ApplicationArea = All;
+                    Caption = 'Starting Date Filter', Comment = 'FRA="Filtre date début"';
 
                     trigger OnValidate()
                     var
@@ -149,8 +149,8 @@ page 50022 "BC6_Sales Line Profit"
                 }
                 field("Sales Code"; Rec."Sales Code")
                 {
-                    Editable = "Sales CodeEditable";
                     ApplicationArea = All;
+                    Editable = "Sales CodeEditable";
                 }
                 field(Type; Rec.Type)
                 {
@@ -166,13 +166,13 @@ page 50022 "BC6_Sales Line Profit"
                 }
                 field("Profit %"; Rec."BC6_Profit %")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Currency Code"; Rec."Currency Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Unit of Measure Code"; Rec."Unit of Measure Code")
                 {
@@ -204,8 +204,8 @@ page 50022 "BC6_Sales Line Profit"
                 Caption = 'Options';
                 field(SalesCodeFilterCtrl2; CurrencyCodeFilter)
                 {
-                    Caption = 'Currency Code Filter', Comment = 'FRA="Filtre code devise"';
                     ApplicationArea = All;
+                    Caption = 'Currency Code Filter', Comment = 'FRA="Filtre code devise"';
 
                     trigger OnLookup(var Text: Text): Boolean
                     var
@@ -235,17 +235,17 @@ page 50022 "BC6_Sales Line Profit"
         {
             action("Extract Discount Item Group")
             {
+                ApplicationArea = All;
                 Caption = 'Extract Discount Item Group', Comment = 'FRA="Extraire groupes remise article"';
                 Ellipsis = true;
                 Image = Group;
                 Promoted = true;
                 PromotedCategory = Process;
-                ApplicationArea = All;
                 PromotedOnly = true;
 
                 trigger OnAction()
                 begin
-                    CODEUNIT.RUN(CODEUNIT::"Extract Item Group Discount", Rec);
+                    CODEUNIT.RUN(CODEUNIT::"Extract Item Group Disc", Rec);
                 end;
             }
         }
@@ -300,7 +300,6 @@ page 50022 "BC6_Sales Line Profit"
         CurrencyCodeFilter: Text[250];
         SalesCodeFilter: Text[250];
 
-
     procedure GetRecFilters()
     begin
         IF Rec.GETFILTERS <> '' THEN BEGIN
@@ -320,7 +319,6 @@ page 50022 "BC6_Sales Line Profit"
             EVALUATE(StartingDateFilter, Rec.GETFILTER("Starting Date"));
         END;
     end;
-
 
     procedure SetRecFilters()
     begin
@@ -352,14 +350,14 @@ page 50022 "BC6_Sales Line Profit"
             CodeFilter := '';
         END;
 
-        IF CodeFilter <> '' THEN BEGIN
-            Rec.SETFILTER(Code, CodeFilter);
-        END ELSE
+        IF CodeFilter <> '' THEN
+            Rec.SETFILTER(Code, CodeFilter)
+        ELSE
             Rec.SETRANGE(Code);
 
-        IF CurrencyCodeFilter <> '' THEN BEGIN
-            Rec.SETFILTER("Currency Code", CurrencyCodeFilter);
-        END ELSE
+        IF CurrencyCodeFilter <> '' THEN
+            Rec.SETFILTER("Currency Code", CurrencyCodeFilter)
+        ELSE
             Rec.SETRANGE("Currency Code");
 
         IF StartingDateFilter <> '' THEN
@@ -474,4 +472,3 @@ page 50022 "BC6_Sales Line Profit"
         "Sales CodeEditable" := Rec."Sales Type" <> Rec."Sales Type"::"All Customers";
     end;
 }
-

@@ -1,6 +1,5 @@
 codeunit 50003 "BC6_Reconstitue lettrage FOU"
 {
-
     Permissions = TableData "Vendor Ledger Entry" = rim;
 
     var
@@ -44,4 +43,3 @@ codeunit 50003 "BC6_Reconstitue lettrage FOU"
             UNTIL VendLedgerEntry2.NEXT() = 0; //écritures
     end;
 }
-

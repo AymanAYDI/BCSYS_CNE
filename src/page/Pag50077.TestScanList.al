@@ -1,9 +1,9 @@
 page 50077 "BC6_Test Scan List"
 {
+    Caption = 'Test Scan List';
     PageType = List;
     SourceTable = "Item Journal Line";
     UsageCategory = None;
-    Caption = 'Test Scan List';
     layout
     {
         area(content)
@@ -25,10 +25,10 @@ page 50077 "BC6_Test Scan List"
         {
             action(Test)
             {
+                ApplicationArea = All;
                 Gesture = LeftSwipe;
                 Promoted = true;
                 PromotedOnly = true;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -38,4 +38,3 @@ page 50077 "BC6_Test Scan List"
         }
     }
 }
-

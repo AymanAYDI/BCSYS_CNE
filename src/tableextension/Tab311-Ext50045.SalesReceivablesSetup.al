@@ -16,8 +16,8 @@ tableextension 50045 "BC6_SalesReceivablesSetup" extends "Sales & Receivables Se
         field(50002; "BC6_Purcha. Code Grouping Line"; Code[10])
         {
             Caption = 'Purchasing Code Grouping Line', comment = 'FRA="Type procédure achat groupés"';
-            TableRelation = Purchasing;
             DataClassification = CustomerContent;
+            TableRelation = Purchasing;
         }
         field(50003; "BC6_Technicals Directory Path"; Text[250])
         {
@@ -28,8 +28,8 @@ tableextension 50045 "BC6_SalesReceivablesSetup" extends "Sales & Receivables Se
         {
             AccessByPermission = TableData "Return Receipt Header" = R;
             Caption = 'SAV Return Order Nos.', comment = 'FRA="N° Retour SAV"';
-            TableRelation = "No. Series";
             DataClassification = CustomerContent;
+            TableRelation = "No. Series";
         }
         field(60000; BC6_Repertoire; Text[250])
         {
@@ -74,9 +74,8 @@ tableextension 50045 "BC6_SalesReceivablesSetup" extends "Sales & Receivables Se
         field(60008; "BC6_allow Profit% to"; Code[20])
         {
             Caption = 'Allow Profit % visualisation to ', comment = 'FRA="Autoriser la visualisation des marges à"';
-            TableRelation = "Permission Set"."Role ID";
-
             DataClassification = CustomerContent;
+            TableRelation = "Permission Set"."Role ID";
         }
         field(60009; "BC6_Contact's Address on sales doc"; Boolean)
         {

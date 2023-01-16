@@ -2,13 +2,12 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
 {
     layout
     {
-
         addafter("No.")
         {
             field(BC6_CodeEAN13Ctrl; EAN13Code)
             {
-                Caption = 'EAN13 Code', comment = 'FRA="EAN13 Code"';
                 ApplicationArea = All;
+                Caption = 'EAN13 Code', comment = 'FRA="EAN13 Code"';
                 trigger OnLookup(var Text: Text): Boolean
                 var
                     functionMgt: Codeunit "BC6_Functions Mgt";
@@ -26,9 +25,9 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
             }
             field("BC6_Search Description 2"; Rec."BC6_Search Description 2")
             {
-                Editable = false;
-                Caption = 'Search Description 2', Comment = 'FRA="Désignation de recherche 2"';
                 ApplicationArea = All;
+                Caption = 'Search Description 2', Comment = 'FRA="Désignation de recherche 2"';
+                Editable = false;
             }
         }
         addafter(Description)
@@ -42,8 +41,8 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
         {
             field("BC6_Unit Price Includes VAT"; Rec."BC6_Unit Price Includes VAT")
             {
-                Caption = 'Unit Price Includes VAT', Comment = 'FRA="Prix Public TTC"';
                 ApplicationArea = All;
+                Caption = 'Unit Price Includes VAT', Comment = 'FRA="Prix Public TTC"';
             }
         }
         modify("Vendor No.")
@@ -69,12 +68,7 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
         {
             Visible = False;
         }
-
-
-
     }
-
-
 
     actions
     {
@@ -82,22 +76,22 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
         {
             action(BC6_UpdateCostIncreaseCoeff)
             {
+                ApplicationArea = All;
                 Caption = 'Update Cost Incr. Coeff.', Comment = 'FRA="Modifier coeff majoration du coût"';
                 Image = CalculateCost;
-                RunObject = Report "Update Item Cost Incr. Coeff.";
-                ApplicationArea = All;
+                RunObject = Report "BC6_Upd Item Cost Incr. Coeff.";
             }
         }
         addbefore("Prepa&yment Percentages")
         {
             action("BC6_Marge Vente")
             {
+                ApplicationArea = All;
                 Caption = 'Marge Vente';
                 Image = GainLossEntries;
                 RunObject = page "BC6_Item Sales Profit Group";
                 RunPageLink = Code = field("BC6_Item Sales Profit Group");
                 RunPageView = sorting(Code);
-                ApplicationArea = All;
             }
         }
         modify("Line Discounts")
@@ -106,33 +100,33 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
         {
             action("BC6_Line Discounts")
             {
+                ApplicationArea = All;
                 Caption = 'Line Discounts', Comment = 'FRA="Remises ligne"';
                 Image = LineDiscount;
                 RunObject = page "Purchase Line Discounts";
                 RunPageLink = BC6_Type = const(Item),
                                   "Item No." = field("No.");
                 RunPageView = sorting(BC6_Type, "Item No.", "Vendor No.", "Starting Date", "Currency Code", "Variant Code", "Unit of Measure Code", "Minimum Quantity");
-                ApplicationArea = All;
             }
         }
         addafter("Skilled R&esources")
         {
             action(BC6_UpdateICPartnerItems)
             {
+                ApplicationArea = All;
                 Caption = 'Update IC Partner Items', Comment = 'FRA="Màj articles partenaires"';
                 Enabled = UpdateICPartnerItemsEnabled;
                 Image = UpdateDescription;
                 RunObject = Codeunit "BC6_Update IC Partner Items";
-                ApplicationArea = All;
             }
         }
         addlast(navigation)
         {
             action("Créer code-barres interne")
             {
+                ApplicationArea = All;
                 Caption = 'Create Internal BarCodes', Comment = 'FRA="Créer code-barres interne"';
                 Image = BarCode;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -144,10 +138,10 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
             }
             action(BC6_PrintLabel)
             {
+                ApplicationArea = All;
                 Caption = 'Print Label', Comment = 'FRA="Imprimer étiquette"';
                 Ellipsis = true;
                 Image = BarCode;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -164,10 +158,10 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
             }
             action(BC6_UpdateUnitPriceIncVAT)
             {
+                ApplicationArea = All;
                 Caption = 'Update Item Prices Inc VAT', Comment = 'FRA="Mise à jour prix public TTC"';
                 Ellipsis = true;
                 Image = Price;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -186,19 +180,16 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
                 Caption = '&Bin Contents', Comment = 'FRA="C&ontenu emplacement"';
                 action("BC6_&Bin Content")
                 {
+                    ApplicationArea = All;
                     Caption = '&Bin Contents', Comment = 'FRA="C&ontenu emplacement"';
                     Image = BinContent;
                     RunObject = Page "Item Bin Contents";
                     RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
-                    ApplicationArea = All;
                 }
             }
         }
-
     }
-
-
 
     trigger OnOpenPage()
 
@@ -220,7 +211,4 @@ pageextension 50011 "BC6_ItemList" extends "Item List" //31
         DistInt: Codeunit "Dist. Integration";
         UpdateICPartnerItemsEnabled: Boolean;
         EAN13Code: Code[20];
-
-
-
 }

@@ -19,6 +19,7 @@ tableextension 50095 "BC6_PurchaseCue" extends "Purchase Cue" //9055
                                                          Status = FILTER(Open),
                                                          "Responsibility Center" = FIELD("Responsibility Center Filter")));
             Caption = 'Retours achat - SAV', Comment = 'FRA="Retours achat - SAV"';
+            Editable = false;
             FieldClass = FlowField;
         }
     }

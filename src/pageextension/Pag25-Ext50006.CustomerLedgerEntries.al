@@ -6,6 +6,7 @@ pageextension 50006 "BC6_CustomerLedgerEntries" extends "Customer Ledger Entries
         {
             field("BC6_External Document No."; Rec."External Document No.")
             {
+                ApplicationArea = All;
                 Editable = false;
                 Visible = false;
             }
@@ -17,6 +18,7 @@ pageextension 50006 "BC6_CustomerLedgerEntries" extends "Customer Ledger Entries
         {
             action("BC6_Apply Entries Payto CustNo")
             {
+                ApplicationArea = All;
                 Caption = 'Apply Entries Pay-to Customer No.', Comment = 'FRA="Ecritures ouvertes Tiers payeur"';
                 Image = EntriesList;
                 RunObject = Page "Apply Customer Entries";
@@ -28,4 +30,3 @@ pageextension 50006 "BC6_CustomerLedgerEntries" extends "Customer Ledger Entries
         }
     }
 }
-

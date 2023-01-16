@@ -15,42 +15,55 @@ page 50009 "BC6_Sales Archives"
             {
                 field(Type; Rec.Type)
                 {
+                    ApplicationArea = All;
                 }
                 field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
                 }
                 field(Description; Rec.Description)
                 {
+                    ApplicationArea = All;
                 }
                 field("Shipment Date"; Rec."Shipment Date")
                 {
+                    ApplicationArea = All;
                 }
                 field("Sell-to Customer No."; Rec."Sell-to Customer No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Document No."; Rec."Document No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Currency Code"; Rec."Currency Code")
                 {
+                    ApplicationArea = All;
                 }
                 field(Quantity; Rec.Quantity)
                 {
+                    ApplicationArea = All;
                 }
                 field("Outstanding Quantity"; Rec."Outstanding Quantity")
                 {
+                    ApplicationArea = All;
                 }
                 field("Unit of Measure Code"; Rec."Unit of Measure Code")
                 {
+                    ApplicationArea = All;
                 }
                 field(Amount; Rec.Amount)
                 {
+                    ApplicationArea = All;
                 }
                 field("Unit Price"; Rec."Unit Price")
                 {
+                    ApplicationArea = All;
                 }
                 field("Line Discount %"; Rec."Line Discount %")
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -65,6 +78,7 @@ page 50009 "BC6_Sales Archives"
                 Caption = '&Line', comment = 'FRA="&Ligne"';
                 action("Show Order")
                 {
+                    ApplicationArea = All;
                     Caption = 'Show Order', comment = 'FRA="Afficher commande"';
                     Image = "Order";
                     RunObject = Page "Sales Order Archive";
@@ -76,4 +90,3 @@ page 50009 "BC6_Sales Archives"
         }
     }
 }
-

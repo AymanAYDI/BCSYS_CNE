@@ -1,10 +1,9 @@
 report 50013 "BC6_Sales - Credit Memo CNE"
 {
-    DefaultLayout = RDLC;
-    RDLCLayout = './src/Report/RDL/SalesCreditMemoCNE.rdl';
-
     Caption = 'Sales - Credit Memo', Comment = 'FRA="Ventes : Avoir"';
+    DefaultLayout = RDLC;
     Permissions = TableData "Sales Shipment Buffer" = rimd;
+    RDLCLayout = './src/Report/RDL/SalesCreditMemoCNE.rdl';
     UsageCategory = None;
     dataset
     {
@@ -146,7 +145,6 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                         }
                         column(FORMAT_Quantity_0___precision_0_2__standard_format_1____; FORMAT(Quantity, 0, '<precision,0:2><standard format,1>'))
                         {
-
                         }
                         column(Sales_Cr_Memo_Line__Qty__per_Unit_of_Measure_; "Qty. per Unit of Measure")
                         {
@@ -375,17 +373,14 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                             TotalAmountInclVATDEE += "Amount Including VAT" + "BC6_DEEE HT Amount" + "BC6_DEEE VAT Amount";
                             TotalAmount += Amount;
 
-
-                            IF RecGBillCustomer."BC6_Submitted to DEEE" THEN BEGIN
-                                BooGVisible := ("BC6_DEEE Category Code" <> '') AND (Quantity <> 0) AND ("BC6_Eco partner DEEE" <> '');
-                            END ELSE BEGIN
+                            IF RecGBillCustomer."BC6_Submitted to DEEE" THEN
+                                BooGVisible := ("BC6_DEEE Category Code" <> '') AND (Quantity <> 0) AND ("BC6_Eco partner DEEE" <> '')
+                            ELSE
                                 BooGVisible := FALSE;
-                            END;
 
                             BooGTotalVisible := "Sales Cr.Memo Header"."Prices Including VAT" AND ("Amount Including VAT" <> Amount);
                             BooGVATVisible := (TempVATAmountLine.COUNT > 1) AND ("Amount Including VAT" <> Amount);
                             BooGTotalVisible2 := (TempVATAmountLine.COUNT > 1) OR ((TempVATAmountLine.COUNT = 1) AND ("Amount Including VAT" = Amount));
-
                         end;
 
                         trigger OnPreDataItem()
@@ -401,11 +396,8 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                                 CurrReport.BREAK();
                             SETRANGE("Line No.", 0, "Line No.");
 
-
                             DecGVATTotalAmount := 0;
                             DecGTTCTotalAmount := 0;
-
-
 
                             //FG
                             IntGNbLigFac := "Sales Cr.Memo Line".COUNT;
@@ -521,10 +513,9 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                             RecGDEEE.RESET();
                             RecGDEEE.SETFILTER(RecGDEEE."DEEE Code", "BC6_DEEE Tariffs"."DEEE Code");
                             RecGDEEE.SETFILTER(RecGDEEE."Date beginning", '<=%1', "Sales Cr.Memo Header"."Posting Date");
-                            IF RecGDEEE.FIND('+') THEN BEGIN
+                            IF RecGDEEE.FIND('+') THEN
                                 IF RecGDEEE."Date beginning" <> "BC6_DEEE Tariffs"."Date beginning" THEN
                                     BooGDEEEFind := FALSE;
-                            END;
 
                             RecGItemCtg.RESET();
                             IF NOT RecGItemCtg.GET("BC6_DEEE Tariffs"."DEEE Code", "BC6_DEEE Tariffs"."Eco Partner") THEN
@@ -689,7 +680,6 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                     TotalAmtHTDEEE := 0;
                     TotalAmountVATDEE := 0;
                     TotalAmountInclVATDEE := 0;
-
                 end;
 
                 trigger OnPostDataItem()
@@ -715,14 +705,12 @@ report 50013 "BC6_Sales - Credit Memo CNE"
 
                 FormatAddr.SalesCrMemoBillTo(CustAddr, "Sales Cr.Memo Header");
 
-
                 IF RespCenter.GET("Responsibility Center") THEN BEGIN
                     FormatAddr.RespCenter(CompanyAddr, RespCenter);
                     CompanyInfo."Phone No." := RespCenter."Phone No.";
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
-                END ELSE BEGIN
+                END ELSE
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
-                END;
 
                 IF "Salesperson Code" = '' THEN BEGIN
                     SalesPurchPerson.INIT();
@@ -775,7 +763,7 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                         ShowShippingAddr := TRUE;
 
                 IF LogInteraction THEN
-                    IF NOT CurrReport.PREVIEW THEN BEGIN
+                    IF NOT CurrReport.PREVIEW THEN
                         IF "Bill-to Contact No." <> '' THEN
                             SegManagement.LogDocument(
                               4, "No.", 0, 0, DATABASE::Contact, "Bill-to Contact No.", "Salesperson Code",
@@ -784,7 +772,6 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                             SegManagement.LogDocument(
                               4, "No.", 0, 0, DATABASE::Customer, "Bill-to Customer No.", "Salesperson Code",
                               "Campaign No.", "Posting Description", '');
-                    END;
 
                 RecGBillCustomer.RESET();
                 RecGBillCustomer.GET("Sales Cr.Memo Header"."Bill-to Customer No.");
@@ -805,19 +792,23 @@ report 50013 "BC6_Sales - Credit Memo CNE"
                     Caption = 'Options';
                     field(NoOfCopiesF; NoOfCopies)
                     {
+                        ApplicationArea = All;
                         Caption = 'No. of Copies', Comment = 'FRA="Nombre de copies"';
                     }
                     field(ShowInternalInfoF; ShowInternalInfo)
                     {
+                        ApplicationArea = All;
                         Caption = 'Show Internal Information', Comment = 'FRA="Afficher info. internes"';
                     }
                     field(LogInteractionF; LogInteraction)
                     {
+                        ApplicationArea = All;
                         Caption = 'Log Interaction', Comment = 'FRA="Journal interaction"';
                         Enabled = LogInteractionEnable;
                     }
                     field(IncludeShptNoF; IncludeShptNo)
                     {
+                        ApplicationArea = All;
                         Caption = 'Inlude Shipment No.', Comment = 'FRA="Inclure expéditions"';
                     }
                 }
@@ -854,9 +845,8 @@ report 50013 "BC6_Sales - Credit Memo CNE"
             SalesSetup."Logo Position on Documents"::"No Logo":
                 ;
             SalesSetup."Logo Position on Documents"::Left:
-                BEGIN
-                    CompanyInfo.CALCFIELDS(Picture);
-                END;
+
+                CompanyInfo.CALCFIELDS(Picture);
             SalesSetup."Logo Position on Documents"::Center:
                 BEGIN
                     CompanyInfo1.GET();
@@ -1001,9 +991,6 @@ report 50013 "BC6_Sales - Credit Memo CNE"
         TxtGLblProjet: Text[30];
         TxtGNoProjet: Text[30];
         VATNoText: Text[30];
-        CompanyAddr: array[8] of Text[50];
-        CustAddr: array[8] of Text[50];
-        ShipToAddr: array[8] of Text[50];
         TotalExclVATText: Text[50];
         TotalInclVATText: Text[50];
         TotalText: Text[50];
@@ -1011,19 +998,20 @@ report 50013 "BC6_Sales - Credit Memo CNE"
         TxtGTag: Text[50];
         VALExchRate: Text[50];
         VALSpecLCYHeader: Text[80];
+        CompanyAddr: array[8] of Text[100];
+        CustAddr: array[8] of Text[100];
+        ShipToAddr: array[8] of Text[100];
 
     procedure InitLogInteraction()
     begin
         LogInteraction := SegManagement.FindInteractTmplCode(6) <> '';
     end;
 
-
     procedure DefineTagFax(TxtLTag: Text[50])
     begin
         RecGParamVente.GET();
         TxtGTag := RecGParamVente."BC6_RTE Fax Tag" + TxtLTag + '@cne.fax';
     end;
-
 
     procedure DefineTagMail(TxtLTag: Text[50])
     begin
@@ -1032,4 +1020,3 @@ report 50013 "BC6_Sales - Credit Memo CNE"
         TxtGTag := RecGParamVente."BC6_PDF Mail Tag" + TxtLTag;
     end;
 }
-

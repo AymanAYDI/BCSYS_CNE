@@ -1,7 +1,5 @@
 codeunit 50011 "BC6_Business Reminder Mail"
 {
-
-
     trigger OnRun()
     begin
         RecGUserSetup.RESET();
@@ -66,4 +64,3 @@ codeunit 50011 "BC6_Business Reminder Mail"
         END;
     end;
 }
-

@@ -1,4 +1,4 @@
-report 50044 "Conditions of Sales - Invoice"
+report 50044 "BC6_Conditions Sales - Invoice"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/ConditionsofSalesInvoice.rdl';
@@ -21,4 +21,3 @@ report 50044 "Conditions of Sales - Invoice"
     {
     }
 }
-

@@ -1,5 +1,6 @@
 page 50034 "BC6_Affair Steps Tracking"
 {
+    ApplicationArea = All;
     Caption = 'Affair Steps Tracking', Comment = 'FRA="Suivi étapes affaire"';
     DeleteAllowed = false;
     InsertAllowed = false;
@@ -7,7 +8,6 @@ page 50034 "BC6_Affair Steps Tracking"
     ShowFilter = false;
     SourceTable = "BC6_Affair Steps";
     UsageCategory = Tasks;
-    ApplicationArea = All;
     layout
     {
         area(content)
@@ -17,67 +17,66 @@ page 50034 "BC6_Affair Steps Tracking"
                 ShowCaption = false;
                 label(Interlocuteur)
                 {
-                    CaptionClass = Text19001151;
-                    Caption = 'Interlocutor', Comment = 'FRA="Interlocuteur"';
                     ApplicationArea = All;
+                    Caption = 'Interlocutor', Comment = 'FRA="Interlocuteur"';
+                    CaptionClass = Text19001151;
                 }
                 label("Date rappel")
                 {
-                    CaptionClass = Text19017858;
-                    Caption = 'Date rappel', Comment = 'FRA="Date rappel"';
                     ApplicationArea = All;
+                    Caption = 'Date rappel', Comment = 'FRA="Date rappel"';
+                    CaptionClass = Text19017858;
                 }
                 label(Finished)
                 {
-                    CaptionClass = Text19022765;
-                    Caption = 'Finished', Comment = 'FRA="Teminer"';
                     ApplicationArea = All;
+                    Caption = 'Finished', Comment = 'FRA="Teminer"';
+                    CaptionClass = Text19022765;
                 }
                 field(TxtGIntelocutor; TxtGIntelocutor)
                 {
-                    Lookup = true;
-                    TableRelation = "User Setup";
                     ApplicationArea = All;
+                    Lookup = true;
                     ShowCaption = false;
+                    TableRelation = "User Setup";
                 }
                 field(DatLRminderDate; DatLRminderDate)
                 {
-                    ShowCaption = false;
                     ApplicationArea = All;
-
+                    ShowCaption = false;
                 }
                 field(BooGFinichedfilter; BooGFinichedfilter)
                 {
-                    ShowCaption = false;
                     ApplicationArea = All;
+                    ShowCaption = false;
                 }
             }
             repeater(Control2)
             {
                 field("Affair No."; Rec."Affair No.")
                 {
-                    Editable = false;
                     ApplicationArea = All;
+                    Editable = false;
                 }
                 field("Affair Description"; Rec."Affair Description")
                 {
-                    Editable = false;
                     ApplicationArea = All;
+                    Editable = false;
                 }
                 field(Interlocutor; Rec.Interlocutor)
                 {
-                    Editable = false;
                     ApplicationArea = All;
+                    Editable = false;
                 }
                 field("Reminder Date"; Rec."Reminder Date")
                 {
-                    Editable = false;
                     ApplicationArea = All;
+                    Editable = false;
                 }
                 field(Description; Rec.Description)
                 {
-                    Editable = false;
                     ApplicationArea = All;
+                    Editable = false;
                 }
                 field(Result; Rec.Result)
                 {
@@ -97,11 +96,11 @@ page 50034 "BC6_Affair Steps Tracking"
         {
             action("Fi&nd")
             {
+                ApplicationArea = All;
                 Caption = 'Fi&nd', Comment = 'FRA="&Rechercher"';
                 Image = Find;
                 Promoted = true;
                 PromotedCategory = Process;
-                ApplicationArea = All;
                 PromotedOnly = true;
                 trigger OnAction()
                 begin
@@ -110,11 +109,11 @@ page 50034 "BC6_Affair Steps Tracking"
             }
             action("Fiche affaire")
             {
-                Promoted = true;
+                ApplicationArea = All;
                 Image = CheckList;
+                Promoted = true;
                 RunObject = Page "Job Card";
                 RunPageLink = "No." = FIELD("Affair No.");
-                ApplicationArea = All;
             }
         }
     }
@@ -139,7 +138,6 @@ page 50034 "BC6_Affair Steps Tracking"
         Text19022765: Label 'Finished', Comment = 'FRA="Terminer"';
         TxtGIntelocutor: Text[30];
 
-
     procedure SearchAffairSteps(finish: Boolean; pInterlocuteur: Text[50]; ReminderDate: Date)
     begin
         DiaGWindow.OPEN(Text001);
@@ -154,4 +152,3 @@ page 50034 "BC6_Affair Steps Tracking"
         DiaGWindow.CLOSE();
     end;
 }
-

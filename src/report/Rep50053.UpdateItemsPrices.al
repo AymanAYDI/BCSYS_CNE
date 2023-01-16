@@ -1,6 +1,5 @@
 report 50053 "BC6_Update Items Prices"
 {
-
     Caption = 'Mise à jour prix public TTC';
     ProcessingOnly = true;
 
@@ -34,7 +33,6 @@ report 50053 "BC6_Update Items Prices"
 
     requestpage
     {
-
         layout
         {
         }
@@ -54,4 +52,3 @@ report 50053 "BC6_Update Items Prices"
         Text001: Label 'Mise à jour prix public TTC';
         Text1100267003: Label '%1 article(s) traité(s)';
 }
-

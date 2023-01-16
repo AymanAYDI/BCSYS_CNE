@@ -1,11 +1,10 @@
 xmlport 50013 "BC6_Import R.I.B Clients"
 {
-
+    Caption = 'Import R.I.B Clients';
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = '<TAB>';
     Format = VariableText;
-    Caption = 'Import R.I.B Clients';
 
     schema
     {
@@ -69,7 +68,6 @@ xmlport 50013 "BC6_Import R.I.B Clients"
                 trigger OnBeforeInsertRecord()
                 begin
 
-
                     recCustBank.VALIDATE("Customer No.", customer);
                     recCustBank.VALIDATE(Code, Code);
                     recCustBank.INSERT(TRUE);
@@ -77,10 +75,8 @@ xmlport 50013 "BC6_Import R.I.B Clients"
                     IF bankbranch <> '' THEN
                         recCustBank.VALIDATE("Bank Branch No.", bankbranch);
 
-
                     IF agency <> '' THEN
                         recCustBank.VALIDATE("Agency Code", agency);
-
 
                     IF bankaccount <> '' THEN
                         recCustBank.VALIDATE("Bank Account No.", bankaccount);
@@ -90,7 +86,6 @@ xmlport 50013 "BC6_Import R.I.B Clients"
 
                     IF Name <> '' THEN
                         recCustBank.VALIDATE(Name, Name);
-
 
                     IF name2 <> '' THEN
                         recCustBank.VALIDATE("Name 2", name2);
@@ -103,7 +98,6 @@ xmlport 50013 "BC6_Import R.I.B Clients"
 
     requestpage
     {
-
         layout
         {
         }
@@ -117,4 +111,3 @@ xmlport 50013 "BC6_Import R.I.B Clients"
         recCustBank: Record "Customer Bank Account";
         IntGRIB: Integer;
 }
-

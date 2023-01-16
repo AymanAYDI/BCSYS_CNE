@@ -2,7 +2,7 @@ report 50006 "BC6_Calcul Plan - Req. Wksh."  //699
 {
     Caption = 'Calculate Plan - Req. Wksh.', Comment = 'FRA="Calculer planning - F. demande"';
     ProcessingOnly = true;
-
+    UsageCategory = None;
     dataset
     {
         dataitem(Item; Item)
@@ -98,23 +98,28 @@ report 50006 "BC6_Calcul Plan - Req. Wksh."  //699
                     Caption = 'Options', Comment = 'FRA="Options"';
                     field(StartingDate; FromDate)
                     {
+                        ApplicationArea = All;
                         Caption = 'Starting Date', Comment = 'FRA="Date début"';
                     }
                     field(EndingDate; ToDate)
                     {
+                        ApplicationArea = All;
                         Caption = 'Ending Date', Comment = 'FRA="Date fin"';
                     }
                     field(UseForecastF; UseForecast)
                     {
+                        ApplicationArea = All;
                         Caption = 'Use Forecast', Comment = 'FRA="Utiliser prévisions"';
                         TableRelation = "Production Forecast Name".Name;
                     }
                     field(ExcludeForecastBeforeF; ExcludeForecastBefore)
                     {
+                        ApplicationArea = All;
                         Caption = 'Exclude Forecast Before', Comment = 'FRA="Exclure prévisions avant"';
                     }
                     field(RespectPlanningParmF; RespectPlanningParm)
                     {
+                        ApplicationArea = All;
                         Caption = 'Respect Planning Parameters for Supply Triggered by Safety Stock', Comment = 'FRA="Respecter les paramètres de planning pour l''approvisionnement déclenché par le stock de sécurité"';
                         ToolTip = 'Specifies that planning lines triggered by safety stock will respect the following planning parameters: Reorder Point, Reorder Quantity, Reorder Point, and Maximum Inventory in addition to all order modifiers. If you do not select this check box, planning lines triggered by safety stock will only cover the exact demand quantity.', Comment = 'FRA="Spécifie que les lignes de planning déclenchées par le stock de sécurité vont respecter les paramètres de planning suivants : Point de commande, Quantité de réappro, Point de commande et Stock maximum en plus de tous les modificateurs d''ordre. Si vous n''activez pas cette case à cocher, les lignes de planning déclenchées par le stock de sécurité vont uniquement couvrir la quantité exacte demandée."';
                     }
@@ -232,4 +237,3 @@ THEN
         EXIT(TRUE);
     end;
 }
-

@@ -5,20 +5,20 @@ tableextension 50030 "BC6_SalesCrMemoLine" extends "Sales Cr.Memo Line" //115
         field(50020; "BC6_Custom. Sales Profit Group"; Code[10])
         {
             Caption = 'Custom. Sales Profit Group', comment = 'FRA="Goupe Marge Vente Client"';
-            TableRelation = "Customer Sales Profit Group";
             DataClassification = CustomerContent;
+            TableRelation = "Customer Sales Profit Group";
         }
         field(50021; "BC6_Item Sales Profit Group"; Code[20])
         {
             Caption = 'Item Sales Profit Group', comment = 'FRA="Goupe Marge Vente Article"';
-            TableRelation = "BC6_Item Sales Profit Group";
             DataClassification = CustomerContent;
+            TableRelation = "BC6_Item Sales Profit Group";
         }
         field(50022; "BC6_Public Price"; Decimal)
         {
             Caption = 'Public Price', comment = 'FRA="Tarif Public"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50023; "BC6_External Document No."; Code[35])
         {
@@ -33,20 +33,20 @@ tableextension 50030 "BC6_SalesCrMemoLine" extends "Sales Cr.Memo Line" //115
         field(50025; "BC6_Buy-from Vendor No."; Code[20])
         {
             Caption = 'Buy-from Vendor No.', comment = 'FRA="N° preneur d''ordre"';
-            TableRelation = Vendor;
             DataClassification = CustomerContent;
+            TableRelation = Vendor;
         }
         field(50026; "BC6_Purch. Order No."; Code[20])
         {
             Caption = 'Purchase Order No.', comment = 'FRA="N° commande achat"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50027; "BC6_Purch. Line No."; Integer)
         {
             Caption = 'Purch. Order Line No.', comment = 'FRA="N° ligne commande achat"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50028; "BC6_Purch. Document Type"; enum "Purchase Document Type")
         {
@@ -61,8 +61,8 @@ tableextension 50030 "BC6_SalesCrMemoLine" extends "Sales Cr.Memo Line" //115
         field(50030; "BC6_Qty Shipped"; Decimal)
         {
             Caption = 'Delivered Quantity', comment = 'FRA="Quantité livrée"';
-            Enabled = false;
             DataClassification = CustomerContent;
+            Enabled = false;
         }
         field(50031; "BC6_Discount unit price"; Decimal)
         {
@@ -77,14 +77,14 @@ tableextension 50030 "BC6_SalesCrMemoLine" extends "Sales Cr.Memo Line" //115
         field(50033; "BC6_Outstanding qty"; Decimal)
         {
             Caption = 'Outstanding Quantity', comment = 'FRA="quantité restante"';
-            Enabled = false;
             DataClassification = CustomerContent;
+            Enabled = false;
         }
         field(50041; "BC6_Purchase cost"; Decimal)
         {
             Caption = 'Purchase cost', comment = 'FRA="Coût d''achat"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50051; "BC6_Affect purchase order"; Boolean)
         {
@@ -94,14 +94,14 @@ tableextension 50030 "BC6_SalesCrMemoLine" extends "Sales Cr.Memo Line" //115
         field(50052; "BC6_Order purchase affected"; Boolean)
         {
             Caption = 'Order purchase affected', comment = 'FRA="Commande achat affectée"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50100; "BC6_Item Disc. Group"; Code[10])
         {
             Caption = 'Item Disc. Group', comment = 'FRA="Groupe remise article"';
-            TableRelation = "Item Discount Group";
             DataClassification = CustomerContent;
+            TableRelation = "Item Discount Group";
         }
         field(50101; "BC6_Dispensation No."; Code[20])
         {
@@ -126,45 +126,45 @@ tableextension 50030 "BC6_SalesCrMemoLine" extends "Sales Cr.Memo Line" //115
         field(80800; "BC6_DEEE Category Code"; Code[10])
         {
             Caption = 'DEEE Category Code', comment = 'FRA="Code Catégorie DEEE"';
-            TableRelation = "BC6_Categories of item".Category;
             DataClassification = CustomerContent;
+            TableRelation = "BC6_Categories of item".Category;
         }
         field(80801; "BC6_DEEE Unit Price"; Decimal)
         {
             Caption = 'DEEE Unit Price', comment = 'FRA="Prix Unitaire DEEE"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80802; "BC6_DEEE HT Amount"; Decimal)
         {
             Caption = 'DEEE HT Amount', comment = 'FRA="Montant HT DEEE"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80804; "BC6_DEEE VAT Amount"; Decimal)
         {
             Caption = 'DEEE Bases VAT Amount', comment = 'FRA="Montant Base TVA DEEE"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80805; "BC6_DEEE TTC Amount"; Decimal)
         {
             Caption = 'DEEE TTC Amount', comment = 'FRA="Montant TTC DEEE"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80806; "BC6_DEEE HT Amount (LCY)"; Decimal)
         {
             Caption = 'DEEE HT Amount (LCY)', comment = 'FRA="=Montant HT DEEE (DS)"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80807; "BC6_Eco partner DEEE"; Code[20])
         {
             Caption = 'Eco partner DEEE', comment = 'FRA="=Eco partenaire DEEE"';
+            DataClassification = CustomerContent;
             Editable = false;
             TableRelation = Vendor;
-            DataClassification = CustomerContent;
         }
     }
     keys

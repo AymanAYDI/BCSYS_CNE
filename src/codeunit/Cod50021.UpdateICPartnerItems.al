@@ -1,6 +1,5 @@
 codeunit 50021 "BC6_Update IC Partner Items"
 {
-
     TableNo = Item;
 
     trigger OnRun()
@@ -178,4 +177,3 @@ codeunit 50021 "BC6_Update IC Partner Items"
         Windows.CLOSE();
     end;
 }
-

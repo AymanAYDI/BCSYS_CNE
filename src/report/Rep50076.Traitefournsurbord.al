@@ -1,8 +1,8 @@
 report 50076 "BC6_Traite fourn. sur bord"
 {
+    Caption = 'Bill WORMS', comment = 'FRA="Lettre de change WORMS"';
     DefaultLayout = RDLC;
     RDLCLayout = './src/Report/RDL/Traitefournisseursurbord.rdl';
-    Caption = 'Bill WORMS', comment = 'FRA="Lettre de change WORMS"';
     UsageCategory = None;
     dataset
     {
@@ -220,9 +220,8 @@ report 50076 "BC6_Traite fourn. sur bord"
                     CLEAR(CodG_OrderNo);
                     IF (VendorLedgerEntry."Document Type" = VendorLedgerEntry."Document Type"::Invoice) THEN BEGIN
                         RecGPurchInvHeader.RESET();
-                        IF (RecGPurchInvHeader.GET(VendorLedgerEntry."Document No.")) THEN BEGIN
+                        IF (RecGPurchInvHeader.GET(VendorLedgerEntry."Document No.")) THEN
                             CodG_OrderNo := RecGPurchInvHeader."Order No.";
-                        END;
                     END;
 
                     IF (VendorLedgerEntry."Remaining Amount" < 0) THEN BEGIN
@@ -425,7 +424,6 @@ report 50076 "BC6_Traite fourn. sur bord"
 
             trigger OnAfterGetRecord()
             var
-                Currency: Record Currency;
                 Cust: Record Customer;
                 CustPaymentAddr: Record "Payment Address";
                 FormatAddress: Codeunit "Format Address";
@@ -506,7 +504,7 @@ report 50076 "BC6_Traite fourn. sur bord"
                             CountryName := Country.Name;
                 END;
 
-                IF "Payment Address Code" <> '' THEN BEGIN
+                IF "Payment Address Code" <> '' THEN
                     IF PaymentAddress.GET(PaymentAddress."Account Type"::Vendor, "Account No.", "Payment Address Code") THEN BEGIN
                         Name := PaymentAddress.Name;
                         Address := PaymentAddress.Address;
@@ -518,7 +516,6 @@ report 50076 "BC6_Traite fourn. sur bord"
                             IF Country.GET(PaymentAddress."Country/Region Code") THEN
                                 CountryName := Country.Name;
                     END;
-                END
             end;
 
             trigger OnPreDataItem()
@@ -533,7 +530,6 @@ report 50076 "BC6_Traite fourn. sur bord"
 
     requestpage
     {
-
         layout
         {
             area(content)
@@ -541,11 +537,13 @@ report 50076 "BC6_Traite fourn. sur bord"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(IssueDate; IssueDate)
+                    field(IssueDateF; IssueDate)
                     {
+                        ApplicationArea = All;
                     }
-                    field(IssueCity; IssueCity)
+                    field(IssueCityF; IssueCity)
                     {
+                        ApplicationArea = All;
                     }
                 }
             }
@@ -569,16 +567,12 @@ report 50076 "BC6_Traite fourn. sur bord"
     var
         CompanyInfo: Record "Company Information";
         Country: Record "Country/Region";
-        Cust: Record Customer;
         GLSetup: Record "General Ledger Setup";
         PaymentAddress: Record "Payment Address";
         PaymtHeader: Record "Payment Header";
-        PaymtLine: Record "Payment Line";
         RecGPaymentMethod: Record "Payment Method";
         RecG_PaymentTerms: Record "Payment Terms";
         RecGPurchInvHeader: Record "Purch. Inv. Header";
-        RecGPurchaseHeader: Record "Purchase Header";
-        "RecGSalesCr.MemoHeader": Record "Sales Cr.Memo Header";
         RecG_SalespersonPurchaser: Record "Salesperson/Purchaser";
         RecG_Vendor: Record Vendor;
         Vendor: Record Vendor;
@@ -586,18 +580,15 @@ report 50076 "BC6_Traite fourn. sur bord"
         PaymtManagt: Codeunit "Payment Management";
         CodGPaymentMethodCode: Code[10];
         CodGPaymentTermsCode: Code[10];
-        CodGVendorPurchaserCode: Code[10];
-        AccountNo: Code[20];
         CodG_OrderNo: Code[20];
+        CodGVendorPurchaserCode: Code[20];
         IssueDate: Date;
         PostingDate: Date;
         DecG_VendorLedger_CreditAmount: Decimal;
         DecG_VendorLedger_DebitAmount: Decimal;
         NSCAmount: Decimal;
-        PrintAmount: Decimal;
         ReportAmount: Decimal;
         A_payerCaptionLbl: Label 'A payer';
-        PAGENO__: Label 'Page %1';
         ACCEPTANCE_or_ENDORSMENTCaptionLbl: Label 'ACCEPTANCE or ENDORSMENT', comment = 'FRA="ACCEPTATION ou AVAL"';
         ADDRESSCaptionLbl: Label 'ADDRESS', comment = 'FRA="ADDRESSE"';
         Against_this_BILLCaptionLbl: Label 'Against this BILL', comment = 'FRA="Contre cette LETTRE DE CHANGE"';
@@ -624,6 +615,7 @@ report 50076 "BC6_Traite fourn. sur bord"
         "NuméroCaptionLbl": Label 'Numéro';
         of_SUBSCRIBERCaptionLbl: Label 'of SUBSCRIBER', comment = 'FRA="du SOUSCRIPTEUR"';
         ONCaptionLbl: Label 'ON', comment = 'FRA="LE"';
+        PAGENO__: Label 'Page %1';
         Posting_DateCaptionLbl: Label 'Posting Date', comment = 'FRA="Date"';
         Report___CaptionLbl: Label 'Report...', comment = 'FRA="Report..."';
         RIBCaptionLbl: Label 'RIB';
@@ -634,7 +626,6 @@ report 50076 "BC6_Traite fourn. sur bord"
         Text030: Label '%1 - %2 %3';
         Text031: Label 'Tel. :  %1 - Fax :  %2';
         Text032: Label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5', comment = 'FRA="%1 AU CAPITAL DE %2  · %3  · SIRET %4 ·  APE %5"';
-        Text033: Label 'Fax :  %1';
         Text120: Label 'Mode de règlement';
         Text121: Label 'Votre Interlocuteur Commercial :';
         Text122: Label 'Conditions commerciales %1 - %2 Au %3';
@@ -644,8 +635,8 @@ report 50076 "BC6_Traite fourn. sur bord"
         Text126: Label 'Veuillez agréer, %1 nos sincères salutations.';
         TOCaptionLbl: Label 'TO', comment = 'FRA="A"';
         TRAITE_A_DETACHERCaptionLbl: Label 'TRAITE A DETACHER';
-        TypeCaptionLbl: Label ' Type';
         txtlbl1: label '%1';
+        TypeCaptionLbl: Label ' Type';
         Value_in_EURCaptionLbl: Label 'Value in EUR', comment = 'FRA="Valeur en EUR"';
         VAT_Registration_No__CaptionLbl: Label '<VAT Registration No.>', comment = 'FRA="N° TVA Intracommunautaire :"';
         Votre_Cmde__CaptionLbl: Label 'Votre Cmde :';
@@ -655,14 +646,13 @@ report 50076 "BC6_Traite fourn. sur bord"
         AmountText: Text[30];
         IssueCity: Text[30];
         PostCode: Text[30];
-        TexGPaymentMethodDescription: Text[30];
-        Address: Text[50];
         Address2: Text[50];
         City: Text[50];
-        CompanyAddr: array[8] of Text[50];
         CountryName: Text[50];
-        CustAdr: array[8] of Text[50];
-        Name: Text[50];
-        TexGPaymentTermsDescription: Text[50];
+        Address: Text[100];
+        CompanyAddr: array[8] of Text[100];
+        CustAdr: array[8] of Text[100];
+        Name: Text[100];
+        TexGPaymentMethodDescription: Text[100];
+        TexGPaymentTermsDescription: Text[100];
 }
-

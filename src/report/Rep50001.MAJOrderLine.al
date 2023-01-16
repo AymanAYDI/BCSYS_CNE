@@ -1,8 +1,8 @@
 report 50001 "BC6_MAJ Order Line"
 {
+    Caption = 'MAJ Order Line';
     ProcessingOnly = true;
     UsageCategory = None;
-    Caption = 'MAJ Order Line';
     dataset
     {
         dataitem(DataItem1100267001; "Sales Header")
@@ -28,7 +28,6 @@ report 50001 "BC6_MAJ Order Line"
 
     requestpage
     {
-
         layout
         {
         }
@@ -42,4 +41,3 @@ report 50001 "BC6_MAJ Order Line"
     {
     }
 }
-

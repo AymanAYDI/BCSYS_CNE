@@ -1,10 +1,10 @@
 xmlport 53001 "BC6_import vendor"
 {
+    Caption = 'import vendor';
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = '<TAB>';
     Format = VariableText;
-    Caption = 'import vendor';
 
     schema
     {
@@ -125,31 +125,24 @@ xmlport 53001 "BC6_import vendor"
 
                     regVendor.INSERT(TRUE);
                     IF EVALUATE(DatGdtcrea, dtcrea) THEN;
-                    IF DatGdtcrea <> 0D THEN BEGIN
+                    IF DatGdtcrea <> 0D THEN
                         regVendor.VALIDATE("BC6_Creation Date", DatGdtcrea);
-                    END;
 
-                    IF collectif <> '' THEN BEGIN
+                    IF collectif <> '' THEN
                         regVendor.VALIDATE("Vendor Posting Group", collectif);
-                    END;
 
-                    IF nom <> '' THEN BEGIN
+                    IF nom <> '' THEN
                         regVendor.VALIDATE(Name, nom);
-                    END;
-                    IF nom2 <> '' THEN BEGIN
+                    IF nom2 <> '' THEN
                         regVendor.VALIDATE("Name 2", nom2);
-                    END;
-                    IF adresse1 <> '' THEN BEGIN
+                    IF adresse1 <> '' THEN
                         regVendor.VALIDATE(Address, adresse1);
-                    END;
 
-                    IF adresse2 <> '' THEN BEGIN
+                    IF adresse2 <> '' THEN
                         regVendor.VALIDATE("Address 2", adresse2);
-                    END;
 
-                    IF adresse3 <> '' THEN BEGIN
+                    IF adresse3 <> '' THEN
                         regVendor.VALIDATE(County, adresse3);
-                    END;
 
                     //Code postal et Ville
 
@@ -157,11 +150,9 @@ xmlport 53001 "BC6_import vendor"
                         //Code postal et Ville
                         IF STRLEN(cp) < 5 THEN BEGIN
                             CPLength := STRLEN(cp);
-                            FOR i := 1 TO 5 - CPLength DO BEGIN
+                            FOR i := 1 TO 5 - CPLength DO
                                 cp := '0' + cp;
-                            END;
                         END;
-
 
                         PostCode.RESET();
 
@@ -184,8 +175,6 @@ xmlport 53001 "BC6_import vendor"
                         regVendor.City := ville;
                     END;
 
-
-
                     IF pays <> '' THEN BEGIN
                         IF pays = 'FRA' THEN pays := 'FR';
 
@@ -197,46 +186,37 @@ xmlport 53001 "BC6_import vendor"
                         END;
                         regVendor.VALIDATE("Country/Region Code", pays);
                     END
-                    ELSE BEGIN
+                    ELSE
                         regVendor.VALIDATE("Country/Region Code", 'FR');
-                    END;
 
-
-                    IF tel <> '' THEN BEGIN
+                    IF tel <> '' THEN
                         regVendor.VALIDATE("Phone No.", tel);
-                    END;
 
-                    IF telecop <> '' THEN BEGIN
+                    IF telecop <> '' THEN
                         regVendor.VALIDATE("Fax No.", telecop);
-                    END;
 
-                    IF telex <> '' THEN BEGIN
+                    IF telex <> '' THEN
                         regVendor.VALIDATE("Telex No.", telex);
-                    END;
 
-                    IF intracomm <> '' THEN BEGIN
+                    IF intracomm <> '' THEN
                         regVendor.VALIDATE("VAT Registration No.", intracomm);
-                    END;
 
                     regVendor.VALIDATE("Payment Terms Code", 'V7');
                     regVendor.VALIDATE("Payment Method Code", 'VIREMENT');
 
-                    IF tva <> '' THEN BEGIN
+                    IF tva <> '' THEN
                         IF tva = 'O' THEN
                             regVendor.VALIDATE("Gen. Bus. Posting Group", 'NATIONAL')
                         ELSE
                             regVendor.VALIDATE("Gen. Bus. Posting Group", 'EXPORT');
-                    END;
 
                     IF EVALUATE(IntGcmdmin, cmdmin) THEN;
-                    IF IntGcmdmin <> 0 THEN BEGIN
+                    IF IntGcmdmin <> 0 THEN
                         regVendor.VALIDATE("BC6_Order Minimum", IntGcmdmin);
-                    END;
 
                     IF EVALUATE(IntGfrancomin, francomin) THEN;
                     IF IntGfrancomin <> 0 THEN
                         regVendor.VALIDATE("BC6_Mini Amount", IntGfrancomin);
-
 
                     // Commentaires
                     IF commentaire <> '' THEN BEGIN
@@ -249,9 +229,8 @@ xmlport 53001 "BC6_import vendor"
                         Com.INSERT(TRUE);
                     END;
                     IF EVALUATE(IntGportsifranco, portsifranco) THEN;
-                    IF IntGportsifranco <> 0 THEN BEGIN
-                        regVendor.VALIDATE("BC6_Freight Amount", IntGportsifranco)
-                    END;
+                    IF IntGportsifranco <> 0 THEN
+                        regVendor.VALIDATE("BC6_Freight Amount", IntGportsifranco);
 
                     regVendor.VALIDATE("Language Code", 'FRA');
                     regVendor.VALIDATE("Location Code", 'CNE');
@@ -264,7 +243,6 @@ xmlport 53001 "BC6_import vendor"
 
     requestpage
     {
-
         layout
         {
         }
@@ -284,4 +262,3 @@ xmlport 53001 "BC6_import vendor"
         IntGfrancomin: Integer;
         IntGportsifranco: Integer;
 }
-

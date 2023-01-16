@@ -1,15 +1,16 @@
 pageextension 50043 "BC6_PostedPurchaseCreditMemo" extends "Posted Purchase Credit Memo" //140
 {
-
     layout
     {
         addafter("Responsibility Center")
         {
             field("BC6_User ID"; Rec."User ID")
             {
+                ApplicationArea = All;
             }
             field("BC6_Affair No."; Rec."BC6_Affair No.")
             {
+                ApplicationArea = All;
                 Editable = false;
             }
         }
@@ -18,9 +19,10 @@ pageextension 50043 "BC6_PostedPurchaseCreditMemo" extends "Posted Purchase Cred
     {
         addafter("&Navigate")
         {
-            action("BC6_&Envoyer/Imprimer")
+            action("BC6_Envoyer/Imprimer")
             {
-                Caption = '&Envoyer/Imprimer', comment = 'FRA="&Envoyer/Imprimer"';
+                ApplicationArea = All;
+                Caption = 'Envoyer/Imprimer', comment = 'FRA="Envoyer/Imprimer"';
                 image = SendToMultiple;
                 trigger OnAction()
                 begin
@@ -50,7 +52,6 @@ pageextension 50043 "BC6_PostedPurchaseCreditMemo" extends "Posted Purchase Cred
         Text001: label '';
         nameF: Text[250];
 
-
     procedure EnvoiMail()
     begin
         cust.SETRANGE(cust."No.", Rec."Sell-to Customer No.");
@@ -78,4 +79,3 @@ pageextension 50043 "BC6_PostedPurchaseCreditMemo" extends "Posted Purchase Cred
     begin
     end;
 }
-

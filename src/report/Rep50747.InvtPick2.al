@@ -1,9 +1,8 @@
 report 50747 "BC6_Invt. Pick2"
 {
-
+    Caption = 'Picking List', Comment = 'FRA="Prélèvement stock"';
     DefaultLayout = RDLC;
     RDLCLayout = './src/Report/RDL/InvtPick2.rdl';
-    Caption = 'Picking List', Comment = 'FRA="Prélèvement stock"';
     UsageCategory = None;
 
     dataset
@@ -405,7 +404,6 @@ report 50747 "BC6_Invt. Pick2"
                                         NetWeight := ReturnLine."Net Weight" * QtyToPick;
                                         GrossWeight := ReturnLine."Gross Weight" * QtyToPick;
                                     END;
-
                             END;
                         end;
 
@@ -433,9 +431,9 @@ report 50747 "BC6_Invt. Pick2"
                                             REPEAT
                                                 CLEAR(RemainingQty2);
                                                 CLEAR(QtyToPick2);
-                                                IF NOT TempSalesLine.GET(SalesLine."Document Type", SalesLine."Document No.", SalesLine."Line No.") THEN BEGIN
-                                                    RemainingQty2 := SalesLine."Outstanding Quantity";
-                                                END ELSE BEGIN
+                                                IF NOT TempSalesLine.GET(SalesLine."Document Type", SalesLine."Document No.", SalesLine."Line No.") THEN
+                                                    RemainingQty2 := SalesLine."Outstanding Quantity"
+                                                ELSE BEGIN
                                                     WhseActLine2.SETRANGE("Source No.", SalesLine."Document No.");
                                                     WhseActLine2.SETRANGE("Source Line No.", SalesLine."Line No.");
                                                     IF WhseActLine2.FINDSET(FALSE, FALSE) THEN
@@ -451,7 +449,6 @@ report 50747 "BC6_Invt. Pick2"
                                                     TempSalesLine2."Outstanding Quantity" := RemainingQty2;
                                                     TempSalesLine2.INSERT();
                                                 END;
-
                                             UNTIL SalesLine.NEXT() = 0;
                                     END;
                             END;
@@ -538,7 +535,6 @@ report 50747 "BC6_Invt. Pick2"
                                     Item.SETRANGE("Location Filter", WhseActivityHeader."Location Code");
                                 AvailableQty := Item.CalcQtyAvailToPick(0);
                                 Item.SETRANGE("Location Filter");
-
                             END;
                         end;
 
@@ -586,7 +582,6 @@ report 50747 "BC6_Invt. Pick2"
                        THEN
                     CurrReport.SKIP();
 
-
                 CLEAR(ExtDocNo);
                 CLEAR(YourRef);
                 CLEAR(FormatAddr);
@@ -633,8 +628,6 @@ report 50747 "BC6_Invt. Pick2"
                                 SalesHeader."Sell-to City" := Cust.City;
                                 SalesHeader."Sell-to Contact" := Cust.Contact;
                             END;
-
-
 
                             OrderDate := SalesHeader."Order Date";
                             DeliveryDate := SalesHeader."Requested Delivery Date";
@@ -758,13 +751,13 @@ report 50747 "BC6_Invt. Pick2"
         EAN13Txt: Text[13];
         CopyText: Text[30];
         YourRef: Text[30];
-        BillToAddr: array[8] of Text[50];
         BinDescription: Text[50];
-        CustToAddr: array[8] of Text[50];
         SalesPersonName: Text[50];
         ShipmentMethodTxt: Text[50];
         ShippingAgentTxt: Text[50];
-        ShipToAddr: array[8] of Text[50];
+        BillToAddr: array[8] of Text[100];
+        CustToAddr: array[8] of Text[100];
+        ShipToAddr: array[8] of Text[100];
         EAN13BarTxt: Text[120];
         InvtPickCheckTxt: Text[250];
 
@@ -784,4 +777,3 @@ report 50747 "BC6_Invt. Pick2"
         ShowOutStock := FromShowOutStock;
     end;
 }
-

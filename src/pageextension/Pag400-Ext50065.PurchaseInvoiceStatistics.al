@@ -13,8 +13,8 @@ pageextension 50065 "BC6_PurchaseInvoiceStatistics" extends "Purchase Invoice St
                 ApplicationArea = Basic, Suite;
                 AutoFormatExpression = Rec."Currency Code";
                 AutoFormatType = 1;
-                CaptionClass = '3,' + Format(NewVATAmountText);
                 Caption = 'VAT Amount', Comment = 'FRA="Montant TVA"';
+                CaptionClass = '3,' + Format(NewVATAmountText);
                 ToolTip = 'Specifies the total VAT amount that has been calculated for all the lines in the purchase document.', Comment = 'FRA="Spécifie le montant total de la TVA qui a été calculée pour toutes les lignes du document achat."';
             }
         }
@@ -37,17 +37,17 @@ pageextension 50065 "BC6_PurchaseInvoiceStatistics" extends "Purchase Invoice St
         {
             field(BC6_DecGMntHTDEEE; DecGMntHTDEEE)
             {
+                ApplicationArea = All;
                 Caption = 'Total DEEE';
                 Editable = false;
                 Style = StrongAccent;
                 StyleExpr = TRUE;
-                ApplicationArea = All;
             }
             field("VendAmount+DecGMntHTDEEE"; NewVendAmount + DecGMntHTDEEE)
             {
+                ApplicationArea = All;
                 Caption = 'Total HT DEEE Incluse';
                 Editable = false;
-                ApplicationArea = All;
             }
         }
     }
@@ -66,7 +66,6 @@ pageextension 50065 "BC6_PurchaseInvoiceStatistics" extends "Purchase Invoice St
     begin
         DecGMntHTDEEE += pDecGMntHTDEEE;
     end;
-
 
     procedure SetNewVendAmount(pNewVendAmount: Decimal)
     begin
@@ -109,7 +108,5 @@ pageextension 50065 "BC6_PurchaseInvoiceStatistics" extends "Purchase Invoice St
         VendLedgEntry.SETRANGE("Vendor No.", Rec."Pay-to Vendor No.");
         IF VendLedgEntry.FINDFIRST() THEN
             NewAmountLCY := VendLedgEntry."Purchase (LCY)";
-
     end;
 }
-

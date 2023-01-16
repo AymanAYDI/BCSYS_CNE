@@ -96,4 +96,3 @@ page 50026 "BC6_DEEE Ledger Entries"
     {
     }
 }
-

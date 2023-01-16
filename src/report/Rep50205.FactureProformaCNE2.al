@@ -1,8 +1,8 @@
 report 50205 "BC6_Facture Proforma CNE 2"
 {
+    Caption = 'Order Confirmation', Comment = 'FRA="Facture Proforma (idem conf. de cde)"';
     DefaultLayout = RDLC;
     RDLCLayout = './src/Report/RDL/FactureProformaCNE2.rdl';
-    Caption = 'Order Confirmation', Comment = 'FRA="Facture Proforma (idem conf. de cde)"';
     UsageCategory = None;
 
     dataset
@@ -803,15 +803,13 @@ report 50205 "BC6_Facture Proforma CNE 2"
 
                             item."Tariff No." := '';
 
-
                             item.RESET();
-                            IF item.GET(TempSalesLine."No.") AND (TempSalesLine.Type = TempSalesLine.Type::Item) THEN BEGIN
+                            IF item.GET(TempSalesLine."No.") AND (TempSalesLine.Type = TempSalesLine.Type::Item) THEN
                                 IF "Sales Header"."Sell-to Country/Region Code" <> CompanyInfo."Country/Region Code" THEN BEGIN
                                     TempNomenclaturedouaniere := item."Tariff No.";
                                     IF Country.GET(item."Country/Region of Origin Code") THEN
                                         Countrylibelle := Country.Name;
                                 END;
-                            END;
 
                             NNCSalesLineLineAmt += TempSalesLine."Line Amount";
                             NNCSalesLineInvDiscAmt += TempSalesLine."Inv. Discount Amount";
@@ -840,13 +838,12 @@ report 50205 "BC6_Facture Proforma CNE 2"
                                 PrixNet := 0;
 
                             BooGRoundLoopB4 := (TempSalesLine.Type.AsInteger() > 0);
-                            IF RecGBillCustomer."BC6_Submitted to DEEE" THEN BEGIN
+                            IF RecGBillCustomer."BC6_Submitted to DEEE" THEN
                                 BooGRoundLoopB5 := (TempSalesLine."BC6_DEEE Category Code" <> '') AND
                                                           (TempSalesLine.Quantity <> 0) AND
-                                                            (TempSalesLine."BC6_Eco partner DEEE" <> '');
-                            END ELSE BEGIN
+                                                            (TempSalesLine."BC6_Eco partner DEEE" <> '')
+                            ELSE
                                 BooGRoundLoopB5 := FALSE;
-                            END;
 
                             IF (CrossrefNo = '') AND (item."Tariff No." = '') THEN
                                 BooGRoundLoopB6 := FALSE
@@ -910,13 +907,11 @@ report 50205 "BC6_Facture Proforma CNE 2"
                             trigger OnAfterGetRecord()
                             begin
                                 BooGTexteClientB1 := Edition;
-                                IF Edition2 THEN BEGIN
+                                IF Edition2 THEN
                                     IF Number = 1 THEN
                                         StandardSalesLine.FIND('-')
-                                    ELSE BEGIN
+                                    ELSE
                                         StandardSalesLine.NEXT();
-                                    END;
-                                END;
                             end;
 
                             trigger OnPreDataItem()
@@ -1073,7 +1068,6 @@ report 50205 "BC6_Facture Proforma CNE 2"
 
                             TempVATAmountLine.GetLine(Number);
 
-
                             TmpVATBase[Number] := TempVATAmountLine."VAT Base" + TempVATAmountLine."BC6_DEEE HT Amount";
                             TmpVATRate[Number] := TempVATAmountLine."VAT %";
                             TmpVATAmount[Number] := TempVATAmountLine."VAT Amount" + TempVATAmountLine."BC6_DEEE VAT Amount";
@@ -1096,7 +1090,7 @@ report 50205 "BC6_Facture Proforma CNE 2"
                             //                                  PRM fin TVA
 
                             IF TempVATAmountLine.COUNT > 3 THEN BEGIN
-                                ERROR(STRSUBSTNO(Text020, TempVATAmountLine.COUNT));
+                                ERROR(Text020, TempVATAmountLine.COUNT);
                                 CurrReport.QUIT();
                             END;
                             //                                  PRM fin TVA
@@ -1521,7 +1515,6 @@ report 50205 "BC6_Facture Proforma CNE 2"
                     NNCTotalExclVAT2 := 0;
                     NNCSalesLineLineAmt := 0;
                     NNCSalesLineInvDiscAmt := 0;
-
                 end;
 
                 trigger OnPostDataItem()
@@ -1544,7 +1537,6 @@ report 50205 "BC6_Facture Proforma CNE 2"
                         SETRANGE(Number, 1, NoOfLoops)
                     ELSE
                         SETRANGE(Number, 0, 0);
-
 
                     //FIN
                 end;
@@ -1591,16 +1583,12 @@ report 50205 "BC6_Facture Proforma CNE 2"
                     IF SalesPurchPerson."E-Mail" <> '' THEN
                         SalesPersonText := SalesPersonText + ' ' + '   ' + ' ' + SalesPurchPerson.FIELDCAPTION("E-Mail") + ' ' + SalesPurchPerson."E-Mail";
                     //<<MIGRATION NAV 2013
-
-
                 END;
-                IF ("Your Reference" = '') AND ("External Document No." = '') THEN BEGIN
+                IF ("Your Reference" = '') AND ("External Document No." = '') THEN
                     //ReferenceText := '';
-                    VotreRef := '';
-                END
-                ELSE BEGIN
+                    VotreRef := ''
+                ELSE
                     VotreRef := "External Document No." + '  ' + "Your Reference";
-                END;
                 IF "VAT Registration No." = '' THEN
                     VATNoText := ''
                 ELSE
@@ -1621,7 +1609,6 @@ report 50205 "BC6_Facture Proforma CNE 2"
                     //PRM debut devise
                     Currency := "Currency Code";
                     //PRM Fin devise
-
                 END;
                 FormatAddr.SalesHeaderSellTo(CustAddr, "Sales Header");
                 //Fin
@@ -1696,13 +1683,11 @@ report 50205 "BC6_Facture Proforma CNE 2"
                     BooGSubmittedToDEEE := RecGBillCustomer."BC6_Submitted to DEEE";
                 END ELSE BEGIN
                     RecGCustomerTemplate.RESET();
-                    IF RecGCustomerTemplate.GET("Sales Header"."Sell-to Customer Templ. Code") THEN BEGIN
-                        BooGSubmittedToDEEE := RecGCustomerTemplate."BC6_Submitted to DEEE";
-                    END ELSE BEGIN
+                    IF RecGCustomerTemplate.GET("Sales Header"."Sell-to Customer Templ. Code") THEN
+                        BooGSubmittedToDEEE := RecGCustomerTemplate."BC6_Submitted to DEEE"
+                    ELSE
                         BooGSubmittedToDEEE := FALSE;
-                    END;
                 END;
-
             end;
 
             trigger OnPreDataItem()
@@ -1725,16 +1710,19 @@ report 50205 "BC6_Facture Proforma CNE 2"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(NoOfCopies; NoOfCopies)
+                    field(NoOfCopiesF; NoOfCopies)
                     {
+                        ApplicationArea = All;
                         Caption = 'No. of Copies', Comment = 'FRA="Nombre de copies"';
                     }
-                    field(ShowInternalInfo; ShowInternalInfo)
+                    field(ShowInternalInfoF; ShowInternalInfo)
                     {
+                        ApplicationArea = All;
                         Caption = 'Show Internal Information', Comment = 'FRA="Afficher info. internes"';
                     }
-                    field(ArchiveDocument; ArchiveDocument)
+                    field(ArchiveDocumentF; ArchiveDocument)
                     {
+                        ApplicationArea = All;
                         Caption = 'Archive Document', Comment = 'FRA="Archiver document"';
 
                         trigger OnValidate()
@@ -1743,8 +1731,9 @@ report 50205 "BC6_Facture Proforma CNE 2"
                                 LogInteraction := FALSE;
                         end;
                     }
-                    field(LogInteraction; LogInteraction)
+                    field(LogInteractionF; LogInteraction)
                     {
+                        ApplicationArea = All;
                         Caption = 'Log Interaction', Comment = 'FRA="Journal interaction"';
                         Enabled = LogInteractionEnable;
 
@@ -1754,8 +1743,9 @@ report 50205 "BC6_Facture Proforma CNE 2"
                                 ArchiveDocument := ArchiveDocumentEnable;
                         end;
                     }
-                    field(ShowAssemblyComponents; DisplayAssemblyInformation)
+                    field(ShowAssemblyComponentsF; DisplayAssemblyInformation)
                     {
+                        ApplicationArea = All;
                         Caption = 'Show Assembly Components', Comment = 'FRA="Afficher composants d''assemblage"';
                     }
                 }
@@ -1790,7 +1780,6 @@ report 50205 "BC6_Facture Proforma CNE 2"
         CompanyInfo.GET();
         CompanyInfo.CALCFIELDS(CompanyInfo."BC6_Alt Picture");
         CompanyInfo.CALCFIELDS(CompanyInfo.Picture);
-
     end;
 
     var
@@ -1894,16 +1883,16 @@ report 50205 "BC6_Facture Proforma CNE 2"
         VATAmount: Decimal;
         VATBaseAmount: Decimal;
         VATDiscountAmount: Decimal;
+        CompteurDeLigne: Integer;
         "--FG--": Integer;
+        i: Integer;
+        "-MICO-": Integer;
+        "-MIGNAV2013-": Integer;
+        NoOfCopies: Integer;
+        NoOfLoops: Integer;
         "--NSC1.03--": Integer;
         "--NSC1.05--": Integer;
         "--NSC1.06--": Integer;
-        "-MICO-": Integer;
-        "-MIGNAV2013-": Integer;
-        CompteurDeLigne: Integer;
-        i: Integer;
-        NoOfCopies: Integer;
-        NoOfLoops: Integer;
         OutputNo: Integer;
         AccountNoCaptionLbl: Label 'Account No.', Comment = 'FRA="N° compte"';
         AllowInvDiscCaptionLbl: Label 'Allow Invoice Discount', Comment = 'FRA="Autoriser remise facture"';
@@ -1985,6 +1974,7 @@ report 50205 "BC6_Facture Proforma CNE 2"
         Text101: Label 'Phone :', Comment = 'FRA="Tel :"';
         Text200: Label 'Proforma Invoice No. ', Comment = 'FRA="Facture Proforma N°"';
         TotalCaptionLbl: Label 'Total', Comment = 'FRA="Total"';
+        txtlbl12: label '%1 %2';
         UnitPriceCaptionLbl: Label 'Unit Price', Comment = 'FRA="Prix unitaire"';
         VATAmtCaptionLbl: Label 'VAT Amount', Comment = 'FRA="Montant TVA"';
         VATAmtSpecCaptionLbl: Label 'VAT Amount Specification', Comment = 'FRA="Détail montant TVA"';
@@ -1992,7 +1982,6 @@ report 50205 "BC6_Facture Proforma CNE 2"
         VATIdentifierCaptionLbl: Label 'VAT Identifier', Comment = 'FRA="Identifiant TVA"';
         VATPercentageCaptionLbl: Label 'VAT %', Comment = 'FRA="% TVA"';
         VATRegNoCaptionLbl: Label 'VAT Registration No.', Comment = 'FRA="N° identif. intracomm."';
-        txtlbl12: label '%1 %2';
         Asterisque: Text[1];
         Currency: Text[10];
         CrossrefNo: Text[20];
@@ -2005,12 +1994,9 @@ report 50205 "BC6_Facture Proforma CNE 2"
         TempGencod: Text[30];
         templibelledouanier: Text[30];
         TempNomenclaturedouaniere: Text[30];
-        CompanyAddr: array[8] of Text[50];
         CondDePayment: Text[50];
         Countrylibelle: Text[50];
-        CustAddr: array[8] of Text[50];
         PrincContactName: Text[50];
-        ShipToAddr: array[8] of Text[50];
         surReleve: Text[50];
         TotalExclVATText: Text[50];
         TotalInclVATText: Text[50];
@@ -2021,6 +2007,9 @@ report 50205 "BC6_Facture Proforma CNE 2"
         ReferenceText: Text[80];
         VALSpecLCYHeader: Text[80];
         VATNoText: Text[80];
+        CompanyAddr: array[8] of Text[100];
+        CustAddr: array[8] of Text[100];
+        ShipToAddr: array[8] of Text[100];
         TmpNamereport: Text[100];
         DimText: Text[120];
         VotreRef: Text[200];
@@ -2050,4 +2039,3 @@ report 50205 "BC6_Facture Proforma CNE 2"
         EXIT(PADSTR('', 2, ' '));
     end;
 }
-

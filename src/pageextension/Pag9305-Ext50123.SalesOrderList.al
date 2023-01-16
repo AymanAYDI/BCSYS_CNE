@@ -24,11 +24,11 @@ pageextension 50123 "BC6_SalesOrderList" extends "Sales Order List" //9305
             }
             field(BC6_Profit; DecGProfit)
             {
+                ApplicationArea = All;
                 Caption = 'Montant marge';
                 Editable = false;
                 Enabled = BooGVisible;
                 Visible = BooGVisible;
-                ApplicationArea = All;
             }
             field("BC6_Completely Shipped"; Rec."Completely Shipped")
             {
@@ -40,27 +40,25 @@ pageextension 50123 "BC6_SalesOrderList" extends "Sales Order List" //9305
             }
             field(BC6_ProfitPct; DecGProfitPct)
             {
+                ApplicationArea = All;
                 Caption = '%age marge';
                 Editable = false;
                 Enabled = BooGVisible;
                 Visible = BooGVisible;
-                ApplicationArea = All;
             }
             field("BC6_Purchase No. Order Lien"; Rec."BC6_Purchase No. Order Lien")
             {
-                Caption = 'Purchase No. Order Lien', Comment = 'FRA="n° Commande Achat Lien"';
                 ApplicationArea = All;
+                Caption = 'Purchase No. Order Lien', Comment = 'FRA="n° Commande Achat Lien"';
             }
         }
     }
-
 
     actions
     {
         modify("Create Inventor&y Put-away/Pick")
         {
             Visible = false;
-
         }
         addfirst(Action3)
         {
@@ -87,11 +85,11 @@ pageextension 50123 "BC6_SalesOrderList" extends "Sales Order List" //9305
                 end;
             }
         }
-
         addafter(Post)
         {
             action(BC6_PostAndPrint)
             {
+                ApplicationArea = All;
                 Caption = 'Post and &Print', Comment = 'FRA="Valider et i&mprimer"';
                 Ellipsis = true;
                 Image = PostPrint;
@@ -99,7 +97,6 @@ pageextension 50123 "BC6_SalesOrderList" extends "Sales Order List" //9305
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ShortCutKey = 'Shift+F9';
-                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -115,8 +112,8 @@ pageextension 50123 "BC6_SalesOrderList" extends "Sales Order List" //9305
         {
             view(AddFromVSC)
             {
-                OrderBy = descending("Document Type", "Order Date", "No.");
                 Filters = WHERE("Document Type" = CONST(Order));
+                OrderBy = descending("Document Type", "Order Date", "No.");
             }
         }
     }
@@ -161,7 +158,6 @@ pageextension 50123 "BC6_SalesOrderList" extends "Sales Order List" //9305
 
         CurrPage.Update(false);
     end;
-
 
     procedure IsProfitVisible()
     var
@@ -221,4 +217,3 @@ pageextension 50123 "BC6_SalesOrderList" extends "Sales Order List" //9305
                     ERROR(CstL0002);
     end;
 }
-

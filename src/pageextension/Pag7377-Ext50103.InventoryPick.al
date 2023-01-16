@@ -15,6 +15,7 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
         {
             field("BC6_Source No."; Rec."Source No.")
             {
+                ApplicationArea = All;
                 Editable = BooGSourceNoCtrl;
                 trigger OnValidate()
                 begin
@@ -34,6 +35,7 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
             }
             field("BC6_Destination No."; Rec."Destination No.")
             {
+                ApplicationArea = All;
                 CaptionClass = FORMAT(WMSMgt.GetCaption("Destination Type".AsInteger(), "Source Document".AsInteger(), 0));
                 Editable = BooGDestinationNoCtrl;
             }
@@ -42,16 +44,32 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
         {
             field("BC6_Sales Counter"; Rec."BC6_Sales Counter")
             {
+                ApplicationArea = All;
                 trigger OnValidate()
                 BEGIN
                     CtrlEditable();
                 END;
             }
-            field("BC6_No. Printed"; Rec."No. Printed") { }
-            field("BC6_Bin Code"; Rec."BC6_Bin Code") { }
-            field("BC6_Your Reference"; Rec."BC6_Your Reference") { }
-            field("BC6_Destination Name"; Rec."BC6_Destination Name") { }
-            field(BC6_Comments; Rec.BC6_Comments) { }
+            field("BC6_No. Printed"; Rec."No. Printed")
+            {
+                ApplicationArea = All;
+            }
+            field("BC6_Bin Code"; Rec."BC6_Bin Code")
+            {
+                ApplicationArea = All;
+            }
+            field("BC6_Your Reference"; Rec."BC6_Your Reference")
+            {
+                ApplicationArea = All;
+            }
+            field("BC6_Destination Name"; Rec."BC6_Destination Name")
+            {
+                ApplicationArea = All;
+            }
+            field(BC6_Comments; Rec.BC6_Comments)
+            {
+                ApplicationArea = All;
+            }
         }
     }
 
@@ -73,6 +91,7 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
         {
             action("BC6_&ToCheck")
             {
+                ApplicationArea = All;
                 Caption = 'ToCheck', Comment = 'FRA="Contrôler"';
                 Image = Confirm;
                 trigger OnAction()
@@ -87,25 +106,27 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
         {
             action("BC6_Posted Mouvement")
             {
+                ApplicationArea = All;
                 Caption = 'Posted Mouvement', Comment = 'FRA="Mouvements enregistrés"';
+                Image = PostedTaxInvoice;
                 RunObject = Page "Warehouse Entries";
+                RunPageLink = "BC6_Whse. Document No. 2" = FIELD("No.");
                 RunPageView = SORTING("BC6_Whse. Document Type 2", "BC6_Whse. Document No. 2")
                                   ORDER(Ascending)
                                   WHERE("BC6_Whse. Document Type 2" = CONST("Invt. Pick"));
-                RunPageLink = "BC6_Whse. Document No. 2" = FIELD("No.");
-                Image = PostedTaxInvoice;
             }
         }
         addafter("F&unctions")
         {
             action("BC6_Get Source Document")
             {
-                ShortCutKey = 'Ctrl+F7';
-                Ellipsis = True;
+                ApplicationArea = All;
                 Caption = 'Get Source Document', Comment = 'FRA="Extraire document origine"';
-                Promoted = True;
+                Ellipsis = True;
                 Image = GetSourceDoc;
+                Promoted = True;
                 PromotedCategory = Process;
+                ShortCutKey = 'Ctrl+F7';
                 Trigger OnAction()
                 BEGIN
                     IF CurrFormEditableOk THEN
@@ -114,6 +135,7 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
             }
             action(BC6_AutofillQtyToHandle)
             {
+                ApplicationArea = All;
                 Caption = 'Autofill Qty. to Handle', Comment = 'FRA="Remplir qté à traiter"';
                 Image = AutofillQtyToHandle;
                 trigger OnAction()
@@ -124,6 +146,7 @@ pageextension 50103 "BC6_InventoryPick" extends "Inventory Pick"//7377
             }
             action("BC6_Delete Qty. to Handle")
             {
+                ApplicationArea = All;
                 Caption = 'Delete Qty. to Handle', Comment = 'FRA="Vider quantité à traiter"';
                 Image = DeleteQtyToHandle;
                 trigger OnAction()

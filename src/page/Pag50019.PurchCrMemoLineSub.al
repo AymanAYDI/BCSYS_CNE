@@ -1,4 +1,4 @@
-page 50019 "Purch. Cr. Memo Line Subform"
+page 50019 "BC6_Purch. Cr. Memo Line Sub"
 {
     Caption = 'Purch. Credit Memo Lines', comment = 'FRA="Lignes avoirs achat"';
     PageType = ListPart;
@@ -12,33 +12,42 @@ page 50019 "Purch. Cr. Memo Line Subform"
             {
                 field("Document No."; Rec."Document No.")
                 {
+                    ApplicationArea = All;
                     HideValue = "Document No.HideValue";
                     Style = StrongAccent;
                     StyleExpr = TRUE;
                 }
                 field(Type; Rec.Type)
                 {
+                    ApplicationArea = All;
                 }
                 field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
                 }
                 field(Quantity; Rec.Quantity)
                 {
+                    ApplicationArea = All;
                 }
                 field("Direct Unit Cost"; Rec."Direct Unit Cost")
                 {
+                    ApplicationArea = All;
                 }
                 field("Unit Cost (LCY)"; Rec."Unit Cost (LCY)")
                 {
+                    ApplicationArea = All;
                 }
                 field("VAT %"; Rec."VAT %")
                 {
+                    ApplicationArea = All;
                 }
                 field("Amount Including VAT"; Rec."Amount Including VAT")
                 {
+                    ApplicationArea = All;
                 }
                 field("Unit Price (LCY)"; Rec."Unit Price (LCY)")
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -50,6 +59,7 @@ page 50019 "Purch. Cr. Memo Line Subform"
         {
             action(Show)
             {
+                ApplicationArea = All;
                 Caption = '&Show', comment = 'FRA="Affic&her"';
                 Image = Document;
 
@@ -82,7 +92,6 @@ page 50019 "Purch. Cr. Memo Line Subform"
         [InDataSet]
         "Document No.HideValue": Boolean;
 
-
     procedure isFirstDocLine(): Boolean
     var
         PurchCrdMemo: Record "Purch. Cr. Memo Line";
@@ -110,4 +119,3 @@ page 50019 "Purch. Cr. Memo Line Subform"
                 "Document No.HideValue" := TRUE;
     end;
 }
-

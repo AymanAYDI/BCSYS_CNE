@@ -14,7 +14,6 @@ codeunit 50022 "BC6_Creat Auto Cde Achat"
         IF RecGPartnerIC.COUNT <> 1 THEN
             ERROR(Text0002);
 
-
         RecGPartnerIC.FINDFIRST();
 
         RecGVendor.RESET();
@@ -54,7 +53,6 @@ codeunit 50022 "BC6_Creat Auto Cde Achat"
 
                 IntGNextLineNo := 10000;
 
-
                 IF GUIALLOWED THEN BEGIN
                     DialogG.UPDATE(1, RecGVendor."No.");
                     DialogG.UPDATE(2, "Sell-to Customer No.");
@@ -89,7 +87,6 @@ codeunit 50022 "BC6_Creat Auto Cde Achat"
                         RecGSalesLines."BC6_Purchase No. Order Lien" := RecGPurchaseLine."Document No.";
                         RecGSalesLines."BC6_Purchase No. Line Lien" := RecGPurchaseLine."Line No.";
                         RecGSalesLines.MODIFY();
-
                     UNTIL RecGSalesLines.NEXT() <= 0;
 
                 RecGSalesHeader2.GET("Document Type", "No.");
@@ -100,7 +97,6 @@ codeunit 50022 "BC6_Creat Auto Cde Achat"
                 IF CuGApprovalMgt.PrePostApprovalCheckSales(RecGSalesHeader) THEN
                     IF CuGApprovalMgt.PrePostApprovalCheckPurch(RecGPurchaseHeader) THEN
                         CuGICInOutboxMgt.SendPurchDoc(RecGPurchaseHeader, FALSE);
-
             UNTIL Rec.NEXT() <= 0;
 
         IF GUIALLOWED THEN
@@ -124,4 +120,3 @@ codeunit 50022 "BC6_Creat Auto Cde Achat"
         Text0001: Label 'Création Commandes Achats : #1##################/#2##################';
         Text0002: Label 'Unable only one partner IC', Comment = 'FRA="Impossible uniquement 1 partenaire IC"';
 }
-

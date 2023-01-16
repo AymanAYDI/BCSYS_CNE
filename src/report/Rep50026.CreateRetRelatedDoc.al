@@ -1,6 +1,5 @@
 report 50026 "BC6_Create Ret.-Related Doc" //6697
 {
-
     Caption = 'Create Ret.-Related Documents', Comment = 'FRA="Créer doc. associés retour"';
     ProcessingOnly = true;
 
@@ -24,6 +23,7 @@ report 50026 "BC6_Create Ret.-Related Doc" //6697
                         Caption = 'Return to Vendor', Comment = 'FRA="Retour fournisseur"';
                         field(VendorNoF; VendorNo)
                         {
+                            ApplicationArea = All;
                             Caption = 'Vendor No.', Comment = 'FRA="N° fournisseur"';
                             Lookup = true;
 
@@ -41,10 +41,12 @@ report 50026 "BC6_Create Ret.-Related Doc" //6697
                         }
                         field(CreatePurchRetOrder; CreatePRO)
                         {
+                            ApplicationArea = All;
                             Caption = 'Create Purch. Ret. Order', Comment = 'FRA="Créer retour achat"';
                         }
                         field(CreatePurchaseOrder; CreatePO)
                         {
+                            ApplicationArea = All;
                             Caption = 'Create Purchase Order', Comment = 'FRA="Créer commande achat"';
                         }
                     }
@@ -53,6 +55,7 @@ report 50026 "BC6_Create Ret.-Related Doc" //6697
                         Caption = 'Replacement', Comment = 'FRA="Remplacement"';
                         field(CreateSalesOrder; CreateSO)
                         {
+                            ApplicationArea = All;
                             Caption = 'Create Sales Order', Comment = 'FRA="Créer commande vente"';
                         }
                     }
@@ -162,8 +165,6 @@ report 50026 "BC6_Create Ret.-Related Doc" //6697
             PAGE.RUN(PAGE::"Returns-Related Documents", TempRetRelDoc);
     end;
 
-
-
     local procedure CreateReturnOrderRelation()
     begin
         G_ReturnOrderRelation.Init();
@@ -173,7 +174,6 @@ report 50026 "BC6_Create Ret.-Related Doc" //6697
                 G_ReturnOrderRelation.INSERT();
             END ELSE
                 IF (G_ReturnOrderRelation."Sales Order No." <> '') AND (G_ReturnOrderRelation."Purchase Return Order" <> '') AND (G_ReturnOrderRelation."Purchase Order No." <> '') THEN
-                    ERROR(STRSUBSTNO(ErrorAlreadyExist, G_ReturnOrderRelation."Purchase Return Order", G_ReturnOrderRelation."Purchase Order No.", G_ReturnOrderRelation."Sales Order No."));
+                    ERROR(ErrorAlreadyExist, G_ReturnOrderRelation."Purchase Return Order", G_ReturnOrderRelation."Purchase Order No.", G_ReturnOrderRelation."Sales Order No.");
     end;
 }
-

@@ -22,17 +22,17 @@ pageextension 50125 "BC6_PurchaseOrderList" extends "Purchase Order List" //9307
             }
             field("BC6_Sales No. Order Lien"; Rec."BC6_Sales No. Order Lien")
             {
-                Caption = 'Sales No. Order Lien', Comment = 'FRA="n° Commande Vente Lien"';
                 ApplicationArea = All;
+                Caption = 'Sales No. Order Lien', Comment = 'FRA="n° Commande Vente Lien"';
             }
         }
         addafter("Amount Including VAT")
         {
             field("BC6_Last Related Info Date"; Rec."BC6_Last Related Info Date")
             {
+                ApplicationArea = All;
                 DrillDownPageID = "BC6_Log Purch. Comment Lines";
                 LookupPageID = "BC6_Log Purch. Comment Lines";
-                ApplicationArea = All;
             }
             field("BC6_Related Sales Return Order"; Rec."BC6_Related Sales Return Order")
             {
@@ -50,6 +50,7 @@ pageextension 50125 "BC6_PurchaseOrderList" extends "Purchase Order List" //9307
         {
             action(BC6_LogCommentsList)
             {
+                ApplicationArea = All;
                 Caption = 'Receipt related information', Comment = 'FRA="Informations connexes de réception"';
                 Image = ReceiptReminder;
                 RunObject = Page "BC6_Log Purch. Comment Lines";
@@ -57,13 +58,12 @@ pageextension 50125 "BC6_PurchaseOrderList" extends "Purchase Order List" //9307
                               "No." = FIELD("No."),
                               "Document Line No." = CONST(0),
                               "BC6_Is Log" = CONST(true);
-                ApplicationArea = All;
             }
             action(BC6_AddLogComment)
             {
+                ApplicationArea = All;
                 Caption = 'Add receipt related information', Comment = 'FRA="Ajouter information connexe de réception"';
                 Image = NewWarehouseReceipt;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -99,4 +99,3 @@ pageextension 50125 "BC6_PurchaseOrderList" extends "Purchase Order List" //9307
         }
     }
 }
-

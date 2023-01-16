@@ -1,6 +1,5 @@
 pageextension 50061 "BC6_PhysInventoryJournal" extends "Phys. Inventory Journal" //392
 {
-
     layout
     {
         modify("Salespers./Purch. Code")
@@ -11,11 +10,10 @@ pageextension 50061 "BC6_PhysInventoryJournal" extends "Phys. Inventory Journal"
         {
             field("BC6_Qty. Refreshed (Phys. Inv.)"; Rec."BC6_Qty.(Phys. Inv.)")
             {
-                ShowCaption = false;
                 ApplicationArea = All;
+                ShowCaption = false;
             }
         }
-
     }
 
     actions
@@ -24,8 +22,8 @@ pageextension 50061 "BC6_PhysInventoryJournal" extends "Phys. Inventory Journal"
         {
             action("BC6_Refresh Phys. Qty")
             {
-                Caption = 'Refresh Phys. Qty', Comment = 'FRA="Actualiser quantité &constatée"';
                 ApplicationArea = All;
+                Caption = 'Refresh Phys. Qty', Comment = 'FRA="Actualiser quantité &constatée"';
                 image = Refresh;
                 trigger OnAction()
                 begin
@@ -37,10 +35,6 @@ pageextension 50061 "BC6_PhysInventoryJournal" extends "Phys. Inventory Journal"
         }
     }
 
-
-
     var
         RefreshPhysQty: Report "BC6_Refresh Phys. Qty";
-
 }
-

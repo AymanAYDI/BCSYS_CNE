@@ -1,8 +1,8 @@
 table 50018 "BC6_Return Solution"
 {
+    DataClassification = CustomerContent;
     DrillDownPageID = "BC6_Return Solutions";
     LookupPageID = "BC6_Return Solutions";
-    DataClassification = CustomerContent;
 
     fields
     {
@@ -19,8 +19,8 @@ table 50018 "BC6_Return Solution"
         field(50000; Type; Enum "BC6_Type Location")
         {
             Caption = 'Type', comment = 'FRA="Type"';
-            Description = 'BCSYS';
             DataClassification = CustomerContent;
+            Description = 'BCSYS';
         }
     }
 

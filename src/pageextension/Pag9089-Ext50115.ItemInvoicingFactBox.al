@@ -22,49 +22,51 @@ pageextension 50115 "BC6_ItemInvoicingFactBox" extends "Item Invoicing FactBox" 
         {
             field("BC6_Standard Cost"; Rec."Standard Cost")
             {
+                ApplicationArea = Basic, Suite;
                 Caption = 'Real standard Cost', Comment = 'FRA="Coût standard réel"';
                 Visible = ShowRealProfit;
-                ApplicationArea = Basic, Suite;
             }
             field(BC6_IncrStandardCost; IncrStandardCost)
             {
+                ApplicationArea = All;
                 Caption = 'Real Unit Cost', Comment = 'FRA="Coût standard"';
             }
             field("BC6_Unit Cost"; Rec."Unit Cost")
             {
+                applicationArea = Basic, Suite;
                 Caption = 'Real Unit Cost', Comment = 'FRA="Coût unitaire réel"';
                 visible = ShowRealProfit;
-                applicationArea = Basic, Suite;
             }
             field(BC6_IncrUnitCost; IncrUnitCost)
             {
+                ApplicationArea = All;
                 Caption = 'Unit Cost', Comment = 'FRA="Coût unitaire"';
             }
-
         }
         addafter("Indirect Cost %")
         {
             field("BC6_Last Direct Cost"; Rec."Last Direct Cost")
             {
-
+                ApplicationArea = Basic, Suite;
                 caption = 'Real Last Direct Cost', Comment = 'FRA="Dernier coût direct réel"';
                 Visible = ShowRealProfit;
-                ApplicationArea = Basic, Suite;
             }
             field(BC6_IncrLastDirectCost; IncrLastDirectCost)
             {
+                ApplicationArea = All;
                 Caption = 'Last Direct Cost', Comment = 'FRA="Dernier coût direct"';
             }
             field("BC6_Profit %"; Rec."Profit %")
             {
+                ApplicationArea = All;
                 caption = 'Real Profit %', Comment = 'FRA="% marge sur vente réel"';
                 visible = ShowRealProfit;
             }
             field(BC6_IncrProfit; IncrProfit)
             {
+                ApplicationArea = All;
                 caption = 'Profit %', Comment = 'FRA="% marge sur vente"';
             }
-
         }
     }
     trigger OnOpenPage()

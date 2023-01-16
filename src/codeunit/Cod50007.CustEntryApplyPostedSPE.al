@@ -1,6 +1,5 @@
 codeunit 50007 "BC6_CustEntry-Apply Posted SPE"
 {
-
     Permissions = TableData "Vendor Ledger Entry" = rm;
     TableNo = "Cust. Ledger Entry";
 
@@ -57,10 +56,8 @@ codeunit 50007 "BC6_CustEntry-Apply Posted SPE"
 
         EntryNoAfterApplication := FindLastApplDtldCustLedgEntry();
 
-        IF EntryNoAfterApplication <> EntryNoBeforeApplication THEN BEGIN
+        IF EntryNoAfterApplication <> EntryNoBeforeApplication THEN
             COMMIT();
-        END;
-
     end;
 
     var
@@ -260,12 +257,11 @@ codeunit 50007 "BC6_CustEntry-Apply Posted SPE"
     var
         CustLedgEntry: Record "Cust. Ledger Entry";
     begin
-        IF GenJnlCheckLine.DateNotAllowed(PostingDate) THEN BEGIN
+        IF GenJnlCheckLine.DateNotAllowed(PostingDate) THEN
             IF Caption <> '' THEN
                 ERROR(Text013, CustLedgEntry.FIELDCAPTION("Posting Date"), Caption, EntryNo)
             ELSE
                 ERROR(Text014, CustLedgEntry.FIELDCAPTION("Posting Date"));
-        END;
         IF PostingDate > MaxPostingDate THEN
             MaxPostingDate := PostingDate;
     end;
@@ -294,4 +290,3 @@ codeunit 50007 "BC6_CustEntry-Apply Posted SPE"
             ERROR(Text017, CustLedgEntry.TABLECAPTION, CustLedgEntryNo);
     end;
 }
-

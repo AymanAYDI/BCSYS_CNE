@@ -11,11 +11,11 @@ page 50020 "BC6_Customer Profit"
         {
             repeater(Control1)
             {
-                field("Code"; Code)
+                field("Code"; Rec.Code)
                 {
                     ApplicationArea = All;
                 }
-                field(Designation; Designation)
+                field(Designation; Rec.Designation)
                 {
                     ApplicationArea = All;
                 }
@@ -23,4 +23,3 @@ page 50020 "BC6_Customer Profit"
         }
     }
 }
-

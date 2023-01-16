@@ -5,8 +5,8 @@ tableextension 50050 "BC6_DetailedVendorLedgEntry" extends "Detailed Vendor Ledg
         field(50003; "BC6_Pay-to Vend. No."; Code[20])
         {
             Caption = 'Pay-to Vend. No.', comment = 'FRA="Tiers payeur"';
-            TableRelation = Vendor;
             DataClassification = CustomerContent;
+            TableRelation = Vendor;
         }
     }
     keys

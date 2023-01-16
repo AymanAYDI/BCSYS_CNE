@@ -11,4 +11,3 @@ pageextension 50056 "BC6_ReasonCodes" extends "Reason Codes" //259
         }
     }
 }
-

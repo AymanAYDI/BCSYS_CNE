@@ -1,8 +1,8 @@
 report 50101 "BC6_Calculate Inventory"
 {
+    ApplicationArea = All;
     Caption = 'Calculate Inventory', Comment = 'FRA="Calculer Inventaire"';
     ProcessingOnly = true;
-    ApplicationArea = All;
     UsageCategory = ReportsAndAnalysis;
     dataset
     {
@@ -33,8 +33,6 @@ report 50101 "BC6_Calculate Inventory"
 
                     if not "Drop Shipment" then
                         ByBin := Location."Bin Mandatory" and not Location."Directed Put-away and Pick";
-
-
 
                     if not SkipCycleSKU("Location Code", "Item No.", "Variant Code") then
                         if ByBin then begin
@@ -86,7 +84,6 @@ report 50101 "BC6_Calculate Inventory"
                         TempDimBufIn.SetRange("Table ID", DATABASE::"Item Ledger Entry");
                     TempDimBufIn.SetRange("Entry No.");
                     TempDimBufIn.DeleteAll();
-
                 end;
             }
             dataitem("Warehouse Entry"; "Warehouse Entry")
@@ -145,7 +142,6 @@ report 50101 "BC6_Calculate Inventory"
                 ItemJnlTemplate.Get(ItemJnlLine."Journal Template Name");
                 ItemJnlBatch.Get(ItemJnlLine."Journal Template Name", ItemJnlLine."Journal Batch Name");
 
-
                 if NextDocNo = '' then begin
                     if ItemJnlBatch."No. Series" <> '' then begin
                         ItemJnlLine.SetRange("Journal Template Name", ItemJnlLine."Journal Template Name");
@@ -168,7 +164,6 @@ report 50101 "BC6_Calculate Inventory"
 
                 TempQuantityOnHandBuffer.Reset();
                 TempQuantityOnHandBuffer.DeleteAll();
-
             end;
         }
     }
@@ -362,7 +357,6 @@ report 50101 "BC6_Calculate Inventory"
                     if not Bin.Get(Location.Code, BinCode2) then
                         NoBinExist := true;
 
-
                 ItemJnlLine.Init();
                 ItemJnlLine."Line No." := NextLineNo;
                 ItemJnlLine.Validate("Posting Date", PostingDate);
@@ -430,7 +424,6 @@ report 50101 "BC6_Calculate Inventory"
                 end;
             end;
         end;
-
     end;
 
     local procedure InsertQuantityOnHandBuffer(ItemNo: Code[20]; LocationCode: Code[10]; VariantCode: Code[10])
@@ -533,7 +526,6 @@ report 50101 "BC6_Calculate Inventory"
             until DimSetEntry.Next() = 0;
     end;
 
-
     local procedure CalcWhseQty(AdjmtBin: Code[20]; var PosQuantity: Decimal; var NegQuantity: Decimal)
     var
         WhseItemTrackingSetup: Record "Item Tracking Setup";
@@ -572,7 +564,6 @@ report 50101 "BC6_Calculate Inventory"
                     PosQuantity := PosQuantity + WhseQuantity - LWhseEntry."Qty. (Base)"
                 else
                     NegQuantity := NegQuantity - WhseQuantity - LWhseEntry."Qty. (Base)";
-
 
             LWhseEntry.SetRange("Entry Type", LWhseEntry."Entry Type"::"Positive Adjmt.");
             if LWhseEntry.Find('-') then
@@ -819,7 +810,4 @@ report 50101 "BC6_Calculate Inventory"
         TempDimBufIn."Dimension Value Code" := DimValueCode;
         if TempDimBufIn.Insert() then;
     end;
-
-
 }
-

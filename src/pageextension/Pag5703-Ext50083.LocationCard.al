@@ -21,7 +21,6 @@ pageextension 50083 "BC6_LocationCard" extends "Location Card" //5703
                 ApplicationArea = Warehouse;
                 Enabled = NewAssemblyShipmentBinCodeEnable;
                 ToolTip = 'Specifies the bin where finished assembly items are posted to when they are assembled to a linked sales order.', Comment = 'FRA="Spécifie l''emplacement de zone d''assemblage au niveau duquel les éléments d''assemblage terminés sont validés lorsqu''ils sont associés au stock."';
-
             }
         }
         addafter(Shipment)
@@ -48,6 +47,7 @@ pageextension 50083 "BC6_LocationCard" extends "Location Card" //5703
         {
             field(BC6_Blocked; Rec."BC6_Blocked")
             {
+                ApplicationArea = All;
             }
         }
     }
@@ -87,4 +87,3 @@ pageextension 50083 "BC6_LocationCard" extends "Location Card" //5703
         exit(NewShipmentBinCodeEnable);
     end;
 }
-

@@ -1,8 +1,8 @@
 report 50020 "BC6_Batch Traitement Article"
 {
-    ProcessingOnly = true;
     ApplicationArea = All;
     Caption = 'Batch Traitement Article';
+    ProcessingOnly = true;
     UsageCategory = ReportsAndAnalysis;
     dataset
     {
@@ -45,13 +45,13 @@ report 50020 "BC6_Batch Traitement Article"
 
     requestpage
     {
-
         layout
         {
             area(content)
             {
                 field(Date_DebutF; Date_Debut)
                 {
+                    ApplicationArea = All;
                     Caption = 'Date dernier mouvement';
                 }
             }
@@ -75,4 +75,3 @@ report 50020 "BC6_Batch Traitement Article"
         IntGTotal: Integer;
         CstG001: Label 'Traitement des articles @1@@@@@@@@@';
 }
-

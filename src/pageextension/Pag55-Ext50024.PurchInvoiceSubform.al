@@ -42,4 +42,3 @@ pageextension 50024 "BC6_PurchInvoiceSubform" extends "Purch. Invoice Subform" /
         }
     }
 }
-

@@ -20,8 +20,8 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
         field(50003; "BC6_Pay-to Customer No."; Code[20])
         {
             Caption = 'Pay-to Customer No.', Comment = 'FRA="Tiers payeur"';
-            TableRelation = Customer;
             DataClassification = CustomerContent;
+            TableRelation = Customer;
         }
         field(50004; "BC6_Advance Payment"; Decimal)
         {
@@ -32,8 +32,8 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
         field(50005; "BC6_Affair No."; Code[20])
         {
             Caption = 'Affair No.', Comment = 'FRA="N° Affaire"';
-            TableRelation = Job."No.";
             DataClassification = CustomerContent;
+            TableRelation = Job."No.";
 
             trigger OnValidate()
             begin
@@ -43,15 +43,15 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
         field(50010; BC6_ID; Code[50])
         {
             Caption = 'User ID', Comment = 'FRA="Code utilisateur"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50020; "BC6_Cust. Sales Profit Group"; Code[10])
         {
             Caption = 'Customer Sales Profit Group', Comment = 'FRA="Goupe Marge Vente Client"';
+            DataClassification = CustomerContent;
             Enabled = false;
             TableRelation = "Customer Sales Profit Group";
-            DataClassification = CustomerContent;
         }
         field(50025; "BC6_Combine Shipments by Order"; Boolean)
         {
@@ -79,8 +79,8 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
         field(50031; "BC6_Profit LCY"; Decimal)
         {
             Caption = 'Profit LCY', Comment = 'FRA="Marge DS"';
-            Editable = true;
             DataClassification = CustomerContent;
+            Editable = true;
         }
         field(50032; "BC6_% Profit"; Decimal)
         {
@@ -142,14 +142,14 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
         field(50100; "BC6_Salesperson Filter"; Text[250])
         {
             Caption = 'Salesperson Filter', Comment = 'FRA="Filtre vendeur"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50110; "BC6_Mailing List Code"; Code[10])
         {
             Caption = 'Mailing List Code', Comment = 'FRA="Code liste de diffusion"';
-            TableRelation = "BC6_Mailing List";
             DataClassification = CustomerContent;
+            TableRelation = "BC6_Mailing List";
         }
         field(50120; "BC6_Return Order Type"; Enum "BC6_Type Location")
         {
@@ -162,8 +162,8 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
         }
         field(50403; "BC6_Bin Code"; Code[20])
         {
-            DataClassification = CustomerContent;
             Caption = 'Bin Code';
+            DataClassification = CustomerContent;
 
             trigger OnLookup()
             var
@@ -196,9 +196,8 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
                     Location.TESTFIELD("Require Pick");
                 END;
 
-                IF xRec."BC6_Bin Code" <> "BC6_Bin Code" THEN BEGIN
+                IF xRec."BC6_Bin Code" <> "BC6_Bin Code" THEN
                     UpdateSalesLines(FIELDCAPTION("BC6_Bin Code"), CurrFieldNo <> 0);
-                END;
             end;
         }
     }
@@ -361,7 +360,7 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
                             NextLineNo := 10000;
 
                             RecLSalesLine2.SETFILTER("BC6_Buy-from Vendor No.", RecLPurchquoteHeader."Buy-from Vendor No.");
-                            IF RecLSalesLine2.FIND('-') THEN BEGIN
+                            IF RecLSalesLine2.FIND('-') THEN
                                 REPEAT
                                     RecLPurchLine.INIT();
                                     RecLPurchLine.VALIDATE("Document Type", RecLPurchLine."Document Type"::Quote);
@@ -382,7 +381,6 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
                                     RecLSalesLine2.VALIDATE("BC6_Purchase Receipt Date", RecLPurchLine."Expected Receipt Date");
                                     RecLSalesLine2.MODIFY(TRUE);
                                 UNTIL RecLSalesLine2.NEXT() = 0;
-                            END;
                         END;
                     END;
             UNTIL RecLSalesLine.NEXT() = 0;
@@ -551,8 +549,8 @@ tableextension 50008 "BC6_SalesHeader" extends "Sales Header" //36
         RecGCommentLine: Record "Comment Line";
         RecGCustomer: Record Customer;
         GenJnlLine: Record "Gen. Journal Line";
-        ShipToAddr: Record "Ship-to Address";
         ShipmentMethodRec: Record "Shipment Method";
+        ShipToAddr: Record "Ship-to Address";
         ApprovalsMgmt: Codeunit "Approvals Mgmt.";
         G_ReturnOrderMgt: Codeunit "BC6_Return Order Mgt.";
         UpdateSalesShipment: Codeunit BC6_UpdateSalesShipment;

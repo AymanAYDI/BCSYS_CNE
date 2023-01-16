@@ -1,10 +1,10 @@
 page 50024 "BC6_Item Category List"
 {
+    ApplicationArea = All;
     Caption = 'Item Category List', Comment = 'FRA="Liste des catégories d''articles"';
     PageType = List;
     SourceTable = "BC6_Categories of item";
     UsageCategory = Tasks;
-    ApplicationArea = All;
     layout
     {
         area(content)
@@ -49,17 +49,16 @@ page 50024 "BC6_Item Category List"
         {
             action("&Tariffs")
             {
+                ApplicationArea = All;
                 Caption = '&Tariffs', Comment = 'FRA="&Tarifs"';
-                Promoted = true;
                 Image = Discount;
+                Promoted = true;
                 PromotedCategory = Process;
                 PromotedOnly = true;
+                RunObject = Page "BC6_DEEE Tariffs List";
                 RunPageLink = "DEEE Code" = FIELD(Category),
                               "Eco Partner" = FIELD("Eco Partner");
-                RunObject = Page "BC6_DEEE Tariffs List";
-                ApplicationArea = All;
             }
         }
     }
 }
-

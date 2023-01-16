@@ -1,10 +1,10 @@
 xmlport 50022 "BC6_Intégration catalogue2"
 {
+    Caption = 'Intégration catalogue2';
     Direction = Import;
     FieldDelimiter = 'NONE';
     FieldSeparator = '<TAB>';
     Format = VariableText;
-    Caption = 'Intégration catalogue2';
 
     schema
     {
@@ -52,31 +52,23 @@ xmlport 50022 "BC6_Intégration catalogue2"
 
     requestpage
     {
-
         layout
         {
             area(content)
             {
-                field(FileName; FileName)
+                field(FileNameF; FileName)
                 {
+                    ApplicationArea = All;
                     Caption = 'Open File', Comment = 'FRA="Ouvrir Fichier"';
-                    //TODO:OCX
-                    // trigger OnAssistEdit()
-                    // begin
-
-                    //     Common_Dlg.DialogTitle(textG001);
-                    //     Common_Dlg.Filter := '.xls';
-                    //     Common_Dlg.InitDir(ENVIRON('userprofile'));
-                    //     Common_Dlg.ShowOpen;
-                    //     FileName := Common_Dlg.FileName;
-                    // end;
                 }
                 field(DateDebF; DateDeb)
                 {
+                    ApplicationArea = All;
                     Caption = 'Date début';
                 }
                 field(DateFinF; DateFin)
                 {
+                    ApplicationArea = All;
                     Caption = 'Date fin';
 
                     trigger OnValidate()
@@ -88,6 +80,7 @@ xmlport 50022 "BC6_Intégration catalogue2"
                 }
                 field(NumF; Num)
                 {
+                    ApplicationArea = All;
                     Caption = 'Fournisseur';
 
                     trigger OnValidate()
@@ -99,10 +92,12 @@ xmlport 50022 "BC6_Intégration catalogue2"
                 }
                 field(TextGabbreviationF; TextGabbreviation)
                 {
+                    ApplicationArea = All;
                     Caption = 'Vendor abbreviation', Comment = 'FRA="Abréviation fournisseur"';
                 }
                 field(CatF; Cat)
                 {
+                    ApplicationArea = All;
                     Caption = 'Catégorie Article';
 
                     trigger OnValidate()
@@ -114,6 +109,7 @@ xmlport 50022 "BC6_Intégration catalogue2"
                 }
                 field(GRPProduitF; GRPProduit)
                 {
+                    ApplicationArea = All;
                     Caption = 'Product Group', Comment = 'FRA="Groupe Produit Article"';
                 }
             }
@@ -146,10 +142,8 @@ xmlport 50022 "BC6_Intégration catalogue2"
         TextGabbreviation: Code[10];
         DateDeb: Date;
         DateFin: Date;
-        textG001: Label 'Import File', Comment = 'FRA="Importer le fichier"';
         TextG002: Label 'Please fill up start date and Vendor No', Comment = 'FRA="Veuillez valoriser les champs date de début et N° de fournisseur"';
         FileName: Text[250];
-
 
     procedure create_disc_familly()
     begin
@@ -160,4 +154,3 @@ xmlport 50022 "BC6_Intégration catalogue2"
         END;
     end;
 }
-

@@ -6,9 +6,8 @@ pageextension 50051 "BC6_StandardCustomerSalesCodes" extends "Standard Customer 
         {
             field(BC6_TextautoReport; Rec."BC6_TextautoReport")
             {
+                ApplicationArea = All;
             }
-
         }
     }
-
 }

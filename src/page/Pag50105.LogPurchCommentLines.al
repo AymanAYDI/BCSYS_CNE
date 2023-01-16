@@ -22,12 +22,15 @@ page 50105 "BC6_Log Purch. Comment Lines"
             {
                 field(Comment; Rec.Comment)
                 {
+                    ApplicationArea = All;
                 }
                 field("User ID"; Rec."BC6_User ID")
                 {
+                    ApplicationArea = All;
                 }
                 field("Log Date"; Rec."BC6_Log Date")
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -37,4 +40,3 @@ page 50105 "BC6_Log Purch. Comment Lines"
     {
     }
 }
-

@@ -10,8 +10,8 @@ page 50029 "BC6_Purch His. By-From FactBox"
         {
             field("Vendor No."; RecGVendor."No.")
             {
-                Caption = 'Vendor No.', Comment = 'FRA="N°fournisseur"';
                 ApplicationArea = All;
+                Caption = 'Vendor No.', Comment = 'FRA="N°fournisseur"';
                 trigger OnDrillDown()
                 begin
                     ShowDetails();
@@ -19,9 +19,9 @@ page 50029 "BC6_Purch His. By-From FactBox"
             }
             field("Purch Quote"; STRSUBSTNO(Txt1, NbrOfPurchQuote))
             {
+                ApplicationArea = All;
                 Caption = 'Purch Quote', Comment = 'FRA="Demandes de prix"';
                 Editable = false;
-                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -36,9 +36,9 @@ page 50029 "BC6_Purch His. By-From FactBox"
             }
             field("Blanket Order Purchas"; STRSUBSTNO(Txt1, NbrOfPurchBlanketOrder))
             {
+                ApplicationArea = All;
                 Caption = 'Blanket Order Purchas', Comment = 'FRA="Commandes achat ouvertes"';
                 Editable = false;
-                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -53,9 +53,9 @@ page 50029 "BC6_Purch His. By-From FactBox"
             }
             field("Purchase Order"; STRSUBSTNO(Txt1, NbrOfPurchOrder))
             {
+                ApplicationArea = All;
                 Caption = 'Purchase Order', Comment = 'FRA="Commandes achat"';
                 Editable = false;
-                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -70,9 +70,9 @@ page 50029 "BC6_Purch His. By-From FactBox"
             }
             field("Purchase Invoice"; STRSUBSTNO(Txt1, NbrOfPurchInvoice))
             {
+                ApplicationArea = All;
                 Caption = 'Purchase Invoice', Comment = 'FRA="Factures achat"';
                 Editable = false;
-                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -87,9 +87,9 @@ page 50029 "BC6_Purch His. By-From FactBox"
             }
             field("Purchase Return"; STRSUBSTNO(Txt1, NbrOfPurchReturn))
             {
+                ApplicationArea = All;
                 Caption = 'Purchase Return', Comment = 'FRA="Retours achat"';
                 Editable = false;
-                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -104,9 +104,9 @@ page 50029 "BC6_Purch His. By-From FactBox"
             }
             field("Purchase Credit Memo"; STRSUBSTNO(Txt1, NbrOfPurchCrdMemo))
             {
+                ApplicationArea = All;
                 Caption = 'Purchase Credit Memo', Comment = 'FRA="Avoirs achat"';
                 Editable = false;
-                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -121,9 +121,9 @@ page 50029 "BC6_Purch His. By-From FactBox"
             }
             field("Posted Purchase Receipt"; STRSUBSTNO(Txt1, NbrOfPurchPostedRcpt))
             {
+                ApplicationArea = All;
                 Caption = 'Posted Purchase Receipt', Comment = 'FRA="Réceptions achat enregistrées"';
                 Editable = false;
-                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -137,9 +137,9 @@ page 50029 "BC6_Purch His. By-From FactBox"
             }
             field("Posted Purchase Invoice"; STRSUBSTNO(Txt1, NbrOfPurchPostedInvoice))
             {
+                ApplicationArea = All;
                 Caption = 'Posted Purchase Invoice', Comment = 'FRA="Factures achat enregistrées"';
                 Editable = false;
-                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -153,9 +153,9 @@ page 50029 "BC6_Purch His. By-From FactBox"
             }
             field("Posted Purchase Return Shipement"; STRSUBSTNO(Txt1, NbrOfPurchPostedReturnShipemen))
             {
+                ApplicationArea = All;
                 Caption = 'Posted Purchase Return Shipement', Comment = 'FRA="Expéditions retour achat"';
                 Editable = false;
-                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -170,9 +170,9 @@ page 50029 "BC6_Purch His. By-From FactBox"
             }
             field("Posted Purchase Credit Memo"; STRSUBSTNO(Txt1, NbrOfPurchPostedCrdMemo))
             {
+                ApplicationArea = All;
                 Caption = 'Posted Purchase Credit Memo', Comment = 'FRA="Avoirs achat enregistrés"';
                 Editable = false;
-                ApplicationArea = All;
 
                 trigger OnDrillDown()
                 begin
@@ -367,7 +367,7 @@ page 50029 "BC6_Purch His. By-From FactBox"
         PagGPurchRcpLinesSubform: Page "BC6_Purch. Rcpt. Lines Subform";
         PagGPurchaseLinesSubform2: Page "BC6_Purchase Lines Subform2";
         PagGReturnShipmentLineSubform: Page "BC6_Return Ship. Line Subform";
-        PagGPurchCrMemoLineSubform: Page "Purch. Cr. Memo Line Subform";
+        PagGPurchCrMemoLineSubform: Page "BC6_Purch. Cr. Memo Line Sub";
         CodGDocNo: Code[20];
         NbrOfPurchBlanketOrder: Integer;
         NbrOfPurchCrdMemo: Integer;

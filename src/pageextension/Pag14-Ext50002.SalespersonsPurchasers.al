@@ -11,4 +11,3 @@ pageextension 50002 "BC6_SalespersonsPurchasers" extends "Salespersons/Purchaser
         }
     }
 }
-

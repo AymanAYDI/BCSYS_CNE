@@ -1,11 +1,11 @@
 page 50004 "BC6_Special Extended Text"
 {
     AutoSplitKey = true;
+    Caption = 'Special Extended Text';
     PageType = ListPart;
     RefreshOnActivate = true;
     SourceTable = "BC6_Special Extended Text Line";
     UsageCategory = None;
-    Caption = 'Special Extended Text';
     layout
     {
         area(content)
@@ -14,11 +14,13 @@ page 50004 "BC6_Special Extended Text"
             {
                 field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
                     Caption = 'Item Code', comment = 'FRA="Code Article"';
                     Editable = false;
                 }
                 field(ItemName; ItemName)
                 {
+                    ApplicationArea = All;
                     Caption = 'Item Name', comment = 'FRA="Nom de l''article "';
                     Editable = false;
                     Enabled = true;
@@ -29,6 +31,7 @@ page 50004 "BC6_Special Extended Text"
                 Visible = true;
                 field("Code"; Rec.Code)
                 {
+                    ApplicationArea = All;
                     Caption = 'Code';
                     Lookup = true;
 
@@ -39,6 +42,7 @@ page 50004 "BC6_Special Extended Text"
                 }
                 field(CustomerName; CustomerName)
                 {
+                    ApplicationArea = All;
                     Caption = 'Customer Name', comment = 'FRA="Nom de client"';
                     Editable = false;
                     Enabled = true;
@@ -48,19 +52,23 @@ page 50004 "BC6_Special Extended Text"
             {
                 field("Table Name"; Rec."Table Name")
                 {
+                    ApplicationArea = All;
                     Visible = false;
                 }
                 field(No2; Rec."No.")
                 {
+                    ApplicationArea = All;
                     Visible = false;
                 }
                 field("Line No."; Rec."Line No.")
                 {
+                    ApplicationArea = All;
                     Editable = false;
                     Visible = false;
                 }
                 field("Text"; Rec.Text)
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -72,6 +80,7 @@ page 50004 "BC6_Special Extended Text"
         {
             action(List)
             {
+                ApplicationArea = All;
                 Caption = 'List', Comment = 'FRA="Liste"';
                 Image = List;
                 RunPageOnRec = true;

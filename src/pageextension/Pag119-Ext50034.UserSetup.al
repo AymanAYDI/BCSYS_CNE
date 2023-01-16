@@ -46,4 +46,3 @@ pageextension 50034 "BC6_UserSetup" extends "User Setup" //119
         }
     }
 }
-

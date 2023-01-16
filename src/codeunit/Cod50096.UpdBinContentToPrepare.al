@@ -1,6 +1,5 @@
-codeunit 50096 "Update Bin Content/To Prepare"
+codeunit 50096 "BC6_Upd Bin Content/To Prepare"
 {
-
     trigger OnRun()
     begin
         UpdateToPrepare();
@@ -28,7 +27,6 @@ codeunit 50096 "Update Bin Content/To Prepare"
         MESSAGE('%1 ligne(s) commande vente traitée(s)', Counter);
     end;
 
-
     procedure InitBinContent()
     begin
         BinContent.RESET();
@@ -42,4 +40,3 @@ codeunit 50096 "Update Bin Content/To Prepare"
             until BinContent.NEXT() = 0;
     end;
 }
-

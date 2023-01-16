@@ -23,6 +23,4 @@ pageextension 50076 "BC6_SalesLines" extends "Sales Lines" //516
             }
         }
     }
-
 }
-

@@ -11,4 +11,3 @@ pageextension 50012 "BC6_GeneralJournal" extends "General Journal" //39
         }
     }
 }
-

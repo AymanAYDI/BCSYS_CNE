@@ -1,6 +1,5 @@
 xmlport 50024 "BC6_Import Bins"
 {
-
     Caption = 'Import Bins', Comment = 'FRA="Import emplacements"';
     Direction = Import;
     FieldDelimiter = '<None>';
@@ -13,9 +12,9 @@ xmlport 50024 "BC6_Import Bins"
         {
             tableelement(Integer; Integer)
             {
-                XmlName = 'Integers';
                 SourceTableView = SORTING(Number)
                                   ORDER(Ascending);
+                XmlName = 'Integers';
                 textelement(BinCode)
                 {
                 }
@@ -62,7 +61,6 @@ xmlport 50024 "BC6_Import Bins"
 
     requestpage
     {
-
         layout
         {
         }
@@ -87,4 +85,3 @@ xmlport 50024 "BC6_Import Bins"
         Text001: Label '%1 emplacements créés sur %2.';
         Text002: Label 'Stock %1';
 }
-

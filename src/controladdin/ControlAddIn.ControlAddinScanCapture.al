@@ -1,13 +1,12 @@
 controladdin "BC6_ControlAddinScanCapture"
 {
-    VerticalStretch = true;
-    HorizontalStretch = true;
-    VerticalShrink = true;
     HorizontalShrink = true;
+    HorizontalStretch = true;
+    Images = './src/controladdin/ControlAddinScanCapture/Image/barcode-icon.png';
     Scripts = './src/controladdin/ControlAddinScanCapture/Script/JavaScript1.js', './src/controladdin/ControlAddinScanCapture/Script/jquery-2.1.0.min.js';
     StyleSheets = './src/controladdin/ControlAddinScanCapture/StyleSheet/scandevice.css';
-    Images = './src/controladdin/ControlAddinScanCapture/Image/barcode-icon.png';
-
+    VerticalShrink = true;
+    VerticalStretch = true;
 
     event ControlAddInReady()
 

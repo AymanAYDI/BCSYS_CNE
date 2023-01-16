@@ -17,14 +17,13 @@ page 50027 "BC6_Affected Orders"
                 }
                 field("Sell-to Customer No."; Rec."Sell-to Customer No.")
                 {
-                    Caption = 'Customer No', comment = 'FRA="N° client"';
                     ApplicationArea = All;
+                    Caption = 'Customer No', comment = 'FRA="N° client"';
                 }
                 field("Customer Name"; RecGCustomer.Name)
                 {
-                    Caption = 'Customer Name', comment = 'FRA="Nom client"';
-
                     ApplicationArea = All;
+                    Caption = 'Customer Name', comment = 'FRA="Nom client"';
                 }
                 field("No."; Rec."No.")
                 {
@@ -32,9 +31,8 @@ page 50027 "BC6_Affected Orders"
                 }
                 field(Description; Rec.Description)
                 {
-                    Caption = 'Description', comment = 'FRA="Désignation article"';
-
                     ApplicationArea = All;
+                    Caption = 'Description', comment = 'FRA="Désignation article"';
                 }
                 field("Outstanding Quantity"; Rec."Outstanding Quantity")
                 {
@@ -54,13 +52,13 @@ page 50027 "BC6_Affected Orders"
         {
             action("Open Document")
             {
+                ApplicationArea = All;
                 Caption = 'Open Document', Comment = 'FRA="Ouvrir Document"';
                 Image = OpenWorksheet;
                 Promoted = true;
-                PromotedOnly = true;
                 PromotedCategory = Process;
+                PromotedOnly = true;
                 RunPageOnRec = true;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -69,11 +67,11 @@ page 50027 "BC6_Affected Orders"
             }
             action("Imprimer bon préparation")
             {
+                ApplicationArea = All;
                 Caption = 'Imprimer bon préparation', Comment = 'FRA="Imprimer bon préparation"';
                 Image = PrintDocument;
                 Promoted = true;
                 PromotedCategory = Process;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -105,7 +103,6 @@ page 50027 "BC6_Affected Orders"
         RecGCustomer: Record Customer;
         RecGSalesHeader: Record "Sales Header";
 
-
     procedure DisplayOrder()
     var
         RecLSalesHdr: Record "Sales Header";
@@ -123,4 +120,3 @@ page 50027 "BC6_Affected Orders"
         END;
     end;
 }
-

@@ -1,8 +1,5 @@
 codeunit 50000 "BC6_PDF Mail Management"
 {
-
-
-
     var
         RecGContact: Record Contact;
         RecGSalesSetup: Record "Sales & Receivables Setup";
@@ -25,6 +22,4 @@ codeunit 50000 "BC6_PDF Mail Management"
             IF RecGContact."E-Mail" <> '' THEN
                 TxtTag := RecGSalesSetup."BC6_PDF Mail Tag" + RecGContact."E-Mail";
     end;
-
 }
-

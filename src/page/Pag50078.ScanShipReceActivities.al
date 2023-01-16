@@ -1,4 +1,4 @@
-page 50078 "Scan Ship & Receive Activities"
+page 50078 "BC6_Scan Ship Rece Activities"
 {
     Caption = 'Activities', Comment = 'FRA="Activités"';
     PageType = CardPart;
@@ -14,9 +14,9 @@ page 50078 "Scan Ship & Receive Activities"
                 Caption = 'In Progress', Comment = 'FRA="En cours"';
                 field("My Invt. Lines Until Today"; Rec."BC6_My Invt. Lines Until Today")
                 {
+                    ApplicationArea = All;
                     Caption = 'My Inventory Picks Until Today', Comment = 'FRA="Mes lignes Prélèvements stock à ce jour"';
                     ToolTip = 'Specifies the number of inventory picks that are displayed in the Warehouse Basic Cue on the Role Center. The documents are filtered by today''s date.', Comment = 'FRA="Spécifie le nombre de prélèvements stock qui sont affichés dans la pile Base entrepôt du tableau de bord. Les documents sont filtrés à la date du jour."';
-                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -25,9 +25,9 @@ page 50078 "Scan Ship & Receive Activities"
                 }
                 field("My Reclass. Lines Until Today"; Rec."BC6_My Rec.Lines Until Today")
                 {
+                    ApplicationArea = All;
                     Caption = 'My Inventory reclassment Until Today', Comment = 'FRA="Mes lignes reclassement stock à ce jour"';
                     ToolTip = 'Specifies the number of inventory put-always that are displayed in the Warehouse Basic Cue on the Role Center. The documents are filtered by today''s date.', Comment = 'FRA="Spécifie le nombre de rangements stock qui sont affichés dans la pile Base entrepôt du tableau de bord. Les documents sont filtrés à la date du jour."';
-                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -40,49 +40,49 @@ page 50078 "Scan Ship & Receive Activities"
                 Caption = 'Internal Documents', Comment = 'FRA="Documents internes"';
                 field("Upcoming Orders"; Rec."BC6_Upcoming Orders")
                 {
+                    ApplicationArea = All;
                     DrillDownPageID = "Purchase Order List";
                     ToolTip = 'Specifies the number of upcoming orders that are displayed in the Purchase Cue on the Role Center. The documents are filtered by today''s date.', Comment = 'FRA="Spécifie le nombre de commandes à venir qui sont affichées dans la pile Achat du tableau de bord. Les documents sont filtrés à la date du jour."';
-                    ApplicationArea = All;
                 }
                 field("Invt. Picks Until Today"; Rec."Invt. Picks Until Today")
                 {
+                    ApplicationArea = All;
                     Caption = 'Inventory Picks Until Today', Comment = 'FRA="Prélèvements stock à ce jour"';
                     DrillDownPageID = "Inventory Picks";
                     ToolTip = 'Specifies the number of inventory picks that are displayed in the Warehouse Basic Cue on the Role Center. The documents are filtered by today''s date.', Comment = 'FRA="Spécifie le nombre de prélèvements stock qui sont affichés dans la pile Base entrepôt du tableau de bord. Les documents sont filtrés à la date du jour."';
-                    ApplicationArea = All;
                 }
                 field("Invt. Put-aways Until Today"; Rec."Invt. Put-aways Until Today")
                 {
+                    ApplicationArea = All;
                     Caption = 'Inventory Put-aways Until Today', Comment = 'FRA="Rangements stock à ce jour"';
                     DrillDownPageID = "Inventory Put-aways";
                     ToolTip = 'Specifies the number of inventory put-always that are displayed in the Warehouse Basic Cue on the Role Center. The documents are filtered by today''s date.', Comment = 'FRA="Spécifie le nombre de rangements stock qui sont affichés dans la pile Base entrepôt du tableau de bord. Les documents sont filtrés à la date du jour."';
-                    ApplicationArea = All;
                 }
 
                 actions
                 {
                     action("New Inventory Pick")
                     {
-                        Caption = 'New Inventory Pick', Comment = 'FRA="Nouveau prélèvement stock"';
-                        RunObject = Page "Inventory Pick";
-                        Image = CreateInventoryPick;
-                        RunPageMode = Create;
                         ApplicationArea = All;
+                        Caption = 'New Inventory Pick', Comment = 'FRA="Nouveau prélèvement stock"';
+                        Image = CreateInventoryPick;
+                        RunObject = Page "Inventory Pick";
+                        RunPageMode = Create;
                     }
                     action("New Inventory Put-away")
                     {
-                        Caption = 'New Inventory Put-away', Comment = 'FRA="Nouveau rangement stock"';
-                        RunObject = Page "Inventory Put-away";
-                        Image = Inventory;
-                        RunPageMode = Create;
                         ApplicationArea = All;
+                        Caption = 'New Inventory Put-away', Comment = 'FRA="Nouveau rangement stock"';
+                        Image = Inventory;
+                        RunObject = Page "Inventory Put-away";
+                        RunPageMode = Create;
                     }
                     action("Edit Item Reclassification Journal")
                     {
+                        ApplicationArea = All;
                         Caption = 'Edit Item Reclassification Journal', Comment = 'FRA="Modifier feuille reclassement article"';
                         Image = OpenWorksheet;
                         RunObject = Page "Item Reclass. Journal";
-                        ApplicationArea = All;
                     }
                 }
             }
@@ -155,4 +155,3 @@ page 50078 "Scan Ship & Receive Activities"
         END;
     end;
 }
-

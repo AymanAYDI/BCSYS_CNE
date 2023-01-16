@@ -16,8 +16,8 @@ page 50046 "BC6_Salesperson authorized"
             {
                 field("Customer No."; Rec."Customer No.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Salesperson code"; Rec."Salesperson code")
                 {
@@ -48,7 +48,7 @@ page 50046 "BC6_Salesperson authorized"
                     UNTIL Rec.NEXT() = 0;
 
                 IF TxtGSalespersonFilter <> '' THEN BEGIN
-                    TxtGSalespersonFilter := CopyStr(COPYSTR(TxtGSalespersonFilter, 1, STRLEN(TxtGSalespersonFilter) - 1), 1, MaxStrLen(TxtGSalespersonFilter)); //TODO à Vérifier 
+                    TxtGSalespersonFilter := CopyStr(COPYSTR(TxtGSalespersonFilter, 1, STRLEN(TxtGSalespersonFilter) - 1), 1, MaxStrLen(TxtGSalespersonFilter)); //TODO à Vérifier
                     RecGCustomer.VALIDATE("BC6_Salesperson Filter", TxtGSalespersonFilter);
                     RecGCustomer.MODIFY();
                 END;
@@ -82,4 +82,3 @@ page 50046 "BC6_Salesperson authorized"
         RecGSalesperson: Record "Salesperson/Purchaser";
         TxtGSalespersonFilter: Text[250];
 }
-

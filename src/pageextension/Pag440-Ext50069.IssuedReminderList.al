@@ -11,4 +11,3 @@ pageextension 50069 "BC6_IssuedReminderList" extends "Issued Reminder List" //44
         }
     }
 }
-

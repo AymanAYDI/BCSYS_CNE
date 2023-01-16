@@ -6,12 +6,15 @@ pageextension 50116 "BC6_VendorDetailsFactBox" extends "Vendor Details FactBox" 
         {
             field("BC6_Mini Amount"; Rec."BC6_Mini Amount")
             {
+                ApplicationArea = All;
             }
             field("BC6_Freight Amount"; Rec."BC6_Freight Amount")
             {
+                ApplicationArea = All;
             }
             field(BC6_PurchasesLCY; PurchasesLCY)
             {
+                ApplicationArea = All;
                 AutoFormatType = 1;
                 Caption = 'Purchases (LCY)', Comment = 'FRA="Achats DS"';
             }
@@ -38,4 +41,3 @@ pageextension 50116 "BC6_VendorDetailsFactBox" extends "Vendor Details FactBox" 
         PurchasesLCY := Rec."Purchases (LCY)";
     end;
 }
-

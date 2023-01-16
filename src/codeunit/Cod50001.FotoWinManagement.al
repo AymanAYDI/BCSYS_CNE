@@ -1,6 +1,5 @@
 codeunit 50001 "BC6_FotoWin Management"
 {
-
     var
         RecGContact: Record Contact;
         RecGSalesSetup: Record "Sales & Receivables Setup";
@@ -30,4 +29,3 @@ codeunit 50001 "BC6_FotoWin Management"
                 TxtLString := RecGContact."E-Mail";
     end;
 }
-

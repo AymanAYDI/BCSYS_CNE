@@ -4,18 +4,26 @@ pageextension 50135 "BC6_PurchaseQuote" extends "Purchase Quote" //49
     {
         addafter("Buy-from Vendor Name")
         {
-            field(BC6_ID; ID)
+            field(BC6_ID; Rec.ID)
             {
+                ApplicationArea = All;
                 Editable = false;
             }
-            field("BC6_Affair No."; "BC6_Affair No.")
+            field("BC6_Affair No."; Rec."BC6_Affair No.")
             {
+                ApplicationArea = All;
             }
         }
         addafter("Buy-from Contact No.")
         {
-            field("BC6_Buy-from Fax No."; "BC6_Buy-from Fax No.") { }
-            field("BC6_Buy-from E-Mail Address"; "BC6_Buy-from E-Mail Address") { }
+            field("BC6_Buy-from Fax No."; Rec."BC6_Buy-from Fax No.")
+            {
+                ApplicationArea = All;
+            }
+            field("BC6_Buy-from E-Mail Address"; Rec."BC6_Buy-from E-Mail Address")
+            {
+                ApplicationArea = All;
+            }
         }
         modify("Responsibility Center")
         {
@@ -29,6 +37,7 @@ pageextension 50135 "BC6_PurchaseQuote" extends "Purchase Quote" //49
         {
             part("BC6_Purch His. By-From FactBox"; "BC6_Purch His. By-From FactBox")
             {
+                ApplicationArea = All;
                 Provider = PurchLines;
                 SubPageLink = "Document Type" = FIELD("Document Type"),
                             "No." = FIELD("No."),
@@ -38,29 +47,28 @@ pageextension 50135 "BC6_PurchaseQuote" extends "Purchase Quote" //49
     }
     actions
     {
-
         addafter("Make Order")
         {
             group(BC6_Print)
             {
-                Caption = 'FRA="E&nvoyer/Imprimer"';
+                Caption = 'Print', comment = 'FRA="Envoyer/Imprimer"';
                 Image = Administration;
                 action(BC6_Imprimer)
                 {
-                    Caption = 'FRA="Imprimer"';
+                    ApplicationArea = All;
+                    Caption = 'Imprimer';
                     Image = PostPrint;
                     trigger OnAction()
 
                     begin
                         DocPrint.PrintPurchHeader(Rec);
                     end;
-
                 }
-
                 action("BC6_Envoyer par E-Mail")
                 {
-                    Image = SendMail;
+                    ApplicationArea = All;
                     Caption = 'FRA="Envoyer par E-Mail"';
+                    Image = SendMail;
                     trigger OnAction()
                     var
                         RecLPurchQuote: Record "Purchase Header";
@@ -68,31 +76,30 @@ pageextension 50135 "BC6_PurchaseQuote" extends "Purchase Quote" //49
 
                     begin
                         RecLPurchQuote := Rec;
-                        RecLPurchQuote.SETRECFILTER;
+                        RecLPurchQuote.SETRECFILTER();
                         RptLPurchQuote.SETTABLEVIEW(RecLPurchQuote);
-                        RptLPurchQuote.DefineTagMail("BC6_Buy-from E-Mail Address");
-                        RptLPurchQuote.RUN;
-
+                        RptLPurchQuote.DefineTagMail(Rec."BC6_Buy-from E-Mail Address");
+                        RptLPurchQuote.RUN();
                     end;
                 }
                 action("BC6_Envoyer par Fax")
                 {
-                    Image = SendTo;
+                    ApplicationArea = All;
                     Caption = 'Envoyer par Fax';
+                    Image = SendTo;
                     trigger OnAction()
                     var
                         RecLPurchQuote: Record "Purchase Header";
                         RptLPurchQuote: Report "BC6_Prices Request";
                     begin
                         RecLPurchQuote := Rec;
-                        RecLPurchQuote.SETRECFILTER;
+                        RecLPurchQuote.SETRECFILTER();
                         RptLPurchQuote.SETTABLEVIEW(RecLPurchQuote);
-                        RptLPurchQuote.DefineTagFax("BC6_Buy-from Fax No.");
-                        RptLPurchQuote.RUN;
+                        RptLPurchQuote.DefineTagFax(Rec."BC6_Buy-from Fax No.");
+                        RptLPurchQuote.RUN();
                     end;
                 }
             }
-
         }
     }
     var
@@ -118,69 +125,65 @@ pageextension 50135 "BC6_PurchaseQuote" extends "Purchase Quote" //49
     BEGIN
 
         //DEMANDE_PRIX SOBH NSC1.01 [004] Prix sur cde de vente
+        PurchHeader.TESTFIELD("Document Type", PurchHeader."Document Type"::Quote);
 
-        WITH PurchHeader DO BEGIN
-            TESTFIELD("Document Type", "Document Type"::Quote);
+        SalesHeader.SETCURRENTKEY("Document Type", "Sell-to Customer No.");
+        SalesHeader.SETRANGE("Document Type", SalesHeader."Document Type"::Quote);
+        IF (PAGE.RUNMODAL(PAGE::"Sales List", SalesHeader) <> ACTION::LookupOK) OR
+           (SalesHeader."No." = '')
+        THEN
+            EXIT;
+        IF PurchHeader.RECORDLEVELLOCKING THEN
+            PurchHeader.LOCKTABLE();
+        SalesHeader.TESTFIELD("Document Type", SalesHeader."Document Type"::Quote);
 
-            SalesHeader.SETCURRENTKEY("Document Type", "Sell-to Customer No.");
-            SalesHeader.SETRANGE("Document Type", SalesHeader."Document Type"::Quote);
-            IF (PAGE.RUNMODAL(PAGE::"Sales List", SalesHeader) <> ACTION::LookupOK) OR
-               (SalesHeader."No." = '')
-            THEN
-                EXIT;
-            IF RECORDLEVELLOCKING THEN
-                LOCKTABLE;
-            SalesHeader.TESTFIELD("Document Type", SalesHeader."Document Type"::Quote);
+        PurchLine.LOCKTABLE();
+        IF NOT PurchHeader.RECORDLEVELLOCKING THEN
+            PurchHeader.LOCKTABLE(TRUE, TRUE); // Only version check
+        SalesLine.LOCKTABLE();
+        IF NOT PurchHeader.RECORDLEVELLOCKING THEN
+            SalesHeader.LOCKTABLE(TRUE, TRUE); // Only version check
 
-            PurchLine.LOCKTABLE;
-            IF NOT RECORDLEVELLOCKING THEN
-                LOCKTABLE(TRUE, TRUE); // Only version check
-            SalesLine.LOCKTABLE;
-            IF NOT RECORDLEVELLOCKING THEN
-                SalesHeader.LOCKTABLE(TRUE, TRUE); // Only version check
+        PurchLine.SETRANGE("Document Type", PurchLine."Document Type"::Quote);
+        PurchLine.SETRANGE("Document No.", PurchHeader."No.");
+        IF PurchLine.FIND('+') THEN
+            NextLineNo := PurchLine."Line No." + 10000
+        ELSE
+            NextLineNo := 10000;
 
-            PurchLine.SETRANGE("Document Type", PurchLine."Document Type"::Quote);
-            PurchLine.SETRANGE("Document No.", "No.");
-            IF PurchLine.FIND('+') THEN
-                NextLineNo := PurchLine."Line No." + 10000
-            ELSE
-                NextLineNo := 10000;
+        SalesLine.RESET();
+        SalesLine.SETRANGE("Document Type", SalesLine."Document Type"::Quote);
+        SalesLine.SETRANGE("Document No.", SalesHeader."No.");
+        SalesLine.SETFILTER("Outstanding Quantity", '<>0');
+        SalesLine.SETRANGE(Type, SalesLine.Type::Item);
+        SalesLine.SETFILTER("No.", '<>%1', '');
 
-            SalesLine.RESET;
-            SalesLine.SETRANGE("Document Type", SalesLine."Document Type"::Quote);
-            SalesLine.SETRANGE("Document No.", SalesHeader."No.");
-            SalesLine.SETFILTER("Outstanding Quantity", '<>0');
-            SalesLine.SETRANGE(Type, SalesLine.Type::Item);
-            SalesLine.SETFILTER("No.", '<>%1', '');
+        IF SalesLine.FIND('-') THEN
+            REPEAT
+                PurchLine.INIT();
+                PurchLine."Document Type" := PurchLine."Document Type"::Quote;
+                PurchLine."Document No." := PurchHeader."No.";
+                PurchLine."Line No." := NextLineNo;
+                CopyDocMgt.TransfldsFromSalesToPurchLine(SalesLine, PurchLine);
+                PurchLine.INSERT();
+                NextLineNo := NextLineNo + 10000;
 
-            IF SalesLine.FIND('-') THEN
-                REPEAT
-                    PurchLine.INIT;
-                    PurchLine."Document Type" := PurchLine."Document Type"::Quote;
-                    PurchLine."Document No." := "No.";
-                    PurchLine."Line No." := NextLineNo;
-                    CopyDocMgt.TransfldsFromSalesToPurchLine(SalesLine, PurchLine);
-                    PurchLine.INSERT;
+                IF TransferExtendedText.PurchCheckIfAnyExtText(PurchLine, TRUE) THEN BEGIN
+                    TransferExtendedText.InsertPurchExtText(PurchLine);
+                    PurchLine2.SETRANGE("Document Type", PurchHeader."Document Type");
+                    PurchLine2.SETRANGE("Document No.", PurchHeader."No.");
+                    IF PurchLine2.FIND('+') THEN
+                        NextLineNo := PurchLine2."Line No.";
                     NextLineNo := NextLineNo + 10000;
+                END;
+            UNTIL SalesLine.NEXT() = 0
+        ELSE
+            ERROR(
+              TextDEMANDE_PRIX001,
+              SalesHeader."No.");
 
-                    IF TransferExtendedText.PurchCheckIfAnyExtText(PurchLine, TRUE) THEN BEGIN
-                        TransferExtendedText.InsertPurchExtText(PurchLine);
-                        PurchLine2.SETRANGE("Document Type", PurchHeader."Document Type");
-                        PurchLine2.SETRANGE("Document No.", PurchHeader."No.");
-                        IF PurchLine2.FIND('+') THEN
-                            NextLineNo := PurchLine2."Line No.";
-                        NextLineNo := NextLineNo + 10000;
-                    END;
-                UNTIL SalesLine.NEXT = 0
-            ELSE
-                ERROR(
-                  TextDEMANDE_PRIX001,
-                  SalesHeader."No.");
-
-            MODIFY; // Only version check
-            SalesHeader.MODIFY; // Only version check
-        END;
-
+        PurchHeader.MODIFY(); // Only version check
+        SalesHeader.MODIFY(); // Only version check
     END;
 
     PROCEDURE GetOrders(VAR PurchHeader: Record "Purchase Header");
@@ -194,84 +197,80 @@ pageextension 50135 "BC6_PurchaseQuote" extends "Purchase Quote" //49
         NextLineNo: Integer;
     BEGIN
         //DEMANDE_PRIX SOBH NSC1.01 [004] Prix sur cde de vente
+        PurchHeader.TESTFIELD("Document Type", PurchHeader."Document Type"::Quote);
 
-        WITH PurchHeader DO BEGIN
-            TESTFIELD("Document Type", "Document Type"::Quote);
+        SalesHeader.SETCURRENTKEY("Document Type", "Sell-to Customer No.");
+        SalesHeader.SETRANGE("Document Type", SalesHeader."Document Type"::Order);
+        IF (PAGE.RUNMODAL(PAGE::"Sales List", SalesHeader) <> ACTION::LookupOK) OR
+           (SalesHeader."No." = '')
+        THEN
+            EXIT;
+        IF PurchHeader.RECORDLEVELLOCKING THEN
+            PurchHeader.LOCKTABLE();
+        SalesHeader.TESTFIELD("Document Type", SalesHeader."Document Type"::Order);
 
-            SalesHeader.SETCURRENTKEY("Document Type", "Sell-to Customer No.");
-            SalesHeader.SETRANGE("Document Type", SalesHeader."Document Type"::Order);
-            IF (PAGE.RUNMODAL(PAGE::"Sales List", SalesHeader) <> ACTION::LookupOK) OR
-               (SalesHeader."No." = '')
-            THEN
-                EXIT;
-            IF RECORDLEVELLOCKING THEN
-                LOCKTABLE;
-            SalesHeader.TESTFIELD("Document Type", SalesHeader."Document Type"::Order);
+        PurchLine.LOCKTABLE();
+        IF NOT PurchHeader.RECORDLEVELLOCKING THEN
+            PurchHeader.LOCKTABLE(TRUE, TRUE); // Only version check
+        SalesLine.LOCKTABLE();
+        IF NOT PurchHeader.RECORDLEVELLOCKING THEN
+            SalesHeader.LOCKTABLE(TRUE, TRUE); // Only version check
 
-            PurchLine.LOCKTABLE;
-            IF NOT RECORDLEVELLOCKING THEN
-                LOCKTABLE(TRUE, TRUE); // Only version check
-            SalesLine.LOCKTABLE;
-            IF NOT RECORDLEVELLOCKING THEN
-                SalesHeader.LOCKTABLE(TRUE, TRUE); // Only version check
+        PurchLine.SETRANGE("Document Type", PurchLine."Document Type"::Quote);
+        PurchLine.SETRANGE("Document No.", PurchHeader."No.");
+        IF PurchLine.FIND('+') THEN
+            NextLineNo := PurchLine."Line No." + 10000
+        ELSE
+            NextLineNo := 10000;
 
-            PurchLine.SETRANGE("Document Type", PurchLine."Document Type"::Quote);
-            PurchLine.SETRANGE("Document No.", "No.");
-            IF PurchLine.FIND('+') THEN
-                NextLineNo := PurchLine."Line No." + 10000
-            ELSE
-                NextLineNo := 10000;
+        SalesLine.RESET();
+        SalesLine.SETRANGE("Document Type", SalesLine."Document Type"::Order);
+        SalesLine.SETRANGE("Document No.", SalesHeader."No.");
+        SalesLine.SETFILTER("Outstanding Quantity", '<>0');
+        SalesLine.SETRANGE(Type, SalesLine.Type::Item);
+        SalesLine.SETFILTER("No.", '<>%1', '');
 
-            SalesLine.RESET;
-            SalesLine.SETRANGE("Document Type", SalesLine."Document Type"::Order);
-            SalesLine.SETRANGE("Document No.", SalesHeader."No.");
-            SalesLine.SETFILTER("Outstanding Quantity", '<>0');
-            SalesLine.SETRANGE(Type, SalesLine.Type::Item);
-            SalesLine.SETFILTER("No.", '<>%1', '');
+        IF SalesLine.FIND('-') THEN
+            REPEAT
+                PurchLine.INIT();
+                PurchLine."Document Type" := PurchLine."Document Type"::Quote;
+                PurchLine."Document No." := PurchHeader."No.";
+                PurchLine."Line No." := NextLineNo;
+                CopyDocMgt.TransfldsFromSalesToPurchLine(SalesLine, PurchLine);
+                PurchLine.INSERT();
+                NextLineNo := NextLineNo + 10000;
 
-            IF SalesLine.FIND('-') THEN
-                REPEAT
-                    PurchLine.INIT;
-                    PurchLine."Document Type" := PurchLine."Document Type"::Quote;
-                    PurchLine."Document No." := "No.";
-                    PurchLine."Line No." := NextLineNo;
-                    CopyDocMgt.TransfldsFromSalesToPurchLine(SalesLine, PurchLine);
-                    PurchLine.INSERT;
+                IF TransferExtendedText.PurchCheckIfAnyExtText(PurchLine, TRUE) THEN BEGIN
+                    TransferExtendedText.InsertPurchExtText(PurchLine);
+                    PurchLine2.SETRANGE("Document Type", PurchHeader."Document Type");
+                    PurchLine2.SETRANGE("Document No.", PurchHeader."No.");
+                    IF PurchLine2.FIND('+') THEN
+                        NextLineNo := PurchLine2."Line No.";
                     NextLineNo := NextLineNo + 10000;
+                END;
+            UNTIL SalesLine.NEXT() = 0
+        ELSE
+            ERROR(
+              TextDEMANDE_PRIX001,
+              SalesHeader."No.");
 
-                    IF TransferExtendedText.PurchCheckIfAnyExtText(PurchLine, TRUE) THEN BEGIN
-                        TransferExtendedText.InsertPurchExtText(PurchLine);
-                        PurchLine2.SETRANGE("Document Type", PurchHeader."Document Type");
-                        PurchLine2.SETRANGE("Document No.", PurchHeader."No.");
-                        IF PurchLine2.FIND('+') THEN
-                            NextLineNo := PurchLine2."Line No.";
-                        NextLineNo := NextLineNo + 10000;
-                    END;
-                UNTIL SalesLine.NEXT = 0
-            ELSE
-                ERROR(
-                  TextDEMANDE_PRIX001,
-                  SalesHeader."No.");
-
-            MODIFY; // Only version check
-            SalesHeader.MODIFY; // Only version check
-        END;
+        PurchHeader.MODIFY(); // Only version check
+        SalesHeader.MODIFY(); // Only version check
     END;
 
     PROCEDURE OpenFile()
     begin
-
     end;
 
     PROCEDURE EnvoiMail();
     BEGIN
-        SalesSetup.GET;
-        cust.SETRANGE(cust."No.", "Sell-to Customer No.");
+        SalesSetup.GET();
+        cust.SETRANGE(cust."No.", Rec."Sell-to Customer No.");
         IF cust.FIND('-') THEN
             cust.TESTFIELD("E-Mail");
-        OpenFile;
+        OpenFile();
         IF nameF <> '' THEN BEGIN
-            Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + "No.", '', nameF, FALSE);
+            Mail.NewMessage(cust."E-Mail", '', '', CurrPage.CAPTION + ' ' + Rec."No.", '', nameF, FALSE);
             ERASE(nameF);
         END
         ELSE BEGIN
@@ -282,11 +281,7 @@ pageextension 50135 "BC6_PurchaseQuote" extends "Purchase Quote" //49
         HistMail.Nom := cust.Name;
         HistMail."E-Mail" := cust."E-Mail";
         HistMail."Date d'envoi" := TODAY;
-        HistMail."Document envoyé" := CurrPage.CAPTION + ' ' + "No.";
+        HistMail."Document envoyé" := CurrPage.CAPTION + ' ' + Rec."No.";
         HistMail.INSERT(TRUE);
     END;
-
-
-
-
 }

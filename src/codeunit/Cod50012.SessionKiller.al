@@ -1,6 +1,5 @@
 codeunit 50012 "BC6_Session Killer"
 {
-
     trigger OnRun()
     var
     //gSession: Record "Active Session";
@@ -31,4 +30,3 @@ codeunit 50012 "BC6_Session Killer"
     var
     //TODO ADOConnection: Automation;
 }
-

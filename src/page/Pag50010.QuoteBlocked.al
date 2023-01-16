@@ -10,26 +10,30 @@ page 50010 "BC6_Quote Blocked"
         {
             field(TxtGMessage; TxtGMessage)
             {
+                ApplicationArea = All;
                 Caption = 'TxtG Message';
-
                 Editable = false;
                 Enabled = true;
                 MultiLine = true;
             }
             field("No."; Rec."No.")
             {
+                ApplicationArea = All;
                 Editable = false;
             }
             field("Sell-to Customer No."; Rec."Sell-to Customer No.")
             {
+                ApplicationArea = All;
                 Editable = false;
             }
             field("Sell-to Customer Name"; Rec."Sell-to Customer Name")
             {
+                ApplicationArea = All;
                 Editable = false;
             }
             field("Sell-to Contact"; Rec."Sell-to Contact")
             {
+                ApplicationArea = All;
                 Editable = false;
             }
         }
@@ -41,6 +45,7 @@ page 50010 "BC6_Quote Blocked"
         {
             action("Send Mail")
             {
+                ApplicationArea = All;
                 Caption = 'Send Mail', comment = 'FRA="Envoyer Mail"';
                 Image = SendMail;
 
@@ -56,6 +61,7 @@ page 50010 "BC6_Quote Blocked"
             }
             action(OK)
             {
+                ApplicationArea = All;
                 Caption = 'OK';
                 Image = Post;
 
@@ -107,4 +113,3 @@ page 50010 "BC6_Quote Blocked"
         TxtGObject: Text[250];
         TxtGMessage: Text[1024];
 }
-

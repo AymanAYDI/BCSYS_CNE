@@ -93,8 +93,8 @@ table 50004 "BC6_Navi+ Setup"
         field(101; "Base Unit of Measure"; Code[10])
         {
             Caption = 'Base Unit of Measure', comment = 'FRA="Unité de base"';
-            TableRelation = "Unit of Measure";
             DataClassification = CustomerContent;
+            TableRelation = "Unit of Measure";
         }
         field(102; "Costing Method"; Enum "Costing Method")
         {
@@ -104,33 +104,33 @@ table 50004 "BC6_Navi+ Setup"
         field(103; "Gen. Prod. Posting Group"; Code[10])
         {
             Caption = 'Gen. Prod. Posting Group', comment = 'FRA="Groupe compta. produit"';
-            TableRelation = "Gen. Product Posting Group";
             DataClassification = CustomerContent;
+            TableRelation = "Gen. Product Posting Group";
         }
         field(104; "VAT Prod. Posting Group"; Code[10])
         {
             Caption = 'VAT Prod. Posting Group', comment = 'FRA="Groupe compta. produit TVA"';
-            TableRelation = "VAT Product Posting Group";
             DataClassification = CustomerContent;
+            TableRelation = "VAT Product Posting Group";
         }
         field(105; "Inventory Posting Group"; Code[10])
         {
             Caption = 'Inventory Posting Group', comment = 'FRA="Groupe compta. stock"';
-            TableRelation = "Inventory Posting Group";
             DataClassification = CustomerContent;
+            TableRelation = "Inventory Posting Group";
         }
         field(106; "Sales Unit of Measure"; Code[10])
         {
             Caption = 'Sales Unit of Measure', comment = 'FRA="Unité de vente"';
-            TableRelation = "Unit of Measure";
             DataClassification = CustomerContent;
+            TableRelation = "Unit of Measure";
         }
         field(107; "Replenishment System"; Option)
         {
             Caption = 'Replenishment System', comment = 'FRA="Système réappro."';
+            DataClassification = CustomerContent;
             OptionCaption = 'Purchase,Prod. Order, ';
             OptionMembers = Purchase,"Prod. Order"," ";
-            DataClassification = CustomerContent;
         }
         field(108; "Lead Time Calculation Item"; DateFormula)
         {
@@ -150,8 +150,8 @@ table 50004 "BC6_Navi+ Setup"
         field(111; "Reserve Item"; Enum "Reserve Method")
         {
             Caption = 'Reserve Item', comment = 'FRA="Réserver article"';
-            InitValue = Optional;
             DataClassification = CustomerContent;
+            InitValue = Optional;
         }
         field(112; "Order Tracking Policy"; Enum "Order Tracking Policy")
         {
@@ -161,20 +161,20 @@ table 50004 "BC6_Navi+ Setup"
         field(201; "Gen. Bus. Posting Group Vendor"; Code[10])
         {
             Caption = 'Gen. Bus. Posting Group Vendor', comment = 'FRA="Groupe compta. marché fournisseur"';
-            TableRelation = "Gen. Business Posting Group";
             DataClassification = CustomerContent;
+            TableRelation = "Gen. Business Posting Group";
         }
         field(202; "VAT Bus. Posting Group Vendor"; Code[10])
         {
             Caption = 'VAT Bus. Posting Group Vendor', comment = 'FRA="Groupe compta. marché TVA fournisseur"';
-            TableRelation = "VAT Business Posting Group";
             DataClassification = CustomerContent;
+            TableRelation = "VAT Business Posting Group";
         }
         field(203; "Vendor Posting Group"; Code[10])
         {
             Caption = 'Vendor Posting Group', comment = 'FRA="Groupe compta. fournisseur"';
-            TableRelation = "Vendor Posting Group";
             DataClassification = CustomerContent;
+            TableRelation = "Vendor Posting Group";
         }
         field(204; "Lead Time Calculation Vendor"; DateFormula)
         {
@@ -184,8 +184,8 @@ table 50004 "BC6_Navi+ Setup"
         field(205; "Purchaser Code"; Code[10])
         {
             Caption = 'Purchaser Code', comment = 'FRA="Code acheteur"';
-            TableRelation = "Salesperson/Purchaser";
             DataClassification = CustomerContent;
+            TableRelation = "Salesperson/Purchaser";
         }
         field(206; "Application Method Vendor"; Enum "BC6_App. Meth. Cust")
         {
@@ -195,50 +195,50 @@ table 50004 "BC6_Navi+ Setup"
         field(207; "Payment Terms Code"; Code[10])
         {
             Caption = 'Payment Terms Code', comment = 'FRA="Code condition paiement"';
-            TableRelation = "Payment Terms";
             DataClassification = CustomerContent;
+            TableRelation = "Payment Terms";
         }
         field(208; "Payment Method Code"; Code[10])
         {
             Caption = 'Payment Method Code', comment = 'FRA="Code mode de règlement"';
-            TableRelation = "Payment Method";
             DataClassification = CustomerContent;
+            TableRelation = "Payment Method";
         }
         field(209; "Base Calendar Code"; Code[10])
         {
             Caption = 'Base Calendar Code', comment = 'FRA="Code calendrier principal"';
-            TableRelation = "Base Calendar";
             DataClassification = CustomerContent;
+            TableRelation = "Base Calendar";
         }
         field(301; "Country Code"; Code[10])
         {
             Caption = 'Country Code', comment = 'FRA="Code pays"';
-            TableRelation = "Country/Region";
             DataClassification = CustomerContent;
+            TableRelation = "Country/Region";
         }
         field(302; "Gen. Bus. Posting Group Cust."; Code[10])
         {
             Caption = 'Gen. Bus. Posting Group Cust.', comment = 'FRA="Groupe compta. marché client"';
-            TableRelation = "Gen. Business Posting Group";
             DataClassification = CustomerContent;
+            TableRelation = "Gen. Business Posting Group";
         }
         field(303; "VAT Bus. Posting Group Cust."; Code[10])
         {
             Caption = 'VAT Bus. Posting Group Cust.', comment = 'FRA="Groupe compta. marché TVA client"';
-            TableRelation = "VAT Business Posting Group";
             DataClassification = CustomerContent;
+            TableRelation = "VAT Business Posting Group";
         }
         field(304; "Customer Posting Group"; Code[10])
         {
             Caption = 'Customer Posting Group', comment = 'FRA="Groupe compta. client"';
-            TableRelation = "Customer Posting Group";
             DataClassification = CustomerContent;
+            TableRelation = "Customer Posting Group";
         }
         field(306; "Allow Line Disc."; Boolean)
         {
             Caption = 'Allow Line Disc.', comment = 'FRA="Autoriser remise ligne"';
-            InitValue = true;
             DataClassification = CustomerContent;
+            InitValue = true;
         }
         field(307; "Application Method Customer"; Enum "BC6_App. Meth. Cust")
         {
@@ -258,8 +258,8 @@ table 50004 "BC6_Navi+ Setup"
         field(310; "Reserve Customer"; Enum "Reserve Method")
         {
             Caption = 'Reserve Customer', comment = 'FRA="Réserver client"';
-            InitValue = Optional;
             DataClassification = CustomerContent;
+            InitValue = Optional;
         }
         field(311; "Shipping Advice"; Enum "Sales Header Shipping Advice")
         {
@@ -284,14 +284,14 @@ table 50004 "BC6_Navi+ Setup"
         field(315; "Customer Location Code"; Code[10])
         {
             Caption = 'Customer Location Code', comment = 'FRA="Code magasin client"';
-            TableRelation = Location.Code;
             DataClassification = CustomerContent;
+            TableRelation = Location.Code;
         }
         field(316; "Vendor Location Code"; Code[10])
         {
             Caption = 'Vendor Location Code', comment = 'FRA="Code magasin fournisseur"';
-            TableRelation = Location.Code;
             DataClassification = CustomerContent;
+            TableRelation = Location.Code;
         }
         field(317; "Filing Purchases Orders"; Boolean)
         {

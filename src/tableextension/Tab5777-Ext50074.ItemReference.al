@@ -17,11 +17,11 @@ tableextension 50074 "BC6_ItemReference" extends "Item Reference" //5777
         }
         field(50001; BC6_Inventory; Decimal)
         {
-            FieldClass = FlowField;
             CalcFormula = Sum("Item Ledger Entry".Quantity WHERE("Item No." = FIELD("Item No."), "Variant Code" = FIELD("Variant Code")));
             Caption = 'Inventory', Comment = 'FRA="Stock"';
             DecimalPlaces = 0 : 5;
             Editable = false;
+            FieldClass = FlowField;
         }
     }
     var

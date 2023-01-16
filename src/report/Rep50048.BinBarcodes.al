@@ -1,11 +1,10 @@
 report 50048 "BC6_Bin Barcodes"
 {
+    ApplicationArea = all;
+    Caption = 'Bin Barcodes', Comment = 'FRA="Etiquettes emplacement"';
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/BinBarcodes.rdl';
-
-    Caption = 'Bin Barcodes', Comment = 'FRA="Etiquettes emplacement"';
     UsageCategory = ReportsAndAnalysis;
-    ApplicationArea = all;
 
     dataset
     {
@@ -47,7 +46,6 @@ report 50048 "BC6_Bin Barcodes"
         }
     }
 
-
     labels
     {
     }
@@ -56,10 +54,8 @@ report 50048 "BC6_Bin Barcodes"
         gBin1: Record Bin;
         BarcodeMngt: Codeunit "BC6_Barcode Mngt AutoID";
 
-
     procedure GetBarCode(piBinCode: Code[20]): Text[250]
     begin
         EXIT(BarcodeMngt.EncodeBarcode39(piBinCode));
     end;
 }
-

@@ -23,7 +23,6 @@ xmlport 59999 "BC6_Import/Export Source Code"
 
     requestpage
     {
-
         layout
         {
         }
@@ -33,4 +32,3 @@ xmlport 59999 "BC6_Import/Export Source Code"
         }
     }
 }
-

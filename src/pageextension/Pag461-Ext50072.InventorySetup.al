@@ -34,4 +34,3 @@ pageextension 50072 "BC6_InventorySetup" extends "Inventory Setup" //461
         }
     }
 }
-

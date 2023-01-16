@@ -1,11 +1,10 @@
 xmlport 50015 "BC6_Import R.I.B Fournisseurs"
 {
-
+    Caption = 'Import R.I.B Fournisseurs';
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = '<TAB>';
     Format = VariableText;
-    Caption = 'Import R.I.B Fournisseurs';
 
     schema
     {
@@ -43,7 +42,6 @@ xmlport 50015 "BC6_Import R.I.B Fournisseurs"
                 trigger OnAfterInitRecord()
                 begin
 
-
                     recVendBank.INIT();
 
                     vendor := '';
@@ -69,22 +67,17 @@ xmlport 50015 "BC6_Import R.I.B Fournisseurs"
                     IF bankbranch <> '' THEN
                         recVendBank.VALIDATE("Bank Branch No.", bankbranch);
 
-
                     IF agency <> '' THEN
                         recVendBank.VALIDATE("Agency Code", agency);
-
 
                     IF bankaccount <> '' THEN
                         recVendBank.VALIDATE("Bank Account No.", bankaccount);
 
-
                     IF IntGrib <> 0 THEN
                         recVendBank.VALIDATE("RIB Key", IntGrib);
 
-
                     IF Name <> '' THEN
                         recVendBank.VALIDATE(Name, Name);
-
 
                     IF name2 <> '' THEN
                         recVendBank.VALIDATE("Name 2", name2);
@@ -97,7 +90,6 @@ xmlport 50015 "BC6_Import R.I.B Fournisseurs"
 
     requestpage
     {
-
         layout
         {
         }
@@ -111,4 +103,3 @@ xmlport 50015 "BC6_Import R.I.B Fournisseurs"
         recVendBank: Record "Vendor Bank Account";
         IntGrib: Integer;
 }
-

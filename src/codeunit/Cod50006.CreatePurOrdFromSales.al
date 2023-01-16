@@ -1,6 +1,5 @@
 codeunit 50006 "BC6_Create Pur. Ord From Sales"
 {
-
     TableNo = "Sales Line";
 
     trigger OnRun()
@@ -80,7 +79,6 @@ codeunit 50006 "BC6_Create Pur. Ord From Sales"
                 SalesLine."BC6_Qty. To Order" := 0;
                 SalesLine."BC6_To Order" := false;
                 SalesLine.MODIFY(false);
-
             until SalesLine.NEXT() = 0;
         FinalizePurchHeader(PurchHeader);
 
@@ -159,4 +157,3 @@ codeunit 50006 "BC6_Create Pur. Ord From Sales"
         InsertPurchHeaderOk := false;
     end;
 }
-

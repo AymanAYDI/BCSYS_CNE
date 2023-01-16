@@ -24,8 +24,8 @@ pageextension 50099 "BC6_Bins" extends Bins //7302
         {
             action("Imprimer étiquette")
             {
-                Image = BarCode;
                 ApplicationArea = All;
+                Image = BarCode;
 
                 trigger OnAction()
                 var

@@ -1,11 +1,10 @@
 report 50042 "BC6_Statement sans traite V2"
 {
+    ApplicationArea = all;
+    Caption = 'Relevé client CNE sans Traite V2]', Comment = 'FRA="Relevé client CNE sans Traite V2"';
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/StatementsanstraiteV2.rdl';
-
-    Caption = 'Relevé client CNE sans Traite V2]', Comment = 'FRA="Relevé client CNE sans Traite V2"';
     UsageCategory = ReportsAndAnalysis;
-    ApplicationArea = all;
 
     dataset
     {
@@ -270,7 +269,6 @@ report 50042 "BC6_Statement sans traite V2"
                                 TraiteTotalRemainingAmount := TotalRemainingAmount;
                                 //<<TRAITE FG 02/03/07
 
-
                                 //>>MIGRATION NAV 2013
                                 BooGAffiche := (PrintLine OR ("Entry Type" <> "Entry Type"::Application));
                                 //<<MIGRATION NAV 2013
@@ -281,7 +279,6 @@ report 50042 "BC6_Statement sans traite V2"
                                 SETRANGE("Customer No.", Customer."No.");
                                 SETRANGE("Posting Date", StartDate, EndDate);
                                 SETRANGE("Currency Code", TempCurrency2.Code);
-
 
                                 IF OnlySales THEN
                                     SETFILTER("Document Type", '%1|%2', "Document Type"::Invoice, "Document Type"::"Credit Memo");
@@ -566,7 +563,7 @@ report 50042 "BC6_Statement sans traite V2"
                 PrintLine := FALSE;
                 Cust2 := Customer;
                 COPYFILTER("Currency Filter", TempCurrency2.Code);
-                IF PrintAllHavingBal THEN BEGIN
+                IF PrintAllHavingBal THEN
                     IF TempCurrency2.FIND('-') THEN
                         REPEAT
                             Cust2.SETRANGE("Date Filter", 0D, EndDate);
@@ -574,7 +571,6 @@ report 50042 "BC6_Statement sans traite V2"
                             Cust2.CALCFIELDS("Net Change");
                             PrintLine := Cust2."Net Change" <> 0;
                         UNTIL (TempCurrency2.NEXT() = 0) OR PrintLine;
-                END;
                 IF (NOT PrintLine) AND PrintAllHavingEntry THEN BEGIN
                     "Cust. Ledger Entry".RESET();
                     "Cust. Ledger Entry".SETCURRENTKEY("Customer No.", "Posting Date");
@@ -585,7 +581,6 @@ report 50042 "BC6_Statement sans traite V2"
                 END;
                 IF NOT PrintLine THEN
                     CurrReport.SKIP();
-
 
                 FormatAddr.Customer(CustAddr, Customer);
                 CurrReport.PAGENO := 1;
@@ -636,12 +631,14 @@ report 50042 "BC6_Statement sans traite V2"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(ShowOverdueEntries; PrintEntriesDue)
+                    field(ShowOverdueEntriesF; PrintEntriesDue)
                     {
+                        ApplicationArea = All;
                         Caption = 'Show Overdue Entries', Comment = 'FRA="Afficher écritures échues"';
                     }
-                    field(IncludeAllCustomerswithLE; PrintAllHavingEntry)
+                    field(IncludeAllCustomerswithLEF; PrintAllHavingEntry)
                     {
+                        ApplicationArea = All;
                         Caption = 'Include All Customers with Ledger Entries', Comment = 'FRA="Inclure tous les clients mouvementés."';
                         MultiLine = true;
 
@@ -651,8 +648,9 @@ report 50042 "BC6_Statement sans traite V2"
                                 PrintAllHavingBal := TRUE;
                         end;
                     }
-                    field(IncludeAllCustomerswithBalance; PrintAllHavingBal)
+                    field(IncludeAllCustomerswithBalanceF; PrintAllHavingBal)
                     {
+                        ApplicationArea = All;
                         Caption = 'Include All Customers with a Balance', Comment = 'FRA="Inclure tous les clients ayant un solde."';
                         MultiLine = true;
 
@@ -662,34 +660,41 @@ report 50042 "BC6_Statement sans traite V2"
                                 PrintAllHavingEntry := TRUE;
                         end;
                     }
-                    field(IncludeReversedEntries; PrintReversedEntries)
+                    field(IncludeReversedEntriesF; PrintReversedEntries)
                     {
+                        ApplicationArea = All;
                         Caption = 'Include Reversed Entries', Comment = 'FRA="Inclure écritures contrepassées"';
                     }
-                    field(IncludeUnappliedEntries; PrintUnappliedEntries)
+                    field(IncludeUnappliedEntriesF; PrintUnappliedEntries)
                     {
+                        ApplicationArea = All;
                         Caption = 'Include Unapplied Entries', Comment = 'FRA="Inclure écritures non lettrées"';
                     }
-                    field(IncludeAgingBand; IncludeAgingBand)
+                    field(IncludeAgingBandF; IncludeAgingBand)
                     {
+                        ApplicationArea = All;
                         Caption = 'Include Aging Band', Comment = 'FRA="Inclure cumul date"';
                     }
-                    field(AgingBandPeriodLengt; PeriodLength)
+                    field(AgingBandPeriodLengtF; PeriodLength)
                     {
+                        ApplicationArea = All;
                         Caption = 'Aging Band Period Length', Comment = 'FRA="Base période cumul date"';
                     }
-                    field(AgingBandby; DateChoice)
+                    field(AgingBandbyF; DateChoice)
                     {
+                        ApplicationArea = All;
                         Caption = 'Aging Band by', Comment = 'FRA="Cumul par"';
                         OptionCaption = 'Due Date,Posting Date';
                     }
-                    field(LogInteraction; LogInteraction)
+                    field(LogInteractionF; LogInteraction)
                     {
+                        ApplicationArea = All;
                         Caption = 'Log Interaction', Comment = 'FRA="Journal interaction"';
                         Enabled = LogInteractionEnable;
                     }
-                    field(OnlySales; OnlySales)
+                    field(OnlySalesF; OnlySales)
                     {
+                        ApplicationArea = All;
                         Caption = 'Only Sales', Comment = 'FRA="Uniquement Facture et Avoir"';
                     }
                 }
@@ -840,17 +845,17 @@ report 50042 "BC6_Statement sans traite V2"
         TOCaptionLbl: Label 'TO', Comment = 'FRA="A"';
         Total_CaptionLbl: Label 'Total', Comment = 'FRA="Total"';
         TraiteTotalRemainingAmountCaptionLbl: Label 'Label1000000145';
-        Value_in__CaptionLbl: Label 'Value in :', Comment = 'FRA="Valeur en :"';
         txtlbl12: label '%1 %2';
+        Value_in__CaptionLbl: Label 'Value in :', Comment = 'FRA="Valeur en :"';
         Write_nothings_under_this_lineCaptionLbl: Label 'Write nothings under this line', Comment = 'FRA="ne rien inscrire au dessous de cette ligne"';
         DateChoice: Option "Due Date","Posting Date";
         AmountText: Text[30];
         CurrText_Gtxt: Text[30];
         IssueCity: Text[30];
-        CompanyAddr: array[8] of Text[50];
-        CustAddr: array[8] of Text[50];
-        CustAdr: array[8] of Text[50];
         Description: Text[50];
+        CompanyAddr: array[8] of Text[100];
+        CustAddr: array[8] of Text[100];
+        CustAdr: array[8] of Text[100];
 
     local procedure GetDate(PostngDate: Date; DuDate: Date): Date
     begin
@@ -920,7 +925,6 @@ report 50042 "BC6_Statement sans traite V2"
         TempAgingBandBuf.MODIFY();
     end;
 
-
     procedure SkipReversedUnapplied(var DtldCustLedgEntries: Record "Detailed Cust. Ledg. Entry"): Boolean
     var
         CustLedgEntry: Record "Cust. Ledger Entry";
@@ -938,7 +942,6 @@ report 50042 "BC6_Statement sans traite V2"
         EXIT(FALSE);
     end;
 
-
     procedure InitializeRequest(NewPrintEntriesDue: Boolean; NewPrintAllHavingEntry: Boolean; NewPrintAllHavingBal: Boolean; NewPrintReversedEntries: Boolean; NewPrintUnappliedEntries: Boolean; NewIncludeAgingBand: Boolean; NewPeriodLength: Text[30]; NewDateChoice: Option; NewLogInteraction: Boolean)
     begin
         InitRequestPageDataInternal();
@@ -953,7 +956,6 @@ report 50042 "BC6_Statement sans traite V2"
         DateChoice := NewDateChoice;
         LogInteraction := NewLogInteraction;
     end;
-
 
     procedure InitRequestPageDataInternal()
     begin
@@ -972,4 +974,3 @@ report 50042 "BC6_Statement sans traite V2"
             EVALUATE(PeriodLength, '<1M+CM>');
     end;
 }
-

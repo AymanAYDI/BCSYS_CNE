@@ -1,8 +1,8 @@
 report 50011 "BC6_Sales - Shipment CNE"
 {
+    Caption = 'Sales - Shipment', Comment = 'FRA="Ventes : Expédition"';
     DefaultLayout = RDLC;
     RDLCLayout = './src/Report/RDL/SalesShipmentCNE.rdl';
-    Caption = 'Sales - Shipment', Comment = 'FRA="Ventes : Expédition"';
 
     dataset
     {
@@ -279,23 +279,20 @@ report 50011 "BC6_Sales - Shipment CNE"
                                 CurrReport.SKIP();
 
                             // CNE6.01
-                            IF NOT (Cust."BC6_Shipt Print All Order Line") THEN BEGIN
+                            IF NOT (Cust."BC6_Shipt Print All Order Line") THEN
                                 CASE Type OF
                                     Type::Item:
-                                        BEGIN
-                                            IF (Quantity = 0) THEN BEGIN
-                                                ItemLineNo := "Line No.";
-                                                CurrReport.SKIP()
-                                            END ELSE
-                                                ItemLineNo := 0;
-                                        END;
+
+                                        IF (Quantity = 0) THEN BEGIN
+                                            ItemLineNo := "Line No.";
+                                            CurrReport.SKIP()
+                                        END ELSE
+                                            ItemLineNo := 0;
                                     Type::" ":
-                                        BEGIN
-                                            IF ("Attached to Line No." <> 0) AND ("Attached to Line No." = ItemLineNo) THEN
-                                                CurrReport.SKIP();
-                                        END;
+
+                                        IF ("Attached to Line No." <> 0) AND ("Attached to Line No." = ItemLineNo) THEN
+                                            CurrReport.SKIP();
                                 END;
-                            END;
 
                             SaleLine.RESET();
                             IF SaleLine.GET
@@ -373,17 +370,14 @@ report 50011 "BC6_Sales - Shipment CNE"
                             */
                             //>>FE005:DARI 20/02/2007
 
-
                             //>>FE005:DARI 22/02/2007
 
                             //>>COMPTA_DEEE FG 01/03/07
-                            IF RecGBillCustomer."BC6_Submitted to DEEE" THEN BEGIN
+                            IF RecGBillCustomer."BC6_Submitted to DEEE" THEN
                                 BooGVisible := (RecGItem."BC6_DEEE Category Code" <> '') AND (Quantity <> 0) AND (RecGItem."BC6_Eco partner DEEE" <> '')
-                            END ELSE BEGIN
+                            ELSE
                                 BooGVisible := FALSE;
-                            END;
                             //<<COMPTA_DEEE FG 01/03/07
-
                         end;
 
                         trigger OnPostDataItem()
@@ -397,7 +391,7 @@ report 50011 "BC6_Sales - Shipment CNE"
                             RecLSaleShipmentLine.SETFILTER("Document No.", "Document No.");
                             IF RecLSaleShipmentLine.FINDFIRST() THEN BEGIN
                                 RecLSaleShipmentHeader.SETFILTER("No.", RecLSaleShipmentLine."Document No.");
-                                IF RecLSaleShipmentHeader.FINDFIRST() THEN BEGIN
+                                IF RecLSaleShipmentHeader.FINDFIRST() THEN
                                     IF NOT RecLSaleShipmentHeader."Prices Including VAT" THEN BEGIN
                                         REPEAT
                                             DecGTotAmountHT := DecGTotAmountHT +
@@ -434,10 +428,8 @@ report 50011 "BC6_Sales - Shipment CNE"
                                         UNTIL RecLSaleShipmentLine.NEXT() = 0;
                                         DecGTotAmountTTC := DecGTotTVA + DecGTotAmountHT;
                                     END;
-                                END;
                             END;
                             //<<MIGRATION NAV 2013
-
                         end;
 
                         trigger OnPreDataItem()
@@ -631,9 +623,8 @@ report 50011 "BC6_Sales - Shipment CNE"
                     FormatAddr.RespCenter(CompanyAddr, RespCenter);
                     CompanyInfo."Phone No." := RespCenter."Phone No.";
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
-                END ELSE BEGIN
+                END ELSE
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
-                END;
 
                 //RecG_User.RESET ;
 
@@ -671,7 +662,6 @@ report 50011 "BC6_Sales - Shipment CNE"
                     PaymentTerms.INIT()
                 ELSE
                     PaymentTerms.GET("Payment Terms Code");
-
 
                 IF "Salesperson Code" = '' THEN BEGIN
                     SalesPurchPerson.INIT();
@@ -725,14 +715,12 @@ report 50011 "BC6_Sales - Shipment CNE"
                     ELSE
                         ShowAmounts := TRUE;
                 END;
-
             end;
         }
     }
 
     requestpage
     {
-
         layout
         {
             area(content)
@@ -740,25 +728,30 @@ report 50011 "BC6_Sales - Shipment CNE"
                 group(Options)
                 {
                     Caption = 'Options', Comment = 'FRA="Options"';
-                    field(NoOfCopies; NoOfCopies)
+                    field(NoOfCopiesF; NoOfCopies)
                     {
+                        ApplicationArea = All;
                         Caption = 'No. of Copies', Comment = 'FRA="Nombre de copies"';
                     }
-                    field(ShowInternalInfo; ShowInternalInfo)
+                    field(ShowInternalInfoF; ShowInternalInfo)
                     {
+                        ApplicationArea = All;
                         Caption = 'Show Internal Information', Comment = 'FRA="Afficher info. internes"';
                     }
-                    field(LogInteraction; LogInteraction)
+                    field(LogInteractionF; LogInteraction)
                     {
+                        ApplicationArea = All;
                         Caption = 'Log Interaction', Comment = 'FRA="Journal interaction"';
                         Enabled = LogInteractionEnable;
                     }
                     field("Show Correction Lines"; ShowCorrectionLines)
                     {
+                        ApplicationArea = All;
                         Caption = 'Show Correction Lines', Comment = 'FRA="Afficher lignes correction"';
                     }
-                    field(ShowAmountType; ShowAmountType)
+                    field(ShowAmountTypeF; ShowAmountType)
                     {
+                        ApplicationArea = All;
                         Caption = 'Valoriser le BL', Comment = 'FRA="Valoriser le BL"';
                         OptionCaption = 'Yes,No,Customer setting', Comment = 'FRA="Oui,Non,Paramètre client"';
                     }
@@ -889,16 +882,16 @@ report 50011 "BC6_Sales - Shipment CNE"
         DecGTVADEEE: Decimal;
         DecGUnitPriceNet: Decimal;
         DecGVATTotalAmount: Decimal;
+        "-DEEE1.00-": Integer;
         "--FEP-ADVE-200706_18_A.--": Integer;
         "--FG--": Integer;
-        "-- NSC 1.04 : ShowAmounts": Integer;
-        "--NSC2.0": Integer;
-        "-DEEE1.00-": Integer;
-        "-MICO-": Integer;
         i: Integer;
         ItemLineNo: Integer;
+        "-MICO-": Integer;
         NoOfCopies: Integer;
         NoOfLoops: Integer;
+        "-- NSC 1.04 : ShowAmounts": Integer;
+        "--NSC2.0": Integer;
         OutputNo: Integer;
         Address_Delivery_CaptionLbl: Label 'Address Delivery:', Comment = 'FRA="Adresse de livraison :"';
         AmountEco_ConributionCaptionLbl: Label 'AmountEco-Conribution', Comment = 'FRA="Total Eco-Contribution HT"';
@@ -951,13 +944,13 @@ report 50011 "BC6_Sales - Shipment CNE"
         TexGExternalDocument: Text[30];
         TxtGLblProjet: Text[30];
         TxtGNoProjet: Text[30];
-        CompanyAddr: array[8] of Text[50];
-        CustAddr: array[8] of Text[50];
-        ShipToAddr: array[8] of Text[50];
         TxtGDesignation: Text[50];
         TxtGTag: Text[50];
         VALExchRate: Text[50];
         OldDimText: Text[75];
+        CompanyAddr: array[8] of Text[100];
+        CustAddr: array[8] of Text[100];
+        ShipToAddr: array[8] of Text[100];
         DimText: Text[120];
 
     procedure InitLogInteraction()
@@ -982,4 +975,3 @@ report 50011 "BC6_Sales - Shipment CNE"
         TxtGTag := RecGParamVente."BC6_PDF Mail Tag" + TxtLTag;
     end;
 }
-

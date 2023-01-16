@@ -23,4 +23,3 @@ pageextension 50120 "BC6_SalesCreditMemos" extends "Sales Credit Memos" //9302
         }
     }
 }
-

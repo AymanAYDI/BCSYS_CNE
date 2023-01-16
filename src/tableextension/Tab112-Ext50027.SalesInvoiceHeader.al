@@ -10,8 +10,8 @@ tableextension 50027 "BC6_SalesInvoiceHeader" extends "Sales Invoice Header" //1
         field(50003; "BC6_Pay-to Customer No."; Code[20])
         {
             Caption = 'Pay-to Customer No.', comment = 'FRA="Tiers payeur"';
-            TableRelation = Customer;
             DataClassification = CustomerContent;
+            TableRelation = Customer;
         }
         field(50004; "BC6_Advance Payment"; Decimal)
         {
@@ -22,20 +22,20 @@ tableextension 50027 "BC6_SalesInvoiceHeader" extends "Sales Invoice Header" //1
         field(50005; "BC6_Affair No."; Code[20])
         {
             Caption = 'Affair No.', comment = 'FRA="N° Affaire"';
-            TableRelation = Job."No.";
             DataClassification = CustomerContent;
+            TableRelation = Job."No.";
         }
         field(50010; BC6_ID; Code[50])
         {
             Caption = 'User ID', comment = 'FRA="Code utilisateur"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50020; "BC6_Custom. Sales Profit Group"; Code[10])
         {
             Caption = 'Custom. Sales Profit Group', comment = 'FRA="Goupe Marge Vente Client"';
-            TableRelation = "Customer Sales Profit Group";
             DataClassification = CustomerContent;
+            TableRelation = "Customer Sales Profit Group";
         }
         field(50025; "BC6_Combine Shipments by Order"; Boolean)
         {
@@ -45,9 +45,9 @@ tableextension 50027 "BC6_SalesInvoiceHeader" extends "Sales Invoice Header" //1
         field(50026; "BC6_Purchase cost"; Decimal)
         {
             Caption = 'Purchase Cost', comment = 'FRA="Coût d''achat"';
+            DataClassification = CustomerContent;
             Editable = false;
             FieldClass = Normal;
-            DataClassification = CustomerContent;
         }
         field(50030; "BC6_Sales LCY"; Decimal)
         {
@@ -57,14 +57,14 @@ tableextension 50027 "BC6_SalesInvoiceHeader" extends "Sales Invoice Header" //1
         field(50031; "BC6_Profit LCY"; Decimal)
         {
             Caption = 'Profit LCY', comment = 'FRA="Marge DS"';
-            Editable = true;
             DataClassification = CustomerContent;
+            Editable = true;
         }
         field(50032; "BC6_% Profit"; Decimal)
         {
             Caption = '% Profit', comment = 'FRA="% de marge sur vente"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50033; BC6_Invoiced; Boolean)
         {
@@ -99,14 +99,14 @@ tableextension 50027 "BC6_SalesInvoiceHeader" extends "Sales Invoice Header" //1
         field(50071; "BC6_Shipment Invoiced"; Text[250])
         {
             Caption = 'Shipment Invoiced', comment = 'FRA="Expédition facturée"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50100; "BC6_Salesperson Filter"; Text[250])
         {
             Caption = 'Salesperson Filter', comment = 'FRA="Filtre vendeur"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
     }
     keys

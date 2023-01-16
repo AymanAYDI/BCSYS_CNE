@@ -1,10 +1,9 @@
 report 50004 "BC6_Combine Shipments" //295
 {
+    ApplicationArea = all;
     Caption = 'Combine Shipments', Comment = 'FRA="Regrouper les B.L."';
     ProcessingOnly = true;
     UsageCategory = ReportsAndAnalysis;
-    ApplicationArea = all;
-
 
     dataset
     {
@@ -359,5 +358,4 @@ report 50004 "BC6_Combine Shipments" //295
           (SalesOrderHeader."Journal Templ. Name" <> SalesHead."Journal Templ. Name");
         exit(Finalize);
     end;
-
 }

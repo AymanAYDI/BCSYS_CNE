@@ -84,10 +84,10 @@ page 50092 "BC6_Sales Quote Archive STD"
             }
             part(SalesLinesArchive; "Sales Quote Archive Subform")
             {
+                ApplicationArea = All;
                 SubPageLink = "Document No." = FIELD("No."),
                               "Doc. No. Occurrence" = FIELD("Doc. No. Occurrence"),
                               "Version No." = FIELD("Version No.");
-                ApplicationArea = All;
             }
             group(Invoicing)
             {
@@ -266,13 +266,13 @@ page 50092 "BC6_Sales Quote Archive STD"
         {
             systempart(Recordlinks; Links)
             {
-                Visible = false;
                 ApplicationArea = All;
+                Visible = false;
             }
             systempart(Notes; Notes)
             {
-                Visible = false;
                 ApplicationArea = All;
+                Visible = false;
             }
         }
     }
@@ -287,19 +287,19 @@ page 50092 "BC6_Sales Quote Archive STD"
                 Image = Versions;
                 action(Card)
                 {
+                    ApplicationArea = All;
                     Caption = 'Card', Comment = 'FRA="Fiche"';
                     Image = EditLines;
                     RunObject = Page "Customer Card";
                     RunPageLink = "No." = FIELD("Sell-to Customer No.");
                     ShortCutKey = 'Shift+F7';
-                    ApplicationArea = All;
                 }
                 action(Dimensions)
                 {
+                    ApplicationArea = All;
                     Caption = 'Dimensions', Comment = 'FRA="Axes analytiques"';
                     Image = Dimensions;
                     ShortCutKey = 'Shift+Ctrl+D';
-                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -309,6 +309,7 @@ page 50092 "BC6_Sales Quote Archive STD"
                 }
                 action("Co&mments")
                 {
+                    ApplicationArea = All;
                     Caption = 'Co&mments', Comment = 'FRA="Co&mmentaires"';
                     Image = ViewComments;
                     RunObject = Page "Sales Archive Comment Sheet";
@@ -317,13 +318,12 @@ page 50092 "BC6_Sales Quote Archive STD"
                                   "Document Line No." = CONST(0),
                                   "Doc. No. Occurrence" = FIELD("Doc. No. Occurrence"),
                                   "Version No." = FIELD("Version No.");
-                    ApplicationArea = All;
                 }
                 action(Print)
                 {
+                    ApplicationArea = All;
                     Caption = 'Print', Comment = 'FRA="Imprimer"';
                     Image = Print;
-                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -336,13 +336,13 @@ page 50092 "BC6_Sales Quote Archive STD"
         {
             action(Restore)
             {
+                ApplicationArea = All;
                 Caption = '&Restore', Comment = 'FRA="&Restaurer"';
                 Ellipsis = true;
                 Image = Restore;
                 Promoted = true;
-                PromotedOnly = true;
                 PromotedCategory = Process;
-                ApplicationArea = All;
+                PromotedOnly = true;
 
                 trigger OnAction()
                 var
@@ -357,4 +357,3 @@ page 50092 "BC6_Sales Quote Archive STD"
     var
         DocPrint: Codeunit "Document-Print";
 }
-

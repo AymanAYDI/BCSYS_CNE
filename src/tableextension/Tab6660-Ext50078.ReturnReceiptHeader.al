@@ -10,8 +10,8 @@ tableextension 50078 "BC6_ReturnReceiptHeader" extends "Return Receipt Header" /
         field(50003; "BC6_Pay-to Customer No."; Code[20])
         {
             Caption = 'Pay-to Customer No.', Comment = 'FRA="Tiers payeur"';
-            TableRelation = Customer;
             DataClassification = CustomerContent;
+            TableRelation = Customer;
         }
         field(50004; "BC6_Advance Payment"; Decimal)
         {
@@ -22,14 +22,14 @@ tableextension 50078 "BC6_ReturnReceiptHeader" extends "Return Receipt Header" /
         field(50010; BC6_ID; Code[50])
         {
             Caption = 'User ID', Comment = 'FRA="Code utilisateur"';
-            TableRelation = User;
             DataClassification = CustomerContent;
+            TableRelation = User;
         }
         field(50020; "BC6_Cust. Sales Profit Group"; Code[10])
         {
             Caption = 'Goupe Marge Vente Client', Comment = 'FRA="Goupe Marge Vente Client"';
-            TableRelation = "Customer Sales Profit Group";
             DataClassification = CustomerContent;
+            TableRelation = "Customer Sales Profit Group";
         }
         field(50025; "BC6_Combine Shipments by Order"; Boolean)
         {
@@ -38,9 +38,9 @@ tableextension 50078 "BC6_ReturnReceiptHeader" extends "Return Receipt Header" /
         }
         field(50026; "BC6_Purchase Cost"; Decimal)
         {
-            Editable = false;
-            DataClassification = CustomerContent;
             Caption = 'Purchase Cost';
+            DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50030; "BC6_Sales LCY"; Decimal)
         {
@@ -50,8 +50,8 @@ tableextension 50078 "BC6_ReturnReceiptHeader" extends "Return Receipt Header" /
         field(50031; "BC6_Profit LCY"; Decimal)
         {
             Caption = 'Marge DS', Comment = 'FRA="Marge DS"';
-            Editable = true;
             DataClassification = CustomerContent;
+            Editable = true;
         }
         field(50032; "BC6_% Profit"; Decimal)
         {

@@ -1,12 +1,13 @@
 page 50036 "BC6_Sales Lines Subform 2"
 {
+    ApplicationArea = All;
     Caption = 'Sales Lines Subform', Comment = 'FRA="Sous-formulaire lignes vente"';
     Editable = false;
     MultipleNewLines = true;
-    PageType = Card;
+    PageType = List;
     SourceTable = "Sales Line";
     SourceTableView = SORTING("Document Type", "Bill-to Customer No.", "Currency Code");
-    UsageCategory = Administration;
+    UsageCategory = Lists;
 
     layout
     {
@@ -16,9 +17,9 @@ page 50036 "BC6_Sales Lines Subform 2"
             {
                 field("Document No."; Rec."Document No.")
                 {
+                    ApplicationArea = All;
                     HideValue = "Document No.HideValue";
                     Lookup = false;
-                    ApplicationArea = All;
                 }
                 field("Document Date flow"; Rec."BC6_Document Date flow")
                 {
@@ -42,13 +43,13 @@ page 50036 "BC6_Sales Lines Subform 2"
                 }
                 field("Bill-to Customer No."; Rec."Bill-to Customer No.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Sell-to Customer No."; Rec."Sell-to Customer No.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field(Type; Rec.Type)
                 {
@@ -60,18 +61,18 @@ page 50036 "BC6_Sales Lines Subform 2"
                 }
                 field("Cross-Reference No."; Rec."Item Reference No.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Variant Code"; Rec."Variant Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field(Nonstock; Rec.Nonstock)
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field(Description; Rec.Description)
                 {
@@ -79,33 +80,33 @@ page 50036 "BC6_Sales Lines Subform 2"
                 }
                 field("Return Reason Code"; Rec."Return Reason Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Currency Code"; Rec."Currency Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Location Code"; Rec."Location Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Bin Code"; Rec."Bin Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Unit of Measure Code"; Rec."Unit of Measure Code")
                 {
@@ -113,24 +114,24 @@ page 50036 "BC6_Sales Lines Subform 2"
                 }
                 field(Quantity; Rec.Quantity)
                 {
-                    BlankZero = true;
                     ApplicationArea = All;
+                    BlankZero = true;
                 }
                 field("Unit of Measure"; Rec."Unit of Measure")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Unit Cost (LCY)"; Rec."Unit Cost (LCY)")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Line Discount %"; Rec."Line Discount %")
                 {
+                    ApplicationArea = All;
                     BlankNumbers = DontBlank;
                     BlankZero = true;
-                    ApplicationArea = All;
                 }
                 field("DEEE Category Code"; Rec."BC6_DEEE Category Code")
                 {
@@ -154,8 +155,8 @@ page 50036 "BC6_Sales Lines Subform 2"
                 }
                 field("Line Discount Amount"; Rec."Line Discount Amount")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Line Amount"; Rec."Line Amount")
                 {
@@ -167,55 +168,55 @@ page 50036 "BC6_Sales Lines Subform 2"
                 }
                 field("Allow Invoice Disc."; Rec."Allow Invoice Disc.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Inv. Discount Amount"; Rec."Inv. Discount Amount")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Allow Item Charge Assignment"; Rec."Allow Item Charge Assignment")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Qty. to Assign"; Rec."Qty. to Assign")
                 {
+                    ApplicationArea = All;
                     BlankZero = true;
                     Visible = false;
-                    ApplicationArea = All;
                 }
                 field("Qty. Assigned"; Rec."Qty. Assigned")
                 {
+                    ApplicationArea = All;
                     BlankZero = true;
                     Visible = false;
-                    ApplicationArea = All;
                 }
                 field("Job No."; Rec."Job No.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Blanket Order No."; Rec."Blanket Order No.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Blanket Order Line No."; Rec."Blanket Order Line No.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Appl.-from Item Entry"; Rec."Appl.-from Item Entry")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Appl.-to Item Entry"; Rec."Appl.-to Item Entry")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
             }
         }
@@ -281,4 +282,3 @@ page 50036 "BC6_Sales Lines Subform 2"
             "Document No.HideValue" := TRUE;
     end;
 }
-

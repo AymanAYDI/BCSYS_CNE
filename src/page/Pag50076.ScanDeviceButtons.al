@@ -11,14 +11,13 @@ page 50076 "BC6_ScanDeviceButtons"
         {
             field(Button1; Rec."Media ID")
             {
-                ShowCaption = false;
                 ApplicationArea = All;
+                ShowCaption = false;
 
                 trigger OnAssistEdit()
                 begin
                     MESSAGE('Button 1');
                 end;
-
 
                 trigger OnDrillDown()
                 begin
@@ -40,4 +39,3 @@ page 50076 "BC6_ScanDeviceButtons"
     var
         MyValue: Text;
 }
-

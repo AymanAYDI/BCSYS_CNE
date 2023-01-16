@@ -6,8 +6,8 @@ pageextension 50016 "BC6_SalesCreditMemo" extends "Sales Credit Memo" //44
         {
             field(BC6_ID; Rec.BC6_ID)
             {
-                Editable = false;
                 ApplicationArea = All;
+                Editable = false;
             }
             field("BC6_Sell-to Fax No."; Rec."BC6_Sell-to Fax No.")
             {
@@ -34,7 +34,6 @@ pageextension 50016 "BC6_SalesCreditMemo" extends "Sales Credit Memo" //44
     }
     actions
     {
-
         modify(TestReport)
         {
             Visible = false;
@@ -63,7 +62,6 @@ pageextension 50016 "BC6_SalesCreditMemo" extends "Sales Credit Memo" //44
                 end;
             }
         }
-
     }
 
     var
@@ -76,8 +74,6 @@ pageextension 50016 "BC6_SalesCreditMemo" extends "Sales Credit Memo" //44
         STR5: Label 'Envoyer par Fax';
         Text001: Label '';
         nameF: Text[250];
-
-
 
     procedure EnvoiMail()
     begin
@@ -110,4 +106,3 @@ pageextension 50016 "BC6_SalesCreditMemo" extends "Sales Credit Memo" //44
     begin
     end;
 }
-

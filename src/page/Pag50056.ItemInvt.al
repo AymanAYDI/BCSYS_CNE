@@ -15,8 +15,8 @@ page 50056 "BC6_Item Invt."
         {
             usercontrol(ScanZone; "BC6_ControlAddinScanCapture")
             {
-                Visible = true;
                 ApplicationArea = All;
+                Visible = true;
 
                 trigger ControlAddInReady()
                 begin
@@ -75,16 +75,15 @@ page 50056 "BC6_Item Invt."
                             END;
                     END;
                 end;
-
             }
             field(ItemNo; ItemNo)
             {
+                ApplicationArea = All;
                 Caption = 'Item Filter', Comment = 'FRA="N° article"';
                 Importance = Promoted;
                 Style = Standard;
                 StyleExpr = TRUE;
                 Visible = false;
-                ApplicationArea = All;
 
                 trigger OnLookup(var Text: Text): Boolean
                 begin
@@ -114,9 +113,9 @@ page 50056 "BC6_Item Invt."
             }
             field(ItemDescription; ItemDescription)
             {
+                ApplicationArea = All;
                 Caption = 'Item Filter', Comment = 'FRA="Filtre article"';
                 Editable = false;
-                ApplicationArea = All;
 
                 trigger OnValidate()
                 begin
@@ -129,8 +128,8 @@ page 50056 "BC6_Item Invt."
                 Editable = false;
                 field("Location Code"; Rec."Location Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
 
                     trigger OnLookup(var Text: Text): Boolean
                     begin
@@ -145,11 +144,11 @@ page 50056 "BC6_Item Invt."
                 }
                 field("Bin Code"; Rec."Bin Code")
                 {
+                    ApplicationArea = All;
                     Importance = Promoted;
                     Style = StrongAccent;
                     StyleExpr = TRUE;
                     Visible = true;
-                    ApplicationArea = All;
 
                     trigger OnLookup(var Text: Text): Boolean
                     begin
@@ -164,9 +163,9 @@ page 50056 "BC6_Item Invt."
                 }
                 field(Quantity; Rec.Quantity)
                 {
+                    ApplicationArea = All;
                     Style = StrongAccent;
                     StyleExpr = TRUE;
-                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -176,33 +175,32 @@ page 50056 "BC6_Item Invt."
                 }
                 field("Pick Qty."; Rec."Pick Qty.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Available Qty. to Take"; CalcAvailQty())
                 {
+                    ApplicationArea = All;
                     Caption = 'Available Qty. to Take', Comment = 'FRA="Qté disponible pour prélèv."';
                     DecimalPlaces = 0 : 0;
                     Style = AttentionAccent;
                     StyleExpr = TRUE;
-                    ApplicationArea = All;
                 }
                 field(Default; Rec.Default)
                 {
-                    Image = "None";
+                    ApplicationArea = All;
                     Importance = Additional;
                     Visible = false;
-                    ApplicationArea = All;
                 }
                 field(Fixed; Rec.Fixed)
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Unit of Measure Code"; Rec."Unit of Measure Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
 
                     trigger OnLookup(var Text: Text): Boolean
                     begin
@@ -211,8 +209,8 @@ page 50056 "BC6_Item Invt."
                 }
                 field("Item No."; Rec."Item No.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
             }
         }
@@ -220,9 +218,9 @@ page 50056 "BC6_Item Invt."
         {
             part(ItemDetailsFB; "BC6_Item ScanDevice Factbox")
             {
+                ApplicationArea = All;
                 Caption = 'Item Details', Comment = 'FRA="Détails Article"';
                 SubPageLink = "No." = FIELD("Item No.");
-                ApplicationArea = All;
             }
         }
     }
@@ -233,9 +231,9 @@ page 50056 "BC6_Item Invt."
         {
             group(Action1)
             {
-
                 action(ChangeDefBin)
                 {
+                    ApplicationArea = All;
                     Caption = 'Change Def. Bin content', Comment = 'FRA="Modifier emp. par déf."';
                     Enabled = IsChangeBinEnabled;
                     Image = BinContent;
@@ -243,8 +241,6 @@ page 50056 "BC6_Item Invt."
                     PromotedCategory = Process;
                     PromotedIsBig = true;
                     PromotedOnly = true;
-                    ApplicationArea = All;
-
 
                     trigger OnAction()
                     begin
@@ -284,7 +280,6 @@ page 50056 "BC6_Item Invt."
         ItemNoCaption: Label 'Item No.', Comment = 'FRA="N° Article"';
         ItemDescription: Text[250];
 
-
     procedure SetRecFilters()
     begin
         ItemNo := Item."No.";
@@ -300,7 +295,6 @@ page 50056 "BC6_Item Invt."
         END;
         ClearFilters();
     end;
-
 
     procedure ClearFilters()
     begin
@@ -328,7 +322,6 @@ page 50056 "BC6_Item Invt."
         SetRecFilters();
     end;
 
-
     procedure CalcAvailQty(): Decimal
     begin
         EXIT(Rec.Quantity - Rec."Pick Qty." - Rec."Neg. Adjmt. Qty.");
@@ -347,4 +340,3 @@ page 50056 "BC6_Item Invt."
         SetRecFilters();
     end;
 }
-

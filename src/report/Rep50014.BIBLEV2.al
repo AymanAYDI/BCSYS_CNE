@@ -1,10 +1,10 @@
 report 50014 "BC6_BIBLE V2"
 {
+    ApplicationArea = all;
+    Caption = 'BIBLE', Comment = 'FRA="BIBLE"';
     DefaultLayout = RDLC;
     RDLCLayout = './src/Report/RDL/BIBLEV2.rdl';
-    Caption = 'BIBLE', Comment = 'FRA="BIBLE"';
     UsageCategory = ReportsAndAnalysis;
-    ApplicationArea = all;
 
     dataset
     {
@@ -24,10 +24,10 @@ report 50014 "BC6_BIBLE V2"
             column("USERID"; USERID)
             {
             }
-            column(BL_____FORMAT_DatGStartingDateShipment_______FORMAT_DatGEndingDateShipment_; 'BL : ' + FORMAT(DatGStartingDateShipment) + '..' + FORMAT(DatGEndingDateShipment))
+            column(BL_____FORMAT_DatGStartingDateShipment_______FORMAT_DatGEndingDateShipment_; 'BL : ' + FORMAT(DatGStartingDateShipment) + '..' + FORMAT(DatGEndingDateShipmentG))
             {
             }
-            column(Commande_____FORMAT_DatGStartingDateOrder_______FORMAT_DatGEndingDateOrder_; 'Commande : ' + FORMAT(DatGStartingDateOrder) + '..' + FORMAT(DatGEndingDateOrder))
+            column(Commande_____FORMAT_DatGStartingDateOrder_______FORMAT_DatGEndingDateOrder_; 'Commande : ' + FORMAT(DatGStartingDateOrderG) + '..' + FORMAT(DatGEndingDateOrderG))
             {
             }
             column(Total_BL_et_Commande__; 'Total BL et Commande ')
@@ -93,10 +93,10 @@ report 50014 "BC6_BIBLE V2"
             column(Sales_Shipment_Header__No__Caption; "Sales Shipment Header".FIELDCAPTION("No."))
             {
             }
-            column(Total_BL___FORMAT_DatGStartingDateShipment_______FORMAT_DatGEndingDateShipment_; 'Total BL ' + FORMAT(DatGStartingDateShipment) + '..' + FORMAT(DatGEndingDateShipment))
+            column(Total_BL___FORMAT_DatGStartingDateShipment_______FORMAT_DatGEndingDateShipment_; 'Total BL ' + FORMAT(DatGStartingDateShipment) + '..' + FORMAT(DatGEndingDateShipmentG))
             {
             }
-            column(Total_BL___FORMAT_DatGStartingDateOrder_______FORMAT_DatGEndingDateOrder_; 'Total BL ' + FORMAT(DatGStartingDateOrder) + '..' + FORMAT(DatGEndingDateOrder))
+            column(Total_BL___FORMAT_DatGStartingDateOrder_______FORMAT_DatGEndingDateOrder_; 'Total BL ' + FORMAT(DatGStartingDateOrderG) + '..' + FORMAT(DatGEndingDateOrderG))
             {
             }
             column(Sales_Line__Sales_Line___No__Caption; Sales_Line__Sales_Line___No__CaptionLbl)
@@ -251,10 +251,8 @@ report 50014 "BC6_BIBLE V2"
                             DecGPourcProfit := (RecGSaleLine."BC6_Discount unit price" - RecGSaleLine."BC6_Purchase cost") / RecGSaleLine."BC6_Discount unit price" *
                         100
 
-
                         ELSE
                             decLLineAmount := 0;
-
 
                         //>>FEP-ADVE-200711_21_A-DEROGATOIRE
                         IF "Sales Shipment Line"."BC6_Dispensation No." <> '' THEN
@@ -280,7 +278,7 @@ report 50014 "BC6_BIBLE V2"
                     RecLSaleShipLine: Record "Sales Shipment Line";
                     RecLSaleShipLine2: Record "Sales Shipment Line";
                 begin
-                    IF NOT ("Sales Shipment Header"."Posting Date" IN [DatGStartingDateShipment .. DatGEndingDateShipment]) THEN
+                    IF NOT ("Sales Shipment Header"."Posting Date" IN [DatGStartingDateShipment .. DatGEndingDateShipmentG]) THEN
                         CurrReport.SKIP();
 
                     DeGTotalAmount := 0;
@@ -305,7 +303,6 @@ report 50014 "BC6_BIBLE V2"
 
                     IF DeGTotalAmount <> 0 THEN
                         DecGPourTotalProfit := DecGTotalProfit / DeGTotalAmount * 100;
-
 
                     RecLSaleShipLine2.SETFILTER("Document No.", "No.");
                     RecLSaleShipLine2.SETFILTER(Type, '<>%1', RecLSalesLine.Type::Item);
@@ -365,7 +362,7 @@ report 50014 "BC6_BIBLE V2"
                     RecLSaleShipLine2: Record "Sales Shipment Line";
                     DecLExpAmount: Decimal;
                 begin
-                    IF NOT (SalesShipmentHeader2."Posting Date" IN [DatGStartingDateOrder .. DatGEndingDateOrder]) THEN
+                    IF NOT (SalesShipmentHeader2."Posting Date" IN [DatGStartingDateOrderG .. DatGEndingDateOrderG]) THEN
                         CurrReport.SKIP();
 
                     //Calculation of the delivery order footer Period2
@@ -382,7 +379,6 @@ report 50014 "BC6_BIBLE V2"
                                 DecGTotOrderAmount := DecGTotOrderAmount + RecLSalesLine."BC6_Discount unit price" * RecLSaleShipLine."Qty. Shipped Not Invoiced";
                             DecGTotOrderProfit := DecGTotOrderProfit + RecLSaleShipLine."Qty. Shipped Not Invoiced" *
                                                                        (RecLSalesLine."BC6_Discount unit price" - RecLSalesLine."BC6_Purchase cost");
-
                         UNTIL RecLSaleShipLine.NEXT() = 0;
 
                     IF DecGTotOrderAmount <> 0 THEN
@@ -439,7 +435,7 @@ report 50014 "BC6_BIBLE V2"
                 column(DecGTotOrderexpAmount; DecGTotOrderexpAmount)
                 {
                 }
-                column(Total___FORMAT_IntGNbCde____commande_s____FORMAT_DatGStartingDateOrder_______FORMAT_DatGEndingDateOrder_; 'Total ' + FORMAT(IntGNbCde) + ' commande(s) ' + FORMAT(DatGStartingDateOrder) + '..' + FORMAT(DatGEndingDateOrder))
+                column(Total___FORMAT_IntGNbCde____commande_s____FORMAT_DatGStartingDateOrder_______FORMAT_DatGEndingDateOrder_; 'Total ' + FORMAT(IntGNbCde) + ' commande(s) ' + FORMAT(DatGStartingDateOrderG) + '..' + FORMAT(DatGEndingDateOrderG))
                 {
                 }
                 column(DecGTotPeriod2Amount; DecGTotPeriod2Amount)
@@ -528,7 +524,6 @@ report 50014 "BC6_BIBLE V2"
                         IF "Sales Line"."Outstanding Quantity" * "Sales Line"."BC6_Discount unit price" <> 0 THEN
                             DecGOrderPour := ("Sales Line"."BC6_Discount unit price" - "Sales Line"."BC6_Purchase cost") /
                                               "Sales Line"."BC6_Discount unit price" * 100;
-
 
                         //>>FEP-ADVE-200711_21_A-DEROGATOIRE
                         IF "Sales Line"."BC6_Dispensation No." <> '' THEN
@@ -624,12 +619,10 @@ report 50014 "BC6_BIBLE V2"
                                     RecLSalesLine."Outstanding Quantity" * (RecLSalesLine."BC6_Discount unit price" - RecLSalesLine."BC6_Purchase cost");
                             END;
                         //<<TODOLIST DARI 07/03/2007 point 70
-
                         UNTIL RecLSalesLine.NEXT() = 0;
 
                     IF DecGTotalOrderAmount <> 0 THEN
                         DecGTotalOrderPour := DecGTotalOrderProfit / DecGTotalOrderAmount * 100;
-
 
                     RecLSalesLine2.SETRANGE("Document Type", "Sales Header"."Document Type");
                     RecLSalesLine2.SETFILTER("Document No.", "Sales Header"."No.");
@@ -657,7 +650,6 @@ report 50014 "BC6_BIBLE V2"
                     DecGTotPeriod2Exp := DecGTotPeriod2Exp + DecGTotOrderexpAmount;
                     IF DecGTotPeriod2Amount <> 0 THEN
                         DecGTotPeriod2Pourc := DecGTotPeriod2Profit / DecGTotPeriod2Amount * 100;
-
                 end;
 
                 trigger OnPreDataItem()
@@ -673,7 +665,6 @@ report 50014 "BC6_BIBLE V2"
 
     requestpage
     {
-
         layout
         {
             area(content)
@@ -683,22 +674,22 @@ report 50014 "BC6_BIBLE V2"
                     Caption = 'Intervalles de dates';
                     group(Livraisons)
                     {
-                        field(DatGStartingDateShipment; DatGStartingDateShipment)
+                        field(DatGStartingDateShipmentF; DatGStartingDateShipment)
                         {
                             Caption = 'Date début';
                         }
-                        field(DatGEndingDateShipment; DatGEndingDateShipment)
+                        field(DatGEndingDateShipment; DatGEndingDateShipmentG)
                         {
                             Caption = 'Date fin';
                         }
                     }
                     group(Commandes)
                     {
-                        field(DatGStartingDateOrder; DatGStartingDateOrder)
+                        field(DatGStartingDateOrder; DatGStartingDateOrderG)
                         {
                             Caption = 'Date début';
                         }
-                        field(DatGEndingDateOrder; DatGEndingDateOrder)
+                        field(DatGEndingDateOrder; DatGEndingDateOrderG)
                         {
                             Caption = 'Date fin';
                         }
@@ -719,11 +710,11 @@ report 50014 "BC6_BIBLE V2"
     trigger OnInitReport()
     begin
         DatGStartingDateShipment := WORKDATE();
-        DatGEndingDateShipment := WORKDATE();
-        DatGStartingDateOrder := CALCDATE('-1M+FM+1J', WORKDATE());
-        DatGEndingDateOrder := CALCDATE('+FM', WORKDATE());
+        DatGEndingDateShipmentG := WORKDATE();
+        DatGStartingDateOrderG := CALCDATE('-1M+FM+1J', WORKDATE());
+        DatGEndingDateOrderG := CALCDATE('+FM', WORKDATE());
 
-        IF (DatGStartingDateShipment = 0D) OR (DatGEndingDateShipment = 0D) OR (DatGStartingDateOrder = 0D) OR (DatGEndingDateOrder = 0D) THEN
+        IF (DatGStartingDateShipment = 0D) OR (DatGEndingDateShipmentG = 0D) OR (DatGStartingDateOrderG = 0D) OR (DatGEndingDateOrderG = 0D) THEN
             ERROR('Veuillez renseigner toutes les dates.');
     end;
 
@@ -731,9 +722,9 @@ report 50014 "BC6_BIBLE V2"
         RecGSaleHeader: Record "Sales Header";
         RecGSaleLine: Record "Sales Line";
         BooGFlag: Boolean;
-        DatGEndingDateOrder: Date;
-        DatGEndingDateShipment: Date;
-        DatGStartingDateOrder: Date;
+        DatGEndingDateOrderG: Date;
+        DatGEndingDateShipmentG: Date;
+        DatGStartingDateOrderG: Date;
         DatGStartingDateShipment: Date;
         DecGAmount: Decimal;
         DecGChargeAmount: Decimal;
@@ -766,8 +757,8 @@ report 50014 "BC6_BIBLE V2"
         DecGTotPour: Decimal;
         DecTotBLOrderPourc: Decimal;
         DeGTotalAmount: Decimal;
-        "--FEP-ADVE-200711_21_A--": Integer;
         "//--Total Order Period2--//": Integer;
+        "--FEP-ADVE-200711_21_A--": Integer;
         IntGNbCde: Integer;
         IntGNbLine: Integer;
         IntGOrderLine: Integer;
@@ -796,7 +787,6 @@ report 50014 "BC6_BIBLE V2"
         Sales_Shipment_Line_Qty_Shipped_Not_Invoiced_RecGSaleLine_Discount_unit_price_RecGSaleLine_Purchase_cost_CaptionLbl: Label 'Profil Amount', Comment = 'FRA="Montant ligne HT"';
         TxtGDerogation: Text[30];
 
-
     procedure SalesLineDateOk(ShipmentDate: Date; ReceiptDate: Date; InvoicedDate: Date): Boolean
     begin
         //BC6>>
@@ -804,8 +794,7 @@ report 50014 "BC6_BIBLE V2"
             ShipmentDate := InvoicedDate;
         //BC6<<
         IF ReceiptDate <> 0D THEN
-            EXIT(ReceiptDate IN [DatGStartingDateOrder .. DatGEndingDateOrder]);
-        EXIT(ShipmentDate IN [DatGStartingDateOrder .. DatGEndingDateOrder]);
+            EXIT(ReceiptDate IN [DatGStartingDateOrderG .. DatGEndingDateOrderG]);
+        EXIT(ShipmentDate IN [DatGStartingDateOrderG .. DatGEndingDateOrderG]);
     end;
 }
-

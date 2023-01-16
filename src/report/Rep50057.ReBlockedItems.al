@@ -17,12 +17,10 @@ report 50057 "BC6_Re Blocked Items"
                 Window.UPDATE(2, Counter);
                 Window.UPDATE(3, TotalCounter);
 
-
                 IF Item."No. 2" = 'BLOQUE' THEN BEGIN
                     Item.Blocked := TRUE;
                     Item.MODIFY(FALSE);
                 END;
-
             end;
 
             trigger OnPreDataItem()
@@ -39,7 +37,6 @@ report 50057 "BC6_Re Blocked Items"
 
     requestpage
     {
-
         layout
         {
         }
@@ -61,4 +58,3 @@ report 50057 "BC6_Re Blocked Items"
         Text003: Label 'Item No. #1#############', comment = 'FRA="article n° #1#############"';
         Text004: Label '           #2#####|#3#####';
 }
-

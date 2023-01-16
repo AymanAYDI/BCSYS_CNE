@@ -3,8 +3,6 @@ pageextension 50026 "BC6_JobCard" extends "Job Card" //88
     Caption = 'Job Card', comment = 'FRA="Fiche affaire"';
     layout
     {
-
-
         modify("Bill-to Address")
         {
             Visible = FALSE;
@@ -60,15 +58,14 @@ pageextension 50026 "BC6_JobCard" extends "Job Card" //88
             {
                 ApplicationArea = All;
             }
-
         }
 
         addafter("Description")
         {
             field("BC6_Description 2"; Rec."Description 2")
             {
-                Importance = Promoted;
                 ApplicationArea = All;
+                Importance = Promoted;
             }
         }
         addafter("Last Date Modified")
@@ -103,16 +100,14 @@ pageextension 50026 "BC6_JobCard" extends "Job Card" //88
                     END;
                 end;
             }
-
         }
         addafter("Creation Date")
         {
             field("BC6_Bill-to Contact_BA"; Rec."Bill-to Contact")
             {
-                Caption = 'Budget Amount', comment = 'FRA="Montant projet"';
                 ApplicationArea = All;
+                Caption = 'Budget Amount', comment = 'FRA="Montant projet"';
             }
-
         }
         addafter("Calc. Recog. Costs G/L Amount")
         {
@@ -121,8 +116,8 @@ pageextension 50026 "BC6_JobCard" extends "Job Card" //88
                 Caption = 'Contact';
                 part(ContactAffairSub; "BC6_Contact Affair Subform")
                 {
-                    SubPageLink = "Affair No." = FIELD("No.");
                     ApplicationArea = All;
+                    SubPageLink = "Affair No." = FIELD("No.");
                 }
             }
 
@@ -131,12 +126,11 @@ pageextension 50026 "BC6_JobCard" extends "Job Card" //88
                 Caption = 'Commentaire';
                 part(AffairCommentSub; "BC6_Affair Comment Sub-form")
                 {
+                    ApplicationArea = All;
                     SubPageLink = "Table Name" = FILTER(Job),
                                   "No." = FIELD("No.");
-                    ApplicationArea = All;
                 }
             }
-
         }
     }
     actions
@@ -145,26 +139,24 @@ pageextension 50026 "BC6_JobCard" extends "Job Card" //88
         {
             Caption = '&Job', comment = 'FRA="Affaire"';
         }
-
         addafter("&Online Map")
         {
             action("BC6_Sales document list")
             {
+                ApplicationArea = All;
                 Caption = 'Sales document list', Comment = 'FRA="Documents ventes"';
                 Image = Sales;
                 RunObject = Page "Sales List";
                 RunPageLink = "BC6_Affair No." = FIELD("No.");
-                ApplicationArea = All;
             }
             action("BC6_Purchase Doc. List")
             {
+                ApplicationArea = All;
                 Caption = 'Purchase Doc. List', Comment = 'FRA="Document achats"';
                 Image = Purchase;
                 RunObject = Page "Purchase List";
                 RunPageLink = "BC6_Affair No." = FIELD("No.");
-                ApplicationArea = All;
             }
-
         }
         modify("&Prices")
         {
@@ -185,8 +177,9 @@ pageextension 50026 "BC6_JobCard" extends "Job Card" //88
                 Caption = 'Associated Document', Comment = 'FRA="Document Associé"';
                 action(BC6_AssociatedDocument)
                 {
-                    Caption = 'Associated Document', Comment = 'FRA="Document Associé"';
                     ApplicationArea = All;
+                    Caption = 'Associated Document', Comment = 'FRA="Document Associé"';
+                    image = AssemblyOrder;
                     trigger OnAction()
                     var
                         Doc: Record "BC6_Navi+ Documents";
@@ -202,6 +195,5 @@ pageextension 50026 "BC6_JobCard" extends "Job Card" //88
                 }
             }
         }
-
     }
 }

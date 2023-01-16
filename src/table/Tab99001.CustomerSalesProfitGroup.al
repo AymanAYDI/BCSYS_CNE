@@ -1,8 +1,8 @@
 table 99001 "Customer Sales Profit Group"
 {
     Caption = 'Groupe Marge Vente Client';
-    LookupPageID = "BC6_Customer Profit";
     DataClassification = CustomerContent;
+    LookupPageID = "BC6_Customer Profit";
 
     fields
     {

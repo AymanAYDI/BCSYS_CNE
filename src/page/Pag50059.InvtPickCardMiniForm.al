@@ -21,8 +21,8 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
             {
                 usercontrol(ScanZone; "BC6_ControlAddinScanCapture")
                 {
-                    Visible = true;
                     ApplicationArea = All;
+                    Visible = true;
 
                     trigger ControlAddInReady()
                     var
@@ -171,7 +171,6 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
 
                             4:
                                 ;
-
                         END;
                     end;
 
@@ -243,20 +242,19 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
 
                             3:
                                 CloseAndOpenCurrentPick();
-
                         END;
                         RefreshDataControlAddin()
                     end;
                 }
                 field(PickNoCtrl; PickNo)
                 {
+                    ApplicationArea = All;
                     Caption = 'Pick No.', Comment = 'FRA="N° prélèvement"';
                     Editable = true;
                     Numeric = false;
                     Style = Standard;
                     StyleExpr = TRUE;
                     Visible = false;
-                    ApplicationArea = All;
 
                     trigger OnLookup(var Text: Text): Boolean
                     var
@@ -287,6 +285,7 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                 }
                 field(LocationCodeCtrl; LocationCode)
                 {
+                    ApplicationArea = All;
                     Caption = 'Location', Comment = 'FRA="Magasin"';
                     Editable = false;
                     Numeric = false;
@@ -294,7 +293,6 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                     StyleExpr = TRUE;
                     TableRelation = Location;
                     Visible = LocationCodeVisible;
-                    ApplicationArea = All;
 
                     trigger OnLookup(var Text: Text): Boolean
                     var
@@ -324,13 +322,13 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                 }
                 field(FromBinCodeCtrl; FromBinCode)
                 {
+                    ApplicationArea = All;
                     Caption = 'Bin Code', Comment = 'FRA="De empl."';
                     Editable = true;
                     Style = Standard;
                     StyleExpr = TRUE;
                     TableRelation = Bin.Code;
                     Visible = false;
-                    ApplicationArea = All;
 
                     trigger OnLookup(var Text: Text): Boolean
                     var
@@ -381,12 +379,12 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                 }
                 field(ItemNoCtrl; ItemNo)
                 {
+                    ApplicationArea = All;
                     Caption = 'Item nr', Comment = 'FRA="N° article"';
                     NotBlank = false;
                     Style = Standard;
                     StyleExpr = TRUE;
                     Visible = false;
-                    ApplicationArea = All;
 
                     trigger OnLookup(var Text: Text): Boolean
                     var
@@ -418,12 +416,12 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                 }
                 field(QtyCtrl; Qty)
                 {
+                    ApplicationArea = All;
                     Caption = 'Quantity', Comment = 'FRA="Quantité"';
                     Editable = QtyCtrlEditable;
                     Style = Standard;
                     StyleExpr = TRUE;
                     Visible = false;
-                    ApplicationArea = All;
 
                     trigger OnValidate()
                     begin
@@ -433,18 +431,18 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
                 }
                 field(Description; Rec.Description)
                 {
-                    Editable = false;
                     ApplicationArea = All;
+                    Editable = false;
                 }
                 field(ToBinCodeCtrl; ToBinCode)
                 {
+                    ApplicationArea = All;
                     Caption = 'Bin Code', Comment = 'FRA="Vers emp."';
                     Editable = false;
                     Style = Standard;
                     StyleExpr = TRUE;
                     TableRelation = Bin.Code;
                     Visible = ToBinCodeCtrlVisible;
-                    ApplicationArea = All;
 
                     trigger OnLookup(var Text: Text): Boolean
                     var
@@ -485,49 +483,48 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         {
             action(ItemButton)
             {
+                ApplicationArea = All;
                 Caption = '&Item', Comment = 'FRA="&Article"';
                 Image = Item;
                 Promoted = true;
-                PromotedOnly = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
+                PromotedOnly = true;
                 ShortCutKey = 'F2';
-                ApplicationArea = All;
-
 
                 trigger OnAction()
                 var
-                    page50063: Page "Invt. Pick Card MiniForm F2";
+                    page50063: Page "BC6_Invt. Pick Card MiniF2";
                 begin
                     CurrPage.ScanZone.SubmitAllData(2);
                 end;
             }
             action(BinButton)
             {
+                ApplicationArea = All;
                 Caption = '&Bin', Comment = 'FRA="&Emp."';
                 Image = Bin;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ShortCutKey = 'F3';
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
-                    page50064: Page "Invt. Pick Card MiniForm F3";
+                    page50064: Page "BC6_Invt. Pick Card MiniF3";
                 begin
                     CurrPage.ScanZone.SubmitAllData(3);
                 end;
             }
             action(PostButton)
             {
+                ApplicationArea = All;
                 Caption = '&Post', Comment = 'FRA="&Valider"';
                 Image = Post;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ShortCutKey = 'F8';
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -536,17 +533,16 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
 
                     IF IsReady THEN
                         CurrPage.ScanZone.SubmitAllData(1);
-
                 end;
             }
             action(QuitButton)
             {
+                ApplicationArea = All;
                 Caption = '&Quit', Comment = 'FRA="&Quitter"';
                 Image = Close;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -555,13 +551,13 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
             }
             action(DeleteButton)
             {
+                ApplicationArea = All;
                 Caption = '&Delete', Comment = 'FRA="&Supprimer"';
                 Image = Delete;
                 Promoted = true;
                 PromotedCategory = "Report";
                 PromotedIsBig = true;
                 ShortCutKey = 'F9';
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -730,7 +726,6 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         OptionMode: Option New,Edit,KeepPick,KeepPickAndBin;
         ErrorTxt: Text[250];
 
-
     procedure NewLine(LastJnlLine: Record "Item Journal Line")
     begin
         FromBinCode := '';
@@ -768,7 +763,6 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         ToBinCodeCtrlVisible := FALSE;
         RefreshDataControlAddin()
     end;
-
 
     procedure OpenWithWhseEmployee(): Boolean
     var
@@ -823,7 +817,6 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         RefreshDataControlAddin()
     end;
 
-
     procedure AssignPickNo(var pPickNo: Code[20])
     begin
         IF InvtPick.GET(InvtPick.Type::"Invt. Pick", pPickNo) THEN BEGIN
@@ -832,12 +825,10 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         END ELSE BEGIN
             Rec."BC6_Whse. Document Type" := Rec."BC6_Whse. Document Type"::" ";
             Rec.VALIDATE("BC6_Whse. Document No.", '');
-
         END;
 
         UpdateCurrForm();
     end;
-
 
     procedure AssignLocationCode(var pLocationCode: Code[20])
     var
@@ -857,7 +848,6 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         END;
     end;
 
-
     procedure AssignBinCode(var BinCode: Code[20])
     var
         Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
@@ -876,7 +866,6 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         BinCode := '';
         Rec."New Bin Code" := BinCode;
     end;
-
 
     procedure AssignFromBinCode(var BinCode: Code[20])
     var
@@ -966,7 +955,6 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         UpdateCurrForm();
     end;
 
-
     procedure AssignQty(var pQty: Code[20])
     var
         Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
@@ -986,18 +974,15 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         pQty := FORMAT(Rec.Quantity);
     end;
 
-
     procedure PostBatch()
     begin
         //CLEAR(JnlPostBatch);
         JnlPostBatch.RUN(Rec);
     end;
 
-
     procedure InitForm(Picking: Boolean)
     begin
     end;
-
 
     procedure CtrlEnabled()
     begin
@@ -1014,7 +999,6 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         QtyCtrlVisible := ShowCtrl;
         QtyCtrlEditable := EditableCtrl;
     end;
-
 
     procedure UpdateCurrForm()
     var
@@ -1070,7 +1054,6 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
             END;
     end;
 
-
     procedure ItemExistOnInvtPick(pItemNo: Code[20]; BinCode: Code[20]): Boolean
     var
         SalesLine: Record "Sales Line";
@@ -1101,7 +1084,6 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
             END;
         END;
     end;
-
 
     procedure CodeEANOk("Code": Code[20]) CodeOk: Boolean
     var
@@ -1147,8 +1129,6 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
     begin
         AssignPickNo(PickNo);
     end;
-
-
 
     local procedure CloseAndOpenCurrentPickAndBin()
     var
@@ -1211,7 +1191,6 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         CurrPage.UPDATE(FALSE);
     end;
 
-
     procedure SetOptionMode(NewOptionMode: Option New,Edit,KeepPick,KeepPickAndBin)
     begin
         OptionMode := NewOptionMode;
@@ -1240,4 +1219,3 @@ page 50059 "BC6_Invt. Pick Card MiniForm"
         CurrPage.ScanZone.SetText(4, Qty);
     end;
 }
-

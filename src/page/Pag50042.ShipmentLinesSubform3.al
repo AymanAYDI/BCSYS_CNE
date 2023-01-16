@@ -15,11 +15,11 @@ page 50042 "BC6_Shipment Lines Subform 3"
             {
                 field("Document No."; Rec."Document No.")
                 {
+                    ApplicationArea = All;
                     HideValue = "Document No.HideValue";
                     Lookup = false;
                     Style = StrongAccent;
                     StyleExpr = TRUE;
-                    ApplicationArea = All;
                 }
                 field("Shipment Date"; Rec."Shipment Date")
                 {
@@ -27,8 +27,8 @@ page 50042 "BC6_Shipment Lines Subform 3"
                 }
                 field("Bill-to Customer No."; Rec."Bill-to Customer No.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Amount(LCY)"; Rec."BC6_Amount(LCY)")
                 {
@@ -48,8 +48,8 @@ page 50042 "BC6_Shipment Lines Subform 3"
                 }
                 field("Sell-to Customer No."; Rec."Sell-to Customer No.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field(Type; Rec.Type)
                 {
@@ -61,18 +61,18 @@ page 50042 "BC6_Shipment Lines Subform 3"
                 }
                 field("Cross-Reference No."; Rec."Item Reference No.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Variant Code"; Rec."Variant Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field(Nonstock; Rec.Nonstock)
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field(Description; Rec.Description)
                 {
@@ -80,35 +80,35 @@ page 50042 "BC6_Shipment Lines Subform 3"
                 }
                 field("Return Reason Code"; Rec."Return Reason Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Currency Code"; Rec."Currency Code")
                 {
+                    ApplicationArea = All;
                     DrillDown = false;
                     Lookup = false;
                     Visible = false;
-                    ApplicationArea = All;
                 }
                 field("Location Code"; Rec."Location Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Bin Code"; Rec."Bin Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Unit of Measure Code"; Rec."Unit of Measure Code")
                 {
@@ -120,43 +120,43 @@ page 50042 "BC6_Shipment Lines Subform 3"
                 }
                 field("Unit of Measure"; Rec."Unit of Measure")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Unit Cost (LCY)"; Rec."Unit Cost (LCY)")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Line Discount %"; Rec."Line Discount %")
                 {
-                    BlankZero = true;
                     ApplicationArea = All;
+                    BlankZero = true;
                 }
                 field("Allow Invoice Disc."; Rec."Allow Invoice Disc.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Job No."; Rec."Job No.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Blanket Order No."; Rec."Blanket Order No.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Blanket Order Line No."; Rec."Blanket Order Line No.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Appl.-from Item Entry"; Rec."Appl.-from Item Entry")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Posting Date"; Rec."Posting Date")
                 {
@@ -172,9 +172,9 @@ page 50042 "BC6_Shipment Lines Subform 3"
         {
             action(Show)
             {
+                ApplicationArea = All;
                 Caption = 'Show', Comment = 'FRA="Afficher"';
                 Image = Document;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -227,4 +227,3 @@ page 50042 "BC6_Shipment Lines Subform 3"
             "Document No.HideValue" := TRUE;
     end;
 }
-

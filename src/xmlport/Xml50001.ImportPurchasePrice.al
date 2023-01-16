@@ -15,8 +15,8 @@ xmlport 50001 "BC6_Import Purchase Price"
             {
                 AutoSave = true;
                 AutoUpdate = true;
-                XmlName = 'PurchasePrice';
                 SourceTableView = SORTING("Item No.", "Vendor No.", "Starting Date", "Currency Code", "Variant Code", "Unit of Measure Code", "Minimum Quantity");
+                XmlName = 'PurchasePrice';
                 fieldelement(ItemNo; "Purchase Price"."Item No.")
                 {
                 }
@@ -63,7 +63,6 @@ xmlport 50001 "BC6_Import Purchase Price"
                             currXMLport.QUIT();
                         END;
                     END;
-
                 end;
             }
         }
@@ -71,7 +70,6 @@ xmlport 50001 "BC6_Import Purchase Price"
 
     requestpage
     {
-
         layout
         {
         }
@@ -85,6 +83,4 @@ xmlport 50001 "BC6_Import Purchase Price"
         GItem1: Record Item;
         Trovato: Boolean;
         Text001: Label '%1 %2 wrong', Comment = 'FRA="%1 %2 invalide"';
-
 }
-

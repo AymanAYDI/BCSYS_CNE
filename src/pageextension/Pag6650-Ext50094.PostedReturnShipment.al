@@ -6,8 +6,8 @@ pageextension 50094 "BC6_PostedReturnShipment" extends "Posted Return Shipment" 
         {
             field("BC6_User ID"; Rec."User ID")
             {
-                Editable = false;
                 ApplicationArea = All;
+                Editable = false;
             }
         }
     }
@@ -18,9 +18,10 @@ pageextension 50094 "BC6_PostedReturnShipment" extends "Posted Return Shipment" 
             separator(sep1)
             {
             }
-            action("BC6_&Print")
+            action(BC6_Print)
             {
-                Caption = '&Print', Comment = 'FRA="&Envoyer/Imprimer"';
+                ApplicationArea = All;
+                Caption = 'Print', Comment = 'FRA="Envoyer/Imprimer"';
                 Ellipsis = true;
                 Image = SendEmailPDF;
 
@@ -80,4 +81,3 @@ pageextension 50094 "BC6_PostedReturnShipment" extends "Posted Return Shipment" 
     begin
     end;
 }
-

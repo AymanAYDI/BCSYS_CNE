@@ -1,6 +1,5 @@
 pageextension 50042 "BC6_PostedPurchaseInvoice" extends "Posted Purchase Invoice" //138
 {
-
     layout
     {
         addafter(Corrective)
@@ -25,9 +24,9 @@ pageextension 50042 "BC6_PostedPurchaseInvoice" extends "Posted Purchase Invoice
 
                 action("BC6_&Print")
                 {
+                    ApplicationArea = All;
                     Caption = '&Print', Comment = 'FRA="&Imprimer"';
                     Image = print;
-                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -63,7 +62,6 @@ pageextension 50042 "BC6_PostedPurchaseInvoice" extends "Posted Purchase Invoice
         Text001: Label '';
         nameF: Text[250];
 
-
     procedure EnvoiMail()
     begin
         cust.SETRANGE(cust."No.", Rec."Sell-to Customer No.");
@@ -89,7 +87,5 @@ pageextension 50042 "BC6_PostedPurchaseInvoice" extends "Posted Purchase Invoice
 
     procedure OpenFile()
     begin
-
     end;
 }
-

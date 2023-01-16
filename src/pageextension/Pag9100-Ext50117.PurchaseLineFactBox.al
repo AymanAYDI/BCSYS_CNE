@@ -6,6 +6,7 @@ pageextension 50117 "BC6_PurchaseLineFactBox" extends "Purchase Line FactBox" //
         {
             field(BC6_CstG001; CstG001)
             {
+                ApplicationArea = All;
                 Caption = 'Item Sales/Purch. H&istory', Comment = 'FRA="H&istorique ventes/achat article"';
 
                 trigger OnAssistEdit()
@@ -20,4 +21,3 @@ pageextension 50117 "BC6_PurchaseLineFactBox" extends "Purchase Line FactBox" //
         CuGItemHistoryMgt: Codeunit "BC6_Item History Management";
         CstG001: Label '......';
 }
-

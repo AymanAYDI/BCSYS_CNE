@@ -249,10 +249,8 @@ codeunit 50095 "BC6_Invt. Pick To Reclass."
             NewWhseActivityLine."BC6_Qty. Picked" := NewWhseActivityLine.Quantity;
 
             NewWhseActivityLine.INSERT();
-
         end;
     end;
-
 
     local procedure GetLocation(LocationCode: Code[10])
     begin

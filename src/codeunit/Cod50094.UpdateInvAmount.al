@@ -25,7 +25,6 @@ codeunit 50094 "BC6_Update Inv. Amount"
             end;
         until ItemJnlLine.NEXT() = 0;
 
-
         MESSAGE('%1 ligne(s) traitée(s)', Counter);
     end;
 
@@ -36,4 +35,3 @@ codeunit 50094 "BC6_Update Inv. Amount"
         Window: Dialog;
         Counter: Integer;
 }
-

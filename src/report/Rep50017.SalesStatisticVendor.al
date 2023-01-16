@@ -1,16 +1,15 @@
 report 50017 "BC6_Sales Statistic/Vendor"
 {
+    ApplicationArea = all;
+    Caption = 'Sales Statistic/Vendor', Comment = 'FRA="Statistique vente/fournisseur"';
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/SalesStatisticVendor.rdl';
-    Caption = 'Sales Statistic/Vendor', Comment = 'FRA="Statistique vente/fournisseur"';
     UsageCategory = ReportsAndAnalysis;
-    ApplicationArea = all;
 
     dataset
     {
         dataitem(Vendor; Vendor)
         {
-
             DataItemTableView = SORTING("No.");
             RequestFilterFields = "No.";
             column(FORMAT_TODAY_0_4_; FORMAT(TODAY, 0, 4))
@@ -157,9 +156,7 @@ report 50017 "BC6_Sales Statistic/Vendor"
                             DecGMontant -= (RecLSalesCrMemoLine.Quantity * RecLSalesCrMemoLine."BC6_Purchase cost");
                             DecGCAVente -= RecLSalesCrMemoLine.Amount;
                         END;
-
                     UNTIL RecLSalesCrMemoLine.NEXT() = 0;
-
 
                 // Purchase Line
                 RecLPurchLine.SETCURRENTKEY("Buy-from Vendor No.", Type, "Document Type", "Planned Receipt Date");
@@ -212,7 +209,6 @@ report 50017 "BC6_Sales Statistic/Vendor"
 
     requestpage
     {
-
         layout
         {
             area(content)
@@ -222,10 +218,12 @@ report 50017 "BC6_Sales Statistic/Vendor"
                     Caption = 'Options';
                     field(DatGDateDebutF; DatGDateDebut)
                     {
+                        ApplicationArea = All;
                         Caption = 'Date début';
                     }
                     field(DatDateFinF; DatDateFin)
                     {
+                        ApplicationArea = All;
                         Caption = 'Date fin';
                     }
                 }
@@ -268,4 +266,3 @@ report 50017 "BC6_Sales Statistic/Vendor"
         Statistics_Sales_by_VendorCaptionLbl: Label 'Statistics Sales by Vendor', comment = 'FRA="Statistiques ventes par fournisseur"';
         TotalCaptionLbl: Label 'Total', comment = 'FRA="Total"';
 }
-

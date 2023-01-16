@@ -1,4 +1,4 @@
-page 50045 "Sales/Purch. History FactBox"
+page 50045 "BC6_Sales/Purch. Hist Fact"
 {
     Caption = 'Item Sales/Purchase History', Comment = 'FRA="Historique vente/achat article"';
     PageType = CardPart;
@@ -13,8 +13,8 @@ page 50045 "Sales/Purch. History FactBox"
                 Caption = 'Sales', Comment = 'FRA="Ventes"';
                 field("&Quotes"; STRSUBSTNO(txtlbl1, NoOfQuotes))
                 {
-                    Caption = '&Quotes', Comment = 'FRA="&Devis"';
                     ApplicationArea = All;
+                    Caption = '&Quotes', Comment = 'FRA="&Devis"';
 
                     trigger OnDrillDown()
                     begin
@@ -28,9 +28,9 @@ page 50045 "Sales/Purch. History FactBox"
                 }
                 field("&Blanket Orders"; STRSUBSTNO(txtlbl1, NoOfBlanketOrders))
                 {
+                    ApplicationArea = All;
                     Caption = '&Blanket Orders', Comment = 'FRA="&Commandes ouvertes"';
                     Editable = false;
-                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -44,9 +44,9 @@ page 50045 "Sales/Purch. History FactBox"
                 }
                 field("&Orders"; STRSUBSTNO(txtlbl1, NoOfOrders))
                 {
+                    ApplicationArea = All;
                     Caption = '&Orders', Comment = 'FRA="C&ommandes"';
                     Editable = false;
-                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -60,9 +60,9 @@ page 50045 "Sales/Purch. History FactBox"
                 }
                 field("&Invoices"; STRSUBSTNO(txtlbl1, NoofInvoices))
                 {
+                    ApplicationArea = All;
                     Caption = '&Invoices', Comment = 'FRA="&Factures"';
                     Editable = false;
-                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -76,9 +76,9 @@ page 50045 "Sales/Purch. History FactBox"
                 }
                 field("&Return Orders"; STRSUBSTNO(txtlbl1, NoOfReturnOrders))
                 {
+                    ApplicationArea = All;
                     Caption = '&Return Orders', Comment = 'FRA="&Retours"';
                     Editable = false;
-                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -92,9 +92,9 @@ page 50045 "Sales/Purch. History FactBox"
                 }
                 field("Cre&dit Memos"; STRSUBSTNO(txtlbl1, NoOfCreditMemos))
                 {
+                    ApplicationArea = All;
                     Caption = 'Cre&dit Memos', Comment = 'FRA="A&voirs"';
                     Editable = false;
-                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -108,9 +108,9 @@ page 50045 "Sales/Purch. History FactBox"
                 }
                 field("&Posted Shipments"; STRSUBSTNO(txtlbl1, NoOfPstdShipments))
                 {
+                    ApplicationArea = All;
                     Caption = '&Posted Shipments', Comment = 'FRA="Ex&péditions enregistrées"';
                     Editable = false;
-                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -123,9 +123,9 @@ page 50045 "Sales/Purch. History FactBox"
                 }
                 field("Posted I&nvoices"; STRSUBSTNO(txtlbl1, NoOfPstdInvoices))
                 {
+                    ApplicationArea = All;
                     Caption = 'Posted I&nvoices', Comment = 'FRA="Factures e&nregistrées"';
                     Editable = false;
-                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -138,9 +138,9 @@ page 50045 "Sales/Purch. History FactBox"
                 }
                 field("Posted Ret&urn Receipts"; STRSUBSTNO(txtlbl1, NoOfPstdReturnReceipts))
                 {
+                    ApplicationArea = All;
                     Caption = 'Posted Ret&urn Receipts', Comment = 'FRA="Réceptions reto&ur enregistrées"';
                     Editable = false;
-                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -153,9 +153,9 @@ page 50045 "Sales/Purch. History FactBox"
                 }
                 field("Posted Cr. &Memos"; STRSUBSTNO(txtlbl1, NoOfPstdCreditMemos))
                 {
+                    ApplicationArea = All;
                     Caption = 'Posted Cr. &Memos', Comment = 'FRA="&Avoirs enregistrés"';
                     Editable = false;
-                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -172,9 +172,9 @@ page 50045 "Sales/Purch. History FactBox"
                 Caption = 'Purchases', Comment = 'FRA="Achats"';
                 field("Purch Quote"; STRSUBSTNO(txtlbl1, NbrOfPurchQuote))
                 {
+                    ApplicationArea = All;
                     Caption = 'Purch Quote', Comment = 'FRA="Demandes de prix"';
                     Editable = false;
-                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -188,9 +188,9 @@ page 50045 "Sales/Purch. History FactBox"
                 }
                 field("Blanket Order Purchas"; STRSUBSTNO(txtlbl1, NbrOfPurchBlanketOrder))
                 {
+                    ApplicationArea = All;
                     Caption = 'Blanket Order Purchas ', Comment = 'FRA="Commandes achat ouvertes"';
                     Editable = false;
-                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -204,9 +204,9 @@ page 50045 "Sales/Purch. History FactBox"
                 }
                 field("Purchase Order"; STRSUBSTNO(txtlbl1, NbrOfPurchOrder))
                 {
+                    ApplicationArea = All;
                     Caption = 'Purchase Order', Comment = 'FRA="Commandes achat"';
                     Editable = false;
-                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -220,9 +220,9 @@ page 50045 "Sales/Purch. History FactBox"
                 }
                 field("Purchase Invoice"; STRSUBSTNO(txtlbl1, NbrOfPurchInvoice))
                 {
+                    ApplicationArea = All;
                     Caption = 'Purchase Invoice', Comment = 'FRA="Factures achat"';
                     Editable = false;
-                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -236,9 +236,9 @@ page 50045 "Sales/Purch. History FactBox"
                 }
                 field("Purchase Return"; STRSUBSTNO(txtlbl1, NbrOfPurchReturn))
                 {
+                    ApplicationArea = All;
                     Caption = 'Purchase Return', Comment = 'FRA="Retours achat"';
                     Editable = false;
-                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -252,9 +252,9 @@ page 50045 "Sales/Purch. History FactBox"
                 }
                 field("Purchase Credit Memo"; STRSUBSTNO(txtlbl1, NbrOfPurchCrdMemo))
                 {
+                    ApplicationArea = All;
                     Caption = 'Purchase Credit Memo', Comment = 'FRA="Avoirs achat"';
                     Editable = false;
-                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -268,9 +268,9 @@ page 50045 "Sales/Purch. History FactBox"
                 }
                 field("Posted Purchase Receipt"; STRSUBSTNO(txtlbl1, NbrOfPurchPostedRcpt))
                 {
+                    ApplicationArea = All;
                     Caption = 'Posted Purchase Receipt', Comment = 'FRA="Réceptions achat enregistrées"';
                     Editable = false;
-                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -283,9 +283,9 @@ page 50045 "Sales/Purch. History FactBox"
                 }
                 field("Posted Purchase Invoice"; STRSUBSTNO(txtlbl1, NbrOfPurchPostedInvoice))
                 {
+                    ApplicationArea = All;
                     Caption = 'Posted Purchase Invoice', Comment = 'FRA="Factures achat enregistrées"';
                     Editable = false;
-                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -298,9 +298,9 @@ page 50045 "Sales/Purch. History FactBox"
                 }
                 field("Posted Purchase Return Shipement"; STRSUBSTNO(txtlbl1, NbrOfPurchPostedReturnShipemen))
                 {
+                    ApplicationArea = All;
                     Caption = 'Posted Purchase Return Shipement', Comment = 'FRA="Expéditions retour achat"';
                     Editable = false;
-                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -314,9 +314,9 @@ page 50045 "Sales/Purch. History FactBox"
                 }
                 field("Posted Purchase Credit Memo"; STRSUBSTNO(txtlbl1, NbrOfPurchPostedCrdMemo))
                 {
+                    ApplicationArea = All;
                     Caption = 'Posted Purchase Credit Memo', Comment = 'FRA="Avoirs achat enregistrés"';
                     Editable = false;
-                    ApplicationArea = All;
 
                     trigger OnDrillDown()
                     begin
@@ -362,22 +362,17 @@ page 50045 "Sales/Purch. History FactBox"
         NbrOfPurchPostedReturnShipemen := 0;
         NbrOfPurchPostedCrdMemo := 0;
 
-
-
         RecGSalesLine.RESET();
         RecGSalesLine.SETCURRENTKEY("Document Type", RecGSalesLine."No.");
         RecGSalesLine.SETRANGE("Document Type", RecGSalesLine."Document Type"::Quote);
         RecGSalesLine.SETFILTER("No.", Rec."No.");
 
-
-        IF RecGSalesLine.FIND('-') THEN BEGIN
+        IF RecGSalesLine.FIND('-') THEN
             REPEAT
                 IF CodGDocNo <> RecGSalesLine."Document No." THEN
                     NoOfQuotes := NoOfQuotes + 1;
                 CodGDocNo := RecGSalesLine."Document No.";
             UNTIL RecGSalesLine.NEXT() = 0;
-        END;
-
 
         //Order
         CLEAR(CodGDocNo);
@@ -386,15 +381,12 @@ page 50045 "Sales/Purch. History FactBox"
         RecGSalesLine.SETRANGE("Document Type", RecGSalesLine."Document Type"::Order);
         RecGSalesLine.SETFILTER("No.", Rec."No.");
 
-        IF RecGSalesLine.FIND('-') THEN BEGIN
+        IF RecGSalesLine.FIND('-') THEN
             REPEAT
                 IF CodGDocNo <> RecGSalesLine."Document No." THEN
                     NoOfOrders := NoOfOrders + 1;
                 CodGDocNo := RecGSalesLine."Document No.";
             UNTIL RecGSalesLine.NEXT() = 0;
-        END;
-
-
 
         //Return Order
         CLEAR(CodGDocNo);
@@ -402,14 +394,12 @@ page 50045 "Sales/Purch. History FactBox"
         RecGSalesLine.SETCURRENTKEY("Document Type", RecGSalesLine."No.");
         RecGSalesLine.SETRANGE("Document Type", RecGSalesLine."Document Type"::"Return Order");
         RecGSalesLine.SETFILTER("No.", Rec."No.");
-        IF RecGSalesLine.FIND('-') THEN BEGIN
+        IF RecGSalesLine.FIND('-') THEN
             REPEAT
                 IF CodGDocNo <> RecGSalesLine."Document No." THEN
                     NoOfReturnOrders := NoOfReturnOrders + 1;
                 CodGDocNo := RecGSalesLine."Document No.";
             UNTIL RecGSalesLine.NEXT() = 0;
-        END;
-
 
         //Posted SHipements
         CLEAR(CodGDocNo);
@@ -417,13 +407,12 @@ page 50045 "Sales/Purch. History FactBox"
         RecGSalesShipementLine.SETCURRENTKEY("No.");
         RecGSalesShipementLine.SETFILTER("No.", Rec."No.");
 
-        IF RecGSalesShipementLine.FIND('-') THEN BEGIN
+        IF RecGSalesShipementLine.FIND('-') THEN
             REPEAT
                 IF CodGDocNo <> RecGSalesShipementLine."Document No." THEN
                     NoOfPstdShipments := NoOfPstdShipments + 1;
                 CodGDocNo := RecGSalesShipementLine."Document No.";
             UNTIL RecGSalesShipementLine.NEXT() = 0;
-        END;
 
         // Posted Invoices
         CLEAR(CodGDocNo);
@@ -431,13 +420,12 @@ page 50045 "Sales/Purch. History FactBox"
         RecGPostdSalesInvoices.SETCURRENTKEY("No.");
         RecGPostdSalesInvoices.SETFILTER("No.", Rec."No.");
 
-        IF RecGPostdSalesInvoices.FIND('-') THEN BEGIN
+        IF RecGPostdSalesInvoices.FIND('-') THEN
             REPEAT
                 IF CodGDocNo <> RecGPostdSalesInvoices."Document No." THEN
                     NoOfPstdInvoices := NoOfPstdInvoices + 1;
                 CodGDocNo := RecGPostdSalesInvoices."Document No.";
             UNTIL RecGPostdSalesInvoices.NEXT() = 0;
-        END;
 
         // Posted Return Receipts
         CLEAR(CodGDocNo);
@@ -445,13 +433,12 @@ page 50045 "Sales/Purch. History FactBox"
         RecGPostdReturnSales.SETCURRENTKEY("No.");
         RecGPostdReturnSales.SETFILTER("No.", Rec."No.");
 
-        IF RecGPostdReturnSales.FIND('-') THEN BEGIN
+        IF RecGPostdReturnSales.FIND('-') THEN
             REPEAT
                 IF CodGDocNo <> RecGPostdReturnSales."Document No." THEN
                     NoOfPstdReturnReceipts := NoOfPstdReturnReceipts + 1;
                 CodGDocNo := RecGPostdReturnSales."Document No.";
             UNTIL RecGPostdReturnSales.NEXT() = 0;
-        END;
 
         // Posted Credit Memo
         CLEAR(CodGDocNo);
@@ -459,13 +446,12 @@ page 50045 "Sales/Purch. History FactBox"
         RecGPostdCrdMemo.SETCURRENTKEY("No.");
         RecGPostdCrdMemo.SETFILTER("No.", Rec."No.");
 
-        IF RecGPostdCrdMemo.FIND('-') THEN BEGIN
+        IF RecGPostdCrdMemo.FIND('-') THEN
             REPEAT
                 IF CodGDocNo <> RecGPostdCrdMemo."Document No." THEN
                     NoOfPstdCreditMemos := NoOfPstdCreditMemos + 1;
                 CodGDocNo := RecGPostdCrdMemo."Document No.";
             UNTIL RecGPostdCrdMemo.NEXT() = 0;
-        END;
         ////
         //Purchase quote
         CLEAR(CodGDocNo);
@@ -474,14 +460,12 @@ page 50045 "Sales/Purch. History FactBox"
         RecGPurchLines.SETFILTER("No.", Rec."No.");
         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::Quote);
 
-        IF RecGPurchLines.FIND('-') THEN BEGIN
+        IF RecGPurchLines.FIND('-') THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
                     NbrOfPurchQuote := NbrOfPurchQuote + 1;
                 CodGDocNo := RecGPurchLines."Document No.";
             UNTIL RecGPurchLines.NEXT() = 0;
-        END;
-
 
         //Purchase order
         CLEAR(CodGDocNo);
@@ -490,13 +474,12 @@ page 50045 "Sales/Purch. History FactBox"
         RecGPurchLines.SETFILTER("No.", Rec."No.");
         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::Order);
 
-        IF RecGPurchLines.FIND('-') THEN BEGIN
+        IF RecGPurchLines.FIND('-') THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
                     NbrOfPurchOrder := NbrOfPurchOrder + 1;
                 CodGDocNo := RecGPurchLines."Document No.";
             UNTIL RecGPurchLines.NEXT() = 0;
-        END;
 
         //Purchase invoice
         CLEAR(CodGDocNo);
@@ -505,13 +488,12 @@ page 50045 "Sales/Purch. History FactBox"
         RecGPurchLines.SETFILTER("No.", Rec."No.");
         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::Invoice);
 
-        IF RecGPurchLines.FIND('-') THEN BEGIN
+        IF RecGPurchLines.FIND('-') THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
                     NbrOfPurchInvoice := NbrOfPurchInvoice + 1;
                 CodGDocNo := RecGPurchLines."Document No.";
             UNTIL RecGPurchLines.NEXT() = 0;
-        END;
 
         //Purchase return
         CLEAR(CodGDocNo);
@@ -520,13 +502,12 @@ page 50045 "Sales/Purch. History FactBox"
         RecGPurchLines.SETFILTER("No.", Rec."No.");
         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::"Return Order");
 
-        IF RecGPurchLines.FIND('-') THEN BEGIN
+        IF RecGPurchLines.FIND('-') THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
                     NbrOfPurchReturn := NbrOfPurchReturn + 1;
                 CodGDocNo := RecGPurchLines."Document No.";
             UNTIL RecGPurchLines.NEXT() = 0;
-        END;
 
         //Purchase credit memo
         CLEAR(CodGDocNo);
@@ -535,13 +516,12 @@ page 50045 "Sales/Purch. History FactBox"
         RecGPurchLines.SETFILTER("No.", Rec."No.");
         RecGPurchLines.SETRANGE("Document Type", RecGPurchLines."Document Type"::"Credit Memo");
 
-        IF RecGPurchLines.FIND('-') THEN BEGIN
+        IF RecGPurchLines.FIND('-') THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchLines."Document No." THEN
                     NbrOfPurchCrdMemo := NbrOfPurchCrdMemo + 1;
                 CodGDocNo := RecGPurchLines."Document No.";
             UNTIL RecGPurchLines.NEXT() = 0;
-        END;
 
         // Posted Purchase Receipt
         CLEAR(CodGDocNo);
@@ -549,13 +529,12 @@ page 50045 "Sales/Purch. History FactBox"
         RecGPurchPostedRcpt.SETCURRENTKEY("No.");
         RecGPurchPostedRcpt.SETFILTER("No.", Rec."No.");
 
-        IF RecGPurchPostedRcpt.FIND('-') THEN BEGIN
+        IF RecGPurchPostedRcpt.FIND('-') THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchPostedRcpt."Document No." THEN
                     NbrOfPurchPostedRcpt := NbrOfPurchPostedRcpt + 1;
                 CodGDocNo := RecGPurchPostedRcpt."Document No.";
             UNTIL RecGPurchPostedRcpt.NEXT() = 0;
-        END;
 
         // Posted Purchase invoice
         CLEAR(CodGDocNo);
@@ -563,13 +542,12 @@ page 50045 "Sales/Purch. History FactBox"
         RecGPurchPostedInvoice.SETCURRENTKEY("No.");
         RecGPurchPostedInvoice.SETFILTER("No.", Rec."No.");
 
-        IF RecGPurchPostedInvoice.FIND('-') THEN BEGIN
+        IF RecGPurchPostedInvoice.FIND('-') THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchPostedInvoice."Document No." THEN
                     NbrOfPurchPostedInvoice := NbrOfPurchPostedInvoice + 1;
                 CodGDocNo := RecGPurchPostedInvoice."Document No.";
             UNTIL RecGPurchPostedInvoice.NEXT() = 0;
-        END;
 
         // Posted Purchase Return Shipement
         CLEAR(CodGDocNo);
@@ -577,13 +555,12 @@ page 50045 "Sales/Purch. History FactBox"
         RecGPurchPostedReturnShipement.SETCURRENTKEY("No.");
         RecGPurchPostedReturnShipement.SETFILTER("No.", Rec."No.");
 
-        IF RecGPurchPostedReturnShipement.FIND('-') THEN BEGIN
+        IF RecGPurchPostedReturnShipement.FIND('-') THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchPostedReturnShipement."Document No." THEN
                     NbrOfPurchPostedReturnShipemen := NbrOfPurchPostedReturnShipemen + 1;
                 CodGDocNo := RecGPurchPostedReturnShipement."Document No.";
             UNTIL RecGPurchPostedReturnShipement.NEXT() = 0;
-        END;
 
         // Posted Credit Memo
         CLEAR(CodGDocNo);
@@ -591,16 +568,13 @@ page 50045 "Sales/Purch. History FactBox"
         RecGPurchPostedCrdMemo.SETCURRENTKEY("No.");
         RecGPurchPostedCrdMemo.SETFILTER("No.", Rec."No.");
 
-        IF RecGPurchPostedCrdMemo.FIND('-') THEN BEGIN
+        IF RecGPurchPostedCrdMemo.FIND('-') THEN
             REPEAT
                 IF CodGDocNo <> RecGPurchPostedCrdMemo."Document No." THEN
                     NbrOfPurchPostedCrdMemo := NbrOfPurchPostedCrdMemo + 1;
                 CodGDocNo := RecGPurchPostedCrdMemo."Document No.";
             UNTIL RecGPurchPostedCrdMemo.NEXT() = 0;
-        END;
-
     end;
-
 
     var
         RecGPurchPostedCrdMemo: Record "Purch. Cr. Memo Line";
@@ -626,8 +600,8 @@ page 50045 "Sales/Purch. History FactBox"
         PagGReturnShipmentLineSubform: Page "BC6_Return Ship. Line Subform";
         PagGSalesLinesSubform3: Page "BC6_Sales Lines Subform 3";
         PagGShipmentLinesSubform3: Page "BC6_Shipment Lines Subform 3";
-        PagGPurchCrMemoLineSubform: Page "Purch. Cr. Memo Line Subform";
-        PagGGReturnRcptLinesSubform2: Page "Return Rcpt Lines Subform 2";
+        PagGPurchCrMemoLineSubform: Page "BC6_Purch. Cr. Memo Line Sub";
+        PagGGReturnRcptLinesSubform2: Page "BC6_Return Rcpt Lines Sub2";
         CodGDocNo: Code[20];
         NbrOfPurchBlanketOrder: Integer;
         NbrOfPurchCrdMemo: Integer;
@@ -650,6 +624,4 @@ page 50045 "Sales/Purch. History FactBox"
         NoOfQuotes: Integer;
         NoOfReturnOrders: Integer;
         txtlbl1: label '(%1)';
-
 }
-

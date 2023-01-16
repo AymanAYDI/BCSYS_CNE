@@ -6,6 +6,7 @@ tableextension 50066 "BC6_SalesLineArchive" extends "Sales Line Archive" //5108
         {
             CalcFormula = Lookup("Sales Header"."Document Date" WHERE("No." = FIELD("Document No."), "Document Type" = FIELD("Document Type")));
             Caption = 'Document Date', Comment = 'FRA="Date document"';
+            Editable = false;
             FieldClass = FlowField;
         }
         field(50001; "BC6_To Prepare"; Boolean)
@@ -25,14 +26,14 @@ tableextension 50066 "BC6_SalesLineArchive" extends "Sales Line Archive" //5108
         }
         field(50004; "BC6_Document Date"; Date)
         {
-            DataClassification = CustomerContent;
             Caption = 'Document Date';
+            DataClassification = CustomerContent;
         }
         field(50005; "BC6_Forecast Inventory"; Integer)
         {
             Caption = 'Forecast Inventory', Comment = 'FRA="Stock prévisionnel"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50007; "BC6_To Order"; Boolean)
         {
@@ -47,21 +48,21 @@ tableextension 50066 "BC6_SalesLineArchive" extends "Sales Line Archive" //5108
         field(50020; "BC6_Cust. Sales Profit Group"; Code[10])
         {
             Caption = 'Goupe Marge Vente Client', Comment = 'FRA="Goupe Marge Vente Client"';
-            TableRelation = "Customer Sales Profit Group";
             DataClassification = CustomerContent;
+            TableRelation = "Customer Sales Profit Group";
         }
         field(50021; "BC6_Item Sales Profit Group"; Code[10])
         {
             Caption = 'Goupe Marge Vente Article', Comment = 'FRA="Goupe Marge Vente Article"';
-            TableRelation = "BC6_Item Sales Profit Group";
             DataClassification = CustomerContent;
+            TableRelation = "BC6_Item Sales Profit Group";
         }
         field(50022; "BC6_Public Price"; Decimal)
         {
             Caption = 'Tarif Public', Comment = 'FRA="Tarif Public"';
+            DataClassification = CustomerContent;
             DecimalPlaces = 2 : 5;
             Editable = false;
-            DataClassification = CustomerContent;
         }
         field(50023; "BC6_External Document No."; Code[35])
         {
@@ -76,20 +77,20 @@ tableextension 50066 "BC6_SalesLineArchive" extends "Sales Line Archive" //5108
         field(50025; "BC6_Buy-from Vendor No."; Code[20])
         {
             Caption = 'Buy-from Vendor No.', Comment = 'FRA="N° preneur d''ordre"';
-            TableRelation = Vendor;
             DataClassification = CustomerContent;
+            TableRelation = Vendor;
         }
         field(50026; "BC6_Purch. Order No."; Code[20])
         {
             Caption = 'Purchase Order No.', Comment = 'FRA="N° commande achat"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50027; "BC6_Purch. Line No."; Integer)
         {
             Caption = 'Purch. Order Line No.', Comment = 'FRA="N° ligne commande achat"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50028; "BC6_Purch. Document Type"; Enum "Sales Document Type")
         {
@@ -104,14 +105,14 @@ tableextension 50066 "BC6_SalesLineArchive" extends "Sales Line Archive" //5108
         field(50030; "BC6_Qty Shipped"; Decimal)
         {
             Caption = 'Delivered Quantity', Comment = 'FRA="Quantité livrée"';
-            Enabled = false;
             DataClassification = CustomerContent;
+            Enabled = false;
         }
         field(50031; "BC6_Discount Unit Price"; Decimal)
         {
             Caption = 'Discount unit price excluding VAT', Comment = 'FRA="Prix unitaire remisé HT"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50032; "BC6_Availability Item"; Decimal)
         {
@@ -121,8 +122,8 @@ tableextension 50066 "BC6_SalesLineArchive" extends "Sales Line Archive" //5108
         field(50033; "BC6_Outstanding Qty"; Decimal)
         {
             Caption = 'Outstanding Quantity', Comment = 'FRA="quantité restante"';
-            Enabled = false;
             DataClassification = CustomerContent;
+            Enabled = false;
         }
         field(50040; "BC6_Pick Qty."; Decimal)
         {
@@ -140,9 +141,9 @@ tableextension 50066 "BC6_SalesLineArchive" extends "Sales Line Archive" //5108
         field(50041; "BC6_Purchase Cost"; Decimal)
         {
             Caption = 'Purchase cost', Comment = 'FRA="Coût d''achat"';
+            DataClassification = CustomerContent;
             DecimalPlaces = 2 : 5;
             Editable = false;
-            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin
@@ -162,8 +163,8 @@ tableextension 50066 "BC6_SalesLineArchive" extends "Sales Line Archive" //5108
         field(50052; "BC6_Order Purchase Affected"; Boolean)
         {
             Caption = 'Order purchase affected', Comment = 'FRA="Commande achat affectée"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50060; "BC6_Purchase No. Order Lien"; Code[20])
         {
@@ -178,8 +179,8 @@ tableextension 50066 "BC6_SalesLineArchive" extends "Sales Line Archive" //5108
         field(50100; "BC6_Item Disc. Group"; Code[10])
         {
             Caption = 'Groupe remise article', Comment = 'FRA="Groupe remise article"';
-            TableRelation = "Item Discount Group";
             DataClassification = CustomerContent;
+            TableRelation = "Item Discount Group";
         }
         field(50101; "BC6_Dispensation No."; Code[20])
         {
@@ -215,44 +216,44 @@ tableextension 50066 "BC6_SalesLineArchive" extends "Sales Line Archive" //5108
         field(80802; "BC6_DEEE HT Amount"; Decimal)
         {
             Caption = 'DEEE HT Amount', Comment = 'FRA="Montant HT DEEE"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80803; "BC6_DEEE Unit Price (LCY)"; Decimal)
         {
             Caption = 'DEEE Unit Price (LCY)', Comment = 'FRA="Prix Unitaire DEEE (DS)"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80804; "BC6_DEEE VAT Amount"; Decimal)
         {
             Caption = 'DEEE VAT Amount', Comment = 'FRA="Montant TVA DEEE"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80805; "BC6_DEEE TTC Amount"; Decimal)
         {
             Caption = 'DEEE TTC Amount', Comment = 'FRA="Montant TTC DEEE"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80806; "BC6_DEEE HT Amount (LCY)"; Decimal)
         {
             Caption = 'DEEE HT Amount (LCY)', Comment = 'FRA="Montant Unitaire DEEE (DS)"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80807; "BC6_Eco partner DEEE"; Code[20])
         {
             Caption = 'Eco partner DEEE', Comment = 'FRA="Montant Unitaire DEEE (DS)"';
+            DataClassification = CustomerContent;
             Editable = false;
             TableRelation = Vendor;
-            DataClassification = CustomerContent;
         }
         field(80808; "BC6_DEEE Amount (LCY) for Stat"; Decimal)
         {
-            DataClassification = CustomerContent;
             Caption = 'DEEE Amount (LCY) for Stat';
+            DataClassification = CustomerContent;
         }
     }
     keys

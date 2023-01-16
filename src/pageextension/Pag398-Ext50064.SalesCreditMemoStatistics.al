@@ -1,9 +1,7 @@
 pageextension 50064 "BC6_SalesCreditMemoStatistics" extends "Sales Credit Memo Statistics" //398
 {
-
     layout
     {
-
         modify(AdjProfitPct)
         {
             Visible = false;
@@ -17,29 +15,27 @@ pageextension 50064 "BC6_SalesCreditMemoStatistics" extends "Sales Credit Memo S
         {
             field(BC6_DecGMntHTDEEE; DecGMntHTDEEE)
             {
+                ApplicationArea = All;
                 Caption = 'Total DEEE';
                 Style = Strong;
                 StyleExpr = TRUE;
             }
             field("CustAmount+DecGMntHTDEEE"; NewCustAmount + DecGMntHTDEEE)
             {
+                ApplicationArea = All;
                 Caption = 'Total HT DEEE Incluse';
                 Editable = false;
             }
         }
-
     }
 
     actions
     {
     }
 
-
-
     var
         DecGMntHTDEEE: Decimal;
         NewCustAmount: Decimal;
-
 
     procedure IncremntDecGMntHTDEEE(_DecGMntHTDEEE: Decimal)
     begin
@@ -51,4 +47,3 @@ pageextension 50064 "BC6_SalesCreditMemoStatistics" extends "Sales Credit Memo S
         NewCustAmount := _NewCustAmount;
     end;
 }
-

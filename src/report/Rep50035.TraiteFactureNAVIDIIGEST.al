@@ -1,9 +1,9 @@
 report 50035 "BC6_Traite/Facture NAVIDIIGEST"
 {
+    ApplicationArea = All;
+    Caption = 'Bill', Comment = 'FRA="Lettre de change"';
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/TraiteFactureNAVIDIIGEST.rdl';
-    Caption = 'Bill', Comment = 'FRA="Lettre de change"';
-    ApplicationArea = All;
     UsageCategory = ReportsAndAnalysis;
     dataset
     {
@@ -210,7 +210,6 @@ report 50035 "BC6_Traite/Facture NAVIDIIGEST"
 
     requestpage
     {
-
         layout
         {
             area(content)
@@ -218,12 +217,14 @@ report 50035 "BC6_Traite/Facture NAVIDIIGEST"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(IssueDate; IssueDate)
+                    field(IssueDateF; IssueDate)
                     {
+                        ApplicationArea = All;
                         Caption = 'Issue date', Comment = 'FRA="Date d''émission"';
                     }
-                    field(IssueCity; IssueCity)
+                    field(IssueCityF; IssueCity)
                     {
+                        ApplicationArea = All;
                         Caption = 'Issue city', Comment = 'FRA="Ville d''émission"';
                     }
                 }
@@ -283,6 +284,5 @@ report 50035 "BC6_Traite/Facture NAVIDIIGEST"
         AmountText: Text[30];
         CurrText_Gtxt: Text[30];
         IssueCity: Text[30];
-        CustAdr: array[8] of Text[50];
+        CustAdr: array[8] of Text[100];
 }
-

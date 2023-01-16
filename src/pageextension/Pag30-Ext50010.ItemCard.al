@@ -1,7 +1,5 @@
 pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
 {
-
-
     layout
     {
         modify("Blocked")
@@ -20,8 +18,8 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
         {
             field(BC6_EAN13Code; EAN13Code)
             {
-                Caption = 'EAN13 Code';
                 ApplicationArea = All;
+                Caption = 'EAN13 Code';
                 trigger OnLookup(var Text: Text): Boolean
                 var
                     FunctionMgt: Codeunit "BC6_Functions Mgt";
@@ -48,16 +46,15 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
             field(BC6_Inventory2; Rec.Inventory)
             {
                 ApplicationArea = All;
-
             }
         }
         addafter("Qty. on Prod. Order")
         {
             field("BC6_Qty. Return Order SAV"; Rec."BC6_Qty. Return Order SAV")
             {
-                DecimalPlaces = 0 : 0;
                 ApplicationArea = All;
                 Caption = ' Qty. Return Order SAV', Comment = 'FRA="Qté sur retour vente SAV"';
+                DecimalPlaces = 0 : 0;
             }
         }
         addafter("Qty. on Asm. Component")
@@ -85,9 +82,9 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
         {
             field("BC6_DEEE Category Code"; Rec."BC6_DEEE Category Code")
             {
+                ApplicationArea = All;
                 Caption = 'DEEE Category Code ', Comment = 'FRA="DEEE Code catégorie"';
                 LookupPageID = "BC6_Item Category List";
-                ApplicationArea = All;
             }
             field("BC6_Number of Units DEEE"; Rec."BC6_Number of Units DEEE")
             {
@@ -96,18 +93,18 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
             }
             field("BC6_Eco partner DEEE"; Rec."BC6_Eco partner DEEE")
             {
-                Importance = Promoted;
                 ApplicationArea = All;
                 Caption = 'Eco partner DEEE', Comment = 'FRA="Eco partenaire DEEE"';
+                Importance = Promoted;
             }
         }
         addafter("Last Direct Cost")
         {
             field("BC6_Cost Increase Coeff %"; Rec."BC6_Cost Increase Coeff %")
             {
-                Visible = ShowIncreaseCoeff;
                 ApplicationArea = All;
                 Caption = 'Cost Increase Coeff (%)', Comment = 'FRA="Coeff majoration du coût (%)"';
+                Visible = ShowIncreaseCoeff;
             }
         }
 
@@ -120,22 +117,20 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
             field(BC6_Blocked; Rec.Blocked)
             {
                 ApplicationArea = Basic, Suite;
+                Caption = 'Blocked', Comment = 'FRA="Bloqué"';
                 Editable = BooGBlocked;
                 ToolTip = 'Specifies that transactions with the item cannot be posted, for example, because the item is in quarantine.', Comment = 'FRA="Indique que les transactions avec l''article ne peuvent pas être validées, par exemple, parce que l''article est en quarantaine."';
-                Caption = 'Blocked', Comment = 'FRA="Bloqué"';
             }
         }
         addafter(ItemPicture)
         {
-            part("Sales/Purch. HistoryFactBox"; "Sales/Purch. History FactBox")
+            part("Sales/Purch. HistoryFactBox"; "BC6_Sales/Purch. Hist Fact")
             {
-                SubPageLink = "No." = FIELD("No.");
                 ApplicationArea = All;
                 Caption = 'Item Sales/Purchase History', Comment = 'FRA="Historique vente/achat article"';
+                SubPageLink = "No." = FIELD("No.");
             }
         }
-
-
     }
 
     actions
@@ -144,10 +139,10 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
         {
             action(BC6_PrintLabel)
             {
+                ApplicationArea = All;
                 Caption = 'Print Label', Comment = 'FRA="Imprimer étiquette"';
                 Ellipsis = true;
                 Image = BarCode;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -163,9 +158,9 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
             }
             action("Créer code-barres interne")
             {
+                ApplicationArea = All;
                 Caption = 'Create Internal BarCodes', Comment = 'FRA="Créer code-barres interne"';
                 Image = BarCode;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -197,14 +192,13 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
         {
             action(BC6_UpdateICPartnerItems)
             {
+                ApplicationArea = All;
                 Caption = 'Update IC Partner Items', Comment = 'FRA="Màj articles partenaires"';
                 Enabled = UpdateICPartnerItemsEnabled;
                 Image = UpdateDescription;
-                ApplicationArea = All;
                 RunObject = Codeunit "BC6_Update IC Partner Items";
             }
         }
-
     }
 
     trigger OnAfterGetRecord()
@@ -212,7 +206,6 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
         FunctionMgt: Codeunit "BC6_Functions Mgt";
     begin
         EAN13Code := FunctionMgt.GetItemEAN13Code(Rec."No.");
-
     end;
 
     trigger OnOpenPage()
@@ -224,10 +217,7 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
             CurrPage.Update();
         end ELSE
             ShowIncreaseCoeff := false
-
     end;
-
-
 
     var
         DistInt: Codeunit "Dist. Integration";
@@ -235,7 +225,4 @@ pageextension 50010 "BC6_ItemCard" extends "Item Card" //30
         ShowIncreaseCoeff: Boolean;
         UpdateICPartnerItemsEnabled: Boolean;
         EAN13Code: Code[20];
-
-
-
 }

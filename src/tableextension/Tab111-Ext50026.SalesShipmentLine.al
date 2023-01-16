@@ -5,20 +5,20 @@ tableextension 50026 "BC6_SalesShipmentLine" extends "Sales Shipment Line" //111
         field(50020; "BC6_Custom. Sales Profit Group"; Code[10])
         {
             Caption = 'Goupe Marge Vente Client', comment = 'FRA="Goupe Marge Vente Client"';
-            TableRelation = "Customer Sales Profit Group";
             DataClassification = CustomerContent;
+            TableRelation = "Customer Sales Profit Group";
         }
         field(50021; "BC6_Item Sales Profit Group"; Code[10])
         {
             Caption = 'Goupe Marge Vente Article', comment = 'FRA="Goupe Marge Vente Article"';
-            TableRelation = "BC6_Item Sales Profit Group";
             DataClassification = CustomerContent;
+            TableRelation = "BC6_Item Sales Profit Group";
         }
         field(50022; "BC6_Public Price"; Decimal)
         {
             Caption = 'Tarif Public', comment = 'FRA="Tarif Public"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50023; "BC6_External Document No."; Code[35])
         {
@@ -46,20 +46,20 @@ tableextension 50026 "BC6_SalesShipmentLine" extends "Sales Shipment Line" //111
         field(50025; "BC6_Buy-from Vendor No."; Code[20])
         {
             Caption = 'Buy-from Vendor No.', comment = 'FRA="N° preneur d''ordre"';
-            TableRelation = Vendor;
             DataClassification = CustomerContent;
+            TableRelation = Vendor;
         }
         field(50026; "BC6_Purch. Order No."; Code[20])
         {
             Caption = 'Purchase Order No.', comment = 'FRA="N° commande achat"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50027; "BC6_Purch. Line No."; Integer)
         {
             Caption = 'Purch. Order Line No.', comment = 'FRA="N° ligne commande achat"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50028; "BC6_Purch. Document Type"; enum "Purchase Document Type")
         {
@@ -79,8 +79,8 @@ tableextension 50026 "BC6_SalesShipmentLine" extends "Sales Shipment Line" //111
         field(50031; "BC6_Discount Unit Price"; Decimal)
         {
             Caption = 'Discount unit price excluding VAT', comment = 'FRA="Prix unitaire remisé HT"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50032; "BC6_Availability Item"; Decimal)
         {
@@ -95,8 +95,8 @@ tableextension 50026 "BC6_SalesShipmentLine" extends "Sales Shipment Line" //111
         field(50041; "BC6_Purchase Cost"; Decimal)
         {
             Caption = 'Purchase cost', comment = 'FRA="Coût d''achat"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50051; "BC6_Affect Purchase Order"; Boolean)
         {
@@ -106,8 +106,8 @@ tableextension 50026 "BC6_SalesShipmentLine" extends "Sales Shipment Line" //111
         field(50052; "BC6_Order Purchase Affected"; Boolean)
         {
             Caption = 'Order purchase affected', comment = 'FRA="Commande achat affectée"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50060; "BC6_Purchase No. Order Lien"; Code[20])
         {
@@ -122,8 +122,8 @@ tableextension 50026 "BC6_SalesShipmentLine" extends "Sales Shipment Line" //111
         field(50100; "BC6_Item Disc. Group"; Code[20])
         {
             Caption = 'Groupe remise article', comment = 'FRA="Groupe remise article"';
-            TableRelation = "Item Discount Group";
             DataClassification = CustomerContent;
+            TableRelation = "Item Discount Group";
         }
         field(50101; "BC6_Dispensation No."; Code[20])
         {

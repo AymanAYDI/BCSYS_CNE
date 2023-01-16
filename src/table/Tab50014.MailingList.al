@@ -2,16 +2,16 @@ table 50014 "BC6_Mailing List"
 {
     Caption = 'Mailing Group', comment = 'FRA="Groupe de distribution"';
     DataCaptionFields = "Code", Description;
-    LookupPageID = "Mailing Groups";
     DataClassification = CustomerContent;
+    LookupPageID = "Mailing Groups";
 
     fields
     {
         field(1; "Code"; Code[10])
         {
             Caption = 'Code', comment = 'FRA="Code"';
-            NotBlank = true;
             DataClassification = CustomerContent;
+            NotBlank = true;
         }
         field(2; Description; Text[50])
         {

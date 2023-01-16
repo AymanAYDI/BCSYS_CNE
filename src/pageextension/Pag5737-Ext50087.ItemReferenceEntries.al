@@ -26,7 +26,6 @@ pageextension 50087 "BC6_ItemReferenceEntries" extends "Item Reference Entries" 
             {
                 ApplicationArea = Basic, Suite;
             }
-
         }
     }
 }

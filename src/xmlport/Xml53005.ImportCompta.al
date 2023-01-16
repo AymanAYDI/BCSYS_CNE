@@ -1,6 +1,5 @@
 xmlport 53005 "BC6_Import Compta"
 {
-
     Caption = 'Import Compta';
     Direction = Import;
     FieldDelimiter = '<None>';
@@ -59,7 +58,6 @@ xmlport 53005 "BC6_Import Compta"
                     RecGGenJnlLine.VALIDATE("Journal Template Name", CodGJnlTemplName);
                     RecGGenJnlLine.VALIDATE("Journal Batch Name", CodGJnlBatchName);
 
-
                     RecGGenJnlLineTmp.INIT();
                     RecGGenJnlLineTmp.VALIDATE("Journal Template Name", CodGJnlTemplName);
                     RecGGenJnlLineTmp.VALIDATE("Journal Batch Name", CodGJnlBatchName);
@@ -101,7 +99,6 @@ xmlport 53005 "BC6_Import Compta"
                                 RecGGenJnlLine.VALIDATE(RecGGenJnlLine."Account No.", '471000');
                             END;
                         '512':
-
 
                             CASE TxtCmpt OF
                                 '512108':
@@ -147,21 +144,23 @@ xmlport 53005 "BC6_Import Compta"
 
     requestpage
     {
-
         layout
         {
             area(content)
             {
                 field(CodGJnlTemplNameF; CodGJnlTemplName)
                 {
+                    ApplicationArea = All;
                     Caption = 'Journal Template Name';
                 }
                 field(CodGJnlBatchNameF; CodGJnlBatchName)
                 {
+                    ApplicationArea = All;
                     Caption = 'Journal Batch Name';
                 }
                 field(TxtGFileNameF; TxtGFileName)
                 {
+                    ApplicationArea = All;
                     Caption = 'File Name';
 
                     trigger OnAssistEdit()
@@ -192,4 +191,3 @@ xmlport 53005 "BC6_Import Compta"
         TxtJournal: Text[30];
         TxtGFileName: Text[250];
 }
-

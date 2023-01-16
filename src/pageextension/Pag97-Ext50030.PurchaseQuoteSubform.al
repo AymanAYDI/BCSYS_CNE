@@ -34,6 +34,4 @@ pageextension 50030 "BC6_PurchaseQuoteSubform" extends "Purchase Quote Subform" 
             }
         }
     }
-
-
 }

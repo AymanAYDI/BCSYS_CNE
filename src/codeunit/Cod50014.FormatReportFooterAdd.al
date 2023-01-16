@@ -1,7 +1,5 @@
 codeunit 50014 "BC6_Format Report Footer Add"
 {
-
-
     procedure FormatAddrFooter(var AddrArray: array[5] of Text[400]; var CompInfo: Record "Company Information")
     var
         EmailCaption: Label 'email : %1', Comment = 'FRA="email : %1"';
@@ -35,4 +33,3 @@ codeunit 50014 "BC6_Format Report Footer Add"
         END;
     end;
 }
-

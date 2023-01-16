@@ -6,8 +6,8 @@ pageextension 50047 "BC6_PostedPurchaseReceipts" extends "Posted Purchase Receip
         {
             field("BC6_Order No."; Rec."Order No.")
             {
+                ApplicationArea = All;
             }
         }
     }
 }
-

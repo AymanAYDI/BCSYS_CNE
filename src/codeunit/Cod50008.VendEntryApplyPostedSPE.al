@@ -1,6 +1,5 @@
 codeunit 50008 "BC6_VendEntry-Apply Posted SPE"
 {
-
     Permissions = TableData "Vendor Ledger Entry" = rm;
     TableNo = "Vendor Ledger Entry";
 
@@ -58,10 +57,8 @@ codeunit 50008 "BC6_VendEntry-Apply Posted SPE"
 
         GenJnlPostLine.VendPostApplyVendLedgEntry(GenJnlLine, Rec);
 
-        IF EntryNoAfterApplication <> EntryNoBeforeApplication THEN BEGIN
+        IF EntryNoAfterApplication <> EntryNoBeforeApplication THEN
             COMMIT();
-        END;
-
     end;
 
     var
@@ -261,12 +258,11 @@ codeunit 50008 "BC6_VendEntry-Apply Posted SPE"
     var
         VendLedgEntry: Record "Vendor Ledger Entry";
     begin
-        IF GenJnlCheckLine.DateNotAllowed(PostingDate) THEN BEGIN
+        IF GenJnlCheckLine.DateNotAllowed(PostingDate) THEN
             IF Caption <> '' THEN
                 ERROR(Text013, VendLedgEntry.FIELDCAPTION("Posting Date"), Caption, EntryNo)
             ELSE
                 ERROR(Text014, VendLedgEntry.FIELDCAPTION("Posting Date"));
-        END;
         IF PostingDate > MaxPostingDate THEN
             MaxPostingDate := PostingDate;
     end;
@@ -295,4 +291,3 @@ codeunit 50008 "BC6_VendEntry-Apply Posted SPE"
             ERROR(Text017, VendLedgEntry.TABLECAPTION, VendLedgEntryNo);
     end;
 }
-

@@ -1,9 +1,10 @@
 page 50069 "BC6_Racc. clavier terminaux"
 {
+    ApplicationArea = All;
+    Caption = 'Raccourci clavier terminaux';
     PageType = Card;
     SourceTable = Integer;
     UsageCategory = Administration;
-    Caption = 'Raccourci clavier terminaux';
     layout
     {
         area(content)
@@ -47,4 +48,3 @@ page 50069 "BC6_Racc. clavier terminaux"
     {
     }
 }
-

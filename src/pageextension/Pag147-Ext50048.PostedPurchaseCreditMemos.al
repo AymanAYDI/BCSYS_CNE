@@ -6,8 +6,8 @@ pageextension 50048 "BC6_PostedPurchaseCreditMemos" extends "Posted Purchase Cre
         {
             field("BC6_Return Order No."; Rec."Return Order No.")
             {
+                ApplicationArea = All;
             }
         }
     }
 }
-

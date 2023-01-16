@@ -8,4 +8,3 @@ pageextension 50109 "BC6_OrderProcessorRoleCenter" extends "Order Processor Role
         }
     }
 }
-

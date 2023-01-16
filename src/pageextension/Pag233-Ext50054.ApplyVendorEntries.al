@@ -6,9 +6,11 @@ pageextension 50054 "BC6_ApplyVendorEntries" extends "Apply Vendor Entries" //23
         {
             field(BC6_PayToVend; Rec."BC6_Pay-to Vend. No.")
             {
+                ApplicationArea = All;
             }
             field(BC6_GetPayToVenNo; Rec.getVendorName(Rec."BC6_Pay-to Vend. No."))
             {
+                ApplicationArea = All;
                 Caption = 'Pay-to Vend. No.', Comment = 'FRA="Tiers payeur"';
             }
         }
@@ -30,6 +32,7 @@ pageextension 50054 "BC6_ApplyVendorEntries" extends "Apply Vendor Entries" //23
         {
             field(BC6_VendorNO; Rec.getVendorName(Rec."Vendor No."))
             {
+                ApplicationArea = All;
                 trigger OnValidate()
                 var
                     GlobalFunctionMgt: Codeunit "BC6_GlobalFunctionMgt";
@@ -44,5 +47,4 @@ pageextension 50054 "BC6_ApplyVendorEntries" extends "Apply Vendor Entries" //23
             }
         }
     }
-
 }

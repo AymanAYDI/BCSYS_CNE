@@ -11,4 +11,3 @@ pageextension 50105 "BC6_ItemBinContents" extends "Item Bin Contents" //7379
         }
     }
 }
-

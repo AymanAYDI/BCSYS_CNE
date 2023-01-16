@@ -15,10 +15,10 @@ pageextension 50112 "BC6_PurchaseOrder" extends "Purchase Order" //50
             {
                 AccessByPermission = TableData "Posted Invt. Put-away Header" = R;
                 ApplicationArea = Warehouse;
-                Ellipsis = true;
                 Caption = 'Create Inventor&y Put-away/Pick', Comment = 'FRA="Créer prélèv./rangement stock"';
-                Promoted = true;
+                Ellipsis = true;
                 Image = CreateInventoryPickup;
+                Promoted = true;
                 PromotedCategory = Process;
                 trigger OnAction()
                 var
@@ -29,7 +29,6 @@ pageextension 50112 "BC6_PurchaseOrder" extends "Purchase Order" //50
                     IF NOT Rec.FIND('=><') then
                         Rec.INIT();
                 END;
-
             }
         }
     }

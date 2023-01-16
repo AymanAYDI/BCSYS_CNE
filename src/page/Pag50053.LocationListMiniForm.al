@@ -23,8 +23,8 @@ page 50053 "BC6_Location List MiniForm"
                 }
                 field(Name; Rec.Name)
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
             }
         }
@@ -34,4 +34,3 @@ page 50053 "BC6_Location List MiniForm"
     {
     }
 }
-

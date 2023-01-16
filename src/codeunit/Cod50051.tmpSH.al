@@ -1,6 +1,5 @@
 codeunit 50051 "BC6_tmp SH"
 {
-
     trigger OnRun()
     var
         Txtlbl: Label '%1 %2 - Régul. Imputation DEEE';
@@ -58,4 +57,3 @@ codeunit 50051 "BC6_tmp SH"
         GenJnlLine: Record "Gen. Journal Line";
         LineNo: Integer;
 }
-

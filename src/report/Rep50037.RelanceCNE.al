@@ -1,15 +1,13 @@
 report 50037 "BC6_Relance  CNE"
 {
+    Caption = 'Reminder CNE', Comment = 'FRA="Relance CNE"';
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/RelanceCNE.rdl';
-
-    Caption = 'Reminder CNE', Comment = 'FRA="Relance CNE"';
     UsageCategory = None;
     dataset
     {
         dataitem(IssuedReminderHeader; "Issued Reminder Header")
         {
-
             DataItemTableView = SORTING("No.");
             RequestFilterFields = "No.";
             RequestFilterHeading = 'Reminder', Comment = 'FRA="Relance"';
@@ -159,7 +157,6 @@ report 50037 "BC6_Relance  CNE"
             }
             dataitem(DimensionLoop1; Integer)
             {
-
                 DataItemLinkReference = IssuedReminderHeader;
                 DataItemTableView = SORTING(Number)
                                     WHERE(Number = FILTER(1 ..));
@@ -259,14 +256,12 @@ report 50037 "BC6_Relance  CNE"
             }
             dataitem(IssuedReminderLine; "Issued Reminder Line")
             {
-
                 DataItemLink = "Reminder No." = FIELD("No.");
                 DataItemLinkReference = IssuedReminderHeader;
                 DataItemTableView = SORTING("Reminder No.", "Line No.");
                 column(Issued_Reminder_Line__Remaining_Amount_; "Remaining Amount")
                 {
                     AutoFormatExpression = IssuedReminderLine.GetCurrencyCodeFromHeader();
-
                     AutoFormatType = 1;
                 }
                 column(STRSUBSTNO__du__1__FORMAT__Document_Date___; STRSUBSTNO(txtlbl1, FORMAT("Document Date")))
@@ -538,7 +533,6 @@ report 50037 "BC6_Relance  CNE"
 
     requestpage
     {
-
         layout
         {
             area(content)
@@ -546,12 +540,14 @@ report 50037 "BC6_Relance  CNE"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(ShowInternalInformation; ShowInternalInfo)
+                    field(ShowInternalInformationF; ShowInternalInfo)
                     {
+                        ApplicationArea = All;
                         Caption = 'Show Internal Information', Comment = 'FRA="Afficher info. internes"';
                     }
-                    field(LogInteraction; LogInteraction)
+                    field(LogInteractionF; LogInteraction)
                     {
+                        ApplicationArea = All;
                         Caption = 'Log Interaction', Comment = 'FRA="Journal interaction"';
                         Enabled = LogInteractionEnable;
                     }
@@ -600,7 +596,6 @@ report 50037 "BC6_Relance  CNE"
         BooGIRTxtBody3: Boolean;
         Continue: Boolean;
         LogInteraction: Boolean;
-        DocType: label '%1 n°';
         [InDataSet]
         LogInteractionEnable: Boolean;
         ShowInternalInfo: Boolean;
@@ -612,11 +607,14 @@ report 50037 "BC6_Relance  CNE"
         AmountIncVATCaptionLbl: Label 'Amount Including VAT', Comment = 'FRA="Montant TTC"';
         ContinuedCaption1Lbl: Label 'Continued', Comment = 'FRA="Suite"';
         ContinuedCaptionLbl: Label 'Continued', Comment = 'FRA="Suite"';
+        DocType: label '%1 n°';
         Document_DateCaptionLbl: Label 'Document Date', Comment = 'FRA="Date document"';
         Issued_Reminder_Line__Due_Date_CaptionLbl: Label 'Due Date', Comment = 'FRA="Date d''échéance"';
         Issued_Reminder_Line__Remaining_Amount__Control42CaptionLbl: Label 'Continued', Comment = 'FRA="Report"';
         Issued_Reminder_Line__Remaining_Amount_CaptionLbl: Label 'Continued', Comment = 'FRA="Report"';
         Lettre_de_RappelCaptionLbl: Label 'Lettre de Rappel', Comment = 'FRA="Lettre de Rappel"';
+        NumClientLbl: Label 'N° client : %1';
+        RelanceLbl: Label 'Relance n° : %1';
         Reminder_levelCaptionLbl: Label 'Reminder level', Comment = 'FRA="Niveau de relance "';
         ReminderInterestAmountCaptionLbl: Label 'Interest Amount', Comment = 'FRA="Montant intérêts"';
         Text000: Label 'Total %1', Comment = 'FRA="Total %1"';
@@ -632,14 +630,15 @@ report 50037 "BC6_Relance  CNE"
         Text101: Label 'Phone :', Comment = 'FRA="Tel :"';
         TotalCaptionLbl: Label 'Total', Comment = 'FRA="Total"';
         TxtGHdrDimsCaption: Label 'Header Dimensions', Comment = 'FRA="Analytique en-tête"';
+        txtLBL: Label '%1, le %2';
+        txtlbl1: label 'du %1';
+        txtLbl1le2: label '%1 le %2';
+        txtlbl12: label '%1 %2';
         Type_documentCaptionLbl: Label 'Type document', Comment = 'FRA="Type document"';
         VAT_Amount_SpecificationCaptionLbl: Label 'VAT Amount Specification', Comment = 'FRA="Détail TVA"';
         VATAmountCaptionLbl: Label 'VAT Amount', Comment = 'FRA="Montant TVA"';
         VATAmountLine__Amount_Including_VAT__Control70CaptionLbl: Label 'Amount Including VAT', Comment = 'FRA="Montant TTC"';
         VATAmountLine__VAT___CaptionLbl: Label 'VAT %', Comment = 'FRA="% TVA"';
-        txtlbl1: label 'du %1';
-        txtLbl1le2: label '%1 le %2';
-        NumClientLbl: Label 'N° client : %1';
         VATAmountLine__VAT_Amount__Control71CaptionLbl: Label 'VAT Amount', Comment = 'FRA="Montant TVA"';
         VATAmountLine__VAT_Base__Control72CaptionLbl: Label 'VAT Base', Comment = 'FRA="Base TVA"';
         VATAmountLine__VAT_Base__Control80CaptionLbl: Label 'Continued', Comment = 'FRA="Report"';
@@ -648,18 +647,14 @@ report 50037 "BC6_Relance  CNE"
         VATAmtSpecCaptionLbl: Label 'VAT Amount Specification', Comment = 'FRA="Détail montant TVA"';
         VATBaseCaptionLbl: Label 'VAT Base', Comment = 'FRA="Base TVA"';
         VATPercentCaptionLbl: Label 'VAT %', Comment = 'FRA="% TVA"';
-        txtLBL: Label '%1, le %2';
-        txtlbl12: label '%1 %2';
-        RelanceLbl: Label 'Relance n° : %1';
         Pays: Text[30];
         ReferenceText: Text[30];
         VATNoText: Text[30];
-        CompanyAddr: array[8] of Text[50];
-        CustAddr: array[8] of Text[50];
         TotalInclVATText: Text[50];
         TotalText: Text[50];
         OldDimText: Text[75];
+        CompanyAddr: array[8] of Text[100];
+        CustAddr: array[8] of Text[100];
         DimText: Text[120];
         SalesPersonText: Text[200];
 }
-

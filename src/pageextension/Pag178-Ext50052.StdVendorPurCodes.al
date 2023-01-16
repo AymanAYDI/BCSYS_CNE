@@ -6,9 +6,8 @@ pageextension 50052 "BC6_Std Vendor Pur. Codes" extends "Standard Vendor Purchas
         {
             field(BC6_TextautoReport; Rec."BC6_TextautoReport")
             {
+                ApplicationArea = All;
             }
-
         }
     }
-
 }

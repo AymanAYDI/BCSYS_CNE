@@ -1,11 +1,11 @@
 page 50023 "BC6_Intégration article"
 {
+    ApplicationArea = All;
+    Caption = 'Intégration article';
     InsertAllowed = false;
     PageType = List;
     SourceTable = "BC6_Temporary import catalogue";
     UsageCategory = Tasks;
-    ApplicationArea = All;
-    Caption = 'Intégration article';
     layout
     {
         area(content)
@@ -106,11 +106,11 @@ page 50023 "BC6_Intégration article"
         {
             action(Import)
             {
+                ApplicationArea = All;
                 Caption = 'Import', Comment = 'FRA="Import"';
                 Image = Import;
                 Promoted = true;
                 PromotedCategory = Process;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -130,11 +130,11 @@ page 50023 "BC6_Intégration article"
             }
             action("Update")
             {
+                ApplicationArea = All;
                 Caption = 'Update', Comment = 'FRA="Mise à Jour"';
                 Image = UpdateDescription;
                 Promoted = true;
                 PromotedCategory = Process;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -148,12 +148,12 @@ page 50023 "BC6_Intégration article"
             }
             action("Update Item Std Cost")
             {
+                ApplicationArea = All;
                 Caption = 'Update Item Std Cost', Comment = 'FRA="Maj Coût standard article"';
                 Image = UpdateUnitCost;
                 Promoted = true;
-                PromotedOnly = true;
                 PromotedCategory = Process;
-                ApplicationArea = All;
+                PromotedOnly = true;
 
                 trigger OnAction()
                 begin
@@ -169,4 +169,3 @@ page 50023 "BC6_Intégration article"
         textg002: Label 'Empty Integration form ?', Comment = 'FRA="Remettre à zéro le formulaire d''intégration ? "';
         textG005: Label 'Mise à jour terminée.', Comment = 'FRA="Mise à jour terminée."';
 }
-

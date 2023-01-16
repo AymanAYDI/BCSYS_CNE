@@ -37,7 +37,6 @@ report 50055 "BC6_Whse. Get Inventory"
 
     requestpage
     {
-
         layout
         {
             area(content)
@@ -47,18 +46,22 @@ report 50055 "BC6_Whse. Get Inventory"
                     Caption = 'Options';
                     field(PostingDate; PostingDateF)
                     {
+                        ApplicationArea = All;
                         Caption = 'Posting Date', comment = 'FRA="Date comptabilisation"';
                     }
                     field(DocNo; DocNoF)
                     {
+                        ApplicationArea = All;
                         Caption = 'Document No.', comment = 'FRA="N° document"';
                     }
                     field(NewLocationCode; NewLocationCodeF)
                     {
+                        ApplicationArea = All;
                         Caption = 'New Location Code', comment = 'FRA="Nouveau code magasin"';
                     }
                     field(NewBinCode; NewBinCodeF)
                     {
+                        ApplicationArea = All;
                         Caption = 'New Bin Code', comment = 'FRA="Nouveau code emplacement"';
                     }
                 }
@@ -82,7 +85,7 @@ report 50055 "BC6_Whse. Get Inventory"
         IF Item.GETFILTER("Location Filter") = '' THEN
             Item.TESTFIELD("Location Filter");
 
-        LocationCode := Item.GETFILTER("Location Filter");
+        LocationCode := CopyStr(Item.GETFILTER("Location Filter"), 1, MaxStrLen(LocationCode));
         Location.GET(LocationCode);
         Location.TESTFIELD("Bin Mandatory", FALSE);
 
@@ -148,4 +151,3 @@ report 50055 "BC6_Whse. Get Inventory"
         ItemJournalLine.INSERT();
     end;
 }
-

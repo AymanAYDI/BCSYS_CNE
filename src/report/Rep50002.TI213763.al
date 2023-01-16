@@ -1,13 +1,12 @@
 report 50002 "BC6_TI213763"
 {
     ProcessingOnly = true;
-    UseRequestPage = false;
     UsageCategory = None;
+    UseRequestPage = false;
     dataset
     {
         dataitem(Item; Item)
         {
-
             DataItemTableView = SORTING("No.")
                                 ORDER(Ascending)
                                 WHERE("VAT Prod. Posting Group" = CONST('TVA19,6'),
@@ -36,7 +35,6 @@ report 50002 "BC6_TI213763"
 
     requestpage
     {
-
         layout
         {
         }
@@ -53,4 +51,3 @@ report 50002 "BC6_TI213763"
     var
         i: Integer;
 }
-

@@ -1,8 +1,8 @@
 report 50059 "BC6_Item Label v3"
 {
+    Caption = 'Item Label 108x35', comment = 'FRA="Etiquette article 108x35"';
     DefaultLayout = RDLC;
     RDLCLayout = './src/Report/RDL/ItemLabelv3.rdl';
-    Caption = 'Item Label 108x35', comment = 'FRA="Etiquette article 108x35"';
     UsageCategory = None;
     dataset
     {
@@ -62,7 +62,6 @@ report 50059 "BC6_Item Label v3"
 
                 ItemDescription := CopyStr(ItemDescription + ' ' + ExtendedTextItem, 1, MaxStrLen(ItemDescription));
 
-
                 CLEAR(UnitPriceIncVATTxt);
                 IF "BC6_Print Unit Price Incl. VAT" THEN
                     UnitPriceIncVATTxt := STRSUBSTNO(Text1100267001, FORMAT("BC6_Unit Price Includes VAT", 12, '<Precision,2:2><Standard Format,0>'));
@@ -87,7 +86,6 @@ report 50059 "BC6_Item Label v3"
 
     requestpage
     {
-
         layout
         {
         }
@@ -113,9 +111,8 @@ report 50059 "BC6_Item Label v3"
         EAN13Bar: Text[13];
         EAN13Txt: Text[13];
         ExtendedTextItem: Text[100];
-        EAN13BarTxt: Text[120];
         ItemDescription: Text[100];
+        EAN13BarTxt: Text[120];
         UnitPriceIncVATTxt: Text[120];
         UnitPriceTxt: Text[120];
 }
-

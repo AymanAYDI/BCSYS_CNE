@@ -22,9 +22,9 @@ page 50051 "BC6_Item List MiniForm"
                 }
                 field(EAN13Code; EAN13Code)
                 {
+                    ApplicationArea = All;
                     Caption = 'EAN13 Code', Comment = 'FRA="Code EAN13"';
                     Editable = false;
-                    ApplicationArea = All;
                 }
                 field(Description; Rec.Description)
                 {
@@ -101,4 +101,3 @@ page 50051 "BC6_Item List MiniForm"
     //     EXIT(SelectionFilter);
     // end;
 }
-

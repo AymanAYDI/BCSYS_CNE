@@ -1,21 +1,20 @@
 pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
 {
-
     layout
     {
         addafter(Status)
         {
             field(BC6_ID; Rec.BC6_ID)
             {
-                Editable = false;
                 ApplicationArea = All;
                 Caption = 'User ID', Comment = 'FRA="Code utilisateur"';
+                Editable = false;
             }
             field("BC6_Your Reference"; Rec."Your Reference")
             {
-                Importance = Promoted;
                 ApplicationArea = All;
                 Caption = 'Your Reference', Comment = 'FRA="Votre référence"';
+                Importance = Promoted;
             }
             field("BC6_Sell-to Fax No."; Rec."BC6_Sell-to Fax No.")
             {
@@ -39,15 +38,15 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
             }
             field("BC6_Shipment Method Code"; Rec."Shipment Method Code")
             {
-                Importance = Promoted;
                 ApplicationArea = All;
                 Caption = 'Shipment Method Code', Comment = 'FRA="Code condition livraison"';
+                Importance = Promoted;
             }
             field("BC6_Bin Code"; Rec."BC6_Bin Code")
             {
-                Importance = Promoted;
                 ApplicationArea = All;
                 Caption = 'Bin Code';
+                Importance = Promoted;
             }
             field("BC6_Purchase No. Order Lien"; Rec."BC6_Purchase No. Order Lien")
             {
@@ -77,6 +76,7 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
         {
             field("BC6_Bill-to Customer No."; Rec."Bill-to Customer No.")
             {
+                ApplicationArea = All;
                 Caption = 'Bill-to Customer No.', Comment = 'FRA="N° client facturé"';
             }
         }
@@ -84,21 +84,19 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
         {
             part(ControlSpec1; "BC6_Sales Hist. Sellto FactBox")
             {
+                ApplicationArea = All;
                 Provider = SalesLines;
                 SubPageLink = "Document Type" = FIELD("Document Type"),
                               "Document No." = FIELD("Document No."),
                               "Line No." = FIELD("Line No.");
             }
         }
-
-
     }
     actions
     {
         modify("Create Inventor&y Put-away/Pick")
         {
             Visible = false;
-
         }
         addfirst(Action3)
         {
@@ -124,14 +122,13 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
                 end;
             }
         }
-
         addfirst(processing)
         {
             action("BC6_Create Inventory Put-away")
             {
+                ApplicationArea = All;
                 Caption = 'Create Inventor&y Put-away / Pick', comment = 'FRA="Créer prélèv./rangement stoc&k"';
                 Image = Create;
-                ApplicationArea = All;
                 trigger OnAction()
                 begin
                     Rec.CreateInvtPutAwayPick();
@@ -140,8 +137,8 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
             action("BC6_Creer demande de prix")
             {
                 ApplicationArea = All;
-                Image = Price;
                 Caption = 'Créer demande de prix';
+                Image = Price;
                 trigger OnAction()
                 var
                     RecLSalesHeader: Record "Sales Header";
@@ -151,12 +148,12 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
             }
             action("BC6_Create Technicals Directory")
             {
+                ApplicationArea = All;
                 Caption = 'Create Technicals Directory', comment = 'FRA="Créer dossier technique"';
                 Image = Archive;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -169,6 +166,7 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
         {
             action(BC6_PostAndPrint)
             {
+                ApplicationArea = All;
                 Caption = 'Post and &Print', Comment = 'FRA="Valider et i&mprimer"';
                 Ellipsis = true;
                 Image = PostPrint;
@@ -176,7 +174,6 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
                 PromotedCategory = Category6;
                 PromotedIsBig = true;
                 ShortCutKey = 'Shift+F9';
-                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -188,9 +185,9 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
         {
             action("BC6_Work Order")
             {
+                ApplicationArea = All;
                 Caption = 'Work Order', Comment = 'FRA="Edition Bon Prépa"';
                 Image = Print;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -209,8 +206,8 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
         {
             action(BC6_Imprimer)
             {
-                Caption = 'Print', Comment = 'FRA="Imprimer"';
                 ApplicationArea = All;
+                Caption = 'Print', Comment = 'FRA="Imprimer"';
 
                 trigger OnAction()
                 begin
@@ -218,16 +215,11 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
                     DocPrint.PrintSalesHeader(Rec);
                 end;
             }
-
         }
-
-
     }
-
 
     var
         DocPrint: Codeunit "Document-Print";
-
 
     procedure CheckIfReleased()
     var
@@ -245,5 +237,4 @@ pageextension 50014 "BC6_SalesOrder" extends "Sales Order" //42
                 END ELSE
                     ERROR(CstL0002);
     end;
-
 }

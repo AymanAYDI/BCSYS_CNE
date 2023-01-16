@@ -11,4 +11,3 @@ pageextension 50059 "BC6_GenBusinessPostingGroups" extends "Gen. Business Postin
         }
     }
 }
-

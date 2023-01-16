@@ -1,4 +1,4 @@
-page 50048 "Salespers Processor Activities"
+page 50048 "BC6_Salespers Proc Activities"
 {
     Caption = 'Activities', Comment = 'FRA="Activités"';
     PageType = CardPart;
@@ -13,32 +13,31 @@ page 50048 "Salespers Processor Activities"
                 Caption = 'For Release', Comment = 'FRA="À lancer"';
                 field("Sales Quotes Salesperson-Open"; Rec."BC6_Sales Quot.Sales/per-Open")
                 {
-                    DrillDownPageID = "Sales Quotes";
                     ApplicationArea = All;
+                    DrillDownPageID = "Sales Quotes";
                 }
                 field("Sales Orders Salesperson- Open"; Rec."BC6_Sales Ord Sales/per- Open")
                 {
-                    DrillDownPageID = "Sales Order List";
                     ApplicationArea = All;
+                    DrillDownPageID = "Sales Order List";
                 }
 
                 actions
                 {
                     action("New Sales Quote")
                     {
+                        ApplicationArea = All;
                         Caption = 'New Sales Quote', Comment = 'FRA="Nouveau devis"';
-                        Image = Quote;
+                        Image = TileNew;
                         RunObject = Page "Sales Quote";
                         RunPageMode = Create;
-                        ApplicationArea = All;
                     }
                     action("New Sales Order")
                     {
+                        ApplicationArea = All;
                         Caption = 'New Sales Order', Comment = 'FRA="Nouvelle commande vente"';
                         RunObject = Page "Sales Order";
                         RunPageMode = Create;
-                        ApplicationArea = All;
-                        Image = order;
                     }
                 }
             }
@@ -47,26 +46,26 @@ page 50048 "Salespers Processor Activities"
                 Caption = 'Sales Orders Released Not Shipped', Comment = 'FRA="Commandes vente lancées et non livrées"';
                 field("Ready to Ship Salesperson"; Rec."BC6_Ready to Ship Salesperson")
                 {
-                    DrillDownPageID = "Sales Order List";
                     ApplicationArea = All;
+                    DrillDownPageID = "Sales Order List";
                 }
                 field("Partially Shipped Salesperson"; Rec."BC6_Partially Ship. Sales/per")
                 {
-                    DrillDownPageID = "Sales Order List";
                     ApplicationArea = All;
+                    DrillDownPageID = "Sales Order List";
                 }
                 field("Delayed Salesperson"; Rec."BC6_Delayed Salesperson")
                 {
-                    DrillDownPageID = "Sales Order List";
                     ApplicationArea = All;
+                    DrillDownPageID = "Sales Order List";
                 }
 
                 actions
                 {
                     action(Navigate)
                     {
-                        Caption = 'Navigate', Comment = 'FRA="Naviguer"';
                         ApplicationArea = All;
+                        Caption = 'Navigate', Comment = 'FRA="Naviguer"';
                         Image = Navigate;
                         RunObject = Page Navigate;
                     }
@@ -77,18 +76,18 @@ page 50048 "Salespers Processor Activities"
                 Caption = 'Returns', Comment = 'FRA="Retours"';
                 field("Sales Return Orders Salesperso"; Rec."BC6_Sales Ret. Ord. Sales/per")
                 {
-                    DrillDownPageID = "Sales Return Order List";
                     ApplicationArea = All;
+                    DrillDownPageID = "Sales Return Order List";
                 }
 
                 actions
                 {
                     action("New Sales Return Order")
                     {
+                        ApplicationArea = All;
                         Caption = 'New Sales Return Order', Comment = 'FRA="Nouveau retour vente"';
                         RunObject = Page "Sales Return Order";
                         RunPageMode = Create;
-                        ApplicationArea = All;
                     }
                 }
             }
@@ -120,4 +119,3 @@ page 50048 "Salespers Processor Activities"
     var
         RecGUserSetup: Record "User Setup";
 }
-

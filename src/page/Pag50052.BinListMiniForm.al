@@ -15,8 +15,8 @@ page 50052 "BC6_Bin List MiniForm"
             {
                 field("Location Code"; Rec."Location Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Code"; Rec.Code)
                 {
@@ -34,4 +34,3 @@ page 50052 "BC6_Bin List MiniForm"
     {
     }
 }
-

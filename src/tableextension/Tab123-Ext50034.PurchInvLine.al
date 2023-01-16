@@ -5,14 +5,14 @@ tableextension 50034 "BC6_PurchInvLine" extends "Purch. Inv. Line" //123
         field(50000; "BC6_Sales No."; Code[20])
         {
             Caption = 'Sales Order No.', comment = 'FRA="N° commande vente"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50001; "BC6_Sales Line No."; Integer)
         {
             Caption = 'Sales Order Line No.', comment = 'FRA="N° ligne commande vente"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50002; "BC6_Sales Document Type"; enum "Purchase Document Type")
         {
@@ -28,8 +28,8 @@ tableextension 50034 "BC6_PurchInvLine" extends "Purch. Inv. Line" //123
         {
             AutoFormatType = 2;
             Caption = 'Discount Direct Unit Cost excluding VAT', comment = 'FRA="Coût unitaire direct remisé HT"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
 
             trigger OnValidate()
             begin
@@ -39,51 +39,51 @@ tableextension 50034 "BC6_PurchInvLine" extends "Purch. Inv. Line" //123
         field(80800; "BC6_DEEE Category Code"; Code[10])
         {
             Caption = 'DEEE Category Code', comment = 'FRA="Code Catégorie DEEE"';
-            TableRelation = "BC6_Categories of item".Category;
             DataClassification = CustomerContent;
+            TableRelation = "BC6_Categories of item".Category;
         }
         field(80801; "BC6_DEEE Unit Price"; Decimal)
         {
             Caption = 'DEEE Unit Price', comment = 'FRA="Prix Unitaire DEEE"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80802; "BC6_DEEE HT Amount"; Decimal)
         {
             Caption = 'DEEE HT Amount', comment = 'FRA="Montant HT DEEE"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80803; "BC6_DEEE Bases VAT Amount"; Decimal)
         {
             Caption = 'DEEE Bases VAT Amount', comment = 'FRA="Montant Base TVA DEEE"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80804; "BC6_DEEE VAT Amount"; Decimal)
         {
             Caption = 'DEEE VAT Amount', comment = 'FRA="Montant TVA DEEE"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80805; "BC6_DEEE TTC Amount"; Decimal)
         {
             Caption = 'DEEE TTC Amount', comment = 'FRA="Montant TTC DEEE"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80806; "BC6_DEEE HT Amount (LCY)"; Decimal)
         {
             Caption = 'DEEE HT Amount (LCY)', comment = 'FRA="Montant TTC DEEE"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80807; "BC6_Eco partner DEEE"; Code[20])
         {
             Caption = 'Eco partner DEEE', comment = 'FRA="Eco partenaire DEEE"';
+            DataClassification = CustomerContent;
             Editable = false;
             TableRelation = Vendor;
-            DataClassification = CustomerContent;
         }
     }
     keys

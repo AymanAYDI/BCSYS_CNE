@@ -39,14 +39,14 @@ report 50003 "BC6_Copy Sales Document" //292
                             ValidateDocNo();
                         end;
                     }
-                    field(FromDocNoOccurrence; FromDocNoOccurrence)
+                    field(FromDocNoOccurrence; FromDocNoOccurrenceG)
                     {
                         ApplicationArea = All;
                         BlankZero = true;
                         Caption = 'Doc. No. Occurrence', Comment = 'FRA="Doc. N° Occurrence"';
                         Editable = false;
                     }
-                    field(FromDocVersionNo; FromDocVersionNo)
+                    field(FromDocVersionNo; FromDocVersionNoG)
                     {
                         ApplicationArea = All;
                         BlankZero = true;
@@ -75,17 +75,17 @@ report 50003 "BC6_Copy Sales Document" //292
                             ValidateIncludeHeader();
                         end;
                     }
-                    field(RecalculateLines; RecalculateLines)
+                    field(RecalculateLines; RecalculateLinesG)
                     {
                         ApplicationArea = All;
                         Caption = 'Recalculate Lines', Comment = 'FRA="Recalculer lignes"';
                         trigger OnValidate()
                         begin
                             if (FromDocType = FromDocType::"Posted Shipment") or (FromDocType = FromDocType::"Posted Return Receipt") then
-                                RecalculateLines := true;
+                                RecalculateLinesG := true;
                         end;
                     }
-                    field(BoolGCopyLinesExactly; BoolGCopyLinesExactly)
+                    field(BoolGCopyLinesExactly; BoolGCopyLinesExactlyG)
                     {
                         ApplicationArea = all;
                         Caption = 'Copy lines exactly', Comment = 'FRA="Copier exactement les lignes"';
@@ -129,16 +129,16 @@ report 50003 "BC6_Copy Sales Document" //292
                         if FromSalesCrMemoHeader.Get(FromDocNo) then
                             FromSalesHeader.TransferFields(FromSalesCrMemoHeader);
                     FromDocType::"Arch. Order":
-                        if FromSalesHeaderArchive.Get(FromSalesHeaderArchive."Document Type"::Order, FromDocNo, FromDocNoOccurrence, FromDocVersionNo) then
+                        if FromSalesHeaderArchive.Get(FromSalesHeaderArchive."Document Type"::Order, FromDocNo, FromDocNoOccurrenceG, FromDocVersionNoG) then
                             FromSalesHeader.TransferFields(FromSalesHeaderArchive);
                     FromDocType::"Arch. Quote":
-                        if FromSalesHeaderArchive.Get(FromSalesHeaderArchive."Document Type"::Quote, FromDocNo, FromDocNoOccurrence, FromDocVersionNo) then
+                        if FromSalesHeaderArchive.Get(FromSalesHeaderArchive."Document Type"::Quote, FromDocNo, FromDocNoOccurrenceG, FromDocVersionNoG) then
                             FromSalesHeader.TransferFields(FromSalesHeaderArchive);
                     FromDocType::"Arch. Blanket Order":
-                        if FromSalesHeaderArchive.Get(FromSalesHeaderArchive."Document Type"::"Blanket Order", FromDocNo, FromDocNoOccurrence, FromDocVersionNo) then
+                        if FromSalesHeaderArchive.Get(FromSalesHeaderArchive."Document Type"::"Blanket Order", FromDocNo, FromDocNoOccurrenceG, FromDocVersionNoG) then
                             FromSalesHeader.TransferFields(FromSalesHeaderArchive);
                     FromDocType::"Arch. Return Order":
-                        if FromSalesHeaderArchive.Get(FromSalesHeaderArchive."Document Type"::"Return Order", FromDocNo, FromDocNoOccurrence, FromDocVersionNo) then
+                        if FromSalesHeaderArchive.Get(FromSalesHeaderArchive."Document Type"::"Return Order", FromDocNo, FromDocNoOccurrenceG, FromDocVersionNoG) then
                             FromSalesHeader.TransferFields(FromSalesHeaderArchive);
                 end;
                 if FromSalesHeader."No." = '' then
@@ -168,9 +168,9 @@ report 50003 "BC6_Copy Sales Document" //292
         ExactCostReversingMandatory := SalesSetup."Exact Cost Reversing Mandatory";
 
         CopyDocMgt.SetProperties(
-          IncludeHeader, RecalculateLines, false, false, false, ExactCostReversingMandatory, false);
-        CopyDocMgt.SetArchDocVal(FromDocNoOccurrence, FromDocVersionNo);
-        FunctionsMgt.Fct_SetProperties(BoolGCopyLinesExactly);
+          IncludeHeader, RecalculateLinesG, false, false, false, ExactCostReversingMandatory, false);
+        CopyDocMgt.SetArchDocVal(FromDocNoOccurrenceG, FromDocVersionNoG);
+        FunctionsMgt.Fct_SetProperties(BoolGCopyLinesExactlyG);
         CopyDocMgt.CopySalesDoc(FromDocType, FromDocNo, SalesHeader);
     end;
 
@@ -190,13 +190,13 @@ report 50003 "BC6_Copy Sales Document" //292
         FromSalesInvHeader: Record "Sales Invoice Header";
         FromSalesShptHeader: Record "Sales Shipment Header";
         CopyDocMgt: Codeunit "Copy Document Mgt.";
-        BoolGCopyLinesExactly: Boolean;
+        BoolGCopyLinesExactlyG: Boolean;
         IncludeHeader: Boolean;
-        RecalculateLines: Boolean;
+        RecalculateLinesG: Boolean;
         FromDocNo: Code[20];
         FromDocType: Enum "Sales Document Type From";
-        FromDocNoOccurrence: Integer;
-        FromDocVersionNo: Integer;
+        FromDocNoOccurrenceG: Integer;
+        FromDocVersionNoG: Integer;
 
     procedure SetSalesHeader(var NewSalesHeader: Record "Sales Header")
     begin
@@ -210,8 +210,8 @@ report 50003 "BC6_Copy Sales Document" //292
     begin
         if FromDocNo = '' then begin
             FromSalesHeader.Init();
-            FromDocNoOccurrence := 0;
-            FromDocVersionNo := 0;
+            FromDocNoOccurrenceG := 0;
+            FromDocVersionNoG := 0;
         end else
             if FromSalesHeader."No." = '' then begin
                 FromSalesHeader.Init();
@@ -280,12 +280,12 @@ report 50003 "BC6_Copy Sales Document" //292
     begin
 
         if not FromSalesHeaderArchive.Get(
-             CopyDocMgt.GetSalesDocumentType(FromDocType), FromDocNo, FromDocNoOccurrence, FromDocVersionNo)
+             CopyDocMgt.GetSalesDocumentType(FromDocType), FromDocNo, FromDocNoOccurrenceG, FromDocVersionNoG)
         then begin
             FromSalesHeaderArchive.SetRange("No.", FromDocNo);
             if FromSalesHeaderArchive.FindLast() then begin
-                FromDocNoOccurrence := FromSalesHeaderArchive."Doc. No. Occurrence";
-                FromDocVersionNo := FromSalesHeaderArchive."Version No.";
+                FromDocNoOccurrenceG := FromSalesHeaderArchive."Doc. No. Occurrence";
+                FromDocVersionNoG := FromSalesHeaderArchive."Version No.";
             end;
         end;
     end;
@@ -344,8 +344,8 @@ report 50003 "BC6_Copy Sales Document" //292
         FromSalesHeaderArchive.FilterGroup := 2;
         FromSalesHeaderArchive."Document Type" := CopyDocMgt.GetSalesDocumentType(FromDocType);
         FromSalesHeaderArchive."No." := FromDocNo;
-        FromSalesHeaderArchive."Doc. No. Occurrence" := FromDocNoOccurrence;
-        FromSalesHeaderArchive."Version No." := FromDocVersionNo;
+        FromSalesHeaderArchive."Doc. No. Occurrence" := FromDocNoOccurrenceG;
+        FromSalesHeaderArchive."Version No." := FromDocVersionNoG;
         if (FromDocNo = '') and (SalesHeader."Sell-to Customer No." <> '') then
             if FromSalesHeaderArchive.SetCurrentKey("Document Type", "Sell-to Customer No.") then begin
                 FromSalesHeaderArchive."Sell-to Customer No." := SalesHeader."Sell-to Customer No.";
@@ -353,8 +353,8 @@ report 50003 "BC6_Copy Sales Document" //292
             end;
         if PAGE.RunModal(0, FromSalesHeaderArchive) = ACTION::LookupOK then begin
             FromDocNo := FromSalesHeaderArchive."No.";
-            FromDocNoOccurrence := FromSalesHeaderArchive."Doc. No. Occurrence";
-            FromDocVersionNo := FromSalesHeaderArchive."Version No.";
+            FromDocNoOccurrenceG := FromSalesHeaderArchive."Doc. No. Occurrence";
+            FromDocVersionNoG := FromSalesHeaderArchive."Version No.";
             RequestOptionsPage.Update(false);
         end;
     end;
@@ -415,10 +415,10 @@ report 50003 "BC6_Copy Sales Document" //292
 
     local procedure ValidateIncludeHeader()
     begin
-        RecalculateLines :=
+        RecalculateLinesG :=
           (FromDocType in [FromDocType::"Posted Shipment", FromDocType::"Posted Return Receipt"]) or not IncludeHeader;
-        IF BoolGCopyLinesExactly THEN
-            RecalculateLines := FALSE;
+        IF BoolGCopyLinesExactlyG THEN
+            RecalculateLinesG := FALSE;
     end;
 
     procedure SetParameters(NewFromDocType: Enum "Sales Document Type From"; NewFromDocNo: Code[20]; NewIncludeHeader: Boolean; NewRecalcLines: Boolean)
@@ -426,6 +426,6 @@ report 50003 "BC6_Copy Sales Document" //292
         FromDocType := NewFromDocType;
         FromDocNo := NewFromDocNo;
         IncludeHeader := NewIncludeHeader;
-        RecalculateLines := NewRecalcLines;
+        RecalculateLinesG := NewRecalcLines;
     end;
 }

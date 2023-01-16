@@ -6,11 +6,12 @@ pageextension 50074 "BC6_BlanketPurchaseOrder" extends "Blanket Purchase Order" 
         {
             field(BC6_ID; Rec.BC6_ID)
             {
+                ApplicationArea = All;
             }
             field("BC6_Buy-from Fax No."; Rec."BC6_Buy-from Fax No.")
             {
+                ApplicationArea = All;
             }
         }
     }
 }
-

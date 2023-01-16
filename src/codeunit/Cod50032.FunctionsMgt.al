@@ -54,60 +54,62 @@ codeunit 50032 "BC6_Functions Mgt"
         end;
     end;
 
-    // PROCEDURE Findbestpurchprice(CodLitem: Code[20]) decLstdcost: Decimal;
-    // VAR
-    //     Item: Record Item;
-    //     GLSetup: Record "General Ledger Setup";
-    //     Vend: Record vendor;
-    //     PurchPriceCalcMgt: Codeunit "Purch. Price Calc. Mgt.";
-    //     ItemDirectUnitCost: Decimal;
-    //     BestCost: Decimal;
-    //     BestDiscount: Decimal;
-    //     ItemDirectUnitCostBestDiscount: Decimal;
-    // BEGIN
+    PROCEDURE Findbestpurchprice(CodLitem: Code[20]) decLstdcost: Decimal;
+    VAR
+        GLSetup: Record "General Ledger Setup";
+        Item: Record Item;
+        TempPurchLineDisc: Record "Purchase Line Discount" temporary;
+        TempPurchPrice: Record "Purchase Price" temporary;
+        Vend: Record vendor;
+        PurchPriceCalcMgt: Codeunit "Purch. Price Calc. Mgt.";
+        BestCost: Decimal;
+        BestDiscount: Decimal;
+        ItemDirectUnitCost: Decimal;
+        ItemDirectUnitCostBestDiscount: Decimal;
+    BEGIN
 
-    //     //Prix unitaire
-    //     Item.RESET;
-    //     IF Item.GET(CodLitem) THEN BEGIN
-    //         GLSetup.GET;
-    //         IF Vend.GET(Item."Vendor No.") THEN;
-    //         PurchPriceCalcMgt.SetUoM(0, 1);
-    //         //  PricesInCurrency := TRUE;
-    //         ItemDirectUnitCost := Item."Unit Price";
+        //Prix unitaire
+        Item.RESET();
+        IF Item.GET(CodLitem) THEN BEGIN
+            GLSetup.GET();
+            IF Vend.GET(Item."Vendor No.") THEN;
+            PurchPriceCalcMgt.SetUoM(0, 1);
+            //  PricesInCurrency := TRUE;
+            ItemDirectUnitCost := Item."Unit Price";
 
-    //         //Meilleur prix
-    //         PurchPriceCalcMgt.FindPurchPrice(
-    //          TempPurchPrice, Item."Vendor No.", Item."No.", '', Item."Base Unit of Measure",
-    //          '', WORKDATE, TRUE);
-    //         IF TempPurchPrice.FIND('-') THEN BEGIN
-    //             CalcBestDirectUnitCost(TempPurchPrice);
-    //             BestCost := TempPurchPrice."Direct Unit Cost";
-    //         END ELSE BEGIN
-    //             BestCost := 0;
-    //         END;
+            //Meilleur prix
+            PurchPriceCalcMgt.FindPurchPrice(
+             TempPurchPrice, Item."Vendor No.", Item."No.", '', Item."Base Unit of Measure",
+             '', WORKDATE(), TRUE);
+            IF TempPurchPrice.FIND('-') THEN BEGIN
+                PurchPriceCalcMgt.CalcBestDirectUnitCost(TempPurchPrice);
+                BestCost := TempPurchPrice."Direct Unit Cost";
+            END ELSE BEGIN
+                BestCost := 0;
+            END;
 
-    //         //Meilleur remise
-    //         FindPurchLineDisc(
-    //           TempPurchLineDisc, Item."Vendor No.", Item."No.", '', Item."Base Unit of Measure",
-    //             '', WORKDATE, FALSE, Item."Item Disc. Group");
-    //         IF TempPurchLineDisc.FIND('-') THEN BEGIN
-    //             CalcBestLineDisc(TempPurchLineDisc);
-    //             BestDiscount := TempPurchLineDisc."Line Discount %";
-    //         END ELSE BEGIN
-    //             BestDiscount := 0;
-    //         END;
+            //Meilleur remise
+            FindPurchLineDisc(
+              TempPurchLineDisc, Item."Vendor No.", Item."No.", '', Item."Base Unit of Measure",
+                '', WORKDATE(), FALSE, Item."Item Disc. Group");
+            IF TempPurchLineDisc.FIND('-') THEN BEGIN
+                PurchPriceCalcMgt.CalcBestLineDisc(TempPurchLineDisc);
+                BestDiscount := TempPurchLineDisc."Line Discount %";
+            END ELSE BEGIN
+                BestDiscount := 0;
+            END;
 
-    //         ItemDirectUnitCostBestDiscount := (ItemDirectUnitCost * (1 - BestDiscount / 100));
+            ItemDirectUnitCostBestDiscount := (ItemDirectUnitCost * (1 - BestDiscount / 100));
 
-    //         IF (ItemDirectUnitCostBestDiscount < BestCost) OR (BestCost = 0) THEN BEGIN
-    //             decLstdcost := ItemDirectUnitCostBestDiscount;
-    //         END ELSE BEGIN
-    //             decLstdcost := BestCost;
-    //         END;
-    //     END ELSE BEGIN
-    //         decLstdcost := 0;
-    //     END;
-    // END;
+            IF (ItemDirectUnitCostBestDiscount < BestCost) OR (BestCost = 0) THEN BEGIN
+                decLstdcost := ItemDirectUnitCostBestDiscount;
+            END ELSE BEGIN
+                decLstdcost := BestCost;
+            END;
+        END ELSE BEGIN
+            decLstdcost := 0;
+        END;
+    END;
 
     //COD419
 
@@ -275,7 +277,6 @@ codeunit 50032 "BC6_Functions Mgt"
     //           VATAmount, VATAmountText);
     //     end;
 
-
     //     PROCEDURE GetTaxAmountFromPurchaseOrder(PurchaseHeader: Record 38): Decimal;
     //     VAR
     //         NewPurchLine: Record 39;
@@ -298,7 +299,6 @@ codeunit 50032 "BC6_Functions Mgt"
     end;
 
     //COD 5063////////////////////////////
-
 
     procedure ArchiveSalesDocumentWithoutMessage(var SalesHeader: Record "Sales Header");
     var
@@ -358,8 +358,6 @@ codeunit 50032 "BC6_Functions Mgt"
         if PAGE.RUNMODAL(0, Bin) = ACTION::LookupOK then
             exit(Bin.Code);
     end;
-
-
 
     // related to codeunit 73020
     procedure InsertTempWhseJnlLine2(ItemJnlLine: Record "Item Journal Line"; SourceType: Integer; SourceSubType: Integer; SourceNo: Code[20]; SourceLineNo: Integer; RefDoc: Integer; SourceType2: Integer; SourceSubType2: Integer; SourceNo2: Code[20]; SourceLineNo2: Integer; var TempWhseJnlLine: Record "Warehouse Journal Line" temporary; var NextLineNo: Integer);
@@ -421,9 +419,6 @@ codeunit 50032 "BC6_Functions Mgt"
                 NextLineNo := TempWhseJnlLine."Line No." + 10000;
             until WhseEntry.NEXT() = 0;
     end;
-
-
-
 
     // TODO: function specific related to codeunit 7324 "Whse.-Activity-Post"
     procedure SetPostingDate(NewPostingDate: Date);
@@ -641,8 +636,6 @@ codeunit 50032 "BC6_Functions Mgt"
         RecLInvPostingBufferCopy.INSERT();
     end;
 
-
-
     procedure CheckReturnOrderMandatoryFields(PurchaseHeader: Record "Purchase Header");
     var
         PurchaseLine: Record "Purchase Line";
@@ -683,7 +676,6 @@ codeunit 50032 "BC6_Functions Mgt"
                     until L_SalesLine.NEXT() = 0;
             end;
     end;
-
 
     //COD12
     procedure TotalVATAmountOnJnlLines(GenJnlLine: Record "Gen. Journal Line") TotalVATAmount: Decimal
@@ -741,7 +733,6 @@ codeunit 50032 "BC6_Functions Mgt"
     begin
         GloblFuncMgt.SetEnableIncrPurchCost(pValue);
     end;
-
 
     procedure CalcProfit(var SalesHeader: Record "Sales Header");
     var
@@ -892,7 +883,7 @@ codeunit 50032 "BC6_Functions Mgt"
                 RecLPurchLine.MODIFY(true);
             until RecLPurchLine.NEXT() = 0;
     end;
-    //TAB38 
+    //TAB38
     procedure BC6_CreateInvtPutAwayPick_Purchase(var PurchHeader: Record "Purchase Header");
     var
         WhseRequest: Record "Warehouse Request";
@@ -913,7 +904,7 @@ codeunit 50032 "BC6_Functions Mgt"
         RepLCreateInvtPutPickMvmt.Run();
     end;
 
-    //TAB36 
+    //TAB36
     procedure BC6_CreateInvtPutAwayPick_Sales(var SalesHeader: Record "Sales Header");
     var
         WhseRequest: Record "Warehouse Request";
@@ -942,7 +933,6 @@ codeunit 50032 "BC6_Functions Mgt"
         RepLCreateInvtPutPickMvmt.Run();
     end;
 
-
     //TODO: //fct du std , j la dupliquer et effacer le reste du code qui ne sert a rien , cette fct est utilisé juste ds les pages on peut apres passer la valeur true simplement sans avoir besoin a cette fct
     procedure ConfirmCloseUnposted(): Boolean;
     begin
@@ -957,8 +947,6 @@ codeunit 50032 "BC6_Functions Mgt"
             if Contact."Company No." <> '' then
                 exit(SearchContact.Get(Contact."Company No."));
     end;
-
-
 
     procedure SetYourReference(_YourRef: Text);
     begin
@@ -982,7 +970,6 @@ codeunit 50032 "BC6_Functions Mgt"
             PriceCalcMgt.SetUoM(ABS(RecLSalesLine.Quantity), RecLSalesLine."Qty. per Unit of Measure");
             PriceCalcMgt.SetLineDisc(RecLSalesLine."Line Discount %", RecLSalesLine."Allow Line Disc.", RecLSalesLine."Allow Invoice Disc.");
 
-
             Item.RESET();
             Item.GET(RecLSalesLine."No.");
             ItemUnitPrice := Item."Unit Price";
@@ -993,17 +980,15 @@ codeunit 50032 "BC6_Functions Mgt"
             if PriceCalcMgt.SalesLineLineDiscExists(RecLSalesHeader, RecLSalesLine, false) then begin
                 // PriceCalcMgt.CalcBestLineDisc(TempSalesLineDisc); //TODO:
                 // BestDiscount := TempSalesLineDisc."Line Discount %";
-            end else begin
+            end else
                 BestDiscount := 0;
-            end;
 
             //Meilleur prix
             if PriceCalcMgt.SalesLinePriceExists(RecLSalesHeader, RecLSalesLine, false) then begin
                 // PriceCalcMgt.CalcBestUnitPrice(TempSalesPrice); TODO:
                 // BestPrice := TempSalesPrice."Unit Price" ; TODO:
-            end else begin
+            end else
                 BestPrice := 0;
-            end;
 
             ItemUnitPriceBestDiscount := (ItemUnitPrice * (1 - BestDiscount / 100));
 
@@ -1176,8 +1161,6 @@ then begin
             SalesLine."Shipment Date" := WorkDate();
     end;
 
-
-
     procedure GetLastToSalesLineNo(ToSalesHeader: Record "Sales Header"): Decimal
     var
         ToSalesLine: Record "Sales Line";
@@ -1215,8 +1198,8 @@ then begin
         L_ShipmentInvoiced: Record "Shipment Invoiced";
         LanguageManagement: Codeunit Language;
         TranslationHelper: Codeunit "Translation Helper";
-        SalesOrderExists: Boolean;
         PurchaseOrderExists: Boolean;
+        SalesOrderExists: Boolean;
         Text018: label '%1 - %2:';
         Text50000: label 'Sales Oder No., Purch Order No.', comment = 'FRA="N° Cde vente.,N° Cde achat."';
         Text50001: label '%1:';
@@ -1268,8 +1251,6 @@ then begin
         SkipTestCreditLimit := NewSkipTestCreditLimit;
     end;
 
-
-
     //COD80
     procedure MntInverseDEEE(var RecLPurchLine: Record "Purchase Line");
     begin
@@ -1279,14 +1260,13 @@ then begin
         RecLPurchLine."BC6_DEEE TTC Amount" := -RecLPurchLine."BC6_DEEE TTC Amount";
     end;
 
-    PROCEDURE MntIncrDEEEPurchPost(VAR RecLPurchLine: Record "Purchase Line"); //COD 90 
+    PROCEDURE MntIncrDEEEPurchPost(VAR RecLPurchLine: Record "Purchase Line"); //COD 90
     var
         GloablFunction: codeunit "BC6_GlobalFunctionMgt";
     BEGIN
         GloablFunction.SetGDecMntTTCDEEE(GloablFunction.GetGDecMntHTDEEE() + RecLPurchLine."BC6_DEEE HT Amount");
         GloablFunction.SetGDecMntHTDEEE(GloablFunction.GetGDecMntTTCDEEE() + RecLPurchLine."BC6_DEEE TTC Amount");
     END;
-
 
     PROCEDURE MntIncrDEEE(VAR RecLPurchLine: Record "Purchase Line");
     var
@@ -1691,7 +1671,6 @@ then begin
         end;
     end;
 
-
     procedure CalcAvailabilityCNE(var SalesLine: Record "Sales Line"; var Item: Record Item): Decimal;
     var
         CopyOfItem: Record Item;
@@ -1712,7 +1691,6 @@ then begin
             exit(ConvertQty(AvailableToPromise.QtyAvailabletoPromise(CopyOfItem, GrossRequirement, ScheduledReceipt, SIPM.CalcAvailabilityDate(SalesLine), PeriodType.AsInteger(), LookaheadDateformula), SalesLine."Qty. per Unit of Measure"));
         end;
     end;
-
 
     procedure CalcAvailabilityMETZ(var SalesLine: Record "Sales Line"; var Item: Record Item): Decimal;
     var
@@ -1752,7 +1730,7 @@ then begin
 
         ToPurchLineDisc.RESET();
         ToPurchLineDisc.DELETEALL();
-        for FromPurchLineDisc.BC6_Type := FromPurchLineDisc.BC6_Type::Item to FromPurchLineDisc.BC6_Type::"All items" do begin
+        for FromPurchLineDisc.BC6_Type := FromPurchLineDisc.BC6_Type::Item to FromPurchLineDisc.BC6_Type::"All items" do
             if (FromPurchLineDisc.BC6_Type = FromPurchLineDisc.BC6_Type::"All items") or
               ((FromPurchLineDisc.BC6_Type = FromPurchLineDisc.BC6_Type::Item) and (ItemNo <> '')) or
               ((FromPurchLineDisc.BC6_Type = FromPurchLineDisc.BC6_Type::"Item Disc. Group") and (ItemDiscGrCode <> '')) then begin
@@ -1772,7 +1750,6 @@ then begin
                         ToPurchLineDisc.INSERT();
                     until FromPurchLineDisc.NEXT() = 0;
             end;
-        end;
     end;
 
     procedure PurchHeaderStartDate(var PurchHeader: Record "Purchase Header"; var DateCaption: Text[30]) StartDate: Date
@@ -1830,11 +1807,8 @@ then begin
                 if LineSpacing = 0 then
                     ERROR(Text000);
 
-
-            end else begin
+            end else
                 LineSpacing := 10000;
-            end;
-
 
             NextLineNo := SalesLine."Line No." + LineSpacing;
 
@@ -1854,8 +1828,7 @@ then begin
         end;
     end;
 
-
-    // function specifique codeunit 378 "Transfer Extended Text" 
+    // function specifique codeunit 378 "Transfer Extended Text"
     procedure InsertPurchExtTextSpe(var PurchLine: Record "Purchase Line");
     var
         RecGTmpExtTexLineSpe: Record "BC6_Special Extended Text Line";
@@ -1877,7 +1850,6 @@ then begin
         Item.GET(PurchLine."No.");
         OKA := Item."Automatic Ext. Texts";
 
-
         if GlobalFunctionMgt.GetAutoTextSpe() then begin
             PurchHeader.GET(PurchLine."Document Type", PurchLine."Document No.");
 
@@ -1892,14 +1864,12 @@ then begin
             ToPurchLine.SETRANGE("Document No.", PurchLine."Document No.");
 
             ToPurchLine := PurchLine;
-            if ToPurchLine.FIND('>') then begin
+            if ToPurchLine.FIND('>') then
                 LineSpacing :=
                    (ToPurchLine."Line No." - PurchLine."Line No.") div
-                   (1 + RecGTmpExtTexLineSpe.COUNT);
-
-            end else begin
+                   (1 + RecGTmpExtTexLineSpe.COUNT)
+            else
                 LineSpacing := 10000;
-            end;
 
             NextLineNo := PurchLine."Line No." + LineSpacing;
 
@@ -1938,7 +1908,7 @@ then begin
                     ToCampaignTargetGr := FromCampaignTargetGr;
                     ToCampaignTargetGr.INSERT();
                 until FromCampaignTargetGr.NEXT() = 0
-            else begin
+            else
                 if Cont.GET(ContNo) then begin
                     FromCampaignTargetGr.SETRANGE(Type, FromCampaignTargetGr.Type::Contact);
                     FromCampaignTargetGr.SETRANGE("No.", Cont."Company No.");
@@ -1948,7 +1918,6 @@ then begin
                             ToCampaignTargetGr.INSERT();
                         until FromCampaignTargetGr.NEXT() = 0;
                 end;
-            end;
         end;
         exit(ToCampaignTargetGr.FINDFIRST());
     end;
@@ -2126,10 +2095,7 @@ then begin
             until SalesLine.Next() = 0;
     end;
 
-
     var
         GloblFuncMgt: Codeunit "BC6_GlobalFunctionMgt";
         IsSAVReturnOrder: Boolean;
-
-
 }

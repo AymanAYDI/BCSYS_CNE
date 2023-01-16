@@ -31,4 +31,3 @@ page 50025 "BC6_DEEE Tariffs List"
         }
     }
 }
-

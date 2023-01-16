@@ -16,6 +16,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 Caption = 'General', comment = 'FRA="Général"';
                 field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
                     Importance = Additional;
                     ToolTip = 'Specifies the number of the sales document. The field can be filled automatically or manually and can be set up to be invisible.',
                      comment = 'FRA="Spécifie le numéro du document vente. Le champ peut étre rempli automatiquement ou manuellement et étre configurer pour étre invisible."';
@@ -29,6 +30,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 field("Sell-to Customer Name"; Rec."Sell-to Customer Name")
                 {
+                    ApplicationArea = All;
                     Caption = 'Customer', comment = 'FRA="Client"';
                     Importance = Promoted;
                     QuickEntry = false;
@@ -55,24 +57,28 @@ page 50116 "BC6_SAV Sales Return Order"
                     Caption = 'Sell-to', comment = 'FRA="Donneur d''ordre"';
                     field("Sell-to Address"; Rec."Sell-to Address")
                     {
+                        ApplicationArea = All;
                         Caption = 'Address', comment = 'FRA="Adresse"';
                         Importance = Additional;
                         ToolTip = 'Specifies the address where the customer is located.', comment = 'FRA="Spécifie l''adresse où se trouve le client."';
                     }
                     field("Sell-to Address 2"; Rec."Sell-to Address 2")
                     {
+                        ApplicationArea = All;
                         Caption = 'Address 2', comment = 'FRA="Adresse (2éme ligne)"';
                         Importance = Additional;
                         ToolTip = 'Specifies additional address information.', comment = 'FRA="Spécifie des informations d''adresse supplémentaires."';
                     }
                     field("Sell-to Post Code"; Rec."Sell-to Post Code")
                     {
+                        ApplicationArea = All;
                         Caption = 'Post Code', comment = 'FRA="Code postal"';
                         Importance = Additional;
                         ToolTip = 'Specifies the postal code.', comment = 'FRA="Spécifie le code postal."';
                     }
                     field("Sell-to City"; Rec."Sell-to City")
                     {
+                        ApplicationArea = All;
                         Caption = 'City', comment = 'FRA="Ville"';
                         Importance = Additional;
                         QuickEntry = false;
@@ -80,6 +86,7 @@ page 50116 "BC6_SAV Sales Return Order"
                     }
                     field("Sell-to Contact No."; Rec."Sell-to Contact No.")
                     {
+                        ApplicationArea = All;
                         Caption = 'Contact No.', comment = 'FRA="No contact"';
                         Importance = Additional;
                         ToolTip = 'Specifies the number of the contact that the sales document will be sent to.', comment = 'FRA="Spécifie le numéro du contact auquel vous envoyez le document vente."';
@@ -94,45 +101,55 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 field(ID; Rec.ID)
                 {
+                    ApplicationArea = All;
                 }
                 field("Sell-to Fax No."; Rec."BC6_Sell-to Fax No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Affair No."; Rec."BC6_Affair No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Sell-to Contact"; Rec."Sell-to Contact")
                 {
+                    ApplicationArea = All;
                     Caption = 'Contact', comment = 'FRA="Contact"';
                     ToolTip = 'Specifies the name of the person to contact at the customer.', comment = 'FRA="Spécifie le nom de la personn à contacter chez le client."';
                 }
                 field("Document Date"; Rec."Document Date")
                 {
+                    ApplicationArea = All;
                     QuickEntry = false;
                     ToolTip = 'Specifies the date on which you created the sales document.', comment = 'FRA="Spécifie la date à laquelle  vous avez crée le document vente."';
                 }
                 field("Posting Date"; Rec."Posting Date")
                 {
+                    ApplicationArea = All;
                     QuickEntry = false;
                     ToolTip = 'Specifies the date when the posting of the sales document will be recorded.', comment = 'FRA="Spécifie la date à laquelle  la validation du document vente sera validé."';
                 }
                 field("Order Date"; Rec."Order Date")
                 {
+                    ApplicationArea = All;
                     Importance = Promoted;
                     QuickEntry = false;
                     ToolTip = 'Specifies the date on which the exchange rate applies to prices listed in a foreign currency on the sales order.', comment = 'FRA="Spécifie la date à laquelle  le taux de change s''applique aux prix répertoriés dans une devise étrangère de la commande vente."';
                 }
                 field("External Document No."; Rec."External Document No.")
                 {
+                    ApplicationArea = All;
                     Importance = Promoted;
                     ToolTip = 'Specifies the number that the customer uses in their own system to refer to this sales document.', comment = 'FRA="Spécifie le numéro que le client doit utiliser dans son propre systéme pour faire référence à ce document vente."';
                 }
                 field("No. of Archived Versions"; Rec."No. of Archived Versions")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the number of archived versions for this sales document.', comment = 'FRA="Spécifie le nombre de versions archivées pour ce document vente."';
                 }
                 field("Salesperson Code"; Rec."Salesperson Code")
                 {
+                    ApplicationArea = All;
                     QuickEntry = false;
                     ToolTip = 'Specifies the name of the salesperson who is assigned to the customer.', comment = 'FRA="Spécifie le nom du vendeur affecté au client."';
 
@@ -143,14 +160,17 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 field("Campaign No."; Rec."Campaign No.")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the number of the campaign that the document is linked to.', comment = 'FRA="Spécifie le numéro de campagne auquel le document est lié."';
                 }
                 field("Responsibility Center"; Rec."Responsibility Center")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the code of the responsibility center that is associated with the user, company, or vendor.', comment = 'FRA="Spécifie le code du centre de gestion qui est associé à l''utilisateur, à la société ou au fournisseur."';
                 }
                 field("Assigned User ID"; Rec."Assigned User ID")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the ID of the user who is responsible for the document.', comment = 'FRA="Spécifie le code de l''utilisateur qui est responsable du document."';
                 }
                 field("Job Queue Status"; Rec."Job Queue Status")
@@ -162,9 +182,11 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 field("Return Order Type"; Rec."BC6_Return Order Type")
                 {
+                    ApplicationArea = All;
                 }
                 field(Status; Rec.Status)
                 {
+                    ApplicationArea = All;
                     Importance = Promoted;
                     QuickEntry = false;
                     ToolTip = 'Specifies whether the document is open, waiting to be approved, has been invoiced for prepayment, or has been released to the next stage of processing.'
@@ -173,6 +195,7 @@ page 50116 "BC6_SAV Sales Return Order"
             }
             part(SalesLines; "Sales Return Order Subform")
             {
+                ApplicationArea = All;
                 SubPageLink = "Document No." = FIELD("No.");
                 UpdatePropagation = Both;
             }
@@ -181,6 +204,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 Caption = 'Invoice Details', comment = 'FRA="Détails facture"';
                 field("Currency Code"; Rec."Currency Code")
                 {
+                    ApplicationArea = All;
                     Importance = Promoted;
                     ToolTip = 'Specifies the currency of amounts on the sales document.', comment = 'FRA="Spécifie la devise des montants sur le document vente."';
 
@@ -205,6 +229,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 field("Prices Including VAT"; Rec."Prices Including VAT")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies whether the unit price on the line should be displayed including or excluding VAT.'
                     , comment = 'FRA="Spécifie si le prix unitaire de la ligne doit étre affiché TTC ou hors taxes."';
 
@@ -215,16 +240,19 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 field("VAT Bus. Posting Group"; Rec."VAT Bus. Posting Group")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the customer''s VAT specification to link transactions made for this customer to.'
                     , comment = 'FRA="Spécifie le détail TVA du client auquel associer des transactions faites pour ce client."';
                 }
                 field("Transaction Type"; Rec."Transaction Type")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the type of transaction that the sales document represents, for the purpose of reporting to INTRASTAT.'
                     , comment = 'FRA="Spécifie le type de transaction que représente le document vente, à des fins de compte rendu intracommunautaire"';
                 }
                 field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the dimension value code associated with the sales header.', comment = 'FRA="Spécifie le code section analytique associée à l''en-tête vente."';
 
                     trigger OnValidate()
@@ -234,6 +262,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the dimension value code associated with the sales header.', comment = 'FRA="Spécifie le code section analytique associée à l''en-tête vente."';
 
                     trigger OnValidate()
@@ -243,11 +272,13 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 field("Shipment Date"; Rec."Shipment Date")
                 {
+                    ApplicationArea = All;
                     Importance = Promoted;
                     ToolTip = 'Specifies the date you expect to ship items on the sales document.', comment = 'FRA="Spécifie la date à laquelle  vous pensez expédier les articles indiqués sur le document vente."';
                 }
                 field("Applies-to Doc. Type"; Rec."Applies-to Doc. Type")
                 {
+                    ApplicationArea = All;
                     Importance = Promoted;
                     ToolTip = 'Specifies the type of the posted document that this document or journal line will be applied to when you post, for example to register payment.'
 
@@ -255,12 +286,14 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 field("Applies-to Doc. No."; Rec."Applies-to Doc. No.")
                 {
+                    ApplicationArea = All;
                     Importance = Promoted;
                     ToolTip = 'Specifies the number of the posted document that this document or journal line will be applied to when you post, for example to register payment.'
                     , comment = 'FRA="Spécifie le numéro du document validé avec lequel ce document ou cette ligne feuille sera lettré lorsque vous validez, par exemple pour enregistrer un paiement."';
                 }
                 field("Applies-to ID"; Rec."Applies-to ID")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the ID of entries that will be applied to when you choose the Apply Entries action.'
                     , comment = 'FRA="Spécifie l''ID de lettrage des écritures lorsque vous choisissez l''action Ecr. ouvertes."';
                 }
@@ -273,18 +306,21 @@ page 50116 "BC6_SAV Sales Return Order"
                     Caption = 'Shipment Method', comment = 'FRA="Conditions de livraison"';
                     field("Shipping Agent Code"; Rec."Shipping Agent Code")
                     {
+                        ApplicationArea = All;
                         Caption = 'Agent', comment = 'FRA="Transporteur"';
                         Importance = Additional;
                         ToolTip = 'Specifies which shipping agent is used to transport the items on the sales document to the customer.', comment = 'FRA="Spécifie le transporteur utilisé pour expédier au client les articles figurant sur le document vente."';
                     }
                     field("Shipping Agent Service Code"; Rec."Shipping Agent Service Code")
                     {
+                        ApplicationArea = All;
                         Caption = 'Agent Service', comment = 'FRA="Prestation transporteur"';
                         Importance = Additional;
                         ToolTip = 'Specifies which shipping agent service is used to transport the items on the sales document to the customer.', comment = 'FRA="Spécifie le transporteur utilisé pour expédier au client les articles figurant sur le document vente."';
                     }
                     field("Package Tracking No."; Rec."Package Tracking No.")
                     {
+                        ApplicationArea = All;
                         Importance = Additional;
                         ToolTip = 'Specifies the shipping agent''s package number.', comment = 'FRA="Spécifie le numéro récépissé du transporteur."';
                     }
@@ -294,6 +330,7 @@ page 50116 "BC6_SAV Sales Return Order"
                     Caption = 'Ship-to', comment = 'FRA="Destinataire"';
                     field("Location Code"; Rec."Location Code")
                     {
+                        ApplicationArea = All;
                         Caption = 'Location', comment = 'FRA="Emplacement"';
                         Importance = Promoted;
                         ToolTip = 'Specifies the location from where inventory items to the customer on the sales document are to be shipped by default.',
@@ -301,33 +338,39 @@ page 50116 "BC6_SAV Sales Return Order"
                     }
                     field("Ship-to Name"; Rec."Ship-to Name")
                     {
+                        ApplicationArea = All;
                         Caption = 'Name', comment = 'FRA="Nom"';
                         ToolTip = 'Specifies the name that products on the sales document will be shipped to.'
                         , comment = 'FRA="Spécifie le nom auquel les produits mentionnés sur le document vente seront expédiés."';
                     }
                     field("Ship-to Address"; Rec."Ship-to Address")
                     {
+                        ApplicationArea = All;
                         Caption = 'Address', comment = 'FRA="Adresse"';
                         ToolTip = 'Specifies the address that products on the sales document will be shipped to.'
                         , comment = 'FRA="Spécifie l''adresse à laquelle  les produits mentionnés sur le document vente seront expédiés."';
                     }
                     field("Ship-to Address 2"; Rec."Ship-to Address 2")
                     {
+                        ApplicationArea = All;
                         Caption = 'Address 2', comment = 'FRA="Adresse (2éme ligne)"';
                         ToolTip = 'Specifies additional address information.', comment = 'FRA="Spécifie des informations d''adresse supplémentaires."';
                     }
                     field("Ship-to Post Code"; Rec."Ship-to Post Code")
                     {
+                        ApplicationArea = All;
                         Caption = 'Post Code', comment = 'FRA="Code postal."';
                         ToolTip = 'Specifies the postal code.', comment = 'FRA="Spécifie le code postal."';
                     }
                     field("Ship-to City"; Rec."Ship-to City")
                     {
+                        ApplicationArea = All;
                         Caption = 'City', comment = 'FRA="Ville"';
                         ToolTip = 'Specifies the city that products on the sales document will be shipped to.', comment = 'FRA="Spécifie la ville vers laquelle les produits mentionnés sur le document vente seront expédiés."';
                     }
                     field("Ship-to Contact"; Rec."Ship-to Contact")
                     {
+                        ApplicationArea = All;
                         Caption = 'Contact', comment = 'FRA="Contact"';
                         ToolTip = 'Specifies the name of the contact person at the address that products on the sales document will be shipped to.', comment = 'FRA="Spécifie le nom de la personne de contact à l''adresse d''expédition des produits figurant sur le document vente."';
                     }
@@ -337,42 +380,49 @@ page 50116 "BC6_SAV Sales Return Order"
                     Caption = 'Bill-to', comment = 'FRA="Facturation"';
                     field("Bill-to Name"; Rec."Bill-to Name")
                     {
+                        ApplicationArea = All;
                         Caption = 'Name', comment = 'FRA="Nom"';
                         Importance = Promoted;
                         ToolTip = 'Specifies the customer to whom you will send the sales invoice, when different from the customer that you are selling to.', comment = 'FRA="Spécifie le client à qui vous envoyez la facture vente, s''il différe du client à qui vous vendez."';
                     }
                     field("Bill-to Address"; Rec."Bill-to Address")
                     {
+                        ApplicationArea = All;
                         Caption = 'Address', comment = 'FRA="Adresse"';
                         Importance = Additional;
                         ToolTip = 'Specifies the address of the customer that you will send the invoice to.', comment = 'FRA="Spécifie l''adresse du client à qui vous envoyez la facture."';
                     }
                     field("Bill-to Address 2"; Rec."Bill-to Address 2")
                     {
+                        ApplicationArea = All;
                         Caption = 'Address 2', comment = 'FRA="Adresse (2éme ligne)"';
                         Importance = Additional;
                         ToolTip = 'Specifies additional address information.', comment = 'FRA="Spécifie des informations d''adresse supplémentaires."';
                     }
                     field("Bill-to Post Code"; Rec."Bill-to Post Code")
                     {
+                        ApplicationArea = All;
                         Caption = 'Post Code', comment = 'FRA="Code postal."';
                         Importance = Additional;
                         ToolTip = 'Specifies the postal code.', comment = 'FRA="Spécifie le code postal."';
                     }
                     field("Bill-to City"; Rec."Bill-to City")
                     {
+                        ApplicationArea = All;
                         Caption = 'City', comment = 'FRA="Ville"';
                         Importance = Additional;
                         ToolTip = 'Specifies the city you will send the invoice to.', comment = 'FRA="Spécifie la ville du client qui sera facturé."';
                     }
                     field("Bill-to Contact No."; Rec."Bill-to Contact No.")
                     {
+                        ApplicationArea = All;
                         Caption = 'Contact No.', comment = 'FRA="No. contact"';
                         Importance = Additional;
                         ToolTip = 'Specifies the number of the contact the invoice will be sent to.', comment = 'FRA="Spécifie le numéro du contact auquel vous envoyez la facture."';
                     }
                     field("Bill-to Contact"; Rec."Bill-to Contact")
                     {
+                        ApplicationArea = All;
                         Caption = 'Contact', comment = 'FRA="Contact"';
                         ToolTip = 'Specifies the name of the person you should contact at the customer who you are sending the invoice to.', comment = 'FRA="Spécifie le nom de la personne que vous devez contacter chez le client auquel vous envoyez la facture."';
                     }
@@ -383,25 +433,30 @@ page 50116 "BC6_SAV Sales Return Order"
                 Caption = 'Foreign Trade', comment = 'FRA="International"';
                 field("EU 3-Party Trade"; Rec."EU 3-Party Trade")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies whether the sales document is part of a three-party trade.', comment = 'FRA="Spécifie si le document vente fait partie d''une transaction tripartite."';
                 }
                 field("Transaction Specification"; Rec."Transaction Specification")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies a code for the sales document''s transaction specification, for the purpose of reporting to INTRASTAT.'
                     , comment = 'FRA="Spécifie un code pour le régime du document vente, à des fins de compte-rendu intracommunautaire."';
                 }
                 field("Transport Method"; Rec."Transport Method")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the transport method, for the purpose of reporting to INTRASTAT.'
                     , comment = 'FRA="Spécifie le mode de transport, à des fins de compte-rendu intracommunautaire."';
                 }
                 field("Exit Point"; Rec."Exit Point")
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the point of exit through which you ship the items out of your country/region, for reporting to Intrastat.'
                     , comment = 'FRA="Spécifie le point de sortie par lequel les articles sortent de votre pays/région, à des fins de compte-rendu à Intrastat."';
                 }
                 field(BC6_Area; Rec.Area)
                 {
+                    ApplicationArea = All;
                     ToolTip = 'Specifies the area of the customer''s address, for the purpose of reporting to INTRASTAT.'
                     , comment = 'FRA="Spécifie le point de sortie par lequel les articles sortent de votre pays/région, à des fins de compte-rendu à Intrastat."';
                 }
@@ -411,6 +466,7 @@ page 50116 "BC6_SAV Sales Return Order"
         {
             part("Pending Approval FactBox"; "Pending Approval FactBox")
             {
+                ApplicationArea = All;
                 SubPageLink = "Table ID" = CONST(36),
                               "Document Type" = FIELD("Document Type"),
                               "Document No." = FIELD("No.");
@@ -418,24 +474,29 @@ page 50116 "BC6_SAV Sales Return Order"
             }
             part("Sales Hist. Sell-to FactBox"; "Sales Hist. Sell-to FactBox")
             {
+                ApplicationArea = All;
                 SubPageLink = "No." = FIELD("Sell-to Customer No.");
             }
             part("Sales Hist. Bill-to FactBox"; "Sales Hist. Bill-to FactBox")
             {
+                ApplicationArea = All;
                 SubPageLink = "No." = FIELD("Sell-to Customer No.");
                 Visible = false;
             }
             part("Customer Statistics FactBox"; "Customer Statistics FactBox")
             {
+                ApplicationArea = All;
                 SubPageLink = "No." = FIELD("Bill-to Customer No.");
                 Visible = false;
             }
             part("Customer Details FactBox"; "Customer Details FactBox")
             {
+                ApplicationArea = All;
                 SubPageLink = "No." = FIELD("Sell-to Customer No.");
             }
             part("Sales Line FactBox"; "Sales Line FactBox")
             {
+                ApplicationArea = All;
                 Provider = SalesLines;
                 SubPageLink = "Document Type" = FIELD("Document Type"),
                               "Document No." = FIELD("Document No."),
@@ -444,16 +505,19 @@ page 50116 "BC6_SAV Sales Return Order"
             }
             part(ApprovalFactBox; "Approval FactBox")
             {
+                ApplicationArea = All;
                 Visible = false;
             }
             part("Resource Details FactBox"; "Resource Details FactBox")
             {
+                ApplicationArea = All;
                 Provider = SalesLines;
                 SubPageLink = "No." = FIELD("No.");
                 Visible = false;
             }
             part(WorkflowStatus; "Workflow Status FactBox")
             {
+                ApplicationArea = All;
                 Editable = false;
                 Enabled = false;
                 ShowFilter = false;
@@ -461,10 +525,12 @@ page 50116 "BC6_SAV Sales Return Order"
             }
             systempart(Links; Links)
             {
+                ApplicationArea = All;
                 Visible = false;
             }
             systempart(Notes; Notes)
             {
+                ApplicationArea = All;
             }
         }
     }
@@ -479,6 +545,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 Image = Return;
                 action(Statistics)
                 {
+                    ApplicationArea = All;
                     Caption = 'Statistics', comment = 'FRA="Statistiques"';
                     Image = Statistics;
                     Promoted = true;
@@ -500,6 +567,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 action(Card)
                 {
+                    ApplicationArea = All;
                     Caption = 'Card', comment = 'FRA="Fiche"';
                     Image = EditLines;
                     Promoted = false;
@@ -511,6 +579,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 action(Dimensions)
                 {
                     AccessByPermission = TableData Dimension = R;
+                    ApplicationArea = All;
                     Caption = 'Dimensions', comment = 'FRA="Axes analytiques"';
                     Enabled = Rec."No." <> '';
                     Image = Dimensions;
@@ -528,6 +597,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 action(Approvals)
                 {
                     AccessByPermission = TableData "Approval Entry" = R;
+                    ApplicationArea = All;
                     Caption = 'Approvals', comment = 'FRA="Approbations"';
                     Image = Approvals;
                     ToolTip = 'View a list of the records that are waiting to be approved. For example, you can see who requested the record to be approved, when it was sent, and when it is due to be approved.',
@@ -544,6 +614,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 action("Co&mments")
                 {
+                    ApplicationArea = All;
                     Caption = 'Co&mments',
                      comment = 'FRA="Co&mmentaires"';
                     Image = ViewComments;
@@ -564,6 +635,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 Image = Documents;
                 action("Return Receipts")
                 {
+                    ApplicationArea = All;
                     Caption = 'Return Receipts', comment = 'FRA="Réceptions retour"';
                     Image = ReturnReceipt;
                     RunObject = Page "Posted Return Receipts";
@@ -572,6 +644,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 action("Cred&it Memos")
                 {
+                    ApplicationArea = All;
                     Caption = 'Cred&it Memos', comment = 'FRA="A&voirs"';
                     Image = CreditMemo;
                     RunObject = Page "Posted Sales Credit Memo";
@@ -588,6 +661,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 Image = Warehouse;
                 action("In&vt. Put-away/Pick Lines")
                 {
+                    ApplicationArea = All;
                     Caption = 'In&vt. Put-away/Pick Lines', comment = 'FRA="Lignes prélévement/rangement stock"';
                     Image = PickLines;
                     RunObject = Page "Warehouse Activity List";
@@ -597,6 +671,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 action("Whse. Receipt Lines")
                 {
+                    ApplicationArea = All;
                     Caption = 'Whse. Receipt Lines', comment = 'FRA="Lignes réception entrep."';
                     Image = ReceiptLines;
                     RunObject = Page "Whse. Receipt Lines";
@@ -614,6 +689,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 Caption = 'Approval', comment = 'FRA="Approbation"';
                 action(Approve)
                 {
+                    ApplicationArea = All;
                     Caption = 'Approve', comment = 'FRA="Approuver"';
                     Image = Approve;
                     Promoted = true;
@@ -632,12 +708,13 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 action(Reject)
                 {
+                    ApplicationArea = All;
                     Caption = 'Reject', comment = 'FRA="Rejeter"';
                     Image = Reject;
                     Promoted = true;
-                    PromotedOnly = true;
                     PromotedCategory = Category4;
                     PromotedIsBig = true;
+                    PromotedOnly = true;
                     ToolTip = 'Reject the approval request.', comment = 'FRA="Rejetez la demande d''approbation."';
                     Visible = OpenApprovalEntriesExistForCurrUser;
 
@@ -650,6 +727,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 action(Delegate)
                 {
+                    ApplicationArea = All;
                     Caption = 'Delegate', comment = 'FRA="Déléguer"';
                     Image = Delegate;
                     Promoted = true;
@@ -666,6 +744,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 action(Comment)
                 {
+                    ApplicationArea = All;
                     Caption = 'Co&mments',
                      comment = 'FRA="Co&mmentaires"';
                     Image = ViewComments;
@@ -684,25 +763,26 @@ page 50116 "BC6_SAV Sales Return Order"
             }
             action("&Print")
             {
+                ApplicationArea = All;
                 Caption = '&Print', comment = 'FRA="&Imprimer"';
                 Ellipsis = true;
                 Image = Print;
                 Promoted = true;
-                PromotedOnly = true;
                 PromotedCategory = Process;
+                PromotedOnly = true;
 
                 trigger OnAction()
                 var
                     L_SalesHeader: Record "Sales Header";
                 begin
-                    IF Rec."BC6_Return Order Type" = Rec."BC6_Return Order Type"::Location THEN BEGIN
+                    IF Rec."BC6_Return Order Type" = Rec."BC6_Return Order Type"::Location THEN
                         CASE STRMENU(STR3 + ',' + STR4 + ',' + STR5) OF
                             1:
                                 DocPrint.PrintSalesHeader(Rec);
                             2:
                                 EnvoiMail();
-                        END;
-                    END ELSE
+                        END
+                    ELSE
                         CASE STRMENU(STR3 + ',' + STR4) OF
                             1:
                                 BEGIN
@@ -726,6 +806,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 Image = ReleaseDoc;
                 action("Re&lease")
                 {
+                    ApplicationArea = All;
                     Caption = 'Re&lease', comment = 'FRA="&Lancer"';
                     Image = ReleaseDoc;
                     ShortCutKey = 'Ctrl+F9';
@@ -740,6 +821,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 action(Reopen)
                 {
+                    ApplicationArea = All;
                     Caption = 'Re&open', comment = 'FRA="&Reouvrir"';
                     Enabled = Rec.Status <> Rec.Status::Open;
                     Image = ReOpen;
@@ -766,6 +848,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 action(CalculateInvoiceDiscount)
                 {
                     AccessByPermission = TableData "Cust. Invoice Disc." = R;
+                    ApplicationArea = All;
                     Caption = 'Calculate &Invoice Discount', comment = 'FRA="C&alculer remise facture"';
                     Image = CalculateInvoiceDiscount;
                     ToolTip = 'Calculate the invoice discount that applies to the sales order.', comment = 'FRA="Calculez la remise facture qui s''applique à la commande vente."';
@@ -781,6 +864,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 action("Apply Entries")
                 {
+                    ApplicationArea = All;
                     Caption = 'Apply Entries', comment = 'FRA="Lettrer écritures"';
                     Ellipsis = true;
                     Image = ApplyEntries;
@@ -797,6 +881,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 action("Create Return-Related &Documents")
                 {
+                    ApplicationArea = All;
                     Caption = 'Create Return-Related &Documents', comment = 'FRA="Créer documents ass&ociés retour"';
                     Ellipsis = true;
                     Image = ApplyEntries;
@@ -816,6 +901,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 action(CopyDocument)
                 {
+                    ApplicationArea = All;
                     Caption = 'Copy Document', comment = 'FRA="Copier document"';
                     Ellipsis = true;
                     Image = CopyDocument;
@@ -834,6 +920,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 action(MoveNegativeLines)
                 {
+                    ApplicationArea = All;
                     Caption = 'Move Negative Lines', comment = 'FRA="Déplacer lignes négatives"';
                     Ellipsis = true;
                     Image = MoveNegativeLines;
@@ -848,6 +935,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 action(GetPostedDocumentLinesToReverse)
                 {
+                    ApplicationArea = All;
                     Caption = 'Get Posted Doc&ument Lines to Reverse', comment = 'FRA="Extraire lignes doc&ument enreg. … contrepasser"';
                     Ellipsis = true;
                     Image = ReverseLines;
@@ -863,6 +951,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 action("Archive Document")
                 {
+                    ApplicationArea = All;
                     Caption = 'Archive Document', comment = 'FRA="Archiver Document"';
                     Image = Archive;
 
@@ -875,6 +964,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 action("Send IC Return Order Cnfmn.")
                 {
                     AccessByPermission = TableData "IC G/L Account" = R;
+                    ApplicationArea = All;
                     Caption = 'Send IC Return Order Cnfmn.', comment = 'FRA="Confirmation envoi retour IC"';
                     Image = IntercompanyOrder;
 
@@ -892,6 +982,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 action(DisplayRelatedDocuments)
                 {
+                    ApplicationArea = All;
                     Caption = 'Display Related Documents', comment = 'FRA="Affichage documents associés"';
                     Image = CopyDocument;
                     trigger OnAction()
@@ -913,6 +1004,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 action("Create &Whse. Receipt")
                 {
                     AccessByPermission = TableData "Warehouse Receipt Header" = R;
+                    ApplicationArea = All;
                     Caption = 'Create &Whse. Receipt', comment = 'FRA="Créer &réception entrepot"';
                     Image = NewReceipt;
 
@@ -926,6 +1018,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 action("Create Inventor&y Put-away/Pick")
                 {
                     AccessByPermission = TableData "Posted Invt. Put-away Header" = R;
+                    ApplicationArea = All;
                     Caption = 'Create &Whse. Receipt', comment = 'FRA="Créer prélév./rangement stoc&k"';
                     Ellipsis = true;
                     Image = CreateInventoryPickup;
@@ -947,6 +1040,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 Image = Post;
                 action(Post)
                 {
+                    ApplicationArea = All;
                     Caption = 'P&ost', comment = 'FRA="&Valider"';
                     Ellipsis = true;
                     Image = PostOrder;
@@ -964,6 +1058,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 action("Preview Posting")
                 {
+                    ApplicationArea = All;
                     Caption = 'Preview Posting', comment = 'FRA="Aperçu compta."';
                     Image = ViewPostedOrder;
                     ToolTip = 'Review the different types of entries that will be created when you post the document or journal.',
@@ -976,6 +1071,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 action("Test Report")
                 {
+                    ApplicationArea = All;
                     Caption = 'Test Report', comment = 'FRA="Impression test"';
                     Ellipsis = true;
                     Image = TestReport;
@@ -989,6 +1085,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 action("Post and &Print")
                 {
+                    ApplicationArea = All;
                     Caption = 'Post and &Print', comment = 'FRA="Valider et i&mprimer"';
                     Ellipsis = true;
                     Image = PostPrint;
@@ -1006,6 +1103,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 action("Post &Batch")
                 {
+                    ApplicationArea = All;
                     Caption = 'Post &Batch', comment = 'FRA="Valider par l&ot"';
                     Ellipsis = true;
                     Image = PostBatch;
@@ -1018,6 +1116,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 action("Remove From Job Queue")
                 {
+                    ApplicationArea = All;
                     Caption = 'Remove From Job Queue', comment = 'FRA="Supprimer de la file d''attente des travaux"';
                     Image = RemoveLine;
                     ToolTip = 'Remove the scheduled processing of this record from the job queue.', comment = 'FRA="Supprimez le traitement planifié de cet enregistrement … partir de la file d''attente des travaux."';
@@ -1034,6 +1133,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 Caption = 'Request Approval', comment = 'FRA="Approbation demande achat"';
                 action(SendApprovalRequest)
                 {
+                    ApplicationArea = All;
                     Caption = 'Send A&pproval Request', comment = 'FRA="Envoyer demande d''a&pprobation"';
                     Enabled = NOT OpenApprovalEntriesExist;
                     Image = SendApprovalRequest;
@@ -1053,6 +1153,7 @@ page 50116 "BC6_SAV Sales Return Order"
                 }
                 action(CancelApprovalRequest)
                 {
+                    ApplicationArea = All;
                     Caption = 'Cancel Approval Re&quest', comment = 'FRA="Annuler demande d''appro&bation"';
                     Enabled = CanCancelApprovalForRecord;
                     Image = CancelApprovalRequest;
@@ -1261,9 +1362,9 @@ page 50116 "BC6_SAV Sales Return Order"
         IF cust.FIND('-') THEN
             cust.TESTFIELD("E-Mail");
         OpenFile();
-        IF nameF <> '' THEN BEGIN
-            ERASE(nameF);
-        END ELSE BEGIN
+        IF nameF <> '' THEN
+            ERASE(nameF)
+        ELSE BEGIN
             ERASE(SalesSetup.BC6_Repertoire + 'Envoi' + '\' + CurrPage.CAPTION);
             ERROR(Text001);
         END;
@@ -1290,7 +1391,7 @@ page 50116 "BC6_SAV Sales Return Order"
         L_UserSetup.RESET();
         L_UserSetup.SETRANGE("BC6_SAV Admin", TRUE);
 
-        IF L_UserSetup.FINDFIRST() THEN begin
+        IF L_UserSetup.FINDFIRST() THEN
             // WorkflowStepInstance.Get(); //TODO
             // if WorkflowStepArgument.Get(WorkflowStepInstance.Argument) then
             REPEAT
@@ -1299,6 +1400,5 @@ page 50116 "BC6_SAV Sales Return Order"
                     L_UserSetup."User ID", Rec, WorkflowStepArgument."Link Target Page",
                     WorkflowStepArgument."Custom Link", UserID);
             UNTIL L_UserSetup.NEXT() = 0;
-        end;
     end;
 }

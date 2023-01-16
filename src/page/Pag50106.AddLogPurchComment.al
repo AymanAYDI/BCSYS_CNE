@@ -16,10 +16,12 @@ page 50106 "BC6_Add Log Purch. Comment"
             {
                 field(Qty; Qty)
                 {
+                    ApplicationArea = All;
                     Caption = 'Qty', comment = 'FRA="Qté"';
                 }
                 field(ReceiptType2; ReceiptType)
                 {
+                    ApplicationArea = All;
                     Caption = 'Type', comment = 'FRA="Type"';
                 }
             }
@@ -40,4 +42,3 @@ page 50106 "BC6_Add Log Purch. Comment"
         ReceiptType: Enum "BC6_ReceiptType";
         Qty: Integer;
 }
-

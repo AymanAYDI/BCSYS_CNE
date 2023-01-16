@@ -1,6 +1,5 @@
 codeunit 50024 "BC6_IC Validation IC Doc lien"
 {
-
     trigger OnRun()
     var
         Txt12: Label '%1%2';
@@ -49,12 +48,10 @@ codeunit 50024 "BC6_IC Validation IC Doc lien"
                                 RecGICPurchOrderLines.VALIDATE("Qty. to Receive", RecGICPurchOrderLines."Outstanding Quantity");
 
                     RecGICPurchOrderLines.MODIFY();
-
                 end;
                 RecGDocIC.Validate := true;
                 RecGDocIC."Validate Date" := TODAY;
                 RecGDocIC.MODIFY();
-
             until RecGDocIC.NEXT() <= 0;
 
         if CodeGAncPurchOrder <> '' then
@@ -90,4 +87,3 @@ codeunit 50024 "BC6_IC Validation IC Doc lien"
         PurchLine2.SETRANGE("Qty. to Receive");
     end;
 }
-

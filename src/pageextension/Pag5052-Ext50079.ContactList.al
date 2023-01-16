@@ -11,8 +11,8 @@ pageextension 50079 "BC6_ContactList" extends "Contact List" //5052
         {
             field(BC6_EMail; Rec."E-Mail")
             {
+                ApplicationArea = All;
             }
         }
     }
 }
-

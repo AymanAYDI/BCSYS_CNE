@@ -1,23 +1,22 @@
 pageextension 50049 "BC6_SalesStatistics" extends "Sales Statistics" //160
 {
-    //à refaire !! 
+    //à refaire !!
     layout
     {
         modify(AdjProfitLCY)
         {
-            Visible = ShowRealProfit;
             Caption = 'Total DEEE', comment = 'FRA="Marge relle DS"';
-
+            Visible = ShowRealProfit;
         }
         modify(AdjProfitPct)
         {
-            Visible = ShowRealProfit;
             Caption = 'Total DEEE', comment = 'FRA="% marge relle"';
+            Visible = ShowRealProfit;
         }
         modify(TotalAdjCostLCY)
         {
-            Visible = ShowRealProfit;
             Caption = 'Adjusted Cost (LCY)', comment = 'FRA="Coût réel DS"';
+            Visible = ShowRealProfit;
         }
 
         modify("TotalSalesLineLCY.""Unit Cost (LCY)""")
@@ -28,14 +27,15 @@ pageextension 50049 "BC6_SalesStatistics" extends "Sales Statistics" //160
         {
             field(BC6_Purchase_Cost; TotalSalesLineLCY."BC6_Purchase cost")
             {
+                ApplicationArea = All;
                 Caption = 'Purchase Cost (LCY)', comment = 'FRA="Coût d''achat DS"';
             }
-
         }
         addafter("TotalSalesLine.""Unit Volume""")
         {
             field(BC6_Montant_DEEE; TotalSalesLineLCY."BC6_DEEE HT Amount (LCY)")
             {
+                ApplicationArea = All;
                 Caption = 'Montant DEEE (DS)';
                 Editable = false;
             }
@@ -44,15 +44,15 @@ pageextension 50049 "BC6_SalesStatistics" extends "Sales Statistics" //160
         {
             field(BC6_Total_DEEE; TotalSalesLine."BC6_DEEE HT Amount")
             {
+                ApplicationArea = All;
                 Caption = 'Total DEEE';
             }
             field("Total_HT_DEEE"; TotalAmount1 + TotalSalesLine."BC6_DEEE HT Amount")
             {
+                ApplicationArea = All;
                 Caption = 'Total HT DEEE comprise';
-
             }
         }
-
     }
     trigger OnOpenPage()
     begin
@@ -68,10 +68,5 @@ pageextension 50049 "BC6_SalesStatistics" extends "Sales Statistics" //160
         ShowRealProfit: Boolean;
 
     //TODO UpdateHeaderInfo // Araxis ligne 467 //
-    //TODO CalculateTotals // Araxis ligne  74 
-
-
-
-
+    //TODO CalculateTotals // Araxis ligne  74
 }
-

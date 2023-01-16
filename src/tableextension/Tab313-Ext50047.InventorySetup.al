@@ -10,14 +10,14 @@ tableextension 50047 "BC6_InventorySetup" extends "Inventory Setup" //313
         field(50001; "BC6_Int. BarCode Nos"; Code[10])
         {
             Caption = 'Int. BarCode Nos', Comment = 'FRA="N° code barres interne"';
-            TableRelation = "No. Series";
             DataClassification = CustomerContent;
+            TableRelation = "No. Series";
         }
         field(50005; "BC6_Item Jnl Template Name 1"; Code[10])
         {
             Caption = 'Item Journal Template Name', Comment = 'FRA="Nom modèle feuille article prélèvement"';
-            TableRelation = "Item Journal Template";
             DataClassification = CustomerContent;
+            TableRelation = "Item Journal Template";
 
             trigger OnValidate()
             begin
@@ -28,8 +28,8 @@ tableextension 50047 "BC6_InventorySetup" extends "Inventory Setup" //313
         field(50006; "BC6_Item Jnl Template Name 2"; Code[10])
         {
             Caption = 'Item Journal Template Name', Comment = 'FRA="Nom modèle feuille article reclassement"';
-            TableRelation = "Item Journal Template";
             DataClassification = CustomerContent;
+            TableRelation = "Item Journal Template";
 
             trigger OnValidate()
             begin
@@ -40,8 +40,8 @@ tableextension 50047 "BC6_InventorySetup" extends "Inventory Setup" //313
         field(50007; "BC6_Item Jnl Template Name 3"; Code[10])
         {
             Caption = 'Item Journal Template Name', Comment = 'FRA="Nom modèle feuille article inventaire"';
-            TableRelation = "Item Journal Template";
             DataClassification = CustomerContent;
+            TableRelation = "Item Journal Template";
 
             trigger OnValidate()
             begin
@@ -52,8 +52,8 @@ tableextension 50047 "BC6_InventorySetup" extends "Inventory Setup" //313
         field(50010; "BC6_VAT Bus. Post. Gr. (Price)"; Code[10])
         {
             Caption = 'VAT Bus. Posting Gr. (Price)', Comment = 'FRA="Gpe compta. marché TVA (prix public)"';
-            TableRelation = "VAT Business Posting Group";
             DataClassification = CustomerContent;
+            TableRelation = "VAT Business Posting Group";
         }
     }
 

@@ -5,6 +5,7 @@ tableextension 50075 "BC6_ReturnReason" extends "Return Reason" //6635
         field(50000; BC6_Type; enum "BC6_Type Location")
         {
             Caption = 'Type', Comment = 'FRA="Type"';
+            DataClassification = CustomerContent;
         }
     }
 }

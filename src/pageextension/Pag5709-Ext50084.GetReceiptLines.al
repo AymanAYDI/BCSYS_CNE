@@ -10,11 +10,12 @@ pageextension 50084 "BC6_GetReceiptLines" extends "Get Receipt Lines" //5709
         {
             field("BC6_Order No."; Rec."Order No.")
             {
+                ApplicationArea = All;
             }
             field("BC6_Order Date"; Rec."Order Date")
             {
+                ApplicationArea = All;
             }
         }
     }
 }
-

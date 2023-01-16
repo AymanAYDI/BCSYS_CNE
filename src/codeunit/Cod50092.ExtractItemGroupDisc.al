@@ -1,4 +1,4 @@
-codeunit 50092 "Extract Item Group Discount"
+codeunit 50092 "BC6_Extract Item Group Disc"
 {
     TableNo = "Sales Line Discount";
 
@@ -14,7 +14,6 @@ codeunit 50092 "Extract Item Group Discount"
         TESTFIELD("Sales Type", "Sales Type"::Customer);
         TESTFIELD("Sales Code");
         TESTFIELD(Type, Type::"Item Disc. Group");
-
 
         FromSalesLineDiscount := Rec;
 
@@ -57,10 +56,6 @@ codeunit 50092 "Extract Item Group Discount"
                 ToSalesLineDiscount."BC6_Dispensation No." := FromSalesLineDiscount."BC6_Dispensation No.";
                 ToSalesLineDiscount."BC6_Added Discount %" := FromSalesLineDiscount."BC6_Added Discount %";
                 ToSalesLineDiscount.INSERT();
-
             until ItemDiscGroup.NEXT() = 0;
     end;
-
-
 }
-

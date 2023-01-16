@@ -1,4 +1,4 @@
-page 50044 "Credit Memo Lines Subform 4"
+page 50044 "BC6_Credit Memo Lines Sub4"
 {
     Caption = 'Credit Memo Lines Subform', Comment = 'FRA="Sous-formulaire lignes avoir"';
     Editable = false;
@@ -14,9 +14,9 @@ page 50044 "Credit Memo Lines Subform 4"
             {
                 field("Document No."; Rec."Document No.")
                 {
+                    ApplicationArea = All;
                     HideValue = "Document No.HideValue";
                     Lookup = false;
-                    ApplicationArea = All;
                 }
                 field("Shipment Date"; Rec."Shipment Date")
                 {
@@ -24,8 +24,8 @@ page 50044 "Credit Memo Lines Subform 4"
                 }
                 field("Bill-to Customer No."; Rec."Bill-to Customer No.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Line Amount"; Rec."Line Amount")
                 {
@@ -41,8 +41,8 @@ page 50044 "Credit Memo Lines Subform 4"
                 }
                 field("Sell-to Customer No."; Rec."Sell-to Customer No.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field(Type; Rec.Type)
                 {
@@ -54,18 +54,18 @@ page 50044 "Credit Memo Lines Subform 4"
                 }
                 field("Cross-Reference No."; Rec."Item Reference No.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Variant Code"; Rec."Variant Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field(Nonstock; Rec.Nonstock)
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field(Description; Rec.Description)
                 {
@@ -73,28 +73,28 @@ page 50044 "Credit Memo Lines Subform 4"
                 }
                 field("Return Reason Code"; Rec."Return Reason Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Location Code"; Rec."Location Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Bin Code"; Rec."Bin Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Unit of Measure Code"; Rec."Unit of Measure Code")
                 {
@@ -106,58 +106,58 @@ page 50044 "Credit Memo Lines Subform 4"
                 }
                 field("Unit of Measure"; Rec."Unit of Measure")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Unit Cost (LCY)"; Rec."Unit Cost (LCY)")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Line Discount %"; Rec."Line Discount %")
                 {
-                    BlankZero = true;
                     ApplicationArea = All;
+                    BlankZero = true;
                 }
                 field("Line Discount Amount"; Rec."Line Discount Amount")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Allow Invoice Disc."; Rec."Allow Invoice Disc.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Inv. Discount Amount"; Rec."Inv. Discount Amount")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Job No."; Rec."Job No.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Blanket Order No."; Rec."Blanket Order No.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Blanket Order Line No."; Rec."Blanket Order Line No.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Appl.-from Item Entry"; Rec."Appl.-from Item Entry")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Appl.-to Item Entry"; Rec."Appl.-to Item Entry")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
             }
         }
@@ -211,4 +211,3 @@ page 50044 "Credit Memo Lines Subform 4"
             "Document No.HideValue" := TRUE;
     end;
 }
-

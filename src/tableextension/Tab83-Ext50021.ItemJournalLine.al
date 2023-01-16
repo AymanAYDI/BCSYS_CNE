@@ -32,28 +32,28 @@ tableextension 50021 "BC6_ItemJournalLine" extends "Item Journal Line" //83
         field(50046; "BC6_Whse. Document Type"; enum "BC6_Whse. Document Type 2")
         {
             Caption = 'Whse. Document Type', Comment = 'FRA="Type document magasin"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50047; "BC6_Whse. Document No."; Code[20])
         {
             Caption = 'Whse. Document No.', Comment = 'FRA="N° document magasin"';
+            DataClassification = CustomerContent;
             Editable = false;
             TableRelation = IF ("BC6_Whse. Document Type" = CONST("Invt. Pick")) "Warehouse Activity Header"."No." WHERE(Type = CONST("Invt. Pick"));
-            DataClassification = CustomerContent;
         }
         field(50048; "BC6_Whse. Document Line No."; Integer)
         {
             BlankZero = true;
             Caption = 'Whse. Document Line No.', Comment = 'FRA="N° ligne document mag."';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(50060; "BC6_Qty.(Phys. Inv.)"; Boolean)
         {
             Caption = 'Qty. (Phys. Inventory)', Comment = 'FRA="Qté (constatée) actualisée"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
 
             trigger OnValidate()
             begin
@@ -63,51 +63,51 @@ tableextension 50021 "BC6_ItemJournalLine" extends "Item Journal Line" //83
         field(80800; "BC6_DEEE Category Code"; Code[10])
         {
             Caption = 'DEEE Category Code', Comment = 'FRA="Code Catégorie DEEE"';
-            TableRelation = "BC6_Categories of item".Category;
             DataClassification = CustomerContent;
+            TableRelation = "BC6_Categories of item".Category;
         }
         field(80801; "BC6_DEEE Unit Price"; Decimal)
         {
             Caption = 'DEEE Unit Price', Comment = 'FRA="Prix Unitaire DEEE"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80802; "BC6_DEEE HT Amount"; Decimal)
         {
             Caption = 'DEEE HT Amount', Comment = 'FRA="Montant HT DEEE"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80803; "BC6_DEEE Unit Price (LCY)"; Decimal)
         {
             Caption = 'DEEE Unit Price (LCY)', Comment = 'FRA="Prix Unitaire DEEE (DS)"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80804; "BC6_DEEE VAT Amount"; Decimal)
         {
             Caption = 'DEEE VAT Amount', Comment = 'FRA="Montant TVA DEEE"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80805; "BC6_DEEE TTC Amount"; Decimal)
         {
             Caption = 'DEEE TTC Amount', Comment = 'FRA="Montant TTC DEEE"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80806; "BC6_DEEE HT Amount (LCY)"; Decimal)
         {
             Caption = 'DEEE HT Amount (LCY)', Comment = 'FRA="Montant HT DEEE (DS)"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80807; "BC6_Eco partner DEEE"; Code[20])
         {
             Caption = 'Eco partner DEEE', Comment = 'FRA="Eco partenaire DEEE"';
+            DataClassification = CustomerContent;
             Editable = false;
             TableRelation = Vendor;
-            DataClassification = CustomerContent;
         }
         field(80808; "BC6_DEEE Amount (LCY) for Stat"; Decimal)
         {

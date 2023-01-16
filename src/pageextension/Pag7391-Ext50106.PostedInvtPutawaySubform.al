@@ -19,4 +19,3 @@ pageextension 50106 "BC6_PostedInvtPutawaySubform" extends "Posted Invt. Put-awa
         }
     }
 }
-

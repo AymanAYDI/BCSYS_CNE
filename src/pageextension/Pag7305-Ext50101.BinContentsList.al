@@ -11,4 +11,3 @@ pageextension 50101 "BC6_BinContentsList" extends "Bin Contents List" //7305
         }
     }
 }
-

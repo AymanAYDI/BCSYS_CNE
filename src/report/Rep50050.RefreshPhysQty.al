@@ -1,6 +1,5 @@
 report 50050 "BC6_Refresh Phys. Qty"
 {
-
     Caption = 'Refresh Phys. Qty', Comment = 'FRA="Actualiser quantité constatée"';
     ProcessingOnly = true;
 
@@ -30,12 +29,11 @@ report 50050 "BC6_Refresh Phys. Qty"
 
                     IF ItemJnlBatch2.GET("Journal Template Name", "Journal Batch Name") AND
                        ItemJnlBatch2."BC6_Phys. Inv. Survey" AND
-                       (ItemJnlBatch2."BC6_Phys. Inv. Check Bat. Name" = ItemJnlBatch.Name) THEN BEGIN
+                       (ItemJnlBatch2."BC6_Phys. Inv. Check Bat. Name" = ItemJnlBatch.Name) THEN
                         IF ByBin THEN
                             UpdateBuffer("Bin Code", "Qty. (Phys. Inventory)")
                         ELSE
-                            UpdateBuffer('', "Qty. (Phys. Inventory)")
-                    END;
+                            UpdateBuffer('', "Qty. (Phys. Inventory)");
                 end;
 
                 trigger OnPostDataItem()
@@ -48,7 +46,6 @@ report 50050 "BC6_Refresh Phys. Qty"
                             InsertItemJnlLine(
                               TempQuantityOnHandBuffer."Item No.", TempQuantityOnHandBuffer."Variant Code", TempQuantityOnHandBuffer."Dimension Entry No.",
                               TempQuantityOnHandBuffer."Bin Code", TempQuantityOnHandBuffer.Quantity, TempQuantityOnHandBuffer.Quantity);
-
                         UNTIL TempQuantityOnHandBuffer.NEXT() = 0;
                         TempQuantityOnHandBuffer.DELETEALL();
                     END;
@@ -115,7 +112,6 @@ report 50050 "BC6_Refresh Phys. Qty"
 
     requestpage
     {
-
         layout
         {
             area(content)
@@ -123,8 +119,9 @@ report 50050 "BC6_Refresh Phys. Qty"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(PostingDate; PostingDate)
+                    field(PostingDateF; PostingDate)
                     {
+                        ApplicationArea = All;
                         Caption = 'Posting Date', Comment = 'FRA="Date comptabilisation"';
 
                         trigger OnValidate()
@@ -184,7 +181,6 @@ report 50050 "BC6_Refresh Phys. Qty"
         Text004: Label 'You must not filter on dimensions if you calculate locations with %1 is %2.', Comment = 'FRA="Vous ne devez pas positionner de filtres sur les axes si vous calculez sur des magasins pour lesquels %1 est %2."';
         ColumnDim: Text[250];
 
-
     procedure SetItemJnlLine(var NewItemJnlLine: Record "Item Journal Line")
     begin
         ItemJnlLine := NewItemJnlLine;
@@ -200,7 +196,6 @@ report 50050 "BC6_Refresh Phys. Qty"
             CLEAR(NoSeriesMgt);
         END;
     end;
-
 
     procedure InsertItemJnlLine(var ItemNo: Code[20]; var VariantCode2: Code[10]; var DimEntryNo2: Integer; var BinCode2: Code[20]; var Quantity2: Decimal; PhysInvQuantity: Decimal)
     var
@@ -265,20 +260,15 @@ report 50050 "BC6_Refresh Phys. Qty"
                 ItemJnlLine."Last Item Ledger Entry No." := 0;
                 ItemJnlLine."BC6_Qty.(Phys. Inv.)" := TRUE;
                 ItemJnlLine.INSERT(TRUE);
-
             END;
-
         END;
-
     end;
-
 
     procedure InitializeRequest(NewPostingDate: Date; DocNo: Code[20]; ItemsNotOnInvt: Boolean)
     begin
         PostingDate := NewPostingDate;
         NextDocNo := DocNo;
     end;
-
 
     procedure SetHideValidationDialog(NewHideValidationDialog: Boolean)
     begin
@@ -295,12 +285,11 @@ report 50050 "BC6_Refresh Phys. Qty"
                     IF Location."Directed Put-away and Pick" THEN
                         Location.TESTFIELD("Directed Put-away and Pick", FALSE);
 
-                    IF Location."Bin Mandatory" AND NOT Location."Directed Put-away and Pick" THEN BEGIN
+                    IF Location."Bin Mandatory" AND NOT Location."Directed Put-away and Pick" THEN
                         IF (Item.GETFILTER("Global Dimension 1 Code") <> '') OR
                            (Item.GETFILTER("Global Dimension 2 Code") <> '')
                         THEN
                             ERROR(Text004, Location.FIELDCAPTION("Bin Mandatory"), Location."Bin Mandatory");
-                    END;
                 END;
     end;
 
@@ -319,7 +308,6 @@ report 50050 "BC6_Refresh Phys. Qty"
         END;
     end;
 
-
     procedure RetrieveBuffer(BinCode: Code[20]): Boolean
     begin
         TempQuantityOnHandBuffer.RESET();
@@ -330,10 +318,8 @@ report 50050 "BC6_Refresh Phys. Qty"
         EXIT(TempQuantityOnHandBuffer.FIND());
     end;
 
-
     procedure HasNewQuantity(NewQuantity: Decimal): Boolean
     begin
         EXIT((NewQuantity <> 0));
     end;
 }
-

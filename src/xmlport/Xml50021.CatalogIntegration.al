@@ -13,8 +13,8 @@ xmlport 50021 "BC6_Catalog Integration"
             tableelement(Item; Item)
             {
                 AutoSave = false;
-                XmlName = 'Items';
                 SourceTableView = SORTING("No.");
+                XmlName = 'Items';
                 textelement(REF_EXT)
                 {
                 }
@@ -74,12 +74,11 @@ xmlport 50021 "BC6_Catalog Integration"
 
     requestpage
     {
-
         layout
         {
             area(content)
             {
-                //TODO:OCX 
+                //TODO:OCX
                 // field(FileName; FileName)
                 // {
                 //     Caption = 'Open File';
@@ -96,10 +95,12 @@ xmlport 50021 "BC6_Catalog Integration"
                 // }
                 field(DateDebF; DateDeb)
                 {
+                    ApplicationArea = All;
                     Caption = 'Date début';
                 }
                 field(DateFinF; DateFin)
                 {
+                    ApplicationArea = All;
                     Caption = 'Date fin';
 
                     trigger OnValidate()
@@ -111,6 +112,7 @@ xmlport 50021 "BC6_Catalog Integration"
                 }
                 field(NumF; Num)
                 {
+                    ApplicationArea = All;
                     Caption = 'Fournisseur';
 
                     trigger OnValidate()
@@ -122,10 +124,12 @@ xmlport 50021 "BC6_Catalog Integration"
                 }
                 field(TextGabbreviationF; TextGabbreviation)
                 {
+                    ApplicationArea = All;
                     Caption = 'Vendor abbreviation';
                 }
                 field(CatF; Cat)
                 {
+                    ApplicationArea = All;
                     Caption = 'Catégorie Article';
 
                     trigger OnValidate()
@@ -137,6 +141,7 @@ xmlport 50021 "BC6_Catalog Integration"
                 }
                 field(GRPProduitF; GRPProduit)
                 {
+                    ApplicationArea = All;
                     Caption = 'Product Group', Comment = 'FRA="Groupe Produit Article"';
                 }
             }
@@ -170,11 +175,8 @@ xmlport 50021 "BC6_Catalog Integration"
         TextGabbreviation: Code[10];
         DateDeb: Date;
         DateFin: Date;
-        // Common_Dlg: OCX;
-        textG001: Label 'Import File', Comment = 'FRA="Importer le fichier"';
         TextG002: Label 'Please fill up start date and Vendor No', Comment = 'FRA="Veuillez valoriser les champs date de début et N° de fournisseur"';
         FileName: Text[250];
-
 
     procedure create_disc_familly()
     begin
@@ -185,4 +187,3 @@ xmlport 50021 "BC6_Catalog Integration"
         END;
     end;
 }
-

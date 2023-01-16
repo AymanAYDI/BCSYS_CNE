@@ -1,10 +1,10 @@
 xmlport 53000 "BC6_Import Client"
 {
+    Caption = 'Import Client';
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = '<TAB>';
     Format = VariableText;
-    Caption = 'Import Client';
 
     schema
     {
@@ -173,11 +173,9 @@ xmlport 53000 "BC6_Import Client"
                         //Code postal et Ville
                         IF STRLEN(CP) < 5 THEN BEGIN
                             CPLength := STRLEN(CP);
-                            FOR i := 1 TO 5 - CPLength DO BEGIN
+                            FOR i := 1 TO 5 - CPLength DO
                                 CP := '0' + CP;
-                            END;
                         END;
-
 
                         PostCode.RESET();
                         PostCode.SETCURRENTKEY("Search City");
@@ -256,10 +254,9 @@ xmlport 53000 "BC6_Import Client"
                     //Devise
                     IF Devise = 'EUR' THEN
                         RecGCust.VALIDATE("Currency Code", '')
-                    ELSE BEGIN
+                    ELSE
                         IF Devise <> '' THEN
                             RecGCust."Currency Code" := Devise;
-                    END;
 
                     EVALUATE(RecGCust."Credit Limit (LCY)", Credit);
                     RecGCust.VALIDATE("Credit Limit (LCY)");
@@ -268,19 +265,15 @@ xmlport 53000 "BC6_Import Client"
                     IF CodeVendeur <> '' THEN BEGIN
                         CASE CodeVendeur OF
                         //--------------Alimenter table de correspondance Vendeur
-
                         END;
                         RecGCust.VALIDATE("Salesperson Code", CodeVendeur);
                     END;
 
-
                     //Groupe TVA
-                    IF TVA = 'O' THEN BEGIN
-                        RecGCust.VALIDATE("Gen. Bus. Posting Group", 'NATIONAL');
-                    END
-                    ELSE BEGIN
+                    IF TVA = 'O' THEN
+                        RecGCust.VALIDATE("Gen. Bus. Posting Group", 'NATIONAL')
+                    ELSE
                         RecGCust.VALIDATE("Gen. Bus. Posting Group", 'EXPORT');
-                    END;
 
                     //Langue
                     IF Langue <> '' THEN BEGIN
@@ -303,7 +296,6 @@ xmlport 53000 "BC6_Import Client"
                         RecGCust.VALIDATE("Customer Disc. Group", Tarif);
                     END;
 
-
                     /*
                     RecGCust."Allow Line Disc." := Defaut."Allow Line Disc.";
                     RecGCust."Application Method" := Defaut."Application Method Customer";
@@ -313,7 +305,7 @@ xmlport 53000 "BC6_Import Client"
                     RecGCust."Shipping Advice" := Defaut."Shipping Advice";
                     RecGCust."Invoice Copies" := Defaut."Invoice Copies";
                     RecGCust."Shipping Time" := Defaut."Shipping Time";
-                    
+
                     RecGCust.INSERT;
                     */
 
@@ -346,7 +338,6 @@ xmlport 53000 "BC6_Import Client"
                     RecGCust.VALIDATE("Location Code", 'CNE');
 
                     RecGCust.MODIFY(TRUE);
-
                 end;
             }
         }
@@ -354,7 +345,6 @@ xmlport 53000 "BC6_Import Client"
 
     requestpage
     {
-
         layout
         {
         }
@@ -380,4 +370,3 @@ xmlport 53000 "BC6_Import Client"
         ShipMethode: Record "Shipment Method";
         Territory: Record Territory;
 }
-

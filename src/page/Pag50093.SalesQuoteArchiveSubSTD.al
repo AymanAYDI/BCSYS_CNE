@@ -1,4 +1,4 @@
-page 50093 "Sales Quote Archive SubformSTD"
+page 50093 "BC6_Sales Quote Archive SubSTD"
 {
     Caption = 'Lines', Comment = 'FRA="Lignes"';
     Editable = false;
@@ -23,28 +23,28 @@ page 50093 "Sales Quote Archive SubformSTD"
                 }
                 field("Cross-Reference No."; Rec."Item Reference No.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Variant Code"; Rec."Variant Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Substitution Available"; Rec."Substitution Available")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field(Nonstock; Rec.Nonstock)
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("VAT Prod. Posting Group"; Rec."VAT Prod. Posting Group")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field(Description; Rec.Description)
                 {
@@ -60,8 +60,8 @@ page 50093 "Sales Quote Archive SubformSTD"
                 }
                 field(Quantity; Rec.Quantity)
                 {
-                    BlankZero = true;
                     ApplicationArea = All;
+                    BlankZero = true;
                 }
                 field("Unit of Measure Code"; Rec."Unit of Measure Code")
                 {
@@ -69,38 +69,38 @@ page 50093 "Sales Quote Archive SubformSTD"
                 }
                 field("Unit of Measure"; Rec."Unit of Measure")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Item Disc. Group"; Rec."BC6_Item Disc. Group")
                 {
-                    Editable = false;
                     ApplicationArea = All;
+                    Editable = false;
                 }
                 field("Dispensation No."; Rec."BC6_Dispensation No.")
                 {
-                    Editable = false;
                     ApplicationArea = All;
+                    Editable = false;
                 }
                 field("Additional Discount %"; Rec."BC6_Additional Discount %")
                 {
-                    Editable = false;
                     ApplicationArea = All;
+                    Editable = false;
                 }
                 field("Dispensed Purchase Cost"; Rec."BC6_Dispensed Purchase Cost")
                 {
-                    Editable = false;
                     ApplicationArea = All;
+                    Editable = false;
                 }
                 field("Standard Net Price"; Rec."BC6_Standard Net Price")
                 {
-                    Editable = false;
                     ApplicationArea = All;
+                    Editable = false;
                 }
                 field("Unit Cost (LCY)"; Rec."Unit Cost (LCY)")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Purchase Cost"; Rec."BC6_Purchase Cost")
                 {
@@ -112,18 +112,18 @@ page 50093 "Sales Quote Archive SubformSTD"
                 }
                 field("Unit Price"; Rec."Unit Price")
                 {
-                    BlankZero = true;
                     ApplicationArea = All;
+                    BlankZero = true;
                 }
                 field("Line Amount"; Rec."Line Amount")
                 {
-                    BlankZero = true;
                     ApplicationArea = All;
+                    BlankZero = true;
                 }
                 field("Line Discount %"; Rec."Line Discount %")
                 {
-                    BlankZero = true;
                     ApplicationArea = All;
+                    BlankZero = true;
                 }
                 field("Discount Unit Price"; Rec."BC6_Discount Unit Price")
                 {
@@ -131,8 +131,8 @@ page 50093 "Sales Quote Archive SubformSTD"
                 }
                 field("Line Discount Amount"; Rec."Line Discount Amount")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Profit %"; Rec."Profit %")
                 {
@@ -140,13 +140,13 @@ page 50093 "Sales Quote Archive SubformSTD"
                 }
                 field("Allow Invoice Disc."; Rec."Allow Invoice Disc.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Allow Item Charge Assignment"; Rec."Allow Item Charge Assignment")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Purchasing Code"; Rec."Purchasing Code")
                 {
@@ -154,70 +154,69 @@ page 50093 "Sales Quote Archive SubformSTD"
                 }
                 field("Work Type Code"; Rec."Work Type Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Blanket Order No."; Rec."Blanket Order No.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Blanket Order Line No."; Rec."Blanket Order Line No.")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Appl.-to Item Entry"; Rec."Appl.-to Item Entry")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Shortcut Dimension 1 Code"; Rec."Shortcut Dimension 1 Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("Shortcut Dimension 2 Code"; Rec."Shortcut Dimension 2 Code")
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field(ShortcutDimCode3; ShortcutDimCode[3])
                 {
+                    ApplicationArea = All;
                     CaptionClass = '1,2,3';
                     Visible = false;
-                    ApplicationArea = All;
                 }
-
                 field(ShortcutDimCode4; ShortcutDimCode[4])
                 {
+                    ApplicationArea = All;
                     CaptionClass = '1,2,4';
                     Visible = false;
-                    ApplicationArea = All;
                 }
                 field(ShortcutDimCode5; ShortcutDimCode[5])
                 {
+                    ApplicationArea = All;
                     CaptionClass = '1,2,5';
                     Visible = false;
-                    ApplicationArea = All;
                 }
                 field(ShortcutDimCode6; ShortcutDimCode[6])
                 {
+                    ApplicationArea = All;
                     CaptionClass = '1,2,6';
                     Visible = false;
-                    ApplicationArea = All;
                 }
                 field(ShortcutDimCode7; ShortcutDimCode[7])
                 {
+                    ApplicationArea = All;
                     CaptionClass = '1,2,7';
                     Visible = false;
-                    ApplicationArea = All;
                 }
                 field(ShortcutDimCode8; ShortcutDimCode[8])
                 {
+                    ApplicationArea = All;
                     CaptionClass = '1,2,8';
                     Visible = false;
-                    ApplicationArea = All;
                 }
                 field("DEEE Unit Price"; Rec."BC6_DEEE Unit Price")
                 {
@@ -261,10 +260,10 @@ page 50093 "Sales Quote Archive SubformSTD"
                 Image = Line;
                 action(Dimensions)
                 {
+                    ApplicationArea = All;
                     Caption = 'Dimensions', Comment = 'FRA="Axes analytiques"';
                     Image = Dimensions;
                     ShortCutKey = 'Shift+Ctrl+D';
-                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -273,9 +272,9 @@ page 50093 "Sales Quote Archive SubformSTD"
                 }
                 action("Co&mments")
                 {
+                    ApplicationArea = All;
                     Caption = 'Co&mments', Comment = 'FRA="Co&mmentaires"';
                     Image = ViewComments;
-                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -296,4 +295,3 @@ page 50093 "Sales Quote Archive SubformSTD"
         DimMgt.GetShortcutDimensions(Rec."Dimension Set ID", ShortcuttDimCode);
     end;
 }
-

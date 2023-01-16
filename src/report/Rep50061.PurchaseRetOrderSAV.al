@@ -1,9 +1,9 @@
 report 50061 "BC6_Purchase Ret. Order - SAV"
 {
-    DefaultLayout = RDLC;
-    RDLCLayout = './src/Report/RDL/PurchaseReturnOrderSAV.rdl';
     Caption = 'Return Order', comment = 'FRA="Retour"';
+    DefaultLayout = RDLC;
     PreviewMode = PrintLayout;
+    RDLCLayout = './src/Report/RDL/PurchaseReturnOrderSAV.rdl';
     UsageCategory = None;
     dataset
     {
@@ -801,14 +801,13 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
                 DimSetEntry1.SETRANGE("Dimension Set ID", "Dimension Set ID");
 
                 IF LogInteraction THEN
-                    IF NOT CurrReport.PREVIEW THEN BEGIN
+                    IF NOT CurrReport.PREVIEW THEN
                         IF "Buy-from Contact No." <> '' THEN
                             SegManagement.LogDocument(
                               22, "No.", 0, 0, DATABASE::Contact, "Buy-from Contact No.", "Purchaser Code", '', "Posting Description", '')
                         ELSE
                             SegManagement.LogDocument(
-                              22, "No.", 0, 0, DATABASE::Vendor, "Buy-from Vendor No.", "Purchaser Code", '', "Posting Description", '')
-                    END;
+                              22, "No.", 0, 0, DATABASE::Vendor, "Buy-from Vendor No.", "Purchaser Code", '', "Posting Description", '');
 
                 IF G_Vendor.GET(PurchaseHeader."Buy-from Vendor No.") THEN;
                 L_PurchaseLine.RESET();
@@ -837,16 +836,19 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(NoOfCopies; NoOfCopies)
+                    field(NoOfCopiesF; NoOfCopies)
                     {
+                        ApplicationArea = All;
                         Caption = 'No. of Copies', comment = 'FRA="Nombre de copies"';
                     }
-                    field(ShowInternalInfo; ShowInternalInfo)
+                    field(ShowInternalInfoF; ShowInternalInfo)
                     {
+                        ApplicationArea = All;
                         Caption = 'Show Internal Information', comment = 'FRA="Afficher info. internes"';
                     }
-                    field(LogInteraction; LogInteraction)
+                    field(LogInteractionF; LogInteraction)
                     {
+                        ApplicationArea = All;
                         Caption = 'Log Interaction', comment = 'FRA="Journal interaction"';
                         Enabled = LogInteractionEnable;
                     }
@@ -978,18 +980,18 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
         VATRegNoCaptionLbl: Label 'VAT Reg. No.', comment = 'FRA="N° id. intracomm."';
         CopyText: Text[30];
         PurchaserText: Text[30];
-        BuyFromAddr: array[8] of Text[50];
-        CompanyAddr: array[8] of Text[50];
-        ShipToAddr: array[8] of Text[50];
         TotalExclVATText: Text[50];
         TotalInclVATText: Text[50];
         TotalText: Text[50];
         VALExchRate: Text[50];
-        VendAddr: array[8] of Text[50];
         OldDimText: Text[75];
         ReferenceText: Text[80];
         VALSpecLCYHeader: Text[80];
         VATNoText: Text[80];
+        BuyFromAddr: array[8] of Text[100];
+        CompanyAddr: array[8] of Text[100];
+        ShipToAddr: array[8] of Text[100];
+        VendAddr: array[8] of Text[100];
         DimText: Text[120];
 
     local procedure FormatAddressFields(PurchaseHeader: Record "Purchase Header")
@@ -1010,4 +1012,3 @@ report 50061 "BC6_Purchase Ret. Order - SAV"
         VATNoText := FormatDocument.SetText(PurchaseHeader."VAT Registration No." <> '', PurchaseHeader.FIELDCAPTION("VAT Registration No."));
     end;
 }
-

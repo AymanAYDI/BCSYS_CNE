@@ -6,8 +6,8 @@ tableextension 50046 "BC6_PurchasesPayablesSetup" extends "Purchases & Payables 
         {
             AccessByPermission = TableData "Return Shipment Header" = R;
             Caption = 'SAV Return Order Nos.', comment = 'FRA="N° Retour SAV"';
-            TableRelation = "No. Series";
             DataClassification = CustomerContent;
+            TableRelation = "No. Series";
         }
         field(60000; "BC6_Minima de cde"; Boolean)
         {
@@ -22,6 +22,7 @@ tableextension 50046 "BC6_PurchasesPayablesSetup" extends "Purchases & Payables 
         field(60002; "BC6_No."; Code[20])
         {
             Caption = 'No.', comment = 'FRA="N°"';
+            DataClassification = CustomerContent;
             TableRelation = IF (BC6_Type = CONST(" ")) "Standard Text"
             ELSE
             IF (BC6_Type = CONST("G/L Account")) "G/L Account"
@@ -33,7 +34,6 @@ tableextension 50046 "BC6_PurchasesPayablesSetup" extends "Purchases & Payables 
             IF (BC6_Type = CONST("Fixed Asset")) "Fixed Asset"
             ELSE
             IF (BC6_Type = CONST("Charge (Item)")) "Item Charge";
-            DataClassification = CustomerContent;
         }
         field(60003; "BC6_Ask custom purch price"; Boolean)
         {

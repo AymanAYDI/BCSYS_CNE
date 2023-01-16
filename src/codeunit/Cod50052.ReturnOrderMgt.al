@@ -82,7 +82,6 @@ codeunit 50052 "BC6_Return Order Mgt."
         end;
     end;
 
-
     procedure FilterPstdDocLineValueEntries(P_SalesInvoiceLine: Record "Sales Invoice Line"; var ValueEntry: Record "Value Entry")
     begin
         ValueEntry.RESET();
@@ -133,8 +132,6 @@ codeunit 50052 "BC6_Return Order Mgt."
             end;
         end;
     end;
-
-
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnBeforePostPurchaseDoc', '', false, false)]
     Local procedure OnBeforePostPurchaseDoc(var PurchaseHeader: Record "Purchase Header")

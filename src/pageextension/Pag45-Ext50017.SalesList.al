@@ -25,18 +25,18 @@ pageextension 50017 "BC6_SalesList" extends "Sales List" //45
             }
             field(BC6_Ship; Rec.Ship)
             {
-                Caption = 'Ship', Comment = 'FRA="Entièrement livrée"';
                 ApplicationArea = All;
+                Caption = 'Ship', Comment = 'FRA="Entièrement livrée"';
             }
             field(BC6_Invoice; Rec.Invoice)
             {
-                Caption = 'Invoice', Comment = 'FRA="Entièrement facturée"';
                 ApplicationArea = All;
+                Caption = 'Invoice', Comment = 'FRA="Entièrement facturée"';
             }
             field(BC6_ID; Rec.BC6_ID)
             {
-                Visible = BooGID;
                 ApplicationArea = All;
+                Visible = BooGID;
             }
         }
         addafter("Location Code")
@@ -50,21 +50,21 @@ pageextension 50017 "BC6_SalesList" extends "Sales List" //45
         {
             field(BC6_purchcost; DecGPurchCost)
             {
+                ApplicationArea = All;
                 Caption = 'Purchase Cost', Comment = 'FRA="Coût d''achat"';
                 Visible = BooGPurchcost;
-                ApplicationArea = All;
             }
             field(BC6_profitamount; DecGProfitAmount)
             {
+                ApplicationArea = All;
                 Caption = 'Profit Amount', Comment = 'FRA="Montant Marge"';
                 Visible = BooGProfitamount;
-                ApplicationArea = All;
             }
             field(BC6_profitpct; "DecGProfit%")
             {
+                ApplicationArea = All;
                 Caption = 'Profit %', Comment = 'FRA="% Marge"';
                 Visible = BooGProfitpct;
-                ApplicationArea = All;
             }
         }
         addafter("Document Date")
@@ -90,13 +90,11 @@ pageextension 50017 "BC6_SalesList" extends "Sales List" //45
         DecGProfitAmount: Decimal;
         DecGPurchCost: Decimal;
 
-
     trigger OnAfterGetRecord()
     begin
         hideuser();
         calcprofit();
     end;
-
 
     procedure hideuser()
     var
@@ -143,4 +141,3 @@ pageextension 50017 "BC6_SalesList" extends "Sales List" //45
             "DecGProfit%" := 0;
     end;
 }
-

@@ -1,10 +1,10 @@
 xmlport 53004 "BC6_Update Bill-To-Customer"
 {
+    Caption = 'Update Bill-To-Customer';
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = '<TAB>';
     Format = VariableText;
-    Caption = 'Update Bill-To-Customer';
 
     schema
     {
@@ -183,7 +183,6 @@ xmlport 53004 "BC6_Update Bill-To-Customer"
                             RecGCust.VALIDATE("Bill-to Customer No.", CliFact);
                             RecGCust.MODIFY(TRUE);
                         END;
-
                 end;
             }
         }
@@ -191,7 +190,6 @@ xmlport 53004 "BC6_Update Bill-To-Customer"
 
     requestpage
     {
-
         layout
         {
         }
@@ -204,4 +202,3 @@ xmlport 53004 "BC6_Update Bill-To-Customer"
     var
         RecGCust: Record Customer;
 }
-

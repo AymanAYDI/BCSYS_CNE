@@ -1,17 +1,17 @@
 table 50009 "BC6_Contact Project Relation"
 {
     Caption = 'Contact Project Relation', comment = 'FRA="Relation projet contact"';
-    PasteIsValid = true;
     DataClassification = CustomerContent;
+    PasteIsValid = true;
 
     fields
     {
         field(1; "Contact No."; Code[20])
         {
             Caption = 'Contact No.', comment = 'FRA="N° contact"';
+            DataClassification = CustomerContent;
             NotBlank = false;
             TableRelation = Contact."No.";
-            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin
@@ -36,8 +36,8 @@ table 50009 "BC6_Contact Project Relation"
         field(3; "Relation Type"; Code[10])
         {
             Caption = 'Relation Type', comment = 'FRA="Type relation"';
-            TableRelation = "Contact Business Relation"."Business Relation Code" WHERE("Contact No." = FIELD("Company No."));
             DataClassification = CustomerContent;
+            TableRelation = "Contact Business Relation"."Business Relation Code" WHERE("Contact No." = FIELD("Company No."));
         }
         field(4; "Relation Description"; Text[100])
         {
@@ -54,16 +54,16 @@ table 50009 "BC6_Contact Project Relation"
         field(6; "No."; Code[20])
         {
             Caption = 'No.', comment = 'FRA="N°"';
+            DataClassification = CustomerContent;
             TableRelation = IF ("Link to table" = CONST(Customer)) Customer."No."
             ELSE
             IF ("Link to table" = CONST(Vendor)) Vendor."No.";
-            DataClassification = CustomerContent;
         }
         field(7; "Affair No."; Code[20])
         {
             Caption = 'Affair No.', comment = 'FRA="N° affaire"';
-            TableRelation = Job."No.";
             DataClassification = CustomerContent;
+            TableRelation = Job."No.";
         }
         field(8; "Link to table"; Enum "Gen. Journal Source Type")
         {
@@ -94,31 +94,36 @@ table 50009 "BC6_Contact Project Relation"
         {
             CalcFormula = Lookup(Job."BC6_Affair Responsible" WHERE("No." = FIELD("Affair No.")));
             Caption = 'Affair Responsible', comment = 'FRA="Chargé d''affaire"';
+            Editable = false;
             FieldClass = FlowField;
             TableRelation = "User Setup";
         }
         field(50001; Statut; Enum BC6_Statut)
         {
-            FieldClass = FlowField;
-            Caption = 'Statut', comment = 'FRA="Statut"';
             CalcFormula = Lookup(Job."BC6_Statut" WHERE("No." = FIELD("Affair No.")));
+            Caption = 'Statut', comment = 'FRA="Statut"';
+            Editable = false;
+            FieldClass = FlowField;
         }
         field(50003; Blocked; Enum "Job Blocked")
         {
             CalcFormula = Lookup(Job.Blocked WHERE("No." = FIELD("Affair No.")));
             Caption = 'Blocked', comment = 'FRA="Bloqué"';
+            Editable = false;
             FieldClass = FlowField;
         }
         field(50004; "Contact City"; Text[30])
         {
             CalcFormula = Lookup(Contact.City WHERE("No." = FIELD("Contact No.")));
             Caption = 'Contact City', comment = 'FRA="Ville"';
+            Editable = false;
             FieldClass = FlowField;
         }
         field(50005; "Contact Post Code"; Code[20])
         {
             CalcFormula = Lookup(Contact."Post Code" WHERE("No." = FIELD("Contact No.")));
             Caption = 'Code postal', comment = 'FRA="Code postal"';
+            Editable = false;
             FieldClass = FlowField;
         }
         field(50006; "Affair Description"; Text[100])

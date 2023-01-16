@@ -1,8 +1,8 @@
 report 50012 "BC6_Preparation NAVIDIIGEST"
 {
+    Caption = 'Check of preparation', Comment = 'FRA="Bon de préparation"';
     DefaultLayout = RDLC;
     RDLCLayout = './src/Report/RDL/PreparationNAVIDIIGEST.rdl';
-    Caption = 'Check of preparation', Comment = 'FRA="Bon de préparation"';
 
     dataset
     {
@@ -210,13 +210,11 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
 
                             trigger OnAfterGetRecord()
                             begin
-                                IF Edition2 THEN BEGIN
+                                IF Edition2 THEN
                                     IF Number = 1 THEN
                                         StandardSalesLine.FIND('-')
-                                    ELSE BEGIN
+                                    ELSE
                                         StandardSalesLine.NEXT();
-                                    END;
-                                END;
                             end;
 
                             trigger OnPreDataItem()
@@ -451,17 +449,16 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
 
                             CASE Type OF
                                 Type::Item:
-                                    BEGIN
-                                        IF (Quantity <> 0) THEN BEGIN
-                                            EAN13Bar := '';
-                                            EAN13Txt := '';
-                                            EAN13BarTxt := '';
-                                            CLEAR(DistInt);
-                                            EAN13Bar := COPYSTR(FunctionsMgt.GetItemEAN13Code("No."), 1, MAXSTRLEN(EAN13Bar));
-                                            IF EAN13Bar <> '' THEN BEGIN
-                                                CLEAR(ConvertAutoIDEAN13);
-                                                EAN13BarTxt := ConvertAutoIDEAN13.EncodeBarcodeEAN13(EAN13Bar, EAN13Txt);
-                                            END;
+
+                                    IF (Quantity <> 0) THEN BEGIN
+                                        EAN13Bar := '';
+                                        EAN13Txt := '';
+                                        EAN13BarTxt := '';
+                                        CLEAR(DistInt);
+                                        EAN13Bar := COPYSTR(FunctionsMgt.GetItemEAN13Code("No."), 1, MAXSTRLEN(EAN13Bar));
+                                        IF EAN13Bar <> '' THEN BEGIN
+                                            CLEAR(ConvertAutoIDEAN13);
+                                            EAN13BarTxt := ConvertAutoIDEAN13.EncodeBarcodeEAN13(EAN13Bar, EAN13Txt);
                                         END;
                                     END;
                             END;
@@ -490,7 +487,6 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
                     IF NOT MoreLines THEN
                         CurrReport.BREAK();
                     //  PRM
-
 
                     IF Number > 1 THEN
                         CopyText := Text003;
@@ -530,8 +526,6 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
                 IF Country.GET(CompanyInfo."Country/Region Code") THEN
                     Pays := Country.Name;
 
-
-
                 IF RespCenter.GET("Responsibility Center") THEN BEGIN
                     FormatAddr.RespCenter(CompanyAddr, RespCenter);
                     CompanyInfo."Phone No." := RespCenter."Phone No.";
@@ -551,8 +545,6 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
                     IF "Requested Delivery Date" <> 0D THEN
                         ShipmentDate := "Requested Delivery Date";
 
-
-
                 ModeDePayment := '';
                 IF PaymentMethod.GET("Sales Header"."Payment Method Code") THEN
                     ModeDePayment := PaymentMethod.Description;
@@ -562,13 +554,11 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
                 END ELSE BEGIN
                     SalesPurchPerson.GET("Salesperson Code");
                     SalesPersonText := Text000;
-
                 END;
                 IF ("Your Reference" = '') AND ("External Document No." = '') THEN
                     VotreRef := ''
-                ELSE BEGIN
+                ELSE
                     VotreRef := "External Document No." + '  ' + "Your Reference";
-                END;
 
                 IF "VAT Registration No." = '' THEN
                     VATNoText := ''
@@ -595,7 +585,6 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
                 IF ShippingAgent.GET("Sales Header"."Shipping Agent Code") THEN
                     ModeTransport := ShippingAgent.Name;
 
-
                 IF "Payment Terms Code" = '' THEN
                     PaymentTerms.INIT()
                 ELSE
@@ -610,7 +599,6 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
                     PrestaTrans.INIT()
                 ELSE
                     PrestaTrans.GET("Sales Header"."Shipping Agent Code", "Sales Header"."Shipping Agent Service Code");
-
 
                 FormatAddr.SalesHeaderShipTo(ShipToAddr, CustAddr, "Sales Header");
                 ShowShippingAddr := "Sell-to Customer No." <> "Bill-to Customer No.";
@@ -629,41 +617,44 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
                 RecGSalesLine.SETRANGE(RecGSalesLine."BC6_To Prepare", TRUE);
                 IF NOT RecGSalesLine.FIND('-') THEN
                     CurrReport.SKIP();
-
             end;
         }
     }
 
     requestpage
     {
-
         layout
         {
             area(content)
             {
                 group(Options)
                 {
-                    field(NoOfCopies; NoOfCopies)
+                    field(NoOfCopiesF; NoOfCopies)
                     {
+                        ApplicationArea = All;
                         Caption = 'No. of Copies', Comment = 'FRA="Nombre de copies"';
                     }
-                    field(BooGRespectLinesPrep; BooGRespectLinesPrep)
+                    field(BooGRespectLinesPrepF; BooGRespectLinesPrep)
                     {
+                        ApplicationArea = All;
                         Caption = 'Respect Lines To Prepare', Comment = 'FRA="Respecter lignes à préparer"';
                     }
-                    field(ShowInternalInfo; ShowInternalInfo)
+                    field(ShowInternalInfoF; ShowInternalInfo)
                     {
+                        ApplicationArea = All;
                         Caption = 'Show Internal Information', Comment = 'FRA="Afficher info. internes"';
                         Visible = false;
                     }
-                    field(ArchiveDocument; ArchiveDocument)
+                    field(ArchiveDocumentF; ArchiveDocument)
                     {
+                        ApplicationArea = All;
                         Caption = 'Archive Document', Comment = 'FRA="Archiver document"';
                         Enabled = BooGEnableArchiveDocument;
                         Visible = false;
                     }
-                    field(LogInteraction; LogInteraction)
+                    field(LogInteractionF; LogInteraction)
                     {
+                        ApplicationArea = All;
                         Caption = 'Log Interaction', Comment = 'FRA="Journal interaction"';
                         Enabled = BooGEnableLogInteraction;
                         Visible = false;
@@ -761,15 +752,15 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
         VATAmount: Decimal;
         VATBaseAmount: Decimal;
         VATDiscountAmount: Decimal;
+        CompteurDeLigne: Integer;
+        "-FEP-ACHAT-200706_18_A -": Integer;
+        i: Integer;
+        "-MIGNAV2013-": Integer;
+        NoOfCopies: Integer;
+        NoOfLoops: Integer;
         "--NSC1.01--": Integer;
         "--NSC1.10--": Integer;
         "--NSC1.11--": Integer;
-        "-FEP-ACHAT-200706_18_A -": Integer;
-        "-MIGNAV2013-": Integer;
-        CompteurDeLigne: Integer;
-        i: Integer;
-        NoOfCopies: Integer;
-        NoOfLoops: Integer;
         OutputNo: Integer;
         bill_DepartementCaptionLbl: Label 'bill Departement', Comment = 'FRA="Adresse de Facturation"';
         Customer_NumberCaptionLbl: Label 'Customer Number', Comment = 'FRA="Code Client"';
@@ -816,9 +807,9 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
         To_be_continuedCaptionLbl: Label 'To be continued', Comment = 'FRA="A Suivre"';
         To_prepareCaption_Control1000000096Lbl: Label 'To prepare', Comment = 'FRA="A servir"';
         To_prepareCaptionLbl: Label 'To prepare', Comment = 'FRA="A servir"';
+        txtlbl12: label '%1 %2';
         UserCaptionLbl: Label 'User', Comment = 'FRA="Utilisateur"';
         VAT_Registration_No__CaptionLbl: Label '<VAT Registration No.>', Comment = 'FRA="N° TVA :"';
-        txtlbl12: label '%1 %2';
 
         Langue: Text[10];
         LangueLig01: Text[10];
@@ -840,15 +831,15 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
         templibelledouanier: Text[30];
         TmpNamereport: Text[30];
         VATNoText: Text[30];
-        CompanyAddr: array[8] of Text[50];
-        CustAddr: array[8] of Text[50];
         PrincContactName: Text[50];
         SalesPersonText: Text[50];
-        ShipToAddr: array[8] of Text[50];
         TotalExclVATText: Text[50];
         TotalInclVATText: Text[50];
         TotalText: Text[50];
         OldDimText: Text[75];
+        CompanyAddr: array[8] of Text[100];
+        CustAddr: array[8] of Text[100];
+        ShipToAddr: array[8] of Text[100];
         DimText: Text[120];
         EAN13BarTxt: Text[120];
         Text10: Text[200];
@@ -858,4 +849,3 @@ report 50012 "BC6_Preparation NAVIDIIGEST"
         Text50: Text[200];
         VotreRef: Text[200];
 }
-

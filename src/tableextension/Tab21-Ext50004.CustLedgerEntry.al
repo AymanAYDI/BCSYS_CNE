@@ -5,26 +5,26 @@ tableextension 50004 "BC6_CustLedgerEntry" extends "Cust. Ledger Entry" //21
         field(50000; BC6_PaymentMethodCode; Code[10])
         {
             Caption = 'Payment Method Code', Comment = 'FRA="Code mode de règlement"';
-            TableRelation = "Payment Method";
             DataClassification = CustomerContent;
+            TableRelation = "Payment Method";
         }
         field(50001; "BC6_Payment Terms Code"; Code[10])
         {
             Caption = 'Payment Terms Code', Comment = 'FRA="Code condition paiement"';
-            TableRelation = "Payment Terms";
             DataClassification = CustomerContent;
+            TableRelation = "Payment Terms";
         }
         field(50003; "BC6_Pay-to Customer No."; Code[20])
         {
             Caption = 'Pay-to Customer No.', Comment = 'FRA="Tiers payeur"';
-            TableRelation = Customer;
             DataClassification = CustomerContent;
+            TableRelation = Customer;
         }
         field(80800; "BC6_DEEE Category Code"; Code[10])
         {
             Caption = 'DEEE Category Code', Comment = 'FRA="Code Catégorie DEEE"';
-            TableRelation = "BC6_Categories of item".Category;
             DataClassification = CustomerContent;
+            TableRelation = "BC6_Categories of item".Category;
         }
         field(80802; "BC6_DEEE HT Amount"; Decimal)
         {
@@ -38,21 +38,21 @@ tableextension 50004 "BC6_CustLedgerEntry" extends "Cust. Ledger Entry" //21
         }
         field(80805; "BC6_DEEE TTC Amount"; Decimal)
         {
-            DataClassification = CustomerContent;
             Caption = 'DEEE TTC Amount';
+            DataClassification = CustomerContent;
         }
         field(80806; "BC6_DEEE HT Amount (LCY)"; Decimal)
         {
             Caption = 'DEEE HT Amount (LCY)', Comment = 'FRA="Montant Unitaire DEEE (DS)"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80807; "BC6_Eco partner DEEE"; Code[20])
         {
             Caption = 'Eco partner DEEE', Comment = 'FRA="Eco partenaire DEEE"';
+            DataClassification = CustomerContent;
             Editable = false;
             TableRelation = Vendor;
-            DataClassification = CustomerContent;
         }
     }
     keys

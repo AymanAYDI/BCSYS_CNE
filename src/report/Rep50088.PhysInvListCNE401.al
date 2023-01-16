@@ -1,11 +1,10 @@
 report 50088 "BC6_Phys. Inv. List CNE401"
 {
+    ApplicationArea = all;
+    Caption = 'Phys. Inventory List', comment = 'FRA="Liste d''inventaire"';
     DefaultLayout = RDLC;
     RDLCLayout = './src/Report/RDL/PhysInventoryListCNE401.rdl';
-
-    Caption = 'Phys. Inventory List', comment = 'FRA="Liste d''inventaire"';
     UsageCategory = ReportsAndAnalysis;
-    ApplicationArea = all;
 
     dataset
     {
@@ -208,7 +207,6 @@ report 50088 "BC6_Phys. Inv. List CNE401"
 
     requestpage
     {
-
         layout
         {
             area(content)
@@ -218,10 +216,12 @@ report 50088 "BC6_Phys. Inv. List CNE401"
                     Caption = 'Options';
                     field(ShowQtyCalculatedF; ShowQtyCalculated)
                     {
+                        ApplicationArea = All;
                         Caption = 'Show Qty. (Calculated)', comment = 'FRA="Afficher quantité calculée"';
                     }
                     field(ShowPhysQtyF; ShowPhysQty)
                     {
+                        ApplicationArea = All;
                         Caption = 'Show Phys. Qty.', comment = 'FRA="Afficher quantité constatée"';
                     }
                 }
@@ -267,12 +267,11 @@ report 50088 "BC6_Phys. Inv. List CNE401"
         Phys__Inventory_ListCaptionLbl: Label 'Phys. Inventory List', comment = 'FRA="Liste d''inventaire"';
         Qty___Phys__Inventory_CaptionLbl: Label 'Qty. (Phys. Inventory)', comment = 'FRA="Qté constatée"';
         QuantityCaptionLbl: Label 'Quantity', comment = 'FRA="Quantité"';
-        RefreshQtyOkTxt: Text[10];
         ItemJnlLineFilter: Text;
+        RefreshQtyOkTxt: Text[10];
 
     procedure Initialize(ShowQtyCalculated2: Boolean)
     begin
         ShowQtyCalculated := ShowQtyCalculated2;
     end;
 }
-

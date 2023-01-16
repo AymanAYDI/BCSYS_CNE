@@ -1,7 +1,5 @@
 codeunit 50004 "BC6_Post Code Rebuild"
 {
-
-
     trigger OnRun()
     begin
         RecGPostCode.DELETEALL(TRUE);
@@ -112,7 +110,6 @@ codeunit 50004 "BC6_Post Code Rebuild"
             UNTIL RecGContact.NEXT() = 0;
             DiaGWindow.CLOSE();
         END;
-
     end;
 
     var
@@ -126,4 +123,3 @@ codeunit 50004 "BC6_Post Code Rebuild"
         IntGI: Integer;
         IntGNb: Integer;
 }
-

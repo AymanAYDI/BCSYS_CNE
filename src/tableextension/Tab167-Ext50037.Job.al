@@ -25,8 +25,8 @@ tableextension 50037 "BC6_Job" extends Job //167
         field(50004; "BC6_Post Code"; Code[20])
         {
             Caption = 'Post Code', comment = 'FRA="Code postale"';
-            TableRelation = "Post Code".Code;
             DataClassification = CustomerContent;
+            TableRelation = "Post Code".Code;
 
             trigger OnValidate()
 
@@ -46,22 +46,24 @@ tableextension 50037 "BC6_Job" extends Job //167
         field(50006; BC6_Country; Code[10])
         {
             Caption = 'Country', comment = 'FRA="Pays"';
-            TableRelation = "Country/Region".Code;
             DataClassification = CustomerContent;
+            TableRelation = "Country/Region".Code;
         }
         field(50010; BC6_Awarder; Boolean)
         {
             CalcFormula = Lookup("BC6_Contact Project Relation".Awarder WHERE("Affair No." = FIELD("No."),
                                                                            Awarder = CONST(true)));
             Caption = 'Awarder', comment = 'FRA="Adjudicataire"';
+            Editable = false;
             FieldClass = FlowField;
         }
         field(50011; "BC6_Awarder Contact Name"; Text[100])
         {
-            FieldClass = FlowField;
             CalcFormula = Lookup("BC6_Contact Project Relation"."Contact Name" WHERE("Affair No." = FIELD("No."),
                                                                                   Awarder = CONST(true)));
             Caption = 'Awarder Contact Name', comment = 'FRA="Nom contact adjudicataire"';
+            Editable = false;
+            FieldClass = FlowField;
         }
     }
     keys

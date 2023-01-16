@@ -82,16 +82,15 @@ page 50049 "BC6_Sales Archives - Quotes"
                 Caption = '&Line', Comment = 'FRA="&Ligne"';
                 action("Show Order")
                 {
+                    ApplicationArea = All;
                     Caption = 'Show Order', Comment = 'FRA="Afficher commande"';
                     Image = "Order";
                     RunObject = Page "Sales Order Archive";
                     RunPageLink = "Document Type" = FIELD("Document Type"),
                                   "No." = FIELD("Document No.");
                     ShortCutKey = 'Shift+F5';
-                    ApplicationArea = All;
                 }
             }
         }
     }
 }
-

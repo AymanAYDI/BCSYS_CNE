@@ -1,9 +1,9 @@
 report 50021 "BC6_Dispensed Sales"
 {
+    ApplicationArea = All;
+    Caption = 'Dispensed Sales', Comment = 'FRA="Ventes dérogatoires"';
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/DispensedSales.rdl';
-    Caption = 'Dispensed Sales', Comment = 'FRA="Ventes dérogatoires"';
-    ApplicationArea = All;
     UsageCategory = ReportsAndAnalysis;
     dataset
     {
@@ -155,7 +155,6 @@ report 50021 "BC6_Dispensed Sales"
                         TxtGCustomerName := RecGCustomer.Name;
                     //<<MIGRATION NAV 2013
 
-
                     IF SalesInvoiceLine."BC6_Public Price" <> 0 THEN BEGIN
 
                         DecGAmount[1] := (1 - (SalesInvoiceLine."Line Discount %" / 100)) * 10;
@@ -170,9 +169,8 @@ report 50021 "BC6_Dispensed Sales"
                     IF DecGAmount[2] <> 0 THEN
                         DecGAmount[9] := (DecGAmount[2] - DecGAmount[7]) / DecGAmount[2] * 100;
 
-                    FOR IntGI := 1 TO 8 DO BEGIN
+                    FOR IntGI := 1 TO 8 DO
                         DecGTotalAmountPerVendor[IntGI] += DecGAmount[IntGI];
-                    END;
                 end;
             }
             dataitem(SalesCrMemoLine; "Sales Cr.Memo Line")
@@ -231,11 +229,9 @@ report 50021 "BC6_Dispensed Sales"
                            (RecGSalesCrMemoHeader."Posting Date" > DatGDateFin_Fin)) THEN
                             CurrReport.SKIP();
 
-
                     CLEAR(TxtGCustomerName);
                     IF RecGCustomer.GET("Sell-to Customer No.") THEN
                         TxtGCustomerName := RecGCustomer.Name;
-
 
                     IF SalesInvoiceLine."BC6_Public Price" <> 0 THEN BEGIN
                         DecGAmount[1] := (1 - (SalesInvoiceLine."Line Discount %" / 100)) * 10;
@@ -250,20 +246,17 @@ report 50021 "BC6_Dispensed Sales"
                     IF DecGAmount[2] <> 0 THEN
                         DecGAmount[9] := (DecGAmount[2] - DecGAmount[7]) / DecGAmount[2] * 100;
 
-                    FOR IntGI := 1 TO 9 DO BEGIN
+                    FOR IntGI := 1 TO 9 DO
                         DecGTotalAmountPerVendor[IntGI] += DecGAmount[IntGI];
-                    END;
                 end;
             }
 
             trigger OnAfterGetRecord()
             begin
-                FOR IntGI := 1 TO 9 DO BEGIN
+                FOR IntGI := 1 TO 9 DO
                     DecGTotalAmountPerVendor[IntGI] := 0;
-                END;
 
                 DiaGWin.UPDATE(1, Vendor."No.");
-
 
                 BooGShowEntries := FALSE;
                 RecGSalesInvoiceLine.RESET();
@@ -289,8 +282,6 @@ report 50021 "BC6_Dispensed Sales"
                         UNTIL ((RecGSalesInvoiceLine.NEXT() = 0) OR (BooGShowEntries));
                 END;
 
-
-
                 IF NOT BooGShowEntries THEN
                     CurrReport.SKIP();
             end;
@@ -309,7 +300,6 @@ report 50021 "BC6_Dispensed Sales"
 
     requestpage
     {
-
         layout
         {
             area(content)
@@ -318,10 +308,12 @@ report 50021 "BC6_Dispensed Sales"
                 {
                     field(DatGDateDebut; DatGDateDebut_Debut)
                     {
+                        ApplicationArea = All;
                         Caption = 'Date début';
                     }
                     field(DatGDateFin; DatGDateFin_Fin)
                     {
+                        ApplicationArea = All;
                         Caption = 'Date fin';
                     }
                 }
@@ -337,14 +329,11 @@ report 50021 "BC6_Dispensed Sales"
     {
     }
 
-
-
     trigger OnPreReport()
     begin
         DatGDateFin2 := DatGDateFin_Fin;
         IF DatGDateFin_Fin = 0D THEN
             DatGDateFin_Fin := 19991231D;
-
 
         RowNo := 1;
         ColumnNo := 1;
@@ -356,22 +345,18 @@ report 50021 "BC6_Dispensed Sales"
     var
         RecGCustomer: Record Customer;
         TempExcelBuf: Record "Excel Buffer" temporary;
-        RecGItem: Record Item;
         RecGSalesCrMemoHeader: Record "Sales Cr.Memo Header";
         RecGSalesCreditMemoLine: Record "Sales Cr.Memo Line";
         RecGSalesInvoiceHeader: Record "Sales Invoice Header";
         RecGSalesInvoiceLine: Record "Sales Invoice Line";
-        BooGExportToExcel: Boolean;
         BooGShowEntries: Boolean;
         DatGDateDebut_Debut: Date;
-        DatGDateFin_Fin: Date;
         DatGDateFin2: Date;
+        DatGDateFin_Fin: Date;
         DecGAmount: array[9] of Decimal;
-        DecGFinalTotal: array[9] of Decimal;
         DecGTotalAmountPerVendor: array[9] of Decimal;
         DiaGWin: Dialog;
         ColumnNo: Integer;
-        i: Integer;
         IntGI: Integer;
         RowNo: Integer;
         Additional_DiscountCaptionLbl: Label 'Additional Discount', comment = 'FRA="Remise complémentaire"';
@@ -394,7 +379,7 @@ report 50021 "BC6_Dispensed Sales"
         TotalCaptionLbl: Label 'Total', comment = 'FRA="Total"';
         Vendor_NameCaptionLbl: Label 'Vendor Name', comment = 'FRA="Nom fournisseur"';
         Vendor_No_CaptionLbl: Label 'Vendor No.', comment = 'FRA="n° fournisseur"';
-        TxtGCustomerName: Text[50];
+        TxtGCustomerName: Text[100];
 
     local procedure EnterCell("RowNo.": Integer; "ColumnNo.": Integer; CellValue: Text[250]; Bold: Boolean; UnderLine: Boolean; NumberFormat: Text[30])
     begin
@@ -409,4 +394,3 @@ report 50021 "BC6_Dispensed Sales"
         TempExcelBuf.INSERT();
     end;
 }
-

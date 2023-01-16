@@ -1,10 +1,10 @@
 xmlport 53003 "BC6_Import article"
 {
+    Caption = 'Import article';
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = '<TAB>';
     Format = VariableText;
-    Caption = 'Import article';
 
     schema
     {
@@ -155,7 +155,6 @@ xmlport 53003 "BC6_Import article"
                     recArticle.VALIDATE("No.", refcne);
                     recArticle.INSERT(TRUE);
 
-
                     //Declanche de suite a cause des validates qui en decoulent
                     IF famillecne <> '' THEN BEGIN
                         IF NOT (recItemCatCode.GET(famillecne)) THEN BEGIN
@@ -167,8 +166,6 @@ xmlport 53003 "BC6_Import article"
 
                         recArticle.VALIDATE("Item Category Code", famillecne);
                     END;
-
-
 
                     IF four <> '' THEN
                         recArticle.VALIDATE("Vendor No.", four);
@@ -188,7 +185,6 @@ xmlport 53003 "BC6_Import article"
                         recArticle.VALIDATE("Vendor Item No.", four);
                     END;
 
-
                     IF ean <> '' THEN BEGIN
 
                         //item cross reference
@@ -197,8 +193,6 @@ xmlport 53003 "BC6_Import article"
                         recCross.VALIDATE("Reference Type", recCross."Reference Type"::"Bar Code");
                         recCross.VALIDATE("Reference No.", ean);
                         recCross.INSERT(TRUE);
-
-
                     END;
 
                     IF des <> '' THEN
@@ -262,7 +256,6 @@ xmlport 53003 "BC6_Import article"
                             recArticle.VALIDATE("Unit Price", DecGpxpub2);
                             recArticle.VALIDATE("Unit Cost", DecGpxachat2);
                             recArticle.VALIDATE("Standard Cost", DecGpxachat2);
-
                         END;
                         //Purchase Price
                         recPPx.INIT();
@@ -290,9 +283,8 @@ xmlport 53003 "BC6_Import article"
                         recArticle.VALIDATE("Item Disc. Group", famille);
                     END;
 
-
                     // unite de vte
-                    IF uv <> '' THEN BEGIN
+                    IF uv <> '' THEN
                         IF uv = 'C' THEN BEGIN
                             IF NOT recUv.GET(refcne, 'C') THEN BEGIN
                                 recUv.INIT();
@@ -327,8 +319,6 @@ xmlport 53003 "BC6_Import article"
                             recArticle."Purch. Unit of Measure" := 'P';
                             recArticle."Base Unit of Measure" := 'P';
                         END;
-                    END;
-
 
                     IF commentaire <> '' THEN BEGIN
                         recTextHeader.INIT();
@@ -349,12 +339,8 @@ xmlport 53003 "BC6_Import article"
                         recArticle.VALIDATE("Automatic Ext. Texts", TRUE);
                     END;
 
-
-
-                    IF nomenclature <> '' THEN BEGIN
+                    IF nomenclature <> '' THEN
                         recArticle.VALIDATE("Tariff No.", nomenclature);
-                    END;
-
 
                     IF coref <> '' THEN BEGIN
                         IF NOT recCountry.GET(coref) THEN BEGIN
@@ -367,31 +353,23 @@ xmlport 53003 "BC6_Import article"
                         recArticle.VALIDATE("Country/Region of Origin Code", coref);
                     END;
 
-
-                    IF tva <> '' THEN BEGIN
+                    IF tva <> '' THEN
                         IF tva = '1' THEN
                             recArticle.VALIDATE("VAT Prod. Posting Group", 'TVA19,6')
                         ELSE
-                            recArticle.VALIDATE("VAT Prod. Posting Group", 'SANS TVA')
-                    END;
+                            recArticle.VALIDATE("VAT Prod. Posting Group", 'SANS TVA');
 
-
-                    IF dtreapro <> '' THEN BEGIN
-                        IF EVALUATE(DelaiReapro, dtreapro) THEN BEGIN
+                    IF dtreapro <> '' THEN
+                        IF EVALUATE(DelaiReapro, dtreapro) THEN
                             IF EVALUATE(recArticle."Lead Time Calculation", FORMAT(DelaiReapro) + 'J') THEN
                                 recArticle.VALIDATE("Lead Time Calculation");
-                        END;
-                    END;
-
 
                     IF emplacement <> '' THEN
                         recArticle.VALIDATE("Shelf No.", emplacement);
 
-
                     //Voir plus haut pour categorie !!
 
                     //stock physique : pas pris en compte
-
 
                     IF dtcrea <> '' THEN BEGIN
                         EVALUATE(recArticle."BC6_Creation Date", dtcrea);
@@ -421,7 +399,6 @@ xmlport 53003 "BC6_Import article"
 
     requestpage
     {
-
         layout
         {
         }
@@ -437,8 +414,8 @@ xmlport 53003 "BC6_Import article"
         recText: Record "Extended Text Line";
         recArticle: Record Item;
         recItemCatCode: Record "Item Category";
-        recCross: Record "Item Reference"; //cross ref
         recIDicGroup: Record "Item Discount Group";
+        recCross: Record "Item Reference"; //cross ref
         recUv: Record "Item Unit of Measure";
         recPPx: Record "Purchase Price";
         DecGpmp: Decimal;
@@ -448,4 +425,3 @@ xmlport 53003 "BC6_Import article"
         DecGpxpub2: Decimal;
         DecGstockmini: Decimal;
 }
-

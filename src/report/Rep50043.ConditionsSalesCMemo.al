@@ -1,4 +1,4 @@
-report 50043 "Conditions of Sales - C.Memo"
+report 50043 "BC6_Conditions Sales - C.Memo"
 {
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/ConditionsofSalesCMemo.rdl';
@@ -21,4 +21,3 @@ report 50043 "Conditions of Sales - C.Memo"
     {
     }
 }
-

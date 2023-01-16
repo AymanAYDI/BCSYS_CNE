@@ -1,11 +1,10 @@
 xmlport 53007 "BC6_Import Tiers"
 {
-
+    Caption = 'Import Tiers';
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = '<TAB>';
     Format = VariableText;
-    Caption = 'Import Tiers';
 
     schema
     {
@@ -14,8 +13,8 @@ xmlport 53007 "BC6_Import Tiers"
             tableelement("Gen. Journal Line"; "Gen. Journal Line")
             {
                 AutoSave = false;
-                XmlName = 'GenJournalLine';
                 SourceTableView = SORTING("Journal Template Name", "Journal Batch Name", "Line No.");
+                XmlName = 'GenJournalLine';
                 textelement(codjournal)
                 {
                     XmlName = 'CodJournal';
@@ -72,7 +71,6 @@ xmlport 53007 "BC6_Import Tiers"
                     RecGGenJnlLine.VALIDATE("Journal Template Name", CodGJnlTemplName);
                     RecGGenJnlLine.VALIDATE("Journal Batch Name", CodGJnlBatchName);
 
-
                     RecGGenJnlLineTmp.INIT();
                     RecGGenJnlLineTmp.VALIDATE("Journal Template Name", CodGJnlTemplName);
                     RecGGenJnlLineTmp.VALIDATE("Journal Batch Name", CodGJnlBatchName);
@@ -121,7 +119,7 @@ xmlport 53007 "BC6_Import Tiers"
                                 RecGGenJnlLine.VALIDATE("Account No.", AccountNo);
                             END;
                         ELSE
-                            ERROR(STRSUBSTNO(TextError001, TxtCmpt));
+                            ERROR(TextError001, TxtCmpt);
                     END;
 
                     RecGGenJnlLine.VALIDATE(Description, TxtDescr);
@@ -150,18 +148,19 @@ xmlport 53007 "BC6_Import Tiers"
 
     requestpage
     {
-
         layout
         {
             area(content)
             {
                 field(CodGJnlTemplNameF; CodGJnlTemplName)
                 {
+                    ApplicationArea = All;
                     Caption = 'Journal Template Name';
                     TableRelation = "Gen. Journal Template";
                 }
                 field(CodGJnlBatchNameF; CodGJnlBatchName)
                 {
+                    ApplicationArea = All;
                     Caption = 'Journal Batch Name';
 
                     trigger OnLookup(var Text: Text): Boolean
@@ -178,6 +177,7 @@ xmlport 53007 "BC6_Import Tiers"
                 }
                 field(TxtGFileNameF; TxtGFileName)
                 {
+                    ApplicationArea = All;
                     Caption = 'File Name';
 
                     trigger OnAssistEdit()
@@ -212,7 +212,6 @@ xmlport 53007 "BC6_Import Tiers"
         TypeBalAccountNo: Option "G/L Account",Customer,Vendor,"Bank Account","Fixed Asset","IC Partner";
         TxtGFileName: Text[250];
 
-
     procedure DeleteGenJnlLine(): Integer
     var
         RecLGenJnlLine: Record "Gen. Journal Line";
@@ -233,7 +232,6 @@ xmlport 53007 "BC6_Import Tiers"
         ELSE
             EXIT(0);
     end;
-
 
     procedure TestTier(TypeTier: Text[30]; CodLAccountNo: Code[20])
     var
@@ -257,4 +255,3 @@ xmlport 53007 "BC6_Import Tiers"
         COMMIT();
     end;
 }
-

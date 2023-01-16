@@ -68,4 +68,3 @@ report 60000 "BC6_Batch VAT on Items"
         DlgGWin: Dialog;
         CstG001: Label 'Traitement de l''article : #1##############';
 }
-

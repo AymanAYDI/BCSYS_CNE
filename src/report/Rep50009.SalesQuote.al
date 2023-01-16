@@ -1,16 +1,14 @@
 report 50009 "BC6_Sales Quote"
 {
-    DefaultLayout = RDLC;
-    RDLCLayout = './src/Report/RDL/SalesQuote.rdl';
-
     Caption = 'Sales Quote', Comment = 'FRA="Devis vente"';
+    DefaultLayout = RDLC;
     PreviewMode = Normal;
+    RDLCLayout = './src/Report/RDL/SalesQuote.rdl';
 
     dataset
     {
         dataitem("Sales Header"; "Sales Header")
         {
-
             DataItemTableView = SORTING("Document Type", "No.")
                                 WHERE("Document Type" = CONST(Quote));
             RequestFilterFields = "No.", "Sell-to Customer No.", "No. Printed";
@@ -432,7 +430,6 @@ report 50009 "BC6_Sales Quote"
                                 CurrReport.BREAK();
                             TempSalesLine.SETRANGE("Line No.", 0, TempSalesLine."Line No.");
 
-
                             SETRANGE(Number, 1, TempSalesLine.COUNT);
                             CurrReport.CREATETOTALS(TempSalesLine."Line Amount", TempSalesLine."Inv. Discount Amount");
                             CurrReport.CREATETOTALS(TempSalesLine."Line Amount", TempSalesLine.Amount, TempSalesLine."Amount Including VAT",
@@ -794,9 +791,8 @@ report 50009 "BC6_Sales Quote"
                     FormatAddr.RespCenter(CompanyAddr, RespCenter);
                     CompanyInfo."Phone No." := RespCenter."Phone No.";
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
-                END ELSE BEGIN
+                END ELSE
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
-                END;
 
                 IF "Salesperson Code" = '' THEN BEGIN
                     SalesPurchPerson.INIT();
@@ -880,15 +876,12 @@ report 50009 "BC6_Sales Quote"
                     BooGSubmittedToDEEE := RecGBillCustomer."BC6_Submitted to DEEE";
                 END ELSE BEGIN
                     RecGCustomerTemplate.RESET();
-                    IF RecGCustomerTemplate.GET("Sales Header"."Sell-to Customer Templ. Code") THEN BEGIN
-                        BooGSubmittedToDEEE := RecGCustomerTemplate."BC6_Submitted to DEEE";
-                    END ELSE BEGIN
+                    IF RecGCustomerTemplate.GET("Sales Header"."Sell-to Customer Templ. Code") THEN
+                        BooGSubmittedToDEEE := RecGCustomerTemplate."BC6_Submitted to DEEE"
+                    ELSE
                         BooGSubmittedToDEEE := FALSE;
-                    END;
                 END;
             end;
-
-
 
             trigger OnPreDataItem()
             begin
@@ -939,16 +932,19 @@ report 50009 "BC6_Sales Quote"
                 group(Options)
                 {
                     Caption = 'Options', Comment = 'FRA="Options"';
-                    field(NoOfCopies; NoOfCopies)
+                    field(NoOfCopiesF; NoOfCopies)
                     {
+                        ApplicationArea = All;
                         Caption = 'No. of Copies', Comment = 'FRA="Nombre de copies"';
                     }
-                    field(ShowInternalInfo; ShowInternalInfo)
+                    field(ShowInternalInfoF; ShowInternalInfo)
                     {
+                        ApplicationArea = All;
                         Caption = 'Show Internal Information', Comment = 'FRA="Afficher info. internes"';
                     }
-                    field(ArchiveDocument; ArchiveDocument)
+                    field(ArchiveDocumentF; ArchiveDocument)
                     {
+                        ApplicationArea = All;
                         Caption = 'Archive Document', Comment = 'FRA="Archiver document"';
 
                         trigger OnValidate()
@@ -957,8 +953,9 @@ report 50009 "BC6_Sales Quote"
                                 LogInteraction := FALSE;
                         end;
                     }
-                    field(LogInteraction; LogInteraction)
+                    field(LogInteractionF; LogInteraction)
                     {
+                        ApplicationArea = All;
                         Caption = 'Log Interaction', Comment = 'FRA="Journal interaction"';
                         Enabled = LogInteractionEnable;
 
@@ -968,13 +965,15 @@ report 50009 "BC6_Sales Quote"
                                 ArchiveDocument := ArchiveDocumentEnable;
                         end;
                     }
-                    field(CodGRespCenter; CodGRespCenter)
+                    field(CodGRespCenterF; CodGRespCenter)
                     {
+                        ApplicationArea = All;
                         Caption = 'Print Characteristics Agency:', Comment = 'FRA="Imprimer Caractéristiques Agence:"';
                         TableRelation = "Responsibility Center";
                     }
-                    field(HideReference; HideReference)
+                    field(HideReferenceF; HideReference)
                     {
+                        ApplicationArea = All;
                         Caption = 'Hide Reference', Comment = 'FRA="Masquer références"';
                     }
                 }
@@ -1004,8 +1003,6 @@ report 50009 "BC6_Sales Quote"
         GLSetup.GET();
         CompanyInfo.GET();
         SalesSetup.GET();
-
-
     end;
 
     trigger OnPreReport()
@@ -1081,11 +1078,11 @@ report 50009 "BC6_Sales Quote"
         VATDiscountAmount: Decimal;
         vGTotal1: Decimal;
         "--CNE3.02--": Integer;
+        "-DEEE1.00-": Integer;
         "--FEP-ADVE-200706_18_A--": Integer;
         "--FG--": Integer;
-        "-DEEE1.00-": Integer;
-        "-MICO-": Integer;
         i: Integer;
+        "-MICO-": Integer;
         NoOfCopies: Integer;
         NoOfLoops: Integer;
         NoOfRecords: Integer;
@@ -1137,6 +1134,7 @@ report 50009 "BC6_Sales Quote"
         Text067: Label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5', Comment = 'FRA="%1 au capital de  %2   - %3  -  APE %4 - N°TVA : %5"';
         Text068: Label '%1', Comment = 'FRA="%1"';
         Text070: Label 'Affair No. : ', Comment = 'FRA="Affaire n° :"';
+        txtlbl12: label '%1 %2';
         Unit_Price_Excl__VATCaptionLbl: Label 'Unit Price Excl. VAT', Comment = 'FRA="P. U. Net HT"';
         Unit_Price_Incl__VATCaptionLbl: Label 'Unit Price Incl. VAT', Comment = 'FRA="P. U. Net TTC"';
         VALVATAmountLCY_Control1000000125CaptionLbl: Label 'VAT Amount', Comment = 'FRA="Montant TVA"';
@@ -1171,9 +1169,6 @@ report 50009 "BC6_Sales Quote"
         TxtGLblProjet: Text[30];
         TxtGNoProjet: Text[30];
         VATNoText: Text[30];
-        CompanyAddr: array[8] of Text[50];
-        CustAddr: array[8] of Text[50];
-        ShipToAddr: array[8] of Text[50];
         TotalExclVATText: Text[50];
         TotalInclVATText: Text[50];
         TotalText: Text[50];
@@ -1189,10 +1184,10 @@ report 50009 "BC6_Sales Quote"
         TxtGEmail: Text[80];
         TxtGHomePage: Text[80];
         VALSpecLCYHeader: Text[80];
+        CompanyAddr: array[8] of Text[100];
+        CustAddr: array[8] of Text[100];
+        ShipToAddr: array[8] of Text[100];
         DimText: Text[120];
-        txtlbl12: label '%1 %2';
-
-
 
     procedure DefineTagFax(TxtLTag: Text[50])
     begin
@@ -1201,7 +1196,6 @@ report 50009 "BC6_Sales Quote"
         TxtGTag := RecGParamVente."BC6_RTE Fax Tag" + TxtLTag + '@cne.fax';
     end;
 
-
     procedure DefineTagMail(TxtLTag: Text[50])
     begin
         //>>FE005 MICO LE 15,02,2007
@@ -1209,4 +1203,3 @@ report 50009 "BC6_Sales Quote"
         TxtGTag := RecGParamVente."BC6_PDF Mail Tag" + TxtLTag;
     end;
 }
-

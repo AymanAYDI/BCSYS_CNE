@@ -170,26 +170,26 @@ page 51111 "BC6_Setup Various Tables2"
                     {
                         label("Text 1 Description")
                         {
+                            ApplicationArea = All;
                             Caption = 'Text1 Description', Comment = 'FRA="Libellé Texte1"';
                             Enabled = "Text1 DescriptionEnable";
                             ShowCaption = false;
                             Style = Standard;
                             StyleExpr = TRUE;
-                            ApplicationArea = All;
                         }
                         label("Text 2 Description")
                         {
+                            ApplicationArea = All;
                             Caption = 'Text2 Description', Comment = 'FRA="Libellé Texte2"';
                             Enabled = "Text2 DescriptionEnable";
                             ShowCaption = false;
-                            ApplicationArea = All;
                         }
                         label("Text 3 Description")
                         {
+                            ApplicationArea = All;
                             Caption = 'Text3 Description', Comment = 'FRA="Libellé Texte3"';
                             Enabled = "Text3 DescriptionEnable";
                             ShowCaption = false;
-                            ApplicationArea = All;
                         }
                     }
                     group(Control1100267002)
@@ -211,141 +211,141 @@ page 51111 "BC6_Setup Various Tables2"
                     {
                         field("Number1 Description"; Rec."Number1 Description")
                         {
-                            Enabled = "Number1 DescriptionEnable";
                             ApplicationArea = All;
+                            Enabled = "Number1 DescriptionEnable";
                         }
                         field("Number2 Description"; Rec."Number2 Description")
                         {
-                            Enabled = "Number2 DescriptionEnable";
                             ApplicationArea = All;
+                            Enabled = "Number2 DescriptionEnable";
                         }
                         field("Number3 Description"; Rec."Number3 Description")
                         {
-                            Enabled = "Number3 DescriptionEnable";
                             ApplicationArea = All;
+                            Enabled = "Number3 DescriptionEnable";
                         }
                         field("Date1 Description"; Rec."Date1 Description")
                         {
-                            Enabled = "Date1 DescriptionEnable";
                             ApplicationArea = All;
+                            Enabled = "Date1 DescriptionEnable";
                         }
                         field("Date2 Description"; Rec."Date2 Description")
                         {
-                            Enabled = "Date2 DescriptionEnable";
                             ApplicationArea = All;
+                            Enabled = "Date2 DescriptionEnable";
                         }
                         field("Date3 Description"; Rec."Date3 Description")
                         {
-                            Enabled = "Date3 DescriptionEnable";
                             ApplicationArea = All;
+                            Enabled = "Date3 DescriptionEnable";
                         }
                         field("Top Logical1 Description"; Rec."Top Logical1 Description")
                         {
-                            Enabled = "Top Logical1 DescriptionEnable";
                             ApplicationArea = All;
+                            Enabled = "Top Logical1 DescriptionEnable";
                         }
                         field("Top Logical2 Description"; Rec."Top Logical2 Description")
                         {
-                            Enabled = "Top Logical2 DescriptionEnable";
                             ApplicationArea = All;
+                            Enabled = "Top Logical2 DescriptionEnable";
                         }
                         field("Top Logical3 Description"; Rec."Top Logical3 Description")
                         {
-                            Enabled = "Top Logical3 DescriptionEnable";
                             ApplicationArea = All;
+                            Enabled = "Top Logical3 DescriptionEnable";
                         }
                         field("Radical Code1"; Rec."Radical Code1")
                         {
-                            Enabled = "Radical Code1Enable";
                             ApplicationArea = All;
+                            Enabled = "Radical Code1Enable";
                         }
                         field("Obligatory Radical Code1"; Rec."Obligatory Radical Code1")
                         {
-                            Enabled = "Obligatory Radical Code1Enable";
                             ApplicationArea = All;
+                            Enabled = "Obligatory Radical Code1Enable";
                         }
                         field("Radical Code2"; Rec."Radical Code2")
                         {
-                            Enabled = "Radical Code2Enable";
                             ApplicationArea = All;
+                            Enabled = "Radical Code2Enable";
                         }
                         field("Obligatory Radical Code2"; Rec."Obligatory Radical Code2")
                         {
-                            Enabled = "Obligatory Radical Code2Enable";
                             ApplicationArea = All;
+                            Enabled = "Obligatory Radical Code2Enable";
                         }
                         field("Radical Code3"; Rec."Radical Code3")
                         {
-                            Enabled = "Radical Code3Enable";
                             ApplicationArea = All;
+                            Enabled = "Radical Code3Enable";
                         }
                         field("Obligatory Radical Code3"; Rec."Obligatory Radical Code3")
                         {
-                            Enabled = "Obligatory Radical Code3Enable";
                             ApplicationArea = All;
+                            Enabled = "Obligatory Radical Code3Enable";
                         }
                     }
                     group(Control1100267004)
                     {
                         field("Obligatory Text1"; Rec."Obligatory Text1")
                         {
-                            Enabled = "Obligatory Text1Enable";
                             ApplicationArea = All;
+                            Enabled = "Obligatory Text1Enable";
                         }
                         field("Obligatory Text2"; Rec."Obligatory Text2")
                         {
-                            Enabled = "Obligatory Text2Enable";
                             ApplicationArea = All;
+                            Enabled = "Obligatory Text2Enable";
                         }
                         field("Obligatory Text3"; Rec."Obligatory Text3")
                         {
-                            Enabled = "Obligatory Text3Enable";
                             ApplicationArea = All;
+                            Enabled = "Obligatory Text3Enable";
                         }
                         field("Obligatory Number1"; Rec."Obligatory Number1")
                         {
-                            Enabled = "Obligatory Number1Enable";
                             ApplicationArea = All;
+                            Enabled = "Obligatory Number1Enable";
                         }
                         field("Obligatory Number2"; Rec."Obligatory Number2")
                         {
-                            Enabled = "Obligatory Number2Enable";
                             ApplicationArea = All;
+                            Enabled = "Obligatory Number2Enable";
                         }
                         field("Obligatory Number3"; Rec."Obligatory Number3")
                         {
-                            Enabled = "Obligatory Number3Enable";
                             ApplicationArea = All;
+                            Enabled = "Obligatory Number3Enable";
                         }
                         field("Obligatory Date1"; Rec."Obligatory Date1")
                         {
-                            Enabled = "Obligatory Date1Enable";
                             ApplicationArea = All;
+                            Enabled = "Obligatory Date1Enable";
                         }
                         field("Obligatory Date2"; Rec."Obligatory Date2")
                         {
-                            Enabled = "Obligatory Date2Enable";
                             ApplicationArea = All;
+                            Enabled = "Obligatory Date2Enable";
                         }
                         field("Obligatory Date3"; Rec."Obligatory Date3")
                         {
-                            Enabled = "Obligatory Date3Enable";
                             ApplicationArea = All;
+                            Enabled = "Obligatory Date3Enable";
                         }
                         field("Radical Code1 Description"; Rec."Radical Code1 Description")
                         {
-                            Enabled = RadicalCode1DescriptionEnable;
                             ApplicationArea = All;
+                            Enabled = RadicalCode1DescriptionEnable;
                         }
                         field("Radical Code2 Description"; Rec."Radical Code2 Description")
                         {
-                            Enabled = RadicalCode2DescriptionEnable;
                             ApplicationArea = All;
+                            Enabled = RadicalCode2DescriptionEnable;
                         }
                         field("Radical Code3 Description"; Rec."Radical Code3 Description")
                         {
-                            Enabled = RadicalCode3DescriptionEnable;
                             ApplicationArea = All;
+                            Enabled = RadicalCode3DescriptionEnable;
                         }
                     }
                 }
@@ -359,11 +359,11 @@ page 51111 "BC6_Setup Various Tables2"
         {
             action("Gestion Tables Diverses")
             {
+                ApplicationArea = All;
                 Caption = 'Gestion Tables Diverses', Comment = 'FRA="Gestion Tables Diverses"';
                 Promoted = true;
-                PromotedOnly = true;
                 PromotedCategory = Process;
-                ApplicationArea = All;
+                PromotedOnly = true;
 
                 trigger OnAction()
                 begin
@@ -560,4 +560,3 @@ page 51111 "BC6_Setup Various Tables2"
         EnableFields();
     end;
 }
-

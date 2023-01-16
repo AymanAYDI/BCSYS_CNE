@@ -1,15 +1,14 @@
 pageextension 50039 "BC6_PostedSalesCreditMemo" extends "Posted Sales Credit Memo" //134
 {
-
     layout
     {
         addafter("Sell-to Contact No.")
         {
             field("BC6_Sell-to E-Mail Address"; Rec."BC6_Sell-to E-Mail Address")
             {
+                ApplicationArea = All;
                 Caption = 'Sell-to Customer E-Mail', Comment = 'FRA="E-Mail donneur d''ordre"';
                 Editable = false;
-                ApplicationArea = All;
             }
         }
         addafter("External Document No.")
@@ -20,8 +19,8 @@ pageextension 50039 "BC6_PostedSalesCreditMemo" extends "Posted Sales Credit Mem
             }
             field("BC6_Affair No."; Rec."BC6_Affair No.")
             {
-                Editable = false;
                 ApplicationArea = All;
+                Editable = false;
             }
         }
     }
@@ -29,17 +28,17 @@ pageextension 50039 "BC6_PostedSalesCreditMemo" extends "Posted Sales Credit Mem
     {
         addafter("&Navigate")
         {
-            group("BC6_E&nvoyer/Imprimer")
+            group("BC6_Envoyer/Imprimer")
             {
-                Caption = 'E&nvoyer/Imprimer';
+                Caption = 'Envoyer/Imprimer';
                 action("BC6_&Print")
                 {
-                    Caption = '&Print', Comment = 'FRA="&Imprimer"';
+                    ApplicationArea = All;
+                    Caption = 'Print', Comment = 'FRA="Imprimer"';
                     Ellipsis = true;
                     Image = Print;
                     Promoted = true;
                     PromotedCategory = Process;
-                    ApplicationArea = All;
 
                     trigger OnAction()
                     begin
@@ -49,8 +48,8 @@ pageextension 50039 "BC6_PostedSalesCreditMemo" extends "Posted Sales Credit Mem
                 }
                 action("BC6_Envoyer par E-Mail")
                 {
-                    Caption = 'Envoyer par E-Mail';
                     ApplicationArea = All;
+                    Caption = 'Envoyer par E-Mail';
 
                     trigger OnAction()
                     var
@@ -62,8 +61,8 @@ pageextension 50039 "BC6_PostedSalesCreditMemo" extends "Posted Sales Credit Mem
                 }
                 action("BC6_Envoyer par Fax")
                 {
-                    Caption = 'Envoyer par Fax';
                     ApplicationArea = All;
+                    Caption = 'Envoyer par Fax';
 
                     trigger OnAction()
                     var
@@ -90,8 +89,6 @@ pageextension 50039 "BC6_PostedSalesCreditMemo" extends "Posted Sales Credit Mem
         Mail: Codeunit Mail;
         Text001: Label '';
         nameF: Text[250];
-
-
 
     procedure EnvoiMail()
     begin

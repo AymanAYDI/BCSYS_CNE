@@ -14,4 +14,3 @@ codeunit 50005 "BC6_G/L Reg.-DEEE Ledger"
     var
         DEEEEntry: Record "BC6_DEEE Ledger Entry";
 }
-

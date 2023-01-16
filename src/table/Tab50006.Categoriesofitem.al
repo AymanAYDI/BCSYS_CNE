@@ -14,8 +14,8 @@ table 50006 "BC6_Categories of item"
         field(2; "Eco Partner"; Code[20])
         {
             Caption = 'Eco Partner', comment = 'FRA="co Partenaire"';
-            TableRelation = Vendor;
             DataClassification = CustomerContent;
+            TableRelation = Vendor;
         }
         field(10; "Weight Min"; Decimal)
         {
@@ -40,8 +40,8 @@ table 50006 "BC6_Categories of item"
         field(14; "DEEE Product Group ID"; Code[10])
         {
             Caption = 'Groupe compta. produit DEEE', comment = 'FRA="Groupe compta. produit DEEE"';
-            TableRelation = "Gen. Product Posting Group".Code;
             DataClassification = CustomerContent;
+            TableRelation = "Gen. Product Posting Group".Code;
         }
     }
 

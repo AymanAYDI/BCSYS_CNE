@@ -1,8 +1,8 @@
 xmlport 50002 "BC6_Import/Export Qty to order"
 {
+    Caption = 'Import/Export Qty to order';
     FieldSeparator = ';';
     Format = VariableText;
-    Caption = 'Import/Export Qty to order';
 
     schema
     {
@@ -35,7 +35,6 @@ xmlport 50002 "BC6_Import/Export Qty to order"
 
     requestpage
     {
-
         layout
         {
         }
@@ -45,4 +44,3 @@ xmlport 50002 "BC6_Import/Export Qty to order"
         }
     }
 }
-

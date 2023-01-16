@@ -11,4 +11,3 @@ pageextension 50003 "BC6_GeneralLedgerEntries" extends "General Ledger Entries" 
         }
     }
 }
-

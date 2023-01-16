@@ -2,71 +2,85 @@ table 99008 "BC6_Vendor Test"
 {
     Caption = 'Vendor', Comment = 'FRA="Fournisseur"';
     DataCaptionFields = "No.", Name;
+    DataClassification = CustomerContent;
     DrillDownPageID = "Vendor List";
     LookupPageID = "Vendor List";
     Permissions = TableData "Vendor Ledger Entry" = r;
-
     fields
     {
         field(1; "No."; Code[20])
         {
             Caption = 'No.', comment = 'FRA="N°"';
+            DataClassification = CustomerContent;
         }
         field(2; Name; Text[30])
         {
             Caption = 'Name', comment = 'FRA="Nom"';
+            DataClassification = CustomerContent;
         }
         field(3; "Search Name"; Code[30])
         {
             Caption = 'Search Name', comment = 'FRA="Nom de recherche"';
+            DataClassification = CustomerContent;
         }
         field(4; "Name 2"; Text[30])
         {
             Caption = 'Name 2', comment = 'FRA="Nom 2"';
+            DataClassification = CustomerContent;
         }
         field(5; Address; Text[30])
         {
             Caption = 'Address', comment = 'FRA="Adresse"';
+            DataClassification = CustomerContent;
         }
         field(6; "Address 2"; Text[30])
         {
             Caption = 'Address 2', comment = 'FRA="Adresse (2ème ligne)"';
+            DataClassification = CustomerContent;
         }
         field(7; City; Text[30])
         {
             Caption = 'City', comment = 'FRA="Ville"';
+            DataClassification = CustomerContent;
         }
         field(8; Contact; Text[30])
         {
             Caption = 'Contact', comment = 'FRA="Contact"';
+            DataClassification = CustomerContent;
         }
         field(9; "Phone No."; Text[30])
         {
             Caption = 'Phone No.', comment = 'FRA="N° téléphone"';
+            DataClassification = CustomerContent;
         }
         field(10; "Telex No."; Text[30])
         {
             Caption = 'Telex No.', comment = 'FRA="N° télex"';
+            DataClassification = CustomerContent;
         }
         field(14; "Our Account No."; Text[20])
         {
             Caption = 'Our Account No.', comment = 'FRA="Notre n° cpte/fourn."';
+            DataClassification = CustomerContent;
         }
         field(15; "Territory Code"; Code[10])
         {
             Caption = 'Territory Code', comment = 'FRA="Code secteur"';
+            DataClassification = CustomerContent;
             TableRelation = Territory;
         }
         field(16; "Global Dimension 1 Code"; Code[20])
         {
-            CaptionClass = '1,1,1';
             Caption = 'Global Dimension 1 Code', comment = 'FRA="Code axe principal 1"';
+            CaptionClass = '1,1,1';
+            DataClassification = CustomerContent;
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1));
         }
         field(17; "Global Dimension 2 Code"; Code[20])
         {
-            CaptionClass = '1,1,2';
             Caption = 'Global Dimension 2 Code', comment = 'FRA="Code axe principal 2"';
+            CaptionClass = '1,1,2';
+            DataClassification = CustomerContent;
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2));
         }
         field(19; "Budgeted Amount"; Decimal)
@@ -74,54 +88,65 @@ table 99008 "BC6_Vendor Test"
             AutoFormatExpression = "Currency Code";
             AutoFormatType = 1;
             Caption = 'Credit Limit (LCY)', comment = 'FRA="Crédit autorisé DS"';
+            DataClassification = CustomerContent;
         }
         field(21; "Vendor Posting Group"; Code[10])
         {
             Caption = 'Vendor Posting Group';
+            DataClassification = CustomerContent;
             TableRelation = "Vendor Posting Group";
         }
         field(22; "Currency Code"; Code[10])
         {
             Caption = 'Currency Code', comment = 'FRA="Code devise"';
+            DataClassification = CustomerContent;
             TableRelation = Currency;
         }
         field(24; "Language Code"; Code[10])
         {
             Caption = 'Language Code', comment = 'FRA="Code langue"';
+            DataClassification = CustomerContent;
             TableRelation = Language;
         }
         field(26; "Statistics Group"; Integer)
         {
             Caption = 'Statistics Group', comment = 'FRA="Groupe statistiques"';
+            DataClassification = CustomerContent;
         }
         field(27; "Payment Terms Code"; Code[10])
         {
             Caption = 'Payment Terms Code', comment = 'FRA="Code conditions paiement"';
+            DataClassification = CustomerContent;
             TableRelation = "Payment Terms";
         }
         field(28; "Fin. Charge Terms Code"; Code[10])
         {
             Caption = 'Fin. Charge Terms Code', comment = 'FRA="Code condition intérêts"';
+            DataClassification = CustomerContent;
             TableRelation = "Finance Charge Terms";
         }
         field(29; "Purchaser Code"; Code[10])
         {
             Caption = 'Purchaser Code', comment = 'FRA="Code acheteur"';
+            DataClassification = CustomerContent;
             TableRelation = "Salesperson/Purchaser";
         }
         field(30; "Shipment Method Code"; Code[10])
         {
             Caption = 'Shipment Method Code', comment = 'FRA="Code condition livraison"';
+            DataClassification = CustomerContent;
             TableRelation = "Shipment Method";
         }
         field(31; "Shipping Agent Code"; Code[10])
         {
             Caption = 'Shipping Agent Code', comment = 'FRA="Code transporteur"';
+            DataClassification = CustomerContent;
             TableRelation = "Shipping Agent";
         }
         field(33; "Invoice Disc. Code"; Code[20])
         {
             Caption = 'Invoice Disc. Code', comment = 'FRA="Code remise facture"';
+            DataClassification = CustomerContent;
             TableRelation = Vendor;
             //This property is currently not supported
             //TestTableRelation = false;
@@ -130,6 +155,7 @@ table 99008 "BC6_Vendor Test"
         field(35; "Country Code"; Code[10])
         {
             Caption = 'Country Code', comment = 'FRA="Code pays"';
+            DataClassification = CustomerContent;
             TableRelation = "Country/Region";
         }
         field(38; Comment; Boolean)
@@ -143,24 +169,29 @@ table 99008 "BC6_Vendor Test"
         field(39; Blocked; Enum "Customer Blocked")
         {
             Caption = 'Blocked', comment = 'FRA="Bloqué"';
+            DataClassification = CustomerContent;
         }
         field(45; "Pay-to Vendor No."; Code[20])
         {
             Caption = 'Pay-to Vendor No.', comment = 'FRA="N° fournisseur à payer"';
+            DataClassification = CustomerContent;
             TableRelation = Vendor;
         }
         field(46; Priority; Integer)
         {
             Caption = 'Priority', comment = 'FRA="Priorité"';
+            DataClassification = CustomerContent;
         }
         field(47; "Payment Method Code"; Code[10])
         {
             Caption = 'Payment Method Code', comment = 'FRA="Code mode de règlement"';
+            DataClassification = CustomerContent;
             TableRelation = "Payment Method";
         }
         field(54; "Last Date Modified"; Date)
         {
             Caption = 'Last Date Modified', comment = 'FRA="Date dern. modification"';
+            DataClassification = CustomerContent;
             Editable = false;
         }
         field(55; "Date Filter"; Date)
@@ -170,21 +201,20 @@ table 99008 "BC6_Vendor Test"
         }
         field(56; "Global Dimension 1 Filter"; Code[20])
         {
-            CaptionClass = '1,3,1';
             Caption = 'Global Dimension 1 Filter', comment = 'FRA="Filtre axe principal 1"';
+            CaptionClass = '1,3,1';
             FieldClass = FlowFilter;
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1));
         }
         field(57; "Global Dimension 2 Filter"; Code[20])
         {
-            CaptionClass = '1,3,2';
             Caption = 'Global Dimension 2 Filter', comment = 'FRA="Filtre axe principal 2"';
+            CaptionClass = '1,3,2';
             FieldClass = FlowFilter;
             TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2));
         }
         field(58; Balance; Decimal)
         {
-            FieldClass = FlowField;
             AutoFormatExpression = "Currency Code";
             AutoFormatType = 1;
             CalcFormula = - Sum("Detailed Vendor Ledg. Entry".Amount WHERE("Vendor No." = FIELD("No."),
@@ -193,11 +223,10 @@ table 99008 "BC6_Vendor Test"
                                                                            "Currency Code" = FIELD("Currency Filter")));
             Caption = 'Balance', Comment = 'FRA="Solde"';
             Editable = false;
-
+            FieldClass = FlowField;
         }
         field(59; "Balance (LCY)"; Decimal)
         {
-            FieldClass = FlowField;
             AutoFormatType = 1;
             CalcFormula = - Sum("Detailed Vendor Ledg. Entry"."Amount (LCY)" WHERE("Vendor No." = FIELD("No."),
                                                                                    "Initial Entry Global Dim. 1" = FIELD("Global Dimension 1 Filter"),
@@ -205,7 +234,7 @@ table 99008 "BC6_Vendor Test"
                                                                                    "Currency Code" = FIELD("Currency Filter")));
             Caption = 'Balance (LCY)', comment = 'FRA="Solde DS"';
             Editable = false;
-
+            FieldClass = FlowField;
         }
         field(60; "Net Change"; Decimal)
         {
@@ -300,7 +329,6 @@ table 99008 "BC6_Vendor Test"
         {
             AutoFormatExpression = "Currency Code";
             AutoFormatType = 1;
-            FieldClass = FlowField;
             CalcFormula = Sum("Detailed Vendor Ledg. Entry".Amount WHERE("Initial Document Type" = CONST(Payment),
                                                                           "Entry Type" = CONST("Initial Entry"),
                                                                           "Vendor No." = FIELD("No."),
@@ -310,6 +338,7 @@ table 99008 "BC6_Vendor Test"
                                                                           "Currency Code" = FIELD("Currency Filter")));
             Caption = 'Payments', comment = 'FRA="Paiements"';
             Editable = false;
+            FieldClass = FlowField;
         }
         field(70; "Invoice Amounts"; Decimal)
         {
@@ -343,7 +372,6 @@ table 99008 "BC6_Vendor Test"
         }
         field(72; "Finance Charge Memo Amounts"; Decimal)
         {
-            FieldClass = FlowField;
             AutoFormatExpression = "Currency Code";
             AutoFormatType = 1;
             CalcFormula = - Sum("Detailed Vendor Ledg. Entry".Amount WHERE("Initial Document Type" = CONST("Finance Charge Memo"),
@@ -355,7 +383,7 @@ table 99008 "BC6_Vendor Test"
                                                                            "Currency Code" = FIELD("Currency Filter")));
             Caption = 'Finance Charge Memo Amounts', comment = 'FRA="Montants intérêts de retard"';
             Editable = false;
-
+            FieldClass = FlowField;
         }
         field(74; "Payments (LCY)"; Decimal)
         {
@@ -442,42 +470,51 @@ table 99008 "BC6_Vendor Test"
         field(80; "Application Method"; Enum "Application Method")
         {
             Caption = 'Application Method', comment = 'FRA="Mode de lettrage"';
+            DataClassification = CustomerContent;
         }
         field(82; "Prices Including VAT"; Boolean)
         {
             Caption = 'Prices Including VAT', comment = 'FRA="Prix TTC"';
+            DataClassification = CustomerContent;
         }
         field(84; "Fax No."; Text[30])
         {
             Caption = 'Fax No.', comment = 'FRA="N° télécopie"';
+            DataClassification = CustomerContent;
         }
         field(85; "Telex Answer Back"; Text[20])
         {
             Caption = 'Telex Answer Back', comment = 'FRA="Télex retour"';
+            DataClassification = CustomerContent;
         }
         field(86; "VAT Registration No."; Text[20])
         {
             Caption = 'VAT Registration No.', comment = 'FRA="N° identif. intracomm."';
+            DataClassification = CustomerContent;
         }
         field(88; "Gen. Bus. Posting Group"; Code[10])
         {
             Caption = 'Gen. Bus. Posting Group', comment = 'FRA="Groupe compta. marché"';
+            DataClassification = CustomerContent;
             TableRelation = "Gen. Business Posting Group";
         }
         field(89; Picture; BLOB)
         {
             Caption = 'Picture', comment = 'FRA="Image"';
+            DataClassification = CustomerContent;
             SubType = Bitmap;
         }
         field(91; "Post Code"; Code[20])
         {
             Caption = 'Post Code', comment = 'FRA="Code postal"';
+            DataClassification = CustomerContent;
             TableRelation = "Post Code";
             ValidateTableRelation = false;
         }
         field(92; County; Text[30])
         {
             Caption = 'County', comment = 'FRA="Région"';
+            DataClassification = CustomerContent;
         }
         field(97; "Debit Amount"; Decimal)
         {
@@ -540,10 +577,12 @@ table 99008 "BC6_Vendor Test"
         field(102; "E-Mail"; Text[80])
         {
             Caption = 'E-Mail', comment = 'FRA="E-mail"';
+            DataClassification = CustomerContent;
         }
         field(103; "Home Page"; Text[80])
         {
             Caption = 'Home Page', comment = 'FRA="Page d''accueil"';
+            DataClassification = CustomerContent;
         }
         field(104; "Reminder Amounts"; Decimal)
         {
@@ -577,21 +616,25 @@ table 99008 "BC6_Vendor Test"
         field(107; "No. Series"; Code[10])
         {
             Caption = 'No. Series', comment = 'FRA="Souches de n°"';
+            DataClassification = CustomerContent;
             Editable = false;
             TableRelation = "No. Series";
         }
         field(108; "Tax Area Code"; Code[20])
         {
             Caption = 'Tax Area Code', comment = 'FRA="Code zone recouvrement"';
+            DataClassification = CustomerContent;
             TableRelation = "Tax Area";
         }
         field(109; "Tax Liable"; Boolean)
         {
             Caption = 'Tax Liable', comment = 'FRA="Soumis à recouvrement"';
+            DataClassification = CustomerContent;
         }
         field(110; "VAT Bus. Posting Group"; Code[10])
         {
             Caption = 'VAT Bus. Posting Group', comment = 'FRA="Groupe compta. marché TVA"';
+            DataClassification = CustomerContent;
             TableRelation = "VAT Business Posting Group";
         }
         field(111; "Currency Filter"; Code[10])
@@ -627,6 +670,7 @@ table 99008 "BC6_Vendor Test"
         field(116; "Block Payment Tolerance"; Boolean)
         {
             Caption = 'Block Payment Tolerance', comment = 'FRA="Bloquer écart de règlement"';
+            DataClassification = CustomerContent;
         }
         field(117; "Pmt. Disc. Tolerance (LCY)"; Decimal)
         {
@@ -657,9 +701,8 @@ table 99008 "BC6_Vendor Test"
         field(119; "IC Partner Code"; Code[20])
         {
             Caption = 'IC Partner Code', comment = 'FRA="Code du partenaire IC"';
+            DataClassification = CustomerContent;
             TableRelation = "IC Partner";
-
-
         }
         field(120; Refunds; Decimal)
         {
@@ -671,6 +714,7 @@ table 99008 "BC6_Vendor Test"
                                                                            "Posting Date" = FIELD("Date Filter"),
                                                                            "Currency Code" = FIELD("Currency Filter")));
             Caption = 'Refunds', comment = 'FRA="Remboursements"';
+            Editable = false;
             FieldClass = FlowField;
         }
         field(121; "Refunds (LCY)"; Decimal)
@@ -683,6 +727,7 @@ table 99008 "BC6_Vendor Test"
                                                                                    "Posting Date" = FIELD("Date Filter"),
                                                                                    "Currency Code" = FIELD("Currency Filter")));
             Caption = 'Refunds (LCY)', comment = 'FRA="Remboursements DS"';
+            Editable = false;
             FieldClass = FlowField;
         }
         field(122; "Other Amounts"; Decimal)
@@ -695,6 +740,7 @@ table 99008 "BC6_Vendor Test"
                                                                            "Posting Date" = FIELD("Date Filter"),
                                                                            "Currency Code" = FIELD("Currency Filter")));
             Caption = 'Other Amounts', comment = 'FRA="Autres montants"';
+            Editable = false;
             FieldClass = FlowField;
         }
         field(123; "Other Amounts (LCY)"; Decimal)
@@ -707,48 +753,58 @@ table 99008 "BC6_Vendor Test"
                                                                                    "Posting Date" = FIELD("Date Filter"),
                                                                                    "Currency Code" = FIELD("Currency Filter")));
             Caption = 'Other Amounts (LCY)', comment = 'FRA="Autres montants DS"';
+            Editable = false;
             FieldClass = FlowField;
         }
         field(5049; "Primary Contact No."; Code[20])
         {
             Caption = 'Primary Contact No.', comment = 'FRA="N° contact principal"';
+            DataClassification = CustomerContent;
             TableRelation = Contact;
         }
         field(5700; "Responsibility Center"; Code[10])
         {
             Caption = 'Responsibility Center', comment = 'FRA="Centre de gestion"';
+            DataClassification = CustomerContent;
             TableRelation = "Responsibility Center";
         }
         field(5701; "Location Code"; Code[10])
         {
             Caption = 'Location Code', comment = 'FRA="Code magasin"';
+            DataClassification = CustomerContent;
             TableRelation = Location WHERE("Use As In-Transit" = CONST(false));
         }
         field(5790; "Lead Time Calculation"; DateFormula)
         {
             Caption = 'Lead Time Calculation', comment = 'FRA="Délai de réappro."';
+            DataClassification = CustomerContent;
         }
         field(6200; "Reverse Auction Participant"; Boolean)
         {
             Caption = 'Reverse Auction Participant', comment = 'FRA="Participant appel d''offres"';
+            DataClassification = CustomerContent;
         }
         field(6207; "Notification Process Code"; Code[10])
         {
             Caption = 'Notification Process Code', comment = 'FRA="Code processus de notification"';
+            DataClassification = CustomerContent;
         }
         field(6209; "Queue Priority"; Enum "BC6_Queue Priority")
         {
             Caption = 'Queue Priority', comment = 'FRA="Priorité file"';
+            DataClassification = CustomerContent;
             InitValue = Medium;
         }
         field(7600; "Base Calendar Code"; Code[10])
         {
             Caption = 'Base Calendar Code', comment = 'FRA="Code calendrier principal"';
+            DataClassification = CustomerContent;
             TableRelation = "Base Calendar";
         }
         field(10810; "Default Bank Account Code"; Code[10])
         {
             Caption = 'Default Bank Account Code', comment = 'FRA="Code compte bancaire par défaut"';
+            DataClassification = CustomerContent;
             TableRelation = "Vendor Bank Account".Code WHERE("Vendor No." = FIELD("No."));
         }
         field(10860; "Payment in progress (LCY)"; Decimal)
@@ -764,12 +820,14 @@ table 99008 "BC6_Vendor Test"
         field(50000; "Creation Date"; Date)
         {
             Caption = 'Creation Date', comment = 'FRA="Date de création"';
+            DataClassification = CustomerContent;
             Description = 'NAVIDIIGEST BR 01.08.2006 NSC1.00 [Champs_Suppl] Ajout du champ';
             Editable = false;
         }
         field(50001; User; Code[20])
         {
             Caption = 'User', comment = 'FRA="Utilisateur"';
+            DataClassification = CustomerContent;
             Description = 'NAVIDIIGEST BR 01.08.2006 NSC1.00 [Champs_Suppl] Ajout du champ';
             Editable = false;
             TableRelation = User;
@@ -777,50 +835,59 @@ table 99008 "BC6_Vendor Test"
         field(50002; "Transaction Type"; Code[10])
         {
             Caption = 'Transaction Type', comment = 'FRA="Nature Transaction"';
+            DataClassification = CustomerContent;
             Description = 'NAVIDIIGEST BRRI 01.08.2006 NSC1.00 [Incoterm] Ajout du champ - Nature Transaction';
             TableRelation = "Transaction Type";
         }
         field(50003; "Transaction Specification"; Code[10])
         {
             Caption = 'Transaction Specification', comment = 'FRA="Régime"';
+            DataClassification = CustomerContent;
             Description = 'NAVIDIIGEST BRRI 01.08.2006 NSC1.00 [Incoterm] Ajout du champ - Régime';
             TableRelation = "Transaction Specification";
         }
         field(50004; "Transport Method"; Code[10])
         {
             Caption = 'Transport Method', comment = 'FRA="Mode transport"';
+            DataClassification = CustomerContent;
             Description = 'NAVIDIIGEST BRRI 01.08.2006 NSC1.00 [Incoterm] Ajout du champ - Mode transport';
             TableRelation = "Transport Method";
         }
         field(50005; "Entry Point"; Code[10])
         {
             Caption = 'Entry  Point', comment = 'FRA="Pays Provenance"';
+            DataClassification = CustomerContent;
             Description = 'NAVIDIIGEST BRRI 01.08.2006 NSC1.00 [Incoterm] Ajout du champ - Pays';
             TableRelation = "Entry/Exit Point";
         }
         field(50006; "Area"; Code[10])
         {
             Caption = 'Area', comment = 'FRA="Departement Destination"';
+            DataClassification = CustomerContent;
             Description = 'NAVIDIIGEST BRRI 01.08.2006 NSC1.00 [Incoterm] Ajout du champ - Département';
             TableRelation = Area;
         }
         field(50007; "Pay-to Vend. No."; Code[20])
         {
             Caption = 'Pay-to Vend. No.', comment = 'FRA="Tiers payeur"';
+            DataClassification = CustomerContent;
             Description = 'NAVIDIIGEST BRRI 01.08.2006 NSC1.00 [Gestion_Tiers_Payeur] Ajout du champ';
             TableRelation = Vendor;
         }
         field(50010; "Mini Amount"; Decimal)
         {
             Caption = 'Montant Mini cde', comment = 'FRA="Montant Mini cde"';
+            DataClassification = CustomerContent;
             Description = 'MNTMINI SM 13/10/06 NSC1.01 [FE002] Ajout du champ Mini Montant';
         }
         field(50011; MinCde; Decimal)
         {
+            DataClassification = CustomerContent;
             Description = 'ImportFichiersBase RD 15/11/06 NCS1.01 [FE021] Ajout du champ Minimum Commande';
         }
         field(50012; MinFranco; Decimal)
         {
+            DataClassification = CustomerContent;
             Description = 'ImportFichiersBase RD 15/11/06 NCS1.01 [FE021] Ajout du champ Minimum Franco';
         }
     }
@@ -864,8 +931,6 @@ table 99008 "BC6_Vendor Test"
     {
     }
 
-
-
     var
         CommentLine: Record "Comment Line";
         GenBusPostingGrp: Record "Gen. Business Posting Group";
@@ -894,7 +959,4 @@ table 99008 "BC6_Vendor Test"
         Text009: Label 'Reconciling IC transactions may be difficult if you change IC Partner Code because this %1 has ledger entries in a fiscal year that has not yet been closed.\ Do you still want to change the IC Partner Code?', comment = 'FRA="Le rapprochement des transactions IC risque de poser problème si vous modifiez le code partenaire IC car ce/cette %1 comporte des écritures appartenant à un exercice comptable qui n''a pas encore été clôturé.\ Souhaitez-vous quand même modifier le code partenaire IC ?"';
         Text010: Label 'You cannot change the contents of the %1 field because this %2 has one or more open ledger entries.', comment = 'FRA="Vous ne pouvez pas modifier la valeur du champ %1 car ce/cette %2 comporte une ou plusieurs écritures ouvertes."';
         TextGestTiersPayeur001: Label 'Do you want to update Open Ledger entries with new Pay-to customer No. %1?', comment = 'FRA="Voulez-vous mettre à jour les Ecritures ouvertes avec le Nouveau N° Tiers payeur %1?"';
-
-
 }
-

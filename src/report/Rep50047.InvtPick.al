@@ -1,11 +1,10 @@
 report 50047 "BC6_Invt. Pick"
 {
+    ApplicationArea = all;
+    Caption = 'Picking List', Comment = 'FRA="Prélèvement stock"';
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/InvtPick.rdl';
-
-    Caption = 'Picking List', Comment = 'FRA="Prélèvement stock"';
     UsageCategory = ReportsAndAnalysis;
-    ApplicationArea = all;
 
     dataset
     {
@@ -396,7 +395,6 @@ report 50047 "BC6_Invt. Pick"
                                             RemainingQty := SalesLine."Outstanding Quantity";
                                         END;
 
-
                                         DueDate := SalesLine."Shipment Date";
                                         NetWeight := SalesLine."Net Weight" * QtyToPick;
                                         GrossWeight := SalesLine."Gross Weight" * QtyToPick;
@@ -416,11 +414,9 @@ report 50047 "BC6_Invt. Pick"
                                         NetWeight := ReturnLine."Net Weight" * QtyToPick;
                                         GrossWeight := ReturnLine."Gross Weight" * QtyToPick;
                                     END;
-
                             END;
 
                             BooGBinItemVisible := SortingMethod = SortingMethod::Bin;
-
                         end;
 
                         trigger OnPostDataItem()
@@ -446,9 +442,9 @@ report 50047 "BC6_Invt. Pick"
                                             REPEAT
                                                 CLEAR(RemainingQty2);
                                                 CLEAR(QtyToPick2);
-                                                IF NOT TempSalesLine.GET(SalesLine."Document Type", SalesLine."Document No.", SalesLine."Line No.") THEN BEGIN
-                                                    RemainingQty2 := SalesLine."Outstanding Quantity";
-                                                END ELSE BEGIN
+                                                IF NOT TempSalesLine.GET(SalesLine."Document Type", SalesLine."Document No.", SalesLine."Line No.") THEN
+                                                    RemainingQty2 := SalesLine."Outstanding Quantity"
+                                                ELSE BEGIN
                                                     WhseActLine2.SETRANGE("Source No.", SalesLine."Document No.");
                                                     WhseActLine2.SETRANGE("Source Line No.", SalesLine."Line No.");
                                                     IF WhseActLine2.FINDSET(FALSE, FALSE) THEN
@@ -464,7 +460,6 @@ report 50047 "BC6_Invt. Pick"
                                                     TempSalesLine2."Outstanding Quantity" := RemainingQty2;
                                                     TempSalesLine2.INSERT();
                                                 END;
-
                                             UNTIL SalesLine.NEXT() = 0;
                                     END;
                             END;
@@ -549,7 +544,6 @@ report 50047 "BC6_Invt. Pick"
                                     Item.SETRANGE("Location Filter", WhseActivityHeader."Location Code");
                                 AvailableQty := Item.CalcQtyAvailToPick(0);
                                 Item.SETRANGE("Location Filter");
-
                             END;
                         end;
 
@@ -701,21 +695,25 @@ report 50047 "BC6_Invt. Pick"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(NoOfCopies; NoOfCopies)
+                    field(NoOfCopiesF; NoOfCopies)
                     {
+                        ApplicationArea = All;
                         Caption = 'No. of Copies', Comment = 'FRA="Nombre de copies"';
                     }
-                    field(SortingMethod; SortingMethod)
+                    field(SortingMethodF; SortingMethod)
                     {
+                        ApplicationArea = All;
                         Caption = 'Sorting Method', Comment = 'FRA="Nombre de copies"';
                         OptionCaption = 'Item No.,Bin Code';
                     }
-                    field(BinDetailed; BinDetailed)
+                    field(BinDetailedF; BinDetailed)
                     {
+                        ApplicationArea = All;
                         Caption = 'Bin Detailed', Comment = 'FRA="Nombre de copies"';
                     }
-                    field(ShowOutStock; ShowOutStock)
+                    field(ShowOutStockF; ShowOutStock)
                     {
+                        ApplicationArea = All;
                         Caption = 'Show Out Stock', Comment = 'FRA="Nombre de copies"';
                     }
                 }
@@ -735,7 +733,6 @@ report 50047 "BC6_Invt. Pick"
     labels
     {
     }
-
 
     var
         Bin: Record Bin;
@@ -807,27 +804,26 @@ report 50047 "BC6_Invt. Pick"
         Text006: Label 'Total %1 Excl. VAT', Comment = 'FRA="Total %1 Excl. VAT"';
         Text032: Label '%1 STOCK CAPITAL %2  · %3  · Registration No. %4 ·  EP %5', Comment = 'FRA="%1 au capital de  %2   - %3  -  APE %4 - N°TVA : %5"';
         TOTALCaptionLbl: Label 'TOTAL';
+        txtlbl12: label '%1 %2';
         USERIDCaptionLbl: Label 'User Code', Comment = 'FRA="Code utilisateur"';
         WhseActivityHeader__Destination_Name_CaptionLbl: Label 'Name', Comment = 'FRA="Nom"';
         WhseActivityHeader__Location_Code_CaptionLbl: Label 'Location Code', Comment = 'FRA="Code magasin"';
         WhseActivityHeader__No__CaptionLbl: Label 'Inv. Picking', Comment = 'FRA="Prélèvement stock"';
         WhseActivityHeader_CommentsCaptionLbl: Label 'Comments', Comment = 'FRA="Commentaires"';
-        txtlbl12: label '%1 %2';
         YourRefCaptionLbl: Label 'Your Reference', Comment = 'FRA="Votre référence"';
         SortingMethod: Option Item,Bin;
         EAN13Bar: Text[13];
         EAN13Txt: Text[13];
         CopyText: Text[30];
         YourRef: Text[35];
-        BillToAddr: array[8] of Text[50];
         BinDescription: Text[50];
         SalesPersonName: Text[50];
         ShipmentMethodTxt: Text[50];
         ShippingAgentTxt: Text[50];
-        ShipToAddr: array[8] of Text[50];
+        BillToAddr: array[8] of Text[100];
+        ShipToAddr: array[8] of Text[100];
         EAN13BarTxt: Text[120];
         InvtPickCheckTxt: Text[250];
-
 
     procedure GetLocation(LocationCode: Code[10])
     begin
@@ -838,7 +834,6 @@ report 50047 "BC6_Invt. Pick"
                 Location.GET(LocationCode);
     end;
 
-
     procedure InitRequest(FromSortingMethod: Option Item,Bin; FromBinDetailed: Boolean; FromShowOutStock: Boolean)
     begin
         SortingMethod := FromSortingMethod;
@@ -846,4 +841,3 @@ report 50047 "BC6_Invt. Pick"
         ShowOutStock := FromShowOutStock;
     end;
 }
-

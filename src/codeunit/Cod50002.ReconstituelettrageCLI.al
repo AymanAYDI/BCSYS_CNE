@@ -1,8 +1,6 @@
 codeunit 50002 "BC6_Reconstitue lettrage CLI"
 {
-
     Permissions = TableData "Cust. Ledger Entry" = rimd;
-
 
     var
         CustEntryApplyPostedEntries: Codeunit "BC6_CustEntry-Apply Posted SPE";
@@ -46,4 +44,3 @@ codeunit 50002 "BC6_Reconstitue lettrage CLI"
             UNTIL CustLedgerEntry2.NEXT() = 0; //écritures
     end;
 }
-

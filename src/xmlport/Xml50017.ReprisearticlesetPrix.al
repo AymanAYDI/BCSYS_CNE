@@ -1,10 +1,10 @@
 xmlport 50017 "BC6_Reprise articles et Prix"
 {
+    Caption = 'Reprise articles et Prix';
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = ';';
     Format = VariableText;
-    Caption = 'Reprise articles et Prix';
 
     schema
     {
@@ -167,7 +167,6 @@ xmlport 50017 "BC6_Reprise articles et Prix"
 
     requestpage
     {
-
         layout
         {
         }
@@ -186,4 +185,3 @@ xmlport 50017 "BC6_Reprise articles et Prix"
         CodeCat: Code[20];
         CodeFrs: Code[20];
 }
-

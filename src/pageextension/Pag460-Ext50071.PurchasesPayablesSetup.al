@@ -6,8 +6,8 @@ pageextension 50071 "BC6_PurchasesPayablesSetup" extends "Purchases & Payables S
         {
             field("BC6_Minima de cde"; Rec."BC6_Minima de cde")
             {
-                ShowCaption = false;
                 ApplicationArea = All;
+                ShowCaption = false;
             }
             group("BC6_Freigth charge")
             {
@@ -22,13 +22,13 @@ pageextension 50071 "BC6_PurchasesPayablesSetup" extends "Purchases & Payables S
                 }
                 field("BC6_DEEE Management"; Rec."BC6_DEEE Management")
                 {
-                    ShowCaption = false;
                     ApplicationArea = All;
+                    ShowCaption = false;
                 }
                 field("BC6_Ask custom purch price"; Rec."BC6_Ask custom purch price")
                 {
-                    ShowCaption = false;
                     ApplicationArea = All;
+                    ShowCaption = false;
                 }
             }
         }
@@ -41,4 +41,3 @@ pageextension 50071 "BC6_PurchasesPayablesSetup" extends "Purchases & Payables S
         }
     }
 }
-

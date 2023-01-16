@@ -1,7 +1,5 @@
-
 codeunit 50031 "BC6_PagesEvents"
 {
-
     //PAGE 95
     [EventSubscriber(ObjectType::Page, Page::"Sales Quote Subform", 'OnAfterValidateEvent', 'No.', false, false)]
     local procedure P95_OnAfterValidateEvent(var Rec: Record "Sales Line"; var xRec: Record "Sales Line")
@@ -23,7 +21,6 @@ codeunit 50031 "BC6_PagesEvents"
         Cust.get(Cust."No.");
         if CalcType = CalcType::Direct then
             IF NOT Cust.GET(CustLedgerEntry."Customer No.") AND NOT Cust.GET(CustLedgerEntry."BC6_Pay-to Customer No.") THEN ERROR(TextGestTierPayeur001);
-
     End;
 
     //Page 5703
@@ -71,7 +68,7 @@ codeunit 50031 "BC6_PagesEvents"
                     END;
             end;
     end;
-    //PAGE 161 
+    //PAGE 161
     [EventSubscriber(ObjectType::Page, Page::"Purchase Statistics", 'OnAfterCalculateTotals', '', false, false)]
     local procedure P161_OnAfterCalculateTotals(var PurchHeader: Record "Purchase Header"; var TotalPurchLine: Record "Purchase Line"; var TotalPurchLineLCY: Record "Purchase Line"; var TempVATAmountLine: Record "VAT Amount Line" temporary; var TotalAmt1: Decimal; var TotalAmt2: Decimal)
     begin
@@ -110,8 +107,8 @@ codeunit 50031 "BC6_PagesEvents"
     [EventSubscriber(ObjectType::Page, Page::"Apply Customer Entries", 'OnBeforeCalcApplnAmount', '', false, false)]
     local procedure P232_OnBeforeCalcApplnAmount(var CustLedgerEntry: Record "Cust. Ledger Entry"; var GenJournalLine: Record "Gen. Journal Line"; SalesHeader: Record "Sales Header"; var AppliedCustLedgerEntry: Record "Cust. Ledger Entry"; CalculationType: Option; ApplicationType: Option)
     var
-        ApplnType: Enum "Customer Apply-to Type";
         CalcType: Enum "Customer Apply Calculation Type";
+        ApplnType: Enum "Customer Apply-to Type";
 
     begin
         case CalcType of
@@ -183,7 +180,6 @@ codeunit 50031 "BC6_PagesEvents"
             IF NOT Vend.GET(VendorLedgerEntry."Vendor No.") AND NOT Vend.GET(Vend."BC6_Pay-to Vend. No.") THEN ERROR(TextGestTierPayeur001);
     end;
 
-
     //COD 90
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnPostPurchLineOnBeforeRoundAmount', '', false, false)]
     local procedure COD90_OnPostPurchLineOnBeforeRoundAmount(var PurchaseHeader: Record "Purchase Header"; var PurchaseLine: Record "Purchase Line"; var PurchInvHeader: Record "Purch. Inv. Header"; var PurchCrMemoHeader: Record "Purch. Cr. Memo Hdr."; SrcCode: Code[10])
@@ -213,7 +209,7 @@ codeunit 50031 "BC6_PagesEvents"
         GlobalFunction.SetGDecMntHTDEEE(0);
     end;
 
-    //ligne718 
+    //ligne718
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnAfterPostVendorEntry', '', false, false)]
     local procedure COD90_OnAfterPostVendorEntry(var GenJnlLine: Record "Gen. Journal Line"; var PurchHeader: Record "Purchase Header"; var TotalPurchLine: Record "Purchase Line"; var TotalPurchLineLCY: Record "Purchase Line"; CommitIsSupressed: Boolean; var GenJnlPostLine: Codeunit "Gen. Jnl.-Post Line")
     var
@@ -231,7 +227,6 @@ codeunit 50031 "BC6_PagesEvents"
         GenJnlLine."Source Currency Amount" := GenJnlLine."Source Currency Amount" - GlobalFunction.GetGDecMntTTCDEEE();
         GenJnlLine."Amount (LCY)" := GenJnlLine."Amount (LCY)" - GlobalFunction.GetGDecMntTTCDEEE();
         GenJnlLine."Payment Method Code" := GenJnlLine."Payment Method Code";
-
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch. Post Invoice Events", 'OnPostLedgerEntryOnAfterGenJnlPostLine', '', false, false)]
@@ -251,7 +246,6 @@ codeunit 50031 "BC6_PagesEvents"
         GenJnlLine."Source Currency Amount" := GenJnlLine."Source Currency Amount" - GlobalFunction.GetGDecMntTTCDEEE();
         GenJnlLine."Amount (LCY)" := GenJnlLine."Amount (LCY)" - GlobalFunction.GetGDecMntTTCDEEE();
         GenJnlLine."Payment Method Code" := GenJnlLine."Payment Method Code";
-
     end;
 
     //TAB 43 //CHANGEMENT DE L'ANCIENNE PROC CopyCommentLines pour le cod 90
@@ -311,7 +305,6 @@ codeunit 50031 "BC6_PagesEvents"
         GenJnlLine."Source Currency Amount" := GenJnlLine."Source Currency Amount" - GlobalFunction.Get_PurchGDecMntTTCDEEE();
         GenJnlLine."Amount (LCY)" := GenJnlLine."Amount (LCY)" - GlobalFunction.Get_PurchGDecMntTTCDEEE();
         GenJnlLine."Payment Method Code" := GenJnlLine."Payment Method Code";
-
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post", 'OnBeforeInitNewGenJnlLineFromPostInvoicePostBufferLine', '', false, false)]
@@ -322,22 +315,20 @@ codeunit 50031 "BC6_PagesEvents"
          PurchHeader."Posting Date", PurchHeader."Document Date", PurchHeader."Pay-to Name",
          InvoicePostBuffer."Global Dimension 1 Code", InvoicePostBuffer."Global Dimension 2 Code",
          InvoicePostBuffer."Dimension Set ID", PurchHeader."Reason Code");
-
     end;
-
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Post (Yes/No)", 'OnBeforeConfirmPostProcedure', '', false, false)]
     local procedure COD91_OnBeforeConfirmPostProcedure(var PurchaseHeader: Record "Purchase Header"; var DefaultOption: Integer; var Result: Boolean; var IsHandled: Boolean)
     begin
         PurchaseHeader.TESTFIELD(Status, PurchaseHeader.Status::Released);
     end;
-    //COD 93 
+    //COD 93
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Quote to Order (Yes/No)", 'OnBeforePurchQuoteToOrder', '', false, false)]
     local procedure COD93_OnBeforePurchQuoteToOrder(var PurchaseHeader: Record "Purchase Header"; var IsHandled: Boolean)
     begin
         PurchaseHeader.TESTFIELD(Status, "Sales Document Status"::Released);
     end;
-    //COD 96 
+    //COD 96
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Purch.-Quote to Order", 'OnBeforeInsertPurchOrderLine', '', false, false)]
     local procedure COD96_OnBeforeInsertPurchOrderLine(var PurchOrderLine: Record "Purchase Line"; PurchOrderHeader: Record "Purchase Header"; PurchQuoteLine: Record "Purchase Line"; PurchQuoteHeader: Record "Purchase Header")
     var
@@ -367,10 +358,10 @@ codeunit 50031 "BC6_PagesEvents"
         CompanyInformation: Record "Company Information";
         EmailSubjectCapTxt: Label '%1 - %2 %3';
         EmailSubjectPluralCapTxt: Label '%1 - %2';
-        YourReference: Text;
-        Subject: Text[250];
         text00: Label '%1 - %2';
+        YourReference: Text;
         str: Text[250];
+        Subject: Text[250];
     begin
         if PostedDocNo = '' then
             Subject := CopyStr(
@@ -383,7 +374,6 @@ codeunit 50031 "BC6_PagesEvents"
             str := STRSUBSTNO(str, Subject, YourReference);
             Subject := str;
         end;
-
     END;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Item-Check Avail.", 'OnBeforeCreateAndSendNotification', '', false, false)]
@@ -419,9 +409,8 @@ codeunit 50031 "BC6_PagesEvents"
         NotificationLifecycleMgt.SendNotificationWithAdditionalContext(
           AvailabilityCheckNotification, RecordId, ItemCheckAvail.GetItemAvailabilityNotificationId());
         exit;
-
     end;
-    //COD 312 
+    //COD 312
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Cust-Check Cr. Limit", 'OnNewCheckRemoveCustomerNotifications', '', false, false)]
     local procedure COD312_OnNewCheckRemoveCustomerNotifications(RecId: RecordID; RecallCreditOverdueNotif: Boolean)
     var
@@ -459,7 +448,6 @@ codeunit 50031 "BC6_PagesEvents"
 
         NotificationLifecycleMgt.SendNotificationWithAdditionalContext(NotificationToSend, RecordId, AdditionalContextId);
     END;
-
 
     //COD 415
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Release Purchase Document", 'OnCodeOnAfterCheckPurchaseReleaseRestrictions', '', false, false)]
@@ -510,7 +498,7 @@ codeunit 50031 "BC6_PagesEvents"
             IF PurchaseHeader.ControleMinimMNTandQTE() THEN
                 EXIT;
         END;
-        //TODO: checkMe ! 
+        //TODO: checkMe !
     end;
 
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Release Purchase Document", 'OnBeforeCheckPurchaseHeaderPendingApproval', '', false, false)]
@@ -526,5 +514,4 @@ codeunit 50031 "BC6_PagesEvents"
             Error(Text002);
         COMMIT();
     end;
-
 }

@@ -15,10 +15,10 @@ report 50005 "BC6_Batch Post Sales Orders" //296
             var
                 SalesBatchPostMgt: Codeunit "Sales Batch Post Mgt.";
             begin
-                SalesBatchPostMgt.SetParameter("Batch Posting Parameter Type"::Print, PrintDoc);
-                SalesBatchPostMgt.RunBatch("Sales Header", ReplacePostingDate, PostingDateReq, ReplaceDocumentDate, CalcInvDisc, ShipReq, InvReq);
+                SalesBatchPostMgt.SetParameter("Batch Posting Parameter Type"::Print, PrintDocG);
+                SalesBatchPostMgt.RunBatch("Sales Header", ReplacePostingDateG, PostingDateReq, ReplaceDocumentDateG, CalcInvDiscG, ShipReq, InvReq);
                 //>>FE018
-                IF BooGExcludeShipment THEN BEGIN
+                IF BooGExcludeShipmentG THEN BEGIN
                     "Sales Header".SETFILTER("BC6_Combine Shipments by Order", '%1', FALSE);
                     "Sales Header".SETFILTER("Combine Shipments", '%1', FALSE);
                 END;
@@ -54,23 +54,23 @@ report 50005 "BC6_Batch Post Sales Orders" //296
                         ApplicationArea = All;
                         Caption = 'Posting Date', Comment = 'FRA="Date comptabilisation"';
                     }
-                    field(ReplacePostingDate; ReplacePostingDate)
+                    field(ReplacePostingDate; ReplacePostingDateG)
                     {
                         ApplicationArea = All;
                         Caption = 'Replace Posting Date', Comment = 'FRA="Remplacer date comptabilisation"';
 
                         trigger OnValidate()
                         begin
-                            if ReplacePostingDate then
+                            if ReplacePostingDateG then
                                 Message(Text003);
                         end;
                     }
-                    field(ReplaceDocumentDate; ReplaceDocumentDate)
+                    field(ReplaceDocumentDate; ReplaceDocumentDateG)
                     {
                         ApplicationArea = All;
                         Caption = 'Replace Document Date', Comment = 'FRA="Remplacer date document"';
                     }
-                    field(CalcInvDisc; CalcInvDisc)
+                    field(CalcInvDisc; CalcInvDiscG)
                     {
                         ApplicationArea = All;
                         Caption = 'Calc. Inv. Discount', Comment = 'FRA="Calculer remise facture"';
@@ -82,23 +82,23 @@ report 50005 "BC6_Batch Post Sales Orders" //296
                             SalesReceivablesSetup.TestField("Calc. Inv. Discount", false);
                         end;
                     }
-                    field(PrintDoc; PrintDoc)
+                    field(PrintDoc; PrintDocG)
                     {
                         ApplicationArea = All;
-                        Visible = PrintDocVisible;
                         Caption = 'Print', Comment = 'FRA="Imprimer"';
+                        Visible = PrintDocVisible;
                         trigger OnValidate()
                         var
                             SalesReceivablesSetup: Record "Sales & Receivables Setup";
                         begin
-                            if PrintDoc then begin
+                            if PrintDocG then begin
                                 SalesReceivablesSetup.Get();
                                 if SalesReceivablesSetup."Post with Job Queue" then
                                     SalesReceivablesSetup.TestField("Post & Print with Job Queue");
                             end;
                         end;
                     }
-                    field(BooGExcludeShipment; BooGExcludeShipment)
+                    field(BooGExcludeShipment; BooGExcludeShipmentG)
                     {
                         ApplicationArea = all;
                         Caption = 'Exclure BL à regrouper';
@@ -114,27 +114,27 @@ report 50005 "BC6_Batch Post Sales Orders" //296
         begin
             if ClientTypeManagement.GetCurrentClientType() <> ClientType::Background then begin
                 SalesReceivablesSetup.Get();
-                CalcInvDisc := SalesReceivablesSetup."Calc. Inv. Discount";
-                ReplacePostingDate := false;
-                ReplaceDocumentDate := false;
-                PrintDoc := false;
+                CalcInvDiscG := SalesReceivablesSetup."Calc. Inv. Discount";
+                ReplacePostingDateG := false;
+                ReplaceDocumentDateG := false;
+                PrintDocG := false;
                 PrintDocVisible := SalesReceivablesSetup."Post & Print with Job Queue";
             end;
         end;
     }
 
     var
-        BooGExcludeShipment: Boolean;
-        PrintDoc: Boolean;
+        BooGExcludeShipmentG: Boolean;
+        PrintDocG: Boolean;
         [InDataSet]
         PrintDocVisible: Boolean;
         Text003: Label 'The exchange rate associated with the new posting date on the sales header will not apply to the sales lines.', Comment = 'FRA="Le taux de change associé à la nouvelle date de comptabilisation de l''en-tête vente ne s''appliquera pas aux lignes vente."';
 
     protected var
-        CalcInvDisc: Boolean;
+        CalcInvDiscG: Boolean;
         InvReq: Boolean;
-        ReplaceDocumentDate: Boolean;
-        ReplacePostingDate: Boolean;
+        ReplaceDocumentDateG: Boolean;
+        ReplacePostingDateG: Boolean;
         ShipReq: Boolean;
         PostingDateReq: Date;
 
@@ -143,8 +143,8 @@ report 50005 "BC6_Batch Post Sales Orders" //296
         ShipReq := ShipParam;
         InvReq := InvoiceParam;
         PostingDateReq := PostingDateParam;
-        ReplacePostingDate := ReplacePostingDateParam;
-        ReplaceDocumentDate := ReplaceDocumentDateParam;
-        CalcInvDisc := CalcInvDiscParam;
+        ReplacePostingDateG := ReplacePostingDateParam;
+        ReplaceDocumentDateG := ReplaceDocumentDateParam;
+        CalcInvDiscG := CalcInvDiscParam;
     end;
 }

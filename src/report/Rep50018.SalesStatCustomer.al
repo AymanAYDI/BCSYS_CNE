@@ -1,11 +1,10 @@
 report 50018 "BC6_Sales Stat/Customer"
 {
+    ApplicationArea = all;
+    Caption = 'Sales Stat/Customer', Comment = 'FRA="Stat vente/Client"';
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/SalesStatCustomer.rdl';
-
-    Caption = 'Sales Stat/Customer', Comment = 'FRA="Stat vente/Client"';
     UsageCategory = ReportsAndAnalysis;
-    ApplicationArea = all;
     dataset
     {
         dataitem(CustLedgEntry; "Cust. Ledger Entry")
@@ -275,7 +274,6 @@ report 50018 "BC6_Sales Stat/Customer"
 
                     CodGCodeclt := CustLedgEntry."Customer No.";
                     CodGSalesperson := CustLedgEntry."Salesperson Code";
-
                 END
                 ELSE
                     CurrReport.SKIP();
@@ -295,7 +293,6 @@ report 50018 "BC6_Sales Stat/Customer"
 
     requestpage
     {
-
         layout
         {
         }
@@ -333,8 +330,8 @@ report 50018 "BC6_Sales Stat/Customer"
     var
         RecGCustEntry: Record "Cust. Ledger Entry";
         RecGSalesperson: Record "Salesperson/Purchaser";
-        CodGSalesperson: Code[20]; //code [10]
         CodGCodeclt: Code[20];
+        CodGSalesperson: Code[20]; //code [10]
         DatGDebut: array[4] of Date;
         DatGFin: array[4] of Date;
         DecGMarge: array[4] of Decimal;
@@ -369,7 +366,6 @@ report 50018 "BC6_Sales Stat/Customer"
         variation_CACaptionLbl: Label '% variation CA';
         variation_margeCaptionLbl: Label '% variation marge';
         VendeurCaptionLbl: Label ' Vendeur';
-        TxtGClient: Text[100]; //Text [50 to 100]
         TxtGSalesPerson: Text[50];
+        TxtGClient: Text[100]; //Text [50 to 100]
 }
-

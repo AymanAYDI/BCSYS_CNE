@@ -1,9 +1,8 @@
 report 50078 "BC6_Purchase - Receipt CNE"
 {
+    Caption = 'Purchase - Receipt', comment = 'FRA="Achats : Bon de réception"';
     DefaultLayout = RDLC;
     RDLCLayout = './src/Report/RDL/PurchaseReceiptCNE.rdl';
-
-    Caption = 'Purchase - Receipt', comment = 'FRA="Achats : Bon de réception"';
     UsageCategory = None;
     dataset
     {
@@ -331,11 +330,10 @@ report 50078 "BC6_Purchase - Receipt CNE"
                             begin
                                 DefaultBinCode := '';
                                 CLEAR(WMSManagement);
-                                IF ("Location Code" <> '') AND ("Item No." <> '') THEN BEGIN
+                                IF ("Location Code" <> '') AND ("Item No." <> '') THEN
                                     IF Location.GET("Location Code") THEN
                                         IF Location."Bin Mandatory" AND NOT Location."Directed Put-away and Pick" THEN
                                             WMSManagement.GetDefaultBin("Item No.", "Variant Code", "Location Code", DefaultBinCode);
-                                END;
                             end;
 
                             trigger OnPreDataItem()
@@ -413,23 +411,22 @@ report 50078 "BC6_Purchase - Receipt CNE"
                             EAN13BarTxt := '';
                             CASE Type OF
                                 Type::Item:
-                                    BEGIN
-                                        IF (Quantity <> 0) THEN BEGIN
-                                            IF NOT CurrReport.PREVIEW THEN BEGIN
-                                                CLEAR(DistInt);
-                                                FctMngt.CreateItemEAN13Code("No.", FALSE);
-                                            END;
+
+                                    IF (Quantity <> 0) THEN BEGIN
+                                        IF NOT CurrReport.PREVIEW THEN BEGIN
                                             CLEAR(DistInt);
-                                            EAN13Bar := COPYSTR(FctMngt.GetItemEAN13Code("No."), 1, MAXSTRLEN(EAN13Bar));
-                                            IF EAN13Bar <> '' THEN BEGIN
-                                                CLEAR(ConvertAutoIDEAN13);
-                                                EAN13BarTxt := ConvertAutoIDEAN13.EncodeBarcodeEAN13(EAN13Bar, EAN13Txt);
-                                            END;
-                                            AttachedLineNo := "Line No.";
-                                        END
-                                        ELSE
-                                            CurrReport.SKIP();
-                                    END;
+                                            FctMngt.CreateItemEAN13Code("No.", FALSE);
+                                        END;
+                                        CLEAR(DistInt);
+                                        EAN13Bar := COPYSTR(FctMngt.GetItemEAN13Code("No."), 1, MAXSTRLEN(EAN13Bar));
+                                        IF EAN13Bar <> '' THEN BEGIN
+                                            CLEAR(ConvertAutoIDEAN13);
+                                            EAN13BarTxt := ConvertAutoIDEAN13.EncodeBarcodeEAN13(EAN13Bar, EAN13Txt);
+                                        END;
+                                        AttachedLineNo := "Line No.";
+                                    END
+                                    ELSE
+                                        CurrReport.SKIP();
                             END;
                         end;
 
@@ -561,7 +558,6 @@ report 50078 "BC6_Purchase - Receipt CNE"
                         SegManagement.LogDocument(
                           15, "No.", 0, 0, DATABASE::Vendor, "Buy-from Vendor No.", "Purchaser Code", '', "Posting Description", '');
 
-
                 PostedInvtPutawayHeader.RESET();
                 PostedInvtPutawayHeader.SETRANGE("Source No.", PurchRcptHeader."No.");
                 PostedInvtPutawayHeaderOk := PostedInvtPutawayHeader.FINDFIRST();
@@ -569,11 +565,10 @@ report 50078 "BC6_Purchase - Receipt CNE"
                 CLEAR(DefaultReceiptBinCode);
                 CLEAR(DefaultReceiptBinBarTxt);
                 CLEAR(Location);
-                IF ("Location Code" <> '') THEN BEGIN
+                IF ("Location Code" <> '') THEN
                     IF Location.GET("Location Code") THEN
                         IF Location."Bin Mandatory" AND NOT Location."Directed Put-away and Pick" THEN
                             DefaultReceiptBinCode := Location."Receipt Bin Code";
-                END;
                 IF DefaultReceiptBinCode <> '' THEN
                     DefaultReceiptBinBarTxt := GetBarCode(DefaultReceiptBinCode);
             end;
@@ -591,21 +586,25 @@ report 50078 "BC6_Purchase - Receipt CNE"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(NoOfCopies; NoOfCopies)
+                    field(NoOfCopiesF; NoOfCopies)
                     {
+                        ApplicationArea = All;
                         Caption = 'No. of Copies', Comment = 'FRA="Nombre de copies"';
                     }
-                    field(ShowInternalInfo; ShowInternalInfo)
+                    field(ShowInternalInfoF; ShowInternalInfo)
                     {
+                        ApplicationArea = All;
                         Caption = 'Show Internal Information', Comment = 'FRA="Afficher info. internes"';
                     }
-                    field(LogInteraction; LogInteraction)
+                    field(LogInteractionF; LogInteraction)
                     {
+                        ApplicationArea = All;
                         Caption = 'Log Interaction', Comment = 'FRA="Journal interaction"';
                         Enabled = LogInteractionEnable;
                     }
-                    field(ShowCorrectionLines; ShowCorrectionLines)
+                    field(ShowCorrectionLinesF; ShowCorrectionLines)
                     {
+                        ApplicationArea = All;
                         Caption = 'Show Correction Lines', Comment = 'FRA="Afficher lignes correction"';
                     }
                 }
@@ -700,15 +699,14 @@ report 50078 "BC6_Purchase - Receipt CNE"
         EAN13Txt: Text[13];
         CopyText: Text[30];
         PurchaserText: Text[30];
-        CompanyAddr: array[8] of Text[50];
-        ShipToAddr: array[8] of Text[50];
-        VendAddr: array[8] of Text[50];
         OldDimText: Text[75];
         ReferenceText: Text[80];
+        CompanyAddr: array[8] of Text[100];
+        ShipToAddr: array[8] of Text[100];
+        VendAddr: array[8] of Text[100];
         DefaultReceiptBinBarTxt: Text[120];
         DimText: Text[120];
         EAN13BarTxt: Text[120];
-
 
     procedure InitializeRequest(NewNoOfCopies: Integer; NewShowInternalInfo: Boolean; NewLogInteraction: Boolean; NewShowCorrectionLines: Boolean)
     begin
@@ -718,11 +716,9 @@ report 50078 "BC6_Purchase - Receipt CNE"
         ShowCorrectionLines := NewShowCorrectionLines;
     end;
 
-
     procedure GetBarCode(piBinCode: Code[20]): Text[120]
     begin
         CLEAR(ConvertBarCode);
         EXIT(ConvertBarCode.EncodeBarcode39(piBinCode));
     end;
 }
-

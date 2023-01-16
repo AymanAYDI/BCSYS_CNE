@@ -10,41 +10,40 @@ pageextension 50031 "BC6_PurchCrMemoSubform" extends "Purch. Cr. Memo Subform" /
             }
             field("BC6_Eco partner DEEE"; Rec."BC6_Eco partner DEEE")
             {
+                ApplicationArea = All;
                 Style = StrongAccent;
                 StyleExpr = TRUE;
-                ApplicationArea = All;
             }
             field("BC6_DEEE Unit Price"; Rec."BC6_DEEE Unit Price")
             {
+                ApplicationArea = All;
                 Style = StrongAccent;
                 StyleExpr = TRUE;
-                ApplicationArea = All;
             }
             field("BC6_DEEE HT Amount"; Rec."BC6_DEEE HT Amount")
             {
+                ApplicationArea = All;
                 Style = StrongAccent;
                 StyleExpr = TRUE;
-                ApplicationArea = All;
             }
             field("BC6_DEEE VAT Amount"; Rec."BC6_DEEE VAT Amount")
             {
+                ApplicationArea = All;
                 Style = StrongAccent;
                 StyleExpr = TRUE;
-                ApplicationArea = All;
             }
             field("BC6_DEEE TTC Amount"; Rec."BC6_DEEE TTC Amount")
             {
+                ApplicationArea = All;
                 Style = StrongAccent;
                 StyleExpr = TRUE;
-                ApplicationArea = All;
             }
             field("BC6_DEEE HT Amount (LCY)"; Rec."BC6_DEEE HT Amount (LCY)")
             {
+                ApplicationArea = All;
                 Style = StrongAccent;
                 StyleExpr = TRUE;
-                ApplicationArea = All;
             }
         }
     }
 }
-

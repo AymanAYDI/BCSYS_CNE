@@ -5,7 +5,6 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
 
     layout
     {
-
         modify(ItemNoFilterCtrl)
         {
             Visible = false;
@@ -14,6 +13,7 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
         {
             field(BC6_CodeFilterCtrl; CodeFilter)
             {
+                ApplicationArea = All;
                 Caption = 'Code Filter', Comment = 'FRA="Filtre code"';
                 Enabled = BooGCodeFilterCtrl;
 
@@ -53,7 +53,6 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
             }
         }
 
-
         modify(VendNoFilterCtrl)
         {
             trigger OnBeforeValidate()
@@ -74,8 +73,8 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
         {
             field(BC6_ItemTypeFilter; ItemTypeFilter)
             {
-                Caption = 'Type Filter', Comment = 'FRA="Filtre type"';
                 ApplicationArea = All;
+                Caption = 'Type Filter', Comment = 'FRA="Filtre type"';
 
                 trigger OnValidate()
                 begin
@@ -103,16 +102,13 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
         StartingDateFilter: Text[30];
         CodeFilter: Text[250];
 
-
-
-
     trigger OnOpenPage()
     begin
         GetRecFilters();
         NewSetRecFilters();
     end;
 
-    procedure GetRecFilters() 
+    procedure GetRecFilters()
     begin
         if Rec.GetFilters <> '' then begin
             VendNoFilter := Rec.GetFilter("Vendor No.");
@@ -195,7 +191,5 @@ pageextension 50098 "BC6_PurchaseLineDiscounts" extends "Purchase Line Discounts
             if Vendor.FindFirst() then
                 Description := Vendor.Name;
         end;
-
-
     end;
 }

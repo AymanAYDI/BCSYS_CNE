@@ -1,4 +1,4 @@
-report 50099 "Update Item Cost Incr. Coeff."
+report 50099 "BC6_Upd Item Cost Incr. Coeff."
 {
     Caption = 'Update Item Cost Incr. Coeff.', Comment = 'FRA="Mise à jour coeff de majoration du côut"';
     ProcessingOnly = true;
@@ -24,7 +24,6 @@ report 50099 "Update Item Cost Incr. Coeff."
 
     requestpage
     {
-
         layout
         {
             area(content)
@@ -34,6 +33,7 @@ report 50099 "Update Item Cost Incr. Coeff."
                     Caption = 'Options';
                     field(NewCoeffF; NewCoeff)
                     {
+                        ApplicationArea = All;
                         Caption = 'New Coefficient (%)', Comment = 'FRA="Nouveau coefficient (%)"';
                         MaxValue = 100;
                         MinValue = 0;
@@ -78,4 +78,3 @@ report 50099 "Update Item Cost Incr. Coeff."
         MsgCompleted: Label 'Process completed.', Comment = 'FRA="Traitement terminé."';
         windowdialog: Label '%1 / %2';
 }
-

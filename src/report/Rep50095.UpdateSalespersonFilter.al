@@ -3,7 +3,6 @@ report 50095 "BC6_Update Salesperson Filter"
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/UpdateSalespersonFilter.rdl';
 
-
     dataset
     {
         dataitem(Customer; Customer)
@@ -29,7 +28,6 @@ report 50095 "BC6_Update Salesperson Filter"
 
     requestpage
     {
-
         layout
         {
         }
@@ -43,4 +41,3 @@ report 50095 "BC6_Update Salesperson Filter"
     {
     }
 }
-

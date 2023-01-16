@@ -11,4 +11,3 @@ pageextension 50040 "BC6_PostedSalesCrMemoSubform" extends "Posted Sales Cr. Mem
         }
     }
 }
-

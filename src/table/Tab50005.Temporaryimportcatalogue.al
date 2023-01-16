@@ -42,8 +42,8 @@ table 50005 "BC6_Temporary import catalogue"
         field(5; Prix_public; Decimal)
         {
             Caption = 'Public Price', comment = 'FRA="Prix Public"';
-            DecimalPlaces = 0 : 5;
             DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 5;
         }
         field(6; famille; Code[10])
         {
@@ -53,14 +53,14 @@ table 50005 "BC6_Temporary import catalogue"
         field(7; remise; Decimal)
         {
             Caption = 'Rebate', comment = 'FRA="Remise"';
-            DecimalPlaces = 0 : 5;
             DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 5;
         }
         field(8; prix_net; Decimal)
         {
             Caption = 'Purch. Price', comment = 'FRA="Prix d''achat"';
-            DecimalPlaces = 0 : 5;
             DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 5;
         }
         field(9; "date debut"; Date)
         {
@@ -75,14 +75,14 @@ table 50005 "BC6_Temporary import catalogue"
         field(11; Vendor; Code[20])
         {
             Caption = 'Vendor', comment = 'FRA="N° fournisseur"';
-            TableRelation = Vendor;
             DataClassification = CustomerContent;
+            TableRelation = Vendor;
         }
         field(13; "Item Category Code"; Code[10])
         {
             Caption = 'Item Category Code', comment = 'FRA="Code catégorie article"';
-            TableRelation = "Item Category";
             DataClassification = CustomerContent;
+            TableRelation = "Item Category";
         }
         field(14; "Product Group Code"; Code[10])
         {
@@ -108,9 +108,9 @@ table 50005 "BC6_Temporary import catalogue"
         field(17; "DEEE Category Code"; Code[10])
         {
             Caption = 'DEEE Category Code ', comment = 'FRA="Code tarif DEEE"';
+            DataClassification = CustomerContent;
             TableRelation = "BC6_Categories of item".Category;
             ValidateTableRelation = false;
-            DataClassification = CustomerContent;
 
             trigger OnValidate()
             var
@@ -126,14 +126,14 @@ table 50005 "BC6_Temporary import catalogue"
         field(19; "DEEE Unit Amount"; Decimal)
         {
             Caption = 'DEEE Unit Amount', comment = 'FRA="Montant unitaire DEEE"';
-            DecimalPlaces = 0 : 2;
             DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 2;
         }
         field(30; "Item BarCode"; Code[20])
         {
             Caption = 'Item BarCode', comment = 'FRA="Code barres article"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
 
             trigger OnValidate()
             begin
@@ -148,15 +148,17 @@ table 50005 "BC6_Temporary import catalogue"
         }
         field(50000; "Emplacement par défaut"; Code[20])
         {
-            Caption = 'Emplacement par défaut', comment = 'FRA="Emplacement par défaut"';
             CalcFormula = Lookup("Bin Content"."Bin Code" WHERE(Default = CONST(true),
                                                                  "Item No." = FIELD(Ref_Interne)));
+            Caption = 'Emplacement par défaut', comment = 'FRA="Emplacement par défaut"';
+            Editable = false;
             FieldClass = FlowField;
         }
         field(50001; Stocks; Decimal)
         {
-            Caption = 'Stocks', comment = 'FRA="Stocks"';
             CalcFormula = Sum("Item Ledger Entry".Quantity WHERE("Item No." = FIELD(Ref_Interne)));
+            Caption = 'Stocks', comment = 'FRA="Stocks"';
+            Editable = false;
             FieldClass = FlowField;
         }
     }
@@ -414,18 +416,16 @@ table 50005 "BC6_Temporary import catalogue"
                     DEEETariffs.SETFILTER(DEEETariffs."Date beginning", '<= %1', "date debut");
                     IF "date fin" <> 0D THEN
                         DEEETariffs.SETFILTER(DEEETariffs."Date beginning", '<= %1', "date fin");
-                    IF DEEETariffs.FINDLAST() THEN BEGIN
-                        recgItem.VALIDATE("BC6_DEEE Category Code", DEEETariffs."DEEE Code");
-                    END
+                    IF DEEETariffs.FINDLAST() THEN
+                        recgItem.VALIDATE("BC6_DEEE Category Code", DEEETariffs."DEEE Code")
                     ELSE
                         ERROR(Textg001, recgItem."No.");
                 END
                 ELSE
                     ERROR(Textg001, recgItem."No.");
             END
-            ELSE BEGIN
+            ELSE
                 recgItem.VALIDATE("BC6_DEEE Category Code", "DEEE Category Code");
-            END;
         END;
     end;
 

@@ -1,10 +1,10 @@
 report 50089 "BC6_MAJ ITEM"
 {
-    ProcessingOnly = true;
-    UseRequestPage = false;
     ApplicationArea = All;
-    UsageCategory = ReportsAndAnalysis;
     Caption = 'MAJ ITEM';
+    ProcessingOnly = true;
+    UsageCategory = ReportsAndAnalysis;
+    UseRequestPage = false;
 
     dataset
     {
@@ -22,7 +22,6 @@ report 50089 "BC6_MAJ ITEM"
 
     requestpage
     {
-
         layout
         {
         }
@@ -36,4 +35,3 @@ report 50089 "BC6_MAJ ITEM"
     {
     }
 }
-

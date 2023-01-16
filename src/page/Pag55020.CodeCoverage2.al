@@ -1,5 +1,6 @@
 page 55020 "BC6_Code Coverage 2"
 {
+    Caption = 'Code Coverage 2', Comment = 'FRA="Code coverage 2"';
     DeleteAllowed = false;
     InsertAllowed = false;
     ModifyAllowed = false;
@@ -7,7 +8,6 @@ page 55020 "BC6_Code Coverage 2"
     SourceTable = "Code Coverage";
     SourceTableTemporary = true;
     UsageCategory = None;
-    Caption = 'Code Coverage 2', Comment = 'FRA="Code coverage 2"';
     layout
     {
         area(content)
@@ -20,8 +20,8 @@ page 55020 "BC6_Code Coverage 2"
                 }
                 field(HitRatio; HitRatio)
                 {
-                    Caption = 'Hit Ratio %';
                     ApplicationArea = All;
+                    Caption = 'Hit Ratio %';
                 }
             }
         }
@@ -33,14 +33,14 @@ page 55020 "BC6_Code Coverage 2"
         {
             action("Start Code Coverage")
             {
+                ApplicationArea = All;
                 Caption = 'Start Code Coverage';
                 Enabled = NOT CodeCoverageActive;
                 Image = Start;
                 Promoted = true;
-                PromotedOnly = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                ApplicationArea = All;
+                PromotedOnly = true;
 
                 trigger OnAction()
                 begin
@@ -49,14 +49,14 @@ page 55020 "BC6_Code Coverage 2"
             }
             action("Stop Code Coverage")
             {
+                ApplicationArea = All;
                 Caption = 'Stop Code Coverage';
                 Enabled = CodeCoverageActive;
                 Image = Stop;
-                PromotedOnly = true;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                ApplicationArea = All;
+                PromotedOnly = true;
 
                 trigger OnAction()
                 begin
@@ -66,12 +66,12 @@ page 55020 "BC6_Code Coverage 2"
             }
             action("Code")
             {
+                ApplicationArea = All;
                 Caption = 'Code', Comment = 'FRA="Code"';
                 Image = DesignCodeBehind;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -138,4 +138,3 @@ page 55020 "BC6_Code Coverage 2"
             UNTIL TempCodeCoverage.NEXT() = 0;
     end;
 }
-

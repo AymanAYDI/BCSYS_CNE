@@ -9,13 +9,13 @@ tableextension 50092 "BC6_Bin" extends Bin //7354
         }
         field(50001; "BC6_Sales Order Not Shipped"; Boolean)
         {
-            FieldClass = FlowField;
             CalcFormula = Exist("Sales Header" WHERE("Document Type" = CONST(Order),
                                                       "Completely Shipped" = CONST(false),
                                                       "Location Code" = FIELD("Location Code"),
                                                       "BC6_Bin Code" = FIELD(Code)));
             Caption = 'Sales Order To Ship', Comment = 'FRA="Commande vente à livrer"';
             Editable = false;
+            FieldClass = FlowField;
         }
         field(50002; "BC6_Exclude Inventory Pick"; Boolean)
         {

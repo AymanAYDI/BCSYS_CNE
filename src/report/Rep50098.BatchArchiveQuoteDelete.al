@@ -1,8 +1,8 @@
 report 50098 "BC6_Batch Archive Quote Delete"
 {
+    ApplicationArea = All;
     Caption = 'Batch Archive Quote Delete', Comment = 'FRA="Archivage et Suppression Devis"';
     ProcessingOnly = true;
-    ApplicationArea = All;
     UsageCategory = ReportsAndAnalysis;
     dataset
     {
@@ -23,7 +23,6 @@ report 50098 "BC6_Batch Archive Quote Delete"
 
                 ok := Fct_Check("Sales Header"."Document Type".AsInteger(), "Sales Header"."No.");
 
-
                 IF ok THEN BEGIN
                     FunctionMgt.ArchiveSalesDocumentWithoutMessage("Sales Header");
 
@@ -32,11 +31,9 @@ report 50098 "BC6_Batch Archive Quote Delete"
                     SalesHeader2.DELETE(TRUE);
                     i := i + 1;
                 END;
-
             end;
         }
     }
-
 
     trigger OnPostReport()
     begin
@@ -58,7 +55,6 @@ report 50098 "BC6_Batch Archive Quote Delete"
         i: Integer;
         z: Integer;
 
-
     procedure Fct_Check(DocType: Integer; DocNo: Code[20]): Boolean
     var
         SalesLine: Record "Sales Line";
@@ -76,8 +72,5 @@ report 50098 "BC6_Batch Archive Quote Delete"
         IF NOT SalesLine.ISEMPTY THEN EXIT(FALSE);
 
         EXIT(TRUE);
-
-
     end;
 }
-

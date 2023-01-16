@@ -16,28 +16,36 @@ page 50016 "BC6_Purchase Lines Subform2"
             {
                 field("Document No."; Rec."Document No.")
                 {
+                    ApplicationArea = All;
                     HideValue = "Document No.HideValue";
                 }
                 field(Type; Rec.Type)
                 {
+                    ApplicationArea = All;
                 }
                 field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
                 }
                 field(Quantity; Rec.Quantity)
                 {
+                    ApplicationArea = All;
                 }
                 field("Unit Cost (LCY)"; Rec."Unit Cost (LCY)")
                 {
+                    ApplicationArea = All;
                 }
                 field(Amount; Rec.Amount)
                 {
+                    ApplicationArea = All;
                 }
                 field("Amount Including VAT"; Rec."Amount Including VAT")
                 {
+                    ApplicationArea = All;
                 }
                 field("Document Date flow"; Rec."BC6_Document Date flow")
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -49,6 +57,7 @@ page 50016 "BC6_Purchase Lines Subform2"
         {
             action(Show)
             {
+                ApplicationArea = All;
                 Caption = '&Show', comment = 'FRA="Affic&her"';
                 Image = Document;
 
@@ -71,7 +80,6 @@ page 50016 "BC6_Purchase Lines Subform2"
 
                     IF Rec."Document Type" = Rec."Document Type"::"Return Order" THEN
                         PAGE.RUN(PAGE::"Purchase Return Order", RecGPurchaseHeader);
-
                 end;
             }
         }
@@ -99,7 +107,6 @@ page 50016 "BC6_Purchase Lines Subform2"
         "Document No.Emphasize": Boolean;
         [InDataSet]
         "Document No.HideValue": Boolean;
-
 
     procedure IsFirstDocLine(): Boolean
     var
@@ -130,4 +137,3 @@ page 50016 "BC6_Purchase Lines Subform2"
                 "Document No.HideValue" := TRUE;
     end;
 }
-

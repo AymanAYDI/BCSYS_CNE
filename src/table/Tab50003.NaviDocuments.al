@@ -3,8 +3,8 @@ table 50003 "BC6_Navi+ Documents"
     Caption = 'Document';
     DataCaptionFields = Description;
     DataClassification = CustomerContent;
-    DrillDownPageID = "Invt. Pick Card MiniForm F2";
-    LookupPageID = "Invt. Pick Card MiniForm F2";
+    DrillDownPageID = "BC6_Invt. Pick Card MiniF2";
+    LookupPageID = "BC6_Invt. Pick Card MiniF2";
 
     fields
     {
@@ -12,12 +12,13 @@ table 50003 "BC6_Navi+ Documents"
         {
             BlankZero = true;
             Caption = 'Table No.', comment = 'FRA="Table N°"';
-            TableRelation = "Table Information"."Table No.";
             DataClassification = CustomerContent;
+            TableRelation = "Table Information"."Table No.";
         }
         field(2; "Reference No. 1"; Code[20])
         {
             Caption = 'Reference No. 1', comment = 'FRA="Référence N° 1"';
+            DataClassification = CustomerContent;
             TableRelation = IF ("Table No." = CONST(18)) Customer."No."
             ELSE
             IF ("Table No." = CONST(23)) Vendor."No."
@@ -27,13 +28,12 @@ table 50003 "BC6_Navi+ Documents"
             IF ("Table No." = CONST(99000771)) "Production BOM Header"."No."
             ELSE
             IF ("Table No." = CONST(99000763)) "Routing Header"."No.";
-            DataClassification = CustomerContent;
         }
         field(3; "Reference No. 2"; Code[20])
         {
             Caption = 'Reference No.2', comment = 'FRA="Référence N° 2"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(4; "Reference No. 3"; Code[20])
         {
@@ -80,10 +80,10 @@ table 50003 "BC6_Navi+ Documents"
         field(15; "In Use By"; Code[20])
         {
             Caption = 'In Use By', comment = 'FRA="Utilisé par"';
+            DataClassification = CustomerContent;
             Editable = true;
             TableRelation = User."User Security ID";
             ValidateTableRelation = false;
-            DataClassification = CustomerContent;
         }
         field(16; Special; Boolean)
         {
@@ -98,14 +98,14 @@ table 50003 "BC6_Navi+ Documents"
         field(18; "Modified Date"; Date)
         {
             Caption = 'Modified Date', comment = 'FRA="Date de Modification"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(19; "Modified By"; Code[50])
         {
             Caption = 'Modified By', comment = 'FRA="Modifié par"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
     }
 
@@ -159,8 +159,8 @@ table 50003 "BC6_Navi+ Documents"
 
     var
         RecGDoc: Record "BC6_Navi+ Documents";
-        CodGFiltreRef1: Text[20];
         CodGFiltreRef2: Code[20];
         TxtGFiltreRef3: Code[20];
         CodGFiltreTable: Text;
+        CodGFiltreRef1: Text[20];
 }

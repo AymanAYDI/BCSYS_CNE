@@ -13,42 +13,54 @@ page 50017 "BC6_Purch. Rcpt. Lines Subform"
             {
                 field("Document No."; Rec."Document No.")
                 {
+                    ApplicationArea = All;
                     HideValue = "Document No.HideValue";
                     Style = StrongAccent;
                     StyleExpr = TRUE;
                 }
                 field(Type; Rec.Type)
                 {
+                    ApplicationArea = All;
                 }
                 field("No."; Rec."No.")
                 {
+                    ApplicationArea = All;
                 }
                 field("Expected Receipt Date"; Rec."Expected Receipt Date")
                 {
+                    ApplicationArea = All;
                 }
                 field("Unit of Measure"; Rec."Unit of Measure")
                 {
+                    ApplicationArea = All;
                 }
                 field(Quantity; Rec.Quantity)
                 {
+                    ApplicationArea = All;
                 }
                 field("Direct Unit Cost"; Rec."Direct Unit Cost")
                 {
+                    ApplicationArea = All;
                 }
                 field("Unit Cost (LCY)"; Rec."Unit Cost (LCY)")
                 {
+                    ApplicationArea = All;
                 }
                 field("VAT %"; Rec."VAT %")
                 {
+                    ApplicationArea = All;
                 }
                 field("Unit Price (LCY)"; Rec."Unit Price (LCY)")
                 {
+                    ApplicationArea = All;
                 }
                 field("Requested Receipt Date"; Rec."Requested Receipt Date")
                 {
+                    ApplicationArea = All;
                 }
                 field("Promised Receipt Date"; Rec."Promised Receipt Date")
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -60,6 +72,7 @@ page 50017 "BC6_Purch. Rcpt. Lines Subform"
         {
             action(Show)
             {
+                ApplicationArea = All;
                 Caption = '&Show', comment = 'FRA="Affic&her"';
                 Image = Document;
 
@@ -121,5 +134,3 @@ page 50017 "BC6_Purch. Rcpt. Lines Subform"
                 "Document No.HideValue" := TRUE;
     end;
 }
-
-

@@ -1,25 +1,27 @@
 pageextension 50089 "BC6_SalesReturnOrder" extends "Sales Return Order" //6630
 {
-
-
     layout
     {
         addafter("Sell-to")
         {
             field(BC6_ID; Rec.BC6_ID)
             {
+                ApplicationArea = All;
             }
             field("BC6_Sell-to Fax No."; Rec."BC6_Sell-to Fax No.")
             {
+                ApplicationArea = All;
             }
             field("BC6_Affair No."; Rec."BC6_Affair No.")
             {
+                ApplicationArea = All;
             }
         }
         addafter("Job Queue Status")
         {
             field("BC6_Return Order Type"; Rec."BC6_Return Order Type")
             {
+                ApplicationArea = All;
             }
         }
     }
@@ -28,7 +30,6 @@ pageextension 50089 "BC6_SalesReturnOrder" extends "Sales Return Order" //6630
         modify("Create Inventor&y Put-away/Pick")
         {
             Visible = false;
-
         }
         addafter("Create &Whse. Receipt")
         {
@@ -80,6 +81,7 @@ pageextension 50089 "BC6_SalesReturnOrder" extends "Sales Return Order" //6630
         {
             action(BC6_DisplayRelatedDocuments)
             {
+                ApplicationArea = All;
                 Caption = 'Affichage documents associés';
                 Image = CopyDocument;
                 Promoted = true;
@@ -95,7 +97,6 @@ pageextension 50089 "BC6_SalesReturnOrder" extends "Sales Return Order" //6630
             }
         }
     }
-
 
     var
         HistMail: Record "BC6_Historique Mails Envoyés";
@@ -136,13 +137,11 @@ pageextension 50089 "BC6_SalesReturnOrder" extends "Sales Return Order" //6630
 
     procedure OpenFile()
     begin
-
     end;
 
     procedure OpenFile1(WindowTitle: Text[50]; DefaultFileName: Text[250]; DefaultFileType: Option " ",Text,Excel,Word,Custom; FilterString: Text[250]; "Action": Option Open,Save): Text[260]
     begin
     end;
-
 
     local procedure FctSendNotification()
     var
@@ -164,4 +163,3 @@ pageextension 50089 "BC6_SalesReturnOrder" extends "Sales Return Order" //6630
             UNTIL L_UserSetup.NEXT() = 0;
     end;
 }
-

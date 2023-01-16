@@ -14,18 +14,18 @@ pageextension 50070 "BC6_SalesReceivablesSetup" extends "Sales & Receivables Set
             }
             field("BC6_E-Mail Administrateur"; Rec."BC6_E-Mail Administrateur")
             {
-                Caption = 'Mail pour déblocage devis';
                 ApplicationArea = All;
+                Caption = 'Mail pour déblocage devis';
             }
             field(BC6_Nbr_Devis; Rec.BC6_Nbr_Devis)
             {
-                Caption = 'Blocage devis si nb dépasse ';
                 ApplicationArea = All;
+                Caption = 'Blocage devis si nb dépasse ';
             }
             field(BC6_Période; Rec."BC6_Période")
             {
-                Caption = 'Blocage devis sur période';
                 ApplicationArea = All;
+                Caption = 'Blocage devis sur période';
             }
             field("BC6_PDF Mail Tag"; Rec."BC6_PDF Mail Tag")
             {
@@ -41,7 +41,6 @@ pageextension 50070 "BC6_SalesReceivablesSetup" extends "Sales & Receivables Set
             }
             field("BC6_allow Profit% to"; Rec."BC6_allow Profit% to")
             {
-
                 ApplicationArea = All;
             }
             field("Contact's Address on sales doc"; Rec."BC6_Contact's Address on sales doc")
@@ -87,4 +86,3 @@ pageextension 50070 "BC6_SalesReceivablesSetup" extends "Sales & Receivables Set
         END;
     end;
 }
-

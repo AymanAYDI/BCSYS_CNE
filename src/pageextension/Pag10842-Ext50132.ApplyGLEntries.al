@@ -2,7 +2,6 @@ pageextension 50132 "BC6_ApplyGLEntries" extends "Apply G/L Entries" //10842
 { //TODO
     actions
     {
-
         //Unsupported feature: Code Modification on "SetAppliesToID(Action 1120010).OnAction".
 
         //trigger OnAction()
@@ -54,7 +53,6 @@ pageextension 50132 "BC6_ApplyGLEntries" extends "Apply G/L Entries" //10842
         //end;
     }
 
-
     //Unsupported feature: Property Modification (Length) on "ApplnCode(Variable 1120005)".
 
     //var
@@ -65,4 +63,3 @@ pageextension 50132 "BC6_ApplyGLEntries" extends "Apply G/L Entries" //10842
     //ApplnCode : 20;
     //Variable type has not been exported.
 }
-

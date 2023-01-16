@@ -1,9 +1,10 @@
-report 50007 "BC6_Price List" //715 
+report 50007 "BC6_Price List" //715
 {
+    ApplicationArea = Basic, Suite;
+    Caption = 'Price List', Comment = 'FRA="Liste des prix"';
     DefaultLayout = RDLC;
     RDLCLayout = './src/Report/RDL/PriceList.rdl';
-    Caption = 'Price List', Comment = 'FRA="Liste des prix"';
-
+    UsageCategory = ReportsAndAnalysis;
     dataset
     {
         dataitem(Item; Item)
@@ -49,7 +50,7 @@ report 50007 "BC6_Price List" //715
             column(CompanyAddr6; CompanyAddr[6])
             {
             }
-            column(SalesType; SalesType)
+            column(SalesType; SalesTypeG)
             {
             }
             column(SalesCode; SalesCode)
@@ -274,8 +275,8 @@ report 50007 "BC6_Price List" //715
                 CustDiscGrCode := '';
                 SalesDesc := '';
 
-                CASE SalesType OF
-                    SalesType::Customer:
+                CASE SalesTypeG OF
+                    SalesTypeG::Customer:
                         BEGIN
                             Cust.GET(SalesCode);
                             CustNo := Cust."No.";
@@ -283,12 +284,12 @@ report 50007 "BC6_Price List" //715
                             CustDiscGrCode := Cust."Customer Disc. Group";
                             SalesDesc := Cust.Name;
                         END;
-                    SalesType::"Customer Price Group":
+                    SalesTypeG::"Customer Price Group":
                         BEGIN
                             CustPriceGr.GET(SalesCode);
                             CustPriceGrCode := SalesCode;
                         END;
-                    SalesType::Campaign:
+                    SalesTypeG::Campaign:
                         BEGIN
                             Campaign.GET(SalesCode);
                             CampaignNo := SalesCode;
@@ -321,7 +322,7 @@ report 50007 "BC6_Price List" //715
                         Caption = 'Date', Comment = 'FRA="Date"';
                         ToolTip = 'Specifies the period for which the prices apply, such as 10/01/96...12/31/96.', Comment = 'FRA="Spécifie la période à laquelle les prix s''appliquent, telle que du 01/10/96 au 31/12/96."';
                     }
-                    field(SalesType; SalesType)
+                    field(SalesType; SalesTypeG)
                     {
                         ApplicationArea = Basic, Suite;
                         Caption = 'Sales Type', Comment = 'FRA="Type vente"';
@@ -329,7 +330,7 @@ report 50007 "BC6_Price List" //715
 
                         trigger OnValidate()
                         begin
-                            SalesCodeCtrlEnable := SalesType <> SalesType::"All Customers";
+                            SalesCodeCtrlEnable := SalesTypeG <> SalesTypeG::"All Customers";
                             SalesCode := '';
                         end;
                     }
@@ -346,8 +347,8 @@ report 50007 "BC6_Price List" //715
                             CustList: Page "Customer List";
                             CustPriceGrList: Page "Customer Price Groups";
                         begin
-                            CASE SalesType OF
-                                SalesType::Customer:
+                            CASE SalesTypeG OF
+                                SalesTypeG::Customer:
                                     BEGIN
                                         CustList.LOOKUPMODE := TRUE;
                                         CustList.SETRECORD(Cust);
@@ -356,7 +357,7 @@ report 50007 "BC6_Price List" //715
                                             SalesCode := Cust."No.";
                                         END;
                                     END;
-                                SalesType::"Customer Price Group":
+                                SalesTypeG::"Customer Price Group":
                                     BEGIN
                                         CustPriceGrList.LOOKUPMODE := TRUE;
                                         CustPriceGrList.SETRECORD(CustPriceGr);
@@ -365,7 +366,7 @@ report 50007 "BC6_Price List" //715
                                             SalesCode := CustPriceGr.Code;
                                         END;
                                     END;
-                                SalesType::Campaign:
+                                SalesTypeG::Campaign:
                                     BEGIN
                                         CampaignList.LOOKUPMODE := TRUE;
                                         CampaignList.SETRECORD(Campaign);
@@ -409,7 +410,7 @@ report 50007 "BC6_Price List" //715
                 DateReq := WORKDATE();
 
             SalesCodeCtrlEnable := TRUE;
-            IF SalesType = SalesType::"All Customers" THEN
+            IF SalesTypeG = SalesTypeG::"All Customers" THEN
                 SalesCodeCtrlEnable := FALSE;
         end;
     }
@@ -442,8 +443,8 @@ report 50007 "BC6_Price List" //715
         GLSetup: Record "General Ledger Setup";
         TempSalesLineDisc: Record "Sales Line Discount" temporary;
         TempSalesPrice: Record "Sales Price" temporary;
-        SalesPriceCalcMgt: Codeunit "Sales Price Calc. Mgt.";
         FormatAddr: Codeunit "Format Address";
+        SalesPriceCalcMgt: Codeunit "Sales Price Calc. Mgt.";
         IsFirstSalesLineDisc: Boolean;
         IsFirstSalesPrice: Boolean;
         PricesInCurrency: Boolean;
@@ -459,7 +460,7 @@ report 50007 "BC6_Price List" //715
         SalesCode: Code[20];
         DateReq: Date;
         CurrencyFactor: Decimal;
-        SalesType: Enum "Sales Price Type";
+        SalesTypeG: Enum "Sales Price Type";
         CompanyInfoBankAccNoCaptionLbl: Label 'Account No.', Comment = 'FRA="N° compte"';
         CompanyInfoBankNameCaptionLbl: Label 'Bank', Comment = 'FRA="Banque"';
         CompanyInfoFaxNoCaptionLbl: Label 'Fax No.', Comment = 'FRA="N° télécopie"';
@@ -479,9 +480,9 @@ report 50007 "BC6_Price List" //715
         VATTextCaptionLbl: Label 'VAT', Comment = 'FRA="TVA"';
         VATText: Text[20];
         CurrencyText: Text[30];
-        CompanyAddr: array[8] of Text[50];
         ItemDesc: Text[50];
         SalesDesc: Text[50];
+        CompanyAddr: array[8] of Text[100];
 
     local procedure SetCurrency()
     begin
@@ -534,7 +535,7 @@ report 50007 "BC6_Price List" //715
             TempSalesPrice.SETRANGE("Currency Code");
         END;
 
-        TempSalesPrice.SETRANGE("Sales Type", SalesType);
+        TempSalesPrice.SETRANGE("Sales Type", SalesTypeG);
         TempSalesPrice.SETRANGE("Sales Code", SalesCode);
 
         IF IsVariant THEN BEGIN
@@ -550,9 +551,9 @@ report 50007 "BC6_Price List" //715
     begin
         IF IsFirstSalesPrice THEN BEGIN
             IsFirstSalesPrice := FALSE;
-            IF NOT TempSalesPrice.FIND('-') THEN BEGIN
+            IF NOT TempSalesPrice.FIND('-') THEN
                 IF NOT IsVariant THEN BEGIN
-                    IF SalesType = SalesType::Campaign THEN
+                    IF SalesTypeG = SalesTypeG::Campaign THEN
                         CurrReport.SKIP();
 
                     TempSalesPrice."Currency Code" := '';
@@ -562,12 +563,11 @@ report 50007 "BC6_Price List" //715
                     TempSalesPrice."Minimum Quantity" := 0;
                 END ELSE
                     CurrReport.SKIP();
-            END;
         END ELSE
             IF TempSalesPrice.NEXT() = 0 THEN
                 CurrReport.BREAK();
 
-        IF (SalesType = SalesType::Campaign) AND (TempSalesPrice."Sales Type" <> TempSalesPrice."Sales Type"::Campaign) THEN
+        IF (SalesTypeG = SalesTypeG::Campaign) AND (TempSalesPrice."Sales Type" <> TempSalesPrice."Sales Type"::Campaign) THEN
             CurrReport.SKIP();
 
         IF TempSalesPrice."Price Includes VAT" THEN
@@ -609,7 +609,7 @@ report 50007 "BC6_Price List" //715
             IF TempSalesLineDisc.NEXT() = 0 THEN
                 CurrReport.BREAK();
 
-        IF (SalesType = SalesType::Campaign) AND (TempSalesLineDisc."Sales Type" <> TempSalesLineDisc."Sales Type"::Campaign) THEN
+        IF (SalesTypeG = SalesTypeG::Campaign) AND (TempSalesLineDisc."Sales Type" <> TempSalesLineDisc."Sales Type"::Campaign) THEN
             CurrReport.SKIP();
 
         IF TempSalesLineDisc."Unit of Measure Code" = '' THEN
@@ -621,24 +621,23 @@ report 50007 "BC6_Price List" //715
     procedure InitializeRequest(NewDateReq: Date; NewSalesType: Option; NewSalesCode: Code[20]; NewCurrencyCode: Code[10])
     begin
         DateReq := NewDateReq;
-        SalesType := NewSalesType;
+        SalesTypeG := NewSalesType;
         SalesCode := NewSalesCode;
         Currency.Code := NewCurrencyCode;
     end;
 
     local procedure ValidateSalesCode()
     begin
-        IF (SalesType <> SalesType::"All Customers") AND (SalesCode = '') THEN
+        IF (SalesTypeG <> SalesTypeG::"All Customers") AND (SalesCode = '') THEN
             ERROR(Text004);
 
-        CASE SalesType OF
-            SalesType::Customer:
+        CASE SalesTypeG OF
+            SalesTypeG::Customer:
                 Cust.GET(SalesCode);
-            SalesType::"Customer Price Group":
+            SalesTypeG::"Customer Price Group":
                 CustPriceGr.GET(SalesCode);
-            SalesType::Campaign:
+            SalesTypeG::Campaign:
                 Campaign.GET(SalesCode);
         END;
     end;
 }
-

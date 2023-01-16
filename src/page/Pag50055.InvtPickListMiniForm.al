@@ -16,8 +16,8 @@ page 50055 "BC6_Invt Pick List MiniForm"
             {
                 field(Type; Rec.Type)
                 {
-                    Visible = false;
                     ApplicationArea = All;
+                    Visible = false;
                 }
                 field("No."; Rec."No.")
                 {
@@ -55,4 +55,3 @@ page 50055 "BC6_Invt Pick List MiniForm"
     {
     }
 }
-

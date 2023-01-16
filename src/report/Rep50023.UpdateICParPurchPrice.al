@@ -1,10 +1,9 @@
 report 50023 "BC6_Update IC Par Purch. Price"
 {
-
+    ApplicationArea = all;
     Caption = 'Update IC Partner Purch. Price', comment = 'FRA="Màj tarif fournisseur partnaire"';
     ProcessingOnly = true;
     UsageCategory = ReportsAndAnalysis;
-    ApplicationArea = all;
 
     dataset
     {
@@ -24,7 +23,6 @@ report 50023 "BC6_Update IC Par Purch. Price"
 
     requestpage
     {
-
         layout
         {
         }
@@ -42,4 +40,3 @@ report 50023 "BC6_Update IC Par Purch. Price"
         CduGUpdateICPartnerItems: Codeunit "BC6_Update IC Partner Items";
         CstGText000: Label 'Treatment allowed only for CNE.', comment = 'FRA="Traitement autorisé seulement sur CNE."';
 }
-

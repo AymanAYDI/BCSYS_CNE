@@ -1,10 +1,10 @@
 xmlport 50016 "BC6_Import RIB Vendeur"
 {
+    Caption = 'Import RIB Vendeur';
     Direction = Import;
     FieldDelimiter = '<None>';
     FieldSeparator = ';';
     Format = VariableText;
-    Caption = 'Import RIB Vendeur';
 
     schema
     {
@@ -59,7 +59,6 @@ xmlport 50016 "BC6_Import RIB Vendeur"
 
     requestpage
     {
-
         layout
         {
         }
@@ -80,4 +79,3 @@ xmlport 50016 "BC6_Import RIB Vendeur"
     var
         RibVend: Record "Vendor Bank Account";
 }
-

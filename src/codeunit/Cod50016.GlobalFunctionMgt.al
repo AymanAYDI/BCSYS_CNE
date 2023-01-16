@@ -2,7 +2,6 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
 {
     SingleInstance = true;
 
-
     //********* Page 161***********//
     procedure SetVATAmount(pVATAmount: Decimal)
     begin
@@ -43,7 +42,7 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
     begin
         exit(BooGAutoTextSpe);
     end;
-    //----------TAB 36 
+    //----------TAB 36
     procedure SetBoolReclose(pBoolReclose: Boolean)
     begin
         BoolReclose := pBoolReclose;
@@ -57,7 +56,6 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
     procedure SetPostingDate(pPostingDate: Date)
     begin
         PostingDate := pPostingDate;
-
     end;
 
     procedure GetPostingDate(): Date
@@ -73,7 +71,6 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
     procedure GetDeleteWhseActivity(): Boolean
     begin
         exit(DeleteWhseActivity);
-
     end;
     /****************** purch line *******************/
     procedure SetGDecMntTTCDEEE(pDecMntTTCDEEE: Decimal)
@@ -86,14 +83,10 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
         exit(GDecMntTTCDEEE);
     end;
 
-
-
     procedure SetGDecMntHTDEEE(pDecMntHTDEEE: Decimal)
     begin
         GDecMntHTDEEE := pDecMntHTDEEE;
     end;
-
-
 
     procedure GetGDecMntHTDEEE(): Decimal
     begin
@@ -107,21 +100,15 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
         SGDecMntTTCDEEE := pDecMntTTCDEEE;
     end;
 
-
-
     procedure GetSGDecMntTTCDEEE(): Decimal
     begin
         exit(SGDecMntTTCDEEE);
     end;
 
-
-
     procedure SetSGDecMntHTDEEE(pDecMntHTDEEE: Decimal)
     begin
         SGDecMntHTDEEE := pDecMntHTDEEE;
     end;
-
-
 
     procedure GetSGDecMntHTDEEE(): Decimal
     begin
@@ -221,7 +208,6 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
         exit(BooGVendorNoStyle);
     end;
 
-
     procedure SetSalesReservationFound(pSalesReservationFound: Boolean)
     begin
         SalesReservationFound := pSalesReservationFound;
@@ -236,14 +222,12 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
     begin
 
         TempSalesLineLocal.Copy(TempSalesLine, true);
-
     end;
 
     procedure SetCD7321_TempSalesLine(var TempSalesLineLocal: Record "Sales Line" temporary)
     begin
 
         TempSalesLine.Copy(TempSalesLineLocal, true);
-
     end;
 
     procedure SetDeleteWhseActivityHeaderOk(pDeleteWhseActivityHeaderOk: Boolean)
@@ -266,16 +250,12 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
         SalesHeader.Copy(T77_SalesHeader, true);
     end;
 
-
-
-
-
-    //--------- page30 
+    //--------- page30
     procedure GetShowIncreaseCoeff(): Boolean
     begin
         exit(NewShowIncreaseCoeff);
     end;
-    //------ end  
+    //------ end
     procedure SetShowIncreaseCoeff(pShowIncreaseCoeff: Boolean)
     begin
         NewShowIncreaseCoeff := pShowIncreaseCoeff;
@@ -337,14 +317,16 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
         _IsSAVReturnOrder: Boolean;
         BooGAutoTextSpe: Boolean;
         BooGVendorNoStyle: Boolean;
+        BoolGCopyLinesExactly: Boolean;
+
+        BoolReclose: Boolean;
         DeleteWhseActivity: Boolean;
         DeleteWhseActivityHeaderOk: Boolean;
+        EnableIncrPurchCost: Boolean;
+        HideValidationDialog: Boolean;
 
         NewShowIncreaseCoeff: Boolean;
         SalesReservationFound: Boolean;
-        EnableIncrPurchCost: Boolean;
-        BoolGCopyLinesExactly: Boolean;
-        HideValidationDialog: Boolean;
         _DEEECategoryCode: code[20];
         _EcoPartnerDEEE: code[20];
         _PurchDEEECategoryCode: Code[20];
@@ -362,6 +344,4 @@ codeunit 50016 "BC6_GlobalFunctionMgt"
         VATAmount: Decimal;
         IntLSignFactor: Integer;
         YourReference: Text;
-
-        BoolReclose: Boolean;
 }

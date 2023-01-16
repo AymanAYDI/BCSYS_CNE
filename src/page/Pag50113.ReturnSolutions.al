@@ -12,12 +12,15 @@ page 50113 "BC6_Return Solutions"
             {
                 field("Code"; Rec.Code)
                 {
+                    ApplicationArea = All;
                 }
                 field(Description; Rec.Description)
                 {
+                    ApplicationArea = All;
                 }
                 field(Type; Rec.Type)
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -27,4 +30,3 @@ page 50113 "BC6_Return Solutions"
     {
     }
 }
-

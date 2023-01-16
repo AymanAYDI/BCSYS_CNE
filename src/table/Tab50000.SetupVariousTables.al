@@ -10,8 +10,8 @@ table 50000 "BC6_Setup Various Tables"
         field(1; "Code"; Code[20])
         {
             Caption = 'Code', comment = 'FRA="Radical"';
-            NotBlank = true;
             DataClassification = CustomerContent;
+            NotBlank = true;
         }
         field(2; Description; Text[30])
         {
@@ -147,13 +147,14 @@ table 50000 "BC6_Setup Various Tables"
         {
             CalcFormula = Lookup("BC6_Setup Various Tables".Description WHERE(Code = FIELD("Radical Code1")));
             Caption = 'Radical Code1 Description', comment = 'FRA="Libellé Code Radical1"';
+            Editable = false;
             FieldClass = FlowField;
         }
         field(29; "Radical Code1"; Code[10])
         {
             Caption = 'Radical Code1', comment = 'FRA="Code Radical1"';
-            TableRelation = "BC6_Setup Various Tables".Code;
             DataClassification = CustomerContent;
+            TableRelation = "BC6_Setup Various Tables".Code;
         }
         field(31; "Radical Code2 Use"; Boolean)
         {
@@ -164,13 +165,14 @@ table 50000 "BC6_Setup Various Tables"
         {
             CalcFormula = Lookup("BC6_Setup Various Tables".Description WHERE(Code = FIELD("Radical Code2")));
             Caption = 'Radical Code2 Description', comment = 'FRA="Libellé Code Radical2"';
+            Editable = false;
             FieldClass = FlowField;
         }
         field(33; "Radical Code2"; Code[20])
         {
             Caption = 'Radical Code2', comment = 'FRA="Code Radical2"';
-            TableRelation = "BC6_Setup Various Tables".Code;
             DataClassification = CustomerContent;
+            TableRelation = "BC6_Setup Various Tables".Code;
         }
         field(35; "Radical Code3 Use"; Boolean)
         {
@@ -181,13 +183,14 @@ table 50000 "BC6_Setup Various Tables"
         {
             CalcFormula = Lookup("BC6_Setup Various Tables".Description WHERE(Code = FIELD("Radical Code3")));
             Caption = 'Radical Code3 Description', comment = 'FRA="Libellé Code Radical3"';
+            Editable = false;
             FieldClass = FlowField;
         }
         field(37; "Radical Code3"; Code[20])
         {
             Caption = 'Radical Code3', comment = 'FRA="Code Radical3"';
-            TableRelation = "BC6_Setup Various Tables".Code;
             DataClassification = CustomerContent;
+            TableRelation = "BC6_Setup Various Tables".Code;
         }
         field(39; "Comment Use"; Boolean)
         {

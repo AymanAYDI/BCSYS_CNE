@@ -13,9 +13,11 @@ page 50002 "BC6_Various Tables List"
                 Editable = false;
                 field("Code"; Rec.Code)
                 {
+                    ApplicationArea = All;
                 }
                 field(Description; Rec.Description)
                 {
+                    ApplicationArea = All;
                 }
             }
         }
@@ -25,4 +27,3 @@ page 50002 "BC6_Various Tables List"
     {
     }
 }
-

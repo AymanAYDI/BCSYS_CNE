@@ -31,4 +31,3 @@ pageextension 50033 "BC6_GeneralLedgerSetup" extends "General Ledger Setup" //11
         }
     }
 }
-

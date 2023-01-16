@@ -29,10 +29,9 @@ pageextension 50008 "BC6_VendorList" extends "Vendor List" //27
             }
             field("BC6_Posting DEEE"; Rec."BC6_Posting DEEE")
             {
-                ShowCaption = false;
                 ApplicationArea = All;
+                ShowCaption = false;
             }
         }
     }
 }
-

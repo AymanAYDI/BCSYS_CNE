@@ -1,4 +1,3 @@
-
 pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
 {
     layout
@@ -11,12 +10,11 @@ pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
         {
             field("BC6_Sell-to Customer No."; Rec."Sell-to Customer No.")
             {
+                AboutText = 'You can choose existing customers, or add new customers when you create quotes. Quotes can automatically choose special prices and discounts that you have set for each customer.';
+                AboutTitle = 'Who is the quote for?';
                 ApplicationArea = All;
-
                 Importance = Additional;
                 NotBlank = true;
-                AboutTitle = 'Who is the quote for?';
-                AboutText = 'You can choose existing customers, or add new customers when you create quotes. Quotes can automatically choose special prices and discounts that you have set for each customer.';
                 trigger OnValidate()
                 begin
                     Rec.SelltoCustomerNoOnAfterValidate(Rec, xRec);
@@ -56,9 +54,9 @@ pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
             }
             field("BC6_Quote statut"; Rec."BC6_Quote statut")
             {
-                Editable = BooGQuoteStatut;
                 ApplicationArea = All;
                 Caption = 'Quote status', Comment = 'FRA="Statut devis"';
+                Editable = BooGQuoteStatut;
             }
             field("BC6_Affair No."; Rec."BC6_Affair No.")
             {
@@ -78,14 +76,12 @@ pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
         {
             part("Sales Hist. Sellto FactBox"; "BC6_Sales Hist. Sellto FactBox")
             {
+                ApplicationArea = All;
                 Provider = SalesLines;
                 SubPageLink = "Document Type" = field("Document Type"),
                                   "Document No." = field("Document No."),
                                   "Line No." = field("Line No.");
-                ApplicationArea = All;
-
             }
-
         }
     }
     actions
@@ -94,9 +90,9 @@ pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
         {
             action("BC6_Deleting Quote")
             {
+                ApplicationArea = All;
                 Caption = 'Deleting Quote', Comment = 'FRA="Supprimer Devis"';
                 Image = Delete;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -120,12 +116,12 @@ pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
         {
             action("BC6_Create Technicals Directory")
             {
+                ApplicationArea = All;
                 Caption = 'Create Technicals Directory', Comment = 'FRA="Créer dossier technique"';
                 Image = Archive;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                ApplicationArea = All;
                 trigger OnAction()
                 begin
                     CODEUNIT.RUN(Codeunit::"BC6_Create SalesDoc Directory", Rec);
@@ -137,9 +133,9 @@ pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
         {
             action("BC6_Envoyer par Fax")
             {
-                Caption = 'Envoyer par Fax';
                 ApplicationArea = All;
-
+                Caption = 'Envoyer par Fax';
+                image = SendTo;
                 trigger OnAction()
                 var
                     RecLSalesHeader: Record "Sales Header";
@@ -157,11 +153,11 @@ pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
         {
             action("BC6_&Create Sales price request")
             {
+                ApplicationArea = All;
                 Caption = '&Create Sales price request', Comment = 'FRA="&Créer demande de prix"';
                 Image = MakeAgreement;
                 Promoted = true;
                 PromotedCategory = Process;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -171,13 +167,7 @@ pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
                 end;
             }
         }
-
     }
-
-
-
-
-
 
     trigger OnOpenPage()
     var
@@ -194,15 +184,8 @@ pageextension 50013 "BC6_SalesQuote" extends "Sales Quote" //41
             BooGQuoteStatut := false;
         if not RecGUserSeup.GET(USERID) then
             RecGUserSeup.INIT();
-
     end;
-
 
     var
         BooGQuoteStatut: Boolean;
-
-
-
 }
-
-

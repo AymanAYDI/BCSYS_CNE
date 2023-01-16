@@ -1,6 +1,5 @@
 codeunit 50010 "BC6_ReportHelper"
 {
-
     procedure DownloadToClientFileName(ServerFileName: Text[250]; ToFile: Text[250]): Text[250]
     var
         //TODO objScript: Automation;
@@ -30,4 +29,3 @@ codeunit 50010 "BC6_ReportHelper"
         EXIT(ClientFileName);
     end;
 }
-

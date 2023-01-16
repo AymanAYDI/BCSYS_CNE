@@ -25,14 +25,14 @@ tableextension 50024 "BC6_GeneralLedgerSetup" extends "General Ledger Setup" //9
         field(80840; "BC6_DEEE Business Group ID"; Code[10])
         {
             Caption = 'DEEE Business Group ID', comment = 'FRA="Identifiant Groupe Compta Marché DEEE"';
-            TableRelation = "Gen. Business Posting Group".Code;
             DataClassification = CustomerContent;
+            TableRelation = "Gen. Business Posting Group".Code;
         }
         field(80841; "BC6_Defaut Eco partner DEEE"; Code[20])
         {
             Caption = 'Defaut Eco partnaire', comment = 'FRA="Eco partenaire DEEE par défaut"';
-            TableRelation = Vendor;
             DataClassification = CustomerContent;
+            TableRelation = Vendor;
         }
     }
 }

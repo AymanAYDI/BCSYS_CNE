@@ -13,8 +13,8 @@ pageextension 50066 "BC6_PurchCreditMemoStatistics" extends "Purch. Credit Memo 
                 ApplicationArea = Basic, Suite;
                 AutoFormatExpression = Rec."Currency Code";
                 AutoFormatType = 1;
-                CaptionClass = '3,' + Format(NewVATAmountText);
                 Caption = 'VAT Amount', Comment = 'FRA="Montant TVA"';
+                CaptionClass = '3,' + Format(NewVATAmountText);
                 ToolTip = 'Specifies the total VAT amount that has been calculated for all the lines in the purchase document.', Comment = 'FRA="Spécifie le montant total de la TVA qui a été calculée pour toutes les lignes du document achat."';
             }
         }
@@ -38,10 +38,12 @@ pageextension 50066 "BC6_PurchCreditMemoStatistics" extends "Purch. Credit Memo 
         {
             field(BC6_DecGMntHTDEEE; DecGMntHTDEEE)
             {
+                ApplicationArea = All;
                 Caption = 'Total DEEE';
             }
             field("VendAmount + DecGMntHTDEEE"; NewVendAmount + DecGMntHTDEEE)
             {
+                ApplicationArea = All;
                 Caption = 'Total HT DEEE Incluse';
             }
         }
@@ -103,7 +105,5 @@ pageextension 50066 "BC6_PurchCreditMemoStatistics" extends "Purch. Credit Memo 
         VendLedgEntry.SETRANGE("Vendor No.", Rec."Pay-to Vendor No.");
         IF VendLedgEntry.FINDFIRST() THEN
             NewAmountLCY := VendLedgEntry."Purchase (LCY)";
-
     end;
 }
-

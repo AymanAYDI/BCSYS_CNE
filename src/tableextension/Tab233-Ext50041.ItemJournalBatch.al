@@ -5,8 +5,8 @@ tableextension 50041 "BC6_ItemJournalBatch" extends "Item Journal Batch" //233
         field(50000; "BC6_Assigned User ID"; Code[50])
         {
             Caption = 'Assigned User ID', Comment = 'FRA="Code utilisateur affecté"';
-            TableRelation = "Warehouse Employee";
             DataClassification = CustomerContent;
+            TableRelation = "Warehouse Employee";
         }
         field(50001; "BC6_Phys. Inv. Survey"; Boolean)
         {
@@ -26,9 +26,9 @@ tableextension 50041 "BC6_ItemJournalBatch" extends "Item Journal Batch" //233
         field(50002; "BC6_Phys. Inv. Check Bat. Name"; Code[10])
         {
             Caption = 'Nom feuille contrôle inventaire', Comment = 'FRA="Nom feuille contrôle inventaire"';
+            DataClassification = CustomerContent;
             TableRelation = "Item Journal Batch".Name WHERE("Journal Template Name" = FIELD("Journal Template Name"),
                                                              "BC6_Phys. Inv. Survey" = CONST(false));
-            DataClassification = CustomerContent;
 
             trigger OnValidate()
             begin

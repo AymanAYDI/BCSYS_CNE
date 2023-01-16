@@ -1,9 +1,9 @@
 report 50060 "BC6_Return Order SAV Conf."
 {
-    DefaultLayout = RDLC;
-    RDLCLayout = './src/Report/RDL/ReturnOrderSAVConfirmation.rdl';
     Caption = 'Return Order Confirmation', comment = 'FRA="Confirmation de retour"';
+    DefaultLayout = RDLC;
     PreviewMode = PrintLayout;
+    RDLCLayout = './src/Report/RDL/ReturnOrderSAVConfirmation.rdl';
 
     dataset
     {
@@ -592,7 +592,6 @@ report 50060 "BC6_Return Order SAV Conf."
                             IF (TempSalesLine.Type = TempSalesLine.Type::Item) AND (TempSalesLine."No." <> '') THEN BEGIN
                                 G_Item.GET(TempSalesLine."No.");
 
-
                                 IF L_PurchaseHeader.GET(L_PurchaseHeader."Document Type"::Order, TempSalesLine."BC6_Purchase No. Order Lien") THEN
                                     G_Vendor.GET(L_PurchaseHeader."Buy-from Vendor No.");
                             END;
@@ -792,7 +791,7 @@ report 50060 "BC6_Return Order SAV Conf."
                 DimSetEntry1.SETRANGE("Dimension Set ID", "Dimension Set ID");
 
                 IF LogInteraction THEN
-                    IF NOT CurrReport.PREVIEW THEN BEGIN
+                    IF NOT CurrReport.PREVIEW THEN
                         IF "Bill-to Contact No." <> '' THEN
                             SegManagement.LogDocument(
                               18, "No.", 0, 0, DATABASE::Contact, "Bill-to Contact No.", "Salesperson Code",
@@ -801,17 +800,15 @@ report 50060 "BC6_Return Order SAV Conf."
                             SegManagement.LogDocument(
                               18, "No.", 0, 0, DATABASE::Customer, "Bill-to Customer No.", "Salesperson Code",
                               "Campaign No.", "Posting Description", "Opportunity No.");
-                    END;
 
                 L_SalesLine.RESET();
                 L_SalesLine.SETRANGE("Document Type", SalesHeader."Document Type");
                 L_SalesLine.SETRANGE("Document No.", SalesHeader."No.");
                 L_SalesLine.SETRANGE(Type, L_SalesLine.Type::Item);
-                IF L_SalesLine.FINDFIRST() THEN BEGIN
+                IF L_SalesLine.FINDFIRST() THEN
                     IF L_SalesHeader.GET(L_SalesHeader."Document Type"::Order, L_SalesLine."BC6_ReturnOrderShpt SalesOrder") THEN
                         IF G_PurchaseHeader.GET(G_PurchaseHeader."Document Type"::Order, L_SalesHeader."BC6_Purchase No. Order Lien") THEN
                             IF G_Vendor.GET(L_PurchaseHeader."Buy-from Vendor No.") THEN;
-                END;
 
                 UserSetup.GET(SalesHeader.BC6_ID);
             end;
@@ -829,16 +826,19 @@ report 50060 "BC6_Return Order SAV Conf."
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(NoOfCopies; NoOfCopies)
+                    field(NoOfCopiesF; NoOfCopies)
                     {
+                        ApplicationArea = All;
                         Caption = 'No. of Copies', comment = 'FRA="Nombre de copies"';
                     }
-                    field(ShowInternalInfo; ShowInternalInfo)
+                    field(ShowInternalInfoF; ShowInternalInfo)
                     {
+                        ApplicationArea = All;
                         Caption = 'Show Internal Information', comment = 'FRA="Afficher info. internes"';
                     }
-                    field(LogInteraction; LogInteraction)
+                    field(LogInteractionF; LogInteraction)
                     {
+                        ApplicationArea = All;
                         Caption = 'Log Interaction', comment = 'FRA="Journal interaction"';
                         Enabled = LogInteractionEnable;
                     }
@@ -975,9 +975,6 @@ report 50060 "BC6_Return Order SAV Conf."
         VATRegNoCaptionLbl: Label 'VAT Reg. No.', comment = 'FRA="N° id. intracomm."';
         CopyText: Text[30];
         SalesPersonText: Text[30];
-        CompanyAddr: array[8] of Text[50];
-        CustAddr: array[8] of Text[50];
-        ShipToAddr: array[8] of Text[50];
         TotalExclVATText: Text[50];
         TotalInclVATText: Text[50];
         TotalText: Text[50];
@@ -986,6 +983,9 @@ report 50060 "BC6_Return Order SAV Conf."
         ReferenceText: Text[80];
         VALSpecLCYHeader: Text[80];
         VATNoText: Text[80];
+        CompanyAddr: array[8] of Text[100];
+        CustAddr: array[8] of Text[100];
+        ShipToAddr: array[8] of Text[100];
         DimText: Text[120];
 
     procedure InitLogInteraction()
@@ -1016,4 +1016,3 @@ report 50060 "BC6_Return Order SAV Conf."
         VATNoText := FormatDocument.SetText(SalesHeader."VAT Registration No." <> '', SalesHeader.FIELDCAPTION("VAT Registration No."));
     end;
 }
-

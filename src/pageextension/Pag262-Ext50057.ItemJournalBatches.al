@@ -19,4 +19,3 @@ pageextension 50057 "BC6_ItemJournalBatches" extends "Item Journal Batches" //26
         }
     }
 }
-

@@ -5,8 +5,8 @@ tableextension 50019 "BC6_CompanyInformation" extends "Company Information" //79
         field(50000; "BC6_Alt Picture"; BLOB)
         {
             Caption = 'Picture', comment = 'FRA="Alt Image"';
-            SubType = Bitmap;
             DataClassification = CustomerContent;
+            SubType = Bitmap;
         }
         field(50001; "BC6_Alt Name"; Text[50])
         {
@@ -31,10 +31,10 @@ tableextension 50019 "BC6_CompanyInformation" extends "Company Information" //79
         field(50005; "BC6_Alt City"; Text[30])
         {
             Caption = 'City', comment = 'FRA="Alt Ville"';
+            DataClassification = CustomerContent;
             TableRelation = IF ("BC6_Alt Country Code" = CONST()) "Post Code".City
             ELSE
             IF ("BC6_Alt Country Code" = FILTER(<> '')) "Post Code".City WHERE("Country/Region Code" = FIELD("BC6_Alt Country Code"));
-            DataClassification = CustomerContent;
             trigger onvalidate()
             var
                 PostCode: Record "Post Code";
@@ -66,13 +66,13 @@ tableextension 50019 "BC6_CompanyInformation" extends "Company Information" //79
         field(50010; "BC6_Alt Post Code"; Code[20])
         {
             Caption = 'Post Code', Comment = 'FRA="Alt Code postal"';
+            DataClassification = CustomerContent;
             TableRelation = IF ("BC6_Alt Country Code" = CONST()) "Post Code".Code
             ELSE
             IF ("BC6_Alt Country Code" = FILTER(<> '')) "Post Code".Code WHERE("Country/Region Code" = FIELD("BC6_Alt Country Code"));
             //This property is currently not supported
             //TestTableRelation = false;
             ValidateTableRelation = false;
-            DataClassification = CustomerContent;
 
             trigger OnValidate()
             var
@@ -90,8 +90,8 @@ tableextension 50019 "BC6_CompanyInformation" extends "Company Information" //79
         field(50012; "BC6_Alt Country Code"; Code[10])
         {
             Caption = 'Alt Code Pays', Comment = 'FRA="Alt Code Pays"';
-            TableRelation = "Country/Region".Code;
             DataClassification = CustomerContent;
+            TableRelation = "Country/Region".Code;
         }
         field(50013; "BC6_Alt Home Page"; Text[80])
         {

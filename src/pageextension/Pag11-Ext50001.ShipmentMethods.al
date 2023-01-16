@@ -11,4 +11,3 @@ pageextension 50001 "BC6_ShipmentMethods" extends "Shipment Methods" //11
         }
     }
 }
-

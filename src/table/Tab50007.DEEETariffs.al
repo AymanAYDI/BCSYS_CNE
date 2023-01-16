@@ -8,8 +8,8 @@ table 50007 "BC6_DEEE Tariffs"
         field(1; "DEEE Code"; Code[10])
         {
             Caption = 'Code DEEE', comment = 'FRA="Code DEEE"';
-            TableRelation = "BC6_Categories of item".Category;
             DataClassification = CustomerContent;
+            TableRelation = "BC6_Categories of item".Category;
         }
         field(2; "Date beginning"; Date)
         {
@@ -19,14 +19,14 @@ table 50007 "BC6_DEEE Tariffs"
         field(3; "Eco Partner"; Code[20])
         {
             Caption = 'Eco Partner', comment = 'FRA="Eco Partenaire"';
-            TableRelation = Vendor;
             DataClassification = CustomerContent;
+            TableRelation = Vendor;
         }
         field(10; "HT Unit Tax (LCY)"; Decimal)
         {
             Caption = 'HT Unit Tax (LCY)', comment = 'FRA="Taxe Unitaire HT (DS)"';
-            DecimalPlaces = 0 : 2;
             DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 2;
         }
     }
 

@@ -12,9 +12,9 @@ xmlport 50025 "BC6_Import Bin Contents"
         {
             tableelement(Integer; Integer)
             {
-                XmlName = 'Integers';
                 SourceTableView = SORTING(Number)
                                   ORDER(Ascending);
+                XmlName = 'Integers';
                 textelement(BinCode)
                 {
                 }
@@ -75,7 +75,6 @@ xmlport 50025 "BC6_Import Bin Contents"
 
     requestpage
     {
-
         layout
         {
         }
@@ -103,4 +102,3 @@ xmlport 50025 "BC6_Import Bin Contents"
         TotalCounter: Integer;
         Text001: Label '%1 contenus emplacements créés sur %2.';
 }
-

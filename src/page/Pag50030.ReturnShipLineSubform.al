@@ -1,5 +1,6 @@
 page 50030 "BC6_Return Ship. Line Subform"
 {
+    ApplicationArea = All;
     Caption = 'Return Shipment Lines', Comment = 'FRA="Lignes éxpidition retour"';
     PageType = ListPart;
     SourceTable = "Return Shipment Line";
@@ -13,10 +14,10 @@ page 50030 "BC6_Return Ship. Line Subform"
             {
                 field("Document No."; Rec."Document No.")
                 {
+                    ApplicationArea = All;
                     HideValue = "Document No.HideValue";
                     Style = StrongAccent;
                     StyleExpr = TRUE;
-                    ApplicationArea = All;
                 }
                 field(Type; Rec.Type)
                 {
@@ -56,9 +57,9 @@ page 50030 "BC6_Return Ship. Line Subform"
         {
             action(Show)
             {
+                ApplicationArea = All;
                 Caption = '&Show', Comment = 'FRA="Affic&her"';
                 Image = Document;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -115,4 +116,3 @@ page 50030 "BC6_Return Ship. Line Subform"
                 "Document No.HideValue" := TRUE;
     end;
 }
-

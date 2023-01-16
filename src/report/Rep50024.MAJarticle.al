@@ -1,7 +1,7 @@
 report 50024 "BC6_MAJ article"
 {
-    ProcessingOnly = true;
     Caption = 'MAJ article';
+    ProcessingOnly = true;
     UsageCategory = None;
     dataset
     {
@@ -19,6 +19,4 @@ report 50024 "BC6_MAJ article"
             end;
         }
     }
-
 }
-

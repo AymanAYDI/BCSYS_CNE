@@ -1,9 +1,8 @@
 report 50032 "BC6_Order Confirmation CNE"
 {
+    Caption = 'Order Confirmation CNE', comment = 'FRA="Confirmation de Cde CNE"';
     DefaultLayout = RDLC;
     RDLCLayout = './src/report/RDL/OrderConfirmationCNE.rdl';
-
-    Caption = 'Order Confirmation CNE', comment = 'FRA="Confirmation de Cde CNE"';
     ShowPrintStatus = false;
 
     dataset
@@ -211,13 +210,11 @@ report 50032 "BC6_Order Confirmation CNE"
 
                             trigger OnAfterGetRecord()
                             begin
-                                IF Edition2 THEN BEGIN
+                                IF Edition2 THEN
                                     IF Number = 1 THEN
                                         StandardSalesLine.FIND('-')
-                                    ELSE BEGIN
+                                    ELSE
                                         StandardSalesLine.NEXT();
-                                    END;
-                                END;
                             end;
 
                             trigger OnPreDataItem()
@@ -521,13 +518,10 @@ report 50032 "BC6_Order Confirmation CNE"
                             Asterisque := COPYSTR(TempSalesLine.Description, 1, 1);
                             BooGDescVisible := (TempSalesLine.Type.AsInteger() = 0) AND (Asterisque <> '*');
 
-                            IF RecGBillCustomer."BC6_Submitted to DEEE" THEN BEGIN
-                                BooGDescVisible2 := ("Sales Line"."BC6_DEEE Category Code" <> '') AND ("Sales Line".Quantity <> 0) AND ("Sales Line"."BC6_Eco partner DEEE" <> '');
-                            END
-                            ELSE BEGIN
+                            IF RecGBillCustomer."BC6_Submitted to DEEE" THEN
+                                BooGDescVisible2 := ("Sales Line"."BC6_DEEE Category Code" <> '') AND ("Sales Line".Quantity <> 0) AND ("Sales Line"."BC6_Eco partner DEEE" <> '')
+                            ELSE
                                 BooGDescVisible2 := FALSE;
-                            END;
-
 
                             IF (CrossrefNo = '') AND (item."Tariff No." = '') THEN
                                 BooGDescVisible3 := FALSE
@@ -547,8 +541,6 @@ report 50032 "BC6_Order Confirmation CNE"
                             TotalAmtHTDEEE += TempSalesLine."Line Amount" + TempSalesLine."BC6_DEEE HT Amount";
                             TotalAmountVATDEE += TempSalesLine."Amount Including VAT" - TempSalesLine."Line Amount" + TempSalesLine."BC6_DEEE VAT Amount";
                             TotalAmountInclVATDEE += TempSalesLine."Amount Including VAT" + TempSalesLine."BC6_DEEE HT Amount" + TempSalesLine."BC6_DEEE VAT Amount";
-
-
                         end;
 
                         trigger OnPostDataItem()
@@ -741,10 +733,9 @@ report 50032 "BC6_Order Confirmation CNE"
                             RecGDEEE.RESET();
                             RecGDEEE.SETFILTER(RecGDEEE."DEEE Code", DEEETariffs."DEEE Code");
                             RecGDEEE.SETFILTER(RecGDEEE."Date beginning", '<=%1', SalesHeader."Posting Date");
-                            IF RecGDEEE.FIND('+') THEN BEGIN
+                            IF RecGDEEE.FIND('+') THEN
                                 IF RecGDEEE."Date beginning" <> DEEETariffs."Date beginning" THEN
                                     BooGDEEEFind := FALSE;
-                            END;
 
                             RecGItemCtg.RESET();
                             IF NOT RecGItemCtg.GET(DEEETariffs."DEEE Code", DEEETariffs."Eco Partner") THEN
@@ -890,8 +881,6 @@ report 50032 "BC6_Order Confirmation CNE"
                             TxtGDesignation := '';
                         END;
 
-
-
                         //Recherche des libellés text selon langue
                         IF CurrReport.PAGENO() = 1 THEN BEGIN
                             LangueLig10 := Langue + '' + '10';
@@ -1007,7 +996,6 @@ report 50032 "BC6_Order Confirmation CNE"
                     TxtGAltFax := CompanyInfo."BC6_Alt Fax No.";
                     TxtGAltEmail := CompanyInfo."BC6_Alt E-Mail";
                     TxtGAltHomePage := CompanyInfo."BC6_Alt Home Page";
-
                 END;
 
                 //Debut pour avoir les infos société
@@ -1019,9 +1007,8 @@ report 50032 "BC6_Order Confirmation CNE"
                     FormatAddr.RespCenter(CompanyAddr, RespCenter);
                     CompanyInfo."Phone No." := RespCenter."Phone No.";
                     CompanyInfo."Fax No." := RespCenter."Fax No.";
-                END ELSE BEGIN
+                END ELSE
                     FormatAddr.Company(CompanyAddr, CompanyInfo);
-                END;
 
                 //Date livraison
                 DateLiv := SalesHeader."Promised Delivery Date";
@@ -1047,9 +1034,9 @@ report 50032 "BC6_Order Confirmation CNE"
                 END ELSE BEGIN
                     Langue := 'FRA';
                     LangueLig01 := Langue + '' + '01';
-                    IF TablesDiverses.GET(ListeTable, LangueLig01) THEN BEGIN
-                        TmpNamereport := TablesDiverses.Description + '' + SalesHeader."No.";
-                    END ELSE
+                    IF TablesDiverses.GET(ListeTable, LangueLig01) THEN
+                        TmpNamereport := TablesDiverses.Description + '' + SalesHeader."No."
+                    ELSE
                         TmpNamereport := Text004 + ' ' + SalesHeader."No.";
                 END;
 
@@ -1131,7 +1118,6 @@ report 50032 "BC6_Order Confirmation CNE"
                 Fax := customer."Fax No.";
                 //Fin ajout tel et fax fournisseur
 
-
                 IF NOT CurrReport.PREVIEW THEN BEGIN
                     IF ArchiveDocument THEN
                         ArchiveManagement.StoreSalesDocument(SalesHeader, LogInteraction);
@@ -1159,7 +1145,6 @@ report 50032 "BC6_Order Confirmation CNE"
 
     requestpage
     {
-
         layout
         {
             area(content)
@@ -1167,17 +1152,20 @@ report 50032 "BC6_Order Confirmation CNE"
                 group(Options)
                 {
                     Caption = 'Options';
-                    field(NoOfCopies; NoOfCopies)
+                    field(NoOfCopiesF; NoOfCopies)
                     {
+                        ApplicationArea = All;
                         Caption = 'No. of Copies', Comment = 'FRA="Nombre de copies"';
                     }
-                    field(ShowInternalInfo; ShowInternalInfo)
+                    field(ShowInternalInfoF; ShowInternalInfo)
                     {
+                        ApplicationArea = All;
                         Caption = 'Show Internal Information', Comment = 'FRA="Afficher info. internes"';
                         Visible = false;
                     }
-                    field(ArchiveDocument; ArchiveDocument)
+                    field(ArchiveDocumentF; ArchiveDocument)
                     {
+                        ApplicationArea = All;
                         Caption = 'Archive Document', Comment = 'FRA="Archiver document"';
                         Visible = false;
 
@@ -1187,18 +1175,21 @@ report 50032 "BC6_Order Confirmation CNE"
                                 LogInteraction := FALSE;
                         end;
                     }
-                    field(LogInteraction; LogInteraction)
+                    field(LogInteractionF; LogInteraction)
                     {
+                        ApplicationArea = All;
                         Caption = 'Log Interaction', Comment = 'FRA="Journal interaction"';
                         Visible = false;
                     }
-                    field(CodGRespCenter; CodGRespCenter)
+                    field(CodGRespCenterF; CodGRespCenter)
                     {
+                        ApplicationArea = All;
                         Caption = 'Print Characteristics Agency:', Comment = 'FRA="Imprimer Caractéristiques Agence:"';
                         TableRelation = "Responsibility Center";
                     }
-                    field(HideReference; HideReference)
+                    field(HideReferenceF; HideReference)
                     {
+                        ApplicationArea = All;
                         Caption = 'Hide Reference', Comment = 'FRA="Masquer références"';
                     }
                 }
@@ -1360,13 +1351,13 @@ report 50032 "BC6_Order Confirmation CNE"
         Total_Due_CaptionLbl: Label 'Total Due ', comment = 'FRA="Net à Payer"';
         TOTAL_incl__VATCaptionLbl: Label 'TOTAL incl. VAT', comment = 'FRA="TOTAL TTC"';
         TotalCaptionLbl: Label 'Total';
+        txtlbl12: label '%1 %2';
         V_DocumentCaptionLbl: Label 'V/Document';
         VATAmtCaptionLbl: Label 'VAT Amount', comment = 'FRA="Montant TVA"';
         VATAmtSpecCaptionLbl: Label 'VAT Amount Specification', comment = 'FRA="Détail montant TVA"';
         VATBaseCaptionLbl: Label 'VAT Base', comment = 'FRA="Base TVA"';
         VATIdentifierCaptionLbl: Label 'VAT Identifier', comment = 'FRA="Identifiant TVA"';
         VATPercentageCaptionLbl: Label 'VAT %', Comment = 'FRA="% TVA"';
-        txtlbl12: label '%1 %2';
 
         Without_your_agreement_by_return__we_regard_these_elements_as_accepted_from_your_part_CaptionLbl: Label 'Without your agreement by return, we regard these elements as accepted from your part.', Comment = 'FRA="Sans votre accord par retour, nous considérons ces éléments comme acceptés de votre part."';
         Asterisque: Text[1];
@@ -1397,10 +1388,7 @@ report 50032 "BC6_Order Confirmation CNE"
         TxtGLblProjet: Text[30];
         TxtGNoProjet: Text[30];
         VATNoText: Text[30];
-        CompanyAddr: array[8] of Text[50];
-        CustAddr: array[8] of Text[50];
         ModeTransport: Text[50];
-        ShipToAddr: array[8] of Text[50];
         TotalExclVATText: Text[50];
         TotalInclVATText: Text[50];
         TotalText: Text[50];
@@ -1415,6 +1403,9 @@ report 50032 "BC6_Order Confirmation CNE"
         TxtGEmail: Text[80];
         TxtGHomePage: Text[80];
         VALSpecLCYHeader: Text[80];
+        CompanyAddr: array[8] of Text[100];
+        CustAddr: array[8] of Text[100];
+        ShipToAddr: array[8] of Text[100];
         TmpNamereport: Text[100];
         AText200: Text[200];
         SalesPersonText: Text[200];
@@ -1437,4 +1428,3 @@ report 50032 "BC6_Order Confirmation CNE"
         TxtGTag := RecGParamVente."BC6_PDF Mail Tag" + TxtLTag;
     end;
 }
-

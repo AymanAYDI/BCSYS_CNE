@@ -17,8 +17,8 @@ page 50057 "BC6_Inventory Card MiniForm"
         {
             usercontrol(ScanZone; "BC6_ControlAddinScanCapture")
             {
-                Visible = true;
                 ApplicationArea = All;
+                Visible = true;
 
                 trigger ControlAddInReady()
                 begin
@@ -112,13 +112,8 @@ page 50057 "BC6_Inventory Card MiniForm"
                                     AssignItemNo(ItemNo);
                                 END;
                             END;
-
-
-
                     END;
-
                 end;
-
 
                 trigger DataSubmited(index: Integer; data: Text)
                 begin
@@ -150,7 +145,6 @@ page 50057 "BC6_Inventory Card MiniForm"
 
                         3:
                             CloseAndOpenCurrentPick();
-
                     END;
                     RefreshDataControlAddin();
                 end;
@@ -162,13 +156,13 @@ page 50057 "BC6_Inventory Card MiniForm"
             }
             field(FromBinCodeCtrl; FromBinCode)
             {
+                ApplicationArea = All;
                 Caption = 'Bin Code', Comment = 'FRA="De empl."';
                 Editable = true;
                 Style = Standard;
                 StyleExpr = TRUE;
                 TableRelation = Bin.Code;
                 Visible = false;
-                ApplicationArea = All;
 
                 trigger OnLookup(var Text: Text): Boolean
                 var
@@ -188,7 +182,6 @@ page 50057 "BC6_Inventory Card MiniForm"
                         FromBinCode := Bin.Code;
                         AssignFromBinCode(FromBinCode);
                     END;
-
                 end;
 
                 trigger OnValidate()
@@ -198,12 +191,12 @@ page 50057 "BC6_Inventory Card MiniForm"
             }
             field(ItemNoCtrl; ItemNo)
             {
+                ApplicationArea = All;
                 Caption = 'Item nr', Comment = 'FRA="N° article"';
                 NotBlank = false;
                 Style = Standard;
                 StyleExpr = TRUE;
                 Visible = false;
-                ApplicationArea = All;
 
                 trigger OnLookup(var Text: Text): Boolean
                 var
@@ -230,12 +223,12 @@ page 50057 "BC6_Inventory Card MiniForm"
             }
             field(QtyCtrl; Qty)
             {
+                ApplicationArea = All;
                 Caption = 'Quantity', Comment = 'FRA="Quantité"';
                 Editable = QtyCtrlEditable;
                 Style = Standard;
                 StyleExpr = TRUE;
                 Visible = false;
-                ApplicationArea = All;
 
                 trigger OnValidate()
                 begin
@@ -247,18 +240,18 @@ page 50057 "BC6_Inventory Card MiniForm"
             }
             field(Description; Rec.Description)
             {
-                Editable = false;
                 ApplicationArea = All;
+                Editable = false;
             }
             field(LocationCodeCtrl; LocationCode)
             {
+                ApplicationArea = All;
                 Caption = 'Location', Comment = 'FRA="Magasin"';
                 Editable = false;
                 Numeric = false;
                 Style = Standard;
                 StyleExpr = TRUE;
                 TableRelation = Location;
-                ApplicationArea = All;
 
                 trigger OnLookup(var Text: Text): Boolean
                 var
@@ -293,14 +286,14 @@ page 50057 "BC6_Inventory Card MiniForm"
         {
             action(ItemButton)
             {
+                ApplicationArea = All;
                 Caption = 'Item', Comment = 'FRA="N°&art."';
                 Image = Item;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                ShortCutKey = 'F2';
-                ApplicationArea = All;
                 PromotedOnly = true;
+                ShortCutKey = 'F2';
                 trigger OnAction()
                 var
                     PgeLInventoryItemSelection: Page "BC6_Inventory Card MiniForm F2";
@@ -310,13 +303,13 @@ page 50057 "BC6_Inventory Card MiniForm"
             }
             action(BinButton)
             {
+                ApplicationArea = All;
                 Caption = '&Bin.', Comment = 'FRA="&Emp."';
                 Image = Bin;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ShortCutKey = 'F3';
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -327,13 +320,13 @@ page 50057 "BC6_Inventory Card MiniForm"
             }
             action(DeleteButton)
             {
+                ApplicationArea = All;
                 Caption = '&Delete', Comment = 'FRA="&Supprimer"';
                 Image = Delete;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
                 ShortCutKey = 'F9';
-                ApplicationArea = All;
 
                 trigger OnAction()
                 var
@@ -357,12 +350,12 @@ page 50057 "BC6_Inventory Card MiniForm"
             }
             action(QuitButton)
             {
+                ApplicationArea = All;
                 Caption = '&Quit', Comment = 'FRA="&Quitter"';
                 Image = Close;
                 Promoted = true;
                 PromotedCategory = Process;
                 PromotedIsBig = true;
-                ApplicationArea = All;
 
                 trigger OnAction()
                 begin
@@ -417,7 +410,6 @@ page 50057 "BC6_Inventory Card MiniForm"
         OpenWithWhseEmployee();
         ShowCtrl := TRUE;
         EditableCtrl := TRUE;
-
     end;
 
     trigger OnQueryClosePage(CloseAction: Action): Boolean
@@ -479,7 +471,6 @@ page 50057 "BC6_Inventory Card MiniForm"
         OptionMode: Option New,Edit,KeepPick,KeepPickAndBin;
         _BinCode: Text;
 
-
     procedure NewLine(pLastJnlLine: Record "Item Journal Line")
     begin
         FromBinCode := '';
@@ -511,7 +502,6 @@ page 50057 "BC6_Inventory Card MiniForm"
         AssignLocationCode(LocationCode);
         Rec.INSERT(TRUE);
     end;
-
 
     procedure OpenWithWhseEmployee(): Boolean
     var
@@ -561,7 +551,6 @@ page 50057 "BC6_Inventory Card MiniForm"
         END;
     end;
 
-
     procedure AssignLocationCode(var pLocationCode: Code[20])
     var
         Text004: Label 'Bar code incorrect', Comment = 'FRA="Code barres eronné."';
@@ -577,7 +566,6 @@ page 50057 "BC6_Inventory Card MiniForm"
             MESSAGE(Text004);
         END;
     end;
-
 
     procedure AssignFromBinCode(var BinCode: Code[20])
     var
@@ -605,9 +593,8 @@ page 50057 "BC6_Inventory Card MiniForm"
                 ItemNo2 := FunctionsMgt.GetItem(pItemNo);
                 IF Item.GET(ItemNo2) THEN
                     pItemNo := Item."No.";
-            END ELSE BEGIN
+            END ELSE
                 IF Item.GET(pItemNo) THEN;
-            END;
             Rec."Phys. Inventory" := FALSE;
             Rec.VALIDATE("Item No.", pItemNo);
             Rec.VALIDATE("Bin Code", FromBinCode);
@@ -624,7 +611,6 @@ page 50057 "BC6_Inventory Card MiniForm"
         pItemNo := Rec."Item No.";
         UpdateCurrForm();
     end;
-
 
     procedure AssignQty(var pQty: Code[20])
     var
@@ -645,7 +631,6 @@ page 50057 "BC6_Inventory Card MiniForm"
         pQty := FORMAT(Rec.Quantity);
     end;
 
-
     procedure CtrlEnabled()
     begin
         FromBinCodeCtrlVisible := ShowCtrl;
@@ -654,7 +639,6 @@ page 50057 "BC6_Inventory Card MiniForm"
         QtyCtrlVisible := ShowCtrl;
         QtyCtrlEditable := EditableCtrl;
     end;
-
 
     procedure UpdateCurrForm()
     var
@@ -669,15 +653,12 @@ page 50057 "BC6_Inventory Card MiniForm"
         Qty := FORMAT(Rec."Qty. (Phys. Inventory)");
         EditableCtrl := (Rec."Item No." <> '');
         CtrlEnabled();
-        IF IsReady THEN BEGIN
-
+        IF IsReady THEN
             CASE OptionMode OF
                 OptionMode::Edit:
-                    BEGIN
-                        FOR i := 1 TO 3 DO BEGIN
-                            CurrPage.ScanZone.SetHide(i, FALSE);
-                        END;
-                    END;
+
+                    FOR i := 1 TO 3 DO
+                        CurrPage.ScanZone.SetHide(i, FALSE);
 
                 OptionMode::KeepPick:
                     BEGIN
@@ -693,14 +674,10 @@ page 50057 "BC6_Inventory Card MiniForm"
                         CurrPage.ScanZone.SetFocus(2);
                     END;
 
-                ELSE BEGIN
-
-                END;
+                ELSE
+                    ;
             END;
-
-        END;
     end;
-
 
     procedure CodeEANOk("Code": Code[20]) CodeOk: Boolean
     var
@@ -708,12 +685,11 @@ page 50057 "BC6_Inventory Card MiniForm"
     begin
         IF (STRLEN(Code) = 13) THEN BEGIN
             CodeOk := TRUE;
-            FOR i := 1 TO STRLEN(Code) DO BEGIN
+            FOR i := 1 TO STRLEN(Code) DO
                 IF NOT (Code[i] IN ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']) THEN BEGIN
                     CodeOk := FALSE;
                     EXIT(CodeOk);
                 END;
-            END;
         END ELSE
             CodeOk := FALSE;
     end;
@@ -797,7 +773,6 @@ page 50057 "BC6_Inventory Card MiniForm"
         CurrPage.UPDATE(FALSE);
     end;
 
-
     procedure SetOptionMode(NewOptionMode: Option New,Edit,KeepPick,KeepPickAndBin)
     begin
         OptionMode := NewOptionMode;
@@ -811,4 +786,3 @@ page 50057 "BC6_Inventory Card MiniForm"
         CurrPage.ScanZone.SetText(3, Qty);
     end;
 }
-

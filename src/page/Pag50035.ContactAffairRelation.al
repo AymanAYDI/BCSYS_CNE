@@ -28,4 +28,3 @@ page 50035 "BC6_Contact Affair Relation"
     {
     }
 }
-

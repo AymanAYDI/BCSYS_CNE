@@ -6,16 +6,20 @@ pageextension 50129 "BC6_PurchaseReturnOrderList" extends "Purchase Return Order
         {
             field("BC6_Affair No."; Rec."BC6_Affair No.")
             {
+                ApplicationArea = All;
             }
             field("BC6_Return Order Type"; Rec."BC6_Return Order Type")
             {
+                ApplicationArea = All;
             }
             field("BC6_Sales No. Order Lien"; Rec."BC6_Sales No. Order Lien")
             {
+                ApplicationArea = All;
                 Caption = 'Sales No. Order Link', comment = 'FRA="NO Commande Vente Lien"';
             }
             field(BC6_Amount; Rec.Amount)
             {
+                ApplicationArea = All;
             }
         }
     }
@@ -40,10 +44,7 @@ pageextension 50129 "BC6_PurchaseReturnOrderList" extends "Purchase Return Order
                 begin
                     FunctionsMgt.BC6_CreateInvtPutAwayPick_Purchase(rec);
                 end;
-
             }
         }
-
     }
 }
-

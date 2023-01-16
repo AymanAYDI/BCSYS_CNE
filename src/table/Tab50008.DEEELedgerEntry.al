@@ -2,7 +2,6 @@ table 50008 "BC6_DEEE Ledger Entry"
 {
     Caption = 'DEEE Entry', comment = 'FRA="Ecritures DEEE"';
     DataClassification = CustomerContent;
-
     DrillDownPageID = "BC6_DEEE Ledger Entries";
     LookupPageID = "BC6_DEEE Ledger Entries";
 
@@ -16,8 +15,8 @@ table 50008 "BC6_DEEE Ledger Entry"
         field(2; "Item No."; Code[20])
         {
             Caption = 'Item No.', comment = 'FRA="N° article"';
-            TableRelation = Item;
             DataClassification = CustomerContent;
+            TableRelation = Item;
         }
         field(3; "Posting Date"; Date)
         {
@@ -32,12 +31,12 @@ table 50008 "BC6_DEEE Ledger Entry"
         field(5; "Source No."; Code[20])
         {
             Caption = 'Source No.', comment = 'FRA="N° origine"';
+            DataClassification = CustomerContent;
             TableRelation = IF ("Source Type" = CONST(Customer)) Customer
             ELSE
             IF ("Source Type" = CONST(Vendor)) Vendor
             ELSE
             IF ("Source Type" = CONST(Item)) Item;
-            DataClassification = CustomerContent;
         }
         field(6; "Document No."; Code[20])
         {
@@ -52,34 +51,34 @@ table 50008 "BC6_DEEE Ledger Entry"
         field(8; "Location Code"; Code[10])
         {
             Caption = 'Location Code', comment = 'FRA="Code magasin"';
-            TableRelation = Location;
             DataClassification = CustomerContent;
+            TableRelation = Location;
         }
         field(12; Quantity; Decimal)
         {
             Caption = 'Quantity', comment = 'FRA="Quantité"';
-            DecimalPlaces = 0 : 5;
             DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 5;
         }
         field(14; "Invoiced Quantity"; Decimal)
         {
             Caption = 'Invoiced Quantity', comment = 'FRA="Quantité facturée"';
-            DecimalPlaces = 0 : 5;
             DataClassification = CustomerContent;
+            DecimalPlaces = 0 : 5;
         }
         field(33; "Global Dimension 1 Code"; Code[20])
         {
-            CaptionClass = '1,1,1';
             Caption = 'Global Dimension 1 Code', comment = 'FRA="Code axe principal 1"';
-            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1));
+            CaptionClass = '1,1,1';
             DataClassification = CustomerContent;
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1));
         }
         field(34; "Global Dimension 2 Code"; Code[20])
         {
-            CaptionClass = '1,1,2';
             Caption = 'Global Dimension 2 Code', comment = 'FRA="Code axe principal 2"';
-            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2));
+            CaptionClass = '1,1,2';
             DataClassification = CustomerContent;
+            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2));
         }
         field(41; "Source Type"; Enum "Analysis Source Type")
         {
@@ -89,43 +88,43 @@ table 50008 "BC6_DEEE Ledger Entry"
         field(57; "Gen. Bus. Posting Group"; Code[10])
         {
             Caption = 'Gen. Bus. Posting Group', comment = 'FRA="Groupe compta. marché"';
-            TableRelation = "Gen. Business Posting Group";
             DataClassification = CustomerContent;
+            TableRelation = "Gen. Business Posting Group";
         }
         field(80800; "DEEE Category Code"; Code[10])
         {
             Caption = 'DEEE Category Code', comment = 'FRA="Code Catégorie DEEE"';
-            TableRelation = "BC6_Categories of item".Category;
             DataClassification = CustomerContent;
+            TableRelation = "BC6_Categories of item".Category;
         }
         field(80801; "DEEE Unit Tax"; Decimal)
         {
             Caption = 'DEEE Unit Tax', comment = 'FRA="Taxe Unitaire DEEE"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80802; "DEEE HT Amount"; Decimal)
         {
             Caption = 'DEEE HT Amount', comment = 'FRA="Montant HT DEEE"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80803; "DEEE Unit Price (LCY)"; Decimal)
         {
-            DataClassification = CustomerContent;
             Caption = 'DEEE Unit Price (LCY)';
+            DataClassification = CustomerContent;
         }
         field(80804; "DEEE VAT Amount"; Decimal)
         {
             Caption = 'DEEE VAT Amount', comment = 'FRA="Montant TVA DEEE"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80805; "DEEE TTC Amount"; Decimal)
         {
             Caption = 'DEEE TTC Amount', comment = 'FRA="Montant TTC DEEE"';
-            Editable = false;
             DataClassification = CustomerContent;
+            Editable = false;
         }
         field(80806; "DEEE HT Amount (LCY)"; Decimal)
         {
@@ -135,8 +134,8 @@ table 50008 "BC6_DEEE Ledger Entry"
         field(80807; "Eco partner DEEE"; Code[20])
         {
             Caption = 'Eco partner DEEE', comment = 'FRA="Eco partenaire DEEE"';
-            TableRelation = Vendor;
             DataClassification = CustomerContent;
+            TableRelation = Vendor;
         }
         field(80808; "DEEE Amount (LCY) for Stat"; Decimal)
         {

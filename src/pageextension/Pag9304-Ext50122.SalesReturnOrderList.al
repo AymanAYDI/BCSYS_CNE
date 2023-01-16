@@ -1,9 +1,7 @@
 pageextension 50122 "BC6_SalesReturnOrderList" extends "Sales Return Order List" //9304
 {
-
     layout
     {
-
         addafter("Job Queue Status")
         {
             field(BC6_ID; Rec.BC6_ID)
@@ -29,7 +27,6 @@ pageextension 50122 "BC6_SalesReturnOrderList" extends "Sales Return Order List"
         modify("Create Inventor&y Put-away/Pick")
         {
             Visible = false;
-
         }
         addfirst(Action8)
         {
@@ -50,7 +47,6 @@ pageextension 50122 "BC6_SalesReturnOrderList" extends "Sales Return Order List"
                 end;
             }
         }
-
     }
 
     var
@@ -68,4 +64,3 @@ pageextension 50122 "BC6_SalesReturnOrderList" extends "Sales Return Order List"
         END;
     end;
 }
-

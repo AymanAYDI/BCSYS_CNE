@@ -10,8 +10,8 @@ pageextension 50130 "BC6_SalesQuoteArchives" extends "Sales Quote Archives" //93
         {
             field(BC6_No; Rec."No.")
             {
+                ApplicationArea = All;
             }
         }
     }
 }
-

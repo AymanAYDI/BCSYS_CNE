@@ -1,12 +1,13 @@
 page 55021 "BC6_Code Coverage Code 2"
 {
+    ApplicationArea = All;
+    Caption = 'Code coverage';
     DeleteAllowed = false;
     InsertAllowed = false;
     ModifyAllowed = false;
     PageType = List;
     SourceTable = "Code Coverage";
     UsageCategory = Lists;
-    Caption = 'Code coverage';
     layout
     {
         area(content)
@@ -15,13 +16,13 @@ page 55021 "BC6_Code Coverage Code 2"
             {
                 field("Line No."; Rec."Line No.")
                 {
-                    StyleExpr = LineStyle;
                     ApplicationArea = All;
+                    StyleExpr = LineStyle;
                 }
                 field(Line; Rec.Line)
                 {
-                    StyleExpr = LineStyle;
                     ApplicationArea = All;
+                    StyleExpr = LineStyle;
                 }
             }
         }
@@ -50,4 +51,3 @@ page 55021 "BC6_Code Coverage Code 2"
     var
         LineStyle: Text;
 }
-

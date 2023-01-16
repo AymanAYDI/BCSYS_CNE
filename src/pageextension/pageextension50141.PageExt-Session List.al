@@ -16,7 +16,6 @@
 //         }
 //     }
 
-
 //Unsupported feature: Code Insertion on "OnDeleteRecord".
 
 //trigger OnDeleteRecord(): Boolean
@@ -26,4 +25,3 @@ STOPSESSION("Session ID")
 */
 //end;
 //}
-

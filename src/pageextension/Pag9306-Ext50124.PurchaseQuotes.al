@@ -19,6 +19,3 @@ pageextension 50124 "BC6_PurchaseQuotes" extends "Purchase Quotes" //9306
         }
     }
 }
-
-
-
